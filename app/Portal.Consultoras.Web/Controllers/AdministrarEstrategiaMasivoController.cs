@@ -521,7 +521,6 @@ namespace Portal.Consultoras.Web.Controllers
             // este proceso esta en MasivoEstrategiaTemporalInsertar, puede salir timed out
             // se divide el proceso para evitar timed out
             string rpta = "";
-            //bool rptaService = false;
             try
             {
                 bool rptaService = MasivoEstrategiaTemporalPrecio(entidadMasivo);
@@ -541,7 +540,6 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                //rptaService = false;
             }
             return rpta;
         }

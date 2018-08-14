@@ -19,7 +19,6 @@ namespace Portal.Consultoras.Web.Providers
         protected ConfiguracionManagerProvider _configuracionManager;
         protected TablaLogicaProvider _tablaLogica;
         protected OfertaPersonalizadaProvider _ofertaPersonalizada;
-        //private readonly ILogManager logManager = LogManager.LogManager.Instance;
 
         public OfertaDelDiaProvider()
         {
@@ -259,29 +258,5 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
-
-
-        //private static TimeSpan CountdownODD(int paisId, bool esDiasFacturacion, TimeSpan horaCierreZonaNormal)
-        //{
-        //    DateTime hoy;
-        //    DateTime d2;
-        //    using (var svc = new SACServiceClient())
-        //    {
-        //        hoy = svc.GetFechaHoraPais(paisId);
-        //    }
-        //    var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
-
-        //    if (esDiasFacturacion)
-        //    {
-        //        var t1 = horaCierreZonaNormal;
-        //        d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
-        //    }
-        //    else
-        //    {
-        //        d2 = d1.AddDays(1);
-        //    }
-        //    var t2 = (d2 - hoy);
-        //    return t2;
-        //}
     }
 }

@@ -533,8 +533,7 @@ namespace Portal.Consultoras.Web.Controllers
                     "text/html");
             }
         }
-
-        //TODO validar yrdsf
+        
         [HttpPost]
         public JsonResult GetOfertaByCUV(string CampaniaID, string CUV2,
             string TipoEstrategiaID, string CUV1, string flag,
@@ -560,7 +559,6 @@ namespace Portal.Consultoras.Web.Controllers
                     var objEstrategia = administrarEstrategiaProvider.ObtenerEstrategiaCuv(CUV2,
                                                                 CampaniaID, tipoEstrategiaCodigo,
                                                                 userData.CodigoISO, FlagRecoProduc, FlagRecoPerfil);
-                    //success = resultByCuv["success"].ToString().Equals("true");
 
                     if (objEstrategia != null)
                     {

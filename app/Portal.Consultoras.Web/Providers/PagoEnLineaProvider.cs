@@ -227,7 +227,6 @@ namespace Portal.Consultoras.Web.Providers
 
             sessionManager.SetDatosPagoVisa(null);
             sessionManager.SetListadoEstadoCuenta(null);
-            //Session["ListadoEstadoCuenta"] = null;
 
             return resultado;
         }
