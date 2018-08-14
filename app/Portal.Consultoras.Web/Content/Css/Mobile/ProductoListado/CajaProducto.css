@@ -30,3 +30,15 @@
     border-radius: 4px;
     text-transform: uppercase;
 }
+
+.boton_Agregalo_home{
+    border-radius: 4px;
+}
+
+.cantidad_menos_home{
+    border-radius: 4px 0px 0px 4px;
+}
+
+.cantidad_mas_home {
+    border-radius: 0px 4px 4px 0px;
+}
