@@ -74,6 +74,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private bool EstaEnRevistaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstrategiaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -372,6 +375,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.EstaEnRevistaField.Equals(value) != true)) {
                     this.EstaEnRevistaField = value;
                     this.RaisePropertyChanged("EstaEnRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstrategiaID {
+            get {
+                return this.EstrategiaIDField;
+            }
+            set {
+                if ((this.EstrategiaIDField.Equals(value) != true)) {
+                    this.EstrategiaIDField = value;
+                    this.RaisePropertyChanged("EstrategiaID");
                 }
             }
         }
