@@ -33,7 +33,8 @@ var ResumenOpcionesModule = (function () {
         if (codigoVariante.in(_codigoVariedad.CompuestaVariable, _codigoVariedad.IndividualVariable)) {
             var activarBtnAgregar = true;
             $("div[data-opciones-seleccionadas]").each(function () {
-                if (parseInt($(this).attr("data-opciones-seleccionadas")) === 0) activarBtnAgregar = false;
+                if (parseInt($(this).attr("data-opciones-seleccionadas")) === 0
+                    && parseInt($(this).attr("data-tono-digitable")) === 1) activarBtnAgregar = false;
             });
             if (activarBtnAgregar) EstrategiaAgregarModule.HabilitarBoton();
         }
@@ -82,15 +83,10 @@ var ResumenOpcionesModule = (function () {
     };
 
     var LimpiarOpciones = function () {
-        var resumenOpcionesContenedor = _elements.resumenOpciones.id + "-" + _componente.Cuv;
-
-        $(resumenOpcionesContenedor).siblings(_elements.tonosSelectOpt).show();
-
-        $(resumenOpcionesContenedor).hide();
-        
-        _componente.resumenAplicados = [];
-        _componente.HermanosSeleccionados = [];
-        ListaOpcionesModule.CloseElegirOpcionesModal();
+        ComponentesModule.LimpiarComponentes();
+        $("div[data-opciones-seleccionadas]").each(function () {
+            $(this).attr("data-opciones-seleccionadas", "0");
+        });
         return false;
     };
     
