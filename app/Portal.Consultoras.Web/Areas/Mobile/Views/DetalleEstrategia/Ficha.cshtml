@@ -11,6 +11,14 @@
 
 @section styles{
 	@System.Web.Optimization.Styles.Render("~/bundles/mobile/css/ficha")
+	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        @Styles.Render("~/bundles/mobile/css/FichaEsika")
+    }
+    else
+    {
+        @Styles.Render("~/bundles/mobile/css/FichaLbel")
+    }
 	<style id="styleRelojOdd"></style>
 }
 

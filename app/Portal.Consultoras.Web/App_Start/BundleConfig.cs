@@ -693,10 +693,26 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/RedesSociales.css"
             ));
 
+            bundles.Add(new StyleBundle("~/bundles/desktop/css/FichaEsika").Include(
+                "~/Content/Css/Site/Ficha/Esika/FichaEsika.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/desktop/css/FichaLbel").Include(
+                "~/Content/Css/Site/Ficha/Lbel/FichaLbel.css"
+            ));
+
             bundles.Add(new StyleBundle("~/bundles/mobile/css/ficha").Include(
                 "~/Content/Css/Mobile/Ficha/ficha.css",
                 "~/Content/Css/Mobile/Ficha/Carrusel.css",
                 "~/Content/Css/Mobile/Ficha/RedesSociales.css"
+            ));
+            
+            bundles.Add(new StyleBundle("~/bundles/mobile/css/FichaEsika").Include(
+                "~/Content/Css/Mobile/Ficha/Esika/FichaEsika.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/mobile/css/FichaLbel").Include(
+                "~/Content/Css/Mobile/Ficha/Lbel/FichaLbel.css"
             ));
 
             #endregion
