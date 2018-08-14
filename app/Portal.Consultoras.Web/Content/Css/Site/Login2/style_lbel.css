@@ -2787,9 +2787,33 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom:0;
 }
 
-.popup_privacidad_de_datos .indicador_lbel{
-    margin-left:15%;
+.popup_privacidad_de_datos{
+    top:9%;
+    margin-bottom:20px;
 }
+
+.popup_privacidad_de_datos .overview{
+    line-height:20px;
+    font-size:13px;
+    color:#000;
+}
+
+.popup_privacidad_de_datos .indicador_lbel {
+    margin-left: 15%;
+}
+
+.popup_privacidad_de_datos .overview a{
+    display:inline-block;
+    text-decoration:underline;
+    color:#000;
+}
+
+    .popup_privacidad_de_datos .overview a:hover,
+    .popup_privacidad_de_datos .overview a:active,
+    .popup_privacidad_de_datos .overview a:focus
+    {
+        color:#000;
+    }
 
 .enlaces_archivos_arco{
     display:block;
@@ -2810,7 +2834,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .texto_solicitudes{
     font-weight:700;
-    padding-top:2px;
+    padding-top:1px;
 }
 
 .texto_solicitudes,
