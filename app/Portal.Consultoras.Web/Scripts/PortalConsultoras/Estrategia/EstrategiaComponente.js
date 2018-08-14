@@ -54,15 +54,17 @@
         var attrClass = $.trim($(objInput).attr("class"));
         if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
 
-            var $SelectTonos = $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']");
+            //var $SelectTonos = $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']");
+            var $SelectTonos = $(objInput).parents("[data-item]").find("[data-opciones-seleccionadas='0']").find("[data-tono-change='1']");
             var $SeleccionTonoToolTip = $("[data-selecciontono='tooltip']");
 
             if (isMobile()) {
                 if (esFicha) {
-
-                    var $PrimerElemento = $SelectTonos[0];
-                    var Altura = $($PrimerElemento).offset().top - 200;
-                    window.scrollTo(0, Altura);
+                    if ($SelectTonos.length > 0) {
+                        var $PrimerElemento = $SelectTonos[0];
+                        var Altura = $($PrimerElemento).offset().top - 200;
+                        window.scrollTo(0, Altura);
+                    }
                 }
             }
 

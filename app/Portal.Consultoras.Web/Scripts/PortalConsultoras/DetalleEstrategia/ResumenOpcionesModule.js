@@ -44,15 +44,17 @@ var ResumenOpcionesModule = (function () {
 
         _actualizarCantidadAplicada(_componente);
 
-        var template = _elements.resumenOpciones.id +"-"+_componente.Cuv;
+        var resumenOpcionesContenedor = _elements.resumenOpciones.id +"-"+_componente.Cuv;
 
-        var templatesiblings = $(template).siblings(_elements.tonosSelectOpt).hide();
+        var templatesiblings = $(resumenOpcionesContenedor).siblings(_elements.tonosSelectOpt).hide();
         
-        $(template).show();
+        $(resumenOpcionesContenedor).show();
 
         ListaOpcionesModule.CloseElegirOpcionesModal();
 
-        SetHandlebars(_elements.resumenOpciones.template, _componente, template);
+        SetHandlebars(_elements.resumenOpciones.template, _componente, resumenOpcionesContenedor);
+
+        $(resumenOpcionesContenedor).parents("[data-opciones-seleccionadas]").attr("data-opciones-seleccionadas", _componente.FactorCuadre);
 
         var codigoVariante = $("#componentes").data("codigovariante");
         if (codigoVariante === 2001) {
