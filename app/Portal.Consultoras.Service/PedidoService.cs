@@ -2305,6 +2305,11 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoBusinessLogic.GetProductoSugerido(productoBuscar);
         }
+
+        public BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle) {
+            return _pedidoBusinessLogic.AceptarBackOrderPedidoDetalle(pedidoDetalle);
+        }
+
         #endregion
 
         public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)

@@ -22,5 +22,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario);
         BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle);
         List<Entities.BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
+        BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle);
     }
 }

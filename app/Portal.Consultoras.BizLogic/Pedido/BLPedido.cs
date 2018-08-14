@@ -1030,6 +1030,56 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             return listaProductoSugerido ?? new List<Entities.BEProducto>();
         }
+
+        public BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            var mensaje = string.Empty;
+            try
+            {
+                //Informacion de usuario y palancas
+                var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
+
+                //Validacion reserve u horario restringido
+                var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
+                                                                                          usuario.ConsultoraID,
+                                                                                          usuario.CampaniaID,
+                                                                                          usuario.UsuarioPrueba == 1,
+                                                                                          usuario.AceptacionConsultoraDA);
+
+                if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
+                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
+
+                //Obtener Detalle
+                var pedidoDetalleBuscar = new BEPedidoBuscar()
+                {
+                    PaisID = usuario.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    ConsultoraID = usuario.ConsultoraID,
+                    NombreConsultora = usuario.Nombre,
+                    CodigoPrograma = usuario.CodigoPrograma,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva
+                };
+                var pedidoID = 0;
+                var lstDetalleApp = new List<BEPedidoDetalle>();
+                var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+                pedidoDetalle.PedidoID = pedidoID;
+
+                //Seleccionamos el Detalle de Pedido a Aceptar
+                var _pedidoDetalle = lstDetalle.Where(p => p.PedidoDetalleID == pedidoDetalle.PedidoDetalleID).SingleOrDefault();
+
+                if (_pedidoDetalle == null) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_ACTUALIZAR);
+
+                _pedidoWebDetalleBusinessLogic.AceptarBackOrderPedidoWebDetalle(_pedidoDetalle);
+
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidoDetalle.Usuario.CodigoUsuario, pedidoDetalle.PaisID);
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_INTERNO, ex.Message);
+            }
+        }
+
         #endregion
 
         #region GetCUV
