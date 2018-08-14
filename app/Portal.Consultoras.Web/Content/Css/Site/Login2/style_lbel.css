@@ -297,7 +297,7 @@ span {
 }
 
 .wrapper_enlace_AP {
-    display: block;
+    display: none;
     height: 100%;
 }
 
@@ -2010,6 +2010,9 @@ h1, h2, h3, h4, h5, h6 {
         margin: 0 auto;
     }
 
+    #pop-up-body_TC {
+        margin: 0 auto;
+    }
     .content-pop-up {
         width: 75%;
     }
