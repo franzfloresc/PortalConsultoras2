@@ -1,8 +1,12 @@
 
+USE BelcorpPeru
+GO
+
 ALTER PROCEDURE [ShowRoom].[GetOfertasShowRoomOF] @CampaniaID INT
 AS
 /*
 ShowRoom.GetOfertasShowRoomOF 201811
+
 */
 BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
@@ -47,7 +51,6 @@ BEGIN
 		WHERE e.Campaniaid = @CampaniaID
 			AND e.Activo = 1
 			--AND ep.Activo = 1
-			AND e.EsSubCampania = 0
 	END
 	ELSE
 	BEGIN
@@ -67,6 +70,7 @@ BEGIN
 		INNER JOIN ods.SAP_PRODUCTO s(NOLOCK) ON pc.CodigoProducto = s.CodigoSAP
 		WHERE e.CampaniaId = @CampaniaID
 			AND e.Activo = 1
-			AND e.EsSubCampania = 0
 	END
 END;
+
+GO
