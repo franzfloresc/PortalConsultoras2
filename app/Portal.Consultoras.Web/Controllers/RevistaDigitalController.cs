@@ -470,15 +470,15 @@ namespace Portal.Consultoras.Web.Controllers
         private void LimpiarEstrategia(int paisID, string campaniaID)
         {
             //Limpiar session del servidor
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)] = null;
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.HerramientasVenta)] = null;
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.Lanzamiento)] = null;
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.LosMasVendidos)] = null;
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaParaTi)] = null;
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaWeb)] = null;
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.PackNuevas)] = null;
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital)] = null;
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, string.Empty)] = null;// OPT
+            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada), null);
+            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.HerramientasVenta),null);
+            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.Lanzamiento),null);
+            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.LosMasVendidos), null);
+            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaParaTi), null);
+            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaWeb), null);
+            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.PackNuevas), null);
+            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital), null);
+            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, string.Empty), null);// OPT
             sessionManager.ShowRoom.Ofertas = null;
             sessionManager.ShowRoom.OfertasSubCampania = null;
             sessionManager.ShowRoom.OfertasPerdio = null;

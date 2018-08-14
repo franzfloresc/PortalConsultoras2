@@ -299,11 +299,11 @@ namespace Portal.Consultoras.Web.Controllers
             var NombrePalancas = new Dictionary<string, string>();
 
             NombrePalancas.Add(Constantes.NombrePalanca.ShowRoom, "Especiales");
-            NombrePalancas.Add(Constantes.NombrePalanca.Lanzamiento, "Lo nuevo Nuevo");
+            NombrePalancas.Add(Constantes.NombrePalanca.Lanzamiento, "Lo nuevo ¡Nuevo!");
             NombrePalancas.Add(Constantes.NombrePalanca.OfertaParaTi, "Ofertas para ti");
             NombrePalancas.Add(Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para ti");
             NombrePalancas.Add(Constantes.NombrePalanca.RevistaDigital, "Revista Digital");
-            NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "Sólo Hoy");
+            NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "¡Solo Hoy!");
             NombrePalancas.Add(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio");
             NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
 
