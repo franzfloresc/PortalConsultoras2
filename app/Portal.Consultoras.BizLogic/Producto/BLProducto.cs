@@ -420,7 +420,7 @@ namespace Portal.Consultoras.BizLogic
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
             var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.EncenderValidacion.TablaLogicaID);
             if (lstTabla.Count == 0) return false;
-            if (lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.EncenderValidacion.FlagActivar).Select(b => b.Descripcion).FirstOrDefault() == "1") return true;
+            if (lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.EncenderValidacion.FlagActivar).Select(b => b.Valor).FirstOrDefault() == "1") return true;
             return false;
         }
 
@@ -483,7 +483,6 @@ namespace Portal.Consultoras.BizLogic
         public Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv)
         {
             if (!GetFlagVentaExclusiva(paisID)) return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
-            if (!GetFlagProgramaNuevas(paisID)) return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
             if (!EsProductoExclusivo(paisID, campaniaID, cuv)) return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
             return GetConsultoraEnVentaExclusiva(paisID, campaniaID, codigoConsultora, cuv);
         }
@@ -493,7 +492,7 @@ namespace Portal.Consultoras.BizLogic
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
             var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.EncenderValidacion.TablaLogicaID);
             if (lstTabla.Count == 0) return false;
-            if (lstTabla.Where(a => a.Codigo == Constantes.VentaExclusiva.EncenderValidacion.FlagActivar).Select(b => b.Descripcion).FirstOrDefault() == "1") return true;
+            if (lstTabla.Where(a => a.Codigo == Constantes.VentaExclusiva.EncenderValidacion.FlagActivar).Select(b => b.Valor).FirstOrDefault() == "1") return true;
             return false;
         }
 
