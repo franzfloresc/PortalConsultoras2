@@ -89,6 +89,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> PasarelaPago(PaymentInfo info)
         {
+            if (!userData.TienePagoEnLinea || userData.MontoDeuda <= 0)
+                return RedirectToAction("Index", "Bienvenida");
+
             var requiredFields = _pagoEnLineaProvider.ObtenerCamposRequeridos();
             var pago = sessionManager.GetDatosPagoVisa();
 
