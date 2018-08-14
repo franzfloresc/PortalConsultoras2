@@ -186,7 +186,7 @@
     top: 45px;
     right: -2px;
     width: 612px;
-    height: 95px;
+    min-height: 95px;
     padding-bottom: 18px;
     overflow: hidden;
     background-color: #FFF;
@@ -204,9 +204,9 @@
     transition: all 0.2s ease;
 }
 
-.animarAlturaListaResultadosBusqueda{
+/*.animarAlturaListaResultadosBusqueda{
     height:417px;
-}
+}*/
 
 .spinner{
     display:none;

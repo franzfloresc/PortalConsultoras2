@@ -69,6 +69,10 @@
     left: 16.8px;
 }
 
+.buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida .campo_buscador_productos{
+    width:93%;
+}
+
 .campo_busqueda_fondo_on_focus{  
     display:none;  
     position: relative;
@@ -185,7 +189,7 @@
     top: 45px;
     right: -2px;
     width: 612px;
-    height: 95px;
+    min-height: 95px;
     padding-bottom: 18px;
     overflow: hidden;
     background-color: #FFF;
@@ -203,9 +207,9 @@
     transition: all 0.2s ease;
 }
 
-.animarAlturaListaResultadosBusqueda{
+/*.animarAlturaListaResultadosBusqueda{
     height:417px;
-}
+}*/
 
 .spinner{
     display:none;
