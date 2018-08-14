@@ -760,6 +760,9 @@
     <Compile Include="Providers\VCFichaProductoProvider.cs" />
     <Compile Include="Providers\LogDynamoProvider.cs" />
     <Compile Include="Providers\ZonificacionProvider.cs" />
+    <Compile Include="SeguridadApi\JwtAutentication.cs" />
+    <Compile Include="SeguridadApi\JwtModule.cs" />
+    <Compile Include="SeguridadApi\JwtToken.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -4222,6 +4225,7 @@
     <Content Include="Areas\Mobile\Views\MiPerfil\CambiarFotoPerfil.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCorreo.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCelular.cshtml" />
+    <Content Include="SeguridadApi\JwtToken.json" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5670,7 +5674,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>20267</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

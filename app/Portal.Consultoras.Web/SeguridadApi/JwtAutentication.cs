@@ -34,7 +34,8 @@ namespace Portal.Consultoras.Web
                     }
                     catch( Exception ex)
                     {
-                        return  new JwtToken();
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, "TokenUser", "", "Metodo getJsonToken.");
+                    return  new JwtToken();
                     }
                 }
         }
@@ -46,10 +47,14 @@ namespace Portal.Consultoras.Web
             string sToken = Token.Token;
             if (string.IsNullOrEmpty(urlApi)) return sToken ;
             string responseBody = null;
-            
 
-            if (Token.FechaExpiracion.AddDays(2).Equals(DateTime.UtcNow.ToShortDateString()) || string.IsNullOrEmpty(Token.Token))
+           
+            // valida si la fecha de caducidad con un dia de anticipación : para obtener un nuevo token.
+            if (Token.FechaExpiracion == DateTime.MinValue ||  DateTime.UtcNow >= Token.FechaExpiracion.AddDays(-1.5) || string.IsNullOrEmpty(Token.Token))
             {
+
+                //if (Token.FechaExpiracion.AddDays(2).Equals(DateTime.UtcNow.ToShortDateString()) || string.IsNullOrEmpty(Token.Token))
+                //{
                 try
                 {
                     using (HttpClient httpClient = new HttpClient())
@@ -60,21 +65,28 @@ namespace Portal.Consultoras.Web
                         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                         var dataString = JsonConvert.SerializeObject(new { Nombre = usuario, Password = password });
                         HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                        HttpResponseMessage response = httpClient.PostAsync("api/Seguridad", contentPost).GetAwaiter().GetResult();
-                        responseBody = response.Content.ReadAsStringAsync().Result;
-                        JwtToken JwtToken = JsonConvert.DeserializeObject<JwtToken>(responseBody);
-                        if (!string.IsNullOrWhiteSpace(JwtToken.Token))
+
+                        if (Token.FechaExpiracion == DateTime.MinValue || DateTime.UtcNow >= Token.FechaExpiracion.AddDays(-1.5))
                         {
-                            writeJsonToken(responseBody);
-                            sToken =JwtToken.Token;
+                            HttpResponseMessage response = httpClient.PostAsync("api/Seguridad", contentPost).GetAwaiter().GetResult();
+                            responseBody = response.Content.ReadAsStringAsync().Result;
+                            JwtToken JwtToken = JsonConvert.DeserializeObject<JwtToken>(responseBody);
+                            if (!string.IsNullOrWhiteSpace(JwtToken.Token))
+                            {
+                                writeJsonToken(responseBody);
+                                sToken = JwtToken.Token;
+                            }
                         }
-                      
+                        else
+                            sToken = Token.Token;
+
+
                     }
 
                 }
                 catch (Exception ex)
                 {
-                   
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, "TokenUser", "", "getWebToken.");
                 }
 
             }
@@ -104,43 +116,52 @@ namespace Portal.Consultoras.Web
         #region Async Metodos
         public async  static Task<string>  getWebTokenAsync()
         {
-            string sToken = Token.Token;
-            if (string.IsNullOrEmpty(urlApi)) return sToken;
-            string responseBody = null;
-
-            if (Token.FechaExpiracion.AddDays(2).Equals(DateTime.UtcNow.ToShortDateString()) || string.IsNullOrEmpty(Token.Token))
+            string sToken = string.Empty;
+            try
             {
-                try
-                {
-                    using (HttpClient httpClient = new HttpClient())
-                    {
 
-                        httpClient.BaseAddress = new Uri("http://localhost:6777/");
-                        httpClient.DefaultRequestHeaders.Accept.Clear();
-                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        var dataString = JsonConvert.SerializeObject(new { Nombre = usuario, Password = password });
-                        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                        HttpResponseMessage response = await httpClient.PostAsync("api/Seguridad", contentPost);
-                        responseBody = await response.Content.ReadAsStringAsync();
-                        JwtToken JwtToken = JsonConvert.DeserializeObject<JwtToken>(responseBody);
-                        if(!string.IsNullOrWhiteSpace(JwtToken.Token))
-                        {
-                            await writeJsonTokenAsync(responseBody);
-                            sToken = JwtToken.Token;
-                        }
-                            
-                    }
-
-                }
-                catch (Exception ex)
+                JwtToken validateToken = await getJsonTokenAsync();
+                sToken = validateToken.Token;
+                if (string.IsNullOrEmpty(urlApi)) return sToken;
+                string responseBody = null;
+                if (Token.FechaExpiracion == DateTime.MinValue || string.IsNullOrEmpty(validateToken.Token) || DateTime.UtcNow >= validateToken.FechaExpiracion.AddDays(-1.5) )
                 {
                    
+                        using (HttpClient httpClient = new HttpClient())
+                        {
+
+                            httpClient.BaseAddress = new Uri("http://localhost:6777/");
+                            httpClient.DefaultRequestHeaders.Accept.Clear();
+                            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                            var dataString = JsonConvert.SerializeObject(new { Nombre = usuario, Password = password });
+                            validateToken = await getJsonTokenAsync();
+                           if (Token.FechaExpiracion == DateTime.MinValue || validateToken.FechaExpiracion.AddDays(-1.5) <= DateTime.UtcNow)
+                            {
+                                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+                                HttpResponseMessage response = await httpClient.PostAsync("api/Seguridad", contentPost);
+                                responseBody = await response.Content.ReadAsStringAsync();
+                                JwtToken JwtToken = JsonConvert.DeserializeObject<JwtToken>(responseBody);
+                                if (!string.IsNullOrWhiteSpace(JwtToken.Token))
+                                {
+                                    await writeJsonTokenAsync(responseBody);
+                                    sToken = JwtToken.Token;
+                                }
+                            }
+                           else
+                                sToken = validateToken.Token;
+                    }
                 }
 
             }
+
+            catch ( Exception ex )
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "TokenUser", "", "getWebTokenAsync.");
+            }
+           
             return sToken;
         }
-        private async Task<JwtToken> getJsonTokenAsync()
+        private static async Task<JwtToken> getJsonTokenAsync()
         {
             using (StreamReader r = new StreamReader(PathFile))
             {
