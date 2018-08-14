@@ -70,69 +70,10 @@ namespace Portal.Consultoras.Web.Providers
                     }
                 }
             }
-            //var httpResponse = await httpClient.GetAsync(path);
-
-            //if (httpResponse.IsSuccessStatusCode)
-            //{
-            //    var jsonString = await httpResponse.Content.ReadAsStringAsync();
-
-            //    var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
-
-            //    foreach (var item in list)
-            //    {
-            //        try
-            //        {
-            //            BuscadorYFiltrosModel buscador = new BuscadorYFiltrosModel
-            //            {
-            //                CUV = item.CUV,
-            //                SAP = item.SAP,
-            //                Imagen = item.Imagen,
-            //                Descripcion = item.Descripcion,
-            //                Valorizado = item.Valorizado,
-            //                Precio = item.Precio,
-            //                MarcaId = item.MarcaId,
-            //                TipoPersonalizacion = item.TipoPersonalizacion,
-            //                CodigoEstrategia = item.CodigoEstrategia,
-            //                CodigoTipoEstrategia = item.CodigoTipoEstrategia,
-            //                LimiteVenta = item.LimiteVenta,
-            //                Stock = item.Stock                            
-            //            };
-
-            //            resultados.Add(buscador);
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            throw ex;
-            //        }
-            //    }
-            //}
+          
             return resultados;
         }
 
-        //private readonly string _serviceUrl = Globals.RutaServiceBuscadorAPI;
-
-        //public string urlClient(UsuarioModel userData, BuscadorModel buscadorModel)
-        //{
-
-        //    var urlClient = string.Format(
-        //        "Buscador/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}",
-        //        userData.CodigoISO,
-        //        userData.CampaniaID,
-        //        userData.CodigoConsultora,
-        //        userData.CodigoZona,
-        //        buscadorModel.TextoBusqueda,
-        //        buscadorModel.CantidadProductos,
-        //        buscadorModel.SociaEmpresaria,
-        //        buscadorModel.SuscripcionActiva,
-        //        buscadorModel.MDO,
-        //        buscadorModel.RD,
-        //        buscadorModel.RDI,
-        //        buscadorModel.RDR,
-        //        buscadorModel.DiaFacturacion
-        //        );
-
-        //    urlClient = _serviceUrl + urlClient;
-        //    return urlClient;
-        //}
+     
     }
 }

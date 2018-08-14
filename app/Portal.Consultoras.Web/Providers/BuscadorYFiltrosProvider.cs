@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Buscador;
+using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +12,27 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorYFiltrosProvider : BuscadorBaseProvider
     {
-        public async Task<List<BuscadorYFiltrosModel>> GetBuscador(UsuarioModel userData, BuscadorModel buscadorModel)
+        public async Task<List<BuscadorYFiltrosModel>> GetBuscador(BuscadorModel buscadorModel)
         {
             List<BuscadorYFiltrosModel> resultados = null;
             try
             {
+                var suscripcionActiva = (buscadorModel.revistaDigital.EsSuscrita == true && buscadorModel.revistaDigital.EsActiva == true);
+
                 string pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
-                            userData.CodigoISO,
-                            userData.CampaniaID,
-                            userData.CodigoConsultora,
-                            userData.CodigoZona,
+                            buscadorModel.userData.CodigoISO,
+                            buscadorModel.userData.CampaniaID,
+                            buscadorModel.userData.CodigoConsultora,
+                            buscadorModel.userData.CodigoZona,
                             buscadorModel.TextoBusqueda,
                             buscadorModel.CantidadProductos,
-                            userData.Lider,
-                            buscadorModel.SuscripcionActiva,
-                            buscadorModel.MDO,
-                            buscadorModel.RD,
-                            buscadorModel.RDI,
-                            buscadorModel.RDR,
-                            userData.DiaFacturacion
+                            buscadorModel.userData.Lider,
+                            suscripcionActiva,
+                            buscadorModel.revistaDigital.ActivoMdo,
+                            buscadorModel.revistaDigital.TieneRDC,
+                            buscadorModel.revistaDigital.TieneRDI,
+                            buscadorModel.revistaDigital.TieneRDCR,
+                            buscadorModel.userData.DiaFacturacion
                     );
 
                 //var taskApi = Task.Run(() => ObtenerBuscadorDesdeApi(pathBuscador));
@@ -45,6 +48,56 @@ namespace Portal.Consultoras.Web.Providers
                 throw ex;
             }
             return resultados;
+        }
+
+        public List<BuscadorYFiltrosModel> ValidacionProductoAgregado(List<BuscadorYFiltrosModel> resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData)
+        {
+            var resultBuscador = new List<BuscadorYFiltrosModel>();
+            try
+            {
+                if (resultBuscador.Any())
+                {
+                    foreach (var item in resultBuscador)
+                    {
+                        var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
+                        var labelAgregado = "";
+                        var cantidadAgregada = 0;
+
+                        if (pedidoAgregado.Any())
+                        {
+                            labelAgregado = "Agregado";
+                            cantidadAgregada = pedidoAgregado[0].Cantidad;
+                        }
+
+
+                        resultBuscador.Add(new BuscadorYFiltrosModel()
+                        {
+                            CUV = item.CUV.Trim(),
+                            SAP = item.SAP.Trim(),
+                            Imagen = item.Imagen,
+                            Descripcion = item.Descripcion,
+                            Valorizado = item.Valorizado,
+                            Precio = item.Precio,
+                            CodigoEstrategia = item.CodigoEstrategia,
+                            CodigoTipoEstrategia = item.CodigoTipoEstrategia,
+                            TipoEstrategiaId = 1,//item.TipoEstrategiaId,
+                            LimiteVenta = item.LimiteVenta,
+                            PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo),
+                            ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo),
+                            DescripcionEstrategia = "En duro",//item.descripcionEstrategia,
+                            MarcaId = item.MarcaId,
+                            CampaniaID = userData.CampaniaID,
+                            Agregado = labelAgregado,
+                            CantidadesAgregadas = cantidadAgregada
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return resultBuscador;
         }
     }
 }

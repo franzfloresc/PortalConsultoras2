@@ -7,14 +7,9 @@ namespace Portal.Consultoras.Web.Models.Buscador
 {
     public class BuscadorModel
     {
+        public UsuarioModel userData { get; set; }
+        public RevistaDigitalModel revistaDigital { get; set; }
         public string TextoBusqueda { get; set; }
         public int CantidadProductos { get; set; }
-        // Agregar en el UserData
-        public bool SuscripcionActiva { get; set; }
-        public bool MDO { get; set; }
-        public bool RD { get; set; }
-        public bool RDI { get; set; }
-        public bool RDR { get; set; }
-        public int DiaFacturacion { get; set; }
     }
 }
