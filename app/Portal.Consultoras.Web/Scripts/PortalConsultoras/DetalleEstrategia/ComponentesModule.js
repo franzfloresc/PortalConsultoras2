@@ -39,7 +39,12 @@ var ComponentesModule = (function () {
                 id: ".modal-fondo",
                 opacity: ".7"
             }
-        }
+        },
+        resumenOpciones: {
+            id: "#resumen-opciones",
+            template: "#resumen-opciones-template"
+        },
+        tonosSelectOpt: ".tono_select_opt"
     };
 
     var ListarComponentes = function (estrategia) {
@@ -126,11 +131,25 @@ var ComponentesModule = (function () {
 
         return false;
     }
-
+    var LimpiarComponentes = function() {
+        $.each(_estrategia.Hermanos, function (index, hermano) {
+            $.each(hermano.Hermanos, function (index, hijo) {
+                hijo.cantidadAplicada = 0;
+                hijo.cantidadSeleccionada = 0;
+            });
+            var resumenOpcionesContenedor = _elements.resumenOpciones.id + "-" + hermano.Cuv;
+            $(resumenOpcionesContenedor).siblings(_elements.tonosSelectOpt).show();
+            $(resumenOpcionesContenedor).hide();
+            
+            hermano.resumenAplicados = [];
+            hermano.HermanosSeleccionados = [];
+        });
+    }
     return {
         ListarComponentes: ListarComponentes,
         SeleccionarComponente: SeleccionarComponente,
-        SeleccionarPaletaOpcion: SeleccionarPaletaOpcion
+        SeleccionarPaletaOpcion: SeleccionarPaletaOpcion,
+        LimpiarComponentes: LimpiarComponentes
     };
 }());
 
