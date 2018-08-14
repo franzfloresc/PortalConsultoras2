@@ -2,9 +2,9 @@
     {{#iff CodigoVariante '==' '2001'}}
     @*<div id="DescripcionAdicional"></div>*@
     {{#each this.Hermanos as |componente|}}
-    <div class="content_tonos" data-tono="" @*data-tono-select="{{CUVSelect}}"*@ data-tono-digitable="1">
+    <div class="content_tonos" data-tono="" data-opciones-seleccionadas="0" @*data-tono-select="{{CUVSelect}}"*@ data-tono-digitable="1">
         <div class="tono_select_opt">
-            <div class="content_tono_elegido texto_sin_tono" data-opciones-seleccionadas="0" data-tono-change="1" onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
+            <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
                 <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
                 <div class="texto_tono_seleccionado">
                     {{#iff componente.FactorCuadre '==' '1'}}

@@ -60,10 +60,11 @@
 
             if (isMobile()) {
                 if (esFicha) {
-
-                    var $PrimerElemento = $SelectTonos[0];
-                    var Altura = $($PrimerElemento).offset().top - 200;
-                    window.scrollTo(0, Altura);
+                    if ($SelectTonos.length > 0) {
+                        var $PrimerElemento = $SelectTonos[0];
+                        var Altura = $($PrimerElemento).offset().top - 200;
+                        window.scrollTo(0, Altura);
+                    }
                 }
             }
 
