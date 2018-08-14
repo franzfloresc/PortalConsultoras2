@@ -348,6 +348,7 @@ namespace Portal.Consultoras.Common
         public static class ConfiguracionManager
         {
             public const string PaisesEsika = "PaisesEsika";
+            public const string PaisesLBel = "PaisesLBel";
             public const string PaisesConTrackingJetlore = "PaisesConTrackingJetlore";
             public const string PaisesCatalogoWhatsUp = "PaisesCatalogoWhatsUp";
             public const string PaisesConPcm = "PaisesConPcm";
@@ -462,6 +463,8 @@ namespace Portal.Consultoras.Common
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
+            public const string ORDEN_COMPONENTES_FICHA_ESIKA = "ORDEN_COMPONENTES_FICHA_ESIKA";
+            public const string ORDEN_COMPONENTES_FICHA_LBEL = "ORDEN_COMPONENTES_FICHA_LBEL";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
