@@ -71,7 +71,7 @@
             initWidgets();
             configureValidator();
             registerEvents();
-            $('div.mensaje_validacion').not(':has(span.field-validation-error)').hide();
+            $('div.mensaje_validacion').has('span.field-validation-error').show();
         }
 
         return {

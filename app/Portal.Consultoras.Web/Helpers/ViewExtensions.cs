@@ -93,6 +93,7 @@ namespace Portal.Consultoras.Web.Helpers
         {
             var containerDivBuilder = new TagBuilder("div");
             containerDivBuilder.AddCssClass("mensaje_validacion text-center w-100");
+            containerDivBuilder.Attributes.Add("style", "display:none;");
 
             var topDivBuilder = new TagBuilder("span");
             topDivBuilder.AddCssClass("icono_validacion_incorrecta");
