@@ -1,0 +1,251 @@
+﻿/*Mobile*/
+
+.contenedor_seleccion .modal-dialog {
+    width: 100%;
+    margin: 0px !important;
+}
+
+.list-inline > li {
+    padding-right: 1px !important;
+}
+
+.contenedor_seleccion{
+    width: 100%;
+}
+
+.seleccion_header{
+    padding: 15px;
+    border-bottom: 1px solid #d8d8d8;
+    position: relative;
+    background-color: #fff;
+}
+
+.seleccion_header h3{
+    font-size: 15px;
+    font-weight: bold;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: #000000;
+    text-transform: uppercase;
+    margin: 0px 0px 4px 0px;
+}
+
+.seleccion_header p{
+    line-height: normal;
+    letter-spacing: 0.5px;
+    font-size: 11px;
+    margin: 0px;
+}
+
+.button_cerrar{
+    padding: 0px !important;
+    margin: 0px;
+    width: auto;
+    border: none;
+    background: none;
+    position: absolute;
+    right: 23px;
+    top: 20px;
+}
+
+.button_cerrar img{
+    width: 18px;
+    height: 18px;
+}
+
+.seleccion_img img{
+    width: 60px;
+}
+
+.seleccion_btn{
+    float: right;
+    margin-top: 12px;
+}
+
+.seleccion_btn button{
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: normal;
+    padding: 10px 26px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    background: none;
+    transition: all 350ms;
+}
+
+
+.selecion_item{
+    padding: 12px 14px;
+    border-bottom:1px solid #d8d8d8;
+    margin-bottom: 0px;
+}
+
+.seleccion_title{
+    font-size: 12px;
+    line-height: normal;
+    font-weight: bold;
+    width: 38%;
+}
+
+.seleccion_main {
+    padding-bottom: 60px;
+    padding-top: 161px;
+    background-color: #fff;
+    transition: all 250ms;
+}
+
+.modal_selecionar_tipo {
+    background-color: #fff;
+    padding-right: 0px !important;
+}
+
+.aplicar_seleccion {
+    padding: 8px 15px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+}
+
+.aplicar_seleccion button{
+    width: 100%;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: #000;
+    padding: 15px 0px;
+    border: none;
+}
+
+.aplicar_seleccion .disabled{
+    background-color: #d8d8d8 !important;
+    cursor: auto;
+}
+
+.seleccion_btn .active{
+    background-color: #000;
+    color: #ffffff;
+}
+
+.contenedor_selecionados {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #d8d8d8;
+    padding: 9px 0px 7px 6px;
+}
+
+.item_selecionado {
+    width: 56px !important;
+    text-align: center;
+    position: relative;
+    padding: 0px !important;
+    margin: 0px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.item_selecionado_img{
+    width: 100%;
+    border: solid 1px #d8d8d8;
+}
+
+.item_selecionado span{
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    line-height: normal;
+}
+
+.item_selecionado_close{
+    width: 22px;
+    border-radius: 50%;
+    height: 22px;
+    background-color: #808080;
+    border: solid 2px #ffffff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    transition: all 350ms;
+}
+
+.item_selecionado_close:hover {
+    background-color: #000;
+}
+.item_selecionado_close img{
+    width: 8px;
+    height: 8px;
+}
+
+.header_fixed{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+}
+
+.contenedor_seleccion .slick-track {
+    padding-top: 4px;
+}
+
+.modal {
+    display: block;
+    visibility: hidden;
+    overflow-y: hidden;
+}
+.modal.in {
+    visibility: visible;
+}
+.selecionados_carrosel .slick-list {
+    padding: 0 !important
+}
+.selecionados_carrosel .slick-track {
+    width: 2500px !important;
+}
+
+.seleccion_btn .content_cantidad_ficha_producto {
+    width: 100%;
+}
+
+.seleccion_cantidad{
+    width: 104px !important;
+}
+
+.seleccion_btn .cantidad_mas_home {
+    height: 36px;
+    line-height: 33px;
+    border: 1px solid #000;
+}
+
+.seleccion_btn .rango_cantidad_pedido {
+    width: 36%;
+    height: 36px;
+    line-height: 48px;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+.seleccion_btn .cantidad_menos_home {
+    width: 32%;
+    height: 36px;
+    line-height: 33px;
+    border: 1px solid #000;
+}
+
+.seleccion_header h3 span{
+    font-weight: normal !important;
+}
+
+#elegir-opciones-modal {
+    padding-left: 0 !important; 
+}
+
+
+
+
+

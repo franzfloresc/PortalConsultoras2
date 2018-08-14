@@ -51,7 +51,7 @@ var EstrategiaAgregarModule = (function () {
 
     var elementosDiv = {
         divMensajeBloqueada: "#divMensajeBloqueada",
-        //divHVMensajeBloqueada: "#divHVMensajeBloqueada",
+        divHVMensajeBloqueada: "#divHVMensajeBloqueada",
         divVistaPrevia: "#divVistaPrevia",
         hdErrorInsertarProducto: "#hdErrorInsertarProducto",
         hdCampaniaCodigo: "#hdCampaniaCodigo",
@@ -110,6 +110,12 @@ var EstrategiaAgregarModule = (function () {
             alert_msg(txt);
         } else if (tipoOrigenEstrategiaAux == 2 || tipoOrigenEstrategiaAux == 21 || tipoOrigenEstrategiaAux == 262) {
             messageInfo(txt);
+        } else if (txt.indexOf("cantidad limite") > 0) {
+            var $limitePedidoToolTip = $('[data-limitepedido="tooltip"]');
+            if ($limitePedidoToolTip.length > 0) {
+                $limitePedidoToolTip.show();
+                setTimeout(function () { $limitePedidoToolTip.hide(); }, 2000);
+            }
         } else if (isMobile()) {
             messageInfo(txt);
         } else {
@@ -226,7 +232,7 @@ var EstrategiaAgregarModule = (function () {
             return false;
         }
 
-        if (estrategiaComponenteModule.ValidarSeleccionTono($btnAgregar)) {
+        if (estrategiaComponenteModule.ValidarSeleccionTono($btnAgregar, _config.esFicha)) {
             return false;
         }
 
@@ -245,8 +251,7 @@ var EstrategiaAgregarModule = (function () {
             return false;
         }
         estrategia.Cantidad = cantidad;
-
-        var agregoAlCarro = false;
+        
         if (!isMobile()) {
             estrategia.FlagNueva = estrategia.FlagNueva == "1" ? estrategia.FlagNueva : "";
             $(elementosDiv.OfertaTipoNuevo).val(estrategia.FlagNueva);
@@ -296,14 +301,11 @@ var EstrategiaAgregarModule = (function () {
             // ClienteID_:
         };
         console.log('estrategiaAgregar', params);
-        console.log('EstrategiaAgregar.js - estrategiaAgregar - ajax ante ActualizarGanancia - EstrategiaAgregarProvider', params);
         EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
             if (!checkTimeout(data)) {
                 CerrarLoad();
                 return false;
             }
-
-            $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
             if (data.success === false) {
                 abrirMensajeEstrategia(data.message);
@@ -311,13 +313,10 @@ var EstrategiaAgregarModule = (function () {
                 return false;
             }
 
-            if (!isMobile() && !agregoAlCarro) {
-                agregarProductoAlCarrito($btnAgregar);
-                agregoAlCarro = true;
-            }
+            $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
-            AbrirLoad();
-            
+            //AbrirLoad();
+
             if (divAgregado != null) {
                 if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
                     divAgregado.each(function(index, element) {
@@ -342,11 +341,15 @@ var EstrategiaAgregarModule = (function () {
                 }
             }
 
+            //Tooltip de agregado
+            if (esFicha) {
+                var $AgregadoTooltip = $("[data-agregado='tooltip']");
+                $AgregadoTooltip.show();
+                setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+            }
+
             if (isMobile()) {
-                console.log('EstrategiaAgregar.js - estrategiaAgregar - ante ActualizarGanancia', data.DataBarra);
                 ActualizarGanancia(data.DataBarra);
-                //if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
-                console.log('EstrategiaAgregar.js - EstrategiaAgregarProvider - ante CargarCantidadProductosPedidos');
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();
             } else {
@@ -364,9 +367,6 @@ var EstrategiaAgregarModule = (function () {
                 if (typeof MostrarBarra != constantes.undefined())
                     MostrarBarra(data, "1");
 
-                //if (typeof ActualizarGanancia != constantes.undefined())
-                //    ActualizarGanancia(data.DataBarra);
-
                 if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
                     if (typeof CargarCarouselEstrategias != constantes.undefined())
                         CargarCarouselEstrategias();
@@ -383,7 +383,7 @@ var EstrategiaAgregarModule = (function () {
                 $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
 
-                cierreCarouselEstrategias
+                cierreCarouselEstrategias();
                 if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
                     CargarCarouselEstrategias();
                 }
@@ -524,12 +524,29 @@ var EstrategiaAgregarModule = (function () {
         return false;
     };
 
+    var deshabilitarBoton = function () {
+        $("#btnAgregalo").addClass("btn_desactivado_general");
+        $(".content_cantidad_ficha_producto").addClass("btn_desactivado_general");
+        //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
+        $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+
+        $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+    };
+    
+    var habilitarBoton = function() {
+        
+    }
+    
     return {
         EstrategiaAgregar: estrategiaAgregar,
         EstrategiaObtenerObj: getEstrategia,
         GetOrigenPedidoWeb: getOrigenPedidoWeb,
         AdicionarCantidad: adicionarCantidad,
         DisminuirCantidad: disminuirCantidad,
-        ElementosDiv: elementosDiv
+        ElementosDiv: elementosDiv,
+        DeshabilitarBoton: deshabilitarBoton,
+        HabilitarBoton: habilitarBoton
     };
 })();

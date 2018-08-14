@@ -1,0 +1,20 @@
+﻿/*Desktop*/
+.liquidacion_rango_cantidad_pedido {
+    border-radius: 4px 0px 0px 4px;
+}
+
+.liquidacion_rango_right_pedido {
+    border-radius: 0px 4px 4px 0px;
+}
+
+.boton_Agregalo_home, .btn_elige_tono {
+    border-radius: 4px;
+}
+
+.btn_elige_tono {
+   font-weight: bold;
+}
+.btn_elige_tono div img {
+    margin-right: 6px;
+    vertical-align: middle;
+}

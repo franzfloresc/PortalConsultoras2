@@ -33,6 +33,7 @@
     <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/ProductoListado/CajaProducto.css")" rel="stylesheet" />
 }
 
 <div class="wrapper_resumen_mobile">
@@ -75,33 +76,33 @@
                     @if (Model.TieneCategoria)
                     {
                         if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
-                            {
-                                <div class="content_panel">
-                                    <div class="titulo_filtro">
-                                        <a class="accordion-toggle" data-toggle="collapse" href="#CategoriaCollpase" style="text-decoration: none;">
-                                            <span class="title-accordion">CATEGORÍAS</span>
-                                        </a>
-                                    </div>
-                                    <div id="CategoriaCollpase" class="panel-collapse collapse">
-                                        <div class="panel-body panel_filtro">
-                                            <div id="idcategory" class="content-category">
-                                                @{
-                                                    var cont = 1;
-                                                }
-                                                @foreach (var categoria in Model.ListaCategoria)
+                        {
+                            <div class="content_panel">
+                                <div class="titulo_filtro">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#CategoriaCollpase" style="text-decoration: none;">
+                                        <span class="title-accordion">CATEGORÍAS</span>
+                                    </a>
+                                </div>
+                                <div id="CategoriaCollpase" class="panel-collapse collapse">
+                                    <div class="panel-body panel_filtro">
+                                        <div id="idcategory" class="content-category">
+                                            @{
+                                                var cont = 1;
+                                            }
+                                            @foreach (var categoria in Model.ListaCategoria)
+                                            {
+                                                <div class="block-checkbox">
+                                                    <input class="chkFiltroMobile" type="checkbox" id="c@(cont)" name="categoria" value="@categoria.Codigo">
+                                                    <label for="c@(cont)" class="label-checkbox">@categoria.Descripcion</label>
+                                                </div>
                                                 {
-                                                    <div class="block-checkbox">
-                                                        <input class="chkFiltroMobile" type="checkbox" id="c@(cont)" name="categoria" value="@categoria.Codigo">
-                                                        <label for="c@(cont)" class="label-checkbox">@categoria.Descripcion</label>
-                                                    </div>
-                                                    {
-                                                        cont++;
-                                                    }
+                                                    cont++;
                                                 }
-                                            </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         }
                     }
 
@@ -160,34 +161,34 @@
     <div id="contenido_zona_dorada" class="contenido_zona_dorada" data-seccion-perdio="" style="display: none;">
         @if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
         {
-        <div id="block_inscribete" class="contenido_zona_dorada_contenedor_desktop" style="display: none;">
-            <div class="logo-dorado-desktop"></div>
-            <div class="fix-zona-dorada">
-                <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
-                <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
+            <div id="block_inscribete" class="contenido_zona_dorada_contenedor_desktop" style="display: none;">
+                <div class="logo-dorado-desktop"></div>
+                <div class="fix-zona-dorada">
+                    <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
+                    <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
+                </div>
             </div>
-        </div>
         }
         else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
         {
-        <div id="block_inscribete" class="contenido_zona_dorada_contenedor_desktop" style="display: none;">
-            <div class="logo-dorado-desktop"></div>
-            <div class="fix-zona-dorada">
-                <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
+            <div id="block_inscribete" class="contenido_zona_dorada_contenedor_desktop" style="display: none;">
+                <div class="logo-dorado-desktop"></div>
+                <div class="fix-zona-dorada">
+                    <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
 
+                </div>
             </div>
-        </div>
         }
         else
         {
-        <div id="block_inscribete" class="wrapper_resumen_mobile" style="padding: 20px 0; display: none;">
-            <div class="content_belcorp">
-                <div class="block_inscribete_predio">
-                    <span class="hblock_title_perdio">@Model.PerdioTitulo</span>
-                    <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
+            <div id="block_inscribete" class="wrapper_resumen_mobile" style="padding: 20px 0; display: none;">
+                <div class="content_belcorp">
+                    <div class="block_inscribete_predio">
+                        <span class="hblock_title_perdio">@Model.PerdioTitulo</span>
+                        <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
+                    </div>
                 </div>
             </div>
-        </div>
         }
 
         <hr class="clear" />
@@ -230,46 +231,46 @@
 
     //if (listaSubCampania != null && listaSubCampania.Count > 0)
     //{
-        <div id="divContentSubCampania" style="display:none;">
-            <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
+    <div id="divContentSubCampania" style="display:none;">
+        <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
+            <div class="content_titulo_sub_oferta">
+                <hr class="clear" />
+                <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
+                    <span style="font-size: 12px;">@Model.TextoInicialOfertaSubCampania</span>
+                    <span class="titulo_banner_showroom" style="font-size=11px;color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
+                </div>
+                <a href="#" class="btn_descubre_set_especial" id="btn_descubre_mobile"></a>
+            </div>
+            <hr class="clear" />
+
+        </div>
+        <div class="content_display_set_suboferta">
+            <div class="content_header_sub">
                 <div class="content_titulo_sub_oferta">
                     <hr class="clear" />
                     <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
-                        <span style="font-size: 12px;">@Model.TextoInicialOfertaSubCampania</span>
-                        <span class="titulo_banner_showroom" style="font-size=11px;color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
+                        @Model.TextoInicialOfertaSubCampania
+                        <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
                     </div>
-                    <a href="#" class="btn_descubre_set_especial" id="btn_descubre_mobile"></a>
+                    <a href="#" class="btn_descubre_set_especial btn_descubre_set_especial_click" id="btn_cerrar_mobile"></a>
                 </div>
-                <hr class="clear" />
-
-            </div>
-            <div class="content_display_set_suboferta">
-                <div class="content_header_sub">
-                    <div class="content_titulo_sub_oferta">
-                        <hr class="clear" />
-                        <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
-                            @Model.TextoInicialOfertaSubCampania
-                            <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
-                        </div>
-                        <a href="#" class="btn_descubre_set_especial btn_descubre_set_especial_click" id="btn_cerrar_mobile"></a>
-                    </div>
-                    <div style="top: 45px; left: 50%; border: solid transparent; height: 0; width: 0; pointer-events: none; border-color: rgba(0, 0, 0, 0);
+                <div style="top: 45px; left: 50%; border: solid transparent; height: 0; width: 0; pointer-events: none; border-color: rgba(0, 0, 0, 0);
                     border-top-color: #020202; border-width: 12px; margin-left: -12px; position: absolute;"></div>
-                </div>
-                <div id="contenedor-showroom-subcampanias-mobile" class="content_info_set_especial" style="height: 100%;"></div>
-                <div class="content_btn_agregar" style="display:none;" id="agregarSetEspecial">
-                    <div class="content_320">
+            </div>
+            <div id="contenedor-showroom-subcampanias-mobile" class="content_info_set_especial" style="height: 100%;"></div>
+            <div class="content_btn_agregar" style="display:none;" id="agregarSetEspecial">
+                <div class="content_320">
                     <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
                         <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                         <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                        </div>
-                        <a class="btn_agregar_ficha_producto" data-odd-accion="agregar">AGRÉGALO</a>
-                        <hr class="clear">
                     </div>
+                    <a class="btn_agregar_ficha_producto" data-odd-accion="agregar">AGRÉGALO</a>
+                    <hr class="clear">
                 </div>
             </div>
         </div>
+    </div>
     //}
 }
 else
@@ -286,61 +287,61 @@ else
             @if (Model.TieneCompraXcompra)
             {
                 @*if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
-                {
-                    <div class="content_pop_compra">
-                        @{ var posicionCpc = 1; }
-                        @foreach (var item in Model.ListaShowRoomCompraPorCompra)
-                        {
-                            var descripcion = item.Descripcion;
-                            if (descripcion != null && descripcion.Length > 41)
+                    {
+                        <div class="content_pop_compra">
+                            @{ var posicionCpc = 1; }
+                            @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                             {
-                                descripcion = descripcion.Substring(0, 40) + " ...";
-                            }
-                            <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
-                                <div data-campos="">
-                                    <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
-                                    <input type="hidden" class="valorCuv" value="@item.CUV" />
-                                    <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-                                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
-                                    <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
-                                    <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
-                                    <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
-                                </div>
-                                <div class="set_dia_compra_pop">@Model.TextoCondicionCompraCpc</div>
-                                <div class="content_imagen_carrusel_compra">
-                                    @if (item.ImagenProducto != "")
-                                    {
-                                        <img data-src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1" />
-                                    }
-                                    else
-                                    {
-                                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1" />
-                                    }
-                                </div>
-                                <div style="height: 130px;">
-                                    <div class="nombre_producto_pop_compra">@descripcion</div>
-                                    <div class="precio_set_compra">
-                                        A SÓLO @item.Simbolo @item.FormatoPrecioOferta
+                                var descripcion = item.Descripcion;
+                                if (descripcion != null && descripcion.Length > 41)
+                                {
+                                    descripcion = descripcion.Substring(0, 40) + " ...";
+                                }
+                                <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                                    <div data-campos="">
+                                        <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                        <input type="hidden" class="valorCuv" value="@item.CUV" />
+                                        <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
+                                        <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
+                                        <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
+                                        <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
+                                        <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
                                     </div>
-                                    <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioValorizado</div>
-                                    <div class="precio_producto_compra">@item.DescripcionLegal</div>
-                                </div>
-                                <div>
-                                    <div class="content_cantidad_ficha_producto">
-                                        <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                                        <a class=" cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                    <div class="set_dia_compra_pop">@Model.TextoCondicionCompraCpc</div>
+                                    <div class="content_imagen_carrusel_compra">
+                                        @if (item.ImagenProducto != "")
+                                        {
+                                            <img data-src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1" />
+                                        }
+                                        else
+                                        {
+                                            <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1" />
+                                        }
                                     </div>
-                                    <a class="btn_agregar_ficha_producto" data-btn-agregar-cpc="" style="background:black;" href="javascript: void(0);">AGRÉGALO</a>
-                                    <hr class="clear">
+                                    <div style="height: 130px;">
+                                        <div class="nombre_producto_pop_compra">@descripcion</div>
+                                        <div class="precio_set_compra">
+                                            A SÓLO @item.Simbolo @item.FormatoPrecioOferta
+                                        </div>
+                                        <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioValorizado</div>
+                                        <div class="precio_producto_compra">@item.DescripcionLegal</div>
+                                    </div>
+                                    <div>
+                                        <div class="content_cantidad_ficha_producto">
+                                            <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                                            <a class=" cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                        </div>
+                                        <a class="btn_agregar_ficha_producto" data-btn-agregar-cpc="" style="background:black;" href="javascript: void(0);">AGRÉGALO</a>
+                                        <hr class="clear">
+                                    </div>
                                 </div>
-                            </div>
-                            {
-                                posicionCpc++;
+                                {
+                                    posicionCpc++;
+                                }
                             }
-                        }
-                    </div>
-                }*@
+                        </div>
+                    }*@
             }
             <div class="legal_footer_compra">
                 @Model.TextoDescripcionLegalCpc
@@ -350,49 +351,49 @@ else
 }
 
 @*<script id="template-showroom" type="text/x-handlebars-template">
-    {{#each this as |item|}}
-    <div class="revistadigital-landing content_item_home_palanca">
-        <div class="content_item_home_bpt box_producto_mobile_fix" data-posicion="{{Posicion}}" data-TipoAccionAgregar="{{TipoAccionAgregar}}"   {{#iff  TipoAccionAgregar 'ContainsArray' '[4,5]'}} href="javascript:;" onclick="javascript:VerPopupExpGanaMas();" {{/iff}}>
-            <div style="display:none;">
-                <input type="hidden" id="hdswventaID" value="{{OfertaShowRoomID}}" />
-                <input type="hidden" id="hdswventaDescripcion" value="{{Descripcion}}" />
-                <input type="hidden" id="hdswventaprecio" value="{{PrecioOferta}}" />
-                <input type="hidden" id="hdswventaposicion" value="{{Posicion}}" />
-                <input type="hidden" id="hdswventamarca" value="{{DescripcionMarca}}" />
-            </div>
-            <div class="producto_img_mobile_bpt swproddetcompra">
-                <a class="btnVerDetalleOfertaShowRoom swproddetcompraimg" {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}} href="{{UrlDetalle}}" {{/iff}}>
-                    {{#IsNullOrEmpty ImagenProducto '=='}}
-                    <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" data-lazy-seccion-showroom="" />
-                    {{else}}
-                    <img data-src="{{ImagenProducto}}" alt="" {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}} onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}');" {{/iff}} data-lazy-seccion-showroom="" />
-                    {{/IsNullOrEmpty}}
-                </a>
-            </div>
-
-            <div class="producto_nombre_descripcion">
-                <h6>&ensp;&nbsp;</h6>
-                <p class="nombre_producto" style="cursor: pointer; height: 36px;">
-                    <b>{{Descripcion}}</b>
-                </p>
-                <div class="producto_precio">
-                    <span class="producto_precio_normal">{{SimboloMoneda}} {{FormatoPrecioValorizado}}</span>
-                    <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{FormatoPrecioOferta}}</b></span>
+        {{#each this as |item|}}
+        <div class="revistadigital-landing content_item_home_palanca">
+            <div class="content_item_home_bpt box_producto_mobile_fix" data-posicion="{{Posicion}}" data-TipoAccionAgregar="{{TipoAccionAgregar}}"   {{#iff  TipoAccionAgregar 'ContainsArray' '[4,5]'}} href="javascript:;" onclick="javascript:VerPopupExpGanaMas();" {{/iff}}>
+                <div style="display:none;">
+                    <input type="hidden" id="hdswventaID" value="{{OfertaShowRoomID}}" />
+                    <input type="hidden" id="hdswventaDescripcion" value="{{Descripcion}}" />
+                    <input type="hidden" id="hdswventaprecio" value="{{PrecioOferta}}" />
+                    <input type="hidden" id="hdswventaposicion" value="{{Posicion}}" />
+                    <input type="hidden" id="hdswventamarca" value="{{DescripcionMarca}}" />
                 </div>
-            </div>
+                <div class="producto_img_mobile_bpt swproddetcompra">
+                    <a class="btnVerDetalleOfertaShowRoom swproddetcompraimg" {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}} href="{{UrlDetalle}}" {{/iff}}>
+                        {{#IsNullOrEmpty ImagenProducto '=='}}
+                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" data-lazy-seccion-showroom="" />
+                        {{else}}
+                        <img data-src="{{ImagenProducto}}" alt="" {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}} onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}');" {{/iff}} data-lazy-seccion-showroom="" />
+                        {{/IsNullOrEmpty}}
+                    </a>
+                </div>
 
-            {{#iff TipoAccionAgregar '==' '2'}}
-            <div class="texto_elige_tono">&ensp;&nbsp;</div>
-            {{/iff}}
-            {{#iff TipoAccionAgregar '==' '3'}}
-            <div class="texto_elige_tono"> ELIGE TU OPCIÓN </div>
-            {{/iff}}
-            <div class="clear"></div>
+                <div class="producto_nombre_descripcion">
+                    <h6>&ensp;&nbsp;</h6>
+                    <p class="nombre_producto" style="cursor: pointer; height: 36px;">
+                        <b>{{Descripcion}}</b>
+                    </p>
+                    <div class="producto_precio">
+                        <span class="producto_precio_normal">{{SimboloMoneda}} {{FormatoPrecioValorizado}}</span>
+                        <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{FormatoPrecioOferta}}</b></span>
+                    </div>
+                </div>
+
+                {{#iff TipoAccionAgregar '==' '2'}}
+                <div class="texto_elige_tono">&ensp;&nbsp;</div>
+                {{/iff}}
+                {{#iff TipoAccionAgregar '==' '3'}}
+                <div class="texto_elige_tono"> ELIGE TU OPCIÓN </div>
+                {{/iff}}
+                <div class="clear"></div>
+            </div>
         </div>
-    </div>
-    {{/each}}
-    <hr class="clear" />
-</script>*@
+        {{/each}}
+        <hr class="clear" />
+    </script>*@
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 

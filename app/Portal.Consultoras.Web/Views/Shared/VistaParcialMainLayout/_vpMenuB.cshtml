@@ -29,6 +29,7 @@
             </a>
         </div>
         <div class="borde_c @(controllerAction == "bienvenidaindex" ? "invisible" : "")"></div>
+
         <div class="campana cart_compras" style="width: auto;">
             <div class="contenedor_circulos">
                 <div class="circulo-1 iniciarTransicion"></div>
@@ -52,7 +53,15 @@
                 </div>
                 <div id="carrito_items"></div>
             </div>
+
         </div>
+        <div data-agregado='tooltip' class="popover bottom tooltip_agregado" role="tooltip" id="" style="display: none;">
+            <div class="arrow"></div>
+            <div class="popover-content">
+                ¡Genial! <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f44d.png" /> Agregaste una oferta
+            </div>
+        </div>
+
         <div class="borde_c"></div>
         <div class="mensaje_header" id="salvavidaTutorial" style="display: none;">
             <div class="campana_svg tutoriales_svg">
@@ -74,17 +83,17 @@
         </div>
         <div class="boton_cam">
             @{
-                @:ESTÁS EN <br /> 
+                @:ESTÁS EN <br />
                 <span>
-                @if (ViewBag.CampaniaCodigo == null || ViewBag.CampaniaCodigo.ToString().Length < 6)
-                {
-                    @:-
-                }
-                else
-                {
-                    @:C-@(Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))
-                }
-                </span >
+                    @if (ViewBag.CampaniaCodigo == null || ViewBag.CampaniaCodigo.ToString().Length < 6)
+                    {
+                        @:-
+                    }
+                    else
+                    {
+                        @:C-@(Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))
+                    }
+                </span>
             }
         </div>
         <div class="boton_cerrar_s">

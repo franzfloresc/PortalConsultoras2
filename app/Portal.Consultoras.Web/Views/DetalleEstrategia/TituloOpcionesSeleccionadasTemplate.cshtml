@@ -1,0 +1,43 @@
+﻿<script id="titulo-opciones-seleccionadas-template" type="text/x-handlebars-template">
+    {{#iff this.HermanosSeleccionados.length '==' '0'}}
+        {{#iff this.FactorCuadre '==' '1'}}
+        <div>Elige 1 opción</div>
+        {{else}}
+        <div>Elige {{this.FactorCuadre}} opciones</div>
+        {{/iff}}        
+    {{else}}
+        {{#iff this.cantidadFaltantes '>' '1'}}
+        <div>Te Faltan {{this.cantidadFaltantes}} opciones</div>
+        {{/iff}}
+    
+        {{#iff this.cantidadFaltantes '==' '1'}}
+        <div>Te Falta 1 opción</div>
+        {{/iff}}
+
+        {{#iff this.cantidadFaltantes '==' '0'}}
+            {{#iff this.resumenAplicados.length '==' '0'}}
+                {{#iff this.HermanosSeleccionados.length '==' '1'}}
+                     <div>¡Listo! <span>ya tienes tu</span> opción</div>
+                {{else}}
+                     <div>¡Listo! <span>ya tienes tus</span> {{this.HermanosSeleccionados.length}} opciones</div>
+                {{/iff}}
+            {{else}}
+                {{#iff this.HermanosSeleccionados.length '==' '1'}}
+                     <div>Cambia tu opción</div>
+                {{else}}
+                     <div>Cambia tus {{this.HermanosSeleccionados.length}} opciones</div>
+                {{/iff}}
+            {{/iff}}
+            
+        {{/iff}}
+    {{/iff}}
+
+    <p>
+        {{#iff this.HermanosSeleccionados.length '==' '1'}}
+            1 seleccionado
+        {{else}}
+            {{this.HermanosSeleccionados.length}} seleccionados
+        {{/iff}}
+    </p>
+    <button onclick="javascript: ListaOpcionesModule.CloseElegirOpcionesModal();" class="button_cerrar"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
+</script>
