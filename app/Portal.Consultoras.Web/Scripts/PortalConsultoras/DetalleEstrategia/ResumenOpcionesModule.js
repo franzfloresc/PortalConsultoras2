@@ -88,6 +88,9 @@ var ResumenOpcionesModule = (function () {
 
         $(resumenOpcionesContenedor).hide();
         
+        _componente.resumenAplicados = [];
+        _componente.HermanosSeleccionados = [];
+        ListaOpcionesModule.CloseElegirOpcionesModal();
         return false;
     };
     
