@@ -358,7 +358,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css",
-                "~/Content/Css/Site/jquery.custom-scrollbar.css"
+                "~/Content/Css/Site/jquery.custom-scrollbar.css",
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/MisCatalogoRevista").Include(

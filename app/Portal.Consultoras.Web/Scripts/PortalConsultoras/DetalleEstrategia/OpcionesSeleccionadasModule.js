@@ -53,7 +53,7 @@ var OpcionesSeleccionadasModule = (function () {
             };
             if (!isMobile()) {
                 slickSettings.arrows = true;
-                slickSettings.prevArrow = '<a class="flecha_ofertas-tipo" style="left:-5%; text-align:left;"><img src="' +
+                slickSettings.prevArrow = '<a class="flecha_ofertas-tipo prev" style="left:-5%; text-align:left;"><img src="' +
                     baseUrl +
                     'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>';
                 slickSettings.nextArrow =

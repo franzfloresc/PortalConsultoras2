@@ -66,6 +66,14 @@ var EstrategiaAgregarModule = (function () {
         popupDetalleCarouselPackNuevas: "#popupDetalleCarousel_packNuevas",
         contenedorPopupDetalleCarousel: "#contenedor_popup_detalleCarousel"
     };
+    
+    var _elementos = {
+        btnAgregar : {
+            id: "#btnAgregalo",
+            classDesactivado: "btn_desactivado_general"
+            
+        }
+    }
 
     var getEstrategia = function ($btnAgregar) {
         var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia") || {};
@@ -346,6 +354,12 @@ var EstrategiaAgregarModule = (function () {
                 var $AgregadoTooltip = $("[data-agregado='tooltip']");
                 $AgregadoTooltip.show();
                 setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                try {
+                     ResumenOpcionesModule.LimpiarOpciones();
+                } catch (e) {
+                    console.error(e);
+                } 
+               
             }
 
             if (isMobile()) {
@@ -472,6 +486,7 @@ var EstrategiaAgregarModule = (function () {
                 }
             }
 
+            
             return false;
 
         }).fail(function (data, error) {
@@ -525,18 +540,19 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var deshabilitarBoton = function () {
-        $("#btnAgregalo").addClass("btn_desactivado_general");
-        $(".content_cantidad_ficha_producto").addClass("btn_desactivado_general");
-        //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
+        $(_elementos.btnAgregar.id).addClass(_elementos.btnAgregar.classDesactivado);
         $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
         $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-
         $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
         $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
     };
     
     var habilitarBoton = function() {
-        
+        $(_elementos.btnAgregar.id).removeClass(_elementos.btnAgregar.classDesactivado);
+        $(".cantidad_mas_home").attr("data-bloqueada", "");
+        $(".cantidad_menos_home").attr("data-bloqueada", "");
+        $("#imgFichaProduMas").attr("data-bloqueada", "");
+        $("#imgFichaProduMenos").attr("data-bloqueada", "");
     }
     
     return {
