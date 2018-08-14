@@ -1,3 +1,5 @@
+USE BelcorpPeru
+GO
 
 ALTER PROCEDURE [dbo].[ObtenerEstrategiasOfertaParaTi_SB2] @CampaniaID int,
 @CodigoConsultora varchar(30) = ''
@@ -21,7 +23,7 @@ AS
     INNER JOIN TipoEstrategia TE WITH (NOLOCK)
       ON E.TipoEstrategiaID = TE.TipoEstrategiaID
       AND TE.FlagActivo = 1
-      AND TE.flagRecoPerfil = 1 and E.CodigoEstrategia <> '2003'
+      AND TE.flagRecoPerfil = 1
     INNER JOIN ods.OfertasPersonalizadasCuv op WITH (NOLOCK)
       ON E.CampaniaID = op.AnioCampanaVenta
       AND E.CUV2 = op.CUV
@@ -44,7 +46,7 @@ AS
     INNER JOIN TipoEstrategia TE WITH (NOLOCK)
       ON E.TipoEstrategiaID = TE.TipoEstrategiaID
       AND TE.FlagActivo = 1
-      AND TE.flagRecoPerfil = 1 and E.CodigoEstrategia <> '2003'
+      AND TE.flagRecoPerfil = 1
     INNER JOIN ods.OfertasPersonalizadas op WITH (NOLOCK)
       ON E.CampaniaID = op.AnioCampanaVenta
       AND E.CUV2 = op.CUV
@@ -57,3 +59,5 @@ AS
     AND op.CodConsultora = @CodigoConsultora
 END
 
+
+GO
