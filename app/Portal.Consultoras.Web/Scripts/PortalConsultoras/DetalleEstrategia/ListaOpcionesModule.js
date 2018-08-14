@@ -107,6 +107,8 @@ var ListaOpcionesModule = (function () {
             cantidadTotal += hermano.cantidadSeleccionada;
         });
         _componente.cantidadFaltantes = _componente.FactorCuadre - cantidadTotal;
+        _componente.mostrarListo =
+            typeof _componente.mostrarListo !== "undefined" && _componente.cantidadFaltantes === 0;
     };
 
     var _renderListaOpciones = function() {
@@ -139,6 +141,7 @@ var ListaOpcionesModule = (function () {
         _componente.HermanosSeleccionados = componente.HermanosSeleccionados || [];
         _componente.resumenAplicados = componente.resumenAplicados || [];
         _componente.cantidadFaltantes = _componente.cantidadFaltantes || _componente.FactorCuadre || 0;
+
         $.each(_componente.Hermanos, function (index, hermano) {
             hermano = _componente.Hermanos[index];
             hermano.cantidadSeleccionada = hermano.cantidadSeleccionada || 0;
@@ -149,6 +152,7 @@ var ListaOpcionesModule = (function () {
             _componente.HermanosSeleccionados = jQuery.extend(true, [], _componente.resumenAplicados);
             _actualizarCantidadSeleccionada();
             _actualizarCantidadFaltantes();
+            _componente.mostrarListo = false;
         }
        
         //
