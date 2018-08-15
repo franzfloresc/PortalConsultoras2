@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? Birthdate { get; set; }
         [StringLength(255, ErrorMessage = Constantes.MvcErrorMessages.MaxErrorMessage)]
-        [DataType(DataType.EmailAddress, ErrorMessage = "No es un email válido")]
+        [RegularExpression(@"^[a-zA-Z0-9_.-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$", ErrorMessage = "No es un email válido")]
         public string Email { get; set; }
         [StringLength(20, ErrorMessage = Constantes.MvcErrorMessages.MaxErrorMessage)]
         [RegularExpression(@"^\d+$", ErrorMessage = Constantes.MvcErrorMessages.NumberErrorMessage)]
