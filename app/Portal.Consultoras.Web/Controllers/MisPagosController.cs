@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ListarEstadoCuenta(string sidx, string sord, int page, int rows, string vCampania)
         {
-            var lst = ObtenerEstadoCuenta();
+            var lst = _estadoCuentaProvider.ObtenerEstadoCuenta();
             if (lst.Count != 0)
             {
                 lst.RemoveAt(lst.Count - 1);
@@ -136,7 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var lst = ObtenerEstadoCuenta();
+                var lst = _estadoCuentaProvider.ObtenerEstadoCuenta();
                 lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
 
                 string auxFechaVencimiento;
@@ -234,7 +234,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             decimal abono = 0;
             decimal montoPagarDec = 0;
-            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
+            List<EstadoCuentaModel> lst = _estadoCuentaProvider.ObtenerEstadoCuenta();
             lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
 
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
@@ -614,7 +614,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 fechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM");
 
-                List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
+                List<EstadoCuentaModel> lst = _estadoCuentaProvider.ObtenerEstadoCuenta();
 
                 if (lst.Count != 0)
                 {

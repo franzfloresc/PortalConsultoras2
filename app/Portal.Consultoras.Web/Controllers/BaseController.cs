@@ -57,6 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
         protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
         protected readonly MenuProvider _menuProvider;
+        protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         #endregion
 
         #region Constructor
@@ -86,6 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
             _configuracionPaisProvider = new ConfiguracionPaisProvider();
             _menuContenedorProvider = new MenuContenedorProvider();
             _menuProvider = new MenuProvider(_configuracionManagerProvider, _eventoFestivoProvider);
+            _chatEmtelcoProvider = new ChatEmtelcoProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -798,61 +800,61 @@ namespace Portal.Consultoras.Web.Controllers
             return (List<BEMensajeMetaConsultora>)Session[constSession];
         }
 
-        public List<EstadoCuentaModel> ObtenerEstadoCuenta(long pConsultoraId = 0)
-        {
-            var lst = new List<EstadoCuentaModel>();
+        //public List<EstadoCuentaModel> ObtenerEstadoCuenta(long pConsultoraId = 0)
+        //{
+        //    var lst = new List<EstadoCuentaModel>();
 
-            if (pConsultoraId == 0)
-                pConsultoraId = userData.ConsultoraID;
+        //    if (pConsultoraId == 0)
+        //        pConsultoraId = userData.ConsultoraID;
             
-            if (sessionManager.GetListadoEstadoCuenta() == null)
-            {
-                var estadoCuenta = new List<BEEstadoCuenta>();
-                try
-                {
-                    using (var client = new SACServiceClient())
-                    {
-                        estadoCuenta = client.GetEstadoCuentaConsultora(userData.PaisID, pConsultoraId).ToList();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                }
+        //    if (sessionManager.GetListadoEstadoCuenta() == null)
+        //    {
+        //        var estadoCuenta = new List<BEEstadoCuenta>();
+        //        try
+        //        {
+        //            using (var client = new SACServiceClient())
+        //            {
+        //                estadoCuenta = client.GetEstadoCuentaConsultora(userData.PaisID, pConsultoraId).ToList();
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        }
 
-                if (estadoCuenta.Count > 0)
-                {
-                    foreach (var ec in estadoCuenta)
-                    {
-                        lst.Add(new EstadoCuentaModel
-                        {
-                            Fecha = ec.FechaRegistro,
-                            Glosa = ec.DescripcionOperacion,
-                            Cargo = ec.Cargo,
-                            Abono = ec.Abono
-                        });
-                    }
+        //        if (estadoCuenta.Count > 0)
+        //        {
+        //            foreach (var ec in estadoCuenta)
+        //            {
+        //                lst.Add(new EstadoCuentaModel
+        //                {
+        //                    Fecha = ec.FechaRegistro,
+        //                    Glosa = ec.DescripcionOperacion,
+        //                    Cargo = ec.Cargo,
+        //                    Abono = ec.Abono
+        //                });
+        //            }
 
-                    var monto = userData.MontoDeuda;
+        //            var monto = userData.MontoDeuda;
 
-                    lst.Add(new EstadoCuentaModel
-                    {
-                        Fecha = userData.FechaLimPago,
-                        Glosa = "MONTO A PAGAR",
-                        Cargo = monto > 0 ? monto : 0,
-                        Abono = monto < 0 ? 0 : monto
-                    });
-                }
+        //            lst.Add(new EstadoCuentaModel
+        //            {
+        //                Fecha = userData.FechaLimPago,
+        //                Glosa = "MONTO A PAGAR",
+        //                Cargo = monto > 0 ? monto : 0,
+        //                Abono = monto < 0 ? 0 : monto
+        //            });
+        //        }
 
-                sessionManager.SetListadoEstadoCuenta(lst);
-            }
-            else
-            {
-                lst = sessionManager.GetListadoEstadoCuenta();
-            }
+        //        sessionManager.SetListadoEstadoCuenta(lst);
+        //    }
+        //    else
+        //    {
+        //        lst = sessionManager.GetListadoEstadoCuenta();
+        //    }
 
-            return lst;
-        }
+        //    return lst;
+        //}
 
         #endregion
         
@@ -975,24 +977,24 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        public bool HabilitarChatEmtelco(int paisId)
-        {
-            bool Mostrar = false;
-            List<TablaLogicaDatosModel> DataLogica = _tablaLogicaProvider.ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
+        //public bool HabilitarChatEmtelco(int paisId)
+        //{
+        //    bool Mostrar = false;
+        //    List<TablaLogicaDatosModel> DataLogica = _tablaLogicaProvider.ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
 
-            if (IsMobile())
-            {
-                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
-                    Mostrar = true;
-            }
-            else
-            {
-                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
-                    Mostrar = true;
-            }
+        //    if (IsMobile())
+        //    {
+        //        if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
+        //            Mostrar = true;
+        //    }
+        //    else
+        //    {
+        //        if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
+        //            Mostrar = true;
+        //    }
 
-            return Mostrar;
-        }
+        //    return Mostrar;
+        //}
 
         public MobileAppConfiguracionModel MobileAppConfiguracion
         {
@@ -1045,6 +1047,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void GetUserDataViewBag()
         {
+            var esMobile = IsMobile();
+
             ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
             ViewBag.UsuarioNombre = (Util.Trim(userData.Sobrenombre) == "" ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.Usuario = "Hola, " + userData.UsuarioNombre;
@@ -1146,7 +1150,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
-            ViewBag.MensajeFechaPromesa = GetFechaPromesa(HoraCierrePortal, ViewBag.Dias);
+            ViewBag.MensajeFechaPromesa = _baseProvider.GetFechaPromesa(HoraCierrePortal, ViewBag.Dias, userData.FechaInicioCampania, esMobile);
 
             #endregion
 
@@ -1243,7 +1247,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI)
                 || (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
-            var esMobile = IsMobile();
             var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
             ViewBag.MenuContenedorActivo = menuActivo;
             ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
@@ -1251,8 +1254,8 @@ namespace Portal.Consultoras.Web.Controllers
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
             var menuWeb = BuildMenu(userData, revistaDigital);
             var descLiqWeb = "";
-            var existItemLiqWeb = esMobile ? FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
-                FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
+            var existItemLiqWeb = esMobile ? _menuProvider.FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
+                _menuProvider.FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
 
             ViewBag.MenuMobile = menuMobile;
             ViewBag.Permiso = menuWeb;
@@ -1304,65 +1307,66 @@ namespace Portal.Consultoras.Web.Controllers
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
-            ViewBag.HabilitarChatEmtelco = HabilitarChatEmtelco(userData.PaisID);
+            ViewBag.HabilitarChatEmtelco = _chatEmtelcoProvider.HabilitarChatEmtelco(userData.PaisID, esMobile);
         }
         
-        private bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)
-        {
-            result = default(T);
-            foreach (var item in menuWeb)
-            {
-                if (predicate(item))
-                {
-                    result = select(item);
-                    return true;
-                }
-                if (FindInMenu(item.SubMenus, predicate, select, out result)) return true;
-            }
-            return false;
-        }
-        private bool FindInMenu<T>(List<MenuMobileModel> menuWeb, Predicate<MenuMobileModel> predicate, Converter<MenuMobileModel, T> select, out T result)
-        {
-            result = default(T);
-            foreach (var item in menuWeb)
-            {
-                if (predicate(item))
-                {
-                    result = select(item);
-                    return true;
-                }
-                if (FindInMenu(item.SubMenu.ToList(), predicate, select, out result)) return true;
-            }
-            return false;
-        }
+        //private bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)
+        //{
+        //    result = default(T);
+        //    foreach (var item in menuWeb)
+        //    {
+        //        if (predicate(item))
+        //        {
+        //            result = select(item);
+        //            return true;
+        //        }
+        //        if (FindInMenu(item.SubMenus, predicate, select, out result)) return true;
+        //    }
+        //    return false;
+        //}
 
-        private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
-        {
-            var time = DateTime.Today.Add(horaCierre);
-            string fecha = null;
+        //private bool FindInMenu<T>(List<MenuMobileModel> menuWeb, Predicate<MenuMobileModel> predicate, Converter<MenuMobileModel, T> select, out T result)
+        //{
+        //    result = default(T);
+        //    foreach (var item in menuWeb)
+        //    {
+        //        if (predicate(item))
+        //        {
+        //            result = select(item);
+        //            return true;
+        //        }
+        //        if (FindInMenu(item.SubMenu.ToList(), predicate, select, out result)) return true;
+        //    }
+        //    return false;
+        //}
 
-            if (IsMobile())
-            {
-                string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
+        //private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
+        //{
+        //    var time = DateTime.Today.Add(horaCierre);
+        //    string fecha = null;
 
-                fecha = diasFaltantes > 0
-                    ? " CIERRA EL " + userData.FechaInicioCampania.Day + " " + Util.NombreMes(userData.FechaInicioCampania.Month).ToUpper()
-                    : " CIERRA HOY";
+        //    if (IsMobile())
+        //    {
+        //        string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
+
+        //        fecha = diasFaltantes > 0
+        //            ? " CIERRA EL " + userData.FechaInicioCampania.Day + " " + Util.NombreMes(userData.FechaInicioCampania.Month).ToUpper()
+        //            : " CIERRA HOY";
 
 
-                return fecha + " - " + hrCierrePortal.Replace(".", "");
-            }
-            else
-            {
-                var culture = CultureInfo.GetCultureInfo("es-PE");
-                fecha = diasFaltantes > 0
-                    ? userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper()
-                    : "HOY";
+        //        return fecha + " - " + hrCierrePortal.Replace(".", "");
+        //    }
+        //    else
+        //    {
+        //        var culture = CultureInfo.GetCultureInfo("es-PE");
+        //        fecha = diasFaltantes > 0
+        //            ? userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper()
+        //            : "HOY";
 
-                return fecha + " - " + time.ToString("hh:mm tt", CultureInfo.InvariantCulture).ToLower();
-            }
+        //        return fecha + " - " + time.ToString("hh:mm tt", CultureInfo.InvariantCulture).ToLower();
+        //    }
 
-        }
+        //}
 
         #endregion
 
