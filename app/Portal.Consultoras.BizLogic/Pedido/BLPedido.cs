@@ -1367,18 +1367,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return detallesPedidoWeb;
         }
 
-        private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(BEUsuario usuario, string codigoPrograma)
-        {
-            var obeConsultorasProgramaNuevas = new BEConsultorasProgramaNuevas
-            {
-                CodigoConsultora = usuario.CodigoConsultora,
-                Campania = usuario.CampaniaID.ToString(),
-                CodigoPrograma = codigoPrograma
-            };
-
-            return _consultorasProgramaNuevasBusinessLogic.Get(usuario.PaisID, obeConsultorasProgramaNuevas);
-        }
-
         #endregion
 
         #region InsertKitInicio

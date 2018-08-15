@@ -225,7 +225,6 @@
     <Compile Include="BEConsultoraEstadoSAC.cs" />
     <Compile Include="BEConsultoraFicticia.cs" />
     <Compile Include="BEConsultoraSolicitudCliente.cs" />
-    <Compile Include="BEConsultorasProgramaNuevas.cs" />
     <Compile Include="BEConsultoraTop.cs">
       <SubType>Code</SubType>
     </Compile>

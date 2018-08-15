@@ -1734,11 +1734,6 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.InsertarLogPedidoWeb(PaisID, CampaniaID, CodigoConsultora, PedidoId, Accion, CodigoUsuario);
         }
 
-        public BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad)
-        {
-            return BLConsultorasProgramaNuevas.Get(paisID, entidad);
-        }
-
         public List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entidad)
         {
             return BLMensajeMetaConsultora.GetMensajeMetaConsultora(paisID, entidad);

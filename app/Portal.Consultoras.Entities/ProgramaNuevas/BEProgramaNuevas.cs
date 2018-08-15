@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.ProgramaNuevas
 {
@@ -12,8 +13,10 @@ namespace Portal.Consultoras.Entities.ProgramaNuevas
         [DataMember]
         public string CodigoConsultora { get; set; }
         [DataMember]
+        [Column("CodigoPrograma")]
         public string CodigoPrograma { get; set; } 
         [DataMember]
+        [Column("ConsecutivoNueva")]
         public int ConsecutivoNueva { get; set; }
         [DataMember]
         public bool EsConsultoraNueva { get; set; }

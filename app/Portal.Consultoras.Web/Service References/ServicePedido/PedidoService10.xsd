@@ -1190,18 +1190,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEPedidoWeb" nillable="true" type="tns:ArrayOfBEPedidoWeb" />
-  <xs:complexType name="BEConsultorasProgramaNuevas">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsecutivoNueva" type="xs:int" />
-      <xs:element minOccurs="0" name="MontoVentaExigido" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Motivo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Participa" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConsultorasProgramaNuevas" nillable="true" type="tns:BEConsultorasProgramaNuevas" />
   <xs:complexType name="BEProcesoPedidoRechazado">
     <xs:sequence>
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />

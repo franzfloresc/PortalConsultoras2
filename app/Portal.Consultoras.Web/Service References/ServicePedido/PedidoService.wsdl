@@ -44,12 +44,6 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IPedidoService_ListConcursosVigentes_InputMessage">
-    <wsdl:part name="parameters" element="tns:ListConcursosVigentes" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_ListConcursosVigentes_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ListConcursosVigentesResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_ListConcursosByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:ListConcursosByCampania" />
   </wsdl:message>
@@ -566,12 +560,6 @@
   <wsdl:message name="IPedidoService_GetPedidosIngresadoFacturadoApp_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosIngresadoFacturadoAppResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConsultorasProgramaNuevas_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConsultorasProgramaNuevas" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConsultorasProgramaNuevas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConsultorasProgramaNuevasResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_GetMensajeMetaConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMensajeMetaConsultora" />
   </wsdl:message>
@@ -877,6 +865,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerPuntosXConsultoraConcurso_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPuntosXConsultoraConcursoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ListConcursosVigentes_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListConcursosVigentes" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ListConcursosVigentes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListConcursosVigentesResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_HabilitaPedidoMultipleInformacionConsultoras_InputMessage">
     <wsdl:part name="parameters" element="tns:HabilitaPedidoMultipleInformacionConsultoras" />
@@ -2409,10 +2403,6 @@
     <wsdl:part name="parameters" element="tns:GetCUVAsociadoByFilterResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
-    <wsdl:operation name="ListConcursosVigentes">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosVigentes" message="tns:IPedidoService_ListConcursosVigentes_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosVigentesResponse" message="tns:IPedidoService_ListConcursosVigentes_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ListConcursosByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosByCampania" message="tns:IPedidoService_ListConcursosByCampania_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosByCampaniaResponse" message="tns:IPedidoService_ListConcursosByCampania_OutputMessage" />
@@ -2757,10 +2747,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoApp" message="tns:IPedidoService_GetPedidosIngresadoFacturadoApp_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoAppResponse" message="tns:IPedidoService_GetPedidosIngresadoFacturadoApp_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetConsultorasProgramaNuevas">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" message="tns:IPedidoService_GetConsultorasProgramaNuevas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevasResponse" message="tns:IPedidoService_GetConsultorasProgramaNuevas_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetMensajeMetaConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMensajeMetaConsultora" message="tns:IPedidoService_GetMensajeMetaConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMensajeMetaConsultoraResponse" message="tns:IPedidoService_GetMensajeMetaConsultora_OutputMessage" />
@@ -2964,6 +2950,10 @@
     <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" message="tns:IPedidoService_ObtenerPuntosXConsultoraConcurso_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcursoResponse" message="tns:IPedidoService_ObtenerPuntosXConsultoraConcurso_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListConcursosVigentes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosVigentes" message="tns:IPedidoService_ListConcursosVigentes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosVigentesResponse" message="tns:IPedidoService_ListConcursosVigentes_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="HabilitaPedidoMultipleInformacionConsultoras">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleInformacionConsultoras" message="tns:IPedidoService_HabilitaPedidoMultipleInformacionConsultoras_InputMessage" />
@@ -3988,15 +3978,6 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="ListConcursosVigentes">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosVigentes" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ListConcursosByCampania">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosByCampania" style="document" />
       <wsdl:input>
@@ -4771,15 +4752,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConsultorasProgramaNuevas">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetMensajeMetaConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMensajeMetaConsultora" style="document" />
       <wsdl:input>
@@ -5232,6 +5204,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListConcursosVigentes">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosVigentes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7538,15 +7519,6 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="ListConcursosVigentes">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosVigentes" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ListConcursosByCampania">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosByCampania" style="document" />
       <wsdl:input>
@@ -8321,15 +8293,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConsultorasProgramaNuevas">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetMensajeMetaConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMensajeMetaConsultora" style="document" />
       <wsdl:input>
@@ -8782,6 +8745,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListConcursosVigentes">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosVigentes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

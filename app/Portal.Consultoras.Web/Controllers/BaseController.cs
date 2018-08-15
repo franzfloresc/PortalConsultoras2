@@ -1182,41 +1182,6 @@ namespace Portal.Consultoras.Web.Controllers
             return listaEscalaDescuento;
         }
 
-        protected BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(string constSession, string codigoPrograma)
-        {
-            constSession = constSession ?? "";
-            constSession = constSession.Trim();
-            if (constSession == "")
-                return new BEConsultorasProgramaNuevas();
-
-            if (Session[constSession] != null)
-                return (BEConsultorasProgramaNuevas)Session[constSession];
-
-            try
-            {
-                var obeConsultorasProgramaNuevas =
-                    new BEConsultorasProgramaNuevas
-                    {
-                        CodigoConsultora = userData.CodigoConsultora,
-                        Campania = userData.CampaniaID.ToString(),
-                        CodigoPrograma = codigoPrograma
-                    };
-                using (var sv = new PedidoServiceClient())
-                {
-                    obeConsultorasProgramaNuevas = sv.GetConsultorasProgramaNuevas(userData.PaisID, obeConsultorasProgramaNuevas);
-                }
-
-                Session[constSession] = obeConsultorasProgramaNuevas ?? new BEConsultorasProgramaNuevas();
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[constSession] = new BEConsultorasProgramaNuevas();
-            }
-
-            return (BEConsultorasProgramaNuevas)Session[constSession];
-        }
-
         protected List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(string constSession, string tipoMensaje)
         {
             constSession = constSession ?? "";
