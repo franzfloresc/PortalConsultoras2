@@ -1,60 +1,102 @@
-﻿USE BelcorpPeru
+﻿USE [BelcorpPeru_BPT]
 GO
+
+update [dbo].[ConfiguracionPaisDatos] set valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>' where Codigo IN
+('DBienvenidaNoInscritaActiva','DBienvenidaNoInscritaNoActiva','MBienvenidaNoInscritaActiva',
+'MBienvenidaNoInscritaNoActiva','MPedidoNoInscritaActiva','MPedidoNoInscritaNoActiva')
+
+update [dbo].[ConfiguracionPaisDatos] set valor1 = 'APROVECHA OFERTAS HECHAS A TU MEDIDA EN' where Codigo IN
+('DLandingBannerNoActivaNoSuscrita','DLandingBannerActivaNoSuscrita',
+'MLandingBannerNoActivaNoSuscrita','MLandingBannerActivaNoSuscrita')
+
+update [dbo].[ConfiguracionPais] 
+set DesktopTituloBanner = 'Disfruta de tu guía de negocio online en',
+MobileTituloBanner = 'Disfruta de tu guía de negocio online en'
+where Codigo = 'GND'
+
+UPDATE ConfiguracionOfertasHome SET DesktopTitulo = '¡Aprovecha!', MobileTitulo='MÁS OFERTAS PARA Mí'
+FROM ConfiguracionOfertasHome h JOIN ConfiguracionPais p on h.ConfiguracionPaisID = p.ConfiguracionPaisID
+and p.Codigo = 'OPT'
+
+update ConfiguracionPaisDatos set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+
 update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 
+
+USE [BelcorpChile_BPT]
 GO
-USE BelcorpMexico
-GO
+
+update [dbo].[ConfiguracionPaisDatos] set valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>' where Codigo IN
+('DBienvenidaNoInscritaActiva','DBienvenidaNoInscritaNoActiva','MBienvenidaNoInscritaActiva',
+'MBienvenidaNoInscritaNoActiva','MPedidoNoInscritaActiva','MPedidoNoInscritaNoActiva')
+
+update [dbo].[ConfiguracionPaisDatos] set valor1 = 'APROVECHA OFERTAS HECHAS A TU MEDIDA EN' where Codigo IN
+('DLandingBannerNoActivaNoSuscrita','DLandingBannerActivaNoSuscrita',
+'MLandingBannerNoActivaNoSuscrita','MLandingBannerActivaNoSuscrita')
+
+update [dbo].[ConfiguracionPais] 
+set DesktopTituloBanner = 'Disfruta de tu guía de negocio online en',
+MobileTituloBanner = 'Disfruta de tu guía de negocio online en'
+where Codigo = 'GND'
+
+UPDATE ConfiguracionOfertasHome SET DesktopTitulo = '¡Aprovecha!', MobileTitulo='MÁS OFERTAS PARA Mí'
+FROM ConfiguracionOfertasHome h JOIN ConfiguracionPais p on h.ConfiguracionPaisID = p.ConfiguracionPaisID
+and p.Codigo = 'OPT'
+
+update ConfiguracionPaisDatos set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+
 update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 
+
+
+USE [BelcorpCostaRica_BPT]
 GO
-USE BelcorpColombia
-GO
+
+update [dbo].[ConfiguracionPaisDatos] set valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>' where Codigo IN
+('DBienvenidaNoInscritaActiva','DBienvenidaNoInscritaNoActiva','MBienvenidaNoInscritaActiva',
+'MBienvenidaNoInscritaNoActiva','MPedidoNoInscritaActiva','MPedidoNoInscritaNoActiva')
+
+update [dbo].[ConfiguracionPaisDatos] set valor1 = 'APROVECHA OFERTAS HECHAS A TU MEDIDA EN' where Codigo IN
+('DLandingBannerNoActivaNoSuscrita','DLandingBannerActivaNoSuscrita',
+'MLandingBannerNoActivaNoSuscrita','MLandingBannerActivaNoSuscrita')
+
+update [dbo].[ConfiguracionPais] 
+set DesktopTituloBanner = 'Disfruta de tu guía de negocio online en',
+MobileTituloBanner = 'Disfruta de tu guía de negocio online en'
+where Codigo = 'GND'
+
+UPDATE ConfiguracionOfertasHome SET DesktopTitulo = '¡Aprovecha!', MobileTitulo='MÁS OFERTAS PARA Mí'
+FROM ConfiguracionOfertasHome h JOIN ConfiguracionPais p on h.ConfiguracionPaisID = p.ConfiguracionPaisID
+and p.Codigo = 'OPT'
+
+update ConfiguracionPaisDatos set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+
 update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 
+
+
+USE [BelcorpColombia_PL50]
 GO
-USE BelcorpSalvador
-GO
+
+update [dbo].[ConfiguracionPaisDatos] set valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>' where Codigo IN
+('DBienvenidaNoInscritaActiva','DBienvenidaNoInscritaNoActiva','MBienvenidaNoInscritaActiva',
+'MBienvenidaNoInscritaNoActiva','MPedidoNoInscritaActiva','MPedidoNoInscritaNoActiva')
+
+update [dbo].[ConfiguracionPaisDatos] set valor1 = 'APROVECHA OFERTAS HECHAS A TU MEDIDA EN' where Codigo IN
+('DLandingBannerNoActivaNoSuscrita','DLandingBannerActivaNoSuscrita',
+'MLandingBannerNoActivaNoSuscrita','MLandingBannerActivaNoSuscrita')
+
+update [dbo].[ConfiguracionPais] 
+set DesktopTituloBanner = 'Disfruta de tu guía de negocio online en',
+MobileTituloBanner = 'Disfruta de tu guía de negocio online en'
+where Codigo = 'GND'
+
+UPDATE ConfiguracionOfertasHome SET DesktopTitulo = '¡Aprovecha!', MobileTitulo='MÁS OFERTAS PARA Mí'
+FROM ConfiguracionOfertasHome h JOIN ConfiguracionPais p on h.ConfiguracionPaisID = p.ConfiguracionPaisID
+and p.Codigo = 'OPT'
+
+update ConfiguracionPaisDatos set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+
 update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 
-GO
-USE BelcorpPuertoRico
-GO
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 
-GO
-USE BelcorpPanama
-GO
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
-
-GO
-USE BelcorpGuatemala
-GO
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
-
-GO
-USE BelcorpEcuador
-GO
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
-
-GO
-USE BelcorpDominicana
-GO
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
-
-GO
-USE BelcorpCostaRica
-GO
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
-
-GO
-USE BelcorpChile
-GO
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
-
-GO
-USE BelcorpBolivia
-GO
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
-
-GO

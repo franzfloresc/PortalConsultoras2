@@ -1106,6 +1106,7 @@
 
 .club_gana_mas_pedido_activo {
     background: #f8f8f8;
+    padding: 65px 50px !important;
 }
 
     .club_gana_mas_pedido_activo .logo_club_activo {
@@ -1131,4 +1132,9 @@
 
 .revistaDigitalCompleta .contenedor_productos {
     top: -115px;
+}
+
+.boton-suscrito {
+    color: #fff !important;
+    border-radius: 0px !important;
 }

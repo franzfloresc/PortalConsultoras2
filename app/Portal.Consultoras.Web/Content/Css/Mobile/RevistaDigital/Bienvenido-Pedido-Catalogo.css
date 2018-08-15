@@ -548,3 +548,10 @@ div#tab_revistasdigital_mobile {
     padding-bottom: 30px;
     font-weight: 600;
 }
+.boton-ver-mas.no_suscrita {
+    background: none !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+    border-radius: 4px;
+}
+
