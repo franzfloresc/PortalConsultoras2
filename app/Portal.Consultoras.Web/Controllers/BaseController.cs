@@ -1252,8 +1252,8 @@ namespace Portal.Consultoras.Web.Controllers
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
             var menuWeb = BuildMenu(userData, revistaDigital);
             var descLiqWeb = "";
-            var existItemLiqWeb = esMobile ? FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
-                FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
+            var existItemLiqWeb = esMobile ? _menuProvider.FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
+                _menuProvider.FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
 
             ViewBag.MenuMobile = menuMobile;
             ViewBag.Permiso = menuWeb;
@@ -1308,35 +1308,35 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HabilitarChatEmtelco = HabilitarChatEmtelco(userData.PaisID);
         }
         
-        private bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)
-        {
-            result = default(T);
-            foreach (var item in menuWeb)
-            {
-                if (predicate(item))
-                {
-                    result = select(item);
-                    return true;
-                }
-                if (FindInMenu(item.SubMenus, predicate, select, out result)) return true;
-            }
-            return false;
-        }
+        //private bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)
+        //{
+        //    result = default(T);
+        //    foreach (var item in menuWeb)
+        //    {
+        //        if (predicate(item))
+        //        {
+        //            result = select(item);
+        //            return true;
+        //        }
+        //        if (FindInMenu(item.SubMenus, predicate, select, out result)) return true;
+        //    }
+        //    return false;
+        //}
 
-        private bool FindInMenu<T>(List<MenuMobileModel> menuWeb, Predicate<MenuMobileModel> predicate, Converter<MenuMobileModel, T> select, out T result)
-        {
-            result = default(T);
-            foreach (var item in menuWeb)
-            {
-                if (predicate(item))
-                {
-                    result = select(item);
-                    return true;
-                }
-                if (FindInMenu(item.SubMenu.ToList(), predicate, select, out result)) return true;
-            }
-            return false;
-        }
+        //private bool FindInMenu<T>(List<MenuMobileModel> menuWeb, Predicate<MenuMobileModel> predicate, Converter<MenuMobileModel, T> select, out T result)
+        //{
+        //    result = default(T);
+        //    foreach (var item in menuWeb)
+        //    {
+        //        if (predicate(item))
+        //        {
+        //            result = select(item);
+        //            return true;
+        //        }
+        //        if (FindInMenu(item.SubMenu.ToList(), predicate, select, out result)) return true;
+        //    }
+        //    return false;
+        //}
 
         //private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
         //{
