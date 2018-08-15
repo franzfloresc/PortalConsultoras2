@@ -24,7 +24,8 @@
             </div>
         </div>
         <script id="detalle_ficha_template" type="text/x-handlebars-template">
-            <div class="ficha_producto">
+            <div id="dvSeccionIzquierdo" class="ficha_producto">
+                <div id="dvSeccionFoto">
                 <div id="FichaImagenProducto" class="contenedor_imagen">
                     <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
                 </div>
@@ -34,6 +35,7 @@
                     <span data-texto_referencial="">* Foto Referencial</span>
                 </div>
                 {{/iff}}
+                    <div>
                 @*
                     <div class="contenedor_carrusel_tonos">
                         <div id="carrusel_tonos" style="display:none;">
@@ -50,13 +52,16 @@
                                 <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
                             </div>
                         </div>
-                    </div>*@
+                    </div>
+                    *@
+                    </div>
 
+                </div>
                 <!--compartir-->
                 @if (Model.TieneCompartir)
                 {
                     <hr class="clear">
-                    <div id="Contenedor_redes_sociales" class="ficha_redes_sociales">
+                    <div id="Contenedor_redes_sociales" class="ficha_redes_sociales" style="overflow: hidden;">
                         <div data-compartir-campos="" style="display:none;">
                             <input type="hidden" class="CUV" value="{{CUV2}}" />
                             <input type="hidden" class="rsFBMensaje" value="" />
@@ -78,19 +83,13 @@
                 }
                 <!--fin compartir-->
             </div>
-            <div class="ficha_detalle">
+            <div id="dvSeccionDerecho" class="ficha_detalle">
                 <div id="contenedor_ficha_etiquetas" class="contenedor_ficha_etiquetas contenedor_ficha_etiquetas_Confondo">
                     {{#if TieneReloj}}
                     <div id="EtiquetaOdd" class="contenedor_etiqueta_odd">
                         <div id="clock" class="clock_odd"></div>
                     </div>
                     {{/if}}
-                    @*<div id="EtiquetaLanzamientos" class="contenedor_etiqueta_nuevo">
-                            <div class="triangulo_etiqueta_nuevo"></div>
-                            <div class="etiqueta_nuevo">
-                                <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" />
-                            </div>
-                        </div>*@
                     <div id="EtiquetaPackNuevas" class="contenedor_etiqueta_nuevo">
                         @*<div class="triangulo_etiqueta_nuevo"></div>*@
                         <div class="etiqueta_nuevo">
@@ -101,7 +100,7 @@
                     </div>
                 </div>
                 <hr class="clear">
-                <div class="ficha_detalle_cuerpo">
+                <div id="dvSeccionDetalle" class="ficha_detalle_cuerpo">
 
                     <div class="contenedor_nombre_precio">
                         <div class="contenedor_izquierdo">
@@ -389,7 +388,6 @@
                 carruselModule.Inicializar();
             }
         });
-
 
     </script>
 }
