@@ -344,7 +344,7 @@ var FichaModule = (function (config) {
                     estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[2];
                 if (palabrasEstrategiaDescripcion.length > 3) estrategiaBreadcrumb += "...";
             } else {
-                if (palabrasEstrategiaDescripcion.length > 1) estrategiaBreadcrumb += "...";
+                if (estrategia.DescripcionCompleta.length > 7) estrategiaBreadcrumb = estrategia.DescripcionCompleta.substr(0, 7) + "...";
             }
 
             $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);

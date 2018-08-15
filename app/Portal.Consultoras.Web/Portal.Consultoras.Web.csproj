@@ -1322,6 +1322,8 @@
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Mobile\esika\mi-perfil.css" />
+    <Content Include="Content\Css\Mobile\Ficha\Esika\FichaEsika.css" />
+    <Content Include="Content\Css\Mobile\Ficha\Lbel\FichaLbel.css" />
     <Content Include="Content\Css\Mobile\Ficha\PopoverTooltip.css" />
     <Content Include="Content\Css\Mobile\Ficha\RedesSociales.css" />
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
@@ -1346,6 +1348,8 @@
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Esika\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Ficha\Carrusel.css" />
+    <Content Include="Content\Css\Site\Ficha\Esika\FichaEsika.css" />
+    <Content Include="Content\Css\Site\Ficha\Lbel\FichaLbel.css" />
     <Content Include="Content\Css\Site\Ficha\PopoverTooltip.css" />
     <Content Include="Content\Css\Site\Ficha\RedesSociales.css" />
     <Content Include="Content\Css\Site\Ficha\Ficha.css" />

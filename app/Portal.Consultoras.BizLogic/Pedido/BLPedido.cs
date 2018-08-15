@@ -1811,9 +1811,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             //Validar Stock Estrategia
             var ofertas = estrategia.DescripcionCUV2.Split('|');
-            var descripcion = ofertas[0];
+            //var descripcion = ofertas[0];
             if (estrategia.FlagNueva == 1) estrategia.Cantidad = estrategia.LimiteVenta;
-            else descripcion = estrategia.DescripcionCUV2;
+            //else descripcion = estrategia.DescripcionCUV2;
 
             var resultado = false;
             var mensaje = ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle, out resultado);

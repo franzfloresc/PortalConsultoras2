@@ -317,7 +317,7 @@ namespace Portal.Consultoras.Web.Providers
         protected virtual List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(bool esMobile, string tipo, int campaniaId = 0)
         {
             var userData = sessionManager.GetUserData();
-            var listEstrategia = new List<ServiceOferta.BEEstrategia>();
+            List<ServiceOferta.BEEstrategia> listEstrategia;
             try
             {
                 campaniaId = campaniaId > 0 ? campaniaId : userData.CampaniaID;

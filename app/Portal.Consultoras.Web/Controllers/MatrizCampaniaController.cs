@@ -5,18 +5,16 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.ServiceModel;
-using System.Web.Mvc;
-using System.Web;
-using System.IO;
-using io = System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 using System.Xml;
-using System.IO.Compression;
-using System.Globalization;
-using System.Text.RegularExpressions;
+using io = System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -557,7 +555,8 @@ namespace Portal.Consultoras.Web.Controllers
                                                         if (cc > 0) contenidoFila += "¦";
                                                         if (nodoCelda != null)
                                                         {
-                                                            if (columnas[i] == nodoCelda.Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, ""))
+                                                            var auxTxt = nodoCelda.Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, "");
+                                                            if (columnas[i] == auxTxt)
                                                             {
                                                                 celda = nodoCelda.Attributes["r"].Value;
                                                                 tipoString = nodoCelda.Attributes["t"];
