@@ -2397,7 +2397,29 @@ namespace Portal.Consultoras.Common
             #endregion
         }
 
+        public class OfertaFinalLog
+        {
+            private static Dictionary<int, string> _Message;
 
+            public class Code
+            {
+                public const int PRODUCTO_AGREGADO = 1;
+                public const int POPUP_MOSTRADO = 2;
+                public const int PRODUCTO_EXPUESTO = 3;
+            }
 
+            public static Dictionary<int, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<int, string>
+                    {
+                        {Code.PRODUCTO_AGREGADO, "Producto Agregado"},
+                        {Code.POPUP_MOSTRADO, "Popup Mostrado"},
+                        {Code.PRODUCTO_EXPUESTO, "Producto Expuesto"},
+                    });
+                }
+            }
+        }
     }
 }

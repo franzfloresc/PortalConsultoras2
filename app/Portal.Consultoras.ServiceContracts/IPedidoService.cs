@@ -1154,7 +1154,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
-        #region Pedido
+        #region PedidoNativo
         [OperationContract]
         BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar);
         [OperationContract]
@@ -1182,7 +1182,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
-        List<Entities.BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
+        void InsertOfertaFinalLog(int paisID, int campaniaID, string codigoConsultora, decimal? montoInicial, List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog);
+        [OperationContract]
+        List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
         #endregion
 
         #region Pago en Linea
