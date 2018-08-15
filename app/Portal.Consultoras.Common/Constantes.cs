@@ -2056,6 +2056,10 @@ namespace Portal.Consultoras.Common
 
                 public const string ERROR_DESHACER_PEDIDO = "2109";
                 public const string ERROR_DESHACER_PEDIDO_ESTADO = "2110";
+
+                public const string ERROR_AGREGAR_BACKORDER_NO_PERMITIDO = "2201";
+                public const string ERROR_AGREGAR_BACKORDER = "2202";
+
             }
             public static Dictionary<string, string> Message
             {
@@ -2107,7 +2111,11 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_GUARDAR_DEUDA, "Pedido no guardado, deuda pendiente." },
 
                         {Code.ERROR_DESHACER_PEDIDO , "Ocurrió un error al deshacer el pedido." },
-                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." }
+                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." },
+
+                        {Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO , "No se puede agregar un set como BackOrder." },
+                        {Code.ERROR_AGREGAR_BACKORDER , "No se encuentra el detalle en el pedido para agregarlo como BackOrder." }
+
                     });
                 }
             }

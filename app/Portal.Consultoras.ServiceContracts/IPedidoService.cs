@@ -1183,6 +1183,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
         List<Entities.BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
+        [OperationContract]
+        BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle);
+
         #endregion
 
         #region Pago en Linea
