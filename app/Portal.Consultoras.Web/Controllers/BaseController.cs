@@ -57,6 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
         protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
         protected readonly MenuProvider _menuProvider;
+        protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         #endregion
 
         #region Constructor
@@ -86,6 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
             _configuracionPaisProvider = new ConfiguracionPaisProvider();
             _menuContenedorProvider = new MenuContenedorProvider();
             _menuProvider = new MenuProvider(_configuracionManagerProvider, _eventoFestivoProvider);
+            _chatEmtelcoProvider = new ChatEmtelcoProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -975,24 +977,24 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        public bool HabilitarChatEmtelco(int paisId)
-        {
-            bool Mostrar = false;
-            List<TablaLogicaDatosModel> DataLogica = _tablaLogicaProvider.ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
+        //public bool HabilitarChatEmtelco(int paisId)
+        //{
+        //    bool Mostrar = false;
+        //    List<TablaLogicaDatosModel> DataLogica = _tablaLogicaProvider.ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
 
-            if (IsMobile())
-            {
-                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
-                    Mostrar = true;
-            }
-            else
-            {
-                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
-                    Mostrar = true;
-            }
+        //    if (IsMobile())
+        //    {
+        //        if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
+        //            Mostrar = true;
+        //    }
+        //    else
+        //    {
+        //        if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
+        //            Mostrar = true;
+        //    }
 
-            return Mostrar;
-        }
+        //    return Mostrar;
+        //}
 
         public MobileAppConfiguracionModel MobileAppConfiguracion
         {
@@ -1305,7 +1307,7 @@ namespace Portal.Consultoras.Web.Controllers
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
-            ViewBag.HabilitarChatEmtelco = HabilitarChatEmtelco(userData.PaisID);
+            ViewBag.HabilitarChatEmtelco = _chatEmtelcoProvider.HabilitarChatEmtelco(userData.PaisID, esMobile);
         }
         
         //private bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)
