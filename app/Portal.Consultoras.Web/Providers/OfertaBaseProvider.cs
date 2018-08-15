@@ -58,7 +58,7 @@ namespace Portal.Consultoras.Web.Providers
                             Precio = Convert.ToDecimal(item.precio),
                             Precio2 = Convert.ToDecimal(item.precio2),
                             PrecioString = Util.DecimalToStringFormat((decimal)item.precio2, codigoISO),
-                            PrecioTachado = item.precio,
+                            PrecioTachado = Util.DecimalToStringFormat((decimal)item.precio, codigoISO),
                             GananciaString = Util.DecimalToStringFormat((decimal)item.ganancia, codigoISO),
                             Ganancia = Convert.ToDecimal(item.ganancia),
                             TextoLibre = item.textoLibre,
