@@ -1045,6 +1045,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void GetUserDataViewBag()
         {
+            var esMobile = IsMobile();
+
             ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
             ViewBag.UsuarioNombre = (Util.Trim(userData.Sobrenombre) == "" ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.Usuario = "Hola, " + userData.UsuarioNombre;
@@ -1146,7 +1148,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
-            ViewBag.MensajeFechaPromesa = GetFechaPromesa(HoraCierrePortal, ViewBag.Dias);
+            ViewBag.MensajeFechaPromesa = _baseProvider.GetFechaPromesa(HoraCierrePortal, ViewBag.Dias, userData.FechaInicioCampania, esMobile);
 
             #endregion
 
@@ -1243,7 +1245,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI)
                 || (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
-            var esMobile = IsMobile();
             var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
             ViewBag.MenuContenedorActivo = menuActivo;
             ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
@@ -1321,6 +1322,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return false;
         }
+
         private bool FindInMenu<T>(List<MenuMobileModel> menuWeb, Predicate<MenuMobileModel> predicate, Converter<MenuMobileModel, T> select, out T result)
         {
             result = default(T);
@@ -1336,33 +1338,33 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
 
-        private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
-        {
-            var time = DateTime.Today.Add(horaCierre);
-            string fecha = null;
+        //private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
+        //{
+        //    var time = DateTime.Today.Add(horaCierre);
+        //    string fecha = null;
 
-            if (IsMobile())
-            {
-                string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
+        //    if (IsMobile())
+        //    {
+        //        string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
 
-                fecha = diasFaltantes > 0
-                    ? " CIERRA EL " + userData.FechaInicioCampania.Day + " " + Util.NombreMes(userData.FechaInicioCampania.Month).ToUpper()
-                    : " CIERRA HOY";
+        //        fecha = diasFaltantes > 0
+        //            ? " CIERRA EL " + userData.FechaInicioCampania.Day + " " + Util.NombreMes(userData.FechaInicioCampania.Month).ToUpper()
+        //            : " CIERRA HOY";
 
 
-                return fecha + " - " + hrCierrePortal.Replace(".", "");
-            }
-            else
-            {
-                var culture = CultureInfo.GetCultureInfo("es-PE");
-                fecha = diasFaltantes > 0
-                    ? userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper()
-                    : "HOY";
+        //        return fecha + " - " + hrCierrePortal.Replace(".", "");
+        //    }
+        //    else
+        //    {
+        //        var culture = CultureInfo.GetCultureInfo("es-PE");
+        //        fecha = diasFaltantes > 0
+        //            ? userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper()
+        //            : "HOY";
 
-                return fecha + " - " + time.ToString("hh:mm tt", CultureInfo.InvariantCulture).ToLower();
-            }
+        //        return fecha + " - " + time.ToString("hh:mm tt", CultureInfo.InvariantCulture).ToLower();
+        //    }
 
-        }
+        //}
 
         #endregion
 
