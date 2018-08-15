@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web
             Globals.UrlEscalaDescuentos = ConfigurationManager.AppSettings["EscalaDescuentos"];
             Globals.UrlOfertasFic = ConfigurationManager.AppSettings["OfertasFic"];
             Globals.UrlNavidadConsultora = ConfigurationManager.AppSettings["NavidadConsultora"];
-            Globals.JwtToken = JwtAutentication.getWebToken();
+            //Globals.JwtToken = JwtAutentication.getWebToken();
 
             AutoMapperConfiguration.Configure();
         }
