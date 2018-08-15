@@ -1676,6 +1676,7 @@ namespace Portal.Consultoras.Common
             public const string MaxErrorMessage = "El campo {0} debe ser una cadena con una longitud máxima de {1}";
             public const string LengthErrorMessage = "El campo {0} debe ser una cadena con una longitud de {1}";
             public const string DateErrorMessage = "No es una fecha válida";
+            public const string NumberErrorMessage = "No es un número válido";
         }
 
         public static class ClienteEstado

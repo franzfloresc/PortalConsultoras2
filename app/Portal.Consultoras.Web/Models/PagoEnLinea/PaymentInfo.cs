@@ -14,17 +14,17 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string NumberCard { get; set; }
         [Required(ErrorMessage = Constantes.MvcErrorMessages.RequiredMessage)]
         [StringLength(2)]
-        [RegularExpression(@"^\d+$", ErrorMessage = "No es un número válido")]
+        [RegularExpression(@"^\d+$", ErrorMessage = Constantes.MvcErrorMessages.NumberErrorMessage)]
         [DateCard("ExpireYear", ErrorMessage = "La fecha es inválida")]
         [Display(Name = "Mes")]
         public string ExpireMonth { get; set; }
         [Required(ErrorMessage = Constantes.MvcErrorMessages.RequiredMessage)]
         [StringLength(4)]
-        [RegularExpression(@"^\d+$", ErrorMessage = "No es un número válido")]
+        [RegularExpression(@"^\d+$", ErrorMessage = Constantes.MvcErrorMessages.NumberErrorMessage)]
         [Display(Name = "Año")]
         public string ExpireYear { get; set; }
         [Required(ErrorMessage = Constantes.MvcErrorMessages.RequiredMessage)]
-        [RegularExpression(@"^\d+$", ErrorMessage = "No es un número válido")]
+        [RegularExpression(@"^\d+$", ErrorMessage = Constantes.MvcErrorMessages.NumberErrorMessage)]
         [StringLength(3, MinimumLength = 3, ErrorMessage = Constantes.MvcErrorMessages.LengthErrorMessage)]
         [Display(Name = "CVV")]
         public string Cvv { get; set; }
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         [DataType(DataType.EmailAddress, ErrorMessage = "No es un email válido")]
         public string Email { get; set; }
         [StringLength(20, ErrorMessage = Constantes.MvcErrorMessages.MaxErrorMessage)]
-        [DataType(DataType.PhoneNumber, ErrorMessage = "No es un número válido")]
+        [RegularExpression(@"^\d+$", ErrorMessage = Constantes.MvcErrorMessages.NumberErrorMessage)]
         [Display(Name = "Número de celular")]
         public string Phone { get; set; }
     }
