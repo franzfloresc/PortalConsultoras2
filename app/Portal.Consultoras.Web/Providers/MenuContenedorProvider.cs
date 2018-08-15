@@ -449,6 +449,7 @@ namespace Portal.Consultoras.Web.Providers
                             continue;
 
                         config.UrlMenu = "#";
+                        config.DesktopTituloBanner = (revistaDigital.TieneRDC&&!revistaDigital.EsSuscrita)? "TODAS TUS OFERTAS EN UN SOLO LUGAR" : config.DesktopTituloBanner;
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
                         if (!revistaDigital.TieneRevistaDigital())
