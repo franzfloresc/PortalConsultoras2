@@ -1,8 +1,8 @@
 ﻿/*Mobile*/
 .box_producto_mobile_fix {
-    height: 300px;
+    /*height: 300px;*/
     padding: 0px 12px;
-    box-sizing: content-box;
+    /*box-sizing: content-box;*/
 }
 
 .btn_elige_tono {
@@ -35,10 +35,13 @@
     border-radius: 4px;
 }
 
-.cantidad_menos_home{
+.cantidad_menos_home {
     border-radius: 4px 0px 0px 4px;
 }
 
 .cantidad_mas_home {
     border-radius: 0px 4px 4px 0px;
+}
+.contenedor_carrusel_home .content_item_carrusel_clubganamas_off a.portada, .btn_agregar_ficha_producto {
+    border-radius: 4px;
 }

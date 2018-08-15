@@ -169,7 +169,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/ui.jquery/Esika/jquery-ui.css",
                "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Esika/revistaDigital.css",
-               "~/Content/Css/Site/Esika/seccion-descarga-imprime.css"
+               "~/Content/Css/Site/Esika/seccion-descarga-imprime.css",
+               "~/Content/Css/Site/ProductoListado/CajaProducto.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/AsesoraOnline").Include(
@@ -178,7 +179,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/Esika/Contenedor").Include(
                 "~/Content/Css/Site/Contenedor/Index.css",
-                "~/Content/Css/Site/Esika/Contenedor.css"
+                "~/Content/Css/Site/Esika/Contenedor.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/Esika/Contenedor").Include(
@@ -304,7 +306,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssPedido").Include(
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/style-pedido.css",
-                "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
+                "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
@@ -364,7 +367,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/MisCatalogoRevista").Include(
                 "~/Content/Css/Site/jquery.tag-editor.css",
-                "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
+                "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JS-Login").Include(
@@ -482,7 +486,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/flexslider.css",
                 "~/Content/Css/Site/Contenedor/carrusel.individual.css",
-                "~/Content/Css/Site/Contenedor/producto.simple.css"
+                "~/Content/Css/Site/Contenedor/producto.simple.css",
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/JsSB2-Ofertas").Include(
@@ -503,7 +508,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertasMobile").Include(
                 "~/Content/Css/Site/slick.css",
                 "~/Content/Css/Site/jquery.rateyo.css",
-                "~/Content/Css/Mobile/Contenedor/carrusel.individual.css"
+                "~/Content/Css/Mobile/Contenedor/carrusel.individual.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Mobile/Site/CssPedido").Include(
@@ -540,7 +546,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Info").Include(
                 "~/Content/Css/Site/RevistaDigital/PaginaInformativa.css",
-                "~/Content/Css/Site/RevistaDigital/ConfirmarDatos.css"
+                "~/Content/Css/Site/RevistaDigital/ConfirmarDatos.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Landing").Include(
@@ -583,7 +590,8 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/Lanzamientos-Detalle").Include(
-                "~/Content/Css/Site/Lanzamientos/Detalle.css"
+                "~/Content/Css/Site/Lanzamientos/Detalle.css",
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Lanzamientos-Detalle").Include(
@@ -749,7 +757,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/bundles/css/Site/GuiaNegocio-Landing").Include(
                 "~/Content/Css/Site/ProductoListado/Landing.css",
                 "~/Content/Css/Site/RevistaDigital/Gnd-Flotante.css",
-                "~/Content/Css/Site/Landing/producto.landing.css"
+                "~/Content/Css/Site/Landing/producto.landing.css",
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/GuiaNegocio-Landing").Include(
