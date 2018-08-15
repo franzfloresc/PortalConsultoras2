@@ -14,6 +14,12 @@ set DesktopTituloBanner = 'DISFRUTA DE TU GUÍA DE NEGOCIO ONLINE',
 MobileTituloBanner = 'DISFRUTA DE TU GUÍA DE NEGOCIO ONLINE'
 where Codigo = 'GND'
 
+UPDATE ConfiguracionOfertasHome SET DesktopTitulo = 'OFERTAS PARA TI', MobileTitulo='OFERTAS PARA TI'
+FROM ConfiguracionOfertasHome h JOIN ConfiguracionPais p on h.ConfiguracionPaisID = p.ConfiguracionPaisID
+and p.Codigo = 'OPT'
+
+update ConfiguracionPaisDatos set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+
 update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 
 
@@ -32,6 +38,12 @@ update [dbo].[ConfiguracionPais]
 set DesktopTituloBanner = 'DISFRUTA DE TU GUÍA DE NEGOCIO ONLINE',
 MobileTituloBanner = 'DISFRUTA DE TU GUÍA DE NEGOCIO ONLINE'
 where Codigo = 'GND'
+
+UPDATE ConfiguracionOfertasHome SET DesktopTitulo = 'OFERTAS PARA TI', MobileTitulo='OFERTAS PARA TI'
+FROM ConfiguracionOfertasHome h JOIN ConfiguracionPais p on h.ConfiguracionPaisID = p.ConfiguracionPaisID
+and p.Codigo = 'OPT'
+
+update ConfiguracionPaisDatos set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 
 update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 
@@ -52,6 +64,12 @@ set DesktopTituloBanner = 'DISFRUTA DE TU GUÍA DE NEGOCIO ONLINE',
 MobileTituloBanner = 'DISFRUTA DE TU GUÍA DE NEGOCIO ONLINE'
 where Codigo = 'GND'
 
+UPDATE ConfiguracionOfertasHome SET DesktopTitulo = 'OFERTAS PARA TI', MobileTitulo='OFERTAS PARA TI'
+FROM ConfiguracionOfertasHome h JOIN ConfiguracionPais p on h.ConfiguracionPaisID = p.ConfiguracionPaisID
+and p.Codigo = 'OPT'
+
+update ConfiguracionPaisDatos set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+
 update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 
 
@@ -70,6 +88,12 @@ update [dbo].[ConfiguracionPais]
 set DesktopTituloBanner = 'DISFRUTA DE TU GUÍA DE NEGOCIO ONLINE',
 MobileTituloBanner = 'DISFRUTA DE TU GUÍA DE NEGOCIO ONLINE'
 where Codigo = 'GND'
+
+UPDATE ConfiguracionOfertasHome SET DesktopTitulo = 'OFERTAS PARA TI', MobileTitulo='OFERTAS PARA TI'
+FROM ConfiguracionOfertasHome h JOIN ConfiguracionPais p on h.ConfiguracionPaisID = p.ConfiguracionPaisID
+and p.Codigo = 'OPT'
+
+update ConfiguracionPaisDatos set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 
 update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 
