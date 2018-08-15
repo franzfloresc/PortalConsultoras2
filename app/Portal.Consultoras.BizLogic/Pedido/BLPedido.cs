@@ -1036,6 +1036,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var mensaje = string.Empty;
             try
             {
+                //Validación de Sets
+                if(pedidoDetalle.PedidoDetalleID == 0 || pedidoDetalle.SetID != 0)
+                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO);
+
                 //Informacion de usuario y palancas
                 var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
 
@@ -1067,7 +1071,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Seleccionamos el Detalle de Pedido a Aceptar
                 var _pedidoDetalle = lstDetalle.Where(p => p.PedidoDetalleID == pedidoDetalle.PedidoDetalleID && p.EsBackOrder).FirstOrDefault();
 
-                if (_pedidoDetalle == null) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_ACTUALIZAR);
+                if (_pedidoDetalle == null) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_AGREGAR_BACKORDER);
 
                 _pedidoWebDetalleBusinessLogic.AceptarBackOrderPedidoWebDetalle(_pedidoDetalle);
 
