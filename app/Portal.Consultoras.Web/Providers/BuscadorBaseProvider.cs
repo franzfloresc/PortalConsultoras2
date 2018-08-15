@@ -57,6 +57,7 @@ namespace Portal.Consultoras.Web.Providers
                                 TipoPersonalizacion = item.TipoPersonalizacion,
                                 CodigoEstrategia = item.CodigoEstrategia,
                                 CodigoTipoEstrategia = item.CodigoTipoEstrategia,
+                                TipoEstrategiaId = item.TipoEstrategiaId,
                                 LimiteVenta = item.LimiteVenta,
                                 Stock = item.Stock
                             };

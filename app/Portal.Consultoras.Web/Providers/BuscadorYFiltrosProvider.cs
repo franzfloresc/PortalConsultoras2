@@ -55,9 +55,9 @@ namespace Portal.Consultoras.Web.Providers
             var resultBuscador = new List<BuscadorYFiltrosModel>();
             try
             {
-                if (resultBuscador.Any())
+                if (resultado.Any())
                 {
-                    foreach (var item in resultBuscador)
+                    foreach (var item in resultado)
                     {
                         var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
                         var labelAgregado = "";
@@ -69,7 +69,6 @@ namespace Portal.Consultoras.Web.Providers
                             cantidadAgregada = pedidoAgregado[0].Cantidad;
                         }
 
-
                         resultBuscador.Add(new BuscadorYFiltrosModel()
                         {
                             CUV = item.CUV.Trim(),
@@ -80,7 +79,7 @@ namespace Portal.Consultoras.Web.Providers
                             Precio = item.Precio,
                             CodigoEstrategia = item.CodigoEstrategia,
                             CodigoTipoEstrategia = item.CodigoTipoEstrategia,
-                            TipoEstrategiaId = 1,//item.TipoEstrategiaId,
+                            TipoEstrategiaId = item.TipoEstrategiaId,//item.TipoEstrategiaId,
                             LimiteVenta = item.LimiteVenta,
                             PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo),
                             ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo),

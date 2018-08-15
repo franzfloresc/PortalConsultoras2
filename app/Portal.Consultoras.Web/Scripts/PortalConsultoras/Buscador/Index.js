@@ -112,8 +112,8 @@ $(document).ready(function () {
                             console.log(lista);
 
                             if (lista.length <= 0) {
-                                me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
-                                $('#ResultadoBuscador').fadeOut(150);
+                                //me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
+                                //$('#ResultadoBuscador').fadeOut(150);
                             } else {
                                 $('#ResultadoBuscador').html('');
 
