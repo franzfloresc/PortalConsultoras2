@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
@@ -19,13 +20,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _ofertaBaseProvider = new OfertaBaseProvider();
         }
+
         public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, int campaniaId, string codigoEstrategia)
         {
             if (ModelState.IsValid)
             {
                 int cantidadEstrategiasConfiguradas;
                 int cantidadEstrategiasSinConfigurar;
-                string oddIdsEstrategia = "";
+                var txtBuildOddIdsEstrategia = new StringBuilder();
                 try
                 {
                     if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoEstrategia))
@@ -37,8 +39,9 @@ namespace Portal.Consultoras.Web.Controllers
                         List<string> estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
                         foreach (var item in estrategiasWA)
                         {
-                            oddIdsEstrategia += oddIdsEstrategia != "" ? "," : "";
-                            oddIdsEstrategia += item;
+                            if (txtBuildOddIdsEstrategia.ToString() != "")
+                                txtBuildOddIdsEstrategia.Append(",");
+                            txtBuildOddIdsEstrategia.Append(item);
                         }
                     }
                     else
@@ -81,7 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Descripcion = "CUVS por configurar en Zonas de Estrategias",
                         Valor = cantidadEstrategiasSinConfigurar.ToString(),
                         ValorOpcional = "2",
-                        mongoIds=oddIdsEstrategia
+                        mongoIds = txtBuildOddIdsEstrategia.ToString()
                     }
                 };
 
@@ -150,7 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 webApiList.AddRange(estado);
                             }
                         }
-                        lst.AddRange(webApiList.Select(d => d.BEEstrategia).ToList().Select(item => new BEEstrategia
+                        lst.AddRange(webApiList.Select(d => d.BEEstrategia).Select(item => new BEEstrategia
                         {
                             CUV2 = item.CUV2,
                             DescripcionCUV2 = item.DescripcionCUV2
@@ -348,7 +351,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 webApiList.AddRange(estado);
                             }
 
-                            lst.AddRange(webApiList.Select(d => d.BEEstrategia).ToList().Select(item => new BEEstrategia
+                            lst.AddRange(webApiList.Select(d => d.BEEstrategia).Select(item => new BEEstrategia
                             {
                                 CUV2 = item.CUV2,
                                 DescripcionCUV2 = item.DescripcionCUV2
@@ -451,7 +454,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidadMasivo.NroLote = nroLoteAux;
 
                 var mensajeComplemento = MasivoEstrategiaTemporalExecComplemento(entidadMasivo);
-                
+
                 return Json(new
                 {
                     success = true,
@@ -594,8 +597,10 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int lote = 0;
-                string idsEstrategiaok = string.Empty;
-                string idsEstrategiaerror = string.Empty;
+                //string idsEstrategiaok = string.Empty;
+                //string idsEstrategiaerror = string.Empty;
+                var txtBuildIdsEstrategiaOk = new StringBuilder();
+                var txtBuildIdsEstrategiaError = new StringBuilder();
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoEstrategia))
                 {
@@ -603,18 +608,20 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategiaMidsList.AddRange(estrategiaMIds.Split(',').ToList());
                     if (estrategiaMidsList.Any())
                     {
-                        
+
                         var estado = administrarEstrategiaProvider.CargarEstrategia(estrategiaMidsList, userData.CodigoISO);
                         lote = estado["CUVOK"].Count;
                         foreach (var item in estado["CUVOK"])
                         {
-                            idsEstrategiaok += idsEstrategiaok != "" ? "," : "";
-                            idsEstrategiaok += item;
+                            if (txtBuildIdsEstrategiaOk.ToString() != "")
+                                txtBuildIdsEstrategiaOk.Append(",");
+                            txtBuildIdsEstrategiaOk.Append(item);
                         }
                         foreach (var item in estado["CUVERROR"])
                         {
-                            idsEstrategiaerror += idsEstrategiaerror != "" ? "," : "";
-                            idsEstrategiaerror += item;
+                            if (txtBuildIdsEstrategiaError.ToString() != "")
+                                txtBuildIdsEstrategiaError.Append(",");
+                            txtBuildIdsEstrategiaError.Append(item);
                         }
                     }
                 }
@@ -632,8 +639,8 @@ namespace Portal.Consultoras.Web.Controllers
                     message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias.",
                     NroLote = nroLote,
                     NroLoteRetorno = lote,
-                    mongoIdsOK= idsEstrategiaok,
-                    mongoIdsERROR= idsEstrategiaerror
+                    mongoIdsOK = txtBuildIdsEstrategiaOk,
+                    mongoIdsERROR = txtBuildIdsEstrategiaError
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

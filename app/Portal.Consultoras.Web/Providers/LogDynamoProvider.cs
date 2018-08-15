@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Providers
 
             try
             {
-                var paisesAdmitidos = new List<BETablaLogicaDatos>();
+                List<BETablaLogicaDatos> paisesAdmitidos;
                 using (var tablaLogica = new SACServiceClient())
                 {
                     paisesAdmitidos = tablaLogica.GetTablaLogicaDatos(userParametro.PaisID, 138).ToList();

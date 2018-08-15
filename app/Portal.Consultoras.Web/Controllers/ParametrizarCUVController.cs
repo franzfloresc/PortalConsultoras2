@@ -127,20 +127,15 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Registrar(string ParametroID, string PaisID, string CampaniaID, string Mensaje, string CUVs)
         {
-            string operacion = "registró";
             try
             {
-                bool resultado;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    resultado = sv.SetMensajesCUVsByPaisAndCampania(Convert.ToInt32(ParametroID), Convert.ToInt32(PaisID),
+                    sv.SetMensajesCUVsByPaisAndCampania(Convert.ToInt32(ParametroID), Convert.ToInt32(PaisID),
                         Convert.ToInt32(CampaniaID), Mensaje, CUVs);
                 }
 
-                if (ParametroID != "0")
-                {
-                    operacion = "actualizó";
-                }
+                string operacion = ParametroID != "0" ? "actualizó" : "registró";
 
                 return Json(new
                 {

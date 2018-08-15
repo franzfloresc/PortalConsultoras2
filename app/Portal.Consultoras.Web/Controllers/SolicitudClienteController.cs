@@ -343,7 +343,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Enviar(string SolicitudClienteId, string NombreGZ, string EmailGZ, string MensajeaGZ)
         {
-            int resultado = 0;
             try
             {
                 BESolicitudCliente entidadCliente;
@@ -361,7 +360,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var listSegmentos = sv.GetTablaLogicaDatos(UserData().PaisID, 57).ToList();
                     correoOculto = (from item in listSegmentos where item.TablaLogicaDatosID == 5701 select item.Descripcion).First();
-                    resultado = sv.EnviarSolicitudClienteaGZ(UserData().PaisID, solicitudCliente);
+                    sv.EnviarSolicitudClienteaGZ(UserData().PaisID, solicitudCliente);
                     entidadCliente = sv.DetalleSolicitudAnuladasRechazadas(UserData().PaisID, solicitudCliente);
                 }
 

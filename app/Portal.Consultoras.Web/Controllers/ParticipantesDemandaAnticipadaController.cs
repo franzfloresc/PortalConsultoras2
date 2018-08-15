@@ -201,15 +201,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 obj.TipoConfiguracion = Convert.ToByte(tipoConfiguracion);
                 obj.CodigoUsuario = codigoUsuario;
-
-                int validar = 0;
+                
                 if (id != "")
                 {
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-
-                        validar = sv.InsParticipantesDemandaAnticipada(UserData().PaisID, obj);
-
+                        sv.InsParticipantesDemandaAnticipada(UserData().PaisID, obj);
                     }
                 }
                 else
@@ -223,11 +220,10 @@ namespace Portal.Consultoras.Web.Controllers
                             TipoConfiguracion = Convert.ToByte(tipoConfiguracion),
                             CodigoUsuario = Convert.ToString(UserData().CodigoUsuario)
                         };
+
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-
-                        validar = sv.InsConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDa);
-
+                       sv.InsConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDa);
                     }
                 }
 
