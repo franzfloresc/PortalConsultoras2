@@ -119,8 +119,11 @@
 
 .club_gana_mas_pedido .logo_club {
     background: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png);
-    height: 100px !important;
+}
+
+.logo_club.no-suscrito {
     background-size: 147px !important;
+    background-position: center center;
+    height: 100px !important;
     width: 100% !important;
-    background-position: center;
 }
