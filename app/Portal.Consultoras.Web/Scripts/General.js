@@ -323,8 +323,6 @@ jQuery(document).ready(function () {
 
                 if (cadena.length > length) {
                     cadena = cadena.substring(0, length) + "...";
-                } else {
-                    cadena = cadena;
                 }
 
                 return new Handlebars.SafeString(cadena);
