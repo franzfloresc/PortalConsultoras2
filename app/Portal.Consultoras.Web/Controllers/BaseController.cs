@@ -416,7 +416,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return userData.MenuMobile;
             }
 
-
             bool tieneTituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI)
                 || (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
@@ -455,20 +454,20 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        protected List<BEProductoFaltante> GetProductosFaltantes()
-        {
-            return this.GetProductosFaltantes("", "", "", "");
-        }
+        //protected List<BEProductoFaltante> GetProductosFaltantes()
+        //{
+        //    return this.GetProductosFaltantes("", "", "", "");
+        //}
 
-        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion, string codCategoria, string codCatalogoRevista)
-        {
-            List<BEProductoFaltante> olstProductoFaltante;
-            using (var sv = new SACServiceClient())
-            {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion, codCategoria, codCatalogoRevista).ToList();
-            }
-            return olstProductoFaltante ?? new List<BEProductoFaltante>();
-        }
+        //protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion, string codCategoria, string codCatalogoRevista)
+        //{
+        //    List<BEProductoFaltante> olstProductoFaltante;
+        //    using (var sv = new SACServiceClient())
+        //    {
+        //        olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion, codCategoria, codCatalogoRevista).ToList();
+        //    }
+        //    return olstProductoFaltante ?? new List<BEProductoFaltante>();
+        //}
 
         public string GetIPCliente()
         {

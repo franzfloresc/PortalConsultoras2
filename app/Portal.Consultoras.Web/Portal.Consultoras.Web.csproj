@@ -769,6 +769,7 @@
     <Compile Include="Providers\VCFichaProductoProvider.cs" />
     <Compile Include="Providers\LogDynamoProvider.cs" />
     <Compile Include="Providers\ChatEmtelcoProvider.cs" />
+    <Compile Include="Providers\ProductoFaltanteProvider.cs" />
     <Compile Include="Providers\ZonificacionProvider.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
       <AutoGen>True</AutoGen>

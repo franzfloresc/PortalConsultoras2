@@ -35,10 +35,12 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int CRITERIO_BUSQUEDA_PRODUCTO_CANT = 10;
         private readonly int CUV_NO_TIENE_CREDITO = 2;
         private readonly PedidoSetProvider _pedidoSetProvider;
+        protected ProductoFaltanteProvider _productoFaltanteProvider;
 
         public PedidoController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
+            _productoFaltanteProvider = new ProductoFaltanteProvider();
         }
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
@@ -2052,7 +2054,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var productosFaltantes = GetProductosFaltantes(cuv, descripcion, categoria, revista);
+                var productosFaltantes = _productoFaltanteProvider.GetProductosFaltantes(userData, cuv, descripcion, categoria, revista);
                 ProductoFaltanteModel model = new ProductoFaltanteModel { Detalle = productosFaltantes };
                 return Json(new { result = true, data = model }, JsonRequestBehavior.AllowGet);
             }
