@@ -369,7 +369,7 @@ namespace Portal.Consultoras.Web.Providers
                         userData.CodigoConsultora,
                         userData.CodigorRegion,
                         userData.ZonaID);
-                    var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital));
+                    var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital, userData.CodigoISO));
                     Task.WhenAll(taskApi);
                     listEstrategia = taskApi.Result;
                 }
@@ -1118,11 +1118,13 @@ namespace Portal.Consultoras.Web.Providers
                         item.Hermanos = new List<EstrategiaComponenteModel>();
                         componentesRelacinados.ForEach(componente =>
                         {
-                            if (componente.CUV != item.CUV2 && lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
+                            if (lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
                             {
+                                var nombreFormateado = (componente.NombreProducto.Length <= 26) ? componente.NombreProducto : componente.NombreProducto.Substring(0,25) + "...";
                                 item.Hermanos.Add(new EstrategiaComponenteModel()
                                 {
-                                    NombreComercial = string.Format("{0}{1}", componente.NombreProducto, item.Hermanos.Count == 1 ? "..." : string.Empty)
+                                    NombreComercial = string.Format("{0}", componente.NombreProducto),
+                                    Descripcion = string.Format("{0}", nombreFormateado)
                                 });
                             }
                             lineasPorCaja--;
