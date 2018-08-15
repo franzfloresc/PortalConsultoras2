@@ -800,61 +800,61 @@ namespace Portal.Consultoras.Web.Controllers
             return (List<BEMensajeMetaConsultora>)Session[constSession];
         }
 
-        public List<EstadoCuentaModel> ObtenerEstadoCuenta(long pConsultoraId = 0)
-        {
-            var lst = new List<EstadoCuentaModel>();
+        //public List<EstadoCuentaModel> ObtenerEstadoCuenta(long pConsultoraId = 0)
+        //{
+        //    var lst = new List<EstadoCuentaModel>();
 
-            if (pConsultoraId == 0)
-                pConsultoraId = userData.ConsultoraID;
+        //    if (pConsultoraId == 0)
+        //        pConsultoraId = userData.ConsultoraID;
             
-            if (sessionManager.GetListadoEstadoCuenta() == null)
-            {
-                var estadoCuenta = new List<BEEstadoCuenta>();
-                try
-                {
-                    using (var client = new SACServiceClient())
-                    {
-                        estadoCuenta = client.GetEstadoCuentaConsultora(userData.PaisID, pConsultoraId).ToList();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                }
+        //    if (sessionManager.GetListadoEstadoCuenta() == null)
+        //    {
+        //        var estadoCuenta = new List<BEEstadoCuenta>();
+        //        try
+        //        {
+        //            using (var client = new SACServiceClient())
+        //            {
+        //                estadoCuenta = client.GetEstadoCuentaConsultora(userData.PaisID, pConsultoraId).ToList();
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        }
 
-                if (estadoCuenta.Count > 0)
-                {
-                    foreach (var ec in estadoCuenta)
-                    {
-                        lst.Add(new EstadoCuentaModel
-                        {
-                            Fecha = ec.FechaRegistro,
-                            Glosa = ec.DescripcionOperacion,
-                            Cargo = ec.Cargo,
-                            Abono = ec.Abono
-                        });
-                    }
+        //        if (estadoCuenta.Count > 0)
+        //        {
+        //            foreach (var ec in estadoCuenta)
+        //            {
+        //                lst.Add(new EstadoCuentaModel
+        //                {
+        //                    Fecha = ec.FechaRegistro,
+        //                    Glosa = ec.DescripcionOperacion,
+        //                    Cargo = ec.Cargo,
+        //                    Abono = ec.Abono
+        //                });
+        //            }
 
-                    var monto = userData.MontoDeuda;
+        //            var monto = userData.MontoDeuda;
 
-                    lst.Add(new EstadoCuentaModel
-                    {
-                        Fecha = userData.FechaLimPago,
-                        Glosa = "MONTO A PAGAR",
-                        Cargo = monto > 0 ? monto : 0,
-                        Abono = monto < 0 ? 0 : monto
-                    });
-                }
+        //            lst.Add(new EstadoCuentaModel
+        //            {
+        //                Fecha = userData.FechaLimPago,
+        //                Glosa = "MONTO A PAGAR",
+        //                Cargo = monto > 0 ? monto : 0,
+        //                Abono = monto < 0 ? 0 : monto
+        //            });
+        //        }
 
-                sessionManager.SetListadoEstadoCuenta(lst);
-            }
-            else
-            {
-                lst = sessionManager.GetListadoEstadoCuenta();
-            }
+        //        sessionManager.SetListadoEstadoCuenta(lst);
+        //    }
+        //    else
+        //    {
+        //        lst = sessionManager.GetListadoEstadoCuenta();
+        //    }
 
-            return lst;
-        }
+        //    return lst;
+        //}
 
         #endregion
         

@@ -146,7 +146,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private List<EstadoCuentaModel> EstadodeCuenta()
         {
-            var listSession = ObtenerEstadoCuenta();
+            var listSession = _estadoCuentaProvider.ObtenerEstadoCuenta();
             var list = new List<EstadoCuentaModel>();
 
             listSession.ForEach((item) =>
