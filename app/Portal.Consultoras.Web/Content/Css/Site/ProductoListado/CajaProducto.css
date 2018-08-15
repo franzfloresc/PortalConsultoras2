@@ -19,7 +19,10 @@
     vertical-align: middle;
 }
 
-
 .revistadigital-landing .content_item_carrusel_clubganamas a.portada{
+    border-radius: 4px;
+}
+
+..btn_agregalo_odd{
     border-radius: 4px;
 }
