@@ -26,18 +26,12 @@ namespace Portal.Consultoras.Entities
 
         public BEUnidadGeografica(IDataRecord row)
         {
-            CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
-            NivelUbigeo = Convert.ToInt32(row["Nivel"]);
+            CodigoUbigeo = row.ToString("CodigoUbigeo");
+            NivelUbigeo = row.ToInt32("Nivel");
 
-            if (DataRecord.HasColumn(row, "UnidadGeografica1"))
-                Descripcion = Convert.ToString(row["UnidadGeografica1"]);
-
-            if (DataRecord.HasColumn(row, "UnidadGeografica2"))
-                Descripcion = Convert.ToString(row["UnidadGeografica2"]);
-
-            if (DataRecord.HasColumn(row, "UnidadGeografica3"))
-                Descripcion = Convert.ToString(row["UnidadGeografica3"]);
-
+            Descripcion = row.ToString("UnidadGeografica1");
+            Descripcion = row.ToString("UnidadGeografica2", Descripcion);
+            Descripcion = row.ToString("UnidadGeografica3", Descripcion);
         }
     }
 }

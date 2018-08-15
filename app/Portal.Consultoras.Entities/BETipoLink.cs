@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -9,9 +10,9 @@ namespace Portal.Consultoras.Entities
     {
         public BETipoLink(IDataRecord row)
         {
-            PaisID = Convert.ToInt32(row["PaisID"]);
-            TipoLinkID = Convert.ToInt32(row["TipoLinkID"]);
-            Url = Convert.ToString(row["Url"]);
+            PaisID = row.ToInt32("PaisID");
+            TipoLinkID = row.ToInt32("TipoLinkID");
+            Url = row.ToString("Url");
         }
 
         [DataMember]
