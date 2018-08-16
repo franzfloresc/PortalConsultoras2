@@ -337,13 +337,14 @@ namespace Portal.Consultoras.Web.Providers
         {
             var paisesEsika = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika);
             string[] _paisEsika = paisesEsika.Split(';');
-            return _paisEsika.Where(x => x == _paisISO).Any();
+            return _paisEsika.Any(x => x == _paisISO);
         }
+
         private bool PaisesLBel(string _paisISO)
         {
             var paiseLBel = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesLBel);
             string[] _paiseLBel = paiseLBel.Split(';');
-            return _paiseLBel.Where(x => x == _paisISO).Any();
+            return _paiseLBel.Any(x => x == _paisISO);
         }
     }
 }
