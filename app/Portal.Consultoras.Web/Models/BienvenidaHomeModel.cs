@@ -131,6 +131,7 @@ namespace Portal.Consultoras.Web.Models
         public bool TienePagoEnLinea { get; set; }
         public bool MostrarPagoEnLinea { get; set; }
         public int TieneContratoPopup { get; set; }
+        public bool TieneFacturacionElectronica { get; set; }
 
         public BienvenidaHomeModel()
         {
