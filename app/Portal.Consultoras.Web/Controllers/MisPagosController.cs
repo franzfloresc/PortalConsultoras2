@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
                 RutaChile = userData.CodigoISO == Constantes.CodigosISOPais.Chile
                     ? _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile)
                     : string.Empty,
-                MostrarFE = userData.CodigoISO == Constantes.CodigosISOPais.Ecuador || userData.CodigoISO == Constantes.CodigosISOPais.Peru ? " " : "display: none;",
+                MostrarFE = GetDatosFacturacionElectronica(userData.PaisID, Constantes.FacturacionElectronica.TablaLogicaID, Constantes.FacturacionElectronica.FlagActivacion) == "1" ? " " : "display: none;",
                 Simbolo = string.Format("{0} ", userData.Simbolo),
                 TieneFlexipago = userData.IndicadorFlexiPago,
                 MontoMinimoFlexipago = userData.MontoMinimoFlexipago,

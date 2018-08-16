@@ -50,15 +50,20 @@ namespace Portal.Consultoras.Web.Providers
                     LogManager.LogManager.LogErrorWebServicesBus(new Exception("OfertaDelDiaProvider_respSBMicroservicios:" + response.StatusCode.ToString()), userData.CodigoConsultora, userData.CodigoISO);
                     return "";
                 }
-                var content = await response.Content.ReadAsStringAsync();
 
-                if (string.IsNullOrEmpty(content))
+                if (response != null)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(new Exception("OfertaDelDiaProvider_respSBMicroservicios: Null content"), userData.CodigoConsultora, userData.CodigoISO);
-                    return "";
+                    var content = await response.Content.ReadAsStringAsync();
+
+                    if (string.IsNullOrEmpty(content))
+                    {
+                        LogManager.LogManager.LogErrorWebServicesBus(new Exception("OfertaDelDiaProvider_respSBMicroservicios: Null content"), userData.CodigoConsultora, userData.CodigoISO);
+                        return "";
+                    }
+                    return content;
                 }
-                return content;
             }
+            return "";
         }
 
         public Dictionary<string, List<string>> CargarEstrategia(List<string> estrategiasIds, string pais)
@@ -190,7 +195,7 @@ namespace Portal.Consultoras.Web.Providers
             if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
-                mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
+                //mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;
@@ -231,7 +236,7 @@ namespace Portal.Consultoras.Web.Providers
             if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
-                mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
+                //mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;
@@ -480,7 +485,7 @@ namespace Portal.Consultoras.Web.Providers
             if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
-                mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
+                //mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;

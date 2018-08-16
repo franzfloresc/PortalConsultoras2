@@ -84,8 +84,21 @@ header {
         margin: auto;
     }
 
+.wrapper_cincuenta_anios_belcorp_y_logo{
+    width:16.5%!important;
+}
+
+.wrapper_cincuenta_anios_belcorp_y_logo,
+.menu_new_esika,
+.menu_esika_b,
+.logo_esika,
+.nav_principal
+{
+    display:inline-block;
+    vertical-align:middle;
+}
+
 .menu_new_esika {
-    float: left;
     width: 62%;
     min-height: 60px;
     position: relative;
@@ -94,7 +107,8 @@ header {
 .menu_esika_b {
     height: 60px;
     float: right;
-    width:360px!important;
+    width:auto!important;
+    min-width:216px!important;
     max-width: 31%;
 }
 
@@ -242,6 +256,27 @@ header {
     position: relative;
 }
 
+.new_menu[data-codigo="contenedorofertas"]{
+    margin-top:19px!important;
+}
+
+    .new_menu[data-codigo="contenedorofertas"] a{
+        display:block;
+        width: 144px;
+        overflow: hidden;
+    }
+
+    .new_menu[data-codigo="contenedorofertas"] a img{
+        display:block;
+        position: absolute;
+        margin:auto 0;
+        top: 0;
+        left: 0;
+        bottom:0;
+        width: 192.36px;
+        height: auto;
+    }
+
 .flecha_menu {
     width: 0;
     height: 0;
@@ -279,6 +314,7 @@ header {
     -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    z-index:3;
 }
 
 .sub_menu_home2 {
@@ -17323,7 +17359,9 @@ body, html {
 }
 
 .invisible {
-    visibility: hidden;
+    /*visibility:hidden;*/
+    display:none;
+    margin-left:0;
 }
 
 .div-3 .selectP3 {
@@ -19492,8 +19530,7 @@ label.checkpop.c_on {
 }
 
 .logo_esika {
-    margin-top: 6px;
-    float: left;
+    /*margin-top: 6px;*/
     width: 100px;
     padding-right: 2px;
 }
@@ -36587,9 +36624,9 @@ h1#penmostreo .campana {
 
 /* HD-2521 - HOMOLOGACIÓN Y FOTO */
 
-.margenIzquierdoOpcionNotificacion{
+/*.margenIzquierdoOpcionNotificacion{
     margin-left:14px;
-}
+}*/
 
 .borde_der_foto_consultora{
     float:none;
@@ -36725,9 +36762,9 @@ h1#penmostreo .campana {
 }
 
 .cincuenta_anios_belcorp{
-    display: block;
+    display:inline-block;
+    vertical-align:middle;
     position: relative;
-    float: left;
     left: 0;
     width: 98px;
     height: 61px;
@@ -36742,16 +36779,20 @@ h1#penmostreo .campana {
 }
 
 .cincuenta_anios_belcorp + .logo_esika{
-    margin-left:23px;
+    margin-left:11px;
 }
 
-.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
-    width:632px!important;
+.wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika{
+    width:auto!important;
 }
 
-.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+/*.wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika.anchoMenu_sinEnlaceSociaEmpresaria{
+    width:476px!important;
+}*/
+
+/*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
     width:360px!important;
-}
+}*/
 
 .color_cincuenta_anios_belcorp{
     color:#A06219;
@@ -36773,31 +36814,35 @@ h1#penmostreo .campana {
         max-width:none!important;
     }
 
+    .cincuenta_anios_belcorp + .logo_esika {
+        margin-left: 4px;
+    }
+
 }
 
-@media screen and (max-width:1212px){
+/*@media screen and (max-width:1212px){
 
     .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
         width:350px!important;
     }
 
-}
+}*/
 
 @media screen and (min-width:1145px) and (max-width:1212px){
 
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
+    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika{
         width: 628px!important;
     }
 
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+    /*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
         width:350px!important;
-    }
+    }*/
 
 }
 
 @media screen and (min-width:1090px) and (max-width:1144px){
 
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika {
+    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika {
         width: 626.7px!important;
     }
 
@@ -36805,7 +36850,7 @@ h1#penmostreo .campana {
 
 @media screen and (min-width:1063px) and (max-width:1089px){
 
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika {
+    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika {
         width: 592px!important;
     }
 
@@ -36813,13 +36858,14 @@ h1#penmostreo .campana {
 
 @media screen and (max-width: 1062px) {
 
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika {
+    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika {
         width: 553px!important;
     }
 
 }
 
 /* FIN - HD-2513 - 50 AÑOS BELCORP */
+
 /* MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
 
 .monto_meta_tippingPoint{
