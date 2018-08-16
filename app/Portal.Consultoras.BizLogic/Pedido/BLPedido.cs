@@ -714,6 +714,42 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         CUV = item.CUV
                     });
                 }
+
+                if (resultadoReserva.ListPedidoObservacion.Count > 0) {
+                    var pedido =  Get(usuario);
+                    List<BEPedidoObservacion> obsSets = new List<BEPedidoObservacion>();
+                    var detallesSets =  TraerHijosFaltantesEnObsPROL(pedido.olstBEPedidoWebDetalle, usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID, pedido.PedidoID);
+                    if (detallesSets.Count > 0) {
+                        var listaCUVsAEvaluar = detallesSets.Select(e => e.CUV).ToList();
+                        var obsDetSets = resultadoReserva.ListPedidoObservacion.Where(e => listaCUVsAEvaluar.Contains(e.CUV)).ToList();
+                        obsSets = detallesSets.Join(obsDetSets, d => d.CUV, o => o.CUV, 
+                            (d, o) => new BEPedidoObservacion(){
+                                CUV = pedido.olstBEPedidoWebDetalle.Where(e => e.SetID == d.SetID).Select(e => e.CUV).FirstOrDefault(),
+                                Caso = o.Caso,
+                                CuvObs = o.CUV,
+                                Descripcion = o.Descripcion,
+                                SetID = d.SetID
+                            }).ToList();
+                        resultadoReserva.ListPedidoObservacion.RemoveAll(x => obsDetSets.Contains(x));                        
+                    }
+                    if (resultadoReserva.ListPedidoObservacion.Count > 0) {
+                        var listaObsAEvaluar = resultadoReserva.ListPedidoObservacion;
+                        var obsDet = pedido.olstBEPedidoWebDetalle.Join(listaObsAEvaluar, d => d.CUV, o => o.CUV,
+                             (d, o) => new BEPedidoObservacion()
+                             {
+                                 CUV = d.CUV,
+                                 Caso = o.Caso,
+                                 CuvObs = o.CUV,
+                                 Descripcion = o.Descripcion,
+                                 PedidoDetalleID = d.PedidoDetalleID
+                             }).ToList();
+                        resultadoReserva.ListPedidoObservacion.RemoveAll(x => listaObsAEvaluar.Contains(x));
+                        resultadoReserva.ListPedidoObservacion.AddRange(obsDet);
+                    }
+                    if(obsSets.Count > 0) resultadoReserva.ListPedidoObservacion.AddRange(obsSets);
+                    resultadoReserva.ListPedidoObservacion.OrderBy(e => e.PedidoDetalleID);
+                }
+
                 var obsPedido = ObtenerMensajePROLAnalytics(resultadoReserva.ListPedidoObservacion);
 
                 return PedidoReservaRespuesta(code, obsPedido, resultadoReserva);
@@ -1631,6 +1667,19 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Message[codigoRespuesta] : mensajeRespuesta,
                 ResultadoReserva = resultadoReserva,
             };
+        }
+
+        private List<BEPedidoWebDetalle> TraerHijosFaltantesEnObsPROL(List<BEPedidoWebDetalle> pedido, int paisId, int campaniaId, long consultoraId, int pedidoId)
+        {
+            var idSetList = pedido.Where(x => x.SetID != 0).Select(x => x.SetID).ToList();
+            var cuvHijos = new List<BEPedidoWebDetalle>();
+
+            if (idSetList.Any())
+            {
+                cuvHijos = _pedidoWebDetalleBusinessLogic.ObtenerCuvSetDetalle(paisId, campaniaId, consultoraId, pedidoId, String.Join(",", idSetList)).ToList();
+            }
+
+            return cuvHijos;
         }
         #endregion
 
