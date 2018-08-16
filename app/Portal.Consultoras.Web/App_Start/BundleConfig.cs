@@ -169,7 +169,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/ui.jquery/Esika/jquery-ui.css",
                "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Esika/revistaDigital.css",
-               "~/Content/Css/Site/Esika/seccion-descarga-imprime.css"
+               "~/Content/Css/Site/Esika/seccion-descarga-imprime.css",
+               "~/Content/Css/Site/Esika/buscador-filtros.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/AsesoraOnline").Include(
@@ -195,7 +196,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/ui.jquery/Lbel/jquery-ui.css",
                "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Lbel/revistaDigital.css",
-               "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css"
+               "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css",
+               "~/Content/Css/Site/Lbel/buscador-filtros.css"
             ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/Contenedor").Include(
@@ -270,7 +272,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/slick.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                "~/Scripts/PortalConsultoras/Buscador/Index.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(
@@ -371,7 +374,7 @@ namespace Portal.Consultoras.Web
                "~/Scripts/PortalConsultoras/Login/FormsSignIn.js"
             ));
             bundles.Add(new ScriptBundle("~/bundles/JS-Login-Header").Include(
-               "~/Scripts/PortalConsultoras/Login/Analytics.js"
+               "~/Scripts/PortalConsultoras/Login/Analytics.js"                
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JS-Login-VerificaAutenticidad").Include(
