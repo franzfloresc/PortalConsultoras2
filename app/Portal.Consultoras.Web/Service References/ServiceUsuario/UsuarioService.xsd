@@ -548,6 +548,30 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEventoFestivo" nillable="true" type="tns:BEEventoFestivo" />
+  <xs:complexType name="ArrayOfBEBuscadorYFiltros">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEBuscadorYFiltros" nillable="true" type="tns:BEBuscadorYFiltros" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEBuscadorYFiltros" nillable="true" type="tns:ArrayOfBEBuscadorYFiltros" />
+  <xs:complexType name="BEBuscadorYFiltros">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Catalogo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPalanca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstrategiaCodigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
+      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
+      <xs:element minOccurs="0" name="Precio" type="xs:double" />
+      <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valorizado" type="xs:double" />
+      <xs:element minOccurs="0" name="descripcionEstrategia" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEBuscadorYFiltros" nillable="true" type="tns:BEBuscadorYFiltros" />
   <xs:complexType name="BEConsultoraDatos">
     <xs:sequence>
       <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />
