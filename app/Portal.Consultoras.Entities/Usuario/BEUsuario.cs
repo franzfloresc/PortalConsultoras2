@@ -297,7 +297,7 @@ namespace Portal.Consultoras.Entities
             ValidacionAbierta = row.ToBoolean("ValidacionAbierta");
             FechaActualPais = row.ToDateTime("FechaActualPais");
             AceptacionConsultoraDA = row.ToInt32("AceptacionConsultoraDA");
-            AceptacionConsultoraDA = row.ToInt32("CompartirDatos");
+            mbCompartirDatos = row.ToBoolean("CompartirDatos");
             FotoPerfil = row.ToString("FotoPerfil");
             ConsecutivoNueva = row.ToInt32("ConsecutivoNueva");
             CodigoPrograma = row.ToString("CodigoPrograma");
