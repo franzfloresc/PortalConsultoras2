@@ -4,6 +4,7 @@ namespace Portal.Consultoras.BizLogic
 {
     public interface IConsultorasProgramaNuevasBusinessLogic
     {
-        BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad);
+        BEConsultorasProgramaNuevas Get(int paisID, BEConsultorasProgramaNuevas entidad);
+        BEConsultorasProgramaNuevas GetByConsultoraIdAndCampania(int paisID, long consultoraId, string campania);
     }
 }
