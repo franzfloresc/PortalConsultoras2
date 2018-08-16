@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Providers
                     var entConf = beConfiguracionOfertasHome;
                     entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
 
-                    string titulo = "", subTitulo = "";
+                    //string titulo = "", subTitulo = "";
 
                     #region Pre Validacion
 
@@ -310,29 +310,29 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        private bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo, string sobreNombre)
-        {
-            var revistaDigital = sessionManager.GetRevistaDigital();
-            if (codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC) return false;
+        //private bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo, string sobreNombre)
+        //{
+        //    var revistaDigital = sessionManager.GetRevistaDigital();
+        //    if (codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC) return false;
 
-            titulo = revistaDigital.TieneRDC
-                ? (revistaDigital.EsActiva || revistaDigital.EsSuscrita)
-                    ? "OFERTAS CLUB GANA+"
-                    : "OFERTAS GANA+"
-                : "";
+        //    titulo = revistaDigital.TieneRDC
+        //        ? (revistaDigital.EsActiva || revistaDigital.EsSuscrita)
+        //            ? "OFERTAS CLUB GANA+"
+        //            : "OFERTAS GANA+"
+        //        : "";
 
-            subtitulo = sobreNombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
+        //    subtitulo = sobreNombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
 
-            if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)
-            {
-                if (revistaDigital.TieneRDC) return false;
+        //    if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+        //    {
+        //        if (revistaDigital.TieneRDC) return false;
 
-                titulo = "MÁS OFERTAS PARA TI " + sobreNombre.ToUpper();
-                subtitulo = "EXCLUSIVAS SÓLO POR WEB";
-            }
+        //        titulo = "MÁS OFERTAS PARA TI " + sobreNombre.ToUpper();
+        //        subtitulo = "EXCLUSIVAS SÓLO POR WEB";
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
     }
 }
