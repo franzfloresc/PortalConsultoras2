@@ -1201,7 +1201,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 ClienteID = pedidoDetalle.ClienteID,
                 OfertaWeb = false,
                 IndicadorMontoMinimo = pedidoDetalle.Producto.IndicadorMontoMinimo,
-                EsSugerido = false,
+                EsSugerido = pedidoDetalle.EsSugerido,
                 EsKitNueva = pedidoDetalle.EsKitNueva,
                 MarcaID = Convert.ToByte(pedidoDetalle.Producto.MarcaID),
                 DescripcionProd = pedidoDetalle.Producto.Descripcion,
