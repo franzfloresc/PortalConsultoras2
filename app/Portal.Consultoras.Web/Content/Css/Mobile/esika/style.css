@@ -6850,7 +6850,7 @@ input[type='checkbox']:checked + span:after {
     width: 19px;
     height: 19px;
     position: relative;
-    right: 15px;
+    right: 20px;
     top: -12px;
     float: right;
 }

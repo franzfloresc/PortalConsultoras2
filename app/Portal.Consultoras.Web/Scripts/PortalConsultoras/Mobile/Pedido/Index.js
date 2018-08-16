@@ -921,43 +921,44 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
     }
 }
 function MostrarMensaje(tipoMensaje, message) {
-    var $divMensaje;
+    var $divMensaje = $('#divMensajeCUV');
+    $divMensaje.find("#btnCerrarMensaje").hide();
+
     switch (tipoMensaje) {
         case "mensajeCUVNoExiste":
-            $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVNoExiste);
             $divMensaje.show();
             break;
         case "mensajeCUVAgotado":
-            $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVAgotado);
             $divMensaje.show();
             break;
         case "mensajeCUVOfertaEspecial":
-             $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_aprobacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVOfertaEspecial);
             $divMensaje.show();
             break;
         case "mensajeCUVLiquidacion":
-             $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVLiquidacion);
             $divMensaje.show();
             break;
         case "mensajeEsExpoOferta":
-            $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html("Producto de ExpoOferta.");
             $divMensaje.show();
             break;
         case "mensajeParametrizableCUV":
+            $divMensaje.find("#btnCerrarMensaje").show();
+            $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
+            $divMensaje.find("#divMensaje").html(message);
+            $divMensaje.show();
+            break;
         case "mensajeCUVCantidadMaxima":
         case "mensajeCUVShowRoom":
         case "mensajeProgramaNuevas":
-            $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
             $divMensaje.find("#divMensaje").html(message);
             $divMensaje.show();
