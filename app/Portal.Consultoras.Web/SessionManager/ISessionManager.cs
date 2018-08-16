@@ -361,10 +361,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         dynamic GetResultadoZona();
 
-        void SetListaEstrategia(List<ServiceOferta.BEEstrategia> val);
-
-        List<ServiceOferta.BEEstrategia> GetListaEstrategia();
-
         void SetListaProductoShowRoomCpc(List<BEShowRoomOferta> val);
 
         List<BEShowRoomOferta> GetListaProductoShowRoomCpc();
