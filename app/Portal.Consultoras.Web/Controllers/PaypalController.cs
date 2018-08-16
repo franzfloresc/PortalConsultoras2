@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                     {
-                        int rpta = sv.InsDatosPago(UserData().PaisID, UserData().CodigoConsultora, UserData().CodigoTerritorio, Monto, NroTarjeta, DateTime.Now, 1);
+                        sv.InsDatosPago(UserData().PaisID, UserData().CodigoConsultora, UserData().CodigoTerritorio, Monto, NroTarjeta, DateTime.Now, 1);
                         return Json(new
                         {
                             success = true,

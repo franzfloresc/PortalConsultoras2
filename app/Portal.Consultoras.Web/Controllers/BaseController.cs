@@ -521,11 +521,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var datos = new List<BETablaLogicaDatos>();
+                List<BETablaLogicaDatos> datos;
                 using (var sv = new SACServiceClient())
                     datos = sv.GetTablaLogicaDatos(userData.PaisID, TablaLogicaID).ToList() ?? new List<BETablaLogicaDatos>();
                 if (datos.Count != 0)
-                    return datos.Where(a => a.Codigo == codigo).ToList().Select(b => b.Valor).FirstOrDefault();
+                    return datos.Where(a => a.Codigo == codigo).Select(b => b.Valor).FirstOrDefault();
                 return "";
             }
             catch (Exception ex)

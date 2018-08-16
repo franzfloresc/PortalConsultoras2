@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<MenuMobileModel> GetMenuMobileModelService(int paisId)
         {
-            List<BEMenuMobile> lstMenuMobile = null;
+            List<BEMenuMobile> lstMenuMobile;
 
             try
             {
@@ -264,10 +264,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, string.Empty, paisId.ToString(), "BaseController.GetMenuMobileModel");
-            }
-            finally
-            {
-                lstMenuMobile = lstMenuMobile ?? new List<BEMenuMobile>();
+                lstMenuMobile = new List<BEMenuMobile>();
             }
 
             return Mapper.Map<List<MenuMobileModel>>(lstMenuMobile);

@@ -251,7 +251,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (var sv = new UsuarioServiceClient())
                     {
-                        var upd = sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoUsuario, nameImage);
+                        sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoUsuario, nameImage);
                     }
 
                     if (!Util.IsUrl(userData.FotoOriginalSinModificar) && !string.IsNullOrEmpty(userData.FotoOriginalSinModificar))
@@ -291,7 +291,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new UsuarioServiceClient())
                 {
-                    var upd = sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoUsuario, null);
+                    sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoUsuario, null);
                 }
 
                 var carpetaPais = Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora];
