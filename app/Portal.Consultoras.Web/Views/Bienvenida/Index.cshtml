@@ -185,7 +185,7 @@
             var marginTopFacturaE = "";
             marginTopFacturaE = verUltmPagos == "1" ? "margin-top: 0px" : marginTopFacturaE;
             var marginTopPagoLinea = Model.TieneFacturacionElectronica == true ? "margin-top: 10px;" : "";
-            @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
+            if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
             {
                 <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
                     href="@Url.Action("Index","PagoEnLinea")" class="btn_paga_online btn_100_paga"
