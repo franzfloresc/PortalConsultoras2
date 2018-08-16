@@ -33,13 +33,13 @@ namespace Portal.Consultoras.Web.Providers
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca)
         {
             string joinCuv = string.Empty;
-            List<BEEstrategiaProducto> listaBeEstrategiaProductos = null;
+            List<BEEstrategiaProducto> listaBeEstrategiaProductos;
             esMultimarca = false;
 
             var userData = sessionManager.GetUserData();
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
-                listaBeEstrategiaProductos = new List<BEEstrategiaProducto>();
+                //listaBeEstrategiaProductos = new List<BEEstrategiaProducto>();
                 string pathComponente = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerComponente,
                         userData.CodigoISO,
                         estrategiaModelo.CampaniaID,
@@ -299,7 +299,7 @@ namespace Portal.Consultoras.Web.Providers
             var listaComponentesTemporal = new List<EstrategiaComponenteModel>();
             listaBeEstrategiaProductos = listaBeEstrategiaProductos.OrderBy(p => p.Grupo).ToList();
 
-            var idPk = 0;
+            //var idPk = 0;
             foreach (var beEstrategiaProducto in listaBeEstrategiaProductos)
             {
                 var componenteModel = new EstrategiaComponenteModel { };
@@ -338,7 +338,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 listaComponentesTemporal.Add(componenteModel);
-                idPk = componenteModel.Id;
+                //idPk = componenteModel.Id;
             }
 
             switch (estrategiaModelo.CodigoVariante)
