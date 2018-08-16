@@ -385,12 +385,19 @@ namespace Portal.Consultoras.Web.Providers
 
         public void NotificarViaEmail(PagoEnLineaModel model, UsuarioModel userData)
         {
-            string template = ObtenerTemplatePagoEnLinea(model, userData.EsLebel);
-            Util.EnviarMail("no-responder@somosbelcorp.com",
-                userData.EMail,
-                "PAGO EN LINEA",
-                template, true,
-                userData.NombreConsultora);
+            try
+            {
+                string template = ObtenerTemplatePagoEnLinea(model, userData.EsLebel, userData.PaisID);
+                Util.EnviarMail("no-responder@somosbelcorp.com",
+                    userData.EMail,
+                    "PAGO EN LINEA",
+                    template, true,
+                    userData.NombreConsultora);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
         }
 
         private string GenerarAutorizacionBotonPagos(int paisId, string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
@@ -493,13 +500,15 @@ namespace Portal.Consultoras.Web.Providers
             return bePagoEnLinea;
         }
 
-        private string ObtenerTemplatePagoEnLinea(PagoEnLineaModel model, bool esLbel)
+        private string ObtenerTemplatePagoEnLinea(PagoEnLineaModel model, bool esLbel, int paisId)
         {
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_pago_en_linea.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
 
+            
             htmlTemplate = htmlTemplate.Replace("#URL_IMAGEN_MARCA#", esLbel ? Constantes.ConfiguracionManager.UrlImagenLbel : Constantes.ConfiguracionManager.UrlImagenEsika);
             htmlTemplate = htmlTemplate.Replace("#COLOR_MARCA#", esLbel ? Constantes.ConfiguracionManager.ColorTemaLbel : Constantes.ConfiguracionManager.ColorTemaEsika);
+            htmlTemplate = htmlTemplate.Replace("#LABEL_CARGO#", paisId == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.CargoplataformaMx : Constantes.PagoEnLineaMensajes.CargoplataformaPe);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NOMBRECOMPLETO#", model.NombreConsultora + " " + model.PrimerApellido);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMEROOPERACION#", model.NumeroOperacion);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAPAGO#", model.FechaCreacionString);

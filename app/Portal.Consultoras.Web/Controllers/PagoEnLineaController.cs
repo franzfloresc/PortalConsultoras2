@@ -39,6 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetDatosPagoVisa(null);
 
             var model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea();
+            ViewBag.PagoEnLineaGastosLabel = userData.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.GastosLabelMx : Constantes.PagoEnLineaMensajes.GastosLabelPe;
 
             return View(model);
         }
@@ -133,6 +134,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return View("PagoRechazado", pago);
 
                     ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcionMx);
+                    ViewBag.PagoEnLineaCargoLabel = userData.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.CargoplataformaMx : Constantes.PagoEnLineaMensajes.CargoplataformaPe;
+
                     return View("PagoExitoso", pago);
                 }
 

@@ -2424,6 +2424,14 @@ namespace Portal.Consultoras.Common
             public const string TransactionType = "AUTHORIZATION_AND_CAPTURE";
         }
 
+        public static class PagoEnLineaMensajes
+        {
+            public const string CargoplataformaPe = "Cargo plataforma online";
+            public const string CargoplataformaMx = "Comisión por transacción";
+            public const string GastosLabelPe = "Gastos Adm.";
+            public const string GastosLabelMx = "Cargo comisión por transacción";
+        }
+
         #endregion
 
         public class PersonalizacionOfertasService

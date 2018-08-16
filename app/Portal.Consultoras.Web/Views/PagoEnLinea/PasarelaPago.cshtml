@@ -90,7 +90,7 @@
                     </div>
                     <div class="grupo_campo_formulario_pasarela_pago">
                         <label class="nom_campo_formulario_pasarela_pago w-100">*Titular de la tarjeta :</label>
-                        @Html.TextBoxFor(m => m.Titular, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "SOFÍA GARCÍA" })
+                        @Html.TextBoxFor(m => m.Titular, new { @class = "campo_formulario_pasarela_pago w-100" })
                         @Html.PagoValidationMessageFor(m => m.Titular)
                     </div>
                     if (visibleFields.Contains(Constantes.PagoEnLineaCampos.FechaNacimiento))
