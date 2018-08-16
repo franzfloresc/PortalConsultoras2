@@ -13,6 +13,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -41,14 +42,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END
@@ -69,6 +70,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -97,14 +99,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END
@@ -125,6 +127,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -153,14 +156,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END
@@ -181,6 +184,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -209,14 +213,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END
@@ -237,6 +241,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -265,14 +270,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END
@@ -293,6 +298,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -321,14 +327,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END
@@ -349,6 +355,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -377,14 +384,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END
@@ -405,6 +412,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -433,14 +441,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END
@@ -461,6 +469,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -489,14 +498,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END
@@ -517,6 +526,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -545,14 +555,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END
@@ -573,6 +583,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -601,14 +612,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END
@@ -629,6 +640,7 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 @CUVOriginal varchar(20),
 @CUVSugerido varchar(20),
 @Aceptado bit,
+@Cantidad int,
 @PrecioUnidad money
 )
 AS
@@ -657,14 +669,14 @@ BEGIN
 		 ,@CUVOriginal
 		 ,@CUVSugerido
 		 ,@Aceptado
-		 ,1
+		 ,@Cantidad
 		 ,@PrecioUnidad
 		 ,@Tipo
 		 ,getdate())
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Tipo = @Tipo, FechaProceso = getdate() 
+		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
 		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
 	END
 END

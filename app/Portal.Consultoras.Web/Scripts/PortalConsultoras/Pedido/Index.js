@@ -293,7 +293,7 @@ $(document).ready(function () {
             return false;
         }
 
-        InsertarDemandaTotalReemplazoSugerido(cuv, true);
+        InsertarDemandaTotalReemplazoSugerido(cuv, precioUnidad, cantidad, true);
 
         var model = {
             CUV: cuv,
@@ -337,9 +337,7 @@ $(document).ready(function () {
 
     });
     $("body").on("click", "[data-close='divProductoAgotadoFinal']", function () {
-        var divPadre = $(this).parents("[data-item='producto']").eq(0);
-        var precioUnidad = $(divPadre).find(".hdSugeridoPrecioUnidad").val();
-        InsertarDemandaTotalReemplazoSugerido(null, false);
+        InsertarDemandaTotalReemplazoSugerido(null, 0, 1, false);
         limpiarInputsPedido();
         
         $("#divProductoAgotadoFinal").hide();
@@ -3547,13 +3545,15 @@ function RedirigirPedidoValidado() {
     }, 3000);
 }
 
-function InsertarDemandaTotalReemplazoSugerido(cuvSugerido, esAceptado) {
+function InsertarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, esAceptado) {
+    var _cuvprecio = esAceptado == true ? precio : DecimalToStringFormat($("#txtPrecioR").val());
     waitingDialog({});
     var model =
         {
             CUV: cuvbuscado,
             CUVSugerido: cuvSugerido,
-            PrecioUnidad: DecimalToStringFormat($("#txtPrecioR").val()),
+            PrecioUnidad: _cuvprecio,
+            Cantidad: cantidad,
             CuvEsAceptado: esAceptado
         };
 
@@ -3567,9 +3567,9 @@ function InsertarDemandaTotalReemplazoSugerido(cuvSugerido, esAceptado) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success) {
-                    if (!esAceptado)
-                        closeWaitingDialog();
+                    if (!esAceptado) closeWaitingDialog();
                 }
+                else closeWaitingDialog();
             }
             else {
                 closeWaitingDialog();

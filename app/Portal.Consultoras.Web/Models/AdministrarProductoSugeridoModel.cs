@@ -24,6 +24,7 @@ namespace Portal.Consultoras.Web.Models
         public int MostrarAgotado { get; set; }
         public int ConsultoraID { get; set; }
         public bool CuvEsAceptado { get; set; }
+        public int Cantidad { get; set; }
         public decimal PrecioUnidad { get; set; }
     }
 }

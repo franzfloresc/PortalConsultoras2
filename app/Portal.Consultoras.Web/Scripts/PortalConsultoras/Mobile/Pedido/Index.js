@@ -222,7 +222,7 @@ $(document).ready(function () {
             return false;
         }
 
-        RegistrarDemandaTotalReemplazoSugerido(cuv, true);
+        RegistrarDemandaTotalReemplazoSugerido(cuv, precioUnidad, cantidad, true);
 
         var model = {
             CUV: cuv,
@@ -421,7 +421,7 @@ function BuscarByCUV(cuv) {
                 CloseLoading();
                 return false;
             }           
-            
+
             $("#txtCantidad").removeAttr("disabled");
             var item = data[0];
             precioCuvBuscado = item.PrecioCatalogo;
@@ -612,7 +612,7 @@ function ObtenerProductosSugeridos(CUV) {
     });
 }
 function CancelarProductosSugeridos() {
-    RegistrarDemandaTotalReemplazoSugerido(null, false);
+    RegistrarDemandaTotalReemplazoSugerido(null, 0, 1, false);
     $("#txtCodigoProducto").val('');
     $("#txtCodigoProducto").trigger("keyup");
 }
@@ -995,13 +995,15 @@ function ProcesarActualizacionMostrarContenedorCupon() {
     }
 }
 
-function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, esAceptado) {
+function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, esAceptado) {
+    var _cuvPrecio = esAceptado == true ? precio : precioCuvBuscado;
     ShowLoading();
     var model =
         {
             CUV: cuvbuscado,
             CUVSugerido: cuvSugerido,
-            PrecioUnidad: precioCuvBuscado,
+            PrecioUnidad: _cuvPrecio,
+            Cantidad: 
             CuvEsAceptado: esAceptado
         };
 
@@ -1015,9 +1017,9 @@ function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, esAceptado) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success) {
-                    if (!esAceptado)
-                        CloseLoading();
+                    if (!esAceptado) CloseLoading();
                 }
+                else CloseLoading();
             }
             else {
                 CloseLoading();

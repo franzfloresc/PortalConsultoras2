@@ -1144,6 +1144,7 @@
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUVSugerido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:int" />
       <xs:element minOccurs="0" name="CuvEsAceptado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />

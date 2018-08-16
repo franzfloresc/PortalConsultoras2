@@ -39,6 +39,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool CuvEsAceptado { get; set; }
         [DataMember]
+        public int Cantidad { get; set; }
+        [DataMember]
         public decimal PrecioUnidad { get; set; }
 
         public BEProductoSugerido(IDataRecord row)
