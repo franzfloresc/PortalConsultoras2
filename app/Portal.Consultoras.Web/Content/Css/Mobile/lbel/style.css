@@ -5210,6 +5210,10 @@ table > thead > tr > th {
     color: black;
 }
 
+.producto_nombre_descripcion.pb-20 {
+    padding-bottom: 20px;
+}
+
     .producto_nombre_descripcion h6 {
         margin: 0;
         padding: 0;
@@ -9362,7 +9366,6 @@ a {
     padding: 11px 11px;
     text-align: left;
     position: relative;
-    top: -5px;
     z-index: 5;
 }
 
@@ -15051,3 +15054,13 @@ span.icon-advertencia {
     color: #ffffff;
 }
 /* FIN STYLE OF AUTOCOMPLETE */
+
+.info_academia{
+    display:block;
+    margin-top:6px;
+    padding:15px;
+}
+
+.info_academia p{
+    margin:0;
+}
