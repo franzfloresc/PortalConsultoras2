@@ -890,5 +890,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.CancelarAtualizacionEmail(paisID, codigoUsuario);
         }
 
+        public List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.listaProductos(paisID,CampaniaID, filas, CodigoDescripcion, regionId, zonaId, codigoRegion, codigoZona);
+        }
     }
 }

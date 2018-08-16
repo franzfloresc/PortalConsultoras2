@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Providers
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path)
+        public async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
         {
             var estrategias = new List<ServiceOferta.BEEstrategia>();
             var httpResponse = await httpClient.GetAsync(path);
@@ -57,9 +57,9 @@ namespace Portal.Consultoras.Web.Providers
                             Orden = Convert.ToInt32(item.orden),
                             Precio = Convert.ToDecimal(item.precio),
                             Precio2 = Convert.ToDecimal(item.precio2),
-                            PrecioString = item.precio2,
-                            PrecioTachado = item.precio,
-                            GananciaString = item.ganancia,
+                            PrecioString = Util.DecimalToStringFormat((decimal)item.precio2, codigoISO),
+                            PrecioTachado = Util.DecimalToStringFormat((decimal)item.precio, codigoISO),
+                            GananciaString = Util.DecimalToStringFormat((decimal)item.ganancia, codigoISO),
                             Ganancia = Convert.ToDecimal(item.ganancia),
                             TextoLibre = item.textoLibre,
                             TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,

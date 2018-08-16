@@ -23,10 +23,11 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetConsultorasProgramaNuevasByConsultoraId(long consultoraId)
+        public IDataReader GetConsultorasProgramaNuevasByConsultoraIdAndCampania(long consultoraId, string campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraProgramaNueva");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraId);
+            Context.Database.AddInParameter(command, "@Campania", DbType.String, campania);
 
             return Context.ExecuteReader(command);
         }
