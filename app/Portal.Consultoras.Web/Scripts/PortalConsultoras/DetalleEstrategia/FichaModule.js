@@ -136,6 +136,8 @@ var FichaModule = (function (config) {
     var _ocultarTabs = function () {
         var estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
+        $(_seccionesFichaProducto.ContenidoProducto).hide();
+        //
         $(_tabsFichaProducto.detalleProducto).hide();
         $(_tabsFichaProducto.detallePack).hide();
         $(_tabsFichaProducto.tipsVenta).hide();
@@ -147,22 +149,28 @@ var FichaModule = (function (config) {
         $(_seccionesFichaTabProducto.ContenidoProductoBeneficios).hide();
         $(_seccionesFichaTabProducto.ContenidoProductoVideo).hide();
 
-
+        var showTabContainer = false;
         if (_codigoPalanca.ShowRoom === _config.palanca ||
             ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
             $(_tabsFichaProducto.tipsVenta).show();
+            showTabContainer = true;
         }
 
         if (_codigoPalanca.Lanzamiento === _config.palanca) {
             if (estrategia.TipoEstrategiaDetalle.UrlVideoDesktop && !isMobile()) {
                 $(_tabsFichaProducto.video).show();
                 $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
+                showTabContainer = true;
             }
             if (estrategia.TipoEstrategiaDetalle.UrlVideoMobile && isMobile()) {
                 $(_tabsFichaProducto.video).show();
                 $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
+                showTabContainer = true;
             }
         }
+
+        if (showTabContainer) $(_seccionesFichaProducto.ContenidoProducto).show();
+
     };
 
     var _crearTabs = function () {
@@ -540,6 +548,7 @@ var FichaModule = (function (config) {
     };
 
     function Inicializar() {
+        
         _localStorageModule = LocalStorageModule();
         _construirSeccionEstrategia();
         _ocultarSecciones();
@@ -547,6 +556,7 @@ var FichaModule = (function (config) {
         _crearTabs();
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
+        
     }
 
     return {

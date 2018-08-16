@@ -177,7 +177,7 @@
     }
 </div>
 
-<div class="container" id="ContenidoProducto">
+<div class="container" id="ContenidoProducto" style="display:none;">
     <div class="row tabs">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <ul class="tabs ficha_tabs">
@@ -306,14 +306,16 @@ else
     @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
 
     <script>
+        AbrirLoad();
+
         window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
         var carruselModule;
 
         var tieneCarrusel = '@Model.TieneCarrusel';
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new {area = ""})';
-        $(document).ready(function () {
 
+        $(document).ready(function () {
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
                 origen: "@Model.OrigenUrl",
@@ -323,8 +325,10 @@ else
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new {area = ""})'
             });
             fichaModule.Inicializar();
+            //CerrarLoad();
 
             if (tieneCarrusel) {
+                //AbrirLoad();
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
@@ -339,6 +343,11 @@ else
                 });
                 carruselModule.Inicializar();
             };
+            CerrarLoad();
         });
+
+        $(document).ajaxStop(function () {
+            //CerrarLoad();
+        })
     </script>
 }
