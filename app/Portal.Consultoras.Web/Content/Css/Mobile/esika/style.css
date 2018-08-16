@@ -6841,10 +6841,19 @@ input[type='checkbox']:checked + span:after {
     right: 0;
     float: right;
 }
-
     .cerrar_popMobile img {
         width: 100%;
     }
+
+.cerrar_mensajeMobile {
+    cursor: pointer;
+    width: 19px;
+    height: 19px;
+    position: relative;
+    right: 15px;
+    top: -12px;
+    float: right;
+}
 
 .draw_close {
     position: relative;
