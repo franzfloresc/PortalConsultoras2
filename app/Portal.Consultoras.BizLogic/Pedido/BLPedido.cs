@@ -149,27 +149,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        //private void LogPerformance(string mensaje)
-        //{
-            //var pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log\\";
-            //if (!System.IO.Directory.Exists(pathFile)) System.IO.Directory.CreateDirectory(pathFile);
-            //string path = string.Format("{0}LogPerformance_{1}_{2}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"), nombreServicio);
-            //using (var stream = new System.IO.StreamWriter(path, true))
-            //{
-            //    if (string.IsNullOrEmpty(mensaje))
-            //    {
-            //        stream.WriteLine(string.Empty);
-            //    }
-            //    else
-            //    {
-            //        if(string.IsNullOrEmpty(cuvBuscar))
-            //            stream.WriteLine(string.Format("{0} => {1}", DateTime.Now.ToString("HH:mm:ss.fff"), mensaje));
-            //        else
-            //            stream.WriteLine(string.Format("{0} => {1} => {2}", DateTime.Now.ToString("HH:mm:ss.fff"), cuvBuscar, mensaje));
-            //    }
-            //}
-        //}
-
         public BEPedidoDetalleResult Insert(BEPedidoDetalle pedidoDetalle)
         {
             var mensaje = string.Empty;
@@ -1376,18 +1355,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             return detallesPedidoWeb;
         }
-
-        //private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(BEUsuario usuario, string codigoPrograma)
-        //{
-        //    var obeConsultorasProgramaNuevas = new BEConsultorasProgramaNuevas
-        //    {
-        //        CodigoConsultora = usuario.CodigoConsultora,
-        //        Campania = usuario.CampaniaID.ToString(),
-        //        CodigoPrograma = codigoPrograma
-        //    };
-
-        //    return _consultorasProgramaNuevasBusinessLogic.Get(usuario.PaisID, obeConsultorasProgramaNuevas);
-        //}
 
         #endregion
 

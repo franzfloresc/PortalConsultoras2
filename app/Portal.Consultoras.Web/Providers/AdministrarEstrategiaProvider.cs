@@ -93,9 +93,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             Dictionary<string, int> iCantidadOfertas = new Dictionary<string, int> { { "CUV_ZE", -1 }, { "CUV_OP", -1 } };
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCantidadOfertas, pais, tipoCodigo, campania);
-
-            //string jsonParameters = "?tipo=" + tipoCodigo + "&campania=" + campania + "&pais=" + pais;
-
+            
             var taskApi = Task.Run(() => RespSBMicroservicios("", requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -178,7 +176,7 @@ namespace Portal.Consultoras.Web.Providers
                 jsonParameters += "tieneImagen=" + (imagen == -1 ? "" : imagen == 1 ? "true" : "false");
             }
             var userData = sessionManager.GetUserData();
-            //entidad.Imagen
+
             if (jsonParameters != string.Empty)
             {
                 jsonParameters = string.Format("?{0}", jsonParameters);
@@ -195,7 +193,7 @@ namespace Portal.Consultoras.Web.Providers
             if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
-                //mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
+
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;
@@ -236,7 +234,7 @@ namespace Portal.Consultoras.Web.Providers
             if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
-                //mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
+
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;
@@ -364,12 +362,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParametersActivas = JsonConvert.SerializeObject(estrategiasActivas);
-            //string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarEstrategias, pais, usuario);
-            //var taskApi = Task.Run(() => RespSBMicroservicios(jsonParametersActivas, requestUrl, "put", userData));
-            //Task.WhenAll(taskApi);
-            //string content = taskApi.Result;
-            //bool activarResponse = !string.IsNullOrEmpty(content) && content.Equals("true");
-
+            
             string jsonParametersInactivas = JsonConvert.SerializeObject(estrategiasInactivas);
             string parametros = "{activar:" + jsonParametersActivas + ", desactivar:" +jsonParametersInactivas+ ", usuario: \"" + usuario + "\"}";
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarDesactivarEstrategias, pais,tipo);
@@ -485,7 +478,7 @@ namespace Portal.Consultoras.Web.Providers
             if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
-                //mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
+
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;

@@ -545,10 +545,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     PaisId = userData.PaisID
                 },
-                //new NotSamePhoneValidator
-                //{
-                //    OriginalPhone = userData.Celular
-                //},
                 new NotExistingPhone
                 {
                     PaisId = userData.PaisID,
