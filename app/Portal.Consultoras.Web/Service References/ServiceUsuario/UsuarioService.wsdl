@@ -294,6 +294,12 @@
   <wsdl:message name="IUsuarioService_CancelarAtualizacionEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:CancelarAtualizacionEmailResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_listaProductos_InputMessage">
+    <wsdl:part name="parameters" element="tns:listaProductos" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_listaProductos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listaProductosResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
   </wsdl:message>
@@ -976,6 +982,10 @@
     <wsdl:operation name="CancelarAtualizacionEmail">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CancelarAtualizacionEmail" message="tns:IUsuarioService_CancelarAtualizacionEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CancelarAtualizacionEmailResponse" message="tns:IUsuarioService_CancelarAtualizacionEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listaProductos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/listaProductos" message="tns:IUsuarioService_listaProductos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/listaProductosResponse" message="tns:IUsuarioService_listaProductos_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -1700,6 +1710,15 @@
     </wsdl:operation>
     <wsdl:operation name="CancelarAtualizacionEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/CancelarAtualizacionEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listaProductos">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/listaProductos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2856,6 +2875,15 @@
     </wsdl:operation>
     <wsdl:operation name="CancelarAtualizacionEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/CancelarAtualizacionEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listaProductos">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/listaProductos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

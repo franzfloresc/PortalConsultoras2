@@ -1387,7 +1387,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 CodigoPrograma = codigoPrograma
             };
 
-            return _consultorasProgramaNuevasBusinessLogic.GetConsultorasProgramaNuevas(usuario.PaisID, obeConsultorasProgramaNuevas);
+            return _consultorasProgramaNuevasBusinessLogic.Get(usuario.PaisID, obeConsultorasProgramaNuevas);
         }
 
         #endregion

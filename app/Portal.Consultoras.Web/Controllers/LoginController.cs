@@ -1766,10 +1766,12 @@ namespace Portal.Consultoras.Web.Controllers
                 var herramientasVentaModel = new HerramientasVentaModel();
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
+                var buscadorYFiltrosModel = new BuscadorYFiltrosModel();
 
                 if (configuracionesPaisModels.Any())
                 {
                     var configuracionPaisDatosAll = await GetConfiguracionPaisDatos(usuarioModel);
+
                     foreach (var c in configuracionesPaisModels)
                     {
                         var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList();
@@ -1834,6 +1836,9 @@ namespace Portal.Consultoras.Web.Controllers
                                 herramientasVentaModel.TieneHV = true;
                                 herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel, configuracionPaisDatos);
                                 break;
+                            case Constantes.ConfiguracionPais.BuscadorYFiltros:
+                                buscadorYFiltrosModel = ConfiguracionPaisBuscadorYFiltro(buscadorYFiltrosModel, configuracionPaisDatos);
+                                break;
                         }
 
                         listaConfiPaisModel.Add(c);
@@ -1850,6 +1855,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetConfiguracionesPaisModel(listaConfiPaisModel);
                     sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                     sessionManager.SetHerramientasVenta(herramientasVentaModel);
+                    sessionManager.SetBuscadorYFiltros(buscadorYFiltrosModel);
                 }
 
                 usuarioModel.CodigosRevistaImpresa = await ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
@@ -1971,6 +1977,12 @@ namespace Portal.Consultoras.Web.Controllers
                     new List<ConfiguracionPaisDatosModel>();
 
             return herramientasVentaModel;
+        }
+
+        public virtual BuscadorYFiltrosModel ConfiguracionPaisBuscadorYFiltro(BuscadorYFiltrosModel buscadorYFiltrosModel, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            buscadorYFiltrosModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
+            return buscadorYFiltrosModel;
         }
 
         public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalIntriga(RevistaDigitalModel revistaDigital, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
