@@ -6,7 +6,7 @@
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
-    
+
     bool esIngresoUnico = ViewContext.EsIngresoUnico();
 }
 
@@ -118,6 +118,7 @@
 
     <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
         <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
+
             <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
             <span id="spanNumeroPedidoOnline1" class="alert-number"></span>
             <div class="alert-text upper center-min">TIENES <span id="spanNumeroPedidoOnline2">0</span> NUEVOS PEDIDOS DE CONSULTORA ONLINE</div>
@@ -164,11 +165,11 @@
                     @*<img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />*@
                     <img src="@Url.Content("~/Content/Images/mobile/icono-menu-mobile.svg")" id="ic_menu" class="icon-menu" alt="Menú" />
                 </div>
-                <div class="col-xs-4 text-center">
+                <div class="col-xs-3 text-center">
                     <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
                        class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
                 </div>
-                <div class="col-xs-4 text-right">
+                <div class="col-xs-5 text-right">
                     <div class="menu-shop">
                         <div class="contenedor_circulos">
                             <div class="circulo-1 iniciarTransicion"></div>
@@ -184,6 +185,19 @@
                            class="campana_mobile" href="@Url.Action("Index", "Notificaciones", new { area="Mobile" })" style="margin-left: -15px;">
                             <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
                         </a>
+
+                        @if (ViewBag.MostrarBuscadorYFiltros == true)
+                        {
+                            <a role="link" region="Superior" parent="Buscador" title="Buscador"
+                               class="campana_mobile" href="@Url.Action("Index", "Buscador", new { area = "Mobile" })" style="margin-right: 20px;">
+                                <div role="link" region="Superior" parent="Buscador" title="Buscador" class="icono_busqueda_mobile">
+                                    <img src="@Url.Content("~/Content/Images/icono_lupa.png")" alt="Buscar" />
+                                    @*<i class="fa fa-search fa-sm"></i>*@
+                                </div>
+                            </a>
+                        }
+
+
                     </div>
                 </div>
             </div>
