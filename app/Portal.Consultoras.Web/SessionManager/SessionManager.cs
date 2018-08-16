@@ -1253,5 +1253,15 @@ namespace Portal.Consultoras.Web.SessionManager
             if (val == null) { return false; }
             return (bool)val;
         }
+
+        public void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel)
+        {
+            HttpContext.Current.Session["BuscadorYFiltros"] = buscadorYFiltrosModel;
+        }
+
+        public BuscadorYFiltrosModel GetBuscadorYFiltros()
+        {
+            return ((BuscadorYFiltrosModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosModel();
+        }
     }
 }

@@ -216,7 +216,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
             height: "auto",
             title: "Details",
             closeOnScape: false,
-            draggable: true
+            draggable: true,
+            position: 'top'
         };
 
         $("#" + divId)
@@ -606,6 +607,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.regaloEditar = function (regalo) {
+            
             showDialog(settings.idDivPopUpRegalo);
             selfvm.regaloSeleccionado(regalo);
             selfvm.regaloSeleccionado().CUV.setCurrentValueAsOriginal();

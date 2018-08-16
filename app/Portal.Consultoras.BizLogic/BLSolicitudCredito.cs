@@ -492,16 +492,19 @@
             {
                 var item = string.Empty;
 
-                if (row.Table.Columns.Contains(field.FieldName))
+                if (!row.Table.Columns.Contains(field.FieldName))
                 {
-                    if (row[field.FieldName] != DBNull.Value)
+                    txtBuil.Append(item.PadRight(field.Size));
+                    continue;
+                }
+                
+                if (row[field.FieldName] != DBNull.Value)
+                {
+                    if (row[field.FieldName].ToString().Length > field.Size)
                     {
-                        if (row[field.FieldName].ToString().Length > field.Size)
-                        {
-                            row[field.FieldName] = row[field.FieldName].ToString().Substring(0, field.Size);
-                        }
-                        item = row[field.FieldName].ToString();
+                        row[field.FieldName] = row[field.FieldName].ToString().Substring(0, field.Size);
                     }
+                    item = row[field.FieldName].ToString();
                 }
 
                 txtBuil.Append(item.PadRight(field.Size));

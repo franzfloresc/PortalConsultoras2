@@ -39,23 +39,18 @@ namespace Portal.Consultoras.Entities.Cliente
         /// <summary>
         /// Inicializa el objeto a partir del DataRecord
         /// </summary>
-        /// <param name="datarec"></param>
-        public BEClienteRecordatorio(IDataRecord datarec)
+        /// <param name="row"></param>
+        public BEClienteRecordatorio(IDataRecord row)
         {
-            if (datarec.HasColumn("ClienteRecordatorioId"))
-                ClienteRecordatorioId = datarec.GetValue<int>("ClienteRecordatorioId");
+                ClienteRecordatorioId = row.GetColumn<int>("ClienteRecordatorioId");
 
-            if (datarec.HasColumn("ClienteId"))
-                ClienteId = datarec.GetValue<short>("ClienteId");
+                ClienteId = row.GetColumn<short>("ClienteId");
 
-            if (datarec.HasColumn("Descripcion"))
-                Descripcion = datarec.GetValue<string>("Descripcion");
+                Descripcion = row.GetColumn<string>("Descripcion");
 
-            if (datarec.HasColumn("Fecha"))
-                Fecha = datarec.GetValue<DateTime>("Fecha");
+                Fecha = row.GetColumn<DateTime>("Fecha");
 
-            if (datarec.HasColumn("ConsultoraId"))
-                ConsultoraId = datarec.GetValue<long>("ConsultoraId");
+                ConsultoraId = row.GetColumn<long>("ConsultoraId");
         }
     }
 }

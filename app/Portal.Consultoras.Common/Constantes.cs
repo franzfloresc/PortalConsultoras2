@@ -52,6 +52,7 @@ namespace Portal.Consultoras.Common
             public const string UrlPart02 = "/jpg/page_1_thumb_small.jpg";
             public const string UrlPart03 = "/jpg/page_1_thumb_medium.jpg";
             public const string UrlPart02Alternativo = "/jpg/page_1.jpg";
+           
         }
 
         public static class EstadoPedido
@@ -230,6 +231,10 @@ namespace Portal.Consultoras.Common
             public const string NotParticipaProgramaNuevas = "0";
         }
 
+        public static class EstadoRespuestaServicio {
+            public const string Success = "OK";
+            public const string Error = "ERROR";
+        }
         public static class NombrePalanca
         {
             public const string OfertaParaTi = "OfertaParaTi";
@@ -452,7 +457,8 @@ namespace Portal.Consultoras.Common
             public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
             public const string Catalogo_Marca_Piloto = "Catalogo_Marca_Piloto_";
             public const string SubGuion = "_";
-
+            public const string estrategiaWebApiDisponibilidadTipo = "EstrategiaDisponibleMicroservicioPersonalizacion";
+            public const string paisesMicroservicioPersonalizacion = "PaisesMicroservicioPersonalizacion";
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
@@ -785,7 +791,12 @@ namespace Portal.Consultoras.Common
 
             #region Programa de Nuevas
             public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";
-            #endregion  
+            #endregion
+
+            #region Busqueda y filtros
+            public const int DesktopBuscador = 19;
+            public const int MobileBuscador = 29;
+            #endregion
         }
 
         public static class TipoTutorial
@@ -1057,6 +1068,7 @@ namespace Portal.Consultoras.Common
             public const string CatalogoPersonalizado = "FDTC";
             public const string PedidoFIC = "PedidoFIC";
             public const string ContenedorOfertas = "ContenedorOfertas";
+            public const string LiquidacionWeb = "LiquidacionWeb";
         }
 
         public static class MenuMobileId
@@ -1218,9 +1230,10 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "GND";
             public const string HerramientasVenta = "HV";
             public const string PagoEnLinea = "PAYONLINE";
+            public const string BuscadorYFiltros = "B&F";
         }
 
-        
+
         public static class ConfiguracionPaisComponente
         {
             public static class RD
@@ -1999,7 +2012,7 @@ namespace Portal.Consultoras.Common
             public const string Error = "Error";
         }
 
-        public static class PedidoAppValidacion
+        public static class PedidoValidacion
         {
             private static Dictionary<string, string> _Message;
             public static class Code
@@ -2036,6 +2049,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_RESERVA_MONTO_MAX = "2015";
                 public const string ERORR_RESERVA_NO_DISP = "2016";
                 public const string ERROR_RESERVA_DEUDA = "2017";
+                public const string ERROR_RESERVA_BACK_ORDER = "2018";
 
                 public const string ERROR_GUARDAR_NINGUNO = "2020";
                 public const string SUCCESS_GUARDAR = "2021";
@@ -2087,6 +2101,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_RESERVA_MONTO_MAX, "Pedido no reservado, excede monto máximo." },
                         {Code.ERORR_RESERVA_NO_DISP, "Reserva no disponible." },
                         {Code.ERROR_RESERVA_DEUDA, "Pedido no reservado, deuda pendiente." },
+                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?"},
 
                         {Code.ERROR_GUARDAR_NINGUNO, "El pedido no se guardó." },
                         {Code.SUCCESS_GUARDAR, "Pedido guardado." },
@@ -2174,7 +2189,7 @@ namespace Portal.Consultoras.Common
         {
             public const int OrigenOlvideContrasenia = 1;
             public const int OrigenVericacionAutenticidad = 2;
-            public const int OrigenActulizarDatos = 3;            
+            public const int OrigenActulizarDatos = 3;
         }
 
         public class CambioCorreoResult
@@ -2182,7 +2197,7 @@ namespace Portal.Consultoras.Common
             public const string Valido = "Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.";
             public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
-        
+
         public class EnviarCorreoYSms
         {
             public const string Activo = "Activo";
@@ -2242,7 +2257,7 @@ namespace Portal.Consultoras.Common
                 //public const string OrigenEnvioDesconocido = "Origen de envío desconocido.";
                 //public const string EnvioCorreoExitoso = "Te hemos enviado un enlace a tu correo, para restaurar tu clave.";
                 //public const string EnvioSmsExitoso = "Mensaje de texto enviado correctamente";
-            }            
+            }
         }
         #endregion
 
@@ -2269,8 +2284,8 @@ namespace Portal.Consultoras.Common
                 public const int MostrarChat = 4;
 
                 public const int SinOpcion = 5;
-            }           
-            
+            }
+
             public const int Origen = 2;
         }
 
@@ -2319,7 +2334,7 @@ namespace Portal.Consultoras.Common
             public const string Pendiente = "P";
             public const string Activo = "A";
         }
-        
+
         public class TipoConsultaOfertaPersonalizadas
         {
             public const int RDObtenerProductos = 1;
@@ -2329,5 +2344,79 @@ namespace Portal.Consultoras.Common
             public const int OPTObtenerProductos = 5;
         };
 
+        public class PersonalizacionOfertasService
+        {
+            #region Administrar Estrategia
+            //api/Estrategia/listar/{pais}/{tipo}/{campania}
+            public const string UrlListarWebApi = "api/estrategia/listar/{0}/{1}/{2}";
+
+            //api/Estrategia/contar/{pais}/{tipo}/{campania}
+            public const string UrlCantidadOfertas = "api/estrategia/contar/{0}/{1}/{2}";
+
+            //api/Estrategia/precargar/{pais}/{tipo}/{campania}
+            public const string UrlPreCargarWebApi = "api/estrategia/precargar/{0}/{1}/{2}";
+
+            //api/Estrategia/cargar/{pais}
+            public const string UrlCargarWebApi = "api/estrategia/cargar/{0}?usuario={1}";
+
+            //api/Estrategia/{pais}/{id} --REVISAR
+            public const string UrlFiltrarEstrategia = "api/estrategia/{0}/{1}";
+
+            //api/Estrategia/editar/{pais}
+            public const string UrlEditarWebApi = "api/estrategia/editar/{0}?prod={1}&perfil={2}";
+
+            //api/Estrategia/deshabilitar/{pais}/{id}?Usuario=           
+            public const string UrlDesactivarWebApi = "api/estrategia/deshabilitar/{0}/{1}?Usuario={2}";
+
+            //api/Estrategia/desactivar/{pais}/{tipo}
+            public const string UrlActivarDesactivarEstrategias = "api/estrategia/activardesactivar/{0}/{1}";
+
+            //api/Estrategia/descripcion/{pais}/{tipo}/{campania}
+            public const string UrlUploadCsv = "api/estrategia/descripcion/{0}/{1}/{2}";
+                                                
+            //api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
+            public const string UrlEstrategiaCuv = "api/estrategia/cuv/{0}/{1}/{2}/{3}";
+
+            //api/Estrategia/registrar/{pais}
+            public const string UrlRegistrarWebApi = "api/estrategia/registrar/{0}";
+
+            //api/TipoEstrategia/editar/{pais}
+            public const string UrlEditarTipoEstrategiaWebApi = "api/tipo/editar/{0}";
+
+            //api/TipoEstrategia/registrar/{pais}
+            public const string UrlRegistrarTipoEstrategiaWebApi = "api/tipo/registrar/{0}";
+
+            //api/Estrategia/multiple/{pais}
+            public const string UrlListarEstrategiaPorConfigurarWebApi = "api/Estrategia/multiple/{0}";
+            #endregion
+
+            #region Oferta
+            //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
+            public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
+
+            ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}
+            public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}";
+
+            //api/Componente/{pais}/{codigoCampania}/{cuv}
+            public const string UrlObtenerComponente = "api/Componente/{0}/{1}/{2}";
+
+            #endregion
+        }
+
+        public class FacturacionElectronica
+        {
+            public const short TablaLogicaID = 9;
+            public const string FlagActivacion = "01";
+            public const string Url = "02";
+            public const string Parametros = "03";
+            public const string PaisesConfigurables = "CO;CR;GT;MX";
+        }
+        public class TipoConfiguracionBuscador
+        {
+            public const string MostrarBuscador = "MostrarBuscador";
+            public const string CaracteresBuscador = "CaracteresBuscador";
+            public const string CaracteresBuscadorMostrar = "CaracteresBuscadorMostrar";
+            public const string TotalResultadosBuscador = "TotalResultadosBuscador";
+        }
     }
 }

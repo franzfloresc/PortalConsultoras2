@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -9,19 +10,19 @@ namespace Portal.Consultoras.Entities
     {
         public BEDupla(IDataRecord row)
         {
-            CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            Nombre = Convert.ToString(row["Nombre"]);
-            SegundoNombre = Convert.ToString(row["SegundoNombre"]);
-            ApellidoPaterno = Convert.ToString(row["ApellidoPaterno"]);
-            ApellidoMaterno = Convert.ToString(row["ApellidoMaterno"]);
-            Sobrenombre = Convert.ToString(row["Sobrenombre"]);
-            FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"]);
-            eMail = Convert.ToString(row["eMail"]);
-            Sexo = Convert.ToString(row["Sexo"]);
-            Telefono = Convert.ToString(row["Telefono"]);
-            Celular = Convert.ToString(row["Celular"]);
-            Direccion = Convert.ToString(row["Direccion"]);
-            Activo = Convert.ToBoolean(row["Activo"]);
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            Nombre = row.ToString("Nombre");
+            SegundoNombre = row.ToString("SegundoNombre");
+            ApellidoPaterno = row.ToString("ApellidoPaterno");
+            ApellidoMaterno = row.ToString("ApellidoMaterno");
+            Sobrenombre = row.ToString("Sobrenombre");
+            FechaNacimiento = row.ToDateTime("FechaNacimiento");
+            eMail = row.ToString("eMail");
+            Sexo = row.ToString("Sexo");
+            Telefono = row.ToString("Telefono");
+            Celular = row.ToString("Celular");
+            Direccion = row.ToString("Direccion");
+            Activo = row.ToBoolean("Activo");
         }
 
         [DataMember]

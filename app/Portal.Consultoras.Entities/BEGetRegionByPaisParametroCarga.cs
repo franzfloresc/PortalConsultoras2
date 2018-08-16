@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -21,8 +22,8 @@ namespace Portal.Consultoras.Entities
 
         public BEGetRegionByPaisParametroCarga(IDataRecord row)
         {
-            RegionID = Convert.ToInt32(row["RegionID"]);
-            Codigo = Convert.ToString(row["Codigo"]);
+            RegionID = row.ToInt32("RegionID");
+            Codigo = row.ToString("Codigo");
         }
 
     }

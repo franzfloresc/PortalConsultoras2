@@ -38,6 +38,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string DesTipoRegistro { get; set; }
 
+        [DataMember]
+        public bool? MuestraPopup { get; set; }
+
+        [DataMember]
+        public decimal? MontoInicial { get; set; }
+
         public BEOfertaFinalConsultoraLog()
         {
 

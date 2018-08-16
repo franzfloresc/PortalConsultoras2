@@ -122,24 +122,24 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
 
         public BEUsuarioDatos(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoUsuario"))
-                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "PrimerNombre"))
-                PrimerNombre = Convert.ToString(row["PrimerNombre"]);
-            if (DataRecord.HasColumn(row, "IdEstadoActividad"))
-                IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
-            if (DataRecord.HasColumn(row, "Celular"))
-                Celular = Convert.ToString(row["Celular"]);
-            if (DataRecord.HasColumn(row, "Correo"))
-                Correo = Convert.ToString(row["Correo"]);
-            if (DataRecord.HasColumn(row, "ZonaID"))
-                ZonaID = Convert.ToInt32(row["ZonaID"]);
-            if (DataRecord.HasColumn(row, "RegionID"))
-                RegionID = Convert.ToInt32(row["RegionID"]);
+            
+                CodigoUsuario = row.ToString("CodigoUsuario");
+            
+                CodigoConsultora = row.ToString("CodigoConsultora");
+            
+                Cantidad = row.ToInt32("Cantidad");
+            
+                PrimerNombre = row.ToString("PrimerNombre");
+            
+                IdEstadoActividad = row.ToInt32("IdEstadoActividad");
+            
+                Celular = row.ToString("Celular");
+            
+                Correo = row.ToString("Correo");
+            
+                ZonaID = row.ToInt32("ZonaID");
+            
+                RegionID = row.ToInt32("RegionID");
         }
     }
 }
