@@ -80,13 +80,17 @@ namespace Portal.Consultoras.Web.Providers
 
                         //entConf.MobileTitulo = titulo;
                         //entConf.MobileSubTitulo = subTitulo;
+                        
+                        if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC)
+                            continue;
 
                         if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
                         {
+                            if (revistaDigital.TieneRDC) continue;
+
                             entConf.MobileCantidadProductos = 0;
                             entConf.DesktopCantidadProductos = 0;
                         }
-
                     }
                     else if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
                     {
