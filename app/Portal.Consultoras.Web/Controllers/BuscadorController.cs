@@ -92,9 +92,9 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(ListaProductosModel, JsonRequestBehavior.AllowGet);
         }
 
-        private List<BuscadorYFiltrosModel> Data()
-        {
-            return new List<BuscadorYFiltrosModel>();
-        }
+        //private List<BuscadorYFiltrosModel> Data()
+        //{
+        //    return new List<BuscadorYFiltrosModel>();
+        //}
     }
 }

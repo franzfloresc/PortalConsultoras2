@@ -1345,9 +1345,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ).ToList();
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
-                MemoryStream workbook = new MemoryStream();
-
-                workbook = ExcelExportHelper.ExportarExcel("Reporte_GestionaPostulante", "GestionaPostulante", dic, solicitudes);
+                MemoryStream workbook = ExcelExportHelper.ExportarExcel("Reporte_GestionaPostulante", "GestionaPostulante", dic, solicitudes);
                 string saveAsFileName = "Reporte_GestionaPostulante" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".xlsx";
 
                 return File(workbook.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("{0}", saveAsFileName));
