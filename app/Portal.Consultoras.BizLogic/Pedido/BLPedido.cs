@@ -715,10 +715,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     });
                 }
 
-                if (resultadoReserva.ListPedidoObservacion.Count > 0) {
-                    var pedido = Get(usuario);
-                    resultadoReserva.ListPedidoObservacion = ObtenerListPedidoObservacionPorDetalle(pedido, resultadoReserva.ListPedidoObservacion, 
-                        usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID, pedido.PedidoID);
+                if (resultadoReserva.ListPedidoObservacion.Count > 0) {                    
+                    int pedidoID = 0;
+                    var lstDetalle = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+                    resultadoReserva.ListPedidoObservacion = ObtenerListPedidoObservacionPorDetalle(lstDetalle, resultadoReserva.ListPedidoObservacion, 
+                        usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID, pedidoID);
                 }
 
                 var obsPedido = ObtenerMensajePROLAnalytics(resultadoReserva.ListPedidoObservacion);
@@ -1642,18 +1643,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private List<BEPedidoWebDetalle> TraerHijosFaltantesEnObsPROL(List<BEPedidoWebDetalle> pedido, int paisId, int campaniaId, long consultoraId, int pedidoId)
         {
-            var idSetList = pedido.Where(x => x.SetID != 0).Select(x => x.SetID).ToList();
+            var idSetList = pedido.Where(x => x.SetID != 0).Select(x => x.SetID);
             var cuvHijos = new List<BEPedidoWebDetalle>();
-
             if (idSetList.Any())
             {
-                cuvHijos = _pedidoWebDetalleBusinessLogic.ObtenerCuvSetDetalle(paisId, campaniaId, consultoraId, pedidoId, String.Join(",", idSetList)).ToList();
+                cuvHijos = _pedidoWebDetalleBusinessLogic.ObtenerCuvSetDetalle(paisId, campaniaId, consultoraId, pedidoId, string.Join(",", idSetList));
             }
-
             return cuvHijos;
         }
 
-        private List<BEPedidoObservacion> ObtenerListPedidoObservacionPorDetalle(BEPedidoWeb pedido, List<BEPedidoObservacion> listPedidoObservacion, int paisId, int campaniaId, long consultoraId, int pedidoId)
+        private List<BEPedidoObservacion> ObtenerListPedidoObservacionPorDetalle(List<BEPedidoWebDetalle> pedidoDetalle, List<BEPedidoObservacion> listPedidoObservacion, int paisId, int campaniaId, long consultoraId, int pedidoId)
         {
             List<BEPedidoObservacion> ListPedidoObservacion = new List<BEPedidoObservacion>();
             ListPedidoObservacion = listPedidoObservacion
@@ -1662,7 +1661,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                          .ToList();
 
             List<BEPedidoObservacion> obsSets = new List<BEPedidoObservacion>();
-            var detallesSets = TraerHijosFaltantesEnObsPROL(pedido.olstBEPedidoWebDetalle, paisId, campaniaId, consultoraId, pedidoId);
+            var detallesSets = TraerHijosFaltantesEnObsPROL(pedidoDetalle, paisId, campaniaId, consultoraId, pedidoId);
             if (detallesSets.Count > 0)
             {
                 var listaCUVsAEvaluar = detallesSets.Select(e => e.CUV).ToList();
@@ -1670,7 +1669,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 obsSets = detallesSets.Join(obsDetSets, d => d.CUV, o => o.CUV,
                     (d, o) => new BEPedidoObservacion()
                     {
-                        CUV = pedido.olstBEPedidoWebDetalle.Where(e => e.SetID == d.SetID).Select(e => e.CUV).FirstOrDefault(),
+                        CUV = pedidoDetalle.Where(e => e.SetID == d.SetID).Select(e => e.CUV).FirstOrDefault(),
                         Caso = o.Caso,
                         CuvObs = o.CUV,
                         Descripcion = o.Descripcion,
@@ -1681,7 +1680,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if (ListPedidoObservacion.Count > 0)
             {
                 var listaObsAEvaluar = ListPedidoObservacion;
-                var obsDet = pedido.olstBEPedidoWebDetalle.Join(listaObsAEvaluar, d => d.CUV, o => o.CUV,
+                var obsDet = pedidoDetalle.Join(listaObsAEvaluar, d => d.CUV, o => o.CUV,
                      (d, o) => new BEPedidoObservacion()
                      {
                          CUV = d.CUV,

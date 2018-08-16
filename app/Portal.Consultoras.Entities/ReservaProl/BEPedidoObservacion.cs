@@ -27,17 +27,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
             CUV = cuv;
             Descripcion = descripcion;
             CuvObs = cuvObs;
-        }
-        public BEPedidoObservacion(int tipo, int caso, string cuv, string descripcion, string cuvObs, int setID, int pedidoDetalleID)
-        {
-            Tipo = tipo;
-            Caso = caso;
-            CUV = cuv;
-            Descripcion = descripcion;
-            CuvObs = cuvObs;
-            SetID = setID;
-            PedidoDetalleID = pedidoDetalleID;
-        }
+        }        
         public BEPedidoObservacion(BEPedidoObservacion pedidoObs)
         {
             Tipo = pedidoObs.Tipo;
@@ -45,8 +35,6 @@ namespace Portal.Consultoras.Entities.ReservaProl
             CUV = pedidoObs.CUV;
             Descripcion = pedidoObs.Descripcion;
             CuvObs = pedidoObs.CuvObs;
-            SetID = pedidoObs.SetID;
-            PedidoDetalleID = pedidoObs.PedidoDetalleID;
         }
     }
 }
