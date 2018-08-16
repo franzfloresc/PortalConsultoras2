@@ -774,6 +774,7 @@
     <Compile Include="Providers\LogDynamoProvider.cs" />
     <Compile Include="Providers\ChatEmtelcoProvider.cs" />
     <Compile Include="Providers\ProductoFaltanteProvider.cs" />
+    <Compile Include="Providers\ComunicadoProvider.cs" />
     <Compile Include="Providers\ZonificacionProvider.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -1382,6 +1383,7 @@
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
     <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
+    <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Site\RevistaDigital\ConfirmarDatos.css" />

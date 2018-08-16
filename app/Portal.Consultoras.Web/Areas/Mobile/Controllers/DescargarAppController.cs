@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
-
+using Portal.Consultoras.Web.ServiceSAC;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,6 +24,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] = true;
 
             return View();
+        }
+
+        private async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
+        {
+            using (var sac = new SACServiceClient())
+            {
+                var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(UserData().PaisID, UserData().CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+
+                return lstComunicados.ToList();
+            }
         }
     }
 }
