@@ -34,6 +34,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int MostrarAgotado { get; set; }
 
+        [DataMember]
+        public int ConsultoraID { get; set; }
+        [DataMember]
+        public bool CuvEsAceptado { get; set; }
+        [DataMember]
+        public decimal PrecioUnidad { get; set; }
+
         public BEProductoSugerido(IDataRecord row)
         {
             ProductoSugeridoID = row.ToInt32("ProductoSugeridoID");

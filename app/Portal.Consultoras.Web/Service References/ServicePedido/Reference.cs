@@ -21146,6 +21146,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ConsultoraIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool CuvEsAceptadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -21162,6 +21168,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioUnidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ProductoSugeridoIDField;
@@ -21217,6 +21226,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CampaniaIDField.Equals(value) != true)) {
                     this.CampaniaIDField = value;
                     this.RaisePropertyChanged("CampaniaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ConsultoraID {
+            get {
+                return this.ConsultoraIDField;
+            }
+            set {
+                if ((this.ConsultoraIDField.Equals(value) != true)) {
+                    this.ConsultoraIDField = value;
+                    this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool CuvEsAceptado {
+            get {
+                return this.CuvEsAceptadoField;
+            }
+            set {
+                if ((this.CuvEsAceptadoField.Equals(value) != true)) {
+                    this.CuvEsAceptadoField = value;
+                    this.RaisePropertyChanged("CuvEsAceptado");
                 }
             }
         }
@@ -21295,6 +21330,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.OrdenField.Equals(value) != true)) {
                     this.OrdenField = value;
                     this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PrecioUnidad {
+            get {
+                return this.PrecioUnidadField;
+            }
+            set {
+                if ((this.PrecioUnidadField.Equals(value) != true)) {
+                    this.PrecioUnidadField = value;
+                    this.RaisePropertyChanged("PrecioUnidad");
                 }
             }
         }
@@ -38581,6 +38629,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicePedido.IPedidoService")]
     public interface IPedidoService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcursoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcursoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[]> ObtenerPuntosXConsultoraConcursoAsync(int PaisID, string CodigoCampania, string CodigoConcursoPuntos);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListConcursosVigentes", ReplyAction="http://tempuri.org/IPedidoService/ListConcursosVigentesResponse")]
         Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora);
         
@@ -39061,6 +39115,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DelProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/DelProductoSugeridoResponse")]
         System.Threading.Tasks.Task<string> DelProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsDemandaTotalReemplazoSugerido", ReplyAction="http://tempuri.org/IPedidoService/InsDemandaTotalReemplazoSugeridoResponse")]
+        void InsDemandaTotalReemplazoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsDemandaTotalReemplazoSugerido", ReplyAction="http://tempuri.org/IPedidoService/InsDemandaTotalReemplazoSugeridoResponse")]
+        System.Threading.Tasks.Task InsDemandaTotalReemplazoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasResponse")]
         Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
@@ -39422,12 +39482,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso", ReplyAction="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcursoResponse")]
         System.Threading.Tasks.Task ActualizarInsertarPuntosConcursoAsync(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcursoResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcursoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[]> ObtenerPuntosXConsultoraConcursoAsync(int PaisID, string CodigoCampania, string CodigoConcursoPuntos);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleInformacionConsultoras", ReplyAction="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleInformacionConsultorasRes" +
             "ponse")]
@@ -41011,6 +41065,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 base(binding, remoteAddress) {
         }
         
+        public Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos) {
+            return base.Channel.ObtenerPuntosXConsultoraConcurso(PaisID, CodigoCampania, CodigoConcursoPuntos);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[]> ObtenerPuntosXConsultoraConcursoAsync(int PaisID, string CodigoCampania, string CodigoConcursoPuntos) {
+            return base.Channel.ObtenerPuntosXConsultoraConcursoAsync(PaisID, CodigoCampania, CodigoConcursoPuntos);
+        }
+        
         public Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora) {
             return base.Channel.ListConcursosVigentes(paisId, codigoCampania, codigoConsultora);
         }
@@ -41643,6 +41705,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.DelProductoSugeridoAsync(PaisID, entidad);
         }
         
+        public void InsDemandaTotalReemplazoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
+            base.Channel.InsDemandaTotalReemplazoSugerido(PaisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task InsDemandaTotalReemplazoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
+            return base.Channel.InsDemandaTotalReemplazoSugeridoAsync(PaisID, entidad);
+        }
+        
         public Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
             return base.Channel.GetConfiguracionProgramaNuevas(usuario);
         }
@@ -42113,14 +42183,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task ActualizarInsertarPuntosConcursoAsync(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso) {
             return base.Channel.ActualizarInsertarPuntosConcursoAsync(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos, PuntosExigidosConcurso);
-        }
-        
-        public Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos) {
-            return base.Channel.ObtenerPuntosXConsultoraConcurso(PaisID, CodigoCampania, CodigoConcursoPuntos);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[]> ObtenerPuntosXConsultoraConcursoAsync(int PaisID, string CodigoCampania, string CodigoConcursoPuntos) {
-            return base.Channel.ObtenerPuntosXConsultoraConcursoAsync(PaisID, CodigoCampania, CodigoConcursoPuntos);
         }
         
         public string[] HabilitaPedidoMultipleInformacionConsultoras(int paisID, System.Collections.Generic.Dictionary<string, string> listaConsultoras) {

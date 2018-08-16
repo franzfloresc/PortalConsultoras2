@@ -22,5 +22,8 @@ namespace Portal.Consultoras.Web.Models
         public string UsuarioModificacion { get; set; }
         public DateTime FechaModificacion { get; set; }
         public int MostrarAgotado { get; set; }
+        public int ConsultoraID { get; set; }
+        public bool CuvEsAceptado { get; set; }
+        public decimal PrecioUnidad { get; set; }
     }
 }
