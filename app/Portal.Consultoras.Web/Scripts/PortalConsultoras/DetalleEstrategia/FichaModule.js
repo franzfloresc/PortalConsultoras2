@@ -232,7 +232,8 @@ var FichaModule = (function (config) {
         if (_codigoPalanca.HerramientasVenta === _config.palanca ||
             _codigoPalanca.OfertasParaMi === _config.palanca ||
             _codigoPalanca.OfertaParaTi === _config.palanca ||
-            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
+            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca ||
+            _codigoPalanca.OfertaDelDia === _config.palanca) {
             $(_seccionesFichaProducto.ContenidoProducto).hide();
         }
         else if (_codigoPalanca.Lanzamiento === _config.palanca) {
