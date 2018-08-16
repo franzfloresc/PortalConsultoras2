@@ -134,7 +134,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return View("PagoRechazado", pago);
 
                     ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcionMx);
-                    ViewBag.PagoEnLineaCargoLabel = userData.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.CargoplataformaMx : Constantes.PagoEnLineaMensajes.CargoplataformaPe;
+                    ViewBag.PaisId = userData.PaisID;
 
                     return View("PagoExitoso", pago);
                 }
@@ -197,6 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (pagoOk)
                 {
                     ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcion);
+                    ViewBag.PaisId = userData.PaisID;
 
                     return View("PagoExitoso", model);
                 }

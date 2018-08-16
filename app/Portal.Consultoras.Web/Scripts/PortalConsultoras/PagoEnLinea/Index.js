@@ -27,6 +27,7 @@ $(document).ready(function () {
                 $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
                 $(document).on('click', '.btn_continuar', me.Eventos.MostrarTooltipAceptarTerminosYCondiciones);
                 $(document).on('keyup', '#txtMontoParcial', me.Eventos.ObtenerMontosPagoParcial);
+                $(document).on('click', '#txtMontoParcial', me.Eventos.OnClickTxtMontoParcial);
                 $(document).on('click', '#btnPagarVisa', me.Eventos.PagarConVisaPaso1);
                 $(document).on('click', '#divMetodoPagoVisa', me.Eventos.MarcacionMetodoPago);
                 $(document).on('click', '#btnPagoTotal', me.Eventos.PagoTotal);
@@ -74,6 +75,18 @@ $(document).ready(function () {
                 if (siTipoPagoDetalleSeMuestra == 'block') {
                     $(this).next().slideUp(200);
                     $(this).find('.icono_flecha_despliegue').removeClass('girar180');
+                } else {
+                    $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
+                    $('.icono_flecha_despliegue').removeClass('girar180');
+                    $(this).next().slideDown(200);
+                    $(this).find('.icono_flecha_despliegue').addClass('girar180');
+                }
+            },
+            OnClickTxtMontoParcial: function(e) {
+                var visible = $('#pnParcial').is(':visible');
+                if (visible) {
+                    e.preventDefault();
+                    e.stopPropagation();
                 } else {
                     $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
                     $('.icono_flecha_despliegue').removeClass('girar180');
