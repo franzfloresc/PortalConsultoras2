@@ -74,9 +74,16 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, CodigoZona);
             return Context.ExecuteReader(command);
         }
-        public void DelInsProgramaNuevasXConsultora(string codigoConsultora, BEIncentivoConcurso incentivosNuevas)
+        public void DelProgramaNuevasXConsultora(string codigoConsultora)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelInsProgramaNuevasXConsultora");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelProgramaNuevasXConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+
+            Context.ExecuteNonQuery(command);
+        }
+        public void InsProgramaNuevasXConsultora(string codigoConsultora, BEIncentivoConcurso incentivosNuevas)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsProgramaNuevasXConsultora");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.Int32, incentivosNuevas.CampaniaID);
             Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, incentivosNuevas.CodigoConcurso);
