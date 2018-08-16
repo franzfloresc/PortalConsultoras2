@@ -58,6 +58,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
         protected readonly MenuProvider _menuProvider;
         protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
+        protected readonly ComunicadoProvider _comunicadoProvider;
+        
         #endregion
 
         #region Constructor
@@ -88,6 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
             _menuContenedorProvider = new MenuContenedorProvider();
             _menuProvider = new MenuProvider(_configuracionManagerProvider, _eventoFestivoProvider);
             _chatEmtelcoProvider = new ChatEmtelcoProvider();
+            _comunicadoProvider = new ComunicadoProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -1403,16 +1406,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         
-        public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
-        {
-            using (var sac = new SACServiceClient())
-            {
-                var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(UserData().PaisID, UserData().CodigoConsultora,
-                        Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+        //public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
+        //{
+        //    using (var sac = new SACServiceClient())
+        //    {
+        //        var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(UserData().PaisID, UserData().CodigoConsultora,
+        //                Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
 
-                return lstComunicados.ToList();
-            }
-        }
+        //        return lstComunicados.ToList();
+        //    }
+        //}
         
         public RevistaDigitalShortModel getRevistaDigitalShortModel()
         {
