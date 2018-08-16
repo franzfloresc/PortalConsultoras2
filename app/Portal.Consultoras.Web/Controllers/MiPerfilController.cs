@@ -13,8 +13,6 @@ using Portal.Consultoras.Common.Validator;
 using Portal.Consultoras.Web.Infraestructure.Validator.Phone;
 using AutoMapper;
 using System.ServiceModel;
-using System.Collections.Generic;
-using System.Net;
 using Portal.Consultoras.Web.Infraestructure.Sms;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -38,10 +36,12 @@ namespace Portal.Consultoras.Web.Controllers
                 model.NombreCompleto = beusuario.Nombre;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;
                 model.EMail = beusuario.EMail;
+                if (!userData.EMail.Contains(model.EMail)) userData.EMail = model.EMail;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;
                 model.Telefono = beusuario.Telefono;
                 model.TelefonoTrabajo = beusuario.TelefonoTrabajo;
                 model.Celular = beusuario.Celular;
+                if (!userData.Celular.Contains(model.Celular)) userData.Celular = model.Celular;
                 model.Sobrenombre = beusuario.Sobrenombre;
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 if (paisesDigitoControl.Contains(model.PaisISO)
-                    && !String.IsNullOrEmpty(beusuario.DigitoVerificador))
+                    && !string.IsNullOrEmpty(beusuario.DigitoVerificador))
                 {
                     model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
                 }
@@ -89,8 +89,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.limiteMinimoTelef = limiteMinimoTelef;
                 model.limiteMaximoTelef = limiteMaximoTelef;
                 #endregion
-                var numero = 0;
-                var valida = false;
+                int numero;
+                bool valida;
                 Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
                 model.IniciaNumeroCelular = valida ? numero : -1;
             }
@@ -106,6 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ActualizarCorreo()
         {
             ViewBag.CorreoActual = userData.EMail;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
 
@@ -184,7 +185,7 @@ namespace Portal.Consultoras.Web.Controllers
             var valida = false;
             Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
             ViewBag.IniciaNumeroCelular = valida ? numero : -1;
-
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
 
@@ -263,14 +264,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (Util.IsUrl(userData.FotoPerfil))
                     {
-                        using (var streamImagen = ConsultarImagen(imagenS3))
-                        {
-                            using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
-                            {
-                                userData.FotoPerfilAncha = (imagenConsultada.Width > imagenConsultada.Height);
-                                ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
-                            }
-                        }
+                        userData.FotoPerfilAncha = Util.EsImagenAncha(imagenS3);
+                        ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
                     }
 
                     userData.FotoOriginalSinModificar = nameImage;
@@ -369,24 +364,19 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ActualizarDatos(MisDatosModel model)
         {
-            JsonResult v_retorno = null;
-            BEUsuario entidad = null;
-            string resultado = string.Empty;
-            string[] lst = null;
-
-            string CorreoAnterior = string.Empty;
+            JsonResult vRetorno;
 
             try
             {
-                entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                CorreoAnterior = model.CorreoAnterior;
+                var entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+                var correoAnterior = model.CorreoAnterior;
 
                 entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : userData.CodigoUsuario;
-                entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
-                entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
-                entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
-                entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
-                entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
+                entidad.EMail = entidad.EMail ?? "";
+                entidad.Telefono = entidad.Telefono ?? "";
+                entidad.TelefonoTrabajo = entidad.TelefonoTrabajo ?? "";
+                entidad.Celular = entidad.Celular ?? "";
+                entidad.Sobrenombre = entidad.Sobrenombre ?? "";
                 entidad.ZonaID = userData.ZonaID;
                 entidad.RegionID = userData.RegionID;
                 entidad.ConsultoraID = userData.ConsultoraID;
@@ -396,15 +386,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
-                    resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
+                    var resultado = svr.ActualizarMisDatos(entidad, correoAnterior);
 
                     ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
 
-                    lst = resultado.Split('|');
+                    var lst = resultado.Split('|');
 
                     if (lst[0] == "0")
                     {
-                        v_retorno = Json(new
+                        vRetorno = Json(new
                         {
                             Cantidad = lst[3],
                             success = false,
@@ -414,7 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        v_retorno = Json(new
+                        vRetorno = Json(new
                         {
                             Cantidad = 0,
                             success = true,
@@ -428,7 +418,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
 
-                v_retorno = Json(new
+                vRetorno = Json(new
                 {
                     Cantidad = 0,
                     success = false,
@@ -440,7 +430,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
 
-                v_retorno = Json(new
+                vRetorno = Json(new
                 {
                     Cantidad = 0,
                     success = false,
@@ -449,7 +439,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            return v_retorno;
+            return vRetorno;
         }
 
         [HttpPost]
@@ -463,22 +453,16 @@ namespace Portal.Consultoras.Web.Controllers
                     var resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        var contraseniaAnt = "";
-                        var contraseniaCambiada = "";
-
-                        List<BEUsuario> lst;
-                        List<BEUsuario> lstClave;
-
-                        lstClave = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoUsuario).ToList();
-                        contraseniaAnt = lstClave[0].ClaveSecreta;
+                        var lstClave = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoUsuario).ToList();
+                        var contraseniaAnt = lstClave[0].ClaveSecreta;
 
                         var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
                         rslt = result ? 2 : 1;
 
-                        lst = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoUsuario).ToList();
-                        contraseniaCambiada = lst[0].ClaveSecreta;
+                        var lst = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoUsuario).ToList();
+                        var contraseniaCambiada = lst[0].ClaveSecreta;
 
                         RegistrarLogDynamoCambioClave("MODIFICACION", userData.CodigoConsultora, contraseniaCambiada, contraseniaAnt, "Mi PERFIL", "ACTUALIZAR CONTRASEÑA");
                     }
@@ -561,10 +545,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     PaisId = userData.PaisID
                 },
-                new NotSamePhoneValidator
-                {
-                    OriginalPhone = userData.Celular
-                },
+                //new NotSamePhoneValidator
+                //{
+                //    OriginalPhone = userData.Celular
+                //},
                 new NotExistingPhone
                 {
                     PaisId = userData.PaisID,
@@ -575,13 +559,6 @@ namespace Portal.Consultoras.Web.Controllers
             var validator = new MultiPhoneValidator(validators);
 
             return validator;
-        }
-
-        private Stream ConsultarImagen(string URL)
-        {
-            HttpWebRequest request = ((HttpWebRequest)WebRequest.Create(URL));
-            HttpWebResponse response = ((HttpWebResponse)request.GetResponse());
-            return response.GetResponseStream();
         }
 
         private static byte[] ReadFully(Stream input)
