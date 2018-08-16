@@ -791,7 +791,12 @@ namespace Portal.Consultoras.Common
 
             #region Programa de Nuevas
             public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";
-            #endregion  
+            #endregion
+
+            #region Busqueda y filtros
+            public const int DesktopBuscador = 19;
+            public const int MobileBuscador = 29;
+            #endregion
         }
 
         public static class TipoTutorial
@@ -1225,9 +1230,10 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "GND";
             public const string HerramientasVenta = "HV";
             public const string PagoEnLinea = "PAYONLINE";
+            public const string BuscadorYFiltros = "B&F";
         }
 
-        
+
         public static class ConfiguracionPaisComponente
         {
             public static class RD
@@ -2191,7 +2197,7 @@ namespace Portal.Consultoras.Common
         {
             public const int OrigenOlvideContrasenia = 1;
             public const int OrigenVericacionAutenticidad = 2;
-            public const int OrigenActulizarDatos = 3;            
+            public const int OrigenActulizarDatos = 3;
         }
 
         public class CambioCorreoResult
@@ -2199,7 +2205,7 @@ namespace Portal.Consultoras.Common
             public const string Valido = "Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.";
             public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
-        
+
         public class EnviarCorreoYSms
         {
             public const string Activo = "Activo";
@@ -2259,7 +2265,7 @@ namespace Portal.Consultoras.Common
                 //public const string OrigenEnvioDesconocido = "Origen de envío desconocido.";
                 //public const string EnvioCorreoExitoso = "Te hemos enviado un enlace a tu correo, para restaurar tu clave.";
                 //public const string EnvioSmsExitoso = "Mensaje de texto enviado correctamente";
-            }            
+            }
         }
         #endregion
 
@@ -2286,8 +2292,8 @@ namespace Portal.Consultoras.Common
                 public const int MostrarChat = 4;
 
                 public const int SinOpcion = 5;
-            }           
-            
+            }
+
             public const int Origen = 2;
         }
 
@@ -2336,7 +2342,7 @@ namespace Portal.Consultoras.Common
             public const string Pendiente = "P";
             public const string Activo = "A";
         }
-        
+
         public class TipoConsultaOfertaPersonalizadas
         {
             public const int RDObtenerProductos = 1;
@@ -2428,6 +2434,22 @@ namespace Portal.Consultoras.Common
                     });
                 }
             }
+        }
+
+        public class FacturacionElectronica
+        {
+            public const short TablaLogicaID = 9;
+            public const string FlagActivacion = "01";
+            public const string Url = "02";
+            public const string Parametros = "03";
+            public const string PaisesConfigurables = "CO;CR;GT;MX";
+        }
+        public class TipoConfiguracionBuscador
+        {
+            public const string MostrarBuscador = "MostrarBuscador";
+            public const string CaracteresBuscador = "CaracteresBuscador";
+            public const string CaracteresBuscadorMostrar = "CaracteresBuscadorMostrar";
+            public const string TotalResultadosBuscador = "TotalResultadosBuscador";
         }
     }
 }

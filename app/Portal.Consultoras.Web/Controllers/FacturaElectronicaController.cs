@@ -12,42 +12,40 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             string url = string.Empty;
+            string parametros = string.Empty;
+            string nroDocumento = string.Empty;
             string nroRuc = null;
 
-            if (UserData().CodigoISO == Constantes.CodigosISOPais.Ecuador || UserData().CodigoISO == Constantes.CodigosISOPais.Peru)
+            if (UserData().CodigoISO == Constantes.CodigosISOPais.Ecuador)
             {
-                if (UserData().CodigoISO == Constantes.CodigosISOPais.Ecuador)
+                using (SACServiceClient svc = new SACServiceClient())
                 {
-                    using (SACServiceClient svc = new SACServiceClient())
-                    {
-                        BEDatosBelcorp datos = svc.GetDatosBelcorp(UserData().PaisID).FirstOrDefault() ?? new BEDatosBelcorp();
-                        nroRuc = datos.RUC;
-                    }
+                    BEDatosBelcorp datos = svc.GetDatosBelcorp(UserData().PaisID).FirstOrDefault() ?? new BEDatosBelcorp();
+                    nroRuc = datos.RUC;
                 }
-
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    string nroDocumento;
-                    switch (UserData().CodigoISO)
-                    {
-                        case Constantes.CodigosISOPais.Peru:
-                            nroDocumento = sv.GetNroDocumentoConsultora(UserData().PaisID, UserData().CodigoConsultora);
-                            url = NeoGridCipher.CreateProductionURL(nroDocumento);
-                            break;
-                        case Constantes.CodigosISOPais.Ecuador:
-                            nroDocumento = sv.GetNroDocumentoConsultora(UserData().PaisID, UserData().CodigoConsultora);
-                            url = string.Format("IdEmpresa={0}&Identificacion={1}&HoraFecha={2}", nroRuc, nroDocumento, DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"));
-                            url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.FacturaElectronica_EC) + Trancenter.IFacturaEcuador.EncriptTool.Encriptation.EncryptData("TUFIFAQTUAAECDZD", url);
-                            break;
-                    }
-                }
-
             }
-            else
+
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                nroDocumento = sv.GetNroDocumentoConsultora(UserData().PaisID, UserData().CodigoConsultora);
+            if (string.IsNullOrEmpty(nroDocumento)) return RedirectToAction("Index", "Bienvenida");
+
+            switch (UserData().CodigoISO)
             {
-                return RedirectToAction("Index", "Bienvenida");
+                case Constantes.CodigosISOPais.Peru:
+                    url = NeoGridCipher.CreateProductionURL(nroDocumento);
+                    return Redirect(url);
+                case Constantes.CodigosISOPais.Ecuador:
+                    url = string.Format("IdEmpresa={0}&Identificacion={1}&HoraFecha={2}", nroRuc, nroDocumento, DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"));
+                    url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.FacturaElectronica_EC) + Trancenter.IFacturaEcuador.EncriptTool.Encriptation.EncryptData("TUFIFAQTUAAECDZD", url);
+                    return Redirect(url);
             }
-            return Redirect(url);
-        }
+
+            url = GetDatosFacturacionElectronica(userData.PaisID, Constantes.FacturacionElectronica.TablaLogicaID, Constantes.FacturacionElectronica.Url);
+            if (string.IsNullOrEmpty(url)) return RedirectToAction("Index", "Bienvenida");
+            parametros = GetDatosFacturacionElectronica(userData.PaisID, Constantes.FacturacionElectronica.TablaLogicaID, Constantes.FacturacionElectronica.Parametros);
+            if (string.IsNullOrEmpty(parametros)) return RedirectToAction("Index", "Bienvenida");
+            parametros = string.Format(parametros, userData.CodigoISO, nroDocumento);
+            return Redirect(url + parametros);
+        }  
     }
 }
