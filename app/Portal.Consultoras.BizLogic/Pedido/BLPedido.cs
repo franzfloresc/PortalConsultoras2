@@ -929,13 +929,70 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     if (resultDR.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(resultDR.CodigoRespuesta);
                 }
 
-                return Insert(pedidoDetalle);
+                var result = Insert(pedidoDetalle);
+                if (result.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
+                {
+                    var tipoRegistro = Constantes.OfertaFinalLog.Code.PRODUCTO_AGREGADO;
+                    var desTipoRegistro = Constantes.OfertaFinalLog.Message[tipoRegistro];
+
+                    var entidad = new BEOfertaFinalConsultoraLog()
+                    {
+                        CampaniaID = pedidoDetalle.Usuario.CampaniaID,
+                        CodigoConsultora = pedidoDetalle.Usuario.CodigoConsultora,
+                        CUV = pedidoDetalle.Producto.CUV,
+                        Cantidad = pedidoDetalle.Cantidad,
+                        TipoOfertaFinal = "0",
+                        GAP = 0,
+                        TipoRegistro = tipoRegistro,
+                        DesTipoRegistro = desTipoRegistro
+                    };
+
+                    _pedidoWebBusinessLogic.InsLogOfertaFinal(pedidoDetalle.PaisID, entidad);
+                }
+
+                return result;
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, pedidoDetalle.Usuario.CodigoUsuario, pedidoDetalle.PaisID);
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_INTERNO, ex.Message);
             }
+        }
+
+        public void InsertOfertaFinalLog(int paisID, int campaniaID, string codigoConsultora, decimal? montoInicial,
+            List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog)
+        {
+            var tipoOfertaFinal_Log = listaOfertaFinalLog.FirstOrDefault().TipoOfertaFinal;
+            var tipoRegistro = Constantes.OfertaFinalLog.Code.POPUP_MOSTRADO;
+            var desTipoRegistro = Constantes.OfertaFinalLog.Message[tipoRegistro];
+
+            var entidad = new BEOfertaFinalConsultoraLog
+            {
+                CampaniaID = campaniaID,
+                CodigoConsultora = codigoConsultora,
+                CUV = string.Empty,
+                Cantidad = 0,
+                TipoOfertaFinal = tipoOfertaFinal_Log,
+                GAP = 0,
+                TipoRegistro = tipoRegistro,
+                DesTipoRegistro = desTipoRegistro
+            };
+            if (tipoRegistro == 2)
+            {
+                entidad.MuestraPopup = false;
+                entidad.MontoInicial = montoInicial;
+            }
+
+            tipoRegistro = Constantes.OfertaFinalLog.Code.PRODUCTO_EXPUESTO;
+            desTipoRegistro = Constantes.OfertaFinalLog.Message[tipoRegistro];
+
+            listaOfertaFinalLog.Update(x => {
+                x.TipoRegistro = tipoRegistro;
+                x.DesTipoRegistro = desTipoRegistro;
+                });
+
+            _pedidoWebBusinessLogic.InsLogOfertaFinal(paisID, entidad);
+            _pedidoWebBusinessLogic.InsLogOfertaFinalBulk(paisID, listaOfertaFinalLog);
         }
 
         public List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar)

@@ -21,7 +21,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoDetalleResult InsertEstrategiaCarrusel(BEPedidoDetalle pedidoDetalle);
         BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario);
         BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle);
-        List<Entities.BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
         BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle);
+        List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
+        void InsertOfertaFinalLog(int paisID, int campaniaID, string codigoConsultora, decimal? montoInicial, List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog);
     }
 }

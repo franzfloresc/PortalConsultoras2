@@ -2301,7 +2301,12 @@ namespace Portal.Consultoras.Service
             return _pedidoBusinessLogic.InsertOfertaFinalCarrusel(pedidoDetalle);
         }
 
-        public List<Entities.BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar)
+        public void InsertOfertaFinalLog(int paisID, int campaniaID, string codigoConsultora, decimal? montoInicial, List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog)
+        {
+            _pedidoBusinessLogic.InsertOfertaFinalLog(paisID, campaniaID, codigoConsultora, montoInicial, listaOfertaFinalLog);
+        }
+
+        public List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar)
         {
             return _pedidoBusinessLogic.GetProductoSugerido(productoBuscar);
         }
