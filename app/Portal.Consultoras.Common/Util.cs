@@ -3273,6 +3273,24 @@ namespace Portal.Consultoras.Common
             return ruta;
         }
 
+        public static bool EsImagenAncha(string imagenS3)
+        {
+            try
+            {
+                using (var streamImagen = Http.GetStream(imagenS3))
+                {
+                    using (var imagenConsultada = Image.FromStream(streamImagen))
+                    {
+                        return imagenConsultada.Width > imagenConsultada.Height;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static string GenerarCodigoRandom()
         {
             Random rnd = new Random();
@@ -3444,6 +3462,16 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
+        public static class Http
+        {
+            public static Stream GetStream(string url)
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                return response.GetResponseStream();
+            }
+        }
     }
 
     public static class DataRecord
