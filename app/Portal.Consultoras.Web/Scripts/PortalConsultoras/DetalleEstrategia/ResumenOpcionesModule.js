@@ -17,9 +17,11 @@ var ResumenOpcionesModule = (function () {
         bordeSeleccionTono: "borde_seleccion_tono"
     };
 
-    var _actualizarCantidadAplicada = function () {
+    var _actualizarCantidadAplicada = function (codigoVariante) {
+        _componente.CodigoVariante = codigoVariante || 0;
         $.each(_componente.Hermanos, function (index, hermano) {
             hermano.cantidadAplicada = 0;
+            hermano.CodigoVariante = codigoVariante || 0;
             $.each(_componente.resumenAplicados, function (index2, item) {
                 if (hermano.Cuv === item.Cuv) {
                     hermano.cantidadAplicada++;
@@ -51,7 +53,9 @@ var ResumenOpcionesModule = (function () {
         if (typeof _componente.Cuv === "undefined" ||
             typeof _componente.Hermanos.length === "undefined") return false;
 
-        _actualizarCantidadAplicada();
+        var codigoVariante = $("#componentes").data("codigovariante");
+
+        _actualizarCantidadAplicada(codigoVariante);
 
         var resumenOpcionesContenedor = _elements.resumenOpciones.id +"-"+_componente.Cuv;
 
@@ -65,8 +69,8 @@ var ResumenOpcionesModule = (function () {
 
         $(resumenOpcionesContenedor).parents("[data-opciones-seleccionadas]").attr("data-opciones-seleccionadas", _componente.FactorCuadre);
 
-        var codigoVariante = $("#componentes").data("codigovariante");
-        if (codigoVariante === _codigoVariedad.IndividualVariable) {
+        
+        if (codigoVariante == _codigoVariedad.IndividualVariable) {
             var OpcionPaleta = "[data-tono-cuv='[CUV]']";
             $.each(_componente.Hermanos, function (index, opcion) {
                 if (opcion.cantidadSeleccionada > 0) {

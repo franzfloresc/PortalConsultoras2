@@ -247,6 +247,12 @@
     padding-left: 0 !important; 
 }
 
+.selecion_item li:nth-child(2) {
+    display: inline-flex;
+    align-items: center;
+    line-height: 13px;
+}
+
 
 
 
