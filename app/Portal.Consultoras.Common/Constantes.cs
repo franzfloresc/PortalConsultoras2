@@ -1193,13 +1193,15 @@ namespace Portal.Consultoras.Common
             public const string ValorVacio = "El valor no puede estar vacío.";
             public const string CodigoIncorrecto = "El código ingresado no es el correcto.";
             public const string CelularActivacion = "No se pudo confirmar el número registrado.";
-            public const string CelularEnUso = "El número ya esta en uso.";
+            public const string CelularEnUso = "El número ya está en uso.";
             public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
             public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
             public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
             public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";            
+            public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
+            public const string AgregarProgNuevas_MaxElectivos = "No puedes agregar este producto a tu pedido por haber alcanzado el límite de {0} cuvs del programa nuevas.";
         }
 
         public static class MensajesExito
@@ -1903,7 +1905,7 @@ namespace Portal.Consultoras.Common
             public class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string Activo = "Activo";
+                public const string FlagActivar = "ProgramaNuevas";
             }
 
             public class Rango
@@ -1923,16 +1925,17 @@ namespace Portal.Consultoras.Common
             {
                 public const string ExcedeCantidad = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
             }
-
-            public class MensajeValidacionElectividadProductos
-            {
-                public const string ExisteElectivoEnSuPedido = "El código ingresado no puede ser agregado al pedido. El pedido contiene un pack del Programa de Nuevas.";
-            }
         }
 
         public class VentaExclusiva
         {
             public const string CuvNoEsVentaExclusiva = "El código solicitado pertenece a la Venta Exclusiva. Usted no cumple las condiciones para solicitarlo.";
+
+            public class EncenderValidacion
+            {
+                public const short TablaLogicaID = 7;
+                public const string FlagActivar = "VentaExclusiva";
+            }
         }
 
         public class Comunicado

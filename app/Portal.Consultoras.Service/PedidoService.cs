@@ -58,7 +58,6 @@ namespace Portal.Consultoras.Service
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
         private readonly IPedidoBusinessLogic _pedidoAppBusinessLogic;
-        private readonly BLCuponesProgramaNuevas BLCuponesProgramaNuevas;
         private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
 
         public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(), 
@@ -89,7 +88,6 @@ namespace Portal.Consultoras.Service
             BLCuponConsultora = new BLCuponConsultora();
             blFichaProducto = new BLFichaProducto();
             BLPagoEnLinea = new BLPagoEnLinea();
-            BLCuponesProgramaNuevas = new BLCuponesProgramaNuevas();
             _ActivarPremioNuevas = new BLActivarPremioNuevas();
         }
 
@@ -2229,10 +2227,6 @@ namespace Portal.Consultoras.Service
         public DateTime? ObtenerFechaInicioSets(int paisId)
         {
             return _pedidoWebSetBusinessLogic.ObtenerFechaInicioSets(paisId);
-        }
-        public List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId)
-        {
-            return BLCuponesProgramaNuevas.ObtenerListadoCuvCupon(paisId, campaniaId);
         }
 
         #region Pedido
