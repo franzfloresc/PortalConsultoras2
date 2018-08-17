@@ -1003,7 +1003,7 @@ function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, e
             CUV: cuvbuscado,
             CUVSugerido: cuvSugerido,
             PrecioUnidad: _cuvPrecio,
-            Cantidad: 
+            Cantidad: cantidad,
             CuvEsAceptado: esAceptado
         };
 
