@@ -359,10 +359,7 @@ var FichaModule = (function (config) {
             }
 
             $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
-        }
-        if (estrategia.TipoAccionAgregar <= 0) {
-            $(_seccionesFichaProducto.dvContenedorAgregar).hide();
-        }
+        }        
     };
 
     var _validarDesactivadoGeneral = function (estrategia) {
@@ -507,9 +504,13 @@ var FichaModule = (function (config) {
             return false;
         }
 
-        _setEstrategiaBreadcrumb(estrategia);
         $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
+        _setEstrategiaBreadcrumb(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+        if (estrategia.TipoAccionAgregar <= 0) {
+            $(_seccionesFichaProducto.dvContenedorAgregar).hide();
+        }
+
         opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
         _validarDesactivadoGeneral(estrategia);
 
