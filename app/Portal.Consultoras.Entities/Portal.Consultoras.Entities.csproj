@@ -93,6 +93,11 @@
     <Compile Include="Oferta\BEOfertaFinal.cs" />
     <Compile Include="ProgramaNuevas\BENivelesProgramaNuevas.cs" />
     <Compile Include="ProgramaNuevas\BERespValidarElectivos.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPago.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaPasarelaCampos.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaTipoPago.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPagoDetalle.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaTipoPasarela.cs" />
     <Compile Include="ProgramaNuevas\BEProductoProgramaNuevas.cs" />
     <Compile Include="Externos\ReservaSicc\BEDetalleSicc.cs" />
     <Compile Include="Externos\ReservaSicc\BEPedidoSicc.cs" />

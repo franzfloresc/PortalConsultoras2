@@ -1,0 +1,161 @@
+﻿@using Portal.Consultoras.Common;
+@using Portal.Consultoras.Web.Models.PagoEnLinea;
+@model PagoEnLineaModel
+
+@{
+    ViewBag.Title = "Pago En Línea";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+    {
+
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+
+    }
+    else
+    {
+
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/pago-en-linea.css")">
+
+    }
+
+    <style type="text/css">
+        .footer-page {
+            display: none;
+            margin-bottom: 54px;
+        }
+
+        #btn_init {
+            display: none !important;
+        }
+
+        #btn_open {
+            display: none !important;
+        }
+    </style>
+
+}
+
+<div class="cabecera_vista_pago_en_linea">
+    <a id="linkRegresar" href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+    PAGO EN LÍNEA
+</div>
+
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+
+    <div class="proceso_de_pago_en_linea">
+
+        <div class="cantidad_pasos_proceso_pago">
+
+            <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
+            <span class="paso_proceso_pago_en_linea paso_activo">2</span>
+            <span class="paso_proceso_pago_en_linea mr-0">3</span>
+
+            <div class="linea_conectora_pasos">
+                <span class="fondo_pasos_proceso_pago_avance"></span>
+            </div>
+        </div>
+
+        <div class="confirmacion_pago">
+            <h3 class="titulo_resumen_pago_exitoso">
+                Elige el método de pago
+            </h3>
+            <ul class="lista_opciones_pago">
+                @foreach (var item in Model.ListaMetodoPago)
+                {
+                    <li class="opcion_pago metodoPago text-center">
+                        <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoMobile w-100">
+                            <div class="col_izq text-left">
+                                <div class="icono_marca_tarjeta">
+                                    <img src="@item.RutaIcono" alt="" />
+                                </div>
+                                <h4 class="titulo_monto_pago_total titulo_monto_pago_total_paso_2">
+                                    @item.Descripcion
+                                </h4>
+                            </div>
+                            <div class="col_der">
+                                <div class="icono_flecha_despliegue">
+                                    <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display:none;">
+                            <div class="monto_total_pago_en_linea mt-16 mb-23">
+                                <span class="texto_descripcion_tipo_pago text-uppercase">Pago Total :</span>
+                                <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                                <span class="monto_moneda_pais">@Model.MontoDeudaConGastosString</span>
+                            </div>
+                            <div class="aceptar_terminos_y_condiciones">
+                                <input type="hidden" value="@item.TerminosCondiciones" data-terminos />
+                                <div class="descripcion_opcion_activacion">
+                                    Al presionar continuar aceptas los
+                                    @if (item.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
+                                    {
+                                        <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
+                                            términos y condiciones
+                                        </a>
+                                    }
+                                    @if (item.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Archivo)
+                                    {
+                                        <a class="ver_terminos_y_condiciones" target="_blank" href="@item.TerminosCondiciones">
+                                            términos y condiciones
+                                        </a>
+                                    }
+
+                                </div>
+                            </div>
+                            @if (Constantes.PagoEnLineaMetodoPago.PasarelaVisa == item.TipoPasarelaCodigoPlataforma)
+                            {
+                                <form id="formBoton" action="@Url.Action("PagoVisaResultado", "PagoEnLinea")" method="post">
+                                    <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
+                                        data-sessiontoken="@Model.PagoVisaModel.SessionToken"
+                                        data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
+                                        data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
+                                        data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
+                                        data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
+                                        data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
+                                        data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
+                                        data-buttonsize="LARGE"></script>
+                                </form>
+                            }
+                            else
+                            {
+                                <button type="button"
+                                        class="btn_pago_tarjeta_credito text-bold text-uppercase default-background w-100"
+                                        data-metodopago="@item.TipoPasarelaCodigoPlataforma"
+                                        data-mediopago="@item.PagoEnLineaMedioPagoId"
+                                        data-tipotarjeta="@item.TipoTarjeta">
+                                    Continuar
+                                </button>
+                            }
+                        </div>
+                    </li>
+                }               
+            </ul>
+        </div>
+    </div>
+    <div class="popup_terminos_y_condiciones">
+        <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
+        </a>
+        <h4 class="titulo_terminos_y_condiciones text-uppercase">Términos y condiciones</h4>
+        <div class="descripcion_terminos_y_condiciones" id="divContenidoTerminosCondiciones">
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        var colorBoton = '@Model.PagoVisaModel.FormButtonColor';
+        var metodoPagoPasarelaVisa = '@Constantes.PagoEnLineaMetodoPago.PasarelaVisa';
+        var metodoPagoPasarelaBelcorpPayU = '@Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU';
+        var tipoOrigenPantalla = 2;
+        var urlPasarelaPago = '@Url.Action("PasarelaPago","PagoEnLinea", new { area = "Mobile" })';
+    </script>
+
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/MetodoPago.js")?v1"></script>
+}

@@ -462,6 +462,12 @@ namespace Portal.Consultoras.Common
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
+            public const string MenuCondicionesDescripcionMx = "TÉRMINOS Y CONDICIONES";
+
+            public const string UrlImagenEsika = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca.png";
+            public const string UrlImagenLbel = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca-lbel.png";
+            public const string ColorTemaEsika = "#e81c36";
+            public const string ColorTemaLbel = "#613c87";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -1671,6 +1677,16 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static class MvcErrorMessages
+        {
+            public const string RequiredMessage = "Este campo es obligatorio";
+            public const string RangeErrorMessage = "El campo {0} debe ser una cadena con una longitud mínima de {2} y una longitud máxima de {1}";
+            public const string MaxErrorMessage = "El campo {0} debe ser una cadena con una longitud máxima de {1}";
+            public const string LengthErrorMessage = "El campo {0} debe ser una cadena con una longitud de {1}";
+            public const string DateErrorMessage = "No es una fecha válida";
+            public const string NumberErrorMessage = "No es un número válido";
+        }
+
         public static class ClienteEstado
         {
             public const short Activo = 1;
@@ -2330,8 +2346,8 @@ namespace Portal.Consultoras.Common
             public const string EnviarPorEmail = "Email";
             public const string EnviarPorSms = "SMS";
         }
-        #endregion  
-
+        #endregion 
+        
         public static class ValidacionDatosEstado
         {
             public const string Pendiente = "P";
@@ -2346,6 +2362,86 @@ namespace Portal.Consultoras.Common
             public const int HVObtenerProductos = 4;
             public const int OPTObtenerProductos = 5;
         };
+
+        #region PagoEnLinea
+
+        public static class PagoEnLineaTipoPago
+        {
+            public const string PagoTotal = "01";
+            public const string PagoParcial = "02";
+        }
+
+        public static class PagoEnLineaMetodoPagoVisualizacionTyC
+        {
+            public const string Popup = "POPUP";
+            public const string Archivo = "ARCHIVO";
+        }
+
+        public static class PagoEnLineaMetodoPago
+        {
+            public const string PasarelaVisa = "A";
+            public const string PasarelaBelcorpPayU = "B";
+        }
+
+        public static class PagoEnLineaTipoTarjeta
+        {
+            public const string Credito = "CRED";
+            public const string Debito = "DEB";
+        }
+
+        public static class PagoEnLineaPasarelaVisa
+        {
+            public const string MerchantId = "01";
+            public const string AccessKeyId = "02";
+            public const string SecretAccessKey = "03";
+            public const string UrlSessionBotonPago = "04";
+            public const string UrlGenerarNumeroPedido = "05";
+            public const string PorcentajeGastosAdministrativos = "06";
+            public const string UrlLibreriaPagoVisa = "07";
+            public const string UrlAutorizacionBotonPago = "08";
+            public const string UrlLogoPasarelaPago = "09";
+            public const string ColorBotonPagarPasarelaPago = "10";
+            public const string MensajeInformacionPagoExitoso = "11";
+        }
+
+        public static class PagoEnLineaPasarelaPayu
+        {
+            public const string MerchantId = "01";
+            public const string ApiLogin = "02";
+            public const string ApiKey = "03";
+            public const string AccountId = "04";
+            public const string Endpoint = "05";
+            public const string Test = "06";
+        }
+
+        public static class PagoEnLineaCampos
+        {
+            public const string FechaNacimiento = "FECHANAC";
+            public const string Email = "EMAIL";
+            public const string Celular = "CELULAR";
+        }
+
+        public static class PagoEnLineaPayuGenerales
+        {
+            public const string Language = "es";
+            public const string Command = "SUBMIT_TRANSACTION";
+            public const string OrderCodePrefix = "Pago_SB_";
+            public const string OrderDescription = "Pago_SB";
+            public const string OrderLanguage = "es";
+            public const string Country = "MX";
+            public const string Currency = "MXN";
+            public const string TransactionType = "AUTHORIZATION_AND_CAPTURE";
+        }
+
+        public static class PagoEnLineaMensajes
+        {
+            public const string CargoplataformaPe = "Cargo plataforma online";
+            public const string CargoplataformaMx = "Comisión por transacción";
+            public const string GastosLabelPe = "Gastos Adm.";
+            public const string GastosLabelMx = "Cargo comisión por transacción";
+        }
+
+        #endregion
 
         public class PersonalizacionOfertasService
         {
@@ -2405,7 +2501,6 @@ namespace Portal.Consultoras.Common
 
             #endregion
         }
-
         public class FacturacionElectronica
         {
             public const short TablaLogicaID = 9;

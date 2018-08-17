@@ -2176,6 +2176,36 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerPagoEnLineaByFiltro(paisId, filtro);
         }
 
+        public List<BEPagoEnLineaTipoPago> ObtenerPagoEnLineaTipoPago(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaTipoPago(paisId);
+        }
+
+        public List<BEPagoEnLineaMedioPago> ObtenerPagoEnLineaMedioPago(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaMedioPago(paisId);
+        }   
+        
+        public List<BEPagoEnLineaMedioPagoDetalle> ObtenerPagoEnLineaMedioPagoDetalle(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaMedioPagoDetalle(paisId);
+        }
+
+        public List<BEPagoEnLineaTipoPasarela> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, codigoPlataforma);
+        }
+
+        public List<BEPagoEnLineaPasarelaCampos> ObtenerPagoEnLineaPasarelaCampos(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaPasarelaCampos(paisId);
+        }
+
+        public int ObtenerPagoEnLineaNumeroOrden(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerNumeroOrden(paisId);
+        }
+
         #endregion
 
 
