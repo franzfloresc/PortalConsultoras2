@@ -163,7 +163,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
-                sessionManager.SetDetallesPedido(detallesPedidoWeb);
+                sessionManager.SetDetallesPedidoSetAgrupado(detallesPedidoWeb);
 
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }

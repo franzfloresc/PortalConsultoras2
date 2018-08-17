@@ -820,6 +820,7 @@
       <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
+      <xs:element minOccurs="0" name="EstrategiaId" type="xs:int" />
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Flag" type="xs:int" />
       <xs:element minOccurs="0" name="FlagConsultoraOnline" type="xs:boolean" />
