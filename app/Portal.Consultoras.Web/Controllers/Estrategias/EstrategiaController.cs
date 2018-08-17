@@ -493,6 +493,10 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 {
                     listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
                 }
+                else if (palanca == Constantes.NombrePalanca.OfertaDelDia)
+                {
+                    listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoODD();
+                }
                 else if (palanca == Constantes.NombrePalanca.PackNuevas)
                 {
                     var varSession = Constantes.ConstSession.ListaEstrategia + Constantes.TipoEstrategiaCodigo.PackNuevas;
