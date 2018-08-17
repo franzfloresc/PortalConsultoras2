@@ -2899,29 +2899,16 @@ namespace Portal.Consultoras.Web.Controllers
             return Mostrar;
         }
 
-        private string GetDiaFacturacion(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID, DateTime FechaHoy)
+        private int GetDiaFacturacion(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID, DateTime FechaHoy)
         {
-            string diaFacturacion = string.Empty;
+            int diaFacturacion = 0;
             BEConfiguracionCampania configuracionCampania;
             using (var sv = new PedidoServiceClient())
             {
                 configuracionCampania = sv.GetEstadoPedido(PaisID, CampaniaID, ConsultoraID, ZonaID, RegionID);
             }
 
-            //diaFacturacion = (configuracionCampania.FechaInicioFacturacion - DateTime.Now).Days;        
-
-            if (configuracionCampania.FechaInicioFacturacion > FechaHoy)
-            {
-                diaFacturacion = "1";
-            }
-            else if (configuracionCampania.FechaInicioFacturacion < FechaHoy)
-            {
-                diaFacturacion = "-1";
-            }
-            else
-            {
-                diaFacturacion = "0";
-            }
+            diaFacturacion = (configuracionCampania.FechaInicioFacturacion - DateTime.Now).Days;
 
             return diaFacturacion;
         }

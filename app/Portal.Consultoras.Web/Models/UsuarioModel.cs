@@ -394,7 +394,7 @@ namespace Portal.Consultoras.Web.Models
 
         
 
-        public string DiaFacturacion { get; set; }
+        public int DiaFacturacion { get; set; }
 
     }
 }
