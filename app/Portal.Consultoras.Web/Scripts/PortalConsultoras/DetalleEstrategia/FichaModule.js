@@ -309,7 +309,9 @@ var FichaModule = (function (config) {
         if (estrategia.Hermanos.length === 1) {
             if (estrategia.Hermanos[0].Hermanos) {
                 if (estrategia.Hermanos[0].Hermanos.length > 0) {
-                    estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
+                    if (estrategia.Hermanos[0].FactorCuadre === 1) {
+                        estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
+                    }
                 }
             }
         }
