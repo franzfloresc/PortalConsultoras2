@@ -279,6 +279,9 @@
         var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
         var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
         var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
+        var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
+        var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
+        var OrigenPedidoMobileBuscador = @Constantes.OrigenPedidoWeb.MobileBuscador;
     </script>
 
 	<script type="text/javascript">

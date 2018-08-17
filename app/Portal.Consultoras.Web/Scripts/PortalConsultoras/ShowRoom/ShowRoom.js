@@ -781,7 +781,8 @@ function ConstruirDescripcionOferta(arrDescripcion) {
     var descripcion = "";
     if (arrDescripcion != null) {
         $.each(arrDescripcion, function (index, value) {
-            descripcion += value.NombreComercial + "<br />";
+
+            descripcion += value.Descripcion + "<br />";
         });
     }
     return descripcion;

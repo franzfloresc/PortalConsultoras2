@@ -22,8 +22,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             _issuuProvider = new IssuuProvider();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string marca = "")
         {
+
+            ViewBag.MarcaCatalogo = marca;
+
             var clienteModel = new MisCatalogosRevistasModel
             {
                 PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),

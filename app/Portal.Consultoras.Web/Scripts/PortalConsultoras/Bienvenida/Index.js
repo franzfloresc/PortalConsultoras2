@@ -167,7 +167,6 @@ $(document).ready(function () {
             if ($('#PopRDSuscripcion').is(':visible')) {
                 PopupCerrar('PopRDSuscripcion');
             }
-
         }
     };
 
