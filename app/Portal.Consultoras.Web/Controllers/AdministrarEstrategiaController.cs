@@ -1999,31 +1999,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                     while (readLine != null);
-                    using (var svc = new WsGestionWeb())
-                    {
-                        List<PrecioProducto> productPriceList = null;
-                        productPriceList = svc.GetPrecioProductosOfertaWeb(userData.CodigoISO, model.CampaniaId, string.Join("|", strategyEntityList.Select(x => x.CUV2))).ToList();
-                        if (productPriceList != null && productPriceList.Count > 0)
-                        {
-                            strategyEntityList.Update(strategy => strategy.Precio2 = productPriceList.FirstOrDefault(prol => prol.cuv == strategy.CUV2).precio_producto);
-                        }
-                    }
-                    var productPriceZero = strategyEntityList.FirstOrDefault(p => p.Precio == 0);
-                    if (productPriceZero != null)
-                    {
-                        string messageErrorPriceZero = string.Format("No se realizó ninguna operación (actualización/inserción) a ningunos de los registros que estaban dentro del archivo (CSV), porque el producto {0} tiene precio cero", productPriceZero.CUV2);
-                        LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceZero.CUV2));
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
-                    }
-                    var productPriceOfferZero = strategyEntityList.FirstOrDefault(p => p.Precio2 == 0);
-                    if (productPriceOfferZero != null)
-                    {
-                        string messageErrorPriceZero = string.Format("No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto {0} tiene precio oferta Cero", productPriceOfferZero.CUV2);
-                        LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceOfferZero.CUV2));
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
-                    }
-                 
-                   
+              
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
                     select new XElement("row",

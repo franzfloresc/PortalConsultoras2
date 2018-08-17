@@ -1733,7 +1733,7 @@ namespace Portal.Consultoras.Service
 
         public BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad)
         {
-            return BLConsultorasProgramaNuevas.GetConsultorasProgramaNuevas(paisID, entidad);
+            return BLConsultorasProgramaNuevas.Get(paisID, entidad);
         }
 
         public List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entidad)

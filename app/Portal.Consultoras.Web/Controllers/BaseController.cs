@@ -47,6 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected GuiaNegocioModel guiaNegocio;
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
+        protected BuscadorYFiltrosModel buscadorYFiltro;
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
         protected string paisesMicroservicioPersonalizacion;
@@ -138,6 +139,7 @@ namespace Portal.Consultoras.Web.Controllers
                 guiaNegocio = sessionManager.GetGuiaNegocio();
                 estrategiaODD = sessionManager.OfertaDelDia.Estrategia;
                 configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+                buscadorYFiltro = sessionManager.GetBuscadorYFiltros();
 
                 if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 {
@@ -972,6 +974,26 @@ namespace Portal.Consultoras.Web.Controllers
         //}
 
         #endregion
+
+        #region Facturacion Electronica
+        public string GetDatosFacturacionElectronica(int paidID, short TablaLogicaID, string codigo)
+        {
+            try
+            {
+                var datos = new List<BETablaLogicaDatos>();
+                using (var sv = new SACServiceClient())
+                    datos = sv.GetTablaLogicaDatos(userData.PaisID, TablaLogicaID).ToList() ?? new List<BETablaLogicaDatos>();
+                if (datos.Count != 0)
+                    return datos.Where(a => a.Codigo == codigo).ToList().Select(b => b.Valor).FirstOrDefault();
+                return "";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "";
+            }
+        }
+        #endregion  
 
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas()
         {
@@ -2314,6 +2336,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.SegmentoConstancia = userData.SegmentoConstancia != null && userData.SegmentoConstancia != "" ? userData.SegmentoConstancia.Trim() : "(not available)";
             ViewBag.DescripcionNivelAnalytics = userData.DescripcionNivel != null && userData.DescripcionNivel != "" ? userData.DescripcionNivel : "(not available)";
             ViewBag.MensajeChat = userData.MensajeChat;
+            
 
             if (userData.RolID == Constantes.Rol.Consultora)
             {
@@ -2546,6 +2569,38 @@ namespace Portal.Consultoras.Web.Controllers
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
             ViewBag.HabilitarChatEmtelco = HabilitarChatEmtelco(userData.PaisID);
+
+            var MostrarBuscador = false;
+            var CaracteresBuscador = 0;
+            var TotalListadorBuscador = 20;
+            var CaracteresBuscadorMostrar = 15;
+
+            if (buscadorYFiltro.ConfiguracionPaisDatos.Any())
+            {
+                foreach (var item in buscadorYFiltro.ConfiguracionPaisDatos)
+                {
+                    switch (item.Codigo)
+                    {
+                        case Constantes.TipoConfiguracionBuscador.MostrarBuscador:
+                            MostrarBuscador = Convert.ToBoolean(item.Valor1.ToInt());
+                            break;
+                        case Constantes.TipoConfiguracionBuscador.CaracteresBuscador:
+                            CaracteresBuscador = item.Valor1.ToInt();
+                            break;
+                        case Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar:
+                            CaracteresBuscadorMostrar = item.Valor1.ToInt();
+                            break;
+                        case Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador:
+                            TotalListadorBuscador = item.Valor1.ToInt();
+                            break;
+                    }
+                }
+            }
+
+            ViewBag.MostrarBuscadorYFiltros = MostrarBuscador;
+            ViewBag.CaracteresBuscador = CaracteresBuscador;
+            ViewBag.TotalListadorBuscador = TotalListadorBuscador;
+            ViewBag.CaracteresBuscadorMostrar = CaracteresBuscadorMostrar;
         }
         
         private bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)

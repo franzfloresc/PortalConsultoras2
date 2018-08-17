@@ -33,7 +33,8 @@ namespace Portal.Consultoras.BizLogic
             {
                 Concursos.AddRange(reader.MapToCollection<BEIncentivoConcurso>());
             }
-            
+
+            DAConcurso.DelProgramaNuevasXConsultora(usuario.CodigoConsultora);
             if (!string.IsNullOrEmpty(usuario.CodigoPrograma))
             {
                 var incentivoNuevas = new BEIncentivoConcurso
@@ -44,7 +45,7 @@ namespace Portal.Consultoras.BizLogic
                     TipoConcurso = Incentivos.CalculoProgramaNuevas
                 };
                 Concursos.Add(incentivoNuevas);
-                DAConcurso.DelInsProgramaNuevasXConsultora(usuario.CodigoConsultora, incentivoNuevas);
+                DAConcurso.InsProgramaNuevasXConsultora(usuario.CodigoConsultora, incentivoNuevas);
             }
 
             return Concursos;

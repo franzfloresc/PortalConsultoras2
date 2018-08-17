@@ -362,7 +362,7 @@ namespace Portal.Consultoras.Web.Providers
                         userData.CodigoConsultora,
                         userData.CodigorRegion,
                         userData.ZonaID);
-                    var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital));
+                    var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital, userData.CodigoISO));
                     Task.WhenAll(taskApi);
                     listEstrategia = taskApi.Result;
                 }
@@ -934,7 +934,8 @@ namespace Portal.Consultoras.Web.Providers
                     return ObtenerListaProductoShowRoom(usuarioModel, campaniaId, codigoConsultora, esDiasFacturacion, 1)
                         .FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.OfertaDelDia:
-                    return ObtenerListaProductoODD().FirstOrDefault(x => x.CUV2 == cuv);
+                    var listaProductoODD = RevisarCamposParaMostrar(ObtenerListaProductoODD(), true);
+                    return listaProductoODD.FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.PackNuevas:
                     var varSession = Constantes.ConstSession.ListaEstrategia + Constantes.TipoEstrategiaCodigo.PackNuevas;
                     var listaEstrategia = sessionManager.GetBEEstrategia(varSession);
@@ -957,11 +958,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 if (sessionManager.OfertaDelDia.Estrategia.ListaOferta != null)
                 {
-
                     var ListaOfertaSession = sessionManager.OfertaDelDia.Estrategia.ListaOferta;
-
-                    RevisarCamposParaMostrar(ListaOfertaSession);                   
-
                     return ListaOfertaSession;
                 }
                 else
@@ -969,7 +966,6 @@ namespace Portal.Consultoras.Web.Providers
             }
             else
                 return new List<EstrategiaPersonalizadaProductoModel>();
-
         }
 
         public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoShowRoom(UsuarioModel userData, int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
@@ -1104,11 +1100,13 @@ namespace Portal.Consultoras.Web.Providers
                         item.Hermanos = new List<EstrategiaComponenteModel>();
                         componentesRelacinados.ForEach(componente =>
                         {
-                            if (componente.CUV != item.CUV2 && lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
+                            if (lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
                             {
+                                var nombreFormateado = (componente.NombreProducto.Length <= 26) ? componente.NombreProducto : componente.NombreProducto.Substring(0,25) + "...";
                                 item.Hermanos.Add(new EstrategiaComponenteModel()
                                 {
-                                    NombreComercial = string.Format("{0}{1}", componente.NombreProducto, item.Hermanos.Count == 1 ? "..." : string.Empty)
+                                    NombreComercial = string.Format("{0}", componente.NombreProducto),
+                                    Descripcion = string.Format("{0}", nombreFormateado)
                                 });
                             }
                             lineasPorCaja--;
