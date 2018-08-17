@@ -380,29 +380,37 @@ var FichaModule = (function (config) {
     };
 
     var _renderImg = function () {
-
+        _renderImgFin();
         $(document).ajaxStop(function () {
-            var proObj = $(_seccionesFichaProducto.ImagenProducto);
-            var proImg = proObj.find("img");
-
-            // medida segun alto
-            var proM = proImg.innerHeight();
-            var proObjM = proObj.innerHeight();
-
-            if (proM > proObjM) {
-                $(proImg).css("height", proObjM + "px");
-                $(proImg).css("width", "auto");
-            }
-
-            // medida segun ancho
-            proM = proImg.innerWidth();
-            proObjM = proObj.innerWidth();
-            if (proM > proObjM) {
-                $(proImg).css("width", proObjM + "px");
-            }
-            setTimeout(_resizeBotonAgregar(), 1000);
+            _renderImgFin();
         });
+    };
 
+    var _renderImgFin = function () {
+
+        var proObj = $(_seccionesFichaProducto.ImagenProducto);
+        var proImg = proObj.find("img");
+
+        // medida segun alto
+        var proM = proImg.innerHeight();
+        var proObjM = proObj.innerHeight();
+
+        $(proImg).css("height", "");
+        $(proImg).css("width", "");
+
+        if (proM > proObjM) {
+            $(proImg).css("height", proObjM + "px");
+            $(proImg).css("width", "auto");
+        }
+
+        // medida segun ancho
+        proM = proImg.innerWidth();
+        proObjM = proObj.innerWidth();
+        if (proM > proObjM) {
+            $(proImg).css("width", proObjM + "px");
+        }
+
+        setTimeout(_resizeBotonAgregar(), 1000);
     };
     
     var _resizeBotonAgregar = function () {
