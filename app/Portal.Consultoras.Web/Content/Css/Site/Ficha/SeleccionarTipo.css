@@ -96,7 +96,7 @@
     margin-bottom: 0px;
     }
 
-    .selecion_item li:nth-last-child(2){
+    .selecion_item li:nth-child(2){
     display: inline-flex;
     align-items: center;
     justify-content: center;
