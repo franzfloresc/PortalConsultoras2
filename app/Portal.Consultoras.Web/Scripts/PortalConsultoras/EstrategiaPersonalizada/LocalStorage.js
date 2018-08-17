@@ -1,7 +1,7 @@
 ﻿var LocalStorageModule = (function() {
     'use strict';
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
-
+    var _constantesPalanca = ConstantesModule.ConstantesPalanca;
     var _keyLocalStorage = ConstantesModule.KeysLocalStorage;
 
     var _urlObtenerEstrategia = ConstantesModule.UrlObtenerEstrategia;
@@ -22,7 +22,23 @@
                 return null;
         }
     }
-    
+    var _obtenerKeyName = function(codigoPalanaca, campania) {
+        switch (codigoPalanaca) {
+            case _constantesPalanca.RevistaDigital:
+            case _constantesPalanca.OfertaParaTi:
+            case _constantesPalanca.OfertasParaMi:
+            case _constantesPalanca.PackAltoDesembolso:
+                return _keyLocalStorage.RevistaDigital + campania;
+            case _constantesPalanca.GuiaDeNegocioDigitalizada:
+                return _keyLocalStorage.GuiaDeNegocio + campania;
+            case _constantesPalanca.Lanzamiento:
+                return _keyLocalStorage.Lanzamiento + campania;
+            case _constantesPalanca.HerramientasVenta:
+                return _keyLocalStorage.HerramientasVenta + campania;
+        default:
+            return null;
+        }
+    }
     var _promiseObternerEstrategia = function (urlEstrategia, params) {
         var dfd = $.Deferred();
 
@@ -114,6 +130,20 @@
         return true;
     }
 
+    var _actualizarAgregado = function(lista, estrategiaId, valor) {
+        var updated = false;
+        if (lista !== undefined) {
+            $.each(lista, function(index, estrategia) {
+                if (estrategia.EstrategiaID === parseInt(estrategiaId)) {
+                    estrategia.IsAgregado = valor;
+                    updated =true;
+                    return false;
+                }
+            });
+        }  
+        return updated;
+    }
+    
     var ObtenerEstrategia = function(cuv, campania, palanca) {
         try {
             
@@ -131,14 +161,37 @@
         } catch (e) {
            console.error("error al cargar productos de local storage : " + e);
         } 
-         return null;
+        return null;
+    }
+    
+    var ActualizarCheckAgregado = function(estrategiaId, campania, codigoPalanaca, valor) {
+        try {
+
+            var nombreKey = _obtenerKeyName(codigoPalanaca, campania);
+            var valLocalStorage = localStorage.getItem(nombreKey);
+
+            if (valLocalStorage != null) {
+                var data = JSON.parse(valLocalStorage);
+                var updated;
+                if (codigoPalanaca === _constantesPalanca.Lanzamiento)
+                    updated = _actualizarAgregado(data.response.listaLan, estrategiaId,  valor);
+                else 
+                    updated = _actualizarAgregado(data.response.lista, estrategiaId, valor);
+        
+                if (updated) localStorage.setItem(nombreKey, JSON.stringify(data));
+            }
+            return true;
+        } catch (e) {
+            console.error("error al cargar productos de local storage : " + e);
+            return false;
+        }
     }
     
     return{
-        ObtenerEstrategia: ObtenerEstrategia
+        ObtenerEstrategia: ObtenerEstrategia,
+        ActualizarCheckAgregado: ActualizarCheckAgregado
     }
 });
-
 
 var lsListaRD = lsListaRD || "";
 
@@ -282,5 +335,5 @@ function RDActualizarTipoAccionAgregar(revistaDigital, key){
             item.TipoAccionAgregar = 4;
     });
 
-    LocalStorageListado(key, valLocalStorage, 0);
+    LocalStorageListado(key, valLocalStora0ge, );
 }
