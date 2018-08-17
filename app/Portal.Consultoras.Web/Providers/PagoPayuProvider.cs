@@ -50,8 +50,8 @@ namespace Portal.Consultoras.Web.Providers
 
         private async Task<PayuApiResponse> MakeRequest(string url, object data)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            ServicePointManager.ServerCertificateValidationCallback = (_, __, ___, ____) => true;
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+            //ServicePointManager.ServerCertificateValidationCallback = (_, __, ___, ____) => true;
 
             const string contentType = "application/json";
             var json = JsonConvert.SerializeObject(data);
