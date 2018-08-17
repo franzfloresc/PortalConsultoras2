@@ -492,8 +492,16 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult PedidoInsertar(PedidoCrudModel model, List<string> listCuvEliminar = null)
+        public JsonResult PedidoInsertar(PedidoCrudModel model, bool esEstrategia = false)
         {
+            var mensajeOsb = "";
+            var listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, out mensajeOsb);
+            if (mensajeOsb != "") return ErrorJson(mensajeOsb, true);
+
+            mensajeOsb = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
+            if (mensajeOsb != "") return ErrorJson(mensajeOsb, true);
+
+            if(esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
             return Json(PedidoInsertarGenerico(model, false, listCuvEliminar));
         }
 
@@ -1425,8 +1433,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (mensaje == "" || resul)
                 {
                     mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
-                    if (mensaje == "")
-                        mensaje = ValidarStockEstrategiaMensaje(entidad.CUV2, entidad.Cantidad, entidad.FlagCantidad);
+                    if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(entidad.CUV2, entidad.Cantidad, entidad.FlagCantidad);
                 }
             }
             catch (FaultException ex)
@@ -1451,13 +1458,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.OrigenPedidoWeb = model.OrigenPedidoWeb < 0 ? 0 : model.OrigenPedidoWeb;
             model.TipoOfertaSisID = model.TipoOfertaSisID > 0 ? model.TipoOfertaSisID : model.TipoEstrategiaID;
             model.ConfiguracionOfertaID = model.ConfiguracionOfertaID > 0 ? model.ConfiguracionOfertaID : model.TipoOfertaSisID;
-
-            var mensajeOsb = "";
-            var listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad), out mensajeOsb);
-            if (mensajeOsb != "") return Json(new { success = false, message = mensajeOsb }, JsonRequestBehavior.AllowGet);
-
-            Session[Constantes.ConstSession.ListaEstrategia] = null;
-            return PedidoInsertar(model, listCuvEliminar);
+            return PedidoInsertar(model, true);
         }
 
         private void EliminarDetallePackNueva(List<string> listCuv)
@@ -4398,15 +4399,19 @@ namespace Portal.Consultoras.Web.Controllers
         private string ValidarCantidadEnProgramaNuevas(string cuvingresado, int cantidadIngresada)
         {
             if (!Convert.ToBoolean(Session["CuvEsProgramaNuevas"])) return "";
-            int valor = 0;
+
             int cantidadPedido = ObtnerCantidadCuvPedidoWeb(cuvingresado);
+            int valor = 0;
             using (var svc = new ODSServiceClient())
+            {
                 valor = svc.ValidarCantidadMaximaProgramaNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cantidadPedido, cuvingresado, cantidadIngresada);
+            }
             if (valor != 0) return Constantes.ProgramaNuevas.MensajeValidacionCantidadMaxima.ExcedeCantidad.Replace("#n#", valor.ToString());
+
             return "";
         }
 
-        private List<string> ValidarAgregarEnProgramaNuevas(string cuvingresado, int cantidadIngresada, out string mensajeObs)
+        private List<string> ValidarAgregarEnProgramaNuevas(string cuvingresado, out string mensajeObs)
         {
             mensajeObs = "";
             try
