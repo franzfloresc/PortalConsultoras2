@@ -111,31 +111,7 @@ var ListaOpcionesModule = (function () {
             typeof _componente.mostrarListo !== "undefined" && _componente.cantidadFaltantes === 0;
     };
 
-    var _renderListaOpciones = function() {
-        $(_elements.listaOpciones.id).html("");
-        SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
-        //
-        if (_componente.HermanosSeleccionados.length === 0) {
-            _moverListaOpcionesOcultarSeleccionados();
-        } else {
-            _moverListaOpcionesMostrarSeleccionados();
-        }
-        //
-        if (_componente.HermanosSeleccionados.length === _componente.FactorCuadre) {
-            $(_elements.btnAplicarSeleccion.id)
-                .removeClass(_elements.btnAplicarSeleccion.disabledClass)
-                .addClass(_elements.btnAplicarSeleccion.activeClass);
-        } else {
-            $(_elements.btnAplicarSeleccion.id)
-                .removeClass(_elements.btnAplicarSeleccion.activeClass)
-                .addClass(_elements.btnAplicarSeleccion.disabledClass);
-        }
-    };
-
-    var ListarOpciones = function (componente) {
-        if (typeof componente === "undefined" ||
-            componente === null) throw "param componente is not defined or null";
-        //
+    var _inicializarComponenteModel = function (componente) {
         _componente = componente;
         _componente.Hermanos = componente.Hermanos || [];
         _componente.HermanosSeleccionados = componente.HermanosSeleccionados || [];
@@ -154,7 +130,35 @@ var ListaOpcionesModule = (function () {
             _actualizarCantidadFaltantes();
             _componente.mostrarListo = false;
         }
-       
+    };
+
+    var _renderListaOpciones = function() {
+        
+        if (_componente.HermanosSeleccionados.length === 0) {
+            _moverListaOpcionesOcultarSeleccionados();
+        } else {
+            _moverListaOpcionesMostrarSeleccionados();
+        }
+        //
+        $(_elements.listaOpciones.id).html("");
+        SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
+        //
+        if (_componente.HermanosSeleccionados.length === _componente.FactorCuadre) {
+            $(_elements.btnAplicarSeleccion.id)
+                .removeClass(_elements.btnAplicarSeleccion.disabledClass)
+                .addClass(_elements.btnAplicarSeleccion.activeClass);
+        } else {
+            $(_elements.btnAplicarSeleccion.id)
+                .removeClass(_elements.btnAplicarSeleccion.activeClass)
+                .addClass(_elements.btnAplicarSeleccion.disabledClass);
+        }
+    };
+
+    var ListarOpciones = function (componente) {
+        if (typeof componente === "undefined" ||
+            componente === null) throw "param componente is not defined or null";
+        //
+        _inicializarComponenteModel(componente);
         //
         _renderListaOpciones();
         //
@@ -164,22 +168,11 @@ var ListaOpcionesModule = (function () {
         //
         return false;
     };
-    
-    var SeleccionarOpcion = function (cuv, event) {
-        if (typeof cuv === "undefined" ||
-            cuv === null ||
-            $.trim(cuv) === "") throw "param componente is not defined or null";
-        //
-        if (_componente.FactorCuadre === _componente.HermanosSeleccionados.length) {
-            return false;
-        }
-        //
-        if (!(typeof event === "undefined"))
-            EstrategiaAgregarModule.AdicionarCantidad(event);
 
+    var _agregarOpcionAComponenteModel = function (cuv) {
         cuv = $.trim(cuv);
         var opcion = {};
-        $.each(_componente.Hermanos, function(index, hermano) {
+        $.each(_componente.Hermanos, function (index, hermano) {
             if (cuv === hermano.Cuv) {
                 opcion = _componente.Hermanos[index];
                 opcion.cantidadSeleccionada = opcion.cantidadSeleccionada || 0;
@@ -196,7 +189,21 @@ var ListaOpcionesModule = (function () {
         //_componente.HermanosSeleccionados.push(opcion);
         //_componente.HermanosSeleccionados.push(opcion);
         _actualizarCantidadFaltantes();
-        _moverListaOpcionesMostrarSeleccionados();
+    };
+
+    var SeleccionarOpcion = function (cuv, event) {
+        if (typeof cuv === "undefined" ||
+            cuv === null ||
+            $.trim(cuv) === "") throw "param componente is not defined or null";
+        //
+        if (_componente.FactorCuadre === _componente.HermanosSeleccionados.length) {
+            return false;
+        }
+        //
+        if (typeof event !== "undefined") EstrategiaAgregarModule.AdicionarCantidad(event);
+        //
+        _agregarOpcionAComponenteModel(cuv);
+        //
         _renderListaOpciones();
         //
         opcionesEvents.applyChanges("onOptionSelected", _componente);
@@ -204,14 +211,7 @@ var ListaOpcionesModule = (function () {
         return false;
     };
 
-    var EliminarOpcion = function (cuv, event) {
-        if (typeof cuv === "undefined" ||
-            cuv === null ||
-            $.trim(cuv) === "") throw "param componente is not defined or null";
-
-        if (!(typeof event === "undefined"))
-            EstrategiaAgregarModule.DisminuirCantidad(event);   
-
+    var _eliminarOpcionDeComponenteModel = function (cuv) {
         var hermanoSeleccionadoIndex;
         $.each(_componente.HermanosSeleccionados, function (index1, hermano) {
             cuv = $.trim(cuv);
@@ -230,9 +230,19 @@ var ListaOpcionesModule = (function () {
         if (typeof hermanoSeleccionadoIndex !== "undefined") {
             _componente.HermanosSeleccionados.splice(hermanoSeleccionadoIndex, 1);
             _actualizarCantidadFaltantes();
-            _renderListaOpciones();
         }
+    };
 
+    var EliminarOpcion = function (cuv, event) {
+        if (typeof cuv === "undefined" ||
+            cuv === null ||
+            $.trim(cuv) === "") throw "param componente is not defined or null";
+        //
+        if (typeof event !== "undefined") EstrategiaAgregarModule.DisminuirCantidad(event);
+        //
+        _eliminarOpcionDeComponenteModel(cuv);
+        //
+        _renderListaOpciones();
         //
         opcionesEvents.applyChanges("onOptionSelected", _componente);
         //
