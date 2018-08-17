@@ -58,7 +58,7 @@ namespace Portal.Consultoras.Web.Providers
                         model.CampaniaID, 
                         model.CodigoConsultora,
                         diaInicio);
-                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOfertaDelDia));
+                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOfertaDelDia, model.CodigoISO));
 
                     Task.WhenAll(taskApi);
 

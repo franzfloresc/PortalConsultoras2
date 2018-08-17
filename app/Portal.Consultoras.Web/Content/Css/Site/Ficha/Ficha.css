@@ -54,7 +54,8 @@ body {
 }
 
     .contenedor_imagen .contenedor_img {
-        width: 100%;
+        max-width: 100%;
+        height: 100%;
     }
 
 /*.contenedor_imagen_ancho_mayor {
@@ -823,11 +824,6 @@ body {
     margin: 0;
 }
 
-.tono_seleccionado {
-    margin-top: 2px !important;
-    height: 41px;
-}
-
 .texto_sin_tono .tono_seleccionado {
     margin: 1px 9px;
 }
@@ -1139,3 +1135,21 @@ ul.breadcumbs li a::before {
     top: -2px;
     margin: 0px 2px;
 }
+
+
+.tono_seleccionado {
+    width: 50%;
+    float: left;
+    display: contents;
+}
+
+.cambiar_opcion {
+    float: right;
+    margin-top: 6px;
+    width: 40%;
+}
+
+
+
+
+

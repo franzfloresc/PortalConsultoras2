@@ -270,12 +270,35 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         $.each(listaCuv, function (ind, cuvItem) {
             var cuvx = cuvItem.split(';')[0];
             ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
+            ActualizaCuvAgregado(cuvx, valor, lista, indCampania);
         });
 
     } catch (e) {
         console.log(e);
     }
     return ok;
+}
+
+function ActualizaCuvAgregado(cuv, valor, lista, indCampania) {
+    var listaPalanca = filtroCampania[lista + indCampania];
+    if (listaPalanca != undefined) {
+        $.each(listaPalanca.response.lista, function (index, item) {
+            if (item.CUV2 == cuv || cuv == "todo") {
+                if (item.ClaseBloqueada !== "" && valor === true) {
+                    item.IsAgregado = false;
+                }
+                else {
+                    item.IsAgregado = valor;
+                }
+
+                ok = true;
+                if (cuv != "todo") {
+                    return false;
+                }
+            }
+        });
+    }
+    filtroCampania[lista + indCampania] = listaPalanca;
 }
 
 function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {

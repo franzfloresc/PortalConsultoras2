@@ -500,7 +500,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
                 else if (palanca == Constantes.NombrePalanca.OfertaDelDia)
                 {
-                    var oddSession = _ofertaPersonalizadaProvider.ObtenerListaProductoODD();
+                    listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoODD();
                 }
                 else if (palanca == Constantes.NombrePalanca.PackNuevas)
                 {

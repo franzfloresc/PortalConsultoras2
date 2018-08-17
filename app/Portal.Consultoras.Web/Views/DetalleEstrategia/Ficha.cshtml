@@ -216,7 +216,7 @@
 
         @Html.Partial("ComponentesTemplate")
 
-        <div id="ContenidoProducto" class="contenedor_ficha_tabs">
+        <div id="ContenidoProducto" class="contenedor_ficha_tabs" style="display:none;">
             <div class="tabla_ficha_tab">
                 <div class="row_ficha_tab">
                     <div class="cell_ficha_tab" id="div_ficha_tab1">
@@ -357,12 +357,13 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
 
     <script type="text/javascript">
+        AbrirLoad();
+
         var fichaModule;
         var carruselModule;
         var tieneCarrusel = '@Model.TieneCarrusel';
 
         $(document).ready(function () {
-
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
@@ -372,9 +373,11 @@
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
             });
             fichaModule.Inicializar();
+            //CerrarLoad();
 
             if (tieneCarrusel)
             {
+                //AbrirLoad();
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
@@ -387,7 +390,12 @@
                 });
                 carruselModule.Inicializar();
             }
+            CerrarLoad();
         });
+
+        $(document).ajaxStop(function () {
+            //CerrarLoad();
+        })
 
     </script>
 }
