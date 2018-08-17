@@ -358,5 +358,5 @@ function RDActualizarTipoAccionAgregar(revistaDigital, key){
             item.TipoAccionAgregar = 4;
     });
 
-    LocalStorageListado(key, valLocalStora0ge, );
+    LocalStorageListado(key, valLocalStorage, 0);
 }
