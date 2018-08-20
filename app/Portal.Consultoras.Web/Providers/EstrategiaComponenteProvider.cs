@@ -126,16 +126,16 @@ namespace Portal.Consultoras.Web.Providers
                 x.NombreComercial = x.NombreComercial ?? string.Empty;
                 x.NombreBulk = x.NombreBulk ?? string.Empty;
                 //
-                if (!string.IsNullOrWhiteSpace(x.NombreBulk))
-                {
-                    x.NombreComercial = string.IsNullOrWhiteSpace(x.NombreBulk)
-                        ? x.NombreComercial
-                        : x.NombreComercial.Replace(x.NombreBulk, string.Empty);
-                }
-                else
-                {
-                    x.NombreBulk = x.NombreComercial;
-                }
+                //if (!string.IsNullOrWhiteSpace(x.NombreBulk))
+                //{
+                //    x.NombreComercial = string.IsNullOrWhiteSpace(x.NombreBulk)
+                //        ? x.NombreComercial
+                //        : x.NombreComercial.Replace(x.NombreBulk, string.Empty);
+                //}
+                //else
+                //{
+                //    x.NombreBulk = x.NombreComercial;
+                //}
                 //
                 x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
