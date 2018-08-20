@@ -123,6 +123,7 @@ $(document).ready(function () {
     $("#txtDescripcionProd").keyup(function (evt) {
         $("#divObservaciones").html("");
         $("#txtCantidad").removeAttr("disabled");
+        document.getElementById('divObservacionesDescripProd').style.display = "none";  
     });
     $("#txtDescripcionProd").autocomplete({
         source: baseUrl + "Pedido/AutocompleteByProductoDescripcion",
@@ -147,6 +148,9 @@ $(document).ready(function () {
             event.preventDefault();
         }
     }).data("autocomplete")._renderItem = function (ul, item) {
+        if (item.Descripcion == "Sin Resultados") {
+            document.getElementById('divObservacionesDescripProd').style.display = "inline-block";                   
+        }else
         return $("<li></li>")
             .data("item.autocomplete", item)
             .append("<a>" + item.Descripcion + "</a>")
