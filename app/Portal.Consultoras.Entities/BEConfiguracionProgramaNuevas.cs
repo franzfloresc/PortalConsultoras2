@@ -23,6 +23,7 @@ namespace Portal.Consultoras.Entities
         public decimal MontoVentaExigido { get; set; }
 
         public string Campania { get; set; }
+        public string CampaniaIngreso { get; set; }
         public string CodigoConsultora { get; set; }
         public string CodigoNivel { get; set; }
     }

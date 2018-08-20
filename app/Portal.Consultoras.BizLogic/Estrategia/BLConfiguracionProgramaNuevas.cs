@@ -14,6 +14,7 @@ namespace Portal.Consultoras.BizLogic
             var configuracion = new BEConfiguracionProgramaNuevas()
             {
                 Campania = usuario.CampaniaID.ToString(),
+                CampaniaIngreso = (usuario.CampaniaID - usuario.ConsecutivoNueva).ToString(),
                 CodigoConsultora = usuario.CodigoConsultora
             };
 

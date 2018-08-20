@@ -307,11 +307,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 if (usuario.EsConsultoraOficina) return false;
                 if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
-                
+
+                usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
                 var confProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
                 if (confProgNuevas.IndProgObli != "1") return false;
 
-                usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
                 string cuvKitNuevas = _configuracionProgramaNuevasBusinessLogic.GetCuvKitNuevas(usuario, confProgNuevas);
                 if (string.IsNullOrEmpty(cuvKitNuevas)) return false;
 
