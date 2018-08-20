@@ -72,7 +72,7 @@ var ListaOpcionesModule = (function () {
         }
     };
 
-    var _moverListaOpcionesOcultarSeleccionados = function() {
+    var moverListaOpcionesOcultarSeleccionados = function() {
         $(_elements.listaOpciones.id).css("padding-top", "0px");
         if (isMobile()) {
             $(_elements.listaOpciones.id).css("padding-top", "63px");
@@ -81,7 +81,7 @@ var ListaOpcionesModule = (function () {
         }
     };
 
-    var _moverListaOpcionesMostrarSeleccionados = function () {
+    var moverListaOpcionesMostrarSeleccionados = function () {
         if (isMobile()) {
             $(_elements.listaOpciones.id).css("padding-top", "161px");
         } else {
@@ -135,9 +135,9 @@ var ListaOpcionesModule = (function () {
     var _renderListaOpciones = function() {
         
         if (_componente.HermanosSeleccionados.length === 0) {
-            _moverListaOpcionesOcultarSeleccionados();
+            moverListaOpcionesOcultarSeleccionados();
         } else {
-            _moverListaOpcionesMostrarSeleccionados();
+            moverListaOpcionesMostrarSeleccionados();
         }
         //
         $(_elements.listaOpciones.id).html("");
@@ -276,10 +276,25 @@ var ListaOpcionesModule = (function () {
         SeleccionarOpcion: SeleccionarOpcion,
         EliminarOpcion: EliminarOpcion,
         GetComponente: GetComponente,
-        CloseElegirOpcionesModal: CloseElegirOpcionesModal
+        CloseElegirOpcionesModal: CloseElegirOpcionesModal,
+        MoverListaOpcionesOcultarSeleccionados: moverListaOpcionesOcultarSeleccionados,
+        MoverListaOpcionesMostrarSeleccionados: moverListaOpcionesMostrarSeleccionados
     };
 }());
 
 opcionesEvents.subscribe("onComponentSelected", function (componente) {
     ListaOpcionesModule.ListarOpciones(componente);
+});
+
+$(document).ready(function () {
+    $(window).on('resize', function () {
+        var _componente = ListaOpcionesModule.GetComponente() || {};
+        if (_componente.HermanosSeleccionados) {
+            if (_componente.HermanosSeleccionados.length === 0) {
+                ListaOpcionesModule.MoverListaOpcionesOcultarSeleccionados();
+            } else {
+                ListaOpcionesModule.MoverListaOpcionesMostrarSeleccionados();
+            }
+        }
+    });
 });
