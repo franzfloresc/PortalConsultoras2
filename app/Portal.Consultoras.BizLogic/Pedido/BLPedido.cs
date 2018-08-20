@@ -1693,9 +1693,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 ListPedidoObservacion.AddRange(obsDet);
             }
             if (obsSets.Count > 0) ListPedidoObservacion.AddRange(obsSets);
-            ListPedidoObservacion.OrderBy(e => e.PedidoDetalleID);
 
-            return ListPedidoObservacion;
+            return ListPedidoObservacion.OrderBy(e => e.PedidoDetalleID).ToList();            
         }
         #endregion
 
