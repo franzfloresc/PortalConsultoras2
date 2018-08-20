@@ -177,14 +177,8 @@ namespace Portal.Consultoras.Web.Providers
                         ?? new EstrategiaComponenteModel()).Clone();
                 }
 
-                componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.Volumen);
 
-                if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
-                {
-                    componenteModel.NombreComercial = string.IsNullOrEmpty(beEstrategiaProducto.NombreProducto)
-                        ? componenteModel.NombreComercial
-                        : string.Concat(Util.Trim(beEstrategiaProducto.NombreProducto), " ", componenteModel.Volumen);
-                }
+                componenteModel.NombreComercial = GetNombreComercial(componenteModel, beEstrategiaProducto, codigoTipoEstrategia);
 
                 if (!string.IsNullOrEmpty(beEstrategiaProducto.ImagenProducto))
                 {
@@ -201,11 +195,6 @@ namespace Portal.Consultoras.Web.Providers
                 componenteModel.Cuv = Util.Trim(beEstrategiaProducto.CUV);
                 componenteModel.Cantidad = beEstrategiaProducto.Cantidad;
                 componenteModel.FactorCuadre = beEstrategiaProducto.FactorCuadre > 0 ? beEstrategiaProducto.FactorCuadre : 1;
-                componenteModel.NombreComercial = Util.Trim(componenteModel.NombreComercial);
-                if (componenteModel.NombreComercial == "")
-                {
-                    componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto;
-                }
 
                 listaComponentesTemporal.Add(componenteModel);
                 idPk = componenteModel.Id;
@@ -267,6 +256,38 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return listaEstrategiaComponenteProductos;
+        }
+
+        private string GetNombreComercial(EstrategiaComponenteModel componenteModel, BEEstrategiaProducto beEstrategiaProducto, string codigoTipoEstrategia)
+        {
+            componenteModel.NombreComercial = Util.Trim(componenteModel.NombreComercial);
+            beEstrategiaProducto.NombreProducto = Util.Trim(beEstrategiaProducto.NombreProducto);
+            componenteModel.NombreBulk = Util.Trim(componenteModel.NombreBulk);
+            componenteModel.Volumen = Util.Trim(componenteModel.Volumen);
+
+            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
+            {
+                if (beEstrategiaProducto.NombreProducto != "")
+                {
+                    componenteModel.NombreComercial = Util.Trim(beEstrategiaProducto.NombreProducto);
+                }
+            }
+            else
+            {
+                if (componenteModel.NombreComercial == "")
+                {
+                    componenteModel.NombreComercial = Util.Trim(beEstrategiaProducto.NombreProducto);
+                }
+            }
+            
+            if (componenteModel.NombreBulk != "" && !(" " + componenteModel.NombreComercial.ToLower() + " ").Contains(" " + componenteModel.NombreBulk.ToLower() + " "))
+            {
+                componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.NombreBulk);
+            }
+
+            componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.Volumen);
+
+            return Util.Trim(componenteModel.NombreComercial);
         }
 
         private List<EstrategiaComponenteModel> GetEstrategiaDetalleFactorCuadre(List<EstrategiaComponenteModel> listaHermanos)
