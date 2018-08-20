@@ -1,4 +1,4 @@
-﻿USE BelcorpPeru
+USE BelcorpPeru
 GO
 
 /* ELIMINAMOS EL MENU EXISTENTE */

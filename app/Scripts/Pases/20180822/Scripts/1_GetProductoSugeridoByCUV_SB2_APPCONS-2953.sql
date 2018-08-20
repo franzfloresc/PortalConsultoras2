@@ -1,4 +1,4 @@
-﻿USE BelcorpPeru
+USE BelcorpPeru
 GO
 
 IF (OBJECT_ID ( 'dbo.GetProductoSugeridoByCUV_SB2', 'P' ) IS NULL)
