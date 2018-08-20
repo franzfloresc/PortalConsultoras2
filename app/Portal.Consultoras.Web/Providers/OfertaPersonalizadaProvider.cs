@@ -1073,6 +1073,12 @@ namespace Portal.Consultoras.Web.Providers
             }
             
             listaSubCampania = obtenerListaHermanos(listaSubCampania);
+            // para no mostrar boton ELIGE TU OPCION
+            listaSubCampania.ForEach(item =>
+            {
+                if (item.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    item.CodigoEstrategia = Constantes.TipoEstrategiaSet.CompuestaFija;
+            });
 
             var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
             //configEstrategiaSR.ListaCategoria = new List<ShowRoomCategoriaModel>();
