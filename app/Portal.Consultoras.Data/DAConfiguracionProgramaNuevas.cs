@@ -17,8 +17,9 @@ namespace Portal.Consultoras.Data
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevas"))
             {
-                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
+                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);
+                Context.Database.AddInParameter(command, "@CampaniaIngreso", DbType.String, entidad.CampaniaIngreso);
 
                 return Context.ExecuteReader(command);
             }

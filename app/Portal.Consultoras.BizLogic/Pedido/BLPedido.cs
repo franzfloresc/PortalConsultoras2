@@ -310,12 +310,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (usuario.EsConsultoraOficina) return false;
                 if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
 
+                usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
                 var oProgramaNueva = new BEProgramaNuevas { PaisID = usuario.PaisID, CampaniaID = usuario.CampaniaID, CodigoConsultora = usuario.CodigoConsultora,
                                                             EsConsultoraNueva = usuario.EsConsultoraNueva, ConsecutivoNueva = usuario.ConsecutivoNueva };
                 var confProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(oProgramaNueva);
                 if (confProgNuevas.IndProgObli != "1") return false;
 
-                usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
                 string cuvKitNuevas = _configuracionProgramaNuevasBusinessLogic.GetCuvKitNuevas(oProgramaNueva, confProgNuevas);
                 if (string.IsNullOrEmpty(cuvKitNuevas)) return false;
 
