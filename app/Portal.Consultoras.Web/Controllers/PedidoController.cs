@@ -1013,8 +1013,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var listaCliente = ListarClienteSegunPedido("", olstPedidoWebDetalle);
-
-                sessionManager.SetListaEstrategia(null);
+                
+                sessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
 
                 var message = !errorServer ? "OK"
                             : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.";
@@ -1113,7 +1113,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetPedidoWeb(null);
                 sessionManager.SetDetallesPedido(null);
                 sessionManager.SetDetallesPedidoSetAgrupado(null);
-                sessionManager.SetListaEstrategia(null);
+                sessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
                 UpdPedidoWebMontosPROL();
             }
             catch (Exception ex)
@@ -1453,7 +1453,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ConfiguracionOfertaID = model.ConfiguracionOfertaID > 0 ? model.ConfiguracionOfertaID : model.TipoOfertaSisID;
 
             EliminarDetallePackNueva(model.EsOfertaIndependiente, model.TipoEstrategiaImagen);
-            sessionManager.SetListaEstrategia(null);
+            sessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
             return PedidoInsertar(model);
         }
 
@@ -1674,7 +1674,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
-                var estrategias = sessionManager.GetListaEstrategia() ?? new List<ServiceOferta.BEEstrategia>();
+                var estrategias = sessionManager.GetBEEstrategia(Constantes.ConstSession.ListaEstrategia) ?? new List<ServiceOferta.BEEstrategia>();
                 var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new ServiceOferta.BEEstrategia();
 
                 var observacionCuv = ObtenerObservacionCreditoCuv(userModel, cuvCredito);

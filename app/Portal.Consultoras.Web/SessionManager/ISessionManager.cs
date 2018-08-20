@@ -232,7 +232,7 @@ namespace Portal.Consultoras.Web.SessionManager
         BEConfiguracionProgramaNuevas ConfiguracionProgramaNuevas { get; set; }
         bool ProcesoKitNuevas { get; set; }
         string CuvKitNuevas { get; set; }
-
+        
         void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosModel GetBuscadorYFiltros();
@@ -361,10 +361,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetResultadoZona(dynamic val);
 
         dynamic GetResultadoZona();
-
-        void SetListaEstrategia(List<ServiceOferta.BEEstrategia> val);
-
-        List<ServiceOferta.BEEstrategia> GetListaEstrategia();
 
         void SetListaProductoShowRoomCpc(List<BEShowRoomOferta> val);
 
