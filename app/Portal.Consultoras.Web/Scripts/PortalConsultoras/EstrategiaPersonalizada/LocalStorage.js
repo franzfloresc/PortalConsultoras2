@@ -28,13 +28,13 @@
             case _constantesPalanca.OfertaParaTi:
             case _constantesPalanca.OfertasParaMi:
             case _constantesPalanca.PackAltoDesembolso:
-                return _keyLocalStorage.RevistaDigital + campania;
+                return _keyLocalStorage.RevistaDigital;
             case _constantesPalanca.GuiaDeNegocioDigitalizada:
-                return _keyLocalStorage.GuiaDeNegocio + campania;
+                return _keyLocalStorage.GuiaDeNegocio;
             case _constantesPalanca.Lanzamiento:
-                return _keyLocalStorage.Lanzamiento + campania;
+                return _keyLocalStorage.Lanzamiento;
             case _constantesPalanca.HerramientasVenta:
-                return _keyLocalStorage.HerramientasVenta + campania;
+                return _keyLocalStorage.HerramientasVenta;
         default:
             return null;
         }
@@ -167,8 +167,9 @@
     var ActualizarCheckAgregado = function(estrategiaId, campania, codigoPalanaca, valor) {
         try {
 
-            var nombreKey = _obtenerKeyName(codigoPalanaca, campania);
-            var valLocalStorage = localStorage.getItem(nombreKey);
+            var nombreKey = _obtenerKeyName(codigoPalanaca);
+            var nombreKeyLocalStorage = nombreKey + campania;
+            var valLocalStorage = localStorage.getItem(nombreKeyLocalStorage);
 
             if (valLocalStorage != null) {
                 var data = JSON.parse(valLocalStorage);
@@ -178,8 +179,16 @@
                 else 
                     updated = _actualizarAgregado(data.response.lista, estrategiaId, valor);
         
-                if (updated) localStorage.setItem(nombreKey, JSON.stringify(data));
+                if (updated) localStorage.setItem(nombreKeyLocalStorage, JSON.stringify(data));
             }
+
+            var nombreKeyJs = nombreKey + (indCampania || 0);
+            var listaPalanca = filtroCampania[nombreKeyJs];
+            if (listaPalanca != undefined) {
+                _actualizarAgregado(listaPalanca.response.lista, estrategiaId, valor);
+                filtroCampania[nombreKeyJs] = listaPalanca;
+            }
+            
             return true;
         } catch (e) {
             console.error("error al cargar productos de local storage : " + e);
