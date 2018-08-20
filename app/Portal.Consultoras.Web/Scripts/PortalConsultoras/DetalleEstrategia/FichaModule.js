@@ -152,7 +152,6 @@ var FichaModule = (function (config) {
         var showTabContainer = false;
         if (_codigoPalanca.ShowRoom === _config.palanca ||
             ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
-            $(_tabsFichaProducto.tipsVenta).show();
             showTabContainer = true;
         }
 
