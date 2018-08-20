@@ -26,11 +26,11 @@ namespace Portal.Consultoras.Web.Controllers
             _issuuProvider = new IssuuProvider();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string marca = "")
         {
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "Catalogo", new { area = "Mobile" });
+                return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca = marca });
             }
 
             var clienteModel = new MisCatalogosRevistasModel
