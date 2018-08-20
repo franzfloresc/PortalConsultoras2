@@ -1,0 +1,20 @@
+1.PortalConsultoras2 - WEB
+
+Agregar:
+---
+  <add key="UrlMicroservicioPersonalizacionSearch" value="http://internal-elbwcf-sbmicroserviciosqas-1282604982.us-east-1.elb.amazonaws.com:5000/"/>
+  <add key="UrlMicroservicioPersonalizacionConfig" value="http://internal-elbwcf-sbmicroserviciosqas-1282604982.us-east-1.elb.amazonaws.com:5002/"/>
+  <add key="PaisesMicroservicioPersonalizacion" value="PE" />
+  <add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="101,007,008,009" />
+  <add key="URLSolicitudAcceso" value="https://somosbelcorpqa.s3.amazonaws.com/Unete/Solicitud_de_Acceso.doc"/>
+  <add key="URLSolicitudCancelacion" value="https://somosbelcorpqa.s3.amazonaws.com/Unete/Solicitud_de_Cancelacion.doc"/>
+  <add key="URLSolicitudOposicion" value="https://somosbelcorpqa.s3.amazonaws.com/Unete/Solicitud_de_Oposicion.doc"/>
+  <add key="URLSolicitudRectificacion" value="https://somosbelcorpqa.s3.amazonaws.com/Unete/Solicitud_de_Rectificacion.doc"/>
+
+
+
+2.SiccOnlineWinServ
+
+Actualizar:
+----------
+<add key="IntervaloServicioWin" value="900000" />

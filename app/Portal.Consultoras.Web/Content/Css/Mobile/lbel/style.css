@@ -4499,6 +4499,29 @@ table > thead > tr > th {
     background-position: center -1px;
 }
 
+.icono_busqueda_mobile{
+    display: block;
+    position: relative;
+    width: 19px;
+    height: 19px;
+    margin-right: 9px;
+    margin-top: 15px;
+    opacity:0.7;
+}
+
+@media screen and (max-width:330px){
+
+    .icono_busqueda_mobile{
+        margin-right:4px;
+    }
+
+}
+
+.icono_busqueda_mobile img{
+    width:100%;
+    height:auto;
+}
+
 .notificaciones_mobiles {
     width: 20px;
     height: 20px;
@@ -5185,6 +5208,10 @@ table > thead > tr > th {
     letter-spacing: .2px;
     text-align: center;
     color: black;
+}
+
+.producto_nombre_descripcion.pb-20 {
+    padding-bottom: 20px;
 }
 
     .producto_nombre_descripcion h6 {
@@ -7036,6 +7063,7 @@ input[type='checkbox']:checked + span:after {
     cursor: pointer;
     display: block;
     width: 200px;
+    text-align:left;
 }
 
 .menu_subfooter {
@@ -9338,7 +9366,6 @@ a {
     padding: 11px 11px;
     text-align: left;
     position: relative;
-    top: -5px;
     z-index: 5;
 }
 
@@ -15027,3 +15054,13 @@ span.icon-advertencia {
     color: #ffffff;
 }
 /* FIN STYLE OF AUTOCOMPLETE */
+
+.info_academia{
+    display:block;
+    margin-top:6px;
+    padding:15px;
+}
+
+.info_academia p{
+    margin:0;
+}

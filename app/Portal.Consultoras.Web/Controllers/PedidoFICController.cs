@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Web.Controllers
             obePedidoFicDetalle.Nombre = obePedidoFicDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
 
             bool errorServer;
-            AdministradorPedido(obePedidoFicDetalle, "I", false, out errorServer);
+            AdministradorPedido(obePedidoFicDetalle, "I", out errorServer);
             if (errorServer)
             {
                 return Json(new
@@ -223,7 +223,7 @@ namespace Portal.Consultoras.Web.Controllers
             obePedidoFicDetalle.ImporteTotal = obePedidoFicDetalle.Cantidad * obePedidoFicDetalle.PrecioUnidad;
             obePedidoFicDetalle.Nombre = obePedidoFicDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
             bool errorServer;
-            var olstPedidoWebDetalle = AdministradorPedido(obePedidoFicDetalle, "U", false, out errorServer);
+            var olstPedidoWebDetalle = AdministradorPedido(obePedidoFicDetalle, "U", out errorServer);
 
             decimal total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
             string formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
@@ -278,7 +278,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             bool errorServer;
-            AdministradorPedido(obe, "D", false, out errorServer);
+            AdministradorPedido(obe, "D", out errorServer);
             if (errorServer)
             {
                 return Json(new
@@ -535,7 +535,7 @@ namespace Portal.Consultoras.Web.Controllers
             return list;
         }
 
-        private List<BEPedidoFICDetalle> AdministradorPedido(BEPedidoFICDetalle obePedidoFicDetalle, string tipoAdm, bool reservado, out bool errorServer)
+        private List<BEPedidoFICDetalle> AdministradorPedido(BEPedidoFICDetalle obePedidoFicDetalle, string tipoAdm, out bool errorServer)
         {
             errorServer = false;
             List<BEPedidoFICDetalle> olstTempListado = new List<BEPedidoFICDetalle>();

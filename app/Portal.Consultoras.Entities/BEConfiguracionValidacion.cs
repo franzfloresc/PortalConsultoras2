@@ -51,9 +51,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "HoraInicioNoFacturable")) HoraInicioNoFacturable = DbConvert.ToTimeSpan(row["HoraInicioNoFacturable"]);
             if (DataRecord.HasColumn(row, "HoraCierreNoFacturable")) HoraCierreNoFacturable = DbConvert.ToTimeSpan(row["HoraCierreNoFacturable"]);
             FlagNoValidados = row.ToBoolean("FlagNoValidados");
-            ProcesoRegular = Convert.ToInt16(DataRecord.HasColumn(row, "ProcesoRegular") ? row["ProcesoRegular"] : -1);
-            ProcesoDA = Convert.ToInt16(DataRecord.HasColumn(row, "ProcesoDA") ? row["ProcesoDA"] : -1);
-            ProcesoDAPRD = Convert.ToInt16(DataRecord.HasColumn(row, "ProcesoDAPRD") ? row["ProcesoDAPRD"] : -1);
+            ProcesoRegular = row.ToInt16("ProcesoRegular", -1);
+            ProcesoDA = row.ToInt16("ProcesoDA", -1);
+            ProcesoDAPRD = row.ToInt16("ProcesoDAPRD", -1);
             HabilitarRestriccionHoraria = row.ToBoolean("HabilitarRestriccionHoraria");
             TieneProl3 = row.ToBoolean("TieneProl3");
         }

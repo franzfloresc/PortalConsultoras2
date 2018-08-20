@@ -2,6 +2,7 @@
 using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -20,6 +21,13 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MisPedidosController : BaseController
     {
+        readonly PaqueteDocumentarioProvider _paqueteDocumentarioProvider;
+
+        public MisPedidosController()
+        {
+            _paqueteDocumentarioProvider = new PaqueteDocumentarioProvider();
+        }
+
         public ActionResult Index(bool lanzarTabConsultoraOnline = false)
         {
             var model = new MisPedidosSb2Model();
@@ -252,7 +260,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string ObtenerRutaPaqueteDocumentario(string campania, string numeroPedido)
         {
-            var lstRVPRFModel = GetListPaqueteDocumentario(userData.GetCodigoConsultora(), campania, numeroPedido);
+            var lstRVPRFModel = _paqueteDocumentarioProvider.GetListPaqueteDocumentario(userData.GetCodigoConsultora(), campania, numeroPedido, userData.CodigoISO);
             return lstRVPRFModel.Count == 1 ? lstRVPRFModel[0].Ruta : "";
         }
 

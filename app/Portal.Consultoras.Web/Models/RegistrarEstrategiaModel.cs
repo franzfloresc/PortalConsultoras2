@@ -62,5 +62,6 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenMiniaturaURLAnterior { get; set; }
         public int EsSubCampania { get; set; }
         public string Niveles { get; set; }
+        public int Imagen { get; set; }
     }
 }

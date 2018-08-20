@@ -4,7 +4,6 @@ using MaxMind.Db;
 using MaxMind.Util;
 using Microsoft.IdentityModel.Protocols.WSIdentity;
 using Microsoft.IdentityModel.Protocols.WSTrust;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,8 +15,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Reflection;
@@ -3276,6 +3273,24 @@ namespace Portal.Consultoras.Common
             return ruta;
         }
 
+        public static bool EsImagenAncha(string imagenS3)
+        {
+            try
+            {
+                using (var streamImagen = Http.GetStream(imagenS3))
+                {
+                    using (var imagenConsultada = Image.FromStream(streamImagen))
+                    {
+                        return imagenConsultada.Width > imagenConsultada.Height;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static string GenerarCodigoRandom()
         {
             Random rnd = new Random();
@@ -3394,7 +3409,7 @@ namespace Portal.Consultoras.Common
             else
                 longitud = 1;
             separada[0] = separada[0].Remove(inicio, longitud).Insert(inicio, new string('*', longitud));
-            return correo = String.Join("@", separada);
+            return String.Join("@", separada);
         }
 
         public static string EnmascararCelular(string celular)
@@ -3447,6 +3462,16 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
+        public static class Http
+        {
+            public static Stream GetStream(string url)
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                return response.GetResponseStream();
+            }
+        }
     }
 
     public static class DataRecord
@@ -3482,7 +3507,8 @@ namespace Portal.Consultoras.Common
             columnName = (columnName ?? "").Trim();
             if (columnName == "") return false;
 
-            if (row.Table.Columns.Contains(columnName)) return row[columnName] != DBNull.Value;
+            if (row.Table.Columns.Contains(columnName))
+                return row[columnName] != DBNull.Value;
 
             return false;
         }
@@ -3497,7 +3523,7 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
-        public static T GetColumn<T>(IDataRecord lector, string name)
+        public static T GetColumn<T>(this IDataRecord lector, string name)
         {
             try
             {
@@ -3514,70 +3540,32 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        /// <summary>
-        /// Obtiene el valor de la fila convirtiendo a un tipo, verificar primero si existe con HasColumn
-        /// </summary>
-        /// <typeparam name="T">Data Row</typeparam>
-        /// <param name="lector">Fila</param>
-        /// <param name="name">Nombre de la columna</param>
-        /// <exception cref="ArgumentNullException">ArgumentNullException cuando name es enviado vacio o nulo</exception>
-        /// <returns>Valor convertido</returns>
-        public static T GetValue<T>(this IDataRecord lector, string name)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(name))
-                {
-                    throw new ArgumentNullException("nombre enviado es nulo o vacio");
-                }
+        ///// <summary>
+        ///// Obtiene el valor de la fila convirtiendo a un tipo, verificar primero si existe con HasColumn
+        ///// </summary>
+        ///// <typeparam name="T">Data Row</typeparam>
+        ///// <param name="lector">Fila</param>
+        ///// <param name="name">Nombre de la columna</param>
+        ///// <exception cref="ArgumentNullException">ArgumentNullException cuando name es enviado vacio o nulo</exception>
+        ///// <returns>Valor convertido</returns>
+        //public static T GetValue<T>(this IDataRecord lector, string name)
+        //{
+        //    try
+        //    {
+        //        if (string.IsNullOrEmpty(name))
+        //        {
+        //            throw new ArgumentNullException("nombre enviado es nulo o vacio");
+        //        }
 
-                return (T)lector.GetValue(lector.GetOrdinal(name));
-            }
-            catch (Exception ex)
-            {
-                var value = lector.GetValue(lector.GetOrdinal(name));
-                throw new InvalidCastException("campo: " + name + " no se puede convertir de " + value.GetType() + " a " + typeof(T), ex);
-            }
-        }
-
-        public static string GetColumnStr(this IDataRecord lector, string name)
-        {
-            try
-            {
-                name = name ?? "";
-                name = name.Trim();
-                if (HasColumn(lector, name))
-                    return Convert.ToString(lector[name]);
-                return default(string);
-            }
-            catch (Exception)
-            {
-                return default(string);
-            }
-        }
-
-        /// <summary>
-        ///  Obtiene el valor de la fila convirtiendo a Int, internamente utiliza HasColumn
-        ///  Ejemplo: EstrategiaIDSicc = [variable de IDataRecord].GetColumnInt("EstrategiaIDSicc");
-        /// </summary>
-        /// <param name="lector">Fila</param>
-        /// <param name="name">Nombre de la Columna</param>
-        /// <returns>valor convertido a Int o Int32</returns>
-        public static int GetColumnInt(this IDataRecord lector, string name)
-        {
-            try
-            {
-                name = (name ?? "").Trim();
-                if (HasColumn(lector, name))
-                    return Convert.ToInt32(lector[name]);
-                return default(int);
-            }
-            catch (Exception)
-            {
-                return default(int);
-            }
-        }
-
+        //        return (T)lector.GetValue(lector.GetOrdinal(name));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        var value = lector.GetValue(lector.GetOrdinal(name));
+        //        throw new InvalidCastException("campo: " + name + " no se puede convertir de " + value.GetType() + " a " + typeof(T), ex);
+        //    }
+        //}
+        
         #region Convert
 
         public static string ToString(this IDataRecord lector, string name, string valorDefecto = default(string))
@@ -3590,6 +3578,18 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception) { }
             return valorDefecto;
+        }
+
+        public static string ToStringTrim(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToString(lector[name]).Trim();
+            }
+            catch (Exception) { }
+            return default(string);
         }
 
         public static Int16 ToInt16(this IDataRecord lector, string name, Int16 valorDefecto = default(Int16))
@@ -3678,6 +3678,18 @@ namespace Portal.Consultoras.Common
         }
 
         public static DateTime ToDateTime(this IDataRecord lector, string name, DateTime valorDefecto = default(DateTime))
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToDateTime(lector[name]);
+            }
+            catch (Exception) { }
+            return valorDefecto;
+        }
+
+        public static DateTime? ToDateTimeNull(this IDataRecord lector, string name, DateTime? valorDefecto = null)
         {
             try
             {

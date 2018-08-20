@@ -57,6 +57,38 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        
+        public static string UrlMicroservicioPersonalizacionSearch
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["UrlMicroservicioPersonalizacionSearch"] ?? string.Empty;
+            }
+        }
+
+        public static string PaisesMicroservicioPersonalizacion
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["PaisesMicroservicioPersonalizacion"] ?? string.Empty;
+            }
+        }
+
+        public static string EstrategiaDisponibleMicroservicioPersonalizacion
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["EstrategiaDisponibleMicroservicioPersonalizacion"] ?? string.Empty;
+            }
+        }
+
+        public static string UrlMicroservicioPersonalizacionConfig {
+            get
+            {
+                return ConfigurationManager.AppSettings["UrlMicroservicioPersonalizacionConfig"] ?? string.Empty;
+            }
+        }
+
         public static string PaisesShowRoom
         {
             get

@@ -232,6 +232,10 @@ namespace Portal.Consultoras.Web.SessionManager
         BEConfiguracionProgramaNuevas ConfiguracionProgramaNuevas { get; set; }
         bool ProcesoKitNuevas { get; set; }
         string CuvKitNuevas { get; set; }
+
+        void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel);
+
+        BuscadorYFiltrosModel GetBuscadorYFiltros();
         
         void SetOcultarBannerApp(dynamic val);
 

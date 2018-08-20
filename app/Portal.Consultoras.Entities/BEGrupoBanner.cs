@@ -50,16 +50,17 @@ namespace Portal.Consultoras.Entities
 
         public BEGrupoBanner(IDataRecord row)
         {
-            Nombre = Convert.ToString(row["Nombre"]);
-            Dimension = Convert.ToString(row["Dimension"]);
+            Nombre = row.ToString("Nombre");
+            Dimension = row.ToString("Dimension");
             CampaniaID = row.ToInt32("CampaniaID");
             GrupoBannerID = row.ToInt32("GrupoBannerID");
             TiempoRotacion = row.ToInt32("TiempoRotacion");
             Ancho = row.ToInt32("Ancho");
             Alto = row.ToInt32("Alto");
-            if (DataRecord.HasColumn(row, "DimensionEsika")) DimensionEsika = Convert.ToString(row["DimensionEsika"]);
-            if (DataRecord.HasColumn(row, "AnchoEsika")) AnchoEsika = DbConvert.ToInt32(row["AnchoEsika"]);
-            if (DataRecord.HasColumn(row, "AltoEsika")) AltoEsika = DbConvert.ToInt32(row["AltoEsika"]);
+            DimensionEsika = row.ToString("DimensionEsika");
+            AnchoEsika = row.ToInt32("AnchoEsika");
+            AltoEsika = row.ToInt32("AltoEsika");
+
             Consultoras = new BEGrupoConsultora[0];
         }
     }
