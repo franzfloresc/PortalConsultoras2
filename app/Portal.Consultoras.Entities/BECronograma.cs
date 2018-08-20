@@ -87,10 +87,10 @@ namespace Portal.Consultoras.Entities
 
         public Cronograma(IDataRecord row)
         {
-            Zona = Convert.ToString(row["Zona"]);
-            FechaFacturacion = Convert.ToDateTime(row["FechaFacturacion"]);
-            FechaRefacturacion = Convert.ToDateTime(row["FechaRefacturacion"]);
-            Campania = Convert.ToString(row["Campania"]);
+            Zona = row.ToString("Zona");
+            FechaFacturacion = row.ToDateTime("FechaFacturacion");
+            FechaRefacturacion = row.ToDateTime("FechaRefacturacion");
+            Campania = row.ToString("Campania");
         }
     }
 }

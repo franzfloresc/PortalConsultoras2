@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -16,6 +17,13 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ConsultaDatoConsultoraController : BaseController
     {
+        readonly PaqueteDocumentarioProvider _paqueteDocumentarioProvider;
+
+        public ConsultaDatoConsultoraController()
+        {
+            _paqueteDocumentarioProvider = new PaqueteDocumentarioProvider();
+        }
+
         public ActionResult ConsultaDatoConsultora()
         {
             var model = new ConsultaDatoConsultoraModel
@@ -1015,7 +1023,7 @@ namespace Portal.Consultoras.Web.Controllers
             grid.SortOrder = sord;
             BEPager pag = new BEPager();
             List<RVPRFModel> lst = new List<RVPRFModel>();
-            if (!string.IsNullOrEmpty(campania)) lst = GetListPaqueteDocumentario(codigo, campania, "");
+            if (!string.IsNullOrEmpty(campania)) lst = _paqueteDocumentarioProvider.GetListPaqueteDocumentario(codigo, campania, "", userData.CodigoISO);
             IEnumerable<RVPRFModel> items = lst;
 
             #region Sort Section
@@ -1063,7 +1071,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult GetCampaniasRVDigitalWeb(string CodigoConsultora)
         {
             string errorMessage;
-            return Json(GetListCampaniaPaqueteDocumentario(CodigoConsultora, out errorMessage), JsonRequestBehavior.AllowGet);
+            return Json(_paqueteDocumentarioProvider.GetListCampaniaPaqueteDocumentario(CodigoConsultora, userData.CodigoISO, out errorMessage), JsonRequestBehavior.AllowGet);
         }
 
         #region metodos genericos

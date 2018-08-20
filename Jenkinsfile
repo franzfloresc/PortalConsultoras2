@@ -18,10 +18,10 @@ node {
                 def branchName = env.BRANCH_NAME.capitalize()
                 withSonarQubeEnv('Sonar Qube Server') {
                     dir('app') {
-                        bat ".\\.nuget\\Nuget.exe restore"
-                        bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:portal.consultoras /n:\"Consultoras - Web - \" /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.branch=${branchName} /d:sonar.inclusions=**/*.cs"
+                        bat ".\\.nuget\\Nuget.exe restore -Source \"https://api.nuget.org/v3/index.json;https://www.nuget.org/api/v2/\""
+                        bat "${sqScannerMsBuildHome}\\SonarScanner.MSBuild.exe begin /k:portal.consultoras /n:\"Consultoras - Web - \" /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.branch=${branchName} /d:sonar.inclusions=**/*.cs"
                         bat "\"${msBuildHome}\"\\MSBuild.exe /t:Rebuild"
-                        bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
+                        bat "${sqScannerMsBuildHome}\\SonarScanner.MSBuild.exe end /d:sonar.login=%SONAR_AUTH_TOKEN%"
                         bat "${sqScannerHome}\\sonar-scanner.bat -Dsonar.host.url=%SONAR_HOST_URL% -Dsonar.login=%SONAR_AUTH_TOKEN% -Dsonar.branch=${branchName} -Dproject.settings=../sonar-project-js.properties"
                         bat "${sqScannerHome}\\sonar-scanner.bat -Dsonar.host.url=%SONAR_HOST_URL% -Dsonar.login=%SONAR_AUTH_TOKEN% -Dsonar.branch=${branchName} -Dproject.settings=../sonar-project-css.properties"
                     }

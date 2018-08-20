@@ -414,6 +414,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
 
             $.ajaxSetup({ cache: false });
 
+            console.log('ShowRoom.js - AgregarOfertaShowRoom - ajax ante ActualizarGanancia', 'ShowRoom/InsertOfertaWebPortal', Item);
             jQuery.ajax({
                 type: 'POST',
                 url: baseUrl + 'ShowRoom/InsertOfertaWebPortal',
@@ -432,6 +433,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
                         }
 
                         if ($.trim(tipoOrigenPantalla)[0] == '2') {
+                            console.log('ShowRoom.js - AgregarOfertaShowRoom - ante ActualizarGanancia');
                             CargarCantidadProductosPedidos();
                         }
 
@@ -477,6 +479,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
 
     $.ajaxSetup({ cache: false });
 
+    console.log('ShowRoom.js - AgregarOfertaShowRoomCpc - ajax ante ActualizarGanancia', 'ShowRoom/InsertOfertaWebPortalCpc', Item);
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'ShowRoom/InsertOfertaWebPortalCpc',
@@ -494,6 +497,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
                 }
 
                 if ($.trim(tipoOrigenPantalla)[0] == '2') {
+                    console.log('ShowRoom.js - AgregarOfertaShowRoomCpc - ante ActualizarGanancia');
                     CargarCantidadProductosPedidos();
 
                     $('#PopCompra').hide();
@@ -516,7 +520,8 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
 
 function AgregarProductoAlCarrito(padre) {
     
-    
+    console.log('ShowRoom.js - agregarProductoAlCarrito', padre);
+
     if ($.trim(tipoOrigenPantalla)[0] == '1') {
         var contenedorImagen = $(padre).find("[data-img]");
         var imagenProducto = $('.imagen_producto', contenedorImagen);
@@ -776,7 +781,8 @@ function ConstruirDescripcionOferta(arrDescripcion) {
     var descripcion = "";
     if (arrDescripcion != null) {
         $.each(arrDescripcion, function (index, value) {
-            descripcion += value.NombreComercial + "<br />";
+
+            descripcion += value.Descripcion + "<br />";
         });
     }
     return descripcion;
@@ -910,6 +916,7 @@ function EstrategiaAgregarShowRoom(event) {
                 ClienteID_: '-1'
             });
 
+            console.log('ShowRoom.js - EstrategiaAgregarShowRoom - ajax ante ActualizarGanancia', 'EstrategiaAgregarProvider-pedidoAgregarProductoPromise', params);
             EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
                 CerrarLoad();
                 response = data;
@@ -922,6 +929,7 @@ function EstrategiaAgregarShowRoom(event) {
                     }
 
                     if ($.trim(tipoOrigenPantalla)[0] == '2') {
+                        console.log('ShowRoom.js - EstrategiaAgregarShowRoom - ante ActualizarGanancia');
                         CargarCantidadProductosPedidos();
                     }
 

@@ -35,6 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
                 //var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPedidoModel>();
                 //ViewBag.xlistaProductoSR = listaShowRoom.Count(x => !x.EsSubCampania);
 
+                ViewBag.variableEstrategia = GetVariableEstrategia();
+
                 return View(modelo);
             }
             catch (Exception ex)
@@ -49,13 +51,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                bool esMobile = IsMobile();
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
-                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()),
-                    MensajeProductoBloqueado2 = HVMensajeProductoBloqueado()
+                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, esMobile),
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
+                    MensajeProductoBloqueado2 = _ofertasViewProvider.HVMensajeProductoBloqueado(herramientasVenta, esMobile)
 
                 };
+
+                ViewBag.variableEstrategia = GetVariableEstrategia();
 
                 return View("Index", modelo);
             }

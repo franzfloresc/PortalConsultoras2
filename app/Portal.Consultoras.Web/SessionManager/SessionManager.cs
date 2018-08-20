@@ -603,5 +603,15 @@ namespace Portal.Consultoras.Web.SessionManager
             get { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
             set { HttpContext.Current.Session["CuvKitNuevas"] = value; }
         }
+
+        public void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel)
+        {
+            HttpContext.Current.Session["BuscadorYFiltros"] = buscadorYFiltrosModel;
+        }
+
+        public BuscadorYFiltrosModel GetBuscadorYFiltros()
+        {
+            return ((BuscadorYFiltrosModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosModel();
+        }
     }
 }

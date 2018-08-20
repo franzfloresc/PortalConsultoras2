@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -27,12 +28,12 @@ namespace Portal.Consultoras.Entities
 
         public BEZonificacionJerarquia(IDataRecord row)
         {
-            RegionId = Convert.ToInt32(row["RegionId"]);
-            RegionCodigo = Convert.ToString(row["RegionCodigo"]);
-            RegionNombre = Convert.ToString(row["RegionNombre"]);
-            ZonaId = Convert.ToInt32(row["ZonaId"]);
-            ZonaCodigo = Convert.ToString(row["ZonaCodigo"]);
-            ZonaNombre = Convert.ToString(row["ZonaNombre"]);
+            RegionId = row.ToInt32("RegionId");
+            RegionCodigo = row.ToString("RegionCodigo");
+            RegionNombre = row.ToString("RegionNombre");
+            ZonaId = row.ToInt32("ZonaId");
+            ZonaCodigo = row.ToString("ZonaCodigo");
+            ZonaNombre = row.ToString("ZonaNombre");
         }
     }
 }

@@ -83,9 +83,9 @@ namespace Portal.Consultoras.Entities
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuarioExterno(IDataRecord row)
         {
-            CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            Proveedor = Convert.ToString(row["Proveedor"]);
-            IdAplicacion = Convert.ToString(row["IdAplicacion"]);
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            Proveedor = row.ToString("Proveedor");
+            IdAplicacion = row.ToString("IdAplicacion");
             Login = row.ToString("Login");
             Nombres = row.ToString("Nombres");
             Apellidos = row.ToString("Apellidos");

@@ -79,17 +79,17 @@ namespace Portal.Consultoras.Entities
 
         public BEBanner(IDataRecord row)
         {
-            CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            BannerID = Convert.ToInt32(row["BannerID"]);
-            GrupoBannerID = Convert.ToInt32(row["GrupoBannerID"]);
-            Orden = Convert.ToInt32(row["Orden"]);
-            Titulo = Convert.ToString(row["Titulo"]);
-            Archivo = Convert.ToString(row["Archivo"]);
-            URL = Convert.ToString(row["URL"]);
-            FlagGrupoConsultora = Convert.ToBoolean(row["FlagGrupoConsultora"]);
-            FlagConsultoraNueva = Convert.ToBoolean(row["FlagConsultoraNueva"]);
-            TiempoRotacion = Convert.ToInt32(row["TiempoRotacion"]);
-            TipoContenido = Convert.ToInt32(row["TipoContenido"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            BannerID = row.ToInt32("BannerID");
+            GrupoBannerID = row.ToInt32("GrupoBannerID");
+            Orden = row.ToInt32("Orden");
+            Titulo = row.ToString("Titulo");
+            Archivo = row.ToString("Archivo");
+            URL = row.ToString("URL");
+            FlagGrupoConsultora = row.ToBoolean("FlagGrupoConsultora");
+            FlagConsultoraNueva = row.ToBoolean("FlagConsultoraNueva");
+            TiempoRotacion = row.ToInt32("TiempoRotacion");
+            TipoContenido = row.ToInt32("TipoContenido");
             Nombre = row.ToString("Nombre");
             PaginaNueva = row.ToInt32("PaginaNueva");
             TituloComentario = row.ToString("TituloComentario");

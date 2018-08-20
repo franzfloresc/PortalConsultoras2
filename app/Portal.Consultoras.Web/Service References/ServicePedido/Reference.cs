@@ -35304,6 +35304,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal GAPField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> MontoInicialField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> MuestraPopupField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long OfertaFinalConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -35409,6 +35415,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.GAPField.Equals(value) != true)) {
                     this.GAPField = value;
                     this.RaisePropertyChanged("GAP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> MontoInicial {
+            get {
+                return this.MontoInicialField;
+            }
+            set {
+                if ((this.MontoInicialField.Equals(value) != true)) {
+                    this.MontoInicialField = value;
+                    this.RaisePropertyChanged("MontoInicial");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> MuestraPopup {
+            get {
+                return this.MuestraPopupField;
+            }
+            set {
+                if ((this.MuestraPopupField.Equals(value) != true)) {
+                    this.MuestraPopupField = value;
+                    this.RaisePropertyChanged("MuestraPopup");
                 }
             }
         }
