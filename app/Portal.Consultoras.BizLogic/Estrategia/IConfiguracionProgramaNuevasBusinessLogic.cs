@@ -7,11 +7,11 @@ namespace Portal.Consultoras.BizLogic
 {
     public interface IConfiguracionProgramaNuevasBusinessLogic
     {
-        BEConfiguracionProgramaNuevas Get(BEProgramaNuevas usuario);
-        string GetCuvKitNuevas(BEProgramaNuevas usuario, BEConfiguracionProgramaNuevas confProgNuevas);
-        BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEProgramaNuevas usuario, BEConfiguracionProgramaNuevas confProgNuevas);
+        BEConfiguracionProgramaNuevas Get(BEProgramaNuevas programaNuevas);
+        string GetCuvKitNuevas(BEProgramaNuevas programaNuevas, BEConfiguracionProgramaNuevas confProgNuevas);
+        BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEProgramaNuevas programaNuevas, BEConfiguracionProgramaNuevas confProgNuevas);
         BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
-        string GetCodigoNivel(BEProgramaNuevas usuario);
+        string GetCodigoNivel(BEProgramaNuevas programaNuevas);
 
         #region ConfiguracionApp
         List<BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad);

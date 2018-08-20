@@ -748,7 +748,7 @@ namespace Portal.Consultoras.BizLogic
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
-                var oProgramaNueva = new BEProgramaNuevas
+                var programaNuevas = new BEProgramaNuevas
                 {
                     PaisID = usuario.PaisID,
                     CampaniaID = usuario.CampaniaID,
@@ -757,16 +757,15 @@ namespace Portal.Consultoras.BizLogic
                     ConsecutivoNueva = usuario.ConsecutivoNueva,
                     CodigoPrograma = usuario.CodigoPrograma
                 };
-
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(oProgramaNueva, usuario.CodigorRegion, usuario.CodigoZona);
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(programaNuevas, usuario.CodigorRegion, usuario.CodigoZona);
 
                 if (result.Any())
                 {
-                    var concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
-                    lstConcursos.Add(string.Join("|", concursos.Select(c => c.CodigoConcurso)));
+                    var listConcursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
+                    lstConcursos.Add(string.Join("|", listConcursos.Select(c => c.CodigoConcurso)));
 
-                    var programaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
-                    lstConcursos.Add(string.Join("|", programaNuevas.Select(c => c.CodigoConcurso)));
+                    var listProgramaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
+                    lstConcursos.Add(string.Join("|", listProgramaNuevas.Select(c => c.CodigoConcurso)));
                 }
             }
             catch (Exception ex)

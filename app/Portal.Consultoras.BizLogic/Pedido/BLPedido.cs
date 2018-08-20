@@ -291,8 +291,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Programa nuevas
                 if (usuario.MontoMaximoPedido > 0)
                 {
-                    var oProgramaNueva = new BEProgramaNuevas { PaisID = usuario.PaisID, CampaniaID = usuario.CampaniaID, CodigoConsultora = usuario.CodigoConsultora };
-                    var tippingPoint = _configuracionProgramaNuevasBusinessLogic.Get(oProgramaNueva);
+                    var programaNuevas = new BEProgramaNuevas { PaisID = usuario.PaisID, CampaniaID = usuario.CampaniaID, CodigoConsultora = usuario.CodigoConsultora };
+                    var tippingPoint = _configuracionProgramaNuevasBusinessLogic.Get(programaNuevas);
                     if (tippingPoint.IndExigVent == "1") pedido.TippingPoint = tippingPoint.MontoVentaExigido;                     
                 }
             }
@@ -311,12 +311,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
 
                 usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
-                var oProgramaNueva = new BEProgramaNuevas { PaisID = usuario.PaisID, CampaniaID = usuario.CampaniaID, CodigoConsultora = usuario.CodigoConsultora,
+                var programaNuevas = new BEProgramaNuevas { PaisID = usuario.PaisID, CampaniaID = usuario.CampaniaID, CodigoConsultora = usuario.CodigoConsultora,
                                                             EsConsultoraNueva = usuario.EsConsultoraNueva, ConsecutivoNueva = usuario.ConsecutivoNueva };
-                var confProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(oProgramaNueva);
+                var confProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(programaNuevas);
                 if (confProgNuevas.IndProgObli != "1") return false;
 
-                string cuvKitNuevas = _configuracionProgramaNuevasBusinessLogic.GetCuvKitNuevas(oProgramaNueva, confProgNuevas);
+                string cuvKitNuevas = _configuracionProgramaNuevasBusinessLogic.GetCuvKitNuevas(programaNuevas, confProgNuevas);
                 if (string.IsNullOrEmpty(cuvKitNuevas)) return false;
 
                 //Obtener Detalle
@@ -1219,7 +1219,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private bool InsertarValidarKitInicio(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle)
         {
-            var oProgramaNueva = new BEProgramaNuevas
+            var programaNuevas = new BEProgramaNuevas
             {
                 PaisID = usuario.PaisID,
                 CampaniaID = usuario.CampaniaID,
@@ -1228,10 +1228,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 ConsecutivoNueva = usuario.ConsecutivoNueva
             };
 
-            var configProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(oProgramaNueva);
+            var configProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(programaNuevas);
             if (configProgNuevas.IndProgObli != "1") return true;
 
-            var cuvKitNuevas = _configuracionProgramaNuevasBusinessLogic.GetCuvKitNuevas(oProgramaNueva, configProgNuevas);
+            var cuvKitNuevas = _configuracionProgramaNuevasBusinessLogic.GetCuvKitNuevas(programaNuevas, configProgNuevas);
             if (string.IsNullOrEmpty(cuvKitNuevas)) return true;
             if (cuvKitNuevas != pedidoDetalle.Producto.CUV) return true;
 

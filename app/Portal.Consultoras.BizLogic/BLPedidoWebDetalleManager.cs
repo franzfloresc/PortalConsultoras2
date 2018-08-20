@@ -326,7 +326,7 @@ namespace Portal.Consultoras.BizLogic
 
             if (listProducto.Any())
             {
-                var oProgramaNueva = new BEProgramaNuevas
+                var programaNuevas = new BEProgramaNuevas
                 {
                     PaisID = usuario.PaisID,
                     CampaniaID = usuario.CampaniaID,
@@ -335,7 +335,7 @@ namespace Portal.Consultoras.BizLogic
                     ConsecutivoNueva = usuario.ConsecutivoNueva,
                     CodigoPrograma = usuario.CodigoPrograma
                 };
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(oProgramaNueva, usuario.CodigorRegion, usuario.CodigoZona);
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(programaNuevas, usuario.CodigorRegion, usuario.CodigoZona);
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso)).ToList();
                 if (concursos.Any()) codigosConcursos = string.Join("|", concursos.Select(c => c.CodigoConcurso));
