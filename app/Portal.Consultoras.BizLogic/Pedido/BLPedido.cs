@@ -1746,7 +1746,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                          Descripcion = o.Descripcion,
                          PedidoDetalleID = d.PedidoDetalleID
                      }).ToList();
-                ListPedidoObservacion.RemoveAll(x => listaObsAEvaluar.Contains(x));
+                var listaCUVsAEvaluados = obsDet.Select(e => e.CUV).Distinct();                    
+                ListPedidoObservacion.RemoveAll(x => listaCUVsAEvaluados.Contains(x.CUV));
                 ListPedidoObservacion.AddRange(obsDet);
             }
             if (obsSets.Count > 0) ListPedidoObservacion.AddRange(obsSets);
