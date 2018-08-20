@@ -1099,6 +1099,7 @@ namespace Portal.Consultoras.Common
             public const string LiquidacionWeb = "LIQUIDACIONWEB";
             public const string CambiosDevoluciones = "CAMBIODEVOLUCIONES";
             public const string PedidosFIC = "PEDIDOSFIC";
+            public const string DetalleEstrategia = "DETALLEESTRATEGIA";
         }
 
         public static class EstadoCuentaTipoMovimiento
