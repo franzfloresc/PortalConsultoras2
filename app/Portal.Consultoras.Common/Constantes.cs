@@ -2081,6 +2081,10 @@ namespace Portal.Consultoras.Common
 
                 public const string ERROR_DESHACER_PEDIDO = "2109";
                 public const string ERROR_DESHACER_PEDIDO_ESTADO = "2110";
+
+                public const string ERROR_AGREGAR_BACKORDER_NO_PERMITIDO = "2201";
+                public const string ERROR_AGREGAR_BACKORDER = "2202";
+
             }
             public static Dictionary<string, string> Message
             {
@@ -2132,7 +2136,11 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_GUARDAR_DEUDA, "Pedido no guardado, deuda pendiente." },
 
                         {Code.ERROR_DESHACER_PEDIDO , "Ocurrió un error al deshacer el pedido." },
-                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." }
+                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." },
+
+                        {Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO , "No se puede agregar un set como BackOrder." },
+                        {Code.ERROR_AGREGAR_BACKORDER , "No se encuentra el detalle en el pedido para agregarlo como BackOrder." }
+
                     });
                 }
             }
@@ -2501,6 +2509,31 @@ namespace Portal.Consultoras.Common
 
             #endregion
         }
+        public class OfertaFinalLog
+        {
+            private static Dictionary<int, string> _Message;
+
+            public class Code
+            {
+                public const int PRODUCTO_AGREGADO = 1;
+                public const int POPUP_MOSTRADO = 2;
+                public const int PRODUCTO_EXPUESTO = 3;
+            }
+
+            public static Dictionary<int, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<int, string>
+                    {
+                        {Code.PRODUCTO_AGREGADO, "Producto Agregado"},
+                        {Code.POPUP_MOSTRADO, "Popup Mostrado"},
+                        {Code.PRODUCTO_EXPUESTO, "Producto Expuesto"},
+                    });
+                }
+            }
+        }
+
         public class FacturacionElectronica
         {
             public const short TablaLogicaID = 9;
