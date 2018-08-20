@@ -124,7 +124,7 @@ namespace Portal.Consultoras.Web.Providers
             listaProducto.ForEach(x =>
             {
                 x.NombreComercial = x.NombreComercial ?? string.Empty;
-                x.NombreBulk = x.NombreBulk ?? string.Empty;
+                x.NombreBulk = String.IsNullOrEmpty(x.NombreBulk) ? x.NombreComercial : x.NombreBulk;
                 x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(x.ImagenProducto) && string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
