@@ -14,7 +14,7 @@
     @System.Web.Optimization.Styles.Render("~/bundles/mobile/css/ficha")
     <style id="styleRelojOdd"></style>
 }
-@if (!"4".Equals(origen))
+@if (!Constantes.IngresoExternoOrigen.App.Equals(origen))
 {
     @Html.Partial("_BreadCrumb", Model.BreadCrumbs)
 }

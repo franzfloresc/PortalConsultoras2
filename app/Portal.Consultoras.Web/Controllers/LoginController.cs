@@ -784,7 +784,7 @@ namespace Portal.Consultoras.Web.Controllers
                             palanca = model.NombrePalanca,
                             campaniaId = model.Campania,
                             cuv = model.CUV,
-                            origen = 4
+                            origen = Constantes.IngresoExternoOrigen.App
                         });
                 }
             }

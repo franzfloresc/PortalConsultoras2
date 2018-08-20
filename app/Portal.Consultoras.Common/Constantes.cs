@@ -1102,6 +1102,10 @@ namespace Portal.Consultoras.Common
             public const string DetalleEstrategia = "DETALLEESTRATEGIA";
         }
 
+        public static class IngresoExternoOrigen {
+            public const string App = "4";
+        }
+
         public static class EstadoCuentaTipoMovimiento
         {
             public const int Abono = 2;
