@@ -24,6 +24,12 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
 
         #endregion
 
+        #region Propiedades Payu
+        public string UrlPagoPayu { get; set; }
+        public string AccountId { get; set; }
+        public bool IsTest { get; set; }
+
+        #endregion
         public string AccessKeyId { get; set; }
         public string SecretAccessKey { get; set; }
         public string UrlSessionBotonPagos { get; set; }
