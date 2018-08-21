@@ -577,6 +577,9 @@ function validateEmail(email) {
 }
 
 function CreateLoading() {
+    if ($("#loadingScreen").find(".loadingScreen-titulo").length !== 0 ||
+        $("#loadingScreen").find(".loadingScreen-mensaje").length !== 0) return false;
+
     $("#loadingScreen").append("<div class='loadingScreen-titulo'></div>");
     $("#loadingScreen").append("<div class='loadingScreen-mensaje'></div>");
 

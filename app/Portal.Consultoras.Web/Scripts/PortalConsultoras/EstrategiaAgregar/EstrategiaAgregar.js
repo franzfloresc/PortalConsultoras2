@@ -106,7 +106,7 @@ var EstrategiaAgregarModule = (function () {
         return true;
     };
 
-    var abrirMensajeEstrategia = function (txt) {
+    var abrirMensajeEstrategia = function (txt, esFicha) {
         var tipoOrigenEstrategiaAux = 0;
         if (typeof tipoOrigenEstrategia != "undefined") {
             tipoOrigenEstrategiaAux = tipoOrigenEstrategia;
@@ -119,10 +119,18 @@ var EstrategiaAgregarModule = (function () {
         } else if (tipoOrigenEstrategiaAux == 2 || tipoOrigenEstrategiaAux == 21 || tipoOrigenEstrategiaAux == 262) {
             messageInfo(txt);
         } else if (txt.indexOf("cantidad limite") > 0) {
-            var $limitePedidoToolTip = $('[data-limitepedido="tooltip"]');
-            if ($limitePedidoToolTip.length > 0) {
-                $limitePedidoToolTip.show();
-                setTimeout(function () { $limitePedidoToolTip.hide(); }, 2000);
+            if (esFicha) {
+                var $limitePedidoToolTip = $('[data-limitepedido="tooltip"]');
+                if ($limitePedidoToolTip.length > 0) {
+                    $limitePedidoToolTip.show();
+                    setTimeout(function() { $limitePedidoToolTip.hide(); }, 2000);
+                }
+            } else {
+                if (isMobile()) {
+                    messageInfo(txt);
+                } else {
+                    alert_msg(txt);
+                }
             }
         } else if (isMobile()) {
             messageInfo(txt);
@@ -247,13 +255,13 @@ var EstrategiaAgregarModule = (function () {
         var cantidad = (limite > 0) ? limite : ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val());
 
         if (!$.isNumeric(cantidad)) {
-            abrirMensajeEstrategia("Ingrese un valor numérico.");
+            abrirMensajeEstrategia("Ingrese un valor numérico.", esFicha);
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
             CerrarLoad();
             return false;
         }
         if (parseInt(cantidad) <= 0) {
-            abrirMensajeEstrategia("La cantidad debe ser mayor a cero.");
+            abrirMensajeEstrategia("La cantidad debe ser mayor a cero.", esFicha);
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
             CerrarLoad();
             return false;
@@ -316,7 +324,7 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (data.success === false) {
-                abrirMensajeEstrategia(data.message);
+                abrirMensajeEstrategia(data.message, esFicha);
                 CerrarLoad();
                 return false;
             }
@@ -491,23 +499,26 @@ var EstrategiaAgregarModule = (function () {
         return false;
     };
 
+    var selectorCantidadEstaBloquedo = function ($element) {
+        var result = false;
+        
+        var dataBloquedaAttrValue = $element.data("bloqueada");
+        if (typeof dataBloquedaAttrValue !== "undefined" &&
+            $.trim( dataBloquedaAttrValue) !== "") {
+            result = true;
+        }
+        return result;
+    };
+
     var adicionarCantidad = function (e) {
         e.stopPropagation();
-
+        //
         var $this = $(e.target);
-        if ($this.data("bloqueada")) {
-            var desactivado = $this.find("[data-bloqueada='contenedor_rangos_desactivado']");
-            desactivado = desactivado.length;
-            //if ($this.data("bloqueada") !== "") return false;
-            if (desactivado !== 0) return false;
-        }    
-            
+        if (selectorCantidadEstaBloquedo($this)) return false;
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
-
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
         $inputCantidad.val(cantidad);
 
         return false;
@@ -515,20 +526,13 @@ var EstrategiaAgregarModule = (function () {
 
     var disminuirCantidad = function (e) {
         e.stopPropagation();
+        //
         var $this = $(e.target);
-        if ($this.data("bloqueada")) {
-            //if ($this.data("bloqueada") !== "") return false;
-            var desactivado = $this.find("[data-bloqueada='contenedor_rangos_desactivado']");
-            desactivado = desactivado.length;
-            if (desactivado !== 0) return false;
-        }
-             
+        if (selectorCantidadEstaBloquedo($this)) return false;
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
-
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
         $inputCantidad.val(cantidad);
 
         return false;

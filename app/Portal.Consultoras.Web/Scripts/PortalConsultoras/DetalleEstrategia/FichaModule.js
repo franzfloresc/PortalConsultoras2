@@ -152,7 +152,6 @@ var FichaModule = (function (config) {
         var showTabContainer = false;
         if (_codigoPalanca.ShowRoom === _config.palanca ||
             ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
-            $(_tabsFichaProducto.tipsVenta).show();
             showTabContainer = true;
         }
 
@@ -506,13 +505,13 @@ var FichaModule = (function (config) {
 
         $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
+        _validarDesactivadoGeneral(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
         if (estrategia.TipoAccionAgregar <= 0) {
             $(_seccionesFichaProducto.dvContenedorAgregar).hide();
         }
 
         opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
-        _validarDesactivadoGeneral(estrategia);
 
         var imgFondo = "";
         if (isMobile()) {

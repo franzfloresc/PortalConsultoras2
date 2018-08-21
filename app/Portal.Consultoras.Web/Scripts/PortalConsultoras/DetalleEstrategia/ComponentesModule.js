@@ -27,6 +27,9 @@ var ComponentesModule = (function () {
         body: {
             modalActivadoClass: "modal_activado"
         },
+        hdCampaniaCodigo: {
+            id:"#hdCampaniaCodigo"
+        },
         componentes : {
             id: "#componentes",
             templateId: "#componentes-template"
@@ -70,6 +73,18 @@ var ComponentesModule = (function () {
         }
     };
 
+    var _obtenerCampaniaActual = function () {
+        var campaniaActual = 0;
+        var strCampaniaActual = $(_elements.hdCampaniaCodigo.id).val();
+        if (!$(_elements.hdCampaniaCodigo.id) ||
+            $.trim(strCampaniaActual) === "" ||
+            isNaN(strCampaniaActual)) return campaniaActual;
+            
+        campaniaActual = parseInt(strCampaniaActual);
+
+        return campaniaActual;
+    }
+
     var SeleccionarComponente = function (cuv) {
         if (typeof cuv === "undefined" ||
             cuv === null ||
@@ -80,6 +95,7 @@ var ComponentesModule = (function () {
             if (cuv === hermano.Cuv) {
                 var componente = {};
                 componente = _estrategia.Hermanos[index];
+                componente.esCampaniaSiguiente = _estrategia.CampaniaID !== _obtenerCampaniaActual();
 
                 opcionesEvents.applyChanges("onComponentSelected", componente);
 
