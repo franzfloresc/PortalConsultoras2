@@ -232,9 +232,13 @@ namespace Portal.Consultoras.Web.SessionManager
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
 
         IOfertaDelDia OfertaDelDia { get; }
-        BEConfiguracionProgramaNuevas ConfiguracionProgramaNuevas { get; set; }
-        bool ProcesoKitNuevas { get; set; }
-        string CuvKitNuevas { get; set; }
+
+        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas();
+        void SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas configuracion);
+        bool GetProcesoKitNuevas();
+        void SetProcesoKitNuevas(bool proceso);
+        string GetCuvKitNuevas();
+        void SetCuvKitNuevas(string cuvKit);
 
         void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel);
 

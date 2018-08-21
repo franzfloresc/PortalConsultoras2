@@ -997,40 +997,40 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas()
         {
-            if (sessionManager.ConfiguracionProgramaNuevas != null) return sessionManager.ConfiguracionProgramaNuevas;
+            if (sessionManager.GetConfiguracionProgramaNuevas() != null) return sessionManager.GetConfiguracionProgramaNuevas();
             try
             {
                 var usuario = Mapper.Map<ServicePedido.BEProgramaNuevas>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    sessionManager.ConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(usuario) ?? new BEConfiguracionProgramaNuevas();
+                    sessionManager.SetConfiguracionProgramaNuevas(sv.GetConfiguracionProgramaNuevas(usuario) ?? new BEConfiguracionProgramaNuevas());
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                sessionManager.ConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
+                sessionManager.SetConfiguracionProgramaNuevas(new BEConfiguracionProgramaNuevas());
             }
-            return sessionManager.ConfiguracionProgramaNuevas;
+            return sessionManager.GetConfiguracionProgramaNuevas();
         }
 
         protected string GetCuvKitNuevas()
         {
-            if (sessionManager.CuvKitNuevas != null) return sessionManager.CuvKitNuevas;
+            if (sessionManager.GetCuvKitNuevas() != null) return sessionManager.GetCuvKitNuevas();
             try
             {
                 var usuario = Mapper.Map<BEProgramaNuevas>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    sessionManager.CuvKitNuevas = sv.GetCuvKitNuevas(usuario, GetConfiguracionProgramaNuevas()) ?? "";
+                    sessionManager.SetCuvKitNuevas(sv.GetCuvKitNuevas(usuario, GetConfiguracionProgramaNuevas()) ?? "");
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                sessionManager.CuvKitNuevas = "";
+                sessionManager.SetCuvKitNuevas("");
             }
-            return sessionManager.CuvKitNuevas;
+            return sessionManager.GetCuvKitNuevas();
         }
 
         //protected Converter<decimal, string> CreateConverterDecimalToString(int paisId)

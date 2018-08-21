@@ -588,21 +588,18 @@ namespace Portal.Consultoras.Web.SessionManager
             return Convert.ToBoolean(HttpContext.Current.Session["PedidoValidado"]);
         }
         
-        BEConfiguracionProgramaNuevas ISessionManager.ConfiguracionProgramaNuevas
+        BEConfiguracionProgramaNuevas ISessionManager.GetConfiguracionProgramaNuevas()
         {
-            get { return (BEConfiguracionProgramaNuevas)HttpContext.Current.Session["ConfiguracionProgramaNuevas"]; }
-            set { HttpContext.Current.Session["ConfiguracionProgramaNuevas"] = value; }
+            return (BEConfiguracionProgramaNuevas)HttpContext.Current.Session["ConfiguracionProgramaNuevas"];
         }
-        bool ISessionManager.ProcesoKitNuevas
+        void ISessionManager.SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas configuracion)
         {
-            get { return (bool)(HttpContext.Current.Session["ProcesoKitNuevas"] ?? false); }
-            set { HttpContext.Current.Session["ProcesoKitNuevas"] = value; }
+           HttpContext.Current.Session["ConfiguracionProgramaNuevas"] = configuracion;
         }
-        string ISessionManager.CuvKitNuevas
-        {
-            get { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
-            set { HttpContext.Current.Session["CuvKitNuevas"] = value; }
-        }
+        bool ISessionManager.GetProcesoKitNuevas() { return (bool)(HttpContext.Current.Session["ProcesoKitNuevas"] ?? false); }
+        void ISessionManager.SetProcesoKitNuevas(bool proceso) { HttpContext.Current.Session["ProcesoKitNuevas"] = proceso; }
+        string ISessionManager.GetCuvKitNuevas() { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
+        void ISessionManager.SetCuvKitNuevas(string cuvKit) { HttpContext.Current.Session["CuvKitNuevas"] = cuvKit; }
 
         public void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel)
         {

@@ -3453,9 +3453,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (sessionManager.ProcesoKitNuevas) return;
+                if (sessionManager.GetProcesoKitNuevas()) return;
                 AgregarKitNuevas();
-                sessionManager.ProcesoKitNuevas = true;
+                sessionManager.SetProcesoKitNuevas(true);
             }
             catch (Exception ex)
             {
