@@ -1915,6 +1915,28 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        public ActionResult CambioTipoNegocio()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("CambioTipoNegocio", null);
+            return PartialView("_CambioTipoNegocio");
+        }
+
+        [HttpPost]
+        public ActionResult CambioTipoNegocio(CambioTipoNegocioModel model)
+        {
+            var response = PostHTMLSACUnete("CambioTipoNegocio", model);
+            RegistrarLogGestionSacUnete(model.NumeroDocumento, "GESTIONA POSTULANTE", "CAMBIO TIPO NEGOCIO");
+            return Json(response == "true", JsonRequestBehavior.AllowGet);
+        }
+
+        /*[HttpPost]
+        public ActionResult CambioTipoNegocioMasivo(string CodigoISO, )
+        {
+            var response = PostHTMLSACUnete("CambioTipoNegocio", model);
+            //RegistrarLogGestionSacUnete(model.NumeroDocumento, "GESTIONA POSTULANTE", "CAMBIO TIPO NEGOCIO");
+            return Json(response == "true", JsonRequestBehavior.AllowGet);
+        }*/
+
         public List<ReporteFuenteIngreso> GetReporteFuenteIngreso(string campaniaInicio, string campaniaFin)
         {
             var result = new List<ReporteFuenteIngreso>();
