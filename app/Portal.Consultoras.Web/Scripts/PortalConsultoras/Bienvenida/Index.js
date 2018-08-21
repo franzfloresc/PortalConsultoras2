@@ -2132,7 +2132,6 @@ function AceptarContrato() {
 }
 
 function DownloadAttachPDF() {
-    debugger
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";
     var requestedFile = urlContratoCOpdf;

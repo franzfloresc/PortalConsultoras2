@@ -848,7 +848,6 @@ function AceptarContrato() {
 function DownloadAttachPDF() {
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";
-    debugger
     var requestedFile = urlContratoCOpdf;
     iframe_.setAttribute("src", baseUrl + 'WebPages/Download.aspx?file=' + requestedFile);
 
