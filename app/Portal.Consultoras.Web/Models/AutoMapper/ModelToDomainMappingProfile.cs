@@ -464,6 +464,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ShowRoomEventoConsultoraModel, ServicePedido.BEShowRoomEventoConsultora>();
             
             Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>();
+
+            Mapper.CreateMap<UsuarioModel, ServicePedido.BEProgramaNuevas>();
         }
     }
 }
