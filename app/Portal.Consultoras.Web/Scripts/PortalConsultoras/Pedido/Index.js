@@ -1624,9 +1624,10 @@ function ObservacionesProducto(item) {
                 return;
             }
         });
+        $("#btnAgregar").focus();
     }
+    else $("#txtCantidad").focus();
     $("#divMensaje").text("");
-    $("#txtCantidad").focus();
 
     if (item.TipoOfertaSisID == "1707") {
         if (!sesionEsShowRoom) {
