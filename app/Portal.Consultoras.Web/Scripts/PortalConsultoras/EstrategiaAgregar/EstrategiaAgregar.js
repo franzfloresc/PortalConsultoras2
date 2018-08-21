@@ -470,9 +470,8 @@ var EstrategiaAgregarModule = (function () {
                 if (_config.esFicha) {
                     if (params.CuvTonos != "") {
                         var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
-                        if (listaCuvs.length > 0) {
+                        if (listaCuvs.length > 0) {                            
                             $(".texto_sin_tono").find(".tono_seleccionado").hide();
-                            $(".texto_sin_tono").find(".texto_tono_seleccionado").html("ELIGE TU TONO");
                             var $ContentTonoDetalle = $(".content_tono_detalle");
                             if ($ContentTonoDetalle.length > 0) {
                                 $ContentTonoDetalle.removeClass("borde_seleccion_tono");
