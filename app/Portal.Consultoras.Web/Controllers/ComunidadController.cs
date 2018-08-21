@@ -58,7 +58,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 SSOClient.init(keyPath, _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.COM_CLIENT_ID), _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.COM_DOMAIN));
 
-                Models.UsuarioModel usuarioSesion = UserData();
+                Models.UsuarioModel usuarioSesion = userData;
 
                 Hashtable settingsMap = new Hashtable
                 {

@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {
-                ViewBag.CampaniaActiva = sv.GetCampaniaActivaPais(UserData().PaisID, fecha).AnoCampana;
+                ViewBag.CampaniaActiva = sv.GetCampaniaActivaPais(userData.PaisID, fecha).AnoCampana;
             }
 
 
@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
                     DateTime theDate = DateTime.Now;
                     var fechaproceso = theDate.ToString("yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
 
-                    sv.GetConsultoraDigitalesDescarga(UserData().PaisID, UserData().CodigoISO, fechaproceso, UserData().CodigoUsuario);
+                    sv.GetConsultoraDigitalesDescarga(userData.PaisID, userData.CodigoISO, fechaproceso, userData.CodigoUsuario);
                 }
 
                 return Json(new
@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

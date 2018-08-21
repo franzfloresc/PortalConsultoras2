@@ -31,12 +31,12 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public string CodigoISO
         {
-            get { return UserData().CodigoISO; }
+            get { return userData.CodigoISO; }
         }
 
         public ActionResult InscribePostulante()
         {
-            var user = UserData();
+            var user = userData;
 
             if (user != null)
             {
@@ -337,12 +337,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
         }
@@ -594,7 +594,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora + " File 01", UserData().CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " File 01", userData.CodigoISO);
                 }
 
                 try
@@ -603,7 +603,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora + " directorio 02", UserData().CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " directorio 02", userData.CodigoISO);
                 }
 
                 try
@@ -613,7 +613,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora + " guarda archivo", UserData().CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " guarda archivo", userData.CodigoISO);
                 }
 
                 IList<NivelesGeograficosModel> lista = null;
@@ -624,7 +624,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora + " lee archivo", UserData().CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " lee archivo", userData.CodigoISO);
                 }
 
                 System.IO.File.Delete(finalPath);
@@ -708,12 +708,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
 
                 if (ex.GetType() == typeof(TimeoutException))
                     return "Tiempo de espera agotado. El servicio culminara el proceso por su cuenta. Revise los datos en unos minutos.";
@@ -725,7 +725,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var solicitudPostulanteId = Convert.ToInt32(id);
 
-            var user = UserData();
+            var user = userData;
 
             using (var sv = new PortalServiceClient())
             {
@@ -891,7 +891,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
 
             SolicitudPostulante solicitudPostulante;
-            var user = UserData();
+            var user = userData;
 
             using (var sv = new PortalServiceClient())
             {
@@ -1649,7 +1649,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult GestionaPostulante()
         {
-            var nombreRol = UserData().RolDescripcion;
+            var nombreRol = userData.RolDescripcion;
             ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionaPostulante", "&rol=" + nombreRol);
             return View();
         }

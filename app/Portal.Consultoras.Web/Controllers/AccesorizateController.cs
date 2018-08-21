@@ -26,15 +26,15 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Accesorizate/Productos"))
                     return RedirectToAction("Index", "Bienvenida");
-                ViewBag.CampaniaID = UserData().CampaniaID.ToString();
-                ViewBag.ISO = UserData().CodigoISO;
+                ViewBag.CampaniaID = userData.CampaniaID.ToString();
+                ViewBag.ISO = userData.CodigoISO;
                 var lista = GetListadoOfertasLiquidacion();
                 if (lista != null && lista.Count > 0)
                     lista.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
                 BEConfiguracionCampania obeConfiguracionCampania;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    obeConfiguracionCampania = sv.GetEstadoPedido(UserData().PaisID, UserData().CampaniaID, UserData().ConsultoraID, UserData().ZonaID, UserData().RegionID);
+                    obeConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
                 }
                 if (obeConfiguracionCampania != null)
                     ValidarStatusCampania(obeConfiguracionCampania);
@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View();
         }
@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void ValidarStatusCampania(BEConfiguracionCampania obeConfiguracionCampania)
         {
-            UsuarioModel usuario = UserData();
+            UsuarioModel usuario = userData;
             usuario.ZonaValida = obeConfiguracionCampania.ZonaValida;
             usuario.FechaInicioCampania = obeConfiguracionCampania.FechaInicioFacturacion;
 
@@ -109,8 +109,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEOfertaProducto> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                int cantidad = sv.ObtenerMaximoItemsaMostrarZA(UserData().PaisID);
-                lst = sv.GetOfertaProductosPortal(UserData().PaisID, Constantes.ConfiguracionOferta.Accesorizate, 1, UserData().CampaniaID).Take(cantidad).ToList();
+                int cantidad = sv.ObtenerMaximoItemsaMostrarZA(userData.PaisID);
+                lst = sv.GetOfertaProductosPortal(userData.PaisID, Constantes.ConfiguracionOferta.Accesorizate, 1, userData.CampaniaID).Take(cantidad).ToList();
             }
 
             if (lst.Count > 0)
@@ -130,13 +130,13 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.PaisID = UserData().PaisID;
-                    entidad.ConsultoraID = UserData().ConsultoraID;
-                    entidad.CampaniaID = UserData().CampaniaID;
+                    entidad.PaisID = userData.PaisID;
+                    entidad.ConsultoraID = userData.ConsultoraID;
+                    entidad.CampaniaID = userData.CampaniaID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Accesorizate;
-                    entidad.IPUsuario = UserData().IPUsuario;
+                    entidad.IPUsuario = userData.IPUsuario;
 
-                    entidad.CodigoUsuarioCreacion = UserData().CodigoConsultora;
+                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
                     entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
@@ -152,7 +152,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -162,7 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -180,12 +180,12 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.PaisID = UserData().PaisID;
-                    entidad.ConsultoraID = UserData().ConsultoraID;
-                    entidad.CampaniaID = UserData().CampaniaID;
+                    entidad.PaisID = userData.PaisID;
+                    entidad.ConsultoraID = userData.ConsultoraID;
+                    entidad.CampaniaID = userData.CampaniaID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Accesorizate;
 
-                    entidad.CodigoUsuarioCreacion = UserData().CodigoConsultora;
+                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
 
                     sv.UpdPedidoWebDetalleOferta(entidad);
@@ -200,7 +200,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -210,7 +210,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -226,7 +226,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                stock = sv.GetStockOfertaProductoLiquidacion(UserData().PaisID, UserData().CampaniaID, CUV);
+                stock = sv.GetStockOfertaProductoLiquidacion(userData.PaisID, userData.CampaniaID, CUV);
             }
 
             return Json(new
@@ -248,7 +248,7 @@ namespace Portal.Consultoras.Web.Controllers
                     int stock;
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        stock = sv.GetStockOfertaProductoLiquidacion(UserData().PaisID, UserData().CampaniaID, Lista[i].CUV);
+                        stock = sv.GetStockOfertaProductoLiquidacion(userData.PaisID, userData.CampaniaID, Lista[i].CUV);
                     }
 
                     if (Lista[i].Stock > stock)
@@ -268,7 +268,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                unidadesPermitidas = sv.GetUnidadesPermitidasByCuvZA(UserData().PaisID, UserData().CampaniaID, CUV, Constantes.ConfiguracionOferta.Accesorizate);
+                unidadesPermitidas = sv.GetUnidadesPermitidasByCuvZA(userData.PaisID, userData.CampaniaID, CUV, Constantes.ConfiguracionOferta.Accesorizate);
             }
 
             return Json(new
@@ -284,8 +284,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                unidadesPermitidas = sv.GetUnidadesPermitidasByCuvZA(UserData().PaisID, UserData().CampaniaID, CUV, Constantes.ConfiguracionOferta.Accesorizate);
-                saldo = sv.ValidarUnidadesPermitidasEnPedidoZA(UserData().PaisID, UserData().CampaniaID, CUV, UserData().ConsultoraID, Constantes.ConfiguracionOferta.Accesorizate);
+                unidadesPermitidas = sv.GetUnidadesPermitidasByCuvZA(userData.PaisID, userData.CampaniaID, CUV, Constantes.ConfiguracionOferta.Accesorizate);
+                saldo = sv.ValidarUnidadesPermitidasEnPedidoZA(userData.PaisID, userData.CampaniaID, CUV, userData.ConsultoraID, Constantes.ConfiguracionOferta.Accesorizate);
             }
 
             return Json(new
@@ -323,7 +323,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             var cronogramaModel = new OfertaProductoModel()
@@ -340,9 +340,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -604,7 +604,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Accesorizate;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
-                    entidad.UsuarioRegistro = UserData().CodigoConsultora;
+                    entidad.UsuarioRegistro = userData.CodigoConsultora;
                     sv.InsOfertaProducto(entidad);
                 }
                 return Json(new
@@ -616,7 +616,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -626,7 +626,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -648,7 +648,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Accesorizate;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
-                    entidad.UsuarioModificacion = UserData().CodigoConsultora;
+                    entidad.UsuarioModificacion = userData.CodigoConsultora;
                     sv.UpdOfertaProducto(entidad);
                 }
                 return Json(new
@@ -660,7 +660,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -670,7 +670,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -690,7 +690,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     entidad.PaisID = model.PaisID;
-                    entidad.UsuarioModificacion = UserData().CodigoConsultora;
+                    entidad.UsuarioModificacion = userData.CodigoConsultora;
                     sv.DelOfertaProducto(entidad);
                 }
 
@@ -703,7 +703,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -713,7 +713,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -790,7 +790,7 @@ namespace Portal.Consultoras.Web.Controllers
                                             CantidadRegistros = registros,
                                             PaisID = paisId,
                                             TipoOfertaSisID = Constantes.ConfiguracionOferta.Accesorizate,
-                                            UsuarioRegistro = UserData().CodigoConsultora
+                                            UsuarioRegistro = userData.CodigoConsultora
                                         };
                                         srv.InsStockCargaLog(ent);
                                     }
@@ -798,11 +798,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                                 catch (FaultException ex)
                                 {
-                                    LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                                    LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                                 }
                                 catch (Exception ex)
                                 {
-                                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                                 }
                             }
                         }
@@ -817,12 +817,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 message = "Se actualizó el stock solo de " + registros + " registros, debido a que uno o más ISO's ingresados en el archivo aún no están habilitados.";
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 message = "Se actualizó el stock solo de " + registros + " registros, debido a que uno o más ISO's ingresados en el archivo aún no están habilitados.";
             }
             return message;
@@ -837,9 +837,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.PaisID = UserData().PaisID;
-                    entidad.UsuarioModificacion = UserData().CodigoConsultora;
-                    entidad.UsuarioRegistro = UserData().CodigoConsultora;
+                    entidad.PaisID = userData.PaisID;
+                    entidad.UsuarioModificacion = userData.CodigoConsultora;
+                    entidad.UsuarioRegistro = userData.CodigoConsultora;
                     entidad.OfertaAdmID = Constantes.ConfiguracionOferta.Accesorizate;
                     if (model.FlagRegistro == 0)
                         sv.InsAdministracionStockMinimoZA(entidad);
@@ -855,7 +855,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -865,7 +865,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -901,7 +901,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -911,7 +911,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

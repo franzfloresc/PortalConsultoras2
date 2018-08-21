@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            var userData = UserData();
+
             var model = new PedidoDetalleModel();
             try
             {
