@@ -512,7 +512,6 @@ var EstrategiaAgregarModule = (function () {
 
     var adicionarCantidad = function (e) {
         e.stopPropagation();
-        debugger;
         //
         var $this = $(e.target);
         if (selectorCantidadEstaBloquedo($this)) return false;
