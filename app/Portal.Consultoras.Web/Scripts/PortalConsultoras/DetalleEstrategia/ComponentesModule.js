@@ -55,6 +55,10 @@ var ComponentesModule = (function () {
             estrategia === null) throw "param estrategia is not defined or null";
 
         _estrategia = estrategia;
+        $.each(_estrategia.Hermanos, function (idx, hermano) {
+            hermano = _estrategia.Hermanos[idx];
+            hermano.esCampaniaSiguiente = _estrategia.CampaniaID !== _obtenerCampaniaActual();
+        });
         SetHandlebars(_elements.componentes.templateId, _estrategia, _elements.componentes.id);
     };
 
@@ -95,7 +99,6 @@ var ComponentesModule = (function () {
             if (cuv === hermano.Cuv) {
                 var componente = {};
                 componente = _estrategia.Hermanos[index];
-                componente.esCampaniaSiguiente = _estrategia.CampaniaID !== _obtenerCampaniaActual();
 
                 opcionesEvents.applyChanges("onComponentSelected", componente);
 
