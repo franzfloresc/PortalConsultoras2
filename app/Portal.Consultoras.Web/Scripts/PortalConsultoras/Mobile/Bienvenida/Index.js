@@ -848,8 +848,9 @@ function AceptarContrato() {
 function DownloadAttachPDF() {
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";
+    debugger
     var requestedFile = urlContratoCOpdf;
-    iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
+    iframe_.setAttribute("src", baseUrl + 'WebPages/Download.aspx?file=' + requestedFile);
 
     if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
         iframe_.onreadystatechange = function () {
