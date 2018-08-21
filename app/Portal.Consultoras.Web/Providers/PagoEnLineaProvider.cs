@@ -209,6 +209,7 @@ namespace Portal.Consultoras.Web.Providers
 
             string json = JsonHelper.JsonSerializer<DataToken>(datatoken);
 
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
             HttpWebRequest requestSesion;
             requestSesion = WebRequest.Create(urlCreateSessionTokenAPI) as HttpWebRequest;
             requestSesion.Method = "POST";
@@ -417,7 +418,7 @@ namespace Portal.Consultoras.Web.Providers
             dataAutorizacionRQ.data = data;
 
             string json = JsonHelper.JsonSerializer<DataRequestAut>(dataAutorizacionRQ);
-
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
             HttpWebRequest requestAutorizacion;
             requestAutorizacion = WebRequest.Create(urlAuthorize) as HttpWebRequest;
             requestAutorizacion.Method = "POST";
