@@ -543,6 +543,7 @@ var EstrategiaAgregarModule = (function () {
         $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
         $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
         $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        $("#idcontenedor_rangos").addClass("contenedor_rangos_desactivado");
     };
     
     var habilitarBoton = function() {
@@ -551,6 +552,7 @@ var EstrategiaAgregarModule = (function () {
         $(".cantidad_menos_home").attr("data-bloqueada", "");
         $("#imgFichaProduMas").attr("data-bloqueada", "");
         $("#imgFichaProduMenos").attr("data-bloqueada", "");
+        $("#idcontenedor_rangos").removeClass("contenedor_rangos_desactivado");
     }
     
     return {
