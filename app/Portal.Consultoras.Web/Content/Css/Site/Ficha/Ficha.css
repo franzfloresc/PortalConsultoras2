@@ -862,9 +862,6 @@ body {
 .content_tonos {
     padding-bottom: 45px;
 }
-.precio_valorizado{
-    margin-bottom:5px;
-}
 
 .dibujar_flecha_tonos::after {
     left: 60%;
