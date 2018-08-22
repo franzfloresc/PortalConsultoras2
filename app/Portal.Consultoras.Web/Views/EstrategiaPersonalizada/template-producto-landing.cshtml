@@ -119,10 +119,10 @@
                         </a>
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '3'}}
-                        <div onclick="javascript:OnClickFichaDetalle(event.target);">
+                        <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
                             <div class="texto_elige_tono"></div>
                             <div class="clear"></div>
-                            <a class="btn_elige_tono js-no-popup" data-item-tag="eligetuopcion">
+                            <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
                                 <div><img src="/Content/Images/mobile/Esika/click-ico.svg">ELIGE TU OPCIÓN</div>
                             </a>
                         </div>
