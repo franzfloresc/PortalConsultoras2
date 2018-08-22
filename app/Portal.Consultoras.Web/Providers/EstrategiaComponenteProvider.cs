@@ -353,10 +353,16 @@ namespace Portal.Consultoras.Web.Providers
 
         private string GetNombreComercial(EstrategiaComponenteModel componenteModel, BEEstrategiaProducto beEstrategiaProducto, string codigoTipoEstrategia)
         {
-            componenteModel.NombreComercial = Util.Trim(componenteModel.NombreComercial);
             beEstrategiaProducto.NombreProducto = Util.Trim(beEstrategiaProducto.NombreProducto);
+            beEstrategiaProducto.NombreBulk = Util.Trim(beEstrategiaProducto.NombreBulk);
+            beEstrategiaProducto.Volumen = Util.Trim(beEstrategiaProducto.Volumen);
+
+            componenteModel.NombreComercial = Util.Trim(componenteModel.NombreComercial);
             componenteModel.NombreBulk = Util.Trim(componenteModel.NombreBulk);
             componenteModel.Volumen = Util.Trim(componenteModel.Volumen);
+
+            componenteModel.NombreBulk = beEstrategiaProducto.NombreBulk == "" ? componenteModel.NombreBulk : beEstrategiaProducto.NombreBulk;
+            componenteModel.Volumen = beEstrategiaProducto.Volumen == "" ? componenteModel.Volumen : beEstrategiaProducto.Volumen;
 
             if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
             {
