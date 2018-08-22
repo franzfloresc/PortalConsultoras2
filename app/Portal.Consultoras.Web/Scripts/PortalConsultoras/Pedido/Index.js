@@ -1861,6 +1861,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
             console.log('DeletePedido - Ajax - success ', data);
             CerrarSplash();
+            CerrarAvisoEliminarRegalo();
+
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
                 messageInfoError(data.message);
@@ -1874,10 +1876,13 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias();
             }
+
             MostrarBarra(data);
+
             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
             microefectoPedidoGuardado();
             TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+
             dataLayer.push({
                 'event': "removeFromCart",
                 'ecommerce': {
@@ -1894,8 +1899,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                     }
                 }
             });
+
             CerrarSplash();
-            CerrarAvisoEliminarRegalo();
 
             window.OfertaDelDia.CargarODDEscritorio();
             ProcesarActualizacionMostrarContenedorCupon();
