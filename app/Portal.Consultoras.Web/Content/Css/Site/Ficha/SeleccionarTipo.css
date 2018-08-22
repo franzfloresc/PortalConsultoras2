@@ -3,8 +3,11 @@
     .list-inline > li {
     padding-right: 1px !important;
     padding-left: 0px !important;
-    min-height: 60px;
     }
+
+.selecion_item.list-inline > li {
+    min-height: 60px;
+}
 
     .contenedor_seleccion {
     position: fixed;
