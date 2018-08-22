@@ -1929,13 +1929,31 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(response == "true", JsonRequestBehavior.AllowGet);
         }
 
-        /*[HttpPost]
-        public ActionResult CambioTipoNegocioMasivo(string CodigoISO, )
+        [HttpPost]
+        public ActionResult CambioTipoNegocioMasivo(string CodigoIso)
         {
-            var response = PostHTMLSACUnete("CambioTipoNegocio", model);
-            //RegistrarLogGestionSacUnete(model.NumeroDocumento, "GESTIONA POSTULANTE", "CAMBIO TIPO NEGOCIO");
-            return Json(response == "true", JsonRequestBehavior.AllowGet);
-        }*/
+            CambioTipoNegocioModel model=null;
+            foreach (string file in Request.Files)
+            {
+                var fileContent = Request.Files[file];
+                if (fileContent != null && fileContent.ContentLength > 0)
+                {
+                    var stream = fileContent.InputStream;
+                    StreamReader reader = new StreamReader(stream);
+                    string txt = reader.ReadToEnd();
+                    string[] documentos = txt.Split('|');
+                    model = new CambioTipoNegocioModel
+                    {
+                        CodigoISO = CodigoIso,
+                        NumeroDocumento = "",
+                        NumeroDocumentos = documentos
+                    };
+                    var response = PostHTMLSACUnete("CambioTipoNegocioMasivo", model);
+                    RegistrarLogGestionSacUnete(model.NumeroDocumento, "GESTIONA POSTULANTE", "CAMBIO TIPO NEGOCIO MASIVO");
+                }
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
 
         public List<ReporteFuenteIngreso> GetReporteFuenteIngreso(string campaniaInicio, string campaniaFin)
         {

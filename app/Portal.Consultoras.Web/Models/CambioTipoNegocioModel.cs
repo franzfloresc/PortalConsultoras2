@@ -9,5 +9,6 @@ namespace Portal.Consultoras.Web.Models
     {
         public string CodigoISO { get; set; }
         public string NumeroDocumento { get; set; }
+        public string[] NumeroDocumentos { get; set; }
     }
 }
