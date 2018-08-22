@@ -19,7 +19,8 @@ function CargarCarouselEstrategias() {
         type: "GET",
         url: baseUrl + "Estrategia/JsonConsultarEstrategias",
         data: {
-            tipoOrigenEstrategia: tipoOrigenEstrategia
+            tipoOrigenEstrategia: tipoOrigenEstrategia,
+            isMobileClient: isMobile()
         },
         dataType: "json",
         contentType: "application/json; charset=utf-8",
