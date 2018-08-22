@@ -1895,6 +1895,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 }
             });
             CerrarSplash();
+            CerrarAvisoEliminarRegalo();
 
             window.OfertaDelDia.CargarODDEscritorio();
             ProcesarActualizacionMostrarContenedorCupon();
@@ -1903,8 +1904,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
             ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
             ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
-
-            CerrarAvisoEliminarRegalo();
+       
         },
         error: function (data, error) {
 
