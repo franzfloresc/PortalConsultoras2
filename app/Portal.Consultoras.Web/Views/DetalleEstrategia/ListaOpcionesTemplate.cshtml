@@ -7,6 +7,9 @@
             {{#iff componente.cantidadSeleccionada '==' '0'}}
                 <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
                     <button id="btn-eligelo-{{componente.Cuv}}"
+                            {{#if ../esCampaniaSiguiente}}
+                            class="btn_desactivado_general"
+                            {{/if}}
                             onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
                         Elígelo
                     </button>
@@ -27,6 +30,9 @@
                 style="display:none"
                 {{/iff}}>
                 <button id="btn-eligelo-{{componente.Cuv}}"
+                        {{#if ../esCampaniaSiguiente}}
+                        class="btn_desactivado_general"
+                        {{/if}}
                         onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
                     Elígelo
                 </button>
