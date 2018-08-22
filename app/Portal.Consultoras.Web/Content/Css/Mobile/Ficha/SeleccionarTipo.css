@@ -7,6 +7,9 @@
 
 .list-inline > li {
     padding-right: 1px !important;
+}
+
+.selecion_item.list-inline > li {
     min-height: 60px;
 }
 
