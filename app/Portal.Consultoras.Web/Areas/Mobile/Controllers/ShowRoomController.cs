@@ -107,37 +107,39 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                if (!ValidarIngresoShowRoom(true))
-                {
-                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
-                ActionExecutingMobile();
+                return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
 
-                var model = ObtenerPrimeraOfertaShowRoom();
+                //if (!ValidarIngresoShowRoom(true))
+                //{
+                //    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                //}
+                //ActionExecutingMobile();
 
-                if (model == null)
-                {
-                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
+                //var model = ObtenerPrimeraOfertaShowRoom();
 
-                //model.Simbolo = userData.Simbolo;
-                //model.CodigoISO = userData.CodigoISO;
+                //if (model == null)
+                //{
+                //    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                //}
 
-                var showRoomBannerLateral = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
-                ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
-                ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
+                ////model.Simbolo = userData.Simbolo;
+                ////model.CodigoISO = userData.CodigoISO;
 
-                var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
-                eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
+                //var showRoomBannerLateral = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
+                //ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
+                //ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
 
-                //model.Suscripcion = eventoConsultora.Suscripcion;
-                //model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
-                //model.EMailActivo = (eventoConsultora.CorreoEnvioAviso != userData.EMail) || userData.EMailActivo;
-                //model.Celular = userData.Celular;
-                //model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-                //model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
+                //var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
+                //eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
 
-                return View(model);
+                ////model.Suscripcion = eventoConsultora.Suscripcion;
+                ////model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
+                ////model.EMailActivo = (eventoConsultora.CorreoEnvioAviso != userData.EMail) || userData.EMailActivo;
+                ////model.Celular = userData.Celular;
+                ////model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+                ////model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
+
+                //return View(model);
             }
             catch (FaultException ex)
             {

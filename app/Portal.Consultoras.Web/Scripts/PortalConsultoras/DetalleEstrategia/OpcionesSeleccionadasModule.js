@@ -45,7 +45,7 @@ var OpcionesSeleccionadasModule = (function () {
             SetHandlebars(_elements.divOpcionesSeleccionadas.templateId, _componente, _elements.divOpcionesSeleccionadas.id);
             $(_elements.divOpcionesSeleccionadas.id).fadeTo("fast", 0.6).fadeTo("fast", 1);
             var slickSettings = {
-                slidesToShow: 5,
+                slidesToShow: 4,
                 slidesToScroll: 1,
                 autoplaySpeed: 2000,
                 fade: false,

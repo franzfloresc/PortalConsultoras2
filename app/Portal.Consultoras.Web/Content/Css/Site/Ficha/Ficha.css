@@ -356,10 +356,15 @@ body {
     pointer-events: none;
 }
 
+.seleccion_btn .btn_desactivado_general {
+    pointer-events: none;
+}
+
 .btn_desactivado_general {
-    background: #e5e5e5;
-    border: 1px solid #d2d2d2;
+    background: #e5e5e5 !important;
+    border: 1px solid #d2d2d2 !important;
     color: #b9b9b9;
+    cursor: default !important;
 }
 
 /* Ficha Check Agreado y texto Libre */
@@ -856,9 +861,6 @@ body {
 
 .content_tonos {
     padding-bottom: 45px;
-}
-.precio_valorizado{
-    margin-bottom:5px;
 }
 
 .dibujar_flecha_tonos::after {

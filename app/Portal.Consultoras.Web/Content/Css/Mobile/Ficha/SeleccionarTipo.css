@@ -55,7 +55,8 @@
 }
 
 .seleccion_img img{
-    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
 }
 
 .seleccion_btn{
@@ -150,7 +151,8 @@
     justify-content: center;
 }
 .item_selecionado_img {
-    width: 100%;
+    min-width: 56px;
+    max-width: 100%;
     border: solid 1px #d8d8d8;
     min-height: 56px;
 }
