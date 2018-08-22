@@ -21587,10 +21587,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEProgramaNuevas", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNueva" +
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEConsultoraProgramaNuevas", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNueva" +
         "s")]
     [System.SerializableAttribute()]
-    public partial class BEProgramaNuevas : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class BEConsultoraProgramaNuevas : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -39041,16 +39041,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<string> DelProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario);
+        Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas> GetConfiguracionProgramaNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas> GetConfiguracionProgramaNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCuvKitNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetCuvKitNuevasResponse")]
-        string GetCuvKitNuevas(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas);
+        string GetCuvKitNuevas(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCuvKitNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetCuvKitNuevasResponse")]
-        System.Threading.Tasks.Task<string> GetCuvKitNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas);
+        System.Threading.Tasks.Task<string> GetCuvKitNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateMontosPedidoWeb", ReplyAction="http://tempuri.org/IPedidoService/UpdateMontosPedidoWebResponse")]
         void UpdateMontosPedidoWeb(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb);
@@ -39385,10 +39385,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEReporteValidacion[]> GetReporteValidacionAsync(int paisID, int campaniaID, int tipoEstrategia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora", ReplyAction="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultoraResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerConcursosXConsultora(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario, string codigoRegion, string codigoZona);
+        Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerConcursosXConsultora(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas, string codigoRegion, string codigoZona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora", ReplyAction="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultoraResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerConcursosXConsultoraAsync(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario, string codigoRegion, string codigoZona);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerConcursosXConsultoraAsync(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas, string codigoRegion, string codigoZona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso", ReplyAction="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcursoResponse")]
         void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);
@@ -41614,20 +41614,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.DelProductoSugeridoAsync(PaisID, entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario) {
-            return base.Channel.GetConfiguracionProgramaNuevas(usuario);
+        public Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas) {
+            return base.Channel.GetConfiguracionProgramaNuevas(consultoraNuevas);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas> GetConfiguracionProgramaNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario) {
-            return base.Channel.GetConfiguracionProgramaNuevasAsync(usuario);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas> GetConfiguracionProgramaNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas) {
+            return base.Channel.GetConfiguracionProgramaNuevasAsync(consultoraNuevas);
         }
         
-        public string GetCuvKitNuevas(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas) {
-            return base.Channel.GetCuvKitNuevas(usuario, confProgNuevas);
+        public string GetCuvKitNuevas(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas) {
+            return base.Channel.GetCuvKitNuevas(consultoraNuevas, confProgNuevas);
         }
         
-        public System.Threading.Tasks.Task<string> GetCuvKitNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas) {
-            return base.Channel.GetCuvKitNuevasAsync(usuario, confProgNuevas);
+        public System.Threading.Tasks.Task<string> GetCuvKitNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas) {
+            return base.Channel.GetCuvKitNuevasAsync(consultoraNuevas, confProgNuevas);
         }
         
         public void UpdateMontosPedidoWeb(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb) {
@@ -42062,12 +42062,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetReporteValidacionAsync(paisID, campaniaID, tipoEstrategia);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerConcursosXConsultora(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario, string codigoRegion, string codigoZona) {
-            return base.Channel.ObtenerConcursosXConsultora(usuario, codigoRegion, codigoZona);
+        public Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerConcursosXConsultora(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas, string codigoRegion, string codigoZona) {
+            return base.Channel.ObtenerConcursosXConsultora(consultoraNuevas, codigoRegion, codigoZona);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerConcursosXConsultoraAsync(Portal.Consultoras.Web.ServicePedido.BEProgramaNuevas usuario, string codigoRegion, string codigoZona) {
-            return base.Channel.ObtenerConcursosXConsultoraAsync(usuario, codigoRegion, codigoZona);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerConcursosXConsultoraAsync(Portal.Consultoras.Web.ServicePedido.BEConsultoraProgramaNuevas consultoraNuevas, string codigoRegion, string codigoZona) {
+            return base.Channel.ObtenerConcursosXConsultoraAsync(consultoraNuevas, codigoRegion, codigoZona);
         }
         
         public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso) {

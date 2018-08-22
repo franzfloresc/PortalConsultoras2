@@ -1000,10 +1000,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (sessionManager.GetConfiguracionProgramaNuevas() != null) return sessionManager.GetConfiguracionProgramaNuevas();
             try
             {
-                var usuario = Mapper.Map<ServicePedido.BEProgramaNuevas>(userData);
+                var consultoraNuevas = Mapper.Map<ServicePedido.BEConsultoraProgramaNuevas>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    sessionManager.SetConfiguracionProgramaNuevas(sv.GetConfiguracionProgramaNuevas(usuario) ?? new BEConfiguracionProgramaNuevas());
+                    sessionManager.SetConfiguracionProgramaNuevas(sv.GetConfiguracionProgramaNuevas(consultoraNuevas) ?? new BEConfiguracionProgramaNuevas());
                 }
             }
             catch (Exception ex)
@@ -1019,10 +1019,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (sessionManager.GetCuvKitNuevas() != null) return sessionManager.GetCuvKitNuevas();
             try
             {
-                var usuario = Mapper.Map<BEProgramaNuevas>(userData);
+                var consultoraNuevas = Mapper.Map<BEConsultoraProgramaNuevas>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    sessionManager.SetCuvKitNuevas(sv.GetCuvKitNuevas(usuario, GetConfiguracionProgramaNuevas()) ?? "");
+                    sessionManager.SetCuvKitNuevas(sv.GetCuvKitNuevas(consultoraNuevas, GetConfiguracionProgramaNuevas()) ?? "");
                 }
             }
             catch (Exception ex)

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Portal.Consultoras.Entities.ProgramaNuevas
 {
     [DataContract]
-    public class BEProgramaNuevas
+    public class BEConsultoraProgramaNuevas
     {
         [DataMember]
         public int PaisID { get; set; }

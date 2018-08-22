@@ -748,7 +748,7 @@ namespace Portal.Consultoras.BizLogic
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
-                var programaNuevas = new BEProgramaNuevas
+                var consultoraNuevas = new BEConsultoraProgramaNuevas
                 {
                     PaisID = usuario.PaisID,
                     CampaniaID = usuario.CampaniaID,
@@ -757,7 +757,7 @@ namespace Portal.Consultoras.BizLogic
                     ConsecutivoNueva = usuario.ConsecutivoNueva,
                     CodigoPrograma = usuario.CodigoPrograma
                 };
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(programaNuevas, usuario.CodigorRegion, usuario.CodigoZona);
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(consultoraNuevas, usuario.CodigorRegion, usuario.CodigoZona);
 
                 if (result.Any())
                 {

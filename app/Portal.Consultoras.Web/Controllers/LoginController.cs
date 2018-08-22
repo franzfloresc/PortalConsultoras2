@@ -1715,10 +1715,10 @@ namespace Portal.Consultoras.Web.Controllers
             var lst = new List<BEIncentivoConcurso>();
             try
             {
-                var usuario = Mapper.Map<ServicePedido.BEProgramaNuevas>(usuarioModel);
+                var consultoraNuevas = Mapper.Map<ServicePedido.BEConsultoraProgramaNuevas>(usuarioModel);
                 using (var sv = new PedidoServiceClient())
                 {
-                    var result = await sv.ObtenerConcursosXConsultoraAsync(usuario, usuarioModel.CodigorRegion, usuarioModel.CodigoZona);
+                    var result = await sv.ObtenerConcursosXConsultoraAsync(consultoraNuevas, usuarioModel.CodigorRegion, usuarioModel.CodigoZona);
                     lst = result.ToList();
                 }
             }

@@ -6,11 +6,11 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultorasProgramaNuevas : IConsultorasProgramaNuevasBusinessLogic
     {
-        public BEProgramaNuevas GetByConsultoraIdAndCampania(int paisID, long consultoraId, string campania)
+        public BEConsultoraProgramaNuevas GetByConsultoraIdAndCampania(int paisID, long consultoraId, string campania)
         {
             using (var reader = new DAConsultorasProgramaNuevas(paisID).GetConsultorasProgramaNuevasByConsultoraIdAndCampania(consultoraId, campania))
             {
-                return reader.MapToObject<BEProgramaNuevas>(true, true);
+                return reader.MapToObject<BEConsultoraProgramaNuevas>(true, true);
             }
         }
     }
