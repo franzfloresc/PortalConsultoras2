@@ -338,7 +338,7 @@ namespace Portal.Consultoras.Web.Providers
 
                         if (hermano.Hermanos.Any())
                         {
-                            hermano.NombreComercial = string.IsNullOrWhiteSpace(hermano.NombreBulk) ? hermano.NombreComercial : hermano.NombreComercial.ToUpper().Replace(hermano.NombreBulk.ToUpper(), "");
+                            hermano.NombreComercial = GetNombreComercialSinBulk(hermano);
                         }
 
                         listaComponentes.Add(hermano);
@@ -353,10 +353,16 @@ namespace Portal.Consultoras.Web.Providers
 
         private string GetNombreComercial(EstrategiaComponenteModel componenteModel, BEEstrategiaProducto beEstrategiaProducto, string codigoTipoEstrategia)
         {
-            componenteModel.NombreComercial = Util.Trim(componenteModel.NombreComercial);
             beEstrategiaProducto.NombreProducto = Util.Trim(beEstrategiaProducto.NombreProducto);
+            beEstrategiaProducto.NombreBulk = Util.Trim(beEstrategiaProducto.NombreBulk);
+            beEstrategiaProducto.Volumen = Util.Trim(beEstrategiaProducto.Volumen);
+
+            componenteModel.NombreComercial = Util.Trim(componenteModel.NombreComercial);
             componenteModel.NombreBulk = Util.Trim(componenteModel.NombreBulk);
             componenteModel.Volumen = Util.Trim(componenteModel.Volumen);
+
+            componenteModel.NombreBulk = beEstrategiaProducto.NombreBulk == "" ? componenteModel.NombreBulk : beEstrategiaProducto.NombreBulk;
+            componenteModel.Volumen = beEstrategiaProducto.Volumen == "" ? componenteModel.Volumen : beEstrategiaProducto.Volumen;
 
             if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
             {
@@ -383,6 +389,21 @@ namespace Portal.Consultoras.Web.Providers
             return Util.Trim(componenteModel.NombreComercial);
         }
         
+        private string GetNombreComercialSinBulk(EstrategiaComponenteModel hermano)
+        {
+            string NombreComercialCompleto = Util.Trim(hermano.NombreComercial);
+            string NombreComercial = NombreComercialCompleto.ToUpper();
+            string Bulk = Util.Trim(hermano.NombreBulk).ToUpper();
+            int pos = NombreComercial.IndexOf(Bulk);
+            if (pos >= 0)
+            {
+                int longitudBulk = Bulk.Length;
+                NombreComercialCompleto = hermano.NombreComercial.Substring(0, pos);
+                NombreComercialCompleto += " " + hermano.NombreComercial.Substring(pos + longitudBulk);
+            }
+            return NombreComercialCompleto.Trim();
+        }
+
         private List<EstrategiaComponenteModel> GetEstrategiaDetalleFactorCuadre(List<EstrategiaComponenteModel> listaHermanos)
         {
             var listaHermanosCuadre = new List<EstrategiaComponenteModel>();
