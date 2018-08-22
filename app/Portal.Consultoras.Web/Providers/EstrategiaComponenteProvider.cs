@@ -58,7 +58,7 @@ namespace Portal.Consultoras.Web.Providers
                 var listaProductos = GetAppProductoBySap(estrategiaModelo, joinCuv);
                 if (!listaProductos.Any()) return new List<EstrategiaComponenteModel>();
 
-                var listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
+                var listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
                 //estrategiaModelo.CodigoVariante = "";
                 var listaComponentesPorOrdenar = GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
                 listaComponentesPorOrdenar = OrdenarComponentesPorMarca(listaComponentesPorOrdenar, out esMultimarca);
@@ -154,7 +154,7 @@ namespace Portal.Consultoras.Web.Providers
             return listaAppCatalogo;
         }
 
-        private List<EstrategiaComponenteModel> GetEstrategiaDetalleCompuesta(EstrategiaPersonalizadaProductoModel estrategiaModelo,
+        private List<EstrategiaComponenteModel> GetEstrategiaDetalleCompuestaMs(EstrategiaPersonalizadaProductoModel estrategiaModelo,
                                                                    List<BEEstrategiaProducto> listaBeEstrategiaProductos,
                                                                    List<Producto> listaProductos,
                                                                    string codigoTipoEstrategia)
@@ -187,7 +187,7 @@ namespace Portal.Consultoras.Web.Providers
                         ?? new EstrategiaComponenteModel()).Clone();
                 }
                 
-                componenteModel.NombreComercial = GetNombreComercial(componenteModel, beEstrategiaProducto, codigoTipoEstrategia);
+                componenteModel.NombreComercial = GetNombreComercial(componenteModel, beEstrategiaProducto, codigoTipoEstrategia, true);
 
                 if (!string.IsNullOrEmpty(beEstrategiaProducto.ImagenProducto))
                 {
@@ -279,7 +279,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 var componenteModel = new EstrategiaComponenteModel { };
 
-                componenteModel.NombreComercial = GetNombreComercial(componenteModel, beEstrategiaProducto, codigoTipoEstrategia);
+                componenteModel.NombreComercial = GetNombreComercial(componenteModel, beEstrategiaProducto, codigoTipoEstrategia, false);
 
                 componenteModel.Descripcion = beEstrategiaProducto.Descripcion;
                 componenteModel.NombreBulk = beEstrategiaProducto.NombreBulk;
@@ -351,7 +351,7 @@ namespace Portal.Consultoras.Web.Providers
             return listaComponentesTemporal;
         }
 
-        private string GetNombreComercial(EstrategiaComponenteModel componenteModel, BEEstrategiaProducto beEstrategiaProducto, string codigoTipoEstrategia)
+        private string GetNombreComercial(EstrategiaComponenteModel componenteModel, BEEstrategiaProducto beEstrategiaProducto, string codigoTipoEstrategia, bool esMs)
         {
             beEstrategiaProducto.NombreProducto = Util.Trim(beEstrategiaProducto.NombreProducto);
             beEstrategiaProducto.NombreBulk = Util.Trim(beEstrategiaProducto.NombreBulk);
@@ -368,14 +368,22 @@ namespace Portal.Consultoras.Web.Providers
             {
                 if (beEstrategiaProducto.NombreProducto != "")
                 {
-                    componenteModel.NombreComercial = Util.Trim(beEstrategiaProducto.NombreProducto);
+                    componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto;
                 }
             }
             else
             {
-                if (componenteModel.NombreComercial == "")
+                if (esMs)
                 {
-                    componenteModel.NombreComercial = Util.Trim(beEstrategiaProducto.NombreProducto);
+                    if (componenteModel.NombreComercial == "")
+                    {
+                        componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto;
+                    }
+                }
+                else
+                {
+                    componenteModel.NombreComercial = beEstrategiaProducto.NombreComercial == "" ? 
+                        beEstrategiaProducto.NombreProducto : beEstrategiaProducto.NombreComercial;
                 }
             }
 
