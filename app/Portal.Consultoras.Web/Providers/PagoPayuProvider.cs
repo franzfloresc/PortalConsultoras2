@@ -80,7 +80,6 @@ namespace Portal.Consultoras.Web.Providers
             var referenceCode = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroOperacion;
             var fullName = User.NombreConsultora;
 
-            var isCredit = pago.MetodoPagoSeleccionado.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito;
             var card = new
             {
                 number = info.NumberCard,
@@ -154,8 +153,7 @@ namespace Portal.Consultoras.Web.Providers
                             //-phone = "7563126"
                         }
                     },
-                    creditCard = isCredit ? card : null,
-                    debitCard = !isCredit ? card : null,
+                    creditCard = card,
                     //extraParameters = new {
                     //   INSTALLMENTS_NUMBER = 1 // cuotas
                     //},
