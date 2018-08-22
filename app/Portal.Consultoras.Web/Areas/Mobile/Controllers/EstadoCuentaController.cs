@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            var userData = UserData();
+            
             var model = new EstadoCuentaMobilModel();
             try
             {
@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public JsonResult EnviarCorreo(string correo)
         {
-            var userData = UserData();
+
             try
             {
                 var lstEstadoCuenta = EstadodeCuenta();
@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -131,7 +131,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -169,7 +169,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string ConstruirContenidoCorreo(List<EstadoCuentaModel> lst)
         {
-            var userData = UserData();
 
             var txtBuil = new StringBuilder();
 

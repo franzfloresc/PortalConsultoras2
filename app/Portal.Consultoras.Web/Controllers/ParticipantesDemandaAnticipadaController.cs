@@ -21,8 +21,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             };
 
-            participantesConsultora.listaCampania = DropDowListCampanias(UserData().PaisID);
-            participantesConsultora.CodigoUsuario = UserData().CodigoUsuario;
+            participantesConsultora.listaCampania = DropDowListCampanias(userData.PaisID);
+            participantesConsultora.CodigoUsuario = userData.CodigoUsuario;
 
             return View(participantesConsultora);
         }
@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
             IList<BEParticipantesDemandaAnticipada> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetParticipantesConfiguracionConsultoraDA(UserData().PaisID, CodigoCampania, CodigoConsultora);
+                lst = sv.GetParticipantesConfiguracionConsultoraDA(userData.PaisID, CodigoCampania, CodigoConsultora);
             }
 
             BEGrid grid = new BEGrid
@@ -183,7 +183,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string codigoCampania = Request.Form["TxtCodigoCampania"];
                 string fecha = Request.Form["TxtFecha"];
                 string tipoConfiguracion = Request.Form["TxtTipoConfiguracion"];
-                string codigoUsuario = UserData().CodigoUsuario;
+                string codigoUsuario = userData.CodigoUsuario;
 
 
                 var obj = new BEParticipantesDemandaAnticipada();
@@ -206,7 +206,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        sv.InsParticipantesDemandaAnticipada(UserData().PaisID, obj);
+                        sv.InsParticipantesDemandaAnticipada(userData.PaisID, obj);
                     }
                 }
                 else
@@ -218,12 +218,12 @@ namespace Portal.Consultoras.Web.Controllers
                             ConsultoraID = Convert.ToInt32(consultoraId),
                             CampaniaID = Convert.ToString(codigoCampania),
                             TipoConfiguracion = Convert.ToByte(tipoConfiguracion),
-                            CodigoUsuario = Convert.ToString(UserData().CodigoUsuario)
+                            CodigoUsuario = Convert.ToString(userData.CodigoUsuario)
                         };
 
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                       sv.InsConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDa);
+                       sv.InsConfiguracionConsultoraDA(userData.PaisID, configuracionConsultoraDa);
                     }
                 }
 
@@ -250,7 +250,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEParticipantesDemandaAnticipada lista;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lista = sv.GetConsultoraByCodigo(UserData().PaisID, codigoConsultora);
+                lista = sv.GetConsultoraByCodigo(userData.PaisID, codigoConsultora);
             }
 
             var vacio = new { };
@@ -280,7 +280,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEConfiguracionCampania lista;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lista = sv.GetCampaniaActualByZona(UserData().PaisID, CodigoZona);
+                lista = sv.GetCampaniaActualByZona(userData.PaisID, CodigoZona);
             }
 
             var vacio = new { };
@@ -301,7 +301,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEParticipantesDemandaAnticipada> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetParticipantesConfiguracionConsultoraDA(UserData().PaisID, codigoCampania, UserData().CodigoConsultora).ToList();
+                lst = sv.GetParticipantesConfiguracionConsultoraDA(userData.PaisID, codigoCampania, userData.CodigoConsultora).ToList();
             }
 
             BEPager pag = new BEPager();
@@ -327,7 +327,7 @@ namespace Portal.Consultoras.Web.Controllers
             IList<BEParticipantesDemandaAnticipada> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetParticipantesConfiguracionConsultoraDA(UserData().PaisID, CodigoCampania, "").ToList();
+                lst = sv.GetParticipantesConfiguracionConsultoraDA(userData.PaisID, CodigoCampania, "").ToList();
             }
 
             Dictionary<string, string> dic = new Dictionary<string, string>

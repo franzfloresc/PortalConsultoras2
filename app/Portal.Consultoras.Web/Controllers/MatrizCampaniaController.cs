@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             var model = new MatrizCampaniaModel
@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View();
         }
@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> paises;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == Constantes.Rol.Administrador)
+                if (userData.RolID == Constantes.Rol.Administrador)
                 {
                     paises = sv.SelectPaises().ToList();
                 }
@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     paises = new List<BEPais>
                     {
-                        sv.SelectPais(UserData().PaisID)
+                        sv.SelectPais(userData.PaisID)
                     };
                 }
 
@@ -114,17 +114,17 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                     {
-                        campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
+                        campanias.AddRange(sv.SelectCampanias(userData.PaisID).ToList());
                     }
                 }
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return Json(new
@@ -174,7 +174,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var producto = productos.LastOrDefault();
                     if (producto != null && !string.IsNullOrEmpty(producto.RegaloImagenUrl))
                     {
-                        string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                        string carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                         productos.LastOrDefault().RegaloImagenUrl = ConfigCdn.GetUrlFileCdn(carpetaPais, producto.RegaloImagenUrl);
 
 
@@ -191,7 +191,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -201,7 +201,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -220,7 +220,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    sv.UpdProductoDescripcion(entidad, UserData().CodigoUsuario);
+                    sv.UpdProductoDescripcion(entidad, userData.CodigoUsuario);
                 }
                 return Json(new
                 {
@@ -231,7 +231,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -241,7 +241,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -307,12 +307,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
 
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return productos;
@@ -370,7 +370,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (SACServiceClient srv = new SACServiceClient())
                     {
-                        srv.UpdProductoDescripcionMasivo(paisId, campaniaId, lst.ToArray(), UserData().CodigoUsuario);
+                        srv.UpdProductoDescripcionMasivo(paisId, campaniaId, lst.ToArray(), userData.CodigoUsuario);
                     }
                     return "Se realizó satisfactoriamente la carga de datos.";
                 }
@@ -382,12 +382,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Verifique el contenido del Documento, posiblemente tenga errores en su contenido.";
             }
         }
@@ -767,12 +767,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.";
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.";
             }
 

@@ -2227,7 +2227,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return accion;
             }
         }
@@ -2236,8 +2236,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             using (var sac = new SACServiceClient())
             {
-                var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
-                        Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+                var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Desktop, userData.CodigorRegion, userData.CodigoZona, userData.ConsultoraNueva);
 
                 return lstComunicados.ToList();
             }
