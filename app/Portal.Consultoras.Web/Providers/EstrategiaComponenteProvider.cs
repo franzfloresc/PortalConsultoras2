@@ -338,16 +338,7 @@ namespace Portal.Consultoras.Web.Providers
 
                         if (hermano.Hermanos.Any())
                         {
-                            String NombreComercialCompleto = String.Empty;
-                            String NombreComercial = hermano.NombreComercial.Trim().ToUpper();
-                            String Bulk = hermano.NombreBulk.Trim().ToUpper();
-                            int pos = NombreComercial.IndexOf(Bulk);
-                            if (pos > 0) {
-                                int longitudBulk = Bulk.Length;
-                                NombreComercialCompleto = hermano.NombreComercial.Substring(0, pos);
-                                NombreComercialCompleto += " " + hermano.NombreComercial.Substring(pos + longitudBulk);
-                                hermano.NombreComercial = NombreComercialCompleto;
-                            }
+                            hermano.NombreComercial = GetNombreComercialSinBulk(hermano);
                         }
 
                         listaComponentes.Add(hermano);
@@ -398,6 +389,21 @@ namespace Portal.Consultoras.Web.Providers
             return Util.Trim(componenteModel.NombreComercial);
         }
         
+        private string GetNombreComercialSinBulk(EstrategiaComponenteModel hermano)
+        {
+            string NombreComercialCompleto = Util.Trim(hermano.NombreComercial);
+            string NombreComercial = NombreComercialCompleto.ToUpper();
+            string Bulk = Util.Trim(hermano.NombreBulk).ToUpper();
+            int pos = NombreComercial.IndexOf(Bulk);
+            if (pos >= 0)
+            {
+                int longitudBulk = Bulk.Length;
+                NombreComercialCompleto = hermano.NombreComercial.Substring(0, pos);
+                NombreComercialCompleto += " " + hermano.NombreComercial.Substring(pos + longitudBulk);
+            }
+            return NombreComercialCompleto.Trim();
+        }
+
         private List<EstrategiaComponenteModel> GetEstrategiaDetalleFactorCuadre(List<EstrategiaComponenteModel> listaHermanos)
         {
             var listaHermanosCuadre = new List<EstrategiaComponenteModel>();
