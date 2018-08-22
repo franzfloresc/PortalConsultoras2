@@ -338,7 +338,16 @@ namespace Portal.Consultoras.Web.Providers
 
                         if (hermano.Hermanos.Any())
                         {
-                            hermano.NombreComercial = string.IsNullOrWhiteSpace(hermano.NombreBulk) ? hermano.NombreComercial : hermano.NombreComercial.ToUpper().Replace(hermano.NombreBulk.ToUpper(), "");
+                            String NombreComercialCompleto = String.Empty;
+                            String NombreComercial = hermano.NombreComercial.Trim().ToUpper();
+                            String Bulk = hermano.NombreBulk.Trim().ToUpper();
+                            int pos = NombreComercial.IndexOf(Bulk);
+                            if (pos > 0) {
+                                int longitudBulk = Bulk.Length;
+                                NombreComercialCompleto = hermano.NombreComercial.Substring(0, pos);
+                                NombreComercialCompleto += " " + hermano.NombreComercial.Substring(pos + longitudBulk);
+                                hermano.NombreComercial = NombreComercialCompleto;
+                            }
                         }
 
                         listaComponentes.Add(hermano);
