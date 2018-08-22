@@ -60,9 +60,9 @@ namespace Portal.Consultoras.Web.Providers
 
                 var listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
                 //estrategiaModelo.CodigoVariante = "";
-                var listaComponentesPorOrdenar = GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
-                listaComponentesPorOrdenar = OrdenarComponentesPorMarca(listaComponentesPorOrdenar, out esMultimarca);
-                return listaComponentesPorOrdenar;
+                //var listaComponentesPorOrdenar = GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
+                listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
+                return listaEstrategiaComponente;
 
             }
             else
