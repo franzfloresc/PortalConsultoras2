@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -466,6 +467,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>();
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEConsultoraProgramaNuevas>();
+            
+            Mapper.CreateMap<PagoEnLineaTipoPagoModel, BEPagoEnLineaTipoPago>();
+            Mapper.CreateMap<PagoEnLineaMedioPagoModel, BEPagoEnLineaMedioPago>();
+            Mapper.CreateMap<PagoEnLineaMedioPagoDetalleModel, BEPagoEnLineaMedioPagoDetalle>();
+            Mapper.CreateMap<PagoEnLineaTipoPasarelaModel, BEPagoEnLineaTipoPasarela>();
+            Mapper.CreateMap<PagoEnLineaPasarelaCamposModel, BEPagoEnLineaPasarelaCampos>();
         }
     }
 }

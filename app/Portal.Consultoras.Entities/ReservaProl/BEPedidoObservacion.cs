@@ -13,8 +13,12 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public string Descripcion { get; set; }
         [DataMember]
         public int Caso { get; set; }
-
+        [DataMember]
         public string CuvObs { get; set; }
+        [DataMember]
+        public int SetID { get; set; }
+        [DataMember]
+        public int PedidoDetalleID { get; set; }
 
         public BEPedidoObservacion() { }
         public BEPedidoObservacion(int tipo, int caso, string cuv, string descripcion, string cuvObs) {
@@ -23,7 +27,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
             CUV = cuv;
             Descripcion = descripcion;
             CuvObs = cuvObs;
-        }
+        }        
         public BEPedidoObservacion(BEPedidoObservacion pedidoObs)
         {
             Tipo = pedidoObs.Tipo;
