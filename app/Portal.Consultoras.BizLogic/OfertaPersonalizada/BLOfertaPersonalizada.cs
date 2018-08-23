@@ -195,6 +195,11 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
 
                         estrategiasResult.Add(estrategia);
                     }
+                    else
+                    {
+                        string informacionAdicional = string.Format("Log Precios => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV2:{3} /Precio2:{4}", DateTime.Now, estrategia.CodigoTipoEstrategia, entidad.CampaniaID, estrategia.CUV2, estrategia.Precio2);
+                        LogManager.SaveLog(new Exception(message: informacionAdicional),"", entidad.PaisID, informacionAdicional);
+                    }
                 });
             }
             else estrategiasResult.AddRange(lista.Where(e => e.Precio2 > 0));
