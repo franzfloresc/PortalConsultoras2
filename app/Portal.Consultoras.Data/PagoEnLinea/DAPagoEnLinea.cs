@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Entities.PagoEnLinea;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data.PagoEnLinea
 {
@@ -63,6 +59,9 @@ namespace Portal.Consultoras.Data.PagoEnLinea
             Context.Database.AddInParameter(command, "@NumeroTarjeta", DbType.AnsiString, entidad.NumeroTarjeta);
             Context.Database.AddInParameter(command, "@OrigenTarjeta", DbType.AnsiString, entidad.OrigenTarjeta);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.AnsiString, entidad.UsuarioCreacion);
+            Context.Database.AddInParameter(command, "@FechaNacimiento", DbType.DateTime, entidad.FechaNacimiento == default(DateTime) ? DBNull.Value : (object)entidad.FechaNacimiento);
+            Context.Database.AddInParameter(command, "@Correo", DbType.AnsiString, entidad.Correo);
+            Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, entidad.Celular);
 
             Context.ExecuteNonQuery(command);
 
@@ -124,6 +123,52 @@ namespace Portal.Consultoras.Data.PagoEnLinea
             Context.Database.AddInParameter(command, "@ProcesoHasta", DbType.DateTime, filtro.FechaProcesoHasta);
 
             return Context.ExecuteReader(command);
+        }
+
+        public IDataReader ObtenerPagoEnLineaTipoPago()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaTipoPago");
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader ObtenerPagoEnLineaMedioPago()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaMedioPago");
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader ObtenerPagoEnLineaPasarelaCampos()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaPasarelaCampos");
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader ObtenerPagoEnLineaMedioPagoDetalle()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaMedioPagoDetalle");
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(string codigoPlataforma)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma");
+            Context.Database.AddInParameter(command, "@CodigoPlataforma", DbType.String, codigoPlataforma);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public int ObtenerNumeroOrden()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerNumeroOrdenPagoEnLinea");
+
+            using (command)
+            {
+                return (int)Context.ExecuteScalar(command);
+            }
         }
     }
 }

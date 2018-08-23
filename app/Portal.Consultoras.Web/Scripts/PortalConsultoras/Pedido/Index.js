@@ -1566,12 +1566,7 @@ function ObservacionesProducto(item) {
                     if (!item.TieneRDC)
                         $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");
                 }
-
-                if (item.MensajeCUV != null) {
-                    if (item.MensajeCUV != "") {
-                        AbrirMensaje(item.MensajeCUV, "IMPORTANTE");
-                    }
-                }
+                if (!IsNullOrEmpty(item.MensajeCUV)) AbrirMensaje(item.MensajeCUV, "IMPORTANTE");
 
                 $("#btnAgregar").removeAttr("disabled");
             }
@@ -1624,9 +1619,10 @@ function ObservacionesProducto(item) {
                 return;
             }
         });
+        $("#btnAgregar").focus();
     }
+    else $("#txtCantidad").focus();
     $("#divMensaje").text("");
-    $("#txtCantidad").focus();
 
     if (item.TipoOfertaSisID == "1707") {
         if (!sesionEsShowRoom) {
