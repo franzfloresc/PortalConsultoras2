@@ -273,7 +273,7 @@ function AbrirFooter(Marca, Url) {
  */
 function storageIsSuport(storage) {
     try {
-        const key = "__some_random_value__";
+        var key = "__some_random_value__";
         storage.setItem(key, key);
         storage.removeItem(key);
         return true;
