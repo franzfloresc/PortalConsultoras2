@@ -234,9 +234,6 @@ $(document).ready(function () {
             },
             me.Inicializar = function () {
                 me.Funciones.InicializarEventos();
-                setTimeout(function () {
-                    me.Funciones.ModificarAnchoBuscadorFiltros();
-                }, 1000);
             }
     }
 
