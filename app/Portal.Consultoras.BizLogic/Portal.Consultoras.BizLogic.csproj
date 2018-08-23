@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
+    <Compile Include="Belcorp\IBelcorpRespondeBusinessLogic.cs" />
     <Compile Include="BLCategoria.cs" />
     <Compile Include="BLActivarPremioNuevas.cs" />
     <Compile Include="BLCuponesProgramaNuevas.cs" />
