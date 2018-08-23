@@ -3,7 +3,7 @@
     {{#iff componente.cantidadAplicada '>' 0}}
     <ul class="tonos_seleccionados_item {{#iff this.CodigoVariante '==' '2001'}}tono_seleccionado{{/iff}}" data-tono="">
         <li class="imagen_seleccionado"><img src="{{componente.ImagenBulk}}" alt="" /></li>
-        <li class="titulo_selecionado"><span class="cantidad_producto_opt">x{{componente.cantidadAplicada}} </span>{{componente.NombreBulk}}</li>
+        <li class="titulo_selecionado"><span class="cantidad_producto_opt">x{{componente.cantidadAplicada}} </span>{{#Substr 25  componente.NombreBulk}}{{/Substr}}</li>
     </ul>
     {{/iff}}
     {{/each}}
