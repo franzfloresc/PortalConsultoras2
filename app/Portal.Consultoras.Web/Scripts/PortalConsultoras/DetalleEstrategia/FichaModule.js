@@ -384,15 +384,12 @@ var FichaModule = (function (config) {
     };
 
     var _validarDesactivadoGeneral = function (estrategia) {
+        estrategia.ClaseBloqueada = "btn_desactivado_general";
+        estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
+        estrategia.RangoInputEnabled = "disabled";
         $.each(estrategia.Hermanos, function (index, hermano) {
-
-            if (hermano.Hermanos) {
-                if (hermano.Hermanos.length > 0) {
-                    estrategia.ClaseBloqueada = "btn_desactivado_general";
-                    estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
-                    estrategia.RangoInputEnabled = "disabled";
-                    EstrategiaAgregarModule.DeshabilitarBoton();
-                }
+            if (hermano.Hermanos && hermano.Hermanos.length > 0) {
+                EstrategiaAgregarModule.DeshabilitarBoton();
             }
         });
     };
