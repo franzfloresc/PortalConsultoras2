@@ -68,7 +68,14 @@ namespace Portal.Consultoras.Web.Providers
                         };
 
                         estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
-                        estrategias.Add(estrategia);
+                        if (estrategia.Precio2 > 0)
+                        {
+                            estrategias.Add(estrategia);
+                        }else
+                        {
+                            string informacionAdicional = string.Format("Log Precios => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV2:{3} /Precio2:{4} /Otros:{5}", DateTime.Now, estrategia.CodigoTipoEstrategia, estrategia.CampaniaID, estrategia.CUV2, estrategia.Precio2, path);
+                            Portal.Consultoras.Common.LogManager.SaveLog(new Exception(message: informacionAdicional), "", codigoISO);
+                        }
                     }
                     catch (Exception ex)
                     {
