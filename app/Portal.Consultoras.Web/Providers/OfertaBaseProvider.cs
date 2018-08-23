@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using   Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
@@ -32,6 +32,8 @@ namespace Portal.Consultoras.Web.Providers
                 var jsonString = await httpResponse.Content.ReadAsStringAsync();
 
                 var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
+                var listaCuvPrecio0 = new List<string>();
+                string codTipoEstrategia = "", codCampania = "";
 
                 foreach (var item in list)
                 {
@@ -71,10 +73,12 @@ namespace Portal.Consultoras.Web.Providers
                         if (estrategia.Precio2 > 0)
                         {
                             estrategias.Add(estrategia);
-                        }else
+                        }
+                        else
                         {
-                            string informacionAdicional = string.Format("Log Precios => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV2:{3} /Precio2:{4} /Otros:{5}", DateTime.Now, estrategia.CodigoTipoEstrategia, estrategia.CampaniaID, estrategia.CUV2, estrategia.Precio2, path);
-                            Portal.Consultoras.Common.LogManager.SaveLog(new Exception(message: informacionAdicional), "", codigoISO);
+                            listaCuvPrecio0.Add(estrategia.CUV2);
+                            codTipoEstrategia = estrategia.CodigoTipoEstrategia;
+                            codCampania = estrategia.CampaniaID.ToString();
                         }
                     }
                     catch (Exception ex)
@@ -82,6 +86,17 @@ namespace Portal.Consultoras.Web.Providers
                         throw ex;
                     }
                 }
+
+                if (listaCuvPrecio0.Any())
+                {
+                    try
+                    {
+                        string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0));
+                        Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
+                    }
+                    catch(Exception ex) { throw ex; }
+                }
+                
             }
             return estrategias;
         }
