@@ -319,10 +319,8 @@ namespace Portal.Consultoras.Web.Providers
 
             if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
             {
-                if (beEstrategiaProducto.NombreProducto != "")
-                {
-                    componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto;
-                }
+                componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto == "" ?
+                    beEstrategiaProducto.NombreComercial : beEstrategiaProducto.NombreProducto;
             }
             else
             {
