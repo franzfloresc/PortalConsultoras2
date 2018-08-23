@@ -14,8 +14,22 @@
 
 /* FIN - ICONOS CONVERTIDOS A TIPOGRAFÍAS */
 
+/* HELPERS */
+
 .mr-0{
     margin-right:0!important;
+}
+
+.mr-5{
+    margin-right:5px;
+}
+
+.mt-16{
+    margin-top:16px;
+}
+
+.mt-30{
+    margin-top:30px;
 }
 
 .mb-0{
@@ -26,8 +40,56 @@
     margin-bottom:10px;
 }
 
+.mb-23{
+    margin-bottom:23px;
+}
+
+.pl-8{
+    padding-left:8px;
+}
+
+.pr-7{
+    padding-right:7px;
+}
+
 .pb-11{
     padding-bottom:11px;
+}
+
+.w-30{
+    width:30%;
+}
+
+.w-50{
+    width:50%;
+}
+
+.w-45{
+    width:42.4%;
+}
+
+.w-53{
+    width:53.6%;
+}
+
+.w-69{
+    width:69%;
+}
+
+.w-100{
+    width:100%!important;
+}
+
+.text-bold{
+    font-weight:600;
+}
+
+.text-bold-black{
+    font-weight:900;
+}
+
+.vAlignTop{
+    vertical-align:top!important;
 }
 
 .content_belcorp {
@@ -35,11 +97,15 @@
     padding-right: 2.4%;
 }
 
+/* FIN - HELPERS */
+
 .cabecera_vista_pago_en_linea,
 .enlace_regresar,
 .proceso_de_pago_en_linea,
 .cantidad_pasos_proceso_pago,
 .linea_conectora_pasos,
+.opcion_pago_contenido_visible_sin_desplegar,
+.opcion_pago_contenido_visible_al_desplegar,
 .fondo_pasos_proceso_pago_avance,
 .seleccion_monto_a_pagar,
 .campo_seleccion_monto_a_pagar,
@@ -54,11 +120,12 @@
 .info_comision_pago_en_linea,
 .cta_pago_en_linea,
 .contenedor_info_pago_seguro_y_ctas,
+.info_requerimiento_tarjeta_habilitada,
 .info_pago_seguro_con_tarjetas,
-.texto_pago_seguro,
+.lista_tarjetas_permitidas_para_pago,
 .aceptar_terminos_y_condiciones,
 .barra_activacion,
-.btn_pago_credito_visa > span,
+.btn_pago_tarjeta_credito,
 .fondo_modal,
 .redireccion_proveedor_de_pago,
 .animacion_precarga_redireccion_proveedor_pago,
@@ -82,11 +149,26 @@
 .info_num_operacion_pago,
 .descripcion_terminos_y_condiciones,
 .contenedor_btn_pagar_con_visa,
-.enlace_ver_estado_de_cuenta
+.enlace_ver_estado_de_cuenta,
+.opcion_pago_monto,
+.opcion_pago_gastos_administrativos,
+.linea_separacion_montos_y_total,
+.opcion_pago_total_a_pagar,
+.icono_flecha_despliegue,
+.pasarela_pago,
+.formulario_pasarela_pago,
+.grupo_campo_formulario_pasarela_pago,
+.nom_campo_formulario_pasarela_pago,
+.campo_formulario_pasarela_pago,
+.info_tooltip_informativo,
+.mensaje_validacion
 {
     display:block;
 }
 
+.w-30,
+.w-50,
+.w-69,
 .paso_proceso_pago_en_linea,
 .col_izq,
 .col_der,
@@ -96,6 +178,7 @@
 .monto_moneda_pais,
 .monto_a_editar,
 .icono_pago_seguro,
+.texto_pago_seguro,
 .texto_info_pago_seguro,
 .icono_marca_tarjeta,
 .marca_tarjeta,
@@ -116,7 +199,14 @@
 .num_operacion_pago,
 .enlace_ir_a_notificaciones,
 .icono_enlace_enviar_estado_cuenta, 
-.enlace_ver_estado_de_cuenta span:last-child
+.enlace_ver_estado_de_cuenta span:last-child,
+.opcion_pago_monto > div,
+.opcion_pago_gastos_administrativos > div,
+.opcion_pago_total_a_pagar > div,
+.texto_descripcion_tipo_pago,
+.campo_seleccion_fecha_expiracion,
+.tooltip_informativo,
+.mensaje_validacion span
 {
     display:inline-block;
     vertical-align:middle;
@@ -172,18 +262,22 @@
     padding: 24px 6px 0 6px;
 }
 
+.proceso_de_pago_en_linea{
+    margin-bottom:30px;
+}
+
 .cantidad_pasos_proceso_pago{
     position:relative;
-    margin:0 auto;
-    width:100px;
+    margin:0 auto 29px auto;
+    width:185px;
 }
 
 .paso_proceso_pago_en_linea{
-    width:29px;
-    height:29px;
+    width: 33.79px;
+    height: 32.66px;
     font-size:14px;
     font-weight:bold;
-    line-height:26.5px;
+    line-height: 30.66px;
     text-align:center;
     border-radius:100%;
     background-color:#FFF;
@@ -204,7 +298,7 @@
     font-family: 'somos-belcorp-iconos';
     font-weight: 400;
     font-size: 12px;
-    padding:1px 6px;
+    padding:1px 9px;
 }
 
 .paso_completado:before{
@@ -220,7 +314,7 @@
     left:0;
     right:0;
     background-color:#000;
-    width:100%;
+    width:99%;
     height:1px;
 }
 
@@ -230,20 +324,34 @@
     background:#e81c36;
 }
 
-.seleccion_monto_a_pagar h3{
-    margin-top:18px;
-    margin-bottom:8px;
+.seleccion_monto_a_pagar h3,
+.pasarela_pago h3
+{
     text-transform:uppercase;
-    font-size:14px;
     font-weight:bold;
-    padding-bottom:10px;
+}
+
+.seleccion_monto_a_pagar h3{
+    font-size:14px;
     border-bottom:1px solid #B5B5B5;
+    margin-top:18px;
+    margin-bottom:21px;
+    padding-bottom:10px;
+}
+
+.pasarela_pago h3{
+    margin-bottom:22.56px;
+    font-size:15px;
 }
 
 .lista_metodos_pago,
 .lista_opciones_pago
 {
     list-style-type:none;
+}
+
+.lista_opciones_pago{
+    margin-bottom:22.46px;
 }
 
 .campo_seleccion_monto_a_pagar{    
@@ -286,24 +394,27 @@
     top:11px;
 }
 
-.icono_marca_tarjeta{
-    margin-right:14px;
-}
-
 .marca_tarjeta{
     margin-bottom:3px;
 }
 
-.opcion_pago{
-    border:1px solid #D2D2D2;
-    margin-bottom:8px;
-    padding: 1px 11px 8px 11px;
+.opcion_pago {
+    border: 2px solid #7E7E7E;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    cursor:pointer;
 }
 
-.opcion_pago:last-child{
-    margin-bottom:0;
-    padding-top:10px;
-    padding-bottom:10px;
+.opcion_pago,
+.btn_pago_tarjeta_credito
+{
+    border-radius:4px;
+}
+
+.pagoTotal{
+    margin-bottom:16px;
 }
 
 .opcion_pago input[type="radio"]{
@@ -355,18 +466,81 @@
     background:#e81c36;
 }
 
+.opcion_pago_contenido_visible_sin_desplegar,
+.opcion_pago_contenido_visible_al_desplegar,
+.linea_separacion_montos_y_total
+{
+    padding-left:12px;
+    padding-right:12px;
+}
+
+.opcion_pago_contenido_visible_sin_desplegar,
+.opcion_pago_contenido_visible_al_desplegar
+{
+    padding-bottom:12px;
+}
+
+.metodoPago{
+    margin-bottom:12px;
+}
+
+.metodoPago .titulo_monto_pago_total{
+    font-size:13px;
+}
+
+.metodoPago .opcion_pago_contenido_visible_sin_desplegar{
+    padding-top:11px!important;
+    padding-bottom:16px!important;
+}
+
+.opcion_pago:first-child .opcion_pago_contenido_visible_sin_desplegar{
+    padding-top:5px;
+}
+
+.opcion_pago:last-child .opcion_pago_contenido_visible_sin_desplegar{
+    padding-top:15px;
+}
+
+.opcion_pago:first-child .opcion_pago_contenido_visible_al_desplegar{
+    margin-top: 20px;
+}
+
+.opcion_pago:first-child .opcion_pago_total_a_pagar{
+    margin-bottom:52px;
+}
+
+.opcion_pago:last-child .opcion_pago_contenido_visible_al_desplegar{
+    margin-top: 13px;
+}
+
+.opcion_pago:last-child .opcion_pago_total_a_pagar{
+    margin-bottom:28px;
+}
+
+.opcion_pago_contenido_visible_al_desplegar{
+    font-size:15px;
+}
+
+.linea_separacion_montos_y_total{
+    margin-top:5px;
+    margin-bottom:5px;
+    height:1px;
+    background-color:#D8D8D8;
+}
+
 .col_izq,
 .col_der
 {
     vertical-align:top;
+    position:relative;
 }
 
 .col_izq{
-    width:91%;
+    width:92%;
 }
 
 .col_der{
-    width:8%;
+    width:7%;
     text-align:center;
 }
 
@@ -387,6 +561,13 @@
     font-size:20px;
 }
 
+.texto_descripcion_tipo_pago{
+    font-size:14px;
+    padding-bottom: 1px;
+    margin-right: 6px;
+    vertical-align:bottom;
+}
+
 .tipo_moneda_pais,
 .monto_moneda_pais
 {
@@ -396,6 +577,42 @@
 .fecha_vencimiento_pago_en_linea{
     font-size:12px;
     color:#909090;
+}
+
+.icono_flecha_despliegue {
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    top:1px;
+    right: 0;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.girar180 {
+    -moz-transform:rotate(-180deg);
+    -ms-transform:rotate(-180deg);
+    -o-transform:rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    transform:rotate(-180deg);
+}
+
+.pagoTotal .icono_flecha_despliegue{
+    top: 6px;
+}
+
+.pagoTotal .icono_flecha_despliegue.girar180{
+    top: 9px;
+}
+
+.pagoParcial .icono_flecha_despliegue{
+    top:-3px;
+}
+
+.metodoPago .icono_flecha_despliegue.girar180{
+    top:3.5px;
 }
 
 .titulo_monto_pago_total,
@@ -410,6 +627,11 @@
 
 .titulo_monto_pago_total{
     margin-right:6px;
+}
+
+.titulo_monto_pago_total_paso_2{
+    position: relative;
+    top: 3px;
 }
 
 .monto_editable_pago_en_linea{
@@ -577,11 +799,13 @@
 }
 
 .descripcion_opcion_activacion{
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 400;
-    margin-bottom: 1.97px;
+    margin-bottom: 2px;
+    line-height:20px;
     letter-spacing: 0.2px;
     color: #000;
+    max-width:206px;
 }
 
 .ver_terminos_y_condiciones{
@@ -650,7 +874,7 @@
 }
 
 .icono_pago_seguro img,
-.icono_marca_visa img
+.icono_flecha_despliegue img
 {
     width:100%;
     height:auto;
@@ -660,21 +884,35 @@
     margin-right:6px;
 }
 
+.info_requerimiento_tarjeta_habilitada {
+    color: #000;
+    margin-bottom:12.54px;
+}
+
 .texto_pago_seguro{
     font-size:10px;
     font-weight:300;
     letter-spacing:0.2px;
     text-transform:uppercase;
+    margin-top:2px;
+    margin-right:5px;
 }
 
-.solo_visa{
-    
+.icono_marca_tarjeta{
+    width: auto;
+    height: 17px;
+    margin-right:10px;
 }
 
-.icono_marca_visa{
+.icono_marca_tarjeta img{
+    width:auto;
+    height:100%;
+}
+
+/*.icono_marca_visa{
     width: 29px;
     margin-bottom:3px;
-}
+}*/
 
 .cta_pago_en_linea{
     position:fixed;
@@ -696,9 +934,13 @@
     margin-bottom:4px;
 }
 
-.btn_pago_credito_visa{
-    line-height:17px;
-    padding-top:4px;
+.btn_pago_tarjeta_credito{
+    font-family:'Lato', sans-serif!important;
+    height:45px!important;
+    line-height:43px;
+    color:#FFF!important;
+    font-size:14px!important;
+    letter-spacing:0.5px;
 }
 
 .btn_pagar{
@@ -771,7 +1013,7 @@
 }
 
 .mensaje_pago_rechazado{
-    text-align:center;
+    text-align:left;
 }
 
 .imagen_felicitacion{
@@ -808,6 +1050,7 @@
 .enlace_ir_a_notificaciones{
     font-weight:bold;
     text-decoration:underline;
+    padding-bottom: 3px;
 }
 
 .info_num_operacion_pago{
@@ -839,6 +1082,10 @@
 {
     font-weight:bold;
 }
+
+/*.titulo_resumen_pago_exitoso{
+    margin-bottom:19.65px;
+}*/
 
 .resumen_pago{
     border: 1px solid #d2d2d2;
@@ -939,6 +1186,206 @@
     text-transform:uppercase;
 }
 
+.pasarela_pago{
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.grupo_campo_formulario_pasarela_pago{
+    margin-bottom:15px;
+}
+
+.nom_campo_formulario_pasarela_pago{
+    color:#000;
+    font-size:14px;
+    margin-bottom:7px;
+    position:relative;
+}
+
+.campo_formulario_pasarela_pago {
+    border-radius: 4px;
+    height: 40px;
+    border: 1px solid #808080;
+    background-color: #FFF;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.campo_num_tarjeta_credito_o_debito,
+.campo_seleccion_fecha_expiracion,
+.icono_validacion_incorrecta
+{
+    background-repeat: no-repeat;
+}
+
+.campo_num_tarjeta_credito_o_debito{
+    padding-right: 46px;
+    background-image: url(../../../Images/logo-mastercard.svg);
+    background-position: 96% center;
+    background-size:26px;
+}
+
+.campo_seleccion_fecha_expiracion{
+    padding-left: 8px;
+    padding-right: 23px;
+    -webkit-appearance: none;
+    background-image: url(../../../Images/flecha-despliegue.svg);
+    background-size: 14px;
+}
+
+.campo_mes{
+    width:58%;
+    background-position: 92% 16px;
+}
+
+.campo_anio{
+    width:37%;
+    background-position: 87% 16px;
+}
+
+.tooltip_informativo{
+    width:19px;
+    height:19px;
+    background-color:#B4B1B1;
+    border-radius:100%;
+    position:relative;
+    top:-1px;
+    margin-left:5px;
+}
+
+.tooltip_informativo img{
+    position:absolute;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    width:auto;
+    height:90%;
+}
+
+.info_tooltip_informativo{
+    display:none;
+    position: absolute;
+    top: -101px;
+    right: -16px;
+    width: 232px;
+    min-height: 88.06px;
+    background-color: #DADADA;
+    color: #000;
+    padding: 16px 12px;
+    z-index: 20;
+    border-radius:4px;
+    font-size:13px;
+    font-weight:500;
+}
+
+.info_tooltip_informativo:after {
+    top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+    border-top-color: #DADADA;
+    border-width: 8px;
+    margin-left: 82px;
+}
+
+.tooltip_informativo:hover .info_tooltip_informativo{
+    display:block;
+}
+
+.mensaje_validacion {
+    margin-top:10px;
+    background-color: #EBEBEB;
+    padding-top: 13px;
+    padding-bottom: 17px;
+}
+
+.mensaje_validacion:before {
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+    border-top-color: #DADADA;
+    border-width: 8px;
+    margin-left: 82px;
+    z-index:2;
+}
+
+.icono_validacion_incorrecta{
+    width:26px;
+    height:30px;
+    background-image:url(../../../Images/Esika/icono_fecha_no_valida.svg);
+    background-position:center;
+    background-size:26px;
+    margin-right:7px;
+}
+
+/* MODIFICACIONES DE DISEÑO JQUERY DATEPICKER */
+
+.ui-datepicker{
+    background-color:#FFF;
+    width: 82.2%;
+    padding:13px 10px;
+    -moz-box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
+    box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
+}
+
+.ui-widget.ui-widget-content {
+	font-family: 'Lato', sans-serif;
+	font-size: 12.5px;
+	border-radius: 0%;
+	margin-top:2px;
+	margin-left: -1px;
+}
+
+.ui-widget-header{
+	border-radius:0%;
+}
+
+.ui-widget-header,
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-state-active,
+.ui-widget-content .ui-state-active
+{
+	background:#ffecef;
+	color:#000;
+	border:none;
+	padding-right:4px;
+	transition:all 0.3s ease;
+	-moz-transition:all 0.3s ease;
+	-o-transition:all 0.3s ease;
+	-ms-transition:all 0.3s ease;
+	-webkit-transition:all 0.3s ease;
+}
+
+.ui-datepicker th{
+    color:#000;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight
+{
+	background:#e81c36;
+	color:#FFF;
+}
+
+/* FIN - MODIFICACIONES DE DISEÑO JQUERY DATEPICKER */
+
 /* POPUP TÉRMINOS Y CONDICIONES */
 
 .fondo_modal{
@@ -953,29 +1400,29 @@
     bottom:0;
     left:0;
     right:0;
-    overflow:auto;
+    /*overflow:auto;*/
 }
 
 .popup_terminos_y_condiciones{
-    width: 90%;
-    max-width: 400px;
-    height: auto;
+    display: none;
+    width: 100%;
+    height: 100vh;
     background-color: #FFF;
-    margin: 0 auto 25px auto;
-    top: 9%;
-    position: relative;
-    padding: 33px 24px 26px 24px;
+    margin: 0 auto;
+    top: 0;
+    left: 0;
+    position: fixed;
+    padding: 59px 24px 26px 32px;
+    z-index: 2000;
 }
 
 .cerrar_popup_terminos_y_condiciones{
     font-family: 'somos-belcorp-iconos';
-    color: #FFF;
-    font-size: 24px;
+    color: #000;
+    font-size: 21px;
     position: absolute;
-    top: -37px;
-    right: -7px;
-    width: 45px;
-    height: 45px;
+    top: 16px;
+    right: 22px;
     text-align: center;
 }
 
@@ -984,7 +1431,8 @@
 }
 
 .titulo_terminos_y_condiciones{
-    font-size:20px;
+    font-size:22.53px;
+    line-height:26px;
     margin-top:0;
     margin-bottom:26px;
 }
@@ -1000,13 +1448,23 @@
     font-size: 13px;
     line-height: 17px;
     margin-bottom: 13px;
-    height: 277px;
+    height: calc(100vh - 169px);
     overflow: auto;
+    padding-right: 14px;
 }
 
 .descripcion_terminos_y_condiciones p{
-    font-size:12px;
+    font-size:14.64px;
     text-align:justify;
+    line-height:21px;
+}
+
+@media screen and (min-width:524px) and (max-width:991px){
+
+    .descripcion_terminos_y_condiciones{
+        padding-right:4px;
+    }
+
 }
 
 /* FIN - POPUP TÉRMINOS Y CONDICIONES */
