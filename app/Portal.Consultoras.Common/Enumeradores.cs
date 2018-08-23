@@ -323,5 +323,12 @@
             ConsultoraNoVentaExclusiva = 1,
             CuvNoLePerteneceAConsultora = 3
         }
+
+        public enum ValidarCuponesElectivos
+        {            
+            AgregarCupon = 1,
+            ReemplazarCupon = 2,
+            NoAgregarCuponExcedioLimite = 0
+        }
     }
 }
