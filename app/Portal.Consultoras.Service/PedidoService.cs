@@ -58,7 +58,6 @@ namespace Portal.Consultoras.Service
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
         private readonly IPedidoBusinessLogic _pedidoBusinessLogic;
-        private readonly BLCuponesProgramaNuevas BLCuponesProgramaNuevas;
         private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
 
         public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(), 
@@ -89,7 +88,6 @@ namespace Portal.Consultoras.Service
             BLCuponConsultora = new BLCuponConsultora();
             blFichaProducto = new BLFichaProducto();
             BLPagoEnLinea = new BLPagoEnLinea();
-            BLCuponesProgramaNuevas = new BLCuponesProgramaNuevas();
             _ActivarPremioNuevas = new BLActivarPremioNuevas();
         }
 
@@ -2178,6 +2176,36 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerPagoEnLineaByFiltro(paisId, filtro);
         }
 
+        public List<BEPagoEnLineaTipoPago> ObtenerPagoEnLineaTipoPago(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaTipoPago(paisId);
+        }
+
+        public List<BEPagoEnLineaMedioPago> ObtenerPagoEnLineaMedioPago(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaMedioPago(paisId);
+        }   
+        
+        public List<BEPagoEnLineaMedioPagoDetalle> ObtenerPagoEnLineaMedioPagoDetalle(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaMedioPagoDetalle(paisId);
+        }
+
+        public List<BEPagoEnLineaTipoPasarela> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, codigoPlataforma);
+        }
+
+        public List<BEPagoEnLineaPasarelaCampos> ObtenerPagoEnLineaPasarelaCampos(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaPasarelaCampos(paisId);
+        }
+
+        public int ObtenerPagoEnLineaNumeroOrden(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerNumeroOrden(paisId);
+        }
+
         #endregion
 
 
@@ -2229,10 +2257,6 @@ namespace Portal.Consultoras.Service
         public DateTime? ObtenerFechaInicioSets(int paisId)
         {
             return _pedidoWebSetBusinessLogic.ObtenerFechaInicioSets(paisId);
-        }
-        public List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId)
-        {
-            return BLCuponesProgramaNuevas.ObtenerListadoCuvCupon(paisId, campaniaId);
         }
 
         #region PedidoNativo

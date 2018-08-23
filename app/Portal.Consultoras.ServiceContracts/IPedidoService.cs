@@ -640,8 +640,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad);
-        [OperationContract]
-        List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId);
 
         [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
@@ -1207,6 +1205,24 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
+
+        [OperationContract]
+        List<BEPagoEnLineaTipoPago> ObtenerPagoEnLineaTipoPago(int paisId);
+
+        [OperationContract]
+        List<BEPagoEnLineaMedioPago> ObtenerPagoEnLineaMedioPago(int paisId);
+
+        [OperationContract]
+        List<BEPagoEnLineaMedioPagoDetalle> ObtenerPagoEnLineaMedioPagoDetalle(int paisId);
+
+        [OperationContract]
+        List<BEPagoEnLineaTipoPasarela> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma);
+
+        [OperationContract]
+        List<BEPagoEnLineaPasarelaCampos> ObtenerPagoEnLineaPasarelaCampos(int paisId);
+
+        [OperationContract]
+        int ObtenerPagoEnLineaNumeroOrden(int paisId);
         #endregion
 
         [OperationContract]

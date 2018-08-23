@@ -462,6 +462,12 @@ namespace Portal.Consultoras.Common
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
+            public const string MenuCondicionesDescripcionMx = "TÉRMINOS Y CONDICIONES";
+
+            public const string UrlImagenEsika = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca.png";
+            public const string UrlImagenLbel = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca-lbel.png";
+            public const string ColorTemaEsika = "#e81c36";
+            public const string ColorTemaLbel = "#613c87";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -1198,13 +1204,15 @@ namespace Portal.Consultoras.Common
             public const string ValorVacio = "El valor no puede estar vacío.";
             public const string CodigoIncorrecto = "El código ingresado no es el correcto.";
             public const string CelularActivacion = "No se pudo confirmar el número registrado.";
-            public const string CelularEnUso = "El número ya esta en uso.";
+            public const string CelularEnUso = "El número ya está en uso.";
             public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
             public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
             public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
             public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";            
+            public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
+            public const string AgregarProgNuevas_MaxElectivos = "No puedes agregar este producto a tu pedido por haber alcanzado el límite de {0} cuvs del programa nuevas.";
         }
 
         public static class MensajesExito
@@ -1674,6 +1682,16 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static class MvcErrorMessages
+        {
+            public const string RequiredMessage = "Este campo es obligatorio";
+            public const string RangeErrorMessage = "El campo {0} debe ser una cadena con una longitud mínima de {2} y una longitud máxima de {1}";
+            public const string MaxErrorMessage = "El campo {0} debe ser una cadena con una longitud máxima de {1}";
+            public const string LengthErrorMessage = "El campo {0} debe ser una cadena con una longitud de {1}";
+            public const string DateErrorMessage = "No es una fecha válida";
+            public const string NumberErrorMessage = "No es un número válido";
+        }
+
         public static class ClienteEstado
         {
             public const short Activo = 1;
@@ -1908,7 +1926,7 @@ namespace Portal.Consultoras.Common
             public class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string Activo = "Activo";
+                public const string FlagActivar = "ProgramaNuevas";
             }
 
             public class Rango
@@ -1928,16 +1946,17 @@ namespace Portal.Consultoras.Common
             {
                 public const string ExcedeCantidad = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
             }
-
-            public class MensajeValidacionElectividadProductos
-            {
-                public const string ExisteElectivoEnSuPedido = "El código ingresado no puede ser agregado al pedido. El pedido contiene un pack del Programa de Nuevas.";
-            }
         }
 
         public class VentaExclusiva
         {
             public const string CuvNoEsVentaExclusiva = "El código solicitado pertenece a la Venta Exclusiva. Usted no cumple las condiciones para solicitarlo.";
+
+            public class EncenderValidacion
+            {
+                public const short TablaLogicaID = 7;
+                public const string FlagActivar = "VentaExclusiva";
+            }
         }
 
         public class Comunicado
@@ -2340,8 +2359,8 @@ namespace Portal.Consultoras.Common
             public const string EnviarPorEmail = "Email";
             public const string EnviarPorSms = "SMS";
         }
-        #endregion  
-
+        #endregion 
+        
         public static class ValidacionDatosEstado
         {
             public const string Pendiente = "P";
@@ -2356,6 +2375,86 @@ namespace Portal.Consultoras.Common
             public const int HVObtenerProductos = 4;
             public const int OPTObtenerProductos = 5;
         };
+
+        #region PagoEnLinea
+
+        public static class PagoEnLineaTipoPago
+        {
+            public const string PagoTotal = "01";
+            public const string PagoParcial = "02";
+        }
+
+        public static class PagoEnLineaMetodoPagoVisualizacionTyC
+        {
+            public const string Popup = "POPUP";
+            public const string Archivo = "ARCHIVO";
+        }
+
+        public static class PagoEnLineaMetodoPago
+        {
+            public const string PasarelaVisa = "A";
+            public const string PasarelaBelcorpPayU = "B";
+        }
+
+        public static class PagoEnLineaTipoTarjeta
+        {
+            public const string Credito = "CRED";
+            public const string Debito = "DEB";
+        }
+
+        public static class PagoEnLineaPasarelaVisa
+        {
+            public const string MerchantId = "01";
+            public const string AccessKeyId = "02";
+            public const string SecretAccessKey = "03";
+            public const string UrlSessionBotonPago = "04";
+            public const string UrlGenerarNumeroPedido = "05";
+            public const string PorcentajeGastosAdministrativos = "06";
+            public const string UrlLibreriaPagoVisa = "07";
+            public const string UrlAutorizacionBotonPago = "08";
+            public const string UrlLogoPasarelaPago = "09";
+            public const string ColorBotonPagarPasarelaPago = "10";
+            public const string MensajeInformacionPagoExitoso = "11";
+        }
+
+        public static class PagoEnLineaPasarelaPayu
+        {
+            public const string MerchantId = "01";
+            public const string ApiLogin = "02";
+            public const string ApiKey = "03";
+            public const string AccountId = "04";
+            public const string Endpoint = "05";
+            public const string Test = "06";
+        }
+
+        public static class PagoEnLineaCampos
+        {
+            public const string FechaNacimiento = "FECHANAC";
+            public const string Email = "EMAIL";
+            public const string Celular = "CELULAR";
+        }
+
+        public static class PagoEnLineaPayuGenerales
+        {
+            public const string Language = "es";
+            public const string Command = "SUBMIT_TRANSACTION";
+            public const string OrderCodePrefix = "Pago_SB_";
+            public const string OrderDescription = "Pago_SB";
+            public const string OrderLanguage = "es";
+            public const string Country = "MX";
+            public const string Currency = "MXN";
+            public const string TransactionType = "AUTHORIZATION_AND_CAPTURE";
+        }
+
+        public static class PagoEnLineaMensajes
+        {
+            public const string CargoplataformaPe = "Cargo plataforma online";
+            public const string CargoplataformaMx = "Comisión por transacción";
+            public const string GastosLabelPe = "Gastos Adm.";
+            public const string GastosLabelMx = "Cargo comisión por transacción";
+        }
+
+        #endregion
 
         public class PersonalizacionOfertasService
         {
@@ -2415,7 +2514,6 @@ namespace Portal.Consultoras.Common
 
             #endregion
         }
-
         public class OfertaFinalLog
         {
             private static Dictionary<int, string> _Message;

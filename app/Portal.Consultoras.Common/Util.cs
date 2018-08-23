@@ -3449,7 +3449,25 @@ namespace Portal.Consultoras.Common
             string caracter = "*".PadLeft(longitudOcultar, '*');
             return celular.Replace(strOcultar, caracter);
         }
+        
+        public static string EnmascararTarjeta(string numero)
+        {
+            if (string.IsNullOrWhiteSpace(numero)) return string.Empty;
+            const byte initLen = 6;
+            const byte lastLen = 4;
+            const byte totalLen = initLen + lastLen;
 
+            var longitud = numero.Length;
+            if (longitud <= totalLen)
+            {
+                return string.Empty;
+            }
+
+            var init = numero.Substring(0, initLen);
+            var last = numero.Substring(longitud - lastLen);
+            
+            return init + new string('*', longitud - totalLen) + last;
+        }
         public static string GetDescripcionMarca(int marcaId)
         {
             string result;
@@ -3486,6 +3504,25 @@ namespace Portal.Consultoras.Common
             }
 
             return result;
+        }
+
+        public static class Security
+        {
+            public static string ToMd5(string input)
+            {
+                using (MD5 md5 = MD5.Create())
+                {
+                    byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+                    byte[] hashBytes = md5.ComputeHash(inputBytes);
+                
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var item in hashBytes)
+                    {
+                        sb.Append(item.ToString("x2"));
+                    }
+                    return sb.ToString();
+                }
+            }
         }
 
         public static class Http
