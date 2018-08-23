@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.WebPages
             string fileName = System.IO.Path.GetFileName(url);
             string extensionName = Path.GetExtension(url);
 
-            if (extensionName.ToLower() != "pdf")
+            if (extensionName.ToLower() != ".pdf")
             {
                 Response.Redirect("/Login/SesionExpirada");
             }
