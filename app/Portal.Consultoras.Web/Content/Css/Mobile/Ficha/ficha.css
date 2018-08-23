@@ -396,6 +396,7 @@ ul.breadcumbs li:last-child a {
 .imagen_selecionado img{
     width: 30px;
     height: 30px;
+    display: block;
 }
 
 .titulo_selecionado {
