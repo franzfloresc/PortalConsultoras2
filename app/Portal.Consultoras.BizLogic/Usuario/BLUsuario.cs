@@ -2882,8 +2882,7 @@ namespace Portal.Consultoras.BizLogic
                 if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
                 oUsu.OpcionChat = opcion.OpcionChat;
                 oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
-                oUsu.BelcorpResponde = _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID)
-                    .FirstOrDefault();
+                oUsu.BelcorpResponde = _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault();
                 oUsu.OrigenID = opcion.OrigenID;
                 oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
                 oUsu.CodigoUsuario = CodigoUsuario;
