@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = (bool)(Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] ?? false);
-                model.MostrarPagoEnLinea = (userData.MontoDeuda <= 0 ? false : true);
+                model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
             }
             catch (FaultException ex)
             {
