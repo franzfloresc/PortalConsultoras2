@@ -162,6 +162,8 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                 esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
             }
 
+            var listaCuvPrecio0 = new List<string>();
+
             if (esFacturacion)
             {
                 var listaTieneStock = new List<Lista>();
@@ -197,12 +199,21 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                     }
                     else
                     {
-                        string informacionAdicional = string.Format("Log Precios => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV2:{3} /Precio2:{4}", DateTime.Now, estrategia.CodigoTipoEstrategia, entidad.CampaniaID, estrategia.CUV2, estrategia.Precio2);
-                        LogManager.SaveLog(new Exception(message: informacionAdicional),"", entidad.PaisID, informacionAdicional);
+                        listaCuvPrecio0.Add(estrategia.CUV2);
                     }
                 });
             }
             else estrategiasResult.AddRange(lista.Where(e => e.Precio2 > 0));
+
+            if (listaCuvPrecio0.Any())
+            {
+                try
+                {
+                    string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3}", DateTime.Now, entidad.CodigoTipoEstrategia, entidad.CampaniaID, string.Join("|", listaCuvPrecio0));
+                    LogManager.SaveLog(new Exception(logPrecio0), "", entidad.PaisID);
+                }
+                catch (Exception ex) { throw ex; }
+            }
 
             var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
             estrategiasResult.ForEach(estrategia =>
@@ -220,6 +231,7 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                 //estrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
+
             return estrategiasResult;
         }
     }
