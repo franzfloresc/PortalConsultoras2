@@ -3,6 +3,7 @@
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
   <xs:element name="GetProductoComercialByListaCuv">
     <xs:complexType>
       <xs:sequence>
@@ -687,7 +688,7 @@
   <xs:element name="ValidaCuvElectivoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ValidaCuvElectivoResult" type="xs:boolean" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="ValidaCuvElectivoResult" nillable="true" type="q35:BERespValidarElectivos" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -704,7 +705,7 @@
   <xs:element name="ValidarVentaExclusivaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="ValidarVentaExclusivaResult" type="q35:Enumeradores.ValidacionVentaExclusiva" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="ValidarVentaExclusivaResult" type="q36:Enumeradores.ValidacionVentaExclusiva" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

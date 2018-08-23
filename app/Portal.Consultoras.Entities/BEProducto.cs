@@ -82,6 +82,10 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string ImagenProductoSugerido { get; set; }
+        [DataMember]
+        public string ImagenProductoSugeridoSmall { get; set; }
+        [DataMember]
+        public string ImagenProductoSugeridoMedium { get; set; }
 
         [DataMember]
         public int TieneSugerido { get; set; }
