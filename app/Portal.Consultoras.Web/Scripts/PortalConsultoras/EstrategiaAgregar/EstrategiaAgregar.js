@@ -539,20 +539,20 @@ var EstrategiaAgregarModule = (function () {
 
     var deshabilitarBoton = function () {
         $(_elementos.btnAgregar.id).addClass(_elementos.btnAgregar.classDesactivado);
-        $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        $("#idcontenedor_rangos").addClass("contenedor_rangos_desactivado");
+        //$(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$("#idcontenedor_rangos").addClass("contenedor_rangos_desactivado");
     };
     
     var habilitarBoton = function() {
         $(_elementos.btnAgregar.id).removeClass(_elementos.btnAgregar.classDesactivado);
-        $(".cantidad_mas_home").attr("data-bloqueada", "");
-        $(".cantidad_menos_home").attr("data-bloqueada", "");
-        $("#imgFichaProduMas").attr("data-bloqueada", "");
-        $("#imgFichaProduMenos").attr("data-bloqueada", "");
-        $("#idcontenedor_rangos").removeClass("contenedor_rangos_desactivado");
+        //$(".cantidad_mas_home").attr("data-bloqueada", "");
+        //$(".cantidad_menos_home").attr("data-bloqueada", "");
+        //$("#imgFichaProduMas").attr("data-bloqueada", "");
+        //$("#imgFichaProduMenos").attr("data-bloqueada", "");
+        //$("#idcontenedor_rangos").removeClass("contenedor_rangos_desactivado");
     }
     
     return {
