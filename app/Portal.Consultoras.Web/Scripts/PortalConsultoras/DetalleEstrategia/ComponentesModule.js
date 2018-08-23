@@ -27,9 +27,6 @@ var ComponentesModule = (function () {
         body: {
             modalActivadoClass: "modal_activado"
         },
-        hdCampaniaCodigo: {
-            id:"#hdCampaniaCodigo"
-        },
         componentes : {
             id: "#componentes",
             templateId: "#componentes-template"
@@ -55,10 +52,6 @@ var ComponentesModule = (function () {
             estrategia === null) throw "param estrategia is not defined or null";
 
         _estrategia = estrategia;
-        $.each(_estrategia.Hermanos, function (idx, hermano) {
-            hermano = _estrategia.Hermanos[idx];
-            hermano.esCampaniaSiguiente = _estrategia.CampaniaID !== _obtenerCampaniaActual();
-        });
         SetHandlebars(_elements.componentes.templateId, _estrategia, _elements.componentes.id);
     };
 
@@ -76,18 +69,6 @@ var ComponentesModule = (function () {
                 .css("opacity", _elements.divElegirOpciones.opacity);
         }
     };
-
-    var _obtenerCampaniaActual = function () {
-        var campaniaActual = 0;
-        var strCampaniaActual = $(_elements.hdCampaniaCodigo.id).val();
-        if (!$(_elements.hdCampaniaCodigo.id) ||
-            $.trim(strCampaniaActual) === "" ||
-            isNaN(strCampaniaActual)) return campaniaActual;
-            
-        campaniaActual = parseInt(strCampaniaActual);
-
-        return campaniaActual;
-    }
 
     var SeleccionarComponente = function (cuv) {
         if (typeof cuv === "undefined" ||

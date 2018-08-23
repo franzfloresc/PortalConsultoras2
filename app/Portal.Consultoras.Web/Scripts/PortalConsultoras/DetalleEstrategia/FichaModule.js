@@ -44,6 +44,9 @@ var FichaModule = (function (config) {
     var _constantePalanca = ConstantesModule.ConstantesPalanca;
 
     var _elementos = {
+        hdCampaniaCodigo: {
+            id: "#hdCampaniaCodigo"
+        },
         idDataEstrategia: "#data-estrategia",
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
@@ -278,6 +281,19 @@ var FichaModule = (function (config) {
         return dfd.promise();
     };
 
+    var _obtenerCampaniaActual = function () {
+        var campaniaActual = 0;
+        var strCampaniaActual = $(_elementos.hdCampaniaCodigo.id).val();
+        if (!$(_elementos.hdCampaniaCodigo.id) ||
+            $.trim(strCampaniaActual) === "" ||
+            isNaN(strCampaniaActual)) return campaniaActual;
+
+        campaniaActual = parseInt(strCampaniaActual);
+
+        return campaniaActual;
+    }
+
+
     var _getComponentesAndUpdateEsMultimarca = function (estrategia) {
         if (!IsNullOrEmpty(estrategia.CodigoVariante)) {
             var param = {
@@ -297,9 +313,15 @@ var FichaModule = (function (config) {
             });
         }
         else {
-            estrategia.Hermanos = {};
+            estrategia.Hermanos = [];
             estrategia.EsMultimarca = false;
         }
+        //
+        estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
+        $.each(estrategia.Hermanos, function (idx, hermano) {
+            hermano = estrategia.Hermanos[idx];
+            hermano.esCampaniaSiguiente = estrategia.esCampaniaSiguiente;
+        });
     };
 
     var _actualizarCodigoVariante = function (estrategia) {
@@ -510,7 +532,7 @@ var FichaModule = (function (config) {
         if (estrategia.TipoAccionAgregar <= 0) {
             $(_seccionesFichaProducto.dvContenedorAgregar).hide();
         }
-
+        
         opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
 
         var imgFondo = "";
