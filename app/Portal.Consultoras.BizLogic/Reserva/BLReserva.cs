@@ -190,7 +190,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             try
             {
-                var listDetalle = GetPedidoWebDetalleReserva(input);
+                var listDetalle = GetPedidoWebDetalleReserva(input, false);
                 var listDetalleSinBackOrder = listDetalle.Where(d => !d.AceptoBackOrder).ToList();
                 if (!listDetalleSinBackOrder.Any()) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle, true);
 
@@ -240,7 +240,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         {
             try
             {
-                var listPedidoWebDetalle = GetPedidoWebDetalleReserva(input);
+                var listPedidoWebDetalle = GetPedidoWebDetalleReserva(input, true);
                 if (!listPedidoWebDetalle.Any()) return false;
 
                 input.PedidoID = listPedidoWebDetalle[0].PedidoID;
