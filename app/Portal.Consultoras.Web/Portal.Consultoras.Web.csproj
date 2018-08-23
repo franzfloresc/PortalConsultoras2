@@ -185,7 +185,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annotations\DateCardAttribute.cs" />
     <Compile Include="Annotations\ExpressionRequiredIfAttribute.cs" />
+    <Compile Include="Annotations\LuhnCardAttribute.cs" />
     <Compile Include="Annotations\RequiredIfAttribute.cs" />
     <Compile Include="Annotations\RequiredIfPropertiesNotNullAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -320,6 +322,8 @@
     <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
     <Compile Include="Infraestructure\Sms\ISmsSender.cs" />
     <Compile Include="Infraestructure\Sms\SmsProcess.cs" />
+    <Compile Include="Infraestructure\Validator\IEntityValidator.cs" />
+    <Compile Include="Infraestructure\Validator\PagoEnLinea\PasarelaValidator.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhone.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MultiPhoneValidator.cs" />
     <Compile Include="Infraestructure\Validator\Phone\NotExistingPhone.cs" />
@@ -498,7 +502,15 @@
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoDetalleModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaPasarelaCamposModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaReporteModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaTipoPagoModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaTipoPasarelaModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PaymentInfo.cs" />
+    <Compile Include="Models\PagoEnLinea\PayuApiResponse.cs" />
+    <Compile Include="Models\PagoEnLinea\PayuTransactionResponse.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
     <Compile Include="Models\CatalogoPersonalizadoModel.cs" />
@@ -738,6 +750,11 @@
       <DependentUpon>Pdto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\PayuResponseCodes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PayuResponseCodes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -765,6 +782,7 @@
     <Compile Include="Providers\OfertaPersonalizadaProvider.cs" />
     <Compile Include="Providers\OfertaViewProvider.cs" />
     <Compile Include="Providers\PagoEnLineaProvider.cs" />
+    <Compile Include="Providers\PagoPayuProvider.cs" />
     <Compile Include="Providers\PaqueteDocumentarioProvider.cs" />
     <Compile Include="Providers\PedidoWebProvider.cs" />
     <Compile Include="Providers\RenderImgProvider.cs" />
@@ -1513,6 +1531,7 @@
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
     <Content Include="Content\Images\icono-elige-tu-opcion.svg" />
+    <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\icono_avatar.svg" />
     <Content Include="Content\Images\Esika\icono_camara.svg" />
     <Content Include="Content\Images\Esika\icono_cambiar_dato.svg" />
@@ -1526,10 +1545,12 @@
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\icono_avatar_menu.svg" />
     <Content Include="Content\Images\icono_cargar_foto_desde_galeria.svg" />
+    <Content Include="Content\Images\icono_tooltip_informativo.svg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
     <Content Include="Content\Images\Lbel\icono_cambiar_dato.svg" />
     <Content Include="Content\Images\Lbel\icono_candado.svg" />
     <Content Include="Content\Images\Lbel\icono_envelope.svg" />
+    <Content Include="Content\Images\Lbel\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\Lbel\icono_info_alerta.svg" />
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
@@ -3096,6 +3117,7 @@
     <Content Include="Content\Images\mobile\Esika\video.png" />
     <Content Include="Content\Images\mobile\Esika\ws.png" />
     <Content Include="Content\Images\mobile\Esika\youtube.png" />
+    <Content Include="Content\Images\flecha-despliegue.svg" />
     <Content Include="Content\Images\mobile\flecha-volver-detalle.svg" />
     <Content Include="Content\Images\mobile\icon-chat-lbel.png" />
     <Content Include="Content\Images\mobile\icon-chat.png" />
@@ -3836,7 +3858,9 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
     <Content Include="Scripts\DatetimePicker\datetimepicker_css.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\PagoEnLinea\MetodoPago.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
+    <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PasarelaPago.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
@@ -4244,6 +4268,8 @@
     <Content Include="Content\Css\Site\Contenedor\producto.simple.css" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\Ficha.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\_BreadCrumb.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\MetodoPago.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\PasarelaPago.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\CambiarContrasenia.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\CambiarFotoPerfil.cshtml" />
@@ -4362,6 +4388,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceODS\ODSService310.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService311.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceODS\ODSService32.xsd">
@@ -5218,6 +5247,8 @@
     <Content Include="Views\Login\VerificaAutenticidad.cshtml" />
     <Content Include="Views\MatrizCampania\ActualizarMatrizCampaniaNew.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpVariablesGeneralesPortal.cshtml" />
+    <Content Include="Views\PagoEnLinea\MetodoPago.cshtml" />
+    <Content Include="Views\PagoEnLinea\PasarelaPago.cshtml" />
     <Content Include="Views\OfertaDelDia\ofertadeldia-banner-template.cshtml" />
     <Content Include="Views\OfertaDelDia\ofertadeldia-contenedor-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\template-ficha-detalle-video.cshtml" />
@@ -5226,6 +5257,7 @@
     <Content Include="Views\MisCertificados\DO_ComercialPdf.cshtml" />
     <Content Include="Views\MisCertificados\PR_PazYSalvoPdf.cshtml" />
     <Content Include="Views\MisCertificados\PR_ComercialPdf.cshtml" />
+    <Content Include="Views\Shared\PagoEnLinea\_PayuDeviceScript.cshtml" />
     <Content Include="Views\Shared\_PopupPrivacidadDatos.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerHeader.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
@@ -5687,6 +5719,13 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\PayuResponseCodes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PayuResponseCodes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -5701,7 +5740,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>20267</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
