@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Data.PagoEnLinea;
 using Portal.Consultoras.Entities.PagoEnLinea;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic.PagoEnlinea
 {
@@ -76,6 +72,91 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             }
 
             return lista;
+        }
+
+        public List<BEPagoEnLineaTipoPago> ObtenerPagoEnLineaTipoPago(int paisId)
+        {
+            var lista = new List<BEPagoEnLineaTipoPago>();
+            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (var reader = DAPagoEnLinea.ObtenerPagoEnLineaTipoPago())
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEPagoEnLineaTipoPago(reader));
+                }
+            }
+
+            return lista;
+        }
+
+        public List<BEPagoEnLineaMedioPago> ObtenerPagoEnLineaMedioPago(int paisId)
+        {
+            var lista = new List<BEPagoEnLineaMedioPago>();
+            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (var reader = DAPagoEnLinea.ObtenerPagoEnLineaMedioPago())
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEPagoEnLineaMedioPago(reader));
+                }
+            }
+
+            return lista;
+        }
+
+        public List<BEPagoEnLineaMedioPagoDetalle> ObtenerPagoEnLineaMedioPagoDetalle(int paisId)
+        {
+            var lista = new List<BEPagoEnLineaMedioPagoDetalle>();
+            var daPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (var reader = daPagoEnLinea.ObtenerPagoEnLineaMedioPagoDetalle())
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEPagoEnLineaMedioPagoDetalle(reader));
+                }
+            }
+
+            return lista;
+        }
+
+        public List<BEPagoEnLineaTipoPasarela> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma)
+        {
+            var lista = new List<BEPagoEnLineaTipoPasarela>();
+            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (var reader = DAPagoEnLinea.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(codigoPlataforma))
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEPagoEnLineaTipoPasarela(reader));
+                }
+            }
+
+            return lista;
+        }
+
+        public List<BEPagoEnLineaPasarelaCampos> ObtenerPagoEnLineaPasarelaCampos(int paisId)
+        {
+            var lista = new List<BEPagoEnLineaPasarelaCampos>();
+            var daPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (var reader = daPagoEnLinea.ObtenerPagoEnLineaPasarelaCampos())
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEPagoEnLineaPasarelaCampos(reader));
+                }
+            }
+
+            return lista;
+        }
+
+        public int ObtenerNumeroOrden(int paisId)
+        {
+            return new DAPagoEnLinea(paisId).ObtenerNumeroOrden();
         }
     }
 }
