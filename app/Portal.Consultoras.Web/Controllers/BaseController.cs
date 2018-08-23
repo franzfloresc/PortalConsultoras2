@@ -445,7 +445,6 @@ namespace Portal.Consultoras.Web.Controllers
             userData = _menuProvider.BuildMenuService(userData);
             return userData.MenuService;
         }
-
         #endregion
 
         #region UserData

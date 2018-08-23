@@ -1,4 +1,5 @@
-﻿@using Portal.Consultoras.Web.Models.PagoEnLinea;
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models.PagoEnLinea;
 @model PagoEnLineaModel
 
 @{
@@ -8,7 +9,18 @@
 
 @section styles{
 
-    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+    {
+
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+
+    }
+    else
+    {
+
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/pago-en-linea.css")">
+
+    }
 
     <style type="text/css">
         .footer-page {
@@ -62,7 +74,9 @@
                         <span>@Model.Simbolo @Model.MontoDeudaString</span>
                     </div>
                     <div class="monto_gastos_administrativos">
-                        <span>Cargo plataforma online:</span>
+                        <span>@(ViewBag.PaisId == Constantes.PaisID.Mexico
+                                    ? Constantes.PagoEnLineaMensajes.CargoplataformaMx
+                                    : Constantes.PagoEnLineaMensajes.CargoplataformaPe):</span>
                         <span>@Model.Simbolo @Model.MontoGastosAdministrativosString</span>
                     </div>
                     <div class="total_monto_pagado">
