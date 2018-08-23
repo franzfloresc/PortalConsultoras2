@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Web.Providers
                     }
                     catch (Exception ex)
                     {
-                        throw ex;
+                        Common.LogManager.SaveLog(ex, "", codigoISO);
                     }
                 }
 
@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     try
                     {
-                        string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0));
+                        string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
                         Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
                     }
                     catch(Exception ex) { throw ex; }
