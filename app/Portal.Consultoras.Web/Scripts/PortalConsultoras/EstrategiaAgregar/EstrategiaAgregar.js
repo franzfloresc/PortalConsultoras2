@@ -455,7 +455,22 @@ var EstrategiaAgregarModule = (function () {
                 console.log(e);
             }
             var localStorageModule = new LocalStorageModule();
+            if (data.listCuvEliminar != null) {
+                $.each(data.listCuvEliminar, function (i, cuv) {
+                    //Se debe integrar en un solo metodo
+                    //localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, false);
+	
+                    itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
+
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.lan, cuv, false);
+                })
+            }
+
             localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, true);
+
 
             if (belcorp.estrategia.applyChanges){
                 belcorp.estrategia.applyChanges("onProductoAgregado", data);
@@ -470,9 +485,8 @@ var EstrategiaAgregarModule = (function () {
                 if (_config.esFicha) {
                     if (params.CuvTonos != "") {
                         var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
-                        if (listaCuvs.length > 0) {
+                        if (listaCuvs.length > 0) {                            
                             $(".texto_sin_tono").find(".tono_seleccionado").hide();
-                            $(".texto_sin_tono").find(".texto_tono_seleccionado").html("ELIGE TU TONO");
                             var $ContentTonoDetalle = $(".content_tono_detalle");
                             if ($ContentTonoDetalle.length > 0) {
                                 $ContentTonoDetalle.removeClass("borde_seleccion_tono");
@@ -512,7 +526,6 @@ var EstrategiaAgregarModule = (function () {
 
     var adicionarCantidad = function (e) {
         e.stopPropagation();
-        debugger;
         //
         var $this = $(e.target);
         if (selectorCantidadEstaBloquedo($this)) return false;
@@ -541,18 +554,20 @@ var EstrategiaAgregarModule = (function () {
 
     var deshabilitarBoton = function () {
         $(_elementos.btnAgregar.id).addClass(_elementos.btnAgregar.classDesactivado);
-        $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$("#idcontenedor_rangos").addClass("contenedor_rangos_desactivado");
     };
     
     var habilitarBoton = function() {
         $(_elementos.btnAgregar.id).removeClass(_elementos.btnAgregar.classDesactivado);
-        $(".cantidad_mas_home").attr("data-bloqueada", "");
-        $(".cantidad_menos_home").attr("data-bloqueada", "");
-        $("#imgFichaProduMas").attr("data-bloqueada", "");
-        $("#imgFichaProduMenos").attr("data-bloqueada", "");
+        //$(".cantidad_mas_home").attr("data-bloqueada", "");
+        //$(".cantidad_menos_home").attr("data-bloqueada", "");
+        //$("#imgFichaProduMas").attr("data-bloqueada", "");
+        //$("#imgFichaProduMenos").attr("data-bloqueada", "");
+        //$("#idcontenedor_rangos").removeClass("contenedor_rangos_desactivado");
     }
     
     return {

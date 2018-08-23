@@ -1566,12 +1566,7 @@ function ObservacionesProducto(item) {
                     if (!item.TieneRDC)
                         $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");
                 }
-
-                if (item.MensajeCUV != null) {
-                    if (item.MensajeCUV != "") {
-                        AbrirMensaje(item.MensajeCUV, "IMPORTANTE");
-                    }
-                }
+                if (!IsNullOrEmpty(item.MensajeCUV)) AbrirMensaje(item.MensajeCUV, "IMPORTANTE");
 
                 $("#btnAgregar").removeAttr("disabled");
             }
@@ -1624,9 +1619,10 @@ function ObservacionesProducto(item) {
                 return;
             }
         });
+        $("#btnAgregar").focus();
     }
+    else $("#txtCantidad").focus();
     $("#divMensaje").text("");
-    $("#txtCantidad").focus();
 
     if (item.TipoOfertaSisID == "1707") {
         if (!sesionEsShowRoom) {
@@ -1861,6 +1857,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
             console.log('DeletePedido - Ajax - success ', data);
             CerrarSplash();
+            CerrarAvisoEliminarRegalo();
+
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
                 messageInfoError(data.message);
@@ -1874,10 +1872,13 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias();
             }
+
             MostrarBarra(data);
+
             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
             microefectoPedidoGuardado();
             TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+
             dataLayer.push({
                 'event': "removeFromCart",
                 'ecommerce': {
@@ -1894,6 +1895,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                     }
                 }
             });
+
             CerrarSplash();
 
             window.OfertaDelDia.CargarODDEscritorio();
@@ -1903,8 +1905,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
             ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
             ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
-
-            CerrarAvisoEliminarRegalo();
+       
         },
         error: function (data, error) {
 

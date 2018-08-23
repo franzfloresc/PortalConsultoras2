@@ -405,6 +405,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 FechaVencimiento = pagoEnLinea.FechaVencimiento,
                 TarjetaEnmascarada = pagoEnLinea.NumeroTarjeta
             };
+            ViewBag.EsLebel = userData.EsLebel;
+            ViewBag.PagoEnLineaCargoLabel = userData.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.CargoplataformaMx : Constantes.PagoEnLineaMensajes.CargoplataformaPe;
 
             return View("DetallePagoEnLinea", pagoEnLineaModel);
         }

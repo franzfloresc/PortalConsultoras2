@@ -34,8 +34,8 @@
  }
 .producto_nombre_descripcion {
     width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 14px;
+    padding-right: 14px;
     height: auto;
     font-family: 'Lato';
     letter-spacing: .2px;
@@ -55,9 +55,9 @@
     margin: 0;
     padding: 0;
     text-align: left;
-    font-size: 16px;
+    font-size: 15px;
     width: 50%;
-    padding-left: 5px;
+    padding-left: 3px;
     position: relative;
 }
 .bc_plantilla_estrategia_personalizada .contenido_834 .revistadigital-landing {

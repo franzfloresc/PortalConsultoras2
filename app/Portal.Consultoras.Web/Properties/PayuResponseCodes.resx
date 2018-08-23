@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ERROR" xml:space="preserve">
+    <value>Ocurrió un error general.</value>
+  </data>
+  <data name="APPROVED" xml:space="preserve">
+    <value>La transacción fue aprobada.</value>
+  </data>
+  <data name="ANTIFRAUD_REJECTED" xml:space="preserve">
+    <value>La transacción fue rechazada por el sistema anti-fraude.</value>
+  </data>
+  <data name="PAYMENT_NETWORK_REJECTED" xml:space="preserve">
+    <value>La red financiera rechazó la transacción.</value>
+  </data>
+  <data name="ENTITY_DECLINED" xml:space="preserve">
+    <value>La transacción fue declinada por el banco o por la red financiera debido a un error.</value>
+  </data>
+  <data name="INTERNAL_PAYMENT_PROVIDER_ERROR" xml:space="preserve">
+    <value>Ocurrió un error en el sistema intentando procesar el pago.</value>
+  </data>
+  <data name="INACTIVE_PAYMENT_PROVIDER" xml:space="preserve">
+    <value>El proveedor de pagos no se encontraba activo.</value>
+  </data>
+  <data name="DIGITAL_CERTIFICATE_NOT_FOUND" xml:space="preserve">
+    <value>La red financiera reportó un error en la autenticación.</value>
+  </data>
+  <data name="INVALID_EXPIRATION_DATE_OR_SECURITY_CODE" xml:space="preserve">
+    <value>El código de seguridad o la fecha de expiración estaba inválido.</value>
+  </data>
+  <data name="INVALID_RESPONSE_PARTIAL_APPROVAL" xml:space="preserve">
+    <value>Tipo de respuesta no válida. La entidad aprobó parcialmente la transacción y debe ser cancelada automáticamente por el sistema.</value>
+  </data>
+  <data name="INSUFFICIENT_FUNDS" xml:space="preserve">
+    <value>La cuenta no tenía fondos suficientes.</value>
+  </data>
+  <data name="CREDIT_CARD_NOT_AUTHORIZED_FOR_INTERNET_TRANSACTIONS" xml:space="preserve">
+    <value>La tarjeta de crédito no estaba autorizada para transacciones por Internet.</value>
+  </data>
+  <data name="INVALID_TRANSACTION" xml:space="preserve">
+    <value>La red financiera reportó que la transacción fue inválida.</value>
+  </data>
+  <data name="INVALID_CARD" xml:space="preserve">
+    <value>La tarjeta es inválida.</value>
+  </data>
+  <data name="EXPIRED_CARD" xml:space="preserve">
+    <value>La tarjeta ya expiró.</value>
+  </data>
+  <data name="RESTRICTED_CARD" xml:space="preserve">
+    <value>La tarjeta presenta una restricción.</value>
+  </data>
+  <data name="CONTACT_THE_ENTITY" xml:space="preserve">
+    <value>Debe contactar al banco.</value>
+  </data>
+  <data name="REPEAT_TRANSACTION" xml:space="preserve">
+    <value>Se debe repetir la transacción.</value>
+  </data>
+  <data name="ENTITY_MESSAGING_ERROR" xml:space="preserve">
+    <value>La red financiera reportó un error de comunicaciones con el banco.</value>
+  </data>
+  <data name="BANK_UNREACHABLE" xml:space="preserve">
+    <value>El banco no se encontraba disponible.</value>
+  </data>
+  <data name="EXCEEDED_AMOUNT" xml:space="preserve">
+    <value>La transacción excede un monto establecido por el banco.</value>
+  </data>
+  <data name="NOT_ACCEPTED_TRANSACTION" xml:space="preserve">
+    <value>La transacción no fue aceptada por el banco por algún motivo.</value>
+  </data>
+  <data name="ERROR_CONVERTING_TRANSACTION_AMOUNTS" xml:space="preserve">
+    <value>Ocurrió un error convirtiendo los montos a la moneda de pago.</value>
+  </data>
+  <data name="EXPIRED_TRANSACTION" xml:space="preserve">
+    <value>La transacción expiró.</value>
+  </data>
+  <data name="PENDING_TRANSACTION_REVIEW" xml:space="preserve">
+    <value>La transacción fue detenida y debe ser revisada, esto puede ocurrir por filtros de seguridad.</value>
+  </data>
+  <data name="PENDING_TRANSACTION_CONFIRMATION" xml:space="preserve">
+    <value>La transacción está pendiente de ser confirmada.</value>
+  </data>
+  <data name="PENDING_TRANSACTION_TRANSMISSION" xml:space="preserve">
+    <value>La transacción está pendiente para ser trasmitida a la red financiera. Normalmente esto aplica para transacciones con medios de pago en efectivo.</value>
+  </data>
+  <data name="PAYMENT_NETWORK_BAD_RESPONSE" xml:space="preserve">
+    <value>El mensaje retornado por la red financiera es inconsistente.</value>
+  </data>
+  <data name="PAYMENT_NETWORK_NO_CONNECTION" xml:space="preserve">
+    <value>No se pudo realizar la conexión con la red financiera.</value>
+  </data>
+  <data name="PAYMENT_NETWORK_NO_RESPONSE" xml:space="preserve">
+    <value>La red financiera no respondió.</value>
+  </data>
+  <data name="FIX_NOT_REQUIRED" xml:space="preserve">
+    <value>Clínica de transacciones: Código de manejo interno.</value>
+  </data>
+  <data name="AUTOMATICALLY_FIXED_AND_SUCCESS_REVERSAL" xml:space="preserve">
+    <value>Clínica de transacciones: Código de manejo interno.</value>
+  </data>
+  <data name="AUTOMATICALLY_FIXED_AND_UNSUCCESS_REVERSAL" xml:space="preserve">
+    <value>Clínica de transacciones: Código de manejo interno.</value>
+  </data>
+  <data name="AUTOMATIC_FIXED_NOT_SUPPORTED" xml:space="preserve">
+    <value>Clínica de transacciones: Código de manejo interno.</value>
+  </data>
+  <data name="NOT_FIXED_FOR_ERROR_STATE" xml:space="preserve">
+    <value>Clínica de transacciones: Código de manejo interno.</value>
+  </data>
+  <data name="ERROR_FIXING_AND_REVERSING" xml:space="preserve">
+    <value>Clínica de transacciones: Código de manejo interno.</value>
+  </data>
+  <data name="ERROR_FIXING_INCOMPLETE_DATA" xml:space="preserve">
+    <value>Clínica de transacciones: Código de manejo interno.</value>
+  </data>
+  <data name="DECLINED_TEST_MODE_NOT_ALLOWED" xml:space="preserve">
+    <value>Modo de prueba no permitido.</value>
+  </data>
+</root>

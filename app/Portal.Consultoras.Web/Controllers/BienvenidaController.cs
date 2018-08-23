@@ -211,6 +211,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
+                model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
             }
             catch (FaultException ex)
             {
