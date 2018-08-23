@@ -2468,8 +2468,8 @@ namespace Portal.Consultoras.BizLogic
         {
             var oUsu = new BEUsuarioDatos();
             oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarMensajeFueraHorario;
-            oUsu = GetDatosUsuarioByValorCache(paisID, valorRestaurar);
-            var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia, oUsu.RegionID, oUsu.ZonaID);
+            oUsu = GetDatosUsuarioByValor(paisID, valorRestaurar);
+            var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia);
             if (opcion == null) return oUsu;
             /*validando si tiene Zona*/
             if (opcion.TieneZonas)
@@ -2579,12 +2579,6 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region METODOS OLVIDE CONTRASENIA
-
-        private BEUsuarioDatos GetDatosUsuarioByValorCache(int paisID, string valorIngresado)
-        {
-            return CacheManager<BEUsuarioDatos>.ValidateDataElement(paisID, ECacheItem.DatosRestaurarClave, valorIngresado + paisID.ToString(), () => GetDatosUsuarioByValor(paisID, valorIngresado));
-        }
-
         private BEUsuarioDatos GetDatosUsuarioByValor(int paisID, string valorIngresado)
         {
             var DAUsuario = new DAUsuario(paisID);
@@ -2804,10 +2798,10 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Carga Opciones De Verificacion
-        private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID, int regionID, int zonaID)
+        private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
         {
             var BLobj = new BLOpcionesVerificacion();
-            return BLobj.GetOpcionesVerificacionCache(paisID, origenID, regionID, zonaID);
+            return BLobj.GetOpcionesVerificacion(paisID, origenID);
         }
 
         private bool ValidaCampania(int campaniaActual, int campaniaInicio, int campaniaFin)
@@ -2842,7 +2836,7 @@ namespace Portal.Consultoras.BizLogic
                 var oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
                 if (oUsu.Cantidad == 0) return null;
                 /*Obteniendo Datos de Verificacion de Autenticidad*/
-                var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad, oUsu.RegionID, oUsu.ZonaID);
+                var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
                 if (opcion == null) return null;
                 /*validando si tiene Zona*/
                 if (opcion.TieneZonas)
