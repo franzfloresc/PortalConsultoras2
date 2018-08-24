@@ -425,8 +425,8 @@
             {{else}}
             <div class="stock_content">
                 <div class="texto_stock">@Constantes.BackOrder.mensajeBackOrderMobile</div>
-                <a class="btn_no_stock" onclick="EliminarPedidoEvento(event, '{{EsBackOrder}}');" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}" >NO, GRACIAS</a>
-                <a class="btn_si_stock" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
+                <a class="btn_no_stock" onclick="EliminarPedidoEvento(event, '{{EsBackOrder}}');" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">NO, ELIMÍNALO</a>
+                <a class="btn_si_stock" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SÍ, GRACIAS!</a>
                 <hr class="clear" />
             </div>
             {{/if}}
