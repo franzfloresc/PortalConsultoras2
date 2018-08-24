@@ -725,7 +725,7 @@ function ActualizarValoresPopupOfertaFinal(data, popup) {
                     $('#spnTituloOfertaFinal span').html(msg1);
 
                     if (tipoOrigen == 1) {
-                        $('#spnTituloOfertaFinal').css('max-width', '700px');
+                        //$('#spnTituloOfertaFinal').css('max-width', '700px');
                         $('#spnTituloOfertaFinal').css('margin', '0 auto');
 
                         $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + variablesPortal.SimboloMoneda + ' ' + data.DataBarra.MontoGananciaStr);
