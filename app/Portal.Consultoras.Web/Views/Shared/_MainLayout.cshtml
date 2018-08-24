@@ -168,6 +168,17 @@
             @if (ViewBag.MostrarBuscadorYFiltros)
             {
                 <div class="buscador_productos displayBlock">
+                    <div class="tooltip_informativo_sobre_opcion_busqueda_prod">
+                        <div class="text-uppercase default-color novedad_busqueda_titulo">¡Nuevo!</div>
+                        <div class="novedad_busqueda_descripcion">
+                            <span class="icono_tooltip_informativo_opcion_busqueda">
+                                <img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Encuentra productos y ofertas en un click" />
+                            </span>
+                            <span class="descripcion_tooltip_informativo_opcion_busqueda">
+                                Encuentra productos y ofertas en un click.
+                            </span>
+                        </div>
+                    </div>
                     <input type="text" value="" id="CampoBuscadorProductos" class="campo_buscador_productos displayBlock" placeholder="¿Buscas ofertas?" />
                     <a class="enlace_busqueda_productos displayBlock" title="Buscar">
                         <img src="@Url.Content("~/Content/Images/icono_lupa.png")" alt="Buscar" />

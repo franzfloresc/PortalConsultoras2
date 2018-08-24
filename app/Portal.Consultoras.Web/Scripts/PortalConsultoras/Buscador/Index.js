@@ -11,6 +11,7 @@ $(document).ready(function () {
         me.Funciones = {
             InicializarEventos: function () {
                 $(document).on('click', 'body', me.Eventos.CerrarResultadosBusqueda);
+                $(document).on('focus', '#CampoBuscadorProductos', me.Eventos.OcultarTooltipInformativo);
                 $(document).on('keyup', '#CampoBuscadorProductos', me.Eventos.AccionesCampoBusquedaAlDigitar);
                 $(document).on('click', '.opcion_limpiar_campo_busqueda_productos', me.Eventos.LimpiarCampoBusqueda);
                 $(document).on('click', '.agregarProductoBuscador', me.Eventos.AgregarProducto);
@@ -151,6 +152,11 @@ $(document).ready(function () {
                         if ((!buscadorProductos.is(e.target) && buscadorProductos.has(e.target).length === 0)) {
                             me.Funciones.AccionesLimpiarBusqueda($('#CampoBuscadorProductos'), $('#ResultadoBuscador'));
                         }
+                    }
+                },
+                OcultarTooltipInformativo: function () {
+                    if ($('.tooltip_informativo_sobre_opcion_busqueda_prod').is(':visible')) {
+                        $('.tooltip_informativo_sobre_opcion_busqueda_prod').fadeOut(100);
                     }
                 },
                 AgregarProducto: function (e) {

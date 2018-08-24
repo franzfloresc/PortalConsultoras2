@@ -17,7 +17,7 @@
 .buscador_productos {
     display: inline-block;
     vertical-align: middle;
-    position: relative;
+    position:relative;
     left: 7.5px;
     border: 1px solid #E1E1E1;
     background-color: #FFF;
@@ -182,6 +182,91 @@
     width: 17px;
     right: 13px;
 }
+
+/* INICIO - TOOLTIP INFORMATIVO SOBRE NOVEDAD DE BUSCADOR DE PRODUCTOS */
+
+.tooltip_informativo_sobre_opcion_busqueda_prod {
+    display: block;
+    position: absolute;
+    top: 38px;
+    left: -62px;
+    min-width: 206px;
+    background-color: #f5f5f5;
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+    text-align: left;
+    padding: 12px 13px;
+    font-size: 12.5px;
+    z-index:6;
+    -moz-box-shadow: 5px 6px 12px -6px #8c8c8c;
+    -webkit-box-shadow: 5px 6px 12px -6px #8c8c8c;
+    box-shadow: 5px 6px 12px -6px #8c8c8c;
+}
+
+.tooltip_informativo_sobre_opcion_busqueda_prod:after,
+.tooltip_informativo_sobre_opcion_busqueda_prod:before
+{
+	bottom: 100%;
+	left: 0;
+    right:0;
+    margin:0 auto;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.tooltip_informativo_sobre_opcion_busqueda_prod:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f5f5f5;
+	border-width: 8px;
+}
+
+.tooltip_informativo_sobre_opcion_busqueda_prod:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-bottom-color: #d7d7d7;
+	border-width: 9px;
+}
+
+.novedad_busqueda_titulo{
+    font-weight:900;
+}
+
+.novedad_busqueda_descripcion{
+    display:block;
+    margin-top:6px;
+}
+
+.icono_tooltip_informativo_opcion_busqueda,
+.descripcion_tooltip_informativo_opcion_busqueda
+{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.icono_tooltip_informativo_opcion_busqueda{
+    width: 19px;
+    height: 25px;
+    margin-right: 9px;
+    padding-top: 1px;
+}
+
+.descripcion_tooltip_informativo_opcion_busqueda{
+    width:140px;
+    overflow-wrap:break-word;
+    line-height:15px;
+    color:#000;
+    font-size:13px;
+}
+
+.icono_tooltip_informativo_opcion_busqueda img{
+    width:100%;
+    height:auto;
+}
+
+/* FIN - TOOLTIP INFORMATIVO SOBRE NOVEDAD DE BUSCADOR DE PRODUCTOS */
 
 .lista_resultados_busqueda_productos {
     display: none;
