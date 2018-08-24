@@ -348,6 +348,7 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function () {
         var estrategia;
+
         if (_config.tieneSession === "True") {
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         }
@@ -358,6 +359,9 @@ var FichaModule = (function (config) {
         if (typeof estrategia !== "undefined" && estrategia !== null) {
             _getComponentesAndUpdateEsMultimarca(estrategia);
             _actualizarCodigoVariante(estrategia);
+            estrategia.ClaseBloqueada = "btn_desactivado_general";
+            estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
+            estrategia.RangoInputEnabled = "disabled";
         }
 
         return estrategia;
@@ -384,9 +388,6 @@ var FichaModule = (function (config) {
     };
 
     var _validarDesactivadoGeneral = function (estrategia) {
-        estrategia.ClaseBloqueada = "btn_desactivado_general";
-        estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
-        estrategia.RangoInputEnabled = "disabled";
         $.each(estrategia.Hermanos, function (index, hermano) {
             if (hermano.Hermanos && hermano.Hermanos.length > 0) {
                 EstrategiaAgregarModule.DeshabilitarBoton();
@@ -525,7 +526,7 @@ var FichaModule = (function (config) {
         $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
-        _validarDesactivadoGeneral(estrategia);
+        if (estrategia.esCampaniaSiguiente) _validarDesactivadoGeneral(estrategia);
 
         if (estrategia.TipoAccionAgregar <= 0) {
             $(_seccionesFichaProducto.dvContenedorAgregar).hide();
