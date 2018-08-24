@@ -272,29 +272,27 @@
                 </a>
             </div>
             {{else}}
-            <!-- INICIO - SELECTOR DE CANTIDAD - CUANDO EL PRODUCTO ESTÉ AGOTADO AGREGAR LA CLASE selector_cant_desactivado al div con la clase resultado_busqueda_cantidad_prod -->
-            <div class="resultado_busqueda_cantidad_prod displayInlineBlock js-no-popup" data-cantidad-contenedor="">
+            <div class="resultado_busqueda_cantidad_prod displayInlineBlock js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
                 <a class="cantidad_menos_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                     <img src="/Content/Images/Mobile/Esika/menos.png" alt="">
                 </a>
-                <!-- INICIO - AGREGAR ATRIBUTO DISABLED CUANDO EL PRODUCTO ESTÉ AGOTADO -->
-                <input type="tel" value="1" size="2" maxlength="2" data-input="cantidad" class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" />
-                <!-- FIN - AGREGAR ATRIBUTO DISABLED CUANDO EL PRODUCTO ESTÉ AGOTADO -->
+                <input type="tel" value="1" size="2" maxlength="2" data-input="cantidad"
+                       class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" {{#if Stock}} disabled {{/if}} />
                 <a class="cantidad_mas_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
                     <img src="/Content/Images/Mobile/Esika/mas.png" alt="">
                 </a>
                 <div class="clear"></div>
             </div>
-            <!-- FIN - SELECTOR DE CANTIDAD - CUANDO EL PRODUCTO ESTÉ AGOTADO AGREGAR LA CLASE selector_cant_desactivado al div con la clase resultado_busqueda_cantidad_prod -->
             <div class="resultado_busqueda_btn_agregar_wrapper displayInlineBlock text-center">
+                {{#if Stock}}
+                <a class="btn_inactivo displayBlock text-center text-uppercase">
+                    Agotado
+                </a>
+                {{else}}
                 <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
                     Agrégalo
                 </a>
-                <!-- INICIO - APARECE CUANDO EL PRODUCTO ESTÁ AGOTADO -->
-                <a class="btn_inactivo displayBlock text-center text-uppercase" style="display:none;">
-                    Agotado
-                </a>
-                <!-- FIN - APARECE CUANDO EL PRODUCTO ESTÁ AGOTADO -->
+                {{/if}}
                 <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold etiqueta_buscador_producto">
                     {{Agregado}}
                 </div>
