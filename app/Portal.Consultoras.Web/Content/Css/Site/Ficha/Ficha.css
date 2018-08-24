@@ -54,8 +54,10 @@ body {
 }
 
     .contenedor_imagen .contenedor_img {
-        max-width: 100%;
-        height: 100%;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        height: auto;
+        width: auto;
     }
 
 /*.contenedor_imagen_ancho_mayor {

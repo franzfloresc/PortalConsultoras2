@@ -410,6 +410,9 @@ var FichaModule = (function (config) {
 
         var proM = proImg.innerHeight();
         var proObjH = proObj.innerHeight();
+        if (proObjH == 0) {
+            proObjH = 300;
+        }
 
         $(proImg).css("max-height", "");
         $(proImg).css("height", "");
@@ -419,7 +422,7 @@ var FichaModule = (function (config) {
         var styleImg = "";
 
         // medida segun alto
-        if (proM > proObjH) {
+        if (proM > proObjH || proM == 0) {
             styleImg += "max-height:" + proObjH + "px !important;"
         }
         else {
@@ -429,8 +432,11 @@ var FichaModule = (function (config) {
         // medida segun ancho
         proObj = $(_seccionesFichaProducto.SeccionIzquierdo);
         var proObjW = proObj.innerWidth();
+        if (proObjW == 0) {
+            proObjW = 490;
+        }
         proM = proImg.innerWidth();
-        if (proM > proObjW) {
+        if (proM > proObjW || proM == 0) {
             styleImg += "max-width:" + proObjW + "px !important;"
         }
         else {
@@ -580,7 +586,7 @@ var FichaModule = (function (config) {
             if (imgFondo !== "") {
                 $(_seccionesFichaProducto.ContenedoFichaEtiquetas).addClass("contenedor_ficha_etiquetas_Confondo");
             }
-            setTimeout(_renderImg(), 1000);
+            //setTimeout(_renderImg(), 1000);
         }
 
         if (imgFondo !== "") {
