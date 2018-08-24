@@ -782,7 +782,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.ShowRoom:
                         return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
-                        return RedirectToUniqueRoute("ProductosAgotados", "Index", null);
+                        return RedirectToUniqueRoute("ProductosAgotados", "Index", null);                    
                     case Constantes.IngresoExternoPagina.Ofertas:
                         return RedirectToUniqueRoute("Ofertas", "Index", null);
                     case Constantes.IngresoExternoPagina.GuiaNegocio:
@@ -795,6 +795,14 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("MisReclamos", "Index", null);
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
+                    case Constantes.IngresoExternoPagina.DetalleEstrategia:
+                        return RedirectToUniqueRoute("DetalleEstrategia", "Ficha", new
+                        {
+                            palanca = model.NombrePalanca,
+                            campaniaId = model.Campania,
+                            cuv = model.CUV,
+                            origen = Constantes.IngresoExternoOrigen.App
+                        });
                 }
             }
             catch (Exception ex)
