@@ -343,8 +343,11 @@ namespace Portal.Consultoras.Web.Providers
                 componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.NombreBulk);
             }
 
-            componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.Volumen);
-
+            if (componenteModel.Volumen != "" && !(" " + componenteModel.NombreComercial.ToLower() + " ").Contains(" " + componenteModel.Volumen.ToLower() + " "))
+            {
+                componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.Volumen);
+            }
+            
             return Util.Trim(componenteModel.NombreComercial);
         }
         
@@ -360,6 +363,12 @@ namespace Portal.Consultoras.Web.Providers
                 NombreComercialCompleto = hermano.NombreComercial.Substring(0, pos);
                 NombreComercialCompleto += " " + hermano.NombreComercial.Substring(pos + longitudBulk);
             }
+
+            if (NombreComercialCompleto.Trim().ToLower() == hermano.Volumen.Trim().ToLower() || NombreComercialCompleto.Trim() == "")
+            {
+                NombreComercialCompleto = Util.Trim(hermano.NombreComercial);
+            }
+
             return NombreComercialCompleto.Trim();
         }
 

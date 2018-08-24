@@ -524,8 +524,9 @@ var FichaModule = (function (config) {
 
         $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
-        _validarDesactivadoGeneral(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+        _validarDesactivadoGeneral(estrategia);
+
         if (estrategia.TipoAccionAgregar <= 0) {
             $(_seccionesFichaProducto.dvContenedorAgregar).hide();
         }
