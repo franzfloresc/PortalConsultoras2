@@ -895,5 +895,12 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.listaProductos(paisID,CampaniaID, filas, CodigoDescripcion, regionId, zonaId, codigoRegion, codigoZona);
         }
+
+        #region ActualizacionDatos
+        public BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo)
+        {
+            return _usuarioBusinessLogic.EnviarSmsCodigo(paisID, codigoUsuario, codigoConsultora, campaniaID, esMobile, celularActual, celularNuevo);
+        }
+        #endregion
     }
 }

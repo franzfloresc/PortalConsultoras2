@@ -398,6 +398,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
-
+        #region ActualizacionDatos
+        [OperationContract]
+        BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
+        #endregion
     }
 }

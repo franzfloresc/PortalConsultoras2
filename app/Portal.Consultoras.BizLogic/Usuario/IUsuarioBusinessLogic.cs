@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+
 using System;
 using System.Collections.Generic;
 
@@ -94,5 +95,8 @@ namespace Portal.Consultoras.BizLogic
         bool EsConsultoraNueva(BEUsuario usuario);
         string ObtenerCodigoRevistaFisica(int paisId);
         BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais);
+        #region ActualizacionDatos
+        BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
+        #endregion
     }
 }

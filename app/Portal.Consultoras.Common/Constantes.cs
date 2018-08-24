@@ -2554,5 +2554,34 @@ namespace Portal.Consultoras.Common
             public const string CaracteresBuscadorMostrar = "CaracteresBuscadorMostrar";
             public const string TotalResultadosBuscador = "TotalResultadosBuscador";
         }
+
+        public static class ActualizacionDatosValidacion
+        {
+            public const string ExpresionCelular = "^\\d+$";
+
+            private static Dictionary<string, string> _Message;
+            public static class Code
+            {
+                public const string SUCCESS = "0000";
+                public const string ERROR_INTERNO = "9999";
+                public const string ERROR_CELULAR_LONGITUD = "1001";
+                public const string ERROR_CELULAR_INVALIDO = "1002";
+                public const string ERROR_CELULAR_USADO = "1003";
+            }
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                    {
+                        {Code.SUCCESS, "OK"},
+                        {Code.ERROR_INTERNO, string.Empty},
+                        {Code.ERROR_CELULAR_LONGITUD, "El número debe tener {0} dígitos."},
+                        {Code.ERROR_CELULAR_INVALIDO, "No es un número válido."},
+                        {Code.ERROR_CELULAR_USADO, "El número ya está en uso."}
+                    });
+                }
+            }
+        }
     }
 }

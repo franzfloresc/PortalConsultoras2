@@ -8,6 +8,7 @@ using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.PublicService.Cryptography;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,9 +17,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
-using Newtonsoft.Json;
 using System.Net.Http;
+using System.Text.RegularExpressions;
+
 using JWT;
+using Newtonsoft.Json;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -3224,5 +3227,62 @@ namespace Portal.Consultoras.BizLogic
             }
             return BuscadorYFiltro;
         }
+
+        #region ActualizacionDatos
+        public BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo)
+        {
+            int limiteMinimoTelef = 0, limiteMaximoTelef = 0;
+
+            try
+            {
+                #region Validaciones
+                celularNuevo = celularNuevo ?? string.Empty;
+                Common.Util.GetLimitNumberPhone(paisID, out limiteMinimoTelef, out limiteMaximoTelef);
+                if (celularNuevo.Length != limiteMaximoTelef)
+                {
+                    return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CELULAR_LONGITUD, null, limiteMaximoTelef);
+                }
+                if (!Regex.IsMatch(celularNuevo, Constantes.ActualizacionDatosValidacion.ExpresionCelular))
+                {
+                    return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CELULAR_INVALIDO);
+                }
+                var existe = ValidarTelefonoConsultora(paisID, celularNuevo, codigoUsuario);
+                if (existe > 0)
+                {
+                    return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CELULAR_USADO);
+                }
+                #endregion
+
+                var response = RegistrarEnvioSms(paisID, codigoUsuario, codigoConsultora, campaniaID, esMobile, celularActual, celularNuevo);
+                if (!response.Succcess)
+                {
+                    return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_INTERNO, response.Message);
+                }
+
+                return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.SUCCESS);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisID);
+                return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_INTERNO, ex.Message);
+            }
+        }
+
+        private BERespuestaServicio ActualizacionDatosRespuesta(string code, string message = null, params object[] args)
+        {
+            if (string.IsNullOrEmpty(message))
+            {
+                message = Constantes.ActualizacionDatosValidacion.Message.ContainsKey(code) ?
+                                    Constantes.ActualizacionDatosValidacion.Message[code] : message;
+            }
+
+            return new BERespuestaServicio()
+            {
+                Code = code,
+                Message = string.Format(message, args),
+                Succcess = code == Constantes.ActualizacionDatosValidacion.Code.SUCCESS
+            };
+        }
+        #endregion
     }
 }

@@ -2295,7 +2295,7 @@ namespace Portal.Consultoras.Service
             return await _pedidoBusinessLogic.Delete(pedidoDetalle);
         }
 
-        public async Task<BEPedidoReservaAppResult> ReservaPedido(BEUsuario usuario)
+        public async Task<BEPedidoReservaResult> ReservaPedido(BEUsuario usuario)
         {
             return await _pedidoBusinessLogic.Reserva(usuario);
         }
