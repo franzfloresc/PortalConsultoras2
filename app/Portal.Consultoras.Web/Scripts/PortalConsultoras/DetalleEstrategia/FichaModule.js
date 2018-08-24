@@ -67,6 +67,7 @@ var FichaModule = (function (config) {
     };
 
     var _seccionesFichaProducto = {
+        SeccionIzquierdo: "#dvSeccionIzquierdo",
         //EtiquetaLanzamientos: "#EtiquetaLanzamientos",
         ImagenDeFondo: "#ImagenDeFondo",
         //DescripcionAdicional: "#DescripcionAdicional",
@@ -406,24 +407,60 @@ var FichaModule = (function (config) {
         var proObj = $(_seccionesFichaProducto.ImagenProducto);
         var proImg = proObj.find("img");
 
-        // medida segun alto
         var proM = proImg.innerHeight();
-        var proObjM = proObj.innerHeight();
+        var proObjH = proObj.innerHeight();
 
+        $(proImg).css("max-height", "");
         $(proImg).css("height", "");
+        $(proImg).css("max-width", "");
         $(proImg).css("width", "");
 
-        if (proM > proObjM) {
-            $(proImg).css("height", proObjM + "px");
-            $(proImg).css("width", "auto");
+        var styleImg = "";
+
+        // medida segun alto
+        if (proM > proObjH) {
+            styleImg += "max-height:" + proObjH + "px !important;"
+        }
+        else {
+            styleImg += "max-height:" + proM + "px !important;"
         }
 
         // medida segun ancho
+        proObj = $(_seccionesFichaProducto.SeccionIzquierdo);
+        var proObjW = proObj.innerWidth();
         proM = proImg.innerWidth();
-        proObjM = proObj.innerWidth();
-        if (proM > proObjM) {
-            $(proImg).css("width", proObjM + "px");
+        if (proM > proObjW) {
+            styleImg += "max-width:" + proObjW + "px !important;"
         }
+        else {
+            styleImg += "max-width:" + proM + "px !important;"
+        }
+
+        // asignar estilos
+        $(proImg).attr("style", styleImg);
+        $(proImg).css("height", "auto");
+        $(proImg).css("width", "auto");
+
+
+        //if (proM > proObjH) {
+        //    $(proImg).css("max-height", proObjH + "px !important");
+        //    $(proImg).css("height", "auto");
+        //    $(proImg).css("width", "auto");
+        //}
+        //else {
+        //    proObjH = 0;
+        //}
+
+        //// medida segun ancho
+        //proObj = $(_seccionesFichaProducto.SeccionIzquierdo);
+        //proM = proImg.innerWidth();
+        //var proObjW = proObj.innerWidth();
+        //if (proM > proObjW) {
+        //    $(proImg).css("width", proObjW + "px");
+        //    if (proObjH == 0) {
+        //        $(proImg).css("height", "auto");
+        //    }
+        //}
 
         setTimeout(_resizeBotonAgregar(), 1000);
     };
@@ -532,7 +569,6 @@ var FichaModule = (function (config) {
         }
         
         opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
-
         var imgFondo = "";
         if (isMobile()) {
             imgFondo = estrategia.TipoEstrategiaDetalle.ImgFichaFondoMobile || "";
@@ -543,7 +579,6 @@ var FichaModule = (function (config) {
             if (imgFondo !== "") {
                 $(_seccionesFichaProducto.ContenedoFichaEtiquetas).addClass("contenedor_ficha_etiquetas_Confondo");
             }
-
             setTimeout(_renderImg(), 1000);
         }
 
