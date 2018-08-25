@@ -290,6 +290,7 @@
     <Compile Include="Controllers\AdministrarShowRoomController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\ComunController.cs" />
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
@@ -320,6 +321,7 @@
     <Compile Include="Infraestructure\Reader\ColumnCsvTransform.cs" />
     <Compile Include="Infraestructure\Validator\Phone\NotSamePhoneValidator.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
+    <Compile Include="Models\Common\InLogUsabilidadModel.cs" />
     <Compile Include="Models\DetalleEstrategia\BreadCrumbModel.cs" />
     <Compile Include="Models\DetalleEstrategia\DetalleEstrategiaBreadCrumbsModel.cs" />
     <Compile Include="Models\EstrategiaComponenteModel.cs" />
@@ -5520,6 +5522,7 @@
     <Folder Include="Views\BaseLanzamientos\" />
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Campania\" />
+    <Folder Include="Views\Comun\" />
     <Folder Include="Views\Cupon\" />
     <Folder Include="Views\EstrategiaProductoComentario\" />
   </ItemGroup>

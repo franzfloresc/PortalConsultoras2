@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
@@ -1483,7 +1484,56 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
             }
         }
+        protected void RegistrarLogDynamoDB(InLogUsabilidadModel Log)
+        {
+            var dataString = string.Empty;
+            try
+            {
+                var data = new
+                {
+                    Fecha = "",
+                    Log.Aplicacion,
+                    Pais = userData.CodigoISO,
+                    Region = userData.CodigorRegion,
+                    Zona = userData.CodigoZona,
+                    Seccion = userData.SeccionAnalytics,
+                    Rol = Constantes.LogDynamoDB.RolConsultora,
+                    Campania = userData.CampaniaID.ToString(),
+                    Usuario = userData.CodigoUsuario,
+                    Log.PantallaOpcion,
+                    Log.OpcionAccion,
+                    DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
+                    DispositivoID = GetIPCliente(),
+                    Log.Extra,
+                    Version = "2.0"
+                };
 
+
+                var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+
+                if (string.IsNullOrEmpty(urlApi)) return;
+
+                var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
+
+                dataString = JsonConvert.SerializeObject(data);
+
+                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+                var response = httpClient.PostAsync("Api/LogUsabilidad", contentPost).GetAwaiter().GetResult();
+
+                var noQuitar = response.IsSuccessStatusCode;
+
+                httpClient.Dispose();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+            }
+        }
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
             string dataString = string.Empty;

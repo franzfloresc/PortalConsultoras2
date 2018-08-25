@@ -75,7 +75,11 @@ namespace Portal.Consultoras.Web
 
                 }
             }
-          
+            else
+                Globals.JwtToken = jwtToken_.Token;
+
+
+
 
         }
       

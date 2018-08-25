@@ -1076,35 +1076,41 @@ function autoCompleteByCharacters(inp, arr, car) {
 }
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
-    var dataNueva = {
-        'Fecha': new Date().getTime(),
-        'Aplicacion': userData.aplicacion,
-        'Pais': userData.pais,
-        'Region': userData.region,
-        'Zona': userData.zona,
-        'Seccion': userData.seccion,
-        'Rol': userData.rol,
-        'Campania': userData.campana,
-        'Usuario': userData.codigoConsultora,
-        'PantallaOpcion': pantallaOpcion,
-        'OpcionAccion': opcionAccion,
-        'DispositivoCategoria': esMobile ? 'MOBILE' : 'WEB',
-        'DispositivoID': '',
-        'Version': '2.0',
-        'Extra': extra
-    };
     if (urlLogDynamo != "") {
         jQuery.ajax({
             type: "POST",
             async: true,
-            crossDomain: true,
-            url: urlLogDynamo + "Api/LogUsabilidad",
+            //crossDomain: true,
+            url: baseUrl + 'Comun/InsertarLogDymnamo',
+            //url: urlLogDynamo + "Api/LogUsabilidad",
             dataType: "json",
-            data: dataNueva,
+            data:{
+                'Aplicacion':     userData.aplicacion,
+                'PantallaOpcion': pantallaOpcion,
+                'OpcionAccion': opcionAccion,
+                'Extra': ToDictionary(extra)
+            },
             success: function (result) { },
             error: function (x, xh, xhr) { }
         });
     }
+}
+
+function ToDictionary(dic) {
+    var data = {};
+    if (dic == null)
+        return data;
+
+    for (var i = 0; i < dic.length; i++) {
+
+        if (typeof dic[i] === 'object') {
+            if (dic[i].hasOwnProperty('key') && dic[i].hasOwnProperty('value'))
+                data[dic[i].key] = dic[i].value;
+        }
+          
+    }
+   
+    return data;
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
