@@ -22,6 +22,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using ClosedXML.Excel;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
 
@@ -1937,12 +1938,33 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (string file in Request.Files)
             {
                 var fileContent = Request.Files[file];
+                string[] documentos = null;
                 if (fileContent != null && fileContent.ContentLength > 0)
                 {
-                    var stream = fileContent.InputStream;
-                    StreamReader reader = new StreamReader(stream);
-                    string txt = reader.ReadToEnd();
-                    string[] documentos = txt.Split('|');
+                    if (Util.IsFileExtension(fileContent.FileName, Enumeradores.TypeDocExtension.Excel)) {
+                        string fileextension = Util.Trim(Path.GetExtension(fileContent.FileName));
+                        if (fileextension.ToLower().Equals(".xlsx") || fileextension.ToLower().Equals(".xls")) {
+                            string fileName = Guid.NewGuid().ToString();
+                            string pathfaltante = Server.MapPath("~/Content/ArchivoCambioNegocio");
+                            if (!Directory.Exists(pathfaltante)) Directory.CreateDirectory(pathfaltante);
+
+                            var finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+                            fileContent.SaveAs(finalPath);
+                            using (var excelWorkbook = new XLWorkbook(finalPath)) {
+                                var workSheet = excelWorkbook.Worksheet(1);
+                                var firstRowUsed = workSheet.FirstRowUsed();
+                                var firstPossibleAddress = workSheet.Row(firstRowUsed.RowNumber()).FirstCell().Address;
+                                var lastPossibleAddress = workSheet.LastCellUsed().Address;
+                                var range = workSheet.Range(firstPossibleAddress, lastPossibleAddress).AsRange();
+                                var table = range.AsTable();
+                                documentos = table.DataRange.Rows()
+                                         .Select(tableRow =>
+                                             tableRow.Field("Documentos")
+                                                 .GetString())
+                                         .ToArray();
+                            }
+                        }
+                    }
                     model = new CambioTipoNegocioModel
                     {
                         CodigoISO = CodigoIso,
@@ -1955,7 +1977,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(response == "true", JsonRequestBehavior.AllowGet);
         }
-
+        
         public List<ReporteFuenteIngreso> GetReporteFuenteIngreso(string campaniaInicio, string campaniaFin)
         {
             var result = new List<ReporteFuenteIngreso>();
