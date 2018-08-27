@@ -53,10 +53,12 @@ body {
     height: 300px;
 }
 
-.contenedor_imagen .contenedor_img {
-    max-width: 100%;
-    height: 100%;
-}
+    .contenedor_imagen .contenedor_img {
+        max-width: 100% !important;
+        max-height: 100% !important;
+        height: auto;
+        width: auto;
+    }
 
 /*.contenedor_imagen_ancho_mayor {
     margin: 0 12%;
@@ -915,10 +917,12 @@ body {
     display: block;
 }
 
-.titulo_selecionado{
+.titulo_selecionado {
     font-size: 13px;
     font-weight: bold;
-    padding-left: 10px
+    padding-left: 10px;
+    width: 80%;
+    line-height: normal;
 }
 .btn_cambiar_opciones {
     font-size: 13px;
@@ -1141,8 +1145,6 @@ ul.breadcumbs li a::before {
     margin-top: 6px;
     width: 40%;
 }
-
-
 
 
 

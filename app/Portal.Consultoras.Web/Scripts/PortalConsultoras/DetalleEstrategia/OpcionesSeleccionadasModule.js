@@ -39,7 +39,8 @@ var OpcionesSeleccionadasModule = (function () {
             componente === null) throw "param componente is not defined or null";
         
         _componente = componente || {};
-        if (_componente.HermanosSeleccionados.length > 0) {
+        var cantidadSeleccionados = _componente.HermanosSeleccionados.length;
+        if (cantidadSeleccionados > 0) {
             $(_elements.divContenedorOpcionesSeleccionadas.id).show();
             $(_elements.divOpcionesSeleccionadas.id).slick("unslick");
             SetHandlebars(_elements.divOpcionesSeleccionadas.templateId, _componente, _elements.divOpcionesSeleccionadas.id);
@@ -49,7 +50,8 @@ var OpcionesSeleccionadasModule = (function () {
                 slidesToScroll: 1,
                 autoplaySpeed: 2000,
                 fade: false,
-                arrows: false
+                arrows: false,
+                infinite : false
             };
 
             //$(".seleccion_btn button").click(function () {
@@ -73,19 +75,34 @@ var OpcionesSeleccionadasModule = (function () {
             //    });
             //});
 
-
             if (!isMobile()) {
                 slickSettings.arrows = true;
-                slickSettings.prevArrow = '<a class="flecha_ofertas-tipo prev" style="left:-5%; text-align:left;"><img src="' +
+                slickSettings.prevArrow = '<a id="opciones-seleccionadas-prev" class="flecha_ofertas-tipo prev" style="left:-5%; text-align:left;display:none;"><img src="' +
                     baseUrl +
                     'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>';
                 slickSettings.nextArrow =
-                    '<a class="flecha_ofertas-tipo" style="display: block; right:-5%; text-align:right;"><img src="' +
+                    '<a id="opciones-seleccionadas-next" class="flecha_ofertas-tipo" style="display: block; right:-5%; text-align:right;display:none;"><img src="' +
                     baseUrl +
                     'Content/Images/Esika/next.png")" alt="" /></a>';
-
             }
+            var lastSlideIndex = cantidadSeleccionados - slickSettings.slidesToShow;
             $(_elements.divOpcionesSeleccionadas.id).slick(slickSettings);
+            if (!isMobile() && cantidadSeleccionados > slickSettings.slidesToShow) {
+                $(_elements.divOpcionesSeleccionadas.id)
+                    .slick("slickGoTo", lastSlideIndex);
+            }
+            $(_elements.divOpcionesSeleccionadas.id).on('afterChange', function (event, slick, currentSlide, nextSlide) {
+                if (currentSlide === 0) {
+                    $("#opciones-seleccionadas-prev").hide();
+                    $("#opciones-seleccionadas-next").show();
+                } else if (currentSlide === lastSlideIndex) {
+                    $("#opciones-seleccionadas-prev").show();
+                    $("#opciones-seleccionadas-next").hide();
+                } else {
+                    $("#opciones-seleccionadas-prev").show();
+                    $("#opciones-seleccionadas-next").show();
+                }
+            });
         } else {
             $(_elements.divContenedorOpcionesSeleccionadas.id).hide();
             $(_elements.divOpcionesSeleccionadas.id).html("");

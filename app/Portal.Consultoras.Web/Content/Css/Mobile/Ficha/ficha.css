@@ -389,12 +389,15 @@ ul.breadcumbs li:last-child a {
 .imagen_selecionado img{
     width: 30px;
     height: 30px;
+    display: block;
 }
 
-.titulo_selecionado{
+.titulo_selecionado {
     font-size: 13px;
     font-weight: bold;
-    padding-left: 10px
+    padding-left: 10px;
+    width: 80%;
+    line-height: normal;
 }
 .btn_cambiar_opciones {
     font-size: 13px;

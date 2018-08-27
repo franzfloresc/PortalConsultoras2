@@ -728,6 +728,7 @@ function AgregarProductoListado() {
 }
 
 function InsertarProducto() {
+    
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
     var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
     var model = {};
