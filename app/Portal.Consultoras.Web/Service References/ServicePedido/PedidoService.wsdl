@@ -289,6 +289,42 @@
   <wsdl:message name="IPedidoService_ObtenerPagoEnLineaByFiltro_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaByFiltroResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaTipoPago_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaTipoPago" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaTipoPago_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaTipoPagoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaMedioPago_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaMedioPago" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaMedioPago_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaMedioPagoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaMedioPagoDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaMedioPagoDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaMedioPagoDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaMedioPagoDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaTipoPasarelaByCodigoPlataformaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaPasarelaCampos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaPasarelaCampos" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaPasarelaCampos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaPasarelaCamposResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaNumeroOrden_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaNumeroOrden" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaNumeroOrden_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaNumeroOrdenResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertPedidoWebSet_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertPedidoWebSet" />
   </wsdl:message>
@@ -2578,6 +2614,30 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltro" message="tns:IPedidoService_ObtenerPagoEnLineaByFiltro_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltroResponse" message="tns:IPedidoService_ObtenerPagoEnLineaByFiltro_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaTipoPago">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPago" message="tns:IPedidoService_ObtenerPagoEnLineaTipoPago_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPagoResponse" message="tns:IPedidoService_ObtenerPagoEnLineaTipoPago_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaMedioPago">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPago" message="tns:IPedidoService_ObtenerPagoEnLineaMedioPago_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPagoResponse" message="tns:IPedidoService_ObtenerPagoEnLineaMedioPago_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaMedioPagoDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPagoDetalle" message="tns:IPedidoService_ObtenerPagoEnLineaMedioPagoDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPagoDetalleResponse" message="tns:IPedidoService_ObtenerPagoEnLineaMedioPagoDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma" message="tns:IPedidoService_ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPasarelaByCodigoPlataformaResponse" message="tns:IPedidoService_ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaPasarelaCampos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCampos" message="tns:IPedidoService_ObtenerPagoEnLineaPasarelaCampos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCamposResponse" message="tns:IPedidoService_ObtenerPagoEnLineaPasarelaCampos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaNumeroOrden">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrdenResponse" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertPedidoWebSet">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoWebSet" message="tns:IPedidoService_InsertPedidoWebSet_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoWebSetResponse" message="tns:IPedidoService_InsertPedidoWebSet_OutputMessage" />
@@ -4359,6 +4419,60 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPagoEnLineaByFiltro">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaTipoPago">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaMedioPago">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaMedioPagoDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPagoDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaPasarelaCampos">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCampos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaNumeroOrden">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7918,6 +8032,60 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPagoEnLineaByFiltro">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaTipoPago">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaMedioPago">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaMedioPagoDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPagoDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaPasarelaCampos">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCampos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaNumeroOrden">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
