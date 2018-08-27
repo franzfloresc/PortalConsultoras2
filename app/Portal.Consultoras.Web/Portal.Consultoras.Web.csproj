@@ -224,7 +224,6 @@
     <Compile Include="Areas\Mobile\Controllers\FichaProductoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DescargarAppController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\OfertasParaTiController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PaypalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoFICController.cs" />
@@ -407,7 +406,6 @@
     <Compile Include="Controllers\OfertaLiquidacionController.cs" />
     <Compile Include="Controllers\OfertaNuevaController.cs" />
     <Compile Include="Controllers\OfertasMasVendidosController.cs" />
-    <Compile Include="Controllers\OfertasParaTiController.cs" />
     <Compile Include="Controllers\OfertaWebController.cs" />
     <Compile Include="Controllers\PaqueteDocumentarioController.cs" />
     <Compile Include="Controllers\ParametrizarCUVController.cs" />
@@ -1357,7 +1355,6 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Gnd-Flotante.css" />
-    <Content Include="Content\Css\Mobile\RevistaDigital\OfertaParaTi-Detalle.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
@@ -4169,7 +4166,6 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutEmpty.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOferta.cshtml" />
-    <Content Include="Areas\Mobile\Views\OfertasParaTi\Detalle.cshtml" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-left.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-right.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow_select_variant.svg" />
