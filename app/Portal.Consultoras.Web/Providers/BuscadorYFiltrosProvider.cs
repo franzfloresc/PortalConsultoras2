@@ -33,18 +33,12 @@ namespace Portal.Consultoras.Web.Providers
                             buscadorModel.revistaDigital.TieneRDI,
                             buscadorModel.revistaDigital.TieneRDCR,
                             buscadorModel.userData.DiaFacturacion
-                    );
-
-                //var taskApi = Task.Run(() => ObtenerBuscadorDesdeApi(pathBuscador));
-
-                //Task.WhenAll(taskApi);
-
-                //resultados = taskApi.Result;
+                    );               
 
                 resultados = await ObtenerBuscadorDesdeApi(pathBuscador);
             }
             catch (Exception ex)
-            {
+            {                
                 throw ex;
             }
             return resultados;

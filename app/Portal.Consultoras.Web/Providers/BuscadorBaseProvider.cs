@@ -15,15 +15,6 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorBaseProvider
     {
-        //private readonly static HttpClient httpClient = new HttpClient();
-
-        //public BuscadorBaseProvider()
-        //{
-        //    httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
-        //    httpClient.DefaultRequestHeaders.Accept.Clear();
-        //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //}
-
         public async Task<List<BuscadorYFiltrosModel>> ObtenerBuscadorDesdeApi(string path)
         {
             var resultados = new List<BuscadorYFiltrosModel>();
