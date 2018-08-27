@@ -81,7 +81,8 @@ namespace Portal.Consultoras.Web.Providers
                             MarcaId = item.MarcaId,
                             CampaniaID = userData.CampaniaID,
                             Agregado = labelAgregado,
-                            CantidadesAgregadas = cantidadAgregada
+                            CantidadesAgregadas = cantidadAgregada,
+                            Stock = !item.Stock
                         });
                     }
                 }
