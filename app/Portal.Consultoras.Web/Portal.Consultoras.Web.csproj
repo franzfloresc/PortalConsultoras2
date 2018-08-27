@@ -298,11 +298,6 @@
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
-    <Compile Include="Controllers\BaseGuiaNegocioController.cs" />
-    <Compile Include="Controllers\BaseHerramientasVentaController.cs" />
-    <Compile Include="Controllers\BaseLanzamientosController.cs" />
-    <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
-    <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\BaseViewController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
