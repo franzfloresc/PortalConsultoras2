@@ -537,6 +537,8 @@ namespace Portal.Consultoras.BizLogic
                 var incentivosConcursosTask = Task.Run(() => GetIncentivosConcursos(usuario));
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
+                var actualizacionEmailTask = Task.Run(() => GetActualizacionEmail(paisID, usuario.CodigoUsuario));
+                var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.ActualizaDatosEnabled));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -548,7 +550,9 @@ namespace Portal.Consultoras.BizLogic
                                 consultoraCumpleanioTask,
                                 incentivosConcursosTask,
                                 revistaDigitalSuscripcionTask,
-                                cuponTask);
+                                cuponTask,
+                                actualizacionEmailTask,
+                                actualizaDatosTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -582,7 +586,17 @@ namespace Portal.Consultoras.BizLogic
                 usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
                 usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
 
-
+                if(actualizacionEmailTask.Result != null)
+                {
+                    var resultActualizacionEmail = actualizacionEmailTask.Result.Split('|').ToArray();
+                    usuario.CambioCorreoPendiente = "1".Equals(resultActualizacionEmail.Length > 0 ? resultActualizacionEmail[0] : string.Empty);
+                    usuario.CorreoPendiente = resultActualizacionEmail.Length > 1 ? resultActualizacionEmail[1] : string.Empty;
+                }
+                if (actualizaDatosTask.Result != null)
+                {
+                    var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
+                    usuario.PuedeActualizar = (item!= null ?  Convert.ToBoolean(item.Valor.ToInt()) : false );
+                }
 
                 return usuario;
             }
