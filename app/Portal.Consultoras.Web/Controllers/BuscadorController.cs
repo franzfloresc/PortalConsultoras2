@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Buscador;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-
         public async Task<JsonResult> BusquedaProductos(string busqueda, int totalResultados)
         {
             var ListaProductosModel = new List<BuscadorYFiltrosModel>();
@@ -29,6 +29,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var resultBuscador = new List<BuscadorYFiltrosModel>();
                 var buscadorModel = new BuscadorModel();
+
+                var lista = userData.NuevasDescripcionesBuscador;
+                var a = lista[Constantes.NuevaDescripcionBuscador.CLUBGANA];
+                var b = lista[Constantes.NuevaDescripcionBuscador.SOLOHOY];
+                var c = lista[Constantes.NuevaDescripcionBuscador.CATALOGOLBEL];
 
                 buscadorModel.userData = userData;
                 buscadorModel.revistaDigital = revistaDigital;

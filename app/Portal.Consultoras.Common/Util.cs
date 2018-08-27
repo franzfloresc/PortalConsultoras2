@@ -3449,7 +3449,7 @@ namespace Portal.Consultoras.Common
             string caracter = "*".PadLeft(longitudOcultar, '*');
             return celular.Replace(strOcultar, caracter);
         }
-        
+
         public static string EnmascararTarjeta(string numero)
         {
             if (string.IsNullOrWhiteSpace(numero)) return string.Empty;
@@ -3465,7 +3465,7 @@ namespace Portal.Consultoras.Common
 
             var init = numero.Substring(0, initLen);
             var last = numero.Substring(longitud - lastLen);
-            
+
             return init + new string('*', longitud - totalLen) + last;
         }
         public static string GetDescripcionMarca(int marcaId)
@@ -3514,7 +3514,7 @@ namespace Portal.Consultoras.Common
                 {
                     byte[] inputBytes = Encoding.ASCII.GetBytes(input);
                     byte[] hashBytes = md5.ComputeHash(inputBytes);
-                
+
                     StringBuilder sb = new StringBuilder();
                     foreach (var item in hashBytes)
                     {
@@ -3534,6 +3534,39 @@ namespace Portal.Consultoras.Common
 
                 return response.GetResponseStream();
             }
+        }
+
+        //Validación de la descripción del producto
+        public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista, bool suscripcion, string codigoEstrategia, int marcaId)
+        {
+            var result = "";
+
+            if (!lista.Any()) return result;
+
+            switch (codigoEstrategia)
+            {
+                case "LIQ":
+                    //result = Constantes.Ofertas.OfertaLiquidacion;
+                    break;
+                case "CAT":
+                    //result = (marcaId == 1 ? Constantes.Catalogos.LBel : (marcaId == 2 ? Constantes.Catalogos.Esika : Constantes.Catalogos.Cyzone));
+                    break;
+                case "ODD":
+
+                    break;
+                default:
+                    if (suscripcion)
+                    {
+                        
+                    }
+                    else
+                    {
+
+                    }
+                    break;
+            }
+
+            return result;
         }
     }
 
@@ -3628,7 +3661,7 @@ namespace Portal.Consultoras.Common
         //        throw new InvalidCastException("campo: " + name + " no se puede convertir de " + value.GetType() + " a " + typeof(T), ex);
         //    }
         //}
-        
+
         #region Convert
 
         public static string ToString(this IDataRecord lector, string name, string valorDefecto = default(string))
@@ -3777,4 +3810,5 @@ namespace Portal.Consultoras.Common
             }
         }
     }
+
 }

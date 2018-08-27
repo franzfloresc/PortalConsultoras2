@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 
@@ -389,11 +390,9 @@ namespace Portal.Consultoras.Web.Models
         public bool EsConsultora()
         {
             return TipoUsuario == Constantes.TipoUsuario.Consultora;
-        }
-
-        
+        }        
 
         public int DiaFacturacion { get; set; }
-
+        public Dictionary<string, string> NuevasDescripcionesBuscador { get; set; }
     }
 }

@@ -2556,5 +2556,21 @@ namespace Portal.Consultoras.Common
             //Buscador/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{CodigoZona}/{TextoBusqueda}/{CantidadProductos}/{SociaEmpresaria}/{SuscripcionActiva}/{MDO}/{RD}/{RDI}/{RDR}/{DiaFacturacion}
             public const string UrlBuscador = "Buscador/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}";
         }
+
+        public class NuevaDescripcionBuscador
+        {
+            public const string CLUBGANA = "CLUBGANA+";
+            public const string SOLOHOY = "SOLOHOY";
+            public const string CATALOGOLBEL = "CATALOGOLBEL";
+            public const string CATALOGOESIKA = "CATALOGOESIKA";
+            public const string CATALOGOCYZONE = "CATALOGOCYZONE";
+            public const string OFERTASLIQUIDACION = "OFERTASLIQUIDACION";
+            public const string OFERTAPARATI = "OFERTAPARATI";
+            public const string LANZAMIENTOS = "LANZAMIENTOS";
+            public const string OFERTADELDIA = "OFERTADELDIA";
+            public const string GUIADENEGOCIODIGITAL = "GUIADENEGOCIODIGITAL";
+            public const string HERRAMIENTASDEVENTA = "HERRAMIENTASDEVENTA";
+            public const string ESPECIALES = "ESPECIALES";
+        }
     }
 }

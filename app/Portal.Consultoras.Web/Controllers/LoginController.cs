@@ -1292,6 +1292,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID, usuarioModel.FechaHoy);
+                    usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -2911,6 +2912,24 @@ namespace Portal.Consultoras.Web.Controllers
             diaFacturacion = (configuracionCampania.FechaInicioFacturacion - DateTime.Now).Days;
 
             return diaFacturacion;
+        }
+
+        private Dictionary<string, string> getNuevasDescripcionesBuscador(int paisId)
+        {
+            var result = new Dictionary<string, string>();
+            var listaDescripciones = new List<BETablaLogicaDatos>();
+
+            using (var tablaLogica = new SACServiceClient())
+            {
+                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, 145).ToList();
+            }
+
+            foreach (var item in listaDescripciones)
+            {
+                result.Add(item.Codigo.ToString(), item.Descripcion.ToString());
+            }
+
+            return result;
         }
 
     }
