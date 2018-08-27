@@ -196,7 +196,6 @@
     </Compile>
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\LanzamientosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiPerfilController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAcademiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PagoEnLineaController.cs" />
@@ -308,7 +307,6 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
-    <Compile Include="Controllers\LanzamientosController.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
     <Compile Include="Infraestructure\Sms\ISmsSender.cs" />
@@ -1348,7 +1346,6 @@
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
     <Content Include="Content\Css\Mobile\Ficha\SeleccionarTipo.css" />
-    <Content Include="Content\Css\Mobile\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Mobile\lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
@@ -1387,7 +1384,6 @@
     <Content Include="Content\Css\Site\Lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Lbel\mi-perfil.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
-    <Content Include="Content\Css\Site\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
@@ -3848,7 +3844,6 @@
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
     <Content Include="Scripts\knockout.extensions.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
-    <Content Include="Scripts\PortalConsultoras\Lanzamientos\detalle-lanzamiento.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Banner.js" />
@@ -4276,7 +4271,6 @@
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-bloqueado-Lan-Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\Personalizado.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOfertaPersonalizado.cshtml" />
-    <Content Include="Areas\Mobile\Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Content\Css\Site\Contenedor\producto.simple.css" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\Ficha.cshtml" />
@@ -5256,9 +5250,7 @@
     <Content Include="Views\MisCertificados\TributarioPdf.cshtml" />
     <Content Include="Views\AsesoraOnline\VolverSuscripcion.cshtml" />
     <Content Include="Views\AsesoraOnline\CancelarSuscripcion.cshtml" />
-    <Content Include="Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
-    <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
     <Content Include="Views\MiPerfil\Index.cshtml" />
     <Content Include="Views\MiPerfil\CambiarContrasenia.cshtml" />
     <Content Include="Views\MiPerfil\ActualizarCorreo.cshtml" />
@@ -5602,7 +5594,6 @@
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\App\" />
     <Folder Include="Views\BaseHerramientasVenta\" />
-    <Folder Include="Views\BaseLanzamientos\" />
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Buscador\" />
     <Folder Include="Views\Campania\" />
