@@ -2554,5 +2554,12 @@ namespace Portal.Consultoras.Common
             public const string CaracteresBuscadorMostrar = "CaracteresBuscadorMostrar";
             public const string TotalResultadosBuscador = "TotalResultadosBuscador";
         }
+
+        public class ActualizacionDatos {
+
+            public const string CambioCorreoPendiente = "1";
+
+        }
+
     }
 }

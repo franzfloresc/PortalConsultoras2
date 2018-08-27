@@ -94,5 +94,6 @@ namespace Portal.Consultoras.BizLogic
         bool EsConsultoraNueva(BEUsuario usuario);
         string ObtenerCodigoRevistaFisica(int paisId);
         BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais);
+        BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo);
     }
 }

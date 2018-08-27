@@ -1219,6 +1219,10 @@ namespace Portal.Consultoras.Entities
         public bool CambioCorreoPendiente { get; set; }
         [DataMember]
         public string CorreoPendiente { get; set; }
+        [DataMember]
+        public bool PuedeActualizarEmail { get; set; }
+        [DataMember]
+        public bool PuedeActualizarCelular { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
