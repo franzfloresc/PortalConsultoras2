@@ -103,7 +103,7 @@ function AgregarOfertaFinal(model) {
 
     var add;
     if (tipoOrigen == "1") add = AgregarProducto('PedidoInsertarOF', model, "", false, false);
-    else add = InsertarProducto(model, false);
+    else add = InsertarProducto(model, false, 'PedidoInsertarOF');
     OpenLoadingOF();
 
     if (add == null) add.success = false;
@@ -725,7 +725,7 @@ function ActualizarValoresPopupOfertaFinal(data, popup) {
                     $('#spnTituloOfertaFinal span').html(msg1);
 
                     if (tipoOrigen == 1) {
-                        $('#spnTituloOfertaFinal').css('max-width', '700px');
+                        //$('#spnTituloOfertaFinal').css('max-width', '700px');
                         $('#spnTituloOfertaFinal').css('margin', '0 auto');
 
                         $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + variablesPortal.SimboloMoneda + ' ' + data.DataBarra.MontoGananciaStr);

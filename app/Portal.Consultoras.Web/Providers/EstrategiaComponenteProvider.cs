@@ -124,12 +124,12 @@ namespace Portal.Consultoras.Web.Providers
             listaProducto.ForEach(x =>
             {
                 x.NombreComercial = x.NombreComercial ?? string.Empty;
-                //x.NombreBulk = String.IsNullOrEmpty(x.NombreBulk) ? x.NombreComercial : x.NombreBulk;
+                x.NombreBulk = String.IsNullOrEmpty(x.NombreBulk) ? x.NombreComercial : x.NombreBulk;
                 x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(x.ImagenProducto) && string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
                 var codigoIsoPais = SessionManager.SessionManager.Instance.GetUserData().CodigoISO;
-                var campaniaId = SessionManager.SessionManager.Instance.GetUserData().CampaniaID;
+                var campaniaId = estrategiaModelo.CampaniaID;//SessionManager.SessionManager.Instance.GetUserData().CampaniaID;
                 var codigoMarca = string.Empty;
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
@@ -185,7 +185,7 @@ namespace Portal.Consultoras.Web.Providers
                         (listaEstrategiaComponenteProductos.FirstOrDefault(p => beEstrategiaProducto.SAP == p.CodigoProducto && p.Id > idPk)
                         ?? new EstrategiaComponenteModel()).Clone();
                 }
-                
+
                 componenteModel.NombreComercial = GetNombreComercial(componenteModel, beEstrategiaProducto, codigoTipoEstrategia, true);
 
                 if (!string.IsNullOrEmpty(beEstrategiaProducto.ImagenProducto))
@@ -207,12 +207,12 @@ namespace Portal.Consultoras.Web.Providers
                 listaComponentesTemporal.Add(componenteModel);
                 idPk = componenteModel.Id;
             }
-            
+
             listaEstrategiaComponenteProductos = EstrategiaComponenteLimpieza(estrategiaModelo.CodigoVariante, listaComponentesTemporal);
-            
+
             return listaEstrategiaComponenteProductos;
         }
-        
+
         private List<EstrategiaComponenteModel> GetEstrategiaDetalleCompuesta(EstrategiaPersonalizadaProductoModel estrategiaModelo,
                                                                     List<BEEstrategiaProducto> listaBeEstrategiaProductos,
                                                                     string codigoTipoEstrategia)
@@ -246,7 +246,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             listaEstrategiaComponenteProductos = EstrategiaComponenteLimpieza(estrategiaModelo.CodigoVariante, listaEstrategiaComponenteProductos);
-            
+
             return listaEstrategiaComponenteProductos;
         }
 
@@ -333,7 +333,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 else
                 {
-                    componenteModel.NombreComercial = beEstrategiaProducto.NombreComercial == "" ? 
+                    componenteModel.NombreComercial = beEstrategiaProducto.NombreComercial == "" ?
                         beEstrategiaProducto.NombreProducto : beEstrategiaProducto.NombreComercial;
                 }
             }
@@ -343,11 +343,14 @@ namespace Portal.Consultoras.Web.Providers
                 componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.NombreBulk);
             }
 
-            componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.Volumen);
+            if (componenteModel.Volumen != "" && !(" " + componenteModel.NombreComercial.ToLower() + " ").Contains(" " + componenteModel.Volumen.ToLower() + " "))
+            {
+                componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.Volumen);
+            }
 
             return Util.Trim(componenteModel.NombreComercial);
         }
-        
+
         private string GetNombreComercialSinBulk(EstrategiaComponenteModel hermano)
         {
             string NombreComercialCompleto = Util.Trim(hermano.NombreComercial);
@@ -360,6 +363,12 @@ namespace Portal.Consultoras.Web.Providers
                 NombreComercialCompleto = hermano.NombreComercial.Substring(0, pos);
                 NombreComercialCompleto += " " + hermano.NombreComercial.Substring(pos + longitudBulk);
             }
+
+            if (NombreComercialCompleto.Trim().ToLower() == hermano.Volumen.Trim().ToLower() || NombreComercialCompleto.Trim() == "")
+            {
+                NombreComercialCompleto = Util.Trim(hermano.NombreComercial);
+            }
+
             return NombreComercialCompleto.Trim();
         }
 
@@ -400,11 +409,11 @@ namespace Portal.Consultoras.Web.Providers
             contador += listaComponentesEzika.Any() ? 1 : 0;
             contador += listaComponentesLbel.Any() ? 1 : 0;
             esMultimarca = contador > 1;
-            if(soyPaisEsika)
+            if (soyPaisEsika)
             {
-                foreach(string s in aordenESIKA)
+                foreach (string s in aordenESIKA)
                 {
-                    if(Convert.ToInt16(s) == Constantes.Marca.LBel)
+                    if (Convert.ToInt16(s) == Constantes.Marca.LBel)
                         listaComponentesOrdenados.AddRange(listaComponentesLbel);
                     if (Convert.ToInt16(s) == Constantes.Marca.Esika)
                         listaComponentesOrdenados.AddRange(listaComponentesEzika);
