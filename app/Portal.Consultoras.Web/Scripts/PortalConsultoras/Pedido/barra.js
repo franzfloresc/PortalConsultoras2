@@ -84,7 +84,7 @@ function MostrarBarra(datax, destino) {
             valorStr: data.MontoMinimoStr
         });
 
-        if (tp > 0) {
+        if (tp > 0 && dataBarra.TippingPointBarra.Active) {
             listaLimite.push({
                 nombre: "",
                 tipoMensaje: 'TippingPoint',
