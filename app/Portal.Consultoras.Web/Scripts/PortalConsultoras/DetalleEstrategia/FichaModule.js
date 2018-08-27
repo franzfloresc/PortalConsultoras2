@@ -569,7 +569,10 @@ var FichaModule = (function (config) {
         $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
-        if (estrategia.esCampaniaSiguiente) _validarDesactivadoGeneral(estrategia);
+        
+        if (estrategia.CodigoVariante === _codigoVariedad.IndividualVariable ||
+            estrategia.CodigoVariante === _codigoVariedad.CompuestaVariable ||
+            estrategia.esCampaniaSiguiente) _validarDesactivadoGeneral(estrategia);
 
         if (estrategia.TipoAccionAgregar <= 0) {
             $(_seccionesFichaProducto.dvContenedorAgregar).hide();

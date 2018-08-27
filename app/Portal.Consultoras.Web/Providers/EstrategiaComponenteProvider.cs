@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Providers
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(x.ImagenProducto) && string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
                 var codigoIsoPais = SessionManager.SessionManager.Instance.GetUserData().CodigoISO;
-                var campaniaId = SessionManager.SessionManager.Instance.GetUserData().CampaniaID;
+                var campaniaId = estrategiaModelo.CampaniaID;//SessionManager.SessionManager.Instance.GetUserData().CampaniaID;
                 var codigoMarca = string.Empty;
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
