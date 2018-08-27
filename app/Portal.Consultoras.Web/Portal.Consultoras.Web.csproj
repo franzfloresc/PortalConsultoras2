@@ -196,7 +196,6 @@
     </Compile>
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\LanzamientosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiPerfilController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAcademiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PagoEnLineaController.cs" />
@@ -224,7 +223,6 @@
     <Compile Include="Areas\Mobile\Controllers\FichaProductoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DescargarAppController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\OfertasParaTiController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PaypalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoFICController.cs" />
@@ -298,11 +296,6 @@
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
-    <Compile Include="Controllers\BaseGuiaNegocioController.cs" />
-    <Compile Include="Controllers\BaseHerramientasVentaController.cs" />
-    <Compile Include="Controllers\BaseLanzamientosController.cs" />
-    <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
-    <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\BaseViewController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
@@ -314,7 +307,6 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
-    <Compile Include="Controllers\LanzamientosController.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
     <Compile Include="Infraestructure\Sms\ISmsSender.cs" />
@@ -412,7 +404,6 @@
     <Compile Include="Controllers\OfertaLiquidacionController.cs" />
     <Compile Include="Controllers\OfertaNuevaController.cs" />
     <Compile Include="Controllers\OfertasMasVendidosController.cs" />
-    <Compile Include="Controllers\OfertasParaTiController.cs" />
     <Compile Include="Controllers\OfertaWebController.cs" />
     <Compile Include="Controllers\PaqueteDocumentarioController.cs" />
     <Compile Include="Controllers\ParametrizarCUVController.cs" />
@@ -1355,14 +1346,12 @@
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
     <Content Include="Content\Css\Mobile\Ficha\SeleccionarTipo.css" />
-    <Content Include="Content\Css\Mobile\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Mobile\lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Gnd-Flotante.css" />
-    <Content Include="Content\Css\Mobile\RevistaDigital\OfertaParaTi-Detalle.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
@@ -1395,7 +1384,6 @@
     <Content Include="Content\Css\Site\Lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Lbel\mi-perfil.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
-    <Content Include="Content\Css\Site\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
@@ -3858,7 +3846,6 @@
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
     <Content Include="Scripts\knockout.extensions.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
-    <Content Include="Scripts\PortalConsultoras\Lanzamientos\detalle-lanzamiento.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Banner.js" />
@@ -4176,7 +4163,6 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutEmpty.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOferta.cshtml" />
-    <Content Include="Areas\Mobile\Views\OfertasParaTi\Detalle.cshtml" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-left.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-right.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow_select_variant.svg" />
@@ -4287,7 +4273,6 @@
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-bloqueado-Lan-Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\Personalizado.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOfertaPersonalizado.cshtml" />
-    <Content Include="Areas\Mobile\Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Content\Css\Site\Contenedor\producto.simple.css" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\Ficha.cshtml" />
@@ -5268,9 +5253,7 @@
     <Content Include="Views\MisCertificados\TributarioPdf.cshtml" />
     <Content Include="Views\AsesoraOnline\VolverSuscripcion.cshtml" />
     <Content Include="Views\AsesoraOnline\CancelarSuscripcion.cshtml" />
-    <Content Include="Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
-    <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
     <Content Include="Views\MiPerfil\Index.cshtml" />
     <Content Include="Views\MiPerfil\CambiarContrasenia.cshtml" />
     <Content Include="Views\MiPerfil\ActualizarCorreo.cshtml" />
@@ -5613,7 +5596,6 @@
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\App\" />
     <Folder Include="Views\BaseHerramientasVenta\" />
-    <Folder Include="Views\BaseLanzamientos\" />
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Buscador\" />
     <Folder Include="Views\Campania\" />
