@@ -741,9 +741,9 @@ namespace Portal.Consultoras.Service
             return _usuarioBusinessLogic.RegistrarEnvioSms(paisId, codigoUsuario, codigoConsultora, campaniaId, esMobile, celularActual, celularNuevo);
         }
 
-        public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania)
+        public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania, bool soloValidar)
         {
-            return _usuarioBusinessLogic.ConfirmarCelularPorCodigoSms(paisId, codigoUsuario, codigoSms, campania);
+            return _usuarioBusinessLogic.ConfirmarCelularPorCodigoSms(paisId, codigoUsuario, codigoSms, campania, soloValidar);
         }
 
         public string AceptarContrato(BEUsuario usuario)

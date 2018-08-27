@@ -1919,17 +1919,17 @@ namespace Portal.Consultoras.BizLogic
             return new BERespuestaServicio { Succcess = true };
         }
 
-        public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania)
+        public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania, bool soloValidar)
         {
-            if (string.IsNullOrEmpty(codigoSms))
-            {
-                return new BERespuestaServicio(Constantes.MensajesError.ValorVacio);
-            }
-
+            var daValidacionDatos = new DAValidacionDatos(paisId);
+            var daUsuario = new DAUsuario(paisId);
+            
             try
             {
-                var daValidacionDatos = new DAValidacionDatos(paisId);
-                var daUsuario = new DAUsuario(paisId);
+                if (string.IsNullOrEmpty(codigoSms))
+                {
+                    return new BERespuestaServicio(Constantes.MensajesError.ValorVacio);
+                }
 
                 var valid = daUsuario.ValidarCodigoIngresado(new BEUsuarioDatos
                 {
@@ -1956,17 +1956,20 @@ namespace Portal.Consultoras.BizLogic
                     return new BERespuestaServicio(Constantes.MensajesError.CelularEnUso);
                 }
 
-                var transOptions = new TransactionOptions
+                if (!soloValidar)
                 {
-                    IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted
-                };
+                    var transOptions = new TransactionOptions
+                    {
+                        IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted
+                    };
 
-                using (var transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
-                {
-                    daValidacionDatos.UpdValidacionDatos(validacionDato);
-                    daUsuario.UpdUsuarioCelular(codigoUsuario, celularNuevo);
+                    using (var transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
+                    {
+                        daValidacionDatos.UpdValidacionDatos(validacionDato);
+                        daUsuario.UpdUsuarioCelular(codigoUsuario, celularNuevo);
 
-                    transScope.Complete();
+                        transScope.Complete();
+                    }
                 }
 
                 return new BERespuestaServicio

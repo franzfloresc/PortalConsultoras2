@@ -2578,7 +2578,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_INTERNO, string.Empty},
                         {Code.ERROR_CELULAR_LONGITUD, "El número debe tener {0} dígitos."},
                         {Code.ERROR_CELULAR_INVALIDO, "No es un número válido."},
-                        {Code.ERROR_CELULAR_USADO, "El número ya está en uso."}
+                        {Code.ERROR_CELULAR_USADO, "El celular ingresado ya está registrado para otra consultora."}
                     });
                 }
             }

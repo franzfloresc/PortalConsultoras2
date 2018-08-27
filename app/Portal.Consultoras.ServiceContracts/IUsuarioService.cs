@@ -320,7 +320,7 @@ namespace Portal.Consultoras.ServiceContracts
         BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo);
 
         [OperationContract]
-        BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania);
+        BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania, bool soloValidar);
 
         [OperationContract]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
