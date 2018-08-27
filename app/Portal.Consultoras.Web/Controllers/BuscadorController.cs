@@ -30,11 +30,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var resultBuscador = new List<BuscadorYFiltrosModel>();
                 var buscadorModel = new BuscadorModel();
 
-                var lista = userData.NuevasDescripcionesBuscador;
-                var a = lista[Constantes.NuevaDescripcionBuscador.CLUBGANA];
-                var b = lista[Constantes.NuevaDescripcionBuscador.SOLOHOY];
-                var c = lista[Constantes.NuevaDescripcionBuscador.CATALOGOLBEL];
-
                 buscadorModel.userData = userData;
                 buscadorModel.revistaDigital = revistaDigital;
                 buscadorModel.TextoBusqueda = busqueda;
@@ -42,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(buscadorModel);
 
-                ListaProductosModel = BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, sessionManager.GetDetallesPedido(), userData);
+                ListaProductosModel = BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, sessionManager.GetDetallesPedido(), userData, revistaDigital);
             }
             catch (Exception ex)
             {

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Portal.Consultoras.Common;
 using System.Web;
 
 namespace Portal.Consultoras.Web.Providers
@@ -44,8 +45,9 @@ namespace Portal.Consultoras.Web.Providers
             return resultados;
         }
 
-        public List<BuscadorYFiltrosModel> ValidacionProductoAgregado(List<BuscadorYFiltrosModel> resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData)
+        public List<BuscadorYFiltrosModel> ValidacionProductoAgregado(List<BuscadorYFiltrosModel> resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
+            var suscripcionActiva = (revistaDigital.EsSuscrita == true && revistaDigital.EsActiva == true);
             var resultBuscador = new List<BuscadorYFiltrosModel>();
             try
             {
@@ -77,7 +79,7 @@ namespace Portal.Consultoras.Web.Providers
                             LimiteVenta = item.LimiteVenta,
                             PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo),
                             ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo),
-                            DescripcionEstrategia = "En duro",//item.descripcionEstrategia,
+                            DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId),
                             MarcaId = item.MarcaId,
                             CampaniaID = userData.CampaniaID,
                             Agregado = labelAgregado,

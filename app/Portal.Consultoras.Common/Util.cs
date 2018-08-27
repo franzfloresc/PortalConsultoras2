@@ -3537,7 +3537,7 @@ namespace Portal.Consultoras.Common
         }
 
         //Validación de la descripción del producto
-        public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista, bool suscripcion, string codigoEstrategia, int marcaId)
+        public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista, bool suscripcion, string codigoEstrategia, string tipoEstrategiaCodigo, int marcaId)
         {
             var result = "";
 
@@ -3546,22 +3546,49 @@ namespace Portal.Consultoras.Common
             switch (codigoEstrategia)
             {
                 case "LIQ":
-                    //result = Constantes.Ofertas.OfertaLiquidacion;
+                    result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
                     break;
                 case "CAT":
-                    //result = (marcaId == 1 ? Constantes.Catalogos.LBel : (marcaId == 2 ? Constantes.Catalogos.Esika : Constantes.Catalogos.Cyzone));
+                    result = (marcaId == 1 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOLBEL] : 
+                        (marcaId == 2 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA] : 
+                        lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE]));
                     break;
                 case "ODD":
-
+                    result = lista[Constantes.NuevoCatalogoProducto.SOLOHOY];
                     break;
                 default:
                     if (suscripcion)
                     {
-                        
+                        result = lista[Constantes.NuevoCatalogoProducto.CLUBGANA];
                     }
                     else
                     {
-
+                        switch (tipoEstrategiaCodigo)
+                        {
+                            case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                            case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                            case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                                result = lista[Constantes.NuevoCatalogoProducto.OFERTAPARATI];
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                                result = lista[Constantes.NuevoCatalogoProducto.LANZAMIENTOS];
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                                result = lista[Constantes.NuevoCatalogoProducto.OFERTADELDIA];
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                                result = lista[Constantes.NuevoCatalogoProducto.GUIADENEGOCIODIGITAL];
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                                result = lista[Constantes.TipoEstrategiaCodigo.HerramientasVenta];
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                                result = lista[Constantes.NuevoCatalogoProducto.ESPECIALES];
+                                break;
+                            default:
+                                result = "";
+                                break;
+                        }
                     }
                     break;
             }
