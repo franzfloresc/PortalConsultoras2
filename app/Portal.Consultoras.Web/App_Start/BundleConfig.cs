@@ -426,14 +426,15 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Esika").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/_LoginLayout-Esika").Include(
                "~/Content/Css/Site/Login2/style_esika.css"
             ));
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Lbel").Include(
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/_LoginLayout-Lbel").Include(
                "~/Content/Css/Site/Login2/style_lbel.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFICDetalle").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/PedidoFIC-Detalle").Include(
                 "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Detalle.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
@@ -441,7 +442,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
             ));
-            bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFIC").Include(
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/PedidoFIC").Include(
                 "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Index.js",
                 "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
@@ -458,7 +460,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/barra.js"
              ));
 
-            bundles.Add(new ScriptBundle("~/bundles/ActualizarMatrizCampaniaModuleMin").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/ActualizarMatrizCampania").Include(
                 "~/Scripts/fileuploader.js",
                 "~/Scripts/jquery.form.js",
                 "~/Scripts/handlebars.js",
@@ -469,7 +471,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/MatrizCampania/ActualizarMatrizCampaniaModule.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsSB2-Ofertas").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/Ofertas").Include(
                 "~/Scripts/jquery.flexslider.js",
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
@@ -489,7 +491,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Descargables.js"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertas").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ofertas").Include(
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/flexslider.css",
                 "~/Content/Css/Site/Contenedor/carrusel.individual.css",
@@ -497,7 +499,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsMobile/JsSB2-Ofertas").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Ofertas").Include(
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js",
                 "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
@@ -512,19 +514,19 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertasMobile").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ofertas").Include(
                 "~/Content/Css/Site/slick.css",
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Mobile/Contenedor/carrusel.individual.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/Css/Mobile/Site/CssPedido").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Pedido").Include(
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/Css/Mobile/Site/MisCatalogoRevista").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Catalogo").Include(
                 "~/Content/Css/Mobile/jquery.tag-editor.css",
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
             ));
