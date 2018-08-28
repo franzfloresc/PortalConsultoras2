@@ -8,21 +8,31 @@ namespace Portal.Consultoras.Web.UnitTest
     [TestClass]
     public class Base
     {
-        protected Mock<ISessionManager> sessionManager;
-        protected Mock<ILogManager> logManager;
+        private Mock<ISessionManager> _sessionManager;
+        private Mock<ILogManager> _logManager;
+
+        protected Mock<ISessionManager> SessionManager
+        {
+            get { return _sessionManager; }
+        }
+
+        protected Mock<ILogManager> LogManager
+        {
+            get { return _logManager; }
+        }
 
         [TestInitialize]
         public virtual void Test_Initialize()
         {
-            sessionManager = new Mock<ISessionManager>();
-            logManager = new Mock<ILogManager>();
+            _sessionManager = new Mock<ISessionManager>();
+            _logManager = new Mock<ILogManager>();
         }
 
         [TestCleanup]
         public virtual void Test_Cleanup()
         {
-            sessionManager = null;
-            logManager = null;
+            _sessionManager = null;
+            _logManager = null;
         }
     }
 }
