@@ -1153,5 +1153,14 @@ ul.breadcumbs li a::before {
     width: 40%;
 }
 
+.cantidad_producto_opt{
+    float: left;
+}
+
+.descripcion_tipo {
+    float: left;
+    width: 86%;
+}
+
 
 

@@ -581,3 +581,17 @@ ul.breadcumbs li:last-child a {
     position: relative;
     top: -2px;
 }
+
+.titulo_seleccionado{
+    width: 85%;
+    line-height: normal;
+}
+
+.cantidad_producto_opt {
+    float: left;
+}
+
+.descripcion_tipo {
+    float: left;
+    width: 86%;
+}
