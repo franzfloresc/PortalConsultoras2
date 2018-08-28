@@ -171,10 +171,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Esika/revistaDigital.css",
                "~/Content/Css/Site/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Site/Esika/buscador-filtros.css",
-               "~/Content/Css/Site/ProductoListado/CajaProducto.css",
-               "~/Content/Css/Site/ProductoListado/CajaProducto.css",
-               "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
-
+               "~/Content/Css/Site/ProductoListado/CajaProducto.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/AsesoraOnline").Include(
