@@ -171,7 +171,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
             private RevistaDigitalController GetRevistaController()
             {
-                return new RevistaDigitalControllerStub001(sessionManager.Object, logManager.Object);
+                return new RevistaDigitalControllerStub001(SessionManager.Object, LogManager.Object);
             }
 
             [TestInitialize]

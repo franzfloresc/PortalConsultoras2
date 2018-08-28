@@ -10,14 +10,14 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/mobile/css/ficha")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        @Styles.Render("~/bundles/mobile/css/FichaEsika")
+        @Styles.Render("~/Bundle/Css/Mobile/Ficha-Esika")
     }
     else
     {
-        @Styles.Render("~/bundles/mobile/css/FichaLbel")
+        @Styles.Render("~/Bundle/Css/Mobile/Ficha-Lbel")
     }
     <style id="styleRelojOdd"></style>
 }
@@ -290,9 +290,9 @@ else
 @Html.Partial("_template-ofertadeldia-style")
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
-    @System.Web.Optimization.Scripts.Render("~/bundles/mobile/js/Ficha")
-    @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
 
     <script>
         AbrirLoad();

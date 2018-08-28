@@ -278,8 +278,7 @@ namespace Portal.Consultoras.Web.Controllers
                             mensaje.AppendFormat("aceptas o rechazas el pedido. Si te demoras más de {0} horas, el pedido <br/>", horas);
                             mensaje.Append("será asignado a otra consultora y ya no podrás ver los datos del cliente.<br/><br/>");
                             mensaje.Append("Gracias,<br/>Belcorp.</p>");
-                            Util.EnviarMail("no-responder@somosbelcorp.com", nuevaConsultora.Email, emailOculto, asunto,
-                               mensaje.ToString(), true);
+                            Util.EnviarMail("no-responder@somosbelcorp.com", nuevaConsultora.Email, emailOculto, asunto, mensaje.ToString(), true);
                         }
                         catch (Exception ex)
                         {

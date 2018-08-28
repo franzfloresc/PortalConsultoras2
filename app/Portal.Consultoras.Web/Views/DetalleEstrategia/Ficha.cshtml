@@ -5,14 +5,14 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/ficha")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha")
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/FichaEsika")
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Esika")
     }
     else
     {
-        @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/FichaLbel")
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Lbel")
     }
 }
 
@@ -333,8 +333,8 @@
 
 @section scripts{
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
-    @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
     <script type="text/javascript">
         AbrirLoad();

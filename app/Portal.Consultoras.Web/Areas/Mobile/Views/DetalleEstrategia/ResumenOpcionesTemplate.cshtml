@@ -4,7 +4,7 @@
     {{#iff componente.cantidadAplicada '>' 0}}
     <ul class="tono_selecionado_item">
         <li class="imagen_selecionado"><img src="{{componente.ImagenBulk}}" alt="" /></li>
-        <li class="titulo_seleccionado"><span class="cantidad_producto_opt">x{{componente.cantidadAplicada}} </span>{{#Substr 25  componente.NombreBulk}}{{/Substr}}</li>
+        <li class="titulo_seleccionado"><span class="cantidad_producto_opt">x{{componente.cantidadAplicada}} </span> <span class="descripcion_tipo">{{#Substr 25  componente.NombreBulk}}{{/Substr}}</span></li>
     </ul>
     {{/iff}}
     {{/each}}

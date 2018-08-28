@@ -8,7 +8,7 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/HerramientasVenta-Landing")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/HerramientaVenta-Landing")
 }
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"
      data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
@@ -98,5 +98,5 @@
     var lsListaRD = "HVLista";
     var campaniaId = @Model.CampaniaID;
 </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/HerramientasVenta-Landing")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/HerramientaVenta-Landing")
 }

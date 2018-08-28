@@ -70,3 +70,4 @@ node_modules/
 # Cakebuild
 /app/tools/**
 !/app/tools/packages.config
+/app/UpgradeLog.htm
