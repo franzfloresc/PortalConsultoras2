@@ -10,147 +10,147 @@
     background-size: cover;
 }
 
-    .revistadigital .pedido {
-        background: #f8f8f8;
-    }
+.revistadigital .pedido {
+    background: #f8f8f8;
+}
 
-        .revistadigital .pedido.mobile {
-            background: #f0f0f0;
-            box-shadow: none;
-        }
+.revistadigital .pedido.mobile {
+    background: #f0f0f0;
+    box-shadow: none;
+}
 
-        .revistadigital .pedido p.marca:before {
-            border: 0 solid;
-        }
+.revistadigital .pedido p.marca:before {
+    border: 0 solid;
+}
 
-        .revistadigital .pedido .giftext:after {
-            border: 0 solid;
-        }
+.revistadigital .pedido .giftext:after {
+    border: 0 solid;
+}
 
-        .revistadigital .pedido .giftext {
-            top: 0;
-        }
+.revistadigital .pedido .giftext {
+    top: 0;
+}
 
-    .revistadigital .revistadigital-content {
-        max-width: 1189px;
-        margin: 0 auto;
-        height: auto;
-        position: relative;
-    }
+.revistadigital .revistadigital-content {
+    max-width: 1189px;
+    margin: 0 auto;
+    height: auto;
+    position: relative;
+}
 
-        .revistadigital .revistadigital-content img {
-            max-width: 75% !important;
-            height: 80%;
-        }
+.revistadigital .revistadigital-content img {
+    max-width: 75% !important;
+    height: 80%;
+}
 
-    .revistadigital p.marca {
-        font-size: 30px;
-        letter-spacing: 9px;
-        display: inline-block;
-        margin: auto;
-    }
+.revistadigital p.marca {
+    font-size: 30px;
+    letter-spacing: 9px;
+    display: inline-block;
+    margin: auto;
+}
 
-        .revistadigital p.marca:before {
-            content: '';
-            width: 120px;
-            border-bottom: solid 1px #000;
-            position: absolute;
-            left: 300px;
-            top: 68px;
-            z-index: 1;
-        }
+.revistadigital p.marca:before {
+    content: '';
+    width: 120px;
+    border-bottom: solid 1px #000;
+    position: absolute;
+    left: 300px;
+    top: 68px;
+    z-index: 1;
+}
 
-    .revistadigital .giftext:after {
-        content: '';
-        position: absolute;
-        left: 180px;
-        top: 38px;
-        z-index: 1;
-        width: 120px;
-        border-bottom: solid 1px #000;
-    }
+.revistadigital .giftext:after {
+    content: '';
+    position: absolute;
+    left: 180px;
+    top: 38px;
+    z-index: 1;
+    width: 120px;
+    border-bottom: solid 1px #000;
+}
 
-    .revistadigital .giftext {
-        display: inline-block;
-        position: relative;
-        top: 30px;
-    }
+.revistadigital .giftext {
+    display: inline-block;
+    position: relative;
+    top: 30px;
+}
 
-        .revistadigital .giftext img {
-            height: 75px;
-        }
+.revistadigital .giftext img {
+    height: 75px;
+}
 
-    .revistadigital .revistadigital-desc {
-        font-size: 13px;
-        margin-top: 35px;
-    }
+.revistadigital .revistadigital-desc {
+    font-size: 13px;
+    margin-top: 35px;
+}
 
-        .revistadigital .revistadigital-desc span {
-            font-family: 'Lato-Bold';
-        }
+.revistadigital .revistadigital-desc span {
+    font-family: 'Lato-Bold';
+}
 
-    .revistadigital .revistadigital-baj {
-        font-size: 12px;
-        margin-top: 25px;
-    }
+.revistadigital .revistadigital-baj {
+    font-size: 12px;
+    margin-top: 25px;
+}
 
-        .revistadigital .revistadigital-baj a {
-            text-decoration: underline;
-        }
+.revistadigital .revistadigital-baj a {
+    text-decoration: underline;
+}
 
-    .revistadigital .arrow-right {
-        width: 0;
-        height: 0;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        left: 415px;
-        position: absolute;
-        top: 153px;
-    }
+.revistadigital .arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    left: 415px;
+    position: absolute;
+    top: 153px;
+}
 
-    .revistadigital .revistadigital-items {
-        max-width: 1189px;
-        height: 404px;
-        margin: 0 auto;
-        margin-top: 30px;
-        position: relative;
-    }
+.revistadigital .revistadigital-items {
+    max-width: 1189px;
+    height: 404px;
+    margin: 0 auto;
+    margin-top: 30px;
+    position: relative;
+}
 
-        .revistadigital .revistadigital-items img {
-            height: 340px;
-            -webkit-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
-            -moz-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
-            box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
-        }
+.revistadigital .revistadigital-items img {
+    height: 340px;
+    -webkit-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
+    -moz-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
+    box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
+}
 
-        .revistadigital .revistadigital-items .item2 {
-            margin: 0 20px;
-        }
+.revistadigital .revistadigital-items .item2 {
+    margin: 0 20px;
+}
 
-        .revistadigital .revistadigital-items .item3 {
-            margin: 0 20px 0 0;
-        }
+.revistadigital .revistadigital-items .item3 {
+    margin: 0 20px 0 0;
+}
 
-    .revistadigital .boxoffer {
-        width: 145px;
-        height: 90px;
-        position: absolute;
-        top: 332px;
-        right: -42px;
-        background: transparent;
-        overflow: hidden;
-        cursor: pointer;
-        transition: all .3s ease;
-        -moz-transition: all .3s ease;
-        -o-transition: all .3s ease;
-        -ms-transition: all .3s ease;
-        -webkit-transition: all .3s ease;
-    }
+.revistadigital .boxoffer {
+    width: 145px;
+    height: 90px;
+    position: absolute;
+    top: 332px;
+    right: -42px;
+    background: transparent;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
 
-        .revistadigital .boxoffer:hover {
-            opacity: .95;
-            right: -35px;
-        }
+.revistadigital .boxoffer:hover {
+    opacity: .95;
+    right: -35px;
+}
 
 .revistaDigital_catalogosRevistas .boxoffer {
     top: 216px;
@@ -201,17 +201,17 @@
     line-height: 16px;
 }
 
-    .revistadigital .boxoffer .texto_boton:after {
-        width: 20px;
-        height: 50px;
-        position: absolute;
-        content: '';
-        top: 0;
-        right: -6px;
-        background: url('/Content/Images/flecha-right.svg') no-repeat center center;
-        background-size: 100%;
-        z-index: 100;
-    }
+.revistadigital .boxoffer .texto_boton:after {
+    width: 20px;
+    height: 50px;
+    position: absolute;
+    content: '';
+    top: 0;
+    right: -6px;
+    background: url('/Content/Images/flecha-right.svg') no-repeat center center;
+    background-size: 100%;
+    z-index: 100;
+}
 
 .revistadigital .boxoffer.boxOfferPedido {
     top: 300px;
@@ -226,61 +226,61 @@
     margin-bottom: 14px;
 }
 
-    .revistadigital-title .logo-marca, .revistadigital-title .linea-separacion, .revistadigital-title .titulo_nuevaRevista {
-        display: inline-block;
-        vertical-align: middle;
-    }
+.revistadigital-title .logo-marca, .revistadigital-title .linea-separacion, .revistadigital-title .titulo_nuevaRevista {
+    display: inline-block;
+    vertical-align: middle;
+}
 
-    .revistadigital-title .logo-marca {
-        width: 245px;
-        height: auto;
-        margin-left: 103px;
-    }
+.revistadigital-title .logo-marca {
+    width: 245px;
+    height: auto;
+    margin-left: 103px;
+}
 
-        .revistadigital-title .logo-marca img {
-            width: 100%;
-            height: auto;
-            position: relative;
-            top: 31px;
-        }
+.revistadigital-title .logo-marca img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 31px;
+}
 
-    .revistadigital-title .linea-separacion {
-        width: 1px;
-        background: #000;
-        height: 78px;
-        margin-top: 14px;
-        margin-left: -30px;
-        margin-right: 41px;
-        transform: rotate(15deg);
-        -moz-transform: rotate(15deg);
-        -o-transform: rotate(15deg);
-        -ms-transform: rotate(15deg);
-        -webkit-transform: rotate(15deg);
-    }
+.revistadigital-title .linea-separacion {
+    width: 1px;
+    background: #000;
+    height: 78px;
+    margin-top: 14px;
+    margin-left: -30px;
+    margin-right: 41px;
+    transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+}
 
-    .revistadigital-title .titulo_nuevaRevista {
-        width: 60%;
-        text-align: left;
-        padding-top: 12px;
-    }
+.revistadigital-title .titulo_nuevaRevista {
+    width: 60%;
+    text-align: left;
+    padding-top: 12px;
+}
 
-    .revistadigital-title .mensajeConsultora_nuevaRevista {
-        display: block;
-    }
+.revistadigital-title .mensajeConsultora_nuevaRevista {
+    display: block;
+}
 
-        .revistadigital-title .mensajeConsultora_nuevaRevista.texto_nuevaRevista {
-            font-family: 'Lato';
-            font-size: 15px;
-            font-weight: 900;
-        }
+.revistadigital-title .mensajeConsultora_nuevaRevista.texto_nuevaRevista {
+    font-family: 'Lato';
+    font-size: 15px;
+    font-weight: 900;
+}
 
-        .revistadigital-title .mensajeConsultora_nuevaRevista.texto_encuentraOfertas {
-            font-family: 'Lato';
-            font-size: 20px;
-            font-weight: 300;
-            line-height: 24px;
-            margin-top: 5px;
-        }
+.revistadigital-title .mensajeConsultora_nuevaRevista.texto_encuentraOfertas {
+    font-family: 'Lato';
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
+    margin-top: 5px;
+}
 
 
 .background-revistaSeccion {
@@ -352,10 +352,10 @@
     top: 9px;
 }
 
-    .cabecera_contenedor_logoMarca img {
-        width: 100%;
-        height: auto;
-    }
+.cabecera_contenedor_logoMarca img {
+    width: 100%;
+    height: auto;
+}
 
 .cabecera_texto {
     width: 193px;
@@ -385,16 +385,16 @@
     z-index: 1;
 }
 
-    .rd_logo:after {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 0;
-        height: 0;
-        clear: both;
-        z-index: 1;
-    }
+.rd_logo:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    clear: both;
+    z-index: 1;
+}
 
 .rd_arrowright_blanco {
     display: none;
@@ -420,41 +420,39 @@
     font-size: 13px;
 }
 
-    .btn_stroke_white:hover a {
-        color: black;
-    }
+.btn_stroke_white:hover a {
+    color: black;
+}
 
-    .btn_stroke_white:after {
-        background: white;
-    }
-
-
+.btn_stroke_white:after {
+    background: white;
+}
 
 .home_block_rd {
     color: white;
     height: 120px;
 }
 
-    .home_block_rd .rd_logo {
-        width: 260px;
-        height: 120px;
-        padding-top: 26px;
-    }
+.home_block_rd .rd_logo {
+    width: 260px;
+    height: 120px;
+    padding-top: 26px;
+}
 
-    .home_block_rd .rd_logo2 {
-        background-image: linear-gradient(to right, #b3842f, #d9b43c) !important;
-    }
+.home_block_rd .rd_logo2 {
+    background-image: linear-gradient(to right, #b3842f, #d9b43c) !important;
+}
 
-    .home_block_rd .rd_logo img.large {
-        width: 160px;
-        margin-left: -20px;
-    }
+.home_block_rd .rd_logo img.large {
+    width: 160px;
+    margin-left: -20px;
+}
 
-    .home_block_rd .rd_logo:after {
-        border-left: 30px solid transparent;
-        border-right: 0 solid transparent;
-        border-bottom: 120px solid #000;
-    }
+.home_block_rd .rd_logo:after {
+    border-left: 30px solid transparent;
+    border-right: 0 solid transparent;
+    border-bottom: 120px solid #000;
+}
 
 .hblock {
     background-color: black;
@@ -503,29 +501,29 @@
     background-color: black;
 }
 
-    .cabecera_pedido_rd .rd_logo {
-        width: 120px;
-        height: 85px;
-        text-transform: uppercase;
-    }
+.cabecera_pedido_rd .rd_logo {
+    width: 120px;
+    height: 85px;
+    text-transform: uppercase;
+}
 
-        .cabecera_pedido_rd .rd_logo img {
-            width: 79%;
-            margin: auto;
-            display: block;
-            padding: 5px 5px 10px 0;
-        }
+.cabecera_pedido_rd .rd_logo img {
+    width: 79%;
+    margin: auto;
+    display: block;
+    padding: 5px 5px 10px 0;
+}
 
-        .cabecera_pedido_rd .rd_logo:after {
-            border-left: 20px solid transparent;
-            border-right: 0 solid transparent;
-            border-bottom: 85px solid #000;
-        }
+.cabecera_pedido_rd .rd_logo:after {
+    border-left: 20px solid transparent;
+    border-right: 0 solid transparent;
+    border-bottom: 85px solid #000;
+}
 
-        .cabecera_pedido_rd .rd_logo img.small {
-            width: 90px;
-            padding-top: 25px;
-        }
+.cabecera_pedido_rd .rd_logo img.small {
+    width: 90px;
+    padding-top: 25px;
+}
 
 
 .cabecera_pedido_text {
@@ -548,31 +546,31 @@
     text-transform: uppercase;
 }
 
-    .banner_pedido_text b {
-        display: block;
-        text-align: center;
-    }
+.banner_pedido_text b {
+    display: block;
+    text-align: center;
+}
 
 .banner_pedido_masofertas {
     padding: 25px 20px;
     text-align: center;
 }
 
-    .banner_pedido_masofertas .btn_diagonal {
-        width: 70%;
-        position: absolute;
-        left: 50%;
-        bottom: 25px;
-        margin-left: -35%;
-    }
+.banner_pedido_masofertas .btn_diagonal {
+    width: 70%;
+    position: absolute;
+    left: 50%;
+    bottom: 25px;
+    margin-left: -35%;
+}
 
-        .banner_pedido_masofertas .btn_diagonal a .rd_arrowright {
-            display: none;
-        }
+.banner_pedido_masofertas .btn_diagonal a .rd_arrowright {
+    display: none;
+}
 
-        .banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowrightnegro {
-            display: none;
-        }
+.banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowrightnegro {
+    display: none;
+}
 
 .home_rd .btn_diagonal {
     background: white;
@@ -582,30 +580,30 @@
     right: 30px;
 }
 
-    .home_rd .btn_diagonal a {
-        color: black;
-        transition: all .2s ease-in-out;
-        font-size: 13px;
-        letter-spacing: 1.2px;
-        position: relative;
-        padding-left: 20px;
-        text-align: left;
+.home_rd .btn_diagonal a {
+    color: black;
+    transition: all .2s ease-in-out;
+    font-size: 13px;
+    letter-spacing: 1.2px;
+    position: relative;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.home_rd .btn_diagonal:hover a {
+color: white;
+transition: all .2s ease-in-out;
     }
 
-    .home_rd .btn_diagonal:hover a {
-        color: white;
-        transition: all .2s ease-in-out;
-    }
+.home_rd .btn_diagonal:hover a .rd_arrowright, .home_rd .btn_diagonal:hover a .rd_arrowright_blanco {
+    animation: bounceRight 1.2s infinite;
+}
 
-        .home_rd .btn_diagonal:hover a .rd_arrowright, .home_rd .btn_diagonal:hover a .rd_arrowright_blanco {
-            animation: bounceRight 1.2s infinite;
-        }
-
-        .home_rd .btn_diagonal:hover a .rd_arrowright_blanco {
-            position: absolute;
-            right: 16px;
-            top: 15.5px;
-        }
+.home_rd .btn_diagonal:hover a .rd_arrowright_blanco {
+    position: absolute;
+    right: 16px;
+    top: 15.5px;
+}
 
 .home_rd .rd_arrowright, .home_rd .rd_arrowright_blanco {
     position: absolute;
@@ -630,9 +628,9 @@
     margin-top: 2px;
 }
 
-    #bc_content_oferta .clearfix {
-        clear: both;
-    }
+#bc_content_oferta .clearfix {
+    clear: both;
+}
 
 #bc_promo {
     width: 26%;
@@ -642,69 +640,69 @@
     border-right: 1px solid rgba(0, 0, 0, .12);
 }
 
-    #bc_promo .bc_promo_contenido {
-        float: right;
-        width: 100%;
-    }
+#bc_promo .bc_promo_contenido {
+    float: right;
+    width: 100%;
+}
 
-        #bc_promo .bc_promo_contenido p.ven-conoce {
-            display: inline-block;
-            font-family: 'lato';
-            font-weight: 700;
-            font-size: 10px;
-            text-decoration: none;
-            color: black;
-            border-bottom: 2px solid white;
-            letter-spacing: .75pt;
-            text-align: center;
-            padding: 0 50px;
-            margin-bottom: 5px;
-        }
+#bc_promo .bc_promo_contenido p.ven-conoce {
+    display: inline-block;
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 10px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 2px solid white;
+    letter-spacing: .75pt;
+    text-align: center;
+    padding: 0 50px;
+    margin-bottom: 5px;
+}
 
-        #bc_promo .bc_promo_contenido a.btn-descubre {
-            background: black;
-            color: white;
-            letter-spacing: .75pt;
-            font-family: 'lato';
-            font-weight: 700;
-            font-size: 10px;
-            text-decoration: none;
-            display: block;
-            margin: auto;
-            width: 200px;
-            text-align: center;
-            padding: 10px 20px;
-            margin-bottom: 10px;
-            margin-top: 5px;
-        }
+#bc_promo .bc_promo_contenido a.btn-descubre {
+    background: black;
+    color: white;
+    letter-spacing: .75pt;
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 10px;
+    text-decoration: none;
+    display: block;
+    margin: auto;
+    width: 200px;
+    text-align: center;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
 
-        #bc_promo .bc_promo_contenido a.ver-mas {
-            font-family: 'lato';
-            font-weight: 700;
-            font-size: 10px;
-            text-decoration: none;
-            color: black;
-            letter-spacing: .75pt;
-            text-align: center;
-            display: block;
-            text-align: center;
-            width: 200px;
-            margin: auto;
-        }
+#bc_promo .bc_promo_contenido a.ver-mas {
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 10px;
+    text-decoration: none;
+    color: black;
+    letter-spacing: .75pt;
+    text-align: center;
+    display: block;
+    text-align: center;
+    width: 200px;
+    margin: auto;
+}
 
-            #bc_promo .bc_promo_contenido a.ver-mas img {
-                width: 7px;
-                margin-top: 4px;
-                position: absolute;
-                margin-left: 5px;
-            }
+#bc_promo .bc_promo_contenido a.ver-mas img {
+    width: 7px;
+    margin-top: 4px;
+    position: absolute;
+    margin-left: 5px;
+}
 
-        #bc_promo .bc_promo_contenido img.modelo {
-            max-width: 100% !important;
-            display: block;
-            margin: auto;
-            height: auto;
-        }
+#bc_promo .bc_promo_contenido img.modelo {
+    max-width: 100% !important;
+    display: block;
+    margin: auto;
+    height: auto;
+}
 
 .bc_productos {
     width: 68%;
@@ -713,65 +711,65 @@
     background: #f0f0f0;
 }
 
-    .bc_productos .bc_productos_contenido {
-        overflow-y: auto;
-        height: 485.98px;
-        padding: 20px;
-        text-align: center;
+.bc_productos .bc_productos_contenido {
+    overflow-y: auto;
+    height: 485.98px;
+    padding: 20px;
+    text-align: center;
+}
+
+.bc_productos .bc_productos_contenido .grid-item {
+    display: inline-block;
+    width: auto;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.bc_productos .bc_productos_contenido a.ver-mas-ofertas {
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 10px;
+    text-decoration: none;
+    color: black;
+    letter-spacing: .75pt;
+    text-align: center;
+    display: block;
+    text-align: left;
+    width: 100%;
+    padding: 0 22px;
+    margin-bottom: 10px;
+}
+
+    .bc_productos .bc_productos_contenido a.ver-mas-ofertas img {
+        width: 7px;
+        margin-top: 4px;
+        margin-left: 5px;
     }
 
-        .bc_productos .bc_productos_contenido .grid-item {
-            display: inline-block;
-            width: auto;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+.bc_productos .bc_productos_contenido .grid-item {
+    width: 100% !important;
+    overflow: hidden !important;
+    display: inline-block !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
 
-        .bc_productos .bc_productos_contenido a.ver-mas-ofertas {
-            font-family: 'lato';
-            font-weight: 700;
-            font-size: 10px;
-            text-decoration: none;
-            color: black;
-            letter-spacing: .75pt;
-            text-align: center;
-            display: block;
-            text-align: left;
-            width: 100%;
-            padding: 0 22px;
-            margin-bottom: 10px;
-        }
+.bc_productos .bc_productos_contenido .grid-item--width2 {
+    width: 400px;
+}
 
-            .bc_productos .bc_productos_contenido a.ver-mas-ofertas img {
-                width: 7px;
-                margin-top: 4px;
-                margin-left: 5px;
-            }
+.bc_productos .bc_productos_contenido .grid-item .boton_Agregalo_home {
+    width: 140px !important;
+}
 
-        .bc_productos .bc_productos_contenido .grid-item {
-            width: 100% !important;
-            overflow: hidden !important;
-            display: inline-block !important;
-            margin-right: 0 !important;
-            margin-left: 0 !important;
-            padding-bottom: 0 !important;
-            margin-bottom: 0 !important;
-        }
-
-        .bc_productos .bc_productos_contenido .grid-item--width2 {
-            width: 400px;
-        }
-
-        .bc_productos .bc_productos_contenido .grid-item .boton_Agregalo_home {
-            width: 140px !important;
-        }
-
-        .bc_productos .bc_productos_contenido .clearfix {
-            clear: both;
-        }
+.bc_productos .bc_productos_contenido .clearfix {
+    clear: both;
+}
 
 
 .contenedor_ganamas {
@@ -781,146 +779,146 @@
     background-color: #f0f0f0;
 }
 
-    .contenedor_ganamas .sb_contenedor_ganamas_bg {
-        width: 100%;
-        height: 200px;
-        background-color: transparent;
-        position: relative;
-        z-index: 60;
-    }
+.contenedor_ganamas .sb_contenedor_ganamas_bg {
+    width: 100%;
+    height: 200px;
+    background-color: transparent;
+    position: relative;
+    z-index: 60;
+}
 
-    .contenedor_ganamas .sb_contenedor_ganamas {
-        margin-top: 200px;
-        max-width: 1189px;
-        margin: auto;
-        position: relative;
-        top: -200px;
-        z-index: 100;
-    }
+.contenedor_ganamas .sb_contenedor_ganamas {
+    margin-top: 200px;
+    max-width: 1189px;
+    margin: auto;
+    position: relative;
+    top: -200px;
+    z-index: 100;
+}
 
-        .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas {
-            background: transparent;
-            max-width: 1050px;
-            margin: auto;
-            margin-bottom: 25px;
-            margin-top: -1px;
-            position: relative;
-            left: -2px;
-        }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas {
+    background: transparent;
+    max-width: 1050px;
+    margin: auto;
+    margin-bottom: 25px;
+    margin-top: -1px;
+    position: relative;
+    left: -2px;
+}
 
-            .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo {
-                display: inline-block;
-                width: 20%;
-            }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo {
+    display: inline-block;
+    width: 20%;
+}
 
-                .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo .centrar_vertical {
-                    display: table;
-                    height: 96px;
-                    width: 100%;
-                }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo .centrar_vertical {
+    display: table;
+    height: 96px;
+    width: 100%;
+}
 
-                    .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo .centrar_vertical .centrar_cont_club {
-                        display: table-cell;
-                        vertical-align: middle;
-                        width: 100%;
-                        height: 96px;
-                        background: url('/Content/Images/RevistaDigital/blanco-con-espacio.png');
-                        background-size: contain;
-                        background-repeat: no-repeat;
-                    }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo .centrar_vertical .centrar_cont_club {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    height: 96px;
+    background: url('/Content/Images/RevistaDigital/blanco-con-espacio.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 
-                .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo img {
-                    width: 150px;
-                    margin: auto;
-                    text-align: center;
-                    display: block;
-                }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo img {
+    width: 150px;
+    margin: auto;
+    text-align: center;
+    display: block;
+}
 
-            .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt {
-                display: inline-block;
-                width: 60%;
-                text-align: center;
-                height: 96px;
-            }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt {
+    display: inline-block;
+    width: 60%;
+    text-align: center;
+    height: 96px;
+}
 
-                .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical {
-                    display: table;
-                    height: 96px;
-                    width: 100%;
-                }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical {
+    display: table;
+    height: 96px;
+    width: 100%;
+}
 
-                .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt p {
-                    display: block;
-                    font-size: 15px;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: normal;
-                    letter-spacing: 1px;
-                    text-align: center;
-                    color: black;
-                    /*text-transform: uppercase;*/
-                    margin-bottom: 0;
-                }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt p {
+    display: block;
+    font-size: 15px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    color: black;
+    /*text-transform: uppercase;*/
+    margin-bottom: 0;
+}
 
-                .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club {
-                    display: table-cell;
-                    vertical-align: middle;
-                    width: 100%;
-                }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
 
-                    .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club p b {
-                        font-weight: 900;
-                    }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club p b {
+    font-weight: 900;
+}
 
-            .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn {
-                display: inline-block;
-                width: 20%;
-                height: 96px;
-            }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn {
+    display: inline-block;
+    width: 20%;
+    height: 96px;
+}
 
-                .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn .centrar_vertical {
-                    display: table;
-                    width: 100%;
-                    height: 96px;
-                }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn .centrar_vertical {
+    display: table;
+    width: 100%;
+    height: 96px;
+}
 
-            .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn_dorado {
-                height: 45px;
-            }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn_dorado {
+    height: 45px;
+}
 
-            .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn .centrar_vertical .centrar_cont_club {
-                display: table-cell;
-                width: 100%;
-                vertical-align: middle;
-            }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn .centrar_vertical .centrar_cont_club {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+}
 
-            .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn a {
-                font-size: 14px;
-                font-weight: 600;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: normal;
-                letter-spacing: 1px;
-                text-align: center;
-            }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn a {
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+}
 
-        .contenedor_ganamas .sb_contenedor_ganamas .contenido_gana_mas {
-            width: 100%;
-            min-height: 341px;
-            overflow: hidden;
-            text-align: center;
-        }
+.contenedor_ganamas .sb_contenedor_ganamas .contenido_gana_mas {
+    width: 100%;
+    min-height: 341px;
+    overflow: hidden;
+    text-align: center;
+}
 
-    .contenedor_ganamas .dorado_club {
-        background-image: linear-gradient(84deg, #b3842f, #d9b43c);
-        transition: .3s;
-    }
+.contenedor_ganamas .dorado_club {
+    background-image: linear-gradient(84deg, #b3842f, #d9b43c);
+    transition: .3s;
+}
 
-    .contenedor_ganamas .dorado_btn {
-        color: #c39934 !important;
-        background-color: white !important;
-        transition: .3s;
-    }
+.contenedor_ganamas .dorado_btn {
+    color: #c39934 !important;
+    background-color: white !important;
+    transition: .3s;
+}
 
 /*BOTON DORADO ANIMADO*/
 
@@ -929,23 +927,23 @@
     color: white;
 }
 
-    .activar_boton_dorado_a_blanco a {
-        height: 45px;
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        line-height: 45px;
-        letter-spacing: 1px;
-        background: linear-gradient(to right, #c39934 50%, white 50%);
-        background-size: 200% 100%;
-        background-position: left bottom;
-        transition: all .2s ease;
-    }
+.activar_boton_dorado_a_blanco a {
+    height: 45px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    line-height: 45px;
+    letter-spacing: 1px;
+    background: linear-gradient(to right, #c39934 50%, white 50%);
+    background-size: 200% 100%;
+    background-position: left bottom;
+    transition: all .2s ease;
+}
 
-        .activar_boton_dorado_a_blanco a:hover {
-            background-position: right bottom;
-            color: black !important;
-        }
+.activar_boton_dorado_a_blanco a:hover {
+    background-position: right bottom;
+    color: black !important;
+}
 
 /*BOTON BLANCO NO ANIMADO - CLUB GANA+*/
 
@@ -957,30 +955,29 @@
 }
 
 /*BOTON ESIKA ANIMADO: ROJO A BLANCO*/
-
 .activar_boton_rojo_a_blanco {
     position: relative;
     transition: all .6s ease-in-out;
 }
 
-    .activar_boton_rojo_a_blanco a {
-        height: 45px;
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        line-height: 45px;
-        letter-spacing: 1px;
-        background-size: 200% 100%;
-        background-position: left bottom;
-        transition: all .2s ease;
-        padding: 15px 0px;
-        color: white;
-    }
+.activar_boton_rojo_a_blanco a {
+    height: 45px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    line-height: 45px;
+    letter-spacing: 1px;
+    background-size: 200% 100%;
+    background-position: left bottom;
+    transition: all .2s ease;
+    padding: 15px 0px;
+    color: white;
+}
 
-        .activar_boton_rojo_a_blanco a:hover {
-            background-position: right bottom;
-            color: black !important;
-        }
+.activar_boton_rojo_a_blanco a:hover {
+    background-position: right bottom;
+    color: black !important;
+}
 
 
 /*BOTON ESIKA NO ANIMADO: ROJO*/
@@ -1006,22 +1003,22 @@
     text-align: left;
 }
 
-    .nombre_consultora_2018 a {
-        display: inline-block;
-        color: #c39934;
-        transition: .3s;
-        text-decoration: underline;
-    }
+.nombre_consultora_2018 a {
+    display: inline-block;
+    color: #c39934;
+    transition: .3s;
+    text-decoration: underline;
+}
 
-        .nombre_consultora_2018 a.mis_datos {
-            display: inline-block;
-            color: #848484;
-            transition: .3s;
-            text-decoration: none;
-            margin-top: 0px;
-            top: -1px;
-            margin-left: 5px;
-        }
+.nombre_consultora_2018 a.mis_datos {
+    display: inline-block;
+    color: #848484;
+    transition: .3s;
+    text-decoration: none;
+    margin-top: 0px;
+    top: -1px;
+    margin-left: 5px;
+}
 
 
 .next-flecha-dorada {
@@ -1042,93 +1039,91 @@
     margin-bottom: 60px !important;
 }
 
-
-
 .club_gana_mas_pedido {
     height: 319px;
     background: #f5f5f5;
     padding: 95px 50px;
 }
 
-    .club_gana_mas_pedido .logo_club {
-        height: 45px;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 97px;
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
+.club_gana_mas_pedido .logo_club {
+    height: 45px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 97px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 
-    .club_gana_mas_pedido p.primer-texto {
-        font-size: 17px;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.47;
-        letter-spacing: 0.5px;
-        text-align: center;
-        margin-bottom: 0;
-        display: block;
-        padding: 0;
-        display: block;
-        word-wrap: break-word;
-        text-transform: uppercase;
-    }
+.club_gana_mas_pedido p.primer-texto {
+    font-size: 17px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.47;
+    letter-spacing: 0.5px;
+    text-align: center;
+    margin-bottom: 0;
+    display: block;
+    padding: 0;
+    display: block;
+    word-wrap: break-word;
+    text-transform: uppercase;
+}
 
-    .club_gana_mas_pedido p.segundo-texto {
-        font-size: 17px;
-        font-weight: 900;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.47;
-        letter-spacing: 0.5px;
-        text-align: center;
-        display: block;
-        word-wrap: break-word;
-        text-transform: uppercase;
-    }
+.club_gana_mas_pedido p.segundo-texto {
+    font-size: 17px;
+    font-weight: 900;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.47;
+    letter-spacing: 0.5px;
+    text-align: center;
+    display: block;
+    word-wrap: break-word;
+    text-transform: uppercase;
+}
 
-    .club_gana_mas_pedido a {
-        width: 100%;
-        display: block;
-        text-align: center;
-        padding: 15px 0px;
-        font-size: 13px;
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: 1px;
-        color: #000;
-        border: 1px solid;
-        border-radius: 4px;
-    }
+.club_gana_mas_pedido a {
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 15px 0px;
+    font-size: 13px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: #000;
+    border: 1px solid;
+    border-radius: 4px;
+}
 
 .club_gana_mas_pedido_activo {
     background: #f8f8f8;
     padding: 65px 50px !important;
 }
 
-    .club_gana_mas_pedido_activo .logo_club_activo {
-        background: url(/Content/Images/etiqueta-club-ganamas-dorado-independiente.png);
-        height: 45px;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 97px;
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
+.club_gana_mas_pedido_activo .logo_club_activo {
+    background: url(/Content/Images/etiqueta-club-ganamas-dorado-independiente.png);
+    height: 45px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 97px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 
-    .club_gana_mas_pedido_activo a {
-        background-color: #c39934;
-        border: none;
-    }
+.club_gana_mas_pedido_activo a {
+    background-color: #c39934;
+    border: none;
+}
 
-    .club_gana_mas_pedido_activo p.primer-texto,
-    .club_gana_mas_pedido_activo p.segundo-texto {
-        color: black;
-    }
+.club_gana_mas_pedido_activo p.primer-texto,
+.club_gana_mas_pedido_activo p.segundo-texto {
+    color: black;
+}
 
 .revistaDigitalCompleta .contenedor_productos {
     top: -115px;

@@ -37,13 +37,13 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
             public void Index_WhenGNDValidarAccesoReturnTrueWhenRenderIndexThrowException_LogsErrorAndRedirectsToBienvenida()
             {
                 //Arrange
-                var controller = new GuiaNegocioControllerStub01(logManager.Object);
+                var controller = new GuiaNegocioControllerStub01(LogManager.Object);
 
                 //Act
                 var result = controller.Index() as RedirectToRouteResult;
 
                 //Assert
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message =="Error Render Index"),
                     It.IsAny<string>(), 
                     It.IsAny<string>(), 

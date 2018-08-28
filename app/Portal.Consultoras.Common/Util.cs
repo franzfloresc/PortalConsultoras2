@@ -432,10 +432,10 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
-        public static bool EnviarMail(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML)
-        {
-            return Util.EnviarMail(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null, false);
-        }
+        //public static bool EnviarMail(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML)
+        //{
+        //    return Util.EnviarMail(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null, false);
+        //}
 
         public static bool EnviarMail3(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string strFile, string displayNameDe)
         {

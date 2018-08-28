@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
             public virtual BaseController GetBaseController()
             {
-                return new BaseControllerStub01(sessionManager.Object);
+                return new BaseControllerStub01(SessionManager.Object);
             }
 
             [TestInitialize]
@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void BuildMenuMobile_UserIsConsultoraMenuOfertaGetsItsImageUrl_UrlImagenIsNotNull()
             {
-                sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
                 var controller = GetBaseController();
                 var userData = new UsuarioModel { RolID = Constantes.Rol.Consultora };
                 var revistaDigital = new RevistaDigitalModel {  };
@@ -176,7 +176,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void BuildMenu_MenuContenedorExisteEnSesion_DevuelveMenuContenedorDesdeSesion()
             {
-                sessionManager
+                SessionManager
                     .Setup(x => x.GetMenuContenedor())
                     .Returns(new List<ConfiguracionPaisModel>
                     {
@@ -186,7 +186,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var userData = new UsuarioModel { };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
                 var guiaNegocio = new GuiaNegocioModel { };
-                var controller = new BaseController(sessionManager.Object, logManager.Object);
+                var controller = new BaseController(SessionManager.Object, LogManager.Object);
 
                 //var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio);
 
@@ -199,8 +199,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisInicioDesktop_DevuelveMenuInicioDesktop()
             {
-                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
-                sessionManager
+                SessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                SessionManager
                     .Setup(x => x.GetConfiguracionesPaisModel())
                     .Returns(new List<ConfiguracionPaisModel> {
                         new ConfiguracionPaisModel
@@ -221,7 +221,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre= "vvilelaj" };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
                 var guiaNegocio = new GuiaNegocioModel { };
-                var controller = new BaseController(sessionManager.Object,logManager.Object);
+                var controller = new BaseController(SessionManager.Object,LogManager.Object);
 
                 //var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
 
@@ -241,8 +241,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisShowRoomDesktop_DevuelveMenuShowRoomDesktop()
             {
-                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
-                sessionManager
+                SessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                SessionManager
                     .Setup(x => x.GetConfiguracionesPaisModel())
                     .Returns(new List<ConfiguracionPaisModel> {
                         new ConfiguracionPaisModel
@@ -260,11 +260,11 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                             Orden = 1
                         }
                     });
-                sessionManager.Setup(x => x.GetEsShowRoom()).Returns(true);
+                SessionManager.Setup(x => x.GetEsShowRoom()).Returns(true);
                 var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
                 var guiaNegocio = new GuiaNegocioModel { };
-                var controller = new BaseController(sessionManager.Object, logManager.Object);
+                var controller = new BaseController(SessionManager.Object, LogManager.Object);
 
                 //var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
 
@@ -284,8 +284,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisGuiaNegocioDesktop_DevuelveMenuGuiaNegocioDesktop()
             {
-                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
-                sessionManager
+                SessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                SessionManager
                     .Setup(x => x.GetConfiguracionesPaisModel())
                     .Returns(new List<ConfiguracionPaisModel> {
                         new ConfiguracionPaisModel
@@ -305,7 +305,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
                 var guiaNegocio = new GuiaNegocioModel { TieneGND=true };
-                var controller = new BaseController(sessionManager.Object, logManager.Object);
+                var controller = new BaseController(SessionManager.Object, LogManager.Object);
 
                 //var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
 
@@ -325,8 +325,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisHerramientasVentaDesktop_DevuelveMenuHerramientasVentaDesktop()
             {
-                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
-                sessionManager
+                SessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                SessionManager
                     .Setup(x => x.GetConfiguracionesPaisModel())
                     .Returns(new List<ConfiguracionPaisModel> {
                         new ConfiguracionPaisModel
@@ -347,7 +347,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
                 var guiaNegocio = new GuiaNegocioModel { };
-                var controller = new BaseController(sessionManager.Object, logManager.Object);
+                var controller = new BaseController(SessionManager.Object, LogManager.Object);
 
                 //var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
 
@@ -369,8 +369,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void BuildMenu_TieneInicioDesktopTieneRevistaDigitalDesktopTieneInicioRdDesktop_DevuelveInicioRdDesktopYRevistaDigitalDesktop()
             {
-                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
-                sessionManager
+                SessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                SessionManager
                     .Setup(x => x.GetConfiguracionesPaisModel())
                     .Returns(new List<ConfiguracionPaisModel> {
                         new ConfiguracionPaisModel
@@ -419,7 +419,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = true };
                 var guiaNegocio = new GuiaNegocioModel { };
-                var controller = new BaseController(sessionManager.Object, logManager.Object);
+                var controller = new BaseController(SessionManager.Object, LogManager.Object);
 
                 //var result = controller
                 //    .BuildMenuContenedor(userData, revistaDigital, guiaNegocio)
@@ -471,8 +471,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraNoEsikaParaMiSinEventoFestivo_TieneGifPorDefecto()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                    var controller = new BaseControllerStub01(sessionManager.Object);
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                    var controller = new BaseControllerStub01(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel {
                         TieneRDC = false,
@@ -490,8 +490,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaNoActivaSinEventoFestivo_TieneGifGanaMas()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                    var controller = new BaseController(sessionManager.Object);
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                    var controller = new BaseController(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
@@ -511,8 +511,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaActivaSinEventoFestivo_TieneGifGanaMas()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                    var controller = new BaseController(sessionManager.Object);
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                    var controller = new BaseController(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
@@ -532,8 +532,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaNoActivaSinEventoFestivo_TieneGifClubGanaMas()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                    var controller = new BaseController(sessionManager.Object);
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                    var controller = new BaseController(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
@@ -552,8 +552,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaActivaSinEventoFestivo_TieneGifClubGanaMas()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                    var controller = new BaseController(sessionManager.Object);
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                    var controller = new BaseController(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
@@ -581,8 +581,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiIntrigaSinEventoFestivo_TieneGifGanaMas()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                    var controller = new BaseControllerStub06(sessionManager.Object);
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                    var controller = new BaseControllerStub06(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
@@ -605,7 +605,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraNoEsikaParaMiConEventoFestivo_DevuelveGifEventoFestivo()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                     {
                         ListaGifMenuContenedorOfertas = new List<EventoFestivoModel> {
                         new EventoFestivoModel{
@@ -614,7 +614,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         }
                     }
                     });
-                    var controller = new BaseController(sessionManager.Object);
+                    var controller = new BaseController(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDI = false };
 
@@ -629,7 +629,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaNoActivaConEventoFestivo_TieneGifEventoFestivoGanaMas()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                     {
                         ListaGifMenuContenedorOfertas = new List<EventoFestivoModel> {
                         new EventoFestivoModel{
@@ -638,7 +638,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         }
                     }
                     });
-                    var controller = new BaseController(sessionManager.Object);
+                    var controller = new BaseController(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
@@ -657,7 +657,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaActivaConEventoFestivo_TieneGifEventoFestivoGanaMas()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                     {
                         ListaGifMenuContenedorOfertas = new List<EventoFestivoModel> {
                         new EventoFestivoModel{
@@ -666,7 +666,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         }
                     }
                     });
-                    var controller = new BaseController(sessionManager.Object);
+                    var controller = new BaseController(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
@@ -685,7 +685,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaNoActivaConEventoFestivo_TieneGifEventoFestivoClubGanaMas()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                     {
                         ListaGifMenuContenedorOfertas = new List<EventoFestivoModel> {
                         new EventoFestivoModel{
@@ -694,7 +694,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         }
                     }
                     });
-                    var controller = new BaseController(sessionManager.Object);
+                    var controller = new BaseController(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
@@ -713,7 +713,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaActivaConEventoFestivo_TieneGifEventoFestivoClubGanaMas()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                     {
                         ListaGifMenuContenedorOfertas = new List<EventoFestivoModel> {
                         new EventoFestivoModel{
@@ -722,7 +722,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         }
                     }
                     });
-                    var controller = new BaseController(sessionManager.Object);
+                    var controller = new BaseController(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
@@ -763,7 +763,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiIntrigaConEventoFestivo_DevuelveGifEventoFestivoGanaMas()
                 {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
+                    SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                     {
                         ListaGifMenuContenedorOfertas = new List<EventoFestivoModel> {
                         new EventoFestivoModel{
@@ -772,7 +772,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         }
                     }
                     });
-                    var controller = new BaseControllerStub11(sessionManager.Object);
+                    var controller = new BaseControllerStub11(SessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel {
                         TieneRDC = false,
@@ -793,15 +793,15 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ObtenerConfiguracionSeccion_RevistaDigitalEsNulo_EscribeEnLogYDevuelveListaVacia()
             {
-                sessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
-                var controller = new BaseController(sessionManager.Object,logManager.Object);
+                SessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
+                var controller = new BaseController(SessionManager.Object,LogManager.Object);
                 RevistaDigitalModel revistaDigital = null;
 
                 //var result = controller.ObtenerConfiguracionSeccion(revistaDigital);
 
                 //Assert.IsNotNull(result);
                 //Assert.AreEqual(0, result.Count);
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
                    It.Is<Exception>(e => e.Message.Contains("revistaDigital") && e.Message.Contains("no puede ser nulo")),
                    It.IsAny<string>(),
                    It.IsAny<string>(),
@@ -841,8 +841,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ObtenerConfiguracionSeccion_SeccionNoPerteneceANingunaConfiguracionPais_NoSeDevuelve()
             {
-                sessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
-                var controller = new BaseControllerStub01(sessionManager.Object, logManager.Object);
+                SessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
+                var controller = new BaseControllerStub01(SessionManager.Object, LogManager.Object);
                 var revistaDigital = new RevistaDigitalModel { };
 
                 //var result = controller.ObtenerConfiguracionSeccion(revistaDigital);
@@ -893,9 +893,9 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ObtenerConfiguracionSeccion_SeObtieneSeccionHerramientaVentasDesktopYNoTieneConfiguracionPaisHV_SeDevuelveSeccionConfigurada()
             {
-                sessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
-                sessionManager.Setup(x => x.GetConfiguracionesPaisModel()).Returns(new List<ConfiguracionPaisModel> { });
-                var controller = new BaseControllerStub02(sessionManager.Object, logManager.Object);
+                SessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
+                SessionManager.Setup(x => x.GetConfiguracionesPaisModel()).Returns(new List<ConfiguracionPaisModel> { });
+                var controller = new BaseControllerStub02(SessionManager.Object, LogManager.Object);
                 var revistaDigital = new RevistaDigitalModel { };
 
                 //var result = controller.ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault();
@@ -945,9 +945,9 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ObtenerConfiguracionSeccion_SeObtieneSeccionHerramientaVentasDesktopYTieneConfiguracionPaisHV_SeDevuelveSeccionConfigurada()
             {
-                sessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
-                sessionManager.Setup(x => x.GetConfiguracionesPaisModel()).Returns(new List<ConfiguracionPaisModel> { new ConfiguracionPaisModel { ConfiguracionPaisID =18, Codigo = "HV" } });
-                var controller = new BaseControllerStub03(sessionManager.Object, logManager.Object);
+                SessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
+                SessionManager.Setup(x => x.GetConfiguracionesPaisModel()).Returns(new List<ConfiguracionPaisModel> { new ConfiguracionPaisModel { ConfiguracionPaisID =18, Codigo = "HV" } });
+                var controller = new BaseControllerStub03(SessionManager.Object, LogManager.Object);
                 var revistaDigital = new RevistaDigitalModel { };
 
                 //var result = controller.ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault();
@@ -1012,9 +1012,9 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ObtenerConfiguracionSeccion_SeObtieneSeccionHerramientaVentasMobileYTieneConfiguracionPaisHV_SeDevuelveSeccionConfigurada()
             {
-                sessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
-                sessionManager.Setup(x => x.GetConfiguracionesPaisModel()).Returns(new List<ConfiguracionPaisModel> { new ConfiguracionPaisModel { ConfiguracionPaisID = 18, Codigo = "HV" } });
-                var controller = new BaseControllerStub04(sessionManager.Object, logManager.Object);
+                SessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
+                SessionManager.Setup(x => x.GetConfiguracionesPaisModel()).Returns(new List<ConfiguracionPaisModel> { new ConfiguracionPaisModel { ConfiguracionPaisID = 18, Codigo = "HV" } });
+                var controller = new BaseControllerStub04(SessionManager.Object, LogManager.Object);
                 var revistaDigital = new RevistaDigitalModel { };
 
                 //var result = controller.ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault();
@@ -1079,9 +1079,9 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ObtenerConfiguracionSeccion_SeObtieneSeccionHerramientaVentasMobileYNoTieneConfiguracionPaisHV_SeDevuelveSeccionConfigurada()
             {
-                sessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
-                sessionManager.Setup(x => x.GetConfiguracionesPaisModel()).Returns(new List<ConfiguracionPaisModel> { });
-                var controller = new BaseControllerStub05(sessionManager.Object, logManager.Object);
+                SessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
+                SessionManager.Setup(x => x.GetConfiguracionesPaisModel()).Returns(new List<ConfiguracionPaisModel> { });
+                var controller = new BaseControllerStub05(SessionManager.Object, LogManager.Object);
                 var revistaDigital = new RevistaDigitalModel { };
 
                 //var result = controller.ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault();

@@ -44,24 +44,6 @@
                     </div>
                     {{/iff}}
                     <div>
-                        @*
-                            <div class="contenedor_carrusel_tonos">
-                                <div id="carrusel_tonos" style="display:none;">
-                                    <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                                        <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                                    </div>
-                                    <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                                        <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                                    </div>
-                                    <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                                        <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                                    </div>
-                                    <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                                        <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                                    </div>
-                                </div>
-                            </div>
-                        *@
                     </div>
 
                 </div>
@@ -99,7 +81,6 @@
                     </div>
                     {{/if}}
                     <div id="EtiquetaPackNuevas" class="contenedor_etiqueta_nuevo">
-                        @*<div class="triangulo_etiqueta_nuevo"></div>*@
                         <div class="etiqueta_nuevo">
                             {{#IsNullOrEmpty ImagenURL '!='}}
                             <img src="{{ImagenURL}}" alt="" />
@@ -137,9 +118,7 @@
                                     {{/each}}
                                 </li>
                             </ul>
-                            @*<span class="subprecio">x1 s/.32</span>
-                                <span class="subprecio">x2 s/.64</span>
-                                <span class="subprecio">x3 s/.128</span>*@
+
                             {{#iff Ganancia '>' 0}}
                             <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
                             {{/iff}}
@@ -156,14 +135,7 @@
                     </div>
                     <hr class="clear">
                     {{/IsNullOrEmpty}}
-                    @*<div id="SloganPackNuevas">
-                            <span class="nombre_detalle_producto_tono"><strong>Contenido del Set:</strong></span>
-                            <ul class="descripcion_detalle_producto_tono">
-                                {{#each this.ArrayContenidoSet}}
-                                <li><span class="txt-des">{{this}}</span></li>
-                                {{/each}}
-                            </ul>
-                        </div>*@
+                    
                     <div id="componentes" data-codigovariante="{{CodigoVariante}}">
                     </div>
 

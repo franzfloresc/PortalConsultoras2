@@ -21,13 +21,22 @@ namespace Portal.Consultoras.Web.Providers
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ISessionManager sessionManager;
 
-        public EstrategiaComponenteProvider(int paisId, string paisIso)
+        public EstrategiaComponenteProvider(int paisId, string paisIso) : this(
+            SessionManager.SessionManager.Instance, 
+            new OfertaBaseProvider(),
+            new ConfiguracionManagerProvider())
         {
-            _configuracionManagerProvider = new ConfiguracionManagerProvider();
             _paisId = paisId;
             _paisISO = paisIso;
-            _ofertaBaseProvider = new OfertaBaseProvider();
-            sessionManager = SessionManager.SessionManager.Instance;
+        }
+
+        public EstrategiaComponenteProvider(ISessionManager sessionManager,
+            OfertaBaseProvider ofertaBaseProvider,
+            ConfiguracionManagerProvider configuracionManagerProvider)
+        {
+            _configuracionManagerProvider = configuracionManagerProvider;
+            _ofertaBaseProvider = ofertaBaseProvider;
+            this.sessionManager = sessionManager;
         }
 
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca)
