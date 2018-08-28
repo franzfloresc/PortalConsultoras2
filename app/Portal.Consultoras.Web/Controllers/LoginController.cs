@@ -2921,7 +2921,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var tablaLogica = new SACServiceClient())
             {
-                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, 145).ToList();
+                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.NuevaDescripcionProductos).ToList();
             }
 
             foreach (var item in listaDescripciones)

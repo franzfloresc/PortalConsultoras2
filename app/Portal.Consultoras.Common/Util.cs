@@ -28,6 +28,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
+using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Common
 {
@@ -3537,60 +3538,158 @@ namespace Portal.Consultoras.Common
         }
 
         //Validación de la descripción del producto
-        public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista, bool suscripcion, string codigoEstrategia, string tipoEstrategiaCodigo, int marcaId)
+        public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista,
+            bool suscripcion,
+            string codigoEstrategia,
+            string tipoEstrategiaCodigo,
+            int marcaId,
+            int codigoCatalago)
         {
             var result = "";
 
             if (!lista.Any()) return result;
 
-            switch (codigoEstrategia)
+            if (string.IsNullOrEmpty(tipoEstrategiaCodigo))
             {
-                case "LIQ":
-                    result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
-                    break;
-                case "CAT":
-                    result = (marcaId == 1 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOLBEL] : 
-                        (marcaId == 2 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA] : 
-                        lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE]));
-                    break;
-                case "ODD":
-                    result = lista[Constantes.NuevoCatalogoProducto.SOLOHOY];
-                    break;
-                default:
-                    if (suscripcion)
-                    {
-                        result = lista[Constantes.NuevoCatalogoProducto.CLUBGANA];
-                    }
-                    else
-                    {
-                        switch (tipoEstrategiaCodigo)
+                switch (codigoCatalago)
+                {
+                    case Constantes.CodigosCatalogos.ESIKA:
+                        result = lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA];
+                        break;
+                    case Constantes.CodigosCatalogos.LBEL:
+                        result = lista[Constantes.NuevoCatalogoProducto.CATALOGOLBEL];
+                        break;
+                    case Constantes.CodigosCatalogos.CYZONE:
+                        result = lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE];
+                        break;
+                    default:
+                        result = "";
+                        break;
+                }
+            }
+            else
+            {
+                switch (codigoEstrategia)
+                {
+                    case "LIQ":
+                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
+                        break;
+                    case "CAT":
+                        result = (marcaId == 1 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOLBEL] :
+                            (marcaId == 2 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA] :
+                            lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE]));
+                        break;
+                    case "ODD":
+                        result = lista[Constantes.NuevoCatalogoProducto.SOLOHOY];
+                        break;
+                    default:
+                        if (suscripcion)
                         {
-                            case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
-                            case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
-                            case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                                result = lista[Constantes.NuevoCatalogoProducto.OFERTAPARATI];
-                                break;
-                            case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                                result = lista[Constantes.NuevoCatalogoProducto.LANZAMIENTOS];
-                                break;
-                            case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
-                                result = lista[Constantes.NuevoCatalogoProducto.OFERTADELDIA];
-                                break;
-                            case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                                result = lista[Constantes.NuevoCatalogoProducto.GUIADENEGOCIODIGITAL];
-                                break;
-                            case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                                result = lista[Constantes.TipoEstrategiaCodigo.HerramientasVenta];
-                                break;
-                            case Constantes.TipoEstrategiaCodigo.ShowRoom:
-                                result = lista[Constantes.NuevoCatalogoProducto.ESPECIALES];
-                                break;
-                            default:
-                                result = "";
-                                break;
+                            result = lista[Constantes.NuevoCatalogoProducto.CLUBGANA];
                         }
+                        else
+                        {
+                            switch (tipoEstrategiaCodigo)
+                            {
+                                case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                                case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                                case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTAPARATI];
+                                    break;
+                                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                                    result = lista[Constantes.NuevoCatalogoProducto.LANZAMIENTOS];
+                                    break;
+                                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTADELDIA];
+                                    break;
+                                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                                    result = lista[Constantes.NuevoCatalogoProducto.GUIADENEGOCIODIGITAL];
+                                    break;
+                                case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                                    result = lista[Constantes.TipoEstrategiaCodigo.HerramientasVenta];
+                                    break;
+                                case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                                    result = lista[Constantes.NuevoCatalogoProducto.ESPECIALES];
+                                    break;
+                                default:
+                                    result = "";
+                                    break;
+                            }
+                        }
+                        break;
+                }
+            }
+
+            return result;
+        }
+
+        public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
+            bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion,
+            string tipoEstrategiaCodigo, int marcaId, int codigoCatalogo, string descripcion)
+        {
+            var result = "";
+
+
+            if (pedidoValidado)
+            {
+                result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
+
+                if (result == "") result = (descripcion.Replace("[", "")).Replace("]", "");
+
+                if (string.IsNullOrWhiteSpace(result))
+                {
+                    switch (ofertaId)
+                    {
+                        case Constantes.TipoOferta.Liquidacion:
+                            result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
+                            break;
+                        case Constantes.TipoOferta.Flexipago:
+                            result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
+                            break;
+                        default:
+                            result = "";
+                            break;
                     }
-                    break;
+                }
+            }
+            else
+            {
+                if (consultoraOnline)
+                {
+                    result = "CLIENTE ONLINE";
+                }
+                else
+                {
+                    switch (origenPedido)
+                    {
+                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
+                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
+                            result = "";
+                            break;
+                        default:
+                            result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
+
+                            if (result == "") result = descripcion;
+
+                            if (string.IsNullOrWhiteSpace(result))
+                            {
+                                switch (ofertaId)
+                                {
+                                    case Constantes.TipoOferta.Liquidacion:
+                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
+                                        break;
+                                    case Constantes.TipoOferta.Flexipago:
+                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
+                                        break;
+                                    default:
+                                        result = "";
+                                        break;
+                                }
+                            }
+
+                            break;
+                    }
+                }
             }
 
             return result;
