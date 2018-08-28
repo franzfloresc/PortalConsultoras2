@@ -454,7 +454,6 @@ var EstrategiaAgregarModule = (function () {
             } catch (e) {
                 console.log(e);
             }
-            var localStorageModule = new LocalStorageModule();
             if (data.listCuvEliminar != null) {
                 $.each(data.listCuvEliminar, function (i, cuv) {
                     //Se debe integrar en un solo metodo
@@ -469,6 +468,7 @@ var EstrategiaAgregarModule = (function () {
                 })
             }
 
+            var localStorageModule = new LocalStorageModule();
             localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, true);
 
 
