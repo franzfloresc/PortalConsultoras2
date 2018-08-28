@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -11,6 +12,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Properties;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -68,7 +70,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        private object GetData(PaymentInfo info, PagoEnLineaModel pago)
+        private async Task<object> GetData(PaymentInfo info, PagoEnLineaModel pago)
         {
             if (!info.Birthdate.HasValue)
             {
@@ -79,6 +81,7 @@ namespace Portal.Consultoras.Web.Providers
             var total = pago.MontoDeudaConGastos;
             var referenceCode = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroOperacion;
             var fullName = User.NombreConsultora;
+            var address = await GetDireccionConsultora();
 
             var card = new
             {
@@ -124,7 +127,7 @@ namespace Portal.Consultoras.Web.Providers
                             dniNumber = User.DocumentoIdentidad,
                             shippingAddress = new
                             {
-                                street1 = User.Direccion ?? string.Empty,
+                                street1 = address,
                                 //-street2 = "8 int 103",
                                 city = string.Empty,
                                 //-state = "Jalisco", // obligatorio brasil
@@ -144,7 +147,7 @@ namespace Portal.Consultoras.Web.Providers
                         dniNumber = User.DocumentoIdentidad,
                         billingAddress = new
                         {
-                            street1 = User.Direccion ?? string.Empty,
+                            street1 = string.Empty,
                             //-street2 = "calle 5 de Mayo",
                             city = string.Empty,
                             //-state = "Nuevo Leon",
@@ -351,6 +354,21 @@ namespace Portal.Consultoras.Web.Providers
         private long GetMicroSeconds()
         {
             return DateTime.Now.Ticks / 10;
+        }
+
+        private async Task<string> GetDireccionConsultora()
+        {
+            try
+            {
+                using (var sv = new UsuarioServiceClient())
+                {
+                    return await sv.GetDireccionConsultoraAsync(User.PaisID, User.CodigoUsuario);
+                }
+            }
+            catch (Exception e)
+            {
+                return string.Empty;
+            }
         }
     }
 }

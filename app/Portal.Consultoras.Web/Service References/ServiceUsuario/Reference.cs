@@ -10907,6 +10907,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/CancelarAtualizacionEmail", ReplyAction="http://tempuri.org/IUsuarioService/CancelarAtualizacionEmailResponse")]
         System.Threading.Tasks.Task<string> CancelarAtualizacionEmailAsync(int paisID, string codigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetDireccionConsultora", ReplyAction="http://tempuri.org/IUsuarioService/GetDireccionConsultoraResponse")]
+        string GetDireccionConsultora(int paisID, string codigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetDireccionConsultora", ReplyAction="http://tempuri.org/IUsuarioService/GetDireccionConsultoraResponse")]
+        System.Threading.Tasks.Task<string> GetDireccionConsultoraAsync(int paisID, string codigoUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/listaProductos", ReplyAction="http://tempuri.org/IUsuarioService/listaProductosResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros[] listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
         
@@ -11811,6 +11817,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<string> CancelarAtualizacionEmailAsync(int paisID, string codigoUsuario) {
             return base.Channel.CancelarAtualizacionEmailAsync(paisID, codigoUsuario);
+        }
+        
+        public string GetDireccionConsultora(int paisID, string codigoUsuario) {
+            return base.Channel.GetDireccionConsultora(paisID, codigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetDireccionConsultoraAsync(int paisID, string codigoUsuario) {
+            return base.Channel.GetDireccionConsultoraAsync(paisID, codigoUsuario);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros[] listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona) {
