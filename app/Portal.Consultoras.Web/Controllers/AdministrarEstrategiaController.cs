@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };
-
+                 
             }
             catch (Exception ex)
             {
