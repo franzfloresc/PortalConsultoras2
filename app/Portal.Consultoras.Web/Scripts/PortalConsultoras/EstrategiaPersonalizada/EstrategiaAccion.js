@@ -81,78 +81,78 @@ var EstrategiaVerDetalle = function () {
     };
 }();
 
-function VerDetalleEstrategia(e) {
+//function VerDetalleEstrategia(e) {
 
-    AbrirLoad();
-    var objHtmlEvent = $(e.target);
-    var estrategia = EstrategiaAgregarModule.EstrategiaObtenerObj(objHtmlEvent);
-    if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
+//    AbrirLoad();
+//    var objHtmlEvent = $(e.target);
+//    var estrategia = EstrategiaAgregarModule.EstrategiaObtenerObj(objHtmlEvent);
+//    if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
 
-    var origenPedido = $(objHtmlEvent).parents("[data-item]").find("input.OrigenPedidoWeb").val() || 
-        $(objHtmlEvent).parents("[data-item]").attr("OrigenPedidoWeb") || 
-        $(objHtmlEvent).parents("[data-item]").attr("data-OrigenPedidoWeb") || 
-        $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb") || 
-        origenPedidoWebEstrategia;
+//    var origenPedido = $(objHtmlEvent).parents("[data-item]").find("input.OrigenPedidoWeb").val() || 
+//        $(objHtmlEvent).parents("[data-item]").attr("OrigenPedidoWeb") || 
+//        $(objHtmlEvent).parents("[data-item]").attr("data-OrigenPedidoWeb") || 
+//        $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb") || 
+//        origenPedidoWebEstrategia;
 
-    estrategia.OrigenPedidoWeb = origenPedido;
+//    estrategia.OrigenPedidoWeb = origenPedido;
 
-    _campania = $(objHtmlEvent).parents("[data-tag-html]").attr("data-tag-html");
-    try {
-        var contentIndex = $(objHtmlEvent).parents("[data-tab-index]").attr("data-tab-index");
+//    _campania = $(objHtmlEvent).parents("[data-tag-html]").attr("data-tag-html");
+//    try {
+//        var contentIndex = $(objHtmlEvent).parents("[data-tab-index]").attr("data-tab-index");
 
-        if (contentIndex !== undefined && contentIndex !== null && contentIndex.toString() === "2") {
-            rdAnalyticsModule.VerDetalleBloqueada(campania, (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim());
-        } else if (origenPedido !== undefined && origenPedido !== null && origenPedido.indexOf("7") !== -1) {
-            rdAnalyticsModule.VerDetalleComprar(origenPedido, estrategia);
-        } else {
-            dataLayer.push({
-                'event': "productClick",
-                'ecommerce': {
-                    'click': {
-                        'actionField': { 'list': "Ofertas para ti – " + origen },
-                        'products': [{
-                            'id': estrategia.CUV2,
-                            'name': estrategia.DescripcionCompleta,
-                            'price': $.trim(estrategia.Precio2),
-                            'brand': estrategia.DescripcionMarca,
-                            'category': "NO DISPONIBLE",
-                            'variant': estrategia.DescripcionEstrategia,
-                            'position': estrategia.Posicion
-                        }]
-                    }
-                }
-            });
-        }
+//        if (contentIndex !== undefined && contentIndex !== null && contentIndex.toString() === "2") {
+//            rdAnalyticsModule.VerDetalleBloqueada(campania, (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim());
+//        } else if (origenPedido !== undefined && origenPedido !== null && origenPedido.indexOf("7") !== -1) {
+//            rdAnalyticsModule.VerDetalleComprar(origenPedido, estrategia);
+//        } else {
+//            dataLayer.push({
+//                'event': "productClick",
+//                'ecommerce': {
+//                    'click': {
+//                        'actionField': { 'list': "Ofertas para ti – " + origen },
+//                        'products': [{
+//                            'id': estrategia.CUV2,
+//                            'name': estrategia.DescripcionCompleta,
+//                            'price': $.trim(estrategia.Precio2),
+//                            'brand': estrategia.DescripcionMarca,
+//                            'category': "NO DISPONIBLE",
+//                            'variant': estrategia.DescripcionEstrategia,
+//                            'position': estrategia.Posicion
+//                        }]
+//                    }
+//                }
+//            });
+//        }
 
 
-    } catch (ex) { 
-        console.log(ex); 
-    }
+//    } catch (ex) { 
+//        console.log(ex); 
+//    }
 
-    if (isMobile()) {
-        EstrategiaVerDetalleMobile(estrategia, origenPedido);
-        return true;
-    }
+//    if (isMobile()) {
+//        EstrategiaVerDetalleMobile(estrategia, origenPedido);
+//        return true;
+//    }
 
-    var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedidos" : "";
+//    var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedidos" : "";
 
-    estrategia.ContentItem = $(e.target).parents("[data-content-item]").attr("data-content-item");
+//    estrategia.ContentItem = $(e.target).parents("[data-content-item]").attr("data-content-item");
 
-    estrategia.OrigenPedidoWeb = $(objHtmlEvent).parents("[data-OrigenPedidoWeb-popup]").attr("data-OrigenPedidoWeb-popup") || origenPedido;
+//    estrategia.OrigenPedidoWeb = $(objHtmlEvent).parents("[data-OrigenPedidoWeb-popup]").attr("data-OrigenPedidoWeb-popup") || origenPedido;
 
-    if (estrategia.TipoEstrategiaImagenMostrar == "2") {
+//    if (estrategia.TipoEstrategiaImagenMostrar == "2") {
 
-        EstrategiaVerDetallePackNueva(estrategia);
+//        EstrategiaVerDetallePackNueva(estrategia);
 
-    } else if (estrategia.TipoEstrategiaImagenMostrar == "5" || estrategia.TipoEstrategiaImagenMostrar == "3") {
+//    } else if (estrategia.TipoEstrategiaImagenMostrar == "5" || estrategia.TipoEstrategiaImagenMostrar == "3") {
 
-        EstrategiaVerDetalleGeneral(estrategia);
+//        EstrategiaVerDetalleGeneral(estrategia);
 
-    }
+//    }
 
-    CerrarLoad();
-    return true;
-}
+//    CerrarLoad();
+//    return true;
+//}
 
 function EstrategiaVerDetalleMobile(estrategia, origen) {
     if ($.trim(origen) == "") {

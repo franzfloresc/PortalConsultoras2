@@ -1416,7 +1416,7 @@ namespace Portal.Consultoras.Common
             public static class TipoPresentacion
             {
                 public const int CarruselSimple = 1;
-                public const int CarruselPrevisuales = 2;
+                //public const int CarruselPrevisuales = 2;
                 public const int SimpleCentrado = 3;
                 public const int Banners = 4;
                 public const int ShowRoom = 5;
