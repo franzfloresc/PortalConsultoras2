@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using   Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
@@ -32,6 +32,8 @@ namespace Portal.Consultoras.Web.Providers
                 var jsonString = await httpResponse.Content.ReadAsStringAsync();
 
                 var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
+                var listaCuvPrecio0 = new List<string>();
+                string codTipoEstrategia = "", codCampania = "";
 
                 foreach (var item in list)
                 {
@@ -68,13 +70,33 @@ namespace Portal.Consultoras.Web.Providers
                         };
 
                         estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
-                        estrategias.Add(estrategia);
+                        if (estrategia.Precio2 > 0)
+                        {
+                            estrategias.Add(estrategia);
+                        }
+                        else
+                        {
+                            listaCuvPrecio0.Add(estrategia.CUV2);
+                            codTipoEstrategia = estrategia.CodigoTipoEstrategia;
+                            codCampania = estrategia.CampaniaID.ToString();
+                        }
                     }
                     catch (Exception ex)
                     {
-                        throw ex;
+                        Common.LogManager.SaveLog(ex, "", codigoISO);
                     }
                 }
+
+                if (listaCuvPrecio0.Any())
+                {
+                    try
+                    {
+                        string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
+                        Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
+                    }
+                    catch(Exception ex) { throw ex; }
+                }
+                
             }
             return estrategias;
         }
