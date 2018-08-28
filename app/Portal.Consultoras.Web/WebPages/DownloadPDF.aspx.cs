@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.IO;
 using System.Net;
 using System.Web;
@@ -6,13 +7,20 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.WebPages
 {
-    public partial class DownloadPDF : System.Web.UI.Page
+    public partial class DownloadPDF : BaseWebPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             string url = Server.MapPath("~" + Request.QueryString["file"]);
 
             string fileName = System.IO.Path.GetFileName(url);
+            string extensionName = Path.GetExtension(url);
+
+            if (extensionName.ToLower() != ".pdf")
+            {
+                Response.Redirect("/Login/SesionExpirada");
+            }
+
             Stream stream = null;
 
             //This controls how many bytes to read at a time and send to the client

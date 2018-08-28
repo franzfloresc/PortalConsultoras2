@@ -454,8 +454,21 @@ var EstrategiaAgregarModule = (function () {
             } catch (e) {
                 console.log(e);
             }
+
+            if (data.listCuvEliminar != null) {
+                $.each(data.listCuvEliminar, function (i, cuv) {
+                    itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
+
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.lan, cuv, false);
+                })
+            }
+
             var localStorageModule = new LocalStorageModule();
             localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, true);
+
 
             if (belcorp.estrategia.applyChanges){
                 belcorp.estrategia.applyChanges("onProductoAgregado", data);

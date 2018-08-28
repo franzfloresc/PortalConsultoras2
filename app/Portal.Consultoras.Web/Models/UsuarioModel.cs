@@ -16,7 +16,6 @@ namespace Portal.Consultoras.Web.Models
             this.NombreConsultora = string.Empty;
             this.CodigoConsultora = string.Empty;
             this.CodigoUsuario = string.Empty;
-            this.NombreConsultora = string.Empty;
             this.NombreCorto = string.Empty;
             this.CodigorRegion = string.Empty;
             this.CodigoZona = string.Empty;
