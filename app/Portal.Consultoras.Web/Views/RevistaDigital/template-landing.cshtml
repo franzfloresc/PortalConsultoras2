@@ -12,7 +12,7 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Landing")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/RevistaDigital-Landing")
 }
 
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"
@@ -154,5 +154,5 @@
         var campaniaId = @Model.CampaniaID;
         var variableEstrategia = @Html.Raw(Json.Encode(ViewBag.variableEstrategia)) || {};
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Landing")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/RevistaDigital-Landing")
 }
