@@ -109,8 +109,8 @@
                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
                                    {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
                             <div class="liquidacion_rango_right_pedido js-no-popup">
-                                <a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
-                                <a href="javascript:;" class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
+                                <a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" data-bloqueada="{{ClaseBloqueada}}" src="/Content/Images/Esika/mas.png" alt="" /></a>
+                                <a href="javascript:;" class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" data-bloqueada="{{ClaseBloqueada}}" src="/Content/Images/Esika/menos.png" alt="" /></a>
                             </div>
                         </div>
                         <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
@@ -119,10 +119,10 @@
                         </a>
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '3'}}
-                        <div onclick="javascript:OnClickFichaDetalle(event.target);">
+                        <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
                             <div class="texto_elige_tono"></div>
                             <div class="clear"></div>
-                            <a class="btn_elige_tono js-no-popup" data-item-tag="eligetuopcion">
+                            <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
                                 <div><img src="/Content/Images/mobile/Esika/click-ico.svg">ELIGE TU OPCIÓN</div>
                             </a>
                         </div>

@@ -54,8 +54,10 @@ body {
 }
 
     .contenedor_imagen .contenedor_img {
-        max-width: 100%;
-        height: 100%;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        height: auto;
+        width: auto;
     }
 
 /*.contenedor_imagen_ancho_mayor {
@@ -352,10 +354,15 @@ body {
     pointer-events: none;
 }
 
+.seleccion_btn .btn_desactivado_general {
+    pointer-events: none;
+}
+
 .btn_desactivado_general {
-    background: #e5e5e5;
-    border: 1px solid #d2d2d2;
+    background: #e5e5e5 !important;
+    border: 1px solid #d2d2d2 !important;
     color: #b9b9b9;
+    cursor: default !important;
 }
 
 /* Ficha Check Agreado y texto Libre */
@@ -853,9 +860,6 @@ body {
 .content_tonos {
     padding-bottom: 45px;
 }
-.precio_valorizado{
-    margin-bottom:5px;
-}
 
 .dibujar_flecha_tonos::after {
     left: 60%;
@@ -918,10 +922,12 @@ body {
     display: block;
 }
 
-.titulo_selecionado{
+.titulo_selecionado {
     font-size: 13px;
     font-weight: bold;
-    padding-left: 10px
+    padding-left: 10px;
+    width: 80%;
+    line-height: normal;
 }
 .btn_cambiar_opciones {
     font-size: 13px;
@@ -1145,7 +1151,14 @@ ul.breadcumbs li a::before {
     width: 40%;
 }
 
+.cantidad_producto_opt{
+    float: left;
+}
 
+.descripcion_tipo {
+    float: left;
+    width: 86%;
+}
 
 
 

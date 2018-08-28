@@ -21,15 +21,26 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Intriga()
         {
-            if (!ValidarIngresoShowRoom(true))
-            {
-                return RedirectToAction("Index", "Bienvenida");
-            }
+            return RedirectToAction("Index", "Ofertas");
 
-            var model = ObtenerPrimeraOfertaShowRoom();
-            if (model == null) return RedirectToAction("Index", "Bienvenida");
-            
-            return View(model);
+            //if (!ValidarIngresoShowRoom(true))
+            //{
+            //    return RedirectToAction("Index", "Bienvenida");
+            //}
+
+            //var model = ObtenerPrimeraOfertaShowRoom();
+            //if (model == null) return RedirectToAction("Index", "Bienvenida");
+
+            ////model.Simbolo = userData.Simbolo;
+            ////model.CodigoISO = userData.CodigoISO;
+            ////model.Suscripcion = (configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel()).Suscripcion;
+            ////model.EMail = userData.EMail;
+            ////model.EMailActivo = userData.EMailActivo;
+            ////model.Celular = userData.Celular;
+            ////model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+            ////model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
+
+            //return View(model);
         }
 
         public ActionResult Index(string query)
@@ -566,7 +577,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     Cantidad = 0,
@@ -577,7 +588,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     Cantidad = 0,

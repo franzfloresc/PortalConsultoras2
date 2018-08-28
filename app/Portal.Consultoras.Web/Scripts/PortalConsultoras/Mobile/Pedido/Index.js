@@ -3,6 +3,7 @@
 var AutocompleteLastLI = null;
 var AutocompleteClick = false;
 var existeCUV = false;
+var mensajeParametrizableCuv = '';
 
 var belcorp = belcorp || {};
 belcorp.pedido = belcorp.pedido || {};
@@ -385,18 +386,19 @@ function ValidarPermiso(obj) {
 }
 
 function BuscarByCUV(cuv) {
-
     if (cuv == $('#hdfCUV').val()) {
         if (productoSugerido) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
             else $('#PopSugerido').show();
         }
         else if (existeCUV) {
+            if (!IsNullOrEmpty(mensajeParametrizableCuv)) MostrarMensaje("mensajeParametrizableCUV", mensajeParametrizableCuv);
             $("#divProductoMantenedor").show();
             $("#btnAgregarProducto").show();
         }
         return false;
     }
+    else mensajeParametrizableCuv = '';
 
     $("#divProductoObservaciones").html('');
     productoSugerido = false;
@@ -472,8 +474,11 @@ function ObservacionesProducto(item) {
     if (item.TieneStock === true) {
         if (item.EsExpoOferta == true) MostrarMensaje("mensajeEsExpoOferta");
         if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-            if (!item.TieneRDC)
-                MostrarMensaje("mensajeCUVOfertaEspecial");
+            if (!item.TieneRDC) MostrarMensaje("mensajeCUVOfertaEspecial");
+        }
+        if (!IsNullOrEmpty(item.MensajeCUV)) {
+            mensajeParametrizableCuv = item.MensajeCUV;
+            MostrarMensaje("mensajeParametrizableCUV", mensajeParametrizableCuv);
         }
 
         var tipoOferta = $("#hdTipoOfertaSisID").val();
@@ -723,6 +728,7 @@ function AgregarProductoListado() {
 }
 
 function InsertarProducto() {
+    
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
     var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
     var model = {};
@@ -916,52 +922,44 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
     }
 }
 function MostrarMensaje(tipoMensaje, message) {
-    var $divMensaje;
+    var $divMensaje = $('#divMensajeCUV');
+    $divMensaje.find("#btnCerrarMensaje").hide();
+
     switch (tipoMensaje) {
         case "mensajeCUVNoExiste":
-            $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVNoExiste);
             $divMensaje.show();
             break;
         case "mensajeCUVAgotado":
-            $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVAgotado);
             $divMensaje.show();
             break;
         case "mensajeCUVOfertaEspecial":
-             $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_aprobacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVOfertaEspecial);
             $divMensaje.show();
             break;
         case "mensajeCUVLiquidacion":
-             $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVLiquidacion);
             $divMensaje.show();
             break;
-        case "mensajeCUVCantidadMaxima":
-             $divMensaje = $('#divMensajeCUV');
-            $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
-            $divMensaje.find("#divMensaje").html(message);
-            $divMensaje.show();
-            break;
         case "mensajeEsExpoOferta":
-             $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html("Producto de ExpoOferta.");
             $divMensaje.show();
             break;
-        case "mensajeCUVShowRoom":
-            $divMensaje = $('#divMensajeCUV');
+        case "mensajeParametrizableCUV":
+            $divMensaje.find("#btnCerrarMensaje").show();
             $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
             $divMensaje.find("#divMensaje").html(message);
             $divMensaje.show();
             break;
+        case "mensajeCUVCantidadMaxima":
+        case "mensajeCUVShowRoom":
         case "mensajeProgramaNuevas":
-            $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
             $divMensaje.find("#divMensaje").html(message);
             $divMensaje.show();

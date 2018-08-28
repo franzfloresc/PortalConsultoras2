@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ServicePROLArchivoReserva.ReservaPedidos reserva = new ServicePROLArchivoReserva.ReservaPedidos())
                 {
-                    respuesta = reserva.GeneraReserva(UserData().CodigoISO, FechaGeneracion.ToString("yyyy/MM/dd"), UserData().CodigoUsuario);
+                    respuesta = reserva.GeneraReserva(userData.CodigoISO, FechaGeneracion.ToString("yyyy/MM/dd"), userData.CodigoUsuario);
                 }
 
                 if (respuesta.Length != 0)
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoUsuario, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

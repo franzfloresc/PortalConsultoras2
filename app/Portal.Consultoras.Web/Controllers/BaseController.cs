@@ -445,7 +445,6 @@ namespace Portal.Consultoras.Web.Controllers
             userData = _menuProvider.BuildMenuService(userData);
             return userData.MenuService;
         }
-
         #endregion
 
         #region UserData
@@ -509,7 +508,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                //System.Diagnostics.Debug.WriteLine(ex.Message);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return ip;
         }

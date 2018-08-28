@@ -1,12 +1,7 @@
-﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities.PagoEnLinea
 {
@@ -109,6 +104,12 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         public DateTime FechaCreacion { get; set; }
         [DataMember]
         public DateTime FechaModificacion { get; set; }
+        [DataMember]
+        public DateTime FechaNacimiento { get; set; }
+        [DataMember]
+        public string Correo { get; set; }
+        [DataMember]
+        public string Celular { get; set; }
 
         public BEPagoEnLineaResultadoLog(IDataRecord row)
         {
@@ -160,6 +161,9 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
             UsuarioModificacion = row.ToString("UsuarioModificacion");
             FechaCreacion = row.ToDateTime("FechaCreacion");
             FechaModificacion = row.ToDateTime("FechaModificacion");
+            FechaNacimiento = row.ToDateTime("FechaNacimiento");
+            Correo = row.ToString("Correo");
+            Celular = row.ToString("Celular");
         }
 
     }

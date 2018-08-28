@@ -196,6 +196,10 @@ var ListaOpcionesModule = (function () {
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
         //
+        if (_componente.esCampaniaSiguiente) {
+            return false;
+        }
+        //
         if (_componente.FactorCuadre === _componente.HermanosSeleccionados.length) {
             return false;
         }
@@ -237,6 +241,10 @@ var ListaOpcionesModule = (function () {
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
+        //
+        if (_componente.esCampaniaSiguiente) {
+            return false;
+        }
         //
         if (typeof event !== "undefined") EstrategiaAgregarModule.DisminuirCantidad(event);
         //

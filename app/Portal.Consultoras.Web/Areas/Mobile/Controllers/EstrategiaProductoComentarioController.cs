@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult RegistrarComentario(EstrategiaProductoComentarioModel model)
         {
-            var userData = UserData();
+
             model.CodigoConsultora = userData.CodigoConsultora;
             model.CampaniaID = userData.CampaniaID;
             return controllerDesktop.RegistrarComentario(model);

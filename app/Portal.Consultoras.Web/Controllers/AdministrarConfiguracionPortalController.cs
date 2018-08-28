@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 BEConfiguracionPortal configuracionPortalParametro =
-                    new BEConfiguracionPortal { PaisID = UserData().PaisID };
+                    new BEConfiguracionPortal { PaisID = userData.PaisID };
 
                 BEConfiguracionPortal configuracionPortal;
                 using (SACServiceClient sv = new SACServiceClient())
@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                model.PaisID = UserData().PaisID;
+                model.PaisID = userData.PaisID;
                 model.EstadoSimplificacionCUV = configuracionPortal.EstadoSimplificacionCUV;
                 model.EsquemaDAConsultora = configuracionPortal.EsquemaDAConsultora;
                 model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga != null && configuracionPortal.TipoProcesoCarga.Value);
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return View(model);
@@ -50,9 +50,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
                     EstadoSimplificacionCUV = Convert.ToBoolean(EstadoSimplificacionCUV),
                     EsquemaDAConsultora = Convert.ToBoolean(EsquemaDAConsultora),
                     TipoProcesoCarga = Convert.ToBoolean(TipoProcesoCarga),
-                    PaisID = UserData().PaisID
+                    PaisID = userData.PaisID
                 };
 
                 int resultado;

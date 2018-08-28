@@ -109,6 +109,7 @@
       <xs:element minOccurs="0" name="ClienteDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
       <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Identifier" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />

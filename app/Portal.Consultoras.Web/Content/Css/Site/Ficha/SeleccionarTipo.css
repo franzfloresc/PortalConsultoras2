@@ -3,8 +3,11 @@
     .list-inline > li {
     padding-right: 1px !important;
     padding-left: 0px !important;
-    min-height: 60px;
     }
+
+.selecion_item.list-inline > li {
+    min-height: 60px;
+}
 
     .contenedor_seleccion {
     position: fixed;
@@ -166,6 +169,7 @@
     }
 
     .item_selecionado_img {
+    min-width: 56px;
     width: 100%;
     border: solid 1px #d8d8d8;
     min-height: 56px;

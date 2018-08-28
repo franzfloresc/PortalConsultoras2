@@ -19987,7 +19987,8 @@ label.checkpop.c_on {
 
 .items_belcorp {
     width: 31%;
-    height: 250px;
+    height: auto;
+    min-height:250px;
     float: left;
     margin-right: 3.5%;
     margin-top: 32px;
@@ -19995,6 +19996,7 @@ label.checkpop.c_on {
     padding-top: 16px;
     padding-left: 20px;
     padding-right: 20px;
+    padding-bottom:13px;
     background: white;
     border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0 15px 21px -8px rgba(204,200,204,1);
@@ -20085,7 +20087,7 @@ label.checkpop.c_on {
 
 .boton_facturacion_e {
     width: 100px;
-    height: 30px;
+    height: auto;
     background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
     float: left;
     padding-left: 14px;
@@ -20102,10 +20104,11 @@ label.checkpop.c_on {
 
 .boton_ultimos_movimientos {
     width: 200px;
-    height: 30px;
+    height:auto;
     background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
+    padding-top:11px;
     padding-left: 14px;
-    background-position: 0 4px;
+    background-position: 0 15px;
     font-size: 11px;
     font-family: 'lato';
     margin: 0 auto;

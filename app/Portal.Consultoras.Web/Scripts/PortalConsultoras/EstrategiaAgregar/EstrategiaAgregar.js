@@ -454,8 +454,23 @@ var EstrategiaAgregarModule = (function () {
             } catch (e) {
                 console.log(e);
             }
+            if (data.listCuvEliminar != null) {
+                $.each(data.listCuvEliminar, function (i, cuv) {
+                    //Se debe integrar en un solo metodo
+                    //localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, false);
+	
+                    itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
+
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.lan, cuv, false);
+                })
+            }
+
             var localStorageModule = new LocalStorageModule();
             localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, true);
+
 
             if (belcorp.estrategia.applyChanges){
                 belcorp.estrategia.applyChanges("onProductoAgregado", data);
@@ -470,9 +485,8 @@ var EstrategiaAgregarModule = (function () {
                 if (_config.esFicha) {
                     if (params.CuvTonos != "") {
                         var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
-                        if (listaCuvs.length > 0) {
+                        if (listaCuvs.length > 0) {                            
                             $(".texto_sin_tono").find(".tono_seleccionado").hide();
-                            $(".texto_sin_tono").find(".texto_tono_seleccionado").html("ELIGE TU TONO");
                             var $ContentTonoDetalle = $(".content_tono_detalle");
                             if ($ContentTonoDetalle.length > 0) {
                                 $ContentTonoDetalle.removeClass("borde_seleccion_tono");
@@ -499,23 +513,26 @@ var EstrategiaAgregarModule = (function () {
         return false;
     };
 
+    var selectorCantidadEstaBloquedo = function ($element) {
+        var result = false;
+        
+        var dataBloquedaAttrValue = $element.data("bloqueada");
+        if (typeof dataBloquedaAttrValue !== "undefined" &&
+            $.trim( dataBloquedaAttrValue) !== "") {
+            result = true;
+        }
+        return result;
+    };
+
     var adicionarCantidad = function (e) {
         e.stopPropagation();
-
+        //
         var $this = $(e.target);
-        if ($this.data("bloqueada")) {
-            var desactivado = $this.find("[data-bloqueada='contenedor_rangos_desactivado']");
-            desactivado = desactivado.length;
-            //if ($this.data("bloqueada") !== "") return false;
-            if (desactivado !== 0) return false;
-        }    
-            
+        if (selectorCantidadEstaBloquedo($this)) return false;
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
-
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
         $inputCantidad.val(cantidad);
 
         return false;
@@ -523,20 +540,13 @@ var EstrategiaAgregarModule = (function () {
 
     var disminuirCantidad = function (e) {
         e.stopPropagation();
+        //
         var $this = $(e.target);
-        if ($this.data("bloqueada")) {
-            //if ($this.data("bloqueada") !== "") return false;
-            var desactivado = $this.find("[data-bloqueada='contenedor_rangos_desactivado']");
-            desactivado = desactivado.length;
-            if (desactivado !== 0) return false;
-        }
-             
+        if (selectorCantidadEstaBloquedo($this)) return false;
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
-
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
         $inputCantidad.val(cantidad);
 
         return false;
@@ -544,18 +554,20 @@ var EstrategiaAgregarModule = (function () {
 
     var deshabilitarBoton = function () {
         $(_elementos.btnAgregar.id).addClass(_elementos.btnAgregar.classDesactivado);
-        $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        //$("#idcontenedor_rangos").addClass("contenedor_rangos_desactivado");
     };
     
     var habilitarBoton = function() {
         $(_elementos.btnAgregar.id).removeClass(_elementos.btnAgregar.classDesactivado);
-        $(".cantidad_mas_home").attr("data-bloqueada", "");
-        $(".cantidad_menos_home").attr("data-bloqueada", "");
-        $("#imgFichaProduMas").attr("data-bloqueada", "");
-        $("#imgFichaProduMenos").attr("data-bloqueada", "");
+        //$(".cantidad_mas_home").attr("data-bloqueada", "");
+        //$(".cantidad_menos_home").attr("data-bloqueada", "");
+        //$("#imgFichaProduMas").attr("data-bloqueada", "");
+        //$("#imgFichaProduMenos").attr("data-bloqueada", "");
+        //$("#idcontenedor_rangos").removeClass("contenedor_rangos_desactivado");
     }
     
     return {

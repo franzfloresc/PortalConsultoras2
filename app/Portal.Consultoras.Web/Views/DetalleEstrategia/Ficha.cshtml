@@ -169,14 +169,14 @@
 
                 </div>
                 <div id="dvContenedorAgregar" class="contenedor_agregar">
-                    <div class="contenedor_rangos {{ClaseBloqueadaRangos}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
-                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{RangoInputEnabled}} type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
+                    <div class="contenedor_rangos {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
+                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}} type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
                         <div>
-                            <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="{{ClaseBloqueadaRangos}}" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                <div class="dibujar_linea dibujar_menos" data-bloqueada="{{ClaseBloqueadaRangos}}"></div>
+                            <a class="txt_menos" data-cantidad-agregar="-" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                <div class="dibujar_linea dibujar_menos" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}"></div>
                             </a>
-                            <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="{{ClaseBloqueadaRangos}}" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                <div class="dibujar_linea dibujar_mas" data-bloqueada="{{ClaseBloqueadaRangos}}"></div>
+                            <a class="txt_mas" data-cantidad-agregar="+" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                <div class="dibujar_linea dibujar_mas" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}"></div>
                             </a>
                         </div>
                     </div>
@@ -200,8 +200,8 @@
                         </div>
                     </div>
                     <a id="btnAgregalo" 
-                       class="btn_agregalo {{ClaseBloqueada}}" 
-                       data-bloqueada="{{ClaseBloqueada}}" 
+                       class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}" 
+                       {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}} 
                        onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
 
                     <div class="ficha_div_libre_agregado" style="padding-top: 15px;">
