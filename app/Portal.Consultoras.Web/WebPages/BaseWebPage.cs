@@ -16,11 +16,12 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 CerrarSesion();
 
-                Uri urlPortal = Util.GetUrlHost(Request);
+                //Uri urlPortal = Util.GetUrlHost(Request);
 
-                string urlSesionExpirada = string.Format("{0}/Login/SesionExpirada", urlPortal.AbsolutePath);
+                //string urlSesionExpirada = string.Format("{0}/Login/SesionExpirada", urlPortal.AbsolutePath);
 
-                Response.Redirect(urlSesionExpirada);
+                //Response.Redirect(urlSesionExpirada);
+                Response.Redirect("/Login/SesionExpirada");
             }
         }
 
