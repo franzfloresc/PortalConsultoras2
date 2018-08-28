@@ -11,7 +11,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -297,7 +303,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
@@ -629,7 +635,6 @@ GO
 USE BelcorpChile
 GO
 
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
@@ -639,7 +644,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -925,7 +936,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
@@ -1257,7 +1268,6 @@ GO
 USE BelcorpColombia
 GO
 
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
@@ -1267,7 +1277,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -1553,7 +1569,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
@@ -1885,7 +1901,6 @@ GO
 USE BelcorpCostaRica
 GO
 
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
@@ -1895,7 +1910,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -2181,7 +2202,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
@@ -2513,7 +2534,6 @@ GO
 USE BelcorpDominicana
 GO
 
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
@@ -2523,7 +2543,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -2809,7 +2835,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
@@ -3141,7 +3167,6 @@ GO
 USE BelcorpEcuador
 GO
 
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
@@ -3151,7 +3176,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -3437,7 +3468,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
@@ -3769,7 +3800,6 @@ GO
 USE BelcorpGuatemala
 GO
 
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
@@ -3779,7 +3809,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -4065,7 +4101,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
@@ -4397,7 +4433,6 @@ GO
 USE BelcorpMexico
 GO
 
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
@@ -4407,7 +4442,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -4693,7 +4734,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
@@ -5025,7 +5066,6 @@ GO
 USE BelcorpPanama
 GO
 
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
@@ -5035,7 +5075,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -5321,7 +5367,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
@@ -5653,7 +5699,6 @@ GO
 USE BelcorpPeru
 GO
 
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
@@ -5663,7 +5708,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -5949,7 +6000,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
@@ -6281,7 +6332,6 @@ GO
 USE BelcorpPuertoRico
 GO
 
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
@@ -6291,7 +6341,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -6577,7 +6633,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
@@ -6909,7 +6965,6 @@ GO
 USE BelcorpSalvador
 GO
 
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
@@ -6919,7 +6974,13 @@ AS
 BEGIN
 	DECLARE @FechaRegistroPedido DATE
 	DECLARE @FechaInicioSetAgrupado DATE
-  
+
+	SET @FechaInicioSetAgrupado = (
+			SELECT datefromparts(valor1, valor2, valor3)
+			FROM configuracionpaisdatos
+			WHERE Codigo = 'InicioFechaSetAGrupados'
+			)
+
 	SELECT @FechaRegistroPedido = FechaRegistro
 	FROM PedidoWeb WITH (NOLOCK)
 	WHERE CampaniaID = @CampaniaID
@@ -7205,7 +7266,7 @@ BEGIN
 				,PWD.OfertaWeb
 				,PWD.IndicadorMontoMinimo
 				,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID 
+				,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
 				,ISNULL(PWD.TipoPedido, 'W') TipoPedido
 				,NULL AS MarcaDescripcion
 				,'NO DISPONIBLE' AS Categoria
