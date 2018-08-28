@@ -4,6 +4,10 @@ namespace Portal.Consultoras.Web
 {
     public class BundleConfig
     {
+        /// <summary>
+        /// [~Bundle]/[Js|Css]/[Desktop|Mobile|Mixto]/[Funcionalidad|Página]
+        /// </summary>
+        /// <param name="bundles"></param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/JsLogin2").Include(
@@ -678,14 +682,14 @@ namespace Portal.Consultoras.Web
             //));
 
             #region DetalleEstrategia
-            bundles.Add(new ScriptBundle("~/bundles/js/EstrategiaAgregar").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/EstrategiaAgregar").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js"
             ));
-            
-            bundles.Add(new ScriptBundle("~/bundles/js/Ficha").Include(
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Ficha").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
@@ -697,18 +701,18 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/TituloOpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ResumenOpcionesModule.js",
-
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js"
             ));
-            bundles.Add(new ScriptBundle("~/bundles/mobile/js/Ficha").Include(
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Ficha").Include(
                 "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/desktop/css/ficha").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha").Include(
                 "~/Content/Css/Site/Ficha/Ficha.css",
                 "~/Content/Css/Site/Ficha/Carrusel.css",
                 "~/Content/Css/Site/Ficha/RedesSociales.css",
@@ -717,15 +721,15 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/desktop/css/FichaEsika").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha-Esika").Include(
                 "~/Content/Css/Site/Ficha/Esika/FichaEsika.css"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/desktop/css/FichaLbel").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha-Lbel").Include(
                 "~/Content/Css/Site/Ficha/Lbel/FichaLbel.css"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/mobile/css/ficha").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha").Include(
                 "~/Content/Css/Mobile/Ficha/ficha.css",
                 "~/Content/Css/Mobile/Ficha/Carrusel.css",
                 "~/Content/Css/Mobile/Ficha/RedesSociales.css",
@@ -733,19 +737,18 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Mobile/Ficha/SeleccionarTipo.css"
             ));
-            
-            bundles.Add(new StyleBundle("~/bundles/mobile/css/FichaEsika").Include(
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha-Esika").Include(
                 "~/Content/Css/Mobile/Ficha/Esika/FichaEsika.css"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/mobile/css/FichaLbel").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha-Lbel").Include(
                 "~/Content/Css/Mobile/Ficha/Lbel/FichaLbel.css"
             ));
-
             #endregion
 
             #region MisCatalogosRevistas
-            bundles.Add(new ScriptBundle("~/bundles/MisCatalogosRevistas").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Descktop/MisCatalogosRevistas").Include(
                  "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                  "~/Scripts/Tag/jquery.tags.input.js",
                  "~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js",
@@ -757,8 +760,7 @@ namespace Portal.Consultoras.Web
             #endregion
 
             #region GuiaNegocio
-
-            bundles.Add(new ScriptBundle("~/bundles/GuiaNegocio-Landing").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/GuiaNegocio").Include(
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
@@ -772,24 +774,21 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/GuiaNegocio/GuiaNegocio-Landing.js"
             ));
 
-
-            bundles.Add(new StyleBundle("~/bundles/css/Site/GuiaNegocio-Landing").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/GuiaNegocio").Include(
                 "~/Content/Css/Site/ProductoListado/Landing.css",
                 "~/Content/Css/Site/RevistaDigital/Gnd-Flotante.css",
                 "~/Content/Css/Site/Landing/producto.landing.css",
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/GuiaNegocio-Landing").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/GuiaNegocio").Include(
                 "~/Content/Css/Mobile/RevistaDigital/Gnd-Flotante.css",
                 "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css"
             ));
-
             #endregion
 
             #region HerramientasVenta
-
-            bundles.Add(new ScriptBundle("~/bundles/HerramientasVenta-Landing").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/HerramientaVenta-Landing").Include(
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
@@ -802,27 +801,26 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
-            
-            bundles.Add(new ScriptBundle("~/bundles/Mobile/js/HerramientasVenta-Landing").Include(
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/HerramientaVenta-Landing").Include(
                 "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
             ));
-            
-            bundles.Add(new StyleBundle("~/bundles/css/Site/HerramientasVenta-Landing").Include(
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/HerramientaVenta-Landing").Include(
                 "~/Content/Css/Site/ProductoListado/Landing.css",
                 "~/Content/Css/Site/Landing/producto.landing.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css"
 
             ));
-
             #endregion
 
             #region Estrategias-UpSelling
-            bundles.Add(new StyleBundle("~/bundles/estrategias-upselling-css")
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Upselling")
                 .Include("~/Content/Css/Site/Admin/Estrategias/UpSelling.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/estrategias-upselling").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/Upselling").Include(
                 "~/Scripts/knockout-{version}.js",
                 "~/Scripts/knockout.extensions.js"
             ));
