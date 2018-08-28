@@ -166,6 +166,7 @@ $(document).ready(function () {
         $("#divMensaje").text("");
         $("#txtPrecioR").val("");
         $("#hdfPrecioUnidad").val("");
+        document.getElementById('divObservacionesDescripProd').style.display = 'none';
 
         if ($(this).val().length === 5) {
             BuscarByCUV($(this).val());
@@ -187,12 +188,17 @@ $(document).ready(function () {
             }
             event.preventDefault();
             return false;
+
         }
     }).data("autocomplete")._renderItem = function (ul, item) {
-        return $("<li></li>")
-            .data("item.autocomplete", item)
-            .append("<a>" + item.CUV + "</a>")
-            .appendTo(ul);
+        if (isNaN(item.CUV)==true) {
+            document.getElementById('divObservaciones').style.display = 'block';
+            $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>El producto solicitado no existe</div></div>");
+        }else
+            return $("<li></li>")
+                .data("item.autocomplete", item)
+                .append("<a>" + item.CUV + "</a>")
+                .appendTo(ul);
     };
 
     $(".ValidaAlfanumerico").keypress(function (evt) {
