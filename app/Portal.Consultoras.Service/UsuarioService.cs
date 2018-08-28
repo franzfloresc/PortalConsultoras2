@@ -890,6 +890,11 @@ namespace Portal.Consultoras.Service
             return BLUsuario.CancelarAtualizacionEmail(paisID, codigoUsuario);
         }
 
+        public string GetDireccionConsultora(int paisID, string codigoUsuario)
+        {
+            return _usuarioBusinessLogic.GetDireccionConsultora(paisID, codigoUsuario);
+        }
+
         public List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)
         {
             var BLUsuario = new BLUsuario();

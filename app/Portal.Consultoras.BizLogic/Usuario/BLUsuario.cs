@@ -3205,7 +3205,12 @@ namespace Portal.Consultoras.BizLogic
         {
             return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
         }
+        public string GetDireccionConsultora(int paisID, string codigoUsuario)
+        {
+            var daUsuario = new DAUsuario(paisID);
 
+            return daUsuario.GetDireccionConsultora(codigoUsuario);
+        }
         public List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)
         {
             List<BEBuscadorYFiltros> BuscadorYFiltro = new List<BEBuscadorYFiltros>();

@@ -395,6 +395,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string CancelarAtualizacionEmail(int paisID, string codigoUsuario);
+        [OperationContract]
+        string GetDireccionConsultora(int paisID, string codigoUsuario);
 
         [OperationContract]
         List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
