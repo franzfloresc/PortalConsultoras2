@@ -6,7 +6,7 @@
 }
 @section styles{
 
-    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertasMobile")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ofertas")
 
     <style type="text/css">
         #btn_init {
@@ -64,5 +64,5 @@
         var OrigenDesktopODD = 0;
         var variableEstrategia = @Html.Raw(Json.Encode(ViewBag.variableEstrategia)) || {};
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/Ofertas")
 }

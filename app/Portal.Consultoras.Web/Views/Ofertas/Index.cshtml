@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertas")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ofertas")
     <link href="@Url.Content("~/Content/Css/Site/Contenedor/OfertaDelDia.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/Ficha/Carrusel.css")" rel="stylesheet" />
@@ -94,5 +94,5 @@
     var OrigenDesktopODD = 3;
     var variableEstrategia = @Html.Raw(Json.Encode(ViewBag.variableEstrategia)) || {};
 </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Ofertas")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/Ofertas")
 }

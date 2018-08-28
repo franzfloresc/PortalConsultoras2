@@ -27,8 +27,8 @@
     @{
         /*Limpiando de saltos de linea*/
         var regex = new System.Text.RegularExpressions.Regex(@"\t|\n|\r");
-        string linkEsika = Styles.Render("~/Content/Css/Site/Login2/Esika").ToHtmlString();
-        string linkLbel = Styles.Render("~/Content/Css/Site/Login2/Lbel").ToHtmlString();
+        string linkEsika = Styles.Render("~/Bundle/Css/Desktop/_LoginLayout-Esika").ToHtmlString();
+        string linkLbel = Styles.Render("~/Bundle/Css/Desktop/_LoginLayout-Lbel").ToHtmlString();
         linkEsika = regex.Replace(linkEsika, "");
         linkLbel = regex.Replace(linkLbel, "");
     }
@@ -51,7 +51,7 @@
              data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")"
              data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")"
              id="cssStyle">
-            @Styles.Render("~/Content/Css/Site/Login2/Esika")
+            @Styles.Render("~/Bundle/Css/Desktop/_LoginLayout-Esika")
         </div>
     }
 
@@ -62,7 +62,7 @@
              data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")"
              data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")"
              id="cssStyleLbel">
-            @Styles.Render("~/Content/Css/Site/Login2/Lbel")
+            @Styles.Render("~/Bundle/Css/Desktop/_LoginLayout-Lbel")
         </div>
     }
 
