@@ -2555,24 +2555,21 @@ namespace Portal.Consultoras.Common
             public const string TotalResultadosBuscador = "TotalResultadosBuscador";
         }
 
-        public class ActualizacionDatos {
-
-            public const string CambioCorreoPendiente = "1";
-
-        }
-
         public static class ActualizacionDatosValidacion
         {
             public const string ExpresionCelular = "^\\d+$";
+            public const string CambioCorreoPendiente = "1";
 
             private static Dictionary<string, string> _Message;
             public static class Code
             {
                 public const string SUCCESS = "0000";
                 public const string ERROR_INTERNO = "9999";
+
                 public const string ERROR_CELULAR_LONGITUD = "1001";
                 public const string ERROR_CELULAR_INVALIDO = "1002";
                 public const string ERROR_CELULAR_USADO = "1003";
+
                 public const string ERROR_CORREO_CAMBIO_NO_AUTORIZADO = "1101";
                 public const string ERROR_CORREO_VACIO = "1102";
                 public const string ERROR_CORREO_YA_EXISTE = "1103";
@@ -2595,6 +2592,5 @@ namespace Portal.Consultoras.Common
                 }
             }
         }
-
     }
 }

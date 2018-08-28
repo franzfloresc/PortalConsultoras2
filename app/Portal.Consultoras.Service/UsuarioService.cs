@@ -729,11 +729,6 @@ namespace Portal.Consultoras.Service
             return new BLUsuario().ActualizarEmail(usuario, correoNuevo);
         }
 
-        public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo)
-        {
-            return _usuarioBusinessLogic.ActualizarEmailWS(usuario, correoNuevo);
-        }
-
         public BERespuestaServicio RegistrarEnvioSms(
             int paisId,
             string codigoUsuario,
@@ -746,9 +741,9 @@ namespace Portal.Consultoras.Service
             return _usuarioBusinessLogic.RegistrarEnvioSms(paisId, codigoUsuario, codigoConsultora, campaniaId, esMobile, celularActual, celularNuevo);
         }
 
-        public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania)
+        public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania, bool soloValidar)
         {
-            return _usuarioBusinessLogic.ConfirmarCelularPorCodigoSms(paisId, codigoUsuario, codigoSms, campania);
+            return _usuarioBusinessLogic.ConfirmarCelularPorCodigoSms(paisId, codigoUsuario, codigoSms, campania, soloValidar);
         }
 
         public string AceptarContrato(BEUsuario usuario)
@@ -900,5 +895,16 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.listaProductos(paisID,CampaniaID, filas, CodigoDescripcion, regionId, zonaId, codigoRegion, codigoZona);
         }
+
+        #region ActualizacionDatos
+        public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo)
+        {
+            return _usuarioBusinessLogic.ActualizarEmailWS(usuario, correoNuevo);
+        }
+        public BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo)
+        {
+            return _usuarioBusinessLogic.EnviarSmsCodigo(paisID, codigoUsuario, codigoConsultora, campaniaID, esMobile, celularActual, celularNuevo);
+        }
+        #endregion
     }
 }

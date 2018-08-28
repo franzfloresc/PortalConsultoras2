@@ -150,6 +150,12 @@
   <wsdl:message name="IUsuarioService_ActualizarEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEmailResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarEmailWS_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEmailWS" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarEmailWS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEmailWSResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_RegistrarEnvioSms_InputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarEnvioSms" />
   </wsdl:message>
@@ -299,6 +305,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_listaProductos_OutputMessage">
     <wsdl:part name="parameters" element="tns:listaProductosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EnviarSmsCodigo_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSmsCodigo" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EnviarSmsCodigo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSmsCodigoResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
@@ -887,6 +899,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmail" message="tns:IUsuarioService_ActualizarEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailResponse" message="tns:IUsuarioService_ActualizarEmail_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailWS">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailWS" message="tns:IUsuarioService_ActualizarEmailWS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailWSResponse" message="tns:IUsuarioService_ActualizarEmailWS_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RegistrarEnvioSms">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarEnvioSms" message="tns:IUsuarioService_RegistrarEnvioSms_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarEnvioSmsResponse" message="tns:IUsuarioService_RegistrarEnvioSms_OutputMessage" />
@@ -986,6 +1002,10 @@
     <wsdl:operation name="listaProductos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/listaProductos" message="tns:IUsuarioService_listaProductos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/listaProductosResponse" message="tns:IUsuarioService_listaProductos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarSmsCodigo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" message="tns:IUsuarioService_EnviarSmsCodigo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigoResponse" message="tns:IUsuarioService_EnviarSmsCodigo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -1501,6 +1521,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailWS">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmailWS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RegistrarEnvioSms">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/RegistrarEnvioSms" style="document" />
       <wsdl:input>
@@ -1719,6 +1748,15 @@
     </wsdl:operation>
     <wsdl:operation name="listaProductos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/listaProductos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarSmsCodigo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2666,6 +2704,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailWS">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmailWS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RegistrarEnvioSms">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/RegistrarEnvioSms" style="document" />
       <wsdl:input>
@@ -2884,6 +2931,15 @@
     </wsdl:operation>
     <wsdl:operation name="listaProductos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/listaProductos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarSmsCodigo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

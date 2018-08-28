@@ -91,6 +91,7 @@
     <Compile Include="Oferta\BEGuiaNegocio.cs" />
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
     <Compile Include="Oferta\BEOfertaFinal.cs" />
+    <Compile Include="Pedido\BEPedidoReservaResult.cs" />
     <Compile Include="ProgramaNuevas\BENivelesProgramaNuevas.cs" />
     <Compile Include="ProgramaNuevas\BERespValidarElectivos.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPago.cs" />

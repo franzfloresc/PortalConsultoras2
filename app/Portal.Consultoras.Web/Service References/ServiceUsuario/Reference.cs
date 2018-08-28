@@ -1534,6 +1534,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool CambioClaveField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool CambioCorreoPendienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CampanaInvitadaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1622,6 +1625,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ConsultoraNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CorreoPendienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CuponEstadoField;
@@ -1960,6 +1966,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool PuedeActualizarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeActualizarCelularField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeActualizarEmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PuedeEnviarSMSField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2269,6 +2281,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.CambioClaveField.Equals(value) != true)) {
                     this.CambioClaveField = value;
                     this.RaisePropertyChanged("CambioClave");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool CambioCorreoPendiente {
+            get {
+                return this.CambioCorreoPendienteField;
+            }
+            set {
+                if ((this.CambioCorreoPendienteField.Equals(value) != true)) {
+                    this.CambioCorreoPendienteField = value;
+                    this.RaisePropertyChanged("CambioCorreoPendiente");
                 }
             }
         }
@@ -2659,6 +2684,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.ConsultoraNuevaField.Equals(value) != true)) {
                     this.ConsultoraNuevaField = value;
                     this.RaisePropertyChanged("ConsultoraNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CorreoPendiente {
+            get {
+                return this.CorreoPendienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CorreoPendienteField, value) != true)) {
+                    this.CorreoPendienteField = value;
+                    this.RaisePropertyChanged("CorreoPendiente");
                 }
             }
         }
@@ -4120,6 +4158,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeActualizarCelular {
+            get {
+                return this.PuedeActualizarCelularField;
+            }
+            set {
+                if ((this.PuedeActualizarCelularField.Equals(value) != true)) {
+                    this.PuedeActualizarCelularField = value;
+                    this.RaisePropertyChanged("PuedeActualizarCelular");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeActualizarEmail {
+            get {
+                return this.PuedeActualizarEmailField;
+            }
+            set {
+                if ((this.PuedeActualizarEmailField.Equals(value) != true)) {
+                    this.PuedeActualizarEmailField = value;
+                    this.RaisePropertyChanged("PuedeActualizarEmail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool PuedeEnviarSMS {
             get {
                 return this.PuedeEnviarSMSField;
@@ -5282,6 +5346,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MessageField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5294,6 +5361,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
             }
         }
         
@@ -10983,6 +11063,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarEmail", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarEmailResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarEmailWS", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarEmailWSResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActualizarEmailWS(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarEmailWS", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarEmailWSResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailWSAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RegistrarEnvioSms", ReplyAction="http://tempuri.org/IUsuarioService/RegistrarEnvioSmsResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo);
         
@@ -10990,10 +11076,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> RegistrarEnvioSmsAsync(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSms", ReplyAction="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSmsResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania);
+        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania, bool soloValidar);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSms", ReplyAction="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSmsResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ConfirmarCelularPorCodigoSmsAsync(int paisId, string codigoUsuario, string codigoSms, int campania);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ConfirmarCelularPorCodigoSmsAsync(int paisId, string codigoUsuario, string codigoSms, int campania, bool soloValidar);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/EliminarUsuarioPostulante", ReplyAction="http://tempuri.org/IUsuarioService/EliminarUsuarioPostulanteResponse")]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
@@ -11132,6 +11218,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/listaProductos", ReplyAction="http://tempuri.org/IUsuarioService/listaProductosResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros[]> listaProductosAsync(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigo", ReplyAction="http://tempuri.org/IUsuarioService/EnviarSmsCodigoResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigo", ReplyAction="http://tempuri.org/IUsuarioService/EnviarSmsCodigoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> EnviarSmsCodigoAsync(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
@@ -11841,6 +11933,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ActualizarEmailAsync(usuario, correoNuevo);
         }
         
+        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActualizarEmailWS(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo) {
+            return base.Channel.ActualizarEmailWS(usuario, correoNuevo);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailWSAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo) {
+            return base.Channel.ActualizarEmailWSAsync(usuario, correoNuevo);
+        }
+        
         public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo) {
             return base.Channel.RegistrarEnvioSms(paisId, codigoUsuario, codigoConsultora, campaniaId, esMobile, celularActual, celularNuevo);
         }
@@ -11849,12 +11949,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.RegistrarEnvioSmsAsync(paisId, codigoUsuario, codigoConsultora, campaniaId, esMobile, celularActual, celularNuevo);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania) {
-            return base.Channel.ConfirmarCelularPorCodigoSms(paisId, codigoUsuario, codigoSms, campania);
+        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania, bool soloValidar) {
+            return base.Channel.ConfirmarCelularPorCodigoSms(paisId, codigoUsuario, codigoSms, campania, soloValidar);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ConfirmarCelularPorCodigoSmsAsync(int paisId, string codigoUsuario, string codigoSms, int campania) {
-            return base.Channel.ConfirmarCelularPorCodigoSmsAsync(paisId, codigoUsuario, codigoSms, campania);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ConfirmarCelularPorCodigoSmsAsync(int paisId, string codigoUsuario, string codigoSms, int campania, bool soloValidar) {
+            return base.Channel.ConfirmarCelularPorCodigoSmsAsync(paisId, codigoUsuario, codigoSms, campania, soloValidar);
         }
         
         public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento) {
@@ -12039,6 +12139,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros[]> listaProductosAsync(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona) {
             return base.Channel.listaProductosAsync(paisID, CampaniaID, filas, CodigoDescripcion, regionId, zonaId, codigoRegion, codigoZona);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo) {
+            return base.Channel.EnviarSmsCodigo(paisID, codigoUsuario, codigoConsultora, campaniaID, esMobile, celularActual, celularNuevo);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> EnviarSmsCodigoAsync(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo) {
+            return base.Channel.EnviarSmsCodigoAsync(paisID, codigoUsuario, codigoConsultora, campaniaID, esMobile, celularActual, celularNuevo);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

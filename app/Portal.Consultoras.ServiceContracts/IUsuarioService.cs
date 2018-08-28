@@ -323,7 +323,7 @@ namespace Portal.Consultoras.ServiceContracts
         BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo);
 
         [OperationContract]
-        BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania);
+        BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania, bool soloValidar);
 
         [OperationContract]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
@@ -401,6 +401,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
-
+        #region ActualizacionDatos
+        [OperationContract]
+        BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
+        #endregion
     }
 }
