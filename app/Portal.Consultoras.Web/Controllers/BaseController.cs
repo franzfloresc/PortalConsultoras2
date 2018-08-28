@@ -49,7 +49,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly PedidoWebProvider _pedidoWebProvider;
         protected readonly OfertaViewProvider _ofertasViewProvider;  // Mover donde se utiliza
         protected readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider; // Mover donde se utiliza
-        protected readonly OfertaDelDiaProvider ofertaDelDiaProvider;
         protected readonly OfertaDelDiaProvider _ofertaDelDiaProvider;
         protected readonly MenuContenedorProvider _menuContenedorProvider;
         protected readonly EventoFestivoProvider _eventoFestivoProvider;
@@ -67,12 +66,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BaseController() : this(SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
         {
-            userData = UserData();
             _tablaLogicaProvider = new TablaLogicaProvider();
             administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
-            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
-            ofertaDelDiaProvider = new OfertaDelDiaProvider();
             revistaDigitalProvider = new RevistaDigitalProvider();
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
