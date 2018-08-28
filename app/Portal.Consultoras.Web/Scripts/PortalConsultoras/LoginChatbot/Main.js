@@ -70,23 +70,37 @@ function ResponderBotmaker(url, data) {
     ShowLoading();
 
     data['userToken'] = tokenBotmaker;
-
+   
     $.post(url, data)
         .done(function (response) {
             if (!webViewFallBack) {
                 MessengerExtensions.requestCloseBrowser(
                     function success() { },
-                    function error(err) { console.warn('Problems closing browser:' + err); }
+                    function error(err) {
+                        CloseLoading();
+                        MessageInfoError('error al ingresar');
+                        console.warn('Problems closing browser:' + err);
+                    }
                 );
             }
             else CloseWindow();
         })
-        .fail(function (error) { ConsoleLog(error); })
+        .fail(function (xhr, status, error) {
+            CloseLoading();
+            MessageInfoError('error al ingresar');
+            ConsoleLog(error);
+          
+        });
 }
 
 function ShowLoading() { $("#loading-spin").fadeIn(); }
+
 function CloseLoading() { $("#loading-spin").fadeOut("fast"); }
-function CloseWindow() { window.location.href = urlBotmakerChat; }
+
+function CloseWindow() {
+    window.location.href = urlBotmakerChat;
+    setTimeout(function () { window.close() }, 2000);
+}
 
 function MessageInfoError(message, fnAceptar) {
     $('#mensajeInformacionSB2_Error').html(message);
@@ -95,6 +109,7 @@ function MessageInfoError(message, fnAceptar) {
 
     $('#popupInformacionSB2Error').show();
 }
+
 function MostrarArrayMensaje(arrayMessage) {
     var message = '';
     $.each(arrayMessage, function (i, value) {
