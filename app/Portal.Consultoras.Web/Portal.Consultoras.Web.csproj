@@ -5177,7 +5177,6 @@
     <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
     <Content Include="Views\Login\ChatBelcorp.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales-producto.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoOfertasHome.cshtml" />
     <Content Include="Views\Shared\_MenuContenedorOferta.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-showroom.cshtml" />

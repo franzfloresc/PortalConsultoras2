@@ -239,17 +239,18 @@ var EstrategiaAgregarModule = (function () {
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
 
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
-            if (isMobile()) {
-                EstrategiaVerDetalleMobile(estrategia);
-                return true;
-            }
+            //if (isMobile()) {
+            //    EstrategiaVerDetalleMobile(estrategia);
+            //    return true;
+            //}
             getDivMsgBloqueado($btnAgregar, estrategia).show();
             sendAnalyticAgregarProductoDeshabilitado(estrategia, popup);
             return false;
         }
-
-        if (estrategiaComponenteModule.ValidarSeleccionTono($btnAgregar, _config.esFicha)) {
-            return false;
+        if (estrategiaComponenteModule) {
+            if (estrategiaComponenteModule.ValidarSeleccionTono($btnAgregar, _config.esFicha)) {
+                return false;
+            }
         }
 
         var cantidad = (limite > 0) ? limite : ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val());
