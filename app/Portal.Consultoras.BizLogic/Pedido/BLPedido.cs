@@ -454,7 +454,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         NumeroPedido = usuario.ConsecutivoNueva,
                         AgruparSet = true
                     };
-                    var SetResult = _pedidoWebDetalleBusinessLogic.UpdCantidadPedidoWebSet(pedidoDetalle.PaisID, pedidoDetalle.SetID, pedidoDetalle.Cantidad, bePedidoWebDetalleParametros);
+                    _pedidoWebDetalleBusinessLogic.UpdCantidadPedidoWebSet(pedidoDetalle.PaisID, pedidoDetalle.SetID, pedidoDetalle.Cantidad, bePedidoWebDetalleParametros);
                 }
 
                 //actualizar PROL
@@ -1076,7 +1076,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle)
         {
-            var mensaje = string.Empty;
+            //var mensaje = string.Empty;
             try
             {
                 //Validación de Sets
@@ -1107,7 +1107,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
                 var pedidoID = 0;
-                var lstDetalleApp = new List<BEPedidoDetalle>();
+                //var lstDetalleApp = new List<BEPedidoDetalle>();
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 pedidoDetalle.PedidoID = pedidoID;
 
@@ -1218,8 +1218,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private string ValidarMontoMaximo(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle,
             out bool resul)
         {
-            var mensaje = string.Empty;
             resul = false;
+            var mensaje = string.Empty;
 
             if (!usuario.TieneValidacionMontoMaximo)
                 return mensaje;
@@ -1677,8 +1677,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private List<BEPedidoObservacion> ObtenerListPedidoObservacionPorDetalle(List<BEPedidoWebDetalle> pedidoDetalle, List<BEPedidoObservacion> listPedidoObservacion, int paisId, int campaniaId, long consultoraId, int pedidoId)
         {
-            List<BEPedidoObservacion> ListPedidoObservacion = new List<BEPedidoObservacion>();
-            ListPedidoObservacion = listPedidoObservacion
+            List<BEPedidoObservacion> ListPedidoObservacion = listPedidoObservacion
                                         .GroupBy(e => new { e.Caso, e.CUV, e.CuvObs, e.Descripcion, e.PedidoDetalleID, e.SetID, e.Tipo })
                                         .Select(g => g.FirstOrDefault())
                                          .ToList();
@@ -1955,13 +1954,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private void EstrategiaAgregarProducto(BEPedidoDetalle pedidoDetalle, BEUsuario usuario, BEEstrategia estrategia, List<BEPedidoWebDetalle> lstDetalle)
         {
             //Validar Stock Estrategia
-            var ofertas = estrategia.DescripcionCUV2.Split('|');
+            //var ofertas = estrategia.DescripcionCUV2.Split('|');
             //var descripcion = ofertas[0];
             if (estrategia.FlagNueva == 1) estrategia.Cantidad = estrategia.LimiteVenta;
             //else descripcion = estrategia.DescripcionCUV2;
 
-            var resultado = false;
-            var mensaje = ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle, out resultado);
+            bool resultado;
+            ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle, out resultado);
 
             //Agregar Producto ZE
             AgregarProductoZE(usuario, pedidoDetalle, lstDetalle);
