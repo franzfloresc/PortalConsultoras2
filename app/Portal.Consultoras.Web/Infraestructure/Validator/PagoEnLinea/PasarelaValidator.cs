@@ -22,11 +22,11 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea
             get { return _errors; }
         }
 
-        public bool IsValid(PaymentInfo info)
+        public bool IsValid(PaymentInfo data)
         {
             _errors = new List<KeyValuePair<string, string>>();
 
-            if (!Regex.Match(info.NumberCard, PatternCard).Success)
+            if (!Regex.Match(data.NumberCard, PatternCard).Success)
             {
                 AddError("NumberCard", NumberCardMessage);
 
@@ -35,23 +35,23 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea
 
             if (RequiredFields.Contains(Constantes.PagoEnLineaCampos.FechaNacimiento))
             {
-                if (info.Birthdate == null)
+                if (data.Birthdate == null)
                 {
                     AddError("Birthdate", RequiredMessage);
-                } else if (info.Birthdate.Value > DateTime.Now.Date)
+                } else if (data.Birthdate.Value > DateTime.Now.Date)
                 {
                     AddError("Birthdate", DateMaxMessage);
                 }
             }
 
             if (RequiredFields.Contains(Constantes.PagoEnLineaCampos.Email)
-                && string.IsNullOrEmpty(info.Email))
+                && string.IsNullOrEmpty(data.Email))
             {
                 AddError("Email", RequiredMessage);
             }
 
             if (RequiredFields.Contains(Constantes.PagoEnLineaCampos.Celular)
-                && string.IsNullOrEmpty(info.Phone))
+                && string.IsNullOrEmpty(data.Phone))
             {
                 AddError("Phone", RequiredMessage);
             }
