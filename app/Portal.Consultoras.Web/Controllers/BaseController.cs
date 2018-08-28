@@ -76,7 +76,6 @@ namespace Portal.Consultoras.Web.Controllers
             _configuracionManagerProvider = new ConfiguracionManagerProvider();
             _ofertasViewProvider = new OfertaViewProvider();
             _revistaDigitalProvider = new RevistaDigitalProvider();
-            _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             _ofertaDelDiaProvider = new OfertaDelDiaProvider();
             _logDynamoProvider = new LogDynamoProvider();
             _eventoFestivoProvider = new EventoFestivoProvider();

@@ -19,19 +19,36 @@ namespace Portal.Consultoras.Web.Providers
     public class OfertaPersonalizadaProvider
     {
         protected ISessionManager sessionManager;
-        protected RevistaDigitalModel revistaDigital;
+
+        protected RevistaDigitalModel revistaDigital
+        {
+            get
+            {
+                return sessionManager.GetRevistaDigital();
+            }
+        }
         protected ConfiguracionManagerProvider _configuracionManager;
         protected readonly PedidoWebProvider _pedidoWeb;
         protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
         protected OfertaBaseProvider _ofertaBaseProvider;
 
-        public OfertaPersonalizadaProvider()
+        public OfertaPersonalizadaProvider() : this(SessionManager.SessionManager.Instance, 
+            new ConfiguracionManagerProvider(),
+            new PedidoWebProvider(), 
+            new OfertaBaseProvider())
         {
-            sessionManager = SessionManager.SessionManager.Instance;
-            revistaDigital = sessionManager.GetRevistaDigital();
-            _configuracionManager = new ConfiguracionManagerProvider();
-            _pedidoWeb = new PedidoWebProvider();
-            _ofertaBaseProvider = new OfertaBaseProvider();
+        }
+
+        public OfertaPersonalizadaProvider(
+            ISessionManager sessionManager,
+            ConfiguracionManagerProvider configuracionManagerProvider,
+            PedidoWebProvider pedidoWebProvider, 
+            OfertaBaseProvider ofertaBaseProvider)
+        {
+            this.sessionManager = sessionManager;
+            _configuracionManager = configuracionManagerProvider;
+            _pedidoWeb = pedidoWebProvider;
+            _ofertaBaseProvider = ofertaBaseProvider;
         }
 
         #region Metodos de Estrategia Controller
