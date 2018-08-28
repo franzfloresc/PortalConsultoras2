@@ -53,12 +53,12 @@ body {
     height: 300px;
 }
 
-    .contenedor_imagen .contenedor_img {
-        max-width: 100% !important;
-        max-height: 100% !important;
-        height: auto;
-        width: auto;
-    }
+.contenedor_imagen .contenedor_img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    height: auto;
+    width: auto;
+}
 
 /*.contenedor_imagen_ancho_mayor {
     margin: 0 12%;
