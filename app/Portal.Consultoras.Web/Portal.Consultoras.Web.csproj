@@ -1388,6 +1388,7 @@
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
+    <Content Include="Content\Css\Site\MailConfirmacion\style.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Site\RevistaDigital\ConfirmarDatos.css" />
@@ -3170,6 +3171,7 @@
     <Content Include="Content\Images\icons\small\list-icon6.png" />
     <Content Include="Content\Images\login\aniversario.png" />
     <Content Include="Content\Images\login\aniversario01.png" />
+    <Content Include="Content\Images\mobile\img-emoticons\1f64c.png" />
     <Content Include="Content\Images\mobile\img-icon\alert-success.png" />
     <Content Include="Content\Images\mobile\img-icon\boton_compartirface.png" />
     <Content Include="Content\Images\mobile\img-icon\boton_whatsapp.png" />
