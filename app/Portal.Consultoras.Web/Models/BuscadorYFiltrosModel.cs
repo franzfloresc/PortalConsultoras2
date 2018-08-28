@@ -33,5 +33,6 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaID { get; set; }
         public int TipoEstrategiaId { get; set; }
         public string DescripcionEstrategia { get; set; }
+        public string Origen { get; set; }
     }
 }

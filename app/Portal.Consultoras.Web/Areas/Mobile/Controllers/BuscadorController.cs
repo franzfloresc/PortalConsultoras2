@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(buscadorModel);
 
-                ListaProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, sessionManager.GetDetallesPedido(), userData, revistaDigital);
+                ListaProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, sessionManager.GetDetallesPedido(), userData, revistaDigital, true);
 
             }
             catch (Exception ex)
@@ -49,6 +49,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return Json(ListaProductosModel, JsonRequestBehavior.AllowGet);
         }
 
-      
+
     }
 }

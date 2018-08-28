@@ -3595,6 +3595,12 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
+
+        //Obtener el código de origen
+        //public static string obtenerCodigoOrigen()
+        //{
+
+        //}
     }
 
     public static class DataRecord
