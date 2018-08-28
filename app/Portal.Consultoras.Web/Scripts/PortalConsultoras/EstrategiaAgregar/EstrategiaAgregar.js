@@ -247,10 +247,9 @@ var EstrategiaAgregarModule = (function () {
             sendAnalyticAgregarProductoDeshabilitado(estrategia, popup);
             return false;
         }
-        if (estrategiaComponenteModule) {
-            if (estrategiaComponenteModule.ValidarSeleccionTono($btnAgregar, _config.esFicha)) {
-                return false;
-            }
+
+        if (_ValidarSeleccionTono($btnAgregar, _config.esFicha)) {
+            return false;
         }
 
         var cantidad = (limite > 0) ? limite : ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val());
@@ -569,6 +568,39 @@ var EstrategiaAgregarModule = (function () {
         //$("#imgFichaProduMas").attr("data-bloqueada", "");
         //$("#imgFichaProduMenos").attr("data-bloqueada", "");
         //$("#idcontenedor_rangos").removeClass("contenedor_rangos_desactivado");
+    }
+
+    var _ValidarSeleccionTono = function (objInput, esFicha) {
+        var attrClass = $.trim($(objInput).attr("class"));
+        if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
+
+            //var $SelectTonos = $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']");
+            var $SelectTonos = $(objInput).parents("[data-item]").find("[data-opciones-seleccionadas='0']").find("[data-tono-change='1']");
+            var $SeleccionTonoToolTip = $("[data-selecciontono='tooltip']");
+
+            if (isMobile()) {
+                if (esFicha) {
+                    if ($SelectTonos.length > 0) {
+                        var $PrimerElemento = $SelectTonos[0];
+                        var Altura = $($PrimerElemento).offset().top - 200;
+                        window.scrollTo(0, Altura);
+                    }
+                }
+            }
+
+            if (esFicha) {
+                $SeleccionTonoToolTip.show();
+                setTimeout(function () { $SeleccionTonoToolTip.hide(); }, 2000);
+            }
+
+            $SelectTonos.removeClass("texto_sin_tono").addClass("variedad_sin_seleccionar");
+            setTimeout(
+                function () {
+                    $SelectTonos.removeClass("variedad_sin_seleccionar").addClass("texto_sin_tono");
+                }, 1000);
+            return true;
+        }
+        return false;
     }
     
     return {

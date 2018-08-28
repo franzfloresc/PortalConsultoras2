@@ -699,7 +699,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
-                //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ListaOpcionesModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ComponentesModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js",
