@@ -1531,6 +1531,7 @@ namespace Portal.Consultoras.Common
             public const int ActualizaDatosEnabled = 143;
             public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
+            public const short NuevaDescripcionProductos = 145;
         }
 
         public struct MensajesCDRExpress
@@ -2571,6 +2572,14 @@ namespace Portal.Consultoras.Common
             public const string GUIADENEGOCIODIGITAL = "GUIADENEGOCIODIGITAL";
             public const string HERRAMIENTASDEVENTA = "HERRAMIENTASDEVENTA";
             public const string ESPECIALES = "ESPECIALES";
+            public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
+        }
+
+        public class CodigosCatalogos
+        {
+            public const int ESIKA = 10;
+            public const int LBEL = 9;
+            public const int CYZONE = 13;
         }
     }
 }
