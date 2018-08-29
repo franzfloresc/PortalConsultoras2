@@ -2569,6 +2569,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CELULAR_LONGITUD = "1001";
                 public const string ERROR_CELULAR_INVALIDO = "1002";
                 public const string ERROR_CELULAR_USADO = "1003";
+                public const string ERROR_CELULAR_PRIMER_DIGITO = "1004";
 
                 public const string ERROR_CORREO_CAMBIO_NO_AUTORIZADO = "1101";
                 public const string ERROR_CORREO_VACIO = "1102";
@@ -2582,9 +2583,12 @@ namespace Portal.Consultoras.Common
                    {
                        {Code.SUCCESS, "OK"},
                        {Code.ERROR_INTERNO, string.Empty},
+
                        {Code.ERROR_CELULAR_LONGITUD, "El número debe tener {0} dígitos."},
                        {Code.ERROR_CELULAR_INVALIDO, "No es un número válido."},
                        {Code.ERROR_CELULAR_USADO, "El celular ingresado ya está registrado para otra consultora."},
+                       {Code.ERROR_CELULAR_PRIMER_DIGITO, "El número debe empezar por {0}."},
+
                        {Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO,Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado},
                        {Code.ERROR_CORREO_VACIO,Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio},
                        {Code.ERROR_CORREO_YA_EXISTE,Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste}
