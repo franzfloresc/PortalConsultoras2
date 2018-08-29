@@ -918,6 +918,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var result = Insert(pedidoDetalle);
                 if (result.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
                 {
+                    PedidoAgregarProductoAgrupado(usuario, pedido.PedidoID, pedidoDetalle.Cantidad, pedidoDetalle.Producto.CUV, pedidoDetalle.Producto.CUV, 0);
+
                     var tipoRegistro = Constantes.OfertaFinalLog.Code.PRODUCTO_AGREGADO;
                     var desTipoRegistro = Constantes.OfertaFinalLog.Message[tipoRegistro];
 
@@ -1986,6 +1988,19 @@ namespace Portal.Consultoras.BizLogic.Pedido
             pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.FirstOrDefault().PedidoID : 0;
 
             return detallesPedidoWeb;
+        }
+
+        private void PedidoAgregarProductoAgrupado(BEUsuario usuario, int pedidoID, int cantidad, string cuv, string cuvlist, int estrategiaId)
+        {
+            var formatoPedidoWebSet = string.Empty;
+
+            if (cuvlist.IndexOf(":") < 0)
+                formatoPedidoWebSet = string.Format("{0}:1", cuvlist);
+            else
+                formatoPedidoWebSet = cuvlist;
+
+            _pedidoWebDetalleBusinessLogic.InsertPedidoWebSet(usuario.PaisID, usuario.CampaniaID, pedidoID, cantidad, cuv
+                    , usuario.ConsultoraID, string.Empty, formatoPedidoWebSet, estrategiaId, usuario.Nombre, usuario.CodigoPrograma, usuario.ConsecutivoNueva);
         }
         #endregion
     }
