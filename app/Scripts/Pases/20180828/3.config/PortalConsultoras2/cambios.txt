@@ -1,0 +1,4 @@
+PortalConsultoras2 - Web
+
+1 ADD
+<add key="UrlCursoMiAcademiaVideo" value="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ingresar.php?usuario={0}&amp;token={1}&amp;video={2}"/>
