@@ -63,7 +63,7 @@ var EstrategiaAgregarModule = (function () {
     var elementosPopPup = {
         popupClose: "#popup-close",
         popupDetalleCarouselLanzamiento: "#popupDetalleCarousel_lanzamiento",
-        popupDetalleCarouselPackNuevas: "#popupDetalleCarousel_packNuevas",
+        //popupDetalleCarouselPackNuevas: "#popupDetalleCarousel_packNuevas",  DEUDA TECNICA
         contenedorPopupDetalleCarousel: "#contenedor_popup_detalleCarousel"
     };
     
