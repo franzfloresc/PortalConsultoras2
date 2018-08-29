@@ -54,8 +54,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
-                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+                var mostrarShowRoomProductos = SessionManager.GetMostrarShowRoomProductos();
+                var mostrarShowRoomProductosExpiro = SessionManager.GetMostrarShowRoomProductosExpiro();
                 var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
                 if (mostrarPopupIntriga) return RedirectToAction("Intriga", "ShowRoom");
@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData.CloseBannerCompraPorCompra = true;
 
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
 
                 return Json(new
                 {
@@ -602,7 +602,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult DesactivarBannerInferior()
         {
-            sessionManager.ShowRoom.BannerInferiorConfiguracion.Activo = false;
+            SessionManager.ShowRoom.BannerInferiorConfiguracion.Activo = false;
 
             return Json(ResultModel<bool>.BuildOk(true), JsonRequestBehavior.AllowGet);
         }
@@ -658,9 +658,9 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.InsPedidoWebDetalleOferta(entidad);
                 }
 
-                sessionManager.SetPedidoWeb(null);
-                sessionManager.SetDetallesPedido(null);
-                sessionManager.SetDetallesPedidoSetAgrupado(null);
+                SessionManager.SetPedidoWeb(null);
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
 
                 UpdPedidoWebMontosPROL();
 
@@ -754,7 +754,7 @@ namespace Portal.Consultoras.Web.Controllers
             userData.EMailActivo = usuario.EMail == userData.EMail && userData.EMailActivo;
             userData.EMail = usuario.EMail;
             userData.Celular = usuario.Celular;
-            sessionManager.SetUserData(userData);
+            SessionManager.SetUserData(userData);
         }
 
         private void EnviarConfirmacionCorreoShowRoom(MisDatosModel model)

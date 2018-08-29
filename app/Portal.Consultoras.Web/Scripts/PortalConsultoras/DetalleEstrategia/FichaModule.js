@@ -32,7 +32,7 @@ var FichaModule = (function (config) {
 
     var _config = {
         palanca: config.palanca || "",
-        origen: config.origen || "",
+        //origen: config.origen || "",
         tieneSession: config.tieneSession || "",
         campania: config.campania || "",
         cuv: config.cuv || "",
@@ -51,9 +51,9 @@ var FichaModule = (function (config) {
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
         dataSelected: "[data-select-area]",
-        idPlantillaProductoLanding: "#producto-landing-template",
-        divCarruselSetsProductosRelacionados: "#divOfertaProductos",
-        divSetsProductosRelacionados: "#set_relacionados",
+        //idPlantillaProductoLanding: "#producto-landing-template",
+        //divCarruselSetsProductosRelacionados: "#divFichaCarruselProducto",
+        //divSetsProductosRelacionados: "#set_relacionados",
         footerPage: ".footer-page",
         estrategiaBreadcrumb: "#estrategia-breadcrumb",
         marca: "#marca"
@@ -61,9 +61,9 @@ var FichaModule = (function (config) {
 
     var _atributos = {
         dataEstrategia: "data-estrategia",
-        dataClicked: "[data-clicked]",
-        dataChange: "[data-change]",
-        dataSelected: "[data-select-area]"
+        //dataClicked: "[data-clicked]",
+        //dataChange: "[data-change]",
+        //dataSelected: "[data-select-area]"
     };
 
     var _seccionesFichaProducto = {
@@ -72,7 +72,7 @@ var FichaModule = (function (config) {
         ImagenDeFondo: "#ImagenDeFondo",
         //DescripcionAdicional: "#DescripcionAdicional",
         ContenidoProducto: "#ContenidoProducto",
-        CarruselProducto: "#CarruselProducto",
+        //CarruselProducto: "#divFichaCarrusel",
         //EtiquetaOdd: "#EtiquetaOdd",
         //SloganLanzamientos: "#SloganLanzamientos",
         //ContenedoFotoReferencial: "#contenedor_foto_referencial",

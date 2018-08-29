@@ -799,10 +799,7 @@ namespace Portal.Consultoras.Web
             #region HerramientasVenta
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/HerramientaVenta-Landing").Include(
-                //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
-                //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
-                //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -813,7 +810,6 @@ namespace Portal.Consultoras.Web
             ));
             
             bundles.Add(new ScriptBundle("~/bundles/Mobile/js/HerramientasVenta-Landing").Include(
-                //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
             ));
@@ -834,7 +830,10 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/Upselling").Include(
                 "~/Scripts/knockout-{version}.js",
-                "~/Scripts/knockout.extensions.js"
+                "~/Scripts/knockout.extensions.js",
+                "~/Scripts/PortalConsultoras/Estrategia/UpSelling/api.js",
+                "~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js",
+                "~/Scripts/fileuploader.js"
             ));
 
             #endregion

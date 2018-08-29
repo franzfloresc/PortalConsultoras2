@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
                 usuario.FechaFacturacion = obeConfiguracionCampania.FechaFinFacturacion;
                 usuario.HoraFacturacion = obeConfiguracionCampania.HoraFin;
             }
-            sessionManager.SetUserData(usuario);
+            SessionManager.SetUserData(usuario);
         }
 
         [HttpGet]
@@ -208,9 +208,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     sv.InsPedidoWebDetalleOferta(entidad);
 
-                    sessionManager.SetPedidoWeb(null);
-                    sessionManager.SetDetallesPedido(null);
-                    sessionManager.SetDetallesPedidoSetAgrupado(null);
+                    SessionManager.SetPedidoWeb(null);
+                    SessionManager.SetDetallesPedido(null);
+                    SessionManager.SetDetallesPedidoSetAgrupado(null);
                 }
 
                 UpdPedidoWebMontosPROL();
