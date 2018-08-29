@@ -3694,6 +3694,71 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
+
+        //Obtener el código de origen
+        public static string obtenerCodigoOrigen(string tipoEstrategiaCodigo, int codigoCatalago, bool IsMobile)
+        {
+            var result = "";
+
+            tipoEstrategiaCodigo = Util.Trim(tipoEstrategiaCodigo);
+
+            if (tipoEstrategiaCodigo == "")
+            {
+                return result;
+            }
+
+            if (string.IsNullOrEmpty(tipoEstrategiaCodigo))
+            {
+                switch (codigoCatalago)
+                {
+                    case Constantes.CodigosCatalogos.ESIKA:
+                        result = IsMobile ? Constantes.CodigoOrigenPedido.CatalogoEsikaMobile : Constantes.CodigoOrigenPedido.CatalogoEsika;
+                        break;
+                    case Constantes.CodigosCatalogos.LBEL:
+                        result = IsMobile ? Constantes.CodigoOrigenPedido.CatalogoLBelMobile : Constantes.CodigoOrigenPedido.CatalogoLBel;
+                        break;
+                    case Constantes.CodigosCatalogos.CYZONE:
+                        result = IsMobile ? Constantes.CodigoOrigenPedido.CatalogoCyzoneMobile : Constantes.CodigoOrigenPedido.CatalogoCyzone;
+                        break;
+                    default:
+                        result = "";
+                        break;
+                }
+            }
+            else
+            {
+                switch (tipoEstrategiaCodigo)
+                {
+                    case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                    case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                    case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                        result = IsMobile ? Constantes.CodigoOrigenPedido.OfertaParaTiMobile : Constantes.CodigoOrigenPedido.OfertaParaTi;
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                        result = IsMobile ? Constantes.CodigoOrigenPedido.EspecialesMobile : Constantes.CodigoOrigenPedido.Especiales;
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                        result = IsMobile ? Constantes.CodigoOrigenPedido.LoNuevoNuevoMobile : Constantes.CodigoOrigenPedido.LoNuevoNuevo;
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                        result = IsMobile ? Constantes.CodigoOrigenPedido.OfertaSoloHoyMobile : Constantes.CodigoOrigenPedido.OfertaSoloHoy;
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                        result = IsMobile ? Constantes.CodigoOrigenPedido.GuiaDeNegocioDigitalMobile : Constantes.CodigoOrigenPedido.GuiaDeNegocioDigital;
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                        result = IsMobile ? Constantes.CodigoOrigenPedido.HeramientaDeVentaMobile : Constantes.CodigoOrigenPedido.HeramientaDeVenta;
+                        break;
+                    default:
+                        result = "";
+                        break;
+                }
+            }
+
+
+
+            return result;
+        }
     }
 
     public static class DataRecord

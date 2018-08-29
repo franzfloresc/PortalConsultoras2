@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(buscadorModel);
 
-                ListaProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, sessionManager.GetDetallesPedido(), userData, revistaDigital);
+                ListaProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, sessionManager.GetDetallesPedido(), userData, revistaDigital,false);
             }
             catch (Exception ex)
             {

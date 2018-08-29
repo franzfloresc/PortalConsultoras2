@@ -79,7 +79,7 @@
     width: 101%;
     left: -1px;
     top: -40px;
-    height: 47.8px;
+    height: 48px;
     background-color: #FFF;
     border-top: 1px solid #E1E1E1;
     border-left: 1px solid #E1E1E1;
@@ -139,6 +139,10 @@
     .campo_buscador_productos:-ms-input-placeholder {
         color: #000;
         font-weight: 600;
+    }
+
+    .campo_buscador_productos::-ms-clear{
+        display: none;
     }
 
     .campo_buscador_productos_activo{
@@ -273,7 +277,7 @@
     position: absolute;
     top: 45px;
     right: -2px;
-    width: 612px;
+    width: 621px;
     min-height: 95px;
     padding-bottom: 18px;
     overflow: hidden;
@@ -326,6 +330,7 @@
     max-height: 380px;
     overflow: auto;
     position: relative;
+    padding-bottom:14px;
 }
 
     .resultados_wrapper::-webkit-scrollbar-track {
