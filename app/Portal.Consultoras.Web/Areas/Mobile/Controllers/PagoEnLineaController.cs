@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             SetDeviceSessionId(pago);
             ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerCamposRequeridos();
             ViewBag.UrlIconMedioPago = _pagoEnLineaProvider.GetUrlIconMedioPago(pago);
+            ViewBag.PagoMontoTotal = pago.Simbolo + " " + pago.MontoDeudaConGastosString;
             CargarListsPasarela();
             var model = new PaymentInfo
             {
@@ -136,6 +137,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             SetDeviceSessionId(pago);
             ViewBag.PagoLineaCampos = requiredFields;
             ViewBag.UrlIconMedioPago = _pagoEnLineaProvider.GetUrlIconMedioPago(pago);
+            ViewBag.PagoMontoTotal = pago.Simbolo + " " + pago.MontoDeudaConGastosString;
             CargarListsPasarela();
 
             return View(info);
