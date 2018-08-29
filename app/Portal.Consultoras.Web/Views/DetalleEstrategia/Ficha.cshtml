@@ -335,7 +335,7 @@
         </div>
         @if (Model.TieneCarrusel)
         {
-            <div id="CarruselProducto" class="contenedor_ficha_carrusel">
+            <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
                 <div class="contenedor_titulo_carrusel">
                     <div class="contenedor_linea_carrusel">
                         <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
@@ -347,9 +347,7 @@
                 </div>
                 <!--carrusel-->
                 <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
-                    <div id="carrusel" style="text-align:center;">
-
-                    </div>
+                    <div id="divFichaCarruselProducto" style="text-align:center;"></div>
                 </div>
             </div>
         }
@@ -364,7 +362,7 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
 
-    <script type="text/javascript">
+<script type="text/javascript">
         AbrirLoad();
 
         var fichaModule;
@@ -390,11 +388,11 @@
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
                     cuv: "@Model.Cuv",
-                    idPlantilla: "#producto-landing-template",
-                    divCarrusel: "#carrusel",
-                    divSetsProductosdata: "#CarruselProducto",
                     urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
-                    idTituloCarrusel: "#tituloCarrusel"
+                    idPlantilla: "#producto-landing-template",
+                    divFichaCarrusel: "#divFichaCarrusel",
+                    idTituloCarrusel: "#tituloCarrusel",
+                    divCarruselProducto: "#divFichaCarruselProducto"
                 });
                 carruselModule.Inicializar();
             }
@@ -405,5 +403,5 @@
             //CerrarLoad();
         })
 
-    </script>
+</script>
 }
