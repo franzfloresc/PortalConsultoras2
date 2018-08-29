@@ -433,7 +433,7 @@ namespace Portal.Consultoras.Web.WebPages
                                 ? item.Fecha.Value.ToString("dd/MM/yyyy") 
                                 : item.Fecha.Value.ToString();
 
-                        if (strFecha == "01/01/2001")
+                        if (strFecha == "01/01/2001" || strFecha == "01/01/0001")
                         {
                             strFecha = string.Empty;
                         }
