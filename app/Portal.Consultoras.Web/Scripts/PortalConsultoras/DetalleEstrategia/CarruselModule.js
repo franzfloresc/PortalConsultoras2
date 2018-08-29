@@ -88,7 +88,7 @@
 
         var platform = !isMobile() ? 'desktop' : 'mobile';
 
-        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+        //EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
 
         var slickArrows = {
             'mobile': {
@@ -130,6 +130,8 @@
                 ]
             });
         }
+
+        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
     }
 
     var _ocultarElementos = function () {
@@ -226,6 +228,7 @@
 
         var containerItemsSlick = $(".slick-arrow");
         $(containerItemsSlick).click(function (e) {
+            EstablecerAccionLazyImagen(_elementos.divProductosRelacionados + " img[data-lazy-seccion-revista-digital]");
             //_initArraysCarrusel();
             _agregaNewCuvActivo();
             setCarruselMarcacionAnalytics = multiDimensionalUnico(setCarruselMarcacionAnalytics);
@@ -317,11 +320,9 @@
         }
     }
     function Inicializar() {
-
         _ocultarElementos();
         _mostrarCarrusel();
         _initSwipeCarrusel();
-
     }
 
     return {
