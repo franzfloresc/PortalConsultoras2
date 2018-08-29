@@ -202,6 +202,7 @@
     <Compile Include="RegexUtilities.cs" />
     <Compile Include="SeguridadApi\JwtAutentication.cs" />
     <Compile Include="SeguridadApi\JwtContext.cs" />
+    <Compile Include="SeguridadApi\JwtModule.cs" />
     <Compile Include="SeguridadApi\JwtToken.cs" />
     <Compile Include="Settings\ServiceSettings.cs" />
     <Compile Include="Util.cs" />
