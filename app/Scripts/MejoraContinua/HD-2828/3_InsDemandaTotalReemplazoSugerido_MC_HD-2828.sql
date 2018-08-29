@@ -18,39 +18,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
@@ -75,39 +86,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
@@ -132,39 +154,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
@@ -189,39 +222,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
@@ -246,39 +290,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
@@ -303,39 +358,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
@@ -360,39 +426,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
@@ -417,39 +494,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
@@ -474,39 +562,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
@@ -531,39 +630,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
@@ -588,39 +698,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
@@ -645,39 +766,50 @@ CREATE PROCEDURE InsDemandaTotalReemplazoSugerido
 )
 AS
 BEGIN
-	Declare @Tipo varchar(3) = 'FRS'
+	DECLARE @Tipo varchar(3) = 'FRS'
 	if (@Aceptado = 1) set @Tipo = 'RSA'
 
-	IF NOT EXISTS (SELECT 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
-				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal)
+	IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL)
 	BEGIN
-		INSERT INTO DemandaTotalReemplazoSugerido(
-		 CampaniaID
-		,ConsultoraID
-		,CUVOriginal
-		,CUVSugerido
-		,Aceptado
-		,Cantidad
-		,PrecioUnidad
-		,Tipo
-		,FechaProceso
-		)
-		VALUES
-		(
-		 @CampaniaID 
-		 ,@ConsultoraID 
-		 ,@CUVOriginal
-		 ,@CUVSugerido
-		 ,@Aceptado
-		 ,@Cantidad
-		 ,@PrecioUnidad
-		 ,@Tipo
-		 ,getdate())
+		IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido = @CUVSugerido)
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM DemandaTotalReemplazoSugerido WHERE CampaniaID = @CampaniaID 
+				and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal AND @CUVSugerido IS NULL)
+			BEGIN
+				INSERT INTO DemandaTotalReemplazoSugerido(
+				 CampaniaID
+				,ConsultoraID
+				,CUVOriginal
+				,CUVSugerido
+				,Aceptado
+				,Cantidad
+				,PrecioUnidad
+				,Tipo
+				,FechaProceso
+				)
+				VALUES
+				(
+				 @CampaniaID 
+				 ,@ConsultoraID 
+				 ,@CUVOriginal
+				 ,@CUVSugerido
+				 ,@Aceptado
+				 ,@Cantidad
+				 ,@PrecioUnidad
+				 ,@Tipo
+				 ,getdate())
+			 END
+		END
 	END	
 	ELSE
 	BEGIN
-		UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
-		WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and Aceptado = 0
+		IF (@CUVSugerido IS NOT NULL)
+		BEGIN
+			UPDATE DemandaTotalReemplazoSugerido SET CUVSugerido = @CUVSugerido, Aceptado = 1, Cantidad = @Cantidad, PrecioUnidad = @PrecioUnidad, Tipo = @Tipo, FechaProceso = getdate() 
+			WHERE CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID and CUVOriginal = @CUVOriginal and CUVSugerido IS NULL
+		END
 	END
 END
 GO
