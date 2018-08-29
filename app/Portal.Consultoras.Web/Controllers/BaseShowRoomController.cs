@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (SessionManager.GetUserData() == null) return;
 
-            var userData = UserData();
+            //var userData = UserData();
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
 
             try

@@ -27,7 +27,16 @@ namespace Portal.Consultoras.Web.Controllers
     public partial class BaseController : Controller
     {
         #region Variables
-        protected UsuarioModel userData;
+
+        protected UsuarioModel userData
+        {
+            get
+            {
+                var model = SessionManager.GetUserData() ?? new UsuarioModel();
+                model.MenuNotificaciones = 1;
+                return model;
+            }
+        }
         protected RevistaDigitalModel revistaDigital;
         protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
@@ -96,13 +105,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BaseController(ISessionManager sessionManager)
         {
-            userData = new UsuarioModel();
+            //userData = new UsuarioModel();
             this.SessionManager = sessionManager;
         }
 
         public BaseController(ISessionManager sessionManager, ILogManager logManager)
         {
-            userData = new UsuarioModel();
+            //userData = new UsuarioModel();
             SessionManager = sessionManager;
             this.logManager = logManager;
         }
@@ -115,7 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                userData = UserData();
+                //userData = UserData();
 
                 if (userData == null)
                 {
@@ -442,21 +451,21 @@ namespace Portal.Consultoras.Web.Controllers
         
         private List<ServicioCampaniaModel> BuildMenuService()
         {
-            userData = _menuProvider.BuildMenuService(userData);
+            _menuProvider.BuildMenuService(userData);
             return userData.MenuService;
         }
         #endregion
 
         #region UserData
 
-        public UsuarioModel UserData()
-        {
-            var model = SessionManager.GetUserData() ?? new UsuarioModel();
+        //public UsuarioModel UserData()
+        //{
+        //    var model = SessionManager.GetUserData() ?? new UsuarioModel();
 
-            model.MenuNotificaciones = 1;
+        //    model.MenuNotificaciones = 1;
 
-            return model;
-        }
+        //    return model;
+        //}
 
         //protected List<BEProductoFaltante> GetProductosFaltantes()
         //{
@@ -894,7 +903,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
             bool esMobile = EsDispositivoMovil();
-            userData = _logDynamoProvider.ActualizarDatosLogDynamoDB(userData, esMobile, p_modelo, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
+            _logDynamoProvider.ActualizarDatosLogDynamoDB(userData, esMobile, p_modelo, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
         }
 
         protected void EjecutarLogDynamoDB(string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
