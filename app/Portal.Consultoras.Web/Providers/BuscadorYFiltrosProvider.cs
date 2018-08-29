@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 var suscripcionActiva = (buscadorModel.revistaDigital.EsSuscrita == true && buscadorModel.revistaDigital.EsActiva == true);
-
+              
                 string pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
                             buscadorModel.userData.CodigoISO,
                             buscadorModel.userData.CampaniaID,
@@ -34,18 +34,18 @@ namespace Portal.Consultoras.Web.Providers
                             buscadorModel.revistaDigital.TieneRDI,
                             buscadorModel.revistaDigital.TieneRDCR,
                             buscadorModel.userData.DiaFacturacion
-                    );               
+                    );
 
                 resultados = await ObtenerBuscadorDesdeApi(pathBuscador);
             }
             catch (Exception ex)
-            {                
+            {
                 throw ex;
             }
             return resultados;
         }
 
-        public async Task<List<BuscadorYFiltrosModel>> ValidacionProductoAgregado(List<BuscadorYFiltrosModel> resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital)
+        public async Task<List<BuscadorYFiltrosModel>> ValidacionProductoAgregado(List<BuscadorYFiltrosModel> resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital, bool IsMobile)
         {
             var suscripcionActiva = (revistaDigital.EsSuscrita == true && revistaDigital.EsActiva == true);
             var resultBuscador = new List<BuscadorYFiltrosModel>();
@@ -85,7 +85,8 @@ namespace Portal.Consultoras.Web.Providers
                             CampaniaID = userData.CampaniaID,
                             Agregado = labelAgregado,
                             CantidadesAgregadas = cantidadAgregada,
-                            Stock = !item.Stock
+                            Stock = !item.Stock,
+                            OrigenPedidoWeb = Util.obtenerCodigoOrigen(item.CodigoTipoEstrategia, item.MarcaId, IsMobile)
                         });
                     }
                 }

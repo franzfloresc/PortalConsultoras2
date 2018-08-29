@@ -2582,5 +2582,33 @@ namespace Portal.Consultoras.Common
             public const int LBEL = 9;
             public const int CYZONE = 13;
         }
+
+        public class CodigoOrigenPedido
+        {
+            //DESKTOP
+            public const string OfertaParaTi = "1404";
+            public const string Especiales = "1414";
+            public const string LoNuevoNuevo = "1424";
+            public const string OfertaSoloHoy = "1434";
+            public const string GuiaDeNegocioDigital = "1454";
+            public const string Liquidacion = "1464";
+            public const string HeramientaDeVenta = "1484";
+            public const string CatalogoLBel = "14B4";
+            public const string CatalogoEsika = "14C4";
+            public const string CatalogoCyzone = "14D4";
+
+
+            //MOBILE
+            public const string OfertaParaTiMobile = "2404";
+            public const string EspecialesMobile = "2414";
+            public const string LoNuevoNuevoMobile = "2424";
+            public const string OfertaSoloHoyMobile = "2434";
+            public const string GuiaDeNegocioDigitalMobile = "2454";
+            public const string LiquidacionMobile = "2464";
+            public const string HeramientaDeVentaMobile = "2484";
+            public const string CatalogoLBelMobile = "24B4";
+            public const string CatalogoEsikaMobile = "24C4";
+            public const string CatalogoCyzoneMobile = "24D4";
+        }
     }
 }
