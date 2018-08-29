@@ -3265,7 +3265,8 @@ namespace Portal.Consultoras.BizLogic
         #region ActualizacionDatos
         public BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo)
         {
-            int limiteMinimoTelef = 0, limiteMaximoTelef = 0;
+            int limiteMinimoTelef = 0, limiteMaximoTelef = 0, numero = 0;
+            var valida = false;
 
             try
             {
@@ -3275,6 +3276,14 @@ namespace Portal.Consultoras.BizLogic
                 if (celularNuevo.Length != limiteMaximoTelef)
                 {
                     return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CELULAR_LONGITUD, null, limiteMaximoTelef);
+                }
+                Common.Util.ObtenerIniciaNumeroCelular(paisID, out valida, out numero);
+                if (valida)
+                {
+                    if (celularNuevo.Substring(0, 1) != numero.ToString())
+                    {
+                        return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CELULAR_PRIMER_DIGITO, null, numero);
+                    }
                 }
                 if (!Regex.IsMatch(celularNuevo, Constantes.ActualizacionDatosValidacion.ExpresionCelular))
                 {
