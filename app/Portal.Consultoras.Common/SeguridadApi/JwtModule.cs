@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Common
                 }
                 catch (Exception ex)
                 {
-                    
+                    Console.WriteLine(ex.Message);
                 }
                 finally
                 {
