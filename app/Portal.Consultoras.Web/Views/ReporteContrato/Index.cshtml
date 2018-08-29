@@ -1,0 +1,279 @@
+﻿@{
+    ViewBag.Title = "Reporte de Contrato";
+}
+<script src="@Url.Content("~/Scripts/DatetimePicker/datetimepicker_css.js")"></script>
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1><span>Reporte de Aceptación de Contrato</span></h1>
+            </div>  
+
+
+            <div class="div-3">
+                <div class="titG">Código Consultora:</div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="CodigoConsultora" onkeypress="return valida(event)" name="CodigoConsultora" maxlength="12">
+                </div>
+
+                <div class="titB">Cédula:</div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="Cedula" name="Cedula" onkeypress="return valida(event)" maxlength="12">
+                </div>
+
+            </div>
+           
+
+            <h6>Fecha de Aceptación</h6>
+            <div class="div-3">
+                <div class="titG">Inicio: </div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="FechaInicio" name="FechaInicio" />
+                    <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")"
+                         onclick="javascript:NewCssCal('FechaInicio','ddMMyyyy')" style="cursor:pointer" />
+                </div>
+                <div class="titJ" style="width: 145px;">Fin: </div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="FechaFin" name="FechaFin" />
+                    <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")"
+                         onclick="javascript:NewCssCal('FechaFin','ddMMyyyy')" style="cursor:pointer" />
+                </div>
+            </div>
+            
+            <div class="div-3">
+                <div class="titG">&nbsp;</div>
+                <div class="input_horizontal">
+                    <div class="input_search">
+                        <input type="submit" name="" id="btnBuscar" value="Buscar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper" style="overflow-x:scroll;">
+
+            <table id="list"></table>
+            <div id="pager"></div>
+
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix" style="text-align: center">
+        <div class="input_global">
+            <input type="button" value="Exportar Excel" id="btnExportarExcel" name="btnExportarExcel" onclick="ExportarExcel();">
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $("#btnBuscar").click(function () {
+            var f1 = $("#FechaInicio").val().trim();
+            var f2 = $("#FechaFin").val().trim();
+            var n1 = $('#Cedula').val().trim();
+            var n2 = $('#CodigoConsultora').val().trim(); 
+            if (f1!="" && f2!="") {
+                var aFecha1 = f1.split('/');
+                var aFecha2 = f2.split('/');
+                var fFecha1 = Date.UTC(aFecha1[2], aFecha1[1] - 1, aFecha1[0]);
+                var fFecha2 = Date.UTC(aFecha2[2], aFecha2[1] - 1, aFecha2[0]);
+                var dif = fFecha2 - fFecha1;
+                var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+                if (dias<0) {
+                    alert('Fecha Fin debe ser mayor que fecha Inicio');
+                    return false;
+                }                
+            }
+
+            if (f1=="" && f2=="" && n1=="" && n2=="") {
+                alert('Ingresar al menos un parametro de busqueda');
+                return false;
+            }
+
+           
+            fnGrilla();
+        });
+
+
+        $("#CodigoConsultora").keydown(function (event) {
+            ValidaNumero(event)
+        });
+
+       
+        $("#Cedula").keydown(function (event) {
+            ValidaNumero(event)
+        });
+
+        $("#FechaInicio").keydown(function (event) {
+            ValidaNumero(event)
+        });
+
+        $("#FechaFin").keydown(function (event) {
+            ValidaNumero(event);
+        });
+
+    });
+
+
+    function valida(e) {
+        tecla = (document.all) ? e.keyCode : e.which;
+        if (tecla == 8) {
+            return true;
+        }
+        patron = /[0-9]/;
+        tecla_final = String.fromCharCode(tecla);
+        return patron.test(tecla_final);
+    }
+
+    function ValidaNumero(event)
+    {
+        if (event.shiftKey) {
+            event.preventDefault();
+        }
+
+        if (event.keyCode == 46 || event.keyCode == 8) {
+        }
+        else {
+            if (event.keyCode < 95) {
+                if (event.keyCode < 48 || event.keyCode > 57) {
+                    event.preventDefault();
+                }
+            }
+            else {
+                if (event.keyCode < 96 || event.keyCode > 105) {
+                    event.preventDefault();
+                }
+            }
+        }
+    }
+
+
+
+
+    function fnGrilla() {
+
+        if ($("#FechaInicio").val() == "") {
+            if ($("#FechaFin").val()!="") {
+                alert("Debe seleccionar la fecha de Inicio");
+                return false;
+            }          
+        }
+
+        if ($("#FechaFin").val() == "") {
+            if ($("#FechaInicio").val() != "") {
+                alert("Debe seleccionar la fecha de Fin");
+                return false;
+            }
+        }
+
+        jQuery("#list").jqGrid({
+            url: baseUrl + "ReporteContrato/ConsultaReporte",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                CodigoConsultora: function () { return jQuery.trim($("#CodigoConsultora").val()); },
+                Cedula: function () { return jQuery.trim($("#Cedula").val()); },
+                FechaInicio: function () { return jQuery.trim($('#FechaInicio').val()); }, 
+                FechaFin: function () { return jQuery.trim($('#FechaFin').val()); } 
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Registro', 'Código Consultora', 'Nombre Consultora', 'Acepto Contrato', 'Fecha Aceptación', 'Origen', 'DirecciónIP', 'InformaciónSOMobile'],
+            colModel: [
+                { name: 'Registro', index: 'Registro', width: 10, editable: true, resizable: false },
+                { name: 'CodigoConsultora', index: 'CodigoConsultora', width: 15, editable: true, resizable: false },
+                { name: 'NombreConsultora', index: 'NombreConsultora', width: 25, editable: true, resizable: false, align: 'center' },
+                { name: 'AceptoContrato', index: 'AceptoContrato', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'FechaAceptacion', index: 'FechaAceptacion', width: 30, editable: true, resizable: false, align: 'center' },
+                { name: 'Origen', index: 'Origen', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'DireccionIP', index: 'DireccionIP', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'InformacionSOMobile', index: 'InformacionSOMobile', width: 50, editable: true, resizable: false, align: 'center' }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Registro',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 2500,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { },
+            loadError: function (xhr, st, err) {
+                alert('error al procesar la información');
+            }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function ExportarExcel() {
+        var CodigoConsultora = jQuery.trim($("#CodigoConsultora").val());
+        var Cedula = jQuery.trim($("#Cedula").val());
+        var FechaInicio = jQuery.trim($("#FechaInicio").val());
+        var FechaFin = jQuery.trim($("#FechaFin").val());
+        waitingDialog({});
+        setTimeout(function () {
+            DownloadAttachExcel(CodigoConsultora, Cedula, FechaInicio, FechaFin);
+        }, 0);
+    }
+
+    function DownloadAttachExcel(CodigoConsultora, Cedula, FechaInicio, FechaFin) {
+        if (checkTimeout()) {
+            var content = baseUrl + "ReporteContrato/ExportarExcel?CodigoConsultora=" + CodigoConsultora + "&Cedula=" + Cedula + "&FechaInicio=" + FechaInicio + "&FechaFin=" + FechaFin;
+            var iframe_ = document.createElement("iframe");
+            iframe_.style.display = "none";
+            iframe_.setAttribute("src", content);
+
+            if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+                iframe_.onreadystatechange = function () {
+                    switch (this.readyState) {
+                        case "loading":
+                            waitingDialog({});
+                            break;
+                        case "complete":
+                        case "interactive":
+                        case "uninitialized":
+                            closeWaitingDialog();
+                            break;
+                        default:
+                            closeWaitingDialog();
+                            break;
+                    }
+                };
+            }
+            else {
+                // Si es Firefox o Chrome
+                $(iframe_).ready(function () {
+                    closeWaitingDialog();
+                });
+            }
+            document.body.appendChild(iframe_);
+        }
+    }
+</script>

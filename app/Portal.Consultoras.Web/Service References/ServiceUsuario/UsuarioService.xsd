@@ -702,6 +702,25 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEKitNueva" nillable="true" type="tns:BEKitNueva" />
+  <xs:complexType name="ArrayOfBeReporteContrato">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BeReporteContrato" nillable="true" type="tns:BeReporteContrato" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBeReporteContrato" nillable="true" type="tns:ArrayOfBeReporteContrato" />
+  <xs:complexType name="BeReporteContrato">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AceptoContrato" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DireccionIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaAceptacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InformacionSOMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Registro" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BeReporteContrato" nillable="true" type="tns:BeReporteContrato" />
   <xs:complexType name="ArrayOfBENotificaciones">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BENotificaciones" nillable="true" type="tns:BENotificaciones" />

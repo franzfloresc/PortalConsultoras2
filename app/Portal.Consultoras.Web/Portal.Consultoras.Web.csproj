@@ -314,6 +314,7 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Controllers\ReporteContratoController.cs" />
     <Compile Include="Models\EstadoProductoComentarioModel.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\LanzamientosController.cs" />
@@ -5258,6 +5259,7 @@
     <Content Include="Views\Shared\_PopupPrivacidadDatos.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerHeader.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
+    <Content Include="Views\ReporteContrato\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
