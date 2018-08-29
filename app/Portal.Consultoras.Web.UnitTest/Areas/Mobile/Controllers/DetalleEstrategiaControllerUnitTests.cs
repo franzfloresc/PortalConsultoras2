@@ -3,9 +3,11 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcContrib.TestHelper;
 using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Web.UnitTest.Controllers;
 using Portal.Consultoras.Web.UnitTest.Extensions;
+using DetalleEstrategiaController = Portal.Consultoras.Web.Areas.Mobile.Controllers.DetalleEstrategiaController;
 
-namespace Portal.Consultoras.Web.UnitTest.Controllers
+namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
 {
     [TestClass]
     public class DetalleEstrategiaControllerUnitTests 
@@ -25,9 +27,22 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             //    base.Test_Cleanup();
             //}
 
+            private class DetalleEstrategiaMobileController : DetalleEstrategiaController
+            {
+                public override bool IsMobile()
+                {
+                    return true;
+                }
+            }
+
             protected override BaseViewController GetController()
             {
-                return new DetalleEstrategiaController();
+                return new DetalleEstrategiaMobileController();
+            }
+
+            protected override string AreaNameExpected()
+            {
+                return "Mobile";
             }
 
             [TestMethod]

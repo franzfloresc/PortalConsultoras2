@@ -10,7 +10,7 @@
 //using Portal.Consultoras.Web.Models;
 //using Portal.Consultoras.Web.Providers;
 
-//namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
+//namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Mobile
 //{
 //    [TestClass]
 //    public class BaseGuiaNegocioControllerUnitTests

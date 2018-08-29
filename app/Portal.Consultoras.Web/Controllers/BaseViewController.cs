@@ -169,12 +169,12 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
-                    return RedirectToAction("Index", "Ofertas");
+                    return RedirectToAction("Index", "Ofertas",new { area = IsMobile() ? "Mobile" : "" });
 
                 palanca = IdentificarPalanca(palanca, campaniaId);
 
                 if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
-                    return RedirectToAction("Index", "Ofertas");
+                    return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
                 DetalleEstrategiaFichaModel modelo;
                 if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
