@@ -76,11 +76,13 @@
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
+@* DEUDA TECNICA <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>*@
+@* DEUDA TECNICA
+    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")*@
 
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+@* DEUDA TECNICA <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>*@
+@* DEUDA TECNICA
+    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
 
 <div class="flecha_scroll">
     <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
@@ -89,7 +91,7 @@
 @Html.Partial("~/Views/GuiaNegocio/_GuiaNegocioFlotante.cshtml")
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var tipoOrigenPantalla = 1;
     var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "Estrategia", new { area = ""})';
@@ -108,6 +110,6 @@
     };
     var contadorgnddesktop = 1;
 
-</script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/GuiaNegocio")
 }

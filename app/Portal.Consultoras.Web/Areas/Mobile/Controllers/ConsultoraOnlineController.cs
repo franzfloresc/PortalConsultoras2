@@ -192,7 +192,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             userData.Telefono = sTelefono;
                             userData.Celular = sCelular;
 
-                            sessionManager.SetUserData(userData);
+                            SessionManager.SetUserData(userData);
 
                             return Json(new
                             {

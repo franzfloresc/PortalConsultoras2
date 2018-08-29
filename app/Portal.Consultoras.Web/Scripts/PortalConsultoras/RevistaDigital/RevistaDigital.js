@@ -636,8 +636,8 @@ function RenderCarrusel(divProd) {
 }
 
 function RDPageInformativa() {
-    $('#popupDetalleCarousel_packNuevas').hide();
-    $('#popupDetalleCarousel_lanzamiento').hide();
+    //$('#popupDetalleCarousel_packNuevas').hide();  DEUDA TECNICA
+    //$('#popupDetalleCarousel_lanzamiento').hide(); DEUDA TECNICA
     CerrarPopup("#divMensajeBloqueada");
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();

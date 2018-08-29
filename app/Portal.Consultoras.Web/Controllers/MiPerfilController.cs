@@ -271,7 +271,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.FotoOriginalSinModificar = nameImage;
                     ViewBag.FotoPerfilSinModificar = nameImage;
 
-                    sessionManager.SetUserData(userData);
+                    SessionManager.SetUserData(userData);
                     result = true;
                 }
 
@@ -307,7 +307,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
                 ViewBag.FotoPerfilSinModificar = "";
 
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
 
                 return Json(new { success = true, message = "Foto de perfil eliminada correctamente." }, "text/html");
             }
