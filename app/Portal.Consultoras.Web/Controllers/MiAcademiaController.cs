@@ -26,10 +26,10 @@ namespace Portal.Consultoras.Web.Controllers
                 //{
                 //    sessionManager.SetMiAcademia(0);
                 //}
-                IdCurso = sessionManager.GetMiAcademia();
-                FlagVideo = sessionManager.GetMiAcademiaVideo();  //PPC
-                sessionManager.SetMiAcademia(0);
-                sessionManager.SetMiAcademiaVideo(0);  //PPC
+                IdCurso = SessionManager.GetMiAcademia();
+                FlagVideo = SessionManager.GetMiAcademiaVideo();  //PPC
+                SessionManager.SetMiAcademia(0);
+                SessionManager.SetMiAcademiaVideo(0);  //PPC
 
                 string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
                 string urlLms = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.CursosMarquesina);
