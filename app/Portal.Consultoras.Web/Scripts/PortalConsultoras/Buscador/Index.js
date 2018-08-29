@@ -125,7 +125,7 @@ $(document).ready(function () {
                                 $('.spinner').fadeOut(150);
                                 $('#ResultadoBuscador').fadeIn(100);
                                 $('.lista_resultados_busqueda_productos').animate({
-                                    'height': $('#ResultadoBuscador').height() + 32
+                                    'height': $('#ResultadoBuscador').height() + 43
                                 }, 100);
                                 //$('.lista_resultados_busqueda_productos').addClass('animarAlturaListaResultadosBusqueda');
                             }, 400);
