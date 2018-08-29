@@ -13,12 +13,9 @@
 
     var _elementos = {
         idPlantillaProductoLanding: config.idPlantilla,
-        divCarruselSetsProductosRelacionados: config.divCarrusel,
-        divProductosRelacionados: config.divCarrusel,
+        divCarruselProducto: config.divCarruselProducto,
         idTituloCarrusel: config.idTituloCarrusel,
-        divCarruselContenedor: config.divSetsProductosdata,
-        ContenidoProducto: config.ContenidoProducto,
-        CarruselProducto: config.CarruselProducto
+        divCarruselContenedor: config.divFichaCarrusel
     };
 
     var _variable = {
@@ -88,8 +85,6 @@
 
         var platform = !isMobile() ? 'desktop' : 'mobile';
 
-        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
-
         var slickArrows = {
             'mobile': {
                 prev: '<a class="carrusel_fechaprev_mobile" href="javascript:void(0);"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
@@ -103,12 +98,12 @@
 
         var widthDimamico = !isMobile();
 
-        $(_elementos.divProductosRelacionados).fadeIn();
+        $(_elementos.divCarruselProducto).fadeIn();
 
         if ((widthDimamico && _variable.cantidadProdCarrusel > 2) || !widthDimamico) {
 
-            $(_elementos.divCarruselSetsProductosRelacionados + '.slick-initialized').slick('unslick');
-            $(_elementos.divCarruselSetsProductosRelacionados).not('.slick-initialized').slick({
+            $(_elementos.divCarruselProducto + '.slick-initialized').slick('unslick');
+            $(_elementos.divCarruselProducto).not('.slick-initialized').slick({
                 dots: false,
                 infinite: true,
                 speed: 260,
@@ -130,11 +125,13 @@
                 ]
             });
         }
+
+        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
     }
 
     var _ocultarElementos = function () {
 
-        $(_elementos.divProductosRelacionados).fadeOut();
+        $(_elementos.divCarruselProducto).fadeOut();
     }
 
     var _mostrarTitulo = function () {
@@ -184,7 +181,7 @@
 
         if (data.lista.length > 0) {
             _variable.cantidadProdCarrusel = data.lista.length;
-            SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
+            SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselProducto);
             _mostrarTitulo();
             _mostrarSlicks();
         }
@@ -196,9 +193,9 @@
             if (Array.isArray(data.lista) && data.lista.length > 0) {
                 $(_elementos.divCarruselContenedor).show();
                 return;
-            } else {
-                //$(_elementos.ContenidoProducto).hide();
-                $(_elementos.CarruselProducto).hide();
+            }
+            else {
+                $(_elementos.divCarruselContenedor).hide();
             }
         $(_elementos.divCarruselContenedor).hide();
     }
@@ -226,6 +223,7 @@
 
         var containerItemsSlick = $(".slick-arrow");
         $(containerItemsSlick).click(function (e) {
+            EstablecerAccionLazyImagen(_elementos.divCarruselProducto + " img[data-lazy-seccion-revista-digital]");
             //_initArraysCarrusel();
             _agregaNewCuvActivo();
             setCarruselMarcacionAnalytics = multiDimensionalUnico(setCarruselMarcacionAnalytics);
