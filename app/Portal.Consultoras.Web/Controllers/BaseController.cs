@@ -1902,6 +1902,14 @@ namespace Portal.Consultoras.Web.Controllers
                 url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
 
                 result = url.Contains("/mobile/") || url.Contains("/g/");
+
+                if (result)
+                    return result;
+
+                var headers = HttpContext.Request.Headers;
+                var value = Convert.ToString(headers["isMobile"]);
+                bool.TryParse(value,out result);
+
             }
             catch
             {

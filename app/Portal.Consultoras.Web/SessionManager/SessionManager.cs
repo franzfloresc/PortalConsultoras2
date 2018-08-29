@@ -555,7 +555,25 @@ namespace Portal.Consultoras.Web.SessionManager
 
         public int GetMiAcademia()
         {
-            return (int)HttpContext.Current.Session["MiAcademia"];
+            if (HttpContext.Current.Session["MiAcademia"] != null)
+
+                return (int)HttpContext.Current.Session["MiAcademia"];
+            else
+                return 0;
+        }
+
+        public void SetMiAcademiaVideo(int value)
+        {
+            HttpContext.Current.Session["FlagAcademiaVideo"] = value;
+        }
+
+        public int GetMiAcademiaVideo()
+        {
+            if (HttpContext.Current.Session["FlagAcademiaVideo"] != null)
+
+                return (int)HttpContext.Current.Session["FlagAcademiaVideo"];
+            else
+                return 0;
         }
 
         void ISessionManager.setBEUsuarioModel(List<ServiceUsuario.BEUsuario> model)
