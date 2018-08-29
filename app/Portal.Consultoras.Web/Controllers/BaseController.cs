@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
-
+        protected string _tokenApiSomosBelcorp = string.Empty;
         protected readonly TablaLogicaProvider _tablaLogicaProvider;
         protected readonly BaseProvider _baseProvider;
         private readonly LogDynamoProvider _logDynamoProvider;
@@ -63,6 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly TipoEstrategiaProvider _tipoEstrategiaProvider;
         protected readonly ConfiguracionPaisProvider _configuracionPaisProvider;
         protected readonly MenuContenedorProvider _menuContenedorProvider;
+   
         #endregion
 
         #region Constructor
@@ -118,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
                     filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
-
+                _tokenApiSomosBelcorp = sessionManager.GetJwtApiSomosBelcorp();
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
@@ -1458,7 +1459,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Version = "2.0"
                 };
 
-
+               
                 var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
 
                 if (string.IsNullOrEmpty(urlApi)) return;
@@ -1467,7 +1468,7 @@ namespace Portal.Consultoras.Web.Controllers
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { _tokenApiSomosBelcorp }");
 
                 dataString = JsonConvert.SerializeObject(data);
 
@@ -1510,14 +1511,14 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
-
+              
                 if (string.IsNullOrEmpty(urlApi)) return;
 
                 var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { _tokenApiSomosBelcorp }");
 
                 dataString = JsonConvert.SerializeObject(data);
 
@@ -1647,6 +1648,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+
                 if (string.IsNullOrEmpty(urlApi)) return;
 
                 var data = new
@@ -1665,7 +1667,7 @@ namespace Portal.Consultoras.Web.Controllers
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 dataString = JsonConvert.SerializeObject(data);
                 HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { _tokenApiSomosBelcorp }");
                 var response = httpClient.PostAsync("Api/LogGestionSacUnete", contentPost).GetAwaiter().GetResult();
                 var noQuitar = response.IsSuccessStatusCode;
 

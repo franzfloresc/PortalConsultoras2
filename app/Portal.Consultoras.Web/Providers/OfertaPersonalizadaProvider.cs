@@ -515,7 +515,9 @@ namespace Portal.Consultoras.Web.Providers
         {
             object data = CrearDataLog(campaniaId, ObtenerConstanteConfPais(tipo), esMObile);
             var urlApi = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+            string tokenApiSomosBelcorp = sessionManager.GetJwtApiSomosBelcorp();
 
+            if (string.IsNullOrEmpty(tokenApiSomosBelcorp)) return;
             if (string.IsNullOrEmpty(urlApi)) return;
 
             var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
@@ -525,7 +527,7 @@ namespace Portal.Consultoras.Web.Providers
             var dataString = JsonConvert.SerializeObject(data);
 
             HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-            httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
+            httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { tokenApiSomosBelcorp }");
             var response = httpClient.PostAsync("Api/LogCargaOfertas", contentPost).GetAwaiter().GetResult();
 
             var noQuitar = response.IsSuccessStatusCode;

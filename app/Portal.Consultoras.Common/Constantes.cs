@@ -338,6 +338,9 @@ namespace Portal.Consultoras.Common
             public const string DescripcionPedidoOtro = "OTROS";
             public const int CodigoPedidoOtro = 0;
 
+
+            public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
+
         }
 
         public static class ConfiguracionManager
@@ -456,6 +459,8 @@ namespace Portal.Consultoras.Common
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
+
+          
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado

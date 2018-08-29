@@ -371,6 +371,8 @@ namespace Portal.Consultoras.Web.Models
         public bool FotoPerfilAncha { get; set; }
         public string MensajeChat { get; set; }
         public double PromedioVenta { get; set; }
+
+        public string JwtToken { get; set; }
         public string GetCodigoConsultora()
         {
             return UsuarioPrueba == 1

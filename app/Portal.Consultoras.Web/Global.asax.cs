@@ -9,7 +9,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 
 
-[assembly: PreApplicationStartMethod(typeof(Portal.Consultoras.Web.PreApplicationStart), "Start")]
+//[assembly: PreApplicationStartMethod(typeof(Portal.Consultoras.Web.PreApplicationStart), "Start")]
 namespace Portal.Consultoras.Web
 {
 
@@ -53,6 +53,12 @@ namespace Portal.Consultoras.Web
             Globals.UrlEscalaDescuentos = ConfigurationManager.AppSettings["EscalaDescuentos"];
             Globals.UrlOfertasFic = ConfigurationManager.AppSettings["OfertasFic"];
             Globals.UrlNavidadConsultora = ConfigurationManager.AppSettings["NavidadConsultora"];
+
+
+            JwtContext.Instance.Application = "SomosBelcorp";
+            
+
+
             //Globals.JwtToken = JwtAutentication.getWebToken();
 
             AutoMapperConfiguration.Configure();

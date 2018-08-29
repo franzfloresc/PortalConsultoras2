@@ -134,7 +134,7 @@ namespace Portal.Consultoras.Common
                 var browserRequest = string.Empty;
                 var ctrl = string.Empty;
                 var acti = string.Empty;
-
+                string Token = string.Empty;
                 if (HttpContext.Current != null && HttpContext.Current.Request != null)
                 {
                     urlRequest = HttpContext.Current.Request.Url.ToString();
@@ -143,6 +143,7 @@ namespace Portal.Consultoras.Common
                     var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
                     ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
                     acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+                    Token = (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp];
                 }
 
                 var exceptionMessage = string.Empty;
@@ -197,7 +198,8 @@ namespace Portal.Consultoras.Common
                     dataString = JsonConvert.SerializeObject(data);
 
                     HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
+                    //httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
+                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Token }");
                     HttpResponseMessage response = httpClient.PostAsync("Api/LogError", contentPost).GetAwaiter().GetResult();
 
                     var result = response.IsSuccessStatusCode;

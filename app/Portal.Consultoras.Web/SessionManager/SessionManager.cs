@@ -603,5 +603,14 @@ namespace Portal.Consultoras.Web.SessionManager
             get { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
             set { HttpContext.Current.Session["CuvKitNuevas"] = value; }
         }
+        public void SetJwtApiSomosBelcorp(string token)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] = token;
+        }
+         string ISessionManager.GetJwtApiSomosBelcorp()
+        {
+            return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ;
+        }
+        
     }
 }
