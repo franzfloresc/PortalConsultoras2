@@ -630,7 +630,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Landing").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/RevistaDigital-Landing").Include(
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
