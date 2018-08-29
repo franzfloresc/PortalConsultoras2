@@ -2,8 +2,10 @@
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcContrib.TestHelper;
-using Portal.Consultoras.Web.Areas.Mobile.Controllers;
+using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Web.UnitTest.Controllers;
 using Portal.Consultoras.Web.UnitTest.Extensions;
+using DetalleEstrategiaController = Portal.Consultoras.Web.Areas.Mobile.Controllers.DetalleEstrategiaController;
 
 namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
 {
@@ -11,33 +13,42 @@ namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
     public class DetalleEstrategiaControllerUnitTests 
     {
         [TestClass]
-        public class Ficha : Base
+        public class Ficha : BaseViewControllerUnitTests.Ficha
         {
-            [TestInitialize]
-            public override void Test_Initialize()
+            //[TestInitialize]
+            //public override void Test_Initialize()
+            //{
+            //    base.Test_Initialize();
+            //}
+
+            //[TestCleanup]
+            //public override void Test_Cleanup()
+            //{
+            //    base.Test_Cleanup();
+            //}
+
+            private class DetalleEstrategiaMobileController : DetalleEstrategiaController
             {
-                base.Test_Initialize();
+                public override bool IsMobile()
+                {
+                    return true;
+                }
             }
 
-            [TestCleanup]
-            public override void Test_Cleanup()
+            protected override BaseViewController GetController()
             {
-                base.Test_Cleanup();
+                return new DetalleEstrategiaMobileController();
+            }
+
+            protected override string AreaNameExpected()
+            {
+                return "Mobile";
             }
 
             [TestMethod]
-            public void Ficha_parameterPalancaIsNotValid_RedirectsToOfertas()
+            public override void Ficha_parameterPalancaIsNotValid_RedirectsToOfertas()
             {
-                // Arrange
-                var controller = new DetalleEstrategiaController();
-
-                // Act
-                var actualResult = controller.Ficha(null, 0, null, null) as RedirectToRouteResult;
-
-                // Assert
-                Assert.AreEqual("Ofertas", actualResult.GetControllerName());
-                Assert.AreEqual("Index", actualResult.GetActionName());
-                //Assert.AreEqual("Mobile", actualResult.GetAreaName());
+                base.Ficha_parameterPalancaIsNotValid_RedirectsToOfertas();
             }
         }
     }
