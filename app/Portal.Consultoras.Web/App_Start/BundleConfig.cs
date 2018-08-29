@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web
         /// <param name="bundles"></param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/JsLogin2").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/Login2").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/jquery.custom-scrollbar.js",
@@ -18,11 +18,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/LogError.js"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Contenedor").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-Contenedor").Include(
                 "~/Content/Css/Site/flipclock.css",
                 "~/Content/Css/Site/slick.css"
             ));
-            bundles.Add(new StyleBundle("~/Content/Css/Site/CssMain").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-CssMain").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/style.css",
                 "~/Content/Css/Site/style-tismart.css",
@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web
                "~/Scripts/Jqgrid/jquery.jqGrid*"
             ));
 
-            bundles.Add(new ScriptBundle("~/Scripts/PortalConsultoras/ShowRoom/ShowRoomJs").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/ShowRoomJs").Include(
                 "~/Scripts/PortalConsultoras/ShowRoom/Index.js",
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsPluginsHeaderSAC").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PluginsHeaderSAC").Include(
                 "~/Scripts/maskedinput.js",
                 "~/Scripts/General.js",
                 "~/Scripts/JsonSupport.js",
@@ -73,16 +73,16 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/LogError.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsPluginsFooterSAC").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PluginsFooterSAC").Include(
                "~/Scripts/custom.js",
                "~/Scripts/jquery.flexnav.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JSTree").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JSTree").Include(
                "~/Scripts/jquery.jstree.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/Scripts/MobileLayout").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/MobileLayout").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/jquery.validate.js",
@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/Scripts/MobileLayoutContenedor").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/MobileLayoutContenedor").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/jquery.validate.js",
@@ -131,7 +131,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/Scripts/MobileLayoutEmpty").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/LayoutEmpty").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/jquery.validate.js",
@@ -143,11 +143,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/LogError.js"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/CSSFuzemodal").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Fuzemodal").Include(
                 "~/Scripts/fuzemodal-1.3/fuzemodal-1.3.css"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/CSSHojaInscripcion").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/HojaInscripcion").Include(
                 "~/Content/HojaInscripcion/*.css",
                 "~/Content/DatetimePicker/*.css"
             ));
@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/calc.css"
                ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/CssBienvenida").Include(
+            bundles.Add(new StyleBundle("~/bundles/Css/Mixto/CssBienvenida").Include(
                 "~/Content/Css/Mobile/Esika/bootstrap-slider.min.css",
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Site/flexslider.css",
@@ -259,7 +259,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/jquery.custom-scrollbar.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsSB2").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Js/Desktop/SB2").Include(
                 "~/Scripts/modernizr.custom.js",
                 "~/Scripts/respond.js",
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
@@ -283,7 +283,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Buscador/Index.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Js/Desktop/SB2-Bienvenida").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
@@ -317,7 +317,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Js/Desktop/SB2-Pedido").Include(
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
@@ -336,11 +336,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/js/OfertaDelDia").Include(
+            bundles.Add(new ScriptBundle("~/bundles/js/mobile/OfertaDelDia").Include(
                 "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsMobile/Bienvenida").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Js/Mobile/Bienvenida").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js",
@@ -364,7 +364,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery.custom-scrollbar.js"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/Css/Site/CcsBienvenida").Include(
+            bundles.Add(new StyleBundle("~/bundles/Css/Desktop/CcsBienvenida").Include(
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css",
@@ -372,7 +372,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/Css/Site/MisCatalogoRevista").Include(
+            bundles.Add(new StyleBundle("~/bundles/Css/Desktop/MisCatalogoRevista").Include(
                 "~/Content/Css/Site/jquery.tag-editor.css",
                 "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css"
@@ -399,7 +399,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/jquery.custom-scrollbar.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsMobile/Pedido").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Js/Mobile/Pedido").Include(
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/index.js",
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
@@ -417,7 +417,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoDetalle").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Js/Mobile/PedidoDetalle").Include(
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
@@ -754,7 +754,7 @@ namespace Portal.Consultoras.Web
 
             #region MisCatalogosRevistas
 
-            bundles.Add(new ScriptBundle("~/Bundle/Js/Descktop/MisCatalogosRevistas").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/MisCatalogosRevistas").Include(
                  "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                  "~/Scripts/Tag/jquery.tags.input.js",
                  "~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js",

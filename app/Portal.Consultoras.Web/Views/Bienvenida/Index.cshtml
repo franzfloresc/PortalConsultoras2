@@ -5,7 +5,7 @@
 
 @section styles{
 
-    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssBienvenida")
+    @System.Web.Optimization.Styles.Render("~/bundles/Css/Mixto/CssBienvenida")
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/AsesoraOnline")
 
     <style type="text/css">
@@ -2122,7 +2122,7 @@
         var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
         var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
+    @System.Web.Optimization.Scripts.Render("~/bundles/Js/Desktop/SB2-Bienvenida")
     @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }
 
 <script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script> 
