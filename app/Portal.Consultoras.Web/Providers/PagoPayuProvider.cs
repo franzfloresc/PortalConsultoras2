@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        private async Task<object> GetData(PaymentInfo info, PagoEnLineaModel pago)
+        private object GetData(PaymentInfo info, PagoEnLineaModel pago)
         {
             if (!info.Birthdate.HasValue)
             {
@@ -81,7 +81,7 @@ namespace Portal.Consultoras.Web.Providers
             var total = pago.MontoDeudaConGastos;
             var referenceCode = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroReferencia;
             var fullName = User.NombreConsultora;
-            var address = await GetDireccionConsultora();
+            var address = GetDireccionConsultora();
 
             var card = new
             {
@@ -357,13 +357,13 @@ namespace Portal.Consultoras.Web.Providers
             return DateTime.Now.Ticks / 10;
         }
 
-        private async Task<string> GetDireccionConsultora()
+        private string GetDireccionConsultora()
         {
             try
             {
                 using (var sv = new UsuarioServiceClient())
                 {
-                    return await sv.GetDireccionConsultoraAsync(User.PaisID, User.CodigoUsuario);
+                    return sv.GetDireccionConsultora(User.PaisID, User.CodigoUsuario);
                 }
             }
             catch (Exception e)
