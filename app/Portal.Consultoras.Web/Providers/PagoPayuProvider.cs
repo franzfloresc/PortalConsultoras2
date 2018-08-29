@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 pago.ListaMedioPago = PagoProvider.ObtenerListaMedioPago();
-                pago.NumeroOperacion = (await GetNewOrderId()).ToString();
+                pago.NumeroReferencia = (await GetNewOrderId()).ToString();
                 pago.TipoPago = GetPaymentMethod(pago);
 
                 var data = GetData(info, pago);
@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Providers
 
             PagoVisaModel config = pago.PagoVisaModel;
             var total = pago.MontoDeudaConGastos;
-            var referenceCode = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroOperacion;
+            var referenceCode = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroReferencia;
             var fullName = User.NombreConsultora;
             var address = await GetDireccionConsultora();
 
@@ -195,6 +195,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             var transaction = result.transactionResponse;
+            pago.NumeroOperacion = transaction.orderId;
             pago.DescripcionCodigoAccion = GetMessage(transaction);
             pago.FechaCreacion = GetDateCreation(transaction.operationDate);
             pago.TarjetaEnmascarada = Util.EnmascararTarjeta(info.NumberCard);
@@ -279,7 +280,7 @@ namespace Portal.Consultoras.Web.Providers
 
             //bePagoEnLinea.ResultadoValidacionCVV2 = "";
             //bePagoEnLinea.CsiMensaje = "";
-            bePagoEnLinea.IdUnicoTransaccion = respuesta.orderId;
+            bePagoEnLinea.IdUnicoTransaccion = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroReferencia;
             //bePagoEnLinea.Etiqueta = "";
             //bePagoEnLinea.RespuestaSistemAntifraude = "";
             //bePagoEnLinea.CsiPorcentajeDescuento = 0;
@@ -293,7 +294,7 @@ namespace Portal.Consultoras.Web.Providers
             //bePagoEnLinea.NombreBancoEmisor = "";
             //bePagoEnLinea.ImporteCuota = 0;
             //bePagoEnLinea.CsiTipoCobro = "";
-            //bePagoEnLinea.NumeroReferencia = "";
+            bePagoEnLinea.NumeroReferencia = pago.NumeroReferencia;
             bePagoEnLinea.Respuesta = respuesta.state;
             bePagoEnLinea.NumeroOrdenTienda = pago.NumeroOperacion;
             bePagoEnLinea.CodigoAccion = "000";
