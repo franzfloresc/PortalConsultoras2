@@ -913,7 +913,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 }
 
 function HidePopupEstrategiasEspeciales() {
-    $("#popupDetalleCarousel_packNuevas").hide();
+    //$("#popupDetalleCarousel_packNuevas").hide(); DEUDA TECNICA (BORRAR ESTA FUNCIÓN DESPUES)
 }
 
 function CerrarLoad() {
