@@ -1252,8 +1252,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                sessionManager.SetDetallesPedido(null);
-                sessionManager.SetDetallesPedidoSetAgrupado(null);
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
                 string emailDe = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
 
                 if (pedidoAux.FlagMedio == "01")
@@ -1563,7 +1563,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var pedidoWebDetalleNula = sessionManager.GetDetallesPedido() == null;
+                var pedidoWebDetalleNula = SessionManager.GetDetallesPedido() == null;
 
                 olstTempListado = ObtenerPedidoWebDetalle();
 
@@ -1643,7 +1643,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             UsuarioModel usuario = userData;
                             usuario.PedidoID = oBePedidoWebDetalleTemp.PedidoID;
-                            sessionManager.SetUserData(usuario);
+                            SessionManager.SetUserData(usuario);
                         }
 
                         olstTempListado.Add(oBePedidoWebDetalleTemp);
@@ -1670,8 +1670,8 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                sessionManager.SetDetallesPedido(null);
-                sessionManager.SetDetallesPedidoSetAgrupado(null);
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
                 olstTempListado = ObtenerPedidoWebDetalle();
                 errorServer = false;
                 tipo = tipoAdm;

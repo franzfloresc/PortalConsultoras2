@@ -61,10 +61,10 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var elementosPopPup = {
-        popupClose: "#popup-close",
-        popupDetalleCarouselLanzamiento: "#popupDetalleCarousel_lanzamiento",
-        popupDetalleCarouselPackNuevas: "#popupDetalleCarousel_packNuevas",
-        contenedorPopupDetalleCarousel: "#contenedor_popup_detalleCarousel"
+        popupClose: "#popup-close"
+        //popupDetalleCarouselLanzamiento: "#popupDetalleCarousel_lanzamiento", DEUDA TECNICA
+        //popupDetalleCarouselPackNuevas: "#popupDetalleCarousel_packNuevas",  DEUDA TECNICA
+        //contenedorPopupDetalleCarousel: "#contenedor_popup_detalleCarousel"  DEUDA TECNICA
     };
     
     var _elementos = {

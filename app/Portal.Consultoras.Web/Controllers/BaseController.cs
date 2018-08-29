@@ -34,7 +34,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
         protected BuscadorYFiltrosModel buscadorYFiltro;
-        protected ISessionManager sessionManager;
         protected ILogManager logManager;
         protected string paisesMicroservicioPersonalizacion;
         protected string estrategiaWebApiDisponibilidadTipo;
@@ -59,12 +58,18 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly MenuProvider _menuProvider;
         protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         protected readonly ComunicadoProvider _comunicadoProvider;
-        
+
+        protected ISessionManager SessionManager
+        {
+            get;
+            private set;
+        }
+
         #endregion
 
         #region Constructor
 
-        public BaseController() : this(SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
+        public BaseController() : this(Web.SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
         {
             _tablaLogicaProvider = new TablaLogicaProvider();
             administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
@@ -92,13 +97,13 @@ namespace Portal.Consultoras.Web.Controllers
         public BaseController(ISessionManager sessionManager)
         {
             userData = new UsuarioModel();
-            this.sessionManager = sessionManager;
+            this.SessionManager = sessionManager;
         }
 
         public BaseController(ISessionManager sessionManager, ILogManager logManager)
         {
             userData = new UsuarioModel();
-            this.sessionManager = sessionManager;
+            SessionManager = sessionManager;
             this.logManager = logManager;
         }
 
@@ -120,17 +125,17 @@ namespace Portal.Consultoras.Web.Controllers
                     return;
                 }
 
-                revistaDigital = sessionManager.GetRevistaDigital();
-                herramientasVenta = sessionManager.GetHerramientasVenta();
-                guiaNegocio = sessionManager.GetGuiaNegocio();
-                estrategiaODD = sessionManager.OfertaDelDia.Estrategia;
-                configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
-                buscadorYFiltro = sessionManager.GetBuscadorYFiltros();
+                revistaDigital = SessionManager.GetRevistaDigital();
+                herramientasVenta = SessionManager.GetHerramientasVenta();
+                guiaNegocio = SessionManager.GetGuiaNegocio();
+                estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
+                configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
+                buscadorYFiltro = SessionManager.GetBuscadorYFiltros();
 
                 if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 {
                     _showRoomProvider.CargarEntidadesShowRoom(userData);
-                    configEstrategiaSR = sessionManager.GetEstrategiaSR();
+                    configEstrategiaSR = SessionManager.GetEstrategiaSR();
                 }
                     
                 if (Request.IsAjaxRequest())
@@ -183,9 +188,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
-            if (session && sessionManager.GetMontosProl() != null)
+            if (session && SessionManager.GetMontosProl() != null)
             {
-                return sessionManager.GetMontosProl();
+                return SessionManager.GetMontosProl();
             }
 
             var detallesPedidoWeb = ObtenerPedidoWebDetalle();
@@ -205,7 +210,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            sessionManager.SetMontosProl(montosProl);
+            SessionManager.SetMontosProl(montosProl);
 
             return montosProl;
         }
@@ -214,7 +219,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var detallesPedido = sessionManager.GetDetallesPedido();
+                var detallesPedido = SessionManager.GetDetallesPedido();
 
                 if (detallesPedido != null && detallesPedido.Any())
                 {
@@ -284,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, puntajes, puntajesExigidos);
             }
 
-            sessionManager.SetPedidoWeb(null);
+            SessionManager.SetPedidoWeb(null);
             userData.EjecutaProl = true;
             ObtenerPedidoWeb();
         }
@@ -297,7 +302,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null)
                 {
                     mensaje = "Su sessión expiró, por favor vuelva a loguearse.";
-                    sessionManager.SetUserData(null);
+                    SessionManager.SetUserData(null);
                     HttpContext.Session.Clear();
                     HttpContext.Session.Abandon();
                     return true;
@@ -446,7 +451,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public UsuarioModel UserData()
         {
-            var model = sessionManager.GetUserData() ?? new UsuarioModel();
+            var model = SessionManager.GetUserData() ?? new UsuarioModel();
 
             model.MenuNotificaciones = 1;
 
@@ -533,40 +538,40 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas()
         {
-            if (sessionManager.ConfiguracionProgramaNuevas != null) return sessionManager.ConfiguracionProgramaNuevas;
+            if (SessionManager.ConfiguracionProgramaNuevas != null) return SessionManager.ConfiguracionProgramaNuevas;
             try
             {
                 var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    sessionManager.ConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(usuario) ?? new BEConfiguracionProgramaNuevas();
+                    SessionManager.ConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(usuario) ?? new BEConfiguracionProgramaNuevas();
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                sessionManager.ConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
+                SessionManager.ConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
             }
-            return sessionManager.ConfiguracionProgramaNuevas;
+            return SessionManager.ConfiguracionProgramaNuevas;
         }
 
         protected string GetCuvKitNuevas()
         {
-            if (sessionManager.CuvKitNuevas != null) return sessionManager.CuvKitNuevas;
+            if (SessionManager.CuvKitNuevas != null) return SessionManager.CuvKitNuevas;
             try
             {
                 var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    sessionManager.CuvKitNuevas = sv.GetCuvKitNuevas(usuario, GetConfiguracionProgramaNuevas()) ?? "";
+                    SessionManager.CuvKitNuevas = sv.GetCuvKitNuevas(usuario, GetConfiguracionProgramaNuevas()) ?? "";
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                sessionManager.CuvKitNuevas = "";
+                SessionManager.CuvKitNuevas = "";
             }
-            return sessionManager.CuvKitNuevas;
+            return SessionManager.CuvKitNuevas;
         }
         
         private BarraTippingPoint GetTippingPoint(string TippingPointStr, string codigoPrograma)
@@ -826,7 +831,7 @@ namespace Portal.Consultoras.Web.Controllers
         //    if (pConsultoraId == 0)
         //        pConsultoraId = userData.ConsultoraID;
             
-        //    if (sessionManager.GetListadoEstadoCuenta() == null)
+        //    if (_sessionManager.GetListadoEstadoCuenta() == null)
         //    {
         //        var estadoCuenta = new List<BEEstadoCuenta>();
         //        try
@@ -865,11 +870,11 @@ namespace Portal.Consultoras.Web.Controllers
         //            });
         //        }
 
-        //        sessionManager.SetListadoEstadoCuenta(lst);
+        //        _sessionManager.SetListadoEstadoCuenta(lst);
         //    }
         //    else
         //    {
-        //        lst = sessionManager.GetListadoEstadoCuenta();
+        //        lst = _sessionManager.GetListadoEstadoCuenta();
         //    }
 
         //    return lst;
@@ -942,7 +947,7 @@ namespace Portal.Consultoras.Web.Controllers
             codigo = Util.Trim(codigo).ToLower();
             codigoConfig = Util.Trim(codigoConfig);
 
-            var listaConfigPais = sessionManager.GetConfiguracionesPaisModel();
+            var listaConfigPais = SessionManager.GetConfiguracionesPaisModel();
             ConfiguracionPaisModel existe;
 
             if (codigoConfig != "" && codigo == "")
@@ -987,6 +992,14 @@ namespace Portal.Consultoras.Web.Controllers
                 url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
 
                 result = url.Contains("/mobile/") || url.Contains("/g/");
+
+                if (result)
+                    return result;
+
+                var headers = HttpContext.Request.Headers;
+                var value = Convert.ToString(headers["isMobile"]);
+                bool.TryParse(value,out result);
+
             }
             catch
             {
@@ -1251,7 +1264,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region EventoFestivo
 
-            ViewBag.SaludoFestivo = sessionManager.GetEventoFestivoDataModel().EfSaludo;
+            ViewBag.SaludoFestivo = SessionManager.GetEventoFestivoDataModel().EfSaludo;
 
             #endregion
 
@@ -1267,9 +1280,9 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI)
                 || (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
-            var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
+            var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
             ViewBag.MenuContenedorActivo = menuActivo;
-            ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
+            ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
 
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
             var menuWeb = BuildMenu(userData, revistaDigital);
@@ -1322,7 +1335,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
             ViewBag.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
-            ViewBag.BannerInferior = _showRoomProvider.EvaluarBannerConfiguracion(userData.PaisID, sessionManager);
+            ViewBag.BannerInferior = _showRoomProvider.EvaluarBannerConfiguracion(userData.PaisID, SessionManager);
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();

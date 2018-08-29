@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     PedidoID = objCdr.PedidoID
                 };
 
-                sessionManager.SetCDRWebDetalle(null);
+                SessionManager.SetCDRWebDetalle(null);
                 objCdr.ListaDetalle = _cdrProvider.CargarDetalle(obj, userData.PaisID, userData.CodigoISO);
 
                 ViewBag.Origen = objCdr.OrigenCDRDetalle;

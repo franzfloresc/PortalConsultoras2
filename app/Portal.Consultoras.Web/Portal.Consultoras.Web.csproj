@@ -4162,7 +4162,6 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutEmpty.cshtml" />
-    <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOferta.cshtml" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-left.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-right.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow_select_variant.svg" />
@@ -4271,8 +4270,6 @@
     <Content Include="Areas\Mobile\Views\PedidoFIC\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\HerramientasVenta\template-mensaje-bloqueado.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-bloqueado-Lan-Detalle.cshtml" />
-    <Content Include="Areas\Mobile\Views\ShowRoom\Personalizado.cshtml" />
-    <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOfertaPersonalizado.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Content\Css\Site\Contenedor\producto.simple.css" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\Ficha.cshtml" />
@@ -5248,7 +5245,6 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_GoogleOptimize.cshtml" />
     <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
-    <Content Include="Views\ShowRoom\Personalizado.cshtml" />
     <Content Include="Views\MisCertificados\TributarioPdf.cshtml" />
     <Content Include="Views\AsesoraOnline\VolverSuscripcion.cshtml" />
     <Content Include="Views\AsesoraOnline\CancelarSuscripcion.cshtml" />
@@ -5282,6 +5278,7 @@
     <Content Include="Views\DetalleEstrategia\ResumenOpcionesTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\OpcionesSeleccionadasTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales-producto.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

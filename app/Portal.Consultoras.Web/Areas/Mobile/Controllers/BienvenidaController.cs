@@ -245,7 +245,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             else if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora
                      && userData.CambioClave == 0 && userData.IndicadorContrato == 0
                      && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
-                     && sessionManager.GetIsContrato() == 1)
+                     && SessionManager.GetIsContrato() == 1)
             {
                 tipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
                 Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
@@ -371,7 +371,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 retorno = sv.setUsuarioVerTutorial(userData.PaisID, userData.CodigoUsuario);
                 userData.VioTutorialModelo = retorno;
             }
-            sessionManager.SetUserData(userData);
+            SessionManager.SetUserData(userData);
             return Json(new
             {
                 result = retorno

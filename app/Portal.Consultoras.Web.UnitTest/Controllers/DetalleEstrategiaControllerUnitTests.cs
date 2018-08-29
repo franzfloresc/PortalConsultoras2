@@ -11,33 +11,29 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
     public class DetalleEstrategiaControllerUnitTests 
     {
         [TestClass]
-        public class Ficha : Base
+        public class Ficha : BaseViewControllerUnitTests.Ficha
         {
-            [TestInitialize]
-            public override void Test_Initialize()
-            {
-                base.Test_Initialize();
-            }
+            //[TestInitialize]
+            //public override void Test_Initialize()
+            //{
+            //    base.Test_Initialize();
+            //}
 
-            [TestCleanup]
-            public override void Test_Cleanup()
+            //[TestCleanup]
+            //public override void Test_Cleanup()
+            //{
+            //    base.Test_Cleanup();
+            //}
+
+            protected override BaseViewController GetController()
             {
-                base.Test_Cleanup();
+                return new DetalleEstrategiaController();
             }
 
             [TestMethod]
-            public void Ficha_parameterPalancaIsNotValid_RedirectsToOfertas()
+            public override void Ficha_parameterPalancaIsNotValid_RedirectsToOfertas()
             {
-                // Arrange
-                var controller = new DetalleEstrategiaController();
-
-                // Act
-                var actualResult = controller.Ficha(null, 0, null, null) as RedirectToRouteResult;
-
-                // Assert
-                Assert.AreEqual("Ofertas", actualResult.GetControllerName());
-                Assert.AreEqual("Index", actualResult.GetActionName());
-                Assert.AreEqual("", actualResult.GetAreaName());
+                base.Ficha_parameterPalancaIsNotValid_RedirectsToOfertas();
             }
         }
     }

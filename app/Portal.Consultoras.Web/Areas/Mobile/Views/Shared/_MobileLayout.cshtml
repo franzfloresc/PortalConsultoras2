@@ -345,7 +345,7 @@
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
 
-    @Scripts.Render("~/Scripts/MobileLayout")
+    @Scripts.Render("~/Bundle/Js/Mobile/MobileLayout")
 
     <script type="text/javascript">
         var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
@@ -448,7 +448,7 @@
 
     @if (ViewBag.TieneOfertaDelDia == true)
     {
-        @System.Web.Optimization.Scripts.Render("~/bundles/js/OfertaDelDia")
+        @System.Web.Optimization.Scripts.Render("~/bundles/js/mobile/OfertaDelDia")
         <script type="text/javascript">
             $(document).ready(function () {
                 //window.OfertaDelDia.CargarODD();
@@ -710,5 +710,13 @@
         </script>
         TempData.Remove("PixelCodigoIso");
     }
+
+    <script>
+        $.ajaxSetup({
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("isMobile", isMobile());
+            }
+        });
+    </script>
 </body>
 </html>

@@ -636,8 +636,8 @@ function RenderCarrusel(divProd) {
 }
 
 function RDPageInformativa() {
-    $('#popupDetalleCarousel_packNuevas').hide();
-    $('#popupDetalleCarousel_lanzamiento').hide();
+    //$('#popupDetalleCarousel_packNuevas').hide();  DEUDA TECNICA
+    //$('#popupDetalleCarousel_lanzamiento').hide(); DEUDA TECNICA
     CerrarPopup("#divMensajeBloqueada");
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();
@@ -695,7 +695,7 @@ $(window).on("scroll", function () {
             $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').addClass('dorado_esconde_imagen');
             $('.contenido_zona_dorada_contenedor_desktop').addClass('dorado_contenedor');
             $('#divOfertaProductosPerdio').addClass('dorado_contenedor_prods');
-            $('#block_inscribete').css("top", 105);
+            $('#block_inscribete').css("top", cabecera_mobil > 0 ? 105 : 45);
         }
         else {
             $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').removeClass('dorado_esconde_imagen');

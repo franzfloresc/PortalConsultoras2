@@ -6,7 +6,11 @@ UPDATE MenuApp
 	SET [Visible] = 0
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
+	
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]
@@ -38,6 +42,9 @@ UPDATE MenuApp
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]
@@ -69,6 +76,9 @@ UPDATE MenuApp
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]
@@ -100,6 +110,9 @@ UPDATE MenuApp
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]
@@ -131,6 +144,9 @@ UPDATE MenuApp
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]
@@ -162,6 +178,9 @@ UPDATE MenuApp
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]
@@ -193,6 +212,9 @@ UPDATE MenuApp
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]
@@ -224,6 +246,9 @@ UPDATE MenuApp
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]
@@ -255,6 +280,9 @@ UPDATE MenuApp
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]
@@ -286,6 +314,9 @@ UPDATE MenuApp
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]
@@ -317,6 +348,9 @@ UPDATE MenuApp
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]
@@ -348,6 +382,9 @@ UPDATE MenuApp
 WHERE [Codigo] = 'MEN_TOP_PEDIDO' 
 	AND [VersionMenu] = 4;
 /* INSERT NUEVO MENU TOP PEDIDO NATIVO  */
+DELETE FROM dbo.MenuApp 
+WHERE Codigo = 'MEN_TOP_PEDIDO'  AND VersionMenu = 4
+
 INSERT INTO MenuApp
  ([Codigo]
       ,[Descripcion]

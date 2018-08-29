@@ -189,10 +189,10 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.TemplatePresentacion = "seccion-simple-centrado";
                             seccion.TemplateProducto = "#producto-landing-template";
                             break;
-                        case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselPrevisuales:
-                            seccion.TemplatePresentacion = "seccion-carrusel-previsuales";
-                            seccion.TemplateProducto = "#lanzamiento-carrusel-template";
-                            break;
+                        //case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselPrevisuales:
+                        //    seccion.TemplatePresentacion = "seccion-carrusel-previsuales";
+                        //    seccion.TemplateProducto = "#lanzamiento-carrusel-template";
+                        //    break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
                             seccion.TemplatePresentacion = "seccion-simple-centrado";
                             seccion.TemplateProducto = "#producto-landing-template";

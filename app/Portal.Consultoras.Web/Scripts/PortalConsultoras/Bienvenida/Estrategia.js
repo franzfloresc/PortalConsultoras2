@@ -637,7 +637,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                     divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
                 }
 
-                $(".contenedor_popup_detalleCarousel").hide();
+                //$(".contenedor_popup_detalleCarousel").hide(); DEUDA TECNICA
                 $("#divMensajeBloqueada").show();
             }
         }
@@ -913,7 +913,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 }
 
 function HidePopupEstrategiasEspeciales() {
-    $("#popupDetalleCarousel_packNuevas").hide();
+    //$("#popupDetalleCarousel_packNuevas").hide(); DEUDA TECNICA (BORRAR ESTA FUNCIÓN DESPUES)
 }
 
 function CerrarLoad() {

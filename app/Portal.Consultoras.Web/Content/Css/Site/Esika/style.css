@@ -5015,7 +5015,9 @@ a.subir_carousel, a.bajar_carousel {
     max-width: 378px;
 }
 
-.btn_cerrar_detalleCarousel {
+/*
+    DEUDA TÉCNICA
+    .btn_cerrar_detalleCarousel {
     display: block;
     width: 100%;
     max-width: 29px;
@@ -5023,7 +5025,7 @@ a.subir_carousel, a.bajar_carousel {
     position: absolute;
     top: 5px;
     right: -43px;
-}
+}*/
 
     .btn_cerrar_detalleCarousel img {
         width: 100%;
@@ -5053,9 +5055,11 @@ a.subir_carousel, a.bajar_carousel {
         margin-bottom: 21px;
     }
 /* POPUP DETALLE CARRUSEL OFERTAS PARA TI - PACK NUEVAS */
-#popupDetalleCarousel_packNuevas {
+/*
+    DEUDA TECNICA
+    #popupDetalleCarousel_packNuevas {
     display: none;
-}
+}*/
 
 .packNuevas {
     max-width: 633px;
@@ -5065,7 +5069,9 @@ a.subir_carousel, a.bajar_carousel {
         max-width: 600px;
     }
 
-.bloque_producto_packNuevas, .descripcion_set_packNuevas {
+/*
+    DEUDA TECNICA
+    .bloque_producto_packNuevas, .descripcion_set_packNuevas {
     display: inline-block;
     vertical-align: middle;
 }
@@ -5082,6 +5088,7 @@ a.subir_carousel, a.bajar_carousel {
 .bloque_producto_packNuevas .producto_precio {
     margin-bottom: 9px;
 }
+*/
 
 .monto_ganancia_producto {
     display: inline-block;
@@ -5093,13 +5100,15 @@ a.subir_carousel, a.bajar_carousel {
     line-height: 18px;
 }
 
-.descripcion_set_packNuevas h6 {
+/*
+    DEUDA TECNICA
+    .descripcion_set_packNuevas h6 {
     font-size: 14px;
     font-weight: 700 !important;
     letter-spacing: .2px;
     color: #000;
     margin-bottom: 15px;
-}
+}*/
 
 .descripcion_lista {
     display: block;
@@ -5119,9 +5128,13 @@ a.subir_carousel, a.bajar_carousel {
             border-bottom: 1px solid #CCC;
         }
 
-.descripcion_set_packNuevas .mensaje_advertencia_detalleCarousel {
+
+/*
+    DEUDA TECNICA
+    .descripcion_set_packNuevas .mensaje_advertencia_detalleCarousel {
     width: 98%;
-}
+}*/
+
 /* POPUP ACTUALIZAR MIS DATOS */
 .popup_actualizarMisDatos {
     display: block;
@@ -32450,6 +32463,7 @@ h1#penmostreo .campana {
 .bloque_oferta_dia {
     width: 100%;
     height: 100px;
+    background: url('../../../Images/PL20/textura_fondo.png') repeat-x;
     position: relative;
     z-index: 6;
 }
@@ -32460,6 +32474,7 @@ h1#penmostreo .campana {
     margin: 0 auto;
     background-size: cover;
     position: relative;
+    background-color: #000;
 }
 
 .content_oferta_dia_img {
