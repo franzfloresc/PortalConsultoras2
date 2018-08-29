@@ -32463,6 +32463,7 @@ h1#penmostreo .campana {
 .bloque_oferta_dia {
     width: 100%;
     height: 100px;
+    background: url('../../../Images/PL20/textura_fondo.png') repeat-x;
     position: relative;
     z-index: 6;
 }
@@ -32473,6 +32474,7 @@ h1#penmostreo .campana {
     margin: 0 auto;
     background-size: cover;
     position: relative;
+    background-color: #000;
 }
 
 .content_oferta_dia_img {
