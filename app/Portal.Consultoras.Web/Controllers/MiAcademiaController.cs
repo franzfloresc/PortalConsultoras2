@@ -16,17 +16,24 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            var flagHome = 0;
+            var IdCurso = 0;
+            var FlagVideo = 0;
             try
             {
-                var IdCurso = sessionManager.GetMiAcademia();
-
-                if (IdCurso > 0)
-                {
-                    sessionManager.SetMiAcademia(0);
-                }
+                //var IdCurso = sessionManager.GetMiAcademia();
+                //if (IdCurso > 0)
+                //{
+                //    sessionManager.SetMiAcademia(0);
+                //}
+                IdCurso = sessionManager.GetMiAcademia();
+                FlagVideo = sessionManager.GetMiAcademiaVideo();  //PPC
+                sessionManager.SetMiAcademia(0);
+                sessionManager.SetMiAcademiaVideo(0);  //PPC
 
                 string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
                 string urlLms = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.CursosMarquesina);
+                string UrlCursoMiAcademiaVideo = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.UrlCursoMiAcademiaVideo);   // --- PPC
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
@@ -74,10 +81,18 @@ namespace Portal.Consultoras.Web.Controllers
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
                 urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
+                UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, IdCurso);
 
                 if (exito)
                 {
-                    return Redirect(urlLms);
+                    if (FlagVideo == 0)  // PPC
+                    {
+                        return Redirect(urlLms);
+                    }
+                    else
+                    {
+                        return Redirect(UrlCursoMiAcademiaVideo); // PPC
+                    }
                 }
             }
             catch (Exception ex)
