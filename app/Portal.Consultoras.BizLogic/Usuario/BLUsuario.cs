@@ -3219,5 +3219,10 @@ namespace Portal.Consultoras.BizLogic
             }
             return BuscadorYFiltro;
         }
+
+        public string ActuaizarNovedadBuscador(int paisId, string codigoUsuario)
+        {
+            return new DAUsuario(paisId).ActualizarNovedadBuscador(codigoUsuario);
+        }
     }
 }

@@ -10,7 +10,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO
@@ -25,7 +25,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO
@@ -40,7 +40,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO
@@ -55,7 +55,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO
@@ -70,7 +70,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO
@@ -85,7 +85,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO
@@ -100,7 +100,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO
@@ -115,7 +115,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO
@@ -130,7 +130,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO
@@ -145,7 +145,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO
@@ -160,7 +160,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO
@@ -175,7 +175,7 @@ CREATE PROC [dbo].[ActualizaNovedadBuscador](
 )
 AS
 BEGIN
-	UPDATE usuario SET NovedadBuscador = NovedadBuscador + 1 WHERE CodigoUsuario = @usuario
+	UPDATE usuario SET NovedadBuscador = isnull(NovedadBuscador, 0) + 1 WHERE CodigoUsuario = @usuario
 END
 
 GO

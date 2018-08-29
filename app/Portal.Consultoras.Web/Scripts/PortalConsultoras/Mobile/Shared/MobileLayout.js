@@ -1,10 +1,32 @@
-﻿$(function () {
+﻿$(document).on('click', function () {
+    $('.tooltip_informativo_sobre_opcion_busqueda_prod').fadeOut(100);
+});
+
+$(window).on("scroll", function () {
+    $('.tooltip_informativo_sobre_opcion_busqueda_prod').fadeOut(100);
+});
+
+$(function () {
+
+    var urlValidaIsHome = $.trim(location.pathname).toLowerCase();
+
+    if (CantidadVecesInicioSesionNovedad > 0) {
+        if (NovedadBuscadorVisitasUsuario >= 0 && NovedadBuscadorVisitasUsuario < CantidadVecesInicioSesionNovedad) {
+            if (urlValidaIsHome == '/mobile' || urlValidaIsHome == '/mobile/bienvenida') {
+                var getStorage = localStorage.getItem('novedadBuscador');
+                getStorage = getStorage == null ? 0 : getStorage;
+                if (getStorage == 0) {
+                    $('.tooltip_informativo_sobre_opcion_busqueda_prod').show();
+                    localStorage.setItem('novedadBuscador', 1);
+                }
+            }
+        }
+    }
 
     LayoutHeader();
     if (typeof menuModule !== "undefined") {
         menuModule.Resize();
     }
-
 
     OcultarChatEmtelco();
 
@@ -348,7 +370,7 @@ function OcultarChatEmtelco() {
         // Ocultando todo el panel de chat y container de boton
         var $CMXDhelp = $(".CMXD-help")
             , $parent = $CMXDhelp.parents(".CMXD-btn-help")
-        ;
+            ;
 
         // ocultando hijo y padre
         $CMXDhelp.hide();
@@ -1119,12 +1141,11 @@ function ValidarKitNuevas(fnSuccess) {
             if (!data.success) messageInfo('Ocurrió un error al intentar cargar el Kit de Nuevas.');
             else if ($.isFunction(fnSuccess)) fnSuccess();
         },
-        error: function() { messageInfo('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
+        error: function () { messageInfo('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
     });
 }
 
-function PopUpPrivacidadDatos()
-{
+function PopUpPrivacidadDatos() {
     $("#box-pop-up").show();
     $("#pop-up-body").customScrollbar();
 }

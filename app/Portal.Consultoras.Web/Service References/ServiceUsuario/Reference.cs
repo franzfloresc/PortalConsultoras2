@@ -1900,6 +1900,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string NombrePaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NovedadBuscadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NroCampaniasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3855,6 +3858,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NombrePaisField, value) != true)) {
                     this.NombrePaisField = value;
                     this.RaisePropertyChanged("NombrePais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NovedadBuscador {
+            get {
+                return this.NovedadBuscadorField;
+            }
+            set {
+                if ((this.NovedadBuscadorField.Equals(value) != true)) {
+                    this.NovedadBuscadorField = value;
+                    this.RaisePropertyChanged("NovedadBuscador");
                 }
             }
         }
@@ -10913,6 +10929,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/listaProductos", ReplyAction="http://tempuri.org/IUsuarioService/listaProductosResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros[]> listaProductosAsync(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscador", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscadorResponse")]
+        string ActualizarNovedadBuscador(int paisID, string codigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscador", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscadorResponse")]
+        System.Threading.Tasks.Task<string> ActualizarNovedadBuscadorAsync(int paisID, string codigoUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
         
@@ -11819,6 +11841,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros[]> listaProductosAsync(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona) {
             return base.Channel.listaProductosAsync(paisID, CampaniaID, filas, CodigoDescripcion, regionId, zonaId, codigoRegion, codigoZona);
+        }
+        
+        public string ActualizarNovedadBuscador(int paisID, string codigoUsuario) {
+            return base.Channel.ActualizarNovedadBuscador(paisID, codigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<string> ActualizarNovedadBuscadorAsync(int paisID, string codigoUsuario) {
+            return base.Channel.ActualizarNovedadBuscadorAsync(paisID, codigoUsuario);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

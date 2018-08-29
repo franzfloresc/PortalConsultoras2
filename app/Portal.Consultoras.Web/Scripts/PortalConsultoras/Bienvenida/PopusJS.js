@@ -37,7 +37,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                     if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
                     if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
                     if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
-
+                    PresentarNovedadBuscador('None');
                 }
 
                 $('#videoIntroductorio').on('hide', function () {
@@ -52,6 +52,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                             cancel = 1;
                             if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                             if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            PresentarNovedadBuscador('block');
                             EmpezarSlider();
                             clearTimeout(timeoutHandle);
                         }
@@ -66,6 +67,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                             cancel = 1;
                             if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                             if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            PresentarNovedadBuscador('block');
                             EmpezarSlider();
                             clearTimeout(timeoutHandle);
 
@@ -81,6 +83,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                             cancel = 1;
                             if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                             if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            PresentarNovedadBuscador('block');
                             EmpezarSlider();
                             clearTimeout(timeoutHandle);
                         }
@@ -100,6 +103,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                         cancel = 1;
                         if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                         if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        PresentarNovedadBuscador('block');
                         EmpezarSlider();
                         clearTimeout(timeoutHandle);
                     }
@@ -108,63 +112,66 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
 
                 break;
             case 4: //AceptacionContrato 
-            if (cancel == 0) {
-                if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
-                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
-                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
-            }
+                if (cancel == 0) {
+                    if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                    PresentarNovedadBuscador('None');
+                }
 
-            if (countcerrarAceptacionContrato == 0) {
-                countcerrarAceptacionContrato++;
-                for (var i = 0; i < document.querySelectorAll("img[src='/Content/Images/btn_cerrar_popup.svg']").length; i++) {
-                    var btn = document.querySelectorAll("img[src='/Content/Images/btn_cerrar_popup.svg']")[i];
-                    btn.onclick = function () {
+                if (countcerrarAceptacionContrato == 0) {
+                    countcerrarAceptacionContrato++;
+                    for (var i = 0; i < document.querySelectorAll("img[src='/Content/Images/btn_cerrar_popup.svg']").length; i++) {
+                        var btn = document.querySelectorAll("img[src='/Content/Images/btn_cerrar_popup.svg']")[i];
+                        btn.onclick = function () {
 
-                        if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                            document.getElementById('survicate-box').style.display = 'block';
-                            cancel = 1;
-                            ValidacionEncuesta();
-                            clearTimeout(timeoutHandle);
-                        } else {
-                            cancel = 1;
-                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                            EmpezarSlider();
-                            clearTimeout(timeoutHandle);
+                            if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                                document.getElementById('survicate-box').style.display = 'block';
+                                cancel = 1;
+                                ValidacionEncuesta();
+                                clearTimeout(timeoutHandle);
+                            } else {
+                                cancel = 1;
+                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                                PresentarNovedadBuscador('block');
+                                EmpezarSlider();
+                                clearTimeout(timeoutHandle);
+                            }
+
                         }
-                     
+
                     }
+
+                    window.onkeyup = function () {
+                        var e = window.event;
+                        var tecla = (document.all) ? e.keyCode : e.which;
+                        if (tecla == 27) {
+
+                            if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                                document.getElementById('survicate-box').style.display = 'block';
+                                cancel = 1;
+                                ValidacionEncuesta();
+                                clearTimeout(timeoutHandle);
+                            } else {
+                                cancel = 1;
+                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                                PresentarNovedadBuscador('block');
+                                EmpezarSlider();
+                                clearTimeout(timeoutHandle);
+                            }
+                        }
+
+                    }
+
 
                 }
 
-                window.onkeyup = function () {
-                    var e = window.event;
-                    var tecla = (document.all) ? e.keyCode : e.which;
-                    if (tecla == 27) {
+                if (paramCambioClave == 0) {
+                    if (document.getElementById('popupActualizarMisDatos').style.display == 'none' && document.getElementById('popupActualizarMisDatos').getAttribute('data-popup-activo') == '0') {
 
-                        if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                            document.getElementById('survicate-box').style.display = 'block';
-                            cancel = 1;
-                            ValidacionEncuesta();
-                            clearTimeout(timeoutHandle);
-                        } else {
-                            cancel = 1;
-                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                            EmpezarSlider();
-                            clearTimeout(timeoutHandle);
-                        }
-                    }
-
-                }
-
-             
-            }
-
-            if (paramCambioClave == 0) {
-                if (document.getElementById('popupActualizarMisDatos').style.display == 'none' && document.getElementById('popupActualizarMisDatos').getAttribute('data-popup-activo') == '0') {
-
-                    if (countPopupActualizoDatos==0) {
+                        if (countPopupActualizoDatos == 0) {
                             if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                                 document.getElementById('survicate-box').style.display = 'block';
                                 ValidacionEncuesta();
@@ -176,38 +183,41 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                                 cancel = 1;
                                 if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                                 if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                                PresentarNovedadBuscador('block');
                                 EmpezarSlider();
                                 clearTimeout(timeoutHandle);
                                 countPopupActualizoDatos++;
                             }
-                    }
-                   
-                }
+                        }
 
-            } else {
-                if (document.getElementById('popupAceptacionContrato').style.display == 'none' && document.getElementById('popupAceptacionContrato').getAttribute('data-popup-activo') == '0') {
-
-                    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                        document.getElementById('survicate-box').style.display = 'block';
-                        ValidacionEncuesta();
                     }
-                    else {
+
+                } else {
+                    if (document.getElementById('popupAceptacionContrato').style.display == 'none' && document.getElementById('popupAceptacionContrato').getAttribute('data-popup-activo') == '0') {
+
+                        if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                            document.getElementById('survicate-box').style.display = 'block';
+                            ValidacionEncuesta();
+                        }
+                        else {
+                            cancel = 1;
+                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            PresentarNovedadBuscador('block');
+                            EmpezarSlider();
+                            clearTimeout(timeoutHandle);
+                        }
                         cancel = 1;
-                        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                        EmpezarSlider();
-                        clearTimeout(timeoutHandle);
                     }
-                    cancel = 1;
-                }
 
-            }    
-            break;
+                }
+                break;
             case 5: // Showroom
                 if (cancel == 0) {
                     if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
                     if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
                     if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                    PresentarNovedadBuscador('None');
                 }
 
                 $('#PopShowroomVenta').on('hide', function () {
@@ -220,6 +230,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                         cancel = 1;
                         if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                         if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        PresentarNovedadBuscador('block');
                         EmpezarSlider();
                         clearTimeout(timeoutHandle);
                     }
@@ -239,13 +250,14 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                 //        clearTimeout(timeoutHandle);
                 //    }
                 //});
-                
+
                 break;
             case 6://ActualizarDatos 
                 if (cancel == 0) {
                     if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
                     if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
                     if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                    PresentarNovedadBuscador('None');
                 }
                 $('#popupActualizarMisDatos').on('hide', function () {
                     if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
@@ -257,6 +269,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                         cancel = 1;
                         if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                         if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        PresentarNovedadBuscador('block');
                         EmpezarSlider();
                         clearTimeout(timeoutHandle);
                     }
@@ -267,6 +280,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                     if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
                     if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
                     if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                    PresentarNovedadBuscador('None');
                 }
                 $('#popupInvitaionFlexipago').on('hide', function () {
 
@@ -279,6 +293,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                         cancel = 1;
                         if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                         if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        PresentarNovedadBuscador('block');
                         EmpezarSlider();
                         clearTimeout(timeoutHandle);
                     }
@@ -290,6 +305,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                     if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
                     if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
                     if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                    PresentarNovedadBuscador('None');
                 }
                 $('#popupComunicados').on('hide', function () {
                     if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
@@ -301,17 +317,19 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                         cancel = 1;
                         if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                         if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        PresentarNovedadBuscador('block');
                         clearTimeout(timeoutHandle);
                         EmpezarSlider();
                     }
 
                 });
                 break;
-          case 9: //RevistaDigitalSuscripcion  gana +
+            case 9: //RevistaDigitalSuscripcion  gana +
                 if (cancel == 0) {
                     if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
                     if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
                     if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                    PresentarNovedadBuscador('None');
                 }
 
                 $('#PopRDSuscripcion').on('hide', function () {
@@ -324,6 +342,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                         cancel = 1;
                         if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                         if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        PresentarNovedadBuscador('block');
                         clearTimeout(timeoutHandle);
                         EmpezarSlider();
                     }
@@ -344,7 +363,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
         clearTimeout(timeoutHandle);
     }
     timeoutHandle = setTimeout(MostrarPopusEnOrden, x * 100);
-   
+
 }
 var countEslaider = 0;
 var timeoutSlider = 0;
@@ -380,7 +399,8 @@ function ValidacionEncuesta() {
         if (contValEncuesta == 0) {
             if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
             if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-            EmpezarSlider();   
+            PresentarNovedadBuscador('block');
+            EmpezarSlider();
             contValEncuesta = contValEncuesta + 1;
             clearTimeout(timeoutEncuesta);
             //clearTimeout(timeoutHandle);
@@ -394,6 +414,7 @@ function Cupon() {
         if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
         if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
         if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+        PresentarNovedadBuscador('None');
     }
 
     $('#Cupon3').on('hide', function () {
@@ -405,7 +426,8 @@ function Cupon() {
         else {
             if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
             if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-            EmpezarSlider();   
+            PresentarNovedadBuscador('block');
+            EmpezarSlider();
             clearTimeout(timeoutHandle);
             cancel = 1;
         }
@@ -436,7 +458,12 @@ function EmpezarSlider() {
             }
         }
     }
+}
 
-
-
+function PresentarNovedadBuscador(_val) {
+    if (CantidadVecesInicioSesionNovedad > 0) {
+        if (NovedadBuscadorVisitasUsuario >= 0 && NovedadBuscadorVisitasUsuario < CantidadVecesInicioSesionNovedad) {
+            if (document.getElementById('toolTipBuscador') != null) document.getElementById('toolTipBuscador').style.display = _val;
+        }
+    }
 }
