@@ -641,7 +641,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult DetalleCargar(MisReclamosModel model)
         {
-            sessionManager.SetCDRWebDetalle(null);
+            SessionManager.SetCDRWebDetalle(null);
             var lista = _cdrProvider.CargarDetalle(model, userData.PaisID, userData.CodigoISO);
 
             return Json(new
@@ -737,7 +737,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.EMail = model.Email;
                 userData.Celular = model.Telefono;
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
 
                 if (!string.IsNullOrWhiteSpace(model.Email))
                 {

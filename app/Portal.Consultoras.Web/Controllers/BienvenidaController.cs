@@ -264,7 +264,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.PopupBienvenidaCerrado = true;
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
             }
             catch (FaultException ex)
             {
@@ -508,7 +508,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.EsConsultora()
                 && userData.CambioClave == 0 && userData.IndicadorContrato == 0
                 && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
-                && sessionManager.GetIsContrato() == 1 && !Convert.ToBoolean(Session["AceptoContrato"]))
+                && SessionManager.GetIsContrato() == 1 && !Convert.ToBoolean(Session["AceptoContrato"]))
             {
                 return true;
             }
@@ -731,7 +731,7 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
 
-            sessionManager.SetUserData(userData);
+            SessionManager.SetUserData(userData);
         }
 
         public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion, string AppVersion)
@@ -983,7 +983,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                     }
 
-                    sessionManager.SetUserData(userData);
+                    SessionManager.SetUserData(userData);
                 }
             }
             catch (FaultException ex)
@@ -1829,8 +1829,8 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
-                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+                var mostrarShowRoomProductos = SessionManager.GetMostrarShowRoomProductos();
+                var mostrarShowRoomProductosExpiro = SessionManager.GetMostrarShowRoomProductosExpiro();
 
                 mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
                 mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
@@ -1941,7 +1941,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult CerrarMensajeEstadoPedido()
         {
             userData.CerrarRechazado = 1;
-            sessionManager.SetUserData(userData);
+            SessionManager.SetUserData(userData);
             return Json(userData.CerrarRechazado);
         }
 
@@ -1951,7 +1951,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.CerrarBannerPostulante = 1;
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
                 return Json(new
                 {
                     success = true
@@ -2187,7 +2187,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (tipo == "sr")
                 {
-                    sessionManager.SetUserData(userData);
+                    SessionManager.SetUserData(userData);
                     controlador = "ShowRoom";
                     accion = AccionControlador("sr", true);
                 }
@@ -2218,7 +2218,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     case "sr":
                         controlador = "ShowRoom";
-                        var esVenta = (sessionManager.GetMostrarShowRoomProductos());
+                        var esVenta = (SessionManager.GetMostrarShowRoomProductos());
                         accion = esVenta ? "Index" : "Intriga";
                         break;
                 }

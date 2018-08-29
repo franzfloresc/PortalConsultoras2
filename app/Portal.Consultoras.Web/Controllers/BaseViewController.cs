@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult RDDetalleModel(string cuv, int campaniaId)
         {
-            var modelo = sessionManager.GetProductoTemporal();
+            var modelo = SessionManager.GetProductoTemporal();
             if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
@@ -219,7 +219,7 @@ namespace Portal.Consultoras.Web.Controllers
                     modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
                     modelo.TieneReloj = true;
 
-                    var sessionODD = (DataModel)sessionManager.OfertaDelDia.Estrategia.Clone();
+                    var sessionODD = (DataModel)SessionManager.OfertaDelDia.Estrategia.Clone();
                     modelo.ColorFondo1 = sessionODD.ColorFondo1;
                     modelo.ConfiguracionContenedor = (ConfiguracionSeccionHomeModel)sessionODD.ConfiguracionContenedor.Clone();
                     modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
@@ -449,7 +449,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string IdentificarPalanca(string palanca, int campaniaId)
         {
-            var RevistaDigital = sessionManager.GetRevistaDigital();
+            var RevistaDigital = SessionManager.GetRevistaDigital();
             switch (palanca)
             {
                 case Constantes.NombrePalanca.OfertaParaTi:

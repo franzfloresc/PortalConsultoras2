@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             base.OnActionExecuting(filterContext);
 
-            if (sessionManager.GetUserData() == null) return;
+            if (SessionManager.GetUserData() == null) return;
 
             if (Request.IsAjaxRequest())
             {
@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
                     ShowRoomBannerLateralModel showRoomBannerLateral = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
                     ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
-                    ViewBag.MostrarShowRoomBannerLateral = sessionManager.GetEsShowRoom() &&
+                    ViewBag.MostrarShowRoomBannerLateral = SessionManager.GetEsShowRoom() &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
 
@@ -109,7 +109,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         
         private void CargarValoresGenerales(UsuarioModel userData)
         {
-            if (sessionManager.GetUserData() != null)
+            if (SessionManager.GetUserData() != null)
             {
                 ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
                 int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');

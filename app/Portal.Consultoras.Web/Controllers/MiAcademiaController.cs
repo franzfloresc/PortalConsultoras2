@@ -18,11 +18,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var IdCurso = sessionManager.GetMiAcademia();
+                var IdCurso = SessionManager.GetMiAcademia();
 
                 if (IdCurso > 0)
                 {
-                    sessionManager.SetMiAcademia(0);
+                    SessionManager.SetMiAcademia(0);
                 }
 
                 string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
