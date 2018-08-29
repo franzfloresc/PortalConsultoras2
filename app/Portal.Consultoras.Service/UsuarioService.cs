@@ -839,6 +839,7 @@ namespace Portal.Consultoras.Service
         }
 
         #region OLVIDE CONTRASENIA
+
         public BEUsuarioDatos GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad)
         {
             var BLUsuario = new BLUsuario();
@@ -851,7 +852,7 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ProcesaEnvioEmail(paisID, oUsu, CantidadEnvios);
         }
 
-        public bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios)
+        public BERespuestaSMS ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.ProcesaEnvioSms(paisID, oUsu, CantidadEnvios);
@@ -862,6 +863,7 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return (BLUsuario.VerificarIgualdadCodigoIngresado(paisID, oUsu, codigoIngresado));
         }
+
         #endregion
 
         #region Verificacion de Autenticidad

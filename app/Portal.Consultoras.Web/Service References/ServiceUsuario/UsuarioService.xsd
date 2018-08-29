@@ -548,6 +548,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEventoFestivo" nillable="true" type="tns:BEEventoFestivo" />
+  <xs:complexType name="BERespuestaSMS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="resultado" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BERespuestaSMS" nillable="true" type="tns:BERespuestaSMS" />
   <xs:complexType name="ArrayOfBEBuscadorYFiltros">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEBuscadorYFiltros" nillable="true" type="tns:BEBuscadorYFiltros" />
