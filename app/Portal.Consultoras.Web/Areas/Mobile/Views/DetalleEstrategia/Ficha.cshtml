@@ -227,15 +227,15 @@
 </div>
 @if (Model.TieneCarrusel)
 {
-<div id="CarruselProducto" class="container">
+<div id="divFichaCarrusel" class="container">
     <div class="ficha_tabs"></div>
     <div class="row carrusel">
         <div>
-            <div class="set_encuentras_producto" id="set_relacionados">
+            <div class="set_encuentras_producto">
                 <div class="wrapper_resumen_mobile ficha_encuentraproducto">
                     <p id="tituloCarrusel" class="titulo_set"></p>
                     <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
-                        <div id="divOfertaProductos"></div>
+                        <div id="divFichaCarruselProducto"></div>
                     </div>
                 </div>
             </div>
@@ -333,13 +333,11 @@ else
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
                     cuv: "@Model.Cuv",
-                    idPlantilla: "#producto-landing-template",
-                    divCarrusel: "#divOfertaProductos",
-                    divSetsProductosdata: "#set_relacionados",
                     urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new {Area = ""})',
+                    idPlantilla: "#producto-landing-template",
+                    divFichaCarrusel: "#divFichaCarrusel",
                     idTituloCarrusel: "#tituloCarrusel",
-                    ContenidoProducto: "#ContenidoProducto",
-                    CarruselProducto: "#CarruselProducto"
+                    divCarruselProducto: "#divFichaCarruselProducto"
                 });
                 carruselModule.Inicializar();
             };
