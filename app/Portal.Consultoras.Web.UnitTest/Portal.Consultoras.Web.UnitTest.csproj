@@ -94,9 +94,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AreasMobile\Mobile\GuiaNegocioControllerUnitTests.cs" />
-    <Compile Include="AreasMobile\Mobile\BaseGuiaNegocioControllerUnitTests.cs" />
-    <Compile Include="AreasMobile\Mobile\OfertasParaTiUnitTests.cs" />
+    <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaControllerUnitTests.cs" />
+    <Compile Include="Areas\Mobile\Controllers\GuiaNegocioControllerUnitTests.cs" />
+    <Compile Include="Areas\Mobile\Controllers\BaseGuiaNegocioControllerUnitTests.cs" />
+    <Compile Include="Areas\Mobile\Controllers\OfertasParaTiUnitTests.cs" />
     <Compile Include="Attributes\ExpectedExceptionWithMessageAttribute.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="Controllers\BaseControllerUnitTest.cs" />
