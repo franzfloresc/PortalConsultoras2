@@ -359,6 +359,14 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
 
+            if (usuario != null)
+            {
+                using (var usuarioServiceClient = new UsuarioServiceClient())
+                {
+                    //usuarioServiceClient.actualizano
+                }
+            }
+
             misCursos = Convert.ToInt32(TempData["MiAcademia"]);
             sessionManager.SetMiAcademia(misCursos);
 
@@ -1272,6 +1280,8 @@ namespace Portal.Consultoras.Web.Controllers
                         var lstFiltersFAV = await CargarFiltersFAV(usuarioModel);
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
+
+
 
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
                     usuarioModel.MensajeChat = await GetMessageChat(usuarioModel.PaisID);
