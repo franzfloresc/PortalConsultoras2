@@ -927,5 +927,11 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, codigoZona);
             return Context.ExecuteReader(command);
         }
+        public string ActualizarNovedadBuscador(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ActualizaNovedadBuscador");
+            Context.Database.AddInParameter(command, "@usuario", DbType.String, codigoUsuario);
+            return Context.ExecuteScalar(command).ToString();
+        }
     }
 }
