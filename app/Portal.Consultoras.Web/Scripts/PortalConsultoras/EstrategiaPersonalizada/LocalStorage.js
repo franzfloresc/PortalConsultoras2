@@ -182,11 +182,13 @@
                 if (updated) localStorage.setItem(nombreKeyLocalStorage, JSON.stringify(data));
             }
 
-            var nombreKeyJs = nombreKey + (indCampania || 0);
-            var listaPalanca = filtroCampania[nombreKeyJs];
-            if (listaPalanca != undefined) {
-                _actualizarAgregado(listaPalanca.response.lista, estrategiaId, valor);
-                filtroCampania[nombreKeyJs] = listaPalanca;
+            if (filtroCampania !== undefined) {
+                var nombreKeyJs = nombreKey + (indCampania || 0);
+                var listaPalanca = filtroCampania[nombreKeyJs];
+                if (listaPalanca != undefined) {
+                    _actualizarAgregado(listaPalanca.response.lista, estrategiaId, valor);
+                    filtroCampania[nombreKeyJs] = listaPalanca;
+                }
             }
             
             return true;
@@ -289,25 +291,27 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
 }
 
 function ActualizaCuvAgregado(cuv, valor, lista, indCampania) {
-    var listaPalanca = filtroCampania[lista + indCampania];
-    if (listaPalanca != undefined) {
-        $.each(listaPalanca.response.lista, function (index, item) {
-            if (item.CUV2 == cuv || cuv == "todo") {
-                if (item.ClaseBloqueada !== "" && valor === true) {
-                    item.IsAgregado = false;
-                }
-                else {
-                    item.IsAgregado = valor;
-                }
+    if (filtroCampania !== undefined) {
+        var listaPalanca = filtroCampania[lista + indCampania];
+        if (listaPalanca !== undefined) {
+            $.each(listaPalanca.response.lista, function (index, item) {
+                if (item.CUV2 == cuv || cuv == "todo") {
+                    if (item.ClaseBloqueada !== "" && valor === true) {
+                        item.IsAgregado = false;
+                    }
+                    else {
+                        item.IsAgregado = valor;
+                    }
 
-                ok = true;
-                if (cuv != "todo") {
-                    return false;
+                    ok = true;
+                    if (cuv != "todo") {
+                        return false;
+                    }
                 }
-            }
-        });
+            });
+        }
+        filtroCampania[lista + indCampania] = listaPalanca;
     }
-    filtroCampania[lista + indCampania] = listaPalanca;
 }
 
 function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {

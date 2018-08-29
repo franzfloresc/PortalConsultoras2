@@ -302,8 +302,7 @@ var OfertaDelDiaModule = function () {
 
         if (contenedorOfertas !== "" && $(contenedorOfertas).length === 0)
             return false;
-        //alert(":P");
-        //return false,
+
         OfertaDelDiaProvider
             .pedidoGetOfertaDelDiaPromise()
             .done(function (response) {
@@ -597,9 +596,10 @@ var OfertaDelDiaModule = function () {
     };
 
     return {
-        Inicializar : Inicializar,
-        IrContenedorOfertas: IrContenedorOfertas
-    };
+        Inicializar: Inicializar,
+        IrContenedorOfertas: IrContenedorOfertas,
+        CargarODDEscritorio: CargarODDEscritorio
+};
 }();
 
 
