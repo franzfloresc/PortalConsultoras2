@@ -202,6 +202,7 @@ namespace Portal.Consultoras.Web.Providers
             var aproved = result.transactionResponse.IsApproved;
 
             await RegisterLog(pago, transaction, info);
+            pago.DescripcionCodigoAccion = GetUserMessage(transaction.responseCode);
 
             if (!aproved)
             {
@@ -323,6 +324,18 @@ namespace Portal.Consultoras.Web.Providers
             return message ?? code;
         }
 
+        private string GetUserMessage(string code)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                return PayuResponseMessage.DEFAULT_MESSAGE;
+            }
+
+            var message = PayuResponseMessage.ResourceManager.GetString(code);
+
+            return message ?? PayuResponseMessage.DEFAULT_MESSAGE;
+        }
+
         private async Task<int> GetNewOrderId()
         {
             using (var service = new PedidoServiceClient())
@@ -365,10 +378,17 @@ namespace Portal.Consultoras.Web.Providers
                     return await sv.GetDireccionConsultoraAsync(User.PaisID, User.CodigoUsuario);
                 }
             }
-            catch (Exception e)
+            catch (FaultException ex)
             {
-                return string.Empty;
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, User.CodigoConsultora, User.CodigoISO);
             }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, User.CodigoConsultora, User.CodigoISO);
+            }
+
+
+            return string.Empty;
         }
     }
 }
