@@ -278,10 +278,18 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session["IsContrato"] = isContrato;
         }
-
         int ISessionManager.GetIsContrato()
         {
             return (int)HttpContext.Current.Session["IsContrato"];
+        }
+
+        void ISessionManager.SetAceptoContrato(bool aceptoContrato)
+        {
+            HttpContext.Current.Session["AceptoContrato"] = aceptoContrato;
+        }
+        bool ISessionManager.GetAceptoContrato()
+        {
+            return (bool)(HttpContext.Current.Session["AceptoContrato"] ?? false);
         }
 
         void ISessionManager.SetIsOfertaPack(int isOfertaPack)

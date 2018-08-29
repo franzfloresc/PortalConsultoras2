@@ -3151,6 +3151,11 @@ function MostrarPopupInicial() {
 
     switch (TipoPopUpMostrar) {
         case 0:
+        case '0':
+            if (VerContrato == 1 && !AceptoContrato) PopupMostrar('popupAceptacionContrato');
+            break;
+        case popupAceptacionContrato:
+            PopupMostrar('popupAceptacionContrato');
             break;
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -3161,9 +3166,6 @@ function MostrarPopupInicial() {
             $('#fechaHasta').text(mensajeFechaDA);
             $('#fechaLuego').text(mensajeFechaDA);
             PopupMostrar('popupDemandaAnticipada');
-            break;
-        case popupAceptacionContrato:
-            PopupMostrar('popupAceptacionContrato');
             break;
         case popupShowRoom:
             CrearPopShow();

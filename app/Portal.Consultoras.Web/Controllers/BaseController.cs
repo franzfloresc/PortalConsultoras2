@@ -125,14 +125,30 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData = UserData();
-
                 if (userData == null)
                 {
                     string urlSignOut = ObtenerUrlCerrarSesion();
-
                     filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
+
+                //if (ValidarContratoPopup())
+                //{
+                //    var area = filterContext.RouteData.DataTokens.Where(dt => dt.Key == "area");
+                //    var isMobile = area.Count() > 0 ? area.First().Value.ToString() == "Mobile" : false;
+                //    var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+                //    var actionName = filterContext.ActionDescriptor.ActionName;
+
+                //    bool urlAceptaContrato = !isMobile && controllerName == "Bienvenida" && actionName == "AceptarContrato";
+                //    bool urlBienvenida = controllerName == "Bienvenida" && (actionName == "Index" || actionName == "");
+                //    bool urlValida = urlAceptaContrato || urlBienvenida;
+
+                //    if (!urlValida) {
+                //        filterContext.Result = !isMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
+                //            new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
+                //        return;
+                //    }
+                //}
 
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
@@ -1346,6 +1362,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return lst;
+        }
+        
+        protected bool ValidarContratoPopup()
+        {
+            return userData.EsConsultora() && userData.CambioClave == 0 && userData.IndicadorContrato == 0 &&
+                userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia) &&
+                sessionManager.GetIsContrato() == 1 && !sessionManager.GetAceptoContrato();
         }
 
         #endregion

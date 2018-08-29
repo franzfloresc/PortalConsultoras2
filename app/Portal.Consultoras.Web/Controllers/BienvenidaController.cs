@@ -502,18 +502,6 @@ namespace Portal.Consultoras.Web.Controllers
             return tipoPopUpMostrar;
         }
 
-        private bool ValidarContratoPopup()
-        {
-            if (userData.EsConsultora()
-                && userData.CambioClave == 0 && userData.IndicadorContrato == 0
-                && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
-                && sessionManager.GetIsContrato() == 1 && !Convert.ToBoolean(Session["AceptoContrato"]))
-            {
-                return true;
-            }
-            return false;
-        }
-
         private List<BEComunicado> ValidarComunicadoPopup()
         {
             var tempComunicados = new List<BEComunicado>();
@@ -789,8 +777,7 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
                 }
-
-                Session["AceptoContrato"] = true;
+                sessionManager.SetAceptoContrato(true);
 
                 return Json(new
                 {

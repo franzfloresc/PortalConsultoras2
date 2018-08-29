@@ -102,8 +102,10 @@ namespace Portal.Consultoras.Web.SessionManager
         GuiaNegocioModel GetGuiaNegocio();
 
         void SetIsContrato(int isContrato);
-
         int GetIsContrato();
+
+        void SetAceptoContrato(bool aceptoContrato);
+        bool GetAceptoContrato();
 
         void SetIsOfertaPack(int isOfertaPack);
 
