@@ -2226,7 +2226,7 @@ namespace Portal.Consultoras.Common
 
         public class CambioCorreoResult
         {
-            public const string Valido = "Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.";
+            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";
             public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
 
@@ -2591,6 +2591,14 @@ namespace Portal.Consultoras.Common
                    });
                 }
             }
+        }
+
+        public static class RedireccionAndroidApp
+        {
+            public const string EsikaConmigo = "https://kpt22.app.goo.gl/esika";
+            public const string LbelConmigo = "https://kpt22.app.goo.gl/lbel";
+            public const string AppRedirectFormat = "IR AL APP {0} CONMIGO";
+            public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
         }
     }
 }
