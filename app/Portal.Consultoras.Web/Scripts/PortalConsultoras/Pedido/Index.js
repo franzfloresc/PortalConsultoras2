@@ -3318,8 +3318,8 @@ function AjaxError(data) {
 }
 
 function HidePopupEstrategiasEspeciales() {
-    $("#popupDetalleCarousel_lanzamiento").hide();
-    $("#popupDetalleCarousel_packNuevas").hide();  //DEUDA TECNICA
+    //$("#popupDetalleCarousel_lanzamiento").hide(); //DEUDA TECNICA
+    //$("#popupDetalleCarousel_packNuevas").hide();  //DEUDA TECNICA
 }
 function MostrarDetalleGanancia() {
     var div = $("#detalleGanancia");

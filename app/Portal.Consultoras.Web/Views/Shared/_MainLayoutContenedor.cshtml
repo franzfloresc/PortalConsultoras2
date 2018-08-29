@@ -18,7 +18,7 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
-    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Contenedor")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-Contenedor")
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -347,7 +347,7 @@
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
         var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
+    @System.Web.Optimization.Scripts.Render("~/bundles/Js/Desktop/SB2")
     <script type='text/javascript'>
         (function () {
             var proto = document.location.protocol || 'http:';

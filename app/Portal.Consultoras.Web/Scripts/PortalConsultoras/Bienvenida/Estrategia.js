@@ -637,7 +637,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                     divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
                 }
 
-                $(".contenedor_popup_detalleCarousel").hide();
+                //$(".contenedor_popup_detalleCarousel").hide(); DEUDA TECNICA
                 $("#divMensajeBloqueada").show();
             }
         }
