@@ -3,15 +3,16 @@
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
-	var layout = ViewContext.MobilePedidoLayout();
-	ViewBag.Title = "Ficha-Mobile";
-	Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-	var mobileConfiguracion = Html.MobileAppConfiguracion();
+    var layout = ViewContext.MobilePedidoLayout();
+    ViewBag.Title = "Ficha-Mobile";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
+    var origen = Request.Params["origen"];
 }
 
 @section styles{
-	@System.Web.Optimization.Styles.Render("~/bundles/mobile/css/ficha")
-	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    @System.Web.Optimization.Styles.Render("~/bundles/mobile/css/ficha")
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
         @Styles.Render("~/bundles/mobile/css/FichaEsika")
     }
@@ -19,10 +20,12 @@
     {
         @Styles.Render("~/bundles/mobile/css/FichaLbel")
     }
-	<style id="styleRelojOdd"></style>
+    <style id="styleRelojOdd"></style>
 }
-
-@Html.Partial("_BreadCrumb", Model.BreadCrumbs)
+@if (!Constantes.IngresoExternoOrigen.App.Equals(origen))
+{
+    @Html.Partial("_BreadCrumb", Model.BreadCrumbs)
+}
 
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
 	{{#if TieneReloj}}
@@ -93,7 +96,7 @@
 		{{#iff Precio '>' 0}}
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
-                <p>Precio catálogo <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
+				<p>Precio catálogo <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
 			</div>
 		</div>
 		{{/iff}}
@@ -375,22 +378,22 @@ else
 }
 
 
-	@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
-	@Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
+@Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
 
-	@if (ViewBag.CampaniaCodigo != Model.Campania)
-	{
-		@Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
-	}
+@if (ViewBag.CampaniaCodigo != Model.Campania)
+{
+    @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
+}
 
-	@Html.Partial("_template-ofertadeldia-style")
+@Html.Partial("_template-ofertadeldia-style")
 
-	@section scripts{
-		@System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
-		@System.Web.Optimization.Scripts.Render("~/bundles/mobile/js/Ficha")
-		@System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
+@section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/bundles/mobile/js/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
 
-		<script>
+    <script>
         window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
         //var carruselModule;
@@ -426,8 +429,8 @@ else
             }
         });
 
-		</script>
+    </script>
 
 
 
-	}
+}
