@@ -41,6 +41,7 @@ namespace Portal.Consultoras.BizLogic
         private readonly IConsultoraLiderBusinessLogic _consultoraLiderBusinessLogic;
         private readonly IConsultorasProgramaNuevasBusinessLogic _consultorasProgramaNuevasBusinessLogic;
         private readonly IBelcorpRespondeBusinessLogic _belcorpRespondeBusinessLogic;
+        private readonly IContratoAceptacionBusinessLogic _contratoAceptacionBusinessLogic;
 
         public BLUsuario() : this(new BLTablaLogicaDatos(),
                                     new BLConsultoraConcurso(),
@@ -52,7 +53,8 @@ namespace Portal.Consultoras.BizLogic
                                     new BLResumenCampania(),
                                     new BLConsultoraLider(),
                                     new BLConsultorasProgramaNuevas(),
-                                    new BLBelcorpResponde())
+                                    new BLBelcorpResponde(),
+                                    new BLContratoAceptacion())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
@@ -65,7 +67,8 @@ namespace Portal.Consultoras.BizLogic
                         IResumenCampaniaBusinessLogic resumenCampaniaBusinessLogic,
                         IConsultoraLiderBusinessLogic consultoraLiderBusinessLogic,
                         IConsultorasProgramaNuevasBusinessLogic consultorasProgramaNuevasBusinessLogic,
-                        IBelcorpRespondeBusinessLogic belcorpRespondeBusinessLogic)
+                        IBelcorpRespondeBusinessLogic belcorpRespondeBusinessLogic,
+                        IContratoAceptacionBusinessLogic contratoAceptacionBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
@@ -78,6 +81,7 @@ namespace Portal.Consultoras.BizLogic
             _consultoraLiderBusinessLogic = consultoraLiderBusinessLogic;
             _consultorasProgramaNuevasBusinessLogic = consultorasProgramaNuevasBusinessLogic;
             _belcorpRespondeBusinessLogic = belcorpRespondeBusinessLogic;
+            _contratoAceptacionBusinessLogic = contratoAceptacionBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -543,6 +547,7 @@ namespace Portal.Consultoras.BizLogic
                 var actualizacionEmailTask = Task.Run(() => GetActualizacionEmail(paisID, usuario.CodigoUsuario));
                 var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.ActualizaDatosEnabled));
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos, usuario.RegionID, usuario.ZonaID));
+                var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -557,7 +562,8 @@ namespace Portal.Consultoras.BizLogic
                                 cuponTask,
                                 actualizacionEmailTask,
                                 actualizaDatosTask,
-                                actualizaDatosConfigTask);
+                                actualizaDatosConfigTask,
+                                contratoAceptacionTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -607,6 +613,13 @@ namespace Portal.Consultoras.BizLogic
                     var opcionesVerificacion = actualizaDatosConfigTask.Result;
                     usuario.PuedeActualizarEmail = opcionesVerificacion.OpcionEmail;
                     usuario.PuedeActualizarCelular = opcionesVerificacion.OpcionSms;
+                }
+                if (contratoAceptacionTask.Result == null) {
+                    usuario.IndicadorContratoAceptacion = -1;
+                }
+                else
+                {
+                    usuario.IndicadorContratoAceptacion = contratoAceptacionTask.Result.Where(e => e.AceptoContrato == 1).Count();
                 }
 
                 return usuario;
@@ -2409,6 +2422,13 @@ namespace Portal.Consultoras.BizLogic
 
             return terminos;
         }
+
+        private List<BEContrato> GetContratoAceptacion(int PaisID, long ConsultoraID)
+        {
+            if (PaisID != Constantes.PaisID.Colombia) return null;
+            return _contratoAceptacionBusinessLogic.GetContratoAceptacion(PaisID, ConsultoraID);            
+        }
+
         #endregion
 
         #region EventoFestivo
