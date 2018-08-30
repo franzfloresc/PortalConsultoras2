@@ -614,7 +614,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.PuedeActualizarEmail = opcionesVerificacion.OpcionEmail;
                     usuario.PuedeActualizarCelular = opcionesVerificacion.OpcionSms;
                 }
-                if (paisID != Constantes.PaisID.Colombia) {
+                if (contratoAceptacionTask.Result == null) {
                     usuario.IndicadorContratoAceptacion = -1;
                 }
                 else
