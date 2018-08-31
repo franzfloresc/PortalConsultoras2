@@ -27,12 +27,12 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/esika-CssSB2Mobile")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/lbel-CssSB2Mobile")
     }
     <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 

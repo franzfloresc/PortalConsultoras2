@@ -21,12 +21,12 @@
     @if (ViewContext.EsPaisEsika())
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/esika-CssSB2Mobile")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/lbel-CssSB2Mobile")
     }
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
@@ -411,7 +411,7 @@
 	@RenderSection("scripts", required: false)
 	@if (TempData.ContainsKey("PixelCodigoIso"))
 	{
-		@System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+		@System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
 		<script>
         var pixelAnalytics = Analytics();
         pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
