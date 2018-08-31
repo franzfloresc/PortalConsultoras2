@@ -75,8 +75,16 @@ var EstrategiaAgregarModule = (function () {
         }
     }
 
-    var getEstrategia = function ($btnAgregar) {
-        var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia") || {};
+    var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
+        var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
+        var ShowRoomMobileSubCampania = 2524;
+        var estrategia = {};
+        if (origenPedidoWebEstrategia == ShowRoomMobileSubCampania) {
+            estrategia = $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                        .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia") || {};
+        } else {
+            estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia") || {};
+        }
         return estrategia;
     };
 
@@ -235,8 +243,8 @@ var EstrategiaAgregarModule = (function () {
         _config.CampaniaCodigo = $(elementosDiv.hdCampaniaCodigo).val() || _config.CampaniaCodigo;
 
         var $btnAgregar = $(event.target);
-        var estrategia = getEstrategia($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
+        var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
 
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             //if (isMobile()) {
