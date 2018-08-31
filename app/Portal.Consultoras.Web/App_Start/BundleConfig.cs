@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/flipclock.css",
                 "~/Content/Css/Site/slick.css"
             ));
+
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-CssMain").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/style.css",
@@ -54,7 +55,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
-                "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js"
+                "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-SeccionDorada.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PluginsHeaderSAC").Include(
@@ -574,7 +576,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-SeccionDorada.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/RevistaDigital-Landing").Include(
@@ -641,7 +644,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-SeccionDorada.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/GuiaNegocio-Landing").Include(

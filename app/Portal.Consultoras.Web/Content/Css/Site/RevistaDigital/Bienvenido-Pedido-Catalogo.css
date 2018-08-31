@@ -159,10 +159,10 @@
     cursor: pointer;
 }
 
-    .revistaDigital_catalogosRevistas .boxoffer:hover {
-        opacity: .95;
-        left: 20px;
-    }
+.revistaDigital_catalogosRevistas .boxoffer:hover {
+    opacity: .95;
+    left: 20px;
+}
 
 .revistadigital-popup {
     background: url('/Content/Images/Esika/RevistaDigital/POPUP.png') no-repeat;
@@ -300,11 +300,11 @@
 
 /* SECCIÓN REVISTA DIGITAL VISTA INGRESO DE PEDIDO */
 
-.overflowContenido {
+/*.overflowContenido {
     overflow: hidden;
-}
+}*/
 
-.contenedor_cabecera_revistaDigital {
+/*.contenedor_cabecera_revistaDigital {
     display: block;
     width: 100%;
     height: 91px;
@@ -313,9 +313,9 @@
     padding-bottom: 17px;
     position: relative;
     overflow: hidden;
-}
+}*/
 
-.fondo_franja {
+/*.fondo_franja {
     display: block;
     position: absolute;
     width: 139px;
@@ -332,32 +332,32 @@
     -o-transform: skewX(-14deg);
     -ms-transform: skewX(-14deg);
     -webkit-transform: skewX(-14deg);
-}
+}*/
 
-.contenedor_contenido_cabecera {
+/*.contenedor_contenido_cabecera {
     display: block;
     text-align: left;
     padding-left: 20px;
-}
+}*/
 
-.cabecera_contenedor_logoMarca, .cabecera_texto {
+/*.cabecera_contenedor_logoMarca, .cabecera_texto {
     display: inline-block;
     vertical-align: middle;
-}
+}*/
 
-.cabecera_contenedor_logoMarca {
+/*.cabecera_contenedor_logoMarca {
     width: 116px;
     height: 80px;
     position: relative;
     top: 9px;
-}
+}*/
 
-.cabecera_contenedor_logoMarca img {
+/*.cabecera_contenedor_logoMarca img {
     width: 100%;
     height: auto;
-}
+}*/
 
-.cabecera_texto {
+/*.cabecera_texto {
     width: 193px;
     font-family: 'Lato';
     font-size: 14px;
@@ -366,9 +366,9 @@
     letter-spacing: 1px;
     font-weight: 900;
     line-height: 18px;
-}
+}*/
 
-.texto_ofertas_bonificaciones {
+/*.texto_ofertas_bonificaciones {
     font-family: 'Lato';
     font-size: 15px;
     text-transform: uppercase;
@@ -377,7 +377,7 @@
     margin-bottom: 0;
     padding: 0 19px;
     font-weight: 300;
-}
+}*/
 
 .rd_logo {
     text-align: center;
@@ -623,29 +623,29 @@ transition: all .2s ease-in-out;
 }
 
 
-#bc_content_oferta {
+/*#bc_content_oferta {
     width: 100%;
     margin-top: 2px;
-}
+}*/
 
-#bc_content_oferta .clearfix {
+/*#bc_content_oferta .clearfix {
     clear: both;
-}
+}*/
 
-#bc_promo {
+/*#bc_promo {
     width: 26%;
     float: left;
     background: white;
     padding: 20px;
     border-right: 1px solid rgba(0, 0, 0, .12);
-}
+}*/
 
-#bc_promo .bc_promo_contenido {
+/*#bc_promo .bc_promo_contenido {
     float: right;
     width: 100%;
-}
+}*/
 
-#bc_promo .bc_promo_contenido p.ven-conoce {
+/*#bc_promo .bc_promo_contenido p.ven-conoce {
     display: inline-block;
     font-family: 'lato';
     font-weight: 700;
@@ -657,9 +657,9 @@ transition: all .2s ease-in-out;
     text-align: center;
     padding: 0 50px;
     margin-bottom: 5px;
-}
+}*/
 
-#bc_promo .bc_promo_contenido a.btn-descubre {
+/*#bc_promo .bc_promo_contenido a.btn-descubre {
     background: black;
     color: white;
     letter-spacing: .75pt;
@@ -674,9 +674,9 @@ transition: all .2s ease-in-out;
     padding: 10px 20px;
     margin-bottom: 10px;
     margin-top: 5px;
-}
+}*/
 
-#bc_promo .bc_promo_contenido a.ver-mas {
+/*#bc_promo .bc_promo_contenido a.ver-mas {
     font-family: 'lato';
     font-weight: 700;
     font-size: 10px;
@@ -688,37 +688,37 @@ transition: all .2s ease-in-out;
     text-align: center;
     width: 200px;
     margin: auto;
-}
+}*/
 
-#bc_promo .bc_promo_contenido a.ver-mas img {
+/*#bc_promo .bc_promo_contenido a.ver-mas img {
     width: 7px;
     margin-top: 4px;
     position: absolute;
     margin-left: 5px;
-}
+}*/
 
-#bc_promo .bc_promo_contenido img.modelo {
+/*#bc_promo .bc_promo_contenido img.modelo {
     max-width: 100% !important;
     display: block;
     margin: auto;
     height: auto;
-}
+}*/
 
-.bc_productos {
+/*.bc_productos {
     width: 68%;
     float: left;
     height: 452px;
     background: #f0f0f0;
-}
+}*/
 
-.bc_productos .bc_productos_contenido {
+/*.bc_productos .bc_productos_contenido {
     overflow-y: auto;
     height: 485.98px;
     padding: 20px;
     text-align: center;
-}
+}*/
 
-.bc_productos .bc_productos_contenido .grid-item {
+/*.bc_productos .bc_productos_contenido .grid-item {
     display: inline-block;
     width: auto;
     box-sizing: border-box;
@@ -726,9 +726,9 @@ transition: all .2s ease-in-out;
     -webkit-box-sizing: border-box;
     margin-bottom: 20px;
     text-align: center;
-}
+}*/
 
-.bc_productos .bc_productos_contenido a.ver-mas-ofertas {
+/*.bc_productos .bc_productos_contenido a.ver-mas-ofertas {
     font-family: 'lato';
     font-weight: 700;
     font-size: 10px;
@@ -741,15 +741,15 @@ transition: all .2s ease-in-out;
     width: 100%;
     padding: 0 22px;
     margin-bottom: 10px;
-}
+}*/
 
-    .bc_productos .bc_productos_contenido a.ver-mas-ofertas img {
-        width: 7px;
-        margin-top: 4px;
-        margin-left: 5px;
-    }
+/*.bc_productos .bc_productos_contenido a.ver-mas-ofertas img {
+    width: 7px;
+    margin-top: 4px;
+    margin-left: 5px;
+}*/
 
-.bc_productos .bc_productos_contenido .grid-item {
+/*.bc_productos .bc_productos_contenido .grid-item {
     width: 100% !important;
     overflow: hidden !important;
     display: inline-block !important;
@@ -757,20 +757,19 @@ transition: all .2s ease-in-out;
     margin-left: 0 !important;
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
-}
+}*/
 
-.bc_productos .bc_productos_contenido .grid-item--width2 {
+/*.bc_productos .bc_productos_contenido .grid-item--width2 {
     width: 400px;
-}
+}*/
 
-.bc_productos .bc_productos_contenido .grid-item .boton_Agregalo_home {
+/*.bc_productos .bc_productos_contenido .grid-item .boton_Agregalo_home {
     width: 140px !important;
-}
+}*/
 
-.bc_productos .bc_productos_contenido .clearfix {
+/*.bc_productos .bc_productos_contenido .clearfix {
     clear: both;
-}
-
+}*/
 
 .contenedor_ganamas {
     width: 100%;
@@ -856,7 +855,6 @@ transition: all .2s ease-in-out;
     letter-spacing: 1px;
     text-align: center;
     color: black;
-    /*text-transform: uppercase;*/
     margin-bottom: 0;
 }
 

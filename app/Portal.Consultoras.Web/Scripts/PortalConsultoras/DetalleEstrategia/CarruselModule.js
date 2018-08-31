@@ -315,11 +315,9 @@
         }
     }
     function Inicializar() {
-
         _ocultarElementos();
         _mostrarCarrusel();
         _initSwipeCarrusel();
-
     }
 
     return {

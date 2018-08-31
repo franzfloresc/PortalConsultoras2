@@ -3914,6 +3914,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-ConfirmarDatos.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js" />
+    <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-SeccionDorada.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-SuscripcionPopup.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
@@ -5278,6 +5279,7 @@
     <Content Include="Views\DetalleEstrategia\ResumenOpcionesTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\OpcionesSeleccionadasTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales-producto.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
