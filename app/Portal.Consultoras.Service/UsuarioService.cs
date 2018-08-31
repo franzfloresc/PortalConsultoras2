@@ -895,5 +895,11 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.listaProductos(paisID,CampaniaID, filas, CodigoDescripcion, regionId, zonaId, codigoRegion, codigoZona);
         }
+
+        public string ActualizarNovedadBuscador(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActuaizarNovedadBuscador(paisID, codigoUsuario);
+        }
     }
 }

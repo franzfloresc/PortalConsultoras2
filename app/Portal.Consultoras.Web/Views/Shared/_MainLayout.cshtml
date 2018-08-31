@@ -168,7 +168,7 @@
             @if (ViewBag.MostrarBuscadorYFiltros)
             {
                 <div class="buscador_productos displayBlock">
-                    <div class="tooltip_informativo_sobre_opcion_busqueda_prod" style="display:none;">
+                    <div class="tooltip_informativo_sobre_opcion_busqueda_prod" id="toolTipBuscador" style="display: none;">
                         <div class="text-uppercase default-color novedad_busqueda_titulo">¡Nuevo!</div>
                         <div class="novedad_busqueda_descripcion">
                             <span class="icono_tooltip_informativo_opcion_busqueda">
@@ -377,6 +377,8 @@
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
         var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
+        var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
+        var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script type='text/javascript'>

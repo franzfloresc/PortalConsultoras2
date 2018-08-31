@@ -931,7 +931,7 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ActualizaNovedadBuscador");
             Context.Database.AddInParameter(command, "@usuario", DbType.String, codigoUsuario);
-            return Context.ExecuteScalar(command).ToString();
+            return Context.ExecuteNonQuery(command).ToString();
         }
     }
 }

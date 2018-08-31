@@ -2599,7 +2599,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TotalListadorBuscador = TotalListadorBuscador;
             ViewBag.CaracteresBuscadorMostrar = CaracteresBuscadorMostrar;
             ViewBag.CantidadVecesInicioSesionNovedad = CantidadVecesInicioSesionNovedad;
-
+            ViewBag.NovedadBuscador = userData.NovedadBuscador;
         }
         
         private bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)

@@ -134,6 +134,10 @@
         font-weight: 600;
     }
 
+    .campo_buscador_productos::-ms-clear{
+        display: none;
+    }
+
     .campo_buscador_productos_activo{
         border-bottom:1px solid #000;
     }

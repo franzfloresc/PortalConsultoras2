@@ -8,6 +8,18 @@ $(document).ready(function () {
 
     OcultarChatEmtelco();
 
+    $(document).on('click', function () {
+        if (document.getElementById('toolTipBuscador') != null) {
+            $('.tooltip_informativo_sobre_opcion_busqueda_prod').fadeOut(100);
+        }
+    });
+
+    $(window).on("scroll", function () {
+        if (document.getElementById('toolTipBuscador') != null) {
+            $('.tooltip_informativo_sobre_opcion_busqueda_prod').fadeOut(100);
+        }
+    });
+
     window.onresize = function (event) {
         LayoutMenu();
     };
@@ -18,7 +30,7 @@ $(document).ready(function () {
     else {
         MensajeEstadoPedido();
     }
-    
+
     if (tieneOfertaDelDia == "True") {
         window.OfertaDelDia.CargarODD();
     }
@@ -56,7 +68,7 @@ $(document).ready(function () {
                 $('#dialog_PedidoReservado').hide();
                 window.location.href = "Login";
             }
-            
+
             $('#alertDialogMensajes').dialog('close');
         }
     });
@@ -199,11 +211,11 @@ $(document).ready(function () {
         draggable: true,
         title: "Comunidad SomosBelcorp",
         buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');
+            {
+                "Aceptar": function () {
+                    $(this).dialog('close');
+                }
             }
-        }
     });
 
     $('#divMensajeConfirmacion').dialog({
@@ -250,7 +262,7 @@ $(document).ready(function () {
 
     $("body").on('paste',
         ".ValidaPasteNumeral",
-        function(e) {
+        function (e) {
             var $input = $(this);
             var previousVal = $input.val();
             var pastedValue = e.originalEvent.clipboardData.getData('text/plain').trim();
@@ -325,7 +337,7 @@ function messageInfoError(message, titulo, fnAceptar) {
 }
 
 function CargarResumenCampaniaHeader(showPopup) {
-    
+
     showPopup = showPopup || false;
 
     var soloCantidad = true;
@@ -454,7 +466,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var  i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
@@ -492,7 +504,7 @@ function ValidarCorreoComunidad(tipo) {
                 $('#ErrorCorreo').css({ "color": "red" });
                 result = false;
             }
-     
+
         }
 
         if (result) {
@@ -561,7 +573,7 @@ function ValidarCorreoComunidad(tipo) {
             if ($('#ErrorCorreo').html() != '')
                 return;
 
-     
+
 
             waitingDialog({});
             jQuery.ajax({
