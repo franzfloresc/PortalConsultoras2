@@ -2034,7 +2034,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            //numberRecords = service.InsertarEstrategiaMasiva(estrategia);
+                            numberRecords = service.InsertarEstrategiaMasiva(estrategia);
                         }
                     }
                     return Json(new
