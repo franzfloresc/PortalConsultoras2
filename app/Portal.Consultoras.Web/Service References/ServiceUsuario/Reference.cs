@@ -7481,6 +7481,83 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BERespuestaSMS", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BERespuestaSMS : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string codigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string mensajeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool resultadoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string codigo {
+            get {
+                return this.codigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.codigoField, value) != true)) {
+                    this.codigoField = value;
+                    this.RaisePropertyChanged("codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string mensaje {
+            get {
+                return this.mensajeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.mensajeField, value) != true)) {
+                    this.mensajeField = value;
+                    this.RaisePropertyChanged("mensaje");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool resultado {
+            get {
+                return this.resultadoField;
+            }
+            set {
+                if ((this.resultadoField.Equals(value) != true)) {
+                    this.resultadoField = value;
+                    this.RaisePropertyChanged("resultado");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEBuscadorYFiltros", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEBuscadorYFiltros : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -11343,10 +11420,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<bool> ProcesaEnvioEmailAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioSms", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioSmsResponse")]
-        bool ProcesaEnvioSms(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios);
+        Portal.Consultoras.Web.ServiceUsuario.BERespuestaSMS ProcesaEnvioSms(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioSms", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioSmsResponse")]
-        System.Threading.Tasks.Task<bool> ProcesaEnvioSmsAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaSMS> ProcesaEnvioSmsAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresado", ReplyAction="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresadoResponse")]
         bool VerificarIgualdadCodigoIngresado(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, string codigoIngresado);
@@ -12256,11 +12333,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ProcesaEnvioEmailAsync(paisID, oUsu, CantidadEnvios);
         }
         
-        public bool ProcesaEnvioSms(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios) {
+        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaSMS ProcesaEnvioSms(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios) {
             return base.Channel.ProcesaEnvioSms(paisID, oUsu, CantidadEnvios);
         }
         
-        public System.Threading.Tasks.Task<bool> ProcesaEnvioSmsAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaSMS> ProcesaEnvioSmsAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios) {
             return base.Channel.ProcesaEnvioSmsAsync(paisID, oUsu, CantidadEnvios);
         }
         

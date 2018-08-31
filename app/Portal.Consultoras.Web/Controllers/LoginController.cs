@@ -2779,19 +2779,17 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 TempData["PaisID"] = paisID;
-                bool EstadoEnvio = false;
                 oUsu.EsMobile = EsDispositivoMovil();
 
                 using (var svc = new UsuarioServiceClient())
                 {
-                    EstadoEnvio = svc.ProcesaEnvioSms(paisID, oUsu, cantidadEnvios);
+                    BERespuestaSMS EstadoEnvio = svc.ProcesaEnvioSms(paisID, oUsu, cantidadEnvios);
+                    return Json(new
+                    {
+                        success = EstadoEnvio.resultado,
+                        menssage = EstadoEnvio.mensaje
+                    }, JsonRequestBehavior.AllowGet);
                 }
-
-                return Json(new
-                {
-                    success = EstadoEnvio,
-                    menssage = ""
-                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
@@ -2799,7 +2797,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas taarde"
+                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas tarde"
                 }, JsonRequestBehavior.AllowGet);
             }
         }
