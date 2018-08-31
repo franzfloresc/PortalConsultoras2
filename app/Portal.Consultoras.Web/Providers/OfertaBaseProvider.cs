@@ -72,6 +72,27 @@ namespace Portal.Consultoras.Web.Providers
                         estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
                         if (estrategia.Precio2 > 0)
                         {
+                            var tonos = new List<ServiceOferta.BEEstrategiaProducto>();
+                            foreach (var tono in item.tonos)
+                            {
+                                ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
+                                {
+                                    Grupo = tono.grupo,
+                                    CUV = tono.cuv,
+                                    SAP = tono.codigoSap,
+                                    Orden = tono.orden,
+                                    Precio = tono.precioUnitario,
+                                    Digitable = Convert.ToBoolean(tono.indicadorDigitable) ? 1 : 0,
+                                    Cantidad = tono.cantidad,
+                                    FactorCuadre = tono.factorCuadre,
+                                    IdMarca = tono.marcaId
+                                };
+
+                                tonos.Add(estrategiaTono);
+                            }
+
+                            estrategia.EstrategiaProducto = tonos.ToArray();
+
                             estrategias.Add(estrategia);
                         }
                         else
@@ -100,38 +121,6 @@ namespace Portal.Consultoras.Web.Providers
             }
             return estrategias;
         }
-
-        public async Task<List<BEEstrategiaProducto>> ObtenerComponenteDesdeApi(string path)
-        {
-            var estrategias = new List<BEEstrategiaProducto>();
-            var httpResponse = await httpClient.GetAsync(path);
-
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                var jsonString = await httpResponse.Content.ReadAsStringAsync();
-
-                var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
-
-                foreach (var item in list)
-                {
-                    BEEstrategiaProducto estrategiaProducto = new BEEstrategiaProducto
-                    {
-                        Grupo = item.grupo,
-                        CUV = item.cuv,
-                        SAP = item.codigoSap,
-                        Orden = item.orden,
-                        Precio = item.precioUnitario,
-                        Digitable = Convert.ToBoolean(item.indicadorDigitable) ? 1 : 0,
-                        Cantidad = item.cantidad,
-                        FactorCuadre = item.factorCuadre,
-                        IdMarca= item.marcaId
-                    };
-                    estrategias.Add(estrategiaProducto);
-                }
-            }
-            return estrategias;
-        }
-
 
         public string ObtenerDescripcionOferta(string descripcionCuv2)
         {
