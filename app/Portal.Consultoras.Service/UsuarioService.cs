@@ -269,6 +269,13 @@ namespace Portal.Consultoras.Service
             return blContratoAceptacion.AceptarContratoAceptacion(paisID, consultoraid, codigoConsultora, origen, direccionIP, InformacionSOMobile);
         }
 
+        public List<BeReporteContrato> ReporteContratoAceptacion(int paisID,string codigoConsultora, string cedula, DateTime? FechaInicio, DateTime? FechaFin)
+        {
+            var blContratoAceptacion = new BLContratoAceptacion();
+            return blContratoAceptacion.ReporteContratoAceptacion(paisID, codigoConsultora, cedula, FechaInicio, FechaFin);
+        }
+
+
         public BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta)
         {
             var blUsuario = new BLUsuario();

@@ -137,6 +137,9 @@ namespace Portal.Consultoras.ServiceContracts
         int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen, string direccionIP, string InformacionSOMobile);
 
         [OperationContract]
+        List<BeReporteContrato> ReporteContratoAceptacion(int paisID, string codigoConsultora, string cedula, DateTime? FechaInicio, DateTime? FechaFin);
+
+        [OperationContract]
         BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta);
 
         [OperationContract]
