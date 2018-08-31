@@ -399,7 +399,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/jquery.custom-scrollbar.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/Js/Mobile/Pedido").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Pedido").Include(
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/index.js",
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
@@ -417,7 +417,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/Js/Mobile/PedidoDetalle").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/PedidoDetalle").Include(
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
