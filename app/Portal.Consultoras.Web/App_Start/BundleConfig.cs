@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/flipclock.css",
                 "~/Content/Css/Site/slick.css"
             ));
+
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-CssMain").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/style.css",
