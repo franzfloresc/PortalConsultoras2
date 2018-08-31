@@ -32,21 +32,27 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
 
             [TestMethod]
-            public override void Ficha_parameterPalancaIsNotValid_RedirectsToOfertas()
+            [DataRow((string)null, DisplayName = "palanca es nula")]
+            [DataRow("", DisplayName = "palanca es vacía")]
+            public override void Ficha_parameterPalancaIsNotValid_RedirectsToOfertas(string palanca)
             {
-                base.Ficha_parameterPalancaIsNotValid_RedirectsToOfertas();
+                base.Ficha_parameterPalancaIsNotValid_RedirectsToOfertas(palanca);
             }
 
             [TestMethod]
-            public override void Ficha_parameterCampaniaIdIsNotValid_RedirectsToOfertas()
+            [DataRow(201001, DisplayName = "no es campania actual,campania = 201001")]
+            [DataRow(201101, DisplayName = "no es campania actual,campania = 201001")]
+            public override void Ficha_parameterCampaniaIdIsNotValid_RedirectsToOfertas(int campaniaId)
             {
-                base.Ficha_parameterCampaniaIdIsNotValid_RedirectsToOfertas();
+                base.Ficha_parameterCampaniaIdIsNotValid_RedirectsToOfertas(campaniaId);
             }
 
             [TestMethod]
-            public override void Ficha_parameterCuvIsNotValid_RedirectsToOfertas()
+            [DataRow((string)null, DisplayName = "cuv es nulo")]
+            [DataRow("", DisplayName = "cuv es vacía")]
+            public override void Ficha_parameterCuvIsNotValid_RedirectsToOfertas(string cuv)
             {
-                base.Ficha_parameterCuvIsNotValid_RedirectsToOfertas();
+                base.Ficha_parameterCuvIsNotValid_RedirectsToOfertas(cuv);
             }
         }
     }
