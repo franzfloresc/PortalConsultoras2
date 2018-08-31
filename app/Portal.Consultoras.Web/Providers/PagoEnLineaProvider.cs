@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -292,18 +293,17 @@ namespace Portal.Consultoras.Web.Providers
 
         public PagoVisaModel ObtenerValoresPagoPayu(PagoEnLineaModel model)
         {
-            var pagoModel = new PagoVisaModel();
-            var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU;
-            var listaPasarelaVisa = ObtenerPagoEnLineaTipoPasarela(tipoPasarelaVisa);
-            if (listaPasarelaVisa.Count > 0)
+            var settings = ConfigurationManager.AppSettings;
+            var pagoModel = new PagoVisaModel
             {
-                pagoModel.MerchantId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.MerchantId);
-                pagoModel.AccessKeyId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.ApiLogin);
-                pagoModel.SecretAccessKey = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.ApiKey);
-                pagoModel.AccountId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.AccountId);
-                pagoModel.UrlPagoPayu = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.Endpoint);
-                pagoModel.IsTest = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.Test) == "1";
-            }
+                MerchantId = settings[Constantes.PagoEnLineaPasarelaPayu.MerchantId],
+                AccessKeyId = settings[Constantes.PagoEnLineaPasarelaPayu.ApiLogin],
+                SecretAccessKey = settings[Constantes.PagoEnLineaPasarelaPayu.ApiKey],
+                AccountId = settings[Constantes.PagoEnLineaPasarelaPayu.AccountId],
+                UrlPagoPayu = settings[Constantes.PagoEnLineaPasarelaPayu.Endpoint],
+                IsTest = settings[Constantes.PagoEnLineaPasarelaPayu.Test] == "1"
+            };
+
 
             return pagoModel;
         }
