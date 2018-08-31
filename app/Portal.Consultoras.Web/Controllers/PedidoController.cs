@@ -1517,6 +1517,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 productosModel = AutocompleteProductoPedido(term, CRITERIO_BUSQUEDA_DESC_PRODUCTO);
+                if (productosModel.Count == 1 && productosModel[0].Descripcion == null) productosModel[0].Descripcion = "Sin Resultados";
             }
             catch (Exception ex)
             {

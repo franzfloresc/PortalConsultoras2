@@ -75,6 +75,16 @@
             </div>
 
             <div class="pedido_ingreso_datos campo_descripcion_producto">
+                <!-- MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
+                <div id="divObservacionesDescripProd" class="pedidos_no_existe" style="display:none;">
+                    <div class="noti mensaje_producto_noExiste">
+                        <div class="noti_message red_texto_size">
+                            <span class="icono_advertencia_notificacion"></span>
+                            El producto solicitado no existe.
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
                 <br />
                 <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
                        onkeyup="PreValidarCUV(event);" placeholder="Descripción producto" />
