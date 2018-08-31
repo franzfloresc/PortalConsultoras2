@@ -16,18 +16,29 @@ namespace Portal.Consultoras.Web.Providers
     public class EstrategiaComponenteProvider
     {
         private readonly ConfiguracionManagerProvider _configuracionManagerProvider;
-        private readonly int _paisId;
-        private readonly string _paisISO;
+
+        private int _paisId
+        {
+            get
+            {
+                return sessionManager.GetUserData().PaisID;
+            }
+        }
+        private string _paisISO
+        {
+            get
+            {
+                return sessionManager.GetUserData().CodigoISO;
+            }
+        }
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ISessionManager sessionManager;
 
-        public EstrategiaComponenteProvider(int paisId, string paisIso) : this(
+        public EstrategiaComponenteProvider() : this(
             SessionManager.SessionManager.Instance, 
             new OfertaBaseProvider(),
             new ConfiguracionManagerProvider())
         {
-            _paisId = paisId;
-            _paisISO = paisIso;
         }
 
         public EstrategiaComponenteProvider(ISessionManager sessionManager,

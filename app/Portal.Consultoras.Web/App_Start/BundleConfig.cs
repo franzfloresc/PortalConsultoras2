@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/ui.jqgrid/ui.jqgrid.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JQueryJs").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JQueryJs").Include(
                "~/Scripts/jquery-{version}.js",
                "~/Scripts/jquery-migrate-{version}.js",
                "~/Scripts/jquery.validate.js",
@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web
                "~/Scripts/jquery.lazy.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JQGridJs").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JQGridJs").Include(
                "~/Scripts/Jqgrid/grid.locale-sp*",
                "~/Scripts/Jqgrid/jquery.jqGrid*"
             ));
@@ -154,7 +154,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/DatetimePicker/*.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JSHojaInscripcion").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/JS/Desktop/HojaInscripcion").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery.unobtrusive-ajax.js",
                 "~/Scripts/jquery.validate.js",
@@ -166,7 +166,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/DatetimePicker/*.js"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Esika/CssSB2").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Esika-CssSB2").Include(
                "~/Content/Css/Site/flipclock.css",
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/Esika/reset.css",
@@ -180,22 +180,22 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
                ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/AsesoraOnline").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
                 "~/Content/Css/Site/asesora-online.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Esika/Contenedor").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Esika-Contenedor").Include(
                 "~/Content/Css/Site/Contenedor/Index.css",
                 "~/Content/Css/Site/Esika/Contenedor.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Mobile/Esika/Contenedor").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Esika-Contenedor").Include(
                 "~/Content/Css/Mobile/Contenedor/Index.css",
                 "~/Content/Css/Mobile/Esika/Contenedor.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/CssSB2").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Lbel-CssSB2").Include(
                "~/Content/Css/Site/flipclock.css",
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/Lbel/reset.css",
@@ -208,17 +208,17 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/buscador-filtros.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/Contenedor").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Lbel-Contenedor").Include(
                 "~/Content/Css/Site/Contenedor/Index.css",
                 "~/Content/Css/Site/Lbel/Contenedor.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Mobile/Lbel/Contenedor").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Lbel-Contenedor").Include(
                 "~/Content/Css/Mobile/Contenedor/Index.css",
                 "~/Content/Css/Mobile/Lbel/Contenedor.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Mobile/esika/CssSB2Mobile").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/esika-CssSB2Mobile").Include(
                "~/Content/Css/Mobile/Esika/icomon.css",
                "~/Content/Css/Mobile/Esika/menu.css",
                "~/Content/Css/Mobile/Esika/style.css",
@@ -235,7 +235,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/calc.css"
                ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Mobile/lbel/CssSB2Mobile").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/lbel-CssSB2Mobile").Include(
                "~/Content/Css/Mobile/lbel/icomon.css",
                "~/Content/Css/Mobile/lbel/menu.css",
                "~/Content/Css/Mobile/lbel/style.css",
@@ -251,7 +251,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/calc.css"
                ));
 
-            bundles.Add(new StyleBundle("~/bundles/Css/Mixto/CssBienvenida").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/CssBienvenida").Include(
                 "~/Content/Css/Mobile/Esika/bootstrap-slider.min.css",
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Site/flexslider.css",
@@ -261,7 +261,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/jquery.custom-scrollbar.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/Js/Desktop/SB2").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2").Include(
                 "~/Scripts/modernizr.custom.js",
                 "~/Scripts/respond.js",
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
@@ -285,7 +285,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Buscador/Index.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/Js/Desktop/SB2-Bienvenida").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Bienvenida").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
@@ -312,14 +312,14 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery.custom-scrollbar.js"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/CssPedido").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-CssPedido").Include(
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/style-pedido.css",
                 "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/Js/Desktop/SB2-Pedido").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Pedido").Include(
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
@@ -338,11 +338,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/js/mobile/OfertaDelDia").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/OfertaDelDia").Include(
                 "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/Js/Mobile/Bienvenida").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Bienvenida").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js",
@@ -366,7 +366,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery.custom-scrollbar.js"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/Css/Desktop/CcsBienvenida").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/CcsBienvenida").Include(
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css",
@@ -374,29 +374,29 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/Css/Desktop/MisCatalogoRevista").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/MisCatalogoRevista").Include(
                 "~/Content/Css/Site/jquery.tag-editor.css",
                 "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JS-Login").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Js-Login").Include(
                "~/Scripts/General.js",
                "~/Scripts/PortalConsultoras/Login/Analytics.js",
                "~/Scripts/PortalConsultoras/Login/FormsSignIn.js"
             ));
-            bundles.Add(new ScriptBundle("~/bundles/JS-Login-Header").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Login-Header").Include(
                "~/Scripts/PortalConsultoras/Login/Analytics.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JS-Login-VerificaAutenticidad").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Login-VerificaAutenticidad").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Login/VerificaAutenticidad.js"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Login").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Content-Login").Include(
                "~/Content/Css/ui.jquery/jquery-ui.css",
                "~/Content/Css/Site/jquery.custom-scrollbar.css"
             ));

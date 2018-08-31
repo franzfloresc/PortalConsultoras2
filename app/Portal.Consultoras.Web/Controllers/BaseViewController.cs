@@ -15,20 +15,30 @@ namespace Portal.Consultoras.Web.Controllers
     public class BaseViewController : BaseController
     {
         private readonly IssuuProvider _issuuProvider;
+        private ISessionManager object1;
+        private ILogManager object2;
+        private OfertaPersonalizadaProvider object3;
 
         public BaseViewController() : base()
         {
             _issuuProvider = new IssuuProvider();
         }
 
-        public BaseViewController(ISessionManager sesionManager) : base(sesionManager)
+        public BaseViewController(ISessionManager sesionManager) 
+            : base(sesionManager)
         {
 
         }
 
-        public BaseViewController(ISessionManager sesionManager, ILogManager logManager) : base(sesionManager, logManager)
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager) 
+            : base(sesionManager, logManager)
         {
 
+        }
+
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider) 
+            : base(sesionManager, logManager, ofertaPersonalizadaProvider)
+        {
         }
 
         #region RevistaDigital
@@ -168,6 +178,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if( _ofertaPersonalizadaProvider == null) throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
+
                 if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
                     return RedirectToAction("Index", "Ofertas",new { area = IsMobile() ? "Mobile" : "" });
 
@@ -232,7 +244,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseViewController.Ficha");
             }
 
             return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });

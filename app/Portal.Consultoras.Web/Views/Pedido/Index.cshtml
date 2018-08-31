@@ -8,7 +8,7 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssPedido")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
 }
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="envolvente_pop_up">
@@ -2055,7 +2055,7 @@ DEUDA TECNICA
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/Js/Desktop/SB2-Pedido")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
     {
         <script>
