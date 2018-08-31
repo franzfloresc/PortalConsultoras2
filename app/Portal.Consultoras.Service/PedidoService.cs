@@ -1680,6 +1680,11 @@ namespace Portal.Consultoras.Service
         {
             return BLProductoSugerido.DelProductoSugerido(PaisID, entidad);
         }
+
+        public void InsDemandaTotalReemplazoSugerido(int PaisID, BEProductoSugerido entidad)
+        {
+            BLProductoSugerido.InsDemandaTotalReemplazoSugerido(PaisID, entidad);
+        }
         #endregion
 
         #region Configuracion Programa Nuevas

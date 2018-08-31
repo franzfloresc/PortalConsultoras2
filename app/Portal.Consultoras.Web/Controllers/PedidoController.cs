@@ -2018,6 +2018,33 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
+        #region Producto Sugerido
+        public JsonResult InsertarDemandaTotalReemplazoSugerido(AdministrarProductoSugeridoModel model)
+        {
+            try
+            {
+                var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
+                entidad.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
+                entidad.CampaniaID = userData.CampaniaID;
+
+                using (var svc = new PedidoServiceClient())
+                    svc.InsDemandaTotalReemplazoSugerido(userData.PaisID, entidad);
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
+
         #region Clientes
 
         [HttpPost]

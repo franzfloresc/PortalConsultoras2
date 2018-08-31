@@ -890,6 +890,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string DelProductoSugerido(int PaisID, BEProductoSugerido entidad);
+
+        [OperationContract]
+        void InsDemandaTotalReemplazoSugerido(int PaisID, BEProductoSugerido entidad);
         #endregion
 
         #region kit Nuevas
