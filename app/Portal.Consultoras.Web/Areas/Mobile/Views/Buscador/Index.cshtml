@@ -69,14 +69,17 @@
         <input type="hidden" class="hdBuscadorEstrategiaCodigo" value="{{EstrategiaCodigo}}" />
         <input type="hidden" class="hdBuscadorLimiteVenta" value="{{LimiteVenta}}" />
         <input type="hidden" class="hdBuscadorCantidadesAgregadas" value="{{CantidadesAgregadas}}" />
+        <input type="hidden" class="hdBuscadorCodigoTipoEstrategia" value="{{CodigoTipoEstrategia}}" />
+        <input type="hidden" class="hdBuscadorCampaniaID" value="{{CampaniaID}}" />
+        <input type="hidden" class="hdBuscadorOrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
 
         <div class="resultado_busqueda_mobile displayBlock">
-            <div class="resultado_busqueda_mobile_img_prod displayInlineBlock">
+            <div class="resultado_busqueda_mobile_img_prod displayInlineBlock redireccionarFicha">
                 <a href="#" class="displayBlock">
                     <img src="{{Imagen}}" alt="" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.svg")'" />
                 </a>
             </div>
-            <div class="resultado_busqueda_mobile_descrip_prod displayInlineBlock">
+            <div class="resultado_busqueda_mobile_descrip_prod displayInlineBlock redireccionarFicha">
                 <div class="resultado_busqueda_nom_producto displayBlock">
                     {{Descripcion}}
                 </div>
@@ -95,7 +98,7 @@
             <div class="resultado_busqueda_mobile_cantidad_prod displayInlineBlock" data-cantidad-contenedor="">
                 {{#if_eq CodigoEstrategia '2003'}}
                 <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
-                    <a class="btn_elegir_opcion displayBlock text-center text-uppercase" href="javascript:;" onclick="BuscadorFichaDetalle('{{CampaniaID}}', '{{CUV}}', '{{OrigenPedidoWeb}}', '{{EstrategiaCodigo}}');">
+                    <a class="btn_elegir_opcion displayBlock text-center text-uppercase redireccionarFicha" href="javascript:;">
                         <span class="icono_elige_tu_opcion displayInlineBlock">
                             <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
                         </span>
@@ -109,8 +112,8 @@
                     <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                         <img src="/Content/Images/Mobile/Esika/menos.png" alt="">
                     </a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" 
-                           class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" {{#if Stock}} disabled {{/if}}/>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad"
+                           class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" {{#if Stock}} disabled {{/if}} />
                     <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
                         <img src="/Content/Images/Mobile/Esika/mas.png" alt="">
                     </a>
@@ -120,7 +123,7 @@
                     {{#if Stock}}
                     <a class="btn_inactivo displayBlock text-center text-uppercase">
                         Agotado
-                    </a>                    
+                    </a>
                     {{else}}
                     <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
                         Agrégalo

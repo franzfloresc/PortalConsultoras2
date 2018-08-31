@@ -15,6 +15,7 @@ $(document).ready(function () {
                 $(document).on('keyup', '#CampoBuscadorProductos', me.Eventos.AccionesCampoBusquedaAlDigitar);
                 $(document).on('click', '.opcion_limpiar_campo_busqueda_productos', me.Eventos.LimpiarCampoBusqueda);
                 $(document).on('click', '.agregarProductoBuscador', me.Eventos.AgregarProducto);
+                $(document).on('click', '.redireccionarFicha', me.Eventos.RedireccionarAFichaDeFotoYDescripcion);
             },
             ModificarAnchoBuscadorFiltros: function () {
 
@@ -304,6 +305,25 @@ $(document).ready(function () {
                             AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + LimiteVenta + ") del producto.");
                         }
                     }
+                },
+                RedireccionarAFichaDeFotoYDescripcion: function (e) {
+                    e.preventDefault();
+                    var divPadre = $(this).parents("[data-item='ProductoBuscador']").eq(0);
+                    var codigoEstrategia = $(divPadre).find('.hdBuscadorCodigoTipoEstrategia').val();
+                    var codigoCampania = $(divPadre).find('.hdBuscadorCampaniaID').val();
+                    var codigoCuv = $(divPadre).find('.hdBuscadorCUV').val();
+                    var OrigenPedidoWeb = $(divPadre).find('.hdBuscadorOrigenPedidoWeb').val();
+
+                    var codigo = ['030','005','001','007','008','009','010','011'];
+                    
+                    if (codigo.indexOf(codigoEstrategia) >= 0) {
+                        var UrlDetalle = GetPalanca(codigoEstrategia);
+                        if (UrlDetalle == "") return false;
+                        UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
+                        //console.log(UrlDetalle);
+                        window.location = UrlDetalle;
+                        return true;
+                    }                    
                 }
             },
             me.Inicializar = function () {

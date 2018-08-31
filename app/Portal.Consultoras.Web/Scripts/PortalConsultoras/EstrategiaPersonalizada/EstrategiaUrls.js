@@ -30,15 +30,6 @@ function OnClickFichaDetalle(e) {
     return true;
 }
 
-function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigoEstrategia) {
-    console.log(codigoEstrategia);
-    var UrlDetalle = GetPalanca(codigoEstrategia);
-    if (UrlDetalle == "") return false;
-    UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-    window.location = UrlDetalle;
-    return true;
-}
-
 function GetPalanca(codigoEstrategia) {
 
     var url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
