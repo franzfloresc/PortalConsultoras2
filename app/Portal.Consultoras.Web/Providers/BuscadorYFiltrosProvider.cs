@@ -19,10 +19,11 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 var suscripcionActiva = (buscadorModel.revistaDigital.EsSuscrita == true && buscadorModel.revistaDigital.EsActiva == true);
-              
+
                 string pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
                             buscadorModel.userData.CodigoISO,
-                            buscadorModel.userData.CampaniaID,
+                            //buscadorModel.userData.CampaniaID,
+                            "201811",
                             buscadorModel.userData.CodigoConsultora,
                             buscadorModel.userData.CodigoZona,
                             buscadorModel.TextoBusqueda,
@@ -86,7 +87,7 @@ namespace Portal.Consultoras.Web.Providers
                             Agregado = labelAgregado,
                             CantidadesAgregadas = cantidadAgregada,
                             Stock = !item.Stock,
-                            OrigenPedidoWeb = Util.obtenerCodigoOrigen(item.CodigoTipoEstrategia, item.MarcaId, IsMobile)
+                            OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, IsMobile)
                         });
                     }
                 }

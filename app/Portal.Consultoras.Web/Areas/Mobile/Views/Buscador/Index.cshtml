@@ -94,7 +94,7 @@
             </div>
             <div class="resultado_busqueda_mobile_cantidad_prod displayInlineBlock" data-cantidad-contenedor="">
                 {{#if_eq CodigoEstrategia '2003'}}
-                <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center" data-OrigenPedidoWeb="@origenPedidoWeb">
+                <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
                     <a class="btn_elegir_opcion displayBlock text-center text-uppercase" href="javascript:;" onclick="BuscadorFichaDetalle('{{CampaniaID}}', '{{CUV}}', '{{OrigenPedidoWeb}}', '{{EstrategiaCodigo}}');">
                         <span class="icono_elige_tu_opcion displayInlineBlock">
                             <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />

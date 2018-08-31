@@ -3696,16 +3696,16 @@ namespace Portal.Consultoras.Common
         }
 
         //Obtener el código de origen
-        public static string obtenerCodigoOrigen(string tipoEstrategiaCodigo, int codigoCatalago, bool IsMobile)
+        public static string obtenerCodigoOrigenWeb(
+            string codigoEstrategia,
+            string tipoEstrategiaCodigo,
+            int marcaId,
+            int codigoCatalago,
+            bool IsMobile)
         {
             var result = "";
 
-            tipoEstrategiaCodigo = Util.Trim(tipoEstrategiaCodigo);
 
-            if (tipoEstrategiaCodigo == "")
-            {
-                return result;
-            }
 
             if (string.IsNullOrEmpty(tipoEstrategiaCodigo))
             {
@@ -3727,36 +3727,49 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                switch (tipoEstrategiaCodigo)
+                switch (codigoEstrategia)
                 {
-                    case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
-                    case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
-                    case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                        result = IsMobile ? Constantes.CodigoOrigenPedido.OfertaParaTiMobile : Constantes.CodigoOrigenPedido.OfertaParaTi;
+                    case "LIQ":
+                        result = IsMobile ? Constantes.CodigoOrigenPedido.LiquidacionMobile : Constantes.CodigoOrigenPedido.Liquidacion;
                         break;
-                    case Constantes.TipoEstrategiaCodigo.ShowRoom:
-                        result = IsMobile ? Constantes.CodigoOrigenPedido.EspecialesMobile : Constantes.CodigoOrigenPedido.Especiales;
+                    case "CAT":
+                        result = (marcaId == 1 ? (IsMobile ? Constantes.CodigoOrigenPedido.CatalogoLBelMobile : Constantes.CodigoOrigenPedido.CatalogoLBel) :
+                            (marcaId == 2 ? (IsMobile ? Constantes.CodigoOrigenPedido.CatalogoEsikaMobile : Constantes.CodigoOrigenPedido.CatalogoEsika) :
+                            (IsMobile ? Constantes.CodigoOrigenPedido.CatalogoCyzoneMobile : Constantes.CodigoOrigenPedido.CatalogoCyzone)));
                         break;
-                    case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                        result = IsMobile ? Constantes.CodigoOrigenPedido.LoNuevoNuevoMobile : Constantes.CodigoOrigenPedido.LoNuevoNuevo;
-                        break;
-                    case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                    case "ODD":
                         result = IsMobile ? Constantes.CodigoOrigenPedido.OfertaSoloHoyMobile : Constantes.CodigoOrigenPedido.OfertaSoloHoy;
                         break;
-                    case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                        result = IsMobile ? Constantes.CodigoOrigenPedido.GuiaDeNegocioDigitalMobile : Constantes.CodigoOrigenPedido.GuiaDeNegocioDigital;
-                        break;
-                    case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                        result = IsMobile ? Constantes.CodigoOrigenPedido.HeramientaDeVentaMobile : Constantes.CodigoOrigenPedido.HeramientaDeVenta;
-                        break;
                     default:
-                        result = "";
+                        switch (tipoEstrategiaCodigo)
+                        {
+                            case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                            case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                            case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                                result = IsMobile ? Constantes.CodigoOrigenPedido.OfertaParaTiMobile : Constantes.CodigoOrigenPedido.OfertaParaTi;
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                                result = IsMobile ? Constantes.CodigoOrigenPedido.EspecialesMobile : Constantes.CodigoOrigenPedido.Especiales;
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                                result = IsMobile ? Constantes.CodigoOrigenPedido.LoNuevoNuevoMobile : Constantes.CodigoOrigenPedido.LoNuevoNuevo;
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                                result = IsMobile ? Constantes.CodigoOrigenPedido.OfertaSoloHoyMobile : Constantes.CodigoOrigenPedido.OfertaSoloHoy;
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                                result = IsMobile ? Constantes.CodigoOrigenPedido.GuiaDeNegocioDigitalMobile : Constantes.CodigoOrigenPedido.GuiaDeNegocioDigital;
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                                result = IsMobile ? Constantes.CodigoOrigenPedido.HeramientaDeVentaMobile : Constantes.CodigoOrigenPedido.HeramientaDeVenta;
+                                break;
+                            default:
+                                result = "";
+                                break;
+                        }
                         break;
-                }
+                }                
             }
-
-
-
             return result;
         }
     }
