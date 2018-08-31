@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Common
             public const string UrlPart02 = "/jpg/page_1_thumb_small.jpg";
             public const string UrlPart03 = "/jpg/page_1_thumb_medium.jpg";
             public const string UrlPart02Alternativo = "/jpg/page_1.jpg";
-           
+
         }
 
         public static class EstadoPedido
@@ -231,7 +231,8 @@ namespace Portal.Consultoras.Common
             public const string NotParticipaProgramaNuevas = "0";
         }
 
-        public static class EstadoRespuestaServicio {
+        public static class EstadoRespuestaServicio
+        {
             public const string Success = "OK";
             public const string Error = "ERROR";
         }
@@ -582,6 +583,7 @@ namespace Portal.Consultoras.Common
             public const int OfertasParaTiMobilePedidoPopUp = 2222;
             public const int OfertasParaTiMobileContenedor = 2821;
             public const int OfertasParaTiMobileContenedorPopup = 2822;
+         
             #endregion
 
             #region CatalogoPersonalizado
@@ -623,6 +625,7 @@ namespace Portal.Consultoras.Common
             public const int ShowRoomMobileSubCampania = 2524;
             public const int ShowRoomMobileContenedor = 2871;
             //public const int MobileShowRoom = 2571;
+          
             #endregion
 
             #region OfertaDelDia 
@@ -802,6 +805,37 @@ namespace Portal.Consultoras.Common
             #region Busqueda y filtros
             public const int DesktopBuscador = 19;
             public const int MobileBuscador = 29;
+
+            public const string OfertasParaTiDesktopBuscador = "1404";
+            public const string OfertasParaTiMobileBuscador = "2404";
+            public const string EspecialesDesktopBuscador = "1414";
+            public const string EspecialesMobileBuscador = "2414";
+            public const string LoNuevoNuevoDesktopBuscador = "1424";
+            public const string LoNuevoNuevoMobileBuscador = "2424";
+            public const string OfertaSoloHoyDesktopBuscador = "1434";
+            public const string OfertaSoloHoyMobileBuscador = "2434";
+            public const string GuiaNegocioDigitalDesktopBuscador = "1454";
+            public const string GuiaNegocioDigitalMobileBuscador = "2454";
+
+            public const string HerramientaDeVentaDesktopBuscador = "1484";
+            public const string HerramientaDeVentaMobileBuscador = "2484";
+
+            public const string LBelDesktopBuscador = "14B4";
+            public const string LBelMobileBuscador = "24B4";
+
+            public const string EsikaDesktopBuscador = "14C4";
+            public const string EsikaMobileBuscador = "24C4";
+
+            public const string CyzoneDesktopBuscador = "14D4";
+            public const string CyzoneMobileBuscador = "24D4";
+
+            public const string LiquidacionDesktopBuscador = "1464";
+            public const string LiquidacionMobileBuscador = "2464";
+
+            //public const string Liquidacion = "1464";
+            //public const string LiquidacionMobile = "2464";
+
+
             #endregion
         }
 
@@ -1205,7 +1239,7 @@ namespace Portal.Consultoras.Common
             public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
             public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
-            public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";            
+            public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
             public const string AgregarProgNuevas_MaxElectivos = "No puedes agregar este producto a tu pedido por haber alcanzado el límite de {0} cuvs del programa nuevas.";
         }
@@ -2152,7 +2186,7 @@ namespace Portal.Consultoras.Common
             public const string DescripcionKitInicio = "KIT DE INICIO";
             public const string OfertaNiveles = "OFERTA POR NIVELES (*)";
             public const string OfertaLiquidacion = "OFERTA LIQUIDACIÓN";
-            public const string OfertaFlexiPago =  "OFERTA FLEXIPAGO";
+            public const string OfertaFlexiPago = "OFERTA FLEXIPAGO";
             public const int idHerramientaVenta = 3028;
         }
 
@@ -2355,8 +2389,8 @@ namespace Portal.Consultoras.Common
             public const string EnviarPorEmail = "Email";
             public const string EnviarPorSms = "SMS";
         }
-        #endregion 
-        
+        #endregion
+
         public static class ValidacionDatosEstado
         {
             public const string Pendiente = "P";
@@ -2481,7 +2515,7 @@ namespace Portal.Consultoras.Common
 
             //api/Estrategia/descripcion/{pais}/{tipo}/{campania}
             public const string UrlUploadCsv = "api/estrategia/descripcion/{0}/{1}/{2}";
-                                                
+
             //api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
             public const string UrlEstrategiaCuv = "api/estrategia/cuv/{0}/{1}/{2}/{3}";
 
@@ -2583,32 +2617,6 @@ namespace Portal.Consultoras.Common
             public const int CYZONE = 13;
         }
 
-        public class CodigoOrigenPedido
-        {
-            //DESKTOP
-            public const string OfertaParaTi = "1404";
-            public const string Especiales = "1414";
-            public const string LoNuevoNuevo = "1424";
-            public const string OfertaSoloHoy = "1434";
-            public const string GuiaDeNegocioDigital = "1454";
-            public const string Liquidacion = "1464";
-            public const string HeramientaDeVenta = "1484";
-            public const string CatalogoLBel = "14B4";
-            public const string CatalogoEsika = "14C4";
-            public const string CatalogoCyzone = "14D4";
-
-
-            //MOBILE
-            public const string OfertaParaTiMobile = "2404";
-            public const string EspecialesMobile = "2414";
-            public const string LoNuevoNuevoMobile = "2424";
-            public const string OfertaSoloHoyMobile = "2434";
-            public const string GuiaDeNegocioDigitalMobile = "2454";
-            public const string LiquidacionMobile = "2464";
-            public const string HeramientaDeVentaMobile = "2484";
-            public const string CatalogoLBelMobile = "24B4";
-            public const string CatalogoEsikaMobile = "24C4";
-            public const string CatalogoCyzoneMobile = "24D4";
-        }
+        
     }
 }
