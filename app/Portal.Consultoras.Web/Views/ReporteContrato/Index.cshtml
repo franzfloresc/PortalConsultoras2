@@ -74,33 +74,11 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function () {
-        $("#btnBuscar").click(function () {
-            var f1 = $("#FechaInicio").val().trim();
-            var f2 = $("#FechaFin").val().trim();
-            var n1 = $('#Cedula').val().trim();
-            var n2 = $('#CodigoConsultora').val().trim(); 
-            if (f1!="" && f2!="") {
-                var aFecha1 = f1.split('/');
-                var aFecha2 = f2.split('/');
-                var fFecha1 = Date.UTC(aFecha1[2], aFecha1[1] - 1, aFecha1[0]);
-                var fFecha2 = Date.UTC(aFecha2[2], aFecha2[1] - 1, aFecha2[0]);
-                var dif = fFecha2 - fFecha1;
-                var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-                if (dias<0) {
-                    alert('Fecha Fin debe ser mayor que fecha Inicio');
-                    return false;
-                }                
-            }
-
-            if (f1=="" && f2=="" && n1=="" && n2=="") {
-                alert('Ingresar al menos un parametro de busqueda');
-                return false;
-            }
-
-           
-            fnGrilla();
+        $("#btnBuscar").click(function () {        
+            if (validarControles()) {
+                fnGrilla();
+            }           
         });
-
 
         $("#CodigoConsultora").keydown(function (event) {
             ValidaNumero(event)
@@ -118,8 +96,49 @@
         $("#FechaFin").keydown(function (event) {
             ValidaNumero(event);
         });
-
     });
+
+    function validarControles() {
+
+        var f1 = $("#FechaInicio").val().trim();
+        var f2 = $("#FechaFin").val().trim();
+        var n1 = $('#Cedula').val().trim();
+        var n2 = $('#CodigoConsultora').val().trim();
+        if (f1 != "" && f2 != "") {
+            var aFecha1 = f1.split('/');
+            var aFecha2 = f2.split('/');
+            var fFecha1 = Date.UTC(aFecha1[2], aFecha1[1] - 1, aFecha1[0]);
+            var fFecha2 = Date.UTC(aFecha2[2], aFecha2[1] - 1, aFecha2[0]);
+            var dif = fFecha2 - fFecha1;
+            var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+            if (dias < 0) {
+                alert('Fecha Fin debe ser mayor que fecha Inicio');
+                return false;
+            }
+        }
+        if (f1 == "" && f2 == "" && n1 == "" && n2 == "") {
+            alert('Ingresar al menos un parametro de busqueda');
+            return false;
+        }
+
+        if (f1== "") {
+            if (f2 != "") {
+                alert("Debe seleccionar la fecha de Inicio");
+                return false;
+            }
+        }
+
+        if (f2 == "") {
+            if (f1 != "") {
+                alert("Debe seleccionar la fecha de Fin");
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
 
 
     function valida(e) {
@@ -159,19 +178,6 @@
 
     function fnGrilla() {
 
-        if ($("#FechaInicio").val() == "") {
-            if ($("#FechaFin").val()!="") {
-                alert("Debe seleccionar la fecha de Inicio");
-                return false;
-            }          
-        }
-
-        if ($("#FechaFin").val() == "") {
-            if ($("#FechaInicio").val() != "") {
-                alert("Debe seleccionar la fecha de Fin");
-                return false;
-            }
-        }
 
         jQuery("#list").jqGrid({
             url: baseUrl + "ReporteContrato/ConsultaReporte",
@@ -237,10 +243,13 @@
         var Cedula = jQuery.trim($("#Cedula").val());
         var FechaInicio = jQuery.trim($("#FechaInicio").val());
         var FechaFin = jQuery.trim($("#FechaFin").val());
-        waitingDialog({});
-        setTimeout(function () {
-            DownloadAttachExcel(CodigoConsultora, Cedula, FechaInicio, FechaFin);
-        }, 0);
+
+        if (validarControles()) {
+            waitingDialog({});
+            setTimeout(function () {
+                DownloadAttachExcel(CodigoConsultora, Cedula, FechaInicio, FechaFin);
+            }, 0);
+        }     
     }
 
     function DownloadAttachExcel(CodigoConsultora, Cedula, FechaInicio, FechaFin) {
