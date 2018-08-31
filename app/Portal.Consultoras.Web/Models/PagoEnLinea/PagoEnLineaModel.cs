@@ -1,8 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models.PagoEnLinea
 {
@@ -14,9 +12,16 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public decimal MontoDeuda { get; set; }        
         public DateTime FechaVencimiento { get; set; }
 
-        public int PorcentajeGastosAdministrativos { get; set; }
+        public decimal PorcentajeGastosAdministrativos { get; set; }
 
         public PagoVisaModel PagoVisaModel { get; set; }
+
+        public List<PagoEnLineaTipoPagoModel> ListaTipoPago { get; set; }
+
+        public List<PagoEnLineaMedioPagoModel> ListaMedioPago { get; set; }
+
+        public List<PagoEnLineaMedioPagoDetalleModel> ListaMetodoPago { get; set; }
+        public PagoEnLineaMedioPagoDetalleModel MetodoPagoSeleccionado { get; set; }
 
         #region Propiedades luego de la respuesta de la pasarela de pago
 
@@ -80,7 +85,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         {
             get
             {
-                return decimal.Round(MontoDeuda * (decimal.Parse(PorcentajeGastosAdministrativos.ToString()) / 100), 2);
+                return decimal.Round(MontoDeuda * (PorcentajeGastosAdministrativos / 100), 2);
             }
         }
 
@@ -96,7 +101,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         {
             get
             {
-                return decimal.Round(MontoDeuda * (1 + decimal.Parse(PorcentajeGastosAdministrativos.ToString()) / 100), 2);
+                return decimal.Round(MontoDeuda * (1 + PorcentajeGastosAdministrativos / 100), 2);
             }
         }
 
@@ -114,6 +119,9 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
             {
                 return Util.DecimalToStringFormat(SaldoPendiente, CodigoIso);
             }
-        }        
+        }
+
+        public string DeviceSessionId { get; set; }
+        public string TipoPago { get; set; }
     }
 }

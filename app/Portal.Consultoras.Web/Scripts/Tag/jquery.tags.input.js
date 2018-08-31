@@ -247,7 +247,8 @@
             comfortZone: 20,
             inputPadding: 6 * 2,
             validate: '',
-            classMain: ''
+            classMain: '',
+            classAddTag: ''
         }, options);
 
         this.each(function () {
@@ -277,7 +278,7 @@
                 tags_callbacks[id]['onChange'] = settings.onChange;
             }
 
-            var markup = '<div id="' + id + '_tagsinput" class="tagsinput ' + settings.classMain + '"><div id="' + id + '_addTag">';
+            var markup = '<div id="' + id + '_tagsinput" class="tagsinput ' + settings.classMain + '"><div id="' + id + '_addTag" ' + (settings.classAddTag ? 'class="' + settings.classAddTag + '"' : '') + '>';
 
             if (settings.interactive) {
                 markup = markup + '<input id="' + id + '_tag" value="" data-default="' + settings.defaultText + '" placeholder="' + settings.defaultText + '" />';

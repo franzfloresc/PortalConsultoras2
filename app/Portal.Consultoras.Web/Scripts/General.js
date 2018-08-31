@@ -946,6 +946,18 @@ FuncionesGenerales = {
             return re.test(keyChar);
         }
     },
+    ValidarSoloLetras: function (e) {
+        var charCode = (e.which) ? e.which : window.event.keyCode;
+        if (charCode === 8) return true;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-ZñÑáéíóúÁÉÍÓÚ ]/;
+            return re.test(keyChar);
+        }
+    },
     GetDataForm: function (form) {
         var that = $(form);
         var url = that.attr('action');
