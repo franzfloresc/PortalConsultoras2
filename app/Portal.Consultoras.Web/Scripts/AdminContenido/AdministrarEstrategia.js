@@ -1757,8 +1757,8 @@
 
     var _showActionsEvento = function (cellvalue, options, rowObject) {
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject.Estado + "','" + rowObject.TieneCategoria + "','" + rowObject.TieneCompraXcompra + "','" + rowObject.TieneSubCampania + "', " + rowObject.TienePersonalizacion + ");\" >" + "<img src='" + _config.imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
-        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "');\" >" + "<img src='" + _config.imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
-        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "');\" >" + "<img src='" + _config.imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject._id + "');\" >" + "<img src='" + _config.imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
+        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject._id + "');\" >" + "<img src='" + _config.imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
 
         var resultado = edit;
 
@@ -1790,8 +1790,9 @@
             hidegrid: false,
             datatype: "json",
             postData: ({
-                PaisID: function () { return $("#ddlPais").val(); },
-                CampaniaID: function () { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
+                PaisID: function () { return $("#ddlPais").val(); }
+                , CampaniaID: function () { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
+                , tipoEstrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
@@ -2262,6 +2263,7 @@
         formData.append("Pais", $("#ddlPais").val());
         formData.append("CampaniaId", $("#ddlCampania").val());
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
+        formData.append("TipoEstrategiaCodigo", $("#ddlTipoEstrategia").find(':selected').data('codigo'));
 
         $.ajax({
             url: _config.urlUploadFileStrategyShowroom,
@@ -4075,14 +4077,16 @@
         showDialog("DialogDatosShowRoom");
     }
 
-    function DeshabilitarEvento(ID, CampaniaID) {
+    function DeshabilitarEvento(ID, CampaniaID, ObjectID) {
         var deshabilitar = confirm("¿ Está seguro que desea deshabilitar el evento?");
         if (!deshabilitar)
             return false;
 
         var item = {
-            campaniaID: CampaniaID,
-            eventoID: ID
+            campaniaID: CampaniaID
+            , eventoID: ID
+            , tipoEstrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
+            , id: ObjectID
         };
 
         waitingDialog();
@@ -4114,7 +4118,7 @@
         return false;
     }
 
-    function EliminarEvento(ID, CampaniaID) {
+    function EliminarEvento(ID, CampaniaID, ObjectID) {
         var eliminar = confirm("¿ Está seguro que desea eliminar el evento?");
         if (!eliminar)
             return false;
@@ -4122,8 +4126,10 @@
         $("#divShowRoomPerfil").css("display", "none");
 
         var item = {
-            campaniaID: CampaniaID,
-            eventoID: ID
+            campaniaId: CampaniaID
+            , eventoId: ID
+            , tipoEstrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
+            , id: ObjectID
         };
 
         waitingDialog();

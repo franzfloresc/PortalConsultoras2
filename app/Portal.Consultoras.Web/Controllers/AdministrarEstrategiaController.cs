@@ -30,6 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         protected RenderImgProvider _renderImgProvider;
         protected OfertaBaseProvider _ofertaBaseProvider;
+
         public AdministrarEstrategiaController()
         {
             _renderImgProvider = new RenderImgProvider();
@@ -1922,8 +1923,10 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult UploadFileSetStrategyShowroom(DescripcionMasivoModel model)
         {
-            int[] numberRecords = null;
+            int[] numberRecords = new int[2];
             int line = 0;
+            int cantidadColumnas = 7;
+
             try
             {
                 List<ServicePedido.BEEstrategia> strategyEntityList = new List<ServicePedido.BEEstrategia>();
@@ -1937,7 +1940,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string[] arrayHeader = readLine.Split('|');
                     string columnObservation = string.Empty;
                     bool errorColumn = false;
-                    if (arrayHeader.Length != 6)
+                    if (arrayHeader.Length != cantidadColumnas)
                     {
                         throw new ArgumentException("Los títulos de las columnas no son los correctos.");
                     }
@@ -1982,7 +1985,7 @@ namespace Portal.Consultoras.Web.Controllers
                         string[] arrayRows = readLine.Split('|');
                         if (arrayRows[0] != "CUV")
                         {
-                            if (arrayRows.Length != 6)
+                            if (arrayRows.Length != cantidadColumnas)
                             {
                                 throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
@@ -1999,7 +2002,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                     while (readLine != null);
-              
+
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
                     select new XElement("row",
@@ -2021,7 +2024,18 @@ namespace Portal.Consultoras.Web.Controllers
                             UsuarioModificacion = userData.CodigoUsuarioHost,
                             PaisID = Util.GetPaisID(userData.CodigoISO)
                         };
-                        numberRecords = service.InsertarEstrategiaMasiva(estrategia);
+
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo))
+                        {
+                            var result = administrarEstrategiaProvider.UploadFileSetStrategyShowroom(estrategia, strategyEntityList, model.TipoEstrategiaCodigo);
+
+                            numberRecords[0] = result;
+                            numberRecords[1] = 0;
+                        }
+                        else
+                        {
+                            //numberRecords = service.InsertarEstrategiaMasiva(estrategia);
+                        }
                     }
                     return Json(new
                     {
@@ -2131,10 +2145,12 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                     while (readLine != null);
+
                     if (strategyEntityList.Count == 0)
                     {
                         throw new ArgumentException("El archivo seleccionado no tiene registros.");
                     }
+
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
                     select new XElement("row",

@@ -1970,7 +1970,14 @@ namespace Portal.Consultoras.Common
             public const string IsSubcampaign = "essubcampania";
             public const string OfferStatus = "estado de oferta";
 
-            public enum Position { CUV = 0, AllowedUnits = 1, NameSet = 2, BusinessTip = 3, IsSubcampaign = 4, OfferStatus = 5 };
+            public enum Position {
+                CUV = 0,
+                AllowedUnits = 2,
+                NameSet = 3,
+                BusinessTip = 4,
+                IsSubcampaign = 5,
+                OfferStatus = 6
+            };
         }
 
         public static class ColumnsProductStrategyShowroom
@@ -2495,6 +2502,18 @@ namespace Portal.Consultoras.Common
 
             //api/Estrategia/multiple/{pais}
             public const string UrlListarEstrategiaPorConfigurarWebApi = "api/Estrategia/multiple/{0}";
+
+            //api/Evento/eliminar/{pais}/{id}
+            public const string UrlEliminarShowRoomEvento = "api/Evento/eliminar/{0}/{1}";
+
+            //api/Evento/listar/{pais}/{campania}
+            public const string UrlConsultarShowRoom = "api/Evento/listar/{0}/{1}";
+
+            //api/Evento/deshabilitar/{pais}/{id}?usuario={usuario}
+            public const string UrlDeshabilitarShowRoomEvento = "api/Evento/deshabilitar/{0}/{1}?usuario={2}";
+
+            //api/Estrategia/descripcion/{pais}/{tipo}/{campania}?tipoEstrategia={tipoEstrategia}&usuario={usuario}
+            public const string UrlUploadFileSetStrategyShowroom = "api/Estrategia/descripcion/{0}/{1}/{2}?tipoEstrategia={3}&usuario={4}";
             #endregion
 
             #region Oferta

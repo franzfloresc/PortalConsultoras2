@@ -9,6 +9,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Response;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
 
@@ -43,6 +44,10 @@ namespace Portal.Consultoras.Web.Providers
                 else if (responseType.Equals("post"))
                 {
                     response = await client.PostAsync(requestUrl, httpContent);
+                }
+                else if (responseType.Equals("delete"))
+                {
+                    response = await client.DeleteAsync(requestUrl);
                 }
 
                 if (response != null && !response.IsSuccessStatusCode)
@@ -491,5 +496,92 @@ namespace Portal.Consultoras.Web.Providers
             return listaEstrategias;
         }
 
+        public void EliminarShowRoomEvento(string id)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+
+            var taskApi = Task.Run(() => RespSBMicroservicios(
+                    string.Empty, 
+                    string.Format(Constantes.PersonalizacionOfertasService.UrlEliminarShowRoomEvento, userData.CodigoISO, id), 
+                    "delete", 
+                    userData)
+                );
+
+            Task.WhenAll(taskApi);
+            
+            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
+
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
+                throw new Exception(respuesta.Message);
+        }
+
+        public List<ShowRoomEventoModelo> ConsultarShowRoom(string pais, int campaniaId)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+
+            var taskApi = Task.Run(() => RespSBMicroservicios(
+                    string.Empty
+                    , string.Format(Constantes.PersonalizacionOfertasService.UrlConsultarShowRoom, pais, campaniaId)
+                    , "get"
+                    , userData
+                ));
+            Task.WhenAll(taskApi);
+
+            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
+
+            //if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
+            //    throw new Exception(respuesta.Message);
+
+            List<ShowRoomEventoModelo> l = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<ShowRoomEventoModelo>>(respuesta.Result.ToString()) : new List<ShowRoomEventoModelo>();
+
+            return l;
+        }
+
+        public void DeshabilitarShowRoomEvento(string id)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+
+            var taskApi = Task.Run(() => RespSBMicroservicios(
+                    string.Empty
+                    ,string.Format(Constantes.PersonalizacionOfertasService.UrlDeshabilitarShowRoomEvento, userData.CodigoISO, id, userData.CodigoUsuario) 
+                    , "put"
+                    , userData
+                ));
+
+            Task.WhenAll(taskApi);
+
+            string content = taskApi.Result;
+
+            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
+                throw new Exception(respuesta.Message);
+        }
+
+        public int UploadFileSetStrategyShowroom(ServicePedido.BEEstrategiaMasiva m, List<ServicePedido.BEEstrategia> l, string TipoEstrategiaCodigo)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+            string p = JsonConvert.SerializeObject(l.Select(x => new {
+                Cuv = x.CUV2
+                , Descripcion = x.DescripcionCUV2
+                , Estado = x.Activo
+                , LimiteVenta = x.LimiteVenta
+                , TextoLibre = x.TextoLibre
+                , EsSubCampania = x.EsSubCampania
+            }));
+
+            var taskApi = Task.Run(() => RespSBMicroservicios(
+                    p
+                    , string.Format(Constantes.PersonalizacionOfertasService.UrlUploadFileSetStrategyShowroom,userData.CodigoISO, TipoEstrategiaCodigo, m.CampaniaID, m.TipoEstrategiaID, userData.CodigoUsuario)
+                    , "put"
+                    , userData
+                ));
+            Task.WhenAll(taskApi);
+            string content = taskApi.Result;
+
+            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+
+            return Convert.ToInt32(respuesta.Result);
+        }
     }
 }
