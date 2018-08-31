@@ -2314,6 +2314,7 @@
         formData.append("Pais", $("#ddlPais").val());
         formData.append("CampaniaId", $("#ddlCampania").val());
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
+        formData.append("TipoEstrategiaCodigo", $("#ddlTipoEstrategia").find(':selected').data('codigo'));
 
         $.ajax({
             url: _config.urlUploadFileProductStrategyShowroom,
@@ -2337,7 +2338,6 @@
                 $("#divDescMasivoPaso1").fadeOut(function () {
                     $("#divDescMasivoPaso2").fadeIn();
                 });
-
             },
             error: function (data) {
                 $("#estadoCargaMasiva").css('color', 'red');

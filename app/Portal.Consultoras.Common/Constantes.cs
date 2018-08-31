@@ -2521,6 +2521,9 @@ namespace Portal.Consultoras.Common
 
             //api/Estrategia/descripcion/{pais}/{tipo}/{campania}?tipoEstrategia={tipoEstrategia}&usuario={usuario}
             public const string UrlUploadFileSetStrategyShowroom = "api/Estrategia/descripcion/{0}/{1}/{2}?tipoEstrategia={3}&usuario={4}";
+
+            //api/Componente/descripcion/{pais}/{tipo}/{campania}?usuario={usuario}
+            public const string UrlUploadFileProductStrategyShowroom = "api/Componente/descripcion/{0}/{1}/{2}?usuario={3}";
             #endregion
 
             #region Oferta

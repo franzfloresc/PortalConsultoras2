@@ -1923,7 +1923,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult UploadFileSetStrategyShowroom(DescripcionMasivoModel model)
         {
-            int[] numberRecords = new int[2];
+            int[] numberRecords = null;
             int line = 0;
             int cantidadColumnas = 6;
 
@@ -2027,6 +2027,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo))
                         {
+                            numberRecords = new int[2];
                             var result = administrarEstrategiaProvider.UploadFileSetStrategyShowroom(estrategia, strategyEntityList, model.TipoEstrategiaCodigo);
 
                             numberRecords[0] = result;
@@ -2171,7 +2172,20 @@ namespace Portal.Consultoras.Web.Controllers
                             UsuarioModificacion = userData.CodigoUsuarioHost,
                             PaisID = Util.GetPaisID(userData.CodigoISO)
                         };
-                        numberRecords = service.InsertarProductoShowroomMasiva(estrategia);
+
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo))
+                        {
+                            numberRecords = new int[2];
+
+                            var result = administrarEstrategiaProvider.UploadFileProductStrategyShowroom(estrategia, strategyEntityList, model.TipoEstrategiaCodigo);
+
+                            numberRecords[0] = result;
+                            numberRecords[1] = 0;
+                        }
+                        else
+                        {
+                            numberRecords = service.InsertarProductoShowroomMasiva(estrategia);
+                        }
                     }
                     return Json(new
                     {

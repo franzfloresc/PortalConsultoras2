@@ -583,5 +583,30 @@ namespace Portal.Consultoras.Web.Providers
 
             return Convert.ToInt32(respuesta.Result);
         }
+
+        public int UploadFileProductStrategyShowroom(ServicePedido.BEEstrategiaMasiva m, List<ServicePedido.BEEstrategiaProducto> l, string TipoEstrategiaCodigo)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+            string p = JsonConvert.SerializeObject(l.Select(x => new {
+                CUV = x.CUV,
+                NombreProducto = x.NombreProducto,
+                Descripcion = x.Descripcion1,
+                Orden = x.Orden,
+                IdMarca = x.IdMarca
+            }));
+
+            var taskApi = Task.Run(() => RespSBMicroservicios(
+                    p
+                    , string.Format(Constantes.PersonalizacionOfertasService.UrlUploadFileProductStrategyShowroom, userData.CodigoISO, TipoEstrategiaCodigo, m.CampaniaID,userData.CodigoUsuario)
+                    , "put"
+                    , userData
+                ));
+            Task.WhenAll(taskApi);
+            string content = taskApi.Result;
+
+            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+
+            return Convert.ToInt32(respuesta.Result);
+        }
     }
 }
