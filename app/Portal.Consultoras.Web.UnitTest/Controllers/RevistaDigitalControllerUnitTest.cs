@@ -34,11 +34,11 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 public RevistaDigitalControllerStub001(ISessionManager sessionManager, ILogManager logManager) 
                     : base(sessionManager, logManager)
                 {
-                    userData = new UsuarioModel
-                    {
-                        CampaniaID=201808,
-                        NroCampanias=18
-                    };
+                    //userData = new UsuarioModel
+                    //{
+                    //    CampaniaID=201808,
+                    //    NroCampanias=18
+                    //};
                 }
 
                 //protected override List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)

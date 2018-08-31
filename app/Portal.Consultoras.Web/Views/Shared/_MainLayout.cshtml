@@ -23,12 +23,12 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Site-Esika-CssSB2")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Site-Lbel-CssSB2")
     }
     <link href="@Url.Content("~/Content/Css/Site/calc.css")" rel="stylesheet" type="text/css" />
 
@@ -327,7 +327,7 @@
 
     @Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
 
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
@@ -355,7 +355,7 @@
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
         var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/Js/Desktop/SB2")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
     <script type='text/javascript'>
         (function () {
             var proto = document.location.protocol || 'http:';
@@ -377,7 +377,7 @@
 
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
-        @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
         <script>
             var pixelAnalytics = Analytics();
             pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');

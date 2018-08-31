@@ -34045,7 +34045,8 @@ h1#penmostreo .campana {
     border-bottom: 1px solid black;
 }
 
-.nombre_marca_set {
+/*  DEUDA TECNICA
+    .nombre_marca_set {
     margin: 21px 0 0 2.5%;
     font-size: 11px;
     text-transform: uppercase;
@@ -34057,7 +34058,7 @@ h1#penmostreo .campana {
 .content_detalle_showroom {
     width: 100%;
     margin-top: 5px;
-}
+}*/
 
 .cantidad_set_individual {
     width: 5%;
@@ -34071,12 +34072,16 @@ h1#penmostreo .campana {
     font-size: 13px;
 }
 
-.tonos_set_individual {
+/*
+    DEUDA TECNICA
+    .tonos_set_individual {
     float: right;
     width: 36%;
-}
+}*/
 
-.detalle_set_showroom {
+/*
+    DEUDA TECNICA
+    .detalle_set_showroom {
     font-size: 13px;
     font-weight: 300;
     display: block;
@@ -34088,7 +34093,7 @@ h1#penmostreo .campana {
     float: right;
     font-size: 12px;
     font-weight: 300;
-}
+}*/
 
 .btn_aregar_set {
     float: right;
@@ -34096,7 +34101,9 @@ h1#penmostreo .campana {
     color: white;
 }
 
-.titulo_carrusel_showroom {
+/*
+    DEUDA TECNICA
+    .titulo_carrusel_showroom {
     font-family: 'Lato';
     font-size: 15px;
     font-weight: 300;
@@ -34112,7 +34119,7 @@ h1#penmostreo .campana {
     border-top: 1px solid black;
     padding-top: 20px;
     margin-left: 10em;
-}
+}*/
 
 .titulo_tip {
     text-transform: uppercase;
@@ -34120,14 +34127,16 @@ h1#penmostreo .campana {
     font-size: 16px;
 }
 
-.tip_negocio_showroom {
+/*
+    DEUDA TECNICA
+    .tip_negocio_showroom {
     font-size: 13px;
     font-family: 'Lato';
     background: url('../../../Images/Showroom/icono_tip.png') no-repeat;
     padding-left: 55px;
     padding-top: 15px;
     margin-bottom: 50px;
-}
+}*/
 
 .titulo_compra_POP {
     font-family: 'LAto';
@@ -34331,11 +34340,12 @@ h1#penmostreo .campana {
     padding-left: 19px;
 }
 
-.content_imagen_individual {
+/*  DEUDA TECNICA
+    .content_imagen_individual {
     width: 9%;
     margin-right: 1%;
     float: left;
-}
+}*/
 
 .titulo_promocion {
     font-family: 'Lato';

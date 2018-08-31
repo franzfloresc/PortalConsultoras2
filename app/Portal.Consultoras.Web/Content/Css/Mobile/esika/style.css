@@ -12356,7 +12356,8 @@ a {
     float: right;
 }
 
-.content_imagen_individual {
+/*  DEUDA TECNICA
+    .content_imagen_individual {
     float: left;
     width: 50px;
 }
@@ -12371,7 +12372,7 @@ a {
     padding-bottom: 13px;
     margin-bottom: 7px;
 }
-
+*/
 .content_promocion {
     position: fixed;
     bottom: 0;

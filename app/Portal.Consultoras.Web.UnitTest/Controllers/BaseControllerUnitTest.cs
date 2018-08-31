@@ -123,7 +123,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             //[TestMethod]
             //public void BuildMenu_PropiedadClaseLogoSBInUserDataNoEsNula_ActualizaViewBag()
             //{
-            //    var controller = new BaseControllerStub00(/*sessionManager.Object*/);
+            //    var controller = new BaseControllerStub00(/*SessionManager.Object*/);
             //    var userData = new UsuarioModel { ClaseLogoSB = "ClaseLogoSB" };
             //    var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
 
@@ -135,7 +135,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
             //class BaseControllerStub03 : BaseController
             //{
-            //    public BaseControllerStub03(ISessionManager sessionManager) : base(sessionManager)
+            //    public BaseControllerStub03(ISessionManager SessionManager) : base(SessionManager)
             //    {
 
             //    }
@@ -162,8 +162,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void BuildMenu_TienePermisoContenedorOfertasYUrlImagenMenuOfertasNoEsNula_MenuOfertasEsSoloImagenTrueYDevuelreUrl()
             {
-                //sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                //var controller = new BaseControllerStub03(sessionManager.Object);
+                //SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                //var controller = new BaseControllerStub03(SessionManager.Object);
                 //var userData = new UsuarioModel { };
                 //var revistaDigital = new RevistaDigitalModel{};
 

@@ -5,8 +5,8 @@
 
 @section styles{
 
-    @System.Web.Optimization.Styles.Render("~/bundles/Css/Mixto/CssBienvenida")
-    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/AsesoraOnline")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/CssBienvenida")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-AsesoraOnline")
 
     <style type="text/css">
         .contenedorCuponInfo .contenedor-texto-agregar {
@@ -1227,8 +1227,10 @@
 </div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@*
+DEUDA TECNICA
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
 
 <script id="liquidacion-template" type="text/x-handlebars-template">
     {{#each this}}
@@ -2124,7 +2126,7 @@
         var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
         var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/Js/Desktop/SB2-Bienvenida")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Bienvenida")
     @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }
 
 <script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script> 

@@ -12544,7 +12544,9 @@ span.icon-advertencia {
     float: right;
 }
 
-.content_imagen_individual {
+/*
+    DEUDA TECNICA
+    .content_imagen_individual {
     float: left;
     width: 50px;
 }
@@ -12559,6 +12561,7 @@ span.icon-advertencia {
     padding-bottom: 13px;
     margin-bottom: 7px;
 }
+    */
 
 .content_promocion {
     position: fixed;

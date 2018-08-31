@@ -1,7 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.LogManager;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.UnitTest
 {
@@ -33,6 +35,21 @@ namespace Portal.Consultoras.Web.UnitTest
         {
             _sessionManager = null;
             _logManager = null;
+        }
+
+        protected void ConfigureUserDataWithCampaniaActual(int campaniaId)
+        {
+            SessionManager.Setup(x => x.GetUserData()).Returns(new UsuarioModel() { CampaniaID = campaniaId });
+        }
+
+        protected void VerifyDoNotCallLogManager()
+        {
+            LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                It.IsAny<Exception>(),
+                It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<string>()
+            ), Times.Never);
         }
     }
 }

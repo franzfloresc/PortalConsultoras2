@@ -316,7 +316,7 @@ namespace Portal.Consultoras.Web.Providers
 
         //private bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo, string sobreNombre)
         //{
-        //    var revistaDigital = sessionManager.GetRevistaDigital();
+        //    var revistaDigital = SessionManager.GetRevistaDigital();
         //    if (codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC) return false;
 
         //    titulo = revistaDigital.TieneRDC
