@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public FichaProductoController()
         {
-            _vcFichaProductoProvider = new VCFichaProductoProvider(userData.PaisID, userData.CodigoISO);
+            _vcFichaProductoProvider = new VCFichaProductoProvider();
         }
 
         [HttpGet]

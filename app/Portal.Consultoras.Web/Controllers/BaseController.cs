@@ -32,7 +32,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             get
             {
-                var model = SessionManager.GetUserData() ?? new UsuarioModel();
+                var model = new UsuarioModel();
+                if (SessionManager != null) model = SessionManager.GetUserData();
                 model.MenuNotificaciones = 1;
                 return model;
             }
@@ -94,7 +95,7 @@ namespace Portal.Consultoras.Web.Controllers
             _logDynamoProvider = new LogDynamoProvider();
             _eventoFestivoProvider = new EventoFestivoProvider();
             _pedidoWebProvider = new PedidoWebProvider();
-            _estrategiaComponenteProvider = new EstrategiaComponenteProvider(userData.PaisID, userData.CodigoISO);
+            _estrategiaComponenteProvider = new EstrategiaComponenteProvider();
             _tipoEstrategiaProvider = new TipoEstrategiaProvider();
             _configuracionPaisProvider = new ConfiguracionPaisProvider();
             _menuContenedorProvider = new MenuContenedorProvider();
