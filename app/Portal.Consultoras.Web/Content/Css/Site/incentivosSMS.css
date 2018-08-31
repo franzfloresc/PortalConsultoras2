@@ -101,11 +101,13 @@ body {
     margin-bottom: 18px;
 }
 
-.content_detalle_showroom {
+/*
+    DEUDA TECNICA
+    .content_detalle_showroom {
     width: 100%;
     margin-top: 14px;
     overflow: hidden;
-}
+}*/
 
 .nombre_set_individual {
     font-size: 14px;
