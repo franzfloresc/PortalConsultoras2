@@ -259,30 +259,30 @@
 
 /* SECCIÓN REVISTA DIGITAL VISTA CATÁLOGOS Y REVISTAS */
 
-div#tab_revistasdigital_mobile {
+/*div#tab_revistasdigital_mobile {
     margin: -35px auto 0 auto;
     width: 100%;
     max-width: 400px;
-}
+}*/
 
-.contenedor_seccionRevistaDigital {
+/*.contenedor_seccionRevistaDigital {
     display: block;
     margin: 0 15px;
     padding-left: 34px;
-}
+}*/
 
-.seccionRevistaDigital_logo_marca {
+/*.seccionRevistaDigital_logo_marca {
     height: 97px;
     display: block;
-}
+}*/
 
-    .seccionRevistaDigital_logo_marca img {
+    /*.seccionRevistaDigital_logo_marca img {
         text-align: left;
         width: auto;
         height: 100%;
-    }
+    }*/
 
-.contenido_seccionRevistaDigital {
+/*.contenido_seccionRevistaDigital {
     display: block;
     margin-top: 9px;
     position: relative;
@@ -303,7 +303,7 @@ div#tab_revistasdigital_mobile {
 
         .contenido_seccionRevistaDigital span:last-child {
             font-size: 13px;
-        }
+        }*/
 
 .contenedor_botonVerMasOfertas {
     display: block;
@@ -503,7 +503,7 @@ div#tab_revistasdigital_mobile {
     word-wrap: break-word;
 }
 
-.btn_black_solid a, .btn_white_stroke a {
+/*.btn_black_solid a, .btn_white_stroke a {
     background-color: black;
     color: white;
     text-decoration: none;
@@ -512,42 +512,42 @@ div#tab_revistasdigital_mobile {
     font-size: 13px;
     font-weight: 700;
     letter-spacing: .5px;
-}
+}*/
 
-.btn_white_stroke a {
+/*.btn_white_stroke a {
     border-color: white;
-}
+}*/
 
-.mob_home_bpt {
+/*.mob_home_bpt {
     font-family: 'Lato';
     text-align: center;
-}
+}*/
 
-.rd_lanzamiento {
+/*.rd_lanzamiento {
     font-size: 14px;
     font-weight: 700;
     margin: 20px 0 20px;
-}
+}*/
 
-.rd_lanzamiento_producto {
+/*.rd_lanzamiento_producto {
     width: 100%;
     max-width: 320px;
     margin: 20px 0;
-}
+}*/
 
-.rd_verofertas {
+/*.rd_verofertas {
     background-color: black;
     color: white;
     padding: 20px;
     text-align: center;
     text-transform: uppercase;
-}
+}*/
 
-.mob_carrusel_bpt {
+/*.mob_carrusel_bpt {
     background-color: #F2EEF0;
     padding-bottom: 30px;
     font-weight: 600;
-}
+}*/
 .boton-ver-mas.no_suscrita {
     background: none !important;
     color: #000 !important;
