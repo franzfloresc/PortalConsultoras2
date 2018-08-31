@@ -1980,11 +1980,11 @@ namespace Portal.Consultoras.Common
 
             public enum Position {
                 CUV = 0,
-                AllowedUnits = 2,
-                NameSet = 3,
-                BusinessTip = 4,
-                IsSubcampaign = 5,
-                OfferStatus = 6
+                AllowedUnits = 1,
+                NameSet = 2,
+                BusinessTip = 3,
+                IsSubcampaign = 4,
+                OfferStatus = 5
             };
         }
 

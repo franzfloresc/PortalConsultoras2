@@ -1925,7 +1925,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int[] numberRecords = new int[2];
             int line = 0;
-            int cantidadColumnas = 7;
+            int cantidadColumnas = 6;
 
             try
             {
