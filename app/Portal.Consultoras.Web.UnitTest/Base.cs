@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.UnitTest
 
         protected void ConfigureUserDataWithCampaniaActual(int campaniaId)
         {
-            SessionManager.Setup(x => x.GetUserData()).Returns(new UsuarioModel() { CampaniaID = campaniaId });
+            SessionManager.Setup(x => x.GetUserData()).Returns(new UsuarioModel() { CampaniaID = campaniaId, NroCampanias = 18});
         }
 
         protected void VerifyDoNotCallLogManager()

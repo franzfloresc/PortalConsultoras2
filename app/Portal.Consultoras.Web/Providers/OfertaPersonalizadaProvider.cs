@@ -1121,7 +1121,8 @@ namespace Portal.Consultoras.Web.Providers
         public bool TienePermisoPalanca(string palanca)
         {
             var listaConfigPais = SessionManager.GetConfiguracionesPaisModel();
-            bool tienePalanca;
+            bool tienePalanca = false;
+            if (listaConfigPais == null || listaConfigPais.Count == 0) return tienePalanca;
             switch (palanca)
             {
                 case Constantes.NombrePalanca.RevistaDigital:
@@ -1145,6 +1146,7 @@ namespace Portal.Consultoras.Web.Providers
                 default:
                     tienePalanca = false; break;
             }
+                
 
             return tienePalanca;
         }

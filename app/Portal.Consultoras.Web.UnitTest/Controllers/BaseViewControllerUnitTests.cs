@@ -110,21 +110,20 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 VerifyDoNotCallLogManager();
             }
 
-            //[TestMethod]
-            //public virtual void Ficha_ConsultoraDoNotHaveGuiaDeNegocioDigitalizada_RedirectsToOfertas()
-            //{
-            //    // Arrange
-            //    var cuv = "33395";
+            public virtual void Ficha_ConsultoraDoNotHaveGuiaDeNegocioDigitalizada_RedirectsToOfertas(string nombrePalanca)
+            {
+                // Arrange
+                var cuv = "33395";
 
-            //    // Act
-            //    var actualResult = Controller.Ficha(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, CampaniaIdActual, cuv, null) as RedirectToRouteResult;
+                // Act
+                var actualResult = Controller.Ficha(nombrePalanca, CampaniaIdActual, cuv, null) as RedirectToRouteResult;
 
-            //    // Assert
-            //    Assert.AreEqual(ControllerNaneExpected(), actualResult.GetControllerName());
-            //    Assert.AreEqual(ActionNameExpected(), actualResult.GetActionName());
-            //    Assert.AreEqual(AreaNameExpected(), actualResult.GetAreaName());
-            //    VerifyDoNotCallLogManager();
-            //}
+                // Assert
+                Assert.AreEqual(ControllerNaneExpected(), actualResult.GetControllerName());
+                Assert.AreEqual(ActionNameExpected(), actualResult.GetActionName());
+                Assert.AreEqual(AreaNameExpected(), actualResult.GetAreaName());
+                VerifyDoNotCallLogManager();
+            }
         }
     }
 }
