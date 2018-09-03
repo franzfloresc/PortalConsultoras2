@@ -437,7 +437,7 @@
   <xs:element name="ReservaPedidoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" minOccurs="0" name="ReservaPedidoResult" nillable="true" type="q35:BEPedidoReservaAppResult" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" minOccurs="0" name="ReservaPedidoResult" nillable="true" type="q35:BEPedidoReservaResult" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
