@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
             get
             {
                 var model = new UsuarioModel();
-                if (SessionManager != null) model = SessionManager.GetUserData();
+                if (SessionManager != null && SessionManager.GetUserData() != null) model = SessionManager.GetUserData();
                 model.MenuNotificaciones = 1;
                 return model;
             }

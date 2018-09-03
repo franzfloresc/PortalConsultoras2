@@ -10,10 +10,11 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class DetalleEstrategiaController : BaseViewController
     {
-        //public DetalleEstrategiaController() : base()
-        //{
+        public DetalleEstrategiaController() : base()
+        {
 
-        //}
+        }
+
         //public DetalleEstrategiaController(ISessionManager sesionManager) 
         //    : base(sesionManager)
         //{
