@@ -193,7 +193,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
                     if (estrategiaPresonalizada == null)
-                        return RedirectToAction("Index", "Ofertas");
+                        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
                     if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);

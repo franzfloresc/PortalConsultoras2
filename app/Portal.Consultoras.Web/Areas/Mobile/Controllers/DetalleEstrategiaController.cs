@@ -12,21 +12,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class DetalleEstrategiaController : BaseViewController
     {
-        public DetalleEstrategiaController() : base()
-        {
+        //public DetalleEstrategiaController() : base()
+        //{
 
-        }
-        public DetalleEstrategiaController(ISessionManager sesionManager)
-            : base(sesionManager)
-        {
+        //}
+        //public DetalleEstrategiaController(ISessionManager sesionManager)
+        //    : base(sesionManager)
+        //{
 
-        }
+        //}
 
-        public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager)
-            : base(sesionManager, logManager)
-        {
+        //public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager)
+        //    : base(sesionManager, logManager)
+        //{
 
-        }
+        //}
 
         public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider)
             : base(sesionManager, logManager, ofertaPersonalizadaProvider)

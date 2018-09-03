@@ -27,20 +27,20 @@ namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
 
             private class DetalleEstrategiaMobileController : DetalleEstrategiaController
             {
-                public DetalleEstrategiaMobileController() : base()
-                {
+                //public DetalleEstrategiaMobileController() : base()
+                //{
 
-                }
+                //}
 
-                public DetalleEstrategiaMobileController(ISessionManager sesionManager) : base(sesionManager)
-                {
+                //public DetalleEstrategiaMobileController(ISessionManager sesionManager) : base(sesionManager)
+                //{
 
-                }
+                //}
 
-                public DetalleEstrategiaMobileController(ISessionManager sesionManager, ILogManager logManager) : base(sesionManager, logManager)
-                {
+                //public DetalleEstrategiaMobileController(ISessionManager sesionManager, ILogManager logManager) : base(sesionManager, logManager)
+                //{
 
-                }
+                //}
 
                 public DetalleEstrategiaMobileController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider)
                     : base(sesionManager, logManager, ofertaPersonalizadaProvider)
@@ -114,6 +114,15 @@ namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
             public override void Ficha_ConsultoraDoNotHavePalanca_RedirectsToOfertas(string nombrePalanca)
             {
                 base.Ficha_ConsultoraDoNotHavePalanca_RedirectsToOfertas(nombrePalanca);
+            }
+
+            [TestMethod]
+            [DataRow(Constantes.NombrePalanca.ShowRoom, Constantes.ConfiguracionPais.ShowRoom, DisplayName = "producto ShowRoom no existe en sesion")]
+            [DataRow(Constantes.NombrePalanca.OfertaDelDia, Constantes.ConfiguracionPais.OfertaDelDia, DisplayName = "producto OfertaDelDia no existe en sesion")]
+            [DataRow(Constantes.NombrePalanca.PackNuevas, (string)null, DisplayName = "producto PackNuevas no existe en sesion")]
+            public override void Ficha_ConsultoraNoTieneProductoEnSession_RedirectsToOfertas(string nombrePalanca, string configuracionPaisCodigo)
+            {
+                base.Ficha_ConsultoraNoTieneProductoEnSession_RedirectsToOfertas(nombrePalanca, configuracionPaisCodigo);
             }
         }
     }
