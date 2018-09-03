@@ -86,6 +86,14 @@ namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
             }
 
             [TestMethod]
+            [DataRow((string)null, DisplayName = "cuv es nulo")]
+            [DataRow("", DisplayName = "cuv es vacía")]
+            public override void Ficha_parameterCuvIsNotValid_RedirectsToOfertas(string cuv)
+            {
+                base.Ficha_parameterCuvIsNotValid_RedirectsToOfertas(cuv);
+            }
+
+            [TestMethod]
             [DataRow(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, DisplayName = "no tiene GuiaDeNegocioDigitalizada")]
             [DataRow(Constantes.NombrePalanca.HerramientasVenta, DisplayName = "no tiene HerramientasVenta")]
             [DataRow(Constantes.NombrePalanca.Incentivos, DisplayName = "no tiene Incentivos")]
