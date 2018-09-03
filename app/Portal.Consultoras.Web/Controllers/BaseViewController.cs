@@ -183,12 +183,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
                     return RedirectToAction("Index", "Ofertas",new { area = IsMobile() ? "Mobile" : "" });
 
-                palanca = IdentificarPalanca(palanca, campaniaId);
+                palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
 
                 if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
                     return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
-                DetalleEstrategiaFichaModel modelo;
+                DetalleEstrategiaFichaModel modelo= null;
                 if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
@@ -203,11 +203,8 @@ namespace Portal.Consultoras.Web.Controllers
                         modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
                     }
                 }
-                else
-                {
-                    modelo = new DetalleEstrategiaFichaModel();
-                }
 
+                modelo = modelo ?? new DetalleEstrategiaFichaModel();
                 modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
                 modelo.OrigenUrl = origen;
                 modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
@@ -459,32 +456,36 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        public string IdentificarPalanca(string palanca, int campaniaId)
+        public string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)
         {
-            var RevistaDigital = SessionManager.GetRevistaDigital();
             switch (palanca)
             {
                 case Constantes.NombrePalanca.OfertaParaTi:
-                    if (RevistaDigital.ActivoMdo)
+                    if (revistaDigital != null)
                     {
-                        palanca = Constantes.NombrePalanca.OfertasParaMi;
-                    }
-                    else
-                    {
-                        if (revistaDigital.TieneRDC || revistaDigital.TieneRDCR)
+                        if (revistaDigital.ActivoMdo)
                         {
-                            if (revistaDigital.EsActiva)
-                            {
-                                palanca = Constantes.NombrePalanca.OfertasParaMi;
-                            }
-                            else
-                            {
-                                palanca = campaniaId == userData.CampaniaID ? Constantes.NombrePalanca.OfertaParaTi : Constantes.NombrePalanca.OfertasParaMi;
-                            }
+                            palanca = Constantes.NombrePalanca.OfertasParaMi;
                         }
                         else
                         {
-                            palanca = Constantes.NombrePalanca.OfertaParaTi;
+                            if (revistaDigital.TieneRDC || revistaDigital.TieneRDCR)
+                            {
+                                if (revistaDigital.EsActiva)
+                                {
+                                    palanca = Constantes.NombrePalanca.OfertasParaMi;
+                                }
+                                else
+                                {
+                                    palanca = campaniaId == userData.CampaniaID
+                                        ? Constantes.NombrePalanca.OfertaParaTi
+                                        : Constantes.NombrePalanca.OfertasParaMi;
+                                }
+                            }
+                            else
+                            {
+                                palanca = Constantes.NombrePalanca.OfertaParaTi;
+                            }
                         }
                     }
                     break;
