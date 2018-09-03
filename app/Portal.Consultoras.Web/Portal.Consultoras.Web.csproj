@@ -307,6 +307,7 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
@@ -5280,6 +5281,7 @@
     <Content Include="Views\Shared\_PopupPrivacidadDatos.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerHeader.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
+    <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
     <Content Include="Views\ReporteContrato\Index.cshtml" />
     <Content Include="Views\DetalleEstrategia\SeleccionarTipos.cshtml" />
     <Content Include="Views\DetalleEstrategia\_ElegirOpciones.cshtml" />
