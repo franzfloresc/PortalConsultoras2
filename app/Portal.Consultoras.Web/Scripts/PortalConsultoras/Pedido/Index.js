@@ -1898,7 +1898,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
             CerrarSplash();
 
-            window.OfertaDelDia.CargarODDEscritorio();
+            OfertaDelDiaModule.CargarODDEscritorio();
             ProcesarActualizacionMostrarContenedorCupon();
 
             ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
