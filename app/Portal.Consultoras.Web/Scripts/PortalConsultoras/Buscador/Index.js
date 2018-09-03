@@ -67,7 +67,7 @@ $(document).ready(function () {
                 $('.enlace_busqueda_productos').delay(50);
                 $('.enlace_busqueda_productos').fadeIn(100);
             },
-            AccionesLimpiarBusquedaAccionesLimpiarBusqueda: function (campoBuscador, resultadoBuscador) {
+            AccionesLimpiarBusqueda: function (campoBuscador, resultadoBuscador) {
                 me.Funciones.CampoDeBusquedaSinCaracteres(campoBuscador);
                 $(campoBuscador).val('');
                 $(resultadoBuscador).html('');
