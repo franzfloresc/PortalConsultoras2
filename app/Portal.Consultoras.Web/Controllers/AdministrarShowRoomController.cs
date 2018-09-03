@@ -208,7 +208,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult GuardarShowRoom(ShowRoomEventoModel showRoomEventoModel)
+        public JsonResult GuardarShowRoom(ShowRoomEventoModel showRoomEventoModel, string TipoEstrategiaCodigo)
         {
             try
             {
@@ -218,9 +218,17 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     int idEventoNuevo;
                     beShowRoomEvento.UsuarioCreacion = userData.CodigoConsultora;
-                    using (var sv = new PedidoServiceClient())
+
+                    if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, TipoEstrategiaCodigo))
                     {
-                        idEventoNuevo = sv.InsertShowRoomEvento(userData.PaisID, beShowRoomEvento);
+                        idEventoNuevo = administrarEstrategiaProvider.GuardarShowRoom(showRoomEventoModel);
+                    }
+                    else
+                    {
+                        using (var sv = new PedidoServiceClient())
+                        {
+                            idEventoNuevo = sv.InsertShowRoomEvento(userData.PaisID, beShowRoomEvento);
+                        }
                     }
 
                     return Json(new
@@ -232,9 +240,17 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 beShowRoomEvento.UsuarioModificacion = userData.CodigoConsultora;
-                using (var sv = new PedidoServiceClient())
+
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, TipoEstrategiaCodigo))
                 {
-                    sv.UpdateShowRoomEvento(userData.PaisID, beShowRoomEvento);
+                    administrarEstrategiaProvider.UpdateShowRoomEvento(showRoomEventoModel);
+                }
+                else
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        sv.UpdateShowRoomEvento(userData.PaisID, beShowRoomEvento);
+                    }
                 }
 
                 return Json(new

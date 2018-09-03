@@ -2524,6 +2524,12 @@ namespace Portal.Consultoras.Common
 
             //api/Componente/descripcion/{pais}/{tipo}/{campania}?usuario={usuario}
             public const string UrlUploadFileProductStrategyShowroom = "api/Componente/descripcion/{0}/{1}/{2}?usuario={3}";
+
+            //api/Evento/registrar/{pais}
+            public const string UrlGuardarShowRoom = "api/Evento/registrar/{0}";
+
+            //api/Evento/editar/{pais}
+            public const string UrlUpdateShowRoomEvento = "api/Evento/editar/{0}";
             #endregion
 
             #region Oferta

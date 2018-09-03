@@ -1756,7 +1756,7 @@
     }
 
     var _showActionsEvento = function (cellvalue, options, rowObject) {
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject.Estado + "','" + rowObject.TieneCategoria + "','" + rowObject.TieneCompraXcompra + "','" + rowObject.TieneSubCampania + "', " + rowObject.TienePersonalizacion + ");\" >" + "<img src='" + _config.imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject.Estado + "','" + rowObject.TieneCategoria + "','" + rowObject.TieneCompraXcompra + "','" + rowObject.TieneSubCampania + "', " + rowObject.TienePersonalizacion + ",'" + rowObject._id + "');\" >" + "<img src='" + _config.imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
         var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject._id + "');\" >" + "<img src='" + _config.imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
         var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject._id + "');\" >" + "<img src='" + _config.imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
 
@@ -1768,6 +1768,7 @@
         if (rowObject.Estado == "1")
             resultado += remove;
 
+        $("#hd_id").val(rowObject._id);
         $("#hdEventoID").val(options.rowId);
         //Carga de Consultoras
         $("#hdCargaEventoID").val(options.rowId);
@@ -1910,6 +1911,7 @@
     }
 
     var _guardarShowRoomEvento = function () {
+        var _ID = $("#hd_id").val();
         var eventoID = $("#hdEventoID").val();
         var campaniaID = $("#txtEventoCampaniaID").val();
         var nombre = $("#txtEventoNombre").val();
@@ -1924,6 +1926,7 @@
         var tienePersonalizacion = true;
 
         var showRoom = {
+            _id: _ID,
             EventoID: eventoID == "" || eventoID == undefined ? 0 : eventoID,
             CampaniaID: campaniaID,
             Nombre: nombre,
@@ -1935,7 +1938,8 @@
             TieneCategoria: tieneCategoria,
             TieneCompraXcompra: tieneCompraXcompra,
             TieneSubCampania: tieneSubCampania,
-            TienePersonalizacion: tienePersonalizacion
+            TienePersonalizacion: tienePersonalizacion,
+            tipoEstrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
         };
 
         waitingDialog({ title: "Procesando" });
