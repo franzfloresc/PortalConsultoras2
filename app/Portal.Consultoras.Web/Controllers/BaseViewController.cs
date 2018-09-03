@@ -461,30 +461,34 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string IdentificarPalanca(string palanca, int campaniaId)
         {
-            var RevistaDigital = SessionManager.GetRevistaDigital();
             switch (palanca)
             {
                 case Constantes.NombrePalanca.OfertaParaTi:
-                    if (RevistaDigital.ActivoMdo)
+                    if (revistaDigital != null)
                     {
-                        palanca = Constantes.NombrePalanca.OfertasParaMi;
-                    }
-                    else
-                    {
-                        if (revistaDigital.TieneRDC || revistaDigital.TieneRDCR)
+                        if (revistaDigital.ActivoMdo)
                         {
-                            if (revistaDigital.EsActiva)
-                            {
-                                palanca = Constantes.NombrePalanca.OfertasParaMi;
-                            }
-                            else
-                            {
-                                palanca = campaniaId == userData.CampaniaID ? Constantes.NombrePalanca.OfertaParaTi : Constantes.NombrePalanca.OfertasParaMi;
-                            }
+                            palanca = Constantes.NombrePalanca.OfertasParaMi;
                         }
                         else
                         {
-                            palanca = Constantes.NombrePalanca.OfertaParaTi;
+                            if (revistaDigital.TieneRDC || revistaDigital.TieneRDCR)
+                            {
+                                if (revistaDigital.EsActiva)
+                                {
+                                    palanca = Constantes.NombrePalanca.OfertasParaMi;
+                                }
+                                else
+                                {
+                                    palanca = campaniaId == userData.CampaniaID
+                                        ? Constantes.NombrePalanca.OfertaParaTi
+                                        : Constantes.NombrePalanca.OfertasParaMi;
+                                }
+                            }
+                            else
+                            {
+                                palanca = Constantes.NombrePalanca.OfertaParaTi;
+                            }
                         }
                     }
                     break;

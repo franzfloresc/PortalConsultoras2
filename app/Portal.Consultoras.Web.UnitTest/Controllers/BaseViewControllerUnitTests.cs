@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 VerifyDoNotCallLogManager();
             }
 
-            public virtual void Ficha_ConsultoraDoNotHaveGuiaDeNegocioDigitalizada_RedirectsToOfertas(string nombrePalanca)
+            public virtual void Ficha_ConsultoraDoNotHavePalanca_RedirectsToOfertas(string nombrePalanca)
             {
                 // Arrange
                 var cuv = "33395";
