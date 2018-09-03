@@ -1,10 +1,11 @@
-﻿use belcorpColombia
-go
+﻿if exists(select 1 from Permiso where Descripcion = 'Reporte de Contrato')
+begin
 
-DELETE FROM Permiso
-WHERE PermisoID=1070
+	declare @PermisoID int = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Reporte de Contrato'
 
-DELETE FROM RolPermiso
-WHERE RolID=3 AND PermisoID=1070
-  
+	delete from RolPermiso where PermisoID = @PermisoID
+	delete from Permiso where PermisoID = @PermisoID
+
+end
 GO
