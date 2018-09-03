@@ -33,6 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private string pasoLog;
         private int misCursos = 0;
+        private int flagMiAcademiaVideo = 0;  //  PPC
         private readonly string IP_DEFECTO = "190.187.154.154";
         private readonly string ISO_DEFECTO = Constantes.CodigosISOPais.Peru;
         private readonly int USUARIO_VALIDO = 3;
@@ -72,6 +73,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (misCursos > 0)
                 {
                     sessionManager.SetMiAcademia(misCursos);
+                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  //PPC
                     return RedirectToAction("Index", "MiAcademia");
                 }
 
@@ -149,17 +151,32 @@ namespace Portal.Consultoras.Web.Controllers
         private void MisCursos()
         {
             TempData["MiAcademia"] = 0;
+            TempData["FlagAcademiaVideo"] = 0;
             var url = (Request.Url.OriginalString).Split('?');
             if (url.Length > 1)
             {
                 var MiCurso = url[1].Split('=');
                 var MiId = MiCurso[1].Split('&');
-               // if (Util.IsNumeric(MiCurso[1]))
-                 if (Util.IsNumeric(MiId[0]))
+                TempData["FlagAcademiaVideo"] = 1;
+                // if (Util.IsNumeric(MiCurso[1]))
+                if (Util.IsNumeric(MiId[0]))
                    {
                     // misCursos = Convert.ToInt32(MiCurso[1]);
                     misCursos = Convert.ToInt32(MiId[0]);
                     TempData["MiAcademia"] = misCursos;
+                    // PPC
+                    if (MiCurso[0].ToUpper() == "MIACADEMIAVIDEO")
+                    {
+                        flagMiAcademiaVideo = 1;
+                    }
+                    // PPC
+                    else
+                    {
+                        TempData["FlagAcademiaVideo"] = 0;
+                        flagMiAcademiaVideo = 0;
+                    }
+                    
+
                 }
             }
         }
@@ -765,7 +782,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.ShowRoom:
                         return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
-                        return RedirectToUniqueRoute("ProductosAgotados", "Index", null);
+                        return RedirectToUniqueRoute("ProductosAgotados", "Index", null);                    
                     case Constantes.IngresoExternoPagina.Ofertas:
                         return RedirectToUniqueRoute("Ofertas", "Index", null);
                     case Constantes.IngresoExternoPagina.GuiaNegocio:
@@ -778,6 +795,14 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("MisReclamos", "Index", null);
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
+                    case Constantes.IngresoExternoPagina.DetalleEstrategia:
+                        return RedirectToUniqueRoute("DetalleEstrategia", "Ficha", new
+                        {
+                            palanca = model.NombrePalanca,
+                            campaniaId = model.Campania,
+                            cuv = model.CUV,
+                            origen = Constantes.IngresoExternoOrigen.App
+                        });
                 }
             }
             catch (Exception ex)
@@ -2754,19 +2779,17 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 TempData["PaisID"] = paisID;
-                bool EstadoEnvio = false;
                 oUsu.EsMobile = EsDispositivoMovil();
 
                 using (var svc = new UsuarioServiceClient())
                 {
-                    EstadoEnvio = svc.ProcesaEnvioSms(paisID, oUsu, cantidadEnvios);
+                    BERespuestaSMS EstadoEnvio = svc.ProcesaEnvioSms(paisID, oUsu, cantidadEnvios);
+                    return Json(new
+                    {
+                        success = EstadoEnvio.resultado,
+                        menssage = EstadoEnvio.mensaje
+                    }, JsonRequestBehavior.AllowGet);
                 }
-
-                return Json(new
-                {
-                    success = EstadoEnvio,
-                    menssage = ""
-                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
@@ -2774,7 +2797,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas taarde"
+                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas tarde"
                 }, JsonRequestBehavior.AllowGet);
             }
         }

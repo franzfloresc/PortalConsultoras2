@@ -548,6 +548,30 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEventoFestivo" nillable="true" type="tns:BEEventoFestivo" />
+  <xs:complexType name="BEBelcorpResponde">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Chat" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChatURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CorreoBcc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Escribenos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EscribenosURL" nillable="true" type="xs:string" />
+      <xs:element name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="ParametroCodigoConsultora" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ParametroPais" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Telefono1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telefono2" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEBelcorpResponde" nillable="true" type="tns:BEBelcorpResponde" />
+  <xs:complexType name="BERespuestaSMS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="resultado" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BERespuestaSMS" nillable="true" type="tns:BERespuestaSMS" />
   <xs:complexType name="ArrayOfBEBuscadorYFiltros">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEBuscadorYFiltros" nillable="true" type="tns:BEBuscadorYFiltros" />

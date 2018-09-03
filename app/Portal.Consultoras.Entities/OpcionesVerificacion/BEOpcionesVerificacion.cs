@@ -116,6 +116,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         public string DescripcionHorario { get; set; }
         [DataMember]
         public bool OpcionChat { get; set; }
+        [DataMember]
+        public BEBelcorpResponde BelcorpResponde { get; set; }
 
         public BEUsuarioDatos()
         { }

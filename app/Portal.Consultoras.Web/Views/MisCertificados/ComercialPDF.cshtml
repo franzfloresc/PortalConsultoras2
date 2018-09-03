@@ -57,9 +57,9 @@
         @if (Model.Pais == "Peru")
         {
             <span style="font-family:Arial"> identificada con documento de identidad número </span>
-            <span style="font-family:Arial;">@Model.NumeroDocumento.Trim()</span><span style="font-family:Arial">, es consultora de esta Compañía desde el día </span>
+            <span style="font-family:Arial;">@Model.NumeroDocumento.Trim()</span><span style="font-family:Arial">, es compradora de esta Compañía desde el día </span>
             <span style="font-family:Arial;">@Model.FechaIngresoConsultora</span>
-            <span style="font-family:Arial"> y a la fecha cuenta con un promedio de ventas de nuestros productos igual a @Model.Moneda </span><span style="font-family:Arial;">@Model.PromedioVentasFormato</span><span style="font-family:Arial">, durante las últimas @Model.CantidadConsecutivaNueva campañas.</span>
+            <span style="font-family:Arial"> y a la fecha cuenta con un promedio de compra de nuestros productos igual a @Model.Moneda </span><span style="font-family:Arial;">@Model.PromedioVentasFormato</span><span style="font-family:Arial">, durante las últimas @Model.CantidadConsecutivaNueva campañas.</span>
         }
         else
         {

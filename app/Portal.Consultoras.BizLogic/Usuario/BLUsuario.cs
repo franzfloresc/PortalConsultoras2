@@ -37,6 +37,7 @@ namespace Portal.Consultoras.BizLogic
         private readonly IResumenCampaniaBusinessLogic _resumenCampaniaBusinessLogic;
         private readonly IConsultoraLiderBusinessLogic _consultoraLiderBusinessLogic;
         private readonly IConsultorasProgramaNuevasBusinessLogic _consultorasProgramaNuevasBusinessLogic;
+        private readonly IBelcorpRespondeBusinessLogic _belcorpRespondeBusinessLogic;
 
         public BLUsuario() : this(new BLTablaLogicaDatos(),
                                     new BLConsultoraConcurso(),
@@ -47,7 +48,8 @@ namespace Portal.Consultoras.BizLogic
                                     new BLPedidoRechazado(),
                                     new BLResumenCampania(),
                                     new BLConsultoraLider(),
-                                    new BLConsultorasProgramaNuevas())
+                                    new BLConsultorasProgramaNuevas(),
+                                    new BLBelcorpResponde())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
@@ -59,7 +61,8 @@ namespace Portal.Consultoras.BizLogic
                         IPedidoRechazadoBusinessLogic pedidoRechazadoBusinessLogic,
                         IResumenCampaniaBusinessLogic resumenCampaniaBusinessLogic,
                         IConsultoraLiderBusinessLogic consultoraLiderBusinessLogic,
-                        IConsultorasProgramaNuevasBusinessLogic consultorasProgramaNuevasBusinessLogic)
+                        IConsultorasProgramaNuevasBusinessLogic consultorasProgramaNuevasBusinessLogic,
+                        IBelcorpRespondeBusinessLogic belcorpRespondeBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
@@ -71,6 +74,7 @@ namespace Portal.Consultoras.BizLogic
             _resumenCampaniaBusinessLogic = resumenCampaniaBusinessLogic;
             _consultoraLiderBusinessLogic = consultoraLiderBusinessLogic;
             _consultorasProgramaNuevasBusinessLogic = consultorasProgramaNuevasBusinessLogic;
+            _belcorpRespondeBusinessLogic = belcorpRespondeBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -2730,64 +2734,83 @@ namespace Portal.Consultoras.BizLogic
             return CacheManager<BEEnviarSms>.ValidateDataElement(paisID, ECacheItem.CredencialesSMS, paisID.ToString(), () => GetCredencialesSms(paisID));
         }
 
-        public bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios, string tipoMensaje = "")
+        public BERespuestaSMS ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios, string tipoMensaje = "")
         {
-            if (oUsu.Celular == "") return false;
-            try
+            BERespuestaSMS res = new BERespuestaSMS();
+
+            if (oUsu.Celular == "")
             {
-                BEEnviarSms oCredencial = GetCredencialesSmsCache(paisID);
-                string codGenerado = Common.Util.GenerarCodigoRandom();
-                oCredencial.Mensaje = string.Format(
-                    tipoMensaje == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE_OPTIN
-                        ? oCredencial.MensajeOptin
-                        : oCredencial.Mensaje,
-                    codGenerado);
-
-                var data = new
+                res.resultado = false;
+                res.mensaje = Constantes.MensajesError.ValorVacio;
+            }
+            else
+            { 
+                try
                 {
-                    OrigenID = oUsu.OrigenID,
-                    CodigoUsuario = oUsu.CodigoUsuario,
-                    CodigoConsultora = oUsu.CodigoConsultora,
-                    OrigenDescripcion = oUsu.OrigenDescripcion,
-                    UsuarioSms = oCredencial.UsuarioSms,
-                    ClaveSms = oCredencial.ClaveSms,
-                    CampaniaID = oUsu.campaniaID,
-                    NroCelular = oUsu.Celular,
-                    Mensaje = oCredencial.Mensaje,
-                    CodigoIso = oUsu.CodigoIso,
-                    EsMobile = oUsu.EsMobile,
-                    RequestUrl = oCredencial.RequestUrl,
-                    RecursoApi = oCredencial.RecursoApi
-                };
+                    BEEnviarSms oCredencial = GetCredencialesSmsCache(paisID);
+                    string codGenerado = Common.Util.GenerarCodigoRandom();
+                    oCredencial.Mensaje = string.Format(
+                        tipoMensaje == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE_OPTIN
+                            ? oCredencial.MensajeOptin
+                            : oCredencial.Mensaje,
+                        codGenerado);
 
-                string requestUrl = ConfigurationManager.AppSettings.Get(Constantes.EnviarSMS.SmsConsultoraWs.urlKey);
-                string urlApiSms = Constantes.EnviarSMS.SmsConsultoraWs.RecursoApi;
-                var result = new BERespuestaSMS();
+                    var data = new
+                    {
+                        OrigenID = oUsu.OrigenID,
+                        CodigoUsuario = oUsu.CodigoUsuario,
+                        CodigoConsultora = oUsu.CodigoConsultora,
+                        OrigenDescripcion = oUsu.OrigenDescripcion,
+                        UsuarioSms = oCredencial.UsuarioSms,
+                        ClaveSms = oCredencial.ClaveSms,
+                        CampaniaID = oUsu.campaniaID,
+                        NroCelular = oUsu.Celular,
+                        Mensaje = oCredencial.Mensaje,
+                        CodigoIso = oUsu.CodigoIso,
+                        EsMobile = oUsu.EsMobile,
+                        RequestUrl = oCredencial.RequestUrl,
+                        RecursoApi = oCredencial.RecursoApi
+                    };
 
-                HttpClient httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri(requestUrl);
+                    string requestUrl = ConfigurationManager.AppSettings.Get(Constantes.EnviarSMS.SmsConsultoraWs.urlKey);
+                    string urlApiSms = Constantes.EnviarSMS.SmsConsultoraWs.RecursoApi;
+                    var result = new BERespuestaSMS();
 
-                string secretKey = ConfigurationManager.AppSettings.Get("JsonWebTokenSecretKey");
-                var token = JsonWebToken.Encode(data, secretKey, JwtHashAlgorithm.HS512);
+                    HttpClient httpClient = new HttpClient();
+                    httpClient.BaseAddress = new Uri(requestUrl);
 
-                HttpResponseMessage response = httpClient.PostAsync(urlApiSms + "?id=" + token, null).GetAwaiter().GetResult();
-                if (response.IsSuccessStatusCode)
-                {
-                    string jsonString = response.Content.ReadAsStringAsync().Result;
-                    result = JsonConvert.DeserializeObject<BERespuestaSMS>(jsonString);
+                    string secretKey = ConfigurationManager.AppSettings.Get("JsonWebTokenSecretKey");
+                    var token = JsonWebToken.Encode(data, secretKey, JwtHashAlgorithm.HS512);
+
+                    HttpResponseMessage response = httpClient.PostAsync(urlApiSms + "?id=" + token, null).GetAwaiter().GetResult();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = response.Content.ReadAsStringAsync().Result;
+                        result = JsonConvert.DeserializeObject<BERespuestaSMS>(jsonString);
+                    }
+                    httpClient.Dispose();
+
+                    if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                    InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorSms, codGenerado);
+
+                    if (result.codigo == "OK")
+                    {
+                        res.resultado = true;
+                    }
+                    else
+                    {
+                        res.resultado = false;
+                        res.mensaje = result.mensaje;
+                    }
                 }
-                httpClient.Dispose();
-
-                if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
-                InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorSms, codGenerado);
-                if (result.codigo == "OK") return true;
-                return false;
+                catch (Exception ex)
+                {
+                    res.resultado = false;
+                    res.mensaje = ex.Message;
+                    LogManager.SaveLog(ex, oUsu.CodigoUsuario, paisID);
+                }
             }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, oUsu.CodigoUsuario, paisID);
-                return false;
-            }
+            return res;
         }
 
         private void InsCodigoGenerado(BEUsuarioDatos oUsu, int paisID, string TipoEnvio, string CodigoGenerado = "")
@@ -2872,6 +2895,7 @@ namespace Portal.Consultoras.BizLogic
                 if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
                 oUsu.OpcionChat = opcion.OpcionChat;
                 oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
+                oUsu.BelcorpResponde = _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault();
                 oUsu.OrigenID = opcion.OrigenID;
                 oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
                 oUsu.CodigoUsuario = CodigoUsuario;

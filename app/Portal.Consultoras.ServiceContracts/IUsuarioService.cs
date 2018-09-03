@@ -376,7 +376,7 @@ namespace Portal.Consultoras.ServiceContracts
         bool ProcesaEnvioEmail(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
 
         [OperationContract]
-        bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
+        BERespuestaSMS ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
 
         [OperationContract]
         bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado);
