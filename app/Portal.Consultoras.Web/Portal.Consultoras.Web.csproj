@@ -1366,10 +1366,8 @@
     <Content Include="Content\Css\Site\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Site\Ficha\Esika\FichaEsika.css" />
     <Content Include="Content\Css\Site\Ficha\Lbel\FichaLbel.css" />
-    <Content Include="Content\Css\Site\Ficha\PopoverTooltip.css" />
     <Content Include="Content\Css\Site\Ficha\RedesSociales.css" />
     <Content Include="Content\Css\Site\Ficha\Ficha.css" />
-    <Content Include="Content\Css\Site\Ficha\SeleccionarTipo.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.css" />
@@ -1386,7 +1384,6 @@
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
-    <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
     <Content Include="Content\Css\Site\MailConfirmacion\style.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
