@@ -1875,6 +1875,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
             console.log('DeletePedido - Ajax - success ', data);
             CerrarSplash();
+            CerrarAvisoEliminarRegalo();
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
                 messageInfoError(data.message);
@@ -1918,7 +1919,6 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
             ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
 
-            CerrarAvisoEliminarRegalo();
         },
         error: function (data, error) {
 
