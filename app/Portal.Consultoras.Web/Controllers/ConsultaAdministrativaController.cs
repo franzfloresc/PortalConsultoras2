@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                var listSegmentos = sv.GetTablaLogicaDatos(UserData().PaisID, 20).ToList();
+                var listSegmentos = sv.GetTablaLogicaDatos(userData.PaisID, 20).ToList();
                 segmentoNueva = Convert.ToInt32((from item in listSegmentos where item.TablaLogicaDatosID == 2001 select item.Codigo).First());
             }
 
@@ -154,7 +154,7 @@ namespace Portal.Consultoras.Web.Controllers
             int cantidadEnvios;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                cantidadEnvios = sv.ValidarEnvioCatalogo(paisId, codigoConsultora, UserData().CampaniaID, cantidadValidacion);
+                cantidadEnvios = sv.ValidarEnvioCatalogo(paisId, codigoConsultora, userData.CampaniaID, cantidadValidacion);
             }
 
             return cantidadEnvios >= cantidadValidacion ? 1 : 0;

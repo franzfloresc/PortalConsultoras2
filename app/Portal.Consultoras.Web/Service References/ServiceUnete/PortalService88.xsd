@@ -809,8 +809,11 @@
         <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="MostrarPaso1y2SE" type="xs:int" />
         <xs:element minOccurs="0" name="PaginaActual" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PDigital" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="PTradicional" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="MostrarPaso1y2SE" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -988,11 +991,28 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="EnviarSmsFelicitacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="solicitudPostulanteID" type="xs:int" />
+        <xs:element minOccurs="0" name="celular" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarSmsFelicitacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="EnviarSmsFelicitacionResult" nillable="true" type="q79:CodigoVerificacionSolicitudPostulanteBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ValidarCodigoVerificacionSolicitudPostulante">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="model" nillable="true" type="q79:CodigoVerificacionSolicitudPostulanteBE" />
+        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="model" nillable="true" type="q80:CodigoVerificacionSolicitudPostulanteBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1028,7 +1048,22 @@
   <xs:element name="GetZonasNoDigitalesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="GetZonasNoDigitalesResult" nillable="true" type="q80:StringCollection" />
+        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="GetZonasNoDigitalesResult" nillable="true" type="q81:StringCollection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarEnvioCorreoSmsSolicitudPostulante">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
+        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="model" nillable="true" type="q82:RegistroEnvioCorreoSmsSolicitudPostulanteBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarEnvioCorreoSmsSolicitudPostulanteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GuardarEnvioCorreoSmsSolicitudPostulanteResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> DescargarPedidos()
         {
             var descargarPedidoModel = new DescargarPedidoModel();
-            var usuario = UserData() ?? new UsuarioModel();
+            var usuario = userData ?? new UsuarioModel();
 
             try
             {
@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var fechaproceso = model.FechaFacturacion.ToString("yyyyMMdd");
                     using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
                     {
-                        sv.GetInformacionCursoLiderDescarga(UserData().PaisID, UserData().CodigoISO, fechaproceso, UserData().CodigoUsuario);
+                        sv.GetInformacionCursoLiderDescarga(userData.PaisID, userData.CodigoISO, fechaproceso, userData.CodigoUsuario);
                     }
                     return SuccessJson("El proceso de generación de lideres ha finalizado satisfactoriamente.");
                 }
@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson(ex.Message);
             }
         }
@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (contadorCarga == 0)
                     {
-                        string usuario = UserData().NombreConsultora;
+                        string usuario = userData.NombreConsultora;
                         file = pedidoService.DescargaPedidosDD(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID, false, usuario);
                     }
                     else
@@ -169,7 +169,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
 
                 return Json(new
                 {
@@ -204,7 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var pedidoService = new PedidoServiceClient())
                 {
-                    string usuario = UserData().NombreConsultora;
+                    string usuario = userData.NombreConsultora;
                     file = pedidoService.DescargaPedidosFIC(model.PaisID, model.FechaFacturacion, 4, usuario);
 
                 }
@@ -231,7 +231,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -283,7 +283,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> ObtenerUltimaDescargaPedido()
         {
-            var usuario = UserData() ?? new UsuarioModel();
+            var usuario = userData ?? new UsuarioModel();
 
             try
             {
@@ -361,7 +361,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> DescargarArchivoCliente(int nroLote)
         {
-            var usuario = UserData() ?? new UsuarioModel();
+            var usuario = userData ?? new UsuarioModel();
 
             try
             {

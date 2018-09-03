@@ -14,7 +14,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Index()
         {
             var model = new PedidoWebClientePrincipalMobilModel();
-            var userData = UserData();
 
             model.PaisID = userData.PaisID;
             model.Simbolo = userData.Simbolo;
@@ -76,7 +75,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public PartialViewResult Detalle(int campaniaID, int pedidoId)
         {
-            var userData = UserData();
+            
             var model = new PedidoWebMobilModel();
             try
             {
