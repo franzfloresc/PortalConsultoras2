@@ -182,7 +182,7 @@
                 if (updated) localStorage.setItem(nombreKeyLocalStorage, JSON.stringify(data));
             }
 
-            if (filtroCampania !== undefined) {
+            if (typeof filtroCampania !== "undefined") {
                 var nombreKeyJs = nombreKey + (indCampania || 0);
                 var listaPalanca = filtroCampania[nombreKeyJs];
                 if (listaPalanca != undefined) {
@@ -291,7 +291,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
 }
 
 function ActualizaCuvAgregado(cuv, valor, lista, indCampania) {
-    if (filtroCampania !== undefined) {
+    if (typeof filtroCampania !== "undefined") {
         var listaPalanca = filtroCampania[lista + indCampania];
         if (listaPalanca !== undefined) {
             $.each(listaPalanca.response.lista, function (index, item) {
