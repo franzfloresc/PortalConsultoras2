@@ -22,8 +22,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 string pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
                             buscadorModel.userData.CodigoISO,
-                            //buscadorModel.userData.CampaniaID,
-                            "201811",
+                            buscadorModel.userData.CampaniaID,
                             buscadorModel.userData.CodigoConsultora,
                             buscadorModel.userData.CodigoZona,
                             buscadorModel.TextoBusqueda,

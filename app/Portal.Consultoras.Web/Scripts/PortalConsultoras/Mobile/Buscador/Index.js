@@ -32,6 +32,7 @@ $(document).ready(function () {
         },
             me.Eventos = {
                 AccionesCampoBusquedaMobileAlDigitar: function () {
+                    $('#ResultadoBuscadorMobile').html('');
                     var cantidadCaracteresParaMostrarSugerenciasBusquedaMobile = $(this).val().length;
                     if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile >= CaracteresBuscador) {
                         me.Funciones.CampoDeBusquedaMobileConCaracteres();
@@ -65,7 +66,6 @@ $(document).ready(function () {
                                 $('#ResultadoBuscadorMobile').fadeOut(150);
                                 me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
                             } else {
-                                $('#ResultadoBuscadorMobile').html('');
                                 SetHandlebars('#js-ResultadoBuscadorMobile', lista, '#ResultadoBuscadorMobile');
                             }
 

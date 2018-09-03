@@ -67,7 +67,7 @@ $(document).ready(function () {
                 $('.enlace_busqueda_productos').delay(50);
                 $('.enlace_busqueda_productos').fadeIn(100);
             },
-            AccionesLimpiarBusqueda: function (campoBuscador, resultadoBuscador) {
+            AccionesLimpiarBusquedaAccionesLimpiarBusqueda: function (campoBuscador, resultadoBuscador) {
                 me.Funciones.CampoDeBusquedaSinCaracteres(campoBuscador);
                 $(campoBuscador).val('');
                 $(resultadoBuscador).html('');
@@ -75,6 +75,7 @@ $(document).ready(function () {
         },
             me.Eventos = {
                 AccionesCampoBusquedaAlDigitar: function (event) {
+                    $('#ResultadoBuscador').html('');
                     var cantidadCaracteresParaMostrarSugerenciasBusqueda = $(this).val().length;
 
                     if (event.which == 27) {
@@ -116,9 +117,8 @@ $(document).ready(function () {
                             if (lista.length <= 0) {
                                 //me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
                                 //$('#ResultadoBuscador').fadeOut(150);
+                                $('#ResultadoBuscador').html('No hay registros...');
                             } else {
-                                $('#ResultadoBuscador').html('');
-
                                 SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscador');
                             }
 
@@ -314,8 +314,8 @@ $(document).ready(function () {
                     var codigoCuv = $(divPadre).find('.hdBuscadorCUV').val();
                     var OrigenPedidoWeb = $(divPadre).find('.hdBuscadorOrigenPedidoWeb').val();
 
-                    var codigo = ['030','005','001','007','008','009','010','011'];
-                    
+                    var codigo = ['030', '005', '001', '007', '008', '009', '010', '011'];
+
                     if (codigo.indexOf(codigoEstrategia) >= 0) {
                         var UrlDetalle = GetPalanca(codigoEstrategia);
                         if (UrlDetalle == "") return false;
@@ -323,7 +323,7 @@ $(document).ready(function () {
                         //console.log(UrlDetalle);
                         window.location = UrlDetalle;
                         return true;
-                    }                    
+                    }
                 }
             },
             me.Inicializar = function () {
