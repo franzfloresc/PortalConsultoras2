@@ -15,9 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
     public class BaseViewController : BaseController
     {
         private readonly IssuuProvider _issuuProvider;
-        private ISessionManager object1;
-        private ILogManager object2;
-        private OfertaPersonalizadaProvider object3;
 
         public BaseViewController() : base()
         {
