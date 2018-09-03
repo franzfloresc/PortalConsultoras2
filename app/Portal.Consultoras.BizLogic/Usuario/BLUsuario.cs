@@ -230,16 +230,19 @@ namespace Portal.Consultoras.BizLogic
                     }
                     if (validacionDato == null || validacionDato.DatoNuevo != email)
                     {
-                        return new BERespuestaActivarEmail { Message = Constantes.MensajesError.ActivacionCorreo_NoExiste };
+                        return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_NO_EXISTE);
                     }
                     if (validacionDato.Estado == Constantes.ValidacionDatosEstado.Activo)
                     {
-                        return new BERespuestaActivarEmail { Message = Constantes.MensajesError.ActivacionCorreo_EstaActivo };
+                        return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_YA_ACTIVADA);
                     }
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
                     if (!usuario.EMail.Contains(email))
                     {
-                        if (daUsuario.ExistsUsuarioEmail(email)) return new BERespuestaActivarEmail { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+                        if (daUsuario.ExistsUsuarioEmail(email))
+                        {
+                            return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_DUPLICADO, belcorpResponde: _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault());
+                        }
                     }
                     daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, usuario.CampaniaID);
                     validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
@@ -253,7 +256,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, codigoUsuario, string.Empty);
-                return new BERespuestaActivarEmail { Message = Constantes.MensajesError.ActivacionCorreo };
+                return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION);
             }
             return new BERespuestaActivarEmail { Succcess = true, Usuario = usuario };
         }
@@ -3344,6 +3347,22 @@ namespace Portal.Consultoras.BizLogic
                 Code = code,
                 Message = string.Format(message, args),
                 Succcess = code == Constantes.ActualizacionDatosValidacion.Code.SUCCESS
+            };
+        }
+
+        private BERespuestaActivarEmail ActivacionEmailRespuesta(string code, string message = null, BEBelcorpResponde belcorpResponde = null, params object[] args) {
+            if (string.IsNullOrEmpty(message))
+            {
+                message = Constantes.ActualizacionDatosValidacion.Message.ContainsKey(code) ?
+                                    Constantes.ActualizacionDatosValidacion.Message[code] : message;
+            }
+
+            return new BERespuestaActivarEmail()
+            {
+                Code = code,
+                Message = string.Format(message, args),
+                Succcess = code == Constantes.ActualizacionDatosValidacion.Code.SUCCESS,
+                BelcorpResponde = belcorpResponde
             };
         }
         #endregion
