@@ -1549,14 +1549,6 @@
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
-    <Content Include="Content\Images\mobile\Esika\1f44d.png" />
-    <Content Include="Content\Images\mobile\Esika\1f615.png" />
-    <Content Include="Content\Images\mobile\Esika\click-ico.svg" />
-    <Content Include="Content\Images\mobile\Esika\close-button-white.svg" />
-    <Content Include="Content\Images\mobile\Esika\close-button.svg" />
-    <Content Include="Content\Images\mobile\Esika\emoji-alert.png" />
-    <Content Include="Content\Images\mobile\Esika\icono-alerta.svg" />
-    <Content Include="Content\Images\mobile\Esika\left-arrow.svg" />
     <Content Include="Content\Images\mobile\icono_editar_foto_perfil.svg" />
     <Content Include="Content\Images\icono_eliminar.svg" />
     <Content Include="Content\Images\Esika\icono_envelope.svg" />
@@ -3827,11 +3819,6 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaModule.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ListaOpcionesModule.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ComponentesModule.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ResumenOpcionesModule.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\OpcionesSeleccionadasModule.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\TituloOpcionesSeleccionadasModule.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregar.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregarProvider.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
