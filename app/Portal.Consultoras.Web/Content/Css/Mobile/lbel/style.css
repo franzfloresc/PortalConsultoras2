@@ -10818,7 +10818,9 @@ span.icon-advertencia {
     z-index: 5;
 }
 
-.content_pop_oferta_mobile {
+/*
+    DEUDA TECNICA
+    .content_pop_oferta_mobile {
     width: 100%;
     height: 100%;
     padding-bottom: 45px;
@@ -10826,7 +10828,7 @@ span.icon-advertencia {
     background: white;
     color: black;
     overflow-x: auto;
-}
+}*/
 
 .header_pop_oferta {
     width: 100%;
