@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarIncentivos/Index"))
                     return RedirectToAction("Index", "Bienvenida");
 
-                IEnumerable<CampaniaModel> lstCampania = DropDowListCampanias(UserData().PaisID);
+                IEnumerable<CampaniaModel> lstCampania = DropDowListCampanias(userData.PaisID);
                 var administrarIncentivosModel = new AdministrarIncentivosModel()
                 {
                     listaPaises = DropDowListPaises(),
@@ -33,11 +33,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View(new AdministrarIncentivosModel());
         }
@@ -47,9 +47,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectIncentivos(vpaisID, vCampaniaID).ToList();
                 }
 
-                var carpetaPais = Globals.UrlIncentivos + "/" + UserData().CodigoISO;
+                var carpetaPais = Globals.UrlIncentivos + "/" + userData.CodigoISO;
                 if (lst.Count > 0) { lst.Update(x => x.ArchivoPortada = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoPortada)); }
 
                 BEGrid grid = new BEGrid
@@ -229,7 +229,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var finalPath = Path.Combine(pathBanner, fileName);
                     flArchivoPDF.SaveAs(finalPath);
 
-                    var carpetaPais = Globals.UrlFileConsultoras + "/" + UserData().CodigoISO;
+                    var carpetaPais = Globals.UrlFileConsultoras + "/" + userData.CodigoISO;
                     ConfigS3.SetFileS3(finalPath, carpetaPais, fileName);
 
                     entidad.ArchivoPDF = fileName;
@@ -251,7 +251,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var newfilename = iso + "_" + model.CampaniaIDInicio.ToString() + "_" + model.CampaniaIDFin.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
 
                         var path = Path.Combine(Globals.RutaTemporales, tempImage01);
-                        var carpetaPais = Globals.UrlIncentivos + "/" + UserData().CodigoISO;
+                        var carpetaPais = Globals.UrlIncentivos + "/" + userData.CodigoISO;
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                         entidad.ArchivoPortada = newfilename;
                     }
@@ -269,7 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -279,7 +279,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -312,7 +312,7 @@ namespace Portal.Consultoras.Web.Controllers
                             var finalPath = Path.Combine(pathBanner, fileName);
                             flArchivoPDF.SaveAs(finalPath);
 
-                            var carpetaPais = Globals.UrlFileConsultoras + "/" + UserData().CodigoISO;
+                            var carpetaPais = Globals.UrlFileConsultoras + "/" + userData.CodigoISO;
                             ConfigS3.SetFileS3(finalPath, carpetaPais, fileName);
 
                             entidad.ArchivoPDF = fileName;
@@ -334,7 +334,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var newfilename = iso + "_" + model.CampaniaIDInicio.ToString() + "_" + model.CampaniaIDFin.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
 
                         var path = Path.Combine(Globals.RutaTemporales, tempImage01);
-                        var carpetaPais = Globals.UrlIncentivos + "/" + UserData().CodigoISO;
+                        var carpetaPais = Globals.UrlIncentivos + "/" + userData.CodigoISO;
 
                         ConfigS3.DeleteFileS3(carpetaPais, tempImagenLogoAnterior01);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
@@ -354,7 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -364,7 +364,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -380,7 +380,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    sv.DeleteIncentivo(UserData().PaisID, IncentivoID);
+                    sv.DeleteIncentivo(userData.PaisID, IncentivoID);
                 }
                 return Json(new
                 {
@@ -392,7 +392,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -402,7 +402,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

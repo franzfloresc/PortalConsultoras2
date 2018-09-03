@@ -177,9 +177,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -281,15 +281,15 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BETipoEstrategia entidad = new BETipoEstrategia
                 {
-                    PaisID = UserData().PaisID,
+                    PaisID = userData.PaisID,
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
                     DescripcionEstrategia = DescripcionEstrategia,
                     ImagenEstrategia = ImagenEstrategia,
                     Orden = Convert.ToInt32(Orden),
                     FlagActivo = Convert.ToInt32(FlagActivo),
                     OfertaID = OfertaID,
-                    UsuarioRegistro = UserData().CodigoUsuario,
-                    UsuarioModificacion = UserData().CodigoUsuario,
+                    UsuarioRegistro = userData.CodigoUsuario,
+                    UsuarioModificacion = userData.CodigoUsuario,
                     FlagNueva = Convert.ToInt32(FlagNueva),
                     FlagRecoPerfil = Convert.ToInt32(FlagRecoPerfil),
                     FlagRecoProduc = Convert.ToInt32(FlagRecoProduc),

@@ -233,9 +233,9 @@ namespace Portal.Consultoras.BizLogic
                         return new BERespuestaActivarEmail { Message = Constantes.MensajesError.ActivacionCorreo_EstaActivo };
                     }
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
-                    if (!usuario.EMail.Contains(email))
+                    if (!usuario.EMail.Contains(email) && daUsuario.ExistsUsuarioEmail(email))
                     {
-                        if (daUsuario.ExistsUsuarioEmail(email)) return new BERespuestaActivarEmail { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+                        return new BERespuestaActivarEmail { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
                     }
                     daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, usuario.CampaniaID);
                     validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
@@ -2949,15 +2949,6 @@ namespace Portal.Consultoras.BizLogic
 
         private BEUsuarioDatos GetUsuarioVerificacionAutenticidad(int paisID, string CodigoUsuario)
         {
-
-            //string iso = Common.Util.GetPaisISO(paisID);
-
-            //string key = "CL,CO,EC"; //config
-            //bool buscarXdni = false;
-
-            //if (key.Contains(iso)) buscarXdni = true;
-
-
             var DAUsuario = new DAUsuario(paisID);
             var datos = new BEUsuarioDatos();
             using (IDataReader rd = DAUsuario.GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario))

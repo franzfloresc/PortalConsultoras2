@@ -348,6 +348,7 @@ namespace Portal.Consultoras.Common
         public static class ConfiguracionManager
         {
             public const string PaisesEsika = "PaisesEsika";
+            public const string PaisesLBel = "PaisesLBel";
             public const string PaisesConTrackingJetlore = "PaisesConTrackingJetlore";
             public const string PaisesCatalogoWhatsUp = "PaisesCatalogoWhatsUp";
             public const string PaisesConPcm = "PaisesConPcm";
@@ -465,6 +466,8 @@ namespace Portal.Consultoras.Common
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
             public const string MenuCondicionesDescripcionMx = "TÉRMINOS Y CONDICIONES";
 
+            public const string ORDEN_COMPONENTES_FICHA_ESIKA = "ORDEN_COMPONENTES_FICHA_ESIKA";
+            public const string ORDEN_COMPONENTES_FICHA_LBEL = "ORDEN_COMPONENTES_FICHA_LBEL";
             public const string UrlImagenEsika = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca.png";
             public const string UrlImagenLbel = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca-lbel.png";
             public const string ColorTemaEsika = "#e81c36";
@@ -1844,7 +1847,7 @@ namespace Portal.Consultoras.Common
             public const string SwIntriga = "/showroom/intriga";
             public const string SwDetalle = "/showroom/detalleoferta";
             public const string SwPersonalizado = "/showroom/personalizado";
-            public const string OptDetalle = "/ofertasparati/detalle";
+            //public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
             public const string GuiaDeNegocio = "/guianegocio";
@@ -1853,6 +1856,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
 
+            // Url Ficha
             public const string DetalleHerramientasVenta = "/detalle/demostradores";
             public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
             public const string DetalleOfertaParaTi = "/detalle/ofertaparati";
