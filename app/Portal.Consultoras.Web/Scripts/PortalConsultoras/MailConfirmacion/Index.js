@@ -2,8 +2,6 @@
     if (phone) {
         if (isMobile()) {
             window.location.href = "tel://" + phone;
-        } else {
-            window.location.href = "callto://" + phone;
         }
     }
 }
