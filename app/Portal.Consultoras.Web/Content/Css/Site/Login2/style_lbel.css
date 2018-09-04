@@ -20,7 +20,8 @@
     padding: 0;
 }
 
-.aviso_privacidad {
+.aviso_privacidad,
+.enlace_solicitud a{
     color: #959595;
     font-family: lato;
     font-size: 12px;
@@ -28,6 +29,52 @@
     text-align: right;
     text-decoration: none;
 }
+
+.wrapper_lista_enlaces_solicitudes,
+.lista_enlaces_solicitudes,
+.enlace_solicitud a
+{
+    display:block;
+}
+
+.wrapper_lista_enlaces_solicitudes{
+    width: 100%;
+    position: absolute;
+    bottom: 34px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    z-index:1499;
+}
+
+.lista_enlaces_solicitudes{
+    margin:0;
+    list-style-type:none;
+}
+
+.enlace_solicitud{
+    display:inline-block;
+    border-right:1px solid #959595;
+}
+
+.enlace_solicitud:last-child{
+    border-right:0;
+}
+
+.enlace_solicitud a{
+    padding-left:5px;
+    padding-right:5px;
+    text-align:center;
+}
+
+ .enlace_solicitud a:hover,
+ .enlace_solicitud a:focus,
+ .enlace_solicitud a:active
+ {
+     color:#959595;
+     text-decoration:underline;
+ }
 
 #container, #content, .nav, .top .logo-lbel {
     position: relative;
@@ -232,7 +279,7 @@ span {
 
 .webForm {
     max-width: 349px;
-    padding: 45px 18% 36px;
+    padding: 37px 18% 36px;
 }
 
     .webForm .title {
@@ -246,6 +293,11 @@ span {
 .boxform {
     display: block;
     overflow: hidden;
+    height: 100%;
+}
+
+.wrapper_enlace_AP {
+    display: none;
     height: 100%;
 }
 
@@ -353,7 +405,7 @@ span {
         letter-spacing: .5px;
         font-size: 13px;
         font-weight: 700;
-        margin-top: 20px;
+        margin-top: 0;
         border-radius: 2px;
     }
 
@@ -455,7 +507,7 @@ span {
 }
 
 .boxform .admin {
-    margin-top: 28px;
+    margin-top: 9px;
     text-align: left;
 }
 
@@ -469,6 +521,21 @@ span {
         padding-top: 2px;
     }
 
+.wrapper_enlace_AP .enlace_AP {
+    margin-top: 17px;
+    text-align: center;
+}
+
+    .wrapper_enlace_AP .enlace_AP a {
+        text-decoration: none;
+        color: #959595;
+        padding-left: 15px;
+        font-size: 12px;
+        font-weight: 300;
+        padding-top: 2px;
+    }
+
+
 .detalle, .detalle2 {
     background: url('../images/tooltip.png') top left no-repeat;
     width: 242px;
@@ -480,6 +547,11 @@ span {
 .boxform .admin a:hover {
     text-decoration: underline;
 }
+
+.wrapper_enlace_AP .enlace_AP a:hover {
+    text-decoration: underline;
+}
+
 
 #det1, #det2, .detalle2, .fondo_form {
     position: absolute;
@@ -733,7 +805,8 @@ h1, h2, h3, h4, h5, h6 {
 #box-pop-up {
     overflow-y: scroll;
     position: fixed;
-    z-index: 1000;
+    top:0;
+    z-index: 2000;
     width: 100%;
     height: 100%;
     background: url('../Images/popup_esika/fondo_pop_up.png');
@@ -1708,7 +1781,14 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .fondo_form {
-        display: none;
+        width:100%;
+        position:fixed;
+    }
+
+    .wrapper_lista_enlaces_solicitudes{
+        width:111%;
+        bottom:34px;
+        left:-18px;
     }
 
     #cuadro1 {
@@ -1835,6 +1915,12 @@ h1, h2, h3, h4, h5, h6 {
         #divMant img {
             width: 100%;
         }
+
+    .wrapper_enlace_AP .enlace_AP{
+        position:relative;
+        top:10px;
+    }
+
 }
 
 @media only screen and (min-width : 769px) {
@@ -1924,6 +2010,9 @@ h1, h2, h3, h4, h5, h6 {
         margin: 0 auto;
     }
 
+    #pop-up-body_TC {
+        margin: 0 auto;
+    }
     .content-pop-up {
         width: 75%;
     }
@@ -2117,10 +2206,6 @@ h1, h2, h3, h4, h5, h6 {
         width: 100%;
     }
 
-    .webForm {
-        padding-bottom: 10px;
-    }
-
     .footer .footerWrap .logosRight a {
         padding-right: 0;
     }
@@ -2130,6 +2215,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .webForm {
+        padding-bottom: 10px;
         padding-left: 20px;
         padding-right: 20px;
     }
@@ -2140,6 +2226,10 @@ h1, h2, h3, h4, h5, h6 {
 
     #cuadro1, #cuadro2 {
         zoom: 68%;
+    }
+
+    .wrapper_lista_enlaces_solicitudes{
+        bottom:13px;
     }
 }
 
@@ -2169,6 +2259,21 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+@media screen and (max-width:329px){
+
+    .wrapper_lista_enlaces_solicitudes {
+        bottom: -17px;
+    }
+
+    .enlace_solicitud{
+        margin-bottom:7px;
+    }
+
+    .content-right{
+        margin-top:19px;
+    }
+
+}
 
 @media only screen and (max-width : 320px) {
     .content-alerta-red-clave {
@@ -2676,6 +2781,152 @@ h1, h2, h3, h4, h5, h6 {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+.pb-0{
+    padding-bottom:0;
+}
+
+.popup_privacidad_de_datos{
+    top:9%;
+    margin-bottom:20px;
+}
+
+.popup_privacidad_de_datos .overview{
+    line-height:20px;
+    font-size:13px;
+    color:#000;
+}
+
+.popup_privacidad_de_datos .indicador_lbel {
+    margin-left: 15%;
+}
+
+.popup_privacidad_de_datos .overview a{
+    display:inline-block;
+    text-decoration:underline;
+    color:#000;
+}
+
+    .popup_privacidad_de_datos .overview a:hover,
+    .popup_privacidad_de_datos .overview a:active,
+    .popup_privacidad_de_datos .overview a:focus
+    {
+        color:#000;
+    }
+
+.enlaces_archivos_arco{
+    display:block;
+    height: 45px;
+    line-height: 37px;
+    background-color:#E1E1E1;
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.texto_solicitudes,
+.grupo_enlaces_archivos_arco,
+.enlace_archivo_arco
+{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.texto_solicitudes{
+    font-weight:700;
+    padding-top:1px;
+}
+
+.texto_solicitudes,
+.enlace_archivo_arco
+{
+    font-size:12px;
+    color:#000;
+    height: 13px;
+    line-height: 13px;
+}
+
+.enlace_archivo_arco{
+    padding-left:10px;
+    padding-right:10px;
+    border-right:1px solid #000;
+    text-align: center;
+}
+
+    .enlace_archivo_arco:hover{
+        text-decoration:underline;
+    }
+
+    .enlace_archivo_arco:last-child{
+        border-right:none;
+    }
+
+@media screen and (max-width:1093px){
+
+    .popup_privacidad_de_datos{
+        width:53%;
+        top:4.5%;
+    }
+
+}
+
+@media screen and (max-width:781px){
+
+    .popup_privacidad_de_datos{
+        width: 75%;
+    }
+
+}
+
+@media screen and (max-width:555px){
+
+    .popup_privacidad_de_datos{
+        width: 93%;
+        left:4.5px;
+    }
+
+    .enlaces_archivos_arco{
+        padding-left:10px;
+        padding-right:10px;
+    }
+
+}
+
+@media screen and (max-width:437px){
+
+    .enlaces_archivos_arco{
+        padding-left: 7px;
+        padding-right: 0;
+    }
+
+    .enlace_archivo_arco{
+        padding-left:6px;
+        padding-right:6px;
+    }
+
+}
+
+@media screen and (max-width:389px){
+
+    .enlace_archivo_arco{
+        padding-left:3px;
+        padding-right:3px;
+    }
+
+}
+
+@media screen and (max-width:363px){
+
+    .popup_privacidad_de_datos{
+        top:3.6%;
+    }
+
+    .enlaces_archivos_arco{
+        padding-top:4px;
+        height: 56px;
+        line-height: 22px;
+    }
+
 }
 
 /* HD-1254 - OLVIDÉ CONTRASEÑA DESKTOP Y MOBILE */

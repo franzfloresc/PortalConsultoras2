@@ -8,7 +8,6 @@ var belcorp = belcorp || {};
 belcorp.estrategia = belcorp.estrategia || {};
 registerEvent.call(belcorp.estrategia, "onProductoAgregado");
 belcorp.estrategia.subscribe("onProductoAgregado", function (data) {
-    //debugger;
     if (data.data.TipoEstrategiaCodigo === ConstantesModule.ConstantesPalanca.OfertaDelDia) {
         //alert(data.data.DescripcionProd);
         //window.OfertaDelDia.CargarODD();
@@ -533,6 +532,8 @@ $(document).ready(function () {
 
         var producto = ObtenerProducto(itemCampos, cantidad);
 
+        console.log('OfertaDelDia.js - OddAgregarMobile - ajax ante CargarCantidadProductosPedidos', producto);
+
         var promiseValidarStockEstrategia = ValidarStockEstrategia(producto);
         $.when(promiseValidarStockEstrategia).then(function (response) {
             if (!response.result) {
@@ -553,6 +554,7 @@ $(document).ready(function () {
                     return false;
                 }
 
+                console.log('OfertaDelDia.js - OddAgregarMobile - ante CargarCantidadProductosPedidos');
                 CargarCantidadProductosPedidos();
                 CerrarLoad();
                 odd_mobile_google_analytics_addtocart();
@@ -585,6 +587,9 @@ $(document).ready(function () {
 
     function ValidarStockEstrategia(producto) {
         var d = $.Deferred();
+
+        console.log('OfertaDelDia.js - ValidarStockEstrategia - ajax ante CargarCantidadProductosPedidos', props.UrlValidarStockEstrategia, producto);
+
         var promise = $.ajax({
             type: "POST",
             url: baseUrl + props.UrlValidarStockEstrategia,
@@ -603,6 +608,7 @@ $(document).ready(function () {
     }
 
     function AgregarProducto(producto) {
+        console.log('OfertaDelDia.js - AgregarProducto - ajax ante CargarCantidadProductosPedidos', props.UrlAgregarProducto);
         var d = $.Deferred();
         var promise = $.ajax({
             type: "POST",

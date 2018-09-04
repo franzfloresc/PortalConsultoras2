@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var lst = Consulta == "1" ? GetTipoEstrategias() : new List<BETipoEstrategia>();
+                var lst = Consulta == "1" ? _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID) : new List<BETipoEstrategia>();
                 lst = lst ?? new List<BETipoEstrategia>();
 
                 if (lst != null && lst.Count > 0)

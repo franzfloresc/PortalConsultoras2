@@ -187,6 +187,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model);
                 model.TieneContratoPopup = ValidarContratoPopup() ? 1 : 0;
+                model.TieneFacturacionElectronica = GetDatosFacturacionElectronica(userData.PaisID, Constantes.FacturacionElectronica.TablaLogicaID, Constantes.FacturacionElectronica.FlagActivacion) == "1" ? true : false;
 
                 #endregion
 
@@ -210,6 +211,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
+                model.MostrarPagoEnLinea = (userData.MontoDeuda <= 0 ? false : true);
             }
             catch (FaultException ex)
             {
@@ -2206,6 +2208,31 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction(accion, controlador, new { area = area });
         }
 
+        private string AccionControlador(string tipo, bool onlyAction = false, bool mobile = false)
+        {
+            string controlador = "", accion = "";
+            try
+            {
+                tipo = Util.Trim(tipo).ToLower();
+                switch (tipo)
+                {
+                    case "sr":
+                        controlador = "ShowRoom";
+                        var esVenta = (sessionManager.GetMostrarShowRoomProductos());
+                        accion = esVenta ? "Index" : "Intriga";
+                        break;
+                }
+
+                if (onlyAction) return accion;
+                return (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return accion;
+            }
+        }
+
         private List<BEComunicado> ObtenerComunicadoPorConsultora()
         {
             using (var sac = new SACServiceClient())
@@ -2382,7 +2409,5 @@ namespace Portal.Consultoras.Web.Controllers
                 return "";
             }
         }
-
-
     }
 }

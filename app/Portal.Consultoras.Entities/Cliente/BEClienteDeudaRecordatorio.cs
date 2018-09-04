@@ -25,17 +25,13 @@ namespace Portal.Consultoras.Entities.Cliente
 
         public BEClienteDeudaRecordatorio(IDataRecord row)
         {
-            if (row.HasColumn("ClienteID"))
-                ClienteID = row.GetValue<short>("ClienteID");
+                ClienteID = row.GetColumn<short>("ClienteID");
 
-            if (row.HasColumn("TotalDeuda"))
-                TotalDeuda = row.GetValue<decimal>("TotalDeuda");
+                TotalDeuda = row.GetColumn<decimal>("TotalDeuda");
 
-            if (row.HasColumn("ClienteRecordatorioId"))
-                ClienteRecordatorioId = row.GetValue<int>("ClienteRecordatorioId");
+                ClienteRecordatorioId = row.GetColumn<int>("ClienteRecordatorioId");
 
-            if (row.HasColumn("Fecha"))
-                Fecha = row.GetValue<DateTime>("Fecha");
+                Fecha = row.GetColumn<DateTime>("Fecha");
         }
     }
 }

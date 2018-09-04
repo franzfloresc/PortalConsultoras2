@@ -35,6 +35,7 @@
         .scrollable .scroll-bar.horizontal {
             position: relative;
             width: 100%;
+            display :none  !important;
         }
 
         .scrollable .scroll-bar .thumb {

@@ -27,6 +27,11 @@ var cantCamRev = 3;
 var aCamRev = new Array();
 
 $(document).ready(function () {
+    // PPC
+    if (!window.hasOwnProperty("MarcaCatalogo")) {
+        Object.defineProperty(window, 'MarcaCatalogo', { value: ''});
+    }
+    // PPC
     aCam.push($("#hdCampaniaAnterior").val());
     aCam.push($("#hdCampaniaActual").val());
     aCam.push($("#hdCampaniaSiguiente").val());
@@ -71,7 +76,6 @@ $(document).ready(function () {
     CargarCarruselCatalogo();
     ColumnasDeshabilitadasxPais();
     CargarTodosCorreo();
-    
 
     //soluciona error en producción : Uncaught ReferenceError: CatalogoMostrar is not defined
     
@@ -91,11 +95,12 @@ $(document).ready(function () {
         'width': '100%',
         'height': '50px',
         minInputWidth: '100%',
-        'defaultText': 'Separa los correos con &#59;',
+        'defaultText': 'Separa los correos con un enter',
         'delimiter': ';',
         'unique': true,
         'validate': /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
         classMain: 'tag-editor tag_fijo_scroll',
+        classAddTag: 'full-width',
         autocomplete_url: '',
         'autocomplete': {
             'source': listaCorreo,
@@ -228,8 +233,6 @@ var meDone =function (data, camp) {
     else cont += cantCat;
 }
 
-
-
 function ObtenerEstadoCatalogo(campana, defered) {
     jQuery.ajax({
         type: "GET",
@@ -358,10 +361,12 @@ function FinRenderCatalogo() {
         $('[data-tag-html="Catalogos"] .titulo_catalogo').text("CATÁLOGOS C-" + campSelect);
         $("#divCatalogo > div > div").show();
         CatalogoMostrar(0);
-        CloseLoading();
+        CloseLoading();        
+        SeleccionarCatalogo();   // PPC
     }
 }
 function CargarTodosCorreo() {
+    
     listaCorreo = listaCorreo || new Array();
     if (listaCorreo.length > 0) {
         return listaCorreo;
@@ -388,7 +393,41 @@ function CargarTodosCorreo() {
         }
     });
 }
-function CatalogoMostrar(accion, btn) {
+
+function SeleccionarCatalogo() {
+    
+    var flagMarca;
+    var Marcas = MarcaCatalogo.split('&');
+    var campania = $("#hdCampaniaActual").val();
+    var Marca = '#';
+
+
+    if (Marcas[0] == 'esika') {
+        Marca = '#' + campania + '_Esika' 
+        //$(Marca).focus();
+        //$(Marca).select();
+        //$(Marca).show();
+       // $(Marca).focus();
+        $(window).scrollTop(600);
+    } 
+    if (Marcas[0] == 'lbel') {
+        Marca = '#' + campania + '_Lbel' 
+        Marca2 = '#' + campania + '_Lbel' + '_WS' 
+        //$(Marca2).focus();
+        //$(Marca2).select();
+        //$(Marca2).show();
+        $(window).scrollTop(200);
+    } 
+    if (Marcas[0] == 'cyzone') {
+        Marca = '#' + campania + '_Cyzone' 
+        //$(Marca).focus();
+        //$(Marca).select();
+        //$(Marca).show();
+        $(window).scrollTop(1000);
+    } 
+}
+
+function CatalogoMostrar(accion, btn) {    
     campSelectI = accion == -1 ? campSelectI - 1 : accion == 1 ? campSelectI + 1 : campSelectI;
     campSelectI = campSelectI <= 0 ? 0 : campSelectI >= cantCam - 1 ? cantCam - 1 : campSelectI;
 

@@ -7,7 +7,6 @@ belcorp.settings.uniquePrefix = "/g/";
 jQuery(document).ready(function () {
     CreateLoading();
 
-
     $("header").resize(function () {
         LayoutMenu();
     });
@@ -34,6 +33,15 @@ jQuery(document).ready(function () {
             });
         }
     }
+
+    document.onkeydown = function (evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27) {
+            if ($('.resultado_busqueda_producto').is(':visible')) {
+                console.log('lkasakslasklasadklaj');
+            }
+        }
+    };
 });
 
 (function ($) {
@@ -236,6 +244,12 @@ jQuery(document).ready(function () {
                         break;
                     case '<':
                         bool = a < b;
+                        break;
+                    case '<=':
+                        bool = a <= b;
+                        break;
+                    case '>=':
+                        bool = a >= b;
                         break;
                     case 'Contains':
                         bool = a.indexOf(b) >= 0;
@@ -854,6 +868,7 @@ function paginadorAccionGenerico(obj) {
 }
 
 function ActualizarGanancia(data) {
+    console.log('General.js - ActualizarGanancia - ante num-menu-shop', data);
     data = data || new Object();
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
@@ -928,6 +943,18 @@ FuncionesGenerales = {
         else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
+            return re.test(keyChar);
+        }
+    },
+    ValidarSoloLetras: function (e) {
+        var charCode = (e.which) ? e.which : window.event.keyCode;
+        if (charCode === 8) return true;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-ZñÑáéíóúÁÉÍÓÚ ]/;
             return re.test(keyChar);
         }
     },
@@ -1189,27 +1216,32 @@ function LayoutMenuFin() {
         return false;
     }
 
-    $(".wrapper_header").css("max-width", "");
-    $(".wrapper_header").css("width", "");
-    $(".logo_esika").css("width", "");
-    $(".menu_esika_b").css("width", "");
+    var idnMenuHeader = ".wrapper_header";
+    var menuParte1 = "[data-menu-header='parte1']";
+    var menuParte2 = "[data-menu-header='parte2']";
+    var menuParte3 = "[data-menu-header='parte3']";
+
+    $(idnMenuHeader).css("max-width", "");
+    $(idnMenuHeader).css("width", "");
+    $(menuParte1).css("width", "");
+    $(menuParte2).css("width", "");
+    $(menuParte3).css("width", "");
     $(idMenus).css("margin-left", "0px");
-    $(".menu_new_esika").css("width", "");
 
-    var wt = $(".wrapper_header").width();
-    var wl = $(".logo_esika").innerWidth();
-    var wr = $(".menu_esika_b").innerWidth() + 1;
-    $(".wrapper_header").css("max-width", wt + "px");
-    $(".wrapper_header").css("width", wt + "px");
+    var wt = $(idnMenuHeader).width();
+    var wl = $(menuParte1).innerWidth();
+    var wr = $(menuParte3).innerWidth() + 1;
+    $(idnMenuHeader).css("max-width", wt + "px");
+    $(idnMenuHeader).css("width", wt + "px");
 
-    wl = Math.min(wl, 100);
-    $(".logo_esika").css("width", wl + "px");
-    $(".menu_esika_b").css("width", wr + "px");
+    //wl = Math.min(wl, 100);
+    $(menuParte1).css("width", wl + "px");
+    $(menuParte3).css("width", wr + "px");
 
     wt = wt - wl - wr;
-    $(".menu_new_esika").css("width", wt + "px");
+    $(menuParte2).css("width", wt + "px");
 
-    var h = $(".wrapper_header").height();
+    var h = $(idnMenuHeader).height();
 
     if (h > 61) {
         $(idMenus + " a").css("font-size", "9px");
@@ -1245,7 +1277,7 @@ function LayoutMenuFin() {
 
     // caso no entre en el menu
     // poner en dos renglones
-    if ($(".wrapper_header").height() > 61) {
+    if ($(idnMenuHeader).height() > 61) {
         console.log("menu en mas de una linea");
     }
 

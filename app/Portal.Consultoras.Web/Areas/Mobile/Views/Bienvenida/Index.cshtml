@@ -282,12 +282,12 @@
                 @Model.Simbolo <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.CodigoISO)</span>
             </div>
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
-            @if (Model.TienePagoEnLinea)
+            @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
             {
                 <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index","PagoEnLinea")">
                     <div class="texto_btn_pago_en_linea">
                         <span>PAGA EN LÍNEA</span>
-                        <span>con Crédito Visa</span>
+                        @*<span>con Crédito Visa</span>*@
                     </div>
                 </a>
                 <p class="info_lugares_de_pago">
@@ -439,21 +439,18 @@
     </a>
     <hr class="clear" />
     <div class="linea_separadora_mobile"></div>
-    @if (Model.CodigoISO != Constantes.CodigosISOPais.Venezuela)
-    {
-        <div class="comartir_home_mobile">
-            LIQUIDACIÓN WEB
-            <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos"
-               class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
-        </div>
-        <div class="imagen_catalogo liquidacion_esika">
-            <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
-                <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home="" />
-            </a>
-        </div>
-        <hr class="clear" />
-        <div class="linea_separadora_mobile mg_bottom"></div>
-    }
+    <div class="comartir_home_mobile">
+        @ViewBag.TituloLiqWeb.ToUpper()
+        <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos"
+            class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+    </div>
+    <div class="imagen_catalogo liquidacion_esika">
+        <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
+            <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home="" />
+        </a>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora_mobile mg_bottom"></div>
 
     <div id="dvExpoOferta" style="display: none;">
         <div class="comartir_home_mobile">
@@ -889,6 +886,7 @@
         var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
         var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "Mobile" })';
         var appVersion = navigator.appVersion;
+        var arrayPaisNoBannerLiq = ['@Constantes.CodigosISOPais.Peru'];
     </script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
 

@@ -424,9 +424,9 @@
             </div>
             {{else}}
             <div class="stock_content">
-                <div class="texto_stock">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
-                <a class="btn_no_stock" onclick="EliminarPedidoEvento(event, '{{EsBackOrder}}');" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}" >NO, GRACIAS</a>
-                <a class="btn_si_stock" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
+                <div class="texto_stock">@Constantes.BackOrder.mensajeBackOrderMobile</div>
+                <a class="btn_no_stock" onclick="EliminarPedidoEvento(event, '{{EsBackOrder}}');" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">NO, ELIMÍNALO</a>
+                <a class="btn_si_stock" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SÍ, GRACIAS!</a>
                 <hr class="clear" />
             </div>
             {{/if}}
@@ -700,7 +700,7 @@
                             <input class="boton_quiero_este_premio" type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{UpSellingRegaloId}}','{{CUV}}')" />
                         </div>
 
-                        {{#iff StockActual '==' '0'}}
+                        {{#iff StockActual '<=' '0'}}
                         <div class="content_regalo_sinstock" data-regalo-sinstock="">
                             <div class="txt_agotado">AGOTADO</div>
                         </div>

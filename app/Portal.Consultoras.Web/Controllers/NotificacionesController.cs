@@ -19,10 +19,12 @@ namespace Portal.Consultoras.Web.Controllers
     public class NotificacionesController : BaseController
     {
         readonly CdrProvider _cdrProvider;
+        readonly NotificacionProvider _notificacionProvider;
 
         public NotificacionesController()
         {
             _cdrProvider = new CdrProvider();
+            _notificacionProvider = new NotificacionProvider();
         }
 
         public ActionResult Index()
@@ -300,7 +302,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BENotificacionesDetalle> lstObservaciones;
             List<BENotificacionesDetallePedido> lstObservacionesPedido;
-            GetNotificacionesValAutoProl(ProcesoId, TipoOrigen, out lstObservaciones, out lstObservacionesPedido);
+            _notificacionProvider.GetNotificacionesValAutoProl(ProcesoId, TipoOrigen, userData.PaisID, out lstObservaciones, out lstObservacionesPedido);
 
             NotificacionesModel model = new NotificacionesModel
             {
@@ -361,8 +363,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 logsGprValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();
             }
-
-            CargarMensajesNotificacionesGPR(model, logsGprValidacion);
+            
+            _notificacionProvider.CargarMensajesNotificacionesGPR(model, logsGprValidacion, userData.CodigoISO, userData.Simbolo, userData.MontoMinimo, userData.MontoMaximo);
             model.NombreConsultora = string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre;
             model.Total = model.SubTotal + model.Descuento;
             model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
@@ -445,6 +447,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaVencimiento = pagoEnLinea.FechaVencimiento,
                 TarjetaEnmascarada = pagoEnLinea.NumeroTarjeta
             };
+            ViewBag.PagoEnLineaCargoLabel = userData.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.CargoplataformaMx : Constantes.PagoEnLineaMensajes.CargoplataformaPe;
 
             return PartialView("DetallePagoEnLinea", pagoEnLineaModel);
         }

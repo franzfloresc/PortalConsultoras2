@@ -44,25 +44,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 usuario.ConsultoraID = consultoraID;
                 usuario.CampaniaID = campania;
                 usuario.AceptacionConsultoraDA = aceptacionConsultoraDA;
-
-                #region Consultora Programa Nuevas
-
-                BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
-                var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisId);
-
-                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(usuario.ConsultoraID))
-                {
-                    if (reader.Read())
-                        beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
-                }
-
-                if (beConsultoraProgramaNuevas != null)
-                {
-                    usuario.ConsecutivoNueva = beConsultoraProgramaNuevas.ConsecutivoNueva;
-                    usuario.CodigoPrograma = beConsultoraProgramaNuevas.CodigoPrograma ?? "";
-                }
-
-                #endregion                
+                new BLUsuario().UpdUsuarioProgramaNuevas(usuario);
 
                 return DeshacerPedidoValidado(usuario, tipo);
             }
@@ -133,35 +115,16 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 {
                     if (reader.Read()) usuario = new BEUsuario(reader, true);
                 }
-
-                if (usuario == null)
-                    return null;
+                if (usuario == null) return null;
 
                 BEConfiguracionCampania configuracion = null;
-
                 using (IDataReader reader = new DAPedidoWeb(paisId).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                 {
                     if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
                 }
+
                 UpdateDiaPROLAndEsHoraReserva(usuario);
-
-                #region Consultora Programa Nuevas
-
-                BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
-                var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisId);
-
-                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
-                {
-                    if (reader.Read()) beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
-                }
-
-                if (beConsultoraProgramaNuevas != null)
-                {
-                    usuario.ConsecutivoNueva = beConsultoraProgramaNuevas.ConsecutivoNueva;
-                    usuario.CodigoPrograma = beConsultoraProgramaNuevas.CodigoPrograma ?? "";
-                }
-
-                #endregion
+                new BLUsuario().UpdUsuarioProgramaNuevas(usuario, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID, campania);
 
                 var input = new BEInputReservaProl
                 {
@@ -227,7 +190,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             try
             {
-                var listDetalle = GetPedidoWebDetalleReserva(input);
+                var listDetalle = GetPedidoWebDetalleReserva(input, false);
                 var listDetalleSinBackOrder = listDetalle.Where(d => !d.AceptoBackOrder).ToList();
                 if (!listDetalleSinBackOrder.Any()) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle, true);
 
@@ -250,7 +213,9 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
                 if (input.EnviarCorreo && resultado.EnviarCorreo)
                 {
-                    try { EnviarCorreoReservaProl(input, listDetalle); }
+                    var listaDetalleAgrupado = GetPedidoWebDetalleReserva(input, true);
+                    //try { EnviarCorreoReservaProl(input, listDetalle); }
+                    try { EnviarCorreoReservaProl(input, listaDetalleAgrupado); }
                     catch (Exception ex) { LogManager.SaveLog(ex, input.CodigoUsuario, input.PaisISO); }                    
                 }
                 return resultado;
@@ -275,7 +240,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         {
             try
             {
-                var listPedidoWebDetalle = GetPedidoWebDetalleReserva(input);
+                var listPedidoWebDetalle = GetPedidoWebDetalleReserva(input, true);
                 if (!listPedidoWebDetalle.Any()) return false;
 
                 input.PedidoID = listPedidoWebDetalle[0].PedidoID;
@@ -365,7 +330,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return true;
         }
 
-        public List<BEPedidoWebDetalle> GetPedidoWebDetalleReserva(BEInputReservaProl input)
+        public List<BEPedidoWebDetalle> GetPedidoWebDetalleReserva(BEInputReservaProl input, bool agrupado = false)
         {
             var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
             {
@@ -375,7 +340,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 Consultora = input.NombreConsultora,
                 EsBpt = input.EsOpt == 1,
                 CodigoPrograma = input.CodigoPrograma,
-                NumeroPedido = input.ConsecutivoNueva
+                NumeroPedido = input.ConsecutivoNueva,
+                AgruparSet = agrupado
             };
             var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
 

@@ -8,6 +8,10 @@
 
     <title>Belcorp | Portal Consultoras</title>
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml", new ViewDataDictionary { { "TipoLayoutTagManager", 2 } })
+    @*@Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")*@
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -67,47 +71,8 @@
 
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="" style="height: 750px;">
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBJ4J" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <script type="text/javascript">
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-KZBJ4J');
-    </script>
-    <script type="text/javascript">
-        dataLayer.push({
-            'event': 'userCustomVars',
-            'campana': '@ViewBag.Campania',
-            'segmento': '@ViewBag.SegmentoAnalytics',
-            'edad': '@ViewBag.EdadAnalytics',
-            'zona': '@ViewBag.ZonaAnalytics',
-            'pais': '@ViewBag.PaisAnalytics',
-            'rol': '@ViewBag.RolAnalytics'
-        });
-    </script>
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NKXJR4" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <script type="text/javascript">
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NKXJR4');
-    </script>
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <script type="text/javascript">
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
 
-    </script>
     <div id="wrap_header_menu_background">
         <div id="wrap_header_menu" class="field100">
             <div id="logo_tsmv" class="field20">

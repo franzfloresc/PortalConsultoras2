@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Entities
             MobileActivo = row.ToBoolean("MobileActivo");
             UrlSeccion = row.ToString("UrlSeccion");
             ConfiguracionPais = new BEConfiguracionPais();
-            ConfiguracionPais.Codigo = row.HasColumn("Codigo") ? Convert.ToString(row["Codigo"]) : "";
+            ConfiguracionPais.Codigo = row.ToString("Codigo", "");
         }
 
         public BEConfiguracionOfertasHome()

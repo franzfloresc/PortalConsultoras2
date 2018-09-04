@@ -22,10 +22,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class NotificacionesController : BaseMobileController
     {
         readonly CdrProvider _cdrProvider;
+        readonly NotificacionProvider _notificacionProvider;
 
         public NotificacionesController()
         {
             _cdrProvider = new CdrProvider();
+            _notificacionProvider = new NotificacionProvider();
         }
 
         #region Acciones
@@ -216,7 +218,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             List<BENotificacionesDetalle> lstObservaciones;
             List<BENotificacionesDetallePedido> lstObservacionesPedido;
-            GetNotificacionesValAutoProl(ProcesoId, TipoOrigen, out lstObservaciones, out lstObservacionesPedido);
+            _notificacionProvider.GetNotificacionesValAutoProl(ProcesoId, TipoOrigen, userData.PaisID, out lstObservaciones, out lstObservacionesPedido);
 
             var model = new NotificacionesMobileModel();
             model.ListaNotificacionesDetalle = lstObservaciones;
@@ -244,7 +246,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Total = model.SubTotal + model.Descuento;
             }
             else model.Total = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
-            model.DecimalToString = this.CreateConverterDecimalToString(userData.PaisID);
+            model.DecimalToString = _notificacionProvider.CreateConverterDecimalToString(userData.PaisID);
             
             return View("ListadoObservaciones", model);
         }
@@ -327,7 +329,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 logsGprValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();
             }
 
-            CargarMensajesNotificacionesGPR(model, logsGprValidacion);
+            _notificacionProvider.CargarMensajesNotificacionesGPR(model, logsGprValidacion, userData.CodigoISO, userData.Simbolo, userData.MontoMinimo, userData.MontoMaximo);
             model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
             model.CampaniaDescripcion = userData.CampaniaID.ToString();
 
@@ -403,6 +405,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 FechaVencimiento = pagoEnLinea.FechaVencimiento,
                 TarjetaEnmascarada = pagoEnLinea.NumeroTarjeta
             };
+            ViewBag.EsLebel = userData.EsLebel;
+            ViewBag.PagoEnLineaCargoLabel = userData.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.CargoplataformaMx : Constantes.PagoEnLineaMensajes.CargoplataformaPe;
 
             return View("DetallePagoEnLinea", pagoEnLineaModel);
         }

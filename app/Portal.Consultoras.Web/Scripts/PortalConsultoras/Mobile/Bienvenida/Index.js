@@ -110,7 +110,7 @@ $(document).ready(function () {
 
     ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
-    bannerFunc.showExpoOferta();
+    if ($.inArray(IsoPais, arrayPaisNoBannerLiq) == -1) bannerFunc.showExpoOferta();
     ConsultarEmailPendiente();
 });
 

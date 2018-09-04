@@ -4499,6 +4499,29 @@ table > thead > tr > th {
     background-position: center -1px;
 }
 
+.icono_busqueda_mobile{
+    display: block;
+    position: relative;
+    width: 19px;
+    height: 19px;
+    margin-right: 9px;
+    margin-top: 15px;
+    opacity:0.7;
+}
+
+@media screen and (max-width:330px){
+
+    .icono_busqueda_mobile{
+        margin-right:4px;
+    }
+
+}
+
+.icono_busqueda_mobile img{
+    width:100%;
+    height:auto;
+}
+
 .notificaciones_mobiles {
     width: 20px;
     height: 20px;
@@ -4910,7 +4933,9 @@ table > thead > tr > th {
 
 .btn_paga_online_mobile {
     display: block;
+    margin:0 auto;
     width: 100%;
+    max-width: 185px;
     height: 45px;
     margin-top:22px;
     padding: 5.5px 0;
@@ -4920,8 +4945,8 @@ table > thead > tr > th {
     font-size: 13px;
     font-weight:bold;
     background: url("../../../Images/mobile/Esika/tarjeta.png") no-repeat;
-    background-position:28% 10px;
-    padding-left:10%;
+    background-position: 13% 10px;
+    padding-left: 8%;
 }
 
     .btn_paga_online_mobile:hover {
@@ -4947,10 +4972,11 @@ table > thead > tr > th {
 
 .texto_btn_pago_en_linea span{
     display:block;
-    line-height:16px;
+    line-height:31px;
+    font-weight:900;
 }
 
-.texto_btn_pago_en_linea span:first-child{
+/*.texto_btn_pago_en_linea span:first-child{
     font-size:13px;
     font-weight:bold;
 }
@@ -4958,7 +4984,7 @@ table > thead > tr > th {
 .texto_btn_pago_en_linea span:last-child{
     font-size:11px;
     font-weight:normal;
-}
+}*/
 
 .logo_visa{
     width:35px;
@@ -5185,6 +5211,10 @@ table > thead > tr > th {
     letter-spacing: .2px;
     text-align: center;
     color: black;
+}
+
+.producto_nombre_descripcion.pb-20 {
+    padding-bottom: 20px;
 }
 
     .producto_nombre_descripcion h6 {
@@ -6822,10 +6852,19 @@ input[type='checkbox']:checked + span:after {
     float: right;
     cursor: pointer;
 }
-
     .cerrar_popMobile img {
         width: 100%;
     }
+
+.cerrar_mensajeMobile {
+    cursor: pointer;
+    width: 19px;
+    height: 19px;
+    position: relative;
+    right: 20px;
+    top: -12px;
+    float: right;
+}
 
 .draw_close {
     position: relative;
@@ -7036,6 +7075,7 @@ input[type='checkbox']:checked + span:after {
     cursor: pointer;
     display: block;
     width: 200px;
+    text-align:left;
 }
 
 .menu_subfooter {
@@ -9338,7 +9378,6 @@ a {
     padding: 11px 11px;
     text-align: left;
     position: relative;
-    top: -5px;
     z-index: 5;
 }
 
@@ -15027,3 +15066,13 @@ span.icon-advertencia {
     color: #ffffff;
 }
 /* FIN STYLE OF AUTOCOMPLETE */
+
+.info_academia{
+    display:block;
+    margin-top:6px;
+    padding:15px;
+}
+
+.info_academia p{
+    margin:0;
+}

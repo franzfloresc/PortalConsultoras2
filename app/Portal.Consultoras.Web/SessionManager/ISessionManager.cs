@@ -223,6 +223,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         int GetMiAcademia();
 
+        void SetMiAcademiaVideo(int id);
+
+        int GetMiAcademiaVideo();
+
         void SetPedidoValidado(bool validado);
 
         bool GetPedidoValidado();
@@ -235,6 +239,11 @@ namespace Portal.Consultoras.Web.SessionManager
         BEConfiguracionProgramaNuevas ConfiguracionProgramaNuevas { get; set; }
         bool ProcesoKitNuevas { get; set; }
         string CuvKitNuevas { get; set; }
+
+        void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel);
+
+        BuscadorYFiltrosModel GetBuscadorYFiltros();
+        
         void   SetJwtApiSomosBelcorp(string token);
         string GetJwtApiSomosBelcorp();
     }

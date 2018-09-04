@@ -1,6 +1,9 @@
 ﻿var CarruselModule = (function (config) {
     'use strict';
 
+    var setCarruselMarcacionAnalytics = []; //Elementos en el carrusel de la ficha para ser marcados cuando el usuario visualiza y rota sobre los elementos
+    var setCarruselCuv = [];  //Representa el casillero de un CUV del carrusel
+
     var _config = {
         palanca: config.palanca || "",
         campania: config.campania || "",
@@ -85,7 +88,7 @@
 
         var platform = !isMobile() ? 'desktop' : 'mobile';
 
-        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+        //EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
 
         var slickArrows = {
             'mobile': {
@@ -127,6 +130,8 @@
                 ]
             });
         }
+
+        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
     }
 
     var _ocultarElementos = function () {
@@ -199,12 +204,125 @@
             }
         $(_elementos.divCarruselContenedor).hide();
     }
+    var _initSwipeCarrusel = function () {
+        _initArraysCarrusel();
+        //quita duplicados
+        
+        setCarruselMarcacionAnalytics = multiDimensionalUnico(setCarruselMarcacionAnalytics);
+        marcaCuvsActivos();
+        //Hace la marcación a analytics
+        _marcarSwipeCarrusel();
+        _initSlideArrowCarrusel();
+        
+    }
+    var _initArraysCarrusel = function () {
+        var containerItemsSlick = $(".slick-slide");
+        $(containerItemsSlick).each(function (index, element) {
+            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
+            setCarruselMarcacionAnalytics.push([infoCuvItem.CUV2, 0]);
+            setCarruselCuv.push(infoCuvItem);
+        });
+        
+    }
+    var _initSlideArrowCarrusel = function () {  ///cuando el usuario hace clic sobre las flechas del carrusel.
 
+        var containerItemsSlick = $(".slick-arrow");
+        $(containerItemsSlick).click(function (e) {
+            EstablecerAccionLazyImagen(_elementos.divProductosRelacionados + " img[data-lazy-seccion-revista-digital]");
+            //_initArraysCarrusel();
+            _agregaNewCuvActivo();
+            setCarruselMarcacionAnalytics = multiDimensionalUnico(setCarruselMarcacionAnalytics);
+            marcaCuvsActivos();
+            _marcarSwipeCarrusel();
+        });
+        //quita duplicados
+        //setCarruselMarcacionAnalytics = multiDimensionalUnico(setCarruselMarcacionAnalytics);
+        //marcaCuvsActivos();
+        //Hace la marcación a analytics
+        //_marcarSwipeCarrusel();
+    }
+
+    function _agregaNewCuvActivo() {
+        var containterSlickActive = $(".slick-active");
+        $(containterSlickActive).each(function (index, element) {
+            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
+            
+            if (verificaNuevoCUVParaAnalytic(infoCuvItem))
+                setCarruselMarcacionAnalytics.push([infoCuvItem.CUV2, 0]);
+        });
+    }
+    function marcaCuvsActivos() {
+        var containterSlickActive = $(".slick-active");
+        $(containterSlickActive).each(function (index, element) {
+            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
+            preparaCUVAnalytic(infoCuvItem);
+        });
+    }
+    
+    //Marca como registrado
+    function preparaCUVAnalytic(infoCuvItem) {
+        for (var i = 0; i < setCarruselMarcacionAnalytics.length; i++) {
+            if (setCarruselMarcacionAnalytics[i][0] == infoCuvItem.CUV2 && setCarruselMarcacionAnalytics[i][1] == 0) 
+                setCarruselMarcacionAnalytics[i][1] = 1;
+        }
+    }
+    function verificaNuevoCUVParaAnalytic(infoCuvItem) {
+        for (var i = 0; i < setCarruselMarcacionAnalytics.length; i++) {
+            if (setCarruselMarcacionAnalytics[i][0] == infoCuvItem.CUV2 && setCarruselMarcacionAnalytics[i][1] == 2)
+                return false
+        }
+        return true;
+    }
+    //quita duplicado
+    function multiDimensionalUnico(arr) {
+        var unicos = [];
+        var itemsFound = {};
+        for (var i = 0, l = arr.length; i < l; i++) {
+            var stringified = JSON.stringify(arr[i]);
+            if (itemsFound[stringified]) { continue; }
+            unicos.push(arr[i]);
+            itemsFound[stringified] = true;
+        }
+        return unicos;
+    }
+
+    //obtiene el cuv
+    function getCuvDeCarrusel(CUV) {
+        for (var i = 0; i < setCarruselCuv.length; i++) {
+            if (setCarruselCuv[i].CUV2 == CUV)
+                return setCarruselCuv[i];
+        }
+    }
+    var _marcarSwipeCarrusel = function () {
+        var cuvsAnalytics = [];
+
+        for (var i = 0; i < setCarruselMarcacionAnalytics.length; i++) {
+            if (setCarruselMarcacionAnalytics[i][1] == 1) {
+                var infoCuv = getCuvDeCarrusel(setCarruselMarcacionAnalytics[i][0]); //obtiene info del cuv
+                
+                cuvsAnalytics.push({
+                    'name': infoCuv.DescripcionCortada,
+                    'id': infoCuv.CUV2,
+                    'price': infoCuv.Precio2,
+                    'brand': infoCuv.DescripcionMarca,
+                    'category': infoCuv.CodigoCategoria,
+                    'variant': infoCuv.CodigoVariante,
+                    'list': infoCuv.DescripcionCortada + ' - Set productos',
+                    'position': i
+                });
+                setCarruselMarcacionAnalytics[i][1] = 2;
+            }
+        }
+        
+        if (cuvsAnalytics.length > 0) {
+            cuvsAnalytics = JSON.stringify(cuvsAnalytics);
+            AnalyticsPortalModule.MarImpresionSetProductos(cuvsAnalytics);
+        }
+    }
     function Inicializar() {
-
         _ocultarElementos();
         _mostrarCarrusel();
-
+        _initSwipeCarrusel();
     }
 
     return {

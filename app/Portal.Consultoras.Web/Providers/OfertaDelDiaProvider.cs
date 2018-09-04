@@ -1,37 +1,27 @@
-﻿using Portal.Consultoras.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.ServiceOferta;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class OfertaDelDiaProvider
+    public class OfertaDelDiaProvider : OfertaBaseProvider
     {
         protected ISessionManager sessionManager;
-
-        //public List<OfertaDelDiaModel> GetOfertas(UsuarioModel model)
-        //{
-        //    List<ServiceOferta.BEEstrategia> ofertasDelDia;
-
-        //    using (var osc = new OfertaServiceClient())
-        //    {
-        //        ofertasDelDia = osc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
-        //    }
-
-        //    ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
-
-        //    return Mapper.Map<List<ServiceOferta.BEEstrategia>, List<OfertaDelDiaModel>>(ofertasDelDia).ToList();
-        //}
-
         protected ConfiguracionManagerProvider _configuracionManager;
         protected TablaLogicaProvider _tablaLogica;
         protected OfertaPersonalizadaProvider _ofertaPersonalizada;
+        private readonly ILogManager logManager = LogManager.LogManager.Instance;
 
         public OfertaDelDiaProvider()
         {
@@ -43,7 +33,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<ServiceOferta.BEEstrategia> GetOfertas(UsuarioModel model)
         {
-            List<ServiceOferta.BEEstrategia> ofertasDelDia;
+            List<ServiceOferta.BEEstrategia> ofertasDelDia = null;
             try
             {
                 var entidad = new ServiceOferta.BEEstrategia
@@ -59,16 +49,28 @@ namespace Portal.Consultoras.Web.Providers
                     CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaDelDia
                 };
 
-                using (var osc = new OfertaServiceClient())
-                {
-                    ofertasDelDia = osc.GetEstrategiaODD(entidad, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
+                if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
+                {                   
+                    var diaInicio = DateTime.Now.Date.Subtract(model.FechaInicioCampania.Date).Days;
+                    string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, 
+                        model.CodigoISO, 
+                        Constantes.ConfiguracionPais.OfertaDelDia, 
+                        model.CampaniaID, 
+                        model.CodigoConsultora,
+                        diaInicio);
+                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOfertaDelDia, model.CodigoISO));
+
+                    Task.WhenAll(taskApi);
+
+                    ofertasDelDia = taskApi.Result;
                 }
-
-                //if (ofertasDelDia.Any())
-                //{
-                //    ofertasDelDia.RemoveRange(1, ofertasDelDia.Count() - 1);
-                //}
-
+                else
+                {
+                    using (var osc = new OfertaServiceClient())
+                    {
+                        ofertasDelDia = osc.GetEstrategiaODD(entidad, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -258,6 +260,30 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return result;
+        }
+
+
+        private static TimeSpan CountdownODD(int paisId, bool esDiasFacturacion, TimeSpan horaCierreZonaNormal)
+        {
+            DateTime hoy;
+            DateTime d2;
+            using (var svc = new SACServiceClient())
+            {
+                hoy = svc.GetFechaHoraPais(paisId);
+            }
+            var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+
+            if (esDiasFacturacion)
+            {
+                var t1 = horaCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+            var t2 = (d2 - hoy);
+            return t2;
         }
     }
 }

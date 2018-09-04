@@ -31,20 +31,20 @@ namespace Portal.Consultoras.Entities
 
         public BEHabPedidoCabWS(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoPais"))
-                CodigoPais = Convert.ToString(row["CodigoPais"]);
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToInt32(row["Campania"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "CodigoZona"))
-                CodigoZona = Convert.ToString(row["CodigoZona"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
-                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (DataRecord.HasColumn(row, "PedidoId"))
-                PedidoId = Convert.ToInt32(row["PedidoId"]);
+            
+                CodigoPais = row.ToString("CodigoPais");
+            
+                Campania = row.ToInt32("Campania");
+            
+                CodigoConsultora = row.ToString("CodigoConsultora");
+            
+                CodigoZona = row.ToString("CodigoZona");
+            
+                FechaRegistro = row.ToDateTime("FechaRegistro");
+            
+                ImporteTotal = row.ToDecimal("ImporteTotal");
+            
+                PedidoId = row.ToInt32("PedidoId");
         }
     }
 
@@ -61,10 +61,10 @@ namespace Portal.Consultoras.Entities
 
         public BEHabPedidoDetWS(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
+            
+                CUV = row.ToString("CUV");
+            
+                Cantidad = row.ToInt32("Cantidad");
         }
     }
 }

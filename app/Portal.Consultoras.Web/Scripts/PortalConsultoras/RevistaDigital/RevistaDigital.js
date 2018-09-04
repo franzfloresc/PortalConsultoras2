@@ -340,6 +340,9 @@ function OfertaArmarEstrategias(response, busquedaModel) {
    
 
     ResizeBoxContnet();
+    if (response.guardaEnLocalStorage === false) {
+        return true;
+    }
 
     if (!isDetalle) {
         RDLocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[lsListaRD + indCampania]);
@@ -347,7 +350,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 }
 
 function RDLocalStorageListado(key, valor, codigo) {
-
+ 
     var valLocalStorage = LocalStorageListado(key, null, 1);
     if (valLocalStorage != null) {
         valLocalStorage = JSON.parse(valLocalStorage);
@@ -368,8 +371,9 @@ function RDLocalStorageListado(key, valor, codigo) {
 }
 
 function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
-
-    RDLocalStorageListado(busquedaModel.VarListaStorage + responseData.CampaniaID, filtroCampania[busquedaModel.VarListaStorage + indCampania]);
+    if (busquedaModel.guardaEnLocalStorage === true) {
+        RDLocalStorageListado(busquedaModel.VarListaStorage + responseData.CampaniaID, filtroCampania[busquedaModel.VarListaStorage + indCampania]);
+    }
 
     var response = Clone(responseData);
 
@@ -691,7 +695,7 @@ $(window).on("scroll", function () {
             $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').addClass('dorado_esconde_imagen');
             $('.contenido_zona_dorada_contenedor_desktop').addClass('dorado_contenedor');
             $('#divOfertaProductosPerdio').addClass('dorado_contenedor_prods');
-            $('#block_inscribete').css("top", 105);
+            $('#block_inscribete').css("top", cabecera_mobil > 0 ? 105 : 45);
         }
         else {
             $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').removeClass('dorado_esconde_imagen');
