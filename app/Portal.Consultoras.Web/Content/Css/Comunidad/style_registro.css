@@ -11,7 +11,7 @@ body {
     font-family: 'museo_300regular', Helvetica, Arial, Tahoma;
     margin: 0;
     padding: 0;
-    background: url('../../images/comunidad/bg_regis.jpg') top center no-repeat #fff;
+    background: url('/Content/Images/comunidad/bg_regis.jpg') top center no-repeat #fff;
     color: #555;
     line-height: 18px;
     text-align: center;
@@ -285,11 +285,11 @@ h6, .h6 {
     border: none;
     cursor: pointer;
     color: #fff;
-    background: url('../../images/comunidad/btn_crear.png') 0 0 no-repeat;
+    background: url('/Content/Images/comunidad/btn_crear.png') 0 0 no-repeat;
 }
 
     .formbtn .btnCrear:hover {
-        background: url('../../images/comunidad/btn_crear.png') 0 -36px no-repeat;
+        background: url('/Content/Images/comunidad/btn_crear.png') 0 -36px no-repeat;
     }
 
 .formbtn2 {
@@ -302,11 +302,11 @@ h6, .h6 {
         border: none;
         cursor: pointer;
         color: #fff;
-        background: url('../../images/comunidad/btn_crear.png') 0 0 no-repeat;
+        background: url('/Content/Images/comunidad/btn_crear.png') 0 0 no-repeat;
     }
 
         .formbtn2 .btnCrear:hover {
-            background: url('../../images/comunidad/btn_crear.png') 0 -36px no-repeat;
+            background: url('/Content/Images/comunidad/btn_crear.png') 0 -36px no-repeat;
         }
 
 .formbtn3 {
@@ -334,23 +334,23 @@ h6, .h6 {
     }
 
 .name {
-    background: url('../../images/comunidad/name_ico.png') top left no-repeat #fff;
+    background: url('/Content/Images/comunidad/name_ico.png') top left no-repeat #fff;
 }
 
 .user {
-    background: url('../../images/comunidad/user_ico.png') top left no-repeat #fff;
+    background: url('/Content/Images/comunidad/user_ico.png') top left no-repeat #fff;
 }
 
 .mail {
-    background: url('../../images/comunidad/correo_ico.png') top left no-repeat #fff;
+    background: url('/Content/Images/comunidad/correo_ico.png') top left no-repeat #fff;
 }
 
 .pass {
-    background: url('../../images/comunidad/pass_ico.png') top left no-repeat #fff;
+    background: url('/Content/Images/comunidad/pass_ico.png') top left no-repeat #fff;
 }
 
 .pais {
-    background: url('../../images/comunidad/pais_ico.png') top left no-repeat #fff;
+    background: url('/Content/Images/comunidad/pais_ico.png') top left no-repeat #fff;
 }
 
 .formbtn label {
@@ -525,7 +525,7 @@ h6, .h6 {
 }
 
 #loadingScreen {
-    background: url('../../Images/Loading.gif') no-repeat 5px 8px;
+    background: url('/Content/Images/Loading.gif') no-repeat 5px 8px;
     padding-left: 25px;
 }
 

@@ -800,12 +800,12 @@ body {
 }
 
 .check_icono_mobile {
-    background: url('../../Images/Esika/icono_check_esika.svg') no-repeat;
+    background: url('/Content/Images/Esika/icono_check_esika.svg') no-repeat;
     background-size: cover;
 }
 
 .exclamacion_icono_mobile {
-    background: url('../../Images/Esika/icono_exclamacion_esika.png') no-repeat;
+    background: url('/Content/Images/Esika/icono_exclamacion_esika.png') no-repeat;
     background-size: cover;
 }
 
