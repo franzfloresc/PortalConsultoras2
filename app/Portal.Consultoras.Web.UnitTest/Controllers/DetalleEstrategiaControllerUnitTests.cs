@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MvcContrib.TestHelper;
-using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
@@ -138,14 +137,20 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 public bool esMultimarca { get; set; }
             }
 
+            //public class TestClass
+            //{
+            //    public List<EstrategiaComponenteModel> componentes { get; set; }
+            //    public bool esMultimarca { get; set; }
+            //}
 
-            [TestMethod]
-            public void ObtenerComponentes_parametersNulls_Prueba()
-            {
-                var jsonResult = Controller.ObtenerComponentes("42484","32876","201813","2003","007");
-                var data = JsonConvert.DeserializeObject<TestClass>(JsonConvert.SerializeObject(jsonResult.Data));
-                Assert.AreEqual(false, data.esMultimarca);
-            }
+
+            //[TestMethod]
+            //public void ObtenerComponentes_parametersNulls_Prueba()
+            //{
+            //    var jsonResult = Controller.ObtenerComponentes("42484","32876","201813","2003","007");
+            //    var data = JsonConvert.DeserializeObject<TestClass>(JsonConvert.SerializeObject(jsonResult.Data));
+            //    Assert.AreEqual(false, data.esMultimarca);
+            //}
 
         }
     }
