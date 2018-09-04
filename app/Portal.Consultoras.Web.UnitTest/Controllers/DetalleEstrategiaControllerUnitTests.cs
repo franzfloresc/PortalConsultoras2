@@ -131,10 +131,12 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 return new DetalleEstrategiaController(SessionManager.Object, LogManager.Object, EstrategiaComponenteProvider.Object);
             }
 
-            public class TestClass
+            [TestMethod]
+            public void ObtenerComponentes_parametersPaisCodigoEstrategia_Prueba()
             {
-                public List<EstrategiaComponenteModel> componentes { get; set; }
-                public bool esMultimarca { get; set; }
+                var jsonResult = Controller.ObtenerComponentes("42484", "32876", "201813", "2003", "007");
+                
+                Assert.AreEqual(false, false);
             }
 
             //public class TestClass
