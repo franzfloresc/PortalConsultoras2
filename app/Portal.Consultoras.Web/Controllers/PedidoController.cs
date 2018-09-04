@@ -933,12 +933,13 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         lastResult = DeletePedidoWeb(CampaniaID, PedidoID,
-                       (short)detalle.PedidoDetalleId,
-                       detalle.TipoOfertaSisId,
-                       detalle.CUV,
-                       set.Cantidad * detalle.FactorRepeticion,
-                       ClienteID,
-                       EsBackOrder);
+                           (short)detalle.PedidoDetalleId,
+                           detalle.TipoOfertaSisId,
+                           detalle.CUV,
+                           set.Cantidad * detalle.FactorRepeticion,
+                           ClienteID,
+                           EsBackOrder, 
+                           CUV);
 
                         if (!lastResult.Item1)
                             break;
@@ -966,18 +967,19 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 lastResult = DeletePedidoWeb(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad,
-                    ClienteID, EsBackOrder);
+                    ClienteID, EsBackOrder, CUV);
             }
 
             return lastResult.Item2;
         }
 
-        private Tuple<bool, JsonResult> DeletePedidoWeb(int campaniaId, int pedidoID, short pedidoDetalleId, int tipoOfertaSisId, string CUV, int cantidad, string clienteId, bool esBackOrder)
+        private Tuple<bool, JsonResult> DeletePedidoWeb(int campaniaId, int pedidoID, short pedidoDetalleId, int tipoOfertaSisId, string CUV, int cantidad, string clienteId, bool esBackOrder, string cuvPadre)
         {
             try
             {
                 var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
-
+                var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
+                var pedidoAgrupado = listaPedidoWebDetalleAgrupado.FirstOrDefault(x => x.CUV == cuvPadre) ?? new BEPedidoWebDetalle();
                 var pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
                 if (pedidoEliminado == null)
                     return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste));
@@ -1043,11 +1045,13 @@ namespace Portal.Consultoras.Web.Controllers
                     data = new
                     {
                         DescripcionProducto = pedidoEliminado.DescripcionProd,
-                        CUV = pedidoEliminado.CUV,
+                        pedidoEliminado.CUV,
                         Precio = pedidoEliminado.PrecioUnidad.ToString("F"),
                         DescripcionMarca = pedidoEliminado.DescripcionLarga,
-                        DescripcionOferta = pedidoEliminado.DescripcionOferta,
-                        TipoEstrategiaID = pedidoEliminado.TipoEstrategiaID
+                        pedidoEliminado.DescripcionOferta,
+                        pedidoEliminado.TipoEstrategiaID,
+                        pedidoAgrupado.EstrategiaId,
+                        pedidoAgrupado.TipoEstrategiaCodigo
                     },
                     cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad)
                 }));

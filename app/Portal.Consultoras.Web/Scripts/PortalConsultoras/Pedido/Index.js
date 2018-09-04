@@ -1898,13 +1898,16 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
             CerrarSplash();
 
-            window.OfertaDelDia.CargarODDEscritorio();
+            OfertaDelDiaModule.CargarODDEscritorio();
             ProcesarActualizacionMostrarContenedorCupon();
 
-            ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
-            ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
-            ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
-            ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
+            var localStorageModule = new LocalStorageModule();
+            localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
+            
+            //ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
+            //ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
+            //ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
+            //ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
        
         },
         error: function (data, error) {
