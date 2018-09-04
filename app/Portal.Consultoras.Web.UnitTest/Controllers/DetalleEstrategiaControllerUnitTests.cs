@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [DataRow(Constantes.NombrePalanca.NotParticipaProgramaNuevas, DisplayName = "no tiene GuiaDeNegocioDigitalizada")]
             [DataRow(Constantes.NombrePalanca.OfertaDelDia, DisplayName = "no tiene OfertaDelDia")]
             [DataRow(Constantes.NombrePalanca.OfertaWeb, DisplayName = "no tiene OfertaWeb")]
-            //[DataRow(Constantes.NombrePalanca.OfertaParaTi, DisplayName = "no tiene OfertaParaTi")]
+            [DataRow(Constantes.NombrePalanca.OfertaParaTi, DisplayName = "no tiene OfertaParaTi")]
             [DataRow(Constantes.NombrePalanca.OfertasParaMi, DisplayName = "no tiene OfertasParaMi")]
             [DataRow(Constantes.NombrePalanca.PackAltoDesembolso, DisplayName = "no tiene PackAltoDesembolso")]
             [DataRow(Constantes.NombrePalanca.ParticipaProgramaNuevas, DisplayName = "no tiene ParticipaProgramaNuevas")]
@@ -74,9 +74,18 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [DataRow(Constantes.NombrePalanca.ProgramaNuevasRegalo, DisplayName = "no tiene ProgramaNuevasRegalo")]
             [DataRow(Constantes.NombrePalanca.RevistaDigital, DisplayName = "no tiene RevistaDigital")]
             [DataRow(Constantes.NombrePalanca.ShowRoom, DisplayName = "no tiene ShowRoom")]
-            public override void Ficha_ConsultoraDoNotHaveGuiaDeNegocioDigitalizada_RedirectsToOfertas(string nombrePalanca)
+            public override void Ficha_ConsultoraDoNotHavePalanca_RedirectsToOfertas(string nombrePalanca)
             {
-                base.Ficha_ConsultoraDoNotHaveGuiaDeNegocioDigitalizada_RedirectsToOfertas(nombrePalanca);
+                base.Ficha_ConsultoraDoNotHavePalanca_RedirectsToOfertas(nombrePalanca);
+            }
+
+            [TestMethod]
+            [DataRow(Constantes.NombrePalanca.ShowRoom, Constantes.ConfiguracionPais.ShowRoom, DisplayName = "producto ShowRoom no existe en sesion")]
+            [DataRow(Constantes.NombrePalanca.OfertaDelDia, Constantes.ConfiguracionPais.OfertaDelDia, DisplayName = "producto OfertaDelDia no existe en sesion")]
+            [DataRow(Constantes.NombrePalanca.PackNuevas, (string)null, DisplayName = "producto PackNuevas no existe en sesion")]
+            public override void Ficha_ConsultoraNoTieneProductoEnSession_RedirectsToOfertas(string nombrePalanca, string configuracionPaisCodigo)
+            {
+                base.Ficha_ConsultoraNoTieneProductoEnSession_RedirectsToOfertas(nombrePalanca, configuracionPaisCodigo);
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -110,7 +111,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 VerifyDoNotCallLogManager();
             }
 
-            public virtual void Ficha_ConsultoraDoNotHaveGuiaDeNegocioDigitalizada_RedirectsToOfertas(string nombrePalanca)
+            public virtual void Ficha_ConsultoraDoNotHavePalanca_RedirectsToOfertas(string nombrePalanca)
             {
                 // Arrange
                 var cuv = "33395";
@@ -123,6 +124,49 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(ActionNameExpected(), actualResult.GetActionName());
                 Assert.AreEqual(AreaNameExpected(), actualResult.GetAreaName());
                 VerifyDoNotCallLogManager();
+            }
+
+            public virtual void Ficha_ConsultoraNoTieneProductoEnSession_RedirectsToOfertas(string nombrePalanca, string configuracionPaisCodigo)
+            {
+                // Arrange
+                var cuv = "33395";
+                SetupPalancaInSession(configuracionPaisCodigo);
+                SetupProviderToReturnNull();
+
+                // Act
+                var actualResult = Controller.Ficha(nombrePalanca, CampaniaIdActual, cuv, null) as RedirectToRouteResult;
+
+                // Assert
+                Assert.AreEqual(ControllerNaneExpected(), actualResult.GetControllerName());
+                Assert.AreEqual(ActionNameExpected(), actualResult.GetActionName());
+                Assert.AreEqual(AreaNameExpected(), actualResult.GetAreaName());
+                VerifyDoNotCallLogManager();
+            }
+
+            private void SetupPalancaInSession(string configuracionPaisCodigo)
+            {
+                if (!string.IsNullOrEmpty(configuracionPaisCodigo))
+                {
+                    SessionManager
+                        .Setup(x => x.GetConfiguracionesPaisModel())
+                        .Returns(
+                            new List<ConfiguracionPaisModel>
+                            {
+                                new ConfiguracionPaisModel
+                                {
+                                    Codigo = configuracionPaisCodigo
+                                }
+                            });
+                }
+            }
+
+            private void SetupProviderToReturnNull()
+            {
+                OfertaPersonalizadaProvider.Setup(x => x.ObtenerEstrategiaPersonalizada(
+                                    It.IsAny<UsuarioModel>(),
+                                    It.IsAny<string>(),
+                                    It.IsAny<string>(),
+                                    It.IsAny<int>())).Returns((EstrategiaPersonalizadaProductoModel)null);
             }
         }
     }
