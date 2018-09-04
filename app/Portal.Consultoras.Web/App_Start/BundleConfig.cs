@@ -896,17 +896,22 @@ namespace Portal.Consultoras.Web
            ));
 
            
-            bundles.Add(new ScriptBundle("~/Bundle/Css/Desktop/ShowRoom-Index").Include(
-         "~/Content/Css/Site/ion.rangeSlider/normalize.css",
-         "~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.css",
-         "~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.skinHTML5.css",
-         "~/Content/Css/Site/slick-pedido.css",
-         "~/Content/Css/Site/Landing/producto.landing.css"
-         ));
+                bundles.Add(new ScriptBundle("~/Bundle/Css/Desktop/ShowRoom-Index").Include(
+                "~/Content/Css/Site/ion.rangeSlider/normalize.css",
+                "~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.css",
+                "~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.skinHTML5.css",
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/Landing/producto.landing.css"
+                ));
 
-                        bundles.Add(new ScriptBundle("~/Bundle/Css/Desktop/Ofertas-Index").Include(
- 
-             ));
+             
+
+                bundles.Add(new ScriptBundle("~/Bundle/Css/Mobile/ShowRoom-Index").Include(
+                "~/Content/Css/Mobile/esika/slick.css",
+                "~/Content/Css/Mobile/esika/bootstrap-slider.min.css",
+                "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css",
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
+                ));
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;

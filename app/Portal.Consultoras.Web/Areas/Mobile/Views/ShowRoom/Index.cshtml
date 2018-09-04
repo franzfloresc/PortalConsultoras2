@@ -7,6 +7,8 @@
 @using Portal.Consultoras.Web.Helpers
 @using Portal.Consultoras.Web.Models
 
+@using System.Web.Optimization
+
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
 @{
     var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
@@ -30,10 +32,8 @@
         }
     </style>
 
-    <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
-    <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Mobile/ProductoListado/CajaProducto.css")" rel="stylesheet" />
+    @Styles.Render("~/Bundle/Css/Mobile/ShowRoom-Index")
+
 }
 
 <div class="wrapper_resumen_mobile">
