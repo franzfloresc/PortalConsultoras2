@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
+    <Compile Include="Contenido\IBelcorpRespondeBusinessLogic.cs" />
     <Compile Include="BLCategoria.cs" />
     <Compile Include="BLActivarPremioNuevas.cs" />
     <Compile Include="BLHorario.cs" />
@@ -142,7 +143,7 @@
     <Compile Include="BLBanner.cs" />
     <Compile Include="BLBannerPedido.cs" />
     <Compile Include="BLBelcorpNoticia.cs" />
-    <Compile Include="BLBelcorpResponde.cs" />
+    <Compile Include="Contenido\BLBelcorpResponde.cs" />
     <Compile Include="BLCatalogo.cs" />
     <Compile Include="Cliente\BLCliente.cs" />
     <Compile Include="BLComprobantePercepcion.cs" />

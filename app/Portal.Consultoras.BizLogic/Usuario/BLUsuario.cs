@@ -37,6 +37,7 @@ namespace Portal.Consultoras.BizLogic
         private readonly IResumenCampaniaBusinessLogic _resumenCampaniaBusinessLogic;
         private readonly IConsultoraLiderBusinessLogic _consultoraLiderBusinessLogic;
         private readonly IConsultorasProgramaNuevasBusinessLogic _consultorasProgramaNuevasBusinessLogic;
+        private readonly IBelcorpRespondeBusinessLogic _belcorpRespondeBusinessLogic;
 
         public BLUsuario() : this(new BLTablaLogicaDatos(),
                                     new BLConsultoraConcurso(),
@@ -47,7 +48,8 @@ namespace Portal.Consultoras.BizLogic
                                     new BLPedidoRechazado(),
                                     new BLResumenCampania(),
                                     new BLConsultoraLider(),
-                                    new BLConsultorasProgramaNuevas())
+                                    new BLConsultorasProgramaNuevas(),
+                                    new BLBelcorpResponde())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
@@ -59,7 +61,8 @@ namespace Portal.Consultoras.BizLogic
                         IPedidoRechazadoBusinessLogic pedidoRechazadoBusinessLogic,
                         IResumenCampaniaBusinessLogic resumenCampaniaBusinessLogic,
                         IConsultoraLiderBusinessLogic consultoraLiderBusinessLogic,
-                        IConsultorasProgramaNuevasBusinessLogic consultorasProgramaNuevasBusinessLogic)
+                        IConsultorasProgramaNuevasBusinessLogic consultorasProgramaNuevasBusinessLogic,
+                        IBelcorpRespondeBusinessLogic belcorpRespondeBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
@@ -71,6 +74,7 @@ namespace Portal.Consultoras.BizLogic
             _resumenCampaniaBusinessLogic = resumenCampaniaBusinessLogic;
             _consultoraLiderBusinessLogic = consultoraLiderBusinessLogic;
             _consultorasProgramaNuevasBusinessLogic = consultorasProgramaNuevasBusinessLogic;
+            _belcorpRespondeBusinessLogic = belcorpRespondeBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -2878,6 +2882,7 @@ namespace Portal.Consultoras.BizLogic
                 if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
                 oUsu.OpcionChat = opcion.OpcionChat;
                 oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
+                oUsu.BelcorpResponde = _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault();
                 oUsu.OrigenID = opcion.OrigenID;
                 oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
                 oUsu.CodigoUsuario = CodigoUsuario;
