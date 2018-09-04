@@ -3126,7 +3126,7 @@
             var rows = jQuery("#list").jqGrid('getRowData');
             for (i = 0; i < rows.length; i++) {
                 var row = rows[i];
-                if (row.CodigoTipoEstrategia === "009" || row.CodigoTipoEstrategia === "007" || row.CodigoTipoEstrategia === "008") {
+                if (row.CodigoTipoEstrategia === "009" || row.CodigoTipoEstrategia === "007" || row.CodigoTipoEstrategia === "008" || row.CodigoTipoEstrategia === '030') {
                     if (!estrategiasSeleccionadasIds.includes(row.EstrategiaID)) {
                         estrategiasNoSeleccionadas.push(row._id);
                     }
