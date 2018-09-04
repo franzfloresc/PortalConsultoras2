@@ -73,17 +73,7 @@ function ResponderBotmaker(url, data) {
    
     $.post(url, data)
         .done(function (response) {
-            if (!webViewFallBack) {
-                MessengerExtensions.requestCloseBrowser(
-                    function success() { },
-                    function error(err) {
-                        CloseLoading();
-                        MessageInfoError('error al ingresar');
-                        console.warn('Problems closing browser:' + err);
-                    }
-                );
-            }
-            else CloseWindow();
+            CloseWindow(webViewFallBack);
         })
         .fail(function (xhr, status, error) {
             CloseLoading();
@@ -97,9 +87,18 @@ function ShowLoading() { $("#loading-spin").fadeIn(); }
 
 function CloseLoading() { $("#loading-spin").fadeOut("fast"); }
 
-function CloseWindow() {
-    window.location.href = urlBotmakerChat;
-    setTimeout(function () { window.close() }, 2000);
+function CloseWindow(Fall)
+{
+    if (Fall) window.location.href = urlBotmakerChat;
+
+    MessengerExtensions.requestCloseBrowser(
+        function success() { },
+        function error(err) {
+            CloseLoading();
+            MessageInfoError('error en MessengerExtensions.requestCloseBrowser');
+            console.warn('Problems closing browser:' + err);
+        }
+    );
 }
 
 function MessageInfoError(message, fnAceptar) {
