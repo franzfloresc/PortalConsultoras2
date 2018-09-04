@@ -69,46 +69,46 @@ h3 {
     height: 77px;
 }
 
-.morado-box {
+/*.morado-box {
     height: 100%;
     font-size: 2em;
     text-align: center;
     position: relative;
-}
+}*/
 
-.grey-box {
+/*.grey-box {
     height: auto;
     margin-bottom: 10px;
     font-size: 1em;
     text-align: center;
-}
+}*/
 
-.celeste-box {
+/*.celeste-box {
     height: 100%;
     margin-bottom: 10px;
     font-size: 1em;
     text-align: center;
     color: #748A9E;
-}
+}*/
 
-.celeste-box-logo {
+/*.celeste-box-logo {
     height: 100%;
     margin-bottom: 10px;
     font-size: 1em;
     text-align: center;
     padding: 6px;
-}
+}*/
 
-.celeste-box-logo-xs {
+/*.celeste-box-logo-xs {
     display: none;
     height: 100%;
     margin-bottom: 10px;
     font-size: 1em;
     text-align: center;
     padding: 6px;
-}
+}*/
 
-.naranja-box {
+/*.naranja-box {
     font-size: 2em;
     text-align: center;
     padding: 17px;
@@ -120,20 +120,20 @@ h3 {
     font-size: 2em;
     text-align: center;
     padding: 10px 15px 0 15px;
-}
+}*/
 
-.plomo-box {
+/*.plomo-box {
     height: 70%;
     font-size: 2em;
     text-align: left;
-}
+}*/
 
-.casa-box {
+/*.casa-box {
     margin-bottom: 10px;
     font-size: 2em;
     text-align: center;
     margin-top: -30px;
-}
+}*/
 
 .img-responsive-center {
     display: block;
@@ -144,7 +144,7 @@ h3 {
     margin-left: auto;
 }
 
-.img-responsive-center-m {
+/*.img-responsive-center-m {
     display: block;
     max-width: 100%;
     height: auto;
@@ -152,7 +152,7 @@ h3 {
     margin-right: auto;
     margin-bottom: 0;
     margin-left: auto;
-}
+}*/
 
 .numero-pedido {
     position: absolute;
@@ -181,7 +181,7 @@ h3 {
     color: #A7A4A4;
 }
 
-.btn-bel {
+/*.btn-bel {
     background-color: #722789;
     color: #fff;
     -ms-border-radius: 22px;
@@ -194,9 +194,9 @@ h3 {
         color: #fff;
         font-size: 12px;
         font-weight: normal;
-    }
+    }*/
 
-.btn-borde-morado {
+/*.btn-borde-morado {
     background-color: #fff;
     border-color: #722789;
     color: #722789;
@@ -210,27 +210,27 @@ h3 {
         color: #722789;
         font-size: 12px;
         font-weight: normal;
-    }
+    }*/
 
-.img-responsive-center-zoom {
+/*.img-responsive-center-zoom {
     zoom: 70%;
-}
+}*/
 
-.pa-es {
+/*.pa-es {
     padding: 0 40px;
-}
+}*/
 
-.fo-da {
+/*.fo-da {
     margin-top: 33px;
-}
+}*/
 
-.bg_sky {
+/*.bg_sky {
     background-color: #35bdb2 !important;
-}
+}*/
 
-.cir-l {
+/*.cir-l {
     color: #35bdb2;
-}
+}*/
 
 h4.re4 {
     color: #722789;
@@ -245,7 +245,7 @@ h4.re3 {
     padding: 0;
 }
 
-.nu-cam {
+/*.nu-cam {
     width: auto;
     right: 0;
     top: 4px;
@@ -253,32 +253,32 @@ h4.re3 {
     color: #722789;
     float: left;
     font-weight: bold;
-}
+}*/
 
-.bor-right {
+/*.bor-right {
     border-right: 1px solid #dedede;
-}
+}*/
 
-.label-celeste-small {
+/*.label-celeste-small {
     color: #00abdf;
     font-weight: normal;
     font-size: 12px;
-}
+}*/
 
-.label-gris-small {
+/*.label-gris-small {
     color: #A7A4A4;
     font-weight: normal;
     font-size: 12px;
-}
+}*/
 
-@media only screen and (max-width : 1359px) and (min-width : 961px) {
+/*@media only screen and (max-width : 1359px) and (min-width : 961px) {
 }
 
 @media only screen and (max-width : 1150px) {
 }
 
 @media only screen and (max-width : 960px) {
-}
+}*/
 
 @media only screen and (max-width : 768px) {
     .nombre {
@@ -287,36 +287,36 @@ h4.re3 {
 }
 
 @media only screen and (max-width : 568px) {
-    .icon-he-me {
+    /*.icon-he-me {
         padding: 17px;
-    }
+    }*/
 
     .numero-pedido {
         font-size: 10px;
         margin-right: 31% !important;
     }
 
-    .fo-da {
+    /*.fo-da {
         margin-top: 17px;
-    }
+    }*/
 
-    .img-responsive-center-zoom {
+    /*.img-responsive-center-zoom {
         display: block;
         height: auto;
         zoom: 60%;
-    }
+    }*/
 
-    .img-responsive-center-zoom-l {
+    /*.img-responsive-center-zoom-l {
         display: block;
         height: auto;
         zoom: 70%;
         margin-left: -20px;
         margin-top: 10px;
-    }
+    }*/
 
-    .fo-le {
+    /*.fo-le {
         font-size: 10px;
-    }
+    }*/
 
     .logof {
         zoom: 60%;
