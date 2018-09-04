@@ -21,21 +21,26 @@ namespace Portal.Consultoras.Web.Providers
         {
             get
             {
-                return sessionManager.GetUserData().PaisID;
+                return SessionManager.GetUserData().PaisID;
             }
         }
         private string _paisISO
         {
             get
             {
-                return sessionManager.GetUserData().CodigoISO;
+                return SessionManager.GetUserData().CodigoISO;
             }
         }
         protected OfertaBaseProvider _ofertaBaseProvider;
-        protected ISessionManager sessionManager;
+        protected ISessionManager _sessionManager;
+        public virtual ISessionManager SessionManager
+        {
+            get { return _sessionManager; }
+            private set { _sessionManager = value; }
+        }
 
         public EstrategiaComponenteProvider() : this(
-            SessionManager.SessionManager.Instance, 
+            Web.SessionManager.SessionManager.Instance, 
             new OfertaBaseProvider(),
             new ConfiguracionManagerProvider())
         {
@@ -47,7 +52,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             _configuracionManagerProvider = configuracionManagerProvider;
             _ofertaBaseProvider = ofertaBaseProvider;
-            this.sessionManager = sessionManager;
+            this.SessionManager = sessionManager;
         }
 
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca)
@@ -56,7 +61,7 @@ namespace Portal.Consultoras.Web.Providers
             List<BEEstrategiaProducto> listaBeEstrategiaProductos;
             esMultimarca = false;
 
-            var userData = sessionManager.GetUserData();
+            var userData = SessionManager.GetUserData();
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
                 //listaBeEstrategiaProductos = new List<BEEstrategiaProducto>();
@@ -148,7 +153,8 @@ namespace Portal.Consultoras.Web.Providers
                 x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(x.ImagenProducto) && string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
-                var codigoIsoPais = SessionManager.SessionManager.Instance.GetUserData().CodigoISO;
+                //var codigoIsoPais = Web.SessionManager.SessionManager.Instance.GetUserData().CodigoISO;
+                var codigoIsoPais = SessionManager.GetUserData().CodigoISO;
                 var campaniaId = estrategiaModelo.CampaniaID;//SessionManager.SessionManager.Instance.GetUserData().CampaniaID;
                 var codigoMarca = string.Empty;
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";

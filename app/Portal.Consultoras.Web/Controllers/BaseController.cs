@@ -125,6 +125,14 @@ namespace Portal.Consultoras.Web.Controllers
             this._ofertaPersonalizadaProvider = ofertaPersonalizadaProvider;
         }
 
+        public BaseController(ISessionManager sessionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
+        {
+            //userData = new UsuarioModel();
+            SessionManager = sessionManager;
+            this.logManager = logManager;
+            this._estrategiaComponenteProvider = estrategiaComponenteProvider;
+        }
+
         #endregion
 
         #region Overrides

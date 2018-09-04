@@ -41,6 +41,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
         }
 
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
+            : base(sesionManager, logManager, estrategiaComponenteProvider)
+        {
+        }
+
         #region RevistaDigital
 
         public ActionResult RDIndexModel()

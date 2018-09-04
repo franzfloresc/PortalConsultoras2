@@ -31,6 +31,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
         }
 
+        public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
+            : base(sesionManager, logManager, estrategiaComponenteProvider)
+        {
+        }
+
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
             return base.Ficha(palanca, campaniaId, cuv, origen);

@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using MvcContrib.TestHelper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.UnitTest.Extensions;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
@@ -78,6 +82,62 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             {
                 base.Ficha_ConsultoraDoNotHavePalanca_RedirectsToOfertas(nombrePalanca);
             }
+        }
+
+        [TestClass]
+        public class ObtenerComponentes : Base
+        {
+            protected DetalleEstrategiaController Controller;
+            protected Mock<EstrategiaComponenteProvider> EstrategiaComponenteProvider;
+            protected const int CampaniaIdActual = 201801;
+
+            [TestInitialize]
+            public override void Test_Initialize()
+            {
+                base.Test_Initialize();
+                EstrategiaComponenteProvider = GetOfertaPersonalizadaProvider();
+                Controller = CreateController();
+                ConfigureUserDataWithCampaniaActual(CampaniaIdActual);
+            }
+
+            [TestCleanup]
+            public override void Test_Cleanup()
+            {
+                base.Test_Cleanup();
+                Controller = null;
+                EstrategiaComponenteProvider = null;
+            }
+
+            protected virtual Mock<EstrategiaComponenteProvider> GetOfertaPersonalizadaProvider()
+            {
+                EstrategiaComponenteProvider = new Mock<EstrategiaComponenteProvider>
+                {
+                    CallBase = true
+                };
+                EstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
+                return EstrategiaComponenteProvider;
+            }
+
+            protected DetalleEstrategiaController CreateController()
+            {
+                return new DetalleEstrategiaController(SessionManager.Object, LogManager.Object, EstrategiaComponenteProvider.Object);
+            }
+
+            public class TestClass
+            {
+                public List<EstrategiaComponenteModel> componentes { get; set; }
+                public bool esMultimarca { get; set; }
+            }
+
+
+            [TestMethod]
+            public void ObtenerComponentes_parametersNulls_Prueba()
+            {
+                var jsonResult = Controller.ObtenerComponentes("42484","32876","201813","2003","007");
+                var data = JsonConvert.DeserializeObject<TestClass>(JsonConvert.SerializeObject(jsonResult.Data));
+                Assert.AreEqual(false, data.esMultimarca);
+            }
+
         }
     }
 }
