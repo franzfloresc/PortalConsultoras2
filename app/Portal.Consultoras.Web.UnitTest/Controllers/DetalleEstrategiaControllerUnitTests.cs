@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.UnitTest.Extensions;
+using Newtonsoft.Json;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
 {
@@ -131,27 +132,31 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 return new DetalleEstrategiaController(SessionManager.Object, LogManager.Object, EstrategiaComponenteProvider.Object);
             }
 
-            [TestMethod]
-            public void ObtenerComponentes_parametersPaisCodigoEstrategia_Prueba()
+            protected class ObtenerComponentesResponse
             {
-                var jsonResult = Controller.ObtenerComponentes("42484", "32876", "201813", "2003", "007");
-                
-                Assert.AreEqual(false, false);
+                public List<EstrategiaComponenteModel> componentes { get; set; }
+                public bool esMultimarca { get; set; }
             }
 
-            //public class TestClass
-            //{
-            //    public List<EstrategiaComponenteModel> componentes { get; set; }
-            //    public bool esMultimarca { get; set; }
-            //}
 
+            [TestMethod]
+            [DataRow(null, DisplayName = "codigoVariante nulo")]
+            [DataRow("", DisplayName = "codigoVariante vacio")]
+            public void ObtenerComponentes_parametersCodigoVarianteInvalido_ListaComponentesInstancia(string CodigoVariante)
+            {
+                var jsonResult = Controller.ObtenerComponentes("0", "", "0", CodigoVariante, "");
+                var data = JsonConvert.DeserializeObject<ObtenerComponentesResponse>(JsonConvert.SerializeObject(jsonResult.Data));
+                Assert.AreNotEqual(null, data.componentes);
+            }
 
             //[TestMethod]
-            //public void ObtenerComponentes_parametersNulls_Prueba()
+            //public void ObtenerComponentes_parametersNoAccesoMsPersonalizacion_Componentes()
             //{
-            //    var jsonResult = Controller.ObtenerComponentes("42484","32876","201813","2003","007");
+            //    //var jsonResult = Controller.ObtenerComponentes("42484", "32876", "201813", "2003", Constantes.TipoEstrategiaCodigo.RevistaDigital);
+            //    var jsonResult = Controller.ObtenerComponentes("10000", "10000", "", Constantes.TipoEstrategiaSet.CompuestaVariable, Constantes.TipoEstrategiaCodigo.RevistaDigital);
             //    var data = JsonConvert.DeserializeObject<TestClass>(JsonConvert.SerializeObject(jsonResult.Data));
             //    Assert.AreEqual(false, data.esMultimarca);
+            //    Assert.AreNotEqual(null, data.componentes);
             //}
 
         }
