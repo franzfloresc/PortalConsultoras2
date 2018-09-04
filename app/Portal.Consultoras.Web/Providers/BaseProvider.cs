@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Providers
             //userData = sessionManager.GetUserData();
             //revistaDigital = sessionManager.GetRevistaDigital();
             _configuracionManager = new ConfiguracionManagerProvider();
-        }
+        } 
         
         public string GetFormatDecimalPais(string isoPais)
         {
