@@ -29,6 +29,8 @@ $(document).ready(function () {
                 slidesToScroll: 1,
                 prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
                 nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+            }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+                EstablecerLazyCarrusel($('.content_carrusel_pop_compra'));
             });
 
             $('.content_carrusel_pop_compra').slick('slickGoTo', parseInt(posicion) - 1);
@@ -46,6 +48,8 @@ $(document).ready(function () {
             speed: 260,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;text-align:right"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            EstablecerLazyCarrusel($('.responsive'));
         });
 
         EstablecerLazyCarrusel($('.content_ficha_compra'));
@@ -60,7 +64,10 @@ $(document).ready(function () {
             pantallaPedido: false,
             prevArrow: '<button type="button" data-role="none" class="slick-next next_compraxcompra"></button>',
             nextArrow: '<button type="button" data-role="none" class="slick-prev previous_compraxcompra"></button>'
+        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            EstablecerLazyCarrusel($('.content_ficha_compra'));
         });
+
         //marca google analytics*******************************
         var divs = $(".content_ficha_compra").find("[data-campos]");
         var array_impresions_tactica_desktop = [];
@@ -115,6 +122,8 @@ $(document).ready(function () {
                 slidesToScroll: 1,
                 prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -10%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
                 nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -10%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+            }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+                EstablecerLazyCarrusel($('.content_pop_compra'));
             });
 
             $('.content_pop_compra').slick('slickGoTo', parseInt(posicion) - 1);
@@ -158,6 +167,8 @@ $(document).ready(function () {
             }
 
             $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(posicion);
+        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            EstablecerLazyCarrusel($('.variable-width'));
         });
 
         EstablecerLazyCarrusel($('.content_compra_carrusel'));
@@ -171,7 +182,10 @@ $(document).ready(function () {
             slidesToScroll: 1,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -13%; top:30%;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_left.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -13%; top:30%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_right.png")" alt="" /></a>'
+        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            EstablecerLazyCarrusel($('.content_compra_carrusel'));
         });
+
         //marca google analytics*******************************
         var divs = $(".content_pop_compra").find("[data-campos]");
         var array_impresions_tactica_desktop =[];

@@ -1316,6 +1316,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="ChateaConEBA.html" />
     <Content Include="AppDeCatalogos.html" />
     <Content Include="Content\Banderas\AR.png" />
@@ -4079,7 +4080,6 @@
     <Content Include="Content\fonts\arialMT\arialmt.woff" />
     <Content Include="Content\fonts\arialMT\arialmt.woff2" />
     <Content Include="Areas\Mobile\Views\ShowRoom\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\MiAsesorBelleza\Index.cshtml" />
     <Content Include="Content\Css\Site\fonts\flexslider-icon.eot" />
@@ -4291,7 +4291,7 @@
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponentesTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\PaletaOpcionesTemplate.cshtml" />
-    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpAlertaPedidosOnline.cshtml" />  
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpAlertaPedidosOnline.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpLoadingMobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />

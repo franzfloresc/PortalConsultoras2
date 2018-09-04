@@ -261,6 +261,8 @@ var OfertaDelDiaModule = function () {
                 nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>'
             }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
                 odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide);
+            }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+                EstablecerLazyCarrusel($("#divOddCarrusel"));
             });
 
             // esto debe ser automatico
