@@ -48,6 +48,8 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/ShowRoomJs").Include(
+                "~/Scripts/nieve.js",
+                "~/Scripts/ion.rangeSlider/ion.rangeSlider.js",
                 "~/Scripts/PortalConsultoras/ShowRoom/Index.js",
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
@@ -841,7 +843,53 @@ namespace Portal.Consultoras.Web
             ));
 
             #endregion
-            
+             
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/EstrategiaProducto-DetalleProducto").Include(
+               "~/Scripts/jquery.flexslider.js",
+               "~/Scripts/jquery.rateyo.js",
+               "~/Scripts/PortalConsultoras/BestSeller/BestSellerCommentModule.js",
+               "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
+               "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+               "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
+               "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+               "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarPovider.js",
+               "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+               "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+               "~/Scripts/PortalConsultoras/Pedido/barra.js"
+           ));
+
+
+            bundles.Add(new ScriptBundle("~/Bundle/Css/Desktop/EstrategiaProducto-DetalleProducto").Include(
+               "~/Content/Css/Site/slick-pedido.css",
+                  "~/Content/Css/Site/jquery.rateyo.css",
+                     "~/Content/Css/Mobile/esika/bootstrap-slider.min.css"
+           ));
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/ShowRoom-Intriga").Include(
+                "~/Scripts/PortalConsultoras/ShowRoom/Intriga.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
+              ));
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/OfertaDelDia-EstrategiaAgregar").Include(
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
+             ));
+
+
+     
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/ShowRoom-index").Include(
+                "~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js",
+                "~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-SeccionDorada.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
+           ));
+
+
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
