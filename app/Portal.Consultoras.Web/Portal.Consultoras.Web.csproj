@@ -1316,7 +1316,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="ChateaConEBA.html" />
     <Content Include="AppDeCatalogos.html" />
     <Content Include="Content\Banderas\AR.png" />
@@ -3247,7 +3246,6 @@
     <Content Include="Content\Images\mobile\img-showroom\sombra.png" />
     <Content Include="Content\Images\mobile\img-showroom\titulo_mobil.jpg" />
     <Content Include="Content\Images\mobile\img-showroom\titulo_preventa.jpg" />
-    <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
     <Content Include="Content\Images\mobile\landing_mobile_8.jpg" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
