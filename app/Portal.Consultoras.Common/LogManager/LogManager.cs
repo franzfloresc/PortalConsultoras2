@@ -143,7 +143,7 @@ namespace Portal.Consultoras.Common
                     var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
                     ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
                     acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
-                    Token = (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp];
+                    Token = (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ?? "";
                 }
 
                 var exceptionMessage = string.Empty;

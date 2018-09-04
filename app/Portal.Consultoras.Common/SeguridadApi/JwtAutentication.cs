@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Portal.Consultoras.Common
 {
@@ -27,6 +28,8 @@ namespace Portal.Consultoras.Common
             string JwtToken = string.Empty;
             try
             {
+                if (string.IsNullOrEmpty((string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp]))
+                {
                     using (HttpClient httpClient = new HttpClient())
                     {
 
@@ -38,11 +41,12 @@ namespace Portal.Consultoras.Common
                         HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
                         HttpResponseMessage response = await httpClient.PostAsync("api/Seguridad", contentPost);
                         responseBody = await response.Content.ReadAsStringAsync();
-                        JwtToken Token  = JsonConvert.DeserializeObject<JwtToken>(responseBody);
+                        JwtToken Token = JsonConvert.DeserializeObject<JwtToken>(responseBody);
                         if (Token != null) JwtToken = Token.Token;
-                   
+
 
                     }
+                }
             }
 
             catch (Exception ex)

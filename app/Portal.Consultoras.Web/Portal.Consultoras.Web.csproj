@@ -762,9 +762,6 @@
     <Compile Include="Providers\VCFichaProductoProvider.cs" />
     <Compile Include="Providers\LogDynamoProvider.cs" />
     <Compile Include="Providers\ZonificacionProvider.cs" />
-    <Compile Include="SeguridadApi\JwtAutentication.cs" />
-    <Compile Include="SeguridadApi\JwtModule.cs" />
-    <Compile Include="SeguridadApi\JwtToken.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -4227,7 +4224,6 @@
     <Content Include="Areas\Mobile\Views\MiPerfil\CambiarFotoPerfil.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCorreo.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCelular.cshtml" />
-    <Content Include="SeguridadApi\JwtToken.json" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4830,7 +4826,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="SeguridadApi\log.txt" />
     <Content Include="Service References\ServicioGenerarLideres\configuration91.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\configuration.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\Reference.svcmap">

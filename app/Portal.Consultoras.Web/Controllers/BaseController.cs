@@ -119,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
                     filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
-                _tokenApiSomosBelcorp = sessionManager.GetJwtApiSomosBelcorp();
+                _tokenApiSomosBelcorp = sessionManager.GetJwtApiSomosBelcorp()?? "";
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
