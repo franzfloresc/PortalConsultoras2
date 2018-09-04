@@ -16,17 +16,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
 
         }
-        public DetalleEstrategiaController(ISessionManager sesionManager)
-            : base(sesionManager)
-        {
 
-        }
+        //public DetalleEstrategiaController(ISessionManager sesionManager)
+        //    : base(sesionManager)
+        //{
 
-        public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager)
-            : base(sesionManager, logManager)
-        {
+        //}
 
-        }
+        //public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager)
+        //    : base(sesionManager, logManager)
+        //{
+
+        //}
 
         public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider)
             : base(sesionManager, logManager, ofertaPersonalizadaProvider)

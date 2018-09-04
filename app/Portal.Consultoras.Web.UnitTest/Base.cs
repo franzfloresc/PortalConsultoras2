@@ -4,6 +4,7 @@ using Moq;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.UnitTest
 {
@@ -39,7 +40,7 @@ namespace Portal.Consultoras.Web.UnitTest
 
         protected void ConfigureUserDataWithCampaniaActual(int campaniaId)
         {
-            SessionManager.Setup(x => x.GetUserData()).Returns(new UsuarioModel() { CampaniaID = campaniaId, NroCampanias = 18});
+            SessionManager.Setup(x => x.GetUserData()).Returns(new UsuarioModel() { CampaniaID = campaniaId, NroCampanias = 18, PaisID = Constantes.PaisID.Peru, CodigoISO = Constantes.CodigosISOPais.Peru });
         }
 
         protected void VerifyDoNotCallLogManager()

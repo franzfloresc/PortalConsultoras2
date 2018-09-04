@@ -3993,8 +3993,8 @@
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\SeguimientoPedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayout.cshtml" />
-    <Content Include="Areas\Mobile\Views\Shared\_MobileMenuFooter.cshtml" />
-    <Content Include="Areas\Mobile\Views\Shared\_MobileMenuLateral.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenuFooter.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenuLateral.cshtml" />
     <Content Include="Areas\Mobile\Views\Web.config" />
     <Content Include="Areas\Mobile\Views\Catalogo\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\Index.cshtml" />
@@ -4190,7 +4190,7 @@
     <Content Include="Areas\Mobile\Views\Notificaciones\DetalleNotificacionesCdr.cshtml" />
     <Content Include="Areas\Mobile\Views\Ofertas\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutContenedor.cshtml" />
-    <Content Include="Areas\Mobile\Views\Shared\_MenuContenedorOferta.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MenuContenedorOferta.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-showroom.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
@@ -4205,7 +4205,7 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueMensajesPedido.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueBannerShowRoomTop.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueBannerShowRoom.cshtml" />
-    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\vp_BloquePopupMensajesInformacion.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupMensajesInformacion.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupComunidad.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
@@ -4282,7 +4282,6 @@
     <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCorreo.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCelular.cshtml" />
     <Content Include="Areas\Mobile\Views\MiAcademia\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutBuscador.cshtml" />
     <Content Include="Areas\Mobile\Views\Buscador\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Buscador\_BuscadorPartialView.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\_ElegirOpciones.cshtml" />
@@ -4292,6 +4291,9 @@
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponentesTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\PaletaOpcionesTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpAlertaPedidosOnline.cshtml" />  
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpLoadingMobile.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4996,7 +4998,7 @@
     <Content Include="Views\Tracking\Index.cshtml" />
     <Content Include="Views\AdministrarLinks\Index.cshtml" />
     <Content Include="Views\ConsultaAdministrativa\ConsultaConsultora.cshtml" />
-    <Content Include="Views\Shared\_SACFooter.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMenu\_SACFooter.cshtml" />
     <Content Include="Views\Shared\_PreviaFooter.cshtml" />
     <Content Include="Views\Shared\_PreviaMenu.cshtml" />
     <Content Include="Views\OfertaFlexipago\OfertasFlexipago.cshtml" />
@@ -5099,8 +5101,8 @@
     <Content Include="Views\ParametroDiasCargaPedido\Index.cshtml" />
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Bienvenida\Index.cshtml" />
-    <Content Include="Views\Shared\_Menu.cshtml" />
-    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMenu\_Menu.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMenu\_Footer.cshtml" />
     <Content Include="Views\OfertaLiquidacion\OfertasLiquidacion.cshtml" />
     <Content Include="Views\Pedido\Index.cshtml" />
     <Content Include="Views\ParticipantesDemandaAnticipada\Index.cshtml" />
@@ -5158,7 +5160,7 @@
     <Content Include="Views\ConsultaPedido\BloqueoPedidoImp.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
-    <Content Include="Views\Shared\_Menu2.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMenu\_Menu2.cshtml" />
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\Unete\ReporteFunnel.cshtml" />
@@ -5175,7 +5177,7 @@
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
     <Content Include="Views\Login\ChatBelcorp.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoOfertasHome.cshtml" />
-    <Content Include="Views\Shared\_MenuContenedorOferta.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMenu\_MenuContenedorOferta.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-showroom.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-oferta-del-dia.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo9.cshtml" />
@@ -5188,7 +5190,7 @@
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpBloqueMensajesPostulante.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpBloqueMensajesPedido.cshtml" />
-    <Content Include="Views\Shared\VistaParcialMainLayout\_vpMenuB.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMenu\_vpMenuB.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpFeDeErratas.cshtml" />
     <Content Include="Views\Shared\_template-ofertadeldia-style.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpRegistroComunidad.cshtml" />
@@ -5278,7 +5280,8 @@
     <Content Include="Views\DetalleEstrategia\ResumenOpcionesTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\OpcionesSeleccionadasTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales-producto.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpTrackingJetlore.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHidden.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5483,7 +5486,7 @@
     <Content Include="Views\PedidoWebAnteriores\PedidoWebAnterioresDetalle.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWebDetalle.cshtml" />
     <Content Include="Views\ConsultoraFicticia\Index.cshtml" />
-    <Content Include="Views\Shared\_SACMenu.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMenu\_SACMenu.cshtml" />
     <Content Include="Views\Rol\Rol.cshtml" />
     <Content Include="Views\UsuarioRol\Index.cshtml" />
     <Content Include="Views\Pedido\CampaniaZonaNoConfigurada.cshtml" />

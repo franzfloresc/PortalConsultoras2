@@ -99,11 +99,12 @@
 
                     </div>
                 </div>
-                @Html.Partial("_SACMenu")
+                @Html.Partial("~/Views/Shared/VistaParcialMenu/_SACMenu.cshtml")
             </div>
         </div>
         <div id="white_bg_for_menu"></div>
     </div>
+
     <div id="cont_contenido" style="">
         <div class="clear top"></div>
 
@@ -112,9 +113,10 @@
             @RenderBody()
         </div>
     </div>
+
     <div class="clear"></div>
     <div id="footer">
-        @Html.Partial("_SACFooter")
+        @Html.Partial("~/Views/Shared/VistaParcialMenu/_SACFooter.cshtml")
     </div>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/PluginsFooterSAC")
     @RenderSection("scripts", required: false)

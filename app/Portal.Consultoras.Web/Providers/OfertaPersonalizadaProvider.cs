@@ -569,7 +569,7 @@ namespace Portal.Consultoras.Web.Providers
             };
         }
 
-        public EstrategiaPersonalizadaProductoModel ObtenerEstrategiaPersonalizada(UsuarioModel usuarioModel, string palanca, string cuv, int campaniaId)
+        public virtual EstrategiaPersonalizadaProductoModel ObtenerEstrategiaPersonalizada(UsuarioModel usuarioModel, string palanca, string cuv, int campaniaId)
         {
             try
             {

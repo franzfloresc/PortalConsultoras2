@@ -50,7 +50,9 @@
             <br />
         </div>
     </section>
-    <div class="content-spinner2" id="loading-spin">
+
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
+    @*<div class="content-spinner2" id="loading-spin">
         <div class="busy-loader">
             <div class="w-ball-wrapper ball-1">
                 <div class="w-ball"></div>
@@ -67,7 +69,7 @@
                 <div class="w-ball"> </div>
             </div>
         </div>
-    </div>
+    </div>*@
     @Scripts.Render("~/Bundle/Js/Mobile/MobileLayout")
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";

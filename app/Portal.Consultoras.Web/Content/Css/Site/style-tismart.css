@@ -784,13 +784,13 @@ img {
     height: 21px;
     padding-left: 22px;
     padding-top: 3px;
-    background-image: url('../../images/comunidad/box-01.png');
+    background-image: url('/Content/Images/comunidad/box-01.png');
     background-repeat: no-repeat;
     transition: background-image 250ms ease;
 }
 
     #wrap_box:hover {
-        background-image: url('../../images/comunidad/box-02.png');
+        background-image: url('/Content/Images/comunidad/box-02.png');
     }
 
 .item_selected {

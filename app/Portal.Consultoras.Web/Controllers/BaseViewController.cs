@@ -15,9 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
     public class BaseViewController : BaseController
     {
         private readonly IssuuProvider _issuuProvider;
-        private ISessionManager object1;
-        private ILogManager object2;
-        private OfertaPersonalizadaProvider object3;
 
         public BaseViewController() : base()
         {
@@ -38,6 +35,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BaseViewController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider) 
             : base(sesionManager, logManager, ofertaPersonalizadaProvider)
+        {
+        }
+
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
+            : base(sesionManager, logManager, estrategiaComponenteProvider)
         {
         }
 
@@ -193,7 +195,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
                     if (estrategiaPresonalizada == null)
-                        return RedirectToAction("Index", "Ofertas");
+                        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
                     if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);

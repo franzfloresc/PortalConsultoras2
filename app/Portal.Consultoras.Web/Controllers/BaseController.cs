@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
             get
             {
                 var model = new UsuarioModel();
-                if (SessionManager != null) model = SessionManager.GetUserData();
+                if (SessionManager != null && SessionManager.GetUserData() != null) model = SessionManager.GetUserData();
                 model.MenuNotificaciones = 1;
                 return model;
             }
@@ -123,6 +123,14 @@ namespace Portal.Consultoras.Web.Controllers
             SessionManager = sessionManager;
             this.logManager = logManager;
             this._ofertaPersonalizadaProvider = ofertaPersonalizadaProvider;
+        }
+
+        public BaseController(ISessionManager sessionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
+        {
+            //userData = new UsuarioModel();
+            SessionManager = sessionManager;
+            this.logManager = logManager;
+            this._estrategiaComponenteProvider = estrategiaComponenteProvider;
         }
 
         #endregion
