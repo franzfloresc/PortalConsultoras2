@@ -789,33 +789,33 @@ h4.re3 {
 }
 
 .icon-caja-gris {
-    background-image: url('../../../Images/mobile/img-icon/icon-caja-gris.png');
+    background-image: url('/Content/Images/mobile/img-icon/icon-caja-gris.png');
 }
 
 .icon-caja {
-    background-image: url('../../../Images/mobile/img-icon/icon-caja.png');
+    background-image: url('/Content/Images/mobile/img-icon/icon-caja.png');
 }
 
 .icon-caja-white {
-    background-image: url('../../../Images/mobile/img-icon/icon-caja-white.png');
+    background-image: url('/Content/Images/mobile/img-icon/icon-caja-white.png');
 }
 
 .btn-line:hover .icon-caja {
-    background-image: url('../../../Images/mobile/img-icon/icon-caja-white.png');
+    background-image: url('/Content/Images/mobile/img-icon/icon-caja-white.png');
 }
 
 .btn-line:hover .icon-caja-gris {
-    background-image: url('../../../Images/mobile/img-icon/icon-caja.png');
+    background-image: url('/Content/Images/mobile/img-icon/icon-caja.png');
 }
 
 .slide-prev,
 .slick-prev {
-    background-image: url('../../../Images/mobile/img-icon/img-prev.png');
+    background-image: url('/Content/Images/mobile/img-icon/img-prev.png');
 }
 
 .slide-next,
 .slick-next {
-    background-image: url('../../../Images/mobile/img-icon/img-next.png');
+    background-image: url('/Content/Images/mobile/img-icon/img-next.png');
 }
 
 .text-center .img-responsive {
@@ -1169,7 +1169,7 @@ h4.re3 {
 }
 
     .panel-product .product-add-image {
-        background-image: url('../../../Images/mobile/img-icon/img-producto-agregado.png');
+        background-image: url('/Content/Images/mobile/img-icon/img-producto-agregado.png');
         background-size: 100% 100%;
         width: 100px;
         height: 28px;
@@ -1597,19 +1597,19 @@ h4.re3 {
 }
 
 .icon-noti-green {
-    background-image: url('../../../Images/mobile/img-icon/icon-caja-round-green.png');
+    background-image: url('/Content/Images/mobile/img-icon/icon-caja-round-green.png');
 }
 
 .icon-noti-white {
-    background-image: url('../../../Images/mobile/img-icon/icon-caja-round-white.png');
+    background-image: url('/Content/Images/mobile/img-icon/icon-caja-round-white.png');
 }
 
 .icon-nuevo-cliente-green {
-    background-image: url('../../../Images/mobile/img-icon/icon-nuevo-cliente-green.png');
+    background-image: url('/Content/Images/mobile/img-icon/icon-nuevo-cliente-green.png');
 }
 
 .icon-nuevo-cliente-white {
-    background-image: url('../../../Images/mobile/img-icon/icon-nuevo-cliente-white.png');
+    background-image: url('/Content/Images/mobile/img-icon/icon-nuevo-cliente-white.png');
 }
 
 .list-notificaciones {
@@ -2319,14 +2319,14 @@ h4.re3 {
     }
 
 #cssmenu > ul > li.active > a {
-    background-image: url('../../../Images/mobile/img-icon/mobile_icon_menos.png');
+    background-image: url('/Content/Images/mobile/img-icon/mobile_icon_menos.png');
     background-repeat: no-repeat;
     background-position: 100% center;
     background-size: 13px;
 }
 
 #cssmenu > ul > li.has-sub > a {
-    background-image: url('../../../Images/mobile/img-icon/mobile_icon_mas.png');
+    background-image: url('/Content/Images/mobile/img-icon/mobile_icon_mas.png');
     background-repeat: no-repeat;
     background-position: 100% center;
     background-size: 13px;
@@ -3227,7 +3227,7 @@ table > thead > tr > th {
 }
 
 .icon-cart-list-pedidos {
-    background-image: url('../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos.png');
+    background-image: url('/Content/Images/Mobile/img-consultoraonline/icon-cart-plus-pedidos.png');
 }
 
 @media (max-width: 360px) {
@@ -3241,7 +3241,7 @@ table > thead > tr > th {
 }
 
 .icon-cart-list-pedidos-inverse {
-    background-image: url('../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos-inverse.png');
+    background-image: url('/Content/Images/Mobile/img-consultoraonline/icon-cart-plus-pedidos-inverse.png');
 }
 
 
@@ -3253,11 +3253,11 @@ table > thead > tr > th {
 }
 
 .icon-cart-list-pedidos {
-    background-image: url('../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos.png');
+    background-image: url('/Content/Images/Mobile/img-consultoraonline/icon-cart-plus-pedidos.png');
 }
 
 .icon-cart-list-pedidos-inverse {
-    background-image: url('../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos-inverse.png');
+    background-image: url('/Content/Images/Mobile/img-consultoraonline/icon-cart-plus-pedidos-inverse.png');
 }
 
 .btn-align {
@@ -3559,7 +3559,7 @@ table > thead > tr > th {
 .sombra_m {
     width: 100%;
     height: 20px;
-    background: url('../../../Images/mobile/img-showroom/sombra.png');
+    background: url('/Content/Images/Mobile/img-showroom/sombra.png');
 }
 /*POP UP*/
 
@@ -3714,7 +3714,7 @@ table > thead > tr > th {
 .CerrarPopMobile {
     width: 15px;
     height: 15px;
-    background: url('../../../Images/mobile/img-showroom/close_mobile.png') no-repeat;
+    background: url('/Content/Images/Mobile/img-showroom/close_mobile.png') no-repeat;
     cursor: pointer;
     position: absolute;
     top: 10px;
@@ -3873,7 +3873,7 @@ table > thead > tr > th {
     height: 20px;
     margin: 0 auto;
     line-height: 0;
-    background: white url('../../../Images/mobile/img-showroom/red.png') center no-repeat;
+    background: white url('/Content/Images/Mobile/img-showroom/red.png') center no-repeat;
 }
 /*LISTA PRODUCTOS*/
 .row_lista_blanco {
@@ -3906,7 +3906,7 @@ table > thead > tr > th {
 .selector_s_mobile {
     width: 100%;
     margin-top: 10px;
-    background: white url('../../../Images/mobile/img-showroom/selector.png') right center no-repeat;
+    background: white url('/Content/Images/Mobile/img-showroom/selector.png') right center no-repeat;
 }
 
     .selector_s_mobile select {
@@ -4187,7 +4187,7 @@ table > thead > tr > th {
         color: #f11935;
     }
 /*CARROUSEL*/
-.imagen_principal_carrousel {
+/*.imagen_principal_carrousel {
     width: 320px;
     margin: 0 auto;
     height: 382px;
@@ -4197,7 +4197,7 @@ table > thead > tr > th {
 
     .imagen_principal_carrousel img {
         width: 100%;
-    }
+    }*/
 
 @media (max-width: 359px) {
     .slick-slide {
@@ -4208,7 +4208,7 @@ table > thead > tr > th {
 .producto_agotado {
     position: absolute;
     z-index: 100;
-    background: url('../../../Images/mobile/img-showroom/opacity_items.png');
+    background: url('/Content/Images/Mobile/img-showroom/opacity_items.png');
     width: 292px;
     height: 349px;
 }
@@ -4227,17 +4227,17 @@ table > thead > tr > th {
     border: 2px solid #ffffff;
 }
 
-.top_triangular {
+/*.top_triangular {
     width: 100%;
     max-width: 500px;
     height: 27px;
     position: relative;
     margin: 0 auto;
     margin-top: -26px !important;
-    background: url('../../../Images/mobile/img-showroom/top_triangular.png') top center;
-}
+    background: url('/Content/Images/Mobile/img-showroom/top_triangular.png') top center;
+}*/
 
-.contenedor_info_mobile {
+/*.contenedor_info_mobile {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
@@ -4249,9 +4249,9 @@ table > thead > tr > th {
     min-height: 100px;
     background: white;
     overflow: hidden;
-}
+}*/
 
-.titulo_lista {
+/*.titulo_lista {
     width: 100%;
     color: black;
     font-size: 32px;
@@ -4259,7 +4259,7 @@ table > thead > tr > th {
     text-align: center;
     font-family: 'Lato';
     font-weight: bold;
-}
+}*/
 
 .slick-prev-showroom {
     top: 180px;
@@ -4267,7 +4267,7 @@ table > thead > tr > th {
     z-index: 100;
     width: 14px;
     height: 20px;
-    background-image: url('../../../Images/mobile/img-showroom/previous2.png');
+    background-image: url('/Content/Images/Mobile/img-showroom/previous2.png');
 }
 
 .slick-next-showroom {
@@ -4276,17 +4276,17 @@ table > thead > tr > th {
     z-index: 100;
     width: 14px;
     height: 20px;
-    background-image: url('../../../Images/mobile/img-showroom/next2.png');
+    background-image: url('/Content/Images/Mobile/img-showroom/next2.png');
 }
 
-.item_detalle_set {
+/*.item_detalle_set {
     width: 100%;
     height: auto;
     margin-top: 32px;
     overflow: hidden;
-}
+}*/
 
-.content_imagen_detalle {
+/*.content_imagen_detalle {
     width: 30%;
     min-height: 70px;
     display: inline-block;
@@ -4295,38 +4295,38 @@ table > thead > tr > th {
 
     .content_imagen_detalle img {
         width: 100%;
-    }
+    }*/
 
-.descripcion_detalle {
+/*.descripcion_detalle {
     width: 68%;
     height: auto;
     display: inline-block;
     vertical-align: middle;
-}
+}*/
 
-.titulo_descripcion {
+/*.titulo_descripcion {
     font-size: 16px;
     line-height: 19px;
     color: black;
     font-family: 'Lato';
     font-weight: bold;
     margin-top: 5px;
-}
+}*/
 
-.descripcion_set_showroom {
+/*.descripcion_set_showroom {
     font-size: 12.5px;
     line-height: 14px;
     color: black;
     font-family: 'Lato';
     margin-top: 5px;
-}
+}*/
 
-.precio_content {
+/*.precio_content {
     margin-top: 65px !important;
     overflow: hidden;
-}
+}*/
 
-.set_precio_m {
+/*.set_precio_m {
     text-align: center;
     font-family: 'Lato';
     font-size: 16px;
@@ -4341,9 +4341,9 @@ table > thead > tr > th {
         font-size: 24px;
         color: #f11935;
         background-position: 1px 0;
-    }
+    }*/
 
-.set_precio_gana_m {
+/*.set_precio_gana_m {
     text-align: center;
     font-weight: bold;
     font-family: 'Lato';
@@ -4356,13 +4356,13 @@ table > thead > tr > th {
     .set_precio_gana_m span {
         margin-top: 5px;
         color: black;
-    }
+    }*/
 
 .no_margin_left {
     margin-left: 0 !important;
 }
 
-.cantidad_texto {
+/*.cantidad_texto {
     width: 100%;
     color: black;
     font-size: 14px;
@@ -4371,9 +4371,9 @@ table > thead > tr > th {
     margin-bottom: 7px;
     font-family: 'lato';
     font-weight: bold;
-}
+}*/
 
-.showroom_menos_carrousel {
+/*.showroom_menos_carrousel {
     color: black;
     font-size: 18px;
     font-weight: 700;
@@ -4390,9 +4390,9 @@ table > thead > tr > th {
 
     .showroom_menos_carrousel:hover {
         text-decoration: none;
-    }
+    }*/
 
-.showroom_cantidad_carrousel {
+/*.showroom_cantidad_carrousel {
     padding-top: 15px;
     padding-bottom: 15px;
     width: 40%;
@@ -4407,9 +4407,9 @@ table > thead > tr > th {
     display: block;
     font-family: 'lato';
     background: transparent;
-}
+}*/
 
-.showroom_mas_carrousel {
+/*.showroom_mas_carrousel {
     color: black;
     font-size: 18px;
     font-weight: 700;
@@ -4426,7 +4426,7 @@ table > thead > tr > th {
 
     .showroom_mas_carrousel:hover {
         text-decoration: none;
-    }
+    }*/
 
 .btn_agregar_set {
     width: 100%;
@@ -4448,7 +4448,7 @@ table > thead > tr > th {
         color: white;
     }
 
-.volver_set_carrousel {
+/*.volver_set_carrousel {
     position: absolute;
     display: block;
     font-family: 'lato';
@@ -4456,7 +4456,7 @@ table > thead > tr > th {
     font-size: 14px;
     margin-left: 12px;
     padding-left: 23px;
-    background: url('../../../Images/mobile/img-showroom/volver.png') no-repeat;
+    background: url('/Content/Images/Mobile/img-showroom/volver.png') no-repeat;
     background-position: 1px 6px;
     margin-top: 8px;
     cursor: pointer;
@@ -4466,16 +4466,16 @@ table > thead > tr > th {
     .volver_set_carrousel:hover {
         text-decoration: none;
         color: white;
-    }
+    }*/
 
-.content_centrado {
+/*.content_centrado {
     margin: 0 auto;
     width: 125px;
-}
+}*/
 
 /*NUEVA VERSION MOBILE*/
 .logo_mobile {
-    background: url('../../../Images/mobile/Esika/logo_esika.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/logo_esika.png') no-repeat;
     width: 72px;
     height: 28px;
     margin: 0 auto;
@@ -4495,7 +4495,7 @@ table > thead > tr > th {
     margin-right: 15px;
     margin-top: 18px;
     position: relative;
-    background: url('../../../Images/mobile/Esika/notificaciones.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/notificaciones.png') no-repeat;
     background-position: center -1px;
 }
 
@@ -4589,7 +4589,7 @@ table > thead > tr > th {
     border-radius: 100px;
     position:relative;
     background-color:rgba(229,229,229,1);
-    background-image:url('../../../Images/icono_avatar.svg');
+    background-image:url('/Content/Images/icono_avatar.svg');
     background-repeat:no-repeat;
     background-position: center 12px;
     background-size: 75%;
@@ -4602,7 +4602,7 @@ table > thead > tr > th {
     }
 
 .subir_foto_mobile {
-    background-image: url('../../../Images/mobile/icono_editar_foto_perfil.svg');
+    background-image: url('/Content/Images/Mobile/icono_editar_foto_perfil.svg');
     background-position:center;
     background-repeat:no-repeat;
     background-size:63%;
@@ -4643,7 +4643,7 @@ table > thead > tr > th {
 .icono_info_alerta{
     width: 20px;
     height: 20px;
-    background-image: url(../../../Images/Esika/icono_info_alerta.svg);
+    background-image: url(/Content/Images/Esika/icono_info_alerta.svg);
     margin-right: 5px;
 }
 
@@ -4785,7 +4785,7 @@ table > thead > tr > th {
     float: left;
     width: 10px;
     height: 10px;
-    background: url('../../../Images/mobile/Esika/Lapiz.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/Lapiz.png') no-repeat;
 }
 
 .info_cam_mobile {
@@ -4838,7 +4838,7 @@ table > thead > tr > th {
     }
 
 .triangulo_home {
-    background: url('../../../Images/mobile/Esika/triangulo.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/triangulo.png') no-repeat;
     width: 22px;
     margin: 0 auto;
     height: 20px;
@@ -4864,7 +4864,7 @@ table > thead > tr > th {
     color: black;
     font-family: 'Lato';
     font-size: 12px;
-    background: url('../../../Images/mobile/Esika/indicador_pedido.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/indicador_pedido.png') no-repeat;
     background-position: 0 4px;
 }
 
@@ -4899,12 +4899,12 @@ table > thead > tr > th {
     width: 34px;
     height: 36px;
     margin-right: 11px;
-    background: url('../../../Images/mobile/Esika/ganancia.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/ganancia.png') no-repeat;
     vertical-align: middle;
 }
 
 .item_2_home {
-    background: url('../../../Images/mobile/Esika/carpeta.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/carpeta.png') no-repeat;
 }
 
 .titulo_item_mobile {
@@ -4953,7 +4953,7 @@ table > thead > tr > th {
     font-family: 'Lato';
     font-size: 13px;
     font-weight: bold;
-    background: url("../../../Images/mobile/Esika/tarjeta.png") no-repeat;
+    background: url("/Content/Images/mobile/Esika/tarjeta.png") no-repeat;
     background-position: 13% 10px;
     padding-left: 8%;
 }
@@ -5045,7 +5045,7 @@ table > thead > tr > th {
     font-family: 'Lato';
     font-size: 13px;
     font-weight: 900;
-    background: url('../../../Images/mobile/Esika/indicador_pedido.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/indicador_pedido.png') no-repeat;
     background-position: 0 5px;
     padding-left: 13px;
     color: black;
@@ -5341,7 +5341,7 @@ table > thead > tr > th {
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;
-    background: url('../../../Images/mobile/Esika/mas_footer.png') no-repeat right 12px center;
+    background: url('/Content/Images/Mobile/Esika/mas_footer.png') no-repeat right 12px center;
 }
 
 .menu_footer_menos {
@@ -5355,7 +5355,7 @@ table > thead > tr > th {
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;
-    background: url('../../../Images/mobile/Esika/menos_footer.png') no-repeat right 12px center;
+    background: url('/Content/Images/Mobile/Esika/menos_footer.png') no-repeat right 12px center;
 }
 
 .menu_footer:hover {
@@ -5477,7 +5477,7 @@ body {
 .franja_inferior_banner_pedido {
     display: block;
     height: 19px;
-    background: url('../../../Images/franja_inferior_banner.png') no-repeat center top;
+    background: url('/Content/Images/franja_inferior_banner.png') no-repeat center top;
     margin-top: -15px;
 }
 
@@ -5729,13 +5729,13 @@ body {
     position: absolute;
     top: 33%;
     left: 6.45%;
-    background: url('../../../Images/flecha_volver_mobile_blanca.svg') no-repeat center center;
+    background: url('/Content/Images/flecha_volver_mobile_blanca.svg') no-repeat center center;
 }
 
     .enlace_regresar.detalleP {
         top: 0;
         left: 2.45%;
-        background: url('../../../Images/flecha_volver_mobile.svg') no-repeat center center;
+        background: url('/Content/Images/flecha_volver_mobile.svg') no-repeat center center;
     }
 
     .enlace_regresar.ingresoP {
@@ -5945,7 +5945,7 @@ body {
     height: 20px;
     top: 1px;
     left: -2px;
-    background: url('../../../Images/Esika/icono-admiracion.png') no-repeat center center;
+    background: url('/Content/Images/Esika/icono-admiracion.png') no-repeat center center;
 }
 
 .notificacion_productoAgotado {
@@ -6075,7 +6075,7 @@ body {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -6122,7 +6122,7 @@ body {
     width: 54px;
     height: 54px;
     margin: 0 auto;
-    background: url('../../../Images/Esika/icono_check_esika.svg') no-repeat center center;
+    background: url('/Content/Images/Esika/icono_check_esika.svg') no-repeat center center;
     margin-bottom: 18px;
     background-size: cover;
 }
@@ -6132,7 +6132,7 @@ body {
     width: 54px;
     height: 54px;
     margin: 0 auto;
-    background: url('../../../Images/Esika/icono_exclamacion_esika.svg') no-repeat center center;
+    background: url('/Content/Images/Esika/icono_exclamacion_esika.svg') no-repeat center center;
     margin-bottom: 18px;
     background-size: cover;
 }
@@ -6178,7 +6178,7 @@ body {
 .catalogo_esika {
     width: 128px;
     height: 76px;
-    background: url('../../../Images/mobile/Esika/catalogo_home.png') no-repeat right bottom;
+    background: url('/Content/Images/Mobile/Esika/catalogo_home.png') no-repeat right bottom;
     margin-bottom: 0;
 }
 
@@ -6232,7 +6232,7 @@ body {
     font-size: 13px;
     color: black;
     letter-spacing: .2px;
-    background: url('../../../Images/mobile/Esika/ws.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/ws.png') no-repeat;
     background-position: 0 3px;
     text-decoration: underline;
     float: left;
@@ -6445,7 +6445,7 @@ body {
 .content_app {
     float: left;
     padding-left: 50px;
-    background: url('../../../Images/mobile/Esika/fondo_app.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/fondo_app.png') no-repeat;
     font-family: 'Lato';
     color: black;
     font-weight: 700;
@@ -6551,7 +6551,7 @@ body {
 }
 
 .pestana_esika {
-    background: url('../../../Images/mobile/Esika/pestana_esika.png') no-repeat top center;
+    background: url('/Content/Images/Mobile/Esika/pestana_esika.png') no-repeat top center;
     height: 11px;
     max-width: 320px;
     margin: 0 auto;
@@ -6768,7 +6768,7 @@ body {
     color: #000000;
     padding-left: 14px;
     text-decoration: underline;
-    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
+    background: url('/Content/Images/Esika/indicador_pedido.png') no-repeat;
     background-position: 0 2px;
     margin-top: 2px;
 }
@@ -6954,19 +6954,19 @@ input[type='checkbox']:checked + span:after {
 }
 
 .check_icono_mobile {
-    background: url('../../../Images/Esika/icono_check_esika.svg') no-repeat;
+    background: url('/Content/Images/Esika/icono_check_esika.svg') no-repeat;
     background-size: cover;
 }
 
 .check_icono_mobile_gano {
     width: 60px !important;
     height: 60px !important;
-    background: url('../../../Images/mobile/Esika/gift-rojo-2.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/gift-rojo-2.png') no-repeat;
     background-position: center;
 }
 
 .exclamacion_icono_mobile {
-    background: url('../../../Images/Esika/icono_exclamacion_esika.png') no-repeat;
+    background: url('/Content/Images/Esika/icono_exclamacion_esika.png') no-repeat;
     background-size: cover;
 }
 
@@ -7080,7 +7080,7 @@ input[type='checkbox']:checked + span:after {
         }
 
     .ver-mas-vertical span.icono {
-        background: url('../../../Images/ver-mas-flecha-vertical.svg') center no-repeat;
+        background: url('/Content/Images/ver-mas-flecha-vertical.svg') center no-repeat;
     }
 
 /* fin ver mas la fleca abajo*/
@@ -7213,7 +7213,7 @@ input[type='checkbox']:checked + span:after {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat center center;
+    background: url('/Content/Images/Esika/icono_advertencia_notificacion.svg') no-repeat center center;
     background-size: cover;
 }
 
@@ -7320,7 +7320,7 @@ input[type='checkbox']:checked + span:after {
     .descripcion_tiempoPasePedido .icono_notaDemanda {
         width: 18px;
         height: 18px;
-        background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat center center;
+        background: url('/Content/Images/Esika/icono_advertencia_notificacion.svg') no-repeat center center;
         background-size: cover;
     }
 
@@ -7496,7 +7496,7 @@ input[type='checkbox']:checked + span:after {
     float: left;
     width: 20px;
     height: 20px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('/Content/Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
     background-size: cover;
 }
 
@@ -7877,7 +7877,7 @@ input[type='checkbox']:checked + span:after {
     margin-top: -1px;
     width: 14px;
     height: 10px;
-    background: url('../../../Images/mobile/esika/flechita_barra.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/flechita_barra.png') no-repeat;
 }
 
 .disclaimer_b {
@@ -7906,7 +7906,7 @@ input[type='checkbox']:checked + span:after {
         width: 11px;
         height: 11px;
         display: inline-block;
-        background: url('../../../Images/group.svg') no-repeat center center;
+        background: url('/Content/Images/group.svg') no-repeat center center;
     }
 
 /* POPUP COMUNICADO*/
@@ -7918,7 +7918,7 @@ input[type='checkbox']:checked + span:after {
     left: 0;
     bottom: 0;
     right: 0;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -8004,7 +8004,7 @@ input[type='checkbox']:checked + span:after {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -8122,7 +8122,7 @@ input[type='checkbox']:checked + span:after {
         top: 1px;
         margin-right: 7px;
         float: none;
-        background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') center center no-repeat;
+        background: url('/Content/Images/Esika/icono_advertencia_notificacion.svg') center center no-repeat;
     }
 
     .popup_agregarCliente .descripcion_mensaje {
@@ -8466,7 +8466,7 @@ input[type='checkbox']:checked + span:after {
 }
 
 .header-bg {
-    background: url('../../../Images/mobile/bg_la_01.jpg') no-repeat;
+    background: url('/Content/Images/Mobile/bg_la_01.jpg') no-repeat;
     background-size: cover;
     padding-top: 30px;
 }
@@ -9003,11 +9003,11 @@ span.title-app-b {
     background: white;
 }
 
-.row_set_detalle {
+/*.row_set_detalle {
     width: 90%;
     margin: 0 auto;
     overflow: hidden;
-}
+}*/
 /*CATÁLOGO PERSONALIZADO*/
 .content_PopOferta {
     width: 100%;
@@ -9141,7 +9141,7 @@ span.title-app-b {
     padding-left: 15px;
     padding-right: 15px;
     position: relative;
-    background: #ededed url('../../../Images/Mobile/Esika/fondo_oferta.png') top repeat-x;
+    background: #ededed url('/Content/Images/Mobile/Esika/fondo_oferta.png') top repeat-x;
 }
 
 .agregado {
@@ -9158,7 +9158,7 @@ span.title-app-b {
     width: 11px;
     height: 11px;
     display: inline-block;
-    background: url('../../../Images/group.svg') center center no-repeat;
+    background: url('/Content/Images/group.svg') center center no-repeat;
 }
 
 .enlace_popupCatalogoPersonalizado {
@@ -9181,7 +9181,7 @@ span.title-app-b {
 .seguir_pedido {
     display: inline-block;
     vertical-align: top;
-    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
+    background: url('/Content/Images/Esika/indicador_pedido.png') no-repeat;
     background-position: 0 5px;
     font-family: 'lato';
     font-size: 11px;
@@ -9566,7 +9566,7 @@ span.icon-advertencia {
 .icono_pendiente {
     width: 20px;
     height: 20px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat center center;
+    background: url('/Content/Images/Esika/icono_advertencia_notificacion.svg') no-repeat center center;
     background-size: cover;
     float: left;
     margin-top: 23px;
@@ -9902,12 +9902,12 @@ a {
 }
 
     .opcion_rechazo:hover {
-        background: #f7f7f7 url('../../../Images/icono_check.png') no-repeat;
+        background: #f7f7f7 url('/Content/Images/icono_check.png') no-repeat;
         background-position: 10px 18px;
     }
 
 .opcion_rechazo_select {
-    background: #f7f7f7 url('../../../Images/icono_check.png') no-repeat;
+    background: #f7f7f7 url('/Content/Images/icono_check.png') no-repeat;
     background-position: 10px 18px;
 }
 
@@ -9958,7 +9958,7 @@ a {
     color: black;
     font-weight: 700;
     margin-top: 20px;
-    background: #f3f3f3 url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center center;
+    background: #f3f3f3 url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center center;
     background-position: 10px 10px;
     padding: 10px 10px 10px 43px;
     position: relative;
@@ -10008,7 +10008,7 @@ a {
     margin-right: 2%;
     height: 20px;
     background-size: cover;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center center;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center center;
     display: inline-block;
     vertical-align: top;
     margin-top: 2px;
@@ -10106,7 +10106,7 @@ a {
     width: 13px;
     height: 21px;
     display: inline-block;
-    background: url('../../../Images/Esika/icono_telefono.svg') no-repeat;
+    background: url('/Content/Images/Esika/icono_telefono.svg') no-repeat;
     background-size: cover;
 }
 
@@ -11701,7 +11701,7 @@ a {
     float: right;
     color: #000000;
     padding-left: 20px;
-    background: url('../../../Images/Esika/arrow_left.png') no-repeat left;
+    background: url('/Content/Images/Esika/arrow_left.png') no-repeat left;
     background-size: 18px 18px;
 }
 
@@ -11717,7 +11717,7 @@ a {
 }
 
 .etiqueta_chat {
-    background: url('../../../Images/mobile/icon-chat.png') no-repeat;
+    background: url('/Content/Images/Mobile/icon-chat.png') no-repeat;
     background-size: 13px;
     background-position: 6px 16px;
 }
@@ -11941,7 +11941,7 @@ a {
                     content: '';
                     margin-top: -4px;
                     position: absolute;
-                    background: url('../../../Images/mobile/Esika/arrow_select_variant.svg') no-repeat center center;
+                    background: url('/Content/Images/Mobile/Esika/arrow_select_variant.svg') no-repeat center center;
                     -webkit-transition: all .2s ease-out;
                     -moz-transition: all .2s ease-out;
                     -o-transition: all .2s ease-out;
@@ -12036,11 +12036,11 @@ a {
         }
 
         .content_room_product_sheet .box_promotions .slider .slick-prev.slick-arrow {
-            background: url('../../../Images/mobile/Esika/arrow-slide-promotions-left.svg') no-repeat center right;
+            background: url('/Content/Images/Mobile/Esika/arrow-slide-promotions-left.svg') no-repeat center right;
         }
 
         .content_room_product_sheet .box_promotions .slider .slick-next.slick-arrow {
-            background: url('../../../Images/mobile/Esika/arrow-slide-promotions-right.svg') no-repeat center left;
+            background: url('/Content/Images/Mobile/Esika/arrow-slide-promotions-right.svg') no-repeat center left;
         }
 
         .content_room_product_sheet .box_promotions .slider .item-slide {
@@ -12139,7 +12139,7 @@ a {
         font-size: 14px;
         font-weight: 400;
         text-transform: uppercase;
-        background: url('../../../Images/mobile/Esika/icon-tip-red.svg') no-repeat center left;
+        background: url('/Content/Images/Mobile/Esika/icon-tip-red.svg') no-repeat center left;
         padding: 7px 0 7px 38px;
     }
 
@@ -12462,7 +12462,7 @@ a {
     }
 
 .icono_celular {
-    background: url('../../../Images/Esika/celular_mailing.png') no-repeat;
+    background: url('/Content/Images/Esika/celular_mailing.png') no-repeat;
     background-position: 4px 0;
     padding-top: 3px;
 }
@@ -12568,7 +12568,7 @@ a {
     margin-bottom: 15px;
     top: 1px;
     margin-right: 7px;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') center center no-repeat;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') center center no-repeat;
 }
 
 .tono_select_opt {
@@ -12579,7 +12579,7 @@ a {
     font-size: 13px;
     color: black;
     margin-top: 5px;
-    background: url('../../../Images/mobile/Esika/menu_mobile.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/menu_mobile.png') no-repeat;
     background-position: 99% 19px;
     position: relative;
     margin-bottom: 5px;
@@ -12602,7 +12602,7 @@ a {
     font-size: 12px;
     letter-spacing: .2px;
     padding-left: 29px;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat;
     margin-top: 20px;
 }
 
@@ -12782,7 +12782,7 @@ a {
 }
 
 .btn_descubre_set_especial {
-    background: url('../../../Images/PL20/flecha_set_Especial_white.png') no-repeat;
+    background: url('/Content/Images/PL20/flecha_set_Especial_white.png') no-repeat;
     background-position: -1px 3px;
     margin-left: 3%;
     z-index: 200;
@@ -12807,7 +12807,7 @@ a {
 }
 
 .btn_descubre_set_especial_click {
-    background: url('../../../Images/PL20/flecha_set_Especial_2white.png') no-repeat;
+    background: url('/Content/Images/PL20/flecha_set_Especial_2white.png') no-repeat;
     background-position: -1px 3px;
 }
 
@@ -13101,7 +13101,7 @@ a {
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    background: url('../../../Images/PL20/cupon1mobile.png') no-repeat;
+    background: url('/Content/Images/PL20/cupon1mobile.png') no-repeat;
     background-size: 100%;
     text-align: center;
     font-family: 'Lato';
@@ -13190,7 +13190,7 @@ a {
 }
 
 .cupon2mobile {
-    background: url('../../../Images/PL20/cupon2mobile.png') no-repeat;
+    background: url('/Content/Images/PL20/cupon2mobile.png') no-repeat;
     background-size: 100%;
 }
 
@@ -13198,7 +13198,7 @@ a {
     width: 59px;
     height: 41px;
     margin: 0 auto;
-    background: url('../../../Images/PL20/icono_pop_up_cupon.png') no-repeat;
+    background: url('/Content/Images/PL20/icono_pop_up_cupon.png') no-repeat;
     margin-bottom: 5px;
     margin-top: 60px;
 }
@@ -13237,7 +13237,7 @@ a {
 }
 
 .cupon3mobile {
-    background: url('../../../Images/PL20/cupon3mobile.png') no-repeat;
+    background: url('/Content/Images/PL20/cupon3mobile.png') no-repeat;
     background-size: 100%;
 }
 
@@ -13245,7 +13245,7 @@ a {
     width: 120px;
     height: 45px;
     margin: 0 auto;
-    background: url('../../../Images/PL20/cupon_gif_rojo.gif') no-repeat;
+    background: url('/Content/Images/PL20/cupon_gif_rojo.gif') no-repeat;
     margin-bottom: 3px;
     margin-top: 44px;
 }
@@ -13329,7 +13329,7 @@ a {
 .icono_alerta_cupon {
     width: 15px;
     height: 15px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('/Content/Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
     background-size: contain;
     position: absolute;
     right: 0;
@@ -13477,7 +13477,7 @@ a {
 .icono_alerta_cupon {
     width: 15px;
     height: 15px;
-    background: url('../../../Images/Lbel/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('/Content/Images/Lbel/icono_advertencia_notificacion.svg') no-repeat;
     background-size: contain;
     position: absolute;
     right: 0;
@@ -13487,16 +13487,16 @@ a {
 .info_recuerda_cupon_icono {
     width: 34px !important;
     height: 42px;
-    background: url('../../../Images/PL20/calendario.png') no-repeat center center;
+    background: url('/Content/Images/PL20/calendario.png') no-repeat center center;
     margin-right: 13px;
 }
 
 .icono2_ganaste {
-    background: url('../../../Images/PL20/maquillaje.png') no-repeat center center;
+    background: url('/Content/Images/PL20/maquillaje.png') no-repeat center center;
 }
 
 .icono3_ganaste {
-    background: url('../../../Images/PL20/agenda.png') no-repeat center center;
+    background: url('/Content/Images/PL20/agenda.png') no-repeat center center;
 }
 
 .content_fondo_bestSeller {
@@ -13656,7 +13656,7 @@ a {
     padding-top: 1px;
     padding-left: 25px;
     cursor: pointer;
-    background: url('../../../Images/PL20/icono_agregar.png') no-repeat;
+    background: url('/Content/Images/PL20/icono_agregar.png') no-repeat;
 }
 
 .ContentcomentariosVisibles {
@@ -13800,7 +13800,7 @@ a {
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 10px;
-    background: url('../../../Images/mobile/Esika/icono_check_esika.svg') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/icono_check_esika.svg') no-repeat;
     background-size: 100%;
 }
 
@@ -14249,7 +14249,7 @@ a {
     font-family: 'Lato';
     font-size: 14px;
     padding-left: 12%;
-    background: black url(../../../Images/Esika/regresar.png) no-repeat;
+    background: black url(/Content/Images/Esika/regresar.png) no-repeat;
     background-position: 6% 12px;
 }
 
@@ -14924,7 +14924,7 @@ a {
     width: 60px;
     height: 60px;
     margin: 0 auto 22px auto;
-    background: url(../../../Images/Esika/icono_check_esika.png) no-repeat center;
+    background: url(/Content/Images/Esika/icono_check_esika.png) no-repeat center;
 }
 
 .mensaje_felicitaciones span:first-child {
@@ -14982,7 +14982,7 @@ a {
     text-align: center;
     font-weight: bold;
     margin: 14px auto 10px;    
-    background-image: url(../../../Images/mobile/Esika/indicador_pedido.png);
+    background-image: url(/Content/Images/mobile/Esika/indicador_pedido.png);
     background-repeat: no-repeat;
     background-position: 0 center;
 }
@@ -15136,7 +15136,7 @@ a {
     background-size:100%;
     width:78px;
     height:46px;
-    background-image:url('../../../Images/Esika/icono_envelope.svg');
+    background-image:url('/Content/Images/Esika/icono_envelope.svg');
 }
 
 .icono_correo_sobre img{
@@ -15176,7 +15176,7 @@ a {
 /* HD-2513 - 50 AÑOS BELCORP */
 
 .agregarBackgroundCincuentaAniosBelcorp{
-    background-image:url('../../../Images/mobile/cincuenta_anios_belcorp_cabecera_mobile.png');
+    background-image:url('/Content/Images/Mobile/cincuenta_anios_belcorp_cabecera_mobile.png');
     background-repeat:no-repeat;
     background-position:-23px top;
 }
@@ -15232,7 +15232,7 @@ a {
     width: 53.95px;
     height: 49.28px;
     margin: 0 auto;
-    background: url('../../../Images/Esika/icono_contrato.svg') center center no-repeat;
+    background: url('/Content/Images/Esika/icono_contrato.svg') center center no-repeat;
     margin-bottom: 21px;
     background-size: 99%;
 }
