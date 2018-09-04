@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.WebPages
         {
             divHeadSuccess.Visible = respuesta.Succcess;
             divHeadError.Visible = !respuesta.Succcess;
-            lblConfirmacion.Text = respuesta.Succcess ? Constantes.CambioCorreoResult.Valido : respuesta.Message;
+            lblConfirmacion.Text = respuesta.Succcess ? Constantes.ActualizacionDatosValidacion.VerificacionEmail.VerificacionEmailValida : respuesta.Message;
             if (!respuesta.Succcess)
             {
                 var emotionPath = "~/Content/Images/mobile/img-emoticons/{0}.png";
@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Web.WebPages
 
         private string BuildLinkPhone(string phone) {
             string tel = Regex.Replace(phone.Split(' ')[0], "[^0-9]" , "");            
-            return  string.Format("<a onclick=\"callToBelcorp('{0}');\" class=\"phoneLink\" >{1}</a>.", tel, phone);
+            return  string.Format("<a onclick=\"callToBelcorp('{0}');\" class=\"phoneLink\" >{1}</a>", tel, phone);
         }
 
         private void GuardarLogDynamo(BEUsuario usuarioActual, string correoNuevo)

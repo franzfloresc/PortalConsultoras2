@@ -2228,7 +2228,7 @@ namespace Portal.Consultoras.Common
 
         public class CambioCorreoResult
         {
-            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";
+            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";            
             public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
 
@@ -2617,6 +2617,8 @@ namespace Portal.Consultoras.Common
 
                 public const string ComunicateConNosotros = "Para resolver el problema comunícate con nosotros al {0} o al {1}.";
                 public const string ComunicateConNosotrosAlt = "Para resolver el problema comunícate con nosotros al {0}.";
+
+                public const string VerificacionEmailValida = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.";
             }
 
         }
