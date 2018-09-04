@@ -79,7 +79,7 @@ blockquote {
     position: absolute;
     width: 20px;
     height: 16px;
-    background-image: url("../../../Images/quote.png");
+    background-image: url("/Content/Images/quote.png");
     background-repeat: no-repeat;
     background-position: 0 0;
     content: ''; }
@@ -87,7 +87,7 @@ blockquote {
     position: absolute;
     width: 20px;
     height: 16px;
-    background-image: url("../../../Images/quote.png");
+    background-image: url("/Content/Images/quote.png");
     background-repeat: no-repeat;
     background-position: 0 0;
     content: '';
