@@ -2530,11 +2530,14 @@ namespace Portal.Consultoras.Common
 
             //api/Evento/editar/{pais}
             public const string UrlUpdateShowRoomEvento = "api/Evento/editar/{0}";
+
+            //api/Estrategia/eliminar/{pais}?id={id}
+            public const string UrlEliminarEstrategia = "api/Estrategia/eliminar/{0}?id={1}";
             #endregion
 
-            #region Oferta
-            //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
-            public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
+        #region Oferta
+        //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
+        public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
 
             ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}
             public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}";

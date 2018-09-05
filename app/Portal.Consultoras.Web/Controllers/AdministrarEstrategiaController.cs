@@ -1128,7 +1128,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult EliminarEstrategia(string EstrategiaID)
+        public JsonResult EliminarEstrategia(string EstrategiaID, string _id, string tipoEstrategiaCodigo)
         {
             try
             {
@@ -1137,10 +1137,19 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = userData.PaisID,
                     EstrategiaID = Convert.ToInt32(EstrategiaID)
                 };
-                using (var sv = new PedidoServiceClient())
+
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo))
                 {
-                    sv.EliminarEstrategia(entidad);
+                    administrarEstrategiaProvider.EliminarEstrategia(entidad.EstrategiaID, _id);
                 }
+                else
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        sv.EliminarEstrategia(entidad);
+                    }
+                }
+
                 return Json(new
                 {
                     success = true,

@@ -676,5 +676,24 @@ namespace Portal.Consultoras.Web.Providers
 
             return Convert.ToInt32(respuesta.Result);
         }
+
+        public void EliminarEstrategia(int EstrategiaId, string _id)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+
+            var taskApi = Task.Run(() => RespSBMicroservicios(
+                    string.Empty,
+                    string.Format(Constantes.PersonalizacionOfertasService.UrlEliminarEstrategia, userData.CodigoISO, string.Format("{0},{1}", _id, EstrategiaId)),
+                    "delete",
+                    userData)
+                );
+
+            Task.WhenAll(taskApi);
+
+            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
+
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
+                throw new Exception(respuesta.Message);
+        }
     }
 }

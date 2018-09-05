@@ -729,7 +729,6 @@
     }
 
     var _showActions = function (cellvalue, options, rowObject) {
-
         var id = rowObject[0];
         var mongoId = rowObject[14];
         var tipoEstrategiaCodigo = rowObject[15];
@@ -740,7 +739,7 @@
         }
         var remove = "";
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
-            remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + id + "',event);\" >" + "<img src='" + _config.rutaImagenDelete + "' alt='Eliminar Estrategia' title='Eliminar Estrategia' border='0' /></a>";
+            remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + id + "','" + rowObject[14] + "',event);\" >" + "<img src='" + _config.rutaImagenDelete + "' alt='Eliminar Estrategia' title='Eliminar Estrategia' border='0' /></a>";
         }
 
         return edit + disable + remove;
@@ -2202,8 +2201,6 @@
             ImagenAnterior: $("#hdImagenDetalleAnterior").val()
         };
 
-        console.log(item);
-
         waitingDialog({ title: "Procesando" });
         jQuery.ajax({
             type: "POST",
@@ -2607,7 +2604,7 @@
                         async: true,
                         success: function (data) {
                             closeWaitingDialog();
-                            console.log(data);
+
                             if (data.success) {
                                 _toastHelper.success(data.message);
                                 $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
@@ -4024,17 +4021,24 @@
         return false;
     }
 
-    function Remover(id, event) {
+    function Remover(id,_id,event) {
         event.preventDefault();
         event.stopPropagation();
+
         var elimina = confirm("¿Está seguro que desea eliminar el set seleccionado?");
+
         if (!elimina) {
             return false;
         }
         if (id) {
             waitingDialog();
+
             $("#hdEstrategiaID").val(id);
-            var params = { EstrategiaID: $("#hdEstrategiaID").val() };
+            var params = {
+                EstrategiaID: $("#hdEstrategiaID").val(),
+                _id: _id,
+                tipoEstrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
+            };
             jQuery.ajax({
                 type: "POST",
                 url: _config.urlEliminarEstrategia,
@@ -4204,8 +4208,6 @@
             estrategiaID: EstrategiaID
         };
 
-        console.log(item);
-
         waitingDialog();
         jQuery.ajax({
             type: "POST",
@@ -4282,8 +4284,6 @@
             estrategiaId: EstrategiaID,
             cuv: CUV
         };
-
-        console.log(item);
 
         waitingDialog();
         jQuery.ajax({
