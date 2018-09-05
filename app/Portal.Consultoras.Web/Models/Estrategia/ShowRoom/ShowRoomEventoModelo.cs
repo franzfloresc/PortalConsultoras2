@@ -90,5 +90,8 @@ namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
 
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string UsuarioModificacion { get; set; }
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public List<ShowRoomPersonalizacionModel> PersonalizacionNivel { get; set; }
     }
 }

@@ -2519,6 +2519,9 @@ namespace Portal.Consultoras.Common
             //api/Evento/deshabilitar/{pais}/{id}?usuario={usuario}
             public const string UrlDeshabilitarShowRoomEvento = "api/Evento/deshabilitar/{0}/{1}?usuario={2}";
 
+            //api/Evento/personalizacion/guardar/{pais}/{idevento}
+            public const string UrlEventoPersonalizacion = "/api/Evento/personalizacion/guardar/{0}/{1}";
+
             //api/Estrategia/descripcion/{pais}/{tipo}/{campania}?tipoEstrategia={tipoEstrategia}&usuario={usuario}
             public const string UrlUploadFileSetStrategyShowroom = "api/Estrategia/descripcion/{0}/{1}/{2}?tipoEstrategia={3}&usuario={4}";
 

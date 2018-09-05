@@ -695,5 +695,37 @@ namespace Portal.Consultoras.Web.Providers
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 throw new Exception(respuesta.Message);
         }
+
+        public void RegistrarEventoPersonalizacion(string pais, string eventoId,string _id,  List<ShowRoomPersonalizacionModel> lstPersonalizacion) {
+
+            UsuarioModel userData = sessionManager.GetUserData();
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEventoPersonalizacion, pais, _id);
+            string p = JsonConvert.SerializeObject(lstPersonalizacion.Select( x => new
+            {
+                personalizacionId = x.PersonalizacionId,
+                tipoAplicacion = x.TipoAplicacion,
+                atributo = x.Atributo,
+                textoAyuda = x.TextoAyuda,
+                tipoAtributo = x.TipoAtributo,
+                tipoPersonalizacion = x.TipoPersonalizacion,
+                orden = x.Orden,
+                estado = x.Estado,
+                valor = x.Valor,
+                eventoId = eventoId,
+                nivelId = x.NivelId
+            }));
+
+            var taskApi = Task.Run(() => RespSBMicroservicios(
+                p,
+                requestUrl,
+                "post",
+                userData
+                ));
+
+            Task.WhenAll(taskApi);
+
+
+
+        }
     }
 }
