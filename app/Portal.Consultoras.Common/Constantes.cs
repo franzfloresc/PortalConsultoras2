@@ -19,6 +19,11 @@ namespace Portal.Consultoras.Common
             public const int Finart = 4;
         }
 
+        public static class MarcaNombre {
+            public const string LBel = "L'bel";
+            public const string Esika = "Ésika";
+        }
+
         public static class TipoCronograma
         {
             public const int Regular = 1;

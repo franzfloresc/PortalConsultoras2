@@ -74,10 +74,10 @@ namespace Portal.Consultoras.Web.WebPages
         {
             var urlPortal = ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteSE];
             var area = EsDispositivoMovil() ? "/Mobile" : "";
-            var marca = WebConfig.PaisesEsika.Contains(paisISO) ? "Ésika" : "Lbel";
+            var marca = WebConfig.PaisesEsika.Contains(paisISO) ? Constantes.MarcaNombre.Esika : Constantes.MarcaNombre.LBel;
             linkMainPage.NavigateUrl = urlPortal + area + "/MiPerfil/Index";
             linkSomosBelcorp.NavigateUrl = linkMainPage.NavigateUrl;            
-            linkAppEsikaConmigo.NavigateUrl = marca == "Ésika" ? Constantes.RedireccionAndroidApp.EsikaConmigo : Constantes.RedireccionAndroidApp.LbelConmigo;
+            linkAppEsikaConmigo.NavigateUrl = marca == Constantes.MarcaNombre.Esika ? Constantes.RedireccionAndroidApp.EsikaConmigo : Constantes.RedireccionAndroidApp.LbelConmigo;
             btnAppEsikaConmigo.NavigateUrl = linkAppEsikaConmigo.NavigateUrl;            
             linkAppEsikaConmigo.Text = string.Format(Constantes.RedireccionAndroidApp.AppRedirectFormatAlt, marca);
             btnAppEsikaConmigo.Text = string.Format(Constantes.RedireccionAndroidApp.AppRedirectFormat, marca.ToUpper());
