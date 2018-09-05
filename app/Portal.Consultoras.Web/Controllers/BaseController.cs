@@ -174,6 +174,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                 GetUserDataViewBag();
 
+                var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+                var actionName = filterContext.ActionDescriptor.ActionName;
+                if (!Constantes.AceptacionContrato.ControladoresOmitidas.Contains(controllerName) && !Constantes.AceptacionContrato.AcionesOmitidas.Contains(actionName))
+                {
+                    if (ValidarContratoPopup())
+                    {
+                        bool esMobile = EsDispositivoMovil();
+                        filterContext.Result = !esMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
+                            new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
+                        return;
+                    }
+                }
+
                 base.OnActionExecuting(filterContext);
             }
             catch (Exception ex)
@@ -1363,7 +1376,6 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia) &&
                 sessionManager.GetIsContrato() == 1 && !sessionManager.GetAceptoContrato();
         }
-
         #endregion
 
         //#region Metodos Oferta del Dia
@@ -1493,7 +1505,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region LogDynamo
 
         protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion, ServiceUsuario.BEUsuario entidad = null)
-        {
+        { 
             string ipCliente = GetIPCliente();
             bool esMobile = EsDispositivoMovil();
             _logDynamoProvider.RegistrarLogDynamoDB(userData, aplicacion, rol, pantallaOpcion, opcionAccion, ipCliente, esMobile);

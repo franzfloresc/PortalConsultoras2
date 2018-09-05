@@ -2557,9 +2557,11 @@ namespace Portal.Consultoras.Common
             public const string TotalResultadosBuscador = "TotalResultadosBuscador";
         }
 
-        public class DescargarContrato
+        public class AceptacionContrato
         {
-            public const string urlCO = "http://somosbelcorpqa.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
+            public const string UrlDescargarContratoCO = "http://somosbelcorpqa.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
+            public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
+            public const string AcionesOmitidas = "ActualizarContrasenia";
         }
     }
 }

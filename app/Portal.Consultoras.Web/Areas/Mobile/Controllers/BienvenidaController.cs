@@ -232,6 +232,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     tipoPopUpMostrar = 0;
 
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+                if (tipoPopUpMostrar == Constantes.TipoPopUp.AceptacionContrato && userData.IndicadorContrato == 1) tipoPopUpMostrar = 0;
 
                 return tipoPopUpMostrar;
             }
