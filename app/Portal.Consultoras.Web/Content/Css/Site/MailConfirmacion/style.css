@@ -60,6 +60,7 @@ a.btn_acept {
 
 @media only screen and (max-width: 768px) {
 
+    div.pestana_lbel,
     .noShowPhone,
     .fondoMobile {
         display: none;
