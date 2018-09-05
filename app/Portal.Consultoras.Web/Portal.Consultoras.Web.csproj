@@ -1550,6 +1550,7 @@
     <Content Include="Content\Images\Lbel\icono_info_alerta.svg" />
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
+    <Content Include="Content\Images\Lbel\estrellas.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\icono_editar_foto_perfil.svg" />
     <Content Include="Content\Images\icono_eliminar.svg" />
