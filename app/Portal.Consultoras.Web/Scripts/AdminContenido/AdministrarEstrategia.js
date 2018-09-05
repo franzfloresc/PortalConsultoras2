@@ -1636,6 +1636,7 @@
     }
 
     var _limpiarDatosEventoShowRoom = function () {
+        $("#hd_id").val('');
         $("#txtEventoNombre").val("");
         $("#txtEventoTema").val("");
         $("#txtEventoDiasAntes").val("");
@@ -3985,7 +3986,7 @@
         event.preventDefault();
         event.stopPropagation();
 
-        var elimina = confirm("¿Está seguro que desea deshabiltar la estrategia seleccionada?");
+        var elimina = confirm("¿Está seguro que desea deshabilitar la estrategia seleccionada?");
         if (!elimina)
             return false;
 
