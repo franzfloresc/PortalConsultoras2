@@ -1038,21 +1038,25 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEActivarPremioNuevas beActive;
-                ServicePedido.BEEstrategia estrategia;
+                ServicePedido.BEEstrategia estrategia = null;
 
                 using (var sv = new PedidoServiceClient())
                 {
                     beActive = sv.GetActivarPremioNuevas(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
-                    if (beActive == null || !beActive.ActiveTooltip) return new BarraTippingPoint();
+                    if (beActive == null || !beActive.Active) return new BarraTippingPoint();
 
-                    estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);                    
+                    if(beActive.ActiveTooltip) estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);                    
                 }
-                if (estrategia == null) return new BarraTippingPoint();
-
+                
                 var tippingPoint = Mapper.Map<BarraTippingPoint>(beActive);
-                tippingPoint = Mapper.Map(estrategia, tippingPoint);
-                tippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
                 tippingPoint.TippingPointMontoStr = TippingPointStr;
+                tippingPoint.ActiveTooltip = estrategia != null;
+                if (tippingPoint.ActiveTooltip)
+                {
+                    tippingPoint = Mapper.Map(estrategia, tippingPoint);
+                    tippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                }
+
                 return tippingPoint;
             }
             catch (Exception ex)
