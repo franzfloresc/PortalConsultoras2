@@ -1782,7 +1782,6 @@
         $("#hdCargarProductoCpcEventoID").val(options.rowId);
 		$("#hdCargarProductoCpcCampaniaID").val(rowObject.CampaniaID);
 	
-		$("#hdEventoMongoID").val(rowObject._id);
 		$('#hdListaPersonalizacion').val(rowObject.PersonalizacionNivel);
 
         return resultado;
@@ -2901,7 +2900,7 @@
 
                     var eventoId = $("#hdEventoID").val();
 					var nivelId = $("#cbNivelEvento").val();
-					var idEventoMongoId = $("#hdEventoMongoID").val();
+					var idEventoMongoId = $("#hd_id").val();
 
                     if (eventoId == "")
                         vMessage += "- Debe seleccionar el evento.\n";
