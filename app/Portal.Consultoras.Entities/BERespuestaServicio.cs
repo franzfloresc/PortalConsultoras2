@@ -15,6 +15,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool Succcess { get; set; }
         [DataMember]
+        public string Code { get; set; }
+        [DataMember]
         public string Message { get; set; }
     }
 }

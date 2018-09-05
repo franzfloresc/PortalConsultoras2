@@ -28,11 +28,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View(model);
         }
@@ -50,11 +50,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View(model);
 
@@ -76,9 +76,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -108,8 +108,8 @@ namespace Portal.Consultoras.Web.Controllers
             lista[7] = vsortname;
             lista[8] = vsortorder;
             lista[9] = vrowNum;
-            lista[10] = UserData().BanderaImagen;
-            lista[11] = UserData().NombrePais;
+            lista[10] = userData.BanderaImagen;
+            lista[11] = userData.NombrePais;
             lista[12] = vZonaVal;
             lista[13] = vPaisVal;
             lista[14] = vTipoSolicitud;
@@ -131,8 +131,8 @@ namespace Portal.Consultoras.Web.Controllers
             lista[7] = vsortname;
             lista[8] = vsortorder;
             lista[9] = vrowNum;
-            lista[10] = UserData().BanderaImagen;
-            lista[11] = UserData().NombrePais;
+            lista[10] = userData.BanderaImagen;
+            lista[11] = userData.NombrePais;
             lista[12] = vZonaVal;
             lista[13] = vPaisVal;
             lista[14] = vTipoSolicitud;
@@ -278,14 +278,14 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                {
                             a.SolicitudCreditoID.ToString(),
-                            UserData().CodigoISO,
+                            userData.CodigoISO,
                             a.CodigoZona,
                             a.SolicitudCreditoID.ToString(),
                             a.CodigoConsultoraRecomienda,
                             a.NombreConsultoraRecomienda,
                             (a.NumeroDocumento == null)
                                 ? ""
-                                : (UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico)
+                                : (userData.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
                                     ? string.Format("*****{0}", a.NumeroDocumento.Remove(0, 5))
                                     : a.NumeroDocumento,
                             a.CodigoConsultora,
@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var list = Mapper.Map<IList<BESolicitudCredito>, IList<SolicitudCreditoModel>>(listaSolicitudes);
 
-            if (UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico)
+            if (userData.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
             {
                 list.ToList().ForEach(x =>
                 {
@@ -393,7 +393,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient srv = new SACServiceClient())
             {
-                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoId);
+                beSolicitud = srv.BuscarSolicitudCreditoPorID(userData.PaisID, solicitudCreditoId);
             }
 
             SolicitudCreditoModel model = new SolicitudCreditoModel();
@@ -402,7 +402,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEUbigeo beUbigeo;
             using (ODSServiceClient ods = new ODSServiceClient())
             {
-                beUbigeo = ods.GetUbigeoPorCodigoUbigeo(UserData().PaisID, model.CodigoUbigeo ?? "");
+                beUbigeo = ods.GetUbigeoPorCodigoUbigeo(userData.PaisID, model.CodigoUbigeo ?? "");
             }
 
             model.UnidadGeografica1 = beUbigeo.UnidadGeografica1 != null ? beUbigeo.UnidadGeografica1.Trim() : "";
@@ -443,7 +443,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ODSServiceClient ods = new ODSServiceClient())
             {
-                model.ListaTipoMeta = ods.GetTipoMeta(UserData().PaisID).ToList();
+                model.ListaTipoMeta = ods.GetTipoMeta(userData.PaisID).ToList();
             }
 
             return View(model);
@@ -461,7 +461,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient srv = new SACServiceClient())
             {
-                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoId);
+                beSolicitud = srv.BuscarSolicitudCreditoPorID(userData.PaisID, solicitudCreditoId);
             }
 
             SolicitudCreditoModel model = new SolicitudCreditoModel();
@@ -470,7 +470,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEUbigeo beUbigeo;
             using (ODSServiceClient ods = new ODSServiceClient())
             {
-                beUbigeo = ods.GetUbigeoPorCodigoUbigeo(UserData().PaisID, model.CodigoUbigeo ?? "");
+                beUbigeo = ods.GetUbigeoPorCodigoUbigeo(userData.PaisID, model.CodigoUbigeo ?? "");
             }
 
             model.UnidadGeografica1 = beUbigeo.UnidadGeografica1 != null ? beUbigeo.UnidadGeografica1.Trim() : "";
@@ -500,7 +500,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient srv = new SACServiceClient())
             {
-                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoId);
+                beSolicitud = srv.BuscarSolicitudCreditoPorID(userData.PaisID, solicitudCreditoId);
             }
 
             SolicitudCreditoModel model = new SolicitudCreditoModel();
@@ -509,7 +509,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEUbigeo beUbigeo;
             using (ODSServiceClient ods = new ODSServiceClient())
             {
-                beUbigeo = ods.GetUbigeoPorCodigoUbigeo(UserData().PaisID, model.CodigoUbigeo ?? "");
+                beUbigeo = ods.GetUbigeoPorCodigoUbigeo(userData.PaisID, model.CodigoUbigeo ?? "");
             }
 
             model.UnidadGeografica1 = beUbigeo.UnidadGeografica1 != null ? beUbigeo.UnidadGeografica1.Trim() : "";
@@ -590,16 +590,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                model.ListaTipoContacto = sv.GetTablaLogicaDatos(UserData().PaisID, 31).ToList();
-                model.ListaTipoDocumento = sv.GetTablaLogicaDatos(UserData().PaisID, 32).ToList();
-                model.ListaEstadoCivil = sv.GetTablaLogicaDatos(UserData().PaisID, 33).ToList();
-                model.ListaNivelEducativo = sv.GetTablaLogicaDatos(UserData().PaisID, 34).ToList();
-                model.ListaOtrasMarcas = sv.GetTablaLogicaDatos(UserData().PaisID, 35).ToList();
-                model.ListaTipoVinculoFamiliar = sv.GetTablaLogicaDatos(UserData().PaisID, 36).ToList();
-                model.ListaTipoVinculoNoFamiliar = sv.GetTablaLogicaDatos(UserData().PaisID, 37).ToList();
-                model.ListaTipoVinculoAval = sv.GetTablaLogicaDatos(UserData().PaisID, 38).ToList();
-                model.ListaTipoVia = sv.GetTablaLogicaDatos(UserData().PaisID, 40).ToList();
-                model.ListaTipoNacionalidad = sv.GetTablaLogicaDatos(UserData().PaisID, 41).ToList();
+                model.ListaTipoContacto = sv.GetTablaLogicaDatos(userData.PaisID, 31).ToList();
+                model.ListaTipoDocumento = sv.GetTablaLogicaDatos(userData.PaisID, 32).ToList();
+                model.ListaEstadoCivil = sv.GetTablaLogicaDatos(userData.PaisID, 33).ToList();
+                model.ListaNivelEducativo = sv.GetTablaLogicaDatos(userData.PaisID, 34).ToList();
+                model.ListaOtrasMarcas = sv.GetTablaLogicaDatos(userData.PaisID, 35).ToList();
+                model.ListaTipoVinculoFamiliar = sv.GetTablaLogicaDatos(userData.PaisID, 36).ToList();
+                model.ListaTipoVinculoNoFamiliar = sv.GetTablaLogicaDatos(userData.PaisID, 37).ToList();
+                model.ListaTipoVinculoAval = sv.GetTablaLogicaDatos(userData.PaisID, 38).ToList();
+                model.ListaTipoVia = sv.GetTablaLogicaDatos(userData.PaisID, 40).ToList();
+                model.ListaTipoNacionalidad = sv.GetTablaLogicaDatos(userData.PaisID, 41).ToList();
             }
 
             List<InfoGenerica> listaAvenidaCalle = new List<InfoGenerica>() {
@@ -647,7 +647,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "SolicitudCredito/DescargarSolicitud"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            ViewBag.NombrePais = UserData().NombrePais;
+            ViewBag.NombrePais = userData.NombrePais;
             return View();
         }
 
@@ -660,7 +660,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var ws = new SACServiceClient())
                 {
-                    resultado = ws.DescargaSolicitudes(UserData().PaisID, UserData().CodigoUsuario);
+                    resultado = ws.DescargaSolicitudes(userData.PaisID, userData.CodigoUsuario);
                 }
 
                 if (resultado.Length == 2)
@@ -683,7 +683,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoUsuario, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoUsuario, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -692,7 +692,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoUsuario, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

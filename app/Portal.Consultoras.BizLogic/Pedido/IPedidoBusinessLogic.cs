@@ -15,7 +15,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoDetalleResult Update(BEPedidoDetalle pedidoDetalle);
         BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario);
         Task<BEPedidoDetalleResult> Delete(BEPedidoDetalle pedidoDetalle);
-        Task<BEPedidoReservaAppResult> Reserva(BEUsuario usuario);
+        Task<BEPedidoReservaResult> Reserva(BEUsuario usuario);
         BEPedidoDetalleResult ModificarReserva(BEUsuario usuario, BEPedidoWeb pedido = null);
         List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
         BEPedidoDetalleResult InsertEstrategiaCarrusel(BEPedidoDetalle pedidoDetalle);

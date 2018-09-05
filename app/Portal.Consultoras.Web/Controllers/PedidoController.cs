@@ -35,10 +35,12 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int CRITERIO_BUSQUEDA_PRODUCTO_CANT = 10;
         private readonly int CUV_NO_TIENE_CREDITO = 2;
         private readonly PedidoSetProvider _pedidoSetProvider;
+        protected ProductoFaltanteProvider _productoFaltanteProvider;
 
         public PedidoController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
+            _productoFaltanteProvider = new ProductoFaltanteProvider();
         }
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
@@ -792,8 +794,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
             if (model.SetID > 0)
             {
-                var detallePedido = _pedidoSetProvider.ObtenerDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                detallePedido.Where(p => p.SetId == model.SetID).ToList().ForEach(p => p.Cantidad = int.Parse(model.Cantidad) * p.FactorRepeticion);
+                //var detallePedido = _pedidoSetProvider.ObtenerDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                //detallePedido.Where(p => p.SetId == model.SetID).ToList().ForEach(p => p.Cantidad = int.Parse(model.Cantidad) * p.FactorRepeticion);
 
                 var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, model.SetID);
                 foreach (var item in set.Detalles)
@@ -804,7 +806,8 @@ namespace Portal.Consultoras.Web.Controllers
                         CampaniaID = model.CampaniaID,
                         PedidoID = model.PedidoID,
                         PedidoDetalleID = Convert.ToInt16(item.PedidoDetalleId),
-                        Cantidad = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
+                        //Cantidad = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
+                        Cantidad = (int.Parse(model.Cantidad) * item.FactorRepeticion),
                         PrecioUnidad = item.PrecioUnidad,
                         ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID),
                         CUV = item.CUV,
@@ -812,7 +815,8 @@ namespace Portal.Consultoras.Web.Controllers
                         Stock = model.Stock,
                         Flag = model.Flag,
                         DescripcionProd = model.DescripcionProd,
-                        ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * item.FactorRepeticion * item.PrecioUnidad
+                        //ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * item.FactorRepeticion * item.PrecioUnidad
+                        ImporteTotal = ((int.Parse(model.Cantidad) * item.FactorRepeticion) * item.PrecioUnidad)
                     };
                     listaPedidoWebDetalle.Add(obePedidoWebDetalle);
                 }
@@ -1517,6 +1521,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 productosModel = AutocompleteProductoPedido(term, CRITERIO_BUSQUEDA_DESC_PRODUCTO);
+                if (productosModel.Count == 1 && productosModel[0].Descripcion == null) productosModel[0].Descripcion = "Sin Resultados";
             }
             catch (Exception ex)
             {
@@ -1980,7 +1985,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var productosFaltantes = GetProductosFaltantes(cuv, descripcion, categoria, revista);
+                var productosFaltantes = _productoFaltanteProvider.GetProductosFaltantes(userData, cuv, descripcion, categoria, revista);
                 ProductoFaltanteModel model = new ProductoFaltanteModel { Detalle = productosFaltantes };
                 return Json(new { result = true, data = model }, JsonRequestBehavior.AllowGet);
             }
@@ -2013,6 +2018,33 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new { result = false, data = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
+
+        #region Producto Sugerido
+        public JsonResult InsertarDemandaTotalReemplazoSugerido(AdministrarProductoSugeridoModel model)
+        {
+            try
+            {
+                var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
+                entidad.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
+                entidad.CampaniaID = userData.CampaniaID;
+
+                using (var svc = new PedidoServiceClient())
+                    svc.InsDemandaTotalReemplazoSugerido(userData.PaisID, entidad);
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
             }
         }
         #endregion
@@ -4325,9 +4357,8 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
                     , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
             }
-
-            //sessionManager.SetDetallesPedidoSetAgrupado(null);
-            ObtenerPedidoWebSetDetalleAgrupado(true);// para actualizar session de agrupado
+            
+            ObtenerPedidoWebSetDetalleAgrupado(true);
         }
 
         #endregion
