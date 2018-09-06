@@ -228,17 +228,22 @@
 </div>
 
 <div class="wrapper_resumen_mobile">
-    <!-- INICIO - ENLACE CAMINO AL ÉXITO (SÓLO PARA PAÍS COSTA RICA) -->
-    <div class="content_320">
-        <div class="camino_al_exito text-center">
-            Camino al éxito
+
+    <!-- INICIO - ENLACE CAMINO AL ÉXITO -->
+    @if (Model.TieneCaminoExito)
+    {
+        <div class="content_320">
+            <div class="camino_al_exito text-center">
+                Camino al éxito
+            </div>
+            <a class="enlace_ver_mas_sobre_camino_al_exito text-center" href="@Model.urlCaminoExito" target="_blank" title="Ver más">
+                Ver más
+            </a>
         </div>
-        <a class="enlace_ver_mas_sobre_camino_al_exito text-center" title="Ver más">
-            Ver más
-        </a>
-    </div>
-    <div class="linea_separadora_mobile" style="margin-top:4px;"></div>
-    <!-- FIN - ENLACE CAMINO AL ÉXITO (SÓLO PARA PAÍS COSTA RICA) -->
+        <div class="linea_separadora_mobile" style="margin-top:4px;"></div>
+    }
+    <!-- FIN - ENLACE CAMINO AL ÉXITO -->
+
     <div class="content_320">
         <div class="item1_mobile">
             @{

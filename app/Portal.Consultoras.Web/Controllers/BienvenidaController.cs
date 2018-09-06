@@ -213,10 +213,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda <= 0 ? false : true);
+                
+                #region Camino al Exito
 
                 var CaminoExito = this.ObjectCaminoExito();
                 model.TieneCaminoExito = CaminoExito.Item1;
                 model.urlCaminoExito = CaminoExito.Item2 ?? "";
+
+                #endregion
 
             }
             catch (FaultException ex)

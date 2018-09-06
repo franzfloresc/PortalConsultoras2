@@ -115,6 +115,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = (bool)(Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] ?? false);
                 model.MostrarPagoEnLinea = (userData.MontoDeuda <= 0 ? false : true);
+
+                #region Camino al Exito
+
+                var CaminoExito = new  Web.Controllers.BienvenidaController().ObjectCaminoExito();
+                model.TieneCaminoExito = CaminoExito.Item1;
+                model.urlCaminoExito = CaminoExito.Item2 ?? "";
+
+                #endregion
+
             }
             catch (FaultException ex)
             {

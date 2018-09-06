@@ -142,7 +142,7 @@
             @if (Model.TieneCaminoExito)
             {
                 <!--  INICIO - ENLACE CAMINO AL ÉXITO -->
-                <a role="link" region="Cuerpo" parent="Camino al Éxito" title="Camino al Éxito" onclick="javascript: fnCaminoExito(this);" href="@Model.urlCaminoExito" target="_blank" class="enlace_camino_al_exito">CAMINO<br />&nbsp;&nbsp;&nbsp;&nbsp;AL ÉXITO</a>
+                <a role="link" region="Cuerpo" parent="Camino al Éxito" title="Camino al Éxito" href="@Model.urlCaminoExito" target="_blank" class="enlace_camino_al_exito">CAMINO<br />&nbsp;&nbsp;&nbsp;&nbsp;AL ÉXITO</a>
                 <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
                 <!--  FIN - ENLACE CAMINO AL ÉXITO  -->
             }
