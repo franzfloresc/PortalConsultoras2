@@ -2070,7 +2070,8 @@
             success: function (data) {
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
-                    if (data.success == true) {
+					if (data.success == true) {
+						$("#hdListaPersonalizacion").val(data.personalizacionMod)
                         alert(data.message);
 
                         HideDialog("DialogPersonalizacionDetalle");
