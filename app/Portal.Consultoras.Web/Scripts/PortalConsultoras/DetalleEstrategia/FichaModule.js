@@ -334,7 +334,14 @@ var FichaModule = (function (config) {
                         estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
                     }
                 }
+                else {
+                    estrategia.CodigoVariante = _codigoVariedad.ComuestaFija;
+                }
             }
+            else {
+                estrategia.CodigoVariante = _codigoVariedad.ComuestaFija;
+            }
+
         }
         else if (estrategia.Hermanos.length > 1) {
             if (estrategia.CodigoVariante === _codigoVariedad.IndividualVariable) {
