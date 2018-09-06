@@ -1780,7 +1780,9 @@
         $("#hdCargaDescripcionSetsCampaniaID").val(rowObject.CampaniaID);
         //Carga de Productos Compra por Compra
         $("#hdCargarProductoCpcEventoID").val(options.rowId);
-        $("#hdCargarProductoCpcCampaniaID").val(rowObject.CampaniaID);
+		$("#hdCargarProductoCpcCampaniaID").val(rowObject.CampaniaID);
+	
+		$('#hdListaPersonalizacion').val(rowObject.PersonalizacionNivel);
 
         return resultado;
     }
@@ -2020,9 +2022,10 @@
         });
     }
 
-    var _registrarShowRoomPersonalizacionNivel = function (eventoId, nivelId) {
+	var _registrarShowRoomPersonalizacionNivel = function (eventoId, nivelId, idEventoMongoId) {
         var lista = $("#DialogPersonalizacionDetalle .div-3[data-idpersonalizacion]");
-        var array = new Array();
+		var array = new Array();
+		var lstPersonalizacion = $("#hdListaPersonalizacion").val();
 
         $.each(lista, function (index, value) {
             var personalizacionNivelId = $(value).find(".hdPersonalizacionNivelId").val();
@@ -2050,17 +2053,19 @@
                 Valor: valor,
                 ValorAnterior: $(value).find(".hdValorAnterior").val(),
                 EsImagen: esImagen
-            };
+			};
 
             array.push(item);
-        });
+		});
+
+		var item = {lista: array, eventoId: eventoId, _id: idEventoMongoId, lstPersonalizacion: lstPersonalizacion};
 
         jQuery.ajax({
             type: "POST",
             url: _config.urlGuardarPersonalizacionNivelShowRoom,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(array),
+			data: JSON.stringify(item),
             async: true,
             success: function (data) {
                 if (checkTimeout(data)) {
@@ -2904,7 +2909,8 @@
                     var vMessage = "";
 
                     var eventoId = $("#hdEventoID").val();
-                    var nivelId = $("#cbNivelEvento").val();
+					var nivelId = $("#cbNivelEvento").val();
+					var idEventoMongoId = $("#hd_id").val();
 
                     if (eventoId == "")
                         vMessage += "- Debe seleccionar el evento.\n";
@@ -2917,7 +2923,7 @@
                         return false;
                     }
                     else {
-                        _registrarShowRoomPersonalizacionNivel(eventoId, nivelId);
+						_registrarShowRoomPersonalizacionNivel(eventoId, nivelId, idEventoMongoId);
                     }
                     return false;
                 },
@@ -3357,7 +3363,8 @@
         },
         clickBuscarPersonalizacionNivel: function () {
             var eventoId = $("#hdEventoID").val();
-            var nivelId = $("#cbNivelEvento").val();
+			var nivelId = $("#cbNivelEvento").val();
+			var lstPersonalizacion = $("#hdListaPersonalizacion").val();
 
             if (eventoId == undefined || eventoId == 0) {
                 alert("Evento no se puedo identificar");
@@ -3367,9 +3374,10 @@
             if (nivelId == undefined || nivelId == 0) {
                 alert("Debe seleccionar un Nivel");
                 return false;
-            }
+			}
 
-            var item = { eventoId: eventoId, nivelId: nivelId };
+
+			var item = { eventoId: eventoId, nivelId: nivelId, lstPersonalizacion: lstPersonalizacion };
 
             waitingDialog({ title: "Procesando" });
             jQuery.ajax({
