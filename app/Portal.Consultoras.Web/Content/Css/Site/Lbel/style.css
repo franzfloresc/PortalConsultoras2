@@ -20364,14 +20364,6 @@ label.checkpop.c_on {
     font-weight: 700;
 }
 
-.enlace_camino_al_exito + .seguir_pedido{
-    width:31.5%;
-}
-
-.enlace_camino_al_exito + .seguir_pedido + .ver_video_introductorio{
-    width:33%;
-} 
-
 .seguir_pedido {
     width: 49%;
     color: black;
@@ -20395,15 +20387,15 @@ label.checkpop.c_on {
     }
 
 .enlace_camino_al_exito{
-    width:30%;
+    width:44%;
     position:relative;
-    color:#b75d9f;
+    color:#613c87;
 }
 
 .enlace_camino_al_exito::after{
     position: absolute;
     top: -6px;
-    right: 10px;
+    right: 53px;
     content: "";
     background-image: url(../../../Images/Lbel/estrellas.png);
     background-position: right top;
