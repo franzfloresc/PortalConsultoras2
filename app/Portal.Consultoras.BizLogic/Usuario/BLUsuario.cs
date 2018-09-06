@@ -617,7 +617,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.PuedeActualizarEmail = opcionesVerificacion.OpcionEmail;
                     usuario.PuedeActualizarCelular = opcionesVerificacion.OpcionSms;
                 }
-                if (contratoAceptacionTask.Result == null) {
+                if (contratoAceptacionTask.Result == null || usuario.TipoUsuario != Constantes.TipoUsuario.Consultora) {
                     usuario.IndicadorContratoAceptacion = -1;
                 }
                 else
