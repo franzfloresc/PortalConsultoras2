@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -74,14 +73,18 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (!info.Birthdate.HasValue)
             {
-                throw new Exception("Fecha de Nacimiento en Payu es requerido");
+                throw new Exception("Fecha de Nacimiento es requerido");
             }
 
             PagoVisaModel config = pago.PagoVisaModel;
             var total = pago.MontoDeudaConGastos;
             var referenceCode = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroReferencia;
             var fullName = User.NombreConsultora;
-            var address = GetDireccionConsultora();
+            var address = GetDireccionConsultora() ?? new BEUsuarioDireccion();
+            if (string.IsNullOrWhiteSpace(address.Ciudad))
+            {
+                address.Ciudad = Constantes.PagoEnLineaPayuGenerales.DefaultCity;
+            }
 
             var card = new
             {
@@ -127,9 +130,9 @@ namespace Portal.Consultoras.Web.Providers
                             dniNumber = User.DocumentoIdentidad,
                             shippingAddress = new
                             {
-                                street1 = address,
+                                street1 = address.Direccion,
                                 //-street2 = "8 int 103",
-                                city = string.Empty,
+                                city = address.Ciudad,
                                 //-state = "Jalisco", // obligatorio brasil
                                 country = Constantes.PagoEnLineaPayuGenerales.Country,
                                 //-postalCode = "000000", // obligatorio brasil
@@ -142,14 +145,14 @@ namespace Portal.Consultoras.Web.Providers
                         merchantPayerId = User.CodigoConsultora,
                         fullName = fullName,
                         emailAddress = info.Email,
-                        birthdate = info.Birthdate.Value.ToString("yyyy-MM-dd"), //MX
+                        birthdate = info.Birthdate.Value.ToString("yyyy-MM-dd"),
                         contactPhone = info.Phone,
                         dniNumber = User.DocumentoIdentidad,
                         billingAddress = new
                         {
-                            street1 = string.Empty,
+                            street1 = address.Direccion,
                             //-street2 = "calle 5 de Mayo",
-                            city = string.Empty,
+                            city = address.Ciudad,
                             //-state = "Nuevo Leon",
                             country = Constantes.PagoEnLineaPayuGenerales.Country,
                             //-postalCode = "000000", //MX 
@@ -157,9 +160,6 @@ namespace Portal.Consultoras.Web.Providers
                         }
                     },
                     creditCard = card,
-                    //extraParameters = new {
-                    //   INSTALLMENTS_NUMBER = 1 // cuotas
-                    //},
                     type = Constantes.PagoEnLineaPayuGenerales.TransactionType,
                     paymentMethod = pago.TipoPago,
                     paymentCountry = Constantes.PagoEnLineaPayuGenerales.Country,
@@ -370,7 +370,7 @@ namespace Portal.Consultoras.Web.Providers
             return DateTime.Now.Ticks / 10;
         }
 
-        private string GetDireccionConsultora()
+        private BEUsuarioDireccion GetDireccionConsultora()
         {
             try
             {
@@ -389,7 +389,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
 
-            return string.Empty;
+            return null;
         }
     }
 }
