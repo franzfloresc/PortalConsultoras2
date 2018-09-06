@@ -3266,3 +3266,8 @@ function ConsultarEmailPendiente() {
         }
     });
 }
+
+function fnCaminoExito(obj)
+{
+  
+}
