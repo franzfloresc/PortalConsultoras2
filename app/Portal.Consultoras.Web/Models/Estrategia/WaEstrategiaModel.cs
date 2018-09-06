@@ -50,5 +50,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public string UsuarioModificacion { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
+
+        public bool EsSubCampania { get; set; }
     }
 }

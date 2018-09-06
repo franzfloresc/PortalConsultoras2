@@ -156,7 +156,8 @@ namespace Portal.Consultoras.Web.Providers
                         Imagen = d.FlagImagenURL ? 1 : 0,
                         DescripcionEstrategia = d.DescripcionTipoEstrategia,                    
                         CodigoSAP = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
-                        Zona = d.Zona
+                        Zona = d.Zona,
+                        EsSubCampania = d.EsSubCampania ? 1 : 0
                     }
 
                 }).ToList();
@@ -226,15 +227,20 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
-            const string jsonParameters = "";
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais,id);
-            var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
-            Task.WhenAll(taskApi);
-            string content = taskApi.Result;
 
-            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+            var taskApi = Task.Run(() => RespSBMicroservicios(
+                    string.Empty,
+                    string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais, id), 
+                    "get", 
+                    userData
+                ));
+
+            Task.WhenAll(taskApi);;
+
+            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
 
             var WaObject = (respuesta.Result != null) ? JsonConvert.DeserializeObject<WaEstrategiaModel>(respuesta.Result.ToString()) : null;
+
             var WaModelList = new List<WaEstrategiaModel>();
             if (WaObject != null)
                 WaModelList.Add(WaObject);

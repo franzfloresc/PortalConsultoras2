@@ -322,7 +322,6 @@
     };
 
     var _editar = function (data, id) {
-
         _editData = {
             EstrategiaID: data.EstrategiaID,
             CUV2: data.CUV2,
@@ -341,6 +340,7 @@
         };
 
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
+            //console.log(data);
             var TipoEstrategiaCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
             if (TipoEstrategiaCodigo == _config.tipoEstrategiaIncentivosProgramaNuevas)
                 $("#divPrecioValorizado").html("Ganancia");
@@ -2311,6 +2311,16 @@
             closeWaitingDialog();
             return false;
         }
+
+        //var archivo = document.getElementById("fileDescMasivo").files[0];
+        //var splitArchivo = archivo.name.split('.');
+        //var lengthArray = splitArchivo.length;
+
+        //if (splitArchivo[lengthArray - 1] != 'csv') {
+        //    _toastHelper.error("Formato de archivo requerido es \".csv\".");
+        //    closeWaitingDialog();
+        //    return false;
+        //}
 
         formData.append("Documento", document.getElementById("fileDescMasivo").files[0]);
         formData.append("Pais", $("#ddlPais").val());
