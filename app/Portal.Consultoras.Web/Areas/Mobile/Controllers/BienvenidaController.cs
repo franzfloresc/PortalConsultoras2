@@ -174,18 +174,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return urlChile;
         }
 
-        //private BEConfiguracionCampania ObtenerConfiguracionCampania()
-        //{
-        //    BEConfiguracionCampania configuracionCampania;
-
-        //    using (var sv = new PedidoServiceClient())
-        //    {
-        //        configuracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-        //    }
-
-        //    return configuracionCampania ?? new BEConfiguracionCampania();
-        //}
-
         private string ObtenerFechaVencimiento()
         {
             return userData.FechaLimPago.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : userData.FechaLimPago.ToString("dd/MM/yyyy");
@@ -397,7 +385,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                var lstComunicados = ObtenerComunicadoPorConsultora().ToList();
+                var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData);
                 lstComunicados = lstComunicados.Where(x => Constantes.Comunicado.Extraordinarios.IndexOf(x.Descripcion) == -1).ToList();
                 if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
 
@@ -565,6 +553,29 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "";
+            }
+        }
+        
+        [HttpGet]
+        public JsonResult OcultarBannerApp()
+        {
+            try
+            {
+                Session["OcultarBannerApp"] = true;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }

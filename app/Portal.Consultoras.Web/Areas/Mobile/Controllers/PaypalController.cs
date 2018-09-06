@@ -20,7 +20,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                //var userData = UserData();
                 model.PaisID = userData.PaisID;
                 model.CodigoConsultora = userData.CodigoConsultora;
                 model.NombreConsultora = userData.NombreConsultora;
@@ -60,7 +59,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public JsonResult InsertDatosPago(string nroTarjeta, decimal monto)
         {
-            //var userData = UserData();
             try
             {
                 bool result;

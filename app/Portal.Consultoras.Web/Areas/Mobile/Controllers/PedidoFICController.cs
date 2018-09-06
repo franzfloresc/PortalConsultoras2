@@ -130,27 +130,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return configuracionCampania;
         }
-
-        //private bool GetSeInsertoProductoAutomaticos(UsuarioModel userDataParam)
-        //{
-        //    bool seInsertoProductosAutomaticos;
-
-        //    var bePedidoWeb = new BEPedidoWeb
-        //    {
-        //        CampaniaID = userDataParam.CampaniaID,
-        //        ConsultoraID = userDataParam.ConsultoraID,
-        //        PaisID = userDataParam.PaisID,
-        //        IPUsuario = userDataParam.IPUsuario,
-        //        CodigoUsuarioCreacion = userDataParam.CodigoUsuario
-        //    };
-        //    using (var sv = new PedidoServiceClient())
-        //    {
-        //        seInsertoProductosAutomaticos = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb) > 0;
-        //    }
-
-        //    return seInsertoProductosAutomaticos;
-        //}
-
+        
         private List<BECliente> GetClientesByConsultora(UsuarioModel userDataParam)
         {
             List<BECliente> clientesByConsultora;
