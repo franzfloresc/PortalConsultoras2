@@ -315,6 +315,7 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="CustomFilters\ValidateAjaxModelAttribute.cs" />
     <Compile Include="Models\EstadoProductoComentarioModel.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\LanzamientosController.cs" />

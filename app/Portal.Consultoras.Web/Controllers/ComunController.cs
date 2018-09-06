@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Models.Common;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ComunController : BaseController
     {
-   
+        [ValidateAjaxModel]
         [HttpPost]
         public ActionResult InsertarLogDymnamo(InLogUsabilidadModel Log)
         {

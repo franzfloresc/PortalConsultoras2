@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -57,11 +58,13 @@ namespace Portal.Consultoras.Web.Models.Common
         /// <summary>
         /// Nombre de Pantalla - Opción
         /// </summary>
+        [Required()]
         public string PantallaOpcion { get; set; }
 
         /// <summary>
         /// Nombre de Acción de Opcion de Pantalla
         /// </summary>
+        [Required()]
         public string OpcionAccion { get; set; }
 
         /// <summary>
