@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Web.Providers
                         DescripcionEstrategia = d.DescripcionTipoEstrategia,                    
                         CodigoSAP = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
                         Zona = d.Zona,
-                        EsSubCampania = d.EsSubCampania ? 1 : 0
+                        EsSubCampania = d.EsSubCampania.HasValue ? (d.EsSubCampania.Value ? 1 : 0) : 0
                     }
 
                 }).ToList();
