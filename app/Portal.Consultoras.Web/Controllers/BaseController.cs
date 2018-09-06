@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected BuscadorYFiltrosModel buscadorYFiltro;
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
-        protected string _tokenApiSomosBelcorp = string.Empty;
+       
         protected string paisesMicroservicioPersonalizacion;
         protected string estrategiaWebApiDisponibilidadTipo;
         protected readonly TipoEstrategiaProvider _tipoEstrategiaProvider;
@@ -135,7 +135,7 @@ namespace Portal.Consultoras.Web.Controllers
                     filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
-                _tokenApiSomosBelcorp = sessionManager.GetJwtApiSomosBelcorp()?? "";
+              
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
@@ -1527,45 +1527,21 @@ namespace Portal.Consultoras.Web.Controllers
             var dataString = string.Empty;
             try
             {
-                var data = new
-                {
-                    Fecha = "",
-                    Log.Aplicacion,
-                    Pais = userData.CodigoISO,
-                    Region = userData.CodigorRegion,
-                    Zona = userData.CodigoZona,
-                    Seccion = userData.SeccionAnalytics,
-                    Rol = Constantes.LogDynamoDB.RolConsultora,
-                    Campania = userData.CampaniaID.ToString(),
-                    Usuario = userData.CodigoUsuario,
-                    Log.PantallaOpcion,
-                    Log.OpcionAccion,
-                    DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
-                    DispositivoID = GetIPCliente(),
-                    Log.Extra,
-                    Version = "2.0"
-                };
-
-
-                var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
-              
-                if (string.IsNullOrEmpty(urlApi)) return;
-
-                var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { _tokenApiSomosBelcorp }");
-
-                dataString = JsonConvert.SerializeObject(data);
-
-                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-
-                var response = httpClient.PostAsync("Api/LogUsabilidad", contentPost).GetAwaiter().GetResult();
-
-                var noQuitar = response.IsSuccessStatusCode;
-
-                httpClient.Dispose();
+                Log.Fecha = "";
+                Log.Pais = userData.CodigoISO;
+                Log.Region = userData.CodigorRegion;
+                Log.Zona = userData.CodigoZona;
+                Log.Seccion = userData.SeccionAnalytics;
+                Log.Rol = Constantes.LogDynamoDB.RolConsultora;
+                Log.Campania = userData.CampaniaID.ToString();
+                Log.Usuario = userData.CodigoUsuario;
+                Log.DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB";
+                Log.DispositivoID = GetIPCliente();
+                Log.Version = "2.0";
+                Log.JwtToken = userData.JwtToken;
+                Log.CodigoConsultora = userData.CodigoConsultora;
+                Log.CodigoISO = userData.CodigoISO;
+               _logDynamoProvider.RegistrarLogDynamoDB(Log);
             }
             catch (Exception ex)
             {

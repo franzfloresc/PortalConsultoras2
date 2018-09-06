@@ -13,6 +13,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models.Common;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -28,6 +29,8 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager = SessionManager.SessionManager.Instance;
             _configuracionManager = new ConfiguracionManagerProvider();
         }
+
+ 
 
         public void EjecutarLogDynamoDB(UsuarioModel userParametro, bool esMobile, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
         {
@@ -73,7 +76,7 @@ namespace Portal.Consultoras.Web.Providers
                     httpClient.BaseAddress = new Uri(urlApi);
                     httpClient.DefaultRequestHeaders.Accept.Clear();
                     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { userParametro.JwtToken }");
                     dataString = JsonConvert.SerializeObject(data);
                     HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
                     HttpResponseMessage response = httpClient.PostAsync(apiController, contentPost).GetAwaiter().GetResult();
@@ -118,7 +121,7 @@ namespace Portal.Consultoras.Web.Providers
                 var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { userParametro.JwtToken }");
                 dataString = JsonConvert.SerializeObject(data);
 
                 HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
@@ -134,7 +137,39 @@ namespace Portal.Consultoras.Web.Providers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userParametro.CodigoConsultora, userParametro.CodigoISO, dataString);
             }
         }
+        public void RegistrarLogDynamoDB(InLogUsabilidadModel Log)
+        {
+            var dataString = string.Empty;
+            try
+            {
+                
 
+
+                var urlApi = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+
+                if (string.IsNullOrEmpty(urlApi)) return;
+
+                var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Log.JwtToken }");
+
+                dataString = JsonConvert.SerializeObject(Log);
+
+                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+                var response = httpClient.PostAsync("Api/LogUsabilidad", contentPost).GetAwaiter().GetResult();
+
+                var noQuitar = response.IsSuccessStatusCode;
+
+                httpClient.Dispose();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, Log.CodigoConsultora, Log.CodigoISO, dataString);
+            }
+        }
         public UsuarioModel ActualizarDatosLogDynamoDB(UsuarioModel userParametro, bool esMobile, MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
             string dataString = string.Empty;
@@ -250,6 +285,8 @@ namespace Portal.Consultoras.Web.Providers
                 var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { userParametro.JwtToken }");
+
                 dataString = JsonConvert.SerializeObject(data);
                 HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
                 var response = httpClient.PostAsync("Api/LogGestionSacUnete", contentPost).GetAwaiter().GetResult();
