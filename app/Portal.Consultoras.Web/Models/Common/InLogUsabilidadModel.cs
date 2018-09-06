@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -83,11 +84,11 @@ namespace Portal.Consultoras.Web.Models.Common
         /// </summary>
         public Dictionary<string, string> Extra { get; set; }
 
-        [ScriptIgnore]
+        [JsonIgnore]
         public string JwtToken { get; set; }
-        [ScriptIgnore]
+        [JsonIgnore]
         public string CodigoConsultora { get; set; }
-        [ScriptIgnore]
+        [JsonIgnore]
         public string CodigoISO { get; set; }
     }
 
