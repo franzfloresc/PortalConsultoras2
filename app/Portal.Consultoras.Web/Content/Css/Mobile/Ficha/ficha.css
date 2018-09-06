@@ -284,7 +284,7 @@ ul.breadcumbs li:last-child a {
 /*Seleccionar tono*/
 
 .seleccion_tonos {
-    margin-bottom: 30px;
+    /*margin-bottom: 30px;*/
 }
 
 .tono_select_opt {

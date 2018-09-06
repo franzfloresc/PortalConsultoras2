@@ -795,18 +795,28 @@ namespace Portal.Consultoras.Web.Controllers
             if (model.SetID > 0)
             {
                 var detallePedido = _pedidoSetProvider.ObtenerDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                detallePedido.Where(p => p.SetId == model.SetID).ToList().ForEach(p => p.Cantidad = int.Parse(model.Cantidad) * p.FactorRepeticion);
+                //detallePedido.Where(p => p.SetId == model.SetID).ToList().ForEach(p => p.Cantidad = int.Parse(model.Cantidad) * p.FactorRepeticion);
+                var xsets = detallePedido.Where(x => x.SetId != model.SetID).ToList();
+                var ncant = int.Parse(model.Cantidad);
 
                 var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, model.SetID);
                 foreach (var item in set.Detalles)
                 {
+                    var ocant = 0;
+                    if (xsets.Any())
+                    {
+                        var xset = xsets.Where(x => x.CUV == item.CUV).ToList();
+                        ocant = (xset.Any()) ? xset.Sum(x => x.Cantidad) : 0;
+                    }
+
                     BEPedidoWebDetalle obePedidoWebDetalle = new BEPedidoWebDetalle
                     {
                         PaisID = userData.PaisID,
                         CampaniaID = model.CampaniaID,
                         PedidoID = model.PedidoID,
                         PedidoDetalleID = Convert.ToInt16(item.PedidoDetalleId),
-                        Cantidad = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
+                        //Cantidad = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
+                        Cantidad = (ncant * item.FactorRepeticion) + ocant,
                         PrecioUnidad = item.PrecioUnidad,
                         ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID),
                         CUV = item.CUV,
@@ -814,7 +824,8 @@ namespace Portal.Consultoras.Web.Controllers
                         Stock = model.Stock,
                         Flag = model.Flag,
                         DescripcionProd = model.DescripcionProd,
-                        ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * item.FactorRepeticion * item.PrecioUnidad
+                        //ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * item.FactorRepeticion * item.PrecioUnidad
+                        ImporteTotal = ((ncant * item.FactorRepeticion) + ocant) * item.PrecioUnidad,
                     };
                     listaPedidoWebDetalle.Add(obePedidoWebDetalle);
                 }
