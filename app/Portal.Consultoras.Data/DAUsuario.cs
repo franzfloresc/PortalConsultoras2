@@ -916,12 +916,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteScalar(command).ToString();
         }
 
-        public string GetDireccionConsultora(string CodigoUsuario)
+        public IDataReader GetDireccionConsultora(string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerDireccionConsultora");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
 
-            return (string)Context.ExecuteScalar(command);
+            return Context.ExecuteReader(command);
         }
 
         public IDataReader ListaProductos(int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)

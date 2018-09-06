@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
 
@@ -93,7 +94,7 @@ namespace Portal.Consultoras.BizLogic
         int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
         bool EsConsultoraNueva(BEUsuario usuario);
         string ObtenerCodigoRevistaFisica(int paisId);
-        string GetDireccionConsultora(int paisID, string codigoUsuario);
+        BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario);
         BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais);
     }
 }

@@ -391,6 +391,7 @@
     <Compile Include="BEPopupPais.cs" />
     <Compile Include="BELogConfiguracionCronograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usuario\BEUsuarioDireccion.cs" />
     <Compile Include="Usuario\BEUsuarioExterno.cs" />
     <Compile Include="ShowRoom\BEShowRoomPersonalizacion.cs" />
     <Compile Include="ShowRoom\BEShowRoomPersonalizacionNivel.cs" />

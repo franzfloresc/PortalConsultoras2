@@ -19,6 +19,7 @@ using System.Transactions;
 using Newtonsoft.Json;
 using System.Net.Http;
 using JWT;
+using Portal.Consultoras.Entities.Usuario;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -3205,12 +3206,23 @@ namespace Portal.Consultoras.BizLogic
         {
             return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
         }
-        public string GetDireccionConsultora(int paisID, string codigoUsuario)
+
+        public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)
         {
             var daUsuario = new DAUsuario(paisID);
+            var direccion = new BEUsuarioDireccion();
 
-            return daUsuario.GetDireccionConsultora(codigoUsuario);
+            using (IDataReader reader = daUsuario.GetDireccionConsultora(codigoUsuario))
+            {
+                if (reader.Read())
+                {
+                    direccion = new BEUsuarioDireccion(reader);
+                }
+            }
+
+            return direccion;
         }
+
         public List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)
         {
             List<BEBuscadorYFiltros> BuscadorYFiltro = new List<BEBuscadorYFiltros>();

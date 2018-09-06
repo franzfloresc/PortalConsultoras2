@@ -4,6 +4,7 @@ using Portal.Consultoras.BizLogic.PagoEnlinea;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
@@ -890,7 +891,7 @@ namespace Portal.Consultoras.Service
             return BLUsuario.CancelarAtualizacionEmail(paisID, codigoUsuario);
         }
 
-        public string GetDireccionConsultora(int paisID, string codigoUsuario)
+        public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)
         {
             return _usuarioBusinessLogic.GetDireccionConsultora(paisID, codigoUsuario);
         }
