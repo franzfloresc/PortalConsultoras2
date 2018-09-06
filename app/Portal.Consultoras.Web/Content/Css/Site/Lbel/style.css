@@ -20390,6 +20390,7 @@ label.checkpop.c_on {
     width:44%;
     position:relative;
     color:#613c87;
+    font-weight:900;
 }
 
 .enlace_camino_al_exito::after{
@@ -20397,7 +20398,7 @@ label.checkpop.c_on {
     top: -6px;
     right: 53px;
     content: "";
-    background-image: url(../../../Images/Lbel/estrellas.gif);
+    background-image: url(../../../Images/Lbel/estrellas.png);
     background-position: right top;
     background-repeat: no-repeat;
     background-size: 100%;
