@@ -3,11 +3,11 @@
 
 @font-face {
   font-family: 'somos-belcorp-iconos';
-  src:  url('../../Site/fonts/icomoon/somos-belcorp-iconos.eot?3epbkp');
-  src:  url('../../Site/fonts/icomoon/somos-belcorp-iconos.eot?3epbkp#iefix') format('embedded-opentype'),
-    url('../../Site/fonts/icomoon/somos-belcorp-iconos.ttf?3epbkp') format('truetype'),
-    url('../../Site/fonts/icomoon/somos-belcorp-iconos.woff?3epbkp') format('woff'),
-    url('../../Site/fonts/icomoon/somos-belcorp-iconos.svg?3epbkp#somos-belcorp-iconos') format('svg');
+  src:  url('/Content/Css/Site/fonts/icomoon/somos-belcorp-iconos.eot?3epbkp');
+  src:  url('/Content/Css/Site/fonts/icomoon/somos-belcorp-iconos.eot?3epbkp#iefix') format('embedded-opentype'),
+    url('/Content/Css/Site/fonts/icomoon/somos-belcorp-iconos.ttf?3epbkp') format('truetype'),
+    url('/Content/Css/Site/fonts/icomoon/somos-belcorp-iconos.woff?3epbkp') format('woff'),
+    url('/Content/Css/Site/fonts/icomoon/somos-belcorp-iconos.svg?3epbkp#somos-belcorp-iconos') format('svg');
   font-weight: normal;
   font-style: normal;
 }

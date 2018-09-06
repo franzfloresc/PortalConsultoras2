@@ -301,14 +301,12 @@ namespace Portal.Consultoras.Web.Providers
                     listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.Where(h => h.NombreComercial != "").ToList();
                     break;
                 case Constantes.TipoEstrategiaSet.IndividualConTonos:
-                    if (listaEstrategiaComponenteProductos.Count == 1)
+                    if (listaEstrategiaComponenteProductos.Any())
                     {
-                        listaEstrategiaComponenteProductos = new List<EstrategiaComponenteModel>();
-                    }
-                    else
-                    {
-                        listaEstrategiaComponenteProductos.ForEach(h => h.FactorCuadre = 1);
-                        listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.OrderBy(h => h.Orden).ToList();
+                        listaEstrategiaComponenteProductos.ForEach(h => { h.Digitable = 0; h.FactorCuadre = 1; });
+                        listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos
+                            .Where(h => h.NombreComercial != "")
+                            .OrderBy(h => h.Orden).ToList();
                     }
                     break;
                 default:

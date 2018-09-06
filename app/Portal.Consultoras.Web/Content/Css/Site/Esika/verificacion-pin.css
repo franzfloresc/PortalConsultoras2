@@ -2,11 +2,11 @@
 
 @font-face {
     font-family: 'icomoon';
-    src: url('../fonts/icomoon/icomoon.eot?ur7cdc');
-    src: url('../fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'),
-        url('../fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'),
-        url('../fonts/icomoon/icomoon.woff?ur7cdc') format('woff'),
-        url('../fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
+    src: url('/Content/Css/Site/fonts/icomoon/icomoon.eot?ur7cdc');
+    src: url('/Content/Css/Site/fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'),
+        url('/Content/Css/Site/fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'),
+        url('/Content/Css/Site/fonts/icomoon/icomoon.woff?ur7cdc') format('woff'),
+        url('/Content/Css/Site/fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -380,7 +380,8 @@ a{
 }
 
 .campo_lista_paises{
-    background:url('/Content/Images/Login2/Banderas/PE.png') left center no-repeat, url('/Content/Images/Login2/Icons/arrow-select.svg') right 16px no-repeat;
+    background:url('/Content/Images/Login2/Banderas/PE.png') left center no-repeat,
+        url('/Content/Images/Login2/Icons/arrow-select.svg') right 16px no-repeat;
     -webkit-appearance:none;
 }
 
