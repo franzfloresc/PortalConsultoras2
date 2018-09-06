@@ -558,8 +558,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                
-                
+                var listaPersonalizacionAux = string.Empty;
                 var listaFinal = new List<ShowRoomPersonalizacionNivelModel>();
                 foreach (var model in lista)
                 {
@@ -588,6 +587,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listaPersonalizacionModel.Where(x => x.PersonalizacionId == item.PersonalizacionId).Update(c => c.Valor = item.Valor);
                     }
                     administrarEstrategiaProvider.RegistrarEventoPersonalizacion(userData.CodigoISO, eventoId, _id, listaPersonalizacionModel);
+                    listaPersonalizacionAux = JsonConvert.SerializeObject(listaPersonalizacionModel);
                 }
                 else
                 {
@@ -612,7 +612,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "Se insertó las personalizaciones satisfactoriamente.",
-                    extra = ""
+                    extra = "",
+                    personalizacionMod = listaPersonalizacionAux
                 });
             }
             catch (FaultException ex)
@@ -622,7 +623,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = "",
+                    personalizacionMod  = string.Empty
                 });
             }
             catch (Exception ex)
@@ -632,7 +634,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = "",
+                    personalizacionMod = string.Empty
                 });
             }
         }
