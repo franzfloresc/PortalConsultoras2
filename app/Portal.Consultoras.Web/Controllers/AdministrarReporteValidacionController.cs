@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerCampanias()
         {
-            int paisId = UserData().PaisID;
+            int paisId = userData.PaisID;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(paisId);
 
             return Json(new
@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         TipoEstrategiaID = item.TipoEstrategiaID,
                         Descripcion = item.DescripcionEstrategia,
-                        PaisID = UserData().PaisID,
+                        PaisID = userData.PaisID,
                         FlagNueva = item.FlagNueva,
                         FlagRecoPerfil = item.FlagRecoPerfil,
                         FlagRecoProduc = item.FlagRecoProduc,
@@ -102,7 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 TipoEstrategiaID = 9999,
                 Descripcion = "ShowRoom",
-                PaisID = UserData().PaisID,
+                PaisID = userData.PaisID,
                 FlagNueva = 1,
                 FlagRecoPerfil = 1,
                 FlagRecoProduc = 1,
@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetReporteValidacion(UserData().PaisID, Convert.ToInt32(CampaniaID), Convert.ToInt32(TipoEstrategiaID)).ToList();
+                lst = sv.GetReporteValidacion(userData.PaisID, Convert.ToInt32(CampaniaID), Convert.ToInt32(TipoEstrategiaID)).ToList();
             }
 
             if (lst.Count == 0)
@@ -156,10 +156,10 @@ namespace Portal.Consultoras.Web.Controllers
             
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lstSrCampania = sv.GetReporteShowRoomCampania(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrPersonalizacion = sv.GetReporteShowRoomPersonalizacion(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrOferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSrCampania = sv.GetReporteShowRoomCampania(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSrPersonalizacion = sv.GetReporteShowRoomPersonalizacion(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSrOferta = sv.GetReporteShowRoomOferta(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSrComponente = sv.GetReporteShowRoomComponentes(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
             }
 
             if (lstSrCampania.Count == 0 && lstSrPersonalizacion.Count == 0 && lstSrOferta.Count == 0 && lstSrComponente.Count == 0)

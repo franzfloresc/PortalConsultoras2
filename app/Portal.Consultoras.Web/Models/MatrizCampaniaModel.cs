@@ -28,9 +28,7 @@ namespace Portal.Consultoras.Web.Models
         public IList<MatrizCampaniaModel> ListaErrores { get; set; }
         public MatrizCampaniaModel()
         {
-            //listaCampania = new List<CampaniaModel>();
             listaPaises = new List<PaisModel>();
-            //Eliminar = false;
         }
     }
 }

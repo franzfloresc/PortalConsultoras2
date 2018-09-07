@@ -1,4 +1,10 @@
-﻿function Init() { $('#btnLogin').on('click', LoginNormal); }
+﻿function Init()
+{
+    // if (event.which == 13 && this.value.length > 0)
+    $('#btnLogin').on('click', LoginNormal);
+    $('#txtUsuario').on("keydown", function (event) { if (event.which == 13 ) $('#btnLogin').click(); });
+    $('#txtPassword').on("keydown", function (event) { if (event.which == 13) $('#btnLogin').click(); });
+}
 
 function LoginNormal() { ValidarLoginNormal(ResponderBotmakerNormal); }
 

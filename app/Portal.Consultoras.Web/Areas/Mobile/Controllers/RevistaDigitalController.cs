@@ -111,34 +111,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             return PartialView("template-mensaje-bloqueado-Lan-Detalle", modelo);
         }
-
-        //public virtual MensajeProductoBloqueadoModel RDMensajeProductoBloqueado()
-        //{
-        //    var model = new MensajeProductoBloqueadoModel();
-
-        //    if (!revistaDigital.TieneRDC) return model;
-
-        //    model.IsMobile = IsMobile();
-        //    string codigo;
-
-        //    if (revistaDigital.EsSuscrita)
-        //    {
-        //        model.MensajeIconoSuperior = true;
-        //        codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
-        //        model.BtnInscribirse = false;
-        //    }
-        //    else
-        //    {
-        //        model.MensajeIconoSuperior = false;
-        //        codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
-        //        model.BtnInscribirse = true;
-        //    }
-
-        //    var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-        //    model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
-
-        //    return model;
-        //}
-        
+                
     }
 }
