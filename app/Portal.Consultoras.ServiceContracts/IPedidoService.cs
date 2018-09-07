@@ -890,6 +890,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string DelProductoSugerido(int PaisID, BEProductoSugerido entidad);
+
+        [OperationContract]
+        void InsDemandaTotalReemplazoSugerido(int PaisID, BEProductoSugerido entidad);
         #endregion
 
         #region kit Nuevas
@@ -1168,7 +1171,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
-        Task<BEPedidoReservaAppResult> ReservaPedido(BEUsuario usuario);
+        Task<BEPedidoReservaResult> ReservaPedido(BEUsuario usuario);
         [OperationContract]
         BEPedidoDetalleResult ModificarReservaPedido(BEUsuario usuario);
         [OperationContract]

@@ -3361,7 +3361,7 @@ a.subir_carousel, a.bajar_carousel {
     min-width: 62px;
     height: 62px;
     top: 3%;
-    right: 4.8%;
+    left: 4.8%;
     z-index: 10;
 }
 
@@ -32450,6 +32450,7 @@ h1#penmostreo .campana {
 .bloque_oferta_dia {
     width: 100%;
     height: 100px;
+    background: url('../../../Images/PL20/textura_fondo.png') repeat-x;
     position: relative;
     z-index: 6;
 }
@@ -32460,6 +32461,7 @@ h1#penmostreo .campana {
     margin: 0 auto;
     background-size: cover;
     position: relative;
+    background-color: #000;
 }
 
 .content_oferta_dia_img {

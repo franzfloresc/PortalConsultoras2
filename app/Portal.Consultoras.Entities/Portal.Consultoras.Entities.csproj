@@ -60,6 +60,7 @@
     <Compile Include="AsesoraOnline\BEAsesoraOnline.cs" />
     <Compile Include="Auditoria.cs" />
     <Compile Include="BEBuscadorYFiltros.cs" />
+    <Compile Include="BeReporteContrato.cs" />
     <Compile Include="BERespuestaServicio.cs" />
     <Compile Include="BaseEntidad.cs" />
     <Compile Include="BEActivarPremioNuevas.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Oferta\BEGuiaNegocio.cs" />
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
     <Compile Include="Oferta\BEOfertaFinal.cs" />
+    <Compile Include="Pedido\BEPedidoReservaResult.cs" />
     <Compile Include="ProgramaNuevas\BENivelesProgramaNuevas.cs" />
     <Compile Include="ProgramaNuevas\BERespValidarElectivos.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPago.cs" />

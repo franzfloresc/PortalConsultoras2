@@ -80,9 +80,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public List<ObservacionModel> ListaObservacionesPROL { get; set; }
         public List<PedidoActualizaModel> ListaPedidoActualizaModel { get; set; }
         
-
-
-        ///////////////  Solo Mobile
+        //  Solo Mobile
         public List<BEEstrategia> ListaEstrategias { get; set; }
 
         public int PaisId { get; set; }

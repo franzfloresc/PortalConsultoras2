@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult AfiliarConsultora(bool esPrimera, long ConsultoraID, bool emailActivo)
         {
-            string emailConsultora = UserData().EMail;
+            string emailConsultora = userData.EMail;
             if (String.IsNullOrEmpty(emailConsultora.Trim()) || !emailActivo)
             {
                 var data = new
@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
-                    sc.InsAfiliaClienteConsultora(UserData().PaisID, ConsultoraID);
+                    sc.InsAfiliaClienteConsultora(userData.PaisID, ConsultoraID);
                 }
 
                 var data = new { success = true };
@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
-                    sc.UpdAfiliaClienteConsultora(UserData().PaisID, ConsultoraID, true);
+                    sc.UpdAfiliaClienteConsultora(userData.PaisID, ConsultoraID, true);
                 }
 
                 var data = new { success = true };
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
             {
-                sc.UpdAfiliaClienteConsultora(UserData().PaisID, ConsultoraID, false);
+                sc.UpdAfiliaClienteConsultora(userData.PaisID, ConsultoraID, false);
 
                 var data = new { success = true };
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (UsuarioServiceClient svr = new UsuarioServiceClient())
                     {
-                        var cantidad = svr.ValidarEmailConsultora(UserData().PaisID, model.Email, UserData().CodigoUsuario);
+                        var cantidad = svr.ValidarEmailConsultora(userData.PaisID, model.Email, userData.CodigoUsuario);
 
                         if (cantidad > 0)
                         {
@@ -98,7 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    var result = sv.UpdateDatosPrimeraVez(UserData().PaisID, UserData().CodigoUsuario, model.Email, model.Telefono, "", model.Celular, model.CorreoAnterior, model.AceptoContrato);
+                    var result = sv.UpdateDatosPrimeraVez(userData.PaisID, userData.CodigoUsuario, model.Email, model.Telefono, "", model.Celular, model.CorreoAnterior, model.AceptoContrato);
 
                     if (result == 0)
                     {
@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.ActualizarClave != "")
                     {
-                        var cambio = sv.ChangePasswordUser(UserData().PaisID, UserData().CodigoUsuario, UserData().CodigoISO + UserData().CodigoUsuario, model.ConfirmarClave.ToUpper(), string.Empty, EAplicacionOrigen.BienvenidaConsultora);
+                        var cambio = sv.ChangePasswordUser(userData.PaisID, userData.CodigoUsuario, userData.CodigoISO + userData.CodigoUsuario, model.ConfirmarClave.ToUpper(), string.Empty, EAplicacionOrigen.BienvenidaConsultora);
 
                         message = cambio
                             ? "- Los datos han sido actualizados correctamente.\n "
@@ -131,14 +131,14 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             try
                             {
-                                string[] parametros = new string[] { UserData().CodigoUsuario, UserData().PaisID.ToString(), UserData().CodigoISO, model.Email };
+                                string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email };
                                 string paramQuerystring = Util.EncriptarQueryString(parametros);
                                 HttpRequestBase request = this.HttpContext.Request;
 
-                                string cadena = "<br /><br /> Estimada consultora " + UserData().NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
+                                string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
                                                 "<br /> <a href='" + Util.GetUrlHost(request) + "WebPages/MailConfirmation.aspx?data=" + paramQuerystring + "&tipo=ccc&utm_source=Marketing&utm_medium=email&utm_content=Confirmacion%20de%20correo&utm_campaign=CCC'>aquí</a><br/><br/>Belcorp";
 
-                                Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "(" + UserData().CodigoISO + ") Confimacion de Correo", cadena, true, "Somos Belcorp");
+                                Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, "Somos Belcorp");
                                 message += "- Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
                             }
                             catch (Exception ex)
@@ -157,10 +157,12 @@ namespace Portal.Consultoras.Web.Controllers
                             });
                         }
                     }
-                    UserData().CambioClave = 1;
-                    UserData().EMail = sEmail;
-                    UserData().Telefono = sTelefono;
-                    UserData().Celular = sCelular;
+                    userData.CambioClave = 1;
+                    userData.EMail = sEmail;
+                    userData.Telefono = sTelefono;
+                    userData.Celular = sCelular;
+
+                    sessionManager.SetUserData(userData);
 
                     return Json(new
                     {
@@ -172,7 +174,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -182,7 +184,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

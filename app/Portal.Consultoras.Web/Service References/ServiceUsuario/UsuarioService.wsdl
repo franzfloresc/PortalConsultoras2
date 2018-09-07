@@ -37,6 +37,12 @@
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionCdrCulminadoVisualizacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionCdrCulminadoVisualizacionResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdNotificacionPagoEnLineaVisualizacion" />
   </wsdl:message>
@@ -150,6 +156,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarEmailWS_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEmailWS" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarEmailWS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEmailWSResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_RegistrarEnvioSms_InputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarEnvioSms" />
@@ -306,6 +318,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_listaProductos_OutputMessage">
     <wsdl:part name="parameters" element="tns:listaProductosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EnviarSmsCodigo_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSmsCodigo" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EnviarSmsCodigo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSmsCodigoResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
@@ -559,6 +577,12 @@
   <wsdl:message name="IUsuarioService_AceptarContratoAceptacion_OutputMessage">
     <wsdl:part name="parameters" element="tns:AceptarContratoAceptacionResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_ReporteContratoAceptacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReporteContratoAceptacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ReporteContratoAceptacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReporteContratoAceptacionResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetSesionUsuarioLoginDD_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSesionUsuarioLoginDD" />
   </wsdl:message>
@@ -811,13 +835,11 @@
   <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudCdrVisualizacionResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionCdrCulminadoVisualizacion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionCdrCulminadoVisualizacionResponse" />
-  </wsdl:message>
   <wsdl:portType name="IUsuarioService">
+    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" message="tns:IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdNotificacionPagoEnLineaVisualizacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion" message="tns:IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_OutputMessage" />
@@ -893,6 +915,10 @@
     <wsdl:operation name="ActualizarEmail">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmail" message="tns:IUsuarioService_ActualizarEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailResponse" message="tns:IUsuarioService_ActualizarEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailWS">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailWS" message="tns:IUsuarioService_ActualizarEmailWS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailWSResponse" message="tns:IUsuarioService_ActualizarEmailWS_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RegistrarEnvioSms">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarEnvioSms" message="tns:IUsuarioService_RegistrarEnvioSms_InputMessage" />
@@ -997,6 +1023,10 @@
     <wsdl:operation name="listaProductos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/listaProductos" message="tns:IUsuarioService_listaProductos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/listaProductosResponse" message="tns:IUsuarioService_listaProductos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarSmsCodigo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" message="tns:IUsuarioService_EnviarSmsCodigo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigoResponse" message="tns:IUsuarioService_EnviarSmsCodigo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -1166,6 +1196,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/AceptarContratoAceptacion" message="tns:IUsuarioService_AceptarContratoAceptacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/AceptarContratoAceptacionResponse" message="tns:IUsuarioService_AceptarContratoAceptacion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ReporteContratoAceptacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ReporteContratoAceptacion" message="tns:IUsuarioService_ReporteContratoAceptacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ReporteContratoAceptacionResponse" message="tns:IUsuarioService_ReporteContratoAceptacion_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetSesionUsuarioLoginDD">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetSesionUsuarioLoginDD" message="tns:IUsuarioService_GetSesionUsuarioLoginDD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetSesionUsuarioLoginDDResponse" message="tns:IUsuarioService_GetSesionUsuarioLoginDD_OutputMessage" />
@@ -1334,13 +1368,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" message="tns:IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuarioService" type="tns:IUsuarioService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdNotificacionPagoEnLineaVisualizacion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion" style="document" />
       <wsdl:input>
@@ -1505,6 +1544,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailWS">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmailWS" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1739,6 +1787,15 @@
     </wsdl:operation>
     <wsdl:operation name="listaProductos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/listaProductos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarSmsCodigo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2124,6 +2181,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ReporteContratoAceptacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ReporteContratoAceptacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetSesionUsuarioLoginDD">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetSesionUsuarioLoginDD" style="document" />
       <wsdl:input>
@@ -2495,15 +2561,6 @@
     </wsdl:operation>
     <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2515,6 +2572,15 @@
   <wsdl:binding name="BasicHttpsBinding_IUsuarioService" type="tns:IUsuarioService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IUsuarioService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdNotificacionPagoEnLineaVisualizacion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion" style="document" />
       <wsdl:input>
@@ -2679,6 +2745,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailWS">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmailWS" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2913,6 +2988,15 @@
     </wsdl:operation>
     <wsdl:operation name="listaProductos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/listaProductos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarSmsCodigo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3298,6 +3382,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ReporteContratoAceptacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ReporteContratoAceptacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetSesionUsuarioLoginDD">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetSesionUsuarioLoginDD" style="document" />
       <wsdl:input>
@@ -3669,15 +3762,6 @@
     </wsdl:operation>
     <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

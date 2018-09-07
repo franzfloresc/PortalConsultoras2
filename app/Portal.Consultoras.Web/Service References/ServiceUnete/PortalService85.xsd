@@ -102,6 +102,7 @@
       <xs:element minOccurs="0" name="PintarMalaZonificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PopupRechazoZonaSeccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RFC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegimenContable" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SeccionOrigen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ShowConsultarUbicacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ShowDocs" nillable="true" type="xs:string" />

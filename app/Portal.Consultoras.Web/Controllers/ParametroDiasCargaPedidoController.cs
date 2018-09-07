@@ -57,9 +57,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -137,8 +137,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    sv.InsLogParametroDiasCargaPedido(UserData().PaisID, UserData().CodigoUsuario, EntradasLog.ToArray());
-                    sv.UpdConfiguracionParametroCargaPedido(UserData().PaisID, EntradasConfiguracionParametroCarga.ToArray());
+                    sv.InsLogParametroDiasCargaPedido(userData.PaisID, userData.CodigoUsuario, EntradasLog.ToArray());
+                    sv.UpdConfiguracionParametroCargaPedido(userData.PaisID, EntradasConfiguracionParametroCarga.ToArray());
                 }
                 return Json(new
                 {
@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -182,7 +182,7 @@ namespace Portal.Consultoras.Web.Controllers
             IList<BELogParametroDiasCargaPedido> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetLogParametroDiasCargaPedido(UserData().PaisID);
+                lst = sv.GetLogParametroDiasCargaPedido(userData.PaisID);
             }
 
             BEGrid grid = new BEGrid
@@ -265,7 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BELogParametroDiasCargaPedido> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetLogParametroDiasCargaPedido(UserData().PaisID).ToList();
+                lst = sv.GetLogParametroDiasCargaPedido(userData.PaisID).ToList();
             }
 
             BEPager pag = new BEPager();

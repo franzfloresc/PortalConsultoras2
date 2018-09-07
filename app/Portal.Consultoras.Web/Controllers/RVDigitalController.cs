@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
-                    var result = sv.ActualizarEstadoPaqueteDocumentario(UserData().PaisID, UserData().CodigoConsultora, UserData().CampaniaID);
+                    var result = sv.ActualizarEstadoPaqueteDocumentario(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
                     if (result == 0)
                     {
                         return Json(new
@@ -179,7 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -228,7 +228,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -238,7 +238,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             RVDigitalPaqueteDocumentarioModel model = new RVDigitalPaqueteDocumentarioModel
             {
-                PaisID = UserData().PaisID,
+                PaisID = userData.PaisID,
                 listaPaises = DropDowListPaises()
             };
 
@@ -264,7 +264,7 @@ namespace Portal.Consultoras.Web.Controllers
             IList<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectPaises().ToList().FindAll(x => x.PaisID == UserData().PaisID);
+                lst = sv.SelectPaises().ToList().FindAll(x => x.PaisID == userData.PaisID);
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

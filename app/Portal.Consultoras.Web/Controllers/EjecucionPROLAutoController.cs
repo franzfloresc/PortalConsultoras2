@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoUsuario, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO);
                 return ErrorJson("Hubo un problema al momento de Iniciar el Proceso. Detalle Error:" + ex.Message, true);
             }
         }
@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEValidacionAutomatica> listValidacionAutomatica;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                listValidacionAutomatica = sv.GetEstadoProcesoPROLAutoDetalle(UserData().PaisID).ToList();
+                listValidacionAutomatica = sv.GetEstadoProcesoPROLAutoDetalle(userData.PaisID).ToList();
             }
             if (listValidacionAutomatica.Count == 0) return null;
 

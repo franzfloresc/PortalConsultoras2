@@ -213,18 +213,20 @@ var menuModule = (function () {
 
         if (esAncla === "True") {
             _changeLogoMenuDesktopAndMobile();
-            if (currentLocation.indexOf("/ofertasparati") > -1 || currentLocation.indexOf("/Lanzamientos/Detalle") > -1) {
-                var indexOf = currentLocation.replace("?", "&").indexOf("&campaniaid=");
-                var controller = "Ofertas#";
-                if (indexOf > 0) {
-                    indexOf = currentLocation.split("&campaniaid=")[1];
-                    indexOf = indexOf.split("&")[0];
-                    if (indexOf !== campaniaCodigo) {
-                        controller = "Ofertas/Revisar#";
-                    }
-                }
-                window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + controller + codigo;
-            } else if (currentLocation.indexOf("/ofertas") > -1) {
+            // ofertasparati y Lanzamientos, ya no existen
+            //if (currentLocation.indexOf("/ofertasparati") > -1 || currentLocation.indexOf("/Lanzamientos/Detalle") > -1) {
+            //    var indexOf = currentLocation.replace("?", "&").indexOf("&campaniaid=");
+            //    var controller = "Ofertas#";
+            //    if (indexOf > 0) {
+            //        indexOf = currentLocation.split("&campaniaid=")[1];
+            //        indexOf = indexOf.split("&")[0];
+            //        if (indexOf !== campaniaCodigo) {
+            //            controller = "Ofertas/Revisar#";
+            //        }
+            //    }
+            //    window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + controller + codigo;
+            //} else
+            if (currentLocation.indexOf("/ofertas") > -1) {
                 if ($(elementos.seccionMenuFija).css("position") === "fixed") menuHeight += seccionFixedMenuHeigt;
                 _animateScrollTo(anchorMark + codigo, menuHeight);
                 if (_var.Mobile) _moverSubMenuContenedorOfertasMobile();

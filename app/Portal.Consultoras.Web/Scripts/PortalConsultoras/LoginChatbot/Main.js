@@ -70,23 +70,36 @@ function ResponderBotmaker(url, data) {
     ShowLoading();
 
     data['userToken'] = tokenBotmaker;
-
+   
     $.post(url, data)
         .done(function (response) {
-            if (!webViewFallBack) {
-                MessengerExtensions.requestCloseBrowser(
-                    function success() { },
-                    function error(err) { console.warn('Problems closing browser:' + err); }
-                );
-            }
-            else CloseWindow();
+            CloseWindow(webViewFallBack);
         })
-        .fail(function (error) { ConsoleLog(error); })
+        .fail(function (xhr, status, error) {
+            CloseLoading();
+            MessageInfoError('error al ingresar');
+            ConsoleLog(error);
+          
+        });
 }
 
 function ShowLoading() { $("#loading-spin").fadeIn(); }
+
 function CloseLoading() { $("#loading-spin").fadeOut("fast"); }
-function CloseWindow() { window.location.href = urlBotmakerChat; }
+
+function CloseWindow(Fall)
+{
+    if (Fall) window.location.href = urlBotmakerChat;
+
+    MessengerExtensions.requestCloseBrowser(
+        function success() { },
+        function error(err) {
+            CloseLoading();
+            MessageInfoError('error en MessengerExtensions.requestCloseBrowser');
+            console.warn('Problems closing browser:' + err);
+        }
+    );
+}
 
 function MessageInfoError(message, fnAceptar) {
     $('#mensajeInformacionSB2_Error').html(message);
@@ -95,6 +108,7 @@ function MessageInfoError(message, fnAceptar) {
 
     $('#popupInformacionSB2Error').show();
 }
+
 function MostrarArrayMensaje(arrayMessage) {
     var message = '';
     $.each(arrayMessage, function (i, value) {
