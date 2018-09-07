@@ -1680,6 +1680,11 @@ namespace Portal.Consultoras.Service
         {
             return BLProductoSugerido.DelProductoSugerido(PaisID, entidad);
         }
+
+        public void InsDemandaTotalReemplazoSugerido(int PaisID, BEProductoSugerido entidad)
+        {
+            BLProductoSugerido.InsDemandaTotalReemplazoSugerido(PaisID, entidad);
+        }
         #endregion
 
         #region Configuracion Programa Nuevas
@@ -2295,7 +2300,7 @@ namespace Portal.Consultoras.Service
             return await _pedidoBusinessLogic.Delete(pedidoDetalle);
         }
 
-        public async Task<BEPedidoReservaAppResult> ReservaPedido(BEUsuario usuario)
+        public async Task<BEPedidoReservaResult> ReservaPedido(BEUsuario usuario)
         {
             return await _pedidoBusinessLogic.Reserva(usuario);
         }

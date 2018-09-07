@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void ValidarStatusCampania(BEConfiguracionCampania obeConfiguracionCampania)
         {
-            UsuarioModel usuario = UserData();
+            UsuarioModel usuario = userData;
             usuario.ZonaValida = obeConfiguracionCampania.ZonaValida;
             usuario.FechaInicioCampania = obeConfiguracionCampania.FechaInicioFacturacion;
             usuario.FechaFinCampania = obeConfiguracionCampania.FechaInicioFacturacion.AddDays(obeConfiguracionCampania.DiasDuracionCronograma - 1);

@@ -18,10 +18,12 @@ namespace Portal.Consultoras.Web.Controllers
     public class ConsultaDatoConsultoraController : BaseController
     {
         readonly PaqueteDocumentarioProvider _paqueteDocumentarioProvider;
+        protected EstadoCuentaProvider _estadoCuentaProvider;
 
         public ConsultaDatoConsultoraController()
         {
             _paqueteDocumentarioProvider = new PaqueteDocumentarioProvider();
+            _estadoCuentaProvider = new EstadoCuentaProvider();
         }
 
         public ActionResult ConsultaDatoConsultora()
@@ -1141,7 +1143,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<EstadoCuentaModel> EstadodeCuenta(long consultoraId)
         {
-            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta(consultoraId);
+            List<EstadoCuentaModel> lst = _estadoCuentaProvider.ObtenerEstadoCuenta(consultoraId);
 
             return lst;
         }

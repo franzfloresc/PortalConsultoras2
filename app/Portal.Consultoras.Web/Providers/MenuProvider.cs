@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<MenuMobileModel> GetMenuMobileModelService(int paisId)
         {
-            List<BEMenuMobile> lstMenuMobile = null;
+            List<BEMenuMobile> lstMenuMobile;
 
             try
             {
@@ -264,10 +264,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, string.Empty, paisId.ToString(), "BaseController.GetMenuMobileModel");
-            }
-            finally
-            {
-                lstMenuMobile = lstMenuMobile ?? new List<BEMenuMobile>();
+                lstMenuMobile = new List<BEMenuMobile>();
             }
 
             return Mapper.Map<List<MenuMobileModel>>(lstMenuMobile);
@@ -470,5 +467,36 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager.SetUserData(userSession);
             return userSession;
         }
+
+        public bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)
+        {
+            result = default(T);
+            foreach (var item in menuWeb)
+            {
+                if (predicate(item))
+                {
+                    result = select(item);
+                    return true;
+                }
+                if (FindInMenu(item.SubMenus, predicate, select, out result)) return true;
+            }
+            return false;
+        }
+
+        public bool FindInMenu<T>(List<MenuMobileModel> menuWeb, Predicate<MenuMobileModel> predicate, Converter<MenuMobileModel, T> select, out T result)
+        {
+            result = default(T);
+            foreach (var item in menuWeb)
+            {
+                if (predicate(item))
+                {
+                    result = select(item);
+                    return true;
+                }
+                if (FindInMenu(item.SubMenu.ToList(), predicate, select, out result)) return true;
+            }
+            return false;
+        }
+
     }
 }

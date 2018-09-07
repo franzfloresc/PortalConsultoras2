@@ -223,9 +223,6 @@ namespace Portal.Consultoras.Web.Providers
 
                     var fechaHoy = model.FechaHoy;
 
-                    //if (userData.FechaInicioCampania != default(DateTime))
-                    //    ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes) - fechaHoy).Days;
-
                     if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
                         && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
                     {
@@ -338,8 +335,6 @@ namespace Portal.Consultoras.Web.Providers
         
         private void ActualizarValorPersonalizacionesShowRoom(UsuarioModel model, ConfigModel configEstrategiaSR)
         {
-            //var configEstrategiaSR = sessionManager.GetEstrategiaSR();
-
             var personalizacionesNivel = GetShowRoomPersonalizacionNivel(model,
                                     configEstrategiaSR.BeShowRoom.EventoID,
                                     configEstrategiaSR.ShowRoomNivelId,
