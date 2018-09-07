@@ -20,9 +20,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class ConsultoraOnlineController : BaseMobileController
     {
         #region Variables
-
-        private const string keyFechaGetCantidadPedidos = "fechaGetCantidadPedidos";
-        private const string keyCantidadGetCantidadPedidos = "cantidadGetCantidadPedidos";
+        
         private const int refrescoGetCantidadPedidos = 30;
         MisPedidosModel objMisPedidos;
         readonly bool isEsika = false;

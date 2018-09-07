@@ -560,8 +560,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult OcultarBannerApp()
         {
             try
-            {
-                Session["OcultarBannerApp"] = true;
+            {                
+                sessionManager.SetOcultarBannerApp(true);
 
                 return Json(new
                 {
