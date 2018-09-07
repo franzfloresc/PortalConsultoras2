@@ -7,3 +7,12 @@ Add:
     <add key="PayuEndpoint" value="https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi " />
     <add key="PayuTest" value="1" />
 
+
+
+2.ProcesoAutomaticoWinServ
+Add:
+    <add key="SIC_URLService" value="https://sipo.belcorp.biz/ServicioSIPCorp/Service1.svc"/>
+    <add key="IEL_Endpoint" value="https://ielapiqas.belcorp.biz/api/IELSPayment/"/>
+    <add key="IEL_Username" value="usr_payupagosqas"/>
+    <add key="IEL_Password" value="P@ssw1d2019"/>
+    <add key="IEL_PaisesNoSeguros" value="PE"/>
