@@ -321,7 +321,8 @@ namespace Portal.Consultoras.Web.Providers
                 DescripcionTipoEstrategia = entidad.DescripcionEstrategia,
                 MatrizComercialId = entidad.IdMatrizComercial,
                 PrecioPublico = (float)entidad.PrecioPublico,
-                Zona = entidad.Zona
+                Zona = entidad.Zona,
+                EsSubCampania = entidad.EsSubCampania == 1 ? true : false
             };
             return waModel;
         }
