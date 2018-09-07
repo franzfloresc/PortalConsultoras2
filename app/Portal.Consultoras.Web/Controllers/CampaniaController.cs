@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult ListarCampanias()
         {
-            var paisId = UserData().PaisID;
+            var paisId = userData.PaisID;
             IEnumerable<CampaniaModel> listaCampanias = ObtenerCampaniasDesdeServicio(paisId);
 
             return Json(new { listaCampanias = listaCampanias }, JsonRequestBehavior.AllowGet);
