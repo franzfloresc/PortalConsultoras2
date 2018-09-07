@@ -19,17 +19,17 @@ namespace Portal.Consultoras.Data
     {
         private readonly DbContext context;
 
-        public DataAccess(DataAccess dataAccess)
+        protected DataAccess(DataAccess dataAccess)
         {
             context = dataAccess.context;
         }
 
-        public DataAccess()
+        protected DataAccess()
         {
             this.context = new DbContext();
         }
 
-        public DataAccess(int paisID, EDbSource dbSource)
+        protected DataAccess(int paisID, EDbSource dbSource)
         {
             var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
             var element = section.Countries[paisID];
@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Data
             this.context = new DbContext(dbname);
         }
 
-        public DataAccess(EDbSource dbSource)
+        protected DataAccess(EDbSource dbSource)
         {
             string connectionKey = dbSource.ToString();
 

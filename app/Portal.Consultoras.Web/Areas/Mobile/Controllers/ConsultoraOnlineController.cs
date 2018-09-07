@@ -45,7 +45,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index(string data)
         {
-            var userData = UserData();
             var consultora = new ClienteContactaConsultoraModel();
 
             if (data != null)
@@ -81,7 +80,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Informacion()
         {
-            var userData = UserData();
+            
             var strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
@@ -104,7 +103,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult Inscripcion(ClienteContactaConsultoraModel model)
         {
-            var userData = UserData();
 
             if (ModelState.IsValid)
             {
@@ -189,10 +187,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                             }
 
-                            UserData().CambioClave = 1;
-                            UserData().EMail = sEmail;
-                            UserData().Telefono = sTelefono;
-                            UserData().Celular = sCelular;
+                            userData.CambioClave = 1;
+                            userData.EMail = sEmail;
+                            userData.Telefono = sTelefono;
+                            userData.Celular = sCelular;
+
+                            sessionManager.SetUserData(userData);
 
                             return Json(new
                             {
@@ -229,7 +229,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Afiliar()
         {
-            var userData = UserData();
+            
             try
             {
                 sessionManager.SetkeyFechaGetCantidadPedidos(null);
@@ -298,7 +298,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult EnviaCorreo()
         {
-            var userData = UserData();
+            
             var strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return Json(new
@@ -357,7 +357,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var sc = new SACServiceClient())
                 {
-                    sc.UpdDesafiliaClienteConsultora(UserData().PaisID, consultoraID, false, opcionDesafiliacion);
+                    sc.UpdDesafiliaClienteConsultora(userData.PaisID, consultoraID, false, opcionDesafiliacion);
 
                     var data = new
                     {
@@ -385,9 +385,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             sessionManager.SetkeyFechaGetCantidadPedidos(null);
             sessionManager.SetkeyCantidadGetCantidadPedidos(null);
-
-            var userData = UserData();
-
+            
             var model = new MisPedidosModel();
 
             using (var sv = new UsuarioServiceClient())
@@ -465,7 +463,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             string message;
             var success = true;
-            var userData = UserData();
+            
             try
             {
                 using (var sc = new SACServiceClient())
@@ -508,7 +506,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var mensaje = string.Empty;
             try
             {
-                var userData = UserData();
+                
 
                 if (sessionManager.GetkeyFechaGetCantidadPedidos() != null && sessionManager.GetkeyCantidadGetCantidadPedidos() != null)
                 {
@@ -553,7 +551,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private ClienteContactaConsultoraModel DatoUsuario()
         {
-            var userData = UserData();
+            
 
             var consultoraAfiliar = new ClienteContactaConsultoraModel { NombreConsultora = userData.PrimerNombre };
 
@@ -584,7 +582,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string mensajeConsultora(string consultora, string url)
         {
-            string tlfBelcorpResponde = _configuracionManagerProvider.GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, UserData().CodigoISO));
+            string tlfBelcorpResponde = _configuracionManagerProvider.GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, userData.CodigoISO));
             string carpetaPais = "Correo/CCC";
             string spacerGif = ConfigCdn.GetUrlFileCdn(carpetaPais, "spacer.gif");
             string mailing03 = ConfigCdn.GetUrlFileCdn(carpetaPais, "1-Mailing_03.png");

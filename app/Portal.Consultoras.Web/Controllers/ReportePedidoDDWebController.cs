@@ -855,9 +855,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<BEPedidoDDWeb> GetPedidoWebDD(FiltroReportePedidoDDWebModel model)
         {
             AjustarModel(model);
-            //if ((string)Session[Constantes.ConstSession.PedidoWebDDConf] == model.UniqueId) return (List<BEPedidoDDWeb>)Session[Constantes.ConstSession.PedidoWebDD];
 
-            //Session[Constantes.ConstSession.PedidoWebDDConf] = model.UniqueId;
             List<BEPedidoDDWeb> list;
 
             if (model.EsPrimeraBusqueda) return new List<BEPedidoDDWeb>();
@@ -884,7 +882,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 list = new List<BEPedidoDDWeb>();
             }
-            //Session[Constantes.ConstSession.PedidoWebDD] = list;
+
             return list;
         }
 
@@ -916,9 +914,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.RegionID == "" || model.RegionID == "-- Todas --") model.RegionID = null;
            
-            //if (model.ZonaID == "" || model.ZonaID == "-- Todas --") model.ZonaID = "0";
-            //if (model.Consultora == "") model.Consultora = "0";
-
             if (model.Campania == null) model.EsPrimeraBusqueda = true;
             model.CodigoISO = Util.GetPaisISO(Convert.ToInt32(model.PaisID));
         }

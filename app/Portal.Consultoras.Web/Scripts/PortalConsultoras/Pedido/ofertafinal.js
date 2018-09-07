@@ -103,7 +103,7 @@ function AgregarOfertaFinal(model) {
 
     var add;
     if (tipoOrigen == "1") add = AgregarProducto('PedidoInsertarOF', model, "", false, false);
-    else add = InsertarProducto(model, false);
+    else add = InsertarProducto(model, false, 'PedidoInsertarOF');
     OpenLoadingOF();
 
     if (add == null) add.success = false;

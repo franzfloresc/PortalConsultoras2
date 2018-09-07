@@ -488,9 +488,9 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<ServiceSAC.BETablaLogicaDatos>)HttpContext.Current.Session["ListFiltersFAV"];
         }
 
-        void ISessionManager.SetStartSession(DateTime fecha)
+        void ISessionManager.SetStartSession(DateTime startSession)
         {
-            HttpContext.Current.Session["StartSession"] = fecha;
+            HttpContext.Current.Session["StartSession"] = startSession;
         }
 
         DateTime ISessionManager.GetStartSession()

@@ -25,10 +25,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            int paisId = UserData().PaisID;
+            int paisId = userData.PaisID;
 
             bool croAuto;
             int campaniaIdActual;
@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampanias(int PaisID)
         {
-            PaisID = UserData().PaisID;
+            PaisID = userData.PaisID;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
 
             return Json(new
@@ -104,8 +104,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     DateTime fechaFinFacturacion = Convert.ToDateTime(FechaFacturacion).AddDays(usuarioModel.DiasDuracionCronograma - 1);
 
-                    lst = sv.UpdLogActualizacionFacturacion(UserData().PaisID, CampaniaCodigo, codigos, Convert.ToInt32(Tipo), Convert.ToDateTime(FechaFacturacion), Convert.ToDateTime(FechaReFacturacion), UserData().CodigoUsuario).ToList();
-                    sv.UpdateCronogramaDD(UserData().PaisID, CampaniaCodigo, codigos, Convert.ToInt32(Tipo), Convert.ToDateTime(FechaFacturacion), fechaFinFacturacion, Convert.ToDateTime(FechaReFacturacion), UserData().CodigoUsuario);
+                    lst = sv.UpdLogActualizacionFacturacion(userData.PaisID, CampaniaCodigo, codigos, Convert.ToInt32(Tipo), Convert.ToDateTime(FechaFacturacion), Convert.ToDateTime(FechaReFacturacion), userData.CodigoUsuario).ToList();
+                    sv.UpdateCronogramaDD(userData.PaisID, CampaniaCodigo, codigos, Convert.ToInt32(Tipo), Convert.ToDateTime(FechaFacturacion), fechaFinFacturacion, Convert.ToDateTime(FechaReFacturacion), userData.CodigoUsuario);
                 }
                 if (lst.Count == 0)
                 {
@@ -264,7 +264,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BELogActualizacionFacturacion> lst;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    lst = sv.LogActualizacionFacturacion(UserData().PaisID).ToList();
+                    lst = sv.LogActualizacionFacturacion(userData.PaisID).ToList();
                 }
 
                 BEGrid grid = new BEGrid
@@ -487,7 +487,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BECronograma entidad = Mapper.Map<CronogramaModel, BECronograma>(model);
 
-                entidad.CodigoUsuarioModificacion = UserData().CodigoUsuario;
+                entidad.CodigoUsuarioModificacion = userData.CodigoUsuario;
 
                 int validar;
                 using (SACServiceClient sv = new SACServiceClient())
@@ -512,7 +512,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -522,7 +522,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -560,7 +560,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BECronograma entidad = Mapper.Map<CronogramaModel, BECronograma>(model);
 
-                entidad.CodigoUsuarioModificacion = UserData().CodigoUsuario;
+                entidad.CodigoUsuarioModificacion = userData.CodigoUsuario;
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
@@ -575,7 +575,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -585,7 +585,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -603,7 +603,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BECronograma entidad = Mapper.Map<CronogramaModel, BECronograma>(model);
 
-                entidad.CodigoUsuarioModificacion = UserData().CodigoUsuario;
+                entidad.CodigoUsuarioModificacion = userData.CodigoUsuario;
 
 
                 using (SACServiceClient sv = new SACServiceClient())
@@ -621,7 +621,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -631,7 +631,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -649,7 +649,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int rslt;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    rslt = sv.MigrarCronogramaAnticipado(UserData().PaisID, int.Parse(CampaniaID), int.Parse(ZonaID));
+                    rslt = sv.MigrarCronogramaAnticipado(userData.PaisID, int.Parse(CampaniaID), int.Parse(ZonaID));
                 }
                 return Json(new
                 {
@@ -660,7 +660,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -670,7 +670,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -685,9 +685,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -712,7 +712,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -720,7 +720,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false
@@ -735,21 +735,21 @@ namespace Portal.Consultoras.Web.Controllers
             BEConfiguracionConsultoraDA configuracionConsultoraDa =
                 new BEConfiguracionConsultoraDA
                 {
-                    ZonaID = UserData().ZonaID,
-                    ConsultoraID = Convert.ToInt32(UserData().ConsultoraID),
+                    ZonaID = userData.ZonaID,
+                    ConsultoraID = Convert.ToInt32(userData.ConsultoraID),
                     TipoConfiguracion = Convert.ToByte(tipoConfiguracion),
-                    CampaniaID = Convert.ToString(UserData().CampaniaID),
-                    CodigoUsuario = Convert.ToString(UserData().CodigoUsuario)
+                    CampaniaID = Convert.ToString(userData.CampaniaID),
+                    CodigoUsuario = Convert.ToString(userData.CodigoUsuario)
                 };
 
             int validar;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                validar = sv.InsConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDa);
+                validar = sv.InsConfiguracionConsultoraDA(userData.PaisID, configuracionConsultoraDa);
             }
 
-            int paisId = UserData().PaisID;
-            string codigoUsuario = UserData().CodigoUsuario;
+            int paisId = userData.PaisID;
+            string codigoUsuario = userData.CodigoUsuario;
 
             return Json(new
             {
@@ -766,28 +766,28 @@ namespace Portal.Consultoras.Web.Controllers
 
             bool validar = false;
             string mensajeFechaDa = null;
-            if (UserData().EsquemaDAConsultora && UserData().EsZonaDemAnti == 1)
+            if (userData.EsquemaDAConsultora && userData.EsZonaDemAnti == 1)
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     var configuracionConsultoraDa = new BEConfiguracionConsultoraDA
                     {
-                        CampaniaID = Convert.ToString(UserData().CampaniaID),
-                        ConsultoraID = Convert.ToInt32(UserData().ConsultoraID),
-                        ZonaID = UserData().ZonaID
+                        CampaniaID = Convert.ToString(userData.CampaniaID),
+                        ConsultoraID = Convert.ToInt32(userData.ConsultoraID),
+                        ZonaID = userData.ZonaID
                     };
 
-                    var consultoraDa = sv.GetConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDa);
+                    var consultoraDa = sv.GetConfiguracionConsultoraDA(userData.PaisID, configuracionConsultoraDa);
 
                     if (consultoraDa == 0)
                     {
                         var cronograma =
-                            sv.GetCronogramaByCampaniaAnticipado(UserData().PaisID, UserData().CampaniaID,
-                                UserData().ZonaID, 2).FirstOrDefault();
+                            sv.GetCronogramaByCampaniaAnticipado(userData.PaisID, userData.CampaniaID,
+                                userData.ZonaID, 2).FirstOrDefault();
                         if (cronograma != null && cronograma.FechaInicioWeb != null)
                         {
                             DateTime fechaDa = (DateTime)cronograma.FechaInicioWeb;
 
-                            TimeSpan sp = UserData().HoraCierreZonaDemAntiCierre;
+                            TimeSpan sp = userData.HoraCierreZonaDemAntiCierre;
                             var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " hrs";
                             var diasemana = "";
                             var dia = fechaDa.DayOfWeek.ToString();
@@ -840,7 +840,7 @@ namespace Portal.Consultoras.Web.Controllers
             int validar;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                validar = sv.GetCronogramaDA(UserData().PaisID, fechaFacturacion);
+                validar = sv.GetCronogramaDA(userData.PaisID, fechaFacturacion);
             }
 
             return Json(new

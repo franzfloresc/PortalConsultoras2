@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
-using Portal.Consultoras.Web.Providers;
 using System;
 using System.Web.Mvc;
 
@@ -11,11 +10,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class GuiaNegocioController : BaseViewController
     {
-        //private readonly GuiaNegocioProvider _guiaNegocioProvider;
-
         public GuiaNegocioController()
         {
-            //_guiaNegocioProvider = new GuiaNegocioProvider();
         }
 
         public ActionResult Index()

@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
-            var userData = UserData();
+
             MiAsesorBellezaModel model = new MiAsesorBellezaModel();
 
             if (userData.CodigoISO == Constantes.CodigosISOPais.Panama)

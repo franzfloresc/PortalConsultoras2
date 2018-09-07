@@ -931,10 +931,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            int paisId = UserData().PaisID;
+            int paisId = userData.PaisID;
             int campaniaIdActual;
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -1335,7 +1335,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampanias(int PaisID)
         {
-            PaisID = UserData().PaisID;
+            PaisID = userData.PaisID;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
 
             return Json(new
@@ -1363,9 +1363,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

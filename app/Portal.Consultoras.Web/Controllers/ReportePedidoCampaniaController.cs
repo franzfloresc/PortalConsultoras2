@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             await Task.Run(() => LoadConsultorasCache(11));
             var reportePedidoCampaniaModel = new ReportePedidoCampaniaModel()
@@ -113,11 +113,11 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarPDF(string vPaisddl, string vCampaniaddl, string vRegionddl, string vZonaddl, string vCodConsultoratxt, string vPaisddl_val,
                 string vCampaniaddl_val, string vRegionddl_val, string vZonaddl_val, string vCodConsultoratxt_ID, string vUsuario)
         {
-            sessionManager.SetPaisID(UserData().PaisID);
+            sessionManager.SetPaisID(userData.PaisID);
             string[] lista = new string[14];
             lista[0] = vPaisddl; lista[1] = vCampaniaddl; lista[2] = vRegionddl; lista[3] = vZonaddl; lista[4] = vCodConsultoratxt;
             lista[5] = vPaisddl_val; lista[6] = vCampaniaddl_val; lista[7] = vRegionddl_val; lista[8] = vZonaddl_val; lista[9] = vCodConsultoratxt_ID;
-            lista[10] = vUsuario; lista[11] = UserData().BanderaImagen; lista[12] = UserData().NombrePais; lista[13] = UserData().Simbolo;
+            lista[10] = vUsuario; lista[11] = userData.BanderaImagen; lista[12] = userData.NombrePais; lista[13] = userData.Simbolo;
             Util.ExportToPdfWebPages(this, "ReportePedidosCampania.pdf", "ReportePedidoCampaniaImp", Util.EncriptarQueryString(lista));
             return View();
         }
@@ -149,9 +149,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -172,7 +172,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
             {
-                ServiceODS.BEConsultoraCodigo[] entidad = sv.SelectConsultoraCodigo(UserData().PaisID, RegionID, ZonaID, vBusqueda, rowCount);
+                ServiceODS.BEConsultoraCodigo[] entidad = sv.SelectConsultoraCodigo(userData.PaisID, RegionID, ZonaID, vBusqueda, rowCount);
                 return Json(entidad, JsonRequestBehavior.AllowGet);
             }
         }
@@ -192,12 +192,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (SACServiceClient client = new SACServiceClient())
                     {
-                        lista = client.GetPedidosFacturadosDetalle(UserData().PaisID, vCampania, vRegion, vZona, vConsultora, 0).ToList();
+                        lista = client.GetPedidosFacturadosDetalle(userData.PaisID, vCampania, vRegion, vZona, vConsultora, 0).ToList();
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 }
 
                 foreach (var pedido in lista)
@@ -314,7 +314,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CUV,
                                    a.CodigoProducto,
                                    a.UnidadesDemandadas,
-                                   (UserData().PaisID == 4)? SeparadorMiles(Convert.ToDecimal(a.MontoDemandado)) : a.MontoDemandado,
+                                   (userData.PaisID == 4)? SeparadorMiles(Convert.ToDecimal(a.MontoDemandado)) : a.MontoDemandado,
                                    a.TipoOferta,
                                    a.Origen,
                                    a.FechaUltima
@@ -342,7 +342,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPedidoFacturado> lista;
             using (SACServiceClient client = new SACServiceClient())
             {
-                lista = client.GetPedidosFacturadosDetalle(UserData().PaisID, vCampania, vRegion, vZona, vConsultora, 0).ToList();
+                lista = client.GetPedidosFacturadosDetalle(userData.PaisID, vCampania, vRegion, vZona, vConsultora, 0).ToList();
             }
 
             foreach (var pedido in lista)
@@ -419,7 +419,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     else
                                         ws.Cell(row, col).Style.NumberFormat.Format = "@";
 
-                                    if (UserData().PaisID == 4)
+                                    if (userData.PaisID == 4)
                                     {
                                         if (col == 6)
                                         {

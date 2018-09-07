@@ -10,8 +10,8 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult Index()
         {
             List<BEFeErratas> lst;
-            int paisId = UserData().PaisID;
-            int campaniaId = UserData().CampaniaID;
+            int paisId = userData.PaisID;
+            int campaniaId = userData.CampaniaID;
 
             using (SACServiceClient sv = new SACServiceClient())
             {

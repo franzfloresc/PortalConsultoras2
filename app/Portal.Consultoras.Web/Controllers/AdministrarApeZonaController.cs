@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return View(model);
@@ -39,12 +39,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                     {
-                        lst = sv.SelectApeZonas(UserData().PaisID, vRegionID, vCodigo).ToList();
+                        lst = sv.SelectApeZonas(userData.PaisID, vRegionID, vCodigo).ToList();
                     }
                 }
                 catch (FaultException ex)
                 {
-                    LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 }
 
                 BEGrid grid = new BEGrid
@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                     total = pag.PageCount,
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
-                    ISOPais = UserData().CodigoISO,
+                    ISOPais = userData.CodigoISO,
                     rows = from a in items
                            select new
                            {
@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
-                    sv.UpdateApeZona(UserData().PaisID, model.ZonaID, model.CantidadDias);
+                    sv.UpdateApeZona(userData.PaisID, model.ZonaID, model.CantidadDias);
                 }
 
                 return Json(new
@@ -139,7 +139,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
