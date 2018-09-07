@@ -1333,7 +1333,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
             ViewBag.FotoPerfilSinModificar = (string.IsNullOrWhiteSpace(userData.FotoOriginalSinModificar) ? "" : userData.FotoOriginalSinModificar);
 
-            ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
+            ViewBag.TokenPedidoAutenticoOk = (sessionManager.GetTokenPedidoAutentico() != null) ? 1 : 0;
             ViewBag.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
             ViewBag.BannerInferior = _showRoomProvider.EvaluarBannerConfiguracion(userData.PaisID, sessionManager);
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
@@ -1454,8 +1454,8 @@ namespace Portal.Consultoras.Web.Controllers
                             sv.UpdateMostradoProductosPrecargados(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.IPUsuario);
                         }
 
-                        Session["PedidoWeb"] = null;
-                        Session["PedidoWebDetalle"] = null;
+                        sessionManager.SetPedidoWeb(null);
+                        sessionManager.SetDetallesPedido(null);
                         UpdPedidoWebMontosPROL();
                     }
                 }

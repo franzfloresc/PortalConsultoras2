@@ -455,7 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (string.IsNullOrEmpty(usuario.EMail) || !usuario.EMailActivo)
                 {
-                    Session["PrimeraVezSession"] = 0;
+                    sessionManager.SetPrimeraVezSession(0);
                 }
                 if (Request.IsAjaxRequest())
                 {

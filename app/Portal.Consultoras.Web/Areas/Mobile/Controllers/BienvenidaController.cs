@@ -95,17 +95,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.CambioClave = userData.CambioClave;
 
-                if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
+                if (sessionManager.GetIngresoPortalConsultoras()== null)
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
-                    Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
+                    sessionManager.SetIngresoPortalConsultoras(true);
                 }
 
                 model.PrimeraVezSession = 0;
-                if (Session["PrimeraVezSessionMobile"] == null)
+                if (sessionManager.GetPrimeraVezSessionMobile() == null)
                 {
                     model.PrimeraVezSession = 1;
-                    Session["PrimeraVezSessionMobile"] = 1;
+                    sessionManager.SetPrimeraVezSessionMobile(1);
                 }
 
                 ViewBag.VerSeccion = verSeccion;
@@ -113,7 +113,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
-                model.ConsultoraNuevaBannerAppMostrar = (bool)(Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] ?? false);
+                model.ConsultoraNuevaBannerAppMostrar = sessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda <= 0 ? false : true);
             }
             catch (FaultException ex)
@@ -212,9 +212,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var resultPopupEmail = ObtenerActualizacionEmail();
             var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
 
-            if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
+            if (sessionManager.GetTipoPopUpMostrar() != -1)
             {
-                tipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                tipoPopUpMostrar = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
 
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                     tipoPopUpMostrar = 0;
@@ -227,7 +227,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora && resultPopupEmailSplited == "1")
             {
                 tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
-                Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                sessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
                 return tipoPopUpMostrar;
             }
 
@@ -237,7 +237,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (cupon != null)
                 {
                     tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
-                    Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                    sessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
 
                     return tipoPopUpMostrar;
                 }
@@ -248,7 +248,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                      && sessionManager.GetIsContrato() == 1)
             {
                 tipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
-                Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                sessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
                 return tipoPopUpMostrar;
             }
 
@@ -267,7 +267,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             tipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
             #endregion
 
-            Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+            sessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
 
             return tipoPopUpMostrar;
         }
@@ -560,8 +560,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult OcultarBannerApp()
         {
             try
-            {
-                Session["OcultarBannerApp"] = true;
+            {                
+                sessionManager.SetOcultarBannerApp(true);
 
                 return Json(new
                 {
