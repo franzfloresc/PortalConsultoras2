@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
+
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -212,6 +213,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda <= 0 ? false : true);
+                
+                #region Camino al Exito
+
+                var CaminoExito = this.ObjectCaminoExito();
+                model.TieneCaminoExito = CaminoExito.Item1;
+                model.urlCaminoExito = CaminoExito.Item2 ?? "";
+
+                #endregion
+
             }
             catch (FaultException ex)
             {
@@ -724,7 +734,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetUserData(userData);
         }
 
-        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion, string AppVersion)
+        public JsonResult AceptarContrato(bool checkAceptar, string origenAceptacion, string AppVersion)
         {
             try
             {
@@ -748,7 +758,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion, ip, AppVersion);
+                    svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, origenAceptacion, ip, AppVersion);
                 }
 
                 userData.IndicadorContrato = 1;
@@ -1840,7 +1850,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lstPersonalizacion = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP).ToList();
                 }
-                
+
 
                 return Json(new
                 {
@@ -2389,7 +2399,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var svClient = new UsuarioServiceClient())
                 {
                     var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoUsuario);
-                    return  result;
+                    return result;
                 }
 
             }

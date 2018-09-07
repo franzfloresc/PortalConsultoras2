@@ -6,8 +6,7 @@ Add:
     <add key="PayuAccountId" value="512324" />
     <add key="PayuEndpoint" value="https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi " />
     <add key="PayuTest" value="1" />
-
-
+    <add key="URLCaminoExisto" value="http://showroombelcorp.com/crecimiento/page/landing/" />
 
 2.ProcesoAutomaticoWinServ
 Add:
