@@ -39,7 +39,8 @@ namespace Portal.Consultoras.Web.Infraestructure.Sms
                     User.PaisID,
                     User.CodigoUsuario,
                     smsCode,
-                    User.CampaniaID);
+                    User.CampaniaID,
+                    false);
 
                 return new SimpleResult
                 {

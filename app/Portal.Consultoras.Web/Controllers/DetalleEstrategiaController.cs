@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class DetalleEstrategiaController : BaseViewController // : BaseEstrategiaController
+    public class DetalleEstrategiaController : BaseViewController
     {
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
