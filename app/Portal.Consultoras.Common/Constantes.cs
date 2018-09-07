@@ -1978,7 +1978,14 @@ namespace Portal.Consultoras.Common
             public const string IsSubcampaign = "essubcampania";
             public const string OfferStatus = "estado de oferta";
 
-            public enum Position { CUV = 0, AllowedUnits = 1, NameSet = 2, BusinessTip = 3, IsSubcampaign = 4, OfferStatus = 5 };
+            public enum Position {
+                CUV = 0,
+                AllowedUnits = 1,
+                NameSet = 2,
+                BusinessTip = 3,
+                IsSubcampaign = 4,
+                OfferStatus = 5
+            };
         }
 
         public static class ColumnsProductStrategyShowroom
@@ -2502,11 +2509,38 @@ namespace Portal.Consultoras.Common
 
             //api/Estrategia/multiple/{pais}
             public const string UrlListarEstrategiaPorConfigurarWebApi = "api/Estrategia/multiple/{0}";
+
+            //api/Evento/eliminar/{pais}/{id}
+            public const string UrlEliminarShowRoomEvento = "api/Evento/eliminar/{0}/{1}";
+
+            //api/Evento/listar/{pais}/{campania}
+            public const string UrlConsultarShowRoom = "api/Evento/listar/{0}/{1}";
+
+            //api/Evento/deshabilitar/{pais}/{id}?usuario={usuario}
+            public const string UrlDeshabilitarShowRoomEvento = "api/Evento/deshabilitar/{0}/{1}?usuario={2}";
+
+            //api/Evento/personalizacion/guardar/{pais}/{idevento}
+            public const string UrlEventoPersonalizacion = "/api/Evento/personalizacion/guardar/{0}/{1}";
+
+            //api/Estrategia/descripcion/{pais}/{tipo}/{campania}?tipoEstrategia={tipoEstrategia}&usuario={usuario}
+            public const string UrlUploadFileSetStrategyShowroom = "api/Estrategia/descripcion/{0}/{1}/{2}?tipoEstrategia={3}&usuario={4}";
+
+            //api/Componente/descripcion/{pais}/{tipo}/{campania}?usuario={usuario}
+            public const string UrlUploadFileProductStrategyShowroom = "api/Componente/descripcion/{0}/{1}/{2}?usuario={3}";
+
+            //api/Evento/registrar/{pais}
+            public const string UrlGuardarShowRoom = "api/Evento/registrar/{0}";
+
+            //api/Evento/editar/{pais}
+            public const string UrlUpdateShowRoomEvento = "api/Evento/editar/{0}";
+
+            //api/Estrategia/eliminar/{pais}?id={id}
+            public const string UrlEliminarEstrategia = "api/Estrategia/eliminar/{0}?id={1}";
             #endregion
 
-            #region Oferta
-            //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
-            public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
+        #region Oferta
+        //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
+        public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
 
             ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}
             public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}";
