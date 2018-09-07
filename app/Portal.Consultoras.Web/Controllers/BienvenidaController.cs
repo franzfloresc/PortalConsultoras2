@@ -4,7 +4,7 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
-using Portal.Consultoras.Web.ServiceCliente;
+
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -2419,28 +2419,5 @@ namespace Portal.Consultoras.Web.Controllers
                 return "";
             }
         }
-
-        public Tuple<bool, string> ObjectCaminoExito()
-        {
-            string URLConfig = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URLCaminoExisto);
-            string URLCaminoExisto = string.Empty;
-            bool ResultadoValidacion = false;
-            try
-            {
-                using (var sv = new ClienteServiceClient())
-                {
-                    List<BEEscalaDescuentoZona> Lista = sv.ListarEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
-                    ResultadoValidacion = Lista.Count > 0;
-                    if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}", URLConfig, userData.CodigoISO, Util.Security.ToMd5(userData.CodigoConsultora));
-                }
-            }
-            catch
-            {
-                ResultadoValidacion = false;
-            }
-            return Tuple.Create(ResultadoValidacion, URLCaminoExisto);
-        }
-
-
     }
 }

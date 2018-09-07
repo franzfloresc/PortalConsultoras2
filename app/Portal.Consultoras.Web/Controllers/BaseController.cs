@@ -34,6 +34,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using ServiceCliente= Portal.Consultoras.Web.ServiceCliente;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -2911,6 +2912,27 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
             };
             return variableEstrategia; ;
+        }
+
+        public Tuple<bool, string> ObjectCaminoExito()
+        {
+            string URLConfig = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URLCaminoExisto);
+            string URLCaminoExisto = string.Empty;
+            bool ResultadoValidacion = false;
+            try
+            {
+                using (var sv = new ServiceCliente.ClienteServiceClient())
+                {
+                    List<ServiceCliente.BEEscalaDescuentoZona> Lista = sv.ListarEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
+                    ResultadoValidacion = Lista.Count > 0;
+                    if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}", URLConfig, userData.CodigoISO, Util.Security.ToMd5(userData.CodigoConsultora));
+                }
+            }
+            catch
+            {
+                ResultadoValidacion = false;
+            }
+            return Tuple.Create(ResultadoValidacion, URLCaminoExisto);
         }
 
     }
