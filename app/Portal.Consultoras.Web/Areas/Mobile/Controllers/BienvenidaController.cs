@@ -118,7 +118,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 #region Camino al Exito
 
-                var CaminoExito = new  Web.Controllers.BienvenidaController().ObjectCaminoExito();
+                var CaminoExito = this.ObjectCaminoExito();
                 model.TieneCaminoExito = CaminoExito.Item1;
                 model.urlCaminoExito = CaminoExito.Item2 ?? "";
 
