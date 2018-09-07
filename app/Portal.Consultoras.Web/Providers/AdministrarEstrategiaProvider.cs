@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web.Providers
                         DescripcionMarca = d.MarcaDescripcion,
                         UsuarioCreacion = d.UsuarioCreacion,
                         UsuarioModificacion = d.UsuarioModificacion,
-                        ImagenMiniaturaURL = "",
+                        ImagenMiniaturaURL = d.ImagenMiniatura ?? string.Empty,
                         TipoEstrategiaID = d.TipoEstrategiaId,
                         Imagen = d.FlagImagenURL ? 1 : 0,
                         DescripcionEstrategia = d.DescripcionTipoEstrategia,                    
@@ -322,7 +322,8 @@ namespace Portal.Consultoras.Web.Providers
                 MatrizComercialId = entidad.IdMatrizComercial,
                 PrecioPublico = (float)entidad.PrecioPublico,
                 Zona = entidad.Zona,
-                EsSubCampania = entidad.EsSubCampania == 1 ? true : false
+                EsSubCampania = entidad.EsSubCampania == 1 ? true : false,
+                ImagenMiniatura = entidad.ImagenMiniaturaURL ?? string.Empty
             };
             return waModel;
         }
