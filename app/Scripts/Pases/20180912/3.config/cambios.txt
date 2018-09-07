@@ -1,0 +1,9 @@
+1.PortalConsultoras2 - Web
+Add:
+    <add key="PayuMerchantId" value="508029" />
+    <add key="PayuApiLogin" value="pRRXKOl8ikMmt9u" />
+    <add key="PayuApiKey" value="4Vj8eK4rloUd272L48hsrarnUA" />
+    <add key="PayuAccountId" value="512324" />
+    <add key="PayuEndpoint" value="https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi " />
+    <add key="PayuTest" value="1" />
+
