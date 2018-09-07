@@ -779,9 +779,16 @@ namespace Portal.Consultoras.Web.Controllers
                     CUV = cuv
                 };
 
-                using (var sv = new PedidoServiceClient())
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
-                    sv.EliminarEstrategiaProducto(entidad);
+                    administrarEstrategiaProvider.EliminarOfertaShowRoomDetalleNew(estrategiaId, cuv);
+                }
+                else
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        sv.EliminarEstrategiaProducto(entidad);
+                    }
                 }
 
                 return Json(new
@@ -916,9 +923,16 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
                 entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
 
-                using (var sv = new PedidoServiceClient())
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
-                    sv.ActualizarEstrategiaProducto(entidad);
+                    administrarEstrategiaProvider.UpdateOfertaShowRoomDetalleNew(model);
+                }
+                else
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        sv.ActualizarEstrategiaProducto(entidad);
+                    }
                 }
 
                 return Json(new

@@ -2494,7 +2494,7 @@ namespace Portal.Consultoras.Common
 
             //api/Estrategia/descripcion/{pais}/{tipo}/{campania}
             public const string UrlUploadCsv = "api/estrategia/descripcion/{0}/{1}/{2}";
-                                                
+
             //api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
             public const string UrlEstrategiaCuv = "api/estrategia/cuv/{0}/{1}/{2}/{3}";
 
@@ -2536,11 +2536,17 @@ namespace Portal.Consultoras.Common
 
             //api/Estrategia/eliminar/{pais}?id={id}
             public const string UrlEliminarEstrategia = "api/Estrategia/eliminar/{0}?id={1}";
+
+            //api/Componente/deshabilitar/{pais}
+            public const string UrlEliminarOfertaShowRoomDetalleNew = "api/Componente/deshabilitar/{0}";
+
+            //api/Componente/editar/{pais}/{tipo}
+            public const string UrlUpdateOfertaShowRoomDetalleNew = "api/Componente/editar/{0}/{1}";
             #endregion
 
-        #region Oferta
-        //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
-        public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
+            #region Oferta
+            //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
+            public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
 
             ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}
             public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}";
