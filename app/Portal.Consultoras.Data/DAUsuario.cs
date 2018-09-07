@@ -3,7 +3,6 @@ using Portal.Consultoras.Entities.OpcionesVerificacion;
 using System;
 using System.Data;
 using System.Data.Common;
-using Portal.Consultoras.Entities.OpcionesVerificacion;
 
 namespace Portal.Consultoras.Data
 {

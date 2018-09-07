@@ -2135,7 +2135,7 @@ function DownloadAttachPDF() {
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";
     var requestedFile = urlContratoCOpdf;
-    iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
+    iframe_.setAttribute("src", baseUrl + 'WebPages/Download.aspx?file=' + requestedFile);
 
     if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
         iframe_.onreadystatechange = function () {
@@ -3151,6 +3151,11 @@ function MostrarPopupInicial() {
 
     switch (TipoPopUpMostrar) {
         case 0:
+        case '0':
+            if (VerContrato == 1 && !AceptoContrato) PopupMostrar('popupAceptacionContrato');
+            break;
+        case popupAceptacionContrato:
+            PopupMostrar('popupAceptacionContrato');
             break;
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -3161,9 +3166,6 @@ function MostrarPopupInicial() {
             $('#fechaHasta').text(mensajeFechaDA);
             $('#fechaLuego').text(mensajeFechaDA);
             PopupMostrar('popupDemandaAnticipada');
-            break;
-        case popupAceptacionContrato:
-            PopupMostrar('popupAceptacionContrato');
             break;
         case popupShowRoom:
             CrearPopShow();

@@ -99,8 +99,10 @@ namespace Portal.Consultoras.Web.SessionManager
         GuiaNegocioModel GetGuiaNegocio();
 
         void SetIsContrato(int isContrato);
-
         int GetIsContrato();
+
+        void SetAceptoContrato(bool aceptoContrato);
+        bool GetAceptoContrato();
 
         void SetIsOfertaPack(int isOfertaPack);
 
@@ -457,9 +459,5 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListaRango(List<List<BEEstadoServicio>> val);
 
         List<List<BEEstadoServicio>> GetListaRango();
-
-        void SetAceptoContrato(bool val);
-
-        bool GetAceptoContrato();
     }
 }

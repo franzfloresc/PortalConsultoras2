@@ -312,17 +312,19 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 tipoPopUpMostrar = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
 
-                if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
-                    tipoPopUpMostrar = 0;
+                if (tipoPopUpMostrar != Constantes.TipoPopUp.VideoIntroductorio)
+                {
+                    if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
+                        tipoPopUpMostrar = 0;
 
-                if (tipoPopUpMostrar == Constantes.TipoPopUp.AceptacionContrato)
-                    tipoPopUpMostrar = 0;
+                    if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
-                if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+                    if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
-                if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+                    if (tipoPopUpMostrar == Constantes.TipoPopUp.AceptacionContrato && userData.IndicadorContrato == 1) tipoPopUpMostrar = 0;
 
-                return tipoPopUpMostrar;
+                    return tipoPopUpMostrar;
+                }
             }
 
             var listaPopUps = ObtenerListaPopupsDesdeServicio();
@@ -501,18 +503,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return tipoPopUpMostrar;
-        }
-
-        private bool ValidarContratoPopup()
-        {
-            if (userData.EsConsultora()
-                && userData.CambioClave == 0 && userData.IndicadorContrato == 0
-                && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
-                && sessionManager.GetIsContrato() == 1 && !Convert.ToBoolean(sessionManager.GetAceptoContrato()))
-            {
-                return true;
-            }
-            return false;
         }
 
         private List<BEComunicado> ValidarComunicadoPopup()

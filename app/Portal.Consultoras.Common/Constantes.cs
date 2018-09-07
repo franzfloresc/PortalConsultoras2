@@ -2611,5 +2611,12 @@ namespace Portal.Consultoras.Common
             public const string AppRedirectFormat = "IR AL APP {0} CONMIGO";
             public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
         }
+
+        public class AceptacionContrato
+        {
+            public const string UrlDescargarContratoCO = "http://somosbelcorpqa.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
+            public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
+            public const string AcionesOmitidas = "ActualizarContrasenia";
+        }
     }
 }

@@ -279,10 +279,18 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session["IsContrato"] = isContrato;
         }
-
         int ISessionManager.GetIsContrato()
         {
             return (int)HttpContext.Current.Session["IsContrato"];
+        }
+
+        void ISessionManager.SetAceptoContrato(bool aceptoContrato)
+        {
+            HttpContext.Current.Session["AceptoContrato"] = aceptoContrato;
+        }
+        bool ISessionManager.GetAceptoContrato()
+        {
+            return (bool)(HttpContext.Current.Session["AceptoContrato"] ?? false);
         }
 
         void ISessionManager.SetIsOfertaPack(int isOfertaPack)
@@ -1246,18 +1254,6 @@ namespace Portal.Consultoras.Web.SessionManager
             var val = HttpContext.Current.Session["ListaRango"];
 
             return (List<List<BEEstadoServicio>>)val;
-        }
-
-        void ISessionManager.SetAceptoContrato(bool val)
-        {
-            HttpContext.Current.Session["AceptoContrato"] = val;
-        }
-
-        bool ISessionManager.GetAceptoContrato()
-        {
-            var val = HttpContext.Current.Session["AceptoContrato"];
-            if (val == null) { return false; }
-            return (bool)val;
         }
 
         public void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel)

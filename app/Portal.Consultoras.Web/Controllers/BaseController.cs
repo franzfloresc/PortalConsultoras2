@@ -116,14 +116,30 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData = UserData();
-
                 if (userData == null)
                 {
                     string urlSignOut = ObtenerUrlCerrarSesion();
-
                     filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
+
+                //if (ValidarContratoPopup())
+                //{
+                //    var area = filterContext.RouteData.DataTokens.Where(dt => dt.Key == "area");
+                //    var isMobile = area.Count() > 0 ? area.First().Value.ToString() == "Mobile" : false;
+                //    var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+                //    var actionName = filterContext.ActionDescriptor.ActionName;
+
+                //    bool urlAceptaContrato = !isMobile && controllerName == "Bienvenida" && actionName == "AceptarContrato";
+                //    bool urlBienvenida = controllerName == "Bienvenida" && (actionName == "Index" || actionName == "");
+                //    bool urlValida = urlAceptaContrato || urlBienvenida;
+
+                //    if (!urlValida) {
+                //        filterContext.Result = !isMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
+                //            new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
+                //        return;
+                //    }
+                //}
 
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
@@ -148,6 +164,19 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWebDetalle();
 
                 GetUserDataViewBag();
+
+                var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+                var actionName = filterContext.ActionDescriptor.ActionName;
+                if (!Constantes.AceptacionContrato.ControladoresOmitidas.Contains(controllerName) && !Constantes.AceptacionContrato.AcionesOmitidas.Contains(actionName))
+                {
+                    if (ValidarContratoPopup())
+                    {
+                        bool esMobile = EsDispositivoMovil();
+                        filterContext.Result = !esMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
+                            new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
+                        return;
+                    }
+                }
 
                 base.OnActionExecuting(filterContext);
             }
@@ -824,7 +853,30 @@ namespace Portal.Consultoras.Web.Controllers
             return (List<BEMensajeMetaConsultora>)Session[constSession];
         }
 
-        //public List<EstadoCuentaModel> ObtenerEstadoCuenta(long pConsultoraId = 0)
+        protected bool ValidarContratoPopup()
+        {
+            return userData.EsConsultora() && userData.CambioClave == 0 && userData.IndicadorContrato == 0 &&
+                userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia) &&
+                sessionManager.GetIsContrato() == 1 && !sessionManager.GetAceptoContrato();
+        }
+
+        //#region Metodos Oferta del Dia
+
+        //private bool CumpleOfertaDelDia()
+        //{
+        //    var result = false;
+        //    if (!_ofertaDelDiaProvider.NoMostrarBannerODD(GetControllerActual()))
+        //    {
+        //        var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
+        //        result = (!tieneOfertaDelDia ||
+        //                  (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
+        //                  && !userData.CloseOfertaDelDia) && tieneOfertaDelDia;
+        //    }
+
+        //    return result;
+        //}
+
+        //protected EstrategiaPedidoModel GetOfertaDelDiaModel()
         //{
         //    var lst = new List<EstadoCuentaModel>();
 
@@ -879,13 +931,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         //    return lst;
         //}
-
         #endregion
         
         #region LogDynamo
 
         protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion, ServiceUsuario.BEUsuario entidad = null)
-        {
+        { 
             string ipCliente = GetIPCliente();
             bool esMobile = EsDispositivoMovil();
             _logDynamoProvider.RegistrarLogDynamoDB(userData, aplicacion, rol, pantallaOpcion, opcionAccion, ipCliente, esMobile);
