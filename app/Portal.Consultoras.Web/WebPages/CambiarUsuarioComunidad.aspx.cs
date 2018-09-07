@@ -74,12 +74,10 @@ namespace Portal.Consultoras.Web.WebPages
                     UsuarioId = Convert.ToInt64(hdfUsuarioComunidadId.Value),
                     CodigoUsuario = datos["CodigoUsuario"].ToString()
                 };
-
-                BEUsuarioComunidad result;
-
+                
                 using (ComunidadServiceClient sv = new ComunidadServiceClient())
                 {
-                    result = sv.UpdCambiarUsuarioComunidad(obeUsuarioComunidad);
+                    sv.UpdCambiarUsuarioComunidad(obeUsuarioComunidad);
                 }
 
                 return serializer.Serialize(new

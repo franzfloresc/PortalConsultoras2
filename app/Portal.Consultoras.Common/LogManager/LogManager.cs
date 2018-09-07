@@ -202,7 +202,7 @@ namespace Portal.Consultoras.Common
                     httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Token }");
                     HttpResponseMessage response = httpClient.PostAsync("Api/LogError", contentPost).GetAwaiter().GetResult();
 
-                    var result = response.IsSuccessStatusCode;
+                    var noQuitar = response.IsSuccessStatusCode;
                 }
             }
             catch (Exception ex)
@@ -298,7 +298,7 @@ namespace Portal.Consultoras.Common
 
                     HttpResponseMessage response = httpClient.PostAsync(GetUrl(urlApi), contentPost).GetAwaiter().GetResult();
 
-                    var result = response.IsSuccessStatusCode;
+                    var noQuitar = response.IsSuccessStatusCode;
                 }
             }
             catch (Exception ex)

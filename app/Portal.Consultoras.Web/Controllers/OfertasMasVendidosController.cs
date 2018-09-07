@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class OfertasMasVendidosController : BaseController // BaseEstrategiaController
+    public class OfertasMasVendidosController : BaseController
     {
         [HttpPost]
         public JsonResult ActualizarModel(EstrategiaOutModel model)

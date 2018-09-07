@@ -20,7 +20,8 @@ namespace Portal.Consultoras.Data
         [Obsolete("Migrado PL50-50")]
         public IDataReader GetProductoComercialByListaCuv(int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByListaCuv");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByListaCuv");
+
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, regionID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaID);
@@ -81,13 +82,11 @@ namespace Portal.Consultoras.Data
 
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@RowCount", DbType.Int32, RowCount);
-            //Context.Database.AddInParameter(command, "@Criterio", DbType.Int32, Criterio);
             Context.Database.AddInParameter(command, "@CodigoDescripcion", DbType.String, CodigoDescripcion);
             Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, CodigoZona);
-            //Context.Database.AddInParameter(command, "@ValidarOPT", DbType.Boolean, validarOpt);
 
             return Context.ExecuteReader(command);
         }

@@ -533,8 +533,7 @@ namespace Portal.Consultoras.Web.Controllers
                     "text/html");
             }
         }
-
-        //TODO validar yrdsf
+        
         [HttpPost]
         public JsonResult GetOfertaByCUV(string CampaniaID, string CUV2,
             string TipoEstrategiaID, string CUV1, string flag,
@@ -560,7 +559,6 @@ namespace Portal.Consultoras.Web.Controllers
                     var objEstrategia = administrarEstrategiaProvider.ObtenerEstrategiaCuv(CUV2,
                                                                 CampaniaID, tipoEstrategiaCodigo,
                                                                 userData.CodigoISO, FlagRecoProduc, FlagRecoPerfil);
-                    //success = resultByCuv["success"].ToString().Equals("true");
 
                     if (objEstrategia != null)
                     {
@@ -1535,7 +1533,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var entidad = new BEConfiguracionProgramaNuevasApp()
                 {
-                    PaisID = UserData().PaisID,
+                    PaisID = userData.PaisID,
                     CodigoPrograma = CodigoPrograma,
                 };
 
@@ -1572,7 +1570,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var resultado = false;
                 var entidad = Mapper.Map<ConfiguracionProgramaNuevasAppModel, BEConfiguracionProgramaNuevasApp>(inModel);
-                entidad.PaisID = UserData().PaisID;
+                entidad.PaisID = userData.PaisID;
 
                 using (var sv = new PedidoServiceClient())
                 {
@@ -1612,7 +1610,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var nombreArchivo = Request["qqfile"];
                 new UploadHelper().UploadFile(Request, nombreArchivo);
 
-                var carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO,
+                var carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, userData.CodigoISO,
                     Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
 
                 var newfilename = string.Empty;
@@ -1631,7 +1629,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var entidad = new BEConfiguracionProgramaNuevasApp()
                     {
-                        PaisID = UserData().PaisID,
+                        PaisID = userData.PaisID,
                         CodigoPrograma = codigoPrograma,
                         CodigoNivel = codigoNivel,
                         ArchivoBannerCupon = (tipoBanner == Constantes.ProgramaNuevas.TipoBanner.BannerCupon ? newfilename : null),
@@ -1652,7 +1650,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -1669,11 +1667,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string filenameCupon = string.Empty;
                 string filenamePremio = string.Empty;
-                string carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
+                string carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, userData.CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
 
                 var entidad = new BEConfiguracionProgramaNuevasApp()
                 {
-                    PaisID = UserData().PaisID,
+                    PaisID = userData.PaisID,
                     CodigoPrograma = codigoPrograma,
                     CodigoNivel = codigoNivel
                 };
@@ -1704,7 +1702,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

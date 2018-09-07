@@ -99,10 +99,7 @@ namespace Portal.Consultoras.BizLogic
                 if (!item.SegmentacionRegionZona && item.SegmentacionEstadoActividad 
                     && Segmentaciones.Any(x => x.IdEstadoActividad == IdEstadoActividad))
                 {
-                    //if (Segmentaciones.Where(x => x.IdEstadoActividad == IdEstadoActividad).Any())
-                    //{
                     lstComunicadoFinal.Add(item);
-                    //}
                 }
             }
 

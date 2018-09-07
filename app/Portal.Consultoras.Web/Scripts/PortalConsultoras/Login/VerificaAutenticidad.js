@@ -151,7 +151,10 @@ function ProcesaEnvioSMS() {
             }
             else {
                 nroIntentosSms = nroIntentosSms - 1;
-                alert("Ocurrio un error al enviar el SMS. Intentelo mas tarde.");
+                if (response.menssage)
+                    alert(response.menssage);
+                else
+                    alert("Ocurrio un error al enviar el SMS. Intentelo mas tarde.");
             }
             closeWaitingDialog();
         },
