@@ -237,7 +237,7 @@ namespace Portal.Consultoras.BizLogic
                         return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_YA_ACTIVADA);
                     }
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
-                    if (!usuario.EMail.Contains(email))
+                    if (!usuario.EMail.Contains(email) && daUsuario.ExistsUsuarioEmail(email))
                     {
                         if (daUsuario.ExistsUsuarioEmail(email))
                         {
@@ -549,7 +549,7 @@ namespace Portal.Consultoras.BizLogic
                 var cuponTask = Task.Run(() => GetCupon(usuario));
                 var actualizacionEmailTask = Task.Run(() => GetActualizacionEmail(paisID, usuario.CodigoUsuario));
                 var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.ActualizaDatosEnabled));
-                var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos, usuario.RegionID, usuario.ZonaID));
+                var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
 
                 Task.WaitAll(
@@ -1854,7 +1854,7 @@ namespace Portal.Consultoras.BizLogic
             usuario.PuedeActualizar = (actualizaDatosPais != null ? actualizaDatosPais.Valor == "1" : false);
             if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
 
-            var actualizaDatosConfigTask = GetOpcionesVerificacion(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos, usuario.RegionID, usuario.ZonaID);
+            var actualizaDatosConfigTask = GetOpcionesVerificacion(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
             if(actualizaDatosConfigTask != null ? !actualizaDatosConfigTask.OpcionEmail : true) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
 
             var respuestaServicio = ActualizarEmail(usuario, correoNuevo);
@@ -2532,8 +2532,8 @@ namespace Portal.Consultoras.BizLogic
         {
             var oUsu = new BEUsuarioDatos();
             oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarMensajeFueraHorario;
-            oUsu = GetDatosUsuarioByValorCache(paisID, valorRestaurar);
-            var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia, oUsu.RegionID, oUsu.ZonaID);
+            oUsu = GetDatosUsuarioByValor(paisID, valorRestaurar);
+            var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia);
             if (opcion == null) return oUsu;
             /*validando si tiene Zona*/
             if (opcion.TieneZonas)
@@ -2643,12 +2643,6 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region METODOS OLVIDE CONTRASENIA
-
-        private BEUsuarioDatos GetDatosUsuarioByValorCache(int paisID, string valorIngresado)
-        {
-            return CacheManager<BEUsuarioDatos>.ValidateDataElement(paisID, ECacheItem.DatosRestaurarClave, valorIngresado + paisID.ToString(), () => GetDatosUsuarioByValor(paisID, valorIngresado));
-        }
-
         private BEUsuarioDatos GetDatosUsuarioByValor(int paisID, string valorIngresado)
         {
             var DAUsuario = new DAUsuario(paisID);
@@ -2800,64 +2794,83 @@ namespace Portal.Consultoras.BizLogic
             return CacheManager<BEEnviarSms>.ValidateDataElement(paisID, ECacheItem.CredencialesSMS, paisID.ToString(), () => GetCredencialesSms(paisID));
         }
 
-        public bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios, string tipoMensaje = "")
+        public BERespuestaSMS ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios, string tipoMensaje = "")
         {
-            if (oUsu.Celular == "") return false;
-            try
+            BERespuestaSMS res = new BERespuestaSMS();
+
+            if (oUsu.Celular == "")
             {
-                BEEnviarSms oCredencial = GetCredencialesSmsCache(paisID);
-                string codGenerado = Common.Util.GenerarCodigoRandom();
-                oCredencial.Mensaje = string.Format(
-                    tipoMensaje == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE_OPTIN
-                        ? oCredencial.MensajeOptin
-                        : oCredencial.Mensaje,
-                    codGenerado);
-
-                var data = new
+                res.resultado = false;
+                res.mensaje = Constantes.MensajesError.ValorVacio;
+            }
+            else
+            { 
+                try
                 {
-                    OrigenID = oUsu.OrigenID,
-                    CodigoUsuario = oUsu.CodigoUsuario,
-                    CodigoConsultora = oUsu.CodigoConsultora,
-                    OrigenDescripcion = oUsu.OrigenDescripcion,
-                    UsuarioSms = oCredencial.UsuarioSms,
-                    ClaveSms = oCredencial.ClaveSms,
-                    CampaniaID = oUsu.campaniaID,
-                    NroCelular = oUsu.Celular,
-                    Mensaje = oCredencial.Mensaje,
-                    CodigoIso = oUsu.CodigoIso,
-                    EsMobile = oUsu.EsMobile,
-                    RequestUrl = oCredencial.RequestUrl,
-                    RecursoApi = oCredencial.RecursoApi
-                };
+                    BEEnviarSms oCredencial = GetCredencialesSmsCache(paisID);
+                    string codGenerado = Common.Util.GenerarCodigoRandom();
+                    oCredencial.Mensaje = string.Format(
+                        tipoMensaje == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE_OPTIN
+                            ? oCredencial.MensajeOptin
+                            : oCredencial.Mensaje,
+                        codGenerado);
 
-                string requestUrl = ConfigurationManager.AppSettings.Get(Constantes.EnviarSMS.SmsConsultoraWs.urlKey);
-                string urlApiSms = Constantes.EnviarSMS.SmsConsultoraWs.RecursoApi;
-                var result = new BERespuestaSMS();
+                    var data = new
+                    {
+                        OrigenID = oUsu.OrigenID,
+                        CodigoUsuario = oUsu.CodigoUsuario,
+                        CodigoConsultora = oUsu.CodigoConsultora,
+                        OrigenDescripcion = oUsu.OrigenDescripcion,
+                        UsuarioSms = oCredencial.UsuarioSms,
+                        ClaveSms = oCredencial.ClaveSms,
+                        CampaniaID = oUsu.campaniaID,
+                        NroCelular = oUsu.Celular,
+                        Mensaje = oCredencial.Mensaje,
+                        CodigoIso = oUsu.CodigoIso,
+                        EsMobile = oUsu.EsMobile,
+                        RequestUrl = oCredencial.RequestUrl,
+                        RecursoApi = oCredencial.RecursoApi
+                    };
 
-                HttpClient httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri(requestUrl);
+                    string requestUrl = ConfigurationManager.AppSettings.Get(Constantes.EnviarSMS.SmsConsultoraWs.urlKey);
+                    string urlApiSms = Constantes.EnviarSMS.SmsConsultoraWs.RecursoApi;
+                    var result = new BERespuestaSMS();
 
-                string secretKey = ConfigurationManager.AppSettings.Get("JsonWebTokenSecretKey");
-                var token = JsonWebToken.Encode(data, secretKey, JwtHashAlgorithm.HS512);
+                    HttpClient httpClient = new HttpClient();
+                    httpClient.BaseAddress = new Uri(requestUrl);
 
-                HttpResponseMessage response = httpClient.PostAsync(urlApiSms + "?id=" + token, null).GetAwaiter().GetResult();
-                if (response.IsSuccessStatusCode)
-                {
-                    string jsonString = response.Content.ReadAsStringAsync().Result;
-                    result = JsonConvert.DeserializeObject<BERespuestaSMS>(jsonString);
+                    string secretKey = ConfigurationManager.AppSettings.Get("JsonWebTokenSecretKey");
+                    var token = JsonWebToken.Encode(data, secretKey, JwtHashAlgorithm.HS512);
+
+                    HttpResponseMessage response = httpClient.PostAsync(urlApiSms + "?id=" + token, null).GetAwaiter().GetResult();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = response.Content.ReadAsStringAsync().Result;
+                        result = JsonConvert.DeserializeObject<BERespuestaSMS>(jsonString);
+                    }
+                    httpClient.Dispose();
+
+                    if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                    InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorSms, codGenerado);
+
+                    if (result.codigo == "OK")
+                    {
+                        res.resultado = true;
+                    }
+                    else
+                    {
+                        res.resultado = false;
+                        res.mensaje = result.mensaje;
+                    }
                 }
-                httpClient.Dispose();
-
-                if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
-                InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorSms, codGenerado);
-                if (result.codigo == "OK") return true;
-                return false;
+                catch (Exception ex)
+                {
+                    res.resultado = false;
+                    res.mensaje = ex.Message;
+                    LogManager.SaveLog(ex, oUsu.CodigoUsuario, paisID);
+                }
             }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, oUsu.CodigoUsuario, paisID);
-                return false;
-            }
+            return res;
         }
 
         private void InsCodigoGenerado(BEUsuarioDatos oUsu, int paisID, string TipoEnvio, string CodigoGenerado = "")
@@ -2868,10 +2881,10 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Carga Opciones De Verificacion
-        private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID, int regionID, int zonaID)
+        private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
         {
             var BLobj = new BLOpcionesVerificacion();
-            return BLobj.GetOpcionesVerificacionCache(paisID, origenID, regionID, zonaID);
+            return BLobj.GetOpcionesVerificacion(paisID, origenID);
         }
 
         private bool ValidaCampania(int campaniaActual, int campaniaInicio, int campaniaFin)
@@ -2906,7 +2919,7 @@ namespace Portal.Consultoras.BizLogic
                 var oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
                 if (oUsu.Cantidad == 0) return null;
                 /*Obteniendo Datos de Verificacion de Autenticidad*/
-                var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad, oUsu.RegionID, oUsu.ZonaID);
+                var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
                 if (opcion == null) return null;
                 /*validando si tiene Zona*/
                 if (opcion.TieneZonas)
@@ -2959,15 +2972,6 @@ namespace Portal.Consultoras.BizLogic
 
         private BEUsuarioDatos GetUsuarioVerificacionAutenticidad(int paisID, string CodigoUsuario)
         {
-
-            //string iso = Common.Util.GetPaisISO(paisID);
-
-            //string key = "CL,CO,EC"; //config
-            //bool buscarXdni = false;
-
-            //if (key.Contains(iso)) buscarXdni = true;
-
-
             var DAUsuario = new DAUsuario(paisID);
             var datos = new BEUsuarioDatos();
             using (IDataReader rd = DAUsuario.GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario))

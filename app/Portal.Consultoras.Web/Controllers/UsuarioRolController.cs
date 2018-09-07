@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             var model = new UsuarioRolModel
@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<ServiceUsuario.BEUsuarioRol> lst;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    lst = sv.SelectUsuarioRol(UserData().PaisID, vRolDescripcion, vNombreUsuario).ToList();
+                    lst = sv.SelectUsuarioRol(userData.PaisID, vRolDescripcion, vNombreUsuario).ToList();
                 }
 
                 BEGrid grid = new BEGrid
@@ -113,7 +113,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ServiceSeguridad.BEUsuarioRol entidad = Mapper.Map<UsuarioRolModel, ServiceSeguridad.BEUsuarioRol>(model);
-                entidad.paisID = UserData().PaisID;
+                entidad.paisID = userData.PaisID;
 
                 int result;
 
@@ -144,7 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -154,7 +154,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -174,7 +174,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ServiceUsuario.BEUsuarioRol entidad = Mapper.Map<UsuarioRolModel, ServiceUsuario.BEUsuarioRol>(model);
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    retorno = sv.DelUsuarioRol(UserData().PaisID, entidad.CodigoUsuario, entidad.RolID);
+                    retorno = sv.DelUsuarioRol(userData.PaisID, entidad.CodigoUsuario, entidad.RolID);
                 }
 
                 if (retorno == 1)
@@ -207,7 +207,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -217,7 +217,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -258,7 +258,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -268,7 +268,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -304,9 +304,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -318,7 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SeguridadServiceClient sv = new SeguridadServiceClient())
             {
-                BERol[] beRol = sv.GetRoles(UserData().PaisID);
+                BERol[] beRol = sv.GetRoles(userData.PaisID);
 
                 model.DropDownListRol = beRol.ToList();
                 model.DropDownListRol.Insert(0, new BERol { RolID = 0, Descripcion = "-- Seleccionar --" });

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Common;
 
 namespace Portal.Consultoras.Data
@@ -24,6 +25,16 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public IDataReader ReporteContratoAceptacion(string codigoconsultora, string cedula, DateTime? fechaInicio, DateTime? FechaFin )
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerReporteContratoAceptacion");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoconsultora);
+            Context.Database.AddInParameter(command, "@Cedula", DbType.String, cedula);
+            Context.Database.AddInParameter(command, "@fechaInicio", DbType.DateTime, fechaInicio);
+            Context.Database.AddInParameter(command, "@fechaFin", DbType.DateTime, FechaFin);
+            return Context.ExecuteReader(command);
+        }
+        
         public IDataReader GetContratoAceptacion(long consultoraid)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetContratos");
@@ -31,6 +42,5 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-
     }
 }

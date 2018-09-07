@@ -137,6 +137,9 @@ namespace Portal.Consultoras.ServiceContracts
         int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen, string direccionIP, string InformacionSOMobile, string imei, string deviceID);
 
         [OperationContract]
+        List<BeReporteContrato> ReporteContratoAceptacion(int paisID, string codigoConsultora, string cedula, DateTime? FechaInicio, DateTime? FechaFin);
+
+        [OperationContract]
         BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta);
 
         [OperationContract]
@@ -379,7 +382,7 @@ namespace Portal.Consultoras.ServiceContracts
         bool ProcesaEnvioEmail(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
 
         [OperationContract]
-        bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
+        BERespuestaSMS ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
 
         [OperationContract]
         bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado);
