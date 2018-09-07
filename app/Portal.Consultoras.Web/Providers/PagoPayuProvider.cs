@@ -11,6 +11,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Properties;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -27,7 +28,7 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 pago.ListaMedioPago = PagoProvider.ObtenerListaMedioPago();
-                pago.NumeroOperacion = (await GetNewOrderId()).ToString();
+                pago.NumeroReferencia = (await GetNewOrderId()).ToString();
                 pago.TipoPago = GetPaymentMethod(pago);
 
                 var data = GetData(info, pago);
@@ -72,13 +73,18 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (!info.Birthdate.HasValue)
             {
-                throw new Exception("Fecha de Nacimiento en Payu es requerido");
+                throw new Exception("Fecha de Nacimiento es requerido");
             }
 
             PagoVisaModel config = pago.PagoVisaModel;
             var total = pago.MontoDeudaConGastos;
-            var referenceCode = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroOperacion;
+            var referenceCode = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroReferencia;
             var fullName = User.NombreConsultora;
+            var address = GetDireccionConsultora() ?? new BEUsuarioDireccion();
+            if (string.IsNullOrWhiteSpace(address.Ciudad))
+            {
+                address.Ciudad = Constantes.PagoEnLineaPayuGenerales.DefaultCity;
+            }
 
             var card = new
             {
@@ -124,9 +130,9 @@ namespace Portal.Consultoras.Web.Providers
                             dniNumber = User.DocumentoIdentidad,
                             shippingAddress = new
                             {
-                                street1 = User.Direccion ?? string.Empty,
+                                street1 = address.Direccion,
                                 //-street2 = "8 int 103",
-                                city = string.Empty,
+                                city = address.Ciudad,
                                 //-state = "Jalisco", // obligatorio brasil
                                 country = Constantes.PagoEnLineaPayuGenerales.Country,
                                 //-postalCode = "000000", // obligatorio brasil
@@ -139,14 +145,14 @@ namespace Portal.Consultoras.Web.Providers
                         merchantPayerId = User.CodigoConsultora,
                         fullName = fullName,
                         emailAddress = info.Email,
-                        birthdate = info.Birthdate.Value.ToString("yyyy-MM-dd"), //MX
+                        birthdate = info.Birthdate.Value.ToString("yyyy-MM-dd"),
                         contactPhone = info.Phone,
                         dniNumber = User.DocumentoIdentidad,
                         billingAddress = new
                         {
-                            street1 = User.Direccion ?? string.Empty,
+                            street1 = address.Direccion,
                             //-street2 = "calle 5 de Mayo",
-                            city = string.Empty,
+                            city = address.Ciudad,
                             //-state = "Nuevo Leon",
                             country = Constantes.PagoEnLineaPayuGenerales.Country,
                             //-postalCode = "000000", //MX 
@@ -154,9 +160,6 @@ namespace Portal.Consultoras.Web.Providers
                         }
                     },
                     creditCard = card,
-                    //extraParameters = new {
-                    //   INSTALLMENTS_NUMBER = 1 // cuotas
-                    //},
                     type = Constantes.PagoEnLineaPayuGenerales.TransactionType,
                     paymentMethod = pago.TipoPago,
                     paymentCountry = Constantes.PagoEnLineaPayuGenerales.Country,
@@ -192,6 +195,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             var transaction = result.transactionResponse;
+            pago.NumeroOperacion = transaction.orderId;
             pago.DescripcionCodigoAccion = GetMessage(transaction);
             pago.FechaCreacion = GetDateCreation(transaction.operationDate);
             pago.TarjetaEnmascarada = Util.EnmascararTarjeta(info.NumberCard);
@@ -199,6 +203,7 @@ namespace Portal.Consultoras.Web.Providers
             var aproved = result.transactionResponse.IsApproved;
 
             await RegisterLog(pago, transaction, info);
+            pago.DescripcionCodigoAccion = GetUserMessage(transaction.responseCode);
 
             if (!aproved)
             {
@@ -276,7 +281,7 @@ namespace Portal.Consultoras.Web.Providers
 
             //bePagoEnLinea.ResultadoValidacionCVV2 = "";
             //bePagoEnLinea.CsiMensaje = "";
-            bePagoEnLinea.IdUnicoTransaccion = respuesta.orderId;
+            bePagoEnLinea.IdUnicoTransaccion = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroReferencia;
             //bePagoEnLinea.Etiqueta = "";
             //bePagoEnLinea.RespuestaSistemAntifraude = "";
             //bePagoEnLinea.CsiPorcentajeDescuento = 0;
@@ -290,7 +295,7 @@ namespace Portal.Consultoras.Web.Providers
             //bePagoEnLinea.NombreBancoEmisor = "";
             //bePagoEnLinea.ImporteCuota = 0;
             //bePagoEnLinea.CsiTipoCobro = "";
-            //bePagoEnLinea.NumeroReferencia = "";
+            bePagoEnLinea.NumeroReferencia = pago.NumeroReferencia;
             bePagoEnLinea.Respuesta = respuesta.state;
             bePagoEnLinea.NumeroOrdenTienda = pago.NumeroOperacion;
             bePagoEnLinea.CodigoAccion = "000";
@@ -318,6 +323,18 @@ namespace Portal.Consultoras.Web.Providers
             var message = PayuResponseCodes.ResourceManager.GetString(code);
 
             return message ?? code;
+        }
+
+        private string GetUserMessage(string code)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                return PayuResponseMessage.DEFAULT_MESSAGE;
+            }
+
+            var message = PayuResponseMessage.ResourceManager.GetString(code);
+
+            return message ?? PayuResponseMessage.DEFAULT_MESSAGE;
         }
 
         private async Task<int> GetNewOrderId()
@@ -351,6 +368,28 @@ namespace Portal.Consultoras.Web.Providers
         private long GetMicroSeconds()
         {
             return DateTime.Now.Ticks / 10;
+        }
+
+        private BEUsuarioDireccion GetDireccionConsultora()
+        {
+            try
+            {
+                using (var sv = new UsuarioServiceClient())
+                {
+                    return sv.GetDireccionConsultora(User.PaisID, User.CodigoUsuario);
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, User.CodigoConsultora, User.CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, User.CodigoConsultora, User.CodigoISO);
+            }
+
+
+            return null;
         }
     }
 }

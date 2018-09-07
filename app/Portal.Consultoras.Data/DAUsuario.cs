@@ -913,6 +913,15 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
             return Context.ExecuteScalar(command).ToString();
         }
+
+        public IDataReader GetDireccionConsultora(string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerDireccionConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader ListaProductos(int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("TraerCuvsParaPruebas");
