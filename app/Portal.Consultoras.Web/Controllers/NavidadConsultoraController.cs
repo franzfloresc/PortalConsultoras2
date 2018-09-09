@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
             NavidadConsultoraModel modelo = new NavidadConsultoraModel
             {
                 ListaPaises = CargarListaPaises(),
-                ListaCampania = CargarListaCampanias(UserData().PaisID)
+                ListaCampania = CargarListaCampanias(userData.PaisID)
             };
             return View(modelo);
         }
@@ -34,8 +34,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     BENavidadConsultora parametro = new BENavidadConsultora
                     {
-                        PaisId = UserData().PaisID,
-                        CampaniaId = UserData().CampaniaID
+                        PaisId = userData.PaisID,
+                        CampaniaId = userData.CampaniaID
                     };
                     resultado = servicio.BuscarNavidadConsultora(parametro).ToList();
                 }
@@ -256,9 +256,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lista;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lista = UserData().RolID == 2
+                lista = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lista);

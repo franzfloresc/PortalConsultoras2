@@ -30,10 +30,8 @@ namespace Portal.Consultoras.Web.CustomFilters
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!filterContext.HttpContext.Request.IsAjaxRequest())
+            if (!filterContext.HttpContext.Request.IsAjaxRequest() && filterContext.RequestContext.HttpContext.Request.UrlReferrer != null)
             {
-                if (filterContext.RequestContext.HttpContext.Request.UrlReferrer != null)
-                {
                     var guid = HttpUtility.ParseQueryString(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Query).Get(IdentifierKey);
                     var originalString = filterContext.RequestContext.HttpContext.Request.UrlReferrer.OriginalString;
                     var origiIndex = originalString.IndexOf(RoutePrefix, StringComparison.OrdinalIgnoreCase);
@@ -61,7 +59,6 @@ namespace Portal.Consultoras.Web.CustomFilters
 
                         return;
                     }
-                }
             }
 
             base.OnActionExecuting(filterContext);

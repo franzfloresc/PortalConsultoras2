@@ -43,7 +43,10 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Caso" type="xs:int" />
+      <xs:element minOccurs="0" name="CuvObs" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:int" />
+      <xs:element minOccurs="0" name="SetID" type="xs:int" />
       <xs:element minOccurs="0" name="Tipo" type="xs:int" />
     </xs:sequence>
   </xs:complexType>

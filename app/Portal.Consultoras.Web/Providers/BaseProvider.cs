@@ -2,7 +2,9 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -10,18 +12,10 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BaseProvider
     {
-        //protected ISessionManager sessionManager;
-        //protected ILogManager logManager;
-        //protected UsuarioModel userData;
-        //protected RevistaDigitalModel revistaDigital;
         protected ConfiguracionManagerProvider _configuracionManager;
 
         public BaseProvider()
         {
-            //sessionManager = SessionManager.SessionManager.Instance;
-            //logManager = LogManager.LogManager.Instance;
-            //userData = sessionManager.GetUserData();
-            //revistaDigital = sessionManager.GetRevistaDigital();
             _configuracionManager = new ConfiguracionManagerProvider();
         }
         
@@ -80,6 +74,33 @@ namespace Portal.Consultoras.Web.Providers
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
         }
         #endregion
+
+        public string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes, DateTime fechaInicioCampania, bool esMobile)
+        {
+            var time = DateTime.Today.Add(horaCierre);
+            string fecha = null;
+
+            if (esMobile)
+            {
+                string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
+
+                fecha = diasFaltantes > 0
+                    ? " CIERRA EL " + fechaInicioCampania.Day + " " + Util.NombreMes(fechaInicioCampania.Month).ToUpper()
+                    : " CIERRA HOY";
+                
+                return fecha + " - " + hrCierrePortal.Replace(".", "");
+            }
+            else
+            {
+                var culture = CultureInfo.GetCultureInfo("es-PE");
+                fecha = diasFaltantes > 0
+                    ? fechaInicioCampania.ToString("dd MMM", culture).ToUpper()
+                    : "HOY";
+
+                return fecha + " - " + time.ToString("hh:mm tt", CultureInfo.InvariantCulture).ToLower();
+            }
+
+        }
     }
 
 }

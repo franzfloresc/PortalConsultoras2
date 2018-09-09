@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
                 catch (Exception ex)
                 {
                     lst = new List<BEServicePROLFIC>();
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 }
 
                 BEGrid grid = new BEGrid(sidx, sord, page, rows);
