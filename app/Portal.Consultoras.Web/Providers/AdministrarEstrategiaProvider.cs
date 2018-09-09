@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Providers
                         DescripcionMarca = d.MarcaDescripcion,
                         UsuarioCreacion = d.UsuarioCreacion,
                         UsuarioModificacion = d.UsuarioModificacion,
-                        ImagenMiniaturaURL = "",
+                        ImagenMiniaturaURL = d.ImagenMiniatura ?? string.Empty,
                         TipoEstrategiaID = d.TipoEstrategiaId,
                         Imagen = d.FlagImagenURL ? 1 : 0,
                         DescripcionEstrategia = d.DescripcionTipoEstrategia,                    
@@ -319,7 +319,9 @@ namespace Portal.Consultoras.Web.Providers
                 DescripcionTipoEstrategia = entidad.DescripcionEstrategia,
                 MatrizComercialId = entidad.IdMatrizComercial,
                 PrecioPublico = (float)entidad.PrecioPublico,
-                Zona = entidad.Zona
+                Zona = entidad.Zona,
+                EsSubCampania = entidad.EsSubCampania == 1 ? true : false,
+                ImagenMiniatura = entidad.ImagenMiniaturaURL ?? string.Empty
             };
             return waModel;
         }
@@ -696,7 +698,6 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         public void RegistrarEventoPersonalizacion(string pais, string eventoId,string _id,  List<ShowRoomPersonalizacionModel> lstPersonalizacion) {
-
             UsuarioModel userData = sessionManager.GetUserData();
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEventoPersonalizacion, pais, _id);
             string p = JsonConvert.SerializeObject(lstPersonalizacion.Select( x => new
@@ -722,9 +723,72 @@ namespace Portal.Consultoras.Web.Providers
                 ));
 
             Task.WhenAll(taskApi);
+        }
 
+        public void EliminarOfertaShowRoomDetalleNew(int estrategiaId, string cuv)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
 
+            var taskApi = Task.Run(() => RespSBMicroservicios(
+                    JsonConvert.SerializeObject(new
+                    {
+                        estrategiaId = estrategiaId,
+                        cuv = cuv,
+                        usuario = userData.CodigoUsuario
+                    }),
+                    string.Format(Constantes.PersonalizacionOfertasService.UrlEliminarOfertaShowRoomDetalleNew, userData.CodigoISO),
+                    "put",
+                    userData
+                ));
 
+            Task.WhenAll(taskApi);
+        }
+
+        public void UpdateOfertaShowRoomDetalleNew(EstrategiaProductoModel o)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+
+            string p = JsonConvert.SerializeObject(new
+            {
+                EstrategiaId = o.EstrategiaID,
+                cuvPadre = o.CUV2,
+                campaniaId = o.Campania,
+                cuv = o.CUV,
+                //codigoEstrategia = 0,
+                //grupo = 0,
+                //codigoSap = string,
+                //cantidad = 0,
+                //precioUnitario = 0,
+                //precioValorizado = 0,
+                //orden = 0,
+                //indicadorDigitable = true,
+                //factorCuadre = 0,
+                descripcion = o.Descripcion1,
+                //marcaId = 0,
+                nombreProducto = o.NombreProducto,
+                //imagenProducto = string,
+                //activo = true,
+                //usuarioCreacion = string,
+                //fechaCreacion = 2018 - 09 - 07T17 = 38 = 03.887Z,
+                usuarioModificacion = userData.CodigoUsuario,
+                fechaModificacion = DateTime.Now,
+                //estrategiaId = 0,
+                //estrategiaProductoId = 0,
+                //nombreComercial = string,
+                //descripcion = string,
+                //volumen = string,
+                //imagenBulk = string,
+                //nombreBulk = string
+            });
+
+            var taskApi = Task.Run(() => RespSBMicroservicios(
+                    p,
+                    string.Format(Constantes.PersonalizacionOfertasService.UrlUpdateOfertaShowRoomDetalleNew, userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom),
+                    "put",
+                    userData
+                ));
+
+            Task.WhenAll(taskApi);
         }
     }
 }

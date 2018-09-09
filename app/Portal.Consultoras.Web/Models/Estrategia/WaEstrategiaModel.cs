@@ -28,6 +28,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public bool FlagConfig { get; set; }
         public string Zona { get; set; }
         public bool FlagEstrella { get; set; }
+        public string ImagenMiniatura { get; set; }
 
         //TipoEstrategia
         public int TipoEstrategiaId { get; set; }
