@@ -38,7 +38,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (producto != null)
                     {
                     producto.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, producto.FotoProducto01);
-                    Session[Constantes.SessionNames.FichaProductoTemporal] = producto;
+                        //Session[Constantes.SessionNames.FichaProductoTemporal] = producto;
+                        sessionManager.SetFichaProductoTemporal(producto);
                     }
                 }
                 if (producto == null)
