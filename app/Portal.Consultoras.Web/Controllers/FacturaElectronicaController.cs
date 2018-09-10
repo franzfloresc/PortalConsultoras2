@@ -16,20 +16,20 @@ namespace Portal.Consultoras.Web.Controllers
             string nroDocumento = string.Empty;
             string nroRuc = null;
 
-            if (UserData().CodigoISO == Constantes.CodigosISOPais.Ecuador)
+            if (userData.CodigoISO == Constantes.CodigosISOPais.Ecuador)
             {
                 using (SACServiceClient svc = new SACServiceClient())
                 {
-                    BEDatosBelcorp datos = svc.GetDatosBelcorp(UserData().PaisID).FirstOrDefault() ?? new BEDatosBelcorp();
+                    BEDatosBelcorp datos = svc.GetDatosBelcorp(userData.PaisID).FirstOrDefault() ?? new BEDatosBelcorp();
                     nroRuc = datos.RUC;
                 }
             }
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                nroDocumento = sv.GetNroDocumentoConsultora(UserData().PaisID, UserData().CodigoConsultora);
+                nroDocumento = sv.GetNroDocumentoConsultora(userData.PaisID, userData.CodigoConsultora);
             if (string.IsNullOrEmpty(nroDocumento)) return RedirectToAction("Index", "Bienvenida");
 
-            switch (UserData().CodigoISO)
+            switch (userData.CodigoISO)
             {
                 case Constantes.CodigosISOPais.Peru:
                     url = NeoGridCipher.CreateProductionURL(nroDocumento);

@@ -89,6 +89,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string ImagenProductoSugeridoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenProductoSugeridoMediumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenProductoSugeridoSmallField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenURLField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -440,6 +446,32 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.ImagenProductoSugeridoField, value) != true)) {
                     this.ImagenProductoSugeridoField = value;
                     this.RaisePropertyChanged("ImagenProductoSugerido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenProductoSugeridoMedium {
+            get {
+                return this.ImagenProductoSugeridoMediumField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenProductoSugeridoMediumField, value) != true)) {
+                    this.ImagenProductoSugeridoMediumField = value;
+                    this.RaisePropertyChanged("ImagenProductoSugeridoMedium");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenProductoSugeridoSmall {
+            get {
+                return this.ImagenProductoSugeridoSmallField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenProductoSugeridoSmallField, value) != true)) {
+                    this.ImagenProductoSugeridoSmallField = value;
+                    this.RaisePropertyChanged("ImagenProductoSugeridoSmall");
                 }
             }
         }

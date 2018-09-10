@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -124,7 +124,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -193,12 +193,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
 
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return Json(new
@@ -217,13 +217,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
 
-                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
-                entidad.ZonaID = UserData().ZonaID;
-                entidad.RegionID = UserData().RegionID;
-                entidad.ConsultoraID = UserData().ConsultoraID;
-                entidad.PaisID = UserData().PaisID;
+                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : userData.CodigoUsuario;
+                entidad.ZonaID = userData.ZonaID;
+                entidad.RegionID = userData.RegionID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.PaisID = userData.PaisID;
                 entidad.PrimerNombre = userData.PrimerNombre;
-                entidad.CodigoISO = UserData().CodigoISO;
+                entidad.CodigoISO = userData.CodigoISO;
 
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
@@ -254,7 +254,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     Cantidad = 0,
@@ -265,7 +265,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     Cantidad = 0,

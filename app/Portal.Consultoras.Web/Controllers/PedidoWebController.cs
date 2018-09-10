@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return View();
@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoWeb> lst;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    lst = sv.GetPedidosWebByConsultora(UserData().PaisID, ObtenerConsultoraId()).ToList();
+                    lst = sv.GetPedidosWebByConsultora(userData.PaisID, ObtenerConsultoraId()).ToList();
                 }
 
                 BEGrid grid = new BEGrid
@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                if (UserData().PaisID == 4)
+                if (userData.PaisID == 4)
                 {
                     var data = new
                     {
@@ -171,10 +171,10 @@ namespace Portal.Consultoras.Web.Controllers
                                    cell = new string[]
                                    {
                                 DescripcionCampania(a.CampaniaID.ToString()),
-                                (UserData().Simbolo + " " +
+                                (userData.Simbolo + " " +
                                  string.Format("{0:#,##0}", a.ImporteTotal).Replace(',', '.')),
                                 a.Clientes.ToString(),
-                                (UserData().ZonaValida ? a.EstadoPedidoDesc : "Registrado"),
+                                (userData.ZonaValida ? a.EstadoPedidoDesc : "Registrado"),
                                 a.ConsultoraID.ToString(),
                                 a.PedidoID.ToString()
                                    }
@@ -196,9 +196,9 @@ namespace Portal.Consultoras.Web.Controllers
                                    cell = new string[]
                                    {
                                 DescripcionCampania(a.CampaniaID.ToString()),
-                                (UserData().Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
                                 a.Clientes.ToString(),
-                                (UserData().ZonaValida ? a.EstadoPedidoDesc : "Registrado"),
+                                (userData.ZonaValida ? a.EstadoPedidoDesc : "Registrado"),
                                 a.ConsultoraID.ToString(),
                                 a.PedidoID.ToString()
                                    }
@@ -232,7 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoWebDetalle> lst;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    lst = sv.GetClientesByCampania(UserData().PaisID, int.Parse(CampaniaId), ObtenerConsultoraId()).ToList();
+                    lst = sv.GetClientesByCampania(userData.PaisID, int.Parse(CampaniaId), ObtenerConsultoraId()).ToList();
                 }
 
                 BEGrid grid = new BEGrid
@@ -299,7 +299,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoWebDetalle> lst;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    lst = sv.GetPedidoWebDetalleByCliente(UserData().PaisID, int.Parse(CampaniaId), ObtenerConsultoraId(), int.Parse(ClientId)).ToList();
+                    lst = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(CampaniaId), ObtenerConsultoraId(), int.Parse(ClientId)).ToList();
                 }
 
                 BEGrid grid = new BEGrid
@@ -361,11 +361,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                if (UserData().PaisID == 4)
+                if (userData.PaisID == 4)
                 {
                     var data = new
                     {
-                        simbolo = UserData().Simbolo,
+                        simbolo = userData.Simbolo,
                         total = pag.PageCount,
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
@@ -379,8 +379,8 @@ namespace Portal.Consultoras.Web.Controllers
                                        a.CUV,
                                        a.DescripcionProd,
                                        a.Cantidad.ToString(),
-                                       (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.PrecioUnidad).Replace(',','.')),
-                                       (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
+                                       (userData.Simbolo + " " + string.Format("{0:#,##0}",a.PrecioUnidad).Replace(',','.')),
+                                       (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
                                        a.ImporteTotal.ToString("#0.00"),
                                        a.IndicadorOfertaCUV.ToString()
                                     }
@@ -392,7 +392,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var data = new
                     {
-                        simbolo = UserData().Simbolo,
+                        simbolo = userData.Simbolo,
                         total = pag.PageCount,
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
@@ -406,8 +406,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         a.CUV,
                                         a.DescripcionProd,
                                         a.Cantidad.ToString(),
-                                        (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.PrecioUnidad)),
-                                        (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
+                                        (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.PrecioUnidad)),
+                                        (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
                                         a.ImporteTotal.ToString("#0.00"),
                                        a.IndicadorOfertaCUV.ToString()
                                    }
@@ -425,7 +425,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string nombreCliente = string.Empty;
-                if (UserData().UsuarioPrueba == 1)
+                if (userData.UsuarioPrueba == 1)
                 {
                     return Json(new
                     {
@@ -440,7 +440,7 @@ namespace Portal.Consultoras.Web.Controllers
                     List<BEPedidoWebDetalle> lst;
                     using (ClienteServiceClient sv = new ClienteServiceClient())
                     {
-                        lst = sv.GetPedidoWebDetalleByCliente(UserData().PaisID, int.Parse(CampaniaId), UserData().ConsultoraID, int.Parse(ClientId)).ToList();
+                        lst = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(CampaniaId), userData.ConsultoraID, int.Parse(ClientId)).ToList();
                     }
 
 
@@ -461,22 +461,22 @@ namespace Portal.Consultoras.Web.Controllers
                         txtBuil.Append("" + lst[i].Cantidad.ToString() + "");
                         txtBuil.Append("</td>");
 
-                        if (UserData().PaisID == 4)
+                        if (userData.PaisID == 4)
                         {
                             txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
-                            txtBuil.Append("" + UserData().Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "");
+                            txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "");
                             txtBuil.Append("</td>");
                             txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
-                            txtBuil.Append("" + UserData().Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "");
+                            txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "");
                             txtBuil.Append("</td>");
                         }
                         else
                         {
                             txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
-                            txtBuil.Append("" + UserData().Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "");
+                            txtBuil.Append("" + userData.Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "");
                             txtBuil.Append("</td>");
                             txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
-                            txtBuil.Append("" + UserData().Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "");
+                            txtBuil.Append("" + userData.Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "");
                             txtBuil.Append("</td>");
                         }
                         txtBuil.Append("</tr>");
@@ -492,7 +492,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
                     if (ClientId.Equals("0"))
                     {
-                        mailBody += "<div style='font-size:12px;'>Hola " + UserData().PrimerNombre + ",</div> <br />";
+                        mailBody += "<div style='font-size:12px;'>Hola " + userData.PrimerNombre + ",</div> <br />";
 
                     }
                     else
@@ -500,7 +500,7 @@ namespace Portal.Consultoras.Web.Controllers
                         mailBody += "<div style='font-size:12px;'>Hola " + nombreClienteConsultora[0] + ",</div> <br />";
                     }
 
-                    mailBody += "<div style='font-size:12px;'> Te envío el detalle de tu pedido para esta campaña. <br/>Recuerda que el monto a pagar es de <b>" + UserData().Simbolo + total.ToString("#0.00") + "</b></div> <br /><br />";
+                    mailBody += "<div style='font-size:12px;'> Te envío el detalle de tu pedido para esta campaña. <br/>Recuerda que el monto a pagar es de <b>" + userData.Simbolo + total.ToString("#0.00") + "</b></div> <br /><br />";
                     mailBody += "<table border='1' style='width: 80%;'>";
                     mailBody += "<tr style='color: #FFFFFF'>";
                     mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>";
@@ -527,13 +527,13 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "Total :";
                     mailBody += "</td>";
                     mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
-                    if (UserData().PaisID == 4)
+                    if (userData.PaisID == 4)
                     {
-                        mailBody += "" + UserData().Simbolo + string.Format("{0:#,##0}", total).Replace(',', '.') + "";
+                        mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", total).Replace(',', '.') + "";
                     }
                     else
                     {
-                        mailBody += "" + UserData().Simbolo + total.ToString("#0.00") + "";
+                        mailBody += "" + userData.Simbolo + total.ToString("#0.00") + "";
                     }
 
                     mailBody += "</td>";
@@ -548,14 +548,14 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<img src='cid:Logo' border='0' />";
                     mailBody += "</td>";
                     mailBody += "<td style='text-align: center; font-size:12px;'>";
-                    mailBody += "<strong>" + UserData().NombreConsultora + "</strong> <br />";
+                    mailBody += "<strong>" + userData.NombreConsultora + "</strong> <br />";
                     mailBody += "<strong>Consultora</strong>";
                     mailBody += "</td>";
                     mailBody += "</tr>";
                     mailBody += "</table>";
 
                     #endregion
-                    Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.Equals("0") ? UserData().EMail : Email, "(" + UserData().CodigoISO + ") Pedido Solicitado", mailBody, true, UserData().NombreConsultora);
+                    Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.Equals("0") ? userData.EMail : Email, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
 
 
                     return Json(new
@@ -568,7 +568,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -578,7 +578,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -593,7 +593,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPedidoWebDetalle> lstCabecera;
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
-                lstCabecera = sv.GetClientesByCampania(UserData().PaisID, int.Parse(vCampaniaID), ObtenerConsultoraId()).OrderBy(p => p.Nombre).ToList();
+                lstCabecera = sv.GetClientesByCampania(userData.PaisID, int.Parse(vCampaniaID), ObtenerConsultoraId()).OrderBy(p => p.Nombre).ToList();
             }
 
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
@@ -603,7 +603,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoWebDetalle> lstDetallesTemp;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    lstDetallesTemp = sv.GetPedidoWebDetalleByCliente(UserData().PaisID, int.Parse(vCampaniaID), ObtenerConsultoraId(), item.ClienteID).ToList();
+                    lstDetallesTemp = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(vCampaniaID), ObtenerConsultoraId(), item.ClienteID).ToList();
                 }
 
                 decimal suma = lstDetallesTemp.Sum(p => p.ImporteTotal);
@@ -620,11 +620,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Código", "CUV"},
                 {"Descripción", "DescripcionProd"},
                 {"Cantidad", "Cantidad"},
-                {"Precio Unit.", UserData().Simbolo + " #PrecioUnidad"},
-                {"Precio Total", UserData().Simbolo + " #ImporteTotal"}
+                {"Precio Unit.", userData.Simbolo + " #PrecioUnidad"},
+                {"Precio Total", userData.Simbolo + " #ImporteTotal"}
             };
 
-            string[] arrTotal = { "Total:", UserData().Simbolo + " #ImporteTotalPedido" };
+            string[] arrTotal = { "Total:", userData.Simbolo + " #ImporteTotalPedido" };
 
             ExportToExcelMultiple("PedidosWebExcel", lstDetalles, dicCabeceras, dicDetalles, arrTotal, tieneDescuentoCuv, subtotalString, descuentoString, totalString);
             return View();
@@ -645,23 +645,23 @@ namespace Portal.Consultoras.Web.Controllers
                 int row = 6;
                 int col = 0;
 
-                ws.Cell(1, 1).Value = "Código Consultora: " + UserData().CodigoConsultora;
+                ws.Cell(1, 1).Value = "Código Consultora: " + userData.CodigoConsultora;
                 ws.Range(string.Format("A{0}:E{1}", 1, 1)).Row(1).Merge();
                 ws.Cell(1, 1).Style.Font.Bold = true;
 
-                ws.Cell(2, 1).Value = "Nombre Consultora: " + UserData().NombreConsultora;
+                ws.Cell(2, 1).Value = "Nombre Consultora: " + userData.NombreConsultora;
                 ws.Range(string.Format("A{0}:E{1}", 2, 2)).Row(1).Merge();
                 ws.Cell(2, 1).Style.Font.Bold = true;
 
-                ws.Cell(3, 1).Value = "Dirección: " + UserData().Direccion;
+                ws.Cell(3, 1).Value = "Dirección: " + userData.Direccion;
                 ws.Range(string.Format("A{0}:E{1}", 3, 3)).Row(1).Merge();
                 ws.Cell(3, 1).Style.Font.Bold = true;
 
-                ws.Cell(4, 1).Value = "Zona: " + UserData().CodigoZona;
+                ws.Cell(4, 1).Value = "Zona: " + userData.CodigoZona;
                 ws.Range(string.Format("A{0}:E{1}", 4, 4)).Row(1).Merge();
                 ws.Cell(4, 1).Style.Font.Bold = true;
 
-                string simbolo = UserData().Simbolo;
+                string simbolo = userData.Simbolo;
 
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
@@ -720,7 +720,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "ImporteTotal")
                             {
-                                var importeTotal = UserData().PaisID == 4
+                                var importeTotal = userData.PaisID == 4
                                     ? source.ImporteTotal.ToString("#,##0").Replace(',', '.')
                                     : source.ImporteTotal.ToString("0.00");
 
@@ -731,7 +731,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "PrecioUnidad")
                             {
-                                var precioUnidad = UserData().PaisID == 4
+                                var precioUnidad = userData.PaisID == 4
                                     ? source.PrecioUnidad.ToString("#,##0").Replace(',', '.')
                                     : source.PrecioUnidad.ToString("0.00");
 
@@ -755,7 +755,7 @@ namespace Portal.Consultoras.Web.Controllers
                         titlesStyleh.Font.FontColor = XLColor.FromHtml("#000000");
                         wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
-                        var importeTotalPedido = UserData().PaisID == 4
+                        var importeTotalPedido = userData.PaisID == 4
                             ? (sourceDetails[i]).ImporteTotalPedido.ToString("#,##0").Replace(',', '.')
                             : (sourceDetails[i]).ImporteTotalPedido.ToString("0.00");
 
@@ -816,16 +816,16 @@ namespace Portal.Consultoras.Web.Controllers
         public long ObtenerConsultoraId()
         {
             long consultoraIdmetodo;
-            if (UserData().UsuarioPrueba == 1)
+            if (userData.UsuarioPrueba == 1)
             {
                 using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
                 {
-                    consultoraIdmetodo = sv.GetConsultoraIdByCodigo(UserData().PaisID, UserData().ConsultoraAsociada);
+                    consultoraIdmetodo = sv.GetConsultoraIdByCodigo(userData.PaisID, userData.ConsultoraAsociada);
                 }
             }
             else
             {
-                consultoraIdmetodo = UserData().ConsultoraID;
+                consultoraIdmetodo = userData.ConsultoraID;
             }
             return consultoraIdmetodo;
         }
