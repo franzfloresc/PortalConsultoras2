@@ -5280,6 +5280,7 @@
     <Content Include="Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTrackingJetlore.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHidden.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHiddenSoloDesktop.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
