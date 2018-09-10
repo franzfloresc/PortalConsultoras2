@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.WebPages
                 var paisISO = Util.GetPaisISO(paisId);
 
                 SetStyle(paisISO);
-                SetLinks();
+                SetLinks(paisISO);
 
                 BERespuestaActivarEmail respuesta;
                 using (UsuarioServiceClient srv = new UsuarioServiceClient())
@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.WebPages
                     respuesta = srv.ActivarEmail(paisId, codigoUsuario, email);
                 }
                 SetRespuesta(respuesta);
-
+                
                 if (respuesta.Succcess) GuardarLogDynamo(respuesta.Usuario, email);
             }
             catch (Exception ex)
@@ -69,11 +69,17 @@ namespace Portal.Consultoras.Web.WebPages
             }
         }
 
-        private void SetLinks()
+        private void SetLinks(string paisISO)
         {
             var urlPortal = ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteSE];
             var area = EsDispositivoMovil() ? "/Mobile" : "";
+            var marca = WebConfig.PaisesEsika.Contains(paisISO) ? "Ésika" : "Lbel";
             linkMainPage.NavigateUrl = urlPortal + area + "/MiPerfil/Index";
+            linkSomosBelcorp.NavigateUrl = linkMainPage.NavigateUrl;            
+            linkAppEsikaConmigo.NavigateUrl = marca == "Ésika" ? Constantes.RedireccionAndroidApp.EsikaConmigo : Constantes.RedireccionAndroidApp.LbelConmigo;
+            btnAppEsikaConmigo.NavigateUrl = linkAppEsikaConmigo.NavigateUrl;            
+            linkAppEsikaConmigo.Text = string.Format(Constantes.RedireccionAndroidApp.AppRedirectFormatAlt, marca);
+            btnAppEsikaConmigo.Text = string.Format(Constantes.RedireccionAndroidApp.AppRedirectFormat, marca.ToUpper());
         }
 
         private void SetStyle(string paisISO)

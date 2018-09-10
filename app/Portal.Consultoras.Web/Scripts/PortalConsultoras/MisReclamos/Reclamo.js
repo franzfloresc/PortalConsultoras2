@@ -143,7 +143,7 @@ $(document).ready(function () {
         var precio = $("#hdCuvPrecio2").val();
         var cantidad = parseInt($("#txtCantidad2").val());
 
-        cantidad = cantidad == 99 ? 99 : cantidad + 1;
+        cantidad = cantidad == 99 ? 99 : cantidad; //+ 1;
 
         var importeTotal = precio * cantidad;
 
@@ -181,7 +181,7 @@ $(document).ready(function () {
         var precio = $("#hdCuvPrecio2").val();
         var cantidad = parseInt($("#txtCantidad2").val());
 
-        cantidad = cantidad == 1 ? 1 : cantidad - 1;
+        cantidad = cantidad == 1 ? 1 : cantidad; //- 1;
 
         var importeTotal = precio * cantidad;
 
