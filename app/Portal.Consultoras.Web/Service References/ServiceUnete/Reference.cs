@@ -9949,7 +9949,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ZonaGZField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IpOrigenField;
+
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -10583,7 +10586,20 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IpOrigen{
+            get{
+                return this.IpOrigenField;
+            }
+            set{
+                if ((object.ReferenceEquals(this.IpOrigenField, value) != true)){
+                    this.IpOrigenField = value;
+                    this.RaisePropertyChanged("IpOrigen");
+                }
+            }
+        }
+
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
