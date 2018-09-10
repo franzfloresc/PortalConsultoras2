@@ -273,8 +273,12 @@
                     {{Descripcion}}
                 </div>
                 <div class="resultado_busqueda_precio_prod displayBlock">
+                    {{#if_eq TipoPersonalizacion 'LIQ'}}
+                    <span class="resultado_busqueda_precio_oferta displayBlock">{{PrecioString}}</span>
+                    {{else}}
                     <span class="resultado_busqueda_precio_normal displayBlock">{{ValorizadoString}}</span>
                     <span class="resultado_busqueda_precio_oferta displayBlock">{{PrecioString}}</span>
+                    {{/if_eq}}
                 </div>
                 <div class="resultado_busqueda_tipo_oferta_prod displayBlock">{{DescripcionEstrategia}}</div>
             </div>

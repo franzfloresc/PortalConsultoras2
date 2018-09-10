@@ -34,5 +34,6 @@ namespace Portal.Consultoras.Web.Models
         public int TipoEstrategiaId { get; set; }
         public string DescripcionEstrategia { get; set; }
         public string OrigenPedidoWeb { get; set; }
+        public string URLBsucador { get; set; }
     }
 }

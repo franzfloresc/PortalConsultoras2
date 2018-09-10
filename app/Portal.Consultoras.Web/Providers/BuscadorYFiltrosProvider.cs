@@ -86,7 +86,9 @@ namespace Portal.Consultoras.Web.Providers
                             Agregado = labelAgregado,
                             CantidadesAgregadas = cantidadAgregada,
                             Stock = !item.Stock,
-                            OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile)
+                            OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile),
+                            TipoPersonalizacion = item.TipoPersonalizacion,
+                            URLBsucador = item.URLBsucador
                         });
                     }
                 }

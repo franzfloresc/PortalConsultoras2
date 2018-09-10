@@ -119,6 +119,10 @@ $(document).ready(function () {
                                 //$('#ResultadoBuscador').fadeOut(150);
                                 $('#ResultadoBuscador').html('No hay registros...');
                             } else {
+                                console.log('============ URL BUSCADOR ==========');
+                                console.log(lista[0].URLBsucador);
+                                console.log('============ URL BUSCADOR ==========');
+
                                 SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscador');
                             }
 
