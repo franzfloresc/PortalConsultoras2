@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public virtual List<BEEstrategiaProducto> GetEstrategiaProducto(int PaisID, int EstrategiaID)
         {
-            var listaProducto = new List<BEEstrategiaProducto>();
+            List<BEEstrategiaProducto> listaProducto;
             using (var svc = new PedidoServiceClient())
             {
                 var parameters = new BEEstrategia { PaisID = PaisID, EstrategiaID = EstrategiaID };
