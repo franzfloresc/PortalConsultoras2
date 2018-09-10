@@ -11,6 +11,7 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.UnitTest.Extensions;
 using Newtonsoft.Json;
 using Portal.Consultoras.Web.ServicePedido;
+using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
 {
@@ -225,9 +226,39 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
                 var jsonResult = CreateController(mockEstrategiaComponenteProvider).ObtenerComponentes("43285", "30880", "201814", Constantes.TipoEstrategiaSet.CompuestaVariable, "007");
-                var data = JsonConvert.DeserializeObject<ObtenerComponentesResponse>(JsonConvert.SerializeObject(jsonResult.Data));
+
+                //var componentes = JsonConvert.SerializeObject(jsonResult);
+                var componentes = new JavaScriptSerializer().Serialize(jsonResult.Data);
+
+                //var data = JsonConvert.DeserializeObject<ObtenerComponentesResponse>(componentes);
+                var data = new JavaScriptSerializer().Deserialize<ObtenerComponentesResponse>(componentes);
                 Assert.AreEqual(1, data.componentes.Count);
-                Assert.AreEqual(1, data.componentes[0].Hermanos.Count);
+                Assert.AreEqual(true, (data.componentes[0].Hermanos.Count > 0));
+                Assert.AreEqual(1, data.componentes[0].Cantidad);
+                Assert.AreEqual(false, data.esMultimarca);
+                Assert.AreEqual(true, new Func<bool>(() => 
+                                                            { bool TieneImgBulk = true;
+                                                                data.componentes[0].Hermanos.ForEach(x =>
+                                                                {
+                                                                    if (x.ImagenBulk.Trim().Equals(String.Empty))
+                                                                    {
+                                                                        TieneImgBulk = false;
+                                                                    }
+                                                                });
+                                                              return TieneImgBulk;
+                                                            })());
+
+                Assert.AreEqual(true, new Func<bool>(() =>
+                                                            { bool NombreImgBulk = true;
+                                                                data.componentes[0].Hermanos.ForEach(x =>
+                                                                {
+                                                                    if (x.NombreBulk.Trim().Equals(String.Empty))
+                                                                    {
+                                                                        NombreImgBulk = false;
+                                                                    }
+                                                                });
+                                                                return NombreImgBulk;
+                                                            })());
             }
         }
     }
