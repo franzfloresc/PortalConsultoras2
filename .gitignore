@@ -52,6 +52,12 @@ obj/
 _ReSharper*/
 [Tt]est[Rr]esult*
 .vs/
+*.orig
+*.vsp
+*.psess
+*.vspx
+*.vsp
+*.profile.backup
 #Nuget packages folder
 packages/
 app/Portal.Consultoras.ServiceHost/bin
@@ -70,3 +76,4 @@ node_modules/
 # Cakebuild
 /app/tools/**
 !/app/tools/packages.config
+
