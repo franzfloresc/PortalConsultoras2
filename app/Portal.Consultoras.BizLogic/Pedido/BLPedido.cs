@@ -636,7 +636,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        public async Task<BEPedidoReservaAppResult> Reserva(BEUsuario usuario)
+        public async Task<BEPedidoReservaResult> Reserva(BEUsuario usuario)
         {
             try
             {
@@ -1651,10 +1651,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return string.Empty;
         }
 
-        private BEPedidoReservaAppResult PedidoReservaRespuesta(string codigoRespuesta, string mensajeRespuesta = null,
+        private BEPedidoReservaResult PedidoReservaRespuesta(string codigoRespuesta, string mensajeRespuesta = null,
             BEResultadoReservaProl resultadoReserva = null)
         {
-            return new BEPedidoReservaAppResult()
+            return new BEPedidoReservaResult()
             {
                 CodigoRespuesta = (codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA ||
                                     codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_OBS ||
