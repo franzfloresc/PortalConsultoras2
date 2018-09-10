@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -118,7 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -161,7 +161,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -171,7 +171,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -220,7 +220,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -230,7 +230,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -269,7 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -279,7 +279,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -318,7 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -328,7 +328,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -385,7 +385,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -395,7 +395,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -437,7 +437,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -447,7 +447,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -644,7 +644,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -654,7 +654,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -1201,15 +1201,15 @@ namespace Portal.Consultoras.Web.Controllers
             switch (parametroId)
             {
                 case 1:
-                    return UserData().CodigoISO;
+                    return userData.CodigoISO;
                 case 2:
-                    return UserData().CampaniaID.ToString();
+                    return userData.CampaniaID.ToString();
                 case 3:
-                    return UserData().CodigoConsultora;
+                    return userData.CodigoConsultora;
                 case 4:
-                    return UserData().NombreConsultora;
+                    return userData.NombreConsultora;
                 case 5:
-                    return UserData().EMail;
+                    return userData.EMail;
                 default:
                     return "";
             }

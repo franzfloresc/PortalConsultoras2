@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Response;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -93,9 +93,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             Dictionary<string, int> iCantidadOfertas = new Dictionary<string, int> { { "CUV_ZE", -1 }, { "CUV_OP", -1 } };
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCantidadOfertas, pais, tipoCodigo, campania);
-
-            //string jsonParameters = "?tipo=" + tipoCodigo + "&campania=" + campania + "&pais=" + pais;
-
+            
             var taskApi = Task.Run(() => RespSBMicroservicios("", requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -178,7 +176,7 @@ namespace Portal.Consultoras.Web.Providers
                 jsonParameters += "tieneImagen=" + (imagen == -1 ? "" : imagen == 1 ? "true" : "false");
             }
             var userData = sessionManager.GetUserData();
-            //entidad.Imagen
+
             if (jsonParameters != string.Empty)
             {
                 jsonParameters = string.Format("?{0}", jsonParameters);
@@ -195,7 +193,7 @@ namespace Portal.Consultoras.Web.Providers
             if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
-                //mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
+
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;
@@ -236,7 +234,7 @@ namespace Portal.Consultoras.Web.Providers
             if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
-                //mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
+
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;
@@ -283,7 +281,7 @@ namespace Portal.Consultoras.Web.Providers
                 _id = id,
                 EstrategiaId = entidad.EstrategiaID,
                 CodigoCampania = entidad.CampaniaID.ToString(),
-                Activo = entidad.Activo == 1 ? true : false,
+                Activo = entidad.Activo == 1,
                 ImagenURL = entidad.ImagenURL,
                 LimiteVenta = entidad.LimiteVenta,
                 DescripcionCUV2 = entidad.DescripcionCUV2,
@@ -292,21 +290,21 @@ namespace Portal.Consultoras.Web.Providers
                 Precio2 = (float)entidad.Precio2,
                 TextoLibre = entidad.TextoLibre,
                 Orden = entidad.Orden,
-                FlagNueva = entidad.FlagNueva == 1 ? true : false,
+                FlagNueva = entidad.FlagNueva == 1,
                 CodigoEstrategia = entidad.CodigoEstrategia,
                 Ganancia = (float)entidad.Ganancia,
-                FlagImagenURL = entidad.Imagen == 1 ? true : false,
-                FlagActivo = entidad.Activo == 1 ? true : false,
+                FlagImagenURL = entidad.Imagen == 1,
+                FlagActivo = entidad.Activo == 1,
                 CodigoTipoEstrategia = entidad.CodigoTipoEstrategia,
                 CodigoProducto = entidad.CodigoProducto,
-                IndicadorMontoMinimo = entidad.IndicadorMontoMinimo == 1 ? true : false,
+                IndicadorMontoMinimo = entidad.IndicadorMontoMinimo == 1,
                 MarcaId = entidad.MarcaID,
                 MarcaDescripcion = entidad.DescripcionMarca,
                 CodigoSap = entidad.CodigoSAP,
                 UsuarioCreacion = entidad.UsuarioCreacion,
                 UsuarioModificacion = entidad.UsuarioModificacion,
                 TipoEstrategiaId = entidad.TipoEstrategiaID,
-                FlagEstrella = entidad.FlagEstrella == 1 ? true : false,
+                FlagEstrella = entidad.FlagEstrella == 1,
                 DescripcionTipoEstrategia = entidad.DescripcionEstrategia,
                 MatrizComercialId = entidad.IdMatrizComercial,
                 PrecioPublico = (float)entidad.PrecioPublico,
@@ -324,17 +322,17 @@ namespace Portal.Consultoras.Web.Providers
                 CodigoTipoEstrategia = tipoEstrategia.Codigo,
                 ImagenEstrategia = tipoEstrategia.ImagenEstrategia,
                 Orden = tipoEstrategia.Orden,
-                FlagActivo = tipoEstrategia.FlagActivo == 1 ? true : false,
-                FlagNueva = tipoEstrategia.FlagNueva == 1 ? true : false,
-                FlagRecoProduc = tipoEstrategia.FlagRecoProduc == 1 ? true : false,
-                FlagRecoPerfil = tipoEstrategia.FlagRecoPerfil == 1 ? true : false,
+                FlagActivo = tipoEstrategia.FlagActivo == 1,
+                FlagNueva = tipoEstrategia.FlagNueva == 1,
+                FlagRecoProduc = tipoEstrategia.FlagRecoProduc == 1,
+                FlagRecoPerfil = tipoEstrategia.FlagRecoPerfil == 1,
                 CodigoPrograma = tipoEstrategia.CodigoPrograma,
                 OfertaId = tipoEstrategia.OfertaID,
-                FlagMostrarImg = tipoEstrategia.FlagMostrarImg == 1 ? true : false,
+                FlagMostrarImg = tipoEstrategia.FlagMostrarImg == 1,
                 MostrarImgOfertaIndependiente = tipoEstrategia.MostrarImgOfertaIndependiente,
                 ImagenOfertaIndependiente = tipoEstrategia.ImagenOfertaIndependiente,
                 Codigo = tipoEstrategia.Codigo,
-                FlagValidarImagen = tipoEstrategia.FlagValidarImagen == 1 ? true : false,
+                FlagValidarImagen = tipoEstrategia.FlagValidarImagen == 1,
                 PesoMaximoImagen = tipoEstrategia.PesoMaximoImagen,
                 UsuarioCreacion = tipoEstrategia.UsuarioRegistro,
                 UsuarioModificacion = tipoEstrategia.UsuarioModificacion
@@ -364,12 +362,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParametersActivas = JsonConvert.SerializeObject(estrategiasActivas);
-            //string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarEstrategias, pais, usuario);
-            //var taskApi = Task.Run(() => RespSBMicroservicios(jsonParametersActivas, requestUrl, "put", userData));
-            //Task.WhenAll(taskApi);
-            //string content = taskApi.Result;
-            //bool activarResponse = !string.IsNullOrEmpty(content) && content.Equals("true");
-
+            
             string jsonParametersInactivas = JsonConvert.SerializeObject(estrategiasInactivas);
             string parametros = "{activar:" + jsonParametersActivas + ", desactivar:" +jsonParametersInactivas+ ", usuario: \"" + usuario + "\"}";
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarDesactivarEstrategias, pais,tipo);
@@ -485,7 +478,7 @@ namespace Portal.Consultoras.Web.Providers
             if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
-                //mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
+
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;
