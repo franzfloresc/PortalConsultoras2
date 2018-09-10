@@ -4,6 +4,8 @@ var AutocompleteLastLI = null;
 var AutocompleteClick = false;
 var existeCUV = false;
 var mensajeParametrizableCuv = '';
+var cuvbuscado = "";
+var precioCuvBuscado = "";
 
 var belcorp = belcorp || {};
 belcorp.pedido = belcorp.pedido || {};
@@ -221,6 +223,8 @@ $(document).ready(function () {
             return false;
         }
 
+        RegistrarDemandaTotalReemplazoSugerido(cuv, precioUnidad, cantidad, true);
+
         var model = {
             CUV: cuv,
             Cantidad: cantidad,
@@ -400,10 +404,12 @@ function BuscarByCUV(cuv) {
     }
     else mensajeParametrizableCuv = '';
 
+    cuvbuscado = cuv;
+
     $("#divProductoObservaciones").html('');
     productoSugerido = false;
     ShowLoading();
-
+    
     jQuery.ajax({
         type: 'POST',
         url: urlFindByCUV,
@@ -416,10 +422,11 @@ function BuscarByCUV(cuv) {
             if (!checkTimeout(data)) {
                 CloseLoading();
                 return false;
-            }
-            
+            }           
+
             $("#txtCantidad").removeAttr("disabled");
             var item = data[0];
+            precioCuvBuscado = item.PrecioCatalogo;
 
             if (item.MarcaID == 0) {
                 MostrarMensaje("mensajeProgramaNuevas", item.CUV);
@@ -610,6 +617,7 @@ function ObtenerProductosSugeridos(CUV) {
     });
 }
 function CancelarProductosSugeridos() {
+    RegistrarDemandaTotalReemplazoSugerido(null, 0, 1, false);
     $("#txtCodigoProducto").val('');
     $("#txtCodigoProducto").trigger("keyup");
 }
@@ -983,4 +991,44 @@ function ProcesarActualizacionMostrarContenedorCupon() {
             cuponModule.actualizarContenedorCupon();
         }
     }
+}
+
+function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, esAceptado) {
+    var _cuvPrecio = esAceptado == true ? precio : precioCuvBuscado;
+    ShowLoading();
+    var model =
+        {
+            CUV: cuvbuscado,
+            CUVSugerido: cuvSugerido,
+            PrecioUnidad: _cuvPrecio,
+            Cantidad: cantidad,
+            CuvEsAceptado: esAceptado
+        };
+
+    jQuery.ajax({
+        type: "POST",
+        url: urlInsertarDemandaTotalReemplazoSugerido,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(model),
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success) {
+                    if (!esAceptado) CloseLoading();
+                }
+                else CloseLoading();
+            }
+            else {
+                CloseLoading();
+                messageInfoError(data.message);
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) {
+                alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+            }
+        }
+    });
 }
