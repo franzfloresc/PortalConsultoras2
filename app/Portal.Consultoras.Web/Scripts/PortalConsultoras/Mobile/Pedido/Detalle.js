@@ -1147,8 +1147,11 @@ function MostrarDetalleGanancia() {
     $('#popupGanancias').show();
 }
 
-function InsertarProducto(model, asyncX) {
+function InsertarProducto(model, asyncX, urlMobile) {
+    
     var retorno = new Object();
+
+    urlPedidoInsert = (!urlMobile ? urlPedidoInsert : baseUrl + "Pedido/" + urlMobile);
 
     console.log('Pedido - Detalle.js - InsertarProducto - ajax ante ActualizarGanancia', urlPedidoInsert, model);
     jQuery.ajax({

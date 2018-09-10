@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
-    public class EstrategiaController : BaseController // BaseEstrategiaController
+    public class EstrategiaController : BaseController
     {
         protected OfertaBaseProvider _ofertaBaseProvider;
         public EstrategiaController()
@@ -132,8 +132,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             try
             {
-                //var tipoConsulta = Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos;
-
                 var jSon = _ofertaPersonalizadaProvider.ConsultarOfertasValidarPermiso(model, tipoConsulta);
                 if (!jSon)
                 {
@@ -455,14 +453,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         #endregion
-
-        //[HttpGet]
-        //public JsonResult ConsultarEstrategiaCuv(string cuv)
-        //{
-        //    var modelo = EstrategiaGetDetalle(0, cuv) ?? new EstrategiaPersonalizadaProductoModel();
-        //    return Json(modelo.Hermanos, JsonRequestBehavior.AllowGet);
-        //}
-
+        
         [HttpPost]
         public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
         {
