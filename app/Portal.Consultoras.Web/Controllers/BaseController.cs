@@ -20,6 +20,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
+using ServiceCliente= Portal.Consultoras.Web.ServiceCliente;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -116,14 +117,30 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData = UserData();
-
                 if (userData == null)
                 {
                     string urlSignOut = ObtenerUrlCerrarSesion();
-
                     filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
+
+                //if (ValidarContratoPopup())
+                //{
+                //    var area = filterContext.RouteData.DataTokens.Where(dt => dt.Key == "area");
+                //    var isMobile = area.Count() > 0 ? area.First().Value.ToString() == "Mobile" : false;
+                //    var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+                //    var actionName = filterContext.ActionDescriptor.ActionName;
+
+                //    bool urlAceptaContrato = !isMobile && controllerName == "Bienvenida" && actionName == "AceptarContrato";
+                //    bool urlBienvenida = controllerName == "Bienvenida" && (actionName == "Index" || actionName == "");
+                //    bool urlValida = urlAceptaContrato || urlBienvenida;
+
+                //    if (!urlValida) {
+                //        filterContext.Result = !isMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
+                //            new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
+                //        return;
+                //    }
+                //}
 
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
@@ -148,6 +165,19 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWebDetalle();
 
                 GetUserDataViewBag();
+
+                var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+                var actionName = filterContext.ActionDescriptor.ActionName;
+                if (!Constantes.AceptacionContrato.ControladoresOmitidas.Contains(controllerName) && !Constantes.AceptacionContrato.AcionesOmitidas.Contains(actionName))
+                {
+                    if (ValidarContratoPopup())
+                    {
+                        bool esMobile = EsDispositivoMovil();
+                        filterContext.Result = !esMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
+                            new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
+                        return;
+                    }
+                }
 
                 base.OnActionExecuting(filterContext);
             }
@@ -824,7 +854,30 @@ namespace Portal.Consultoras.Web.Controllers
             return (List<BEMensajeMetaConsultora>)Session[constSession];
         }
 
-        //public List<EstadoCuentaModel> ObtenerEstadoCuenta(long pConsultoraId = 0)
+        protected bool ValidarContratoPopup()
+        {
+            return userData.EsConsultora() && userData.CambioClave == 0 && userData.IndicadorContrato == 0 &&
+                userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia) &&
+                sessionManager.GetIsContrato() == 1 && !sessionManager.GetAceptoContrato();
+        }
+
+        //#region Metodos Oferta del Dia
+
+        //private bool CumpleOfertaDelDia()
+        //{
+        //    var result = false;
+        //    if (!_ofertaDelDiaProvider.NoMostrarBannerODD(GetControllerActual()))
+        //    {
+        //        var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
+        //        result = (!tieneOfertaDelDia ||
+        //                  (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
+        //                  && !userData.CloseOfertaDelDia) && tieneOfertaDelDia;
+        //    }
+
+        //    return result;
+        //}
+
+        //protected EstrategiaPedidoModel GetOfertaDelDiaModel()
         //{
         //    var lst = new List<EstadoCuentaModel>();
 
@@ -879,13 +932,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         //    return lst;
         //}
-
         #endregion
         
         #region LogDynamo
 
         protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion, ServiceUsuario.BEUsuario entidad = null)
-        {
+        { 
             string ipCliente = GetIPCliente();
             bool esMobile = EsDispositivoMovil();
             _logDynamoProvider.RegistrarLogDynamoDB(userData, aplicacion, rol, pantallaOpcion, opcionAccion, ipCliente, esMobile);
@@ -1333,7 +1385,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
             ViewBag.FotoPerfilSinModificar = (string.IsNullOrWhiteSpace(userData.FotoOriginalSinModificar) ? "" : userData.FotoOriginalSinModificar);
 
-            ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
+            ViewBag.TokenPedidoAutenticoOk = (sessionManager.GetTokenPedidoAutentico() != null) ? 1 : 0;
             ViewBag.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
             ViewBag.BannerInferior = _showRoomProvider.EvaluarBannerConfiguracion(userData.PaisID, sessionManager);
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
@@ -1454,8 +1506,8 @@ namespace Portal.Consultoras.Web.Controllers
                             sv.UpdateMostradoProductosPrecargados(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.IPUsuario);
                         }
 
-                        Session["PedidoWeb"] = null;
-                        Session["PedidoWebDetalle"] = null;
+                        sessionManager.SetPedidoWeb(null);
+                        sessionManager.SetDetallesPedido(null);
                         UpdPedidoWebMontosPROL();
                     }
                 }
@@ -1515,6 +1567,27 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
             };
             return variableEstrategia;
+        }
+
+        public Tuple<bool, string> ObjectCaminoExito()
+        {
+            string URLConfig = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URLCaminoExisto);
+            string URLCaminoExisto = string.Empty;
+            bool ResultadoValidacion = false;
+            try
+            {
+                using (var sv = new ServiceCliente.ClienteServiceClient())
+                {
+                    List<ServiceCliente.BEEscalaDescuentoZona> Lista = sv.ListarEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
+                    ResultadoValidacion = Lista.Count > 0;
+                    if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}", URLConfig, userData.CodigoISO, Util.Security.ToMd5(userData.CodigoConsultora));
+                }
+            }
+            catch
+            {
+                ResultadoValidacion = false;
+            }
+            return Tuple.Create(ResultadoValidacion, URLCaminoExisto);
         }
 
     }

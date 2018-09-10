@@ -264,8 +264,27 @@ function AbrirFooter(Marca, Url) {
     return false;
 }
 
+/**
+ * Problema de seguridad como: 
+ * Uncaught SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
+ * @param storage {Storage}
+ * return true|false {Bolean}
+ * uso: storageIsSuport(window.localStorage)
+ */
+function storageIsSuport(storage) {
+    try {
+        var key = "__some_random_value__";
+        storage.setItem(key, key);
+        storage.removeItem(key);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
 function LocalStorageLimpiar() {
-    if (typeof (Storage) !== 'undefined') {
+
+    if (typeof (Storage) !== 'undefined' && storageIsSuport(window.localStorage)) {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
         var itemChatEConnected = localStorage.getItem('connected');//add

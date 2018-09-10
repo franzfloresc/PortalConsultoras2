@@ -20350,20 +20350,28 @@ label.checkpop.c_on {
         color: white;
     }
 
-.seguir_pedido {
+.seguir_pedido,
+.enlace_camino_al_exito
+{
     display: inline-block;
     vertical-align: top;
-    width: 49%;
     background: url('../../../Images/Lbel/indicador_pedido.png') no-repeat;
     background-position: 0 5px;
+    background-repeat:no-repeat;
     font-family: 'lato';
     font-size: 11px;
-    color: black;
     padding-left: 4%;
     font-weight: 700;
 }
 
-    .seguir_pedido:hover {
+.seguir_pedido {
+    width: 49%;
+    color: black;
+}
+
+    .seguir_pedido:hover,
+    .enlace_camino_al_exito:hover
+    {
         text-decoration: underline;
     }
 
@@ -20377,6 +20385,26 @@ label.checkpop.c_on {
         font-weight: 700;
         background-position: 0 7px;
     }
+
+.enlace_camino_al_exito{
+    width:44%;
+    position:relative;
+    color:#613c87;
+    font-weight:900;
+}
+
+.enlace_camino_al_exito::after{
+    position: absolute;
+    top: -6px;
+    right: 53px;
+    content: "";
+    background-image: url(../../../Images/Lbel/estrellas.png);
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 24px;
+    height: 27px;
+}
 
 .mis_datos {
     font-family: 'lato';

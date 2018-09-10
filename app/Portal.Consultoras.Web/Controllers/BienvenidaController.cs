@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
+
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -137,10 +138,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var urlChile = Util.EncriptarQueryString(parametro);
                 model.UrlChileEncriptada = urlChile;
 
-                if (Session["PrimeraVezSession"] != null && (int)Session["PrimeraVezSession"] == 0)
+                if (sessionManager.GetPrimeraVezSession() != null && (int)sessionManager.GetPrimeraVezSession() == 0)
                 {
                     model.PrimeraVezSession = 0;
-                    Session["PrimeraVezSession"] = null;
+                    sessionManager.SetPrimeraVezSession(null);
                 }
                 else
                 {
@@ -191,10 +192,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                if (Session[Constantes.ConstSession.ActualizarDatosConsultora] == null)
+                if (!sessionManager.GetActualizarDatosConsultora())
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
-                    Session[Constantes.ConstSession.ActualizarDatosConsultora] = true;
+                    sessionManager.SetActualizarDatosConsultora(true);
                 }
 
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
@@ -212,6 +213,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda <= 0 ? false : true);
+                
+                #region Camino al Exito
+
+                var CaminoExito = this.ObjectCaminoExito();
+                model.TieneCaminoExito = CaminoExito.Item1;
+                model.urlCaminoExito = CaminoExito.Item2 ?? "";
+
+                #endregion
+
             }
             catch (FaultException ex)
             {
@@ -240,12 +250,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
+                if (sessionManager.GetTipoPopUpMostrar() != -1)
                 {
-                    var tipoPopup = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                    var tipoPopup = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
                     if (tipoPopup == Constantes.TipoPopUp.AsesoraOnline)
                     {
-                        Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
+                        sessionManager.SetTipoPopUpMostrar(Constantes.TipoPopUp.Ninguno);
                     }
                 }
 
@@ -308,28 +318,30 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var tipoPopUpMostrar = 0;
-            if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
+            if (sessionManager.GetTipoPopUpMostrar() != -1)
             {
-                tipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                tipoPopUpMostrar = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
 
-                if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
-                    tipoPopUpMostrar = 0;
+                if (tipoPopUpMostrar != Constantes.TipoPopUp.VideoIntroductorio)
+                {
+                    if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
+                        tipoPopUpMostrar = 0;
 
-                if (tipoPopUpMostrar == Constantes.TipoPopUp.AceptacionContrato)
-                    tipoPopUpMostrar = 0;
+                    if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
-                if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+                    if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
-                if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+                    if (tipoPopUpMostrar == Constantes.TipoPopUp.AceptacionContrato && userData.IndicadorContrato == 1) tipoPopUpMostrar = 0;
 
-                return tipoPopUpMostrar;
+                    return tipoPopUpMostrar;
+                }
             }
 
             var listaPopUps = ObtenerListaPopupsDesdeServicio();
             if (listaPopUps.Any())
             {
                 tipoPopUpMostrar = BuscarTipoPopupEnLista(model, listaPopUps);
-                Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                sessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
             }
             return tipoPopUpMostrar;
         }
@@ -501,18 +513,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return tipoPopUpMostrar;
-        }
-
-        private bool ValidarContratoPopup()
-        {
-            if (userData.EsConsultora()
-                && userData.CambioClave == 0 && userData.IndicadorContrato == 0
-                && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
-                && sessionManager.GetIsContrato() == 1 && !Convert.ToBoolean(Session["AceptoContrato"]))
-            {
-                return true;
-            }
-            return false;
         }
 
         private List<BEComunicado> ValidarComunicadoPopup()
@@ -734,7 +734,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetUserData(userData);
         }
 
-        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion, string AppVersion)
+        public JsonResult AceptarContrato(bool checkAceptar, string origenAceptacion, string AppVersion)
         {
             try
             {
@@ -758,7 +758,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion, ip, AppVersion);
+                    svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, origenAceptacion, ip, AppVersion);
                 }
 
                 userData.IndicadorContrato = 1;
@@ -790,8 +790,8 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
                 }
-
-                Session["AceptoContrato"] = true;
+                
+                sessionManager.SetAceptoContrato(true);
 
                 return Json(new
                 {
@@ -1691,13 +1691,13 @@ namespace Portal.Consultoras.Web.Controllers
                 return 1;
 
             int validacion;
-            if (Session["SuenioNavidad"] == null)
+            if (sessionManager.GetSuenioNavidad() == -1)
             {
                 using (var svc = new PedidoServiceClient())
                 {
                     validacion = svc.ValidarSuenioNavidad(entidad);
                 }
-                Session["SuenioNavidad"] = validacion;
+                sessionManager.SetSuenioNavidad(validacion);
             }
             else
             {
@@ -1850,7 +1850,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lstPersonalizacion = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP).ToList();
                 }
-                
+
 
                 return Json(new
                 {
@@ -2399,7 +2399,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var svClient = new UsuarioServiceClient())
                 {
                     var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoUsuario);
-                    return  result;
+                    return result;
                 }
 
             }

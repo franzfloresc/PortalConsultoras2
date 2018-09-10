@@ -385,6 +385,7 @@ namespace Portal.Consultoras.Common
             public const string UrlChatGT = "UrlChatGT";
             public const string UrlChatDefault = "UrlChatDefault";
             public const string TokenAtento = "TokenAtento_";
+            public const string URLCaminoExisto = "URLCaminoExisto";
 
             public const string EmailCodigoProceso = "EmailCodigoProceso";
             public const string NumeroCampanias = "NumeroCampanias";
@@ -2425,12 +2426,12 @@ namespace Portal.Consultoras.Common
 
         public static class PagoEnLineaPasarelaPayu
         {
-            public const string MerchantId = "01";
-            public const string ApiLogin = "02";
-            public const string ApiKey = "03";
-            public const string AccountId = "04";
-            public const string Endpoint = "05";
-            public const string Test = "06";
+            public const string MerchantId = "PayuMerchantId";
+            public const string ApiLogin = "PayuApiLogin";
+            public const string ApiKey = "PayuApiKey";
+            public const string AccountId = "PayuAccountId";
+            public const string Endpoint = "PayuEndpoint";
+            public const string Test = "PayuTest";
         }
 
         public static class PagoEnLineaCampos
@@ -2450,6 +2451,7 @@ namespace Portal.Consultoras.Common
             public const string Country = "MX";
             public const string Currency = "MXN";
             public const string TransactionType = "AUTHORIZATION_AND_CAPTURE";
+            public const string DefaultCity = "Mexico";
         }
 
         public static class PagoEnLineaMensajes
@@ -2609,6 +2611,13 @@ namespace Portal.Consultoras.Common
             public const string LbelConmigo = "https://kpt22.app.goo.gl/lbel";
             public const string AppRedirectFormat = "IR AL APP {0} CONMIGO";
             public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
+        }
+
+        public class AceptacionContrato
+        {
+            public const string UrlDescargarContratoCO = "http://somosbelcorpqa.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
+            public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
+            public const string AcionesOmitidas = "ActualizarContrasenia";
         }
     }
 }

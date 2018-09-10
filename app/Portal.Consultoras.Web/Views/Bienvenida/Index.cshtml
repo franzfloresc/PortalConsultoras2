@@ -139,9 +139,18 @@
             <div class="mensajes_home"><span id="mensajeNotificaciones">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
 
             <hr class="clear" />
-
-            <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
-            <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO<br /> DE BIENVENIDA</a>
+            @if (Model.TieneCaminoExito)
+            {
+                <!--  INICIO - ENLACE CAMINO AL ÉXITO -->
+                <a role="link" region="Cuerpo" parent="Camino al Éxito" title="Camino al Éxito" href="@Model.urlCaminoExito" target="_blank" class="enlace_camino_al_exito">CAMINO<br />&nbsp;&nbsp;&nbsp;&nbsp;AL ÉXITO</a>
+                <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
+                <!--  FIN - ENLACE CAMINO AL ÉXITO  -->
+            }
+            else
+            {
+                <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
+                <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO<br /> DE BIENVENIDA</a>
+            }
 
             @if (ViewBag.IndicadorPermisoFIC == 1)
             {
@@ -1088,7 +1097,7 @@
                 <div class="icono_correo_sobre"></div>
                 <p class="w-100 envio_instrucciones_info">
                     <span class="w-100">Te hemos enviado las instrucciones a:</span>
-                    <span class="w-100 text-bold" id="spnEmail">valeria.tarazona@gmail</span>
+                    <span class="w-100 text-bold" id="spnEmail"></span>
                 </p>
                 <p class="w-100 envio_instrucciones_info">
                     @*<span class="w-100">¿Aún no recibes nuestro correo?</span>*@
@@ -2025,7 +2034,7 @@
         var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
         var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
         var viewBagValidaSegmento = '@Model.ValidaSegmento';
-        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/41577-BELCORP-SolCre-CO-400073315-300916.pdf")';
+        var urlContratoCOpdf = '@Constantes.AceptacionContrato.UrlDescargarContratoCO';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
         var contadorFondoPopUp = 0;
@@ -2123,7 +2132,6 @@
         var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
-    @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }
 
 <script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script> 
 <script>

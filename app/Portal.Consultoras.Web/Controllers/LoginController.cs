@@ -187,6 +187,12 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.POST.Index";
             try
             {
+                if (model.PaisID == 0)
+                {
+                    TempData["errorLogin"] = "Debe seleccionar el Pais";
+                    return RedirectToAction("Index", "Login");
+                }
+
                 TempData["serverPaisId"] = model.PaisID;
                 TempData["serverPaisISO"] = model.CodigoISO;
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
@@ -455,7 +461,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (string.IsNullOrEmpty(usuario.EMail) || !usuario.EMailActivo)
                 {
-                    Session["PrimeraVezSession"] = 0;
+                    sessionManager.SetPrimeraVezSession(0);
                 }
                 if (Request.IsAjaxRequest())
                 {
