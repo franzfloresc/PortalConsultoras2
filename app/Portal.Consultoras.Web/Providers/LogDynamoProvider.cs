@@ -142,8 +142,9 @@ namespace Portal.Consultoras.Web.Providers
             var dataString = string.Empty;
             try
             {
-                
 
+
+                
 
                 var urlApi = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
 
@@ -153,7 +154,7 @@ namespace Portal.Consultoras.Web.Providers
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Log.JwtToken }");
+                //httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Log.JwtToken }");
 
                 dataString = JsonConvert.SerializeObject(Log);
 
