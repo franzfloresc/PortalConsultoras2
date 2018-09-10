@@ -1534,6 +1534,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 productosModel = AutocompleteProductoPedido(term, CRITERIO_BUSQUEDA_DESC_PRODUCTO);
+                if (productosModel.Count == 1 && productosModel[0].Descripcion == null) productosModel[0].Descripcion = "Sin Resultados";
             }
             catch (Exception ex)
             {
@@ -2030,6 +2031,33 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new { result = false, data = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
+
+        #region Producto Sugerido
+        public JsonResult InsertarDemandaTotalReemplazoSugerido(AdministrarProductoSugeridoModel model)
+        {
+            try
+            {
+                var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
+                entidad.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
+                entidad.CampaniaID = userData.CampaniaID;
+
+                using (var svc = new PedidoServiceClient())
+                    svc.InsDemandaTotalReemplazoSugerido(userData.PaisID, entidad);
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
             }
         }
         #endregion

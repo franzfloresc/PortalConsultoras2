@@ -36,6 +36,8 @@ namespace Portal.Consultoras.Entities
         public string codigo { get; set; }
         [DataMember]
         public string mensaje { get; set; }
+        [DataMember]
+        public bool resultado { get; set; }
 
         public BERespuestaSMS()
         { }

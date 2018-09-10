@@ -352,4 +352,15 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UsuarioRolLog" nillable="true" type="tns:UsuarioRolLog" />
+  <xs:complexType name="EventoSolicitudPostulante">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EventoId" type="xs:int" />
+      <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SolicitudPostulante" nillable="true" type="tns:SolicitudPostulante" />
+      <xs:element minOccurs="0" name="SolicitudPostulanteId" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoEvento" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EventoSolicitudPostulante" nillable="true" type="tns:EventoSolicitudPostulante" />
 </xs:schema>
