@@ -1223,6 +1223,8 @@ namespace Portal.Consultoras.Entities
         public bool PuedeActualizarEmail { get; set; }
         [DataMember]
         public bool PuedeActualizarCelular { get; set; }
+        [DataMember]
+        public int IndicadorContratoAceptacion { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {

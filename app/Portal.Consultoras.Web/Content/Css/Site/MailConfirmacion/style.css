@@ -45,8 +45,22 @@ a.btn_acept {
     text-decoration: underline;
 }
 
+#divFootCall {
+    margin-top: 30px;
+    display: block;
+    font-size: 12px;
+}
+
+#divFootCall .phoneLink {
+    font-weight: bold;
+    display: inline;
+    text-decoration: underline;
+    font-size: 12px;
+}
+
 @media only screen and (max-width: 768px) {
 
+    div.pestana_lbel,
     .noShowPhone,
     .fondoMobile {
         display: none;
