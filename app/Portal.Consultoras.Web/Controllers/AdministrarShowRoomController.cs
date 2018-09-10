@@ -501,6 +501,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 c.Valor = ConfigCdn.GetUrlFileCdn(carpetaPais, c.Valor);
                              c.PersonalizacionNivelId = 999999;
                          });
+                    listaPersonalizacionModel = listaPersonalizacionModel.OrderBy(x => x.TipoAplicacion).ThenBy(x=> x.Orden ).ToList();
                 }
                 else
                 {
