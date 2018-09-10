@@ -125,23 +125,25 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         public BEUsuarioDatos(IDataRecord row)
         {
             
-                CodigoUsuario = row.ToString("CodigoUsuario");
+            CodigoUsuario = row.ToString("CodigoUsuario");
             
-                CodigoConsultora = row.ToString("CodigoConsultora");
+            CodigoConsultora = row.ToString("CodigoConsultora");
             
-                Cantidad = row.ToInt32("Cantidad");
+            Cantidad = row.ToInt32("Cantidad");
             
-                PrimerNombre = row.ToString("PrimerNombre");
+            PrimerNombre = row.ToString("PrimerNombre");
             
-                IdEstadoActividad = row.ToInt32("IdEstadoActividad");
+            IdEstadoActividad = row.ToInt32("IdEstadoActividad");
             
-                Celular = row.ToString("Celular");
+            Celular = row.ToString("Celular");
             
-                Correo = row.ToString("Correo");
+            Correo = row.ToString("Correo");
             
-                ZonaID = row.ToInt32("ZonaID");
+            ZonaID = row.ToInt32("ZonaID");
             
-                RegionID = row.ToInt32("RegionID");
+            RegionID = row.ToInt32("RegionID");
+
+            CodigoConsultora = row.ToString("CodigoConsultora");
         }
     }
 }

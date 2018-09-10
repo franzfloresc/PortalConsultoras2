@@ -307,6 +307,8 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Models\CambioTipoNegocioModel.cs" />
+    <Compile Include="Controllers\ReporteContratoController.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
     <Compile Include="Infraestructure\Sms\ISmsSender.cs" />
@@ -1388,6 +1390,7 @@
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
+    <Content Include="Content\Css\Site\MailConfirmacion\style.css" />
     <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
@@ -3180,6 +3183,7 @@
     <Content Include="Content\Images\icons\small\list-icon6.png" />
     <Content Include="Content\Images\login\aniversario.png" />
     <Content Include="Content\Images\login\aniversario01.png" />
+    <Content Include="Content\Images\mobile\img-emoticons\1f64c.png" />
     <Content Include="Content\Images\mobile\img-icon\alert-success.png" />
     <Content Include="Content\Images\mobile\img-icon\boton_compartirface.png" />
     <Content Include="Content\Images\mobile\img-icon\boton_whatsapp.png" />
@@ -4489,6 +4493,9 @@
     <None Include="Service References\ServicePedido\PedidoService115.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService116.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService12.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -5271,6 +5278,8 @@
     <Content Include="Views\Shared\PagoEnLinea\_PayuDeviceScript.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerHeader.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
+    <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
+    <Content Include="Views\ReporteContrato\Index.cshtml" />
     <Content Include="Views\DetalleEstrategia\SeleccionarTipos.cshtml" />
     <Content Include="Views\DetalleEstrategia\_ElegirOpciones.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponentesTemplate.cshtml" />
@@ -5280,6 +5289,7 @@
     <Content Include="Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTrackingJetlore.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHidden.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHiddenSoloDesktop.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

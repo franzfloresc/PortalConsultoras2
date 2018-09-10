@@ -4,8 +4,11 @@
 
 @font-face {
     font-family: 'iconos_cambio_pass';
-    src: url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r');
-    src: url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r#iefix') format('embedded-opentype'), url('../fonts/icomoon/iconos-cambio-pass.ttf?dhvc7r') format('truetype'), url('../fonts/icomoon/iconos-cambio-pass.woff?dhvc7r') format('woff'), url('../fonts/icomoon/iconos-cambio-pass.svg?dhvc7r#icomoon') format('svg');
+    src: url('/Content/Css/Site/fonts/icomoon/iconos-cambio-pass.eot?dhvc7r');
+    src: url('/Content/Css/Site/fonts/icomoon/iconos-cambio-pass.eot?dhvc7r#iefix') format('embedded-opentype'), 
+        url('/Content/Css/Site/fonts/icomoon/iconos-cambio-pass.ttf?dhvc7r') format('truetype'),
+        url('/Content/Css/Site/fonts/icomoon/iconos-cambio-pass.woff?dhvc7r') format('woff'),
+        url('/Content/Css/Site/fonts/icomoon/iconos-cambio-pass.svg?dhvc7r#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -608,8 +611,11 @@ span {
 
 @font-face {
     font-family: icomoon;
-    src: url('../fonts/icomoon/icomoon.eot?ur7cdc');
-    src: url('../fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'),url('../fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'),url('../fonts/icomoon/icomoon.woff?ur7cdc') format('woff'),url('../fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
+    src: url('/Content/Css/Site/fonts/icomoon/icomoon.eot?ur7cdc');
+    src: url('/Content/Css/Site/fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'),
+        url('/Content/Css/Site/fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'),
+        url('/Content/Css/Site/fonts/icomoon/icomoon.woff?ur7cdc') format('woff'),
+        url('/Content/Css/Site/fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
     font-weight: 400;
     font-style: normal;
 }

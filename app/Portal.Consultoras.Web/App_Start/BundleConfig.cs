@@ -500,8 +500,14 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/flexslider.css",
                 "~/Content/Css/Site/Contenedor/carrusel.individual.css",
                 "~/Content/Css/Site/Contenedor/producto.simple.css",
-                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Site/Contenedor/OfertaDelDia.css",
+                "~/Content/Css/Site/Ficha/Ficha.css",
+                "~/Content/Css/Site/Ficha/Carrusel.css",
+                "~/Content/Css/Site/Ficha/RedesSociales.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
+             
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Ofertas").Include(
                 "~/Scripts/jquery.flexslider.js",
@@ -889,6 +895,23 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
            ));
 
+           
+                bundles.Add(new ScriptBundle("~/Bundle/Css/Desktop/ShowRoom-Index").Include(
+                "~/Content/Css/Site/ion.rangeSlider/normalize.css",
+                "~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.css",
+                "~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.skinHTML5.css",
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/Landing/producto.landing.css"
+                ));
+
+             
+
+                bundles.Add(new ScriptBundle("~/Bundle/Css/Mobile/ShowRoom-Index").Include(
+                "~/Content/Css/Mobile/esika/slick.css",
+                "~/Content/Css/Mobile/esika/bootstrap-slider.min.css",
+                "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css",
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
+                ));
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;

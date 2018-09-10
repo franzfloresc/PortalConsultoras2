@@ -3412,11 +3412,11 @@ table > thead > tr > th {
 /*CONTADOR SHOWROOMS*/
 @font-face {
     font-family: 'museo_sans_500regular';
-    src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'),
-        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'),
-        url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('/Content/fonts/museo/museosans_500-webfont.eot');
+    src: url('/Content/fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/Content/fonts/museo/museosans_500-webfont.woff') format('woff'),
+        url('/Content/fonts/museo/museosans_500-webfont.ttf') format('truetype'),
+        url('/Content/fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -3728,20 +3728,20 @@ table > thead > tr > th {
 /*POP UP HOY*/
 @font-face {
     font-family: 'ArialMT';
-    src: url('../../fonts/arialMT/arialmt.eot');
-    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/arialMT/arialmt.ttf') format('truetype'),
-        url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
+    src: url('/Content/fonts/arialMT/arialmt.eot');
+    src: url('/Content/fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'),
+        url('/Content/fonts/arialMT/arialmt.ttf') format('truetype'),
+        url('/Content/fonts/arialMT/arialmt.svg#arialmt') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'ArialBoldMT';
-    src: url('../../fonts/arialboldMT/arialboldMT.eot');
-    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'),
-        url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
+    src: url('/Content/fonts/arialboldMT/arialboldMT.eot');
+    src: url('/Content/fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'),
+        url('/Content/fonts/arialboldMT/arialboldMT.ttf') format('truetype'),
+        url('/Content/fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
     font-weight: normal;
     font-style: normal;
 }

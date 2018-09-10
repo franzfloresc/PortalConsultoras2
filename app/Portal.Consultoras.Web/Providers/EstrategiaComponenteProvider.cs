@@ -39,6 +39,11 @@ namespace Portal.Consultoras.Web.Providers
             private set { _sessionManager = value; }
         }
 
+        //public virtual void setConfiguracionManagerProvider(ConfiguracionManagerProvider ConfiguracionManagerProvider)
+        //{
+        //    _configuracionManagerProvider = ConfiguracionManagerProvider;
+        //}
+
         public EstrategiaComponenteProvider() : this(
             Web.SessionManager.SessionManager.Instance, 
             new OfertaBaseProvider(),
@@ -92,6 +97,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             else
             {
+
                 listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
                 if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
@@ -133,6 +139,18 @@ namespace Portal.Consultoras.Web.Providers
         //    return listaProducto;
         //}
 
+        public virtual List<BEEstrategiaProducto> GetEstrategiaProducto(int PaisID, int EstrategiaID)
+        {
+            List<BEEstrategiaProducto> listaProducto;
+            using (var svc = new PedidoServiceClient())
+            {
+                var parameters = new BEEstrategia { PaisID = PaisID, EstrategiaID = EstrategiaID };
+                listaProducto = svc.GetEstrategiaProducto(parameters).ToList();
+            }
+
+            return listaProducto;
+        }
+
 
         private List<BEEstrategiaProducto> GetEstrategiaProductos(EstrategiaPersonalizadaProductoModel estrategiaModelo)
         {
@@ -140,11 +158,9 @@ namespace Portal.Consultoras.Web.Providers
 
             if (string.IsNullOrEmpty(estrategiaModelo.CodigoVariante)) return listaProducto;
 
-            using (var svc = new PedidoServiceClient())
-            {
-                var parameters = new BEEstrategia { PaisID = _paisId, EstrategiaID = estrategiaModelo.EstrategiaID };
-                listaProducto = svc.GetEstrategiaProducto(parameters).ToList();
-            }
+            //var parameters = new BEEstrategia { PaisID = _paisId, EstrategiaID = estrategiaModelo.EstrategiaID };
+
+            listaProducto = GetEstrategiaProducto(_paisId, estrategiaModelo.EstrategiaID);
 
             listaProducto.ForEach(x =>
             {
@@ -285,14 +301,12 @@ namespace Portal.Consultoras.Web.Providers
                     listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.Where(h => h.NombreComercial != "").ToList();
                     break;
                 case Constantes.TipoEstrategiaSet.IndividualConTonos:
-                    if (listaEstrategiaComponenteProductos.Count == 1)
+                    if (listaEstrategiaComponenteProductos.Any())
                     {
-                        listaEstrategiaComponenteProductos = new List<EstrategiaComponenteModel>();
-                    }
-                    else
-                    {
-                        listaEstrategiaComponenteProductos.ForEach(h => h.FactorCuadre = 1);
-                        listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.OrderBy(h => h.Orden).ToList();
+                        listaEstrategiaComponenteProductos.ForEach(h => { h.Digitable = 0; h.FactorCuadre = 1; });
+                        listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos
+                            .Where(h => h.NombreComercial != "")
+                            .OrderBy(h => h.Orden).ToList();
                     }
                     break;
                 default:

@@ -567,11 +567,12 @@ var OfertaDelDiaModule = function () {
 
                 $("#txtCantidad").val("1");
                 var overflowY = "auto";
-                $("body").css({
-                    get "overflow-y"() { return overflowY; }, set "overflow-y"(value) {
-                        overflowY = value;
-                    }
-                });
+                $("body").css({ 'overflow-y': "auto" });
+                //$("body").css({
+                //    get "overflow-y"() { return overflowY; }, set "overflow-y"(value) {
+                //        overflowY = value;
+                //    }
+                //});
                 return false;
             })
             .fail(function (data, error) {
