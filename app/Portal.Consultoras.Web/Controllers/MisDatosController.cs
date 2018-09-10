@@ -22,13 +22,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                beusuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);
+                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
             }
 
             if (beusuario != null)
             {
-                model.PaisISO = UserData().CodigoISO;
-                model.CodigoUsuario = UserData().CodigoUsuario + " (Zona: " + UserData().CodigoZona + ")";
+                model.PaisISO = userData.CodigoISO;
+                model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
                 model.NombreCompleto = beusuario.Nombre;
                 model.EMail = beusuario.EMail;
                 model.Telefono = beusuario.Telefono;
@@ -36,13 +36,13 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Sobrenombre = beusuario.Sobrenombre;
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
-                model.UsuarioPrueba = UserData().UsuarioPrueba;
-                model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + UserData().CodigoISO);
+                model.UsuarioPrueba = userData.UsuarioPrueba;
+                model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
 
                 BEZona[] bezona;
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
-                    bezona = sv.SelectZonaById(UserData().PaisID, UserData().ZonaID);
+                    bezona = sv.SelectZonaById(userData.PaisID, userData.ZonaID);
                 }
                 model.NombreGerenteZonal = bezona.ToList().Count == 0 ? "" : bezona[0].NombreGerenteZona;
 
@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        model.NombreConsultoraAsociada = sv.GetNombreConsultoraAsociada(UserData().PaisID, UserData().CodigoUsuario) + " (" + sv.GetCodigoConsultoraAsociada(UserData().PaisID, UserData().CodigoUsuario) + ")";
+                        model.NombreConsultoraAsociada = sv.GetNombreConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + " (" + sv.GetCodigoConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + ")";
                     }
                 }
 
@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -178,11 +178,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return Json(new
@@ -201,13 +201,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
 
-                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
-                entidad.ZonaID = UserData().ZonaID;
-                entidad.RegionID = UserData().RegionID;
-                entidad.ConsultoraID = UserData().ConsultoraID;
-                entidad.PaisID = UserData().PaisID;
+                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : userData.CodigoUsuario;
+                entidad.ZonaID = userData.ZonaID;
+                entidad.RegionID = userData.RegionID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.PaisID = userData.PaisID;
                 entidad.PrimerNombre = userData.PrimerNombre;
-                entidad.CodigoISO = UserData().CodigoISO;
+                entidad.CodigoISO = userData.CodigoISO;
 
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
@@ -238,7 +238,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     Cantidad = 0,
@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     Cantidad = 0,

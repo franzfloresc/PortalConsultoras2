@@ -228,7 +228,6 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
                 estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
-                //estrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
 

@@ -22,7 +22,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         }
 
         public bool Eliminar(int paisId, int id, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
-        //public bool Eliminar(int paisId, int id)
         {
             TransactionOptions oTransactionOptions =
                 new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };

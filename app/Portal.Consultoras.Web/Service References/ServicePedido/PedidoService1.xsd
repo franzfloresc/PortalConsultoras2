@@ -109,6 +109,7 @@
       <xs:element minOccurs="0" name="ClienteDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
       <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Identifier" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
@@ -143,14 +144,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoBarra" nillable="true" type="tns:BEPedidoBarra" />
-  <xs:complexType name="BEPedidoReservaAppResult">
+  <xs:complexType name="BEPedidoReservaResult">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
       <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="ResultadoReserva" nillable="true" type="q7:BEResultadoReservaProl" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEPedidoReservaAppResult" nillable="true" type="tns:BEPedidoReservaAppResult" />
+  <xs:element name="BEPedidoReservaResult" nillable="true" type="tns:BEPedidoReservaResult" />
   <xs:complexType name="ArrayOfBEPedidoWebSetDetalle">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoWebSetDetalle" nillable="true" type="tns:BEPedidoWebSetDetalle" />
