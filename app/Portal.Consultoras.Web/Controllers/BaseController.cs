@@ -861,23 +861,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.GetIsContrato() == 1 && !sessionManager.GetAceptoContrato();
         }
 
-        //#region Metodos Oferta del Dia
-
-        //private bool CumpleOfertaDelDia()
-        //{
-        //    var result = false;
-        //    if (!_ofertaDelDiaProvider.NoMostrarBannerODD(GetControllerActual()))
-        //    {
-        //        var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
-        //        result = (!tieneOfertaDelDia ||
-        //                  (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
-        //                  && !userData.CloseOfertaDelDia) && tieneOfertaDelDia;
-        //    }
-
-        //    return result;
-        //}
-
-        //protected EstrategiaPedidoModel GetOfertaDelDiaModel()
+        //public List<EstadoCuentaModel> ObtenerEstadoCuenta(long pConsultoraId = 0)
         //{
         //    var lst = new List<EstadoCuentaModel>();
 
