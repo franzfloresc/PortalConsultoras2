@@ -1,16 +1,4 @@
-﻿@{
-    var ihVbEsMobile = ViewBag.vbEsMobile == 1 ? true : false;
-
-    if (!ihVbEsMobile)
-    {
-        <input type="hidden" id="hdFlagOfertaWeb" value="0" />
-        <input type="hidden" id="hdFlagOfertaLiquidacion" value="0" />
-        <input type="hidden" id="hdFlagValidacion" value="0" />
-        <input type="hidden" id="hdFlagValidacionReserva" value="0" />
-    }
-}
-
-<input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
+﻿<input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
 <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
 <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
 <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
