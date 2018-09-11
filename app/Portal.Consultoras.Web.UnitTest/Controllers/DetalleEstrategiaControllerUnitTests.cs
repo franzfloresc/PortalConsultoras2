@@ -241,50 +241,313 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(true, (data.componentes.Count>1));
                 Assert.AreEqual(true, new Func<bool>(() =>
                 {
-                    bool TieneTonos = true;
+                    bool TodosTienenTonos = true;
                     data.componentes.ForEach(y => {
                         if(y.Hermanos == null || y.Hermanos.Count == 0)
                         {
-                            TieneTonos = false;
+                            TodosTienenTonos = false;
                         }
                     });
-                    return TieneTonos;
+                    return TodosTienenTonos;
                 })());
-
-                Assert.AreEqual(1, data.componentes[0].Cantidad);
+                Assert.AreEqual(true, new Func<bool>(() =>
+                {
+                    bool TodosTienenCantidadUno = true;
+                    data.componentes.ForEach(y => {
+                        if(!(y.Cantidad == 1 && y.FactorCuadre > 0))
+                        {
+                            TodosTienenCantidadUno = false;
+                        }
+                    });
+                    return TodosTienenCantidadUno;
+                })());
                 Assert.AreEqual(false, data.esMultimarca);
                 Assert.AreEqual(true, new Func<bool>(() =>
                 {
-                    bool TieneImgBulk = true;
+                    bool TodosTienenImgBulk = true;
                     data.componentes.ForEach(y => {
                         y.Hermanos.ForEach(x =>
                         {
                             if (x.ImagenBulk.Trim().Equals(String.Empty))
                             {
-                                TieneImgBulk = false;
+                                TodosTienenImgBulk = false;
                             }
                         });
                     });
-                    return TieneImgBulk;
+                    return TodosTienenImgBulk;
                 })());
-
                 Assert.AreEqual(true, new Func<bool>(() =>
                 {
-                    bool NombreImgBulk = true;
+                    bool TodosTienenNombreImgBulk = true;
                     data.componentes.ForEach(y =>
                     {
                         y.Hermanos.ForEach(x =>
                         {
                             if (x.NombreBulk.Trim().Equals(String.Empty))
                             {
-                                NombreImgBulk = false;
+                                TodosTienenNombreImgBulk = false;
                             }
                         });
                     });
-                    return NombreImgBulk;
+                    return TodosTienenNombreImgBulk;
                 })());
             }
 
+            [TestMethod]
+            public void ObtenerComponentes_CompuestaVariable_MultiComponenteMixtoNoMultimarca()
+            {
+                var mockEstrategiaComponenteProvider = new Mock<EstrategiaComponenteProvider>()
+                {
+                    CallBase = true
+                };
+
+                mockEstrategiaComponenteProvider
+                .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 43485))
+                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteMixtoNMData"));
+
+                mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
+
+                var jsonResult = CreateController(mockEstrategiaComponenteProvider).ObtenerComponentes("43485", "31801", "201814", Constantes.TipoEstrategiaSet.CompuestaVariable, "010");
+
+                var componentes = new JavaScriptSerializer().Serialize(jsonResult.Data);
+                var data = new JavaScriptSerializer().Deserialize<ObtenerComponentesResponse>(componentes);
+
+                Assert.AreEqual(true, (data.componentes.Count > 1));
+                Assert.AreEqual(false, new Func<bool>(() =>
+                {
+                    bool TodosTienenTonos = true;
+                    data.componentes.ForEach(y => {
+                        if (y.Hermanos == null || y.Hermanos.Count == 0)
+                        {
+                            TodosTienenTonos = false;
+                        }
+                    });
+                    return TodosTienenTonos;
+                })());
+                Assert.AreEqual(false, new Func<bool>(() =>
+                {
+                    bool TodosTienenCantidadUno = true;
+                    data.componentes.ForEach(y => {
+                        if (!(y.Cantidad == 1 && y.FactorCuadre > 0))
+                        {
+                            TodosTienenCantidadUno = false;
+                        }
+                    });
+                    return TodosTienenCantidadUno;
+                })());
+                Assert.AreEqual(false, data.esMultimarca);
+                Assert.AreEqual(true, new Func<bool>(() =>
+                {
+                    bool TodosTienenImgBulk = true;
+                    data.componentes.ForEach(y => {
+                        y.Hermanos.ForEach(x =>
+                        {
+                            if (x.ImagenBulk.Trim().Equals(String.Empty))
+                            {
+                                TodosTienenImgBulk = false;
+                            }
+                        });
+                    });
+                    return TodosTienenImgBulk;
+                })());
+                Assert.AreEqual(true, new Func<bool>(() =>
+                {
+                    bool TodosTienenNombreImgBulk = true;
+                    data.componentes.ForEach(y =>
+                    {
+                        y.Hermanos.ForEach(x =>
+                        {
+                            if (x.NombreBulk.Trim().Equals(String.Empty))
+                            {
+                                TodosTienenNombreImgBulk = false;
+                            }
+                        });
+                    });
+                    return TodosTienenNombreImgBulk;
+                })());
+            }
+
+            [TestMethod]
+            public void ObtenerComponentes_IndividualConTonos_UnComponenteNoMultimarca()
+            {
+                var mockEstrategiaComponenteProvider = new Mock<EstrategiaComponenteProvider>()
+                {
+                    CallBase = true
+                };
+
+                mockEstrategiaComponenteProvider
+                .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 43510))
+                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2001UnComponenteNMData"));
+
+                mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
+
+                var jsonResult = CreateController(mockEstrategiaComponenteProvider).ObtenerComponentes("43510", "31675", "201814", Constantes.TipoEstrategiaSet.CompuestaVariable, "010");
+
+                var componentes = new JavaScriptSerializer().Serialize(jsonResult.Data);
+                var data = new JavaScriptSerializer().Deserialize<ObtenerComponentesResponse>(componentes);
+
+                Assert.AreEqual(true, (data.componentes.Count == 1));
+                Assert.AreEqual(true, new Func<bool>(() =>
+                {
+                    bool TodosTienenTonos = true;
+                    data.componentes.ForEach(y => {
+                        if (y.Hermanos == null || y.Hermanos.Count == 0)
+                        {
+                            TodosTienenTonos = false;
+                        }
+                    });
+                    return TodosTienenTonos;
+                })());
+                Assert.AreEqual(true, new Func<bool>(() =>
+                {
+                    bool TodosTienenCantidadUno = true;
+                    data.componentes.ForEach(y => {
+                        if (!(y.Cantidad == 1 && y.FactorCuadre > 0))
+                        {
+                            TodosTienenCantidadUno = false;
+                        }
+                    });
+                    return TodosTienenCantidadUno;
+                })());
+                Assert.AreEqual(false, data.esMultimarca);
+                Assert.AreEqual(true, new Func<bool>(() =>
+                {
+                    bool TodosTienenImgBulk = true;
+                    data.componentes.ForEach(y => {
+                        y.Hermanos.ForEach(x =>
+                        {
+                            if (x.ImagenBulk.Trim().Equals(String.Empty))
+                            {
+                                TodosTienenImgBulk = false;
+                            }
+                        });
+                    });
+                    return TodosTienenImgBulk;
+                })());
+                Assert.AreEqual(true, new Func<bool>(() =>
+                {
+                    bool TodosTienenNombreImgBulk = true;
+                    data.componentes.ForEach(y =>
+                    {
+                        y.Hermanos.ForEach(x =>
+                        {
+                            if (x.NombreBulk.Trim().Equals(String.Empty))
+                            {
+                                TodosTienenNombreImgBulk = false;
+                            }
+                        });
+                    });
+                    return TodosTienenNombreImgBulk;
+                })());
+            }
+
+            [TestMethod]
+            public void ObtenerComponentes_CompuestaFija_MultiComponenteMultiMarca()
+            {
+                var mockEstrategiaComponenteProvider = new Mock<EstrategiaComponenteProvider>()
+                {
+                    CallBase = true
+                };
+
+                mockEstrategiaComponenteProvider
+                .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 28103))
+                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2002MultiComponenteMMData"));
+
+                mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
+
+                var jsonResult = CreateController(mockEstrategiaComponenteProvider).ObtenerComponentes("28103", "32082", "201814", Constantes.TipoEstrategiaSet.CompuestaFija, "007");
+
+                var componentes = new JavaScriptSerializer().Serialize(jsonResult.Data);
+                var data = new JavaScriptSerializer().Deserialize<ObtenerComponentesResponse>(componentes);
+
+                Assert.AreEqual(true, (data.componentes.Count > 1));
+                Assert.AreEqual(false, new Func<bool>(() =>
+                {
+                    bool TodosTienenTonos = true;
+                    data.componentes.ForEach(y => {
+                        if (y.Hermanos == null || y.Hermanos.Count == 0)
+                        {
+                            TodosTienenTonos = false;
+                        }
+                    });
+                    return TodosTienenTonos;
+                })());
+                Assert.AreEqual(true, data.esMultimarca);
+            }
+
+            [TestMethod]
+            public void ObtenerComponentes_CompuestaVariable_MultiComponenteMixtoMM()
+            {
+                var mockEstrategiaComponenteProvider = new Mock<EstrategiaComponenteProvider>()
+                {
+                    CallBase = true
+                };
+
+                mockEstrategiaComponenteProvider
+                .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 37334))
+                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteMixtoMMData"));
+
+                mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
+
+                var jsonResult = CreateController(mockEstrategiaComponenteProvider).ObtenerComponentes("37334", "31802", "201814", Constantes.TipoEstrategiaSet.CompuestaVariable, "007");
+
+                var componentes = new JavaScriptSerializer().Serialize(jsonResult.Data);
+                var data = new JavaScriptSerializer().Deserialize<ObtenerComponentesResponse>(componentes);
+
+                Assert.AreEqual(true, (data.componentes.Count > 1));
+                Assert.AreEqual(false, new Func<bool>(() =>
+                {
+                    bool TodosTienenTonos = true;
+                    data.componentes.ForEach(y => {
+                        if (y.Hermanos == null || y.Hermanos.Count == 0)
+                        {
+                            TodosTienenTonos = false;
+                        }
+                    });
+                    return TodosTienenTonos;
+                })());
+                Assert.AreEqual(false, new Func<bool>(() =>
+                {
+                    bool TodosTienenCantidadUno = true;
+                    data.componentes.ForEach(y => {
+                        if (!(y.Cantidad == 1 && y.FactorCuadre > 0))
+                        {
+                            TodosTienenCantidadUno = false;
+                        }
+                    });
+                    return TodosTienenCantidadUno;
+                })());
+                Assert.AreEqual(true, data.esMultimarca);
+                Assert.AreEqual(true, new Func<bool>(() =>
+                {
+                    bool TodosTienenImgBulk = true;
+                    data.componentes.ForEach(y => {
+                        y.Hermanos.ForEach(x =>
+                        {
+                            if (x.ImagenBulk.Trim().Equals(String.Empty))
+                            {
+                                TodosTienenImgBulk = false;
+                            }
+                        });
+                    });
+                    return TodosTienenImgBulk;
+                })());
+                Assert.AreEqual(true, new Func<bool>(() =>
+                {
+                    bool TodosTienenNombreImgBulk = true;
+                    data.componentes.ForEach(y =>
+                    {
+                        y.Hermanos.ForEach(x =>
+                        {
+                            if (x.NombreBulk.Trim().Equals(String.Empty))
+                            {
+                                TodosTienenNombreImgBulk = false;
+                            }
+                        });
+                    });
+                    return TodosTienenNombreImgBulk;
+                })());
+            }
         }
     }
 }

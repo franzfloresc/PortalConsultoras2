@@ -126,6 +126,10 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="DataTesting\2001UnComponenteNMData.json" />
+    <None Include="DataTesting\2002MultiComponenteMMData.json" />
+    <None Include="DataTesting\2003MultiComponenteMixtoMMData.json" />
+    <None Include="DataTesting\2003MultiComponenteMixtoNMData.json" />
     <None Include="DataTesting\2003MultiComponenteNMData.json" />
     <None Include="DataTesting\2003UnComponenteNMData.json" />
     <None Include="packages.config">
