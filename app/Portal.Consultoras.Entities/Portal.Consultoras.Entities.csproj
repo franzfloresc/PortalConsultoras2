@@ -62,6 +62,7 @@
     <Compile Include="BEBuscadorYFiltros.cs" />
     <Compile Include="BEEscalaDescuentoZona.cs" />
     <Compile Include="BeReporteContrato.cs" />
+    <Compile Include="BEContrato.cs" />
     <Compile Include="BERespuestaServicio.cs" />
     <Compile Include="BaseEntidad.cs" />
     <Compile Include="BEActivarPremioNuevas.cs" />
