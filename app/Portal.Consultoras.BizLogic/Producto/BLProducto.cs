@@ -390,16 +390,16 @@ namespace Portal.Consultoras.BizLogic
         public BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
         {
             if (!GetFlagProgramaNuevas(paisID)) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
-            List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
-            if (lstProdcutos == null || lstProdcutos.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
-            lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
-            if (lstProdcutos.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
+            List<BEProductoProgramaNuevas> lstProductos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
+            if (lstProductos == null || lstProductos.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
+            lstProductos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProductos, consecutivoNueva, codigoPrograma);
+            if (lstProductos.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
 
-            var oCuv = lstProdcutos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
+            var oCuv = lstProductos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
             if (oCuv == null) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
             if (oCuv.IndicadorCuponIndependiente) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
 
-            List<BEProductoProgramaNuevas> lstElectivas = lstProdcutos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
+            List<BEProductoProgramaNuevas> lstElectivas = lstProductos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
             if (lstElectivas.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
 
             var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
@@ -455,8 +455,9 @@ namespace Portal.Consultoras.BizLogic
 
         private List<BEProductoProgramaNuevas> FiltrarProductosNuevasByNivelyCodigoPrograma(List<BEProductoProgramaNuevas> lstProdcutos, int consecutivoNueva, string codigoPrograma)
         {
-            return lstProdcutos.Where(a => Convert.ToInt32(a.CodigoNivel) <= (consecutivoNueva + 1) && (consecutivoNueva + 1) <= (Convert.ToInt32(a.CodigoNivel) + a.NumeroCampanasVigentes - 1))
-                .Where(a => a.CodigoPrograma == codigoPrograma).ToList();
+            return lstProdcutos.Where(a =>
+                a.CodigoPrograma == codigoPrograma && NivelNuevaEnRango(consecutivoNueva + 1, a.CodigoNivel, a.NumeroCampanasVigentes)
+            ).ToList();
         }
 
         private List<BENivelesProgramaNuevas> GetNivelesProgramaNuevasByCampania(int paisID, string campania)
@@ -472,10 +473,16 @@ namespace Portal.Consultoras.BizLogic
         }
         private BENivelesProgramaNuevas GetNivelesProgramaNuevas(int paisID, BENivelesProgramaNuevas nivel)
         {
-            return GetNivelesProgramaNuevasByCampaniaCache(paisID, nivel.Campania)
-                .FirstOrDefault(n => n.CodigoPrograma == nivel.CodigoPrograma && n.CodigoNivel == nivel.CodigoNivel);
+            return GetNivelesProgramaNuevasByCampaniaCache(paisID, nivel.Campania).FirstOrDefault(n =>
+                n.CodigoPrograma == nivel.CodigoPrograma && NivelNuevaEnRango(Convert.ToInt32(nivel.CodigoNivel), n.CodigoNivel, n.NumeroCampanasVigentes)
+            );
         }
 
+        private bool NivelNuevaEnRango(int nivelConsultora, string nivelInicial, int campaniasVigentes)
+        {
+            int iNivelInicial = Convert.ToInt32(nivelInicial);
+            return iNivelInicial <= nivelConsultora && nivelConsultora <= (iNivelInicial + campaniasVigentes - 1);
+        }
         #endregion
         #endregion
 

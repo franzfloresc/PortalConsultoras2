@@ -25,5 +25,9 @@ namespace Portal.Consultoras.Entities.ProgramaNuevas
         [DataMember]
         [Column("UnidadesNivelElectivo")]
         public int UnidadesNivelElectivo { get; set; }
+
+        [DataMember]
+        [Column("NumeroCampanasVigentes")]
+        public int NumeroCampanasVigentes { get; set; }
     }
 }
