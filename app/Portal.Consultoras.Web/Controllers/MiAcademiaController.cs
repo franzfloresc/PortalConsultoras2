@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            var flagHome = 0;
+            //var flagHome = 0;
             var IdCurso = 0;
             var FlagVideo = 0;
             try
