@@ -14,12 +14,12 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
 
-            ViewBag.CodigoConsultora = UserData().CodigoConsultora;
+            ViewBag.CodigoConsultora = userData.CodigoConsultora;
             ViewBag.SaldoActual = GetSaldoActualConsultora();
-            ViewBag.CodigoTerritorio = UserData().CodigoTerritorio;
+            ViewBag.CodigoTerritorio = userData.CodigoTerritorio;
             var lst = GetParametrosConfiguracion();
-            ViewBag.CodigoConsultora = UserData().CodigoConsultora;
-            ViewBag.Nombre = UserData().NombreConsultora;
+            ViewBag.CodigoConsultora = userData.CodigoConsultora;
+            ViewBag.Nombre = userData.NombreConsultora;
             ViewBag.FURL = lst[0].chrValor;
             ViewBag.LOGN = lst[1].chrValor;
             ViewBag.METH = lst[2].chrValor;
@@ -27,8 +27,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.PURL = lst[4].chrValor;
             ViewBag.RURL = lst[5].chrValor;
             ViewBag.TYPE = lst[6].chrValor;
-            ViewBag.EMAIL = UserData().EMail;
-            ViewBag.PaisID = UserData().PaisID;
+            ViewBag.EMAIL = userData.EMail;
+            ViewBag.PaisID = userData.PaisID;
 
             return View();
         }
@@ -55,16 +55,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
                 {
-                    saldo = sv.GetSaldoActualConsultora(UserData().PaisID, UserData().CodigoConsultora);
+                    saldo = sv.GetSaldoActualConsultora(userData.PaisID, userData.CodigoConsultora);
                 }
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return saldo;
         }
@@ -76,16 +76,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                 {
-                    lst = sv.GetConfiguracionPayPal(UserData().PaisID).ToList();
+                    lst = sv.GetConfiguracionPayPal(userData.PaisID).ToList();
                 }
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return lst;
         }
@@ -97,13 +97,13 @@ namespace Portal.Consultoras.Web.Controllers
                 bool rslt;
                 using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                 {
-                    rslt = sv.ExistePagoPendiente(UserData().PaisID, Monto, NroTarjeta, DateTime.Now);
+                    rslt = sv.ExistePagoPendiente(userData.PaisID, Monto, NroTarjeta, DateTime.Now);
                 }
                 if (!rslt)
                 {
                     using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                     {
-                        int rpta = sv.InsDatosPago(UserData().PaisID, UserData().CodigoConsultora, UserData().CodigoTerritorio, Monto, NroTarjeta, DateTime.Now, 1);
+                        sv.InsDatosPago(userData.PaisID, userData.CodigoConsultora, userData.CodigoTerritorio, Monto, NroTarjeta, DateTime.Now, 1);
                         return Json(new
                         {
                             success = true,
@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -131,7 +131,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -144,7 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int paisId = UserData().PaisID;
+                int paisId = userData.PaisID;
                 List<BEPayPalConfiguracion> lst;
                 using (ServiceContenido.ContenidoServiceClient srv = new ServiceContenido.ContenidoServiceClient())
                 {
@@ -264,7 +264,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Paypal/ProcesoDescarga"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            ViewBag.NombrePais = UserData().NombrePais;
+            ViewBag.NombrePais = userData.NombrePais;
             return View();
         }
 
@@ -287,7 +287,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var ws = new ContenidoServiceClient())
                 {
-                    resultado = ws.DescargaPaypal(UserData().PaisID, UserData().CodigoUsuario, fecha);
+                    resultado = ws.DescargaPaypal(userData.PaisID, userData.CodigoUsuario, fecha);
                 }
 
                 if (!string.IsNullOrEmpty(resultado[0]))
@@ -309,7 +309,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoUsuario, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoUsuario, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -318,7 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoUsuario, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

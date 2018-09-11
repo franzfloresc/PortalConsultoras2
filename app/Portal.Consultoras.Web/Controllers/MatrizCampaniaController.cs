@@ -5,18 +5,16 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.ServiceModel;
-using System.Web.Mvc;
-using System.Web;
-using System.IO;
-using io = System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 using System.Xml;
-using System.IO.Compression;
-using System.Globalization;
-using System.Text.RegularExpressions;
+using io = System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -31,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             var model = new MatrizCampaniaModel
@@ -54,7 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View();
         }
@@ -67,9 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                 DropDownListCampania = ObtenerCampanias(),
                 DropDownListCampaniaMasiva = CargarCampaniaMasiva()
             };
-
-            //var jsonString = JsonConvert.SerializeObject(model);
-
+            
             return Json(model, JsonRequestBehavior.AllowGet);
 
         }
@@ -81,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> paises;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == Constantes.Rol.Administrador)
+                if (userData.RolID == Constantes.Rol.Administrador)
                 {
                     paises = sv.SelectPaises().ToList();
                 }
@@ -89,7 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     paises = new List<BEPais>
                     {
-                        sv.SelectPais(UserData().PaisID)
+                        sv.SelectPais(userData.PaisID)
                     };
                 }
 
@@ -118,17 +114,17 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                     {
-                        campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
+                        campanias.AddRange(sv.SelectCampanias(userData.PaisID).ToList());
                     }
                 }
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return Json(new
@@ -178,7 +174,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var producto = productos.LastOrDefault();
                     if (producto != null && !string.IsNullOrEmpty(producto.RegaloImagenUrl))
                     {
-                        string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                        string carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                         productos.LastOrDefault().RegaloImagenUrl = ConfigCdn.GetUrlFileCdn(carpetaPais, producto.RegaloImagenUrl);
 
 
@@ -195,7 +191,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -205,7 +201,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -224,7 +220,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    sv.UpdProductoDescripcion(entidad, UserData().CodigoUsuario);
+                    sv.UpdProductoDescripcion(entidad, userData.CodigoUsuario);
                 }
                 return Json(new
                 {
@@ -235,7 +231,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -245,7 +241,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -263,7 +259,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 int cant = 0;
                 List<BEProductoDescripcion> productos2;
-                //JsonResult result = new JsonResult();
 
                 foreach (var producto in productos)
                 {
@@ -312,12 +307,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
 
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return productos;
@@ -331,7 +326,6 @@ namespace Portal.Consultoras.Web.Controllers
             int campaniaId = Convert.ToInt32(model.CampaniaID);
             try
             {
-                //List<MatrizCampaniaModel> listaErrores = Session["errores"] as List<MatrizCampaniaModel> ?? new List<MatrizCampaniaModel>();
                 if (uplArchivo == null)
                 {
                     return "El archivo especificado no existe.";
@@ -376,7 +370,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (SACServiceClient srv = new SACServiceClient())
                     {
-                        srv.UpdProductoDescripcionMasivo(paisId, campaniaId, lst.ToArray(), UserData().CodigoUsuario);
+                        srv.UpdProductoDescripcionMasivo(paisId, campaniaId, lst.ToArray(), userData.CodigoUsuario);
                     }
                     return "Se realizó satisfactoriamente la carga de datos.";
                 }
@@ -388,12 +382,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Verifique el contenido del Documento, posiblemente tenga errores en su contenido.";
             }
         }
@@ -460,7 +454,6 @@ namespace Portal.Consultoras.Web.Controllers
                 await Task.Run(() =>
                 {
                     string contenido = "";
-                    //StringBuilder sb = new StringBuilder();
                     string contenidoFila = "";
                     int nRegistros = 0;
                     List<string> hojas = new List<string>();
@@ -562,7 +555,8 @@ namespace Portal.Consultoras.Web.Controllers
                                                         if (cc > 0) contenidoFila += "¦";
                                                         if (nodoCelda != null)
                                                         {
-                                                            if (columnas[i] == nodoCelda.Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, ""))
+                                                            var auxTxt = nodoCelda.Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, "");
+                                                            if (columnas[i] == auxTxt)
                                                             {
                                                                 celda = nodoCelda.Attributes["r"].Value;
                                                                 tipoString = nodoCelda.Attributes["t"];
@@ -596,7 +590,6 @@ namespace Portal.Consultoras.Web.Controllers
                                         }
 
                                         hojas.Add(contenido);
-                                        //sb.AppendLine(contenido);
                                     }
                                     ch++;
                                 }
@@ -638,11 +631,6 @@ namespace Portal.Consultoras.Web.Controllers
             var cantFilas = registros.Length;
             for (int j = 0; j < cantFilas; j++)
             {
-
-                //if (registros[j].Split('¦').Length<=3)
-                //{
-                //    continue;
-                //}
 
                 if (registros[j].Split('¦').Length > 0)
                 {
@@ -779,34 +767,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.";
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.";
             }
 
         }
-
-
-        //public string grabarBloque()
-        //{
-        //    string rpta = "";
-        //    //long n = Request.InputStream.Length;
-        //    long n = long.Parse(Request.InputStream.ToString().Split('~')[0]);
-        //    int pais= int.Parse(Request.InputStream.ToString().Split('~')[1]);
-        //    if (n > 0)
-        //    {
-        //        byte[] buffer = new byte[n];
-        //        Request.InputStream.Read(buffer, 0, buffer.Length);
-        //        string data = Encoding.UTF8.GetString(buffer);
-        //        rpta=InsertarProductoMasivo(pais, data);
-        //    }
-        //    return rpta;
-        //}
-
 
 
     }

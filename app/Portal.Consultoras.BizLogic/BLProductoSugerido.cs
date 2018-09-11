@@ -51,5 +51,11 @@ namespace Portal.Consultoras.BizLogic
             var dataAccess = new DAProductoSugerido(paisID);
             return dataAccess.DelProductoSugerido(entidad);
         }
+
+        public void InsDemandaTotalReemplazoSugerido(int paisID, BEProductoSugerido entidad)
+        {
+            var dataAccess = new DAProductoSugerido(paisID);
+            dataAccess.InsDemandaTotalReemplazoSugerido(entidad);
+        }
     }
 }
