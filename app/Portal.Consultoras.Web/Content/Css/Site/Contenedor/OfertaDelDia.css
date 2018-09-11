@@ -55,6 +55,7 @@
     margin: auto;
     top: 40%;
     width: 49%;
+    min-width: 100px;
 }
 
 .contenedor_detalle_derecha_odd {
