@@ -199,7 +199,7 @@ namespace Portal.Consultoras.Common
 
                     HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
                     //httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
-                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Token }");
+                    httpClient.DefaultRequestHeaders.Add("Authorization", string.Format("Bearer {0}", Token));
                     HttpResponseMessage response = httpClient.PostAsync("Api/LogError", contentPost).GetAwaiter().GetResult();
 
                     var noQuitar = response.IsSuccessStatusCode;
