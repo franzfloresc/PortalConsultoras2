@@ -768,6 +768,7 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
+        [Column("PrimerNombre")]
         public string PrimerNombre
         {
             get { return mPrimerNombre; }
@@ -1216,6 +1217,16 @@ namespace Portal.Consultoras.Entities
         public double PromedioVenta { get; set; }
         [DataMember]
         public int NovedadBuscador { get; set; }
+        [DataMember]
+        public bool CambioCorreoPendiente { get; set; }
+        [DataMember]
+        public string CorreoPendiente { get; set; }
+        [DataMember]
+        public bool PuedeActualizarEmail { get; set; }
+        [DataMember]
+        public bool PuedeActualizarCelular { get; set; }
+        [DataMember]
+        public int IndicadorContratoAceptacion { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {

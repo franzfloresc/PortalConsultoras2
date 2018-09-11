@@ -1,0 +1,88 @@
+div.wrapper_content_actualizar_correo {
+    width: 640px;
+}
+
+p.mensaje_correo_actualizado {
+    margin-bottom: 40px;
+}
+
+a.btn_acept {
+    width: 250px;
+    border-radius: 4px;
+}
+
+.showPhone a.btn_acept {
+    width: 100%;
+    max-width: 350px;
+}
+
+.mensaje_app_esika_conmigo {
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 60px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 5px;
+    padding: 0;
+}
+
+#lblConfirmacion br {
+    line-height: 2em;
+}
+
+.noShowPhone,
+.fondoMobile {
+    display: block;
+}
+
+.showPhone {
+    display: none;
+}
+
+.altLink {
+    font-weight: bold;
+    display: inline;
+    text-decoration: underline;
+}
+
+#divFootCall {
+    margin-top: 30px;
+    display: block;
+    font-size: 12px;
+}
+
+#divFootCall .phoneLink {
+    font-weight: bold;
+    display: inline;
+    text-decoration: underline;
+    font-size: 12px;
+}
+
+@media only screen and (max-width: 768px) {
+
+    div.pestana_lbel,
+    .noShowPhone,
+    .fondoMobile {
+        display: none;
+    }
+
+    .showPhone {
+        display: block;
+    }
+
+    div.wrapper_content_actualizar_correo {
+        width: 100%;
+    }
+
+    .vista_actualizar_correo_paddingMobile {
+        padding: 10px 0 !important;
+    }
+
+    .pl-20-mobile {
+        padding-left: 0px;
+    }
+
+    .correo_actualizado_paddingMobile {
+        padding: 5px 2px !important;
+    }
+}

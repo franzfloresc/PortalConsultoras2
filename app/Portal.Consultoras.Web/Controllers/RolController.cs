@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View();
         }
@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int paisId = UserData().PaisID;
+                int paisId = userData.PaisID;
                 List<BERol> lst;
                 using (SeguridadServiceClient srv = new SeguridadServiceClient())
                 {
@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (SeguridadServiceClient sv = new SeguridadServiceClient())
                 {
-                    rol.PaisID = UserData().PaisID;
+                    rol.PaisID = userData.PaisID;
                     var vValidation = sv.VerifyRolByDescripcion(rol);
                     if (vValidation == 0)
                     {
@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -169,7 +169,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (SeguridadServiceClient sv = new SeguridadServiceClient())
                 {
-                    rol.PaisID = UserData().PaisID;
+                    rol.PaisID = userData.PaisID;
                     var vValidation = sv.VerifyRolByDescripcion(rol);
                     if (vValidation == 0)
                     {
@@ -195,7 +195,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -206,7 +206,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -220,7 +220,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int paisId = UserData().PaisID;
+                int paisId = userData.PaisID;
                 int result;
 
                 using (SeguridadServiceClient sv = new SeguridadServiceClient())
@@ -257,7 +257,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -272,7 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPermiso> permisos;
             using (SeguridadServiceClient srv = new SeguridadServiceClient())
             {
-                int paisId = UserData().PaisID;
+                int paisId = userData.PaisID;
                 permisos = srv.GetAllPermisosCheckByRol(paisId, RolID).ToList();
             }
             int index = 0;
@@ -322,7 +322,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult InsertarPermiso(int RolID, List<string> permisos)
         {
-            int paisId = UserData().PaisID;
+            int paisId = userData.PaisID;
             try
             {
                 using (SeguridadServiceClient srv = new SeguridadServiceClient())
@@ -345,7 +345,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

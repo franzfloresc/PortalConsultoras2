@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ListarEstadoCuenta(string sidx, string sord, int page, int rows, string vCampania)
         {
-            var lst = ObtenerEstadoCuenta();
+            var lst = _estadoCuentaProvider.ObtenerEstadoCuenta();
             if (lst.Count != 0)
             {
                 lst.RemoveAt(lst.Count - 1);
@@ -136,7 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var lst = ObtenerEstadoCuenta();
+                var lst = _estadoCuentaProvider.ObtenerEstadoCuenta();
                 lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
 
                 string auxFechaVencimiento;
@@ -234,7 +234,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             decimal abono = 0;
             decimal montoPagarDec = 0;
-            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
+            List<EstadoCuentaModel> lst = _estadoCuentaProvider.ObtenerEstadoCuenta();
             lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
 
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
@@ -385,7 +385,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEDatosBelcorp> lsta;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    lsta = sv.GetDatosBelcorp(UserData().PaisID).ToList();
+                    lsta = sv.GetDatosBelcorp(userData.PaisID).ToList();
                 }
 
                 string importePercepcionTexto = "Son: " + Util.Enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles";
@@ -396,13 +396,13 @@ namespace Portal.Consultoras.Web.Controllers
                     Direccion = lsta[0].Direccion,
                     RUC = lsta[0].RUC,
                     RazonSocial = lsta[0].RazonSocial,
-                    Simbolo = UserData().Simbolo,
+                    Simbolo = userData.Simbolo,
                     Texto = importePercepcionTexto
                 });
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false
@@ -410,7 +410,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -424,7 +424,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEComprobantePercepcionDetalle> lst;
             using (ODSServiceClient sv = new ODSServiceClient())
             {
-                lst = sv.SelectComprobantePercepcionDetalle(UserData().PaisID, Convert.ToInt32(IdComprobantePercepcion)).ToList();
+                lst = sv.SelectComprobantePercepcionDetalle(userData.PaisID, Convert.ToInt32(IdComprobantePercepcion)).ToList();
             }
 
             BEGrid grid = new BEGrid
@@ -549,7 +549,7 @@ namespace Portal.Consultoras.Web.Controllers
             lista[3] = vNumeroComprobanteSerie;
             lista[4] = vFechaEmision;
             lista[5] = vImportePercepcion;
-            lista[6] = UserData().PaisID.ToString();
+            lista[6] = userData.PaisID.ToString();
             lista[7] = vSimbolo;
             Util.ExportToPdfWebPages(this, "Percepciones.pdf", "PercepcionDetalle", Util.EncriptarQueryString(lista));
             return View();
@@ -576,7 +576,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lsta = sv.GetDatosBelcorp(UserData().PaisID).ToList();
+                lsta = sv.GetDatosBelcorp(userData.PaisID).ToList();
             }
 
             var model = new PercepcionesModel
@@ -586,7 +586,7 @@ namespace Portal.Consultoras.Web.Controllers
                 NombreAgentePerceptor = nombreAgentePerceptor,
                 NumeroComprobanteSerie = numeroComprobanteSerie,
                 FechaEmision = fechaEmision,
-                ImportePercepcion = UserData().Simbolo + " " + importePercepcion,
+                ImportePercepcion = userData.Simbolo + " " + importePercepcion,
                 ImportePercepcionTexto = importePercepcionTexto,
                 Direccion = lsta[0].Direccion,
                 RUC = lsta[0].RUC,
@@ -614,7 +614,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 fechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM");
 
-                List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
+                List<EstadoCuentaModel> lst = _estadoCuentaProvider.ObtenerEstadoCuenta();
 
                 if (lst.Count != 0)
                 {

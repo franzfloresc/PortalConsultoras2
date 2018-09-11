@@ -433,10 +433,10 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
-        public static bool EnviarMail(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML)
-        {
-            return Util.EnviarMail(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null, false);
-        }
+        //public static bool EnviarMail(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML)
+        //{
+        //    return Util.EnviarMail(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null, false);
+        //}
 
         public static bool EnviarMail3(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string strFile, string displayNameDe)
         {
@@ -3817,32 +3817,7 @@ namespace Portal.Consultoras.Common
                 return default(T);
             }
         }
-
-        ///// <summary>
-        ///// Obtiene el valor de la fila convirtiendo a un tipo, verificar primero si existe con HasColumn
-        ///// </summary>
-        ///// <typeparam name="T">Data Row</typeparam>
-        ///// <param name="lector">Fila</param>
-        ///// <param name="name">Nombre de la columna</param>
-        ///// <exception cref="ArgumentNullException">ArgumentNullException cuando name es enviado vacio o nulo</exception>
-        ///// <returns>Valor convertido</returns>
-        //public static T GetValue<T>(this IDataRecord lector, string name)
-        //{
-        //    try
-        //    {
-        //        if (string.IsNullOrEmpty(name))
-        //        {
-        //            throw new ArgumentNullException("nombre enviado es nulo o vacio");
-        //        }
-
-        //        return (T)lector.GetValue(lector.GetOrdinal(name));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        var value = lector.GetValue(lector.GetOrdinal(name));
-        //        throw new InvalidCastException("campo: " + name + " no se puede convertir de " + value.GetType() + " a " + typeof(T), ex);
-        //    }
-        //}
+        
 
         #region Convert
 

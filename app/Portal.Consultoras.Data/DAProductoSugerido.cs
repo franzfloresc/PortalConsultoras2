@@ -71,5 +71,19 @@ namespace Portal.Consultoras.Data
             var id = (string)Context.Database.GetParameterValue(command, "Return");
             return id;
         }
+
+        public void InsDemandaTotalReemplazoSugerido(BEProductoSugerido entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("InsDemandaTotalReemplazoSugerido");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, entidad.ConsultoraID);
+            Context.Database.AddInParameter(command, "@CUVOriginal", DbType.String, entidad.CUV);
+            Context.Database.AddInParameter(command, "@CUVSugerido", DbType.String, entidad.CUVSugerido);
+            Context.Database.AddInParameter(command, "@Aceptado", DbType.Boolean, entidad.CuvEsAceptado);
+            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, entidad.Cantidad);
+            Context.Database.AddInParameter(command, "@PrecioUnidad", DbType.Decimal, entidad.PrecioUnidad);
+
+            Context.ExecuteNonQuery(command);
+        }
     }
 }
