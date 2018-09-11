@@ -171,7 +171,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ObtenerComponentes_CompuestaVariable_UnComponenteNoMultimarca()
             {
-                //SessionManager.Object,new OfertaBaseProvider(), new ConfiguracionManagerProvider()
                 var mockEstrategiaComponenteProvider = new Mock<EstrategiaComponenteProvider>()
                 {
                     CallBase = true
@@ -191,6 +190,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 //var data = JsonConvert.DeserializeObject<ObtenerComponentesResponse>(componentes);
                 var data = new JavaScriptSerializer().Deserialize<ObtenerComponentesResponse>(componentes);
                 Assert.AreEqual(1, data.componentes.Count);
+                Assert.AreEqual(true, (data.componentes[0].FactorCuadre > 1));
                 Assert.AreEqual(true, (data.componentes[0].Hermanos.Count > 0));
                 Assert.AreEqual(1, data.componentes[0].Cantidad);
                 Assert.AreEqual(false, data.esMultimarca);
