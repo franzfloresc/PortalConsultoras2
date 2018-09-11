@@ -15,11 +15,11 @@
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        <link href="@Url.Content("~/Content/Css/Mobile/esika/buscador-filtros.css")" rel="stylesheet">
+        <link href="@Url.Content("~/Content/Css/Site/Esika/buscador-filtros.css")" rel="stylesheet">
     }
     else
     {
-        <link href="@Url.Content("~/Content/Css/Mobile/lbel/buscador-filtros.css")" rel="stylesheet">
+        <link href="@Url.Content("~/Content/Css/Site/Lbel/buscador-filtros.css")" rel="stylesheet">
     }
 
 }
@@ -37,8 +37,6 @@
     </a>
     @*<i class="fa fa-chevron-left"></i>*@
 </div>
-
-<br />
 
 <div class="section-container p-t-30 p-b-30">
     <!-- LISTA DE RESULTADOS DE BÚSQUEDA MOBILE -->
