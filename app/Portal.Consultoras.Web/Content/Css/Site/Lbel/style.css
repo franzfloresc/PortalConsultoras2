@@ -20370,9 +20370,8 @@ label.checkpop.c_on {
 }
 
     .seguir_pedido:hover,
-    .enlace_camino_al_exito:hover
-    {
-        text-decoration: underline;
+    .enlace_camino_al_exito:hover {
+        /* text-decoration: underline;*/
     }
 
     .enlace_pedido_fic{
