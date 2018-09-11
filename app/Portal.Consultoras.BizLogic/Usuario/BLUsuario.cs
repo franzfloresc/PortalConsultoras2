@@ -551,6 +551,7 @@ namespace Portal.Consultoras.BizLogic
                 var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.ActualizaDatosEnabled));
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
+                var buscadorTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.BuscadorYFiltros));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -566,7 +567,8 @@ namespace Portal.Consultoras.BizLogic
                                 actualizacionEmailTask,
                                 actualizaDatosTask,
                                 actualizaDatosConfigTask,
-                                contratoAceptacionTask);
+                                contratoAceptacionTask,
+                                buscadorTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -617,12 +619,18 @@ namespace Portal.Consultoras.BizLogic
                     usuario.PuedeActualizarEmail = opcionesVerificacion.OpcionEmail;
                     usuario.PuedeActualizarCelular = opcionesVerificacion.OpcionSms;
                 }
-                if (contratoAceptacionTask.Result == null || usuario.TipoUsuario != Constantes.TipoUsuario.Consultora) {
+                if (contratoAceptacionTask.Result == null || usuario.TipoUsuario != Constantes.TipoUsuario.Consultora)
+                {
                     usuario.IndicadorContratoAceptacion = -1;
                 }
                 else
                 {
                     usuario.IndicadorContratoAceptacion = contratoAceptacionTask.Result.Where(e => e.AceptoContrato == 1).Count();
+                }
+
+                if (buscadorTask.Result != null)
+                {
+                    usuario = buscadorTask.Result;
                 }
 
                 return usuario;
@@ -3021,39 +3029,47 @@ namespace Portal.Consultoras.BizLogic
                 var lstCodigo = codigoConfiguracionPais.Split('|');
                 var lstConfig = configuraciones.Where(x => lstCodigo.Any(y => y == x.Codigo));
 
-                foreach (var configuracion in lstConfig)
+                if (configuraciones.Any())
                 {
-                    if (configuracion == null) return usuario;
+                    var configuracionPaisDatosAll = GetConfiguracionPaisDatos(usuario);
 
-                    switch (configuracion.Codigo)
+                    foreach (var configuracion in lstConfig)
                     {
-                        case Constantes.ConfiguracionPais.RevistaDigital:
-                            var revistaDigitalModel = new BERevistaDigital();
-                            var configuracionPaisDatosAll = GetConfiguracionPaisDatos(usuario);
-                            var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == configuracion.ConfiguracionPaisID).ToList();
-                            revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuario.CodigoISO);
-                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuario);
-                            revistaDigitalModel.BloqueoRevistaImpresa = configuracion.BloqueoRevistaImpresa;
-                            usuario.RevistaDigital = revistaDigitalModel;
-                            break;
-                        case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
-                            usuario.TieneValidacionMontoMaximo = configuracion.Estado;
-                            break;
-                        case Constantes.ConfiguracionPais.OfertaFinalTradicional:
-                        case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
-                        case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
-                            var ofertaFinalModel = new BEOfertaFinal()
-                            {
-                                Algoritmo = configuracion.Codigo,
-                                Estado = configuracion.Estado
-                            };
-                            if (configuracion.Estado)
-                            {
-                                usuario.OfertaFinal = 1;
-                                usuario.EsOfertaFinalZonaValida = true;
-                            }
-                            usuario.beOfertaFinal = ofertaFinalModel;
-                            break;
+                        if (configuracion == null) return usuario;
+
+                        var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == configuracion.ConfiguracionPaisID).ToList();
+
+                        switch (configuracion.Codigo)
+                        {
+                            case Constantes.ConfiguracionPais.RevistaDigital:
+                                var revistaDigitalModel = new BERevistaDigital();
+                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuario.CodigoISO);
+                                revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuario);
+                                revistaDigitalModel.BloqueoRevistaImpresa = configuracion.BloqueoRevistaImpresa;
+                                usuario.RevistaDigital = revistaDigitalModel;
+                                break;
+                            case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
+                                usuario.TieneValidacionMontoMaximo = configuracion.Estado;
+                                break;
+                            case Constantes.ConfiguracionPais.OfertaFinalTradicional:
+                            case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
+                            case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
+                                var ofertaFinalModel = new BEOfertaFinal()
+                                {
+                                    Algoritmo = configuracion.Codigo,
+                                    Estado = configuracion.Estado
+                                };
+                                if (configuracion.Estado)
+                                {
+                                    usuario.OfertaFinal = 1;
+                                    usuario.EsOfertaFinalZonaValida = true;
+                                }
+                                usuario.beOfertaFinal = ofertaFinalModel;
+                                break;
+                            case Constantes.ConfiguracionPais.BuscadorYFiltros:
+                                usuario.BuscadorYFiltrosConfiguracion = ConfiguracionPaisBuscadorYFiltro(configuracionPaisDatos);
+                                break;
+                        }
                     }
                 }
             }
@@ -3244,6 +3260,37 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return result;
+        }
+
+        private BEBuscadorYFiltrosConfiguracion ConfiguracionPaisBuscadorYFiltro(List<BEConfiguracionPaisDatos> configuracionPaisDatos)
+        {
+            var buscadorYFiltrosConfiguracion = new BEBuscadorYFiltrosConfiguracion();
+            short valor1 = 0;
+            var mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBuscador).FirstOrDefault();
+            if (mostrarBuscador != null)
+            {
+                buscadorYFiltrosConfiguracion.MostrarBuscador = mostrarBuscador.Valor1 == "1";
+            }
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscador).FirstOrDefault();
+            if (mostrarBuscador != null)
+            {
+                short.TryParse(mostrarBuscador.Valor1, out valor1);
+                buscadorYFiltrosConfiguracion.CaracteresBuscador = valor1;
+            }
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar).FirstOrDefault();
+            if (mostrarBuscador != null)
+            {
+                short.TryParse(mostrarBuscador.Valor1, out valor1);
+                buscadorYFiltrosConfiguracion.CaracteresBuscadorMostrar = valor1;
+            }
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador).FirstOrDefault();
+            if (mostrarBuscador != null)
+            {
+                short.TryParse(mostrarBuscador.Valor1, out valor1);
+                buscadorYFiltrosConfiguracion.TotalResultadosBuscador = valor1;
+            }
+
+            return buscadorYFiltrosConfiguracion;
         }
         #endregion
 
