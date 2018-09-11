@@ -18,18 +18,11 @@ namespace Portal.Consultoras.BizLogic
                 CampaniaIngreso = (consultoraNuevas.CampaniaID - consultoraNuevas.ConsecutivoNueva).ToString(),
                 CodigoConsultora = consultoraNuevas.CodigoConsultora
             };
-
-            //if (!new BLPais().EsPaisHana(paisID))
-            //{
+            
             using (var reader = new DAConfiguracionProgramaNuevas(consultoraNuevas.PaisID).Get(configuracion))
             {
                 configuracion = reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
             }
-            //}
-            //else
-            //{
-            //return new DAHConfiguracionProgramaNuevas().GetConfiguracionProgramaNuevas(paisID, entidad);
-            //}
             
             return configuracion ?? new BEConfiguracionProgramaNuevas();
         }

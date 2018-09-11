@@ -487,9 +487,9 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<ServiceSAC.BETablaLogicaDatos>)HttpContext.Current.Session["ListFiltersFAV"];
         }
 
-        void ISessionManager.SetStartSession(DateTime fecha)
+        void ISessionManager.SetStartSession(DateTime startSession)
         {
-            HttpContext.Current.Session["StartSession"] = fecha;
+            HttpContext.Current.Session["StartSession"] = startSession;
         }
 
         DateTime ISessionManager.GetStartSession()
@@ -554,7 +554,25 @@ namespace Portal.Consultoras.Web.SessionManager
 
         public int GetMiAcademia()
         {
-            return (int)HttpContext.Current.Session["MiAcademia"];
+            if (HttpContext.Current.Session["MiAcademia"] != null)
+
+                return (int)HttpContext.Current.Session["MiAcademia"];
+            else
+                return 0;
+        }
+
+        public void SetMiAcademiaVideo(int value)
+        {
+            HttpContext.Current.Session["FlagAcademiaVideo"] = value;
+        }
+
+        public int GetMiAcademiaVideo()
+        {
+            if (HttpContext.Current.Session["FlagAcademiaVideo"] != null)
+
+                return (int)HttpContext.Current.Session["FlagAcademiaVideo"];
+            else
+                return 0;
         }
 
         void ISessionManager.setBEUsuarioModel(List<ServiceUsuario.BEUsuario> model)

@@ -8,12 +8,12 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLOpcionesVerificacion
     {
-        public BEOpcionesVerificacion GetOpcionesVerificacionCache(int paisID, int origenID, int regionID = 0, int zonaID = 0)
+        public BEOpcionesVerificacion GetOpcionesVerificacionCache(int paisID, int origenID)
         {
-            return CacheManager<BEOpcionesVerificacion>.ValidateDataElement(paisID, ECacheItem.OpcionesVerificacion, paisID.ToString() + origenID.ToString(), () => GetOpcionesVerificacion(paisID, origenID));
+            return CacheManager<BEOpcionesVerificacion>.ValidateDataElement(paisID, ECacheItem.OpcionesVerificacion, origenID.ToString(), () => GetOpcionesVerificacion(paisID, origenID));
         }
 
-        private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
+        public BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
         {
             var obj = new DAOpcionesVerificacion(paisID);
             BEOpcionesVerificacion OpcVeri = null;

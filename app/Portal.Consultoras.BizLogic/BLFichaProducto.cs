@@ -82,7 +82,6 @@ namespace Portal.Consultoras.BizLogic
                 ficha.TieneStockProl = true;
                 ficha.PrecioString = Util.DecimalToStringFormat(ficha.Precio2, codigoIso);
                 ficha.PrecioTachado = Util.DecimalToStringFormat(ficha.Precio, codigoIso);
-                //ficha.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, ficha.FotoProducto01);
                 ficha.CodigoEstrategia = Util.Trim(ficha.CodigoEstrategia);
             });
             return fichasProductosResult;

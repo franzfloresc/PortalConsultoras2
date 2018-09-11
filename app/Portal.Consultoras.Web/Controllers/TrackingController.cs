@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                usuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);
+                usuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
             }
 
             if (usuario != null)

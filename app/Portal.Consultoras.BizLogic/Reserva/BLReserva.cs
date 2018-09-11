@@ -189,7 +189,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             try
             {
-                var listDetalle = GetPedidoWebDetalleReserva(input);
+                var listDetalle = GetPedidoWebDetalleReserva(input, false);
                 var listDetalleSinBackOrder = listDetalle.Where(d => !d.AceptoBackOrder).ToList();
                 if (!listDetalleSinBackOrder.Any()) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle, true);
 
@@ -212,7 +212,9 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
                 if (input.EnviarCorreo && resultado.EnviarCorreo)
                 {
-                    try { EnviarCorreoReservaProl(input, listDetalle); }
+                    var listaDetalleAgrupado = GetPedidoWebDetalleReserva(input, true);
+                    //try { EnviarCorreoReservaProl(input, listDetalle); }
+                    try { EnviarCorreoReservaProl(input, listaDetalleAgrupado); }
                     catch (Exception ex) { LogManager.SaveLog(ex, input.CodigoUsuario, input.PaisISO); }                    
                 }
                 return resultado;
@@ -237,7 +239,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         {
             try
             {
-                var listPedidoWebDetalle = GetPedidoWebDetalleReserva(input);
+                var listPedidoWebDetalle = GetPedidoWebDetalleReserva(input, true);
                 if (!listPedidoWebDetalle.Any()) return false;
 
                 input.PedidoID = listPedidoWebDetalle[0].PedidoID;
@@ -290,13 +292,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         #endregion
 
         #region Private Functions
-
-        //private void UpdateDiaPROL(BEUsuario usuario)
-        //{
-        //    DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
-        //    usuario.DiaPROL = EsDiaProl(usuario, fechaHoraActual);
-        //}
-
+        
         private void UpdateDiaPROLAndEsHoraReserva(BEUsuario usuario)
         {
             DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
@@ -327,7 +323,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return true;
         }
 
-        public List<BEPedidoWebDetalle> GetPedidoWebDetalleReserva(BEInputReservaProl input)
+        public List<BEPedidoWebDetalle> GetPedidoWebDetalleReserva(BEInputReservaProl input, bool agrupado = false)
         {
             var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
             {
@@ -337,7 +333,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 Consultora = input.NombreConsultora,
                 EsBpt = input.EsOpt == 1,
                 CodigoPrograma = input.CodigoPrograma,
-                NumeroPedido = input.ConsecutivoNueva
+                NumeroPedido = input.ConsecutivoNueva,
+                AgruparSet = agrupado
             };
             var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
 

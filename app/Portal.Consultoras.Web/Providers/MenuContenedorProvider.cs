@@ -100,12 +100,12 @@ namespace Portal.Consultoras.Web.Providers
                         ? Constantes.OrigenPantallaWeb.MShowRoom
                         : Constantes.OrigenPantallaWeb.DShowRoom;
                     break;
-                case Constantes.UrlMenuContenedor.OptDetalle:
-                    var PathOrigen = GetOrigenFromQueryString(Request);
-                    menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(PathOrigen, revistaDigital, CodigoConsultora, CodigoISO);
-                    if (menuActivo.Codigo == "")
-                        menuActivo = sessionManager.GetMenuContenedorActivo();
-                    break;
+                //case Constantes.UrlMenuContenedor.OptDetalle:
+                //    var PathOrigen = GetOrigenFromQueryString(Request);
+                //    menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(PathOrigen, revistaDigital, CodigoConsultora, CodigoISO);
+                //    if (menuActivo.Codigo == "")
+                //        menuActivo = sessionManager.GetMenuContenedorActivo();
+                //    break;
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
                 case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;

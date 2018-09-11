@@ -67,17 +67,5 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
             }
         }
 
-        //public List<EstrategiaPersonalizadaProductoModel> OfertasCompraPorCompra {
-        //    get
-        //    {
-        //        return (List<EstrategiaPersonalizadaProductoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasCpc];
-        //    }
-        //    set
-        //    {
-        //        HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasCpc] = value;
-        //    }
-        //}
-
-
     }
 }
