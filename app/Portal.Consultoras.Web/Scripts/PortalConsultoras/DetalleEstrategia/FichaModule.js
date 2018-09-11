@@ -267,7 +267,7 @@
         }
 
         if (estrategia == null) {
-            window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
+            window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
             return false;
         }
 
