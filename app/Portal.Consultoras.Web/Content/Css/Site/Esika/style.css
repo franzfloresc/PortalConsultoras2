@@ -417,9 +417,9 @@ header {
     margin-left: -161px;
 }
 
-.icon-flechita {
+/*.icon-flechita {
     content: '\e900';
-}
+}*/
 
 .flechita_info {
     position: absolute;
@@ -576,7 +576,7 @@ header {
     bottom: 10px !important;
 }
 
-.boton-home {
+/*.boton-home {
     position: relative;
     display: block;
     overflow: hidden;
@@ -613,7 +613,7 @@ header {
         -webkit-transition: .8s;
         transition: .8s;
         z-index: -1;
-    }
+    }*/
 
 .fondo_b {
     background: url('/Content/Images/Esika/bajar.png') no-repeat;
@@ -682,7 +682,7 @@ header {
     z-index: 10;
 }
 
-.triangulo-equilatero-bottom-left {
+/*.triangulo-equilatero-bottom-left {
     z-index: 1000;
     position: absolute;
     top: 0;
@@ -692,16 +692,16 @@ header {
     border-top: 0 solid transparent;
     border-left: 0 solid white;
     border-bottom: 381px solid white;
-}
+}*/
 
-.slider_promocional {
+/*.slider_promocional {
     margin-top: 60px;
     float: left;
     background: white;
     width: 100%;
     height: 379px;
     overflow: hidden;
-}
+}*/
 
 .nombre_c {
     text-align: left;
@@ -727,7 +727,7 @@ header {
         color: rgb(51,204,153);
     }
 
-.campana_actual p {
+/*.campana_actual p {
     text-align: center;
     font-family: 'lato-regular';
     font-size: 12px;
@@ -755,13 +755,13 @@ header {
     margin-top: 20px;
     overflow: hidden;
     float: left;
-}
+}*/
 
 .campana_ml {
     margin-left: 10px;
 }
 
-.divisor_campana {
+/*.divisor_campana {
     margin-right: 4px;
     margin-left: 4px;
     margin-top: 23px;
@@ -769,7 +769,7 @@ header {
     width: 12px;
     height: 40px;
     background: url('/Content/Images/Esika/divisor.png') no-repeat;
-}
+}*/
 
 .gz_es {
     margin-top: 15px;
@@ -796,7 +796,7 @@ header {
     color: black;
 }
 
-.resumen_total {
+/*.resumen_total {
     font-family: 'lato';
     font-weight: 400;
     font-size: 8pt;
@@ -805,7 +805,7 @@ header {
 
     .resumen_total span {
         font-weight: 700;
-    }
+    }*/
 
 .precio_total {
     line-height: 18px;
@@ -820,7 +820,7 @@ header {
     float: left;
 }
 
-.precio_total_dinero {
+/*.precio_total_dinero {
     line-height: 18px;
     margin-top: 10px;
     font-family: 'lato';
@@ -830,16 +830,16 @@ header {
     width: 75px;
     float: right;
     text-align: right;
-}
+}*/
 
-.wrapper_home_content {
+/*.wrapper_home_content {
     overflow: hidden;
     margin: 0 auto;
     max-width: 1110px;
     padding-bottom: 40px;
-}
+}*/
 
-.wrapper_home_absolute {
+/*.wrapper_home_absolute {
     margin-left: auto;
     margin-right: auto;
     left: 0;
@@ -847,7 +847,7 @@ header {
     position: absolute;
     z-index: 10;
     width: 1110px;
-}
+}*/
 
 .item_home {
     text-align: center;
@@ -885,24 +885,24 @@ header {
     color: black;
 }
 
-.descripcion_info {
+/*.descripcion_info {
     font-family: 'lato';
     font-size: 9.5pt;
     margin-top: 10px;
     color: black;
     line-height: 12pt;
     margin-bottom: 10px;
-}
+}*/
 
-.wrapper_item a {
+/*.wrapper_item a {
     margin-top: 10px;
     color: black;
     font-family: 'lato';
     font-weight: 300 !important;
     font-size: 9pt;
-}
+}*/
 
-.item_oculto {
+/*.item_oculto {
     display: none;
     width: 100%;
     height: 100%;
@@ -914,7 +914,7 @@ header {
 
 .item_home:hover .item_oculto {
     display: block;
-}
+}*/
 
 .item_home:hover .titulo_item {
     display: none;
