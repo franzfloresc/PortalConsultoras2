@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
@@ -39,7 +40,7 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 if (string.IsNullOrEmpty(Request.QueryString["data"]))
                 {
-                    lblConfirmacion.Text = Constantes.MensajesError.ActivacionCorreo;
+                    SetRespuesta(new BERespuestaActivarEmail() { Message = Constantes.MensajesError.ActivacionCorreo, Code = Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION });
                     return;
                 }
 
@@ -65,7 +66,7 @@ namespace Portal.Consultoras.Web.WebPages
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "MailConfirmation Page_Load", "", "Encrypt Data=" + (Request.QueryString["data"] != null ? Request.QueryString["data"] : ""));
-                lblConfirmacion.Text = Constantes.MensajesError.ActivacionCorreo;
+                SetRespuesta(new BERespuestaActivarEmail() { Message = Constantes.MensajesError.ActivacionCorreo, Code = Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION });
             }
         }
 
@@ -73,10 +74,10 @@ namespace Portal.Consultoras.Web.WebPages
         {
             var urlPortal = ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteSE];
             var area = EsDispositivoMovil() ? "/Mobile" : "";
-            var marca = WebConfig.PaisesEsika.Contains(paisISO) ? "Ésika" : "Lbel";
+            var marca = WebConfig.PaisesEsika.Contains(paisISO) ? Constantes.MarcaNombre.Esika : Constantes.MarcaNombre.LBel;
             linkMainPage.NavigateUrl = urlPortal + area + "/MiPerfil/Index";
             linkSomosBelcorp.NavigateUrl = linkMainPage.NavigateUrl;            
-            linkAppEsikaConmigo.NavigateUrl = marca == "Ésika" ? Constantes.RedireccionAndroidApp.EsikaConmigo : Constantes.RedireccionAndroidApp.LbelConmigo;
+            linkAppEsikaConmigo.NavigateUrl = marca == Constantes.MarcaNombre.Esika ? Constantes.RedireccionAndroidApp.EsikaConmigo : Constantes.RedireccionAndroidApp.LbelConmigo;
             btnAppEsikaConmigo.NavigateUrl = linkAppEsikaConmigo.NavigateUrl;            
             linkAppEsikaConmigo.Text = string.Format(Constantes.RedireccionAndroidApp.AppRedirectFormatAlt, marca);
             btnAppEsikaConmigo.Text = string.Format(Constantes.RedireccionAndroidApp.AppRedirectFormat, marca.ToUpper());
@@ -99,7 +100,40 @@ namespace Portal.Consultoras.Web.WebPages
         {
             divHeadSuccess.Visible = respuesta.Succcess;
             divHeadError.Visible = !respuesta.Succcess;
-            lblConfirmacion.Text = respuesta.Succcess ? Constantes.CambioCorreoResult.Valido : respuesta.Message;
+            lblConfirmacion.Text = respuesta.Succcess ? Constantes.ActualizacionDatosValidacion.VerificacionEmail.VerificacionEmailValida : respuesta.Message;
+            if (!respuesta.Succcess)
+            {
+                var emotionPath = "~/Content/Images/mobile/img-emoticons/{0}.png";
+                var iconPath = "~/Content/Images/mobile/img-icon/{0}.png";
+                switch (respuesta.Code) {                     
+                    case Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_YA_ACTIVADA:
+                        lblTituloError.Text = Constantes.ActualizacionDatosValidacion.VerificacionEmail.TuCorreoYaFueValidado;
+                        imgError.ImageUrl = string.Format(emotionPath, "1f605");
+                        break;
+                    case Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_DUPLICADO:
+                        lblTituloError.Text = Constantes.ActualizacionDatosValidacion.VerificacionEmail.UpsOcurrioUnProblema;
+                        imgError.ImageUrl = string.Format(iconPath, "icon_bolsita_triste");
+                        if(respuesta.BelcorpResponde != null)
+                        {
+                            divFootCall.Visible = !respuesta.Succcess;
+                            if (string.IsNullOrEmpty(respuesta.BelcorpResponde.Telefono2))
+                                lblComunicate.Text = string.Format(Constantes.ActualizacionDatosValidacion.VerificacionEmail.ComunicateConNosotrosAlt, BuildLinkPhone(respuesta.BelcorpResponde.Telefono1));
+                            else
+                                lblComunicate.Text = string.Format(Constantes.ActualizacionDatosValidacion.VerificacionEmail.ComunicateConNosotros, BuildLinkPhone(respuesta.BelcorpResponde.Telefono1), BuildLinkPhone(respuesta.BelcorpResponde.Telefono2));
+                        }
+                        divFootSuccess.Visible = respuesta.Succcess;
+                        break;
+                    default:
+                        lblTituloError.Text = Constantes.ActualizacionDatosValidacion.VerificacionEmail.UpsOcurrioUnProblema;
+                        imgError.ImageUrl = string.Format(iconPath, "icon_bolsita_triste");
+                        break;
+                }
+            }
+        }
+
+        private string BuildLinkPhone(string phone) {
+            string tel = Regex.Replace(phone.Split(' ')[0], "[^0-9]" , "");            
+            return  string.Format("<a onclick=\"callToBelcorp('{0}');\" class=\"phoneLink\" >{1}</a>", tel, phone);
         }
 
         private void GuardarLogDynamo(BEUsuario usuarioActual, string correoNuevo)
