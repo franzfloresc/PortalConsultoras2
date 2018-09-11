@@ -1,7 +1,7 @@
 GO
 USE BelcorpPeru
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -9,7 +9,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -28,7 +28,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -45,12 +44,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -61,11 +58,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -75,7 +71,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -83,7 +78,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -94,7 +89,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -123,6 +117,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -175,6 +170,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -199,8 +195,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -216,8 +211,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -226,7 +220,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -304,6 +298,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -328,8 +323,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -352,11 +346,14 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO
 USE BelcorpMexico
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -364,7 +361,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -383,7 +380,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -400,12 +396,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -416,11 +410,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -430,7 +423,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -438,7 +430,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -449,7 +441,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -478,6 +469,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -530,6 +522,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -554,8 +547,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -571,8 +563,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -581,7 +572,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -659,6 +650,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -683,8 +675,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -707,11 +698,14 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO
 USE BelcorpColombia
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -719,7 +713,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -738,7 +732,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -755,12 +748,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -771,11 +762,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -785,7 +775,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -793,7 +782,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -804,7 +793,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -833,6 +821,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -885,6 +874,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -909,8 +899,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -926,8 +915,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -936,7 +924,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -1014,6 +1002,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -1038,8 +1027,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -1062,11 +1050,14 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO
 USE BelcorpSalvador
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -1074,7 +1065,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -1093,7 +1084,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -1110,12 +1100,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -1126,11 +1114,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -1140,7 +1127,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -1148,7 +1134,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -1159,7 +1145,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -1188,6 +1173,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -1240,6 +1226,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -1264,8 +1251,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -1281,8 +1267,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -1291,7 +1276,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -1369,6 +1354,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -1393,8 +1379,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -1417,11 +1402,14 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO
 USE BelcorpPuertoRico
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -1429,7 +1417,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -1448,7 +1436,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -1465,12 +1452,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -1481,11 +1466,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -1495,7 +1479,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -1503,7 +1486,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -1514,7 +1497,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -1543,6 +1525,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -1595,6 +1578,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -1619,8 +1603,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -1636,8 +1619,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -1646,7 +1628,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -1724,6 +1706,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -1748,8 +1731,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -1772,11 +1754,14 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO
 USE BelcorpPanama
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -1784,7 +1769,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -1803,7 +1788,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -1820,12 +1804,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -1836,11 +1818,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -1850,7 +1831,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -1858,7 +1838,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -1869,7 +1849,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -1898,6 +1877,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -1950,6 +1930,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -1974,8 +1955,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -1991,8 +1971,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -2001,7 +1980,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -2079,6 +2058,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -2103,8 +2083,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -2127,11 +2106,14 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO
 USE BelcorpGuatemala
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -2139,7 +2121,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -2158,7 +2140,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -2175,12 +2156,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -2191,11 +2170,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -2205,7 +2183,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -2213,7 +2190,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -2224,7 +2201,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -2253,6 +2229,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -2305,6 +2282,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -2329,8 +2307,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -2346,8 +2323,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -2356,7 +2332,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -2434,6 +2410,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -2458,8 +2435,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -2482,11 +2458,14 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO
 USE BelcorpEcuador
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -2494,7 +2473,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -2513,7 +2492,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -2530,12 +2508,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -2546,11 +2522,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -2560,7 +2535,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -2568,7 +2542,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -2579,7 +2553,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -2608,6 +2581,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -2660,6 +2634,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -2684,8 +2659,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -2701,8 +2675,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -2711,7 +2684,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -2789,6 +2762,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -2813,8 +2787,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -2837,11 +2810,14 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO
 USE BelcorpDominicana
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -2849,7 +2825,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -2868,7 +2844,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -2885,12 +2860,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -2901,11 +2874,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -2915,7 +2887,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -2923,7 +2894,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -2934,7 +2905,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -2963,6 +2933,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -3015,6 +2986,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -3039,8 +3011,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -3056,8 +3027,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -3066,7 +3036,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -3144,6 +3114,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -3168,8 +3139,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -3192,11 +3162,14 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO
 USE BelcorpCostaRica
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -3204,7 +3177,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -3223,7 +3196,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -3240,12 +3212,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -3256,11 +3226,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -3270,7 +3239,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -3278,7 +3246,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -3289,7 +3257,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -3318,6 +3285,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -3370,6 +3338,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -3394,8 +3363,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -3411,8 +3379,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -3421,7 +3388,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -3499,6 +3466,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -3523,8 +3491,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -3547,11 +3514,14 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO
 USE BelcorpChile
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -3559,7 +3529,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -3578,7 +3548,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -3595,12 +3564,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -3611,11 +3578,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -3625,7 +3591,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -3633,7 +3598,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -3644,7 +3609,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -3673,6 +3637,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -3725,6 +3690,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -3749,8 +3715,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -3766,8 +3731,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -3776,7 +3740,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -3854,6 +3818,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -3878,8 +3843,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -3902,11 +3866,14 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO
 USE BelcorpBolivia
 GO
-ALTER PROCEDURE GetSesionUsuario_SB2
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -3914,7 +3881,7 @@ BEGIN
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
 	DECLARE @IndicadorMeta int
-
+	DECLARE @IndicadorContrato INT -- HD-2430
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
 	declare @PaisID int
@@ -3933,7 +3900,6 @@ BEGIN
 	from usuario with(nolock)
 	where codigousuario = @CodigoUsuario
 	declare @CountCodigoNivel bigint
-
 	/*Oferta Final, Catalogo Personalizado, CDR*/
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @EsOFGanaMasZonaValida bit = 0
@@ -3950,12 +3916,10 @@ BEGIN
 	inner join ods.Zona z on
 		c.ZonaID = z.ZonaID
 	where c.codigo = @CodConsultora
-
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	if not exists (select 1 from OFGanaMasRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOFGanaMasZonaValida = 1
-
 	if not exists (select 1 from CDRWebRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCDRWebZonaValida = 1
 	/*Fin Oferta Final, Catalogo Personalizado, CDR*/
@@ -3966,11 +3930,10 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
-
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
-
+	set @IndicadorContrato = (isnull( ( select  AceptoContrato from dbo.contrato where codigoConsultora =@CodConsultora),0)); -- HD-2430
 	IF @UsuarioPrueba = 0
 	BEGIN
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))
@@ -3980,7 +3943,6 @@ BEGIN
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 		-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 		declare @CampaniaFacturada int = 0
-
 		select top 1 @CampaniaFacturada = p.CampaniaID
 		FROM ods.Pedido(NOLOCK) P
 		INNER JOIN ods.Consultora(NOLOCK) CO ON	P.ConsultoraID=CO.ConsultoraID
@@ -3988,7 +3950,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ?ltima campa?a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -3999,7 +3961,6 @@ BEGIN
 			WHERE CampaniaID = @CampaniaSiguienteID AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1
 		)
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-
 		SELECT
 			u.PaisID,
 			p.CodigoISO,
@@ -4028,6 +3989,7 @@ BEGIN
 			ISNULL(s.descripcion,'') as Segmento,
 			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,
 			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,
+			ISNULL(c.indicadorConsultoraOficina,0) as IndicadorConsultoraOficina,
 			isnull(c.IndicadorDupla, 0) as IndicadorDupla,
 			u.UsuarioPrueba,
 			ISNULL(u.Sobrenombre,'') as Sobrenombre,
@@ -4080,6 +4042,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			isnull(c.IndicadorBloqueoCDR,0) as IndicadorBloqueoCDR,
+			@IndicadorContrato as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -4104,8 +4067,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(c.promedioVenta ,0) PromedioVenta,
+			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -4121,8 +4083,7 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON
-			c.TerritorioID = t.TerritorioID AND
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON			c.TerritorioID = t.TerritorioID AND
 			c.SeccionID = t.SeccionID AND
 			c.ZonaID = t.ZonaID AND
 			c.RegionID = t.RegionID
@@ -4131,7 +4092,7 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
-		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
+	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -4209,6 +4170,7 @@ BEGIN
 			0 AS OfertaFinalGanaMas,
 			ISNULL(@EsOFGanaMasZonaValida,0) AS EsOFGanaMasZonaValida,
 			0 as IndicadorBloqueoCDR,
+			0 as IndicadorContrato, -- HD-2430
 			isnull(@EsCDRWebZonaValida,0) as EsCDRWebZonaValida,
 			isnull(p.TieneCDR,0) as TieneCDR,
 			ISNULL(p.TieneODD,0) AS TieneODD,
@@ -4233,8 +4195,7 @@ BEGIN
 			ISNULL(ctd.IVARetail, 0) IVARetail, /*HD-2192*/
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion,
-			ISNULL(cons.promedioVenta ,0)as PromedioVenta,
+			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -4257,5 +4218,8 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
+
+GO
 
 GO

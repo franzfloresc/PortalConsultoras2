@@ -5266,7 +5266,7 @@
     <Content Include="Views\Shared\_PopupPrivacidadDatos.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerHeader.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
-    <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpBuscadorResultado.cshtml" />
     <Content Include="Views\ReporteContrato\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
