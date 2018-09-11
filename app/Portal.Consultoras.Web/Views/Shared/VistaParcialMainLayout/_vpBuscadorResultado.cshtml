@@ -34,45 +34,46 @@
             </div>
             <div class="resultado_busqueda_tipo_oferta_prod displayBlock">{{DescripcionEstrategia}}</div>
         </div>
-
-        {{#if_eq CodigoEstrategia '2003'}}
-        <div class="resultado_busqueda_btn_elegir_opcion_wrapper displayInlineBlock text-center" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
-            <a class="btn_elegir_opcion displayBlock text-center text-uppercase redireccionarFicha" href="javascript:;">
-                <span class="icono_elige_tu_opcion displayInlineBlock">
-                    <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
-                </span>
-                <span class="displayInlineBlock">
-                    Elige tu opción
-                </span>
-            </a>
-        </div>
-        {{else}}
-        <div class="resultado_busqueda_cantidad_prod displayInlineBlock js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
-            <a class="cantidad_menos_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                <img src="/Content/Images/Mobile/Esika/menos.png" alt="">
-            </a>
-            <input type="tel" value="1" size="2" maxlength="2" data-input="cantidad"
-                   class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" {{#if Stock}} disabled {{/if}} />
-            <a class="cantidad_mas_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                <img src="/Content/Images/Mobile/Esika/mas.png" alt="">
-            </a>
-            <div class="clear"></div>
-        </div>
-        <div class="resultado_busqueda_btn_agregar_wrapper displayInlineBlock text-center">
-            {{#if Stock}}
-            <a class="btn_inactivo displayBlock text-center text-uppercase">
-                Agotado
-            </a>
-            {{else}}
-            <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
-                Agrégalo
-            </a>
-            {{/if}}
-            <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold etiqueta_buscador_producto">
-                {{Agregado}}
+        <div class="resultado_wrapper_selector_cantidad_y_btn_agregar displayInlineBlock">
+            {{#if_eq CodigoEstrategia '2003'}}
+            <div class="resultado_busqueda_btn_elegir_opcion_wrapper displayInlineBlock text-center" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
+                <a class="btn_elegir_opcion displayBlock text-center text-uppercase redireccionarFicha" href="javascript:;">
+                    <span class="icono_elige_tu_opcion displayInlineBlock">
+                        <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
+                    </span>
+                    <span class="displayInlineBlock">
+                        Elige tu opción
+                    </span>
+                </a>
             </div>
+            {{else}}
+            <div class="resultado_busqueda_cantidad_prod displayInlineBlock js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
+                <a class="cantidad_menos_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                    <img src="/Content/Images/Mobile/Esika/menos.png" alt="">
+                </a>
+                <input type="tel" value="1" size="2" maxlength="2" data-input="cantidad"
+                       class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" {{#if Stock}} disabled {{/if}} />
+                <a class="cantidad_mas_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                    <img src="/Content/Images/Mobile/Esika/mas.png" alt="">
+                </a>
+                <div class="clear"></div>
+            </div>
+            <div class="resultado_busqueda_btn_agregar_wrapper displayInlineBlock text-center">
+                {{#if Stock}}
+                <a class="btn_inactivo displayBlock text-center text-uppercase">
+                    Agotado
+                </a>
+                {{else}}
+                <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
+                    Agrégalo
+                </a>
+                {{/if}}
+                <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold etiqueta_buscador_producto">
+                    {{Agregado}}
+                </div>
+            </div>
+            {{/if_eq}}
         </div>
-        {{/if_eq}}
     </div>
     {{/each}}
 </script>
