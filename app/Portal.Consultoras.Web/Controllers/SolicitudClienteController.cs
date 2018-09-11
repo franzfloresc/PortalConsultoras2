@@ -27,9 +27,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!string.IsNullOrEmpty(Campania) && !string.IsNullOrEmpty(Estado))
             {
-                solicitudClienteModel.listaCampania = DropDowListCampanias(UserData().PaisID);
-                solicitudClienteModel.listaEstadoSolicitudCliente = DropDowListEstado(UserData().PaisID);
-                solicitudClienteModel.PaisID = UserData().PaisID;
+                solicitudClienteModel.listaCampania = DropDowListCampanias(userData.PaisID);
+                solicitudClienteModel.listaEstadoSolicitudCliente = DropDowListEstado(userData.PaisID);
+                solicitudClienteModel.PaisID = userData.PaisID;
                 solicitudClienteModel.Campania = Campania;
                 solicitudClienteModel.EstadoSolicitudClienteID = int.Parse(Estado);
                 solicitudClienteModel.Paginacion = paginacion;
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.HdConsulta = 0;
             }
-            solicitudClienteModel.listaEstadoSolicitudCliente = DropDowListEstado(UserData().PaisID);
+            solicitudClienteModel.listaEstadoSolicitudCliente = DropDowListEstado(userData.PaisID);
 
             return View(solicitudClienteModel);
         }
@@ -49,9 +49,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -112,7 +112,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                entidadCliente = sv.DetalleSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente);
+                entidadCliente = sv.DetalleSolicitudAnuladasRechazadas(userData.PaisID, paramSolicitudCliente);
             }
 
             SolicitudClienteModel modelSolicitudCliente = new SolicitudClienteModel
@@ -147,7 +147,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneDetalle = (entidadCliente.DetalleSolicitud != null) ? entidadCliente.DetalleSolicitud.ToList().Count : 0;
 
             string tipoDistribucion = String.Format("_{0}", modelSolicitudCliente.TipoDistribucion >= 1 ? modelSolicitudCliente.TipoDistribucion : 1);
-            string desConfig = Constantes.ConfiguracionManager.DES_UBIGEO + UserData().CodigoISO + tipoDistribucion;
+            string desConfig = Constantes.ConfiguracionManager.DES_UBIGEO + userData.CodigoISO + tipoDistribucion;
             string descripcionUnidad = _configuracionManagerProvider.GetConfiguracionManager(desConfig);
             string[] arrayUnidades = descripcionUnidad.Split(',');
             ViewBag.UnidadGeografica1 = arrayUnidades[0] + ":";
@@ -182,7 +182,7 @@ namespace Portal.Consultoras.Web.Controllers
                             Campania = CampaniaID,
                             EstadoSolicitudClienteId = Estado
                         };
-                        lst = sv.BuscarSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente).ToList();
+                        lst = sv.BuscarSolicitudAnuladasRechazadas(userData.PaisID, paramSolicitudCliente).ToList();
                     }
                 }
                 else
@@ -300,7 +300,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    lst = sv.DetalleSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente).DetalleSolicitud.ToList();
+                    lst = sv.DetalleSolicitudAnuladasRechazadas(userData.PaisID, paramSolicitudCliente).DetalleSolicitud.ToList();
                 }
 
                 BEGrid grid = new BEGrid
@@ -353,19 +353,19 @@ namespace Portal.Consultoras.Web.Controllers
                     NombreGZ = NombreGZ,
                     EmailGZ = EmailGZ,
                     MensajeaGZ = MensajeaGZ,
-                    UsuarioModificacion = UserData().CodigoUsuario
+                    UsuarioModificacion = userData.CodigoUsuario
                 };
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    var listSegmentos = sv.GetTablaLogicaDatos(UserData().PaisID, 57).ToList();
+                    var listSegmentos = sv.GetTablaLogicaDatos(userData.PaisID, 57).ToList();
                     correoOculto = (from item in listSegmentos where item.TablaLogicaDatosID == 5701 select item.Descripcion).First();
-                    sv.EnviarSolicitudClienteaGZ(UserData().PaisID, solicitudCliente);
-                    entidadCliente = sv.DetalleSolicitudAnuladasRechazadas(UserData().PaisID, solicitudCliente);
+                    sv.EnviarSolicitudClienteaGZ(userData.PaisID, solicitudCliente);
+                    entidadCliente = sv.DetalleSolicitudAnuladasRechazadas(userData.PaisID, solicitudCliente);
                 }
 
                 string cuerpoCorreo = ConstruirCorreo(entidadCliente);
-                string asunto = String.Format("({0}) Nuevo Pedido {1}", UserData().CodigoISO, entidadCliente.MarcaNombre);
+                string asunto = String.Format("({0}) Nuevo Pedido {1}", userData.CodigoISO, entidadCliente.MarcaNombre);
                 Util.EnviarMail("no-responder@somosbelcorp.com", EmailGZ, correoOculto, asunto, cuerpoCorreo, true, "SomosBelcorp");
 
                 return Json(new
@@ -377,7 +377,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -387,7 +387,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -450,7 +450,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
             string tipoDistribucion = String.Format("_{0}", entidadSolicitud.TipoDistribucion >= 1 ? entidadSolicitud.TipoDistribucion : 1);
-            string desConfig = Constantes.ConfiguracionManager.DES_UBIGEO + UserData().CodigoISO + tipoDistribucion;
+            string desConfig = Constantes.ConfiguracionManager.DES_UBIGEO + userData.CodigoISO + tipoDistribucion;
             string descripcionUnidad = _configuracionManagerProvider.GetConfiguracionManager(desConfig);
             string[] arrayUnidades = descripcionUnidad.Split(',');
 
@@ -505,7 +505,7 @@ namespace Portal.Consultoras.Web.Controllers
                     cuerpoMensaje.Append("<td></td>");
                     cuerpoMensaje.Append("<td></td>");
                     cuerpoMensaje.Append("<td>Total Pedido</td>");
-                    cuerpoMensaje.Append(String.Format("<td>{0} {1}</td>", UserData().Simbolo, sumaTotal.ToString()));
+                    cuerpoMensaje.Append(String.Format("<td>{0} {1}</td>", userData.Simbolo, sumaTotal.ToString()));
                     cuerpoMensaje.Append("</tr>");
                 }
                 cuerpoMensaje.Append("</table>");
@@ -527,7 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.BuscarSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente).ToList();
+                lst = sv.BuscarSolicitudAnuladasRechazadas(userData.PaisID, paramSolicitudCliente).ToList();
             }
 
 
@@ -552,7 +552,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                listaColumna = sv.GetTablaLogicaDatos(UserData().PaisID, 65).ToList();
+                listaColumna = sv.GetTablaLogicaDatos(userData.PaisID, 65).ToList();
             }
 
             return listaColumna;
@@ -582,7 +582,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        lst = sv.GetReporteAfiliados(UserData().PaisID, fechaInicioSolicitud, fechaFinSolicitud).ToList();
+                        lst = sv.GetReporteAfiliados(userData.PaisID, fechaInicioSolicitud, fechaFinSolicitud).ToList();
                     }
                 }
                 else
@@ -722,7 +722,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetReporteAfiliados(UserData().PaisID, fechaInicioSolicitud, fechaFinSolicitud).ToList();
+                lst = sv.GetReporteAfiliados(userData.PaisID, fechaInicioSolicitud, fechaFinSolicitud).ToList();
             }
 
             List<BETablaLogicaDatos> listaColumna = ConsultarTipodeUnidadGeografica().ToList();
@@ -753,8 +753,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var solicitudClienteModel = new SolicitudClienteModel
             {
-                listaEstadoSolicitudCliente = DropDowListEstado(UserData().PaisID),
-                listaCampania = DropDowListCampanias(UserData().PaisID),
+                listaEstadoSolicitudCliente = DropDowListEstado(userData.PaisID),
+                listaCampania = DropDowListCampanias(userData.PaisID),
                 listaMarcas = GetDescripcionMarca()
             };
 
@@ -783,7 +783,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    lst = sv.GetReportePedidos(fechaInicioSolicitud, fechaFinSolicitud, estado, marca, campania, UserData().PaisID).ToList();
+                    lst = sv.GetReportePedidos(fechaInicioSolicitud, fechaFinSolicitud, estado, marca, campania, userData.PaisID).ToList();
                 }
 
                 BEGrid grid = new BEGrid
@@ -981,7 +981,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetReportePedidos(fechaInicioSolicitud, fechaFinSolicitud, estado, marca, campania, UserData().PaisID).ToList();
+                lst = sv.GetReportePedidos(fechaInicioSolicitud, fechaFinSolicitud, estado, marca, campania, userData.PaisID).ToList();
             }
 
             Dictionary<string, string> dic = new Dictionary<string, string>

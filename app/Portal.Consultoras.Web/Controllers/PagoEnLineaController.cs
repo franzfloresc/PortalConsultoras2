@@ -10,7 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -37,8 +39,118 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetDatosPagoVisa(null);
 
             var model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea();
+            ViewBag.PagoEnLineaGastosLabel = userData.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.GastosLabelMx : Constantes.PagoEnLineaMensajes.GastosLabelPe;
 
             return View(model);
+        }
+
+        public ActionResult MetodoPago()
+        {
+            var model = sessionManager.GetDatosPagoVisa();
+
+            if (model == null)
+                return RedirectToAction("Index", "PagoEnLinea");
+
+            model = _pagoEnLineaProvider.ObtenerValoresMetodoPago(model);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult PasarelaPago(string cardType, int medio = 0)
+        {
+            if (!userData.TienePagoEnLinea || userData.MontoDeuda <= 0)
+                return RedirectToAction("Index", "Bienvenida");
+
+            var pago = sessionManager.GetDatosPagoVisa();
+            if (pago == null || pago.ListaMetodoPago == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            if (!string.IsNullOrEmpty(cardType))
+            {
+                var selected = _pagoEnLineaProvider.ObtenerMetodoPagoSelecccionado(pago, cardType, medio);
+
+                if (selected == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                pago.MetodoPagoSeleccionado = selected;
+                sessionManager.SetDatosPagoVisa(pago);
+            }
+            
+            if (pago.MetodoPagoSeleccionado == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            SetDeviceSessionId(pago);
+            //Logica para Obtener Valores de la PasarelaBelcorp
+            ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerCamposRequeridos();
+            ViewBag.UrlIconMedioPago = _pagoEnLineaProvider.GetUrlIconMedioPago(pago);
+            CargarListsPasarela();
+            var model = new PaymentInfo
+            {
+                Phone = userData.Celular,
+                Email = userData.EMail
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> PasarelaPago(PaymentInfo info)
+        {
+            if (!userData.TienePagoEnLinea || userData.MontoDeuda <= 0)
+                return RedirectToAction("Index", "Bienvenida");
+
+            var requiredFields = _pagoEnLineaProvider.ObtenerCamposRequeridos();
+            var pago = sessionManager.GetDatosPagoVisa();
+
+            if (ModelState.IsValid)
+            {
+                var expRegular = pago.MetodoPagoSeleccionado.ExpresionRegularTarjeta;
+                var validator = new PasarelaValidator
+                {
+                    RequiredFields = requiredFields,
+                    PatternCard = expRegular
+                };
+
+                if (validator.IsValid(info))
+                {
+                    var provider = new PagoPayuProvider
+                    {
+                        User = userData,
+                        SessionId = Session.SessionID,
+                        IpClient = GetIPCliente(),
+                        Agent = Request.UserAgent,
+                        PagoProvider = _pagoEnLineaProvider
+                    };
+
+                    var success = await provider.Pay(info, pago);
+                    if (!success) 
+                        return View("PagoRechazado", pago);
+
+                    ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcionMx);
+                    ViewBag.PaisId = userData.PaisID;
+
+                    return View("PagoExitoso", pago);
+                }
+
+                foreach (var error in validator.Errors)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }
+            }
+
+            SetDeviceSessionId(pago);
+            ViewBag.PagoLineaCampos = requiredFields;
+            ViewBag.UrlIconMedioPago = _pagoEnLineaProvider.GetUrlIconMedioPago(pago);
+            CargarListsPasarela();
+
+            return View(info);
         }
 
         public JsonResult GuardarDatosPago(PagoEnLineaModel model)
@@ -85,6 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (pagoOk)
                 {
                     ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcion);
+                    ViewBag.PaisId = userData.PaisID;
 
                     return View("PagoExitoso", model);
                 }
@@ -110,10 +223,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            int paisId = UserData().PaisID;
+            int paisId = userData.PaisID;
             int campaniaIdActual;
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -444,9 +557,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -481,6 +594,24 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.SelectAllZonas(paisId);
             }
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
+        }
+
+        private void CargarListsPasarela()
+        {
+            Func<string, SelectListItem> fnSelect = m => new SelectListItem {Value = m, Text = m};
+            ViewBag.MonthList = _pagoEnLineaProvider.ObtenerMeses().Select(fnSelect);
+            ViewBag.YearList = _pagoEnLineaProvider.ObtenerAnios().Select(fnSelect);
+        }
+
+        private void SetDeviceSessionId(PagoEnLineaModel pago)
+        {
+            var provider = new PagoPayuProvider
+            {
+                SessionId = Session.SessionID
+            };
+            pago.DeviceSessionId = provider.GetDeviceSessionId();
+            sessionManager.SetDatosPagoVisa(pago);
+            ViewBag.DeviceSessionId = pago.DeviceSessionId;
         }
     }
 }

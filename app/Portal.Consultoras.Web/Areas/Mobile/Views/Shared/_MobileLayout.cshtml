@@ -710,5 +710,13 @@
         </script>
         TempData.Remove("PixelCodigoIso");
     }
+
+    <script>
+        $.ajaxSetup({
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("isMobile", isMobile());
+            }
+        });
+    </script>
 </body>
 </html>

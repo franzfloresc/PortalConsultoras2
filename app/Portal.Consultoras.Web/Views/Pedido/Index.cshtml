@@ -75,6 +75,16 @@
             </div>
 
             <div class="pedido_ingreso_datos campo_descripcion_producto">
+                <!-- MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
+                <div id="divObservacionesDescripProd" class="pedidos_no_existe" style="display:none;">
+                    <div class="noti mensaje_producto_noExiste">
+                        <div class="noti_message red_texto_size">
+                            <span class="icono_advertencia_notificacion"></span>
+                            El producto solicitado no existe.
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
                 <br />
                 <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
                        onkeyup="PreValidarCUV(event);" placeholder="Descripción producto" />
@@ -1602,14 +1612,10 @@
         {{else}}
 
         <div class="stock_content">
-            <div class="texto_stock" style="margin-top: 10PX;width:60%">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
+            <div class="texto_stock" style="margin-top: 10PX;width:60%">@Constantes.BackOrder.mensajeBackOrderDestokp</div>
             <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
-
-                        <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}', '{{SetID}}');">NO, GRACIAS</a>
-
-                <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
-
-
+                <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}', '{{SetID}}');">NO, ELIMÍNALO</a>
+                <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SÍ, GRACIAS!</a>
             </div>
             <hr class="clear" />
         </div>
@@ -2054,6 +2060,7 @@
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
+        var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)

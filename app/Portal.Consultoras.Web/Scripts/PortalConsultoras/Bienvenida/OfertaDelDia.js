@@ -8,7 +8,6 @@ var belcorp = belcorp || {};
 belcorp.estrategia = belcorp.estrategia || {};
 registerEvent.call(belcorp.estrategia, "onProductoAgregado");
 belcorp.estrategia.subscribe("onProductoAgregado", function (data) {
-    //debugger;
     if (data.data.TipoEstrategiaCodigo === ConstantesModule.ConstantesPalanca.OfertaDelDia) {
         //alert(data.data.DescripcionProd);
         //window.OfertaDelDia.CargarODD();
@@ -303,8 +302,7 @@ var OfertaDelDiaModule = function () {
 
         if (contenedorOfertas !== "" && $(contenedorOfertas).length === 0)
             return false;
-        //alert(":P");
-        //return false,
+
         OfertaDelDiaProvider
             .pedidoGetOfertaDelDiaPromise()
             .done(function (response) {
@@ -567,11 +565,12 @@ var OfertaDelDiaModule = function () {
 
                 $("#txtCantidad").val("1");
                 var overflowY = "auto";
-                $("body").css({
-                    get "overflow-y"() { return overflowY; }, set "overflow-y"(value) {
-                        overflowY = value;
-                    }
-                });
+                $("body").css({ 'overflow-y': "auto" });
+                //$("body").css({
+                //    get "overflow-y"() { return overflowY; }, set "overflow-y"(value) {
+                //        overflowY = value;
+                //    }
+                //});
                 return false;
             })
             .fail(function (data, error) {
@@ -598,9 +597,10 @@ var OfertaDelDiaModule = function () {
     };
 
     return {
-        Inicializar : Inicializar,
-        IrContenedorOfertas: IrContenedorOfertas
-    };
+        Inicializar: Inicializar,
+        IrContenedorOfertas: IrContenedorOfertas,
+        CargarODDEscritorio: CargarODDEscritorio
+};
 }();
 
 

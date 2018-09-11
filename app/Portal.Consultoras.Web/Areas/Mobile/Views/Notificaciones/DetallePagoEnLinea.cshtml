@@ -8,7 +8,14 @@
 
 @section styles{
 
-    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+    @if (ViewBag.EsLebel)
+    {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/pago-en-linea.css")">
+    }
+    else
+    {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+    }
 
     <style type="text/css">
         .footer-page {
@@ -59,7 +66,7 @@
                         <span>@Model.Simbolo @Model.MontoDeudaString</span>
                     </div>
                     <div class="monto_gastos_administrativos">
-                        <span>Cargo plataforma online:</span>
+                        <span>@ViewBag.PagoEnLineaCargoLabel:</span>
                         <span>@Model.Simbolo @Model.MontoGastosAdministrativosNotString</span>
                     </div>
                     <div class="total_monto_pagado">

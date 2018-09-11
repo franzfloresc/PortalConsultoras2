@@ -30,8 +30,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             using (var sac = new SACServiceClient())
             {
-                var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(UserData().PaisID, UserData().CodigoConsultora,
-                        Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+                var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(userData.PaisID, userData.CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Desktop, userData.CodigorRegion, userData.CodigoZona, userData.ConsultoraNueva);
 
                 return lstComunicados.ToList();
             }

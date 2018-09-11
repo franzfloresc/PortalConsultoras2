@@ -89,6 +89,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string ImagenProductoSugeridoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenProductoSugeridoMediumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenProductoSugeridoSmallField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenURLField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -440,6 +446,32 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.ImagenProductoSugeridoField, value) != true)) {
                     this.ImagenProductoSugeridoField = value;
                     this.RaisePropertyChanged("ImagenProductoSugerido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenProductoSugeridoMedium {
+            get {
+                return this.ImagenProductoSugeridoMediumField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenProductoSugeridoMediumField, value) != true)) {
+                    this.ImagenProductoSugeridoMediumField = value;
+                    this.RaisePropertyChanged("ImagenProductoSugeridoMedium");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenProductoSugeridoSmall {
+            get {
+                return this.ImagenProductoSugeridoSmallField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenProductoSugeridoSmallField, value) != true)) {
+                    this.ImagenProductoSugeridoSmallField = value;
+                    this.RaisePropertyChanged("ImagenProductoSugeridoSmall");
                 }
             }
         }
@@ -3305,6 +3337,84 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BERespValidarElectivos", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNueva" +
+        "s")]
+    [System.SerializableAttribute()]
+    public partial class BERespValidarElectivos : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LimNumElectivosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string[] ListCuvEliminarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Common.Enumeradores.ValidarCuponesElectivos ResultadoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LimNumElectivos {
+            get {
+                return this.LimNumElectivosField;
+            }
+            set {
+                if ((this.LimNumElectivosField.Equals(value) != true)) {
+                    this.LimNumElectivosField = value;
+                    this.RaisePropertyChanged("LimNumElectivos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] ListCuvEliminar {
+            get {
+                return this.ListCuvEliminarField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ListCuvEliminarField, value) != true)) {
+                    this.ListCuvEliminarField = value;
+                    this.RaisePropertyChanged("ListCuvEliminar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Common.Enumeradores.ValidarCuponesElectivos Resultado {
+            get {
+                return this.ResultadoField;
+            }
+            set {
+                if ((this.ResultadoField.Equals(value) != true)) {
+                    this.ResultadoField = value;
+                    this.RaisePropertyChanged("Resultado");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceODS.IODSService")]
     public interface IODSService {
@@ -3558,10 +3668,10 @@ namespace Portal.Consultoras.Web.ServiceODS {
         System.Threading.Tasks.Task<int> ValidarCantidadMaximaProgramaNuevasAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidaCuvElectivo", ReplyAction="http://tempuri.org/IODSService/ValidaCuvElectivoResponse")]
-        bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido);
+        Portal.Consultoras.Web.ServiceODS.BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidaCuvElectivo", ReplyAction="http://tempuri.org/IODSService/ValidaCuvElectivoResponse")]
-        System.Threading.Tasks.Task<bool> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarElectivos> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarVentaExclusiva", ReplyAction="http://tempuri.org/IODSService/ValidarVentaExclusivaResponse")]
         Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv);
@@ -3917,11 +4027,11 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.ValidarCantidadMaximaProgramaNuevasAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cantidadEnPedido, cuvIngresado, cantidadIngresada);
         }
         
-        public bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido) {
+        public Portal.Consultoras.Web.ServiceODS.BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido) {
             return base.Channel.ValidaCuvElectivo(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
         }
         
-        public System.Threading.Tasks.Task<bool> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarElectivos> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido) {
             return base.Channel.ValidaCuvElectivoAsync(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
         }
         

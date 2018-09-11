@@ -38,10 +38,12 @@
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
             </div>
             <div class="content_tono_detalle"
+                 {{#unless ../esCampaniaSiguiente}}
+                 onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}});"
+                 {{/unless}}
                  data-tono-cuv="{{variedad.Cuv}}"
                  data-tono-change="2"
-                 data-tono-nombre="{{variedad.NombreBulk}}"
-                 onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}})">
+                 data-tono-nombre="{{variedad.NombreBulk}}">
                 <img src="{{variedad.ImagenBulk}}" alt="">
             </div>
             {{/each}}

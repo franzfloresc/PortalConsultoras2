@@ -169,14 +169,14 @@
 
                 </div>
                 <div id="dvContenedorAgregar" class="contenedor_agregar">
-                    <div class="contenedor_rangos {{ClaseBloqueadaRangos}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
-                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{RangoInputEnabled}} type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
+                    <div class="contenedor_rangos {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
+                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}} type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
                         <div>
-                            <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="{{ClaseBloqueadaRangos}}" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                <div class="dibujar_linea dibujar_menos" data-bloqueada="{{ClaseBloqueadaRangos}}"></div>
+                            <a class="txt_menos" data-cantidad-agregar="-" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                <div class="dibujar_linea dibujar_menos" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}"></div>
                             </a>
-                            <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="{{ClaseBloqueadaRangos}}" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                <div class="dibujar_linea dibujar_mas" data-bloqueada="{{ClaseBloqueadaRangos}}"></div>
+                            <a class="txt_mas" data-cantidad-agregar="+" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                <div class="dibujar_linea dibujar_mas" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}"></div>
                             </a>
                         </div>
                     </div>
@@ -200,8 +200,8 @@
                         </div>
                     </div>
                     <a id="btnAgregalo" 
-                       class="btn_agregalo {{ClaseBloqueada}}" 
-                       data-bloqueada="{{ClaseBloqueada}}" 
+                       class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}" 
+                       {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}} 
                        onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
 
                     <div class="ficha_div_libre_agregado" style="padding-top: 15px;">
@@ -335,7 +335,7 @@
         </div>
         @if (Model.TieneCarrusel)
         {
-            <div id="CarruselProducto" class="contenedor_ficha_carrusel">
+            <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
                 <div class="contenedor_titulo_carrusel">
                     <div class="contenedor_linea_carrusel">
                         <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
@@ -347,9 +347,7 @@
                 </div>
                 <!--carrusel-->
                 <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
-                    <div id="carrusel" style="text-align:center;">
-
-                    </div>
+                    <div id="divFichaCarruselProducto" style="text-align:center;"></div>
                 </div>
             </div>
         }
@@ -364,7 +362,7 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
 
-    <script type="text/javascript">
+<script type="text/javascript">
         AbrirLoad();
 
         var fichaModule;
@@ -390,11 +388,11 @@
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
                     cuv: "@Model.Cuv",
-                    idPlantilla: "#producto-landing-template",
-                    divCarrusel: "#carrusel",
-                    divSetsProductosdata: "#CarruselProducto",
                     urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
-                    idTituloCarrusel: "#tituloCarrusel"
+                    idPlantilla: "#producto-landing-template",
+                    divFichaCarrusel: "#divFichaCarrusel",
+                    idTituloCarrusel: "#tituloCarrusel",
+                    divCarruselProducto: "#divFichaCarruselProducto"
                 });
                 carruselModule.Inicializar();
             }
@@ -405,5 +403,5 @@
             //CerrarLoad();
         })
 
-    </script>
+</script>
 }

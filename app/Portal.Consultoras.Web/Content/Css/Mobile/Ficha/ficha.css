@@ -284,7 +284,7 @@ ul.breadcumbs li:last-child a {
 /*Seleccionar tono*/
 
 .seleccion_tonos {
-    margin-bottom: 30px;
+    /*margin-bottom: 30px;*/
 }
 
 .tono_select_opt {
@@ -395,12 +395,15 @@ ul.breadcumbs li:last-child a {
 .imagen_selecionado img{
     width: 30px;
     height: 30px;
+    display: block;
 }
 
-.titulo_selecionado{
+.titulo_selecionado {
     font-size: 13px;
     font-weight: bold;
-    padding-left: 10px
+    padding-left: 10px;
+    width: 80%;
+    line-height: normal;
 }
 .btn_cambiar_opciones {
     font-size: 13px;
@@ -576,4 +579,18 @@ ul.breadcumbs li:last-child a {
     width: 19px;
     position: relative;
     top: -2px;
+}
+
+.titulo_seleccionado{
+    width: 85%;
+    line-height: normal;
+}
+
+.cantidad_producto_opt {
+    float: left;
+}
+
+.descripcion_tipo {
+    float: left;
+    width: 86%;
 }

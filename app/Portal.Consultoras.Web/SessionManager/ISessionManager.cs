@@ -185,7 +185,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<ServiceSAC.BETablaLogicaDatos> GetListFiltersFAV();
 
-        void SetStartSession(DateTime StartSession);
+        void SetStartSession(DateTime startSession);
 
         DateTime GetStartSession();
         
@@ -222,6 +222,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMiAcademia(int id);
 
         int GetMiAcademia();
+
+        void SetMiAcademiaVideo(int id);
+
+        int GetMiAcademiaVideo();
 
         void SetPedidoValidado(bool validado);
 

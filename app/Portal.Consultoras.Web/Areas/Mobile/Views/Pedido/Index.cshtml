@@ -44,6 +44,9 @@
     <div class="franja_inferior_banner_pedido"></div>
 
     <div style="display:none;" class="mensaje_ingreso_cuvs" id="divMensajeCUV">
+        <a id="btnCerrarMensaje" class="cerrar_mensajeMobile" style="display:none;" href="javascript:;" onclick="javascript: $('#divMensajeCUV').hide();">
+            <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
+        </a>
         <span id="divIcono" class="icono_aprobacion"></span>
         <span id="divMensaje" class="mensaje_productoCUV">
         </span>
@@ -459,6 +462,7 @@
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DataBarra))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
+        var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido", new { area = "" })';
     </script>
 
     @if (mobileConfiguracion.EsAppMobile)
