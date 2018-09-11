@@ -1,5 +1,5 @@
 USE BelcorpBolivia
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
@@ -22,7 +22,7 @@ GO
 /*end*/
 
 USE BelcorpChile
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
@@ -45,7 +45,7 @@ GO
 /*end*/
 
 USE BelcorpColombia
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
@@ -68,7 +68,7 @@ GO
 /*end*/
 
 USE BelcorpCostaRica
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
@@ -91,7 +91,7 @@ GO
 /*end*/
 
 USE BelcorpDominicana
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
@@ -114,7 +114,7 @@ GO
 /*end*/
 
 USE BelcorpEcuador
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
@@ -137,7 +137,7 @@ GO
 /*end*/
 
 USE BelcorpGuatemala
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
@@ -160,7 +160,7 @@ GO
 /*end*/
 
 USE BelcorpMexico
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
@@ -183,7 +183,7 @@ GO
 /*end*/
 
 USE BelcorpPanama
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
@@ -206,7 +206,7 @@ GO
 /*end*/
 
 USE BelcorpPeru
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
@@ -229,7 +229,7 @@ GO
 /*end*/
 
 USE BelcorpPuertoRico
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
@@ -252,7 +252,7 @@ GO
 /*end*/
 
 USE BelcorpSalvador
-GO
+GO
 ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas
 	@CodigoConsultora varchar(25),
 	@Campania char(6),
