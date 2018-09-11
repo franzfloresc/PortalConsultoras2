@@ -10,5 +10,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public BEUsuario Usuario { get; set; }
+        [DataMember]
+        public BEBelcorpResponde BelcorpResponde { get; set; }
     }
 }

@@ -19,6 +19,11 @@ namespace Portal.Consultoras.Common
             public const int Finart = 4;
         }
 
+        public static class MarcaNombre {
+            public const string LBel = "L'bel";
+            public const string Esika = "Ésika";
+        }
+
         public static class TipoCronograma
         {
             public const int Regular = 1;
@@ -2233,7 +2238,7 @@ namespace Portal.Consultoras.Common
 
         public class CambioCorreoResult
         {
-            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";
+            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";            
             public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
 
@@ -2582,6 +2587,12 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CORREO_CAMBIO_NO_AUTORIZADO = "1101";
                 public const string ERROR_CORREO_VACIO = "1102";
                 public const string ERROR_CORREO_YA_EXISTE = "1103";
+
+                public const string ERROR_CORREO_ACTIVACION = "1201";
+                public const string ERROR_CORREO_ACTIVACION_NO_EXISTE = "1202";
+                public const string ERROR_CORREO_ACTIVACION_YA_ACTIVADA = "1203";
+                public const string ERROR_CORREO_ACTIVACION_DUPLICADO = "1204";
+                
             }
             public static Dictionary<string, string> Message
             {
@@ -2599,12 +2610,30 @@ namespace Portal.Consultoras.Common
 
                        {Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO,Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado},
                        {Code.ERROR_CORREO_VACIO,Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio},
-                       {Code.ERROR_CORREO_YA_EXISTE,Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste}
+                       {Code.ERROR_CORREO_YA_EXISTE,Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste},
+
+                       {Code.ERROR_CORREO_ACTIVACION,"No pudimos validar tu correo electrónico. Por favor, vuelve a intentar."},
+                       {Code.ERROR_CORREO_ACTIVACION_NO_EXISTE,"No pudimos validar tu correo electrónico. Por favor, vuelve a intentar."},
+                       {Code.ERROR_CORREO_ACTIVACION_YA_ACTIVADA,"Esta dirección de correo electrónico ya ha sido validada."},
+                       {Code.ERROR_CORREO_ACTIVACION_DUPLICADO,"La dirección de correo electrónico ingresada ya pertenece a otra Consultora."},
+
                    });
                 }
             }
-        }
 
+            public class VerificacionEmail
+            {
+                public const string UpsOcurrioUnProblema = "UPSS! OCURRIÓ UN PROBLEMA";
+                public const string TuCorreoYaFueValidado = "TU CORREO YA FUE VALIDADO";
+
+                public const string ComunicateConNosotros = "Para resolver el problema comunícate con nosotros al {0} o al {1}.";
+                public const string ComunicateConNosotrosAlt = "Para resolver el problema comunícate con nosotros al {0}.";
+
+                public const string VerificacionEmailValida = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.";
+            }
+
+        }
+        
         public static class RedireccionAndroidApp
         {
             public const string EsikaConmigo = "https://kpt22.app.goo.gl/esika";
