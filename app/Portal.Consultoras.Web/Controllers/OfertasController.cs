@@ -31,10 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-
-                //var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPedidoModel>();
-                //ViewBag.xlistaProductoSR = listaShowRoom.Count(x => !x.EsSubCampania);
-
+                
                 ViewBag.variableEstrategia = GetVariableEstrategia();
 
                 return View(modelo);

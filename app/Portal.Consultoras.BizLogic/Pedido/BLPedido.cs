@@ -1,19 +1,18 @@
-﻿using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.ReservaProl;
-using Portal.Consultoras.Entities.Pedido;
+﻿using Portal.Consultoras.BizLogic.Reserva;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Data.ServicePROL;
 using Portal.Consultoras.Data.ServicePROLConsultas;
-using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.PublicService.Cryptography;
-using Portal.Consultoras.BizLogic.Reserva;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Text;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -153,27 +152,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_INTERNO, ex.Message);
             }
         }
-
-        //private void LogPerformance(string mensaje)
-        //{
-        //var pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log\\";
-        //if (!System.IO.Directory.Exists(pathFile)) System.IO.Directory.CreateDirectory(pathFile);
-        //string path = string.Format("{0}LogPerformance_{1}_{2}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"), nombreServicio);
-        //using (var stream = new System.IO.StreamWriter(path, true))
-        //{
-        //    if (string.IsNullOrEmpty(mensaje))
-        //    {
-        //        stream.WriteLine(string.Empty);
-        //    }
-        //    else
-        //    {
-        //        if(string.IsNullOrEmpty(cuvBuscar))
-        //            stream.WriteLine(string.Format("{0} => {1}", DateTime.Now.ToString("HH:mm:ss.fff"), mensaje));
-        //        else
-        //            stream.WriteLine(string.Format("{0} => {1} => {2}", DateTime.Now.ToString("HH:mm:ss.fff"), cuvBuscar, mensaje));
-        //    }
-        //}
-        //}
 
         public BEPedidoDetalleResult Insert(BEPedidoDetalle pedidoDetalle)
         {
@@ -428,7 +406,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (pedidoDetalle.SetID > 0)
                 {
-                    var pedidoExiste = lstDetalle.Where(x => x.CUV == pedidoDetalle.Producto.CUV).FirstOrDefault();
+                    var pedidoExiste = lstDetalle.FirstOrDefault(x => x.CUV == pedidoDetalle.Producto.CUV);
                     pedidoDetalle.PedidoDetalleID = pedidoExiste == null ? (short)0 : pedidoExiste.PedidoDetalleID;
 
                     var detallePedido = _pedidoWebDetalleBusinessLogic.GetPedidoWebSetDetalle(pedidoDetalle.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
@@ -492,7 +470,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         NumeroPedido = usuario.ConsecutivoNueva,
                         AgruparSet = true
                     };
-                    var SetResult = _pedidoWebDetalleBusinessLogic.UpdCantidadPedidoWebSet(pedidoDetalle.PaisID, pedidoDetalle.SetID, pedidoDetalle.Cantidad, bePedidoWebDetalleParametros);
+                    _pedidoWebDetalleBusinessLogic.UpdCantidadPedidoWebSet(pedidoDetalle.PaisID, pedidoDetalle.SetID, pedidoDetalle.Cantidad, bePedidoWebDetalleParametros);
                 }
 
                 //actualizar PROL
@@ -674,7 +652,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        public async Task<BEPedidoReservaAppResult> Reserva(BEUsuario usuario)
+        public async Task<BEPedidoReservaResult> Reserva(BEUsuario usuario)
         {
             try
             {
@@ -881,7 +859,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (codeResult != Constantes.PedidoValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 
                 //Actualizar Prol
-                var existe = lstDetalle.Where(x => x.ClienteID == pedidoDetalle.ClienteID && x.CUV == pedidoDetalle.Producto.CUV).FirstOrDefault();
+                var existe = lstDetalle.FirstOrDefault(x => x.ClienteID == pedidoDetalle.ClienteID && x.CUV == pedidoDetalle.Producto.CUV);
                 if (existe != null)
                 {
                     existe.Cantidad += pedidoDetalle.Cantidad;
@@ -1118,7 +1096,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle)
         {
-            var mensaje = string.Empty;
+            //var mensaje = string.Empty;
             try
             {
                 //Validación de Sets
@@ -1149,7 +1127,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
                 var pedidoID = 0;
-                var lstDetalleApp = new List<BEPedidoDetalle>();
+                //var lstDetalleApp = new List<BEPedidoDetalle>();
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 pedidoDetalle.PedidoID = pedidoID;
 
@@ -1243,7 +1221,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             if (mensaje == string.Empty || resultado)
             {
-                var item = lstDetalle.Where(x => x.CUV == pedidoDetalle.Producto.CUV && x.ClienteID == pedidoDetalle.ClienteID).FirstOrDefault();
+                var item = lstDetalle.FirstOrDefault(x => x.CUV == pedidoDetalle.Producto.CUV && x.ClienteID == pedidoDetalle.ClienteID);
                 var cantidadPedido = (item != null && (pedidoDetalle.PedidoDetalleID > 0 || pedidoDetalle.SetID > 0)) ? item.Cantidad : 0;
                 var pedidoAuxiliar = new BEPedidoDetalle()
                 {
@@ -1263,8 +1241,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private string ValidarMontoMaximo(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle,
             out bool resul)
         {
-            var mensaje = string.Empty;
             resul = false;
+            var mensaje = string.Empty;
 
             if (!usuario.TieneValidacionMontoMaximo)
                 return mensaje;
@@ -1318,7 +1296,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             bool result;
             if (!esKitNuevaAuto)
             {
-                result = InsertarValidarKitInicio(usuario, pedidoDetalle, lstDetalle);
+                result = InsertarValidarKitInicio(usuario, pedidoDetalle);
                 if (!result) return Constantes.PedidoValidacion.Code.ERROR_KIT_INICIO;
             }
 
@@ -1357,7 +1335,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return Constantes.PedidoValidacion.Code.SUCCESS;
         }
 
-        private bool InsertarValidarKitInicio(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle)
+        private bool InsertarValidarKitInicio(BEUsuario usuario, BEPedidoDetalle pedidoDetalle)
         {
             var configProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
             if (configProgNuevas.IndProgObli != "1") return true;
@@ -1520,18 +1498,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.FirstOrDefault().PedidoID : 0;
 
             return detallesPedidoWeb;
-        }
-
-        private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(BEUsuario usuario, string codigoPrograma)
-        {
-            var obeConsultorasProgramaNuevas = new BEConsultorasProgramaNuevas
-            {
-                CodigoConsultora = usuario.CodigoConsultora,
-                Campania = usuario.CampaniaID.ToString(),
-                CodigoPrograma = codigoPrograma
-            };
-
-            return _consultorasProgramaNuevasBusinessLogic.Get(usuario.PaisID, obeConsultorasProgramaNuevas);
         }
 
         #endregion
@@ -1707,10 +1673,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return string.Empty;
         }
 
-        private BEPedidoReservaAppResult PedidoReservaRespuesta(string codigoRespuesta, string mensajeRespuesta = null,
+        private BEPedidoReservaResult PedidoReservaRespuesta(string codigoRespuesta, string mensajeRespuesta = null,
             BEResultadoReservaProl resultadoReserva = null)
         {
-            return new BEPedidoReservaAppResult()
+            return new BEPedidoReservaResult()
             {
                 CodigoRespuesta = (codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA ||
                                     codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_OBS ||
@@ -1735,8 +1701,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private List<BEPedidoObservacion> ObtenerListPedidoObservacionPorDetalle(List<BEPedidoWebDetalle> pedidoDetalle, List<BEPedidoObservacion> listPedidoObservacion, int paisId, int campaniaId, long consultoraId, int pedidoId)
         {
-            List<BEPedidoObservacion> ListPedidoObservacion = new List<BEPedidoObservacion>();
-            ListPedidoObservacion = listPedidoObservacion
+            List<BEPedidoObservacion> ListPedidoObservacion = listPedidoObservacion
                                         .GroupBy(e => new { e.Caso, e.CUV, e.CuvObs, e.Descripcion, e.PedidoDetalleID, e.SetID, e.Tipo })
                                         .Select(g => g.FirstOrDefault())
                                          .ToList();
@@ -2013,13 +1978,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private void EstrategiaAgregarProducto(BEPedidoDetalle pedidoDetalle, BEUsuario usuario, BEEstrategia estrategia, List<BEPedidoWebDetalle> lstDetalle)
         {
             //Validar Stock Estrategia
-            var ofertas = estrategia.DescripcionCUV2.Split('|');
-            var descripcion = ofertas[0];
+            //var ofertas = estrategia.DescripcionCUV2.Split('|');
+            //var descripcion = ofertas[0];
             if (estrategia.FlagNueva == 1) estrategia.Cantidad = estrategia.LimiteVenta;
-            else descripcion = estrategia.DescripcionCUV2;
+            //else descripcion = estrategia.DescripcionCUV2;
 
-            var resultado = false;
-            var mensaje = ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle, out resultado);
+            bool resultado;
+            ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle, out resultado);
 
             //Agregar Producto ZE
             AgregarProductoZE(usuario, pedidoDetalle, lstDetalle);

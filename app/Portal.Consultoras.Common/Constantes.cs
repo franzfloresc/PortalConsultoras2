@@ -19,6 +19,11 @@ namespace Portal.Consultoras.Common
             public const int Finart = 4;
         }
 
+        public static class MarcaNombre {
+            public const string LBel = "L'bel";
+            public const string Esika = "Ésika";
+        }
+
         public static class TipoCronograma
         {
             public const int Regular = 1;
@@ -349,6 +354,7 @@ namespace Portal.Consultoras.Common
         public static class ConfiguracionManager
         {
             public const string PaisesEsika = "PaisesEsika";
+            public const string PaisesLBel = "PaisesLBel";
             public const string PaisesConTrackingJetlore = "PaisesConTrackingJetlore";
             public const string PaisesCatalogoWhatsUp = "PaisesCatalogoWhatsUp";
             public const string PaisesConPcm = "PaisesConPcm";
@@ -466,6 +472,8 @@ namespace Portal.Consultoras.Common
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
             public const string MenuCondicionesDescripcionMx = "TÉRMINOS Y CONDICIONES";
 
+            public const string ORDEN_COMPONENTES_FICHA_ESIKA = "ORDEN_COMPONENTES_FICHA_ESIKA";
+            public const string ORDEN_COMPONENTES_FICHA_LBEL = "ORDEN_COMPONENTES_FICHA_LBEL";
             public const string UrlImagenEsika = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca.png";
             public const string UrlImagenLbel = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca-lbel.png";
             public const string ColorTemaEsika = "#e81c36";
@@ -1879,7 +1887,7 @@ namespace Portal.Consultoras.Common
             public const string SwIntriga = "/showroom/intriga";
             public const string SwDetalle = "/showroom/detalleoferta";
             public const string SwPersonalizado = "/showroom/personalizado";
-            public const string OptDetalle = "/ofertasparati/detalle";
+            //public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
             public const string GuiaDeNegocio = "/guianegocio";
@@ -1888,6 +1896,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
 
+            // Url Ficha
             public const string DetalleHerramientasVenta = "/detalle/demostradores";
             public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
             public const string DetalleOfertaParaTi = "/detalle/ofertaparati";
@@ -2263,7 +2272,7 @@ namespace Portal.Consultoras.Common
 
         public class CambioCorreoResult
         {
-            public const string Valido = "Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.";
+            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";            
             public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
 
@@ -2600,7 +2609,81 @@ namespace Portal.Consultoras.Common
             public const string UrlBuscador = "Buscador/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}";
         }
 
-        public class NuevoCatalogoProducto
+        public static class ActualizacionDatosValidacion
+        {
+            public const string ExpresionCelular = "^\\d+$";
+            public const string CambioCorreoPendiente = "1";
+
+            private static Dictionary<string, string> _Message;
+            public static class Code
+            {
+                public const string SUCCESS = "0000";
+                public const string ERROR_INTERNO = "9999";
+
+                public const string ERROR_CELULAR_LONGITUD = "1001";
+                public const string ERROR_CELULAR_INVALIDO = "1002";
+                public const string ERROR_CELULAR_USADO = "1003";
+                public const string ERROR_CELULAR_PRIMER_DIGITO = "1004";
+
+                public const string ERROR_CORREO_CAMBIO_NO_AUTORIZADO = "1101";
+                public const string ERROR_CORREO_VACIO = "1102";
+                public const string ERROR_CORREO_YA_EXISTE = "1103";
+
+                public const string ERROR_CORREO_ACTIVACION = "1201";
+                public const string ERROR_CORREO_ACTIVACION_NO_EXISTE = "1202";
+                public const string ERROR_CORREO_ACTIVACION_YA_ACTIVADA = "1203";
+                public const string ERROR_CORREO_ACTIVACION_DUPLICADO = "1204";
+                
+            }
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                   {
+                       {Code.SUCCESS, "OK"},
+                       {Code.ERROR_INTERNO, string.Empty},
+
+                       {Code.ERROR_CELULAR_LONGITUD, "El número debe tener {0} dígitos."},
+                       {Code.ERROR_CELULAR_INVALIDO, "No es un número válido."},
+                       {Code.ERROR_CELULAR_USADO, "El celular ingresado ya está registrado para otra consultora."},
+                       {Code.ERROR_CELULAR_PRIMER_DIGITO, "El número debe empezar por {0}."},
+
+                       {Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO,Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado},
+                       {Code.ERROR_CORREO_VACIO,Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio},
+                       {Code.ERROR_CORREO_YA_EXISTE,Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste},
+
+                       {Code.ERROR_CORREO_ACTIVACION,"No pudimos validar tu correo electrónico. Por favor, vuelve a intentar."},
+                       {Code.ERROR_CORREO_ACTIVACION_NO_EXISTE,"No pudimos validar tu correo electrónico. Por favor, vuelve a intentar."},
+                       {Code.ERROR_CORREO_ACTIVACION_YA_ACTIVADA,"Esta dirección de correo electrónico ya ha sido validada."},
+                       {Code.ERROR_CORREO_ACTIVACION_DUPLICADO,"La dirección de correo electrónico ingresada ya pertenece a otra Consultora."},
+
+                   });
+                }
+            }
+
+            public class VerificacionEmail
+            {
+                public const string UpsOcurrioUnProblema = "UPSS! OCURRIÓ UN PROBLEMA";
+                public const string TuCorreoYaFueValidado = "TU CORREO YA FUE VALIDADO";
+
+                public const string ComunicateConNosotros = "Para resolver el problema comunícate con nosotros al {0} o al {1}.";
+                public const string ComunicateConNosotrosAlt = "Para resolver el problema comunícate con nosotros al {0}.";
+
+                public const string VerificacionEmailValida = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.";
+            }
+
+        }
+        
+        public static class RedireccionAndroidApp
+        {
+            public const string EsikaConmigo = "https://kpt22.app.goo.gl/esika";
+            public const string LbelConmigo = "https://kpt22.app.goo.gl/lbel";
+            public const string AppRedirectFormat = "IR AL APP {0} CONMIGO";
+            public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
+        }
+        
+            public class NuevoCatalogoProducto
         {
             public const string CLUBGANA = "CLUBGANA+";
             public const string SOLOHOY = "SOLOHOY";
@@ -2624,6 +2707,6 @@ namespace Portal.Consultoras.Common
             public const int CYZONE = 13;
         }
 
-        
+
     }
 }

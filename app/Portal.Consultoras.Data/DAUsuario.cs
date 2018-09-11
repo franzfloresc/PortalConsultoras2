@@ -831,8 +831,6 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetOpcionHabilitada(string CodigoUsuario, int OrigenID)
         {
-            //var objFlag = new BEUsuarioCorreo();
-
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetHabilitaOpcion");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, OrigenID);

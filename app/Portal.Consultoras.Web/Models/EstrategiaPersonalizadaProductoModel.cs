@@ -64,7 +64,6 @@ namespace Portal.Consultoras.Web.Models
 
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
         public bool EsOfertaIndependiente { get; set; }
-        //public string PrecioNiveles { get; set; }
         public List<string> ListaPrecioNiveles { get; set; }
 
         public string CodigoProducto { get; set; }

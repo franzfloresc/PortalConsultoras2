@@ -310,7 +310,6 @@ namespace Portal.Consultoras.Web.Models
         public List<ServicioCampaniaModel> MenuService { get; internal set; }
 
         public int EsOfertaDelDia { get; set; }
-        //public bool TieneOfertaDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
         public bool CloseBannerPL20 { get; set; }
 
