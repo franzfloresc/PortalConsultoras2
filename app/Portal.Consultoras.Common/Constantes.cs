@@ -2644,7 +2644,7 @@ namespace Portal.Consultoras.Common
 
         public class AceptacionContrato
         {
-            public const string UrlDescargarContratoCO = "http://somosbelcorpqa.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
+            public const string UrlDescargarContratoCO = "https://somosbelcorpprd.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
             public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
             public const string AcionesOmitidas = "ActualizarContrasenia";
         }
