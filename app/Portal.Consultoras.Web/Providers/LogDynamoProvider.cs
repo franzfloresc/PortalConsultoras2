@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Providers
                     httpClient.BaseAddress = new Uri(urlApi);
                     httpClient.DefaultRequestHeaders.Accept.Clear();
                     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { userParametro.JwtToken }");
+                    //httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { userParametro.JwtToken }");
                     dataString = JsonConvert.SerializeObject(data);
                     HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
                     HttpResponseMessage response = httpClient.PostAsync(apiController, contentPost).GetAwaiter().GetResult();
