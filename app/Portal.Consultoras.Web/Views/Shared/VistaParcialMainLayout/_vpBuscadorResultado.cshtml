@@ -1,0 +1,78 @@
+﻿<script id="js-ResultadoBuscador" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="resultado_busqueda_producto displayBlock text-left" data-item="ProductoBuscador">
+        <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
+        <input type="hidden" class="hdBuscadorSAP" value="{{SAP}}" />
+        <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
+        <input type="hidden" class="hdBuscadorCodigoPalanca" value="{{TipoEstrategiaId}}" />
+        <input type="hidden" class="hdBuscadorMarcaId" value="{{MarcaId}}" />
+        <input type="hidden" class="hdBuscadorDescripcion" value="{{Descripcion}}" />
+        <input type="hidden" class="hdBuscadorDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+        <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
+        <input type="hidden" class="hdBuscadorValorizado" value="{{Valorizado}}" />
+        <input type="hidden" class="hdBuscadorPosicion" value="{{posicion}}" />
+        <input type="hidden" class="hdBuscadorLimiteVenta" value="{{LimiteVenta}}" />
+        <input type="hidden" class="hdBuscadorCantidadesAgregadas" value="{{CantidadesAgregadas}}" />
+        <input type="hidden" class="hdBuscadorCodigoTipoEstrategia" value="{{CodigoTipoEstrategia}}" />
+        <input type="hidden" class="hdBuscadorCampaniaID" value="{{CampaniaID}}" />
+        <input type="hidden" class="hdBuscadorOrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
+
+        <div class="resultado_busqueda_img_prod displayInlineBlock redireccionarFicha">
+            <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.svg")'" />
+        </div>
+        <div class="resultado_busqueda_descrip_prod displayInlineBlock redireccionarFicha">
+            <div class="resultado_busqueda_nom_producto displayBlock">
+                {{Descripcion}}
+            </div>
+            <div class="resultado_busqueda_precio_prod displayBlock">
+                {{#if_eq TipoPersonalizacion 'LIQ'}}
+                <span class="resultado_busqueda_precio_oferta displayBlock">{{PrecioString}}</span>
+                {{else}}
+                <span class="resultado_busqueda_precio_normal displayBlock">{{ValorizadoString}}</span>
+                <span class="resultado_busqueda_precio_oferta displayBlock">{{PrecioString}}</span>
+                {{/if_eq}}
+            </div>
+            <div class="resultado_busqueda_tipo_oferta_prod displayBlock">{{DescripcionEstrategia}}</div>
+        </div>
+
+        {{#if_eq CodigoEstrategia '2003'}}
+        <div class="resultado_busqueda_btn_elegir_opcion_wrapper displayInlineBlock text-center" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
+            <a class="btn_elegir_opcion displayBlock text-center text-uppercase redireccionarFicha" href="javascript:;">
+                <span class="icono_elige_tu_opcion displayInlineBlock">
+                    <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
+                </span>
+                <span class="displayInlineBlock">
+                    Elige tu opción
+                </span>
+            </a>
+        </div>
+        {{else}}
+        <div class="resultado_busqueda_cantidad_prod displayInlineBlock js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
+            <a class="cantidad_menos_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                <img src="/Content/Images/Mobile/Esika/menos.png" alt="">
+            </a>
+            <input type="tel" value="1" size="2" maxlength="2" data-input="cantidad"
+                   class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" {{#if Stock}} disabled {{/if}} />
+            <a class="cantidad_mas_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                <img src="/Content/Images/Mobile/Esika/mas.png" alt="">
+            </a>
+            <div class="clear"></div>
+        </div>
+        <div class="resultado_busqueda_btn_agregar_wrapper displayInlineBlock text-center">
+            {{#if Stock}}
+            <a class="btn_inactivo displayBlock text-center text-uppercase">
+                Agotado
+            </a>
+            {{else}}
+            <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
+                Agrégalo
+            </a>
+            {{/if}}
+            <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold etiqueta_buscador_producto">
+                {{Agregado}}
+            </div>
+        </div>
+        {{/if_eq}}
+    </div>
+    {{/each}}
+</script>

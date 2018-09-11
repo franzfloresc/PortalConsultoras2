@@ -66,7 +66,7 @@ $(document).ready(function () {
                                 $('#ResultadoBuscadorMobile').fadeOut(150);
                                 me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
                             } else {
-                                SetHandlebars('#js-ResultadoBuscadorMobile', lista, '#ResultadoBuscadorMobile');
+                                SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscadorMobile');
                             }
 
                             setTimeout(function () {
