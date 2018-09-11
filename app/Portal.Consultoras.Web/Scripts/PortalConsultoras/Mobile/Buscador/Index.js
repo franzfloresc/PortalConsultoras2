@@ -39,17 +39,24 @@ $(document).ready(function () {
                         $('.spinner').fadeIn(150);
 
 
-                        var service = $.ajax({
-                            type: "POST",
+                        var xhr = null;
+
+                        if (xhr && xhr.readyState != 4) {
+                            xhr.abort();
+                        }
+
+                        xhr = $.ajax({
+                            type: 'POST',
                             url: baseUrl + "Mobile/Buscador/BusquedaProductos",
                             data: JSON.stringify({ busqueda: $(this).val(), totalResultados: TotalResultadosBuscador }),
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             async: true,
-                            cache: false
+                            cache: false,
+                            success: function (msg) {
+                                console.log(msg);
+                            }
                         });
-
-
 
                         var successBusqueda = function (r) {
 
@@ -75,7 +82,8 @@ $(document).ready(function () {
                                 $('#ResultadoBuscadorMobile').fadeIn(150);
                             }, 400);
                         }
-                        service.then(successBusqueda, function (e) {
+
+                        xhr.then(successBusqueda, function (e) {
                             console.log(e);
                         });
                         //aquí va el metodo que llama el api

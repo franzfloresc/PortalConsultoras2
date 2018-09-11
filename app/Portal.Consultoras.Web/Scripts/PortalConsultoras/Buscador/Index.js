@@ -91,16 +91,25 @@ $(document).ready(function () {
 
                         $('.spinner').fadeIn(150);
 
-                        var service = $.ajax({
-                            type: "POST",
+                        var xhr = null;
+                                                
+                        if (xhr && xhr.readyState != 4) {
+                            xhr.abort();
+                        }
+
+                        xhr = $.ajax({
+                            type: 'POST',
                             url: baseUrl + "Buscador/BusquedaProductos",
                             data: JSON.stringify({ busqueda: $(this).val(), totalResultados: TotalResultadosBuscador }),
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             async: true,
-                            cache: false
+                            cache: false,
+                            success: function (msg) {
+                                console.log(msg);
+                            }
                         });
-
+                                             
                         var successBusqueda = function (r) {
 
                             $.each(r, function (index, item) {
@@ -111,9 +120,7 @@ $(document).ready(function () {
                             });
 
                             var lista = r;
-
-                            console.log(lista);
-
+                            
                             if (lista.length <= 0) {
                                 //me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
                                 //$('#ResultadoBuscador').fadeOut(150);
@@ -135,7 +142,7 @@ $(document).ready(function () {
                                 //$('.lista_resultados_busqueda_productos').addClass('animarAlturaListaResultadosBusqueda');
                             }, 400);
                         }
-                        service.then(successBusqueda, function (e) {
+                        xhr.then(successBusqueda, function (e) {
                             console.log(e);
                         });
 
