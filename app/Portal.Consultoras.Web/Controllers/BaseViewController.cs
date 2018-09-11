@@ -12,7 +12,7 @@ using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class BaseViewController : BaseController //BaseEstrategiaController
+    public class BaseViewController : BaseController
     {
         private readonly IssuuProvider _issuuProvider;
 
@@ -109,70 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-        #region Lanzamiento
-
-        //public virtual ActionResult LANDetalle(string cuv, int campaniaId)
-        //{
-        //    try
-        //    {
-        //        var esMobile = IsMobile();
-
-        //        if (!revistaDigital.TieneRevistaDigital() || !revistaDigital.EsActiva)
-        //        {
-        //            return RedirectToAction("Index", "Ofertas", new { area = esMobile ? "Mobile" : "" });
-        //        }
-
-        //        var modelo = sessionManager.GetProductoTemporal();
-        //        if (modelo == null || modelo.EstrategiaID == 0 || _ofertaPersonalizadaProvider.EsCampaniaFalsa(modelo.CampaniaID) ||
-        //            modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
-        //        {
-        //            return RedirectToAction("Index", "Ofertas", new { area = esMobile ? "Mobile" : "" });
-        //        }
-
-        //        modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
-        //        modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
-
-        //        var EstrategiaDetalle = EstrategiaGetDetalle(modelo.EstrategiaID);
-        //        if (EstrategiaDetalle.Hermanos != null)
-        //        {
-        //            modelo.Hermanos = EstrategiaDetalle.Hermanos;
-        //        }
-
-        //        if (modelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
-        //        {
-        //            if ((modelo.Hermanos.Any()))
-        //            {
-        //                modelo.ClaseBloqueada = "btn_desactivado_general";
-        //            }
-        //        }
-        //        else if (modelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || modelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
-        //        {
-        //            if (modelo.Hermanos != null && modelo.Hermanos.Any())
-        //            {
-        //                if (modelo.Hermanos[0].Digitable == 1 && modelo.Hermanos[0].Hermanos.Any())
-        //                {
-        //                    modelo.ClaseBloqueada = "btn_desactivado_general";
-        //                }
-        //            }
-        //        }
-
-        //        modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
-
-        //        ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-        //        ViewBag.Campania = campaniaId;
-
-        //        return View(modelo);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseLanzamientosController.Detalle");
-        //        throw;
-        //    }
-        //}
-
-        #endregion
-
+        
         #region Guia Negocio
 
         public virtual ActionResult GNDViewLanding()
@@ -269,8 +206,6 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
                 modelo.Campania = campaniaId;
                 modelo.Cuv = cuv;
-                //modelo.TieneRevistaDigital = ;
-                //modelo.CodigoIsoConsultora = userData.CodigoISO;
 
                 modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca
                         || Constantes.NombrePalanca.ShowRoom == palanca
@@ -340,7 +275,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        //var actionPalanca = productoPerteneceACampaniaActual ? "" : "";
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#OPT";
                     }
                 }
@@ -365,11 +299,11 @@ namespace Portal.Consultoras.Web.Controllers
             var NombrePalancas = new Dictionary<string, string>();
 
             NombrePalancas.Add(Constantes.NombrePalanca.ShowRoom, "Especiales");
-            NombrePalancas.Add(Constantes.NombrePalanca.Lanzamiento, "Lo nuevo Nuevo");
+            NombrePalancas.Add(Constantes.NombrePalanca.Lanzamiento, "Lo nuevo ¡Nuevo!");
             NombrePalancas.Add(Constantes.NombrePalanca.OfertaParaTi, "Ofertas para ti");
             NombrePalancas.Add(Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para ti");
             NombrePalancas.Add(Constantes.NombrePalanca.RevistaDigital, "Revista Digital");
-            NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "Sólo Hoy");
+            NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "¡Solo Hoy!");
             NombrePalancas.Add(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio");
             NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
 

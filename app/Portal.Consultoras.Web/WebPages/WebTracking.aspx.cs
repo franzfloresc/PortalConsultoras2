@@ -430,18 +430,18 @@ namespace Portal.Consultoras.Web.WebPages
 
                         if (item.Fecha.HasValue)
                             strFecha = item.Fecha.Value.TimeOfDay.TotalHours.Equals(0) 
-                                ? item.Fecha.Value.ToString("dd/MM/yyyy") 
+                                ? item.Fecha.Value.ToString("d/MM/yyyy") 
                                 : item.Fecha.Value.ToString();
 
-                        if (strFecha == "01/01/2001")
+                        if (strFecha == "01/01/2001" || strFecha == "01/01/0001" || strFecha == "1/01/0001")
                         {
                             strFecha = string.Empty;
                         }
                         else
                         {
-                            if (strFecha == "01/01/2010" || strFecha == "02/01/2010")
+                            if (strFecha == "1/01/2010" || strFecha == "2/01/2010")
                             {
-                                if (strFecha == "01/01/2010")
+                                if (strFecha == "1/01/2010")
                                 {
                                     IList<BENovedadTracking> temp = novedades.Where(p => p.TipoEntrega == "01").ToList();
                                     if (temp.Count != 0)

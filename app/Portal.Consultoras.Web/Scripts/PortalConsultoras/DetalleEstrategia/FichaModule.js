@@ -276,6 +276,7 @@
             estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
             var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
             var estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0];
+            
             if (!isMobile()) {
                 if (palabrasEstrategiaDescripcion.length > 1)
                     estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[1];
@@ -283,7 +284,7 @@
                     estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[2];
                 if (palabrasEstrategiaDescripcion.length > 3) estrategiaBreadcrumb += "...";
             } else {
-                if (palabrasEstrategiaDescripcion.length > 1) estrategiaBreadcrumb += "...";
+                if (estrategia.DescripcionCompleta.length > 7) estrategiaBreadcrumb = estrategia.DescripcionCompleta.substr(0, 7) + "...";
             }
 
             $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
@@ -293,7 +294,7 @@
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
-
+        
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
 
         var imgFondo = "";

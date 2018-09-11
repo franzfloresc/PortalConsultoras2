@@ -5,7 +5,7 @@ using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLBelcorpResponde
+    public class BLBelcorpResponde : IBelcorpRespondeBusinessLogic
     {
         public IList<BEBelcorpResponde> GetBelcorpResponde(int paisID)
         {

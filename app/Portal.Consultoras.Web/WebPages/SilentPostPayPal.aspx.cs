@@ -10,12 +10,11 @@ namespace Portal.Consultoras.Web.WebPages
         {
             if (!Page.IsPostBack)
             {
-                int rslt = 0;
                 try
                 {
                     using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                     {
-                        rslt = sv.InsAbonoPago(12,
+                        sv.InsAbonoPago(12,
                                                this.Request["USER1"].ToString(),
                                                this.Request["USER2"].ToString(),
                                                (string.IsNullOrEmpty(Request["AMOUNT"])) ? 0 : Decimal.Parse(this.Request["AMOUNT"]),
