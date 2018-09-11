@@ -31,7 +31,7 @@ using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.Common
 {
-    public class Util
+    public static class Util
     {
         static public int ParseInt(object value)
         {

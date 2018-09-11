@@ -2,7 +2,7 @@
 
 namespace Portal.Consultoras.Web
 {
-    public class BundleConfig
+    public static class BundleConfig
     {
         /// <summary>
         /// [~Bundle]/[Js|Css]/[Desktop|Mobile|Mixto]/[Funcionalidad|Página]

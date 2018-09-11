@@ -1,6 +1,6 @@
 ﻿namespace Portal.Consultoras.Common
 {
-    public class AppSettingsKeys
+    public static class AppSettingsKeys
     {
         public const string WSGEO_Url = "WSGEO_Url";
         public const string WSGEO_CO_Url = "WSGEO_CO_Url";
@@ -27,7 +27,7 @@
         public const string ContenedoraConstanciaLaboralAval = "UrlContenedoraConstanciaLaboralAval";
     }
 
-    public class ConnectionStringNames
+    public static class ConnectionStringNames
     {
         /// <summary>
         /// Nombre de cadena de conexión ODS
