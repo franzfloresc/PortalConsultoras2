@@ -626,6 +626,13 @@ namespace Portal.Consultoras.Web.Providers
                     m.TipoTarjeta == card);
         }
 
+        public bool CanPay(UsuarioModel userData, PagoEnLineaModel pago)
+        {
+            return userData.TienePagoEnLinea &&
+                   pago.MontoDeuda > 0 &&
+                   userData.MontoDeuda >= pago.MontoDeuda;
+        }
+
         public IEnumerable<string> ObtenerMeses()
         {
             return Enumerable.Range(1, 12).Select(i => i.ToString("00"));

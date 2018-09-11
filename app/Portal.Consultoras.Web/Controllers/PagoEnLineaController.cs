@@ -59,14 +59,9 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public ActionResult PasarelaPago(string cardType, int medio = 0)
         {
-            if (!userData.TienePagoEnLinea || userData.MontoDeuda <= 0)
-                return RedirectToAction("Index", "Bienvenida");
-
             var pago = sessionManager.GetDatosPagoVisa();
-            if (pago == null || pago.ListaMetodoPago == null)
-            {
-                return RedirectToAction("Index");
-            }
+            if (pago == null || pago.ListaMetodoPago == null) return RedirectToAction("Index");
+            if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida");
 
             if (!string.IsNullOrEmpty(cardType))
             {
@@ -103,11 +98,11 @@ namespace Portal.Consultoras.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> PasarelaPago(PaymentInfo info)
         {
-            if (!userData.TienePagoEnLinea || userData.MontoDeuda <= 0)
-                return RedirectToAction("Index", "Bienvenida");
+            var pago = sessionManager.GetDatosPagoVisa();
+            if (pago == null || pago.ListaMetodoPago == null) return RedirectToAction("Index");
+            if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida");
 
             var requiredFields = _pagoEnLineaProvider.ObtenerCamposRequeridos();
-            var pago = sessionManager.GetDatosPagoVisa();
 
             if (ModelState.IsValid)
             {
@@ -136,7 +131,10 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcionMx);
                     ViewBag.PaisId = userData.PaisID;
 
-                    return View("PagoExitoso", pago);
+                    var view = View("PagoExitoso", pago);
+                    sessionManager.SetDatosPagoVisa(null);
+
+                    return view;
                 }
 
                 foreach (var error in validator.Errors)
