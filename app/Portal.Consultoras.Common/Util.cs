@@ -3543,13 +3543,14 @@ namespace Portal.Consultoras.Common
             string codigoEstrategia,
             string tipoEstrategiaCodigo,
             int marcaId,
-            int codigoCatalago)
+            int codigoCatalago,
+            bool buscador = false)
         {
             var result = "";
 
             if (!lista.Any()) return result;
 
-            if (string.IsNullOrEmpty(tipoEstrategiaCodigo))
+            if (string.IsNullOrEmpty(tipoEstrategiaCodigo) && buscador == false)
             {
                 switch (codigoCatalago)
                 {
