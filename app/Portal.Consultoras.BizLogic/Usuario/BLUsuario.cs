@@ -491,6 +491,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
                     usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
                     usuario.AceptacionConsultoraDA = configuracionConsultora.AceptacionConsultoraDA;
+                    usuario.DiaFacturacion = (usuario.FechaInicioFacturacion - DateTime.Now).Days;
                 }
 
                 if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -552,6 +553,7 @@ namespace Portal.Consultoras.BizLogic
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
                 var buscadorTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.BuscadorYFiltros));
+                var revistaDigitalTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Format("{0}|{1}|{2}", Constantes.ConfiguracionPais.RevistaDigital, Constantes.ConfiguracionPais.RevistaDigitalIntriga, Constantes.ConfiguracionPais.RevistaDigitalReducida)));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -568,7 +570,8 @@ namespace Portal.Consultoras.BizLogic
                                 actualizaDatosTask,
                                 actualizaDatosConfigTask,
                                 contratoAceptacionTask,
-                                buscadorTask);
+                                buscadorTask,
+                                revistaDigitalTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -628,10 +631,8 @@ namespace Portal.Consultoras.BizLogic
                     usuario.IndicadorContratoAceptacion = contratoAceptacionTask.Result.Where(e => e.AceptoContrato == 1).Count();
                 }
 
-                if (buscadorTask.Result != null)
-                {
-                    usuario = buscadorTask.Result;
-                }
+                usuario = buscadorTask.Result ?? usuario;
+                usuario = revistaDigitalTask.Result ?? usuario;
 
                 return usuario;
             }
@@ -3019,6 +3020,8 @@ namespace Portal.Consultoras.BizLogic
         #region UserData
         public BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais)
         {
+            var revistaDigitalModel = new BERevistaDigital();
+
             try
             {
                 CodigoUsuarioLog = usuario.CodigoUsuario;
@@ -3042,11 +3045,17 @@ namespace Portal.Consultoras.BizLogic
                         switch (configuracion.Codigo)
                         {
                             case Constantes.ConfiguracionPais.RevistaDigital:
-                                var revistaDigitalModel = new BERevistaDigital();
                                 revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuario.CodigoISO);
                                 revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuario);
                                 revistaDigitalModel.BloqueoRevistaImpresa = configuracion.BloqueoRevistaImpresa;
                                 usuario.RevistaDigital = revistaDigitalModel;
+                                break;
+                            case Constantes.ConfiguracionPais.RevistaDigitalReducida:
+                                revistaDigitalModel.TieneRDCR = true;
+                                revistaDigitalModel.BloqueoRevistaImpresa = revistaDigitalModel.BloqueoRevistaImpresa || configuracion.BloqueoRevistaImpresa;
+                                continue;
+                            case Constantes.ConfiguracionPais.RevistaDigitalIntriga:
+                                revistaDigitalModel.TieneRDI = true;
                                 break;
                             case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
                                 usuario.TieneValidacionMontoMaximo = configuracion.Estado;
@@ -3161,44 +3170,10 @@ namespace Portal.Consultoras.BizLogic
         {
             revistaDigitalModel.TieneRDC = true;
             ActualizarSubscripciones(revistaDigitalModel, usuarioModel);
+
             #region Campanias y Estados Es Activas - Es Suscrita
-            if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-            {
-                var ca = Common.Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
-                                                            revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-
-                if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
-                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
-
-                revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
-            }
-            else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro ==
-                     Constantes.EstadoRDSuscripcion.SinRegistroDB)
-            {
-                if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                {
-                    var ca = Common.Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
-                        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-                    if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
-                        ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
-
-                    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
-                }
-                else
-                {
-                    revistaDigitalModel.EsActiva = false;
-                }
-            }
-            else
-            {
-                var ca = Common.Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
-                    revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-
-                if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
-                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
-
-                revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
-            }
+            revistaDigitalModel.EsActiva = revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
             #endregion
 
             return revistaDigitalModel;

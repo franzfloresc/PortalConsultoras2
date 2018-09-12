@@ -794,6 +794,7 @@ namespace Portal.Consultoras.Entities
         public string ImagenURLOfertaFIC { get; set; }
 
         [DataMember]
+        [Column("Lider")]
         public int Lider { get; set; }
 
         [Column("ConsultoraAsociada")]
@@ -1227,6 +1228,8 @@ namespace Portal.Consultoras.Entities
         public int IndicadorContratoAceptacion { get; set; }
         [DataMember]
         public BEBuscadorYFiltrosConfiguracion BuscadorYFiltrosConfiguracion { get; set; }
+        [DataMember]
+        public int DiaFacturacion { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
