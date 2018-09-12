@@ -1,3 +1,6 @@
 # Portal Consultoras SB2
 
-BPT-PL50-Sprint5-DeudaTecnica
+PI2-EPM-Sprint1-MenuContenedor
+- Nuevo menú contenedor de ofertas 
+
+HU => EPM 1453, 1460
