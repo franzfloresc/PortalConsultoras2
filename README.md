@@ -1,5 +1,5 @@
 # Portal Consultoras SB2
 
-BPT-PL50-Sprint4-Pase
+PI2-EPM-Sprint1-Inicio
 
-- Se integraran todas la ramas que estaran dentro del pase.
+- Integracion de todo Sprint 4 + Sprint 5
