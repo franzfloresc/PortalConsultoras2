@@ -2102,7 +2102,6 @@ function AbrirAceptacionContrato() {
 }
 
 function AceptarContrato() {
-   debugger
     var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: "" };
     waitingDialog({});
 
@@ -3148,7 +3147,7 @@ function MostrarPopupInicial() {
         CargarMisDatos();
         return;
     }
-    debugger
+
     switch (TipoPopUpMostrar) {
         //case '0':
         //    if (VerContrato == 1 && !AceptoContrato) PopupMostrar('popupAceptacionContrato');

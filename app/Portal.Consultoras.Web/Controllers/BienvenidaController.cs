@@ -28,7 +28,6 @@ namespace Portal.Consultoras.Web.Controllers
             this.logManager = logManager;
         }
 
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "", string verCambioClave = "")
         {
             var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos, OpcionCambiaClave = verCambioClave };
