@@ -186,7 +186,6 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Lógica de Popups
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model);
-                model.TieneContratoPopup = ValidarContratoPopup() ? 1 : 0;
                 model.TieneFacturacionElectronica = GetDatosFacturacionElectronica(userData.PaisID, Constantes.FacturacionElectronica.TablaLogicaID, Constantes.FacturacionElectronica.FlagActivacion) == "1";
 
                 #endregion
