@@ -60,7 +60,7 @@
     }
     @if (menuActivo.CampaniaX0 > 0)
     {
-        <div class="op_menu-horizontal" data-layout-menu1="">
+        @*<div class="op_menu-horizontal" data-layout-menu1="">
             <ul>
                 <li data-campania="@menuActivo.CampaniaX0" data-codigo="1"
                     onclick="menuModule.tabClick(this, '@Url.Action("Index", "Ofertas")', '@menuActivo.NombreOrigenPantalla')">
@@ -90,7 +90,7 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </div>*@
     }
 </div>
 
@@ -98,7 +98,7 @@
 <div data-layout-menu2="">
     @if (menuList.Any())
     {
-        <div class="op-menu-vertical sticky">
+        @*<div class="op-menu-vertical sticky">
             <ul class="subnavegador" data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()" data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
                 @foreach (var menuhijo in menuList)
                 {
@@ -135,6 +135,31 @@
                         </div>
                     </li>
                 }
+            </ul>
+        </div>*@
+        <div class="op-menu-horizontal">
+            <ul class="subnavegador">
+                <li>
+                    <a class="gana_mas_horizontal activado" href="javascript:void(0);"><img src="https://cdn1-prd.somosbelcorp.com/RevistaDigital/PE/inicio-club-ganamas-desktop_hover.svg" alt="" /> Gana+</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">OFERTAS ESPECIALES</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">LO NUEVO ¡NUEVO!</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">OFERTAS PARA TI</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">¡SOLO HOY!</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">DEMOSTRADORES</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">SABER MÁS</a>
+                </li>
             </ul>
         </div>
     }
