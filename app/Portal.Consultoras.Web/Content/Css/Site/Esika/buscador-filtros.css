@@ -122,23 +122,19 @@
 }
 
     .campo_buscador_productos::-webkit-input-placeholder {
-        color: #000;
-        font-weight: 600;
+        color: #808080;
     }
 
     .campo_buscador_productos:-moz-placeholder {
-        color: #000;
-        font-weight: 600;
+        color: #808080;
     }
 
     .campo_buscador_productos::-moz-placeholder {
-        color: #000;
-        font-weight: 600;
+        color: #808080;
     }
 
     .campo_buscador_productos:-ms-input-placeholder {
-        color: #000;
-        font-weight: 600;
+        color: #808080;
     }
 
     .campo_buscador_productos::-ms-clear{
@@ -688,42 +684,40 @@
         background-color: #FFF;
         padding-left: 10px;
         padding-right: 10px;
-        -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
-        -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
-        box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
         position:relative;
+        border-bottom:1px solid #d8d8d8;
     }
 
     .campo_buscador_filtros_mobile {
         width: 100%;
-        height: 48px;
+        height: 47px;
         background: #fff;
         color: #000;
         padding-left: 10px;
         padding-bottom: 2px;
         line-height: 45px;
-        font-size: 14px;
-        font-weight: 400;
+        font-size: 18px;
+        font-weight: 700;
     }
 
         .campo_buscador_filtros_mobile::-webkit-input-placeholder {
-            color: #000;
-            font-weight: 600;
+            color: #808080;
+            font-weight:400;
         }
 
         .campo_buscador_filtros_mobile:-moz-placeholder {
-            color: #000;
-            font-weight: 600;
+            color: #808080;
+            font-weight:400;
         }
 
         .campo_buscador_filtros_mobile::-moz-placeholder {
-            color: #000;
-            font-weight: 600;
+            color: #808080;
+            font-weight:400;
         }
 
         .campo_buscador_filtros_mobile:-ms-input-placeholder {
-            color: #000;
-            font-weight: 600;
+            color: #808080;
+            font-weight:400;
         }
 
     .enlace_busqueda_filtros,
@@ -814,11 +808,8 @@
     }
 
     .resultado_busqueda_nom_producto {
-        font-size: 13px;
-        letter-spacing: 0.2px;
         line-height: 18px;
         margin-bottom:2px;
-        overflow-wrap:break-word;
     }
 
     .resultado_busqueda_precio_prod {
@@ -832,20 +823,12 @@
     }
 
     .resultado_busqueda_precio_normal {
-        font-size: 11px;
         text-decoration: line-through;
         margin-bottom: -1px;
-        margin-right: 10px;
     }
 
     .resultado_busqueda_precio_oferta {
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-    .resultado_busqueda_tipo_oferta_prod {
-        font-size: 10px;
-        color: #848484;
+        font-weight: 400;
     }
 
     .resultado_busqueda_cantidad_prod{
