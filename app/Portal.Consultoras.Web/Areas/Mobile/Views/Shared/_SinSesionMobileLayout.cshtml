@@ -27,12 +27,12 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/esika-CssSB2Mobile")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/lbel-CssSB2Mobile")
     }
     <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
@@ -48,8 +48,9 @@
 </head>
 <body>
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
-    
-    <div class="menu">
+
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenuLateral.cshtml")
+    @*<div class="menu">
         <div class="content_close">
             <div class="icon-close">
                 <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
@@ -66,7 +67,7 @@
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
         @Html.Partial("_MobileMenuLateral")
         <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
-    </div>
+    </div>*@
 
     <section style="min-height: 380px;">
         <div id="content" data-content="" style="margin-top: 5px;">
@@ -95,7 +96,7 @@
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js")"></script>
-    
+
     <script type="text/javascript">
         var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
         var urlValidarCorreoComunidad = '@Url.Action("ValidarCorreoComunidad", "Bienvenida", new { area = "" })';
@@ -151,7 +152,7 @@
     </script>
 
     <script type="text/javascript">
-        
+
         $(document).ready(function () {
             aCam.push($("#hdCampaniaAnterior").val());
             aCam.push($("#hdCampaniaActual").val());
@@ -162,7 +163,7 @@
             aCamRev.push($("#hdrCampaniaSiguiente").val());
             rCampSelect = $("#hdrCampaniaAnterior").val();//$("#hdrCampaniaActual").val();
             $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
-            RevistaMostrar(-1); 
+            RevistaMostrar(-1);
 
             $('#campaniaRevista').val(rCampSelect);
 
@@ -276,7 +277,7 @@
 
                 $("#divCatalogo").append(html);
             }
-    
+
             CloseLoading();
         }
         function ColumnasDeshabilitadasxPais(valor, accion, label) {
@@ -421,13 +422,13 @@
         function CatalogoMostrar(accion, btn) {
             campSelectI = accion == -1 ? campSelectI - 1 : accion == 1 ? campSelectI + 1 : campSelectI;
             campSelectI = campSelectI <= 0 ? 0 : campSelectI >= cantCam - 1 ? cantCam - 1 : campSelectI;
-            
+
             var campS = aCam[campSelectI];
             campSelect = campS.substring(4, 6);
             $('[data-tag-html="Catalogos"] .titulo_catalogo').text("CATÁLOGOS C-" + campSelect);
             $("#divCatalogo > div").hide();
             $("#divCatalogo > div[data-cam='" + campS + "'][data-estado='1']").show();
-            
+
             $("#divCatalogo > a img").show();
             if (campSelectI == 0 || campSelectI == cantCam - 1) {
                 if (btn != null) {
@@ -464,7 +465,7 @@
                     .append(htmlTagAdd)
                     .appendTo(ul);
             };
-        }        
+        }
 
         var campaniaEmail = "";
         function AbrirCompartirCorreo(tipoCatalogo, campania) {
@@ -548,7 +549,7 @@
                 'label': 'Revista C-' + rCampSelect.substr(4),
                 'value': 0
             });
-    
+
             ShowLoading();
             MostrarRevistaCorrecta(rCampSelect);
 

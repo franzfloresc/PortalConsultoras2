@@ -12,7 +12,7 @@
 }
 @section styles
 {
-    @Styles.Render("~/bundles/Css/Mobile/Site/CssPedido")
+    @Styles.Render("~/Bundle/Css/Mobile/Pedido")
 }
 <div class="wrapper_resumen_mobile sin_padding">
     @if (!mobileConfiguracion.EsAppMobile)
@@ -477,7 +477,7 @@
         </script>
     }
 
-    @Scripts.Render("~/bundles/JsMobile/Pedido")
+    @Scripts.Render("~/Bundle/Js/Mobile/Pedido")
 
     @if (Model.MostrarPopupPrecargados)
     {

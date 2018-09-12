@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile" });
             }
-            sessionManager.SetListadoEstadoCuenta(null);
+            SessionManager.SetListadoEstadoCuenta(null);
 
             string fechaVencimiento;
             string montoPagar;

@@ -189,10 +189,10 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.TemplatePresentacion = "seccion-simple-centrado";
                             seccion.TemplateProducto = "#producto-landing-template";
                             break;
-                        case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselPrevisuales:
-                            seccion.TemplatePresentacion = "seccion-carrusel-previsuales";
-                            seccion.TemplateProducto = "#lanzamiento-carrusel-template";
-                            break;
+                        //case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselPrevisuales:
+                        //    seccion.TemplatePresentacion = "seccion-carrusel-previsuales";
+                        //    seccion.TemplateProducto = "#lanzamiento-carrusel-template";
+                        //    break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
                             seccion.TemplatePresentacion = "seccion-simple-centrado";
                             seccion.TemplateProducto = "#producto-landing-template";
@@ -316,7 +316,7 @@ namespace Portal.Consultoras.Web.Providers
 
         //private bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo, string sobreNombre)
         //{
-        //    var revistaDigital = sessionManager.GetRevistaDigital();
+        //    var revistaDigital = SessionManager.GetRevistaDigital();
         //    if (codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC) return false;
 
         //    titulo = revistaDigital.TieneRDC

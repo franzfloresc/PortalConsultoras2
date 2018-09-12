@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Portal.Consultoras.Common
 {
-    public class Dictionaries
+    public static class Dictionaries
     {
         private static readonly Dictionary<string, string> documentoIdentidad = new Dictionary<string, string>
         {

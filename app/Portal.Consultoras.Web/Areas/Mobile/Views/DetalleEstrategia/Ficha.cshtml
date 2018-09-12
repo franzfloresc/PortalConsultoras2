@@ -11,14 +11,14 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/mobile/css/ficha")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        @Styles.Render("~/bundles/mobile/css/FichaEsika")
+        @Styles.Render("~/Bundle/Css/Mobile/Ficha-Esika")
     }
     else
     {
-        @Styles.Render("~/bundles/mobile/css/FichaLbel")
+        @Styles.Render("~/Bundle/Css/Mobile/Ficha-Lbel")
     }
     <style id="styleRelojOdd"></style>
 }
@@ -49,11 +49,7 @@
             {{/iff}}
         </div>
         <hr class="clear">
-        @*<div id="EtiquetaLanzamientos" class="row label_producto">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <img src="{{TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" />
-                </div>
-            </div>*@
+
         {{#IsNullOrEmpty ImagenURL '!='}}
         <div id="EtiquetaPackNuevas" class="row label_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -86,14 +82,7 @@
             </ul>
         </div>
         {{/IsNullOrEmpty}}
-        @*<div id="SloganPackNuevas">
-                <span class="nombre_detalle_producto_tono"><strong>Contenido del Set:</strong></span>
-                <ul class="descripcion_detalle_producto_tono" style="list-style-type: none;">
-                    {{#each this.ArrayContenidoSet}}
-                    <li><span class="txt-des">{{this}}</span></li>
-                    {{/each}}
-                </ul>
-            </div>*@
+
 
         {{#iff Precio '>' 0}}
         <div class="row">
@@ -224,14 +213,6 @@
                         </div>
                     </ul>
                 </li>
-                @*<li id="div_ficha_tab5">
-                        <a>VIDEO</a>
-                        <div class="video-visual">
-                            <div class="video-container">
-                                <div id="ytFicha" data-youtube="{ height:'220', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}" class="yt-video"></div>
-                            </div>
-                        </div>
-                    </li>*@
             </ul>
         </div>
     </div>
@@ -312,9 +293,9 @@ else
 @Html.Partial("_template-ofertadeldia-style")
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
-    @System.Web.Optimization.Scripts.Render("~/bundles/mobile/js/Ficha")
-    @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
 
     <script>
         AbrirLoad();
@@ -345,8 +326,8 @@ else
                     campania: "@Model.Campania",
                     cuv: "@Model.Cuv",
                     urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new {Area = ""})',
-                    idPlantilla: "#producto-landing-template",
-                    divFichaCarrusel: "#divFichaCarrusel",
+                    idPlantillaProducto: "#producto-landing-template",
+                    divCarruselContenedor: "#divFichaCarrusel",
                     idTituloCarrusel: "#tituloCarrusel",
                     divCarruselProducto: "#divFichaCarruselProducto"
                 });

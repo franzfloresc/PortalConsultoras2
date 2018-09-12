@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Controllers
             userData.EMail = entidad.EMail;
             userData.Celular = entidad.Celular;
             userData.EMailActivo = correoNuevo == correoAnterior && userData.EMailActivo;
-            sessionManager.SetUserData(userData);
+            SessionManager.SetUserData(userData);
         }
 
         private void ActivacionCupon()
@@ -265,7 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ActualizarDatos(entidad, entidad.EMail);
 
                 userData.Celular = entidad.Celular;
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
             }
         }
 

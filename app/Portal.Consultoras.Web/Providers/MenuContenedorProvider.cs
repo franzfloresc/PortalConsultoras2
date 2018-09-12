@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Providers
                 //    var PathOrigen = GetOrigenFromQueryString(Request);
                 //    menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(PathOrigen, revistaDigital, CodigoConsultora, CodigoISO);
                 //    if (menuActivo.Codigo == "")
-                //        menuActivo = sessionManager.GetMenuContenedorActivo();
+                //        menuActivo = SessionManager.GetMenuContenedorActivo();
                 //    break;
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
                 case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:

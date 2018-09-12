@@ -78,12 +78,12 @@ var OfertaDelDiaModule = function () {
 
     var elements = {
         ContenedorOfertaDelDia: "#OfertaDelDia",    // desktop
-        ContenedorOfertaDelDiaMobile: "#OfertasDiaMobile",  // mobile (ya no se usa)
+        //ContenedorOfertaDelDiaMobile: "#OfertasDiaMobile",  // mobile (ya no se usa) DEUDA TECNICA
         ContenedorOfertaDelDiaOfertas: "#OfertasDelDiaOfertas", // contenedor de ofertas
-        ContenedorEstrategiaTemplateCarrusel: "#estrategia-template_carrusel",
+        //ContenedorEstrategiaTemplateCarrusel: "#estrategia-template_carrusel", DEUDA TECNICA
         ContenedorInternoSliderOfertaDelDiaMobileHome: "#content_oferta_dia_mobile",
         ContenedorInternoSliderOfertaDelDiaMobile: ".BloqueOfertaDiaHeader",
-        BtnAgregarMobile: "#btnAgregarMobile",
+        //BtnAgregarMobile: "#btnAgregarMobile", DEUDA TECNICA
         TxtCantidadMobile: "#txtCantidad"
     };
 
@@ -261,6 +261,8 @@ var OfertaDelDiaModule = function () {
                 nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>'
             }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
                 odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide);
+            }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+                EstablecerLazyCarrusel($("#divOddCarrusel"));
             });
 
             // esto debe ser automatico
@@ -497,60 +499,60 @@ var OfertaDelDiaModule = function () {
         else
             return -1;
     }
+    //DEUDA TECNICA
+    //var ConfigurarSlick = function() {
+    //    //$(elements.ContenedorOfertaDelDiaMobile).show(); DEUDA TECNICA
 
-    var ConfigurarSlick = function() {
-        $(elements.ContenedorOfertaDelDiaMobile).show();
+    //    EstablecerLazyCarrusel($(elements.ContenedorOfertaDelDiaMobile));
 
-        EstablecerLazyCarrusel($(elements.ContenedorOfertaDelDiaMobile));
+    //    $(elements.ContenedorOfertaDelDiaMobile + ".slick-initialized").slick("unslick");
+    //    $(elements.ContenedorOfertaDelDiaMobile).slick({
+    //        lazyLoad: "ondemand",
+    //        dots: false,
+    //        infinite: true,
+    //        vertical: false,
+    //        slidesToShow: 1,
+    //        slidesToScroll: 1,
+    //        autoplay: false,
+    //        speed: 260,
+    //        prevArrow: '<a style="width: auto; display: block; left:  0; margin-left:  -13%; top: 24%;"><img src="' +
+    //            baseUrl +
+    //            'Content/Images/Esika/left_compra.png")" alt="" /></a>',
+    //        nextArrow:
+    //            '<a style="width: auto; display: block; right: 0; margin-right: -13%; text-align:right;  top: 24%;"><img src="' +
+    //                baseUrl +
+    //                'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+    //    }).on("beforeChange",
+    //        function(event, slick, currentSlide, nextSlide) {
+    //            var list = array_odd.ListaOferta;
+    //            var evento = "arrow_click";
+    //            var index = odd_mobile_procesar_evento_before_change(event, slick, currentSlide, nextSlide, list);
+    //            if (index !== -1)
+    //                odd_mobile_google_analytics_promotion_impresion(list, evento, index);
+    //        });
+    //    $(elements.ContenedorOfertaDelDiaMobile).slick("slickGoTo", 0);
+    //};
+    //DEUDA TECNICA
+    //var RenderOfertaDelDiaMobile = function(data, contenedorOfertas) {
+    //    $(contenedorOfertas).hide();
 
-        $(elements.ContenedorOfertaDelDiaMobile + ".slick-initialized").slick("unslick");
-        $(elements.ContenedorOfertaDelDiaMobile).slick({
-            lazyLoad: "ondemand",
-            dots: false,
-            infinite: true,
-            vertical: false,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: false,
-            speed: 260,
-            prevArrow: '<a style="width: auto; display: block; left:  0; margin-left:  -13%; top: 24%;"><img src="' +
-                baseUrl +
-                'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-            nextArrow:
-                '<a style="width: auto; display: block; right: 0; margin-right: -13%; text-align:right;  top: 24%;"><img src="' +
-                    baseUrl +
-                    'Content/Images/Esika/right_compra.png")" alt="" /></a>'
-        }).on("beforeChange",
-            function(event, slick, currentSlide, nextSlide) {
-                var list = array_odd.ListaOferta;
-                var evento = "arrow_click";
-                var index = odd_mobile_procesar_evento_before_change(event, slick, currentSlide, nextSlide, list);
-                if (index !== -1)
-                    odd_mobile_google_analytics_promotion_impresion(list, evento, index);
-            });
-        $(elements.ContenedorOfertaDelDiaMobile).slick("slickGoTo", 0);
-    };
+    //    data.CantidadProductos = data.ListaOferta.length;
+    //    data.ListaOferta = AsignarPosicionAListaOfertas(data.ListaOferta);
+    //    data.ListaOferta = AsignarClaseCssAPalabraGratisMobile(data.ListaOferta);
 
-    var RenderOfertaDelDiaMobile = function(data, contenedorOfertas) {
-        $(contenedorOfertas).hide();
+    //    SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, data, elements.ContenedorOfertaDelDiaMobile);
 
-        data.CantidadProductos = data.ListaOferta.length;
-        data.ListaOferta = AsignarPosicionAListaOfertas(data.ListaOferta);
-        data.ListaOferta = AsignarClaseCssAPalabraGratisMobile(data.ListaOferta);
-
-        SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, data, elements.ContenedorOfertaDelDiaMobile);
-
-        ConfigurarSlick();
-    };
+    //    ConfigurarSlick();
+    //};
 
     var CargarODDMobile = function () {
         MostrarRelojOfertaDelDia($(".clock").data("total-seconds"));
 
-        var contenedorOfertas = elements.ContenedorOfertaDelDiaMobile;
+        /*var contenedorOfertas = elements.ContenedorOfertaDelDiaMobile;  DEUDA TECNICA
 
         if ($(contenedorOfertas).length === 0)
             return false;
-
+        */
         OfertaDelDiaProvider
             .pedidoGetOfertaDelDiaPromise()
             .done(function (data) {
@@ -560,7 +562,7 @@ var OfertaDelDiaModule = function () {
                     return false;
                 var _data = data.data;
 
-                RenderOfertaDelDiaMobile(_data, contenedorOfertas);
+                //RenderOfertaDelDiaMobile(_data, contenedorOfertas);  DEUDA TECNICA
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
                 $("#txtCantidad").val("1");

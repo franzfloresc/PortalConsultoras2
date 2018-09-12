@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Runtime.Serialization.Json;
 using System.IO;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Common.PagoEnLinea
 {
-    public class JsonHelper
+    public static class JsonHelper
     {
         /// <summary>
         /// JSON Serialization

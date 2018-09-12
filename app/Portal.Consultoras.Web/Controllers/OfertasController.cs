@@ -75,19 +75,19 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
-                    sessionManager.SetTieneLan(false);
+                    SessionManager.SetTieneLan(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
-                    sessionManager.SetTieneLanX1(false);
+                    SessionManager.SetTieneLanX1(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
-                    sessionManager.SetTieneOpt(false);
+                    SessionManager.SetTieneOpt(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
-                    sessionManager.SetTieneOpm(false);
+                    SessionManager.SetTieneOpm(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
-                    sessionManager.SetTieneOpmX1(false);
+                    SessionManager.SetTieneOpmX1(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
-                    sessionManager.SetTieneHv(false);
+                    SessionManager.SetTieneHv(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
-                    sessionManager.SetTieneHvX1(false);
+                    SessionManager.SetTieneHvX1(false);
 
                 return Json(new
                 {
