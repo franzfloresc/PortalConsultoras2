@@ -160,6 +160,9 @@ namespace Portal.Consultoras.Web.Providers
                         }
                     },
                     creditCard = card,
+                    extraParameters = new {
+                        EXTRA1 = User.SegmentoInternoID
+                    },
                     type = Constantes.PagoEnLineaPayuGenerales.TransactionType,
                     paymentMethod = pago.TipoPago,
                     paymentCountry = Constantes.PagoEnLineaPayuGenerales.Country,
