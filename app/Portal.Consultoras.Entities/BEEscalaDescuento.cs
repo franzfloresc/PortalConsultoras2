@@ -29,20 +29,23 @@ namespace Portal.Consultoras.Entities
         public decimal PrecioMinimo { get; set; }
 
         #endregion
-
+        [DataMember]
         public string Algoritmo { get; set; }
-
+      
         public BEEscalaDescuento() { }
-
+       
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEEscalaDescuento(IDataRecord row)
         {
-            MontoDesde = row.ToDecimal("MontoDesde");
-            MontoHasta = row.ToDecimal("MontoHasta");
-            PorDescuento = row.ToInt32("PorDescuento");
-            TipoParametriaOfertaFinal = row.ToString("TipoParametriaOfertaFinal");
-            PrecioMinimo = row.ToDecimal("PrecioMinimo");
-            Algoritmo = row.ToString("Algoritmo");
+            MontoDesde = DataRecord.GetColumn<decimal>(row, "MontoDesde");
+            MontoHasta = DataRecord.GetColumn<decimal>(row, "MontoHasta");
+            PorDescuento = DataRecord.GetColumn<int>(row, "PorDescuento");
+            TipoParametriaOfertaFinal = DataRecord.GetColumn<string>(row, "TipoParametriaOfertaFinal");
+            PrecioMinimo = DataRecord.GetColumn<decimal>(row, "PrecioMinimo");
+            Algoritmo = DataRecord.GetColumn<string>(row, "Algoritmo");
         }
+
+
+
     }
 }

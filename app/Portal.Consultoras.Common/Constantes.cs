@@ -470,6 +470,8 @@ namespace Portal.Consultoras.Common
             public const string UrlImagenLbel = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca-lbel.png";
             public const string ColorTemaEsika = "#e81c36";
             public const string ColorTemaLbel = "#613c87";
+
+            public const string PaisesEscalaDescuento = "PaisesEscalaDescuento";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado

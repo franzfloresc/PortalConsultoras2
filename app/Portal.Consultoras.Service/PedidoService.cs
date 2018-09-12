@@ -42,6 +42,7 @@ namespace Portal.Consultoras.Service
         private readonly BLProductoSugerido BLProductoSugerido;
         private readonly IConfiguracionProgramaNuevasBusinessLogic BLConfiguracionProgramaNuevas;
         private readonly BLEscalaDescuento BLEscalaDescuento;
+        private readonly BLEscalaDescuentoZona BLEscalaDescuentoZona;
         private readonly BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private readonly BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private readonly BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
@@ -79,6 +80,7 @@ namespace Portal.Consultoras.Service
             BLProductoSugerido = new BLProductoSugerido();
             BLConfiguracionProgramaNuevas = new BLConfiguracionProgramaNuevas();
             BLEscalaDescuento = new BLEscalaDescuento();
+            BLEscalaDescuentoZona = new BLEscalaDescuentoZona();
             BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
@@ -888,6 +890,8 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
+        #region Escala Descuento / zona
+
         public BEPedidoWeb GetPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID)
         {
             return BLPedidoWeb.GetPedidoWebByCampaniaConsultora(paisID, campaniaID, consultoraID);
@@ -907,6 +911,18 @@ namespace Portal.Consultoras.Service
         {
             return BLEscalaDescuento.GetParametriaOfertaFinal(paisID, algoritmo);
         }
+
+        public List<BEEscalaDescuentoZona> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona)
+        {
+            return BLEscalaDescuentoZona.ListarEscalaDescuentoZona(paisID, campaniaID, region, zona);
+        }
+
+        public List<BEEscalaDescuento> GetEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona)
+        {
+            return BLEscalaDescuentoZona.GetEscalaDescuentoZona(paisID, campaniaID, region, zona);
+        }
+
+        #endregion
 
         #region Pedidos DD
 

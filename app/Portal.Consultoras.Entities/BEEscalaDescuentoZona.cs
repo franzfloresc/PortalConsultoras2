@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEEscalaDescuentoZona
+    public class BEEscalaDescuentoZona : BEEscalaDescuento
     {
         [DataMember]
         public string CampaniaId { get; set; }
@@ -19,11 +19,16 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodZona { get; set; }
         [DataMember]
-        public decimal MontoHasta { get; set; }
-        [DataMember]
-        public int PorDescuento { get; set; }
-        [DataMember]
         public DateTime? FechaCarga { get; set; }
+        [DataMember]
+        public string NameDocumento
+        {
+            get
+            {
+                return CodZona == null ? string.Empty : string.Format("{0}_{1}", CodRegion, CodZona);
+            }
+            set { NameDocumento = value; }
+        }
 
         public BEEscalaDescuentoZona()
         {
@@ -34,15 +39,34 @@ namespace Portal.Consultoras.Entities
             PorDescuento = default(Int32);
             FechaCarga = default(DateTime);
         }
-
+       
         public BEEscalaDescuentoZona(IDataRecord row)
         {
             CampaniaId = DataRecord.GetColumn<string>(row, "CampaniaId");
             CodRegion = DataRecord.GetColumn<string>(row, "CodRegion");
             CodZona = DataRecord.GetColumn<string>(row, "CodZona");
+            FechaCarga = DataRecord.GetColumn<DateTime>(row, "FechaCarga");
+            MontoDesde = DataRecord.GetColumn<decimal>(row, "MontoDesde");
             MontoHasta = DataRecord.GetColumn<decimal>(row, "MontoHasta");
             PorDescuento = DataRecord.GetColumn<int>(row, "PorDescuento");
-            FechaCarga = DataRecord.GetColumn<DateTime>(row, "FechaCarga");
+            PrecioMinimo = DataRecord.GetColumn<decimal>(row, "PrecioMinimo");
+
         }
+
+        public BEEscalaDescuento GetEscalaDescuento(IDataRecord row)
+        {
+            BEEscalaDescuento ent = new BEEscalaDescuento
+            {
+                MontoDesde = DataRecord.GetColumn<decimal>(row, "MontoDesde"),
+                MontoHasta = DataRecord.GetColumn<decimal>(row, "MontoHasta"),
+                PorDescuento = DataRecord.GetColumn<int>(row, "PorDescuento"),
+                TipoParametriaOfertaFinal = DataRecord.GetColumn<string>(row, "TipoParametriaOfertaFinal"),
+                PrecioMinimo = DataRecord.GetColumn<decimal>(row, "PrecioMinimo"),
+                Algoritmo = DataRecord.GetColumn<string>(row, "Algoritmo"),
+
+            };
+            return ent;
+        }
+
     }
 }

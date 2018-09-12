@@ -34,7 +34,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using ServiceCliente= Portal.Consultoras.Web.ServiceCliente;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1206,7 +1205,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new PedidoServiceClient())
                 {
-                    listaEscalaDescuento = sv.GetEscalaDescuento(userData.PaisID).ToList();
+                    if(PaisNuevaEscalaDescuento(userData.CodigoISO))
+                        listaEscalaDescuento = sv.GetEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
+                    else
+                        listaEscalaDescuento = sv.GetEscalaDescuento(userData.PaisID).ToList();
                 }
             }
             catch (Exception ex)
@@ -1216,6 +1218,18 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return listaEscalaDescuento;
+        }
+
+        public bool PaisNuevaEscalaDescuento(string codigoIsoPais)
+        {
+            ConfiguracionManagerProvider _ConfiguracionManagerProvider = new ConfiguracionManagerProvider();
+
+            if (string.IsNullOrEmpty(codigoIsoPais))
+                return false;
+
+            var paisesKey = _ConfiguracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEscalaDescuento);
+            var EscalaDescuento = paisesKey.Contains(codigoIsoPais);
+            return EscalaDescuento;
         }
 
         private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(string constSession, string codigoPrograma)
@@ -2921,14 +2935,14 @@ namespace Portal.Consultoras.Web.Controllers
             bool ResultadoValidacion = false;
             try
             {
-                using (var sv = new ServiceCliente.ClienteServiceClient())
+                using (var svc = new PedidoServiceClient())
                 {
-                    List<ServiceCliente.BEEscalaDescuentoZona> Lista = sv.ListarEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
+                    List<BEEscalaDescuentoZona> Lista = svc.ListarEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
                     ResultadoValidacion = Lista.Count > 0;
                     if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}", URLConfig, userData.CodigoISO, Util.Security.ToMd5(userData.CodigoConsultora));
                 }
             }
-            catch
+            catch (Exception e)
             {
                 ResultadoValidacion = false;
             }

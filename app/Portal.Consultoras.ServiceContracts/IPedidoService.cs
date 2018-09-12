@@ -1269,5 +1269,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEEstrategiaProducto> GetEstrategiaProductoList(int PaisID, string idList);
 
+        [OperationContract]
+        List<BEEscalaDescuentoZona> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
+
+
+        [OperationContract]
+        List<BEEscalaDescuento> GetEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
+
     }
 }
