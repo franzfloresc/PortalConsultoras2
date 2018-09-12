@@ -389,18 +389,18 @@ namespace Portal.Consultoras.BizLogic
 
         public BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
         {
-            if (!GetFlagProgramaNuevas(paisID)) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
+            if (!GetFlagProgramaNuevas(paisID)) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
             List<BEProductoProgramaNuevas> lstProductos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
-            if (lstProductos == null || lstProductos.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
+            if (lstProductos == null || lstProductos.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
             lstProductos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProductos, consecutivoNueva, codigoPrograma);
-            if (lstProductos.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
+            if (lstProductos.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
 
             var oCuv = lstProductos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
-            if (oCuv == null) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
-            if (oCuv.IndicadorCuponIndependiente) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
+            if (oCuv == null) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
+            if (oCuv.IndicadorCuponIndependiente) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
 
             List<BEProductoProgramaNuevas> lstElectivas = lstProductos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
-            if (lstElectivas.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
+            if (lstElectivas.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
 
             var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
             var limElectivos = (GetNivelesProgramaNuevas(paisID, nivelInput) ?? new BENivelesProgramaNuevas()).UnidadesNivel;
@@ -408,10 +408,10 @@ namespace Portal.Consultoras.BizLogic
 
             var listElecPedido = lstCuvPedido.Where(c => lstElectivas.Any(e => e.CodigoCupon == c)).ToList();
             var cantElecPedido = listElecPedido.Count();
-            if (cantElecPedido == 1 && limElectivos == 1) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.ReemplazarCupon, listElecPedido);
-            if (cantElecPedido >= limElectivos) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite, limElectivos);
+            if (cantElecPedido == 1 && limElectivos == 1) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Reemplazar, listElecPedido);
+            if (cantElecPedido >= limElectivos) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite, limElectivos);
 
-            return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
+            return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarYMostrarMensaje, limElectivos) { NumElectivosEnPedido = cantElecPedido };
         }
 
         #region Metodos de Programa Nuevas

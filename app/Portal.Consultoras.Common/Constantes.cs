@@ -1223,7 +1223,6 @@ namespace Portal.Consultoras.Common
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";            
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
-            public const string AgregarProgNuevas_MaxElectivos = "No puedes agregar este producto a tu pedido por haber alcanzado el límite de {0} cuvs del programa nuevas.";
         }
 
         public static class MensajesExito
@@ -2639,6 +2638,13 @@ namespace Portal.Consultoras.Common
             public const string AppRedirectFormat = "IR AL APP {0} CONMIGO";
             public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
         }
-
+        
+        public static class MensajesElectivosNuevas
+        {
+            public const string NoAgregarPorLimite = "No puedes agregar este producto a tu pedido por haber alcanzado el límite de {0} cuvs del programa nuevas.";
+            public const string PromocionNombre = "dúo perfecto";
+            public const string CompletasteLimite = "¡Completaste los {0} cupones del {1}!";
+            public const string TeFaltaPocoLimite = "¡Agregaste 1 cupón del {1}, te falta(n) {0} para completar!";
+        }
     }
 }

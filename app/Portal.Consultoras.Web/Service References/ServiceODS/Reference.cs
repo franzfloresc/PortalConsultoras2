@@ -3354,6 +3354,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string[] ListCuvEliminarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumElectivosEnPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Common.Enumeradores.ValidarCuponesElectivos ResultadoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -3388,6 +3391,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.ListCuvEliminarField, value) != true)) {
                     this.ListCuvEliminarField = value;
                     this.RaisePropertyChanged("ListCuvEliminar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumElectivosEnPedido {
+            get {
+                return this.NumElectivosEnPedidoField;
+            }
+            set {
+                if ((this.NumElectivosEnPedidoField.Equals(value) != true)) {
+                    this.NumElectivosEnPedidoField = value;
+                    this.RaisePropertyChanged("NumElectivosEnPedido");
                 }
             }
         }

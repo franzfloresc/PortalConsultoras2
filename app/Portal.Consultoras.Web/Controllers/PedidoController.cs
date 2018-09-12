@@ -496,12 +496,14 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult PedidoInsertar(PedidoCrudModel model, bool esEstrategia = false)
         {
-            var mensajeOsb = "";
-            var listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, out mensajeOsb);
-            if (mensajeOsb != "") return ErrorJson(mensajeOsb, true);
+            var mensajeError = "";
+            var mensajeAviso = "";
 
-            mensajeOsb = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
-            if (mensajeOsb != "") return ErrorJson(mensajeOsb, true);
+            var listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, out mensajeError, out mensajeAviso);
+            if (mensajeError != "") return ErrorJson(mensajeError, true);
+
+            mensajeError = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
+            if (mensajeError != "") return ErrorJson(mensajeError, true);
 
             if(esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
             return Json(PedidoInsertarGenerico(model, false, listCuvEliminar));
@@ -4451,9 +4453,11 @@ namespace Portal.Consultoras.Web.Controllers
             return "";
         }
 
-        private List<string> ValidarAgregarEnProgramaNuevas(string cuvingresado, out string mensajeObs)
+        private List<string> ValidarAgregarEnProgramaNuevas(string cuvingresado, out string mensajeError, out string mensajeAviso)
         {
-            mensajeObs = "";
+            mensajeError = "";
+            mensajeAviso = "";
+
             try
             {
                 var listCuv = ObtenerPedidoWebDetalle().Select(x => x.CUV).ToArray();
@@ -4463,23 +4467,39 @@ namespace Portal.Consultoras.Web.Controllers
                     respElectivos = svc.ValidaCuvElectivo(userData.PaisID, userData.CampaniaID, cuvingresado, userData.ConsecutivoNueva, userData.CodigoPrograma, listCuv);
                 }
 
-                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.ReemplazarCupon)
+                switch (respElectivos.Resultado)
                 {
-                    EliminarDetallePackNueva(respElectivos.ListCuvEliminar.ToList());
-                    return respElectivos.ListCuvEliminar.ToList();
+                    case Enumeradores.ValidarCuponesElectivos.AgregarYMostrarMensaje:
+                        mensajeAviso = CrearAvisoCuponElectivo(respElectivos);
+                        return new List<string>();
+                    case Enumeradores.ValidarCuponesElectivos.Reemplazar:
+                        EliminarDetallePackNueva(respElectivos.ListCuvEliminar.ToList());
+                        return respElectivos.ListCuvEliminar.ToList();
+                    case Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite:
+                        mensajeError = string.Format(Constantes.MensajesElectivosNuevas.NoAgregarPorLimite, respElectivos.LimNumElectivos);
+                        return new List<string>();
+                    default:
+                        return new List<string>();
                 }
-                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite)
-                {
-                    mensajeObs = string.Format(Constantes.MensajesError.AgregarProgNuevas_MaxElectivos, respElectivos.LimNumElectivos);
-                }
-                return new List<string>();
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-                mensajeObs = Constantes.MensajesError.ValidarAgregarProgNuevas;
+                mensajeError = Constantes.MensajesError.ValidarAgregarProgNuevas;
                 return new List<string>();
             }
+        }
+
+        private string CrearAvisoCuponElectivo(BERespValidarElectivos respElectivos)
+        {
+            var promocionNombre = Constantes.MensajesElectivosNuevas.PromocionNombre;
+            if (respElectivos.LimNumElectivos == respElectivos.NumElectivosEnPedido)
+            {
+                return string.Format(Constantes.MensajesElectivosNuevas.CompletasteLimite, respElectivos.LimNumElectivos, promocionNombre);
+            }
+
+            var numFaltantes = respElectivos.LimNumElectivos - respElectivos.NumElectivosEnPedido;
+            return string.Format(Constantes.MensajesElectivosNuevas.TeFaltaPocoLimite, numFaltantes, promocionNombre);
         }
 
         private int ObtnerCantidadCuvPedidoWeb(string cuvIngresado)
