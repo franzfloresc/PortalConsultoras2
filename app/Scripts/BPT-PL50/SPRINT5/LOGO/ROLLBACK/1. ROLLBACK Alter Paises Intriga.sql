@@ -1,4 +1,4 @@
-
+ï»¿
 use [BelcorpBolivia]
 go
 UPDATE
@@ -19,14 +19,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DBienvenidaIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#Nombre, pronto te podrás suscribir al Club Gana+'
+	Valor1 = '#Nombre, pronto te podrÃ¡s suscribir al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MBienvenidaIntriga';
 /* HOME FIN */
@@ -35,14 +35,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DPedidoIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribir al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribir al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MPedidoIntriga';
 /* PASE PEDIDO FIN */
@@ -51,7 +51,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = 'Pronto podrás suscribirte al Club Gana+'
+	Valor1 = 'Pronto podrÃ¡s suscribirte al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -60,7 +60,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DLandingBannerIntriga';
 /* BANNER CONTENEDOR FIN */
@@ -86,14 +86,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DBienvenidaIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#Nombre, pronto te podrás suscribir al Club Gana+'
+	Valor1 = '#Nombre, pronto te podrÃ¡s suscribir al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MBienvenidaIntriga';
 /* HOME FIN */
@@ -102,14 +102,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DPedidoIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribir al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribir al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MPedidoIntriga';
 /* PASE PEDIDO FIN */
@@ -118,7 +118,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = 'Pronto podrás suscribirte al Club Gana+'
+	Valor1 = 'Pronto podrÃ¡s suscribirte al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -127,7 +127,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DLandingBannerIntriga';
 /* BANNER CONTENEDOR FIN */
@@ -153,14 +153,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DBienvenidaIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#Nombre, pronto te podrás suscribir al Club Gana+'
+	Valor1 = '#Nombre, pronto te podrÃ¡s suscribir al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MBienvenidaIntriga';
 /* HOME FIN */
@@ -169,14 +169,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DPedidoIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribir al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribir al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MPedidoIntriga';
 /* PASE PEDIDO FIN */
@@ -185,7 +185,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = 'Pronto podrás suscribirte al Club Gana+'
+	Valor1 = 'Pronto podrÃ¡s suscribirte al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -194,7 +194,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DLandingBannerIntriga';
 /* BANNER CONTENEDOR FIN */
@@ -220,14 +220,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DBienvenidaIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#Nombre, pronto te podrás suscribir al Club Gana+'
+	Valor1 = '#Nombre, pronto te podrÃ¡s suscribir al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MBienvenidaIntriga';
 /* HOME FIN */
@@ -236,14 +236,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DPedidoIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribir al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribir al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MPedidoIntriga';
 /* PASE PEDIDO FIN */
@@ -252,7 +252,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = 'Pronto podrás suscribirte al Club Gana+'
+	Valor1 = 'Pronto podrÃ¡s suscribirte al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -261,7 +261,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DLandingBannerIntriga';
 /* BANNER CONTENEDOR FIN */
@@ -287,14 +287,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DBienvenidaIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#Nombre, pronto te podrás suscribir al Club Gana+'
+	Valor1 = '#Nombre, pronto te podrÃ¡s suscribir al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MBienvenidaIntriga';
 /* HOME FIN */
@@ -303,14 +303,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DPedidoIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribir al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribir al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MPedidoIntriga';
 /* PASE PEDIDO FIN */
@@ -319,7 +319,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = 'Pronto podrás suscribirte al Club Gana+'
+	Valor1 = 'Pronto podrÃ¡s suscribirte al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -328,7 +328,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DLandingBannerIntriga';
 /* BANNER CONTENEDOR FIN */
@@ -354,14 +354,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DBienvenidaIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#Nombre, pronto te podrás suscribir al Club Gana+'
+	Valor1 = '#Nombre, pronto te podrÃ¡s suscribir al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MBienvenidaIntriga';
 /* HOME FIN */
@@ -370,14 +370,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DPedidoIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribir al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribir al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MPedidoIntriga';
 /* PASE PEDIDO FIN */
@@ -386,7 +386,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = 'Pronto podrás suscribirte al Club Gana+'
+	Valor1 = 'Pronto podrÃ¡s suscribirte al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -395,7 +395,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DLandingBannerIntriga';
 /* BANNER CONTENEDOR FIN */
@@ -421,14 +421,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DBienvenidaIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#Nombre, pronto te podrás suscribir al Club Gana+'
+	Valor1 = '#Nombre, pronto te podrÃ¡s suscribir al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MBienvenidaIntriga';
 /* HOME FIN */
@@ -437,14 +437,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DPedidoIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribir al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribir al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MPedidoIntriga';
 /* PASE PEDIDO FIN */
@@ -453,7 +453,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = 'Pronto podrás suscribirte al Club Gana+'
+	Valor1 = 'Pronto podrÃ¡s suscribirte al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -462,7 +462,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DLandingBannerIntriga';
 /* BANNER CONTENEDOR FIN */
@@ -488,14 +488,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DBienvenidaIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#Nombre, pronto te podrás suscribir al Club Gana+'
+	Valor1 = '#Nombre, pronto te podrÃ¡s suscribir al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MBienvenidaIntriga';
 /* HOME FIN */
@@ -504,14 +504,14 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DPedidoIntriga';
 
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribir al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribir al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'MPedidoIntriga';
 /* PASE PEDIDO FIN */
@@ -520,7 +520,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = 'Pronto podrás suscribirte al Club Gana+'
+	Valor1 = 'Pronto podrÃ¡s suscribirte al Club Gana+'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -529,7 +529,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '¡Pronto podrás suscribirte al Club Gana+!'
+	Valor1 = 'Â¡Pronto podrÃ¡s suscribirte al Club Gana+!'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo = 'DLandingBannerIntriga';
 /* BANNER CONTENEDOR FIN */
