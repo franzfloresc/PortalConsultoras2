@@ -345,10 +345,12 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (revistaDigital.TieneRDI)
                 {
-                    config.DesktopFondoBanner = revistaDigital.BannerOfertasNoActivaNoSuscrita;
+                    //config.DesktopFondoBanner = revistaDigital.BannerOfertasNoActivaNoSuscrita;
+                    config.DesktopFondoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.BannerOfertasNoActivaNoSuscrita);
                     config.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
                     config.MobileFondoBanner = string.Empty;
-                    config.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
+                    //config.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
+                    config.MobileLogoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.MLogoComercialFondoNoActiva);
                 }
                 if (revistaDigital.TieneRevistaDigital())
                 {
@@ -419,7 +421,8 @@ namespace Portal.Consultoras.Web.Providers
                         config.MobileSubTituloBanner = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, config.MobileSubTituloBanner);
 
                         config.DesktopLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
-                        config.MobileLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
+                        //config.MobileLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
+                        config.MobileLogoMenu = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.MLogoComercialFondoNoActiva);
                         config.Descripcion = string.Empty;
                         config = _configuracionPaisProvider.ActualizarTituloYSubtituloBanner(config, revistaDigital);
                         break;
