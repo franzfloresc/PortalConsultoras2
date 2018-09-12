@@ -27,6 +27,7 @@ $(document).ready(function () {
         UpdateUsuarioTutorialMobile();
         $('#tutorialesMobile').hide();
         $('.btn_agregarPedido').show();
+        MostrarPopupAceptacionContratoGet();
     });
     $("#tutorialFooterMobile").click(function () {
         VerTutorialMobile();
