@@ -3,6 +3,9 @@
 var AutocompleteLastLI = null;
 var AutocompleteClick = false;
 var existeCUV = false;
+var mensajeParametrizableCuv = '';
+var cuvbuscado = "";
+var precioCuvBuscado = "";
 
 var belcorp = belcorp || {};
 belcorp.pedido = belcorp.pedido || {};
@@ -220,6 +223,8 @@ $(document).ready(function () {
             return false;
         }
 
+        RegistrarDemandaTotalReemplazoSugerido(cuv, precioUnidad, cantidad, true);
+
         var model = {
             CUV: cuv,
             Cantidad: cantidad,
@@ -385,23 +390,26 @@ function ValidarPermiso(obj) {
 }
 
 function BuscarByCUV(cuv) {
-
     if (cuv == $('#hdfCUV').val()) {
         if (productoSugerido) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
             else $('#PopSugerido').show();
         }
         else if (existeCUV) {
+            if (!IsNullOrEmpty(mensajeParametrizableCuv)) MostrarMensaje("mensajeParametrizableCUV", mensajeParametrizableCuv);
             $("#divProductoMantenedor").show();
             $("#btnAgregarProducto").show();
         }
         return false;
     }
+    else mensajeParametrizableCuv = '';
+
+    cuvbuscado = cuv;
 
     $("#divProductoObservaciones").html('');
     productoSugerido = false;
     ShowLoading();
-
+    
     jQuery.ajax({
         type: 'POST',
         url: urlFindByCUV,
@@ -414,10 +422,11 @@ function BuscarByCUV(cuv) {
             if (!checkTimeout(data)) {
                 CloseLoading();
                 return false;
-            }
-            
+            }           
+
             $("#txtCantidad").removeAttr("disabled");
             var item = data[0];
+            precioCuvBuscado = item.PrecioCatalogo;
 
             if (item.MarcaID == 0) {
                 MostrarMensaje("mensajeProgramaNuevas", item.CUV);
@@ -472,8 +481,11 @@ function ObservacionesProducto(item) {
     if (item.TieneStock === true) {
         if (item.EsExpoOferta == true) MostrarMensaje("mensajeEsExpoOferta");
         if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-            if (!item.TieneRDC)
-                MostrarMensaje("mensajeCUVOfertaEspecial");
+            if (!item.TieneRDC) MostrarMensaje("mensajeCUVOfertaEspecial");
+        }
+        if (!IsNullOrEmpty(item.MensajeCUV)) {
+            mensajeParametrizableCuv = item.MensajeCUV;
+            MostrarMensaje("mensajeParametrizableCUV", mensajeParametrizableCuv);
         }
 
         var tipoOferta = $("#hdTipoOfertaSisID").val();
@@ -605,6 +617,7 @@ function ObtenerProductosSugeridos(CUV) {
     });
 }
 function CancelarProductosSugeridos() {
+    RegistrarDemandaTotalReemplazoSugerido(null, 0, 1, false);
     $("#txtCodigoProducto").val('');
     $("#txtCodigoProducto").trigger("keyup");
 }
@@ -723,6 +736,7 @@ function AgregarProductoListado() {
 }
 
 function InsertarProducto() {
+    
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
     var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
     var model = {};
@@ -916,52 +930,44 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
     }
 }
 function MostrarMensaje(tipoMensaje, message) {
-    var $divMensaje;
+    var $divMensaje = $('#divMensajeCUV');
+    $divMensaje.find("#btnCerrarMensaje").hide();
+
     switch (tipoMensaje) {
         case "mensajeCUVNoExiste":
-            $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVNoExiste);
             $divMensaje.show();
             break;
         case "mensajeCUVAgotado":
-            $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVAgotado);
             $divMensaje.show();
             break;
         case "mensajeCUVOfertaEspecial":
-             $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_aprobacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVOfertaEspecial);
             $divMensaje.show();
             break;
         case "mensajeCUVLiquidacion":
-             $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html(mensajeCUVLiquidacion);
             $divMensaje.show();
             break;
-        case "mensajeCUVCantidadMaxima":
-             $divMensaje = $('#divMensajeCUV');
-            $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
-            $divMensaje.find("#divMensaje").html(message);
-            $divMensaje.show();
-            break;
         case "mensajeEsExpoOferta":
-             $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html("Producto de ExpoOferta.");
             $divMensaje.show();
             break;
-        case "mensajeCUVShowRoom":
-            $divMensaje = $('#divMensajeCUV');
+        case "mensajeParametrizableCUV":
+            $divMensaje.find("#btnCerrarMensaje").show();
             $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
             $divMensaje.find("#divMensaje").html(message);
             $divMensaje.show();
             break;
+        case "mensajeCUVCantidadMaxima":
+        case "mensajeCUVShowRoom":
         case "mensajeProgramaNuevas":
-            $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
             $divMensaje.find("#divMensaje").html(message);
             $divMensaje.show();
@@ -985,4 +991,44 @@ function ProcesarActualizacionMostrarContenedorCupon() {
             cuponModule.actualizarContenedorCupon();
         }
     }
+}
+
+function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, esAceptado) {
+    var _cuvPrecio = esAceptado == true ? precio : precioCuvBuscado;
+    ShowLoading();
+    var model =
+        {
+            CUV: cuvbuscado,
+            CUVSugerido: cuvSugerido,
+            PrecioUnidad: _cuvPrecio,
+            Cantidad: cantidad,
+            CuvEsAceptado: esAceptado
+        };
+
+    jQuery.ajax({
+        type: "POST",
+        url: urlInsertarDemandaTotalReemplazoSugerido,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(model),
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success) {
+                    if (!esAceptado) CloseLoading();
+                }
+                else CloseLoading();
+            }
+            else {
+                CloseLoading();
+                messageInfoError(data.message);
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) {
+                alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+            }
+        }
+    });
 }

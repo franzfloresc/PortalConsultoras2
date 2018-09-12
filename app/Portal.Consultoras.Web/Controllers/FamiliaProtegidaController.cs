@@ -11,11 +11,11 @@ namespace Portal.Consultoras.Web.Controllers
             string nroDocumento;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                nroDocumento = sv.GetNroDocumentoConsultora(UserData().PaisID, UserData().CodigoConsultora);
+                nroDocumento = sv.GetNroDocumentoConsultora(userData.PaisID, userData.CodigoConsultora);
             }
 
-            string url = DevolverUrl(UserData().CodigoISO);
-            string[] parametros = new string[] { UserData().CodigoISO, UserData().CodigoConsultora, "", nroDocumento, UserData().NombreConsultora, "", UserData().EMail, UserData().Celular, UserData().Telefono, UserData().CodigoZona };
+            string url = DevolverUrl(userData.CodigoISO);
+            string[] parametros = new string[] { userData.CodigoISO, userData.CodigoConsultora, "", nroDocumento, userData.NombreConsultora, "", userData.EMail, userData.Celular, userData.Telefono, userData.CodigoZona };
 
             url = url + "?data=" + Util.EncriptarQueryString(parametros);
 

@@ -43,11 +43,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View(model);
         }
@@ -158,11 +158,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return View(model);
@@ -243,7 +243,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
 
@@ -331,10 +331,10 @@ namespace Portal.Consultoras.Web.Controllers
                             a.CodigoZona,
                             a.CodigoConsultora,
                             a.Nombres,
-                            UserData().PaisID == 4
+                            userData.PaisID == 4
                                 ? a.MontoPedido.ToString("#,##0").Replace(',', '.')
                                 : a.MontoPedido.ToString("0.00"),
-                            UserData().PaisID == 4
+                            userData.PaisID == 4
                                 ? a.SaldoDeuda.ToString("#,##0").Replace(',', '.')
                                 : a.SaldoDeuda.ToString("0.00"),
                             a.DescripcionBloqueo,
@@ -374,7 +374,7 @@ namespace Portal.Consultoras.Web.Controllers
                     total = pag.PageCount,
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
-                    totalimporte = (UserData().PaisID == 4)
+                    totalimporte = (userData.PaisID == 4)
                         ? lst.Sum(x => x.ImporteTotal).ToString("#,##0").Replace(',', '.')
                         : lst.Sum(x => x.ImporteTotal).ToString("0.00"),
                     simbolo = lst[0].Simbolo,
@@ -387,10 +387,10 @@ namespace Portal.Consultoras.Web.Controllers
                             a.CUV,
                             a.DescripcionProd,
                             a.Cantidad.ToString(),
-                            UserData().PaisID == 4
+                            userData.PaisID == 4
                                 ? a.PrecioUnidad.ToString("#,##0").Replace(',', '.')
                                 : a.PrecioUnidad.ToString("0.00"),
-                            UserData().PaisID == 4
+                            userData.PaisID == 4
                                 ? a.ImporteTotal.ToString("#,##0").Replace(',', '.')
                                 : a.ImporteTotal.ToString("0.00")
 
@@ -410,9 +410,9 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     pedido.PaisID = model.PaisID;
-                    pedido.CodigoUsuarioModificacion = UserData().CodigoUsuario;
+                    pedido.CodigoUsuarioModificacion = userData.CodigoUsuario;
                     sv.UpdBloqueoPedido(pedido);
-                    sv.InsertarLogPedidoWeb(model.PaisID, pedido.CampaniaID, pedido.CodigoConsultora, pedido.PedidoID, "BLOQUEO", UserData().CodigoUsuario);
+                    sv.InsertarLogPedidoWeb(model.PaisID, pedido.CampaniaID, pedido.CodigoConsultora, pedido.PedidoID, "BLOQUEO", userData.CodigoUsuario);
                 }
 
                 return Json(new
@@ -424,7 +424,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -434,7 +434,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -452,9 +452,9 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     pedido.PaisID = model.PaisID;
-                    pedido.CodigoUsuarioModificacion = UserData().CodigoUsuario;
+                    pedido.CodigoUsuarioModificacion = userData.CodigoUsuario;
                     sv.UpdDesbloqueoPedido(pedido);
-                    sv.InsertarLogPedidoWeb(model.PaisID, pedido.CampaniaID, pedido.CodigoConsultora, pedido.PedidoID, "DESBLOQUEO", UserData().CodigoUsuario);
+                    sv.InsertarLogPedidoWeb(model.PaisID, pedido.CampaniaID, pedido.CodigoConsultora, pedido.PedidoID, "DESBLOQUEO", userData.CodigoUsuario);
                 }
 
                 return Json(new
@@ -466,7 +466,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -476,7 +476,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -588,7 +588,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                                 ws.Cell(row, col).Style.NumberFormat.Format = "@";
 
-                            if (UserData().PaisID == 4)
+                            if (userData.PaisID == 4)
                             {
                                 if (col == 4 || col == 5)
                                 {
@@ -656,10 +656,10 @@ namespace Portal.Consultoras.Web.Controllers
             lista[5] = vterritoriotxt; lista[6] = vEstadoPedidoddl; lista[7] = vCodConsultoratxt; lista[8] = vBloqueadoddl; lista[9] = vCampaniaddl_val;
             lista[10] = vRegionddl_val; lista[11] = vZonaddl_val; lista[12] = vPaisddl_val; lista[14] = vEstadoPedidoddl_val;
             lista[15] = vBloqueadoddl_val; lista[16] = vterritoriotxt_ID; lista[17] = vCodConsultoratxt_ID; lista[18] = vUsuario;
-            lista[19] = vTotalPedidos; lista[20] = vPorFacturar; lista[21] = UserData().BanderaImagen;
-            lista[22] = UserData().NombrePais;
+            lista[19] = vTotalPedidos; lista[20] = vPorFacturar; lista[21] = userData.BanderaImagen;
+            lista[22] = userData.NombrePais;
 
-            Session["PaisID"] = UserData().PaisID;
+            Session["PaisID"] = userData.PaisID;
 
             Util.ExportToPdfWebPages(this, "PedidosPDF.pdf", "ConsultaPedidoImp", Util.EncriptarQueryString(lista));
             return View();
@@ -673,7 +673,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             lista[0] = vCodigoConsultora; lista[1] = vNombres; lista[2] = vDireccion; lista[3] = vCodigoTerritorio; lista[4] = vPedidoID;
             lista[5] = vCampaniaID; lista[6] = vpage; lista[7] = vsortname; lista[8] = vsortorder; lista[9] = vrowNum; lista[10] = vpaisID;
-            lista[11] = vUsuario; lista[12] = UserData().BanderaImagen; lista[13] = UserData().NombrePais; lista[14] = UserData().Simbolo;
+            lista[11] = vUsuario; lista[12] = userData.BanderaImagen; lista[13] = userData.NombrePais; lista[14] = userData.Simbolo;
             lista[15] = vTotalImporte;
 
             Util.ExportToPdfWebPages(this, "PedidosBloqueoPDF.pdf", "BloqueoPedidoImp", Util.EncriptarQueryString(lista));
@@ -685,9 +685,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

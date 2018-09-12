@@ -19,6 +19,11 @@ namespace Portal.Consultoras.Common
             public const int Finart = 4;
         }
 
+        public static class MarcaNombre {
+            public const string LBel = "L'bel";
+            public const string Esika = "Ésika";
+        }
+
         public static class TipoCronograma
         {
             public const int Regular = 1;
@@ -348,6 +353,7 @@ namespace Portal.Consultoras.Common
         public static class ConfiguracionManager
         {
             public const string PaisesEsika = "PaisesEsika";
+            public const string PaisesLBel = "PaisesLBel";
             public const string PaisesConTrackingJetlore = "PaisesConTrackingJetlore";
             public const string PaisesCatalogoWhatsUp = "PaisesCatalogoWhatsUp";
             public const string PaisesConPcm = "PaisesConPcm";
@@ -432,7 +438,8 @@ namespace Portal.Consultoras.Common
             public const string URL_ABCProductos = "URL_ABCProductos";
             public const string secret_key = "secret_key";
             public const string UrlLMS = "UrlLMS";
-            public const string CursosMarquesina = "CursosMarquesina";
+            public const string CursosMarquesina = "CursosMarquesina"; 
+            public const string UrlCursoMiAcademiaVideo = "UrlCursoMiAcademiaVideo";
             public const string UrlMisCursos = "UrlMisCursos";
             public const string TokenMisCursos = "TokenMisCursos";
             public const string UrlCursoMiAcademia = "UrlCursoMiAcademia";
@@ -462,6 +469,14 @@ namespace Portal.Consultoras.Common
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
+            public const string MenuCondicionesDescripcionMx = "TÉRMINOS Y CONDICIONES";
+
+            public const string ORDEN_COMPONENTES_FICHA_ESIKA = "ORDEN_COMPONENTES_FICHA_ESIKA";
+            public const string ORDEN_COMPONENTES_FICHA_LBEL = "ORDEN_COMPONENTES_FICHA_LBEL";
+            public const string UrlImagenEsika = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca.png";
+            public const string UrlImagenLbel = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca-lbel.png";
+            public const string ColorTemaEsika = "#e81c36";
+            public const string ColorTemaLbel = "#613c87";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -823,6 +838,8 @@ namespace Portal.Consultoras.Common
         public static class BackOrder
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
+            public const string mensajeBackOrderDestokp = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
+            public const string mensajeBackOrderMobile  = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
         }
 
         public static class EstadoCDRWeb
@@ -1099,6 +1116,11 @@ namespace Portal.Consultoras.Common
             public const string LiquidacionWeb = "LIQUIDACIONWEB";
             public const string CambiosDevoluciones = "CAMBIODEVOLUCIONES";
             public const string PedidosFIC = "PEDIDOSFIC";
+            public const string DetalleEstrategia = "DETALLEESTRATEGIA";
+        }
+
+        public static class IngresoExternoOrigen {
+            public const string App = "4";
         }
 
         public static class EstadoCuentaTipoMovimiento
@@ -1193,13 +1215,15 @@ namespace Portal.Consultoras.Common
             public const string ValorVacio = "El valor no puede estar vacío.";
             public const string CodigoIncorrecto = "El código ingresado no es el correcto.";
             public const string CelularActivacion = "No se pudo confirmar el número registrado.";
-            public const string CelularEnUso = "El número ya esta en uso.";
+            public const string CelularEnUso = "El número ya está en uso.";
             public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
             public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
             public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
             public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";            
+            public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
+            public const string AgregarProgNuevas_MaxElectivos = "No puedes agregar este producto a tu pedido por haber alcanzado el límite de {0} cuvs del programa nuevas.";
         }
 
         public static class MensajesExito
@@ -1669,6 +1693,16 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static class MvcErrorMessages
+        {
+            public const string RequiredMessage = "Este campo es obligatorio";
+            public const string RangeErrorMessage = "El campo {0} debe ser una cadena con una longitud mínima de {2} y una longitud máxima de {1}";
+            public const string MaxErrorMessage = "El campo {0} debe ser una cadena con una longitud máxima de {1}";
+            public const string LengthErrorMessage = "El campo {0} debe ser una cadena con una longitud de {1}";
+            public const string DateErrorMessage = "No es una fecha válida";
+            public const string NumberErrorMessage = "No es un número válido";
+        }
+
         public static class ClienteEstado
         {
             public const short Activo = 1;
@@ -1818,7 +1852,7 @@ namespace Portal.Consultoras.Common
             public const string SwIntriga = "/showroom/intriga";
             public const string SwDetalle = "/showroom/detalleoferta";
             public const string SwPersonalizado = "/showroom/personalizado";
-            public const string OptDetalle = "/ofertasparati/detalle";
+            //public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
             public const string GuiaDeNegocio = "/guianegocio";
@@ -1827,6 +1861,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
 
+            // Url Ficha
             public const string DetalleHerramientasVenta = "/detalle/demostradores";
             public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
             public const string DetalleOfertaParaTi = "/detalle/ofertaparati";
@@ -1903,7 +1938,7 @@ namespace Portal.Consultoras.Common
             public class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string Activo = "Activo";
+                public const string FlagActivar = "ProgramaNuevas";
             }
 
             public class Rango
@@ -1923,16 +1958,17 @@ namespace Portal.Consultoras.Common
             {
                 public const string ExcedeCantidad = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
             }
-
-            public class MensajeValidacionElectividadProductos
-            {
-                public const string ExisteElectivoEnSuPedido = "El código ingresado no puede ser agregado al pedido. El pedido contiene un pack del Programa de Nuevas.";
-            }
         }
 
         public class VentaExclusiva
         {
             public const string CuvNoEsVentaExclusiva = "El código solicitado pertenece a la Venta Exclusiva. Usted no cumple las condiciones para solicitarlo.";
+
+            public class EncenderValidacion
+            {
+                public const short TablaLogicaID = 7;
+                public const string FlagActivar = "VentaExclusiva";
+            }
         }
 
         public class Comunicado
@@ -2062,6 +2098,10 @@ namespace Portal.Consultoras.Common
 
                 public const string ERROR_DESHACER_PEDIDO = "2109";
                 public const string ERROR_DESHACER_PEDIDO_ESTADO = "2110";
+
+                public const string ERROR_AGREGAR_BACKORDER_NO_PERMITIDO = "2201";
+                public const string ERROR_AGREGAR_BACKORDER = "2202";
+
             }
             public static Dictionary<string, string> Message
             {
@@ -2101,8 +2141,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_RESERVA_MONTO_MAX, "Pedido no reservado, excede monto máximo." },
                         {Code.ERORR_RESERVA_NO_DISP, "Reserva no disponible." },
                         {Code.ERROR_RESERVA_DEUDA, "Pedido no reservado, deuda pendiente." },
-                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?"},
-
+                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"}, 
                         {Code.ERROR_GUARDAR_NINGUNO, "El pedido no se guardó." },
                         {Code.SUCCESS_GUARDAR, "Pedido guardado." },
                         {Code.SUCCESS_GUARDAR_OBS, "Pedido guardado, productos con observaciones." },
@@ -2113,7 +2152,11 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_GUARDAR_DEUDA, "Pedido no guardado, deuda pendiente." },
 
                         {Code.ERROR_DESHACER_PEDIDO , "Ocurrió un error al deshacer el pedido." },
-                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." }
+                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." },
+
+                        {Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO , "No se puede agregar un set como BackOrder." },
+                        {Code.ERROR_AGREGAR_BACKORDER , "No se encuentra el detalle en el pedido para agregarlo como BackOrder." }
+
                     });
                 }
             }
@@ -2194,7 +2237,7 @@ namespace Portal.Consultoras.Common
 
         public class CambioCorreoResult
         {
-            public const string Valido = "Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.";
+            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";            
             public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
 
@@ -2327,8 +2370,8 @@ namespace Portal.Consultoras.Common
             public const string EnviarPorEmail = "Email";
             public const string EnviarPorSms = "SMS";
         }
-        #endregion  
-
+        #endregion 
+        
         public static class ValidacionDatosEstado
         {
             public const string Pendiente = "P";
@@ -2343,6 +2386,86 @@ namespace Portal.Consultoras.Common
             public const int HVObtenerProductos = 4;
             public const int OPTObtenerProductos = 5;
         };
+
+        #region PagoEnLinea
+
+        public static class PagoEnLineaTipoPago
+        {
+            public const string PagoTotal = "01";
+            public const string PagoParcial = "02";
+        }
+
+        public static class PagoEnLineaMetodoPagoVisualizacionTyC
+        {
+            public const string Popup = "POPUP";
+            public const string Archivo = "ARCHIVO";
+        }
+
+        public static class PagoEnLineaMetodoPago
+        {
+            public const string PasarelaVisa = "A";
+            public const string PasarelaBelcorpPayU = "B";
+        }
+
+        public static class PagoEnLineaTipoTarjeta
+        {
+            public const string Credito = "CRED";
+            public const string Debito = "DEB";
+        }
+
+        public static class PagoEnLineaPasarelaVisa
+        {
+            public const string MerchantId = "01";
+            public const string AccessKeyId = "02";
+            public const string SecretAccessKey = "03";
+            public const string UrlSessionBotonPago = "04";
+            public const string UrlGenerarNumeroPedido = "05";
+            public const string PorcentajeGastosAdministrativos = "06";
+            public const string UrlLibreriaPagoVisa = "07";
+            public const string UrlAutorizacionBotonPago = "08";
+            public const string UrlLogoPasarelaPago = "09";
+            public const string ColorBotonPagarPasarelaPago = "10";
+            public const string MensajeInformacionPagoExitoso = "11";
+        }
+
+        public static class PagoEnLineaPasarelaPayu
+        {
+            public const string MerchantId = "01";
+            public const string ApiLogin = "02";
+            public const string ApiKey = "03";
+            public const string AccountId = "04";
+            public const string Endpoint = "05";
+            public const string Test = "06";
+        }
+
+        public static class PagoEnLineaCampos
+        {
+            public const string FechaNacimiento = "FECHANAC";
+            public const string Email = "EMAIL";
+            public const string Celular = "CELULAR";
+        }
+
+        public static class PagoEnLineaPayuGenerales
+        {
+            public const string Language = "es";
+            public const string Command = "SUBMIT_TRANSACTION";
+            public const string OrderCodePrefix = "Pago_SB_";
+            public const string OrderDescription = "Pago_SB";
+            public const string OrderLanguage = "es";
+            public const string Country = "MX";
+            public const string Currency = "MXN";
+            public const string TransactionType = "AUTHORIZATION_AND_CAPTURE";
+        }
+
+        public static class PagoEnLineaMensajes
+        {
+            public const string CargoplataformaPe = "Cargo plataforma online";
+            public const string CargoplataformaMx = "Comisión por transacción";
+            public const string GastosLabelPe = "Gastos Adm.";
+            public const string GastosLabelMx = "Cargo comisión por transacción";
+        }
+
+        #endregion
 
         public class PersonalizacionOfertasService
         {
@@ -2402,6 +2525,30 @@ namespace Portal.Consultoras.Common
 
             #endregion
         }
+        public class OfertaFinalLog
+        {
+            private static Dictionary<int, string> _Message;
+
+            public class Code
+            {
+                public const int PRODUCTO_AGREGADO = 1;
+                public const int POPUP_MOSTRADO = 2;
+                public const int PRODUCTO_EXPUESTO = 3;
+            }
+
+            public static Dictionary<int, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<int, string>
+                    {
+                        {Code.PRODUCTO_AGREGADO, "Producto Agregado"},
+                        {Code.POPUP_MOSTRADO, "Popup Mostrado"},
+                        {Code.PRODUCTO_EXPUESTO, "Producto Expuesto"},
+                    });
+                }
+            }
+        }
 
         public class FacturacionElectronica
         {
@@ -2418,5 +2565,80 @@ namespace Portal.Consultoras.Common
             public const string CaracteresBuscadorMostrar = "CaracteresBuscadorMostrar";
             public const string TotalResultadosBuscador = "TotalResultadosBuscador";
         }
+
+        public static class ActualizacionDatosValidacion
+        {
+            public const string ExpresionCelular = "^\\d+$";
+            public const string CambioCorreoPendiente = "1";
+
+            private static Dictionary<string, string> _Message;
+            public static class Code
+            {
+                public const string SUCCESS = "0000";
+                public const string ERROR_INTERNO = "9999";
+
+                public const string ERROR_CELULAR_LONGITUD = "1001";
+                public const string ERROR_CELULAR_INVALIDO = "1002";
+                public const string ERROR_CELULAR_USADO = "1003";
+                public const string ERROR_CELULAR_PRIMER_DIGITO = "1004";
+
+                public const string ERROR_CORREO_CAMBIO_NO_AUTORIZADO = "1101";
+                public const string ERROR_CORREO_VACIO = "1102";
+                public const string ERROR_CORREO_YA_EXISTE = "1103";
+
+                public const string ERROR_CORREO_ACTIVACION = "1201";
+                public const string ERROR_CORREO_ACTIVACION_NO_EXISTE = "1202";
+                public const string ERROR_CORREO_ACTIVACION_YA_ACTIVADA = "1203";
+                public const string ERROR_CORREO_ACTIVACION_DUPLICADO = "1204";
+                
+            }
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                   {
+                       {Code.SUCCESS, "OK"},
+                       {Code.ERROR_INTERNO, string.Empty},
+
+                       {Code.ERROR_CELULAR_LONGITUD, "El número debe tener {0} dígitos."},
+                       {Code.ERROR_CELULAR_INVALIDO, "No es un número válido."},
+                       {Code.ERROR_CELULAR_USADO, "El celular ingresado ya está registrado para otra consultora."},
+                       {Code.ERROR_CELULAR_PRIMER_DIGITO, "El número debe empezar por {0}."},
+
+                       {Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO,Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado},
+                       {Code.ERROR_CORREO_VACIO,Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio},
+                       {Code.ERROR_CORREO_YA_EXISTE,Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste},
+
+                       {Code.ERROR_CORREO_ACTIVACION,"No pudimos validar tu correo electrónico. Por favor, vuelve a intentar."},
+                       {Code.ERROR_CORREO_ACTIVACION_NO_EXISTE,"No pudimos validar tu correo electrónico. Por favor, vuelve a intentar."},
+                       {Code.ERROR_CORREO_ACTIVACION_YA_ACTIVADA,"Esta dirección de correo electrónico ya ha sido validada."},
+                       {Code.ERROR_CORREO_ACTIVACION_DUPLICADO,"La dirección de correo electrónico ingresada ya pertenece a otra Consultora."},
+
+                   });
+                }
+            }
+
+            public class VerificacionEmail
+            {
+                public const string UpsOcurrioUnProblema = "UPSS! OCURRIÓ UN PROBLEMA";
+                public const string TuCorreoYaFueValidado = "TU CORREO YA FUE VALIDADO";
+
+                public const string ComunicateConNosotros = "Para resolver el problema comunícate con nosotros al {0} o al {1}.";
+                public const string ComunicateConNosotrosAlt = "Para resolver el problema comunícate con nosotros al {0}.";
+
+                public const string VerificacionEmailValida = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.";
+            }
+
+        }
+        
+        public static class RedireccionAndroidApp
+        {
+            public const string EsikaConmigo = "https://kpt22.app.goo.gl/esika";
+            public const string LbelConmigo = "https://kpt22.app.goo.gl/lbel";
+            public const string AppRedirectFormat = "IR AL APP {0} CONMIGO";
+            public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
+        }
+
     }
 }

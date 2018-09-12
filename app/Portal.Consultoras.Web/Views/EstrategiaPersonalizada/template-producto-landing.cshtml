@@ -21,7 +21,7 @@
             <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
             {{/iff}}
             {{#iff TipoEstrategiaDetalle.ImgHomeDesktop '!=' ''}}
-            <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" class="portada" />
+            <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="portada" />
             {{/iff}}
             <p class="tercero">Conoce {{DescripcionResumen}}</p>
             <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')"
@@ -42,7 +42,7 @@
                  {{/iff}}
                  {{/iff}}>
                 <div class="producto_img_home" data-item-tag="foto">
-                    <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
+                    <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" alt="" />
                     {{#iff EsSubcampania '==' false}}
                     {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
                     <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
@@ -109,8 +109,12 @@
                                class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
                                {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
                         <div class="liquidacion_rango_right_pedido js-no-popup">
-                            <a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
-                            <a href="javascript:;" class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
+                            <a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                                <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" />
+                            </a>
+                            <a href="javascript:;" class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                                <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" />
+                            </a>
                         </div>
                     </div>
                     <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"

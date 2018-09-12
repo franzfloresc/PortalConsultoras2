@@ -432,10 +432,10 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
-        public static bool EnviarMail(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML)
-        {
-            return Util.EnviarMail(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null, false);
-        }
+        //public static bool EnviarMail(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML)
+        //{
+        //    return Util.EnviarMail(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null, false);
+        //}
 
         public static bool EnviarMail3(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string strFile, string displayNameDe)
         {
@@ -3259,6 +3259,32 @@ namespace Portal.Consultoras.Common
             return GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
         }
 
+        public static string ObtenerRutaImagenResize(string rutaImagen, string rutaNombreExtension, string codigoIso)
+        {
+            string ruta = "";
+
+            if (string.IsNullOrEmpty(rutaImagen))
+                return ruta;
+
+            var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
+
+            if (rutaImagen.ToLower().Contains(valorAppCatalogo))
+            {
+                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+                string soloExtension = Path.GetExtension(rutaImagen);
+
+                var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
+
+                ruta = ConfigCdn.GetUrlFileCdn(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
+            }
+            else
+            {
+                ruta = Util.GenerarRutaImagenResize(rutaImagen, rutaNombreExtension);
+            }
+
+            return ruta;
+        }
+
         public static string GenerarRutaImagenResize(string rutaImagen, string rutaNombreExtension)
         {
             if (string.IsNullOrEmpty(rutaImagen))
@@ -3423,7 +3449,25 @@ namespace Portal.Consultoras.Common
             string caracter = "*".PadLeft(longitudOcultar, '*');
             return celular.Replace(strOcultar, caracter);
         }
+        
+        public static string EnmascararTarjeta(string numero)
+        {
+            if (string.IsNullOrWhiteSpace(numero)) return string.Empty;
+            const byte initLen = 6;
+            const byte lastLen = 4;
+            const byte totalLen = initLen + lastLen;
 
+            var longitud = numero.Length;
+            if (longitud <= totalLen)
+            {
+                return string.Empty;
+            }
+
+            var init = numero.Substring(0, initLen);
+            var last = numero.Substring(longitud - lastLen);
+            
+            return init + new string('*', longitud - totalLen) + last;
+        }
         public static string GetDescripcionMarca(int marcaId)
         {
             string result;
@@ -3460,6 +3504,25 @@ namespace Portal.Consultoras.Common
             }
 
             return result;
+        }
+
+        public static class Security
+        {
+            public static string ToMd5(string input)
+            {
+                using (MD5 md5 = MD5.Create())
+                {
+                    byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+                    byte[] hashBytes = md5.ComputeHash(inputBytes);
+                
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var item in hashBytes)
+                    {
+                        sb.Append(item.ToString("x2"));
+                    }
+                    return sb.ToString();
+                }
+            }
         }
 
         public static class Http
@@ -3539,32 +3602,6 @@ namespace Portal.Consultoras.Common
                 return default(T);
             }
         }
-
-        ///// <summary>
-        ///// Obtiene el valor de la fila convirtiendo a un tipo, verificar primero si existe con HasColumn
-        ///// </summary>
-        ///// <typeparam name="T">Data Row</typeparam>
-        ///// <param name="lector">Fila</param>
-        ///// <param name="name">Nombre de la columna</param>
-        ///// <exception cref="ArgumentNullException">ArgumentNullException cuando name es enviado vacio o nulo</exception>
-        ///// <returns>Valor convertido</returns>
-        //public static T GetValue<T>(this IDataRecord lector, string name)
-        //{
-        //    try
-        //    {
-        //        if (string.IsNullOrEmpty(name))
-        //        {
-        //            throw new ArgumentNullException("nombre enviado es nulo o vacio");
-        //        }
-
-        //        return (T)lector.GetValue(lector.GetOrdinal(name));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        var value = lector.GetValue(lector.GetOrdinal(name));
-        //        throw new InvalidCastException("campo: " + name + " no se puede convertir de " + value.GetType() + " a " + typeof(T), ex);
-        //    }
-        //}
         
         #region Convert
 

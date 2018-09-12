@@ -18,9 +18,7 @@ namespace Portal.Consultoras.Data.Hana
             {
                 var codigoIsoHana = Common.Util.GetPaisIsoSicc(paisId);
                 string rutaServiceHana = ConfigurationManager.AppSettings.Get("RutaServiceHana");
-
-                //string urlConParametros = rutaServiceHana + "ObtenerConfiguracionProgramaNuevas/" + codigoIsoHana + "/" +
-                //                          entidad.CampaniaInicio + "/" + entidad.CodigoRegion + "/" + entidad.CodigoZona;
+                
                 string urlConParametros = rutaServiceHana + "ObtenerConfiguracionProgramaNuevas/" + codigoIsoHana + "/" + entidad.Campania;
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
                 List<ConfiguracionProgramaNuevasHana> listaHana = JsonConvert.DeserializeObject<List<ConfiguracionProgramaNuevasHana>>(responseFromServer);
@@ -30,11 +28,8 @@ namespace Portal.Consultoras.Data.Hana
                     var configuracionProgramaNuevasHana = listaHana[0];
 
                     programaNueva.CodigoPrograma = configuracionProgramaNuevasHana.cod_prog;
-                    //programaNueva.CampaniaInicio = configuracionProgramaNuevasHana.cam_inic;
-                    //programaNueva.CampaniaFin = configuracionProgramaNuevasHana.cam_fin;
                     programaNueva.IndExigVent = configuracionProgramaNuevasHana.ind_exig_vent;
                     programaNueva.IndProgObli = configuracionProgramaNuevasHana.ind_prog_obli;
-                    //programaNueva.CuponKit = configuracionProgramaNuevasHana.cupon_kit ?? "";
                     programaNueva.CUVKit = configuracionProgramaNuevasHana.cuv_kit;
                 }
             }

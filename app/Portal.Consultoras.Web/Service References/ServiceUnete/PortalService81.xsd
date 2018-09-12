@@ -157,6 +157,7 @@
       <xs:element minOccurs="0" name="RazonSocial" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RechazadoPor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Referencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegimenContable" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RequiereAprobacionSAC" type="xs:boolean" />
       <xs:element minOccurs="0" name="RequiereAval" nillable="true" type="xs:boolean" />
@@ -305,7 +306,6 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Campania1Pedido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaDeRegistro" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultoraRecomienda" nillable="true" type="xs:string" />
@@ -313,6 +313,9 @@
       <xs:element minOccurs="0" name="CodigoTerritorio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DetalleDiasEsperaAFFVV" type="xs:int" />
+      <xs:element minOccurs="0" name="DetalleDiasEsperaASAC" type="xs:int" />
+      <xs:element minOccurs="0" name="DetalleDiasEsperaGSAC" type="xs:int" />
       <xs:element minOccurs="0" name="DiasEnEspera" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiferenciaDias" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
@@ -321,9 +324,9 @@
       <xs:element minOccurs="0" name="EstadoPostulante" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstadoPostulanteID" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoPostulanteInicial" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaCreacionCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaEnvio" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:decimal" />
@@ -340,14 +343,13 @@
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SeccionOrigen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SolicitudPostulanteID" type="xs:int" />
-      <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubEstadoPostulante" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TelefonoCelular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TelefonoFijo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoSolicitud" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TotalEnAprobacionFFVV" type="xs:int" />
-      <xs:element minOccurs="0" name="TotalEnAprobacionSAC" type="xs:int" />
-      <xs:element minOccurs="0" name="TotalEnGestionSAC" type="xs:int" />
       <xs:element minOccurs="0" name="VieneDe" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaGZ" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -393,4 +395,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CodigoVerificacionSolicitudPostulanteBE" nillable="true" type="tns:CodigoVerificacionSolicitudPostulanteBE" />
+  <xs:complexType name="RegistroEnvioCorreoSmsSolicitudPostulanteBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoId" type="xs:int" />
+      <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NumeroCelular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RespuestaEnvio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoEnvio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoMensaje" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RegistroEnvioCorreoSmsSolicitudPostulanteBE" nillable="true" type="tns:RegistroEnvioCorreoSmsSolicitudPostulanteBE" />
 </xs:schema>

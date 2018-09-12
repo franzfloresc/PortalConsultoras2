@@ -185,7 +185,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annotations\DateCardAttribute.cs" />
     <Compile Include="Annotations\ExpressionRequiredIfAttribute.cs" />
+    <Compile Include="Annotations\LuhnCardAttribute.cs" />
     <Compile Include="Annotations\RequiredIfAttribute.cs" />
     <Compile Include="Annotations\RequiredIfPropertiesNotNullAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -194,7 +196,6 @@
     </Compile>
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\LanzamientosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiPerfilController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAcademiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PagoEnLineaController.cs" />
@@ -222,7 +223,6 @@
     <Compile Include="Areas\Mobile\Controllers\FichaProductoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DescargarAppController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\OfertasParaTiController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PaypalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoFICController.cs" />
@@ -296,11 +296,6 @@
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
-    <Compile Include="Controllers\BaseGuiaNegocioController.cs" />
-    <Compile Include="Controllers\BaseHerramientasVentaController.cs" />
-    <Compile Include="Controllers\BaseLanzamientosController.cs" />
-    <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
-    <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\BaseViewController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
@@ -312,13 +307,14 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
-    <Compile Include="Models\EstadoProductoComentarioModel.cs" />
-    <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
-    <Compile Include="Controllers\LanzamientosController.cs" />
+    <Compile Include="Models\CambioTipoNegocioModel.cs" />
+    <Compile Include="Controllers\ReporteContratoController.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
     <Compile Include="Infraestructure\Sms\ISmsSender.cs" />
     <Compile Include="Infraestructure\Sms\SmsProcess.cs" />
+    <Compile Include="Infraestructure\Validator\IEntityValidator.cs" />
+    <Compile Include="Infraestructure\Validator\PagoEnLinea\PasarelaValidator.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhone.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MultiPhoneValidator.cs" />
     <Compile Include="Infraestructure\Validator\Phone\NotExistingPhone.cs" />
@@ -330,6 +326,7 @@
     <Compile Include="Models\DetalleEstrategia\DetalleEstrategiaBreadCrumbsModel.cs" />
     <Compile Include="Models\EstrategiaComponenteModel.cs" />
     <Compile Include="Models\EstrategiaFichaPersonalizadaProductoModel.cs" />
+    <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Models\Estrategia\OfertaDelDia\DataModel.cs" />
     <Compile Include="Models\BarraTippingPoint.cs" />
     <Compile Include="Models\Cache\CacheModel.cs" />
@@ -337,8 +334,6 @@
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ConfigModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
-    <Compile Include="Models\Estrategia\VariablesGeneralEstrategiaModel.cs" />
-    <Compile Include="Models\Estrategia\WaEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ShowRoomEventoConsultoraModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ShowRoomNivelModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingFullModel.cs" />
@@ -411,7 +406,6 @@
     <Compile Include="Controllers\OfertaLiquidacionController.cs" />
     <Compile Include="Controllers\OfertaNuevaController.cs" />
     <Compile Include="Controllers\OfertasMasVendidosController.cs" />
-    <Compile Include="Controllers\OfertasParaTiController.cs" />
     <Compile Include="Controllers\OfertaWebController.cs" />
     <Compile Include="Controllers\PaqueteDocumentarioController.cs" />
     <Compile Include="Controllers\ParametrizarCUVController.cs" />
@@ -494,10 +488,20 @@
     <Compile Include="Models\Estrategia\UpSellingAdminModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
+    <Compile Include="Models\Estrategia\VariablesGeneralEstrategiaModel.cs" />
+    <Compile Include="Models\Estrategia\WaEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoDetalleModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaPasarelaCamposModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaReporteModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaTipoPagoModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaTipoPasarelaModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PaymentInfo.cs" />
+    <Compile Include="Models\PagoEnLinea\PayuApiResponse.cs" />
+    <Compile Include="Models\PagoEnLinea\PayuTransactionResponse.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
     <Compile Include="Models\CatalogoPersonalizadoModel.cs" />
@@ -537,6 +541,7 @@
     <Compile Include="Models\CuponConsultoraModel.cs" />
     <Compile Include="Models\ConfiguracionPais\ConfiguracionPaisModel.cs" />
     <Compile Include="Models\CuponUsuarioModel.cs" />
+    <Compile Include="Models\EstadoProductoComentarioModel.cs" />
     <Compile Include="Models\ConfirmarPosicionModel.cs" />
     <Compile Include="Models\CuponEnviarCorreoConfirmacion.cs" />
     <Compile Include="Models\EstrategiaDetalleModelo.cs" />
@@ -737,15 +742,17 @@
       <DependentUpon>Pdto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\PayuResponseCodes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PayuResponseCodes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Providers\AdministrarEstrategiaProvider.cs" />
-    <Compile Include="Providers\OfertaBaseProvider.cs" />
-    <Compile Include="Providers\OfertaDelDiaProvider.cs" />
-    <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
     <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
@@ -759,10 +766,14 @@
     <Compile Include="Providers\MenuContenedorProvider.cs" />
     <Compile Include="Providers\MenuProvider.cs" />
     <Compile Include="Providers\NotificacionProvider.cs" />
+    <Compile Include="Providers\OfertaBaseProvider.cs" />
+    <Compile Include="Providers\OfertaDelDiaProvider.cs" />
     <Compile Include="Providers\OfertaPersonalizadaProvider.cs" />
     <Compile Include="Providers\OfertaViewProvider.cs" />
     <Compile Include="Providers\PagoEnLineaProvider.cs" />
+    <Compile Include="Providers\PagoPayuProvider.cs" />
     <Compile Include="Providers\PaqueteDocumentarioProvider.cs" />
+    <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\PedidoWebProvider.cs" />
     <Compile Include="Providers\RenderImgProvider.cs" />
     <Compile Include="Providers\RevistaDigitalProvider.cs" />
@@ -772,6 +783,9 @@
     <Compile Include="Providers\UpSellingProvider.cs" />
     <Compile Include="Providers\VCFichaProductoProvider.cs" />
     <Compile Include="Providers\LogDynamoProvider.cs" />
+    <Compile Include="Providers\ChatEmtelcoProvider.cs" />
+    <Compile Include="Providers\ProductoFaltanteProvider.cs" />
+    <Compile Include="Providers\ComunicadoProvider.cs" />
     <Compile Include="Providers\ZonificacionProvider.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -1327,16 +1341,16 @@
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Mobile\esika\buscador-filtros.css" />
     <Content Include="Content\Css\Mobile\esika\mi-perfil.css" />
+    <Content Include="Content\Css\Mobile\Ficha\Esika\FichaEsika.css" />
+    <Content Include="Content\Css\Mobile\Ficha\Lbel\FichaLbel.css" />
     <Content Include="Content\Css\Mobile\Ficha\RedesSociales.css" />
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
-    <Content Include="Content\Css\Mobile\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Mobile\lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Gnd-Flotante.css" />
-    <Content Include="Content\Css\Mobile\RevistaDigital\OfertaParaTi-Detalle.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
@@ -1350,6 +1364,8 @@
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Esika\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Ficha\Carrusel.css" />
+    <Content Include="Content\Css\Site\Ficha\Esika\FichaEsika.css" />
+    <Content Include="Content\Css\Site\Ficha\Lbel\FichaLbel.css" />
     <Content Include="Content\Css\Site\Ficha\RedesSociales.css" />
     <Content Include="Content\Css\Site\Ficha\Ficha.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
@@ -1365,11 +1381,11 @@
     <Content Include="Content\Css\Site\Lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Lbel\mi-perfil.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
-    <Content Include="Content\Css\Site\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
+    <Content Include="Content\Css\Site\MailConfirmacion\style.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Site\RevistaDigital\ConfirmarDatos.css" />
@@ -1509,6 +1525,7 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\icono_avatar.svg" />
     <Content Include="Content\Images\Esika\icono_camara.svg" />
     <Content Include="Content\Images\Esika\icono_cambiar_dato.svg" />
@@ -1522,13 +1539,16 @@
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\icono_avatar_menu.svg" />
     <Content Include="Content\Images\icono_cargar_foto_desde_galeria.svg" />
+    <Content Include="Content\Images\icono_tooltip_informativo.svg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
     <Content Include="Content\Images\Lbel\icono_cambiar_dato.svg" />
     <Content Include="Content\Images\Lbel\icono_candado.svg" />
     <Content Include="Content\Images\Lbel\icono_envelope.svg" />
+    <Content Include="Content\Images\Lbel\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\Lbel\icono_info_alerta.svg" />
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
+    <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\icono_editar_foto_perfil.svg" />
     <Content Include="Content\Images\icono_eliminar.svg" />
@@ -3092,6 +3112,7 @@
     <Content Include="Content\Images\mobile\Esika\video.png" />
     <Content Include="Content\Images\mobile\Esika\ws.png" />
     <Content Include="Content\Images\mobile\Esika\youtube.png" />
+    <Content Include="Content\Images\flecha-despliegue.svg" />
     <Content Include="Content\Images\mobile\flecha-volver-detalle.svg" />
     <Content Include="Content\Images\mobile\icon-chat-lbel.png" />
     <Content Include="Content\Images\mobile\icon-chat.png" />
@@ -3148,6 +3169,9 @@
     <Content Include="Content\Images\icons\small\list-icon6.png" />
     <Content Include="Content\Images\login\aniversario.png" />
     <Content Include="Content\Images\login\aniversario01.png" />
+    <Content Include="Content\Images\mobile\img-emoticons\1f605.png" />
+    <Content Include="Content\Images\mobile\img-emoticons\1f609.png" />
+    <Content Include="Content\Images\mobile\img-emoticons\1f64c.png" />
     <Content Include="Content\Images\mobile\img-icon\alert-success.png" />
     <Content Include="Content\Images\mobile\img-icon\boton_compartirface.png" />
     <Content Include="Content\Images\mobile\img-icon\boton_whatsapp.png" />
@@ -3808,7 +3832,6 @@
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
     <Content Include="Scripts\knockout.extensions.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
-    <Content Include="Scripts\PortalConsultoras\Lanzamientos\detalle-lanzamiento.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Banner.js" />
@@ -3816,6 +3839,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Mensaje.js" />
     <Content Include="Scripts\PortalConsultoras\Login\VerificaAutenticidad.js" />
+    <Content Include="Scripts\PortalConsultoras\MailConfirmacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCamapaniaJS.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
@@ -3832,7 +3856,9 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
     <Content Include="Scripts\DatetimePicker\datetimepicker_css.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\PagoEnLinea\MetodoPago.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
+    <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PasarelaPago.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
@@ -4124,7 +4150,6 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutEmpty.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOferta.cshtml" />
-    <Content Include="Areas\Mobile\Views\OfertasParaTi\Detalle.cshtml" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-left.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-right.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow_select_variant.svg" />
@@ -4235,11 +4260,12 @@
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-bloqueado-Lan-Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\Personalizado.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOfertaPersonalizado.cshtml" />
-    <Content Include="Areas\Mobile\Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Content\Css\Site\Contenedor\producto.simple.css" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\Ficha.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\_BreadCrumb.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\MetodoPago.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\PasarelaPago.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\CambiarContrasenia.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\CambiarFotoPerfil.cshtml" />
@@ -4361,6 +4387,9 @@
     <None Include="Service References\ServiceODS\ODSService310.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceODS\ODSService311.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceODS\ODSService32.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4441,6 +4470,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService115.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService116.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService12.xsd">
@@ -5203,9 +5235,7 @@
     <Content Include="Views\MisCertificados\TributarioPdf.cshtml" />
     <Content Include="Views\AsesoraOnline\VolverSuscripcion.cshtml" />
     <Content Include="Views\AsesoraOnline\CancelarSuscripcion.cshtml" />
-    <Content Include="Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
-    <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
     <Content Include="Views\MiPerfil\Index.cshtml" />
     <Content Include="Views\MiPerfil\CambiarContrasenia.cshtml" />
     <Content Include="Views\MiPerfil\ActualizarCorreo.cshtml" />
@@ -5215,6 +5245,8 @@
     <Content Include="Views\Login\VerificaAutenticidad.cshtml" />
     <Content Include="Views\MatrizCampania\ActualizarMatrizCampaniaNew.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpVariablesGeneralesPortal.cshtml" />
+    <Content Include="Views\PagoEnLinea\MetodoPago.cshtml" />
+    <Content Include="Views\PagoEnLinea\PasarelaPago.cshtml" />
     <Content Include="Views\OfertaDelDia\ofertadeldia-banner-template.cshtml" />
     <Content Include="Views\OfertaDelDia\ofertadeldia-contenedor-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\template-ficha-detalle-video.cshtml" />
@@ -5223,9 +5255,12 @@
     <Content Include="Views\MisCertificados\DO_ComercialPdf.cshtml" />
     <Content Include="Views\MisCertificados\PR_PazYSalvoPdf.cshtml" />
     <Content Include="Views\MisCertificados\PR_ComercialPdf.cshtml" />
+    <Content Include="Views\Shared\PagoEnLinea\_PayuDeviceScript.cshtml" />
     <Content Include="Views\Shared\_PopupPrivacidadDatos.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerHeader.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
+    <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
+    <Content Include="Views\ReporteContrato\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5539,7 +5574,6 @@
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\App\" />
     <Folder Include="Views\BaseHerramientasVenta\" />
-    <Folder Include="Views\BaseLanzamientos\" />
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Buscador\" />
     <Folder Include="Views\Campania\" />
@@ -5684,6 +5718,13 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\PayuResponseCodes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PayuResponseCodes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -5698,7 +5739,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>20267</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

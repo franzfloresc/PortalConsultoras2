@@ -57,8 +57,7 @@ namespace Portal.Consultoras.Service
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
-        private readonly IPedidoBusinessLogic _pedidoAppBusinessLogic;
-        private readonly BLCuponesProgramaNuevas BLCuponesProgramaNuevas;
+        private readonly IPedidoBusinessLogic _pedidoBusinessLogic;
         private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
 
         public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(), 
@@ -89,7 +88,6 @@ namespace Portal.Consultoras.Service
             BLCuponConsultora = new BLCuponConsultora();
             blFichaProducto = new BLFichaProducto();
             BLPagoEnLinea = new BLPagoEnLinea();
-            BLCuponesProgramaNuevas = new BLCuponesProgramaNuevas();
             _ActivarPremioNuevas = new BLActivarPremioNuevas();
         }
 
@@ -97,14 +95,14 @@ namespace Portal.Consultoras.Service
             IPedidoWebBusinessLogic pedidoWebBusinessLogic,
             IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic, 
             ITrackingBusinessLogic trackingBusinessLogic,
-            IPedidoBusinessLogic pedidoAppBusinessLogic,           
+            IPedidoBusinessLogic pedidoBusinessLogic,           
             IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
             _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
             _trackingBusinessLogic = trackingBusinessLogic;
-            _pedidoAppBusinessLogic = pedidoAppBusinessLogic;
+            _pedidoBusinessLogic = pedidoBusinessLogic;
             _pedidoWebSetBusinessLogic = pedidoWebSetBusinessLogic;
         }
 
@@ -1682,6 +1680,11 @@ namespace Portal.Consultoras.Service
         {
             return BLProductoSugerido.DelProductoSugerido(PaisID, entidad);
         }
+
+        public void InsDemandaTotalReemplazoSugerido(int PaisID, BEProductoSugerido entidad)
+        {
+            BLProductoSugerido.InsDemandaTotalReemplazoSugerido(PaisID, entidad);
+        }
         #endregion
 
         #region Configuracion Programa Nuevas
@@ -2178,6 +2181,36 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerPagoEnLineaByFiltro(paisId, filtro);
         }
 
+        public List<BEPagoEnLineaTipoPago> ObtenerPagoEnLineaTipoPago(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaTipoPago(paisId);
+        }
+
+        public List<BEPagoEnLineaMedioPago> ObtenerPagoEnLineaMedioPago(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaMedioPago(paisId);
+        }   
+        
+        public List<BEPagoEnLineaMedioPagoDetalle> ObtenerPagoEnLineaMedioPagoDetalle(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaMedioPagoDetalle(paisId);
+        }
+
+        public List<BEPagoEnLineaTipoPasarela> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, codigoPlataforma);
+        }
+
+        public List<BEPagoEnLineaPasarelaCampos> ObtenerPagoEnLineaPasarelaCampos(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaPasarelaCampos(paisId);
+        }
+
+        public int ObtenerPagoEnLineaNumeroOrden(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerNumeroOrden(paisId);
+        }
+
         #endregion
 
 
@@ -2230,81 +2263,87 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoWebSetBusinessLogic.ObtenerFechaInicioSets(paisId);
         }
-        public List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId)
-        {
-            return BLCuponesProgramaNuevas.ObtenerListadoCuvCupon(paisId, campaniaId);
-        }
 
-        #region Pedido
+        #region PedidoNativo
         public BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar)
         {
-            return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
+            return _pedidoBusinessLogic.GetCUV(productoBuscar);
         }
 
         public BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle)
         {
-            return _pedidoAppBusinessLogic.Insert(pedidoDetalle);
+            return _pedidoBusinessLogic.Insert(pedidoDetalle);
         }
 
         public BEPedidoWeb GetPedido(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.Get(usuario);
+            return _pedidoBusinessLogic.Get(usuario);
         }
 
         public bool InsertKitInicio(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.InsertKitInicio(usuario);
+            return _pedidoBusinessLogic.InsertKitInicio(usuario);
         }
 
         public BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle)
         {
-            return _pedidoAppBusinessLogic.Update(pedidoDetalle);
+            return _pedidoBusinessLogic.Update(pedidoDetalle);
         }
 
         public BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario)
         {
-            return _pedidoAppBusinessLogic.GetConfiguracion(paisID, codigoUsuario);
+            return _pedidoBusinessLogic.GetConfiguracion(paisID, codigoUsuario);
         }
 
         public async Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle)
         {
-            return await _pedidoAppBusinessLogic.Delete(pedidoDetalle);
+            return await _pedidoBusinessLogic.Delete(pedidoDetalle);
         }
 
-        public async Task<BEPedidoReservaAppResult> ReservaPedido(BEUsuario usuario)
+        public async Task<BEPedidoReservaResult> ReservaPedido(BEUsuario usuario)
         {
-            return await _pedidoAppBusinessLogic.Reserva(usuario);
+            return await _pedidoBusinessLogic.Reserva(usuario);
         }
 
         public BEPedidoDetalleResult ModificarReservaPedido(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.ModificarReserva(usuario);
+            return _pedidoBusinessLogic.ModificarReserva(usuario);
         }
 
         public List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.GetEstrategiaCarrusel(usuario);
+            return _pedidoBusinessLogic.GetEstrategiaCarrusel(usuario);
         }
 
         public BEPedidoDetalleResult InsertEstrategiaCarrusel(BEPedidoDetalle pedidoDetalle)
         {
-            return _pedidoAppBusinessLogic.InsertEstrategiaCarrusel(pedidoDetalle);
+            return _pedidoBusinessLogic.InsertEstrategiaCarrusel(pedidoDetalle);
         }
 
         public BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.GetConfiguracionOfertaFinalCarrusel(usuario);
+            return _pedidoBusinessLogic.GetConfiguracionOfertaFinalCarrusel(usuario);
         }
 
         public BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle)
         {
-            return _pedidoAppBusinessLogic.InsertOfertaFinalCarrusel(pedidoDetalle);
+            return _pedidoBusinessLogic.InsertOfertaFinalCarrusel(pedidoDetalle);
         }
 
-        public List<Entities.BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar)
+        public void InsertOfertaFinalLog(int paisID, int campaniaID, string codigoConsultora, decimal? montoInicial, List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog)
         {
-            return _pedidoAppBusinessLogic.GetProductoSugerido(productoBuscar);
+            _pedidoBusinessLogic.InsertOfertaFinalLog(paisID, campaniaID, codigoConsultora, montoInicial, listaOfertaFinalLog);
         }
+
+        public List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar)
+        {
+            return _pedidoBusinessLogic.GetProductoSugerido(productoBuscar);
+        }
+
+        public BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle) {
+            return _pedidoBusinessLogic.AceptarBackOrderPedidoDetalle(pedidoDetalle);
+        }
+
         #endregion
 
         public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)

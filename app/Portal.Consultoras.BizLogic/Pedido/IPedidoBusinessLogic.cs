@@ -15,12 +15,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoDetalleResult Update(BEPedidoDetalle pedidoDetalle);
         BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario);
         Task<BEPedidoDetalleResult> Delete(BEPedidoDetalle pedidoDetalle);
-        Task<BEPedidoReservaAppResult> Reserva(BEUsuario usuario);
+        Task<BEPedidoReservaResult> Reserva(BEUsuario usuario);
         BEPedidoDetalleResult ModificarReserva(BEUsuario usuario, BEPedidoWeb pedido = null);
         List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
         BEPedidoDetalleResult InsertEstrategiaCarrusel(BEPedidoDetalle pedidoDetalle);
         BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario);
         BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle);
-        List<Entities.BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
+        BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle);
+        List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
+        void InsertOfertaFinalLog(int paisID, int campaniaID, string codigoConsultora, decimal? montoInicial, List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog);
     }
 }

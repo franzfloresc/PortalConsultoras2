@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using Portal.Consultoras.Service;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using System.Linq;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -129,6 +130,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.IdMarca))
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca))
                 .ForMember(t => t.CUVPedidoImagen, f => f.MapFrom(c => c.ImagenCUVPedido))
+                .ForMember(t => t.TipoEstrategiaID , f => f.MapFrom(c => c.TipoEstrategiaID))
                 .ForMember(t => t.CUVPedidoNombre, f => f.MapFrom(c => c.NombreCUVPedido));
 
             Mapper.CreateMap<Producto, EstrategiaComponenteModel>()
@@ -643,10 +645,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             
             Mapper.CreateMap<ServiceUsuario.BEUsuario, MisDatosModel>();
+            Mapper.CreateMap<BEPagoEnLineaTipoPago, PagoEnLineaTipoPagoModel>();
+            Mapper.CreateMap<BEPagoEnLineaMedioPago, PagoEnLineaMedioPagoModel>();
+            Mapper.CreateMap<BEPagoEnLineaMedioPagoDetalle, PagoEnLineaMedioPagoDetalleModel>();
+            Mapper.CreateMap<BEPagoEnLineaTipoPasarela, PagoEnLineaTipoPasarelaModel>();
+            Mapper.CreateMap<BEPagoEnLineaPasarelaCampos, PagoEnLineaPasarelaCamposModel>();
 
             Mapper.CreateMap<BEActivarPremioNuevas, BarraTippingPoint>()
                 .ForMember(t => t.ActiveMonto, f => f.MapFrom(c => c.ActiveMontoTooltip));
-
             Mapper.CreateMap<ServicePedido.BEEstrategia, BarraTippingPoint>()
                 .ForMember(t => t.ActiveTooltip, f => f.Ignore())
                 .ForMember(t => t.ActiveMonto, f => f.Ignore())

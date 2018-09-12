@@ -16,7 +16,6 @@ namespace Portal.Consultoras.Web.Models
             this.NombreConsultora = string.Empty;
             this.CodigoConsultora = string.Empty;
             this.CodigoUsuario = string.Empty;
-            this.NombreConsultora = string.Empty;
             this.NombreCorto = string.Empty;
             this.CodigorRegion = string.Empty;
             this.CodigoZona = string.Empty;
@@ -310,7 +309,6 @@ namespace Portal.Consultoras.Web.Models
         public List<ServicioCampaniaModel> MenuService { get; internal set; }
 
         public int EsOfertaDelDia { get; set; }
-        //public bool TieneOfertaDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
         public bool CloseBannerPL20 { get; set; }
 
