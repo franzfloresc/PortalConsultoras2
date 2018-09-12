@@ -310,7 +310,6 @@
     <Compile Include="Models\Buscador\BuscadorModel.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
-    
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\LanzamientosController.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
@@ -330,7 +329,6 @@
     <Compile Include="Models\DetalleEstrategia\DetalleEstrategiaBreadCrumbsModel.cs" />
     <Compile Include="Models\EstrategiaComponenteModel.cs" />
     <Compile Include="Models\EstrategiaFichaPersonalizadaProductoModel.cs" />
-    
     <Compile Include="Models\Estrategia\OfertaDelDia\DataModel.cs" />
     <Compile Include="Models\BarraTippingPoint.cs" />
     <Compile Include="Models\Cache\CacheModel.cs" />
@@ -1345,14 +1343,12 @@
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
-    <Content Include="Content\Css\Mobile\esika\buscador-filtros.css" />
     <Content Include="Content\Css\Mobile\esika\mi-perfil.css" />
     <Content Include="Content\Css\Mobile\Ficha\Esika\FichaEsika.css" />
     <Content Include="Content\Css\Mobile\Ficha\Lbel\FichaLbel.css" />
     <Content Include="Content\Css\Mobile\Ficha\RedesSociales.css" />
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
-    <Content Include="Content\Css\Mobile\lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
