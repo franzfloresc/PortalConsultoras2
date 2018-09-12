@@ -1,3 +1,6 @@
 # Portal Consultoras SB2
 
-BPT-PL50-Sprint5-DeudaTecnica
+PI2-EPM-Sprint1-ABTesting
+- Habilitar A/B testing para SomosBelcorp
+
+HU => EPM-1454
