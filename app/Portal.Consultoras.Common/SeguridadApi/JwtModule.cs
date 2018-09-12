@@ -24,14 +24,12 @@ namespace Portal.Consultoras.Common
         }
         private async Task OnJwtRequestAsync(Object s, EventArgs e)
         {
-           
-            if ( HttpContext.Current.Session["UserData"] != null &&  string.IsNullOrEmpty((string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp]))
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["UserData"] != null && string.IsNullOrEmpty((string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp]))
             {
                 await semaphoreSlim.WaitAsync();
                 try
                 {
                     HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] = await JwtAutentication.getWebTokenAsync(JwtContext.Instance);
-
                 }
                 catch (Exception ex)
                 {
