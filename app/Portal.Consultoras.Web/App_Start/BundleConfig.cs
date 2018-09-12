@@ -723,10 +723,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Ficha").Include(
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js"
-            ));
-
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha").Include(
                 "~/Content/Css/Site/Ficha/Ficha.css",
                 "~/Content/Css/Site/Ficha/Carrusel.css",

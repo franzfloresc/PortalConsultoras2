@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (permiso.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
-                    if (revistaDigital.TieneRevistaDigital())
+                    if (revistaDigital.TieneRevistaDigital() || revistaDigital.TieneRDI)
                     {
                         userSession.ClaseLogoSB = "negro";
                         sessionManager.SetUserData(userSession);

@@ -19,15 +19,35 @@ var ResumenOpcionesModule = (function () {
 
     var _actualizarCantidadAplicada = function (codigoVariante) {
         _componente.CodigoVariante = codigoVariante || 0;
+
         $.each(_componente.Hermanos, function (index, hermano) {
             hermano.cantidadAplicada = 0;
             hermano.CodigoVariante = codigoVariante || 0;
-            $.each(_componente.resumenAplicados, function (index2, item) {
+        });
+
+        var resumenAplicadosVisualizar = [];
+        $.each(_componente.resumenAplicados, function (index, item) {
+
+            $.each(_componente.Hermanos, function (index2, hermano) {
                 if (hermano.Cuv === item.Cuv) {
                     hermano.cantidadAplicada++;
+
+                    var estaEnResumen = false;
+                    $.each(resumenAplicadosVisualizar, function (index3, item2) {
+                        if (hermano.Cuv === item2.Cuv) {
+                            item2.cantidadAplicada++;
+                            estaEnResumen = true;
+                        }
+                    });
+
+                    if (!estaEnResumen) {
+                        resumenAplicadosVisualizar.push(jQuery.extend(true, {}, hermano));
+                    }
                 }
             });
         });
+        _componente.resumenAplicadosVisualizar = resumenAplicadosVisualizar;
+
         return false;
     };
     
