@@ -2102,7 +2102,6 @@ function AbrirAceptacionContrato() {
 }
 
 function AceptarContrato() {
-   
     var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: "" };
     waitingDialog({});
 
@@ -3150,10 +3149,9 @@ function MostrarPopupInicial() {
     }
 
     switch (TipoPopUpMostrar) {
-        case 0:
-        case '0':
-            if (VerContrato == 1 && !AceptoContrato) PopupMostrar('popupAceptacionContrato');
-            break;
+        //case '0':
+        //    if (VerContrato == 1 && !AceptoContrato) PopupMostrar('popupAceptacionContrato');
+        //    break;
         case popupAceptacionContrato:
             PopupMostrar('popupAceptacionContrato');
             break;
