@@ -2398,5 +2398,28 @@ namespace Portal.Consultoras.Web.Controllers
                 return "";
             }
         }
+
+        public JsonResult ObtenerEstadoContrato()
+        {
+            try
+            {
+                bool estado = ValidarContratoPopup();
+                return Json(new
+                {
+                    success = true,
+                    estado = estado,
+                    message = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al obtener el estado del contrato."
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

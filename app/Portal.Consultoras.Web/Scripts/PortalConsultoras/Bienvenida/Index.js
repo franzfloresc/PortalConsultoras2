@@ -3149,11 +3149,12 @@ function MostrarPopupInicial() {
     }
 
     switch (TipoPopUpMostrar) {
-        //case '0':
-        //    if (VerContrato == 1 && !AceptoContrato) PopupMostrar('popupAceptacionContrato');
-        //    break;
+        case '0':
+            if (VerContrato == 1 && !AceptoContrato) PopupMostrar('popupAceptacionContrato');
+            break;
         case popupAceptacionContrato:
-            PopupMostrar('popupAceptacionContrato');
+            let est = ObtenerEstadoContrato();
+            if (est) PopupMostrar('popupAceptacionContrato');
             break;
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -3265,4 +3266,27 @@ function ConsultarEmailPendiente() {
             alert(error);
         }
     });
+}
+
+function ObtenerEstadoContrato() {
+    let re = false;
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ObtenerEstadoContrato',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        async: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success)
+                    if (data.estado) re = true;
+            }
+        },
+        error: function (data, error) {
+            alert(error);
+        }
+    });
+
+    return re;
 }
