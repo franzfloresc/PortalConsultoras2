@@ -1556,6 +1556,7 @@
     <Content Include="Content\Images\Lbel\icono_info_alerta.svg" />
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
+    <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\1f44d.png" />
     <Content Include="Content\Images\mobile\Esika\1f615.png" />
@@ -3184,6 +3185,8 @@
     <Content Include="Content\Images\icons\small\list-icon6.png" />
     <Content Include="Content\Images\login\aniversario.png" />
     <Content Include="Content\Images\login\aniversario01.png" />
+    <Content Include="Content\Images\mobile\img-emoticons\1f605.png" />
+    <Content Include="Content\Images\mobile\img-emoticons\1f609.png" />
     <Content Include="Content\Images\mobile\img-emoticons\1f64c.png" />
     <Content Include="Content\Images\mobile\img-icon\alert-success.png" />
     <Content Include="Content\Images\mobile\img-icon\boton_compartirface.png" />
@@ -3857,6 +3860,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Mensaje.js" />
     <Content Include="Scripts\PortalConsultoras\Login\VerificaAutenticidad.js" />
+    <Content Include="Scripts\PortalConsultoras\MailConfirmacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCamapaniaJS.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
