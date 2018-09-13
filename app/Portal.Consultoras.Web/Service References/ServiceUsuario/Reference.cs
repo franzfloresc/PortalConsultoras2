@@ -7012,9 +7012,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServiceUsuario.BEBelcorpResponde BelcorpRespondeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7060,6 +7057,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int MostrarOpcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OpcionCambioClaveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool OpcionChatField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7076,6 +7076,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OpcionSmsDesabilitadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OpcionVerificacionCorreoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OpcionVerificacionSMSField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OrigenDescripcionField;
@@ -7108,19 +7114,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             }
             set {
                 this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServiceUsuario.BEBelcorpResponde BelcorpResponde {
-            get {
-                return this.BelcorpRespondeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.BelcorpRespondeField, value) != true)) {
-                    this.BelcorpRespondeField = value;
-                    this.RaisePropertyChanged("BelcorpResponde");
-                }
             }
         }
         
@@ -7320,6 +7313,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OpcionCambioClave {
+            get {
+                return this.OpcionCambioClaveField;
+            }
+            set {
+                if ((this.OpcionCambioClaveField.Equals(value) != true)) {
+                    this.OpcionCambioClaveField = value;
+                    this.RaisePropertyChanged("OpcionCambioClave");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool OpcionChat {
             get {
                 return this.OpcionChatField;
@@ -7393,6 +7399,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.OpcionSmsDesabilitadoField, value) != true)) {
                     this.OpcionSmsDesabilitadoField = value;
                     this.RaisePropertyChanged("OpcionSmsDesabilitado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OpcionVerificacionCorreo {
+            get {
+                return this.OpcionVerificacionCorreoField;
+            }
+            set {
+                if ((this.OpcionVerificacionCorreoField.Equals(value) != true)) {
+                    this.OpcionVerificacionCorreoField = value;
+                    this.RaisePropertyChanged("OpcionVerificacionCorreo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OpcionVerificacionSMS {
+            get {
+                return this.OpcionVerificacionSMSField;
+            }
+            set {
+                if ((this.OpcionVerificacionSMSField.Equals(value) != true)) {
+                    this.OpcionVerificacionSMSField = value;
+                    this.RaisePropertyChanged("OpcionVerificacionSMS");
                 }
             }
         }
@@ -11464,10 +11496,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<bool> VerificarIgualdadCodigoIngresadoAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, string codigoIngresado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario, bool verificacionWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnProgramaResponse")]
         bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
@@ -12381,12 +12413,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.VerificarIgualdadCodigoIngresadoAsync(paisID, oUsu, codigoIngresado);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario) {
-            return base.Channel.GetVerificacionAutenticidad(paisID, CodigoUsuario);
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb) {
+            return base.Channel.GetVerificacionAutenticidad(paisID, CodigoUsuario, verificacionWeb);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario) {
-            return base.Channel.GetVerificacionAutenticidadAsync(paisID, CodigoUsuario);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario, bool verificacionWeb) {
+            return base.Channel.GetVerificacionAutenticidadAsync(paisID, CodigoUsuario, verificacionWeb);
         }
         
         public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID) {

@@ -874,10 +874,10 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Verificacion de Autenticidad
-        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario)
+        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.GetVerificacionAutenticidad(paisID, CodigoUsuario);
+            return BLUsuario.GetVerificacionAutenticidad(paisID, CodigoUsuario, verificacionWeb); 
         }
         #endregion
 

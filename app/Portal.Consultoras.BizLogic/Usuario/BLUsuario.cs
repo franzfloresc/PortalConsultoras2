@@ -2920,13 +2920,13 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Verificacion De Autenticidad
-        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario)
+        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb)
         {
             try
             {
                 /*Verificando si tiene Verificacion*/
                 var oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
-                if (oUsu.Cantidad == 0) return null;
+                if (oUsu.Cantidad == 0 && (verificacionWeb || oUsu.OpcionCambioClave != 0 )) return null;
                 /*Obteniendo Datos de Verificacion de Autenticidad*/
                 var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
                 if (opcion == null) return null;
@@ -2941,19 +2941,22 @@ namespace Portal.Consultoras.BizLogic
                 if (opcion.lstFiltros.Count > 0)
                 {
                     var usuFiltro = opcion.lstFiltros.FirstOrDefault(a => a.IdEstadoActividad == oUsu.IdEstadoActividad);
-                    if (usuFiltro == null) return null;
-                    /*Validando campania*/
-                    if (!ValidaCampania(oUsu.campaniaID, usuFiltro.CampaniaInicio, usuFiltro.CampaniaFinal)) return null;
-                    oUsu.MensajeSaludo = usuFiltro.MensajeSaludo;
+                    if (usuFiltro == null && verificacionWeb) return null;
+                    if (usuFiltro != null)
+                    {
+                        /*Validando campania*/
+                        if (!ValidaCampania(oUsu.campaniaID, usuFiltro.CampaniaInicio, usuFiltro.CampaniaFinal)) return null;
+                        oUsu.MensajeSaludo = usuFiltro.MensajeSaludo;
+                    }
                 }
 
                 oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
-                if (opcion.OpcionEmail)
+                if (opcion.OpcionEmail && oUsu.Correo!= null)
                 {
                     oUsu.CorreoEnmascarado = Common.Util.EnmascararCorreo(oUsu.Correo);
                     oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail;
                 }
-                if (opcion.OpcionSms)
+                if (opcion.OpcionSms && oUsu.Celular != null)
                 {
                     oUsu.CelularEnmascarado = Common.Util.EnmascararCelular(oUsu.Celular);
                     if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail)
@@ -2961,15 +2964,19 @@ namespace Portal.Consultoras.BizLogic
                     else
                         oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarCelular;
                 }
-                if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
+                if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion && (oUsu.OpcionCambioClave != 0 || !opcion.OpcionContrasena)) return null;
                 oUsu.OpcionChat = opcion.OpcionChat;
                 oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
-                oUsu.BelcorpResponde = _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault();
                 oUsu.OrigenID = opcion.OrigenID;
                 oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
                 oUsu.CodigoUsuario = CodigoUsuario;
                 oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
                 GetOpcionHabilitar(paisID, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
+                
+                oUsu.OpcionVerificacionSMS = opcion.OpcionSms ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
+                oUsu.OpcionVerificacionCorreo = opcion.OpcionEmail ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
+                oUsu.OpcionCambioClave = opcion.OpcionContrasena ? oUsu.OpcionCambioClave : -1;
+
                 return oUsu;
             }
             catch (Exception ex)

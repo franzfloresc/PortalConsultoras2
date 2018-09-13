@@ -560,6 +560,7 @@ namespace Portal.Consultoras.Entities
             get { return miTipoUsuario; }
             set { miTipoUsuario = value; }
         }
+        [Column("CambioClave")]
         [DataMember]
         public bool CambioClave
         {
