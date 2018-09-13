@@ -16,7 +16,7 @@
 
 <div id="seccion-menu-mobile">
     <div id="seccion-fixed-menu" class="agregarPosicionRelativa" style="z-index: 10; width: 100%;">
-        <div id="seccion-banner-mobile" class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
+        @*<div id="seccion-banner-mobile" class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
             @if (!ViewBag.TieneRevistaDigital)
             {
                 if (Util.Trim(menuActivo.ConfiguracionPais.MobileLogoBanner) != "")
@@ -75,7 +75,7 @@
                     </ul>
                 </div>
             }
-        </div>
+        </div>*@
         @if (menuList.Any())
         {
             <div data-layout-menu2="" class="slick-slider-fixed-mobile">

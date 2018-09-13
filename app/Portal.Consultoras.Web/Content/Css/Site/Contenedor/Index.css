@@ -92,32 +92,6 @@
                         display: none;
                     }*/
 
-@media (max-width: 1100px) {
-    .bc_menu_estrategia .logo {
-        width: 13%;
-    }
-}
-
-@media (max-width: 950px) {
-    .bc_menu_estrategia .logo {
-        width: 15%;
-    }
-
-    .bc_menu_estrategia .texto-info p {
-        font-size: 10px;
-    }
-
-    .bc_menu_estrategia .texto-info span {
-        font-size: 9px;
-    }
-}
-
-@media (max-width: 850px) {
-    .bc_menu_estrategia .logo {
-        width: 17%;
-    }
-}
-
 .bc_plantilla-banner {
     width: 100%;
     display: inline-block;
@@ -786,4 +760,38 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
 
 #divOfertaProductosPerdio{
     text-align: center;
+}
+
+@media (max-width: 1100px) {
+    .bc_menu_estrategia .logo {
+        width: 13%;
+    }
+}
+
+@media (max-width: 950px) {
+    .op-menu-horizontal .subnavegador li {
+        padding: 0px 15px;
+    }
+
+    .bc_menu_estrategia .logo {
+        width: 15%;
+    }
+
+    .bc_menu_estrategia .texto-info p {
+        font-size: 10px;
+    }
+
+    .bc_menu_estrategia .texto-info span {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 850px) {
+    .op-menu-horizontal .subnavegador li {
+        padding: 0px 10px;
+    }
+
+    .bc_menu_estrategia .logo {
+        width: 17%;
+    }
 }

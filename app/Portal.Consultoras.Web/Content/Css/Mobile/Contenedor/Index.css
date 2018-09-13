@@ -447,3 +447,8 @@ img.c {
     text-align: center;
     display: none;
 }
+
+img.icono-logo-submenu-tabs {
+    height: 21px;
+    width: auto;
+}
