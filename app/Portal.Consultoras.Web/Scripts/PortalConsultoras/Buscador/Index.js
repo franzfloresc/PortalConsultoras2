@@ -170,7 +170,6 @@ $(document).ready(function () {
                                 console.log(lista[0].URLBsucador);
                                 console.log('============ URL BUSCADOR ==========');
 
-                                SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscador');
 
                                 setTimeout(function () {
                                     if ($('.busqueda_sin_resultados').is(':visible')) {
@@ -184,6 +183,8 @@ $(document).ready(function () {
                                     }, 100);
                                     //$('.lista_resultados_busqueda_productos').addClass('animarAlturaListaResultadosBusqueda');
                                 }, 400);
+
+                                SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscador');
                             }
 
                         }

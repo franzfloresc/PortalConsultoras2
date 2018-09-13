@@ -1,7 +1,6 @@
 ﻿<script id="js-ResultadoBuscador" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div class="resultado_busqueda_producto displayBlock text-left" data-item="ProductoBuscador">
-        <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
         <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
         <input type="hidden" class="hdBuscadorSAP" value="{{SAP}}" />
         <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
