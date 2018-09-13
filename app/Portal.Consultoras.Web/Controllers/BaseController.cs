@@ -1205,10 +1205,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new PedidoServiceClient())
                 {
-                    if(PaisNuevaEscalaDescuento(userData.CodigoISO))
-                        listaEscalaDescuento = sv.GetEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
-                    else
-                        listaEscalaDescuento = sv.GetEscalaDescuento(userData.PaisID).ToList();
+                    listaEscalaDescuento = sv.GetEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
                 }
             }
             catch (Exception ex)
@@ -1218,18 +1215,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return listaEscalaDescuento;
-        }
-
-        public bool PaisNuevaEscalaDescuento(string codigoIsoPais)
-        {
-            ConfiguracionManagerProvider _ConfiguracionManagerProvider = new ConfiguracionManagerProvider();
-
-            if (string.IsNullOrEmpty(codigoIsoPais))
-                return false;
-
-            var paisesKey = _ConfiguracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEscalaDescuento);
-            var EscalaDescuento = paisesKey.Contains(codigoIsoPais);
-            return EscalaDescuento;
         }
 
         private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(string constSession, string codigoPrograma)
