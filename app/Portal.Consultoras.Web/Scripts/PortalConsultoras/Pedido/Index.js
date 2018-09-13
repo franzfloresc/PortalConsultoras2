@@ -810,6 +810,7 @@ function InsertarProducto(form) {
                     CargarDetallePedido();
                     $("#pCantidadProductosPedido").html(response.cantidadTotalProductos > 0 ? response.cantidadTotalProductos : 0);
                     microefectoPedidoGuardado();
+                    if (!IsNullOrEmpty(response.mensajeAviso != '')) alert_msg(response.mensajeAviso);
                     TrackingJetloreAdd(form.data.Cantidad, $("#hdCampaniaCodigo").val(), form.data.CUV);
                     dataLayer.push({
                         'event': "addToCart",
@@ -900,6 +901,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
             if (data.modificoBackOrder) showDialog("divBackOrderModificado");
             CargarDetallePedido();
             MostrarBarra(data);
+            if (!IsNullOrEmpty(data.mensajeAviso != '')) alert_msg(data.mensajeAviso);
             TrackingJetloreAdd(param2.Cantidad, $("#hdCampaniaCodigo").val(), param2.CUV);
             dataLayer.push({
                 'event': "addToCart",
@@ -3218,6 +3220,7 @@ function AgregarProducto(url, model, divDialog, cerrarSplash, asyncX) {
             microefectoPedidoGuardado();
             if (cerrarSplash) CerrarSplash();
             MostrarBarra(data);
+            if (!IsNullOrEmpty(data.mensajeAviso != '')) alert_msg(data.mensajeAviso);
             TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 
             retorno = data;

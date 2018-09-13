@@ -670,10 +670,11 @@ function InsertarProductoSugerido(model) {
             CargarCarouselEstrategias();
             $("#txtCodigoProducto").val("");
             $("#hdCuvEnSession").val("");
-            if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
 
-            if (belcorp.pedido.applyChanges)
-                belcorp.pedido.applyChanges("onProductoAgregado", data);
+            if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
+            else if (!IsNullOrEmpty(data.mensajeAviso != '')) messageInfo(data.mensajeAviso);
+
+            if (belcorp.pedido.applyChanges) belcorp.pedido.applyChanges("onProductoAgregado", data);
         },
         error: function (data, error) {
             CloseLoading();
@@ -735,8 +736,7 @@ function AgregarProductoListado() {
     });
 }
 
-function InsertarProducto() {
-    
+function InsertarProducto() {    
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
     var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
     var model = {};
@@ -812,12 +812,7 @@ function InsertarProducto() {
                 return false;
             }
 
-            CloseLoading();
-
-            setTimeout(function () {
-
-            }, 2000);
-
+            CloseLoading();            
             ActualizarGanancia(data.DataBarra);
             var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
             if (existeError == "1") {
@@ -841,6 +836,7 @@ function InsertarProducto() {
 
             PedidoOnSuccess();
             if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
+            else if (!IsNullOrEmpty(data.mensajeAviso != '')) messageInfo(data.mensajeAviso);
 
             $("#hdCuvEnSession").val("");
             ProcesarActualizacionMostrarContenedorCupon();

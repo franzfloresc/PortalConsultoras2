@@ -482,10 +482,11 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
             }
+            if (!IsNullOrEmpty(data.mensajeAviso != '')) (isMobile() ? messageInfo : alert_msg)(data.mensajeAviso);
 
             return false;
-
-        }).fail(function (data, error) {
+        })
+        .fail(function (data, error) {
             CerrarLoad();
         });
 

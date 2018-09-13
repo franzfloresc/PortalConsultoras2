@@ -506,10 +506,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (mensajeError != "") return ErrorJson(mensajeError, true);
 
             if(esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
-            return Json(PedidoInsertarGenerico(model, false, listCuvEliminar));
+            return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso));
         }
 
-        private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null)
+        private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "")
         {
             try
             {
@@ -592,6 +592,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = !errorServer ? "OK"
                         : tipo.Length > 1 ? tipo
                         : "Ocurrió un error al ejecutar la operación.",
+                    mensajeAviso,
                     data = pedidoWebDetalleModel,
                     listCuvEliminar,
                     total,
