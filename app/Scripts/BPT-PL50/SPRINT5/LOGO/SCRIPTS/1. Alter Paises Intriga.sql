@@ -1,4 +1,4 @@
-
+ï»¿
 use [BelcorpBolivia]
 go
 UPDATE
@@ -19,7 +19,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DBienvenidaIntriga', 'MBienvenidaIntriga');
 /* HOME FIN */
@@ -28,7 +28,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DPedidoIntriga', 'MPedidoIntriga');
 /* PASE PEDIDO FIN */
@@ -37,7 +37,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -72,7 +72,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DBienvenidaIntriga', 'MBienvenidaIntriga');
 /* HOME FIN */
@@ -81,7 +81,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DPedidoIntriga', 'MPedidoIntriga');
 /* PASE PEDIDO FIN */
@@ -90,7 +90,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -125,7 +125,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DBienvenidaIntriga', 'MBienvenidaIntriga');
 /* HOME FIN */
@@ -134,7 +134,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DPedidoIntriga', 'MPedidoIntriga');
 /* PASE PEDIDO FIN */
@@ -143,7 +143,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -178,7 +178,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DBienvenidaIntriga', 'MBienvenidaIntriga');
 /* HOME FIN */
@@ -187,7 +187,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DPedidoIntriga', 'MPedidoIntriga');
 /* PASE PEDIDO FIN */
@@ -196,7 +196,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -231,7 +231,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DBienvenidaIntriga', 'MBienvenidaIntriga');
 /* HOME FIN */
@@ -240,7 +240,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DPedidoIntriga', 'MPedidoIntriga');
 /* PASE PEDIDO FIN */
@@ -249,7 +249,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -284,7 +284,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DBienvenidaIntriga', 'MBienvenidaIntriga');
 /* HOME FIN */
@@ -293,7 +293,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DPedidoIntriga', 'MPedidoIntriga');
 /* PASE PEDIDO FIN */
@@ -302,7 +302,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -337,7 +337,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DBienvenidaIntriga', 'MBienvenidaIntriga');
 /* HOME FIN */
@@ -346,7 +346,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DPedidoIntriga', 'MPedidoIntriga');
 /* PASE PEDIDO FIN */
@@ -355,7 +355,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
@@ -390,7 +390,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DBienvenidaIntriga', 'MBienvenidaIntriga');
 /* HOME FIN */
@@ -399,7 +399,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DPedidoIntriga', 'MPedidoIntriga');
 /* PASE PEDIDO FIN */
@@ -408,7 +408,7 @@ WHERE
 UPDATE
 	[dbo].[ConfiguracionPaisDatos]
 SET
-	Valor1 = '#NOMBRE, encuentra aquí las promociones de campaña'
+	Valor1 = '#NOMBRE, encuentra aquÃ­ las promociones de campaÃ±a'
 WHERE
 	ConfiguracionPaisID = 17 and Estado = 1 and Codigo in ('DCatalogoIntriga', 'MCatalogoIntriga');
 /* CATALOGOS Y REVISTAS FIN */
