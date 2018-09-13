@@ -364,10 +364,9 @@ body {
 
 /* Ficha Check Agreado y texto Libre */
 
-/*.ficha_div_libre_agregado {
+.ficha_div_libre_agregado {
     padding-top: 15px;
-    clear: both;
-}*/
+}
 
 .ficha_agregado {
     float: right;
