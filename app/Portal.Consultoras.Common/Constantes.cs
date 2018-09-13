@@ -2702,9 +2702,9 @@ namespace Portal.Consultoras.Common
 
         public class CodigosCatalogos
         {
-            public const int ESIKA = 10;
+            public const int ESIKA = 13;
             public const int LBEL = 9;
-            public const int CYZONE = 13;
+            public const int CYZONE = 10;
         }
 
 
