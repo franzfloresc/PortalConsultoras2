@@ -38,7 +38,6 @@ jQuery(document).ready(function () {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
             if ($('.resultado_busqueda_producto').is(':visible')) {
-                console.log('lkasakslasklasadklaj');
             }
         }
     };
@@ -868,7 +867,6 @@ function paginadorAccionGenerico(obj) {
 }
 
 function ActualizarGanancia(data) {
-    console.log('General.js - ActualizarGanancia - ante num-menu-shop', data);
     data = data || new Object();
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
@@ -1272,7 +1270,6 @@ function LayoutMenuFin() {
     // caso no entre en el menu
     // poner en dos renglones
     if ($(idnMenuHeader).height() > 61) {
-        console.log("menu en mas de una linea");
     }
 
     LayoutHeader();
