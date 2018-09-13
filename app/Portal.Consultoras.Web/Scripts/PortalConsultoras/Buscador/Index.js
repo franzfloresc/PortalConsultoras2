@@ -56,7 +56,7 @@ $(document).ready(function () {
             CampoDeBusquedaSinCaracteres: function (element) {
                 $('.lista_resultados_busqueda_productos').fadeOut(100);
                 $('.lista_resultados_busqueda_productos').animate({
-                    'min-height': '250px',
+                    'min-height': '95px',
                     'height': 'auto'
                 }, 100);
                 //$('.lista_resultados_busqueda_productos').removeClass('animarAlturaListaResultadosBusqueda');
@@ -141,7 +141,7 @@ $(document).ready(function () {
                                     $('#ResultadoBuscador').delay(50);
                                     $('#ResultadoBuscador').fadeIn(100);
                                     $('.lista_resultados_busqueda_productos').animate({
-                                        'height': $('#ResultadoBuscador').height() + 43
+                                        'min-height': $('#ResultadoBuscador').height() + 43
                                     }, 100);
                                     //$('.lista_resultados_busqueda_productos').addClass('animarAlturaListaResultadosBusqueda');
                                 }, 400);
