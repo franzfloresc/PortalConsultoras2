@@ -1527,6 +1527,7 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\flecha_icono.svg" />
     <Content Include="Content\Images\icono-elige-tu-opcion.svg" />
     <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\icono_avatar.svg" />
@@ -1542,7 +1543,11 @@
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\icono_avatar_menu.svg" />
     <Content Include="Content\Images\icono_cargar_foto_desde_galeria.svg" />
+    <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
+    <Content Include="Content\Images\icono_lupa.svg" />
+    <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
+    <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
     <Content Include="Content\Images\imagen_prod_no_disponible.svg" />
     <Content Include="Content\Images\Lbel\icono_cambiar_dato.svg" />
