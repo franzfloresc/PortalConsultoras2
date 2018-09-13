@@ -711,7 +711,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ListaOpcionesModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ComponentesModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js",
@@ -722,10 +721,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js"
-            ));
-
-            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Ficha").Include(
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha").Include(

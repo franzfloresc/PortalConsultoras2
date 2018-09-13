@@ -171,12 +171,13 @@
                             </ul>
                         </div>
                     </div>
-                    <a id="btnAgregalo" 
-                       class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}" 
-                       {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}} 
+                    <a id="btnAgregalo"
+                       class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                       {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
                        onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
 
-                    <div class="ficha_div_libre_agregado" style="padding-top: 15px;">
+                    <hr class="clear">
+                    <div class="ficha_div_libre_agregado">
                         {{#iff TextoLibre '!=' ''}}
                         <div class="limit_pack"><span>!</span>{{TextoLibre}}</div>
                         {{/iff}}
