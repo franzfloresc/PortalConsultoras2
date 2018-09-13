@@ -187,7 +187,6 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Lógica de Popups
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model);
-                model.TieneContratoPopup = ValidarContratoPopup() ? 1 : 0;
                 model.TieneFacturacionElectronica = GetDatosFacturacionElectronica(userData.PaisID, Constantes.FacturacionElectronica.TablaLogicaID, Constantes.FacturacionElectronica.FlagActivacion) == "1";
 
                 #endregion
@@ -2407,6 +2406,29 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "";
+            }
+        }
+
+        public JsonResult ObtenerEstadoContrato()
+        {
+            try
+            {
+                bool estado = ValidarContratoPopup();
+                return Json(new
+                {
+                    success = true,
+                    estado = estado,
+                    message = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al obtener el estado del contrato."
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }

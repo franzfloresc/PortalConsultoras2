@@ -124,24 +124,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return;
                 }
 
-                //if (ValidarContratoPopup())
-                //{
-                //    var area = filterContext.RouteData.DataTokens.Where(dt => dt.Key == "area");
-                //    var isMobile = area.Count() > 0 ? area.First().Value.ToString() == "Mobile" : false;
-                //    var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
-                //    var actionName = filterContext.ActionDescriptor.ActionName;
-
-                //    bool urlAceptaContrato = !isMobile && controllerName == "Bienvenida" && actionName == "AceptarContrato";
-                //    bool urlBienvenida = controllerName == "Bienvenida" && (actionName == "Index" || actionName == "");
-                //    bool urlValida = urlAceptaContrato || urlBienvenida;
-
-                //    if (!urlValida) {
-                //        filterContext.Result = !isMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
-                //            new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
-                //        return;
-                //    }
-                //}
-
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
@@ -789,41 +771,6 @@ namespace Portal.Consultoras.Web.Controllers
             return listaEscalaDescuento;
         }
 
-        //private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(string constSession, string codigoPrograma)
-        //{
-        //    constSession = constSession ?? "";
-        //    constSession = constSession.Trim();
-        //    if (constSession == "")
-        //        return new BEConsultorasProgramaNuevas();
-
-        //    if (Session[constSession] != null)
-        //        return (BEConsultorasProgramaNuevas)Session[constSession];
-
-        //    try
-        //    {
-        //        var obeConsultorasProgramaNuevas =
-        //            new BEConsultorasProgramaNuevas
-        //            {
-        //                CodigoConsultora = userData.CodigoConsultora,
-        //                Campania = userData.CampaniaID.ToString(),
-        //                CodigoPrograma = codigoPrograma
-        //            };
-        //        using (var sv = new PedidoServiceClient())
-        //        {
-        //            obeConsultorasProgramaNuevas = sv.GetConsultorasProgramaNuevas(userData.PaisID, obeConsultorasProgramaNuevas);
-        //        }
-
-        //        Session[constSession] = obeConsultorasProgramaNuevas ?? new BEConsultorasProgramaNuevas();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        Session[constSession] = new BEConsultorasProgramaNuevas();
-        //    }
-
-        //    return (BEConsultorasProgramaNuevas)Session[constSession];
-        //}
-
         private List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(string constSession, string tipoMensaje)
         {
             constSession = constSession ?? "";
@@ -860,62 +807,6 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia) &&
                 sessionManager.GetIsContrato() == 1 && !sessionManager.GetAceptoContrato();
         }
-
-        //public List<EstadoCuentaModel> ObtenerEstadoCuenta(long pConsultoraId = 0)
-        //{
-        //    var lst = new List<EstadoCuentaModel>();
-
-        //    if (pConsultoraId == 0)
-        //        pConsultoraId = userData.ConsultoraID;
-            
-        //    if (sessionManager.GetListadoEstadoCuenta() == null)
-        //    {
-        //        var estadoCuenta = new List<BEEstadoCuenta>();
-        //        try
-        //        {
-        //            using (var client = new SACServiceClient())
-        //            {
-        //                estadoCuenta = client.GetEstadoCuentaConsultora(userData.PaisID, pConsultoraId).ToList();
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        }
-
-        //        if (estadoCuenta.Count > 0)
-        //        {
-        //            foreach (var ec in estadoCuenta)
-        //            {
-        //                lst.Add(new EstadoCuentaModel
-        //                {
-        //                    Fecha = ec.FechaRegistro,
-        //                    Glosa = ec.DescripcionOperacion,
-        //                    Cargo = ec.Cargo,
-        //                    Abono = ec.Abono
-        //                });
-        //            }
-
-        //            var monto = userData.MontoDeuda;
-
-        //            lst.Add(new EstadoCuentaModel
-        //            {
-        //                Fecha = userData.FechaLimPago,
-        //                Glosa = "MONTO A PAGAR",
-        //                Cargo = monto > 0 ? monto : 0,
-        //                Abono = monto < 0 ? 0 : monto
-        //            });
-        //        }
-
-        //        sessionManager.SetListadoEstadoCuenta(lst);
-        //    }
-        //    else
-        //    {
-        //        lst = sessionManager.GetListadoEstadoCuenta();
-        //    }
-
-        //    return lst;
-        //}
         #endregion
         
         #region LogDynamo

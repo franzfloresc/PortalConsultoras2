@@ -14,7 +14,6 @@ var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 var dataBarra = dataBarra || {};
-var AceptoContrato = false;
 
 //youtube
 var tag = null;
@@ -66,8 +65,7 @@ $(document).ready(function () {
 
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
-        if (VerContrato == 1 && !AceptoContrato)
-            PopupMostrar('popupAceptacionContrato');
+        if (ObtenerEstadoContrato()) PopupMostrar('popupAceptacionContrato');
     });
 
     $(".ver_video_introductorio").click(function () {
@@ -116,7 +114,7 @@ $(document).ready(function () {
         if (evt.keyCode == 27) {
             if ($('#popup_tutorial_home').is(':visible')) {
                 cerrar_popup_tutorial();
-                if (VerContrato == 1 && !AceptoContrato)
+                if (ObtenerEstadoContrato())
                     PopupMostrar('popupAceptacionContrato');
             }
             if ($('#videoIntroductorio').is(':visible')) {
@@ -2117,7 +2115,6 @@ function AceptarContrato() {
                     alert(data.message);
                     if (data.extra != "nocorreo") return;
                 }
-                AceptoContrato = true;
                 PopupCerrar('popupAceptacionContrato');
             }
         },
@@ -3149,11 +3146,8 @@ function MostrarPopupInicial() {
     }
 
     switch (TipoPopUpMostrar) {
-        //case '0':
-        //    if (VerContrato == 1 && !AceptoContrato) PopupMostrar('popupAceptacionContrato');
-        //    break;
         case popupAceptacionContrato:
-            PopupMostrar('popupAceptacionContrato');
+            if (ObtenerEstadoContrato()) PopupMostrar('popupAceptacionContrato');
             break;
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -3265,4 +3259,27 @@ function ConsultarEmailPendiente() {
             alert(error);
         }
     });
+}
+
+function ObtenerEstadoContrato() {
+    var re = false;
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ObtenerEstadoContrato',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        async: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success)
+                    if (data.estado) re = true;
+            }
+        },
+        error: function (data, error) {
+            alert(error);
+        }
+    });
+
+    return re;
 }
