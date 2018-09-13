@@ -555,3 +555,7 @@
     border-radius: 4px;
 }
 
+.ofertas_digitales_intriga_mobile {
+    height: auto !important;
+    padding: 10px 0px 35px 0px;
+}
