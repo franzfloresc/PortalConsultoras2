@@ -360,6 +360,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
         }
     }
     else {
+        if (cancel == 0) PresentarNovedadBuscador('block', true);
         clearTimeout(timeoutHandle);
     }
     timeoutHandle = setTimeout(MostrarPopusEnOrden, x * 100);
@@ -409,6 +410,7 @@ function ValidacionEncuesta() {
     }
     timeoutEncuesta = setTimeout(ValidacionEncuesta, x * 100);
 }
+
 function Cupon() {
     if (cancel == 0) {
         if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
@@ -426,11 +428,11 @@ function Cupon() {
         else {
             if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
             if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-            PresentarNovedadBuscador('block');
             EmpezarSlider();
             clearTimeout(timeoutHandle);
             cancel = 1;
         }
+        PresentarNovedadBuscador('block');
     });
 }
 
@@ -460,10 +462,34 @@ function EmpezarSlider() {
     }
 }
 
-function PresentarNovedadBuscador(_val) {
-    if (CantidadVecesInicioSesionNovedad > 0) {
-        if (NovedadBuscadorVisitasUsuario >= 0 && NovedadBuscadorVisitasUsuario < CantidadVecesInicioSesionNovedad) {
-            if (document.getElementById('toolTipBuscador') != null) document.getElementById('toolTipBuscador').style.display = _val;
+function PresentarNovedadBuscador(_val, _valid) {
+    if (_valid) {
+        $('#toolTipBuscador').on('hide', function () {
+            cancel = 1;
+        });
+
+        var getStorage = localStorage.getItem('novedadBuscador');
+        getStorage = getStorage == null ? 0 : getStorage;
+        
+        if (getStorage == 0) {
+            if (CantidadVecesInicioSesionNovedad > 0) {
+                if (NovedadBuscadorVisitasUsuario >= 0 && NovedadBuscadorVisitasUsuario < CantidadVecesInicioSesionNovedad) {
+                    if (document.getElementById('toolTipBuscador') != null) document.getElementById('toolTipBuscador').style.display = _val;
+                }
+            }
+            localStorage.setItem('novedadBuscador', 1);
+            x = 0;
         }
+    } else {
+        setTimeout(function () {
+            if (CantidadVecesInicioSesionNovedad > 0) {
+                if (NovedadBuscadorVisitasUsuario >= 0 && NovedadBuscadorVisitasUsuario < CantidadVecesInicioSesionNovedad) {
+                    if (document.getElementById('toolTipBuscador') != null) document.getElementById('toolTipBuscador').style.display = _val;
+                }
+            }
+        }, 500);
     }
+
+
+
 }
