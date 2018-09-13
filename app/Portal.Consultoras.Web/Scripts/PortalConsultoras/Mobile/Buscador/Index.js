@@ -70,17 +70,22 @@ $(document).ready(function () {
                             var lista = r;
 
                             if (lista.length <= 0) {
-                                $('#ResultadoBuscadorMobile').fadeOut(150);
-                                me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
+                                //$('#ResultadoBuscadorMobile').fadeOut(150);
+                                //me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
+                                $('.spinner').fadeOut(150);
+                                $('.busqueda_sin_resultados').fadeIn(60);
                             } else {
                                 SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscadorMobile');
+                                setTimeout(function () {
+                                    if ($('.busqueda_sin_resultados').is(':visible')) {
+                                        $('.busqueda_sin_resultados').fadeOut(60);
+                                    }
+                                    $('.spinner').delay(50);
+                                    $('.spinner').fadeOut(150);
+                                    $('#ResultadoBuscadorMobile').fadeIn(150);
+                                }, 400);
                             }
 
-                            setTimeout(function () {
-                                $('.spinner').delay(50);
-                                $('.spinner').fadeOut(150);
-                                $('#ResultadoBuscadorMobile').fadeIn(150);
-                            }, 400);
                         }
 
                         xhr.then(successBusqueda, function (e) {
@@ -88,6 +93,10 @@ $(document).ready(function () {
                         });
                         //aquí va el metodo que llama el api
                     } else {
+                        //me.Funciones.CampoDeBusquedaSinCaracteres($(this));
+                        if ($('.busqueda_sin_resultados').is(':visible')) {
+                            $('.busqueda_sin_resultados').fadeOut(60);
+                        }
                         $('#ResultadoBuscadorMobile').fadeOut(150);
                         me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
                     }
