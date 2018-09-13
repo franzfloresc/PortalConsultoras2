@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
         {
-            string joinCuv=string.Empty;
+            string joinCuv = string.Empty;
             List<BEEstrategiaProducto> listaBeEstrategiaProductos = null;
             esMultimarca = false;
             mensaje = "";
@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Providers
                 mensaje += "NoMongo|";
                 listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo, out joinCuv);
             }
-           
+
             if (joinCuv == "") return new List<EstrategiaComponenteModel>();
 
             mensaje += "EstrategiaProductos|";
@@ -112,7 +112,7 @@ namespace Portal.Consultoras.Web.Providers
 
         //    return listaProducto;
         //}
-        
+
         private List<BEEstrategiaProducto> GetEstrategiaProductos(EstrategiaPersonalizadaProductoModel estrategiaModelo, out string codigoSap)
         {
             codigoSap = "";
@@ -147,13 +147,21 @@ namespace Portal.Consultoras.Web.Providers
         private List<Producto> GetAppProductoBySap(EstrategiaPersonalizadaProductoModel estrategiaModelo, string joinSap)
         {
             List<Producto> listaAppCatalogo;
-            var numeroCampanias = Convert.ToInt32(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
-            using (var svc = new ProductoServiceClient())
+            try
             {
-                listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(_paisISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
-            }
-            listaAppCatalogo = listaAppCatalogo.Any() ? listaAppCatalogo : new List<Producto>();
+                var numeroCampanias = Convert.ToInt32(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
+                using (var svc = new ProductoServiceClient())
+                {
+                    listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(_paisISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
+                }
+                listaAppCatalogo = listaAppCatalogo.Any() ? listaAppCatalogo : new List<Producto>();
 
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", _paisISO, "EstrategiaComponenteProvider.GetAppProductoBySap");
+                listaAppCatalogo = new List<Producto>();
+            }
             return listaAppCatalogo;
         }
 
@@ -213,7 +221,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             listaEstrategiaComponenteProductos = EstrategiaComponenteLimpieza(estrategiaModelo.CodigoVariante, listaComponentesTemporal);
-            
+
             return listaEstrategiaComponenteProductos;
         }
 
@@ -296,12 +304,12 @@ namespace Portal.Consultoras.Web.Providers
                     componenteModel.NombreComercial = Util.Trim(beEstrategiaProducto.NombreProducto);
                 }
             }
-            
+
             if (componenteModel.NombreBulk != "" && !(" " + componenteModel.NombreComercial.ToLower() + " ").Contains(" " + componenteModel.NombreBulk.ToLower() + " "))
             {
                 componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.NombreBulk);
             }
-            
+
             if (componenteModel.Volumen != "" && !(" " + componenteModel.NombreComercial.ToLower() + " ").Contains(" " + componenteModel.Volumen.ToLower() + " "))
             {
                 componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.Volumen);
@@ -368,11 +376,11 @@ namespace Portal.Consultoras.Web.Providers
             contador += listaComponentesEzika.Any() ? 1 : 0;
             contador += listaComponentesLbel.Any() ? 1 : 0;
             esMultimarca = contador > 1;
-            if(soyPaisEsika)
+            if (soyPaisEsika)
             {
-                foreach(string s in aordenESIKA)
+                foreach (string s in aordenESIKA)
                 {
-                    if(Convert.ToInt16(s) == Constantes.Marca.LBel)
+                    if (Convert.ToInt16(s) == Constantes.Marca.LBel)
                         listaComponentesOrdenados.AddRange(listaComponentesLbel);
                     if (Convert.ToInt16(s) == Constantes.Marca.Esika)
                         listaComponentesOrdenados.AddRange(listaComponentesEzika);

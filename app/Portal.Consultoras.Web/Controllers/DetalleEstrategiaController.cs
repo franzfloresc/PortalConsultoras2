@@ -35,9 +35,10 @@ namespace Portal.Consultoras.Web.Controllers
                     mensaje
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return ErrorJson("Error al obtener los Componentes: " + e.Message, true);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson("Error al obtener los Componentes: " + ex.Message, true);
             }
 
         }
