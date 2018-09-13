@@ -742,6 +742,11 @@
       <DependentUpon>Pdto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\PayuResponseMessage.Designer.cs">
+      <DependentUpon>PayuResponseMessage.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Properties\PayuResponseCodes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1548,6 +1553,8 @@
     <Content Include="Content\Images\Lbel\icono_info_alerta.svg" />
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
+    <Content Include="Content\Images\Lbel\estrellas.png" />
+    <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\icono_editar_foto_perfil.svg" />
     <Content Include="Content\Images\icono_eliminar.svg" />
@@ -3168,6 +3175,8 @@
     <Content Include="Content\Images\icons\small\list-icon6.png" />
     <Content Include="Content\Images\login\aniversario.png" />
     <Content Include="Content\Images\login\aniversario01.png" />
+    <Content Include="Content\Images\mobile\img-emoticons\1f605.png" />
+    <Content Include="Content\Images\mobile\img-emoticons\1f609.png" />
     <Content Include="Content\Images\mobile\img-emoticons\1f64c.png" />
     <Content Include="Content\Images\mobile\img-icon\alert-success.png" />
     <Content Include="Content\Images\mobile\img-icon\boton_compartirface.png" />
@@ -3836,6 +3845,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Mensaje.js" />
     <Content Include="Scripts\PortalConsultoras\Login\VerificaAutenticidad.js" />
+    <Content Include="Scripts\PortalConsultoras\MailConfirmacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCamapaniaJS.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
@@ -4695,6 +4705,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService66.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService67.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
@@ -5715,6 +5728,11 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\PayuResponseMessage.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PayuResponseMessage.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\PayuResponseCodes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PayuResponseCodes.Designer.cs</LastGenOutput>
