@@ -98,7 +98,6 @@ namespace Portal.Consultoras.Web.Providers
                 throw ex;
             }
 
-            await Task.Delay(1000);
             return resultBuscador;
         }
 
