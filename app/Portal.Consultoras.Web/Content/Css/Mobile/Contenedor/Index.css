@@ -338,6 +338,11 @@ img.icono-submenu-tabs {
     margin-top: 7px;
 }
 
+img.icono-logo-submenu-tabs {
+    height: 21px;
+    width: auto;
+}
+
 img.c {
     height: 21px;
     width: auto;
