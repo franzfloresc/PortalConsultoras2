@@ -7012,9 +7012,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServiceUsuario.BEBelcorpResponde BelcorpRespondeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7117,19 +7114,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             }
             set {
                 this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServiceUsuario.BEBelcorpResponde BelcorpResponde {
-            get {
-                return this.BelcorpRespondeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.BelcorpRespondeField, value) != true)) {
-                    this.BelcorpRespondeField = value;
-                    this.RaisePropertyChanged("BelcorpResponde");
-                }
             }
         }
         

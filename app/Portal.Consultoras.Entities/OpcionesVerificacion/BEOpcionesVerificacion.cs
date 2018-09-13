@@ -119,8 +119,6 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public bool OpcionChat { get; set; }
         [DataMember]
-        public BEBelcorpResponde BelcorpResponde { get; set; }
-        [DataMember]
         public int OpcionVerificacionSMS { get; set; }
         [DataMember]
         public int OpcionVerificacionCorreo { get; set; }
