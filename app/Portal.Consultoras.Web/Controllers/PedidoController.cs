@@ -4443,7 +4443,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!Convert.ToBoolean(Session["CuvEsProgramaNuevas"])) return "";
 
-            int cantidadPedido = ObtnerCantidadCuvPedidoWeb(cuvingresado);
+            int cantidadPedido = GetCantidadCuvPedidoWeb(cuvingresado);
             int valor = 0;
             using (var svc = new ODSServiceClient())
             {
@@ -4503,7 +4503,7 @@ namespace Portal.Consultoras.Web.Controllers
             return string.Format(Constantes.MensajesElectivosNuevas.TeFaltaPocoLimite, numFaltantes, promocionNombre);
         }
 
-        private int ObtnerCantidadCuvPedidoWeb(string cuvIngresado)
+        private int GetCantidadCuvPedidoWeb(string cuvIngresado)
         {
             List<BEPedidoWebDetalle> lstPedidoDetalle = ObtenerPedidoWebDetalle();
             return lstPedidoDetalle.Where(a => a.CUV == cuvIngresado).Sum(b => b.Cantidad);

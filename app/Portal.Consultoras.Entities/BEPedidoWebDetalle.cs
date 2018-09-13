@@ -162,6 +162,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int SetID { get; set; }
 
+        [DataMember]
+        public bool EsCuponNueva { get; set; }
+        [DataMember]
+        public bool EsDuoPerfecto { get; set; }
+
         public BEPedidoWebDetalle()
         { }
 

@@ -332,6 +332,18 @@ namespace Portal.Consultoras.BizLogic
             }
             #endregion
 
+            #region ProgramaNuevas
+
+            new BLProducto().UpdateFlagCupones(
+                bePedidoWebDetalleParametros.PaisId,
+                bePedidoWebDetalleParametros.CampaniaId,
+                bePedidoWebDetalleParametros.NumeroPedido,
+                bePedidoWebDetalleParametros.CodigoPrograma,
+                pedidoWebDetalle
+            );
+
+            #endregion
+
             return pedidoWebDetalle;
         }
 

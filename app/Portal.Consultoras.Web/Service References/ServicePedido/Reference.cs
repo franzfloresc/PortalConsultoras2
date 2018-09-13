@@ -14640,6 +14640,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EsCompraPorCompraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsCuponNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsDuoPerfectoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsKitNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -15112,6 +15118,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EsCompraPorCompraField.Equals(value) != true)) {
                     this.EsCompraPorCompraField = value;
                     this.RaisePropertyChanged("EsCompraPorCompra");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsCuponNueva {
+            get {
+                return this.EsCuponNuevaField;
+            }
+            set {
+                if ((this.EsCuponNuevaField.Equals(value) != true)) {
+                    this.EsCuponNuevaField = value;
+                    this.RaisePropertyChanged("EsCuponNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsDuoPerfecto {
+            get {
+                return this.EsDuoPerfectoField;
+            }
+            set {
+                if ((this.EsDuoPerfectoField.Equals(value) != true)) {
+                    this.EsDuoPerfectoField = value;
+                    this.RaisePropertyChanged("EsDuoPerfecto");
                 }
             }
         }

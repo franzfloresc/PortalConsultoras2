@@ -411,7 +411,29 @@ namespace Portal.Consultoras.BizLogic
             if (cantElecPedido == 1 && limElectivos == 1) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Reemplazar, listElecPedido);
             if (cantElecPedido >= limElectivos) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite, limElectivos);
 
-            return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarYMostrarMensaje, limElectivos) { NumElectivosEnPedido = cantElecPedido };
+            return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarYMostrarMensaje, limElectivos) { NumElectivosEnPedido = cantElecPedido + 1 };
+        }
+
+        public void UpdateFlagCupones(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<BEPedidoWebDetalle> listPedidoDetalle)
+        {
+            if (listPedidoDetalle == null || listPedidoDetalle.Count == 0) return;
+            if (!GetFlagProgramaNuevas(paisID)) return;
+
+            var lstCuponNuevas = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
+            if (lstCuponNuevas == null || lstCuponNuevas.Count == 0) return;
+            lstCuponNuevas = FiltrarProductosNuevasByNivelyCodigoPrograma(lstCuponNuevas, consecutivoNueva, codigoPrograma);
+            if (lstCuponNuevas.Count == 0) return;
+
+            var listCuponPedido = listPedidoDetalle.Where(d => lstCuponNuevas.Any(c => d.CUV == c.CodigoCupon)).ToList();
+            listCuponPedido.ForEach(d => d.EsCuponNueva = true);
+
+            var lstElectivas = lstCuponNuevas.Where(a => !a.IndicadorCuponIndependiente).ToList();
+            if (lstElectivas.Count > 1)
+            {
+                var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
+                var limElectivos = (GetNivelesProgramaNuevas(paisID, nivelInput) ?? new BENivelesProgramaNuevas()).UnidadesNivel;
+                if (limElectivos > 1) listCuponPedido.Where(d => lstElectivas.Any(c => d.CUV == c.CodigoCupon)).ToList().ForEach(d => d.EsDuoPerfecto = true);
+            }
         }
 
         #region Metodos de Programa Nuevas
