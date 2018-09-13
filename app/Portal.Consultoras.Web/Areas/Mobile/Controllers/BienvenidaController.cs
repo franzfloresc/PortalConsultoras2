@@ -234,9 +234,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
 
-            //var resultPopupEmail = ObtenerActualizacionEmail();
-            //var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
-
             if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
             {
                 tipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
@@ -249,12 +246,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return tipoPopUpMostrar;
             }
 
-            //if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora && resultPopupEmailSplited == "1")
-            //{
-            //    tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
-            //    Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
-            //    return tipoPopUpMostrar;
-            //}
+     
 
             if (userData.TieneCupon == 1 && userData.CodigoISO == Constantes.CodigosISOPais.Peru)
             {
