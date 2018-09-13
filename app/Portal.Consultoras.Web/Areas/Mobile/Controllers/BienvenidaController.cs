@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -208,9 +209,33 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private int ObtenerTipoPopUpMostrar()
         {
-            var tipoPopUpMostrar = 0;
-            var resultPopupEmail = ObtenerActualizacionEmail();
-            var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
+
+            var listaPopUps = ObtenerListaPopupsDesdeServicio();
+            var tipoPopUpMostrar  = 0;
+            if (listaPopUps.Any())
+            {
+                foreach (var popup in listaPopUps)
+                {
+                    switch (popup.CodigoPopup)
+                    {     
+                        case Constantes.TipoPopUp.ActualizarCorreo:
+                            var result = ObtenerActualizacionEmail();
+                            if (result.Split('|')[0] == "1")
+                            {
+                                tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
+                                Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                                return tipoPopUpMostrar;
+                            }
+                            break;
+                    }
+                    if (tipoPopUpMostrar > 0)
+                        break;
+                }                            
+            }
+
+
+            //var resultPopupEmail = ObtenerActualizacionEmail();
+            //var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
 
             if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
             {
@@ -224,12 +249,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return tipoPopUpMostrar;
             }
 
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora && resultPopupEmailSplited == "1")
-            {
-                tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
-                Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
-                return tipoPopUpMostrar;
-            }
+            //if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora && resultPopupEmailSplited == "1")
+            //{
+            //    tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
+            //    Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+            //    return tipoPopUpMostrar;
+            //}
 
             if (userData.TieneCupon == 1 && userData.CodigoISO == Constantes.CodigosISOPais.Peru)
             {
@@ -578,6 +603,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+        private List<BEPopupPais> ObtenerListaPopupsDesdeServicio()
+        {
+            var listaPopUps = new List<BEPopupPais>();
+            try
+            {
+                using (var sac = new SACServiceClient())
+                {
+                    listaPopUps = sac.ObtenerOrdenPopUpMostrar(userData.PaisID).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return listaPopUps;
+        }
+
     }
 
 }
