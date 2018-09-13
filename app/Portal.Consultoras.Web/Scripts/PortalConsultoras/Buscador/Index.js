@@ -28,7 +28,6 @@ const keys = [
     { name: 'left window key',  val: 91 },
     { name: 'right window key', val: 92 },
     { name: 'num lock',         val: 144 }
-
 ];
 
 $(document).ready(function () {
@@ -129,7 +128,7 @@ $(document).ready(function () {
                     me.Funciones.CampoDeBusquedaConCaracteres($('#CampoBuscadorProductos'));
 
                     $('.spinner').fadeIn(150);                        
-                                                
+                    
                     if (xhr && xhr.readyState != 4) {
                         xhr.abort();
                     }
@@ -187,6 +186,7 @@ $(document).ready(function () {
                             }
 
                         }
+
                         xhr.then(successBusqueda, function (e) {
                             console.log(e);
                         });
