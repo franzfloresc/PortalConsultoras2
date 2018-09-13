@@ -20,6 +20,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public bool OpcionChat { get; set; }
         [DataMember]
+        public bool OpcionContrasena { get; set; }
+        [DataMember]
         public bool OpcionBelcorpResponde { get; set; }
         [DataMember]
         public bool IncluyeFiltros { get; set; }
@@ -51,7 +53,7 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
             TieneZonas = row.ToBoolean("TieneZonas");
             Activo = row.ToBoolean("Activo");
             TieneAlcanse = row.ToBoolean("TieneAlcanse");
-
+            OpcionContrasena = row.ToBoolean("OpcionContrasena");
         }
     }
 
@@ -118,6 +120,12 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         public bool OpcionChat { get; set; }
         [DataMember]
         public BEBelcorpResponde BelcorpResponde { get; set; }
+        [DataMember]
+        public int OpcionVerificacionSMS { get; set; }
+        [DataMember]
+        public int OpcionVerificacionCorreo { get; set; }
+        [DataMember]
+        public int OpcionCambioClave { get; set; }
 
         public BEUsuarioDatos()
         { }
@@ -126,24 +134,16 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         {
             
             CodigoUsuario = row.ToString("CodigoUsuario");
-            
             CodigoConsultora = row.ToString("CodigoConsultora");
-            
-            Cantidad = row.ToInt32("Cantidad");
-            
-            PrimerNombre = row.ToString("PrimerNombre");
-            
-            IdEstadoActividad = row.ToInt32("IdEstadoActividad");
-            
-            Celular = row.ToString("Celular");
-            
-            Correo = row.ToString("Correo");
-            
-            ZonaID = row.ToInt32("ZonaID");
-            
+            Cantidad = row.ToInt32("Cantidad");            
+            PrimerNombre = row.ToString("PrimerNombre");            
+            IdEstadoActividad = row.ToInt32("IdEstadoActividad");            
+            Celular = row.ToString("Celular");            
+            Correo = row.ToString("Correo");            
+            ZonaID = row.ToInt32("ZonaID");            
             RegionID = row.ToInt32("RegionID");
-
             CodigoConsultora = row.ToString("CodigoConsultora");
+            OpcionCambioClave = row.ToInt32("OpcionCambioClave");
         }
     }
 }

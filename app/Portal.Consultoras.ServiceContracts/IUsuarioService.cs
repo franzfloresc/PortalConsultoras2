@@ -390,7 +390,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Pin Autenticidad
         [OperationContract]
-        BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario);
+        BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb);
         #endregion
 
         [OperationContract]

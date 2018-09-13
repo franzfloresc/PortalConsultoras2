@@ -2796,7 +2796,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEUsuarioDatos oVerificacion;
                 using (var sv = new UsuarioServiceClient())
                 {
-                    oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario);
+                    oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario, true);
                 }
 
                 if (oVerificacion == null) return false;
