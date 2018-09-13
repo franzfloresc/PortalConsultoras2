@@ -3262,7 +3262,7 @@ function ConsultarEmailPendiente() {
 }
 
 function ObtenerEstadoContrato() {
-    let re = false;
+    var re = false;
     $.ajax({
         type: 'POST',
         url: baseUrl + 'Bienvenida/ObtenerEstadoContrato',
