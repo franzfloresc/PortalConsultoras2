@@ -130,7 +130,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var userData = UserData();
                 if (userData.UsuarioPrueba == 1)
                 {
                     return Json(new
@@ -187,7 +186,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         txtBuil.Append("<td style='font-size:11px; width: 124px; text-align: center;'>");
                         txtBuil.Append("" + lst[i].Cantidad.ToString() + "");
                         txtBuil.Append("</td>");
-                        if (UserData().PaisID == 4)
+                        if (userData.PaisID == 4)
                         {
                             txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
                             txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "");
@@ -215,7 +214,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     txtBuil.Append("</td>");
                     txtBuil.Append("<td style='font-size:11px; text-align: center; font-weight: bold'>");
 
-                    if (UserData().PaisID == 4)
+                    if (userData.PaisID == 4)
                     {
                         txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", total).Replace(',', '.') + "");
                     }
@@ -257,7 +256,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -267,7 +266,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -282,7 +281,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var userData = UserData();
+                
                 if (userData.UsuarioPrueba == 1)
                 {
                     return Json(new
@@ -511,7 +510,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -521,7 +520,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

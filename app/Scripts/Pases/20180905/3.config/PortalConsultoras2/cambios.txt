@@ -1,0 +1,8 @@
+PortalConsultoras2 - Web
+
+1 ADD
+
+    <!--Ini - Ficha - Orden a mostrar componentes multi marca -->
+    <add key="ORDEN_COMPONENTES_FICHA_ESIKA" value="2,1,3"/>
+    <add key="ORDEN_COMPONENTES_FICHA_LBEL" value="1,2,3"/>
+    <!--Fin - Ficha - Orden a mostrar componentes multi marca -->

@@ -232,45 +232,45 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToRoute(uniqueSessionAttribute.RouteName, routeValues);
         }
 
-        #region BannerApp
-        [HttpGet]
-        public JsonResult OcultarBannerApp()
-        {
-            try
-            {
-                Session["OcultarBannerApp"] = true;
+        //#region BannerApp
+        //[HttpGet]
+        //public JsonResult OcultarBannerApp()
+        //{
+        //    try
+        //    {
+        //        Session["OcultarBannerApp"] = true;
 
-                return Json(new
-                {
-                    success = true,
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo procesar la solicitud"
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = "No se pudo procesar la solicitud"
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
 
         private void MostrarBannerApp()
         {
-            if (Session["OcultarBannerApp"] != null)
+            if ( sessionManager.GetOcultarBannerApp() != null)
             {
-                Session["BannerApp"] = null;
+                sessionManager.SetBannerApp(null);
                 return;
             }
 
-            if (Session["BannerApp"] == null)
+            if (sessionManager.GetBannerApp() == null)
             {
-                var lstComunicados = ObtenerComunicadoPorConsultora();
-                Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
+                var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData);
+                sessionManager.SetBannerApp(lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora));
             }
 
-            var oComunicados = (BEComunicado)Session["BannerApp"];
+            var oComunicados = sessionManager.GetBannerApp();
             if (oComunicados != null)
             {
                 ViewBag.MostrarBannerApp = true;
@@ -278,28 +278,28 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
-        #endregion
+        //#endregion
 
-        public List<BEComunicado> ObtenerComunicadoPorConsultora()
-        {
-            using (var sac = new SACServiceClient())
-            {
-                var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
-                        Constantes.ComunicadoTipoDispositivo.Mobile, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+        //public List<BEComunicado> ObtenerComunicadoPorConsultora()
+        //{
+        //    using (var sac = new SACServiceClient())
+        //    {
+        //        var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
+        //                Constantes.ComunicadoTipoDispositivo.Mobile, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
 
-                return lstComunicados.ToList();
-            }
-        }
+        //        return lstComunicados.ToList();
+        //    }
+        //}
 
-        public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
-        {
-            using (var sac = new SACServiceClient())
-            {
-                var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(UserData().PaisID, UserData().CodigoConsultora,
-                        Constantes.ComunicadoTipoDispositivo.Mobile, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+        //public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
+        //{
+        //    using (var sac = new SACServiceClient())
+        //    {
+        //        var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(UserData().PaisID, UserData().CodigoConsultora,
+        //                Constantes.ComunicadoTipoDispositivo.Mobile, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
 
-                return lstComunicados.ToList();
-            }
-        }
+        //        return lstComunicados.ToList();
+        //    }
+        //}
     }
 }

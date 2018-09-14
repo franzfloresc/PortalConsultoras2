@@ -821,7 +821,7 @@
                 <div class="icono_correo_sobre"></div>
                 <p class="w-100 envio_instrucciones_info">
                     <span class="w-100">Te hemos enviado las instrucciones a:</span>
-                    <span class="w-100 text-bold" id="spnEmail">valeria.tarazona@gmail.com</span>
+                    <span class="w-100 text-bold" id="spnEmail"></span>
                 </p>
                 <p class="w-100 envio_instrucciones_info">
                     @*<span class="w-100">¿Aún no recibes nuestro correo?</span>*@
@@ -860,7 +860,7 @@
         var OrigenAceptacionContrato = '@Constantes.ClienteOrigen.OrigeMobile';
         var popupActualizarCorreo = '@Constantes.TipoPopUp.ActualizarCorreo';
 
-        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/41577-BELCORP-SolCre-CO-400073315-300916.pdf")';
+        var urlContratoCOpdf = '@Constantes.AceptacionContrato.UrlDescargarContratoCO';
         var viewBagCambioClave = '@Model.CambioClave';
 
         var origenPagina = 1;

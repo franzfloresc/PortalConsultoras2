@@ -324,27 +324,6 @@ namespace Portal.Consultoras.BizLogic
             return requestUrl;
         }
 
-        //private void SetCatalogoRevistaCodigoIssuu_Backup(string codigoZona, BECatalogoRevista catalogoRevista)
-        //{
-        //    string codigo;
-        //    var nombreCatalogoConfig = catalogoRevista.MarcaDescripcion.ToUpper(1);
-        //    string zonas = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Zonas_" + catalogoRevista.PaisISO + catalogoRevista.CampaniaID] ?? "";
-        //    bool esCatalogoRevistaPiloto = zonas.SplitAndTrim(',').Contains(codigoZona);
-        //    if (esCatalogoRevistaPiloto) catalogoRevista.CodigoIssuu = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Codigo_" + catalogoRevista.PaisISO + catalogoRevista.CampaniaID];
-        //    if (!string.IsNullOrEmpty(catalogoRevista.CodigoIssuu)) return;
-
-        //    if (catalogoRevista.MarcaID == 0)
-        //    {
-        //        codigo = ServiceSettings.Instance.CodigoRevistaIssuu;
-        //        catalogoRevista.CodigoIssuu = string.Format(codigo, catalogoRevista.PaisISO.ToLower(), catalogoRevista.CampaniaID.Substring(4, 2), catalogoRevista.CampaniaID.Substring(0, 4));
-        //    }
-        //    else
-        //    {
-        //        codigo = ServiceSettings.Instance.CodigoCatalogoIssuu;
-        //        catalogoRevista.CodigoIssuu = string.Format(codigo, catalogoRevista.MarcaDescripcion.ToLower(), GetPaisNombreByISO(catalogoRevista.PaisISO), catalogoRevista.CampaniaID.Substring(4, 2), catalogoRevista.CampaniaID.Substring(0, 4));
-        //    }
-        //}
-
         private void SetCatalogoRevistaFieldsInSearchIssuu(List<BECatalogoRevista> listCatalogoRevista, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
         {
             var txtBuil = new StringBuilder();
@@ -494,7 +473,6 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BECatalogoRevista_ODS> PS_CatalogoRevistas_ODS(int paisID)
         {
-            //var oLista = new List<BECatalogoRevista_ODS>();
             var catalogos = SelectCatalogoRevistas_ODS(paisID);
 
             var oLista = catalogos.Where(x => x.Descripcion != null && x.Descripcion != Constantes.ConstSession.DescripcionPedidoOtro)

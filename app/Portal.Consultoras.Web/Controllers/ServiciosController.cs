@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -118,7 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -161,7 +161,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -171,7 +171,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -220,7 +220,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -230,7 +230,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -269,7 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -279,7 +279,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -318,7 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -328,7 +328,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -346,9 +346,9 @@ namespace Portal.Consultoras.Web.Controllers
                 List<List<BEEstadoServicio>> lista;
 
                 if (CampaniaFinalId == "0")
-                    lista = (List<List<BEEstadoServicio>>)Session["ListaIndividual"];
+                    lista = sessionManager.GetListaIndividual();
                 else
-                    lista = (List<List<BEEstadoServicio>>)Session["ListaRango"];
+                    lista = sessionManager.GetListaRango();
 
                 foreach (List<BEEstadoServicio> item in lista)
                 {
@@ -372,9 +372,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 if (CampaniaFinalId == "0")
-                    Session["ListaIndividual"] = lista;
+                    sessionManager.SetListaIndividual(lista);
                 else
-                    Session["ListaRango"] = lista;
+                    sessionManager.SetListaRango(lista);
 
                 return Json(new
                 {
@@ -385,7 +385,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -395,7 +395,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -437,7 +437,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -447,7 +447,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -470,7 +470,7 @@ namespace Portal.Consultoras.Web.Controllers
                         List<List<BEEstadoServicio>> lista;
                         if (CampaniaFinalId == "0")
                         {
-                            lista = (List<List<BEEstadoServicio>>)Session["ListaIndividual"];
+                            lista = sessionManager.GetListaIndividual();
 
                             foreach (List<BEEstadoServicio> list in lista)
                             {
@@ -552,7 +552,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            lista = (List<List<BEEstadoServicio>>)Session["ListaRango"];
+                            lista = sessionManager.GetListaRango();
 
                             foreach (List<BEEstadoServicio> list in lista)
                             {
@@ -644,7 +644,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -654,7 +654,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -750,8 +750,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Session["ListaIndividual"] = null;
-                Session["ListaRango"] = null;
+                sessionManager.SetListaIndividual(null);
+                sessionManager.SetListaRango(null);
 
                 List<BEServicio> lst = new List<BEServicio>();
                 if (vCampaniaInicial != "0")
@@ -992,14 +992,14 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.GetEstadoServiciobyPais(ServicioId, CampaniaInicioID).ToList();
                         lst[0].CampaniaInicialId = CampaniaInicioID.ToString();
                         lst[0].ServicioId = ServicioId;
-                        if (Session["ListaIndividual"] == null)
+                        if (sessionManager.GetListaIndividual() == null)
                         {
                             List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>> { lst };
-                            Session["ListaIndividual"] = lista;
+                            sessionManager.SetListaIndividual(lista);
                         }
                         else
                         {
-                            List<List<BEEstadoServicio>> lista = (List<List<BEEstadoServicio>>)Session["ListaIndividual"];
+                            List<List<BEEstadoServicio>> lista = sessionManager.GetListaIndividual();
                             foreach (List<BEEstadoServicio> item in lista)
                             {
                                 if (item[0].ServicioId == ServicioId && item[0].CampaniaInicialId == CampaniaInicioID.ToString())
@@ -1010,7 +1010,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             if (contador == 0)
                                 lista.Add(lst);
-                            Session["ListaIndividual"] = lista;
+                            sessionManager.SetListaIndividual(lista);
                         }
                     }
                     else
@@ -1019,14 +1019,14 @@ namespace Portal.Consultoras.Web.Controllers
                         lst[0].CampaniaInicialId = CampaniaInicioID.ToString();
                         lst[0].CampaniaFinalId = CampaniaFinalID.ToString();
                         lst[0].ServicioId = ServicioId;
-                        if (Session["ListaRango"] == null)
+                        if (sessionManager.GetListaRango() == null)
                         {
                             List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>> { lst };
-                            Session["ListaRango"] = lista;
+                            sessionManager.SetListaRango(lista);
                         }
                         else
                         {
-                            List<List<BEEstadoServicio>> lista = (List<List<BEEstadoServicio>>)Session["ListaRango"];
+                            List<List<BEEstadoServicio>> lista = sessionManager.GetListaRango();
                             foreach (List<BEEstadoServicio> item in lista)
                             {
                                 if (item[0].ServicioId == ServicioId && item[0].CampaniaInicialId == CampaniaInicioID.ToString() && item[0].CampaniaFinalId == CampaniaFinalID.ToString())
@@ -1038,7 +1038,7 @@ namespace Portal.Consultoras.Web.Controllers
                             if (contador == 0)
                                 lista.Add(lst);
                             lista.Add(lst);
-                            Session["ListaRango"] = lista;
+                            sessionManager.SetListaRango(lista);
                         }
                     }
                 }
@@ -1201,15 +1201,15 @@ namespace Portal.Consultoras.Web.Controllers
             switch (parametroId)
             {
                 case 1:
-                    return UserData().CodigoISO;
+                    return userData.CodigoISO;
                 case 2:
-                    return UserData().CampaniaID.ToString();
+                    return userData.CampaniaID.ToString();
                 case 3:
-                    return UserData().CodigoConsultora;
+                    return userData.CodigoConsultora;
                 case 4:
-                    return UserData().NombreConsultora;
+                    return userData.NombreConsultora;
                 case 5:
-                    return UserData().EMail;
+                    return userData.EMail;
                 default:
                     return "";
             }

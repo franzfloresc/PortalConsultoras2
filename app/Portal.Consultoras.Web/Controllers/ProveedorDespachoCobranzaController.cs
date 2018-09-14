@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
             var proveedorDespachoCobranzaModel = new ProveedorDespachoCobranzaModel()
             {
                 lstPais = DropDowListPaises(),
-                lstProveedores = DropDowListProveedores(UserData().PaisID)
+                lstProveedores = DropDowListProveedores(userData.PaisID)
             };
 
             return View(proveedorDespachoCobranzaModel);
@@ -43,9 +43,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int paisId = UserData().PaisID;
+                int paisId = userData.PaisID;
                 if (paisId.ToString() != "")
                 {
                     List<BEProveedorDespachoCobranza> lst;
@@ -136,14 +136,14 @@ namespace Portal.Consultoras.Web.Controllers
             string returnValue = "";
             try
             {
-                int paisId = UserData().PaisID;
+                int paisId = userData.PaisID;
 
                 BEProveedorDespachoCobranza proveedorDespachoCobranza = Mapper.Map<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>(model);
 
                 List<BEProveedorDespachoCobranza> lst;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    proveedorDespachoCobranza.PaisID = UserData().PaisID;
+                    proveedorDespachoCobranza.PaisID = userData.PaisID;
                     lst = sv.GetProveedorDespachoCobranzaBYiD(paisId, proveedorDespachoCobranza).ToList();
                 }
 
@@ -191,7 +191,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -202,7 +202,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -221,7 +221,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    proveedorDespachoCobranza.PaisID = UserData().PaisID;
+                    proveedorDespachoCobranza.PaisID = userData.PaisID;
                     sv.MntoCampoProveedorDespachoCobranza(proveedorDespachoCobranza, proveedorDespachoCobranza.Accion, proveedorDespachoCobranza.CampoId, proveedorDespachoCobranza.Valor, proveedorDespachoCobranza.ValorAnterior);
                 }
 
@@ -234,7 +234,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -245,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -274,8 +274,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    proveedorDespachoCobranza.PaisID = UserData().PaisID;
-                    sv.InsProveedorDespachoCobranzaCabecera(UserData().PaisID, proveedorDespachoCobranza);
+                    proveedorDespachoCobranza.PaisID = userData.PaisID;
+                    sv.InsProveedorDespachoCobranzaCabecera(userData.PaisID, proveedorDespachoCobranza);
                 }
 
                 return Json(new
@@ -287,7 +287,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -297,7 +297,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -312,13 +312,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int paisId = UserData().PaisID;
+                int paisId = userData.PaisID;
 
                 BEProveedorDespachoCobranza proveedorDespachoCobranza = Mapper.Map<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>(model);
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    proveedorDespachoCobranza.PaisID = UserData().PaisID;
+                    proveedorDespachoCobranza.PaisID = userData.PaisID;
                     sv.UpdProveedorDespachoCobranzaCabecera(paisId, proveedorDespachoCobranza);
                 }
 
@@ -331,7 +331,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -342,7 +342,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -356,7 +356,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int paisId = UserData().PaisID;
+                int paisId = userData.PaisID;
                 int result;
 
                 using (SACServiceClient sv = new SACServiceClient())
@@ -393,7 +393,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -407,7 +407,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int paisId = UserData().PaisID;
+                int paisId = userData.PaisID;
 
                 BEProveedorDespachoCobranza entidad = new BEProveedorDespachoCobranza
                 {

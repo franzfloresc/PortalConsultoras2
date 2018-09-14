@@ -31,6 +31,24 @@ namespace Portal.Consultoras.Web.WebPages {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHeadError;
         
         /// <summary>
+        /// Control imgError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgError;
+        
+        /// <summary>
+        /// Control lblTituloError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTituloError;
+        
+        /// <summary>
         /// Control lblConfirmacion.
         /// </summary>
         /// <remarks>
@@ -40,6 +58,15 @@ namespace Portal.Consultoras.Web.WebPages {
         protected global::System.Web.UI.WebControls.Label lblConfirmacion;
         
         /// <summary>
+        /// Control divFootSuccess.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divFootSuccess;
+        
+        /// <summary>
         /// Control linkMainPage.
         /// </summary>
         /// <remarks>
@@ -47,5 +74,50 @@ namespace Portal.Consultoras.Web.WebPages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink linkMainPage;
+        
+        /// <summary>
+        /// Control linkAppEsikaConmigo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink linkAppEsikaConmigo;
+        
+        /// <summary>
+        /// Control btnAppEsikaConmigo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink btnAppEsikaConmigo;
+        
+        /// <summary>
+        /// Control linkSomosBelcorp.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink linkSomosBelcorp;
+        
+        /// <summary>
+        /// Control divFootCall.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divFootCall;
+        
+        /// <summary>
+        /// Control lblComunicate.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblComunicate;
     }
 }

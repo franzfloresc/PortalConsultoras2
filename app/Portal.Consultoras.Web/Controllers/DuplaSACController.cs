@@ -15,25 +15,25 @@ namespace Portal.Consultoras.Web.Controllers
             string xmlPath = Server.MapPath("~/Key");
             string keyPath = Path.Combine(xmlPath, "KeyPublicaEnvioCadena.xml");
 
-            string pathData = "Aplicacion=2&CodigoUsuario=" + UserData().NombreConsultora + "&Pais=4";
+            string pathData = "Aplicacion=2&CodigoUsuario=" + userData.NombreConsultora + "&Pais=4";
             string texto = System.Web.HttpUtility.UrlEncode(Util.EncriptarDuplaCyzone(keyPath, pathData));
 
             string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE) + texto;
 
-            if (UserData().CodigoISO == Constantes.CodigosISOPais.Peru
-                || UserData().CodigoISO == Constantes.CodigosISOPais.Bolivia
-                || UserData().CodigoISO == Constantes.CodigosISOPais.Colombia
-                || UserData().CodigoISO == Constantes.CodigosISOPais.Mexico
-                || UserData().CodigoISO == Constantes.CodigosISOPais.Venezuela
-                || UserData().CodigoISO == Constantes.CodigosISOPais.Argentina
-                || UserData().CodigoISO == Constantes.CodigosISOPais.Chile
-                || UserData().CodigoISO == Constantes.CodigosISOPais.CostaRica
-                || UserData().CodigoISO == Constantes.CodigosISOPais.Dominicana
-                || UserData().CodigoISO == Constantes.CodigosISOPais.Ecuador
-                || UserData().CodigoISO == Constantes.CodigosISOPais.Guatemala
-                || UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico
-                || UserData().CodigoISO == Constantes.CodigosISOPais.Salvador)
-                url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE + UserData().CodigoISO);
+            if (userData.CodigoISO == Constantes.CodigosISOPais.Peru
+                || userData.CodigoISO == Constantes.CodigosISOPais.Bolivia
+                || userData.CodigoISO == Constantes.CodigosISOPais.Colombia
+                || userData.CodigoISO == Constantes.CodigosISOPais.Mexico
+                || userData.CodigoISO == Constantes.CodigosISOPais.Venezuela
+                || userData.CodigoISO == Constantes.CodigosISOPais.Argentina
+                || userData.CodigoISO == Constantes.CodigosISOPais.Chile
+                || userData.CodigoISO == Constantes.CodigosISOPais.CostaRica
+                || userData.CodigoISO == Constantes.CodigosISOPais.Dominicana
+                || userData.CodigoISO == Constantes.CodigosISOPais.Ecuador
+                || userData.CodigoISO == Constantes.CodigosISOPais.Guatemala
+                || userData.CodigoISO == Constantes.CodigosISOPais.PuertoRico
+                || userData.CodigoISO == Constantes.CodigosISOPais.Salvador)
+                url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE + userData.CodigoISO);
 
             return Redirect(url);
         }

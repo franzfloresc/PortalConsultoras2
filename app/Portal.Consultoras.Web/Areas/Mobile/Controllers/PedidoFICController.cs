@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
             var campaniaActual =  Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString();
-            Session[Constantes.ConstSession.PedidoFIC] = null;
+            sessionManager.SetPedidoFIC(null);
             ViewBag.ClaseTabla = "tabla2";
             ViewBag.Pais_ISO = userData.CodigoISO;
             ViewBag.PROL = "Guardar";
@@ -130,27 +130,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return configuracionCampania;
         }
-
-        //private bool GetSeInsertoProductoAutomaticos(UsuarioModel userDataParam)
-        //{
-        //    bool seInsertoProductosAutomaticos;
-
-        //    var bePedidoWeb = new BEPedidoWeb
-        //    {
-        //        CampaniaID = userDataParam.CampaniaID,
-        //        ConsultoraID = userDataParam.ConsultoraID,
-        //        PaisID = userDataParam.PaisID,
-        //        IPUsuario = userDataParam.IPUsuario,
-        //        CodigoUsuarioCreacion = userDataParam.CodigoUsuario
-        //    };
-        //    using (var sv = new PedidoServiceClient())
-        //    {
-        //        seInsertoProductosAutomaticos = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb) > 0;
-        //    }
-
-        //    return seInsertoProductosAutomaticos;
-        //}
-
+        
         private List<BECliente> GetClientesByConsultora(UsuarioModel userDataParam)
         {
             List<BECliente> clientesByConsultora;
@@ -265,7 +245,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.OfertaFinalAlgoritmo = ofertaFinalModel.Algoritmo;
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
 
-            if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+            if (!sessionManager.GetEsShowRoom() && sessionManager.GetEsShowRoom().ToString() == "1")
             {
                 ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Mobile");
                 ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
@@ -569,7 +549,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 list = sv.SelectFICByCampania(userData.PaisID, Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias), userData.ConsultoraID, userData.NombreConsultora).ToList();
             }
-            Session[Constantes.ConstSession.PedidoFIC] = list;
+            sessionManager.SetPedidoFIC(list);
             return list;
         }
 
@@ -731,15 +711,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                if (Session[Constantes.ConstSession.PedidoFIC] == null)
+                if (sessionManager.GetPedidoFIC() == null)
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         olstTempListado = sv.SelectFICByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
                     }
-                    Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
+                    sessionManager.SetPedidoFIC(olstTempListado);
                 }
-                else olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
+                else olstTempListado = sessionManager.GetPedidoFIC();
 
                 if (tipoAdm == "I")
                 {
@@ -862,13 +842,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 olstTempListado = olstTempListado.OrderByDescending(p => p.PedidoDetalleID).ToList();
-                Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
+                sessionManager.SetPedidoFIC(olstTempListado);
 
                 errorServer = false;
             }
             catch
             {
-                if (Session[Constantes.ConstSession.PedidoFIC] != null) olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
+                if (sessionManager.GetPedidoFIC() != null) olstTempListado = sessionManager.GetPedidoFIC();
                 errorServer = true;
             }
 

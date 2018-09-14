@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
 
@@ -82,7 +83,7 @@ namespace Portal.Consultoras.BizLogic
         int UpdUsuarioLider(int PaisID, string CodigoUsuario, string Telefono, string Celular, string Email);
         int UpdUsuarioRechazarInvitacion(int PaisID, string CodigoUsuario);
         BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo);
-        BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania);
+        BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania, bool soloValidar);
         int ValidarEmailConsultora(int PaisID, string Email, string CodigoUsuario);
         int ValidarEnvioCatalogo(int paisID, string CodigoConsultora, int CampaniaActual, int Cantidad);
         int ValidarEstadoSubscripcion(int PaisID, string CodigoUsuario, int NroDiasPermitidos);
@@ -93,6 +94,11 @@ namespace Portal.Consultoras.BizLogic
         int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
         bool EsConsultoraNueva(BEUsuario usuario);
         string ObtenerCodigoRevistaFisica(int paisId);
+        BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario);
         BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais);
+        #region ActualizacionDatos
+        BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo);
+        BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
+        #endregion
     }
 }

@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class DetalleEstrategiaController : BaseViewController // : BaseEstrategiaController
+    public class DetalleEstrategiaController : BaseViewController
     {
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
@@ -25,12 +25,14 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 bool esMultimarca = false;
-                var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca);
+                string mensaje = "";
+                var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
 
                 return Json(new
                 {
                     esMultimarca,
-                    componentes
+                    componentes,
+                    mensaje
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)

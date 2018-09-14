@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager = SessionManager.SessionManager.Instance;
             _tablaLogica = new TablaLogicaProvider();
         }
-        
+
         public PagoEnLineaModel ObtenerValoresPagoEnLinea()
         {
             var model = new PagoEnLineaModel();
@@ -72,7 +73,7 @@ namespace Portal.Consultoras.Web.Providers
                     else
                         model.PagoVisaModel = new PagoVisaModel();
                 }
-                   
+
             }
 
             return model;
@@ -80,12 +81,12 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<PagoEnLineaTipoPagoModel> ObtenerListaTipoPago()
         {
-            var listaTipoPagoModel = new List<PagoEnLineaTipoPagoModel>();
-            var listaTipoPago = new List<BEPagoEnLineaTipoPago>();
+            List<PagoEnLineaTipoPagoModel> listaTipoPagoModel;
             var userData = sessionManager.GetUserData();
 
             try
             {
+                List<BEPagoEnLineaTipoPago> listaTipoPago;
                 using (var ps = new PedidoServiceClient())
                 {
                     listaTipoPago = ps.ObtenerPagoEnLineaTipoPago(userData.PaisID).ToList();
@@ -109,12 +110,12 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<PagoEnLineaMedioPagoModel> ObtenerListaMedioPago()
         {
-            var listaMedioPagoModel = new List<PagoEnLineaMedioPagoModel>();
-            var listaMedioPago = new List<BEPagoEnLineaMedioPago>();
+            List<PagoEnLineaMedioPagoModel> listaMedioPagoModel;
             var userData = sessionManager.GetUserData();
 
             try
             {
+                List<BEPagoEnLineaMedioPago> listaMedioPago;
                 using (var ps = new PedidoServiceClient())
                 {
                     listaMedioPago = ps.ObtenerPagoEnLineaMedioPago(userData.PaisID).ToList();
@@ -138,12 +139,12 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<PagoEnLineaMedioPagoDetalleModel> ObtenerListaMetodoPago()
         {
-            var listaMedioPagoDetalleModel = new List<PagoEnLineaMedioPagoDetalleModel>();
-            var listaMedioPagoDetalle = new List<BEPagoEnLineaMedioPagoDetalle>();
+            List<PagoEnLineaMedioPagoDetalleModel> listaMedioPagoDetalleModel;
             var userData = sessionManager.GetUserData();
 
             try
             {
+                List<BEPagoEnLineaMedioPagoDetalle> listaMedioPagoDetalle;
                 using (var ps = new PedidoServiceClient())
                 {
                     listaMedioPagoDetalle = ps.ObtenerPagoEnLineaMedioPagoDetalle(userData.PaisID).ToList();
@@ -172,7 +173,7 @@ namespace Portal.Consultoras.Web.Providers
 
             #region Valores Configuracion Pago En Linea
 
-            var listaConfiguracion = _tablaLogica.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+            //var listaConfiguracion = _tablaLogica.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
 
             //pagoVisaModel.MerchantId = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MerchantId);
             //pagoVisaModel.AccessKeyId = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.AccessKeyId);
@@ -292,18 +293,17 @@ namespace Portal.Consultoras.Web.Providers
 
         public PagoVisaModel ObtenerValoresPagoPayu(PagoEnLineaModel model)
         {
-            var pagoModel = new PagoVisaModel();
-            var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU;
-            var listaPasarelaVisa = ObtenerPagoEnLineaTipoPasarela(tipoPasarelaVisa);
-            if (listaPasarelaVisa.Count > 0)
+            var settings = ConfigurationManager.AppSettings;
+            var pagoModel = new PagoVisaModel
             {
-                pagoModel.MerchantId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.MerchantId);
-                pagoModel.AccessKeyId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.ApiLogin);
-                pagoModel.SecretAccessKey = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.ApiKey);
-                pagoModel.AccountId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.AccountId);
-                pagoModel.UrlPagoPayu = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.Endpoint);
-                pagoModel.IsTest = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.Test) == "1";
-            }
+                MerchantId = settings[Constantes.PagoEnLineaPasarelaPayu.MerchantId],
+                AccessKeyId = settings[Constantes.PagoEnLineaPasarelaPayu.ApiLogin],
+                SecretAccessKey = settings[Constantes.PagoEnLineaPasarelaPayu.ApiKey],
+                AccountId = settings[Constantes.PagoEnLineaPasarelaPayu.AccountId],
+                UrlPagoPayu = settings[Constantes.PagoEnLineaPasarelaPayu.Endpoint],
+                IsTest = settings[Constantes.PagoEnLineaPasarelaPayu.Test] == "1"
+            };
+
 
             return pagoModel;
         }
@@ -379,7 +379,6 @@ namespace Portal.Consultoras.Web.Providers
 
             sessionManager.SetDatosPagoVisa(null);
             sessionManager.SetListadoEstadoCuenta(null);
-            //Session["ListadoEstadoCuenta"] = null;
 
             return resultado;
         }
@@ -506,7 +505,7 @@ namespace Portal.Consultoras.Web.Providers
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_pago_en_linea.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
 
-            
+
             htmlTemplate = htmlTemplate.Replace("#URL_IMAGEN_MARCA#", esLbel ? Constantes.ConfiguracionManager.UrlImagenLbel : Constantes.ConfiguracionManager.UrlImagenEsika);
             htmlTemplate = htmlTemplate.Replace("#COLOR_MARCA#", esLbel ? Constantes.ConfiguracionManager.ColorTemaLbel : Constantes.ConfiguracionManager.ColorTemaEsika);
             htmlTemplate = htmlTemplate.Replace("#LABEL_CARGO#", paisId == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.CargoplataformaMx : Constantes.PagoEnLineaMensajes.CargoplataformaPe);
@@ -527,12 +526,12 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<PagoEnLineaTipoPasarelaModel> ObtenerPagoEnLineaTipoPasarela(string codigoPlataforma)
         {
-            var listaTipoPasarelaModel = new List<PagoEnLineaTipoPasarelaModel>();
-            var listaTipoPasarela = new List<BEPagoEnLineaTipoPasarela>();
+            List<PagoEnLineaTipoPasarelaModel> listaTipoPasarelaModel;
             var userData = sessionManager.GetUserData();
 
             try
             {
+                List<BEPagoEnLineaTipoPasarela> listaTipoPasarela;
                 using (var ps = new PedidoServiceClient())
                 {
                     listaTipoPasarela = ps.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(userData.PaisID, codigoPlataforma).ToList();
@@ -588,7 +587,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return item == null ? string.Empty : item.RutaIcono;
         }
-        
+
         public List<PagoEnLineaPasarelaCamposModel> ObtenerPagoEnLineaPasarelaCampos()
         {
             List<PagoEnLineaPasarelaCamposModel> result;
@@ -626,7 +625,14 @@ namespace Portal.Consultoras.Web.Providers
                     m.PagoEnLineaMedioPagoId == medio &&
                     m.TipoTarjeta == card);
         }
-        
+
+        public bool CanPay(UsuarioModel userData, PagoEnLineaModel pago)
+        {
+            return userData.TienePagoEnLinea &&
+                   pago.MontoDeuda > 0 &&
+                   userData.MontoDeuda >= pago.MontoDeuda;
+        }
+
         public IEnumerable<string> ObtenerMeses()
         {
             return Enumerable.Range(1, 12).Select(i => i.ToString("00"));

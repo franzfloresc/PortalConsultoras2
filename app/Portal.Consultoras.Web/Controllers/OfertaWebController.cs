@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void ValidarStatusCampania(BEConfiguracionCampania obeConfiguracionCampania)
         {
-            UsuarioModel usuario = UserData();
+            UsuarioModel usuario = userData;
             usuario.ZonaValida = obeConfiguracionCampania.ZonaValida;
             usuario.FechaInicioCampania = obeConfiguracionCampania.FechaInicioFacturacion;
             usuario.FechaFinCampania = obeConfiguracionCampania.FechaInicioFacturacion.AddDays(obeConfiguracionCampania.DiasDuracionCronograma - 1);
@@ -151,8 +151,8 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoDetalleID = entidad.PedidoDetalleID,
                         IndicadorIPUsuario = GetIPCliente(),
                         IndicadorFingerprint = "",
-                        IndicadorToken = (Session["TokenPedidoAutentico"] != null)
-                            ? Session["TokenPedidoAutentico"].ToString()
+                        IndicadorToken = (sessionManager.GetTokenPedidoAutentico() != null)
+                            ? sessionManager.GetTokenPedidoAutentico().ToString()
                             : ""
                     };
 

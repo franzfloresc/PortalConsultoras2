@@ -34,8 +34,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            Session["fechaGetNotificacionesSinLeer"] = null;
-            Session["cantidadGetNotificacionesSinLeer"] = null;
+            sessionManager.SetfechaGetNotificacionesSinLeer(null);
+            sessionManager.SetcantidadGetNotificacionesSinLeer(null);
 
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
             return View(model);
@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult DetalleSolicitudCliente(long SolicitudId)
         {
-            var userData = UserData();
+
             var notificaciones = ObtenerNotificaciones();
             var notificacion = notificaciones.FirstOrDefault(p => p.ProcesoId == SolicitudId);
             var model = new SolicitudClienteConsultoraModel();
@@ -92,7 +92,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public JsonResult AceptarSolicitud(long SolicitudId, long ConsultoraID, string Marca, string emailCliente, string NombreCliente, string MensajeaCliente)
         {
-            var userData = UserData();
+
             try
             {
                 using (var service = new SACServiceClient())
@@ -102,7 +102,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         SolicitudClienteID = SolicitudId,
                         CodigoConsultora = ConsultoraID.ToString(),
                         MensajeaCliente = MensajeaCliente,
-                        UsuarioModificacion = UserData().CodigoUsuario,
+                        UsuarioModificacion = userData.CodigoUsuario,
                         Estado = "A"
                     };
                     service.UpdSolicitudCliente(userData.PaisID, beSolicitudCliente);
@@ -115,7 +115,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         ConsultoraID = ConsultoraID,
                         eMail = emailCliente,
                         Nombre = NombreCliente,
-                        PaisID = UserData().PaisID,
+                        PaisID = userData.PaisID,
                         Activo = true
                     };
                     service.Insert(beCliente);
@@ -128,10 +128,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 mensaje.AppendFormat("{0}</p><br/>", MensajeaCliente);
                 mensaje.Append("<br/>Saludos,<br/><br />");
                 mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
-                mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>Consultora</strong></p></td></tr></table>", UserData().NombreConsultora);
+                mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora);
                 try
                 {
-                    Util.EnviarMail3(UserData().EMail, emailCliente, titulo, mensaje.ToString(), true, string.Empty);
+                    Util.EnviarMail3(userData.EMail, emailCliente, titulo, mensaje.ToString(), true, string.Empty);
                 }
                 catch (Exception ex)
                 {
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public JsonResult RechazarSolicitud(long SolicitudId, int NumIteracion, string CodigoUbigeo, string Campania, int MarcaId)
         {
-            var userData = UserData();
+            
             using (var service = new SACServiceClient())
             {
                 var tablalogicaDatos = service.GetTablaLogicaDatos(userData.PaisID, 56);
@@ -253,7 +253,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult ListarObservacionesStock(long ProcesoId)
         {
-            var userData = UserData();
+            
             var notificaciones = ObtenerNotificaciones();
             var notificacion = notificaciones.FirstOrDefault(p => p.ProcesoId == ProcesoId);
             List<BENotificacionesDetallePedido> lstObservacionesPedido = new List<BENotificacionesDetallePedido>();
@@ -298,7 +298,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult DetalleSolicitudClienteCatalogo(long SolicitudId)
         {
-            var userData = UserData();
+            
             var model = new NotificacionesModel();
 
             var notificaciones = ObtenerNotificaciones();
@@ -417,7 +417,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private List<BENotificaciones> ObtenerNotificaciones()
         {
-            var userData = UserData();
+            
             List<BENotificaciones> list;
             using (var sv = new UsuarioServiceClient())
             {

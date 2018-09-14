@@ -1097,7 +1097,7 @@
                 <div class="icono_correo_sobre"></div>
                 <p class="w-100 envio_instrucciones_info">
                     <span class="w-100">Te hemos enviado las instrucciones a:</span>
-                    <span class="w-100 text-bold" id="spnEmail">valeria.tarazona@gmail</span>
+                    <span class="w-100 text-bold" id="spnEmail"></span>
                 </p>
                 <p class="w-100 envio_instrucciones_info">
                     @*<span class="w-100">¿Aún no recibes nuestro correo?</span>*@
@@ -2034,7 +2034,7 @@
         var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
         var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
         var viewBagValidaSegmento = '@Model.ValidaSegmento';
-        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/41577-BELCORP-SolCre-CO-400073315-300916.pdf")';
+        var urlContratoCOpdf = '@Constantes.AceptacionContrato.UrlDescargarContratoCO';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
         var contadorFondoPopUp = 0;
@@ -2127,12 +2127,10 @@
         var OrigenDesktopODD = 1;
         var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
-        var VerContrato = @Model.TieneContratoPopup;
         var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
         var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
-    @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }
 
 <script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script> 
 <script>
