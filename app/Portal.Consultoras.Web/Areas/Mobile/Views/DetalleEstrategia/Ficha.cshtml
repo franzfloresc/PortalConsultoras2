@@ -3,28 +3,28 @@
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
-    var layout = ViewContext.MobilePedidoLayout();
-    ViewBag.Title = "Ficha-Mobile";
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-    var mobileConfiguracion = Html.MobileAppConfiguracion();
-    var origen = Request.Params["origen"];
+	var layout = ViewContext.MobilePedidoLayout();
+	ViewBag.Title = "Ficha-Mobile";
+	Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+	var mobileConfiguracion = Html.MobileAppConfiguracion();
+	var origen = Request.Params["origen"];
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/mobile/css/ficha")
-    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
-    {
-        @Styles.Render("~/bundles/mobile/css/FichaEsika")
-    }
-    else
-    {
-        @Styles.Render("~/bundles/mobile/css/FichaLbel")
-    }
-    <style id="styleRelojOdd"></style>
+	@System.Web.Optimization.Styles.Render("~/bundles/mobile/css/ficha")
+	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+	{
+		@Styles.Render("~/bundles/mobile/css/FichaEsika")
+	}
+	else
+	{
+		@Styles.Render("~/bundles/mobile/css/FichaLbel")
+	}
+	<style id="styleRelojOdd"></style>
 }
 @if (!Constantes.IngresoExternoOrigen.App.Equals(origen))
 {
-    @Html.Partial("_BreadCrumb", Model.BreadCrumbs)
+	@Html.Partial("_BreadCrumb", Model.BreadCrumbs)
 }
 
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
@@ -315,6 +315,10 @@
 </div>
 @if (Model.TieneCarrusel)
 {
+    <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
+        <hr>
+    </div>
+    <hr class="clear" />
 	<div id="CarruselProducto" class="container">
 		<div class="row carrusel">
 			<div>
@@ -367,10 +371,10 @@
 			</div>
 		</div>
 	}
-    @*else
-    {
-	    <div class="share"></div>
-    }*@
+	@*else
+	{
+		<div class="share"></div>
+	}*@
 }
 else
 {
@@ -383,53 +387,53 @@ else
 
 @if (ViewBag.CampaniaCodigo != Model.Campania)
 {
-    @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
+	@Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
 }
 
 @Html.Partial("_template-ofertadeldia-style")
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
-    @System.Web.Optimization.Scripts.Render("~/bundles/mobile/js/Ficha")
-    @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
+	@System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
+	@System.Web.Optimization.Scripts.Render("~/bundles/mobile/js/Ficha")
+	@System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
 
-    <script>
-        window.videoKey = '@Model.CodigoVideo';
-        var fichaModule;
-        //var carruselModule;
+	<script>
+		window.videoKey = '@Model.CodigoVideo';
+		var fichaModule;
+		//var carruselModule;
 
-        var tieneCarrusel = '@Model.TieneCarrusel';
-        var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
-        $(document).ready(function () {
+		var tieneCarrusel = '@Model.TieneCarrusel';
+		var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
+		$(document).ready(function () {
 
-            fichaModule = FichaModule({
-                palanca: "@Model.Palanca",
-                origen: "@Model.OrigenUrl",
-                tieneSession: "@Model.TieneSession",
-                campania: "@Model.Campania",
-                cuv: "@Model.Cuv",
-                urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })'
-            });
-            fichaModule.Inicializar();
+			fichaModule = FichaModule({
+				palanca: "@Model.Palanca",
+				origen: "@Model.OrigenUrl",
+				tieneSession: "@Model.TieneSession",
+				campania: "@Model.Campania",
+				cuv: "@Model.Cuv",
+				urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })'
+			});
+			fichaModule.Inicializar();
 
-            if (tieneCarrusel) {
-                carruselModule = CarruselModule({
-                    palanca: "@Model.Palanca",
-                    campania: "@Model.Campania",
-                    cuv: "@Model.Cuv",
-                    idPlantilla: "#producto-landing-template",
-                    divCarrusel: "#divOfertaProductos",
-                    divSetsProductosdata: "#set_relacionados",
-                    urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
-                    idTituloCarrusel: "#tituloCarrusel",
-                    ContenidoProducto: "#ContenidoProducto",
-                    CarruselProducto: "#CarruselProducto"
-                });
-                carruselModule.Inicializar();
-            }
-        });
+			if (tieneCarrusel) {
+				carruselModule = CarruselModule({
+					palanca: "@Model.Palanca",
+					campania: "@Model.Campania",
+					cuv: "@Model.Cuv",
+					idPlantilla: "#producto-landing-template",
+					divCarrusel: "#divOfertaProductos",
+					divSetsProductosdata: "#set_relacionados",
+					urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
+					idTituloCarrusel: "#tituloCarrusel",
+					ContenidoProducto: "#ContenidoProducto",
+					CarruselProducto: "#CarruselProducto"
+				});
+				carruselModule.Inicializar();
+			}
+		});
 
-    </script>
+	</script>
 
 
 
