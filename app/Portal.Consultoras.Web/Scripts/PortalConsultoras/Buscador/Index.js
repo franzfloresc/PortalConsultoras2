@@ -10,7 +10,7 @@ var delay = (function () {
 })();
 
 // teclas especiales
-const keys = [
+var keys = [
     { name: 'shift', val: 16 },
     { name: 'ctrl', val: 17 },
     { name: 'alt', val: 18 },
@@ -261,8 +261,8 @@ $(document).ready(function () {
                         RegistrarProductoOferta(e);
                     } else {
                         var cuv = model.CUV;
-                        var tipoOfertaSisID = model.TipoEstrategiaId;
-                        var configuracionOfertaID = tipoOfertaSisID;
+                        var tipoOfertaSisID = 0;
+                        var configuracionOfertaID = 0;
                         var indicadorMontoMinimo = 1;
                         var marcaID = model.MarcaId;
                         var precioUnidad = model.Precio;
@@ -270,7 +270,7 @@ $(document).ready(function () {
                         var descripcionEstrategia = model.DescripcionEstrategia;
                         var OrigenPedidoWeb = model.OrigenPedidoWeb;
                         var posicion = model.posicion;
-                        var tipoEstrategiaId = tipoOfertaSisID;//$(divPadre).find(".hdBuscadorCodigoPalanca").val();
+                        var tipoEstrategiaId = 0;//model.TipoEstrategiaId;
                         var LimiteVenta = model.LimiteVenta;
                         var CantidadesAgregadas = model.CantidadesAgregadas;
 
@@ -305,8 +305,6 @@ $(document).ready(function () {
                             Posicion: posicion
                         }
 
-                        console.log('model', model);
-                        
                         jQuery.ajax({
                             type: 'POST',
                             url: baseUrl + 'Pedido/PedidoInsertarBuscador',

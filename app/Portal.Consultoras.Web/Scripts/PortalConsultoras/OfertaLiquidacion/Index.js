@@ -362,10 +362,13 @@ function RegistrarProductoOferta(e) {
                                 $(HiddenStock).val(parseInt(Stock - Cantidad));
                                 $(txtCantidad).val(1);
                                 InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, posicion);
-                                CargarResumenCampaniaHeader(true);
-                                TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
-                                console.log('OfertaLiquidacion - Index.js - click ".js-boton_liquidacion" - ante ActualizarGanancia', data.DataBarra);
-                                ActualizarGanancia(data.DataBarra);
+
+                                if (!isMobile()) {
+                                    CargarResumenCampaniaHeader(true);
+                                    TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                                    console.log('OfertaLiquidacion - Index.js - click ".js-boton_liquidacion" - ante ActualizarGanancia', data.DataBarra);
+                                    ActualizarGanancia(data.DataBarra);
+                                }
 
                                 if (modelLiquidacionOfertas) {
                                     labelAgregadoLiquidacion.html('Agregado');
@@ -375,12 +378,13 @@ function RegistrarProductoOferta(e) {
                                     }
                                 }
 
-                                closeWaitingDialog();
+                                CerrarLoad();
+
                                 modelLiquidacionOfertas = undefined;
                                 labelAgregadoLiquidacion = undefined;
                             },
                             error: function (data, error) {
-                                closeWaitingDialog();
+                                CerrarLoad();
                             }
                         });
 
