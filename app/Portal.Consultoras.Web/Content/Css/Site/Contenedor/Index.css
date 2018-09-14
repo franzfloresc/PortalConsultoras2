@@ -314,6 +314,15 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
                     font-family: 'Lato';
                 }*/
 
+.bc_plantilla_estrategia_personalizada {
+    margin-top: 50px;
+}
+.op-menu-horizonta-fixed {
+    position: fixed;
+    width: 100%;
+    background-color: #fff;
+    z-index: 5;
+}
 .op-menu-horizontal {
     text-align: center;
 }

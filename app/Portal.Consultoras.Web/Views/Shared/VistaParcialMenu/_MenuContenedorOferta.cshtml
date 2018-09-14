@@ -16,7 +16,7 @@
 
 }
 <div class="bc_menu_estrategia" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
-    @if (ViewBag.TieneRevistaDigital)
+    @*@if (ViewBag.TieneRevistaDigital)
     {
         if ((menuActivo.ConfiguracionPais.DesktopTituloBanner != "" || menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
         && menuActivo.Codigo != Constantes.ConfiguracionPais.Informacion)
@@ -33,7 +33,7 @@
     }
     @if (!ViewBag.TieneRevistaDigital)
     {
-        @*<div class="contenedor_top">
+        <div class="contenedor_top">
                 @if (menuActivo.ConfiguracionPais.DesktopLogoBanner != "")
                 {
                     <div class="logo">
@@ -56,7 +56,7 @@
                     </div>
                 }
             </div>
-            <div class="clear"></div>*@
+            <div class="clear"></div>
         if ((menuActivo.ConfiguracionPais.DesktopTituloBanner != "" || menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
         && menuActivo.Codigo != Constantes.ConfiguracionPais.Informacion)
         {
@@ -69,7 +69,7 @@
                 </div>
             </div>
         }
-    }
+    }*@
     @if (menuActivo.CampaniaX0 > 0)
     {
         @*<div class="op_menu-horizontal" data-layout-menu1="">
@@ -107,7 +107,7 @@
 </div>
 
 @if (menuActivo.MostrarMenuFlotante) {
-<div data-layout-menu2="">
+<div class="op-menu-horizonta-fixed" data-layout-menu2="">
     @if (menuList.Any())
     {
         @*<div class="op-menu-vertical sticky">
