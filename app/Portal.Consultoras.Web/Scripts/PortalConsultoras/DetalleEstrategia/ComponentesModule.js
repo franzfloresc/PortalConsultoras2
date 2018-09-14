@@ -131,25 +131,31 @@ var ComponentesModule = (function () {
 
         return false;
     }
-    var LimpiarComponentes = function() {
-        $.each(_estrategia.Hermanos, function (index, hermano) {
-            $.each(hermano.Hermanos, function (index, hijo) {
-                hijo.cantidadAplicada = 0;
-                hijo.cantidadSeleccionada = 0;
-            });
-            var resumenOpcionesContenedor = _elements.resumenOpciones.id + "-" + hermano.Cuv;
-            $(resumenOpcionesContenedor).siblings(_elements.tonosSelectOpt).show();
-            $(resumenOpcionesContenedor).hide();
+    var LimpiarComponentes = function () {
+        if (_estrategia.Hermanos) {
+            $.each(_estrategia.Hermanos, function (index, hermano) {
+                if (hermano.Hermanos)
+                {
+                    $.each(hermano.Hermanos, function (index, hijo) {
+                        hijo.cantidadAplicada = 0;
+                        hijo.cantidadSeleccionada = 0;
+                    });
+                }
+                var resumenOpcionesContenedor = _elements.resumenOpciones.id + "-" + hermano.Cuv;
+                $(resumenOpcionesContenedor).siblings(_elements.tonosSelectOpt).show();
+                $(resumenOpcionesContenedor).hide();
             
-            hermano.resumenAplicados = [];
-            hermano.HermanosSeleccionados = [];
-        });
+                hermano.resumenAplicados = [];
+                hermano.HermanosSeleccionados = [];
+            });
+        }
     }
     return {
         ListarComponentes: ListarComponentes,
         SeleccionarComponente: SeleccionarComponente,
         SeleccionarPaletaOpcion: SeleccionarPaletaOpcion,
-        LimpiarComponentes: LimpiarComponentes
+        LimpiarComponentes: LimpiarComponentes,
+        EstrategiaEntidad: _estrategia
     };
 }());
 
