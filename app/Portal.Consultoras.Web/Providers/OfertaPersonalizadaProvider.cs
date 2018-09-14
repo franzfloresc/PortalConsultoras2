@@ -651,9 +651,40 @@ namespace Portal.Consultoras.Web.Providers
         {
             listaProducto = listaProducto ?? new List<ServiceOferta.BEEstrategia>();
             List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
+
+            listaProductoModel.Update(
+                x => {
+                    if (listaProducto.Where(c => c.CUV2 == x.CUV2 && c.CampaniaID == x.CampaniaID).FirstOrDefault().EstrategiaProducto != null)
+                        x.Hermanos = ObtenerListaTonos(
+                            listaProducto.Where(c => c.CUV2 == x.CUV2 && c.CampaniaID == x.CampaniaID)
+                            .FirstOrDefault().EstrategiaProducto.ToList());
+                });
             var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
             var listaEstrategiaPedidoModel = ConsultarEstrategiasFormatoModelo1(listaProductoModel, listaPedido, codigoISO, campaniaID);
             return listaEstrategiaPedidoModel;
+        }
+
+        private List<EstrategiaComponenteModel> ObtenerListaTonos(List<ServiceOferta.BEEstrategiaProducto> listaEstrategiaProducto)
+        {
+            var listaTonos = new List<EstrategiaComponenteModel>();
+            foreach (var item in listaEstrategiaProducto)
+            {
+                EstrategiaComponenteModel tono = new EstrategiaComponenteModel()
+                {
+                    Grupo = item.Grupo,
+                    Cuv = item.CUV,
+                    CodigoProducto = item.SAP,
+                    Orden = item.Orden,
+                    PrecioCatalogo = item.Precio,
+                    PrecioCatalogoString = item.Precio.ToString(),
+                    Digitable = item.Digitable,
+                    Cantidad = item.Cantidad,
+                    FactorCuadre = item.FactorCuadre,
+                    IdMarca = item.IdMarca
+                };
+                listaTonos.Add(tono);
+            }
+            return listaTonos;
         }
 
         public List<EstrategiaPedidoModel> ConsultarEstrategiasFormatoModelo1(List<EstrategiaPedidoModel> listaProductoModel, List<BEPedidoWebDetalle> listaPedido, string codigoISO, int campaniaID)

@@ -4,6 +4,7 @@ using Portal.Consultoras.BizLogic.PagoEnlinea;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
@@ -263,10 +264,10 @@ namespace Portal.Consultoras.Service
             blUsuario.InsLogIngresoPortal(paisID, CodigoConsultora, IPOrigen, Tipo, DetalleError, Canal);
         }
 
-        public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora , string origen, string direccionIP, string InformacionSOMobile)
+        public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora , string origen, string direccionIP, string InformacionSOMobile, string imei, string deviceID)
         {
             var blContratoAceptacion = new BLContratoAceptacion();
-            return blContratoAceptacion.AceptarContratoAceptacion(paisID, consultoraid, codigoConsultora, origen, direccionIP, InformacionSOMobile);
+            return blContratoAceptacion.AceptarContratoAceptacion(paisID, consultoraid, codigoConsultora, origen, direccionIP, InformacionSOMobile, imei, deviceID);
         }
 
         public List<BeReporteContrato> ReporteContratoAceptacion(int paisID,string codigoConsultora, string cedula, DateTime? FechaInicio, DateTime? FechaFin)
@@ -897,6 +898,11 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.CancelarAtualizacionEmail(paisID, codigoUsuario);
+        }
+
+        public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)
+        {
+            return _usuarioBusinessLogic.GetDireccionConsultora(paisID, codigoUsuario);
         }
 
         public List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)

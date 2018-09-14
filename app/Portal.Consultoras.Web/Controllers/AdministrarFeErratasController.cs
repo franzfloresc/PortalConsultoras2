@@ -181,7 +181,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Mantener(AdministrarFeErratasModel model)
         {
-            var listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
+            var listaEntradas = sessionManager.Getentradas() ?? new List<AdministrarFeErratasModel>();
             if (listaEntradas.Count > 0)
             {
                 var updateErratas = listaEntradas.Where(x => !x.Eliminar).Select(Mapper.Map<AdministrarFeErratasModel, BEFeErratas>).ToArray();
@@ -273,9 +273,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<AdministrarFeErratasModel> listaEntradas;
 
-                if (Session["entradas"] != null)
+                if (sessionManager.Getentradas() != null)
                 {
-                    listaEntradas = (Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>())
+                    listaEntradas = (sessionManager.Getentradas() ?? new List<AdministrarFeErratasModel>())
                         .Where(e => !e.Eliminar).ToList();
                 }
                 else
@@ -289,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                     List<AdministrarFeErratasModel> entidades = Mapper.Map<IEnumerable<BEFeErratas>, List<AdministrarFeErratasModel>>(lst);
                     listaEntradas = new List<AdministrarFeErratasModel>();
                     listaEntradas.AddRange(entidades);
-                    Session["entradas"] = listaEntradas;
+                    sessionManager.Setentradas(listaEntradas);
                 }
 
                 BEGrid grid = new BEGrid
@@ -366,15 +366,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session["entradas"] == null)
+                if (sessionManager.Getentradas() == null)
                 {
-                    Session["entradas"] = new List<AdministrarFeErratasModel>();
+                    sessionManager.Setentradas(new List<AdministrarFeErratasModel>());
                 }
-                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
+                List<AdministrarFeErratasModel> listaEntradas = sessionManager.Getentradas() ?? new List<AdministrarFeErratasModel>();
                 int nuevoId = (listaEntradas.Count + 1) * -1;
                 model.FeErratasID = nuevoId;
                 listaEntradas.Add(model);
-                Session["entradas"] = listaEntradas;
+                sessionManager.Setentradas(listaEntradas);
 
                 return Json(new
                 {
@@ -410,12 +410,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
+                List<AdministrarFeErratasModel> listaEntradas = sessionManager.Getentradas() ?? new List<AdministrarFeErratasModel>();
                 AdministrarFeErratasModel entrada = listaEntradas.SingleOrDefault(e => e.FeErratasID == model.FeErratasID) ?? new AdministrarFeErratasModel();
                 entrada.Pagina = model.Pagina;
                 entrada.Dice = model.Dice;
                 entrada.DebeDecir = model.DebeDecir;
-                Session["entradas"] = listaEntradas;
+                sessionManager.Setentradas(listaEntradas);
 
                 return Json(new
                 {
@@ -451,7 +451,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
+                List<AdministrarFeErratasModel> listaEntradas = sessionManager.Getentradas() ?? new List<AdministrarFeErratasModel>();
                 AdministrarFeErratasModel entrada = listaEntradas.SingleOrDefault(e => e.FeErratasID == FeErratasID) ?? new AdministrarFeErratasModel();
                 if (entrada.FeErratasID < 0)
                 {
@@ -461,7 +461,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     entrada.Eliminar = true;
                 }
-                Session["entradas"] = listaEntradas;
+                sessionManager.Setentradas(listaEntradas);
 
                 return Json(new
                 {

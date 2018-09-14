@@ -1961,6 +1961,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                  .GetString())
                                          .ToArray();
                             }
+                            System.IO.File.Delete(finalPath);
                         }
                     }
                     model = new CambioTipoNegocioModel
