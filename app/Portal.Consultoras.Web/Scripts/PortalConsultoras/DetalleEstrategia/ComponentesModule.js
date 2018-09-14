@@ -71,6 +71,7 @@ var ComponentesModule = (function () {
     };
 
     var SeleccionarComponente = function (cuv) {
+        
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param cuv is not defined or null";
@@ -91,6 +92,7 @@ var ComponentesModule = (function () {
     }
 
     var SeleccionarPaletaOpcion = function (event, cuv) {
+        debugger;
         var $PaletaOpcion = $(event.target);
         var CuvPadre = $PaletaOpcion.length > 0 ? $PaletaOpcion.parents("[data-tono-div]").data("tono-div") : "";
 
@@ -125,10 +127,13 @@ var ComponentesModule = (function () {
 
                 ResumenOpcionesModule.AplicarOpciones();
 
+                //Marcación Analytics (EPM-1442)
+                AnalyticsPortalModule.MarcarImagenProducto(_estrategia, componente.resumenAplicados);
+
                 return false;
             }
         });
-
+        
         return false;
     }
     var LimpiarComponentes = function() {

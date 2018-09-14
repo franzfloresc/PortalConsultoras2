@@ -23,7 +23,9 @@ var AnalyticsPortalModule = (function () {
         iniciarVideo: "Iniciar Video",
         seleccionTonoCombo: "Selección Tono - ComboBox",
         seleccionTonoCuadro: "Selección Tono - Cuadrados",
-        migajaPan: "Breadcrumb"
+        migajaPan: "Breadcrumb",
+
+        contenedorfichaProducto: "Contenedor - Ficha de producto",
     };
 
     var _constantes = {
@@ -148,9 +150,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
-
-    
-
+      
     var marcarClicSetProductos = function (infoItem) {
 
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
@@ -214,6 +214,176 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    //Nuevos métodos para HU EMP-1442 (Jira)
+    var marcarImagenProducto = function (opcion, detalle) {
+        try {
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": _texto.contenedorfichaProducto,
+                "action": 'Seleccionar imagen del producto',
+                "label": opcion.DescripcionCompleta + " - " + detalle[0].NombreBulk
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarPopupEligeUnaOpcion = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Ficha de producto',
+                'action': 'Ver Popup Elige 1 opción',
+                'label': '{Nombre del producto}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarCerrarPopupEligeUnaOpcion = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Pop up Elige 1 opción',
+                'action': 'Cerrar pop up Elige 1 opción',
+                'label': '{Nombre del producto}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarPopupBotonEligeloSoloUno = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Pop up Elige 1 opción',
+                'action': 'Elígelo',
+                'label': '{Nombre del producto} - {variedad del producto}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarBotonAplicarSeleccion = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Pop up Elige 1 opción',
+                'action': 'Aplicar selección',
+                'label': '{Nombre del producto} - {variedad del producto}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarEliminarOpcionSeleccionada = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Pop up Elige 1 opción',
+                'action': 'Desenmarcar Producto',
+                'label': '{Nombre del producto} - {variedad del producto}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarCambiarOpcion = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Ficha de producto',
+                'action': 'Cambiar opción',
+                'label': '{nombre del producto}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarPopupEligeXOpciones = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Ficha de producto',
+                'action': 'Ver Popup Elige más de una opción',
+                'label': '{Nombre del set de productos}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarPopupCerrarEligeXOpciones = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Pop up Elige más de una opción',
+                'action': 'Cerrar pop up Elige más de una opción',
+                'label': '{Nombre del set de productos}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarPopupBotonEligeloVariasOpciones = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Pop up Elige más de una opción',
+                'action': 'Elígelo',
+                'label': '{Nombre del producto} - {variedad del producto}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarPopupBotonAplicarSeleccionVariasOpciones = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Pop up Elige más de una opción',
+                'action': 'Aplicar selección',
+                'label': '{Nombre de los productos seleccionados}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarEliminarOpcionSeleccionadaVariasOpciones = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Pop up Elige más de una opción',
+                'action': 'Desenmarcar opción',
+                'label': ' {Nombre del producto} - {variedad del producto}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarAumentardisminuirOpcionProducto = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Pop up Elige más de una opción',
+                'action': '{Operación realizada}',
+                'label': ' {Nombre del producto} - {variedad del producto}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    var marcarCambiarOpcionVariasOpciones = function (opcion) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Contenedor - Ficha de producto',
+                'action': 'Cambiar opciones',
+                'label': ' {Nombre del producto}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
     return {
         MarcarVerFichaProducto: marcarVerFichaProducto,
         FcVerificarTipoMoneda: fcVerificarTipoMoneda,
@@ -224,6 +394,21 @@ var AnalyticsPortalModule = (function () {
         MarcarComparteRedesSociales: marcarComparteRedesSociales,
         MarcarClicSetProductos: marcarClicSetProductos,
         MarImpresionSetProductos: marcarImpresionSetProductos,
-        MarcarFichaBreadcrumb: marcarFichaBreadcrumb
+        MarcarFichaBreadcrumb: marcarFichaBreadcrumb,
+
+        MarcarImagenProducto: marcarImagenProducto,
+        MarcarPopupEligeUnaOpcion: marcarPopupEligeUnaOpcion,
+        MarcarCerrarPopupEligeUnaOpcion: marcarCerrarPopupEligeUnaOpcion,
+        MarcarPopupBotonEligeloSoloUno: marcarPopupBotonEligeloSoloUno,
+        MarcarBotonAplicarSeleccion: marcarBotonAplicarSeleccion,
+        MarcarEliminarOpcionSeleccionada: marcarEliminarOpcionSeleccionada,
+        MarcarCambiarOpcion: marcarCambiarOpcion,
+        MarcarPopupEligeXOpciones: marcarPopupEligeXOpciones,
+        MarcarPopupCerrarEligeXOpciones: marcarPopupCerrarEligeXOpciones,
+        MarcarPopupBotonEligeloVariasOpciones: marcarPopupBotonEligeloVariasOpciones,
+        MarcarPopupBotonAplicarSeleccionVariasOpciones: marcarPopupBotonAplicarSeleccionVariasOpciones,
+        MarcarEliminarOpcionSeleccionadaVariasOpciones: marcarEliminarOpcionSeleccionadaVariasOpciones,
+        MarcarAumentardisminuirOpcionProducto: marcarAumentardisminuirOpcionProducto,
+        MarcarCambiarOpcionVariasOpciones: marcarCambiarOpcionVariasOpciones
     }
 })();
