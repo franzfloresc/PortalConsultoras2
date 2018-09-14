@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 var lstProductoFaltante = _productoFaltanteProvider.GetProductosFaltantes(userData);
-                Session["ListaProductoFaltantes"] = lstProductoFaltante;
+                sessionManager.SetListaProductoFaltantes(lstProductoFaltante); 
                 model.ListaProductoFaltante = lstProductoFaltante.Take(numeroFilas).ToList();
             }
             catch (FaultException ex)
@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var lstProductoFaltante = Session["ListaProductoFaltantes"] as List<BEProductoFaltante>;
+                var lstProductoFaltante = sessionManager.GetListaProductoFaltantes() as List<BEProductoFaltante>;
 
                 if (lstProductoFaltante != null)
                     return Json(new

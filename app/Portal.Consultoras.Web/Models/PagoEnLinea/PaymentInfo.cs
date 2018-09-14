@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         [Required(ErrorMessage = Constantes.MvcErrorMessages.RequiredMessage)]
         [Display(Name = "Número de tarjeta")]
         [StringLength(16, MinimumLength = 13, ErrorMessage = Constantes.MvcErrorMessages.RangeErrorMessage)]
-        [LuhnCard(ErrorMessage = "No satisface el algoritmo de validación")]
+        [LuhnCard(ErrorMessage = "Número de tarjeta inválida")]
         public string NumberCard { get; set; }
         [Required(ErrorMessage = Constantes.MvcErrorMessages.RequiredMessage)]
         [StringLength(2)]
