@@ -30,15 +30,17 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager = SessionManager.SessionManager.Instance;
         }
 
-        public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca)
+        public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
         {
             string joinCuv=string.Empty;
             List<BEEstrategiaProducto> listaBeEstrategiaProductos = null;
             esMultimarca = false;
+            mensaje = "";
 
             var userData = sessionManager.GetUserData();
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
+                mensaje += "SiMongo|";
                 listaBeEstrategiaProductos = new List<BEEstrategiaProducto>();
                 string pathComponente = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerComponente,
                         userData.CodigoISO,
@@ -55,18 +57,30 @@ namespace Portal.Consultoras.Web.Providers
             }
             else
             {
+                mensaje += "NoMongo|";
                 listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo, out joinCuv);
             }
            
             if (joinCuv == "") return new List<EstrategiaComponenteModel>();
 
+            mensaje += "EstrategiaProductos|";
+
             var listaProductos = GetAppProductoBySap(estrategiaModelo, joinCuv);
             if (!listaProductos.Any()) return new List<EstrategiaComponenteModel>();
 
+            mensaje += "GetAppProductoBySap|";
+
             var listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
+
+            mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + " | ";
             //estrategiaModelo.CodigoVariante = "";
             var listaComponentesPorOrdenar = GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
+
+            mensaje += "GetEstrategiaDetalleFactorCuadre = " + listaComponentesPorOrdenar.Count + " | ";
             listaComponentesPorOrdenar = OrdenarComponentesPorMarca(listaComponentesPorOrdenar, out esMultimarca);
+
+            mensaje += "OrdenarComponentesPorMarca = " + listaComponentesPorOrdenar.Count + " | ";
+
             return listaComponentesPorOrdenar;
         }
 
