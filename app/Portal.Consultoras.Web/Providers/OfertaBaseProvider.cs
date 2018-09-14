@@ -72,26 +72,26 @@ namespace Portal.Consultoras.Web.Providers
                         estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
                         if (estrategia.Precio2 > 0)
                         {
-                            var tonos = new List<ServiceOferta.BEEstrategiaProducto>();
-                            foreach (var tono in item.tonos)
+                            var compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
+                            foreach (var componente in item.componentes)
                             {
                                 ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
                                 {
-                                    Grupo = tono.grupo,
-                                    CUV = tono.cuv,
-                                    SAP = tono.codigoSap,
-                                    Orden = tono.orden,
-                                    Precio = tono.precioUnitario,
-                                    Digitable = Convert.ToBoolean(tono.indicadorDigitable) ? 1 : 0,
-                                    Cantidad = tono.cantidad,
-                                    FactorCuadre = tono.factorCuadre,
-                                    IdMarca = tono.marcaId
+                                    Grupo = componente.grupo,
+                                    CUV = componente.cuv,
+                                    SAP = componente.codigoSap,
+                                    Orden = componente.orden,
+                                    Precio = componente.precioUnitario,
+                                    Digitable = Convert.ToBoolean(componente.indicadorDigitable) ? 1 : 0,
+                                    Cantidad = componente.cantidad,
+                                    FactorCuadre = componente.factorCuadre,
+                                    IdMarca = componente.marcaId
                                 };
 
-                                tonos.Add(estrategiaTono);
+                                compoponentes.Add(estrategiaTono);
                             }
 
-                            estrategia.EstrategiaProducto = tonos.ToArray();
+                            estrategia.EstrategiaProducto = compoponentes.ToArray();
 
                             estrategias.Add(estrategia);
                         }
