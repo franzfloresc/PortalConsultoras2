@@ -9,6 +9,10 @@
                     <button id="btn-eligelo-{{componente.Cuv}}"
                             {{#if ../esCampaniaSiguiente}}
                             class="btn_desactivado_general"
+                            {{else}}
+                                {{#if componente.EleccionBloqueada}}
+                                class="btn_desactivado_general"
+                                {{/if}}
                             {{/if}}
                             onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
                         Elígelo
@@ -32,6 +36,10 @@
                 <button id="btn-eligelo-{{componente.Cuv}}"
                         {{#if ../esCampaniaSiguiente}}
                         class="btn_desactivado_general"
+                        {{else}}
+                            {{#if componente.EleccionBloqueada}}
+                            class="btn_desactivado_general"
+                            {{/if}}
                         {{/if}}
                         onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
                     Elígelo
@@ -41,8 +49,14 @@
                 {{#iff componente.cantidadSeleccionada '==' '0'}}
                 style="display:none"
                 {{/iff}}>
-                <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
-                    <a class="cantidad_menos_home" onclick="javascript:ListaOpcionesModule.EliminarOpcion({{componente.Cuv}},event);">
+                <div
+                     {{#if componente.EleccionBloqueada}}
+                        class="content_cantidad_ficha_producto contenedor_rangos_desactivado" 
+                        {{else}}
+                        class="content_cantidad_ficha_producto"
+                        {{/if}}
+                     data-cantidad-contenedor="">
+                    <a class="cantidad_menos_home" {{#if componente.EleccionBloqueada}}{{else}}onclick="javascript:ListaOpcionesModule.EliminarOpcion({{componente.Cuv}},event);"{{/if}}>
                         <img id="imgFichaProduMenos" src="/Content/Images/Mobile/Esika/menos.png" alt="">
                     </a>
                     <input type="tel"

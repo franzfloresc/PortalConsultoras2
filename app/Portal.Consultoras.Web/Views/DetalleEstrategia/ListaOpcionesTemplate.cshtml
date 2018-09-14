@@ -9,6 +9,10 @@
                     <button id="btn-eligelo-{{componente.Cuv}}"
                             {{#if ../esCampaniaSiguiente}}
                             class="btn_desactivado_general"
+                            {{else}}
+                                {{#if componente.EleccionBloqueada}}
+                                class="btn_desactivado_general"
+                                {{/if}}
                             {{/if}}
                             onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
                         Elígelo
@@ -32,6 +36,10 @@
                 <button id="btn-eligelo-{{componente.Cuv}}"
                         {{#if ../esCampaniaSiguiente}}
                         class="btn_desactivado_general"
+                        {{else}}
+                            {{#if componente.EleccionBloqueada}}
+                            class="btn_desactivado_general"
+                            {{/if}}
                         {{/if}}
                         onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
                     Elígelo
@@ -41,7 +49,11 @@
                 {{#iff componente.cantidadSeleccionada '==' '0'}}
                 style="display:none"
                 {{/iff}}>
-                <div class="contenedor_rangos" data-cantidad-contenedor="">
+                <div    {{#if componente.EleccionBloqueada}}
+                        class="contenedor_rangos contenedor_rangos_desactivado" 
+                        {{else}}
+                        class="contenedor_rangos"
+                        {{/if}} data-cantidad-contenedor="">
                     <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" 
                            {{#iff componente.cantidadSeleccionada '==' '0'}}
                            value="1"
@@ -49,7 +61,7 @@
                            value="{{componente.cantidadSeleccionada}}"
                            {{/iff}} size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-" disabled>
                     <div>
-                        <a class="txt_menos" data-cantidad-agregar="-" onclick="javascript:ListaOpcionesModule.EliminarOpcion({{componente.Cuv}},event)">
+                        <a class="txt_menos" data-cantidad-agregar="-" {{#if componente.EleccionBloqueada}}{{else}}onclick="javascript:ListaOpcionesModule.EliminarOpcion({{componente.Cuv}},event)"{{/if}}>
                             <div class="dibujar_linea dibujar_menos"></div>
                         </a>
                         <a class="txt_mas" data-cantidad-agregar="+" onclick="javascript:ListaOpcionesModule.SeleccionarOpcion({{componente.Cuv}},event)">
