@@ -268,7 +268,7 @@ $(document).ready(function () {
                         var precioUnidad = model.Precio;
                         var descripcionProd = model.Descripcion;
                         var descripcionEstrategia = model.DescripcionEstrategia;
-                        var OrigenPedidoWeb = OrigenPedidoDesktopBuscador;//model.OrigenPedidoWeb;
+                        var OrigenPedidoWeb = model.OrigenPedidoWeb;
                         var posicion = model.posicion;
                         var tipoEstrategiaId = tipoOfertaSisID;//$(divPadre).find(".hdBuscadorCodigoPalanca").val();
                         var LimiteVenta = model.LimiteVenta;

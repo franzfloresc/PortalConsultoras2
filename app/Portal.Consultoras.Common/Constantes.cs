@@ -830,14 +830,14 @@ namespace Portal.Consultoras.Common
             public const string HerramientaDeVentaDesktopBuscador = "1484";
             public const string HerramientaDeVentaMobileBuscador = "2484";
 
-            public const string LBelDesktopBuscador = "14B4";
-            public const string LBelMobileBuscador = "24B4";
+            public const string LBelDesktopBuscador = "14";
+            public const string LBelMobileBuscador = "24";
 
-            public const string EsikaDesktopBuscador = "14C4";
-            public const string EsikaMobileBuscador = "24C4";
+            public const string EsikaDesktopBuscador = "14";
+            public const string EsikaMobileBuscador = "24";
 
-            public const string CyzoneDesktopBuscador = "14D4";
-            public const string CyzoneMobileBuscador = "24D4";
+            public const string CyzoneDesktopBuscador = "14";
+            public const string CyzoneMobileBuscador = "24";
 
             public const string LiquidacionDesktopBuscador = "1464";
             public const string LiquidacionMobileBuscador = "2464";
