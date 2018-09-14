@@ -768,14 +768,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
 
-            var listx = Session["MisPedidos-DetallePorCampania"];
-            string campSes = (string)Session["MisPedidos-DetallePorCampania-Campania"];
-            string estadoCombo = (string)Session["MisPedidos-DetallePorCampania-Estado"];
-            int pedidoIdSesion = (int)(Session["MisPedidos-DetallePorCampania-PedidoId"] ?? 0);
+            var listx = sessionManager.GetMisPedidosDetallePorCampania();
+            string campSes = sessionManager.GetMisPedidosDetallePorCampaniaCampania();
+            string estadoCombo = sessionManager.GetMisPedidosDetallePorCampaniaEstado();
+            int pedidoIdSesion = sessionManager.GetMisPedidosDetallePorCampaniaPedidoId();
 
             if (!(listx == null || campSes == null || campSes != campaniaId || estadoCombo == null || estadoCombo != estado || pedidoIdSesion != pedidoId))
             {
-                lst = (List<BEPedidoWebDetalle>)listx;
+                lst = listx;
                 return lst;
             }
             estado = (estado ?? "").Trim().ToLower();
@@ -844,10 +844,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
             }
 
-            Session["MisPedidos-DetallePorCampania"] = lst;
-            Session["MisPedidos-DetallePorCampania-Campania"] = campaniaId;
-            Session["MisPedidos-DetallePorCampania-Estado"] = estado;
-            Session["MisPedidos-DetallePorCampania-PedidoId"] = pedidoId;
+            sessionManager.SetMisPedidosDetallePorCampania(lst);
+            sessionManager.SetMisPedidosDetallePorCampaniaCampania(campaniaId);
+            sessionManager.SetMisPedidosDetallePorCampaniaEstado(estado);
+            sessionManager.SetMisPedidosDetallePorCampaniaPedidoId(pedidoId);
 
             return lst;
         }

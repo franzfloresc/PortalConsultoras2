@@ -247,5 +247,11 @@ namespace Portal.Consultoras.Service
         {
             return _movimientoBusinessLogic.ActualizarDetalle(paisId, movimientoDetalle);
         }
+
+        public IList<BEEscalaDescuentoZona> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region , string zona)
+        {
+            return new BLEscalaDescuentoZona().ListarEscalaDescuentoZona(paisID,campaniaID, region, zona);
+        }
+
     }
 }

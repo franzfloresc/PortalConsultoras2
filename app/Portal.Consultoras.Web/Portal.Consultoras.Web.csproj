@@ -744,6 +744,11 @@
       <DependentUpon>Pdto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\PayuResponseMessage.Designer.cs">
+      <DependentUpon>PayuResponseMessage.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Properties\PayuResponseCodes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1527,6 +1532,7 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\flecha_icono.svg" />
     <Content Include="Content\Images\icono-elige-tu-opcion.svg" />
     <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\icono_avatar.svg" />
@@ -1542,7 +1548,11 @@
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\icono_avatar_menu.svg" />
     <Content Include="Content\Images\icono_cargar_foto_desde_galeria.svg" />
+    <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
+    <Content Include="Content\Images\icono_lupa.svg" />
+    <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
+    <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
     <Content Include="Content\Images\imagen_prod_no_disponible.svg" />
     <Content Include="Content\Images\Lbel\icono_cambiar_dato.svg" />
@@ -1552,6 +1562,7 @@
     <Content Include="Content\Images\Lbel\icono_info_alerta.svg" />
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
+    <Content Include="Content\Images\Lbel\estrellas.png" />
     <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\icono_editar_foto_perfil.svg" />
@@ -4704,6 +4715,9 @@
     <None Include="Service References\ServiceUsuario\UsuarioService66.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService67.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
     <None Include="Service References\ServiceZonificacion\ZonificacionService.xsd">
       <SubType>Designer</SubType>
@@ -5722,6 +5736,11 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\PayuResponseMessage.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PayuResponseMessage.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\PayuResponseCodes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PayuResponseCodes.Designer.cs</LastGenOutput>
