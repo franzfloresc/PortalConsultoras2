@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
+    <Compile Include="BLEscalaDescuentoZona.cs" />
     <Compile Include="Contenido\IBelcorpRespondeBusinessLogic.cs" />
     <Compile Include="BLCategoria.cs" />
     <Compile Include="BLActivarPremioNuevas.cs" />
@@ -111,6 +112,8 @@
     <Compile Include="Configuracion\BLConfiguracionPaisDatos.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisDatosBusinessLogic.cs" />
+    <Compile Include="Contrato\BLContratoAceptacion.cs" />
+    <Compile Include="Contrato\IContratoAceptacionBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
     <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
@@ -164,7 +167,6 @@
     <Compile Include="ProgramaNuevas\BLConsultorasProgramaNuevas.cs" />
     <Compile Include="BLContenidoDato.cs" />
     <Compile Include="BLContenidoRevista.cs" />
-    <Compile Include="BLContratoAceptacion.cs" />
     <Compile Include="BLCronograma.cs" />
     <Compile Include="BLCronogramaAnticipado.cs" />
     <Compile Include="BLCrossSelling.cs" />

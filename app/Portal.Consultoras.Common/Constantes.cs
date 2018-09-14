@@ -19,6 +19,11 @@ namespace Portal.Consultoras.Common
             public const int Finart = 4;
         }
 
+        public static class MarcaNombre {
+            public const string LBel = "L'bel";
+            public const string Esika = "Ésika";
+        }
+
         public static class TipoCronograma
         {
             public const int Regular = 1;
@@ -385,6 +390,7 @@ namespace Portal.Consultoras.Common
             public const string UrlChatGT = "UrlChatGT";
             public const string UrlChatDefault = "UrlChatDefault";
             public const string TokenAtento = "TokenAtento_";
+            public const string URLCaminoExisto = "URLCaminoExisto";
 
             public const string EmailCodigoProceso = "EmailCodigoProceso";
             public const string NumeroCampanias = "NumeroCampanias";
@@ -2239,7 +2245,7 @@ namespace Portal.Consultoras.Common
 
         public class CambioCorreoResult
         {
-            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";
+            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";            
             public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
 
@@ -2432,12 +2438,12 @@ namespace Portal.Consultoras.Common
 
         public static class PagoEnLineaPasarelaPayu
         {
-            public const string MerchantId = "01";
-            public const string ApiLogin = "02";
-            public const string ApiKey = "03";
-            public const string AccountId = "04";
-            public const string Endpoint = "05";
-            public const string Test = "06";
+            public const string MerchantId = "PayuMerchantId";
+            public const string ApiLogin = "PayuApiLogin";
+            public const string ApiKey = "PayuApiKey";
+            public const string AccountId = "PayuAccountId";
+            public const string Endpoint = "PayuEndpoint";
+            public const string Test = "PayuTest";
         }
 
         public static class PagoEnLineaCampos
@@ -2457,6 +2463,7 @@ namespace Portal.Consultoras.Common
             public const string Country = "MX";
             public const string Currency = "MXN";
             public const string TransactionType = "AUTHORIZATION_AND_CAPTURE";
+            public const string DefaultCity = "Mexico";
         }
 
         public static class PagoEnLineaMensajes
@@ -2620,6 +2627,12 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CORREO_CAMBIO_NO_AUTORIZADO = "1101";
                 public const string ERROR_CORREO_VACIO = "1102";
                 public const string ERROR_CORREO_YA_EXISTE = "1103";
+
+                public const string ERROR_CORREO_ACTIVACION = "1201";
+                public const string ERROR_CORREO_ACTIVACION_NO_EXISTE = "1202";
+                public const string ERROR_CORREO_ACTIVACION_YA_ACTIVADA = "1203";
+                public const string ERROR_CORREO_ACTIVACION_DUPLICADO = "1204";
+                
             }
             public static Dictionary<string, string> Message
             {
@@ -2637,18 +2650,43 @@ namespace Portal.Consultoras.Common
 
                        {Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO,Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado},
                        {Code.ERROR_CORREO_VACIO,Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio},
-                       {Code.ERROR_CORREO_YA_EXISTE,Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste}
+                       {Code.ERROR_CORREO_YA_EXISTE,Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste},
+
+                       {Code.ERROR_CORREO_ACTIVACION,"No pudimos validar tu correo electrónico. Por favor, vuelve a intentar."},
+                       {Code.ERROR_CORREO_ACTIVACION_NO_EXISTE,"No pudimos validar tu correo electrónico. Por favor, vuelve a intentar."},
+                       {Code.ERROR_CORREO_ACTIVACION_YA_ACTIVADA,"Esta dirección de correo electrónico ya ha sido validada."},
+                       {Code.ERROR_CORREO_ACTIVACION_DUPLICADO,"La dirección de correo electrónico ingresada ya pertenece a otra Consultora."},
+
                    });
                 }
             }
-        }
 
+            public class VerificacionEmail
+            {
+                public const string UpsOcurrioUnProblema = "UPSS! OCURRIÓ UN PROBLEMA";
+                public const string TuCorreoYaFueValidado = "TU CORREO YA FUE VALIDADO";
+
+                public const string ComunicateConNosotros = "Para resolver el problema comunícate con nosotros al {0} o al {1}.";
+                public const string ComunicateConNosotrosAlt = "Para resolver el problema comunícate con nosotros al {0}.";
+
+                public const string VerificacionEmailValida = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.";
+            }
+
+        }
+        
         public static class RedireccionAndroidApp
         {
             public const string EsikaConmigo = "https://kpt22.app.goo.gl/esika";
             public const string LbelConmigo = "https://kpt22.app.goo.gl/lbel";
             public const string AppRedirectFormat = "IR AL APP {0} CONMIGO";
             public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
+        }
+
+        public class AceptacionContrato
+        {
+            public const string UrlDescargarContratoCO = "http://somosbelcorpprd.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
+            public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
+            public const string AcionesOmitidas = "ActualizarContrasenia";
         }
     }
 }

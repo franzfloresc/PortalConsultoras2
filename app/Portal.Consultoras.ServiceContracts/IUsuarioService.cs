@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -134,7 +135,7 @@ namespace Portal.Consultoras.ServiceContracts
         String AceptarContrato(BEUsuario usuario);
 
         [OperationContract]
-        int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen, string direccionIP, string InformacionSOMobile);
+        int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen, string direccionIP, string InformacionSOMobile, string imei, string deviceID);
 
         [OperationContract]
         List<BeReporteContrato> ReporteContratoAceptacion(int paisID, string codigoConsultora, string cedula, DateTime? FechaInicio, DateTime? FechaFin);
@@ -401,6 +402,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string CancelarAtualizacionEmail(int paisID, string codigoUsuario);
+
+        [OperationContract]
+        BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario);
 
         [OperationContract]
         List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
