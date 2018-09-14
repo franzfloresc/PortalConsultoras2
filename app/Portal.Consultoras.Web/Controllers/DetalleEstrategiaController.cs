@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -12,7 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
             return base.Ficha(palanca, campaniaId, cuv, origen);
         }
 
-        public JsonResult ObtenerComponentes(string estrategiaId, string cuv2,  string campania, string codigoVariante, string codigoEstrategia = "")
+        public JsonResult ObtenerComponentes(string estrategiaId, string cuv2,  string campania, string codigoVariante, string codigoEstrategia = "", List<EstrategiaComponenteModel> lstHermanos = null)
         {
             try
             {
@@ -21,16 +22,19 @@ namespace Portal.Consultoras.Web.Controllers
                     EstrategiaID = estrategiaId.ToInt(),
                     CUV2 = cuv2,
                     CampaniaID = campania.ToInt(),
-                    CodigoVariante = codigoVariante
+                    CodigoVariante = codigoVariante,
+                    Hermanos = lstHermanos
                 };
 
                 bool esMultimarca = false;
-                var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca);
+                string mensaje = "";
+                var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
 
                 return Json(new
                 {
                     esMultimarca,
-                    componentes
+                    componentes,
+                    mensaje
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)

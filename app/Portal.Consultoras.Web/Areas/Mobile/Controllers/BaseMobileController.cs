@@ -258,19 +258,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private void MostrarBannerApp()
         {
-            if (Session["OcultarBannerApp"] != null)
+            if ( sessionManager.GetOcultarBannerApp() != null)
             {
-                Session["BannerApp"] = null;
+                sessionManager.SetBannerApp(null);
                 return;
             }
 
-            if (Session["BannerApp"] == null)
+            if (sessionManager.GetBannerApp() == null)
             {
                 var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData);
-                Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
+                sessionManager.SetBannerApp(lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora));
             }
 
-            var oComunicados = (BEComunicado)Session["BannerApp"];
+            var oComunicados = sessionManager.GetBannerApp();
             if (oComunicados != null)
             {
                 ViewBag.MostrarBannerApp = true;

@@ -71,7 +71,8 @@
 
                     @if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
                     {
-                        if ((Model.Hermanos.Any()))
+                        if (Model.Hermanos != null && Model.Hermanos.Any())
+                        //if ((Model.Hermanos.Any()))
                         {
                             btnDesabled = 1;
                             <div class="content_tonos_producto" data-tono="" data-tono-select="" data-tono-digitable="1">
@@ -82,19 +83,19 @@
                                         <hr class="clear" />
                                     </div>
                                     <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
-                                        @foreach (var Hermano in Model.Hermanos)
+                                        @*@foreach (var Hermano in Model.Hermanos)
                                         {
                                             <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Hermano.CUV" data-tono-nombre="@Hermano.NombreBulk" data-tono-descripcion="@Hermano.NombreComercial">
                                                 <div class="tono_seleccionado"><img src="@Hermano.ImagenBulk" alt=""></div>
                                                 <div class="texto_tono_seleccionado">@Hermano.NombreBulk</div>
                                                 <hr class="clear" />
                                             </div>
-                                        }
+                                        }*@
                                     </div>
                                 </div>
                                 <hr class="clear">
                                 <div data-tono-div="">
-                                    @foreach (var Hermano in Model.Hermanos)
+                                    @*@foreach (var Hermano in Model.Hermanos)
                                     {
                                         <div style="display: none;">
                                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
@@ -103,7 +104,7 @@
                                         <div id="fav_tono_@Hermano.CUV" class="content_tono_detalle" data-tono-cuv="@Hermano.CUV" data-tono-change="2" data-tono-nombre="@Hermano.NombreBulk">
                                             <img src="@Hermano.ImagenBulk" alt="">
                                         </div>
-                                    }
+                                    }*@
                                 </div>
                                 <hr class="clear">
                             </div>
@@ -117,7 +118,7 @@
                         {
                             <div class="titulo_contenido">CONTENIDO</div>
                             <div class="@claseItem">
-                                @foreach (var Hermano in Model.Hermanos)
+                                @*@foreach (var Hermano in Model.Hermanos)
                                 {
                                     if ((Hermano.NombreComercial ?? "") == "" && Hermano.Digitable != 1)
                                     {
@@ -163,7 +164,7 @@
                                             <hr class="clear" />
                                         </div>
                                     </div>
-                                }
+                                }*@
                             </div>
                         }
 

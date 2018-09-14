@@ -460,9 +460,9 @@
     display: block;
 }
 .ficha_lineaencuentraproducto hr {
-    border-color: #000 !important;
+    border-color: #ccc !important;
 }
 
 .ficha_tabs {
-    border-top: 1px solid #ccc;
+    /*border-top: 1px solid #ccc;*/
 }
