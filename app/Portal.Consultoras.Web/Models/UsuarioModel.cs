@@ -388,7 +388,7 @@ namespace Portal.Consultoras.Web.Models
 
         public bool EsConsultora()
         {
-            return TipoUsuario == Constantes.TipoUsuario.Consultora;
+            return RolID == Constantes.Rol.Consultora;
         }        
 
         public int DiaFacturacion { get; set; }
