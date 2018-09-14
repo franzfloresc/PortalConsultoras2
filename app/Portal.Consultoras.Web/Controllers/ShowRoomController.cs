@@ -255,7 +255,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!ValidarIngresoShowRoom(false))
                     return ErrorJson(string.Empty);
-                
+
                 var listaOfertas = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
                 var totalOfertas = listaOfertas.Count;
 

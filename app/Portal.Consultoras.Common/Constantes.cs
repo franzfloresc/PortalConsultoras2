@@ -2546,6 +2546,9 @@ namespace Portal.Consultoras.Common
 
             //api/Componente/editar/{pais}/{tipo}
             public const string UrlUpdateOfertaShowRoomDetalleNew = "api/Componente/editar/{0}/{1}";
+
+            ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}
+            public const string UrlGetShowRoomOfertasConsultora = "/api/Oferta/{0}/{1}/{2}/{3}?codigoRegion={4}&codigoZona={5}";
             #endregion
 
             #region Oferta
@@ -2650,5 +2653,7 @@ namespace Portal.Consultoras.Common
             public const string AppRedirectFormat = "IR AL APP {0} CONMIGO";
             public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
         }
+
+
     }
 }
