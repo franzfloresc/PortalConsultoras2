@@ -6,6 +6,14 @@
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/ficha")
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/FichaEsika")
+    }
+    else
+    {
+        @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/FichaLbel")
+    }
 }
 
 @Html.Partial("_ElegirOpciones")
@@ -115,7 +123,7 @@
                         </div>
                         <div class="contenedor_derecho">
                             {{#iff Precio '>' 0}}
-                            <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                            <div class="precio_valorizado">Precio catálogo <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
                             {{/iff}}
 
                             <ul class="precio_venta_oferta_list">

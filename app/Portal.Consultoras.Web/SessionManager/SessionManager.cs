@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
@@ -115,12 +116,12 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session[Constantes.ConstSession.CDRWebDatos] = datos;
         }
         
-        public List<BEPedidoWeb> GetCdrPedidosFacturado()
+        public List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado()
         {
-            return (List<BEPedidoWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado];
+            return (List<ServicePedido.BEPedidoWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado];
         }
 
-        public void SetCdrPedidosFacturado(List<BEPedidoWeb> datos)
+        public void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos)
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado] = datos;
         }
@@ -278,10 +279,18 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session["IsContrato"] = isContrato;
         }
-
         int ISessionManager.GetIsContrato()
         {
             return (int)HttpContext.Current.Session["IsContrato"];
+        }
+
+        void ISessionManager.SetAceptoContrato(bool aceptoContrato)
+        {
+            HttpContext.Current.Session["AceptoContrato"] = aceptoContrato;
+        }
+        bool ISessionManager.GetAceptoContrato()
+        {
+            return (bool)(HttpContext.Current.Session["AceptoContrato"] ?? false);
         }
 
         void ISessionManager.SetIsOfertaPack(int isOfertaPack)
@@ -487,9 +496,9 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<ServiceSAC.BETablaLogicaDatos>)HttpContext.Current.Session["ListFiltersFAV"];
         }
 
-        void ISessionManager.SetStartSession(DateTime fecha)
+        void ISessionManager.SetStartSession(DateTime startSession)
         {
-            HttpContext.Current.Session["StartSession"] = fecha;
+            HttpContext.Current.Session["StartSession"] = startSession;
         }
 
         DateTime ISessionManager.GetStartSession()
@@ -554,7 +563,25 @@ namespace Portal.Consultoras.Web.SessionManager
 
         public int GetMiAcademia()
         {
-            return (int)HttpContext.Current.Session["MiAcademia"];
+            if (HttpContext.Current.Session["MiAcademia"] != null)
+
+                return (int)HttpContext.Current.Session["MiAcademia"];
+            else
+                return 0;
+        }
+
+        public void SetMiAcademiaVideo(int value)
+        {
+            HttpContext.Current.Session["FlagAcademiaVideo"] = value;
+        }
+
+        public int GetMiAcademiaVideo()
+        {
+            if (HttpContext.Current.Session["FlagAcademiaVideo"] != null)
+
+                return (int)HttpContext.Current.Session["FlagAcademiaVideo"];
+            else
+                return 0;
         }
 
         void ISessionManager.setBEUsuarioModel(List<ServiceUsuario.BEUsuario> model)
@@ -602,6 +629,631 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             get { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
             set { HttpContext.Current.Session["CuvKitNuevas"] = value; }
+        }
+
+        // -----------------------------------
+
+        void ISessionManager.SetOcultarBannerApp(dynamic val) {
+            HttpContext.Current.Session["OcultarBannerApp"] = val;
+        }
+
+        dynamic ISessionManager.GetOcultarBannerApp() {
+            return (dynamic)(HttpContext.Current.Session["OcultarBannerApp"]);
+        }
+
+        void ISessionManager.SetBannerApp(BEComunicado val)
+        {
+            HttpContext.Current.Session["BannerApp"] = val;
+        }
+
+        BEComunicado ISessionManager.GetBannerApp()
+        {
+            return (BEComunicado)(HttpContext.Current.Session["BannerApp"]);
+        }
+
+        void ISessionManager.SetPrimeraVezSessionMobile(dynamic val)
+        {
+            HttpContext.Current.Session["PrimeraVezSessionMobile"] = val;
+        }
+
+        dynamic ISessionManager.GetPrimeraVezSessionMobile()
+        {
+            return (dynamic)HttpContext.Current.Session["PrimeraVezSessionMobile"];
+        }
+
+        void ISessionManager.SetIngresoPortalConsultoras(bool val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.IngresoPortalConsultoras] = val;
+        }
+
+        dynamic ISessionManager.GetIngresoPortalConsultoras()
+        {
+            return (dynamic)HttpContext.Current.Session[Constantes.ConstSession.IngresoPortalConsultoras];
+        }
+
+        void ISessionManager.SetConsultoraNuevaBannerAppMostrar(dynamic val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] = val;
+        }
+
+        bool ISessionManager.GetConsultoraNuevaBannerAppMostrar()
+        {
+            var val = HttpContext.Current.Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar];
+            if (val == null) { return false; }
+            return (bool)val;
+        }
+
+        void ISessionManager.SetTipoPopUpMostrar(int val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TipoPopUpMostrar] = val;
+        }
+
+        int ISessionManager.GetTipoPopUpMostrar()
+        {
+            var val = HttpContext.Current.Session[Constantes.ConstSession.TipoPopUpMostrar];
+            if (val == null) { return -1; }
+            return (int)val;
+        }
+        
+        void ISessionManager.SetClientesByConsultora(List<ServiceCliente.BECliente> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.ClientesByConsultora] = val;
+        }
+
+        List<ServiceCliente.BECliente> ISessionManager.GetClientesByConsultora()
+        {
+            var val = (List<ServiceCliente.BECliente>)HttpContext.Current.Session[Constantes.ConstSession.ClientesByConsultora];
+            return val;
+        }
+
+        void ISessionManager.SetProductosCatalogoPersonalizado(List<ProductoModel> val)
+        {
+            HttpContext.Current.Session["ProductosCatalogoPersonalizado"] = val;
+        }
+
+        List<ProductoModel> ISessionManager.GetProductosCatalogoPersonalizado()
+        {
+            var val = HttpContext.Current.Session["ProductosCatalogoPersonalizado"];
+
+            return (List<ProductoModel>)val;
+        }
+
+        void ISessionManager.SetobjMisPedidos(MisPedidosModel val)
+        {
+            HttpContext.Current.Session["objMisPedidos"] = val;
+        }
+
+        MisPedidosModel ISessionManager.GetobjMisPedidos()
+        {
+            var val = HttpContext.Current.Session["objMisPedidos"];
+
+            return (MisPedidosModel)val;
+        }
+
+        void ISessionManager.SetobjMisPedidosDetalle(List<BEMisPedidosDetalle> val)
+        {
+            HttpContext.Current.Session["objMisPedidosDetalle"] = val;
+        }
+
+        List<BEMisPedidosDetalle> ISessionManager.GetobjMisPedidosDetalle()
+        {
+            var val = HttpContext.Current.Session["objMisPedidosDetalle"];
+
+            return (List<BEMisPedidosDetalle>)val;
+        }
+
+        void ISessionManager.SetobjMisPedidosDetalleVal(List<ServiceODS.BEProducto> val)
+        {
+            HttpContext.Current.Session["objMisPedidosDetalleVal"] = val;
+        }
+
+        List<ServiceODS.BEProducto> ISessionManager.GetobjMisPedidosDetalleVal()
+        {
+            var val = HttpContext.Current.Session["objMisPedidosDetalleVal"];
+
+            return (List<ServiceODS.BEProducto>)val;
+        }
+
+        void ISessionManager.SetkeyFechaGetCantidadPedidos(dynamic val)
+        {
+            HttpContext.Current.Session["keyFechaGetCantidadPedidos"] = val;
+        }
+
+        dynamic ISessionManager.GetkeyFechaGetCantidadPedidos()
+        {
+            var val = HttpContext.Current.Session["keyFechaGetCantidadPedidos"];
+
+            return (dynamic)val;
+        }
+
+        void ISessionManager.SetkeyCantidadGetCantidadPedidos(dynamic val)
+        {
+            HttpContext.Current.Session["keyCantidadGetCantidadPedidos"] = val;
+        }
+
+        dynamic ISessionManager.GetkeyCantidadGetCantidadPedidos()
+        {
+            var val = HttpContext.Current.Session["keyCantidadGetCantidadPedidos"];
+
+            return (dynamic)val;
+        }
+
+        void ISessionManager.SetFichaProductoTemporal(FichaProductoDetalleModel val)
+        {
+            HttpContext.Current.Session[Constantes.SessionNames.FichaProductoTemporal] = val;
+        }
+
+        FichaProductoDetalleModel ISessionManager.GetFichaProductoTemporal()
+        {
+            var val = HttpContext.Current.Session[Constantes.SessionNames.FichaProductoTemporal];
+
+            return (FichaProductoDetalleModel)val;
+        }
+        void ISessionManager.SetCDRCampanias(List<CampaniaModel> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias] = val;
+        }
+
+        List<CampaniaModel> ISessionManager.GetCDRCampanias()
+        {
+            var val = HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias];
+
+            return (List<CampaniaModel>)val;
+        }
+
+        void ISessionManager.SetListaCDRDetalle(CDRWebModel val)
+        {
+            HttpContext.Current.Session["ListaCDRDetalle"] = val;
+        }
+
+        CDRWebModel ISessionManager.GetListaCDRDetalle()
+        {
+            var val = HttpContext.Current.Session["ListaCDRDetalle"];
+
+            return (CDRWebModel)val;
+        }
+
+        void ISessionManager.SetfechaGetNotificacionesSinLeer(dynamic val)
+        {
+            HttpContext.Current.Session["fechaGetNotificacionesSinLeer"] = val;
+        }
+
+        dynamic ISessionManager.GetfechaGetNotificacionesSinLeer()
+        {
+            var val = HttpContext.Current.Session["fechaGetNotificacionesSinLeer"];
+
+            return (dynamic)val;
+        }
+
+        void ISessionManager.SetcantidadGetNotificacionesSinLeer(dynamic val)
+        {
+            HttpContext.Current.Session["cantidadGetNotificacionesSinLeer"] = val;
+        }
+
+        dynamic ISessionManager.GetcantidadGetNotificacionesSinLeer()
+        {
+            var val = HttpContext.Current.Session["cantidadGetNotificacionesSinLeer"];
+
+            return (dynamic)val;
+        }
+
+        void ISessionManager.SetPedidoFIC(List<BEPedidoFICDetalle> val)
+        {
+            HttpContext.Current.Session["PedidoFIC"] = val;
+        }
+
+        List<BEPedidoFICDetalle> ISessionManager.GetPedidoFIC()
+        {
+            var val = HttpContext.Current.Session["PedidoFIC"];
+
+            return (List<BEPedidoFICDetalle>)val;
+        }
+
+        void ISessionManager.SetListaProductoFaltantes(List<BEProductoFaltante> val)
+        {
+            HttpContext.Current.Session["ListaProductoFaltantes"] = val;
+        }
+
+        List<BEProductoFaltante> ISessionManager.GetListaProductoFaltantes()
+        {
+            var val = HttpContext.Current.Session["ListaProductoFaltantes"];
+
+            return (List<BEProductoFaltante>)val;
+        }
+
+        void ISessionManager.SetPrimeraVezSession(dynamic val)
+        {
+            HttpContext.Current.Session["PrimeraVezSession"] = val;
+        }
+
+        dynamic ISessionManager.GetPrimeraVezSession()
+        {
+            var val = HttpContext.Current.Session["PrimeraVezSession"];
+
+            return (dynamic)val;
+        }
+
+        void ISessionManager.SetTokenPedidoAutentico(string val)
+        {
+            HttpContext.Current.Session["TokenPedidoAutentico"] = val;
+        }
+
+        string ISessionManager.GetTokenPedidoAutentico()
+        {
+            var val = HttpContext.Current.Session["TokenPedidoAutentico"];
+            if (val == null) { return ""; }
+            return (string)val;
+        }
+
+        void ISessionManager.Setentradas(List<AdministrarFeErratasModel> val)
+        {
+            HttpContext.Current.Session["entradas"] = val;
+        }
+
+        List<AdministrarFeErratasModel> ISessionManager.Getentradas()
+        {
+            var val = HttpContext.Current.Session["entradas"];
+
+            return (List<AdministrarFeErratasModel>)val;
+        }
+
+        void ISessionManager.SetcarpetaPais(string val)
+        {
+            HttpContext.Current.Session["carpetaPais"] = val;
+        }
+
+        string ISessionManager.GetcarpetaPais()
+        {
+            var val = HttpContext.Current.Session["carpetaPais"];
+            if (val == null) { return ""; }
+            return (string)val;
+        }
+
+        void ISessionManager.SetCDRMotivoOperacion(List<BECDRWebMotivoOperacion> val)
+        {
+            HttpContext.Current.Session["CDRMotivoOperacion"] = val;
+        }
+
+        List<BECDRWebMotivoOperacion> ISessionManager.GetCDRMotivoOperacion()
+        {
+            var val = HttpContext.Current.Session["CDRMotivoOperacion"];
+
+            return (List<BECDRWebMotivoOperacion>)val;
+        }
+
+        void ISessionManager.SetCDRWebDatos(List<BECDRWebDatos> val)
+        {
+            HttpContext.Current.Session["CDRWebDatos"] = val;
+        }
+
+        List<BECDRWebDatos> ISessionManager.GetCDRWebDatos()
+        {
+            var val = HttpContext.Current.Session["CDRWebDatos"];
+
+            return (List<BECDRWebDatos>)val;
+        }
+
+        void ISessionManager.SetCDRDescripcion(List<BECDRWebDescripcion> val)
+        {
+            HttpContext.Current.Session["CDRDescripcion"] = val;
+        }
+
+        List<BECDRWebDescripcion> ISessionManager.GetCDRDescripcion()
+        {
+            var val = HttpContext.Current.Session["CDRDescripcion"];
+
+            return (List<BECDRWebDescripcion>)val;
+        }
+
+        void ISessionManager.SetCDRParametria(List<BECDRParametria> val)
+        {
+            HttpContext.Current.Session["CDRParametria"] = val;
+        }
+
+        List<BECDRParametria> ISessionManager.GetCDRParametria()
+        {
+            var val = HttpContext.Current.Session["CDRParametria"];
+
+            return (List<BECDRParametria>)val;
+        }
+
+        void ISessionManager.SetListaProductoShowRoom(List<BEShowRoomOferta> val)
+        {
+            HttpContext.Current.Session["ListaProductoShowRoom"] = val;
+        }
+
+        List<BEShowRoomOferta> ISessionManager.GetListaProductoShowRoom()
+        {
+            var val = HttpContext.Current.Session["ListaProductoShowRoom"];
+
+            return (List<BEShowRoomOferta>)val;
+        }
+
+        void ISessionManager.SetResultadoZona(dynamic val)
+        {
+            HttpContext.Current.Session["ResultadoZona"] = val;
+        }
+
+        dynamic ISessionManager.GetResultadoZona()
+        {
+            var val = HttpContext.Current.Session["ResultadoZona"];
+
+            return (dynamic)val;
+        }
+
+        void ISessionManager.SetListaProductoShowRoomCpc(List<BEShowRoomOferta> val)
+        {
+            HttpContext.Current.Session["ListaProductoShowRoomCpc"] = val;
+        }
+
+        List<BEShowRoomOferta> ISessionManager.GetListaProductoShowRoomCpc()
+        {
+            var val = HttpContext.Current.Session["ListaProductoShowRoomCpc"];
+
+            return (List<BEShowRoomOferta>)val;
+        }
+
+        void ISessionManager.SetActualizarDatosConsultora(bool val)
+        {
+            HttpContext.Current.Session["ActualizarDatosConsultora"] = val;
+        }
+
+        bool ISessionManager.GetActualizarDatosConsultora()
+        {
+            var val = HttpContext.Current.Session["ActualizarDatosConsultora"];
+            if (val == null) { return false; }
+            return (bool)val;
+        }
+
+        void ISessionManager.SetSuenioNavidad(int val)
+        {
+            HttpContext.Current.Session["SuenioNavidad"] = val;
+        }
+
+        int ISessionManager.GetSuenioNavidad()
+        {
+            var val = HttpContext.Current.Session["SuenioNavidad"];
+            if (val == null) { return -1; }
+            return (int)val;
+        }
+
+        void ISessionManager.SetUserFiltersFAV(List<FiltroResultadoModel> val)
+        {
+            HttpContext.Current.Session["UserFiltersFAV"] = val;
+        }
+
+        List<FiltroResultadoModel> ISessionManager.GetUserFiltersFAV()
+        {
+            var val = HttpContext.Current.Session["UserFiltersFAV"];
+
+            return (List<FiltroResultadoModel>)val;
+        }
+
+        void ISessionManager.SetProductosCatalogoPersonalizadoFilter(List<ProductoModel> val)
+        {
+            HttpContext.Current.Session["ProductosCatalogoPersonalizadoFilter"] = val;
+        }
+
+        List<ProductoModel> ISessionManager.GetProductosCatalogoPersonalizadoFilter()
+        {
+            var val = HttpContext.Current.Session["ProductosCatalogoPersonalizadoFilter"];
+
+            return (List<ProductoModel>)val;
+        }
+
+        void ISessionManager.SetPaisID(int val)
+        {
+            HttpContext.Current.Session["PaisID"] = val;
+        }
+
+        int ISessionManager.GetPaisID()
+        {
+            var val = HttpContext.Current.Session["PaisID"];
+            if (val == null) { return 0; }
+            return (int)val;
+        }
+
+        void ISessionManager.SetlstZonasActivas(List<ZonaModel> val)
+        {
+            HttpContext.Current.Session["lstZonasActivas"] = val;
+        }
+
+        List<ZonaModel> ISessionManager.GetlstZonasActivas()
+        {
+            var val = HttpContext.Current.Session["lstZonasActivas"];
+
+            return (List<ZonaModel>)val;
+        }
+
+        void ISessionManager.SetlstZonasInactivas(List<ZonaModel> val)
+        {
+            HttpContext.Current.Session["lstZonasInactivas"] = val;
+        }
+
+        List<ZonaModel> ISessionManager.GetlstZonasInactivas()
+        {
+            var val = HttpContext.Current.Session["lstZonasInactivas"];
+
+            return (List<ZonaModel>)val;
+        }
+
+        void ISessionManager.SetZonaCodigoEliminar(string val)
+        {
+            HttpContext.Current.Session["ZonaCodigoEliminar"] = val;
+        }
+
+        string ISessionManager.GetZonaCodigoEliminar()
+        {
+            var val = HttpContext.Current.Session["ZonaCodigoEliminar"];
+            if (val == null) { return ""; }
+            return (string)val;
+        }
+
+        void ISessionManager.SetIngresoPortalLideres(bool val)
+        {
+            HttpContext.Current.Session["IngresoPortalLideres"] = val;
+        }
+
+        bool ISessionManager.GetIngresoPortalLideres()
+        {
+            var val = HttpContext.Current.Session["IngresoPortalLideres"];
+            if (val == null) { return false; }
+            return (bool)val;
+        }
+
+        void ISessionManager.Seterrores(List<MatrizCampaniaModel> val)
+        {
+            HttpContext.Current.Session["errores"] = val;
+        }
+
+        List<MatrizCampaniaModel> ISessionManager.Geterrores()
+        {
+            var val = HttpContext.Current.Session["errores"];
+
+            return (List<MatrizCampaniaModel>)val;
+        }
+
+        void ISessionManager.SetMisPedidosDetallePorCampania(List<BEPedidoWebDetalle> val)
+        {
+            HttpContext.Current.Session["MisPedidosDetallePorCampania"] = val;
+        }
+
+        List<BEPedidoWebDetalle> ISessionManager.GetMisPedidosDetallePorCampania()
+        {
+            var val = HttpContext.Current.Session["MisPedidosDetallePorCampania"];
+            return (List<BEPedidoWebDetalle>)val;
+        }
+
+        void ISessionManager.SetMisPedidosDetallePorCampaniaCampania(string val)
+        {
+            HttpContext.Current.Session["MisPedidosDetallePorCampaniaCampania"] = val;
+        }
+
+        string ISessionManager.GetMisPedidosDetallePorCampaniaCampania()
+        {
+            var val = HttpContext.Current.Session["MisPedidosDetallePorCampaniaCampania"];
+            if (val == null) { return ""; }
+            return (string)val;
+        }
+
+        void ISessionManager.SetMisPedidosDetallePorCampaniaEstado(string val)
+        {
+            HttpContext.Current.Session["MisPedidosDetallePorCampaniaEstado"] = val;
+        }
+
+        string ISessionManager.GetMisPedidosDetallePorCampaniaEstado()
+        {
+            var val = HttpContext.Current.Session["MisPedidosDetallePorCampaniaEstado"];
+            if (val == null) { return ""; }
+            return (string)val;
+        }
+
+        void ISessionManager.SetMisPedidosDetallePorCampaniaPedidoId(int val)
+        {
+            HttpContext.Current.Session["MisPedidosDetallePorCampaniaPedidoId"] = val;
+        }
+
+        int ISessionManager.GetMisPedidosDetallePorCampaniaPedidoId()
+        {
+            var val = HttpContext.Current.Session["MisPedidosDetallePorCampaniaPedidoId"];
+            if (val == null) { return 0; }
+            return (int)val;
+        }
+
+        void ISessionManager.SetCDRExpressMensajes(List<BETablaLogicaDatos> val)
+        {
+            HttpContext.Current.Session["CDRExpressMensajes"] = val;
+        }
+
+        List<BETablaLogicaDatos> ISessionManager.GetCDRExpressMensajes()
+        {
+            var val = HttpContext.Current.Session["CDRExpressMensajes"];
+
+            return (List<BETablaLogicaDatos>)val;
+        }
+
+        void ISessionManager.SetCuvEsProgramaNuevas(bool val)
+        {
+            HttpContext.Current.Session["CuvEsProgramaNuevas"] = val;
+        }
+
+        bool ISessionManager.GetCuvEsProgramaNuevas()
+        {
+            var val = HttpContext.Current.Session["CuvEsProgramaNuevas"];
+            if (val == null) { return false; }
+            return (bool)val;
+        }
+
+        void ISessionManager.SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas val)
+        {
+            HttpContext.Current.Session["ConfiguracionProgramaNuevas"] = val;
+        }
+
+        BEConfiguracionProgramaNuevas ISessionManager.GetConfiguracionProgramaNuevas()
+        {
+            var val = HttpContext.Current.Session["ConfiguracionProgramaNuevas"];
+
+            return (BEConfiguracionProgramaNuevas)val;
+        }
+
+        void ISessionManager.SetOcultarBannerTop(bool val)
+        {
+            HttpContext.Current.Session["OcultarBannerTop"] = val;
+        }
+
+        bool ISessionManager.GetOcultarBannerTop()
+        {
+            var val = HttpContext.Current.Session["OcultarBannerTop"];
+            if (val == null) { return false; }
+            return (bool)val;
+        }
+
+        void ISessionManager.SetPedidoWebDDDetalle(List<BEPedidoDDWeb> val)
+        {
+            HttpContext.Current.Session["PedidoWebDDDetalle"] = val;
+        }
+
+        List<BEPedidoDDWeb> ISessionManager.GetPedidoWebDDDetalle()
+        {
+            var val = HttpContext.Current.Session["PedidoWebDDDetalle"];
+
+            return (List<BEPedidoDDWeb>)val;
+        }
+
+        void ISessionManager.SetPedidoWebDDDetalleConf(string val)
+        {
+            HttpContext.Current.Session["PedidoWebDDDetalleConf"] = val;
+        }
+
+        string ISessionManager.GetPedidoWebDDDetalleConf()
+        {
+            var val = HttpContext.Current.Session["PedidoWebDDDetalleConf"];
+            if (val == null) { return ""; }
+            return (string)val;
+        }
+
+        void ISessionManager.SetListaIndividual(List<List<BEEstadoServicio>> val)
+        {
+            HttpContext.Current.Session["ListaIndividual"] = val;
+        }
+
+        List<List<BEEstadoServicio>> ISessionManager.GetListaIndividual()
+        {
+            var val = HttpContext.Current.Session["ListaIndividual"];
+
+            return (List<List<BEEstadoServicio>>)val;
+        }
+
+        void ISessionManager.SetListaRango(List<List<BEEstadoServicio>> val)
+        {
+            HttpContext.Current.Session["ListaRango"] = val;
+        }
+
+        List<List<BEEstadoServicio>> ISessionManager.GetListaRango()
+        {
+            var val = HttpContext.Current.Session["ListaRango"];
+
+            return (List<List<BEEstadoServicio>>)val;
         }
 
         public void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel)

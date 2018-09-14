@@ -86,7 +86,6 @@ namespace Portal.Consultoras.Web.Providers
                     DescripcionCortada = fichaProducto.DescripcionCortada,
                     DescripcionDetalle = fichaProducto.DescripcionDetalle,
                     DescripcionCompleta = fichaProducto.DescripcionCUV2.Split('|')[0],
-                    //Simbolo = userData.Simbolo,
                     Precio = fichaProducto.Precio,
                     Precio2 = fichaProducto.Precio2,
                     PrecioTachado = fichaProducto.PrecioTachado,
@@ -216,7 +215,8 @@ namespace Portal.Consultoras.Web.Providers
                 };
 
                 bool esMultimarca = false;
-                fichaProductoModelo.Hermanos = _estrategiaComponente.GetListaComponentes(estrategiaModelo, string.Empty, out esMultimarca);
+                string mensaje = "";
+                fichaProductoModelo.Hermanos = _estrategiaComponente.GetListaComponentes(estrategiaModelo, string.Empty, out esMultimarca, out mensaje);
             }
             catch (Exception ex)
             {

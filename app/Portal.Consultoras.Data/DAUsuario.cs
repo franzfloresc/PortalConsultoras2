@@ -3,7 +3,6 @@ using Portal.Consultoras.Entities.OpcionesVerificacion;
 using System;
 using System.Data;
 using System.Data.Common;
-using Portal.Consultoras.Entities.OpcionesVerificacion;
 
 namespace Portal.Consultoras.Data
 {
@@ -831,8 +830,6 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetOpcionHabilitada(string CodigoUsuario, int OrigenID)
         {
-            //var objFlag = new BEUsuarioCorreo();
-
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetHabilitaOpcion");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, OrigenID);
@@ -915,6 +912,15 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
             return Context.ExecuteScalar(command).ToString();
         }
+
+        public IDataReader GetDireccionConsultora(string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerDireccionConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader ListaProductos(int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("TraerCuvsParaPruebas");

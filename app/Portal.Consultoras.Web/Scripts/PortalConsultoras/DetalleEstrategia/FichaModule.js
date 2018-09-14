@@ -274,6 +274,7 @@ var FichaModule = (function (config) {
                 dfd.resolve(data);
             },
             error: function (data, error) {
+                console.log(data, error);
                 dfd.reject(data, error);
             }
         });
@@ -380,6 +381,7 @@ var FichaModule = (function (config) {
             estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
             var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
             var estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0];
+            
             if (!isMobile()) {
                 if (palabrasEstrategiaDescripcion.length > 1)
                     estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[1];
@@ -387,7 +389,7 @@ var FichaModule = (function (config) {
                     estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[2];
                 if (palabrasEstrategiaDescripcion.length > 3) estrategiaBreadcrumb += "...";
             } else {
-                if (palabrasEstrategiaDescripcion.length > 1) estrategiaBreadcrumb += "...";
+                if (estrategia.DescripcionCompleta.length > 7) estrategiaBreadcrumb = estrategia.DescripcionCompleta.substr(0, 7) + "...";
             }
 
             $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
@@ -526,7 +528,7 @@ var FichaModule = (function (config) {
         var estrategia = _getEstrategia();
 
         if (estrategia == null) {
-            window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
+            window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
             return false;
         }
 

@@ -19,6 +19,11 @@ namespace Portal.Consultoras.Common
             public const int Finart = 4;
         }
 
+        public static class MarcaNombre {
+            public const string LBel = "L'bel";
+            public const string Esika = "Ésika";
+        }
+
         public static class TipoCronograma
         {
             public const int Regular = 1;
@@ -348,6 +353,7 @@ namespace Portal.Consultoras.Common
         public static class ConfiguracionManager
         {
             public const string PaisesEsika = "PaisesEsika";
+            public const string PaisesLBel = "PaisesLBel";
             public const string PaisesConTrackingJetlore = "PaisesConTrackingJetlore";
             public const string PaisesCatalogoWhatsUp = "PaisesCatalogoWhatsUp";
             public const string PaisesConPcm = "PaisesConPcm";
@@ -384,6 +390,7 @@ namespace Portal.Consultoras.Common
             public const string UrlChatGT = "UrlChatGT";
             public const string UrlChatDefault = "UrlChatDefault";
             public const string TokenAtento = "TokenAtento_";
+            public const string URLCaminoExisto = "URLCaminoExisto";
 
             public const string EmailCodigoProceso = "EmailCodigoProceso";
             public const string NumeroCampanias = "NumeroCampanias";
@@ -432,7 +439,8 @@ namespace Portal.Consultoras.Common
             public const string URL_ABCProductos = "URL_ABCProductos";
             public const string secret_key = "secret_key";
             public const string UrlLMS = "UrlLMS";
-            public const string CursosMarquesina = "CursosMarquesina";
+            public const string CursosMarquesina = "CursosMarquesina"; 
+            public const string UrlCursoMiAcademiaVideo = "UrlCursoMiAcademiaVideo";
             public const string UrlMisCursos = "UrlMisCursos";
             public const string TokenMisCursos = "TokenMisCursos";
             public const string UrlCursoMiAcademia = "UrlCursoMiAcademia";
@@ -464,6 +472,8 @@ namespace Portal.Consultoras.Common
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
             public const string MenuCondicionesDescripcionMx = "TÉRMINOS Y CONDICIONES";
 
+            public const string ORDEN_COMPONENTES_FICHA_ESIKA = "ORDEN_COMPONENTES_FICHA_ESIKA";
+            public const string ORDEN_COMPONENTES_FICHA_LBEL = "ORDEN_COMPONENTES_FICHA_LBEL";
             public const string UrlImagenEsika = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca.png";
             public const string UrlImagenLbel = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca-lbel.png";
             public const string ColorTemaEsika = "#e81c36";
@@ -833,6 +843,8 @@ namespace Portal.Consultoras.Common
         public static class BackOrder
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
+            public const string mensajeBackOrderDestokp = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
+            public const string mensajeBackOrderMobile  = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
         }
 
         public static class EstadoCDRWeb
@@ -1109,6 +1121,11 @@ namespace Portal.Consultoras.Common
             public const string LiquidacionWeb = "LIQUIDACIONWEB";
             public const string CambiosDevoluciones = "CAMBIODEVOLUCIONES";
             public const string PedidosFIC = "PEDIDOSFIC";
+            public const string DetalleEstrategia = "DETALLEESTRATEGIA";
+        }
+
+        public static class IngresoExternoOrigen {
+            public const string App = "4";
         }
 
         public static class EstadoCuentaTipoMovimiento
@@ -1840,7 +1857,7 @@ namespace Portal.Consultoras.Common
             public const string SwIntriga = "/showroom/intriga";
             public const string SwDetalle = "/showroom/detalleoferta";
             public const string SwPersonalizado = "/showroom/personalizado";
-            public const string OptDetalle = "/ofertasparati/detalle";
+            //public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
             public const string GuiaDeNegocio = "/guianegocio";
@@ -1849,6 +1866,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
 
+            // Url Ficha
             public const string DetalleHerramientasVenta = "/detalle/demostradores";
             public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
             public const string DetalleOfertaParaTi = "/detalle/ofertaparati";
@@ -2128,8 +2146,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_RESERVA_MONTO_MAX, "Pedido no reservado, excede monto máximo." },
                         {Code.ERORR_RESERVA_NO_DISP, "Reserva no disponible." },
                         {Code.ERROR_RESERVA_DEUDA, "Pedido no reservado, deuda pendiente." },
-                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?"},
-
+                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"}, 
                         {Code.ERROR_GUARDAR_NINGUNO, "El pedido no se guardó." },
                         {Code.SUCCESS_GUARDAR, "Pedido guardado." },
                         {Code.SUCCESS_GUARDAR_OBS, "Pedido guardado, productos con observaciones." },
@@ -2225,7 +2242,7 @@ namespace Portal.Consultoras.Common
 
         public class CambioCorreoResult
         {
-            public const string Valido = "Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.";
+            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";            
             public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
 
@@ -2418,12 +2435,12 @@ namespace Portal.Consultoras.Common
 
         public static class PagoEnLineaPasarelaPayu
         {
-            public const string MerchantId = "01";
-            public const string ApiLogin = "02";
-            public const string ApiKey = "03";
-            public const string AccountId = "04";
-            public const string Endpoint = "05";
-            public const string Test = "06";
+            public const string MerchantId = "PayuMerchantId";
+            public const string ApiLogin = "PayuApiLogin";
+            public const string ApiKey = "PayuApiKey";
+            public const string AccountId = "PayuAccountId";
+            public const string Endpoint = "PayuEndpoint";
+            public const string Test = "PayuTest";
         }
 
         public static class PagoEnLineaCampos
@@ -2443,6 +2460,7 @@ namespace Portal.Consultoras.Common
             public const string Country = "MX";
             public const string Currency = "MXN";
             public const string TransactionType = "AUTHORIZATION_AND_CAPTURE";
+            public const string DefaultCity = "Mexico";
         }
 
         public static class PagoEnLineaMensajes
@@ -2552,6 +2570,87 @@ namespace Portal.Consultoras.Common
             public const string CaracteresBuscador = "CaracteresBuscador";
             public const string CaracteresBuscadorMostrar = "CaracteresBuscadorMostrar";
             public const string TotalResultadosBuscador = "TotalResultadosBuscador";
+        }
+
+        public static class ActualizacionDatosValidacion
+        {
+            public const string ExpresionCelular = "^\\d+$";
+            public const string CambioCorreoPendiente = "1";
+
+            private static Dictionary<string, string> _Message;
+            public static class Code
+            {
+                public const string SUCCESS = "0000";
+                public const string ERROR_INTERNO = "9999";
+
+                public const string ERROR_CELULAR_LONGITUD = "1001";
+                public const string ERROR_CELULAR_INVALIDO = "1002";
+                public const string ERROR_CELULAR_USADO = "1003";
+                public const string ERROR_CELULAR_PRIMER_DIGITO = "1004";
+
+                public const string ERROR_CORREO_CAMBIO_NO_AUTORIZADO = "1101";
+                public const string ERROR_CORREO_VACIO = "1102";
+                public const string ERROR_CORREO_YA_EXISTE = "1103";
+
+                public const string ERROR_CORREO_ACTIVACION = "1201";
+                public const string ERROR_CORREO_ACTIVACION_NO_EXISTE = "1202";
+                public const string ERROR_CORREO_ACTIVACION_YA_ACTIVADA = "1203";
+                public const string ERROR_CORREO_ACTIVACION_DUPLICADO = "1204";
+                
+            }
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                   {
+                       {Code.SUCCESS, "OK"},
+                       {Code.ERROR_INTERNO, string.Empty},
+
+                       {Code.ERROR_CELULAR_LONGITUD, "El número debe tener {0} dígitos."},
+                       {Code.ERROR_CELULAR_INVALIDO, "No es un número válido."},
+                       {Code.ERROR_CELULAR_USADO, "El celular ingresado ya está registrado para otra consultora."},
+                       {Code.ERROR_CELULAR_PRIMER_DIGITO, "El número debe empezar por {0}."},
+
+                       {Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO,Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado},
+                       {Code.ERROR_CORREO_VACIO,Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio},
+                       {Code.ERROR_CORREO_YA_EXISTE,Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste},
+
+                       {Code.ERROR_CORREO_ACTIVACION,"No pudimos validar tu correo electrónico. Por favor, vuelve a intentar."},
+                       {Code.ERROR_CORREO_ACTIVACION_NO_EXISTE,"No pudimos validar tu correo electrónico. Por favor, vuelve a intentar."},
+                       {Code.ERROR_CORREO_ACTIVACION_YA_ACTIVADA,"Esta dirección de correo electrónico ya ha sido validada."},
+                       {Code.ERROR_CORREO_ACTIVACION_DUPLICADO,"La dirección de correo electrónico ingresada ya pertenece a otra Consultora."},
+
+                   });
+                }
+            }
+
+            public class VerificacionEmail
+            {
+                public const string UpsOcurrioUnProblema = "UPSS! OCURRIÓ UN PROBLEMA";
+                public const string TuCorreoYaFueValidado = "TU CORREO YA FUE VALIDADO";
+
+                public const string ComunicateConNosotros = "Para resolver el problema comunícate con nosotros al {0} o al {1}.";
+                public const string ComunicateConNosotrosAlt = "Para resolver el problema comunícate con nosotros al {0}.";
+
+                public const string VerificacionEmailValida = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.";
+            }
+
+        }
+        
+        public static class RedireccionAndroidApp
+        {
+            public const string EsikaConmigo = "https://kpt22.app.goo.gl/esika";
+            public const string LbelConmigo = "https://kpt22.app.goo.gl/lbel";
+            public const string AppRedirectFormat = "IR AL APP {0} CONMIGO";
+            public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
+        }
+
+        public class AceptacionContrato
+        {
+            public const string UrlDescargarContratoCO = "http://somosbelcorpprd.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
+            public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
+            public const string AcionesOmitidas = "ActualizarContrasenia";
         }
     }
 }

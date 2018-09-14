@@ -95,17 +95,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.CambioClave = userData.CambioClave;
 
-                if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
+                if (sessionManager.GetIngresoPortalConsultoras()== null)
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
-                    Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
+                    sessionManager.SetIngresoPortalConsultoras(true);
                 }
 
                 model.PrimeraVezSession = 0;
-                if (Session["PrimeraVezSessionMobile"] == null)
+                if (sessionManager.GetPrimeraVezSessionMobile() == null)
                 {
                     model.PrimeraVezSession = 1;
-                    Session["PrimeraVezSessionMobile"] = 1;
+                    sessionManager.SetPrimeraVezSessionMobile(1);
                 }
 
                 ViewBag.VerSeccion = verSeccion;
@@ -113,8 +113,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
-                model.ConsultoraNuevaBannerAppMostrar = (bool)(Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] ?? false);
+                model.ConsultoraNuevaBannerAppMostrar = sessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda <= 0 ? false : true);
+
+                #region Camino al Exito
+
+                var CaminoExito = this.ObjectCaminoExito();
+                model.TieneCaminoExito = CaminoExito.Item1;
+                model.urlCaminoExito = CaminoExito.Item2 ?? "";
+
+                #endregion
+
             }
             catch (FaultException ex)
             {
@@ -174,18 +183,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return urlChile;
         }
 
-        //private BEConfiguracionCampania ObtenerConfiguracionCampania()
-        //{
-        //    BEConfiguracionCampania configuracionCampania;
-
-        //    using (var sv = new PedidoServiceClient())
-        //    {
-        //        configuracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-        //    }
-
-        //    return configuracionCampania ?? new BEConfiguracionCampania();
-        //}
-
         private string ObtenerFechaVencimiento()
         {
             return userData.FechaLimPago.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : userData.FechaLimPago.ToString("dd/MM/yyyy");
@@ -224,14 +221,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var resultPopupEmail = ObtenerActualizacionEmail();
             var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
 
-            if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
+            if (sessionManager.GetTipoPopUpMostrar() != -1)
             {
-                tipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                tipoPopUpMostrar = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
 
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                     tipoPopUpMostrar = 0;
 
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+                if (tipoPopUpMostrar == Constantes.TipoPopUp.AceptacionContrato && userData.IndicadorContrato == 1) tipoPopUpMostrar = 0;
 
                 return tipoPopUpMostrar;
             }
@@ -239,7 +237,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora && resultPopupEmailSplited == "1")
             {
                 tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
-                Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                sessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
                 return tipoPopUpMostrar;
             }
 
@@ -249,7 +247,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (cupon != null)
                 {
                     tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
-                    Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                    sessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
 
                     return tipoPopUpMostrar;
                 }
@@ -260,7 +258,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                      && sessionManager.GetIsContrato() == 1)
             {
                 tipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
-                Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                sessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
                 return tipoPopUpMostrar;
             }
 
@@ -279,7 +277,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             tipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
             #endregion
 
-            Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+            sessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
 
             return tipoPopUpMostrar;
         }
@@ -397,7 +395,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                var lstComunicados = ObtenerComunicadoPorConsultora().ToList();
+                var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData);
                 lstComunicados = lstComunicados.Where(x => Constantes.Comunicado.Extraordinarios.IndexOf(x.Descripcion) == -1).ToList();
                 if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
 
@@ -488,7 +486,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                   svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, origenAceptacion, null, null);
+                   svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, origenAceptacion, null, null, null, null);
                 }
 
                 userData.IndicadorContrato = 1;
@@ -565,6 +563,29 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "";
+            }
+        }
+        
+        [HttpGet]
+        public JsonResult OcultarBannerApp()
+        {
+            try
+            {                
+                sessionManager.SetOcultarBannerApp(true);
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }

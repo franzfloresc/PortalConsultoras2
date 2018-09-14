@@ -202,7 +202,6 @@ namespace Portal.Consultoras.Web.Providers
             var pedObs = pedido;
             List<string> listaCUVsAEvaluar;
             var txtBuil = new StringBuilder();
-            //var nuevasObservaciones = new List<ObservacionModel>();
 
             List<BEPedidoWebDetalle> cuvHijos = TraerHijosFaltantesEnObsPROL(pedido, paisId, campaniaId, consultoraId, pedidoId);
 
@@ -210,8 +209,6 @@ namespace Portal.Consultoras.Web.Providers
             {
                 listaCUVsAEvaluar = new List<string>();
                 item.Mensaje = string.Empty;
-
-                //listaCUVsAEvaluar.Add(item.CUV);
 
                 if (cuvHijos.Any(x => x.SetID == item.SetID))
                 {
@@ -237,8 +234,6 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 else item.TipoObservacion = 0;
             }
-
-            //sessionManager.SetObservacionesProl(null);
 
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
         }

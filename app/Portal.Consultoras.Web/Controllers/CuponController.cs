@@ -208,88 +208,16 @@ namespace Portal.Consultoras.Web.Controllers
                 svClient.UpdateCuponConsultoraEnvioCorreo(userData.PaisID, cuponBe);
             }
         }
-
-        //private bool TieneOfertasPlan20()
-        //{
-        //    var flag = false;
-        //    var flagValidacionCodigoCatalogo = false;   
-        //    var flagValidacionAppCatalogo = false;  
-        //    List<BEPedidoWebDetalle> listaPedidoWebDetalle;
-
-        //    if (sessionManager.GetDetallesPedido() == null)
-        //    {
-        //        using (PedidoServiceClient sv = new PedidoServiceClient())
-        //        {
-        //            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-        //            {
-        //                PaisId = userData.PaisID,
-        //                CampaniaId = userData.CampaniaID,
-        //                ConsultoraId = userData.ConsultoraID,
-        //                Consultora = userData.NombreConsultora,
-        //                EsBpt = EsOpt() == 1,
-        //                CodigoPrograma = userData.CodigoPrograma,
-        //                NumeroPedido = userData.ConsecutivoNueva
-        //            };
-
-        //            listaPedidoWebDetalle = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        listaPedidoWebDetalle = sessionManager.GetDetallesPedido();
-        //    }
-
-        //    #region Logica validacion por Codigo de Catalogo    
-
-        //    List<BETablaLogicaDatos> lstCodigosOfertas; 
-        //    using (SACServiceClient svc = new SACServiceClient())
-        //    {
-        //        lstCodigosOfertas = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TipoOfertasPlan20.TablaLogicaId).ToList();
-        //    }
-
-
-        //    var listaCodigoTipoOferta = new List<string>(); 
-        //    listaCodigoTipoOferta.Add("126");   
-
-        //    if (listaPedidoWebDetalle.Any() && lstCodigosOfertas.Any()) 
-        //    {
-        //        var producto = listaPedidoWebDetalle.FirstOrDefault(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo))    
-        //                                                && listaCodigoTipoOferta.Any(y => x.CodigoTipoOferta.Trim() != y)   
-        //                                                && x.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
-
-        //        if (producto != null)   
-        //            flagValidacionCodigoCatalogo = true;
-        //    }
-
-        //    #endregion
-
-        //    #region Logica validacion por App Catalogo y OrigenPedidoWeb    
-
-        //    if (listaPedidoWebDetalle.Any())    
-        //    {
-        //        var producto = listaPedidoWebDetalle.FirstOrDefault(p => p.OrigenPedidoWeb.ToString().StartsWith("4")   
-        //                                                            && listaCodigoTipoOferta.Any(y => p.CodigoTipoOferta.Trim() != y)   
-        //                                                            && p.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
-        //        if (producto != null)   
-        //            flagValidacionAppCatalogo = true;
-        //    }
-
-        //    #endregion
-
-        //    flag = flagValidacionCodigoCatalogo && flagValidacionAppCatalogo;   
-
-        //    return flag;    
-        //}
-
+        
         private void ValidarPopupDelGestorPopups()
         {
             if (!IsMobile())
             {
-                int tipoPopup = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                int tipoPopup = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
 
                 if (tipoPopup == Constantes.TipoPopUp.Cupon)
                 {
-                    Session[Constantes.ConstSession.TipoPopUpMostrar] = null;
+                    sessionManager.SetTipoPopUpMostrar(0);
                 }
             }
         }
@@ -346,7 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
+                sessionManager.SetTipoPopUpMostrar(Constantes.TipoPopUp.Ninguno);
 
                 return Json(new
                 {

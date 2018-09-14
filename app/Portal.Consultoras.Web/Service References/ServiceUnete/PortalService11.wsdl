@@ -403,6 +403,12 @@
   <wsdl:message name="IPortalService_EnviarCodigoVerificacion_OutputMessage">
     <wsdl:part name="parameters" element="tns:EnviarCodigoVerificacionResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_EnviarSmsFelicitacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSmsFelicitacion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_EnviarSmsFelicitacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSmsFelicitacionResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ValidarCodigoVerificacionSolicitudPostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarCodigoVerificacionSolicitudPostulante" />
   </wsdl:message>
@@ -420,6 +426,12 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_GetZonasNoDigitales_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetZonasNoDigitalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GuardarEnvioCorreoSmsSolicitudPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarEnvioCorreoSmsSolicitudPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GuardarEnvioCorreoSmsSolicitudPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarEnvioCorreoSmsSolicitudPostulanteResponse" />
   </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
@@ -682,6 +694,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacion" message="tns:IPortalService_EnviarCodigoVerificacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacionResponse" message="tns:IPortalService_EnviarCodigoVerificacion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EnviarSmsFelicitacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnviarSmsFelicitacion" message="tns:IPortalService_EnviarSmsFelicitacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EnviarSmsFelicitacionResponse" message="tns:IPortalService_EnviarSmsFelicitacion_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ValidarCodigoVerificacionSolicitudPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulante" message="tns:IPortalService_ValidarCodigoVerificacionSolicitudPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulanteResponse" message="tns:IPortalService_ValidarCodigoVerificacionSolicitudPostulante_OutputMessage" />
@@ -693,6 +709,10 @@
     <wsdl:operation name="GetZonasNoDigitales">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetZonasNoDigitales" message="tns:IPortalService_GetZonasNoDigitales_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetZonasNoDigitalesResponse" message="tns:IPortalService_GetZonasNoDigitales_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarEnvioCorreoSmsSolicitudPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GuardarEnvioCorreoSmsSolicitudPostulante" message="tns:IPortalService_GuardarEnvioCorreoSmsSolicitudPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GuardarEnvioCorreoSmsSolicitudPostulanteResponse" message="tns:IPortalService_GuardarEnvioCorreoSmsSolicitudPostulante_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -1282,6 +1302,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EnviarSmsFelicitacion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/EnviarSmsFelicitacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ValidarCodigoVerificacionSolicitudPostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulante" style="document" />
       <wsdl:input>
@@ -1302,6 +1331,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetZonasNoDigitales">
       <soap:operation soapAction="http://tempuri.org/IPortalService/GetZonasNoDigitales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarEnvioCorreoSmsSolicitudPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GuardarEnvioCorreoSmsSolicitudPostulante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

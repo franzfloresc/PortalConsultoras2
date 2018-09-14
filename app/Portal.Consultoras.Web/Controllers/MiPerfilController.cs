@@ -36,12 +36,12 @@ namespace Portal.Consultoras.Web.Controllers
                 model.NombreCompleto = beusuario.Nombre;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;
                 model.EMail = beusuario.EMail;
-                if (!userData.EMail.Contains(model.EMail)) userData.EMail = model.EMail;
+                if (!userData.EMail.Contains(string.IsNullOrEmpty(model.EMail) ? "" : model.EMail)) userData.EMail = model.EMail;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;
                 model.Telefono = beusuario.Telefono;
                 model.TelefonoTrabajo = beusuario.TelefonoTrabajo;
                 model.Celular = beusuario.Celular;
-                if (!userData.Celular.Contains(model.Celular)) userData.Celular = model.Celular;
+                if (!userData.Celular.Contains(string.IsNullOrEmpty(model.Celular) ? "" : model.Celular)) userData.Celular = model.Celular;
                 model.Sobrenombre = beusuario.Sobrenombre;
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
@@ -251,7 +251,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (var sv = new UsuarioServiceClient())
                     {
-                        var upd = sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoUsuario, nameImage);
+                        sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoUsuario, nameImage);
                     }
 
                     if (!Util.IsUrl(userData.FotoOriginalSinModificar) && !string.IsNullOrEmpty(userData.FotoOriginalSinModificar))
@@ -291,7 +291,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new UsuarioServiceClient())
                 {
-                    var upd = sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoUsuario, null);
+                    sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoUsuario, null);
                 }
 
                 var carpetaPais = Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora];
@@ -416,7 +416,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
 
                 vRetorno = Json(new
                 {
@@ -428,7 +428,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
 
                 vRetorno = Json(new
                 {
@@ -480,7 +480,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -490,7 +490,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -527,7 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -545,10 +545,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     PaisId = userData.PaisID
                 },
-                //new NotSamePhoneValidator
-                //{
-                //    OriginalPhone = userData.Celular
-                //},
                 new NotExistingPhone
                 {
                     PaisId = userData.PaisID,

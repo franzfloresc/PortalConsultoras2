@@ -45,7 +45,6 @@ namespace Portal.Consultoras.Common.MagickNet
 
             if (!Util.ExisteUrlRemota(rutaImagenResize) || actualizar)
             {
-                resultado = false;
                 var nombreImagenOriginal = Path.GetFileName(rutaImagenOriginal);
 
                 string rutaImagenTemporal = Path.Combine(Globals.RutaTemporales, nombreImagenOriginal);

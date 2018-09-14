@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void ValidarStatusCampania(BEConfiguracionCampania obeConfiguracionCampania)
         {
-            UsuarioModel usuario = UserData();
+            UsuarioModel usuario = userData;
             usuario.ZonaValida = obeConfiguracionCampania.ZonaValida;
             usuario.FechaInicioCampania = obeConfiguracionCampania.FechaInicioFacturacion;
 
@@ -183,8 +183,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PedidoDetalleID = entidad.PedidoDetalleID,
                     IndicadorIPUsuario = GetIPCliente(),
                     IndicadorFingerprint = "",
-                    IndicadorToken = (Session["TokenPedidoAutentico"] != null)
-                        ? Session["TokenPedidoAutentico"].ToString()
+                    IndicadorToken = (sessionManager.GetTokenPedidoAutentico() != null)
+                        ? sessionManager.GetTokenPedidoAutentico().ToString()
                         : ""
                 };
 
@@ -972,9 +972,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
