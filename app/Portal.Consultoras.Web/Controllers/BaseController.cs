@@ -38,7 +38,13 @@ namespace Portal.Consultoras.Web.Controllers
                 return model;
             }
         }
-        protected RevistaDigitalModel revistaDigital;
+        protected RevistaDigitalModel revistaDigital
+        {
+            get
+            {
+                return SessionManager.GetRevistaDigital();
+            }
+        }
         protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
         protected DataModel estrategiaODD;
@@ -151,7 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return;
                 }
 
-                revistaDigital = SessionManager.GetRevistaDigital();
+                //revistaDigital = SessionManager.GetRevistaDigital();
                 herramientasVenta = SessionManager.GetHerramientasVenta();
                 guiaNegocio = SessionManager.GetGuiaNegocio();
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
