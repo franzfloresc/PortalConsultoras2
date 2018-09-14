@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Providers
     {
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
 
-        private static async Task<string> RespSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType, UsuarioModel userData)
+        public static async Task<string> RespSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType, UsuarioModel userData)
         {
             using (var client = new HttpClient())
             {
