@@ -42,7 +42,6 @@ namespace Portal.Consultoras.Service
         private readonly BLProductoSugerido BLProductoSugerido;
         private readonly IConfiguracionProgramaNuevasBusinessLogic BLConfiguracionProgramaNuevas;
         private readonly BLEscalaDescuento BLEscalaDescuento;
-        private readonly BLEscalaDescuentoZona BLEscalaDescuentoZona;
         private readonly BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private readonly BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private readonly BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
@@ -80,7 +79,6 @@ namespace Portal.Consultoras.Service
             BLProductoSugerido = new BLProductoSugerido();
             BLConfiguracionProgramaNuevas = new BLConfiguracionProgramaNuevas();
             BLEscalaDescuento = new BLEscalaDescuento();
-            BLEscalaDescuentoZona = new BLEscalaDescuentoZona();
             BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
@@ -902,9 +900,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetResumenPedidoWebByCampaniaConsultora(paisID, campaniaID, consultoraID);
         }
 
-        public List<BEEscalaDescuento> GetEscalaDescuento(int PaisID)
+        public List<BEEscalaDescuento> GetEscalaDescuento(int PaisID, int campaniaID, string region, string zona)
         {
-            return BLEscalaDescuento.GetEscalaDescuento(PaisID);
+            return BLEscalaDescuento.GetEscalaDescuento(PaisID, campaniaID, region, zona);
         }
 
         public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo)
@@ -912,14 +910,9 @@ namespace Portal.Consultoras.Service
             return BLEscalaDescuento.GetParametriaOfertaFinal(paisID, algoritmo);
         }
 
-        public List<BEEscalaDescuentoZona> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona)
+        public List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona)
         {
-            return BLEscalaDescuentoZona.ListarEscalaDescuentoZona(paisID, campaniaID, region, zona);
-        }
-
-        public List<BEEscalaDescuento> GetEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona)
-        {
-            return BLEscalaDescuentoZona.GetEscalaDescuentoZona(paisID, campaniaID, region, zona);
+            return BLEscalaDescuento.ListarEscalaDescuentoZona(paisID, campaniaID, region, zona);
         }
 
         #endregion
@@ -2301,9 +2294,9 @@ namespace Portal.Consultoras.Service
             return _pedidoBusinessLogic.Update(pedidoDetalle);
         }
 
-        public BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario)
+        public BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario, int campaniaID, string region, string zona)
         {
-            return _pedidoBusinessLogic.GetConfiguracion(paisID, codigoUsuario);
+            return _pedidoBusinessLogic.GetConfiguracion(paisID, codigoUsuario,  campaniaID,  region,  zona);
         }
 
         public async Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle)

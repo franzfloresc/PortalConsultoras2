@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Controllers
           
             using (var svc = new PedidoServiceClient())
             {
-                List<BEEscalaDescuentoZona> Lista = svc.ListarEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList<BEEscalaDescuentoZona>();
+                List<BEEscalaDescuento> Lista = svc.ListarEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList<BEEscalaDescuento>();
                 if(Lista.Count ==0)
                     fileName = string.Format("Landing_escala_dscto_{0}.jpg", userData.CodigoISO);
                 else

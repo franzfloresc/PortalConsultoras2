@@ -75,7 +75,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEConfiguracionCampania GetEstadoPedido(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID);
 
         [OperationContract]
-        List<BEEscalaDescuento> GetEscalaDescuento(int PaisID);
+        List<BEEscalaDescuento> GetEscalaDescuento(int PaisID, int campaniaID, string region, string zona);
 
         [OperationContract]
         List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo);
@@ -1164,7 +1164,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
-        BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario);
+        BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario, int campaniaID, string region, string zona);
         [OperationContract]
         Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
@@ -1270,11 +1270,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEstrategiaProducto> GetEstrategiaProductoList(int PaisID, string idList);
 
         [OperationContract]
-        List<BEEscalaDescuentoZona> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
-
-
-        [OperationContract]
-        List<BEEscalaDescuento> GetEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
+        List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
 
     }
 }

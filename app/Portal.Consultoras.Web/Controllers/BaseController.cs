@@ -1163,6 +1163,7 @@ namespace Portal.Consultoras.Web.Controllers
                 objR.CantidadCuv = listProducto.Count;
 
                 #region listaEscalaDescuento
+
                 var listaEscalaDescuento = new List<BEEscalaDescuento>();
                 if (inEscala)
                 {
@@ -1180,6 +1181,7 @@ namespace Portal.Consultoras.Web.Controllers
                         PorDescuento = escala.PorDescuento,
                     });
                 }
+
                 #endregion
 
                 #region Mensajes
@@ -1205,7 +1207,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new PedidoServiceClient())
                 {
-                    listaEscalaDescuento = sv.GetEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
+                    listaEscalaDescuento = sv.GetEscalaDescuento(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
                 }
             }
             catch (Exception ex)
@@ -2922,7 +2924,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var svc = new PedidoServiceClient())
                 {
-                    List<BEEscalaDescuentoZona> Lista = svc.ListarEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
+                    List<BEEscalaDescuento> Lista = svc.ListarEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
                     ResultadoValidacion = Lista.Count > 0;
                     if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}", URLConfig, userData.CodigoISO, Util.Security.ToMd5(userData.CodigoConsultora));
                 }

@@ -886,8 +886,13 @@
   <xs:complexType name="BEEscalaDescuento">
     <xs:sequence>
       <xs:element minOccurs="0" name="Algoritmo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaCarga" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="MontoDesde" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoHasta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NameDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PorDescuento" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioMinimo" type="xs:decimal" />
       <xs:element minOccurs="0" name="Seleccionado" type="xs:boolean" />
@@ -1159,26 +1164,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEActivarPremioNuevas" nillable="true" type="tns:BEActivarPremioNuevas" />
-  <xs:complexType name="ArrayOfBEEscalaDescuentoZona">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEscalaDescuentoZona" nillable="true" type="tns:BEEscalaDescuentoZona" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEEscalaDescuentoZona" nillable="true" type="tns:ArrayOfBEEscalaDescuentoZona" />
-  <xs:complexType name="BEEscalaDescuentoZona">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BEEscalaDescuento">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CodRegion" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CodZona" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="FechaCarga" nillable="true" type="xs:dateTime" />
-          <xs:element minOccurs="0" name="NameDocumento" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="BEEscalaDescuentoZona" nillable="true" type="tns:BEEscalaDescuentoZona" />
   <xs:complexType name="ArrayOfBEProductoSugerido">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProductoSugerido" nillable="true" type="tns:BEProductoSugerido" />

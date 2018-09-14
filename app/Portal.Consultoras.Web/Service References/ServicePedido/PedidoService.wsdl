@@ -415,12 +415,6 @@
   <wsdl:message name="IPedidoService_ListarEscalaDescuentoZona_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListarEscalaDescuentoZonaResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetEscalaDescuentoZona_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetEscalaDescuentoZona" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetEscalaDescuentoZona_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetEscalaDescuentoZonaResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_GetProductosShowRoomDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:GetProductosShowRoomDetalle" />
   </wsdl:message>
@@ -2710,10 +2704,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListarEscalaDescuentoZona" message="tns:IPedidoService_ListarEscalaDescuentoZona_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListarEscalaDescuentoZonaResponse" message="tns:IPedidoService_ListarEscalaDescuentoZona_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetEscalaDescuentoZona">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEscalaDescuentoZona" message="tns:IPedidoService_GetEscalaDescuentoZona_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEscalaDescuentoZonaResponse" message="tns:IPedidoService_GetEscalaDescuentoZona_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetProductosShowRoomDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle" message="tns:IPedidoService_GetProductosShowRoomDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse" message="tns:IPedidoService_GetProductosShowRoomDetalle_OutputMessage" />
@@ -4628,15 +4618,6 @@
     </wsdl:operation>
     <wsdl:operation name="ListarEscalaDescuentoZona">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ListarEscalaDescuentoZona" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetEscalaDescuentoZona">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEscalaDescuentoZona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8259,15 +8240,6 @@
     </wsdl:operation>
     <wsdl:operation name="ListarEscalaDescuentoZona">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ListarEscalaDescuentoZona" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetEscalaDescuentoZona">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEscalaDescuentoZona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
