@@ -213,11 +213,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!IsMobile())
             {
-                int tipoPopup = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                int tipoPopup = Convert.ToInt32(SessionManager.GetTipoPopUpMostrar());
 
                 if (tipoPopup == Constantes.TipoPopUp.Cupon)
                 {
-                    Session[Constantes.ConstSession.TipoPopUpMostrar] = null;
+                    SessionManager.SetTipoPopUpMostrar(0);
                 }
             }
         }
@@ -274,7 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
+                SessionManager.SetTipoPopUpMostrar(Constantes.TipoPopUp.Ninguno);
 
                 return Json(new
                 {

@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
             var campaniaActual =  Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString();
-            Session[Constantes.ConstSession.PedidoFIC] = null;
+            SessionManager.SetPedidoFIC(null);
             ViewBag.ClaseTabla = "tabla2";
             ViewBag.Pais_ISO = userData.CodigoISO;
             ViewBag.PROL = "Guardar";
@@ -245,7 +245,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.OfertaFinalAlgoritmo = ofertaFinalModel.Algoritmo;
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
 
-            if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+            if (!SessionManager.GetEsShowRoom() && SessionManager.GetEsShowRoom().ToString() == "1")
             {
                 ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Mobile");
                 ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
@@ -549,7 +549,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 list = sv.SelectFICByCampania(userData.PaisID, Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias), userData.ConsultoraID, userData.NombreConsultora).ToList();
             }
-            Session[Constantes.ConstSession.PedidoFIC] = list;
+            SessionManager.SetPedidoFIC(list);
             return list;
         }
 
@@ -711,15 +711,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                if (Session[Constantes.ConstSession.PedidoFIC] == null)
+                if (SessionManager.GetPedidoFIC() == null)
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         olstTempListado = sv.SelectFICByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
                     }
-                    Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
+                    SessionManager.SetPedidoFIC(olstTempListado);
                 }
-                else olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
+                else olstTempListado = SessionManager.GetPedidoFIC();
 
                 if (tipoAdm == "I")
                 {
@@ -842,13 +842,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 olstTempListado = olstTempListado.OrderByDescending(p => p.PedidoDetalleID).ToList();
-                Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
+                SessionManager.SetPedidoFIC(olstTempListado);
 
                 errorServer = false;
             }
             catch
             {
-                if (Session[Constantes.ConstSession.PedidoFIC] != null) olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
+                if (SessionManager.GetPedidoFIC() != null) olstTempListado = SessionManager.GetPedidoFIC();
                 errorServer = true;
             }
 

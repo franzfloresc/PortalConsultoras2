@@ -312,7 +312,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
 
-            if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+            if (!SessionManager.GetEsShowRoom() && SessionManager.GetEsShowRoom().ToString() == "1")
             {
                 ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
                 ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Desktop");
@@ -1038,7 +1038,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaCliente = ListarClienteSegunPedido("", olstPedidoWebDetalle);
 
-                Session[Constantes.ConstSession.ListaEstrategia] = null;
+                SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
 
                 var message = !errorServer ? "OK"
                             : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.";
@@ -1139,7 +1139,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
-                Session[Constantes.ConstSession.ListaEstrategia] = null;
+                SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
                 UpdPedidoWebMontosPROL();
             }
             catch (Exception ex)
@@ -1611,7 +1611,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CUV = Util.Trim(model.CUV);
                 #region ValidarProgramaNuevas
                 Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(model.CUV);
-                Session["CuvEsProgramaNuevas"] = false;
+                SessionManager.SetCuvEsProgramaNuevas(false);
                 switch (num)
                 {
                     case Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste:
@@ -1624,13 +1624,13 @@ namespace Portal.Consultoras.Web.Controllers
                         productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.CuvNoPerteneceASuPrograma));
                         return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas:
-                        Session["CuvEsProgramaNuevas"] = true;
+                        SessionManager.SetCuvEsProgramaNuevas(true);
                         break;
                 }
                 #endregion
 
                 #region Venta exclusiva
-                if (!Convert.ToBoolean(Session["CuvEsProgramaNuevas"]))
+                if (!Convert.ToBoolean(SessionManager.GetCuvEsProgramaNuevas()))
                 {
                     Enumeradores.ValidacionVentaExclusiva numExclu = ValidarVentaExclusiva(model.CUV);
                     if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
@@ -1663,7 +1663,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
-                var estrategias = (List<ServiceOferta.BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<ServiceOferta.BEEstrategia>();
+                var estrategias = SessionManager.GetBEEstrategia(Constantes.ConstSession.ListaEstrategia) ?? new List<ServiceOferta.BEEstrategia>();
                 var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new ServiceOferta.BEEstrategia();
 
                 var observacionCuv = ObtenerObservacionCreditoCuv(userModel, cuvCredito);
@@ -3021,8 +3021,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PedidoDetalleID = obePedidoWebDetalle.PedidoDetalleID,
                     IndicadorIPUsuario = GetIPCliente(),
                     IndicadorFingerprint = "",
-                    IndicadorToken = Session["TokenPedidoAutentico"] != null
-                        ? Session["TokenPedidoAutentico"].ToString()
+                    IndicadorToken = SessionManager.GetTokenPedidoAutentico() != null
+                        ? SessionManager.GetTokenPedidoAutentico().ToString()
                         : ""
                 };
                 obePedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
@@ -3810,7 +3810,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Session["OcultarBannerTop"] = true;
+                SessionManager.SetOcultarBannerTop(true);
 
                 return Json(new
                 {
@@ -3899,13 +3899,13 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         if (!string.IsNullOrEmpty(codigo))
                         {
-                            Session["TokenPedidoAutentico"] = codigo;
+                            SessionManager.SetTokenPedidoAutentico(codigo);
                         }
                         break;
                     case "3":
                         if (!string.IsNullOrEmpty(codigo))
                         {
-                            Session["TokenPedidoAutentico"] = codigo;
+                            SessionManager.SetTokenPedidoAutentico(codigo);
                         }
                         break;
                 }
@@ -4038,7 +4038,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region VirtualCoach 
                 if (estrategia.EstrategiaID <= 0)
                 {
-                    var ficha = (FichaProductoDetalleModel)Session[Constantes.SessionNames.FichaProductoTemporal];
+                    var ficha = (FichaProductoDetalleModel)SessionManager.GetFichaProductoTemporal();
                     if (ficha == null)
                     {
                         mensaje = "Estrategia no encontrada.";
@@ -4303,7 +4303,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                FichaProductoDetalleModel ficha = Session[Constantes.SessionNames.FichaProductoTemporal] as FichaProductoDetalleModel;
+                FichaProductoDetalleModel ficha = SessionManager.GetFichaProductoTemporal();
                 if (ficha == null) return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
 
                 var numero = Convert.ToInt32(Cantidad);
@@ -4440,7 +4440,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string ValidarCantidadEnProgramaNuevas(string cuvingresado, int cantidadIngresada)
         {
-            if (!Convert.ToBoolean(Session["CuvEsProgramaNuevas"])) return "";
+            if (!Convert.ToBoolean(SessionManager.GetCuvEsProgramaNuevas())) return "";
 
             int cantidadPedido = ObtnerCantidadCuvPedidoWeb(cuvingresado);
             int valor = 0;

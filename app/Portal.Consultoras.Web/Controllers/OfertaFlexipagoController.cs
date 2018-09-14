@@ -183,8 +183,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PedidoDetalleID = entidad.PedidoDetalleID,
                     IndicadorIPUsuario = GetIPCliente(),
                     IndicadorFingerprint = "",
-                    IndicadorToken = (Session["TokenPedidoAutentico"] != null)
-                        ? Session["TokenPedidoAutentico"].ToString()
+                    IndicadorToken = (SessionManager.GetTokenPedidoAutentico() != null)
+                        ? SessionManager.GetTokenPedidoAutentico().ToString()
                         : ""
                 };
 

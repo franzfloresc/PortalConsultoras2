@@ -225,7 +225,8 @@ namespace Portal.Consultoras.Web.Providers
                 };
 
                 bool esMultimarca = false;
-                fichaProductoModelo.Hermanos = _estrategiaComponente.GetListaComponentes(estrategiaModelo, string.Empty, out esMultimarca);
+                string mensaje = "";
+                fichaProductoModelo.Hermanos = _estrategiaComponente.GetListaComponentes(estrategiaModelo, string.Empty, out esMultimarca, out mensaje);
             }
             catch (Exception ex)
             {
