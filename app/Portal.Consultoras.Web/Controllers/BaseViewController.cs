@@ -308,14 +308,6 @@ namespace Portal.Consultoras.Web.Controllers
             NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
 
             NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, "Ofertas Para ti");
-            //NombrePalancas.Add(Constantes.NombrePalanca.OfertaWeb, "Oferta Web");
-            //NombrePalancas.Add(Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para Mi");
-            //NombrePalancas.Add(Constantes.NombrePalanca.PackAltoDesembolso, "Pack de Alto Desembolso");
-
-            //NombrePalancas.Add(Constantes.NombrePalanca.LosMasVendidos, "Los Más Vendidos");
-            //NombrePalancas.Add(Constantes.NombrePalanca.IncentivosProgramaNuevas, "Incentivos Programa de Nuevas");
-            //NombrePalancas.Add(Constantes.NombrePalanca.Incentivos, "Incentivos");
-            //NombrePalancas.Add(Constantes.NombrePalanca.ProgramaNuevasRegalo, "Oferta Del Día");
             return NombrePalancas;
         }
 

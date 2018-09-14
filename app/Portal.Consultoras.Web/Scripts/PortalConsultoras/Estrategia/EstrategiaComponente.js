@@ -50,20 +50,34 @@
     }
 
 
-    var _ValidarSeleccionTono = function (objInput) {
+    var _ValidarSeleccionTono = function (objInput, esFicha) {
         var attrClass = $.trim($(objInput).attr("class"));
         if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
+
+            //var $SelectTonos = $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']");
+            var $SelectTonos = $(objInput).parents("[data-item]").find("[data-opciones-seleccionadas='0']").find("[data-tono-change='1']");
+            var $SeleccionTonoToolTip = $("[data-selecciontono='tooltip']");
+
             if (isMobile()) {
-                if (origenPedidoWebEstrategia == 2731) {
-                    window.scrollTo(0, 540);
+                if (esFicha) {
+                    if ($SelectTonos.length > 0) {
+                        var $PrimerElemento = $SelectTonos[0];
+                        var Altura = $($PrimerElemento).offset().top - 200;
+                        window.scrollTo(0, Altura);
+                    }
                 }
             }
 
-            $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
+            if (esFicha) {
+                $SeleccionTonoToolTip.show();
+                setTimeout(function () { $SeleccionTonoToolTip.hide(); }, 2000);
+            }
+
+            $SelectTonos.removeClass("texto_sin_tono").addClass("variedad_sin_seleccionar");
             setTimeout(
                 function () {
-                    $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
-                }, 500);
+                    $SelectTonos.removeClass("variedad_sin_seleccionar").addClass("texto_sin_tono");
+                }, 1000);
             return true;
         }
         return false;
@@ -182,11 +196,29 @@
             mouseLeaveSelectArea: function () {
                 $(this).hide();
                 $(this).attr("data-visible", "0");
-            }
+            }/*,
+            clickVerOpciones: function () {
+                var cuv = $(this).attr("data-tono-change-cuv");
+                var estrategiaData = EstrategiaAgregarModule.EstrategiaObtenerObj($(this));
+                var hermano = {};
+                var NumeroOpciones = estrategiaData.FactorCuadre;
+
+                $.each(estrategiaData.Hermanos, function (index, item) {
+                    if (item.Cuv == cuv) {
+                        hermano = item;
+                    }
+                });
+
+                SetHandlebars("#lista-opciones-template", hermano, "#lista-opciones");
+                SetHandlebars("#titulo-opciones-seleccionadas-template", hermano, "#titulo-opciones-seleccionadas");
+
+                $("#elegir-opciones-modal").modal("show");
+
+            }*/
         }
 
     var _bindingEvents = function () {
-        $("body").on("click", "[data-tono-change]", _eventos.clickChangeTono);
+        //$("body").on("click", "[data-tono-change]", _eventos.clickVerOpciones);
 
         if (!isMobile()) {
             $(document).on("mousemove", "[data-tono-change]", _eventos.mouseMoveTono);

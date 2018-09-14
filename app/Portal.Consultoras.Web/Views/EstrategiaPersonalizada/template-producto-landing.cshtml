@@ -18,10 +18,10 @@
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_carrusel content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off" style="cursor:pointer; ">
             {{#iff TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
-            <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
+                <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
             {{/iff}}
             {{#iff TipoEstrategiaDetalle.ImgHomeDesktop '!=' ''}}
-            <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="portada" />
+                <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="portada" />
             {{/iff}}
             <p class="tercero">Conoce {{DescripcionResumen}}</p>
             <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')"
@@ -89,55 +89,55 @@
                 {{#iff TipoAccionAgregar '>' 0}}
                 <div>
                     {{#iff TipoAccionAgregar '==' '1'}}
-                    <div class="texto_elige_tono"></div>
-                    <div class="clear"></div>
-                    <div class="liquidacion_rango_home">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' disabled="disabled"
-                               class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                               style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" />
-                    </div>
-                    <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1); ">
-                        AGR&Eacute;GALO
-                    </a>
+                        <div class="texto_elige_tono"></div>
+                        <div class="clear"></div>
+                        <div class="liquidacion_rango_home">
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' disabled="disabled" 
+                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
+                                   style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" />
+                        </div>
+                        <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
+                           onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1); ">
+                            AGR&Eacute;GALO
+                        </a>
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '2'}}
-                    <div class="texto_elige_tono"></div>
-                    <div class="clear"></div>
-                    <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad'
-                               class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
-                               {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
-                        <div class="liquidacion_rango_right_pedido js-no-popup">
+                        <div class="texto_elige_tono"></div>
+                        <div class="clear"></div>
+                        <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad'
+                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
+                                   {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
+                            <div class="liquidacion_rango_right_pedido js-no-popup">
                             <a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
                                 <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" />
                             </a>
                             <a href="javascript:;" class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
                                 <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" />
                             </a>
+                            </div>
                         </div>
-                    </div>
-                    <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
-                        AGR&Eacute;GALO
-                    </a>
+                        <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
+                           onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
+                            AGR&Eacute;GALO
+                        </a>
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '3'}}
-                    <div onclick="javascript:OnClickFichaDetalle(event.target);">
-                        <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
-                        <div class="clear"></div>
-                        <a class="btn_elige_tono js-no-popup" data-item-tag="eligetuopcion">
-                            <div>ELIGE TU OPCIÓN</div>
-                        </a>
-                    </div>
+                        <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
+                            <div class="texto_elige_tono"></div>
+                            <div class="clear"></div>
+                            <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
+                                <div><img src="/Content/Images/mobile/Esika/click-ico.svg">ELIGE TU OPCIÓN</div>
+                            </a>
+                        </div>
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '4'}}
-                    <div class="texto_elige_tono"></div>
-                    <div class="clear"></div>
-                    <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
-                       onclick="javascript:VerPopupExpGanaMas(); ">
-                        ¿LO QUIERES?
-                    </a>
+                        <div class="texto_elige_tono"></div>
+                        <div class="clear"></div>
+                        <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                           onclick="javascript:VerPopupExpGanaMas(); ">
+                            ¿LO QUIERES?
+                        </a>
                     {{/iff}}
                 </div>
                 <div class="clear"></div>

@@ -93,9 +93,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return Json(ListaProductosModel, JsonRequestBehavior.AllowGet);
         }
 
-        //private List<BuscadorYFiltrosModel> Data()
-        //{
-        //    return new List<BuscadorYFiltrosModel>();
-        //}
     }
 }

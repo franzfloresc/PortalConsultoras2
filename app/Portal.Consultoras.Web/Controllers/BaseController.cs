@@ -15,12 +15,9 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
-using ServiceCliente= Portal.Consultoras.Web.ServiceCliente;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -469,22 +466,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-
-        //protected List<BEProductoFaltante> GetProductosFaltantes()
-        //{
-        //    return this.GetProductosFaltantes("", "", "", "");
-        //}
-
-        //protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion, string codCategoria, string codCatalogoRevista)
-        //{
-        //    List<BEProductoFaltante> olstProductoFaltante;
-        //    using (var sv = new SACServiceClient())
-        //    {
-        //        olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion, codCategoria, codCatalogoRevista).ToList();
-        //    }
-        //    return olstProductoFaltante ?? new List<BEProductoFaltante>();
-        //}
-
+        
         public string GetIPCliente()
         {
             var ip = string.Empty;
@@ -520,7 +502,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                //System.Diagnostics.Debug.WriteLine(ex.Message);
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return ip;
@@ -935,26 +916,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-
-        //public bool HabilitarChatEmtelco(int paisId)
-        //{
-        //    bool Mostrar = false;
-        //    List<TablaLogicaDatosModel> DataLogica = _tablaLogicaProvider.ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
-
-        //    if (IsMobile())
-        //    {
-        //        if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
-        //            Mostrar = true;
-        //    }
-        //    else
-        //    {
-        //        if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
-        //            Mostrar = true;
-        //    }
-
-        //    return Mostrar;
-        //}
-
+        
         public MobileAppConfiguracionModel MobileAppConfiguracion
         {
             get
@@ -1302,64 +1264,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CaracteresBuscadorMostrar = CaracteresBuscadorMostrar;
         }
         
-        //private bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)
-        //{
-        //    result = default(T);
-        //    foreach (var item in menuWeb)
-        //    {
-        //        if (predicate(item))
-        //        {
-        //            result = select(item);
-        //            return true;
-        //        }
-        //        if (FindInMenu(item.SubMenus, predicate, select, out result)) return true;
-        //    }
-        //    return false;
-        //}
-
-        //private bool FindInMenu<T>(List<MenuMobileModel> menuWeb, Predicate<MenuMobileModel> predicate, Converter<MenuMobileModel, T> select, out T result)
-        //{
-        //    result = default(T);
-        //    foreach (var item in menuWeb)
-        //    {
-        //        if (predicate(item))
-        //        {
-        //            result = select(item);
-        //            return true;
-        //        }
-        //        if (FindInMenu(item.SubMenu.ToList(), predicate, select, out result)) return true;
-        //    }
-        //    return false;
-        //}
-
-        //private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
-        //{
-        //    var time = DateTime.Today.Add(horaCierre);
-        //    string fecha = null;
-
-        //    if (IsMobile())
-        //    {
-        //        string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
-
-        //        fecha = diasFaltantes > 0
-        //            ? " CIERRA EL " + userData.FechaInicioCampania.Day + " " + Util.NombreMes(userData.FechaInicioCampania.Month).ToUpper()
-        //            : " CIERRA HOY";
-
-
-        //        return fecha + " - " + hrCierrePortal.Replace(".", "");
-        //    }
-        //    else
-        //    {
-        //        var culture = CultureInfo.GetCultureInfo("es-PE");
-        //        fecha = diasFaltantes > 0
-        //            ? userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper()
-        //            : "HOY";
-
-        //        return fecha + " - " + time.ToString("hh:mm tt", CultureInfo.InvariantCulture).ToLower();
-        //    }
-
-        //}
-
         #endregion
 
         protected int GetMostradoPopupPrecargados()
@@ -1395,17 +1299,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return flag;
             }
         }
-        
-        //public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
-        //{
-        //    using (var sac = new SACServiceClient())
-        //    {
-        //        var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(UserData().PaisID, UserData().CodigoConsultora,
-        //                Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
-
-        //        return lstComunicados.ToList();
-        //    }
-        //}
         
         public RevistaDigitalShortModel getRevistaDigitalShortModel()
         {

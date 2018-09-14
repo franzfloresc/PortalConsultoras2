@@ -325,6 +325,17 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(cadena);
             });
 
+            Handlebars.registerHelper('Substr', function (length, cadena) {
+                cadena = cadena || "";
+                cadena = $.trim(cadena);
+
+                if (cadena.length > length) {
+                    cadena = cadena.substring(0, length) + "...";
+                }
+
+                return new Handlebars.SafeString(cadena);
+            });
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
@@ -370,6 +381,16 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('SimboloMoneda', function () {
                 var simbMon = variablesPortal.SimboloMoneda || "";
                 return new Handlebars.SafeString(simbMon);
+            });
+
+            Handlebars.registerHelper('Multiplicar', function (a,b) {
+                //var array = (JSON.parse(obj) instanceof Array) ? JSON.parse(obj) : [obj];
+                //var resultado = 1;
+                //$.each(array, function (index, value) {
+                //    resultado = resultado * value;
+                //});
+                //return resultado;
+                return a * b;
             });
         }
     }
@@ -555,6 +576,9 @@ function validateEmail(email) {
 }
 
 function CreateLoading() {
+    if ($("#loadingScreen").find(".loadingScreen-titulo").length !== 0 ||
+        $("#loadingScreen").find(".loadingScreen-mensaje").length !== 0) return false;
+
     $("#loadingScreen").append("<div class='loadingScreen-titulo'></div>");
     $("#loadingScreen").append("<div class='loadingScreen-mensaje'></div>");
 
@@ -1929,38 +1953,37 @@ Object.defineProperty(Object.prototype, "in", {
 var registerEvent = function (eventName) {
     var self = this;
     self[eventName] = self[eventName] || {};
-    self[eventName].callBacks = [];
-    self[eventName].subscribe = function (cb) {
+    self[eventName].callBacks = self[eventName].callBacks || [];
+    self[eventName].subscribe = self[eventName].subscribe || function(cb) {
         if (!!cb && typeof cb == "function") {
             self[eventName].callBacks.push(cb);
             return;
         }
+    };
 
-    }
-
-    self[eventName].emit = function (args) {
-        self[eventName].callBacks.forEach(function (cb) {
+    self[eventName].emit = self[eventName].emit || function(args) {
+        self[eventName].callBacks.forEach(function(cb) {
             cb.call(undefined, args);
         });
-    }
+    };
 
-    self.subscribe = function (event, cb) {
+    self.subscribe = self.subscribe || function (event, cb) {
         if (!!event) {
             if (self[event]) {
                 self[event].subscribe(cb);
                 return;
             }
         }
-    }
+    };
 
-    self.applyChanges = function (event, args) {
+    self.applyChanges = self.applyChanges || function (event, args) {
         if (self[event]) {
-            self[event].callBacks.forEach(function (cb) {
+            self[event].callBacks.forEach(function(cb) {
                 cb.call(undefined, args);
             });
         }
-    }
-}
+    };
+};
 
 function EstablecerLazyCarrusel(elementoHtml) {
     if (!$(elementoHtml).length) {

@@ -31,7 +31,7 @@ function OnClickFichaDetalle(e) {
 }
 
 function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigoEstrategia) {
-    console.log(codigoEstrategia);
+
     var UrlDetalle = GetPalanca(codigoEstrategia);
     if (UrlDetalle == "") return false;
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;

@@ -3,12 +3,18 @@ Add:
     <add key="Catalogo_Marca_Piloto_EC201816" value="Esika" />
     <add key="Catalogo_Piloto_Grupos_Esika_EC201816" value="ESCrdr" />
     <add key="Catalogo_Piloto_Zonas_Esika_EC201816_ESCrdr" value="1618, 1824, 2217, 2219, 2220" />
+
+    <!--Ini -  Ruta magenes App Catalogo-->
+    <add key="RutaImagenesAppCatalogo" value="https://s3-sa-east-1.amazonaws.com/appcatalogo/{0}/{1}/{2}/productos/{3} "/>
+    <add key="RutaImagenesAppCatalogoBulk" value="https://s3-sa-east-1.amazonaws.com/appcatalogo/{0}/{1}/{2}/productos/bulk/{3} "/>
+    <!--Fin -  Ruta magenes App Catalogo-->
+
 	
 Update:
-	<add key="CodigoCatalogoIssuu" value="{0}.{1}.c{2}.{3}{4}" />
+    <add key="CodigoCatalogoIssuu" value="{0}.{1}.c{2}.{3}{4}" />
 	
 Delete:
-	key Catalogo_Piloto_Grupos_Esika_PE201807
+    key Catalogo_Piloto_Grupos_Esika_PE201807
     key Catalogo_Piloto_Grupos_Esika_PE201808
     key Catalogo_Piloto_Grupos_Esika_PE201809
     key Catalogo_Piloto_Zonas_Esika_PE201807_ESC1

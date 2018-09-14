@@ -9244,7 +9244,6 @@ span.title-app-b {
 }
 
 .ofertaFinal_descripcion {
-    display: none;
     font-family: 'Lato';
     font-size: 13px;
     line-height: 1.23;
@@ -15019,9 +15018,9 @@ a {
 
 /* HD-912 - FIN - PEDIDO FIC MOBILE */
 .btn_desactivado_general {
-    background: #e5e5e5;
-    border: 1px solid #d2d2d2;
-    color: #b9b9b9;
+    background: #e5e5e5 !important;
+    border: 1px solid #d2d2d2 !important;
+    color: #b9b9b9 !important;
 }
 
 .producto_precio {

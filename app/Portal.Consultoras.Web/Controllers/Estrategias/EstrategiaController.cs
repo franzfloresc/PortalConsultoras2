@@ -90,7 +90,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
 
 
-                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
+                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
 
                 model.ListaLan = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
                 model.ListaModelo = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
@@ -158,16 +158,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var tipo = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPerdio(model, tipoConsulta);
 
-                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
+                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
                 var listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaFinal1, listaPedido, userData.CodigoISO, userData.CampaniaID, tipo, userData.esConsultoraLider, userData.Simbolo);
 
                 var cantidadTotal = listModel.Count;
 
-                bool guarda = true;
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca))
-                {
-                    guarda = false;
-                }
+                var guarda = !_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca);
 
                 return Json(new
                 {

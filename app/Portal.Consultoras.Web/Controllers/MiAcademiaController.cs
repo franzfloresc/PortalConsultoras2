@@ -16,16 +16,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            var flagHome = 0;
+            //var flagHome = 0;
             var IdCurso = 0;
             var FlagVideo = 0;
             try
             {
-                //var IdCurso = sessionManager.GetMiAcademia();
-                //if (IdCurso > 0)
-                //{
-                //    sessionManager.SetMiAcademia(0);
-                //}
                 IdCurso = sessionManager.GetMiAcademia();
                 FlagVideo = sessionManager.GetMiAcademiaVideo();  //PPC
                 sessionManager.SetMiAcademia(0);

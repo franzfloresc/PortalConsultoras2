@@ -2197,8 +2197,6 @@
             ImagenAnterior: $("#hdImagenDetalleAnterior").val()
         };
 
-        console.log(item);
-
         waitingDialog({ title: "Procesando" });
         jQuery.ajax({
             type: "POST",
@@ -2601,7 +2599,7 @@
                         async: true,
                         success: function (data) {
                             closeWaitingDialog();
-                            console.log(data);
+
                             if (data.success) {
                                 _toastHelper.success(data.message);
                                 $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
@@ -4194,8 +4192,6 @@
             estrategiaID: EstrategiaID
         };
 
-        console.log(item);
-
         waitingDialog();
         jQuery.ajax({
             type: "POST",
@@ -4272,8 +4268,6 @@
             estrategiaId: EstrategiaID,
             cuv: CUV
         };
-
-        console.log(item);
 
         waitingDialog();
         jQuery.ajax({

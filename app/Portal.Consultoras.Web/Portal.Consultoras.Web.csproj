@@ -1346,13 +1346,16 @@
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Mobile\esika\buscador-filtros.css" />
     <Content Include="Content\Css\Mobile\esika\mi-perfil.css" />
+    <Content Include="Content\Css\Mobile\Ficha\PopoverTooltip.css" />
     <Content Include="Content\Css\Mobile\Ficha\Esika\FichaEsika.css" />
     <Content Include="Content\Css\Mobile\Ficha\Lbel\FichaLbel.css" />
     <Content Include="Content\Css\Mobile\Ficha\RedesSociales.css" />
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
+    <Content Include="Content\Css\Mobile\Ficha\SeleccionarTipo.css" />
     <Content Include="Content\Css\Mobile\lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
+    <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Gnd-Flotante.css" />
@@ -1369,10 +1372,12 @@
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Esika\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Ficha\Carrusel.css" />
+    <Content Include="Content\Css\Site\Ficha\PopoverTooltip.css" />
     <Content Include="Content\Css\Site\Ficha\Esika\FichaEsika.css" />
     <Content Include="Content\Css\Site\Ficha\Lbel\FichaLbel.css" />
     <Content Include="Content\Css\Site\Ficha\RedesSociales.css" />
     <Content Include="Content\Css\Site\Ficha\Ficha.css" />
+    <Content Include="Content\Css\Site\Ficha\SeleccionarTipo.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.css" />
@@ -1389,6 +1394,7 @@
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
+    <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
     <Content Include="Content\Css\Site\MailConfirmacion\style.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
@@ -1531,6 +1537,8 @@
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
     <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
+    <Content Include="Content\Images\Esika\flecha_next.svg" />
+    <Content Include="Content\Images\Esika\flecha_prev.svg" />
     <Content Include="Content\Images\icono_avatar.svg" />
     <Content Include="Content\Images\Esika\icono_camara.svg" />
     <Content Include="Content\Images\Esika\icono_cambiar_dato.svg" />
@@ -1556,6 +1564,14 @@
     <Content Include="Content\Images\Lbel\estrellas.png" />
     <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
+    <Content Include="Content\Images\mobile\Esika\1f44d.png" />
+    <Content Include="Content\Images\mobile\Esika\1f615.png" />
+    <Content Include="Content\Images\mobile\Esika\click-ico.svg" />
+    <Content Include="Content\Images\mobile\Esika\close-button-white.svg" />
+    <Content Include="Content\Images\mobile\Esika\close-button.svg" />
+    <Content Include="Content\Images\mobile\Esika\emoji-alert.png" />
+    <Content Include="Content\Images\mobile\Esika\icono-alerta.svg" />
+    <Content Include="Content\Images\mobile\Esika\left-arrow.svg" />
     <Content Include="Content\Images\mobile\icono_editar_foto_perfil.svg" />
     <Content Include="Content\Images\icono_eliminar.svg" />
     <Content Include="Content\Images\Esika\icono_envelope.svg" />
@@ -3828,6 +3844,11 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ListaOpcionesModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ComponentesModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ResumenOpcionesModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\OpcionesSeleccionadasModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\TituloOpcionesSeleccionadasModule.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregar.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregarProvider.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
@@ -4281,6 +4302,13 @@
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutBuscador.cshtml" />
     <Content Include="Areas\Mobile\Views\Buscador\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Buscador\_BuscadorPartialView.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\_ElegirOpciones.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ResumenOpcionesTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\OpcionesSeleccionadasTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ListaOpcionesTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponentesTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\PaletaOpcionesTemplate.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5270,6 +5298,13 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
     <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
     <Content Include="Views\ReporteContrato\Index.cshtml" />
+    <Content Include="Views\DetalleEstrategia\SeleccionarTipos.cshtml" />
+    <Content Include="Views\DetalleEstrategia\_ElegirOpciones.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ComponentesTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ListaOpcionesTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ResumenOpcionesTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\OpcionesSeleccionadasTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5753,7 +5788,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>20267</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

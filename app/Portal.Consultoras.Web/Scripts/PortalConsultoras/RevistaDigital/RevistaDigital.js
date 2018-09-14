@@ -299,10 +299,10 @@ function OfertaArmarEstrategias(response, busquedaModel) {
     if (response.Mobile) {
         $.each(modelHtml.lista, function (ind, temh) {
             temh.TipoAccionAgregarBack = Clone(temh.TipoAccionAgregar);
-            temh.TipoAccionAgregar = 0;
+            //temh.TipoAccionAgregar = 0;
         });
     }
-    
+
     var htmlDiv = SetHandlebars("#producto-landing-template", modelHtml);
     divProd.find('#divOfertaProductos').append(htmlDiv);
     if (response.cantidadTotal == 0) {
@@ -672,7 +672,6 @@ function CheckClickCarrousel(action, source) {
 function CallAnalitycsClickArrow() {
     if (sliderWay !== 0 && clickedSlider !== 0) {
         if (typeof rdAnalyticsModule !== "undefined") {
-            console.log("values of direction : " + sliderWay);
             rdAnalyticsModule.ClickArrowLan(sliderWay);
         }
         sliderWay = 0;

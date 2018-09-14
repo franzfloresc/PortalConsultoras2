@@ -1,0 +1,63 @@
+﻿<script id="lista-opciones-template" type="text/x-handlebars-template">
+    {{#each this.Hermanos as |componente|}}
+    <ul class="selecion_item list-inline">
+        <li class="seleccion_img"><img src="{{componente.ImagenBulk}}" alt=""></li>
+        <li class="seleccion_title">{{#Substr 35  componente.NombreBulk}}{{/Substr}}</li>
+        {{#iff this.FactorCuadre '==' '1'}}
+            {{#iff componente.cantidadSeleccionada '==' '0'}}
+                <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
+                    <button id="btn-eligelo-{{componente.Cuv}}"
+                            {{#if ../esCampaniaSiguiente}}
+                            class="btn_desactivado_general"
+                            {{/if}}
+                            onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
+                        Elígelo
+                    </button>
+                </li>
+            {{else}}
+                <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
+                    <button id="btn-eligelo-{{componente.Cuv}}"
+                            class="active"
+                            onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
+                        Elegido
+                    </button>
+                </li>
+            {{/iff}}
+        {{else}}
+            <li class="seleccion_btn" 
+                id="li-eligelo-{{componente.Cuv}}"
+                {{#iff componente.cantidadSeleccionada '!=' '0'}}
+                style="display:none"
+                {{/iff}}>
+                <button id="btn-eligelo-{{componente.Cuv}}"
+                        {{#if ../esCampaniaSiguiente}}
+                        class="btn_desactivado_general"
+                        {{/if}}
+                        onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
+                    Elígelo
+                </button>
+            </li>
+            <li class="seleccion_btn seleccion_cantidad" id="li-cantidad-opciones-{{componente.Cuv}}" 
+                {{#iff componente.cantidadSeleccionada '==' '0'}}
+                style="display:none"
+                {{/iff}}>
+                <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                    <a class="cantidad_menos_home" onclick="javascript:ListaOpcionesModule.EliminarOpcion({{componente.Cuv}},event);">
+                        <img id="imgFichaProduMenos" src="/Content/Images/Mobile/Esika/menos.png" alt="">
+                    </a>
+                    <input type="tel"
+                           {{#iff componente.cantidadSeleccionada '==' '0'}}
+                           value="1"
+                           {{else}}
+                           value="{{componente.cantidadSeleccionada}}"
+                           {{/iff}}
+                           size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad" disabled>
+                    <a class="cantidad_mas_home" onclick="javascript:ListaOpcionesModule.SeleccionarOpcion({{componente.Cuv}},event);">
+                        <img id="imgFichaProduMas" src="/Content/Images/Mobile/Esika/mas.png" alt="">
+                    </a>
+                </div>
+            </li>
+        {{/iff}}
+    </ul>
+    {{/each}}
+</script>

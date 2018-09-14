@@ -611,7 +611,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
             {
-                tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
+                tipo = codigoTipos == Constantes.TipoEstrategiaSet.CompuestaVariable ? 3 : 2;
                 tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
                 tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
             }
@@ -789,7 +789,7 @@ namespace Portal.Consultoras.Web.Providers
                 prodModel.ClaseBloqueada = tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != campaniaID) ? claseBloqueada : "";
                 prodModel.TipoEstrategiaID = estrategia.TipoEstrategiaID;
                 prodModel.FlagNueva = estrategia.FlagNueva;
-                prodModel.IsAgregado = prodModel.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
+                prodModel.IsAgregado = prodModel.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.EstrategiaId == estrategia.EstrategiaID);
                 prodModel.ArrayContenidoSet = estrategia.FlagNueva == 1 ? estrategia.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>();
                 prodModel.ListaDescripcionDetalle = estrategia.ListaDescripcionDetalle ?? new List<string>();
                 prodModel.TextoLibre = Util.Trim(estrategia.TextoLibre);
@@ -968,10 +968,10 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (tipoOferta != 3)
                 {
-                    var listaPedidoDetalle = _pedidoWeb.ObtenerPedidoWebDetalle(0);
+                    var listaPedidoDetalle = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado(0);
                     listaProductoRetorno.Update(x =>
                     {
-                        x.IsAgregado = listaPedidoDetalle.Any(p => p.CUV == x.CUV2);
+                        x.IsAgregado = listaPedidoDetalle.Any(p => p.EstrategiaId == x.EstrategiaID);
                     });
                 }
 
@@ -1015,6 +1015,12 @@ namespace Portal.Consultoras.Web.Providers
             }
             
             listaSubCampania = obtenerListaHermanos(listaSubCampania);
+            // para no mostrar boton ELIGE TU OPCION
+            listaSubCampania.ForEach(item =>
+            {
+                if (item.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    item.CodigoEstrategia = Constantes.TipoEstrategiaSet.CompuestaFija;
+            });
 
             var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
             sessionManager.ShowRoom.CargoOfertas = "1";
