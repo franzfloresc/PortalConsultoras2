@@ -58,12 +58,10 @@ namespace Portal.Consultoras.Web.Providers
                     {
                         var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
                         var labelAgregado = "";
-                        var cantidadAgregada = 0;
 
                         if (pedidoAgregado.Any())
                         {
                             labelAgregado = "Agregado";
-                            cantidadAgregada = pedidoAgregado[0].Cantidad;
                         }
 
                         resultBuscador.Add(new BuscadorYFiltrosModel()
@@ -84,7 +82,6 @@ namespace Portal.Consultoras.Web.Providers
                             MarcaId = item.MarcaId,
                             CampaniaID = userData.CampaniaID,
                             Agregado = labelAgregado,
-                            CantidadesAgregadas = cantidadAgregada,
                             Stock = !item.Stock,
                             OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile),
                             TipoPersonalizacion = item.TipoPersonalizacion,

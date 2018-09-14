@@ -1,7 +1,7 @@
 GO
 USE BelcorpPeru
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -82,7 +82,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -346,14 +345,11 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
 USE BelcorpMexico
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -434,7 +430,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -698,14 +693,11 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
 USE BelcorpColombia
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -786,7 +778,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -1050,14 +1041,11 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
 USE BelcorpSalvador
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -1138,7 +1126,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -1402,14 +1389,11 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
 USE BelcorpPuertoRico
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -1490,7 +1474,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -1754,14 +1737,11 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
 USE BelcorpPanama
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -1842,7 +1822,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -2106,14 +2085,11 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
 USE BelcorpGuatemala
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -2194,7 +2170,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -2458,14 +2433,11 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
 USE BelcorpEcuador
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -2546,7 +2518,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -2810,14 +2781,11 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
 USE BelcorpDominicana
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -2898,7 +2866,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -3162,14 +3129,11 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
 USE BelcorpCostaRica
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -3250,7 +3214,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -3514,14 +3477,11 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
 USE BelcorpChile
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -3602,7 +3562,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -3866,14 +3825,11 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
 USE BelcorpBolivia
 GO
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
@@ -3954,7 +3910,6 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
-
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -4218,8 +4173,5 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
-
-
-GO
 
 GO
