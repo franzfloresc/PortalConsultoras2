@@ -131,6 +131,16 @@ namespace Portal.Consultoras.Web.Controllers
             this._ofertaPersonalizadaProvider = ofertaPersonalizadaProvider;
         }
 
+        public BaseController(ISessionManager sessionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
+        {
+            //userData = new UsuarioModel();
+            SessionManager = sessionManager;
+            this.logManager = logManager;
+            this._ofertaPersonalizadaProvider = ofertaPersonalizadaProvider;
+            this._ofertaPersonalizadaProvider = ofertaPersonalizadaProvider;
+            this._ofertasViewProvider = ofertaViewProvider;
+        }
+
         public BaseController(ISessionManager sessionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
         {
             //userData = new UsuarioModel();
