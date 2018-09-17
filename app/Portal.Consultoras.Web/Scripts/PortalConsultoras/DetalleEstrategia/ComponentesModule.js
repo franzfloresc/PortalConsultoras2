@@ -123,7 +123,8 @@ var ComponentesModule = (function () {
 
                 opcionesEvents.applyChanges("onComponentSelected", componente);
 
-                ResumenOpcionesModule.AplicarOpciones();
+                var callFromSeleccionarPaletaOpcion = true;
+                ResumenOpcionesModule.AplicarOpciones(callFromSeleccionarPaletaOpcion);
 
                 return false;
             }
