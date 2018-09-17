@@ -251,13 +251,13 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
-    var marcarPopupBotonEligeloSoloUno = function (opcion) {
+    var marcarPopupBotonEligeloSoloUno = function (opcion, componentes) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige 1 opción',
                 'action': 'Elígelo',
-                'label': '{Nombre del producto} - {variedad del producto}'
+                'label': opcion.DescripcionCompleta + '-' + componentes.HermanosSeleccionados[0].NombreBulk
             });
         } catch (e) {
             console.log(_texto.exception + e);

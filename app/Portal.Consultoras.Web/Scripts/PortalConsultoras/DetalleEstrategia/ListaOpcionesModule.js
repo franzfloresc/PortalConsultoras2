@@ -213,6 +213,15 @@ var ListaOpcionesModule = (function () {
         //
         opcionesEvents.applyChanges("onOptionSelected", _componente);
         //
+        
+        var estrategia = fichaModule.GetEstrategia();
+        debugger;
+        if (_componente.FactorCuadre < 2 ) {
+            AnalyticsPortalModule.MarcarPopupBotonEligeloSoloUno(estrategia, _componente );
+        } else {
+            console.log("Complete here the second part");
+        }
+        
         return false;
     };
 
