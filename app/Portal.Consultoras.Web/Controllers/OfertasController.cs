@@ -8,11 +8,15 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class OfertasController : BaseController
     {
-        protected ConfiguracionOfertasHomeProvider _confiOfertasHomeProvider;
-
-        public OfertasController()
+        private readonly ConfiguracionOfertasHomeProvider _confiOfertasHomeProvider;
+            
+        public OfertasController() : this(new ConfiguracionOfertasHomeProvider())
         {
-            _confiOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
+        }
+
+        public OfertasController(ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider)
+        {
+            _confiOfertasHomeProvider = configuracionOfertasHomeProvider;
         }
 
         public ActionResult Index()
@@ -31,14 +35,14 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-                
+
                 ViewBag.variableEstrategia = GetVariableEstrategia();
 
                 return View(modelo);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "OfertasController.Index");
             }
 
             return RedirectToAction("Index", "Bienvenida");
@@ -63,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "OfertasController.Revisar");
             }
 
             return RedirectToAction("Index", "Bienvenida");
@@ -96,7 +100,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "OfertasController.ActualizarSession");
 
                 return Json(new
                 {
