@@ -452,7 +452,6 @@ namespace Portal.Consultoras.Web.Providers
                             continue;
 
                         config.UrlMenu = "#";
-                        config.DesktopTituloBanner = (revistaDigital.TieneRDC&&!revistaDigital.EsSuscrita)? "TODAS TUS OFERTAS EN UN SOLO LUGAR" : config.DesktopTituloBanner;
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
                         if (!revistaDigital.TieneRevistaDigital())
@@ -501,28 +500,9 @@ namespace Portal.Consultoras.Web.Providers
             menuContenedor = OrdenarMenuContenedor(menuContenedor, revistaDigital.TieneRevistaDigital(), esMobile);
 
             sessionManager.SetMenuContenedor(menuContenedor);
-            SetMenuContenedorNoSuscrita(menuContenedor, revistaDigital.EsSuscrita);
             return menuContenedor;
         }
-        private void SetMenuContenedorNoSuscrita(List<ConfiguracionPaisModel> MenuContenedor, bool EsSuscrita)
-        {
-            if (EsSuscrita)
-            {
-                foreach (var menuContenedor in MenuContenedor)
-                {
-                    //custom Setting 
-                    if (menuContenedor.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada)
-                    {
-                        menuContenedor.DesktopTituloBanner = "DISFRUTA DE TU GUIA DE NEGOCIO ONLINE EN";
-                    }
-                    if (menuContenedor.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
-                    {
-                        menuContenedor.DesktopTituloBanner = "DISFRUTA DE LO NUEVO !NUEVO! SOLO CON";
-                    }
-                }
-            }
-            
-        }
+        
         public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> menuContenedor, int CampaniaID, int NroCampanias)
         {
             var menuContenedorBloqueado = new List<ConfiguracionPaisModel>();

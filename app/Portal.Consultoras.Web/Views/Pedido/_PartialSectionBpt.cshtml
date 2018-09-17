@@ -39,7 +39,7 @@
                 <p class="segundo-texto">
                     @Html.Raw(configuracionPaisDatosModel.Valor2)
                 </p>
-                <a class="boton-suscrito" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
             </div>
 
             @if (revistaDigital.EsActiva)
@@ -74,9 +74,10 @@
         <div class="fondo_gris revistaDigitalCompleta" style="background:transparent !important;">
 
             <div class="club_gana_mas_pedido">
-                <div class="logo_club no-suscrito"></div>
-                <p class="primer-texto" style="text-transform:none; font-size: 15px; margin: 0 0 1.5em 0;"> @Html.Raw(configuracionPaisDatosModel.Valor1) @Html.Raw(configuracionPaisDatosModel.Valor2)<p>
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion)">VER MÁS</a>
+                <div class="logo_club"></div>
+                <p class="primer-texto"> @Html.Raw(configuracionPaisDatosModel.Valor1)</p>
+                <p class="segundo-texto">@Html.Raw(configuracionPaisDatosModel.Valor2)</p>
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion)">VER MÁS OFERTAS</a>
             </div>
 
             @if (revistaDigital.EsActiva)

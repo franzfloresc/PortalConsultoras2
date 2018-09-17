@@ -258,7 +258,7 @@ namespace Portal.Consultoras.Web.Controllers
             breadCrumbs.Inicio.Texto = "Inicio";
             breadCrumbs.Inicio.Url = Url.Action("Index", new { controller = "Bienvenida", area });
             //
-            breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Club Gana +" : "Ofertas Digitales";
+            breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Club Gana +" : "Ofertas";
             var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
             breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
             //
