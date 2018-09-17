@@ -12,32 +12,31 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class ConfiguracionOfertasHomeProvider
     {
-        private ISessionManager _sessionManager;
-        private ILogManager _logManager;
-        private ConfiguracionPaisProvider _configuracionPais;
-        private GuiaNegocioProvider _guiaNegocio;
-        private ShowRoomProvider _showRoom;
+        public virtual ISessionManager SessionManager { get; private set; }
+        public virtual ILogManager LogManager { get; private set; }
+        public virtual ConfiguracionPaisProvider ConfiguracionPais { get; private set; }
+        public virtual GuiaNegocioProvider GuiaNegocio { get; private set; }
+        public virtual ShowRoomProvider ShowRoom { get; private set; }
 
         private UsuarioModel userData
         {
             get
             {
-                return _sessionManager.GetUserData() ?? new UsuarioModel();
+                return SessionManager.GetUserData() ?? new UsuarioModel();
             }
-
         }
 
         private MenuContenedorModel menuActivo
         {
             get
             {
-                return _sessionManager.GetMenuContenedorActivo() ?? new MenuContenedorModel();
+                return SessionManager.GetMenuContenedorActivo() ?? new MenuContenedorModel();
             }
         }
 
         public ConfiguracionOfertasHomeProvider()
-            : this (SessionManager.SessionManager.Instance,
-                    LogManager.LogManager.Instance,
+            : this (Web.SessionManager.SessionManager.Instance,
+                    Web.LogManager.LogManager.Instance,
                    new ConfiguracionPaisProvider(),
                    new GuiaNegocioProvider(),
                    new ShowRoomProvider())
@@ -50,14 +49,14 @@ namespace Portal.Consultoras.Web.Providers
             GuiaNegocioProvider guiaNegocio,
             ShowRoomProvider showRoom)
         {
-            _sessionManager = sessionManager;
-            _logManager = logManager;
-            _configuracionPais = configuracionPaisProvider;
-            _guiaNegocio = guiaNegocio;
-            _showRoom = showRoom;
+            SessionManager = sessionManager;
+            LogManager = logManager;
+            ConfiguracionPais = configuracionPaisProvider;
+            GuiaNegocio = guiaNegocio;
+            ShowRoom = showRoom;
         }
 
-        public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital, bool esMobile)
+        public virtual List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital, bool esMobile)
         {
             var seccionesContenedorModel = new List<ConfiguracionSeccionHomeModel>();
 
@@ -114,7 +113,7 @@ namespace Portal.Consultoras.Web.Providers
 
                     #endregion
 
-                    _configuracionPais.RemplazarTagNombreConfiguracionOferta(ref entConf, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
+                    ConfiguracionPais.RemplazarTagNombreConfiguracionOferta(ref entConf, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
 
                     var seccion = new ConfiguracionSeccionHomeModel
                     {
@@ -142,8 +141,8 @@ namespace Portal.Consultoras.Web.Providers
                     switch (entConf.ConfiguracionPais.Codigo)
                     {
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                            var guiaNegocio = _sessionManager.GetGuiaNegocio();
-                            if (!_guiaNegocio.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                            var guiaNegocio = SessionManager.GetGuiaNegocio();
+                            if (!GuiaNegocio.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                                 continue;
 
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
@@ -176,11 +175,11 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.ShowRoomMobileContenedor : Constantes.OrigenPedidoWeb.ShowRoomDesktopContenedor;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
-                            var estrategiaODD = _sessionManager.OfertaDelDia.Estrategia;
+                            var estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                             if (!estrategiaODD.TieneOfertaDelDia)
                                 continue;
 
-                            _sessionManager.OfertaDelDia.Estrategia.ConfiguracionContenedor = seccion;
+                            SessionManager.OfertaDelDia.Estrategia.ConfiguracionContenedor = seccion;
 
                             break;
                         case Constantes.ConfiguracionPais.HerramientasVenta:
@@ -242,7 +241,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                _logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseController.ObtenerConfiguracionSeccion");
+                LogManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseController.ObtenerConfiguracionSeccion");
             }
 
             return seccionesContenedorModel;
@@ -250,12 +249,12 @@ namespace Portal.Consultoras.Web.Providers
 
         private List<BEConfiguracionOfertasHome> GetSeccionesContenedor()
         {
-            var seccionesContenedor = _sessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
+            var seccionesContenedor = SessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
 
             if (seccionesContenedor == null)
             {
                 seccionesContenedor = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId);
-                _sessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, seccionesContenedor);
+                SessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, seccionesContenedor);
             }
 
             return seccionesContenedor;
@@ -280,7 +279,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var result = false;
 
-            var configuracionesPais = _sessionManager.GetConfiguracionesPaisModel();
+            var configuracionesPais = SessionManager.GetConfiguracionesPaisModel();
             if (configuracionesPais != null)
             {
                 var cp = configuracionesPais.FirstOrDefault(x => x.Codigo == configuracionPais.Codigo);
@@ -304,7 +303,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                _logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "OfertasController.Index");
+                LogManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "OfertasController.Index");
             }
             
             return configuracionesOfertasHomes;
@@ -314,13 +313,13 @@ namespace Portal.Consultoras.Web.Providers
         {
             seccion.UrlLandig = "";
 
-            if (!_sessionManager.GetEsShowRoom())
+            if (!SessionManager.GetEsShowRoom())
                 return;
 
-            if (_sessionManager.GetMostrarShowRoomProductosExpiro())
+            if (SessionManager.GetMostrarShowRoomProductosExpiro())
                 return;
 
-            if (!_sessionManager.GetMostrarShowRoomProductos())
+            if (!SessionManager.GetMostrarShowRoomProductos())
             {
 
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
@@ -329,13 +328,13 @@ namespace Portal.Consultoras.Web.Providers
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =
-                        _showRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
+                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 }
                 else
                 {
                     seccion.ImagenFondo =
-                        _showRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
+                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
             }
@@ -346,17 +345,17 @@ namespace Portal.Consultoras.Web.Providers
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =
-                        _showRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
+                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 }
                 else
                 {
                     seccion.ImagenFondo =
-                        _showRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
+                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                var listaShowRoom = _sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
+                var listaShowRoom = SessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
                 seccion.CantidadProductos = listaShowRoom.Count;
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }

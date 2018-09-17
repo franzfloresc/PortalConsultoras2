@@ -101,6 +101,7 @@
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaControllerUnitTests.cs" />
     <Compile Include="Areas\Mobile\Controllers\GuiaNegocioControllerUnitTests.cs" />
     <Compile Include="Areas\Mobile\Controllers\BaseGuiaNegocioControllerUnitTests.cs" />
+    <Compile Include="Areas\Mobile\Controllers\OfertasControllerUnitTests.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasParaTiUnitTests.cs" />
     <Compile Include="Attributes\ExpectedExceptionWithMessageAttribute.cs" />
     <Compile Include="Base.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Controllers\BaseShowRoomControllerUnitTest.cs" />
     <Compile Include="Controllers\BienvenidaControllerUnitTests.cs" />
     <Compile Include="Controllers\GestionContenidoControllerUnitTest.cs" />
+    <Compile Include="Controllers\OfertasControllerUnitTests.cs" />
     <Compile Include="Controllers\PedidoControllerUnitTest.cs" />
     <Compile Include="Controllers\LoginControllerUnitTest.cs" />
     <Compile Include="Controllers\DetalleEstrategiaControllerUnitTests.cs" />

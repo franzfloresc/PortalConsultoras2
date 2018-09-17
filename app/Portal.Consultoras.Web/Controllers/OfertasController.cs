@@ -1,7 +1,9 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Ofertas;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Web.Mvc;
 
@@ -15,17 +17,26 @@ namespace Portal.Consultoras.Web.Controllers
         {
         }
 
-        public OfertasController(ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider)
+        public OfertasController(ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider):base()
         {
             _confiOfertasHomeProvider = configuracionOfertasHomeProvider;
         }
 
+        public OfertasController(
+            ISessionManager sessionManager,
+            ILogManager logManager,
+            ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider,
+            OfertaViewProvider ofertaViewProvider
+            )
+            : base(sessionManager, logManager)
+        {
+            _confiOfertasHomeProvider = configuracionOfertasHomeProvider;
+            _ofertasViewProvider = ofertaViewProvider;
+        }
+
         public ActionResult Index()
         {
-            if (EsDispositivoMovil())
-            {
-                return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
-            }
+            if (EsDispositivoMovil()) return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
 
             try
             {

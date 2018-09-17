@@ -52,5 +52,25 @@ namespace Portal.Consultoras.Web.UnitTest
                 It.IsAny<string>()
             ), Times.Never);
         }
+
+        protected void VerifyCallLogManager(string method)
+        {
+            LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                     It.IsAny<Exception>(),
+                     It.IsAny<string>(),
+                     It.IsAny<string>(),
+                     It.Is<string>(str => str.Equals(method))
+                     ), Times.Once);
+        }
+
+        protected void VerifyCallLogManager(string exceptionMessage,string method)
+        {
+            LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                     It.Is<Exception>(ex => ex.Message.Contains(exceptionMessage)),
+                     It.IsAny<string>(),
+                     It.IsAny<string>(),
+                     It.Is<string>(str => str.Equals(method))
+                     ), Times.Once);
+        }
     }
 }
