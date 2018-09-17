@@ -206,6 +206,7 @@
 .content_cantidad_ficha_producto .cantidad_mas_home span {
     font-size: 16px;
     font-weight: bold;
+    line-height: normal
 }
 
 .header_fixed {
