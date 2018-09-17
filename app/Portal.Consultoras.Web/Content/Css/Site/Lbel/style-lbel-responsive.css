@@ -1,0 +1,37 @@
+﻿/* ESTILOS MARCA PAÍS LBEL */
+
+.header__marca__pais img {
+    width: auto;
+    height: 55%;
+    margin-top: -2px;
+}
+
+.icono__actualizarDatos{
+    background-color:#613C87;
+}
+
+.menu__link--pedido{
+    background-image:url(../../../images/lbel/vineta_indicador.png);
+}
+
+.notificaciones__cantidad{
+    background-color: #642f80;
+}
+
+.btn__productos__agregados--IngresarPedido{
+    background-color:#642f80;
+}
+
+@media screen and (max-width:991px){
+    
+    .header__marca__pais{
+        width:148px;
+    }
+
+    .header__marca__pais picture {
+        margin-top: 9px;
+    }
+
+}
+
+/* FIN - ESTILOS MARCA PAÍS LBEL */

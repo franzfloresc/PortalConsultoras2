@@ -1,0 +1,36 @@
+﻿/* ESTILOS MARCA PAÍS ÉSIKA */
+
+.header__marca__pais img{
+    width:auto;
+    height:100%;
+}
+
+.icono__actualizarDatos{
+    background-color:#e81c36;
+}
+
+.menu__link--pedido{
+    background-image:url(../../../images/esika/vineta_indicador.png);
+}
+
+.notificaciones__cantidad{
+    background-color: #e81c36;
+}
+
+.btn__productos__agregados--IngresarPedido{
+    background-color:#e81c36;
+}
+
+@media screen and (max-width:991px){
+
+    .header__marca__pais{
+        width:136px;
+    }
+
+    .header__marca__pais picture {
+        margin-top: 3px;
+    }
+
+}
+
+/* FIN - ESTILOS MARCA PAÍS ÉSIKA */
