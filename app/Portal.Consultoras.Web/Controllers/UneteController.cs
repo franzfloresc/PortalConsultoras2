@@ -1925,7 +1925,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var response = PostHTMLSACUnete("CambioTipoNegocio", model);
             RegistrarLogGestionSacUnete(model.NumeroDocumento, "GESTIONA POSTULANTE", "CAMBIO TIPO NEGOCIO");
-            return Json(response == "true", JsonRequestBehavior.AllowGet);
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
