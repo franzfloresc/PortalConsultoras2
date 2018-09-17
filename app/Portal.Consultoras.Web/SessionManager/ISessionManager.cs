@@ -440,10 +440,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetCuvEsProgramaNuevas();
 
-        void SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas val);
-
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas();
-
         void SetOcultarBannerTop(bool val);
 
         bool GetOcultarBannerTop();

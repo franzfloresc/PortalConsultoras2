@@ -1181,18 +1181,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (bool)val;
         }
 
-        void ISessionManager.SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas val)
-        {
-            HttpContext.Current.Session["ConfiguracionProgramaNuevas"] = val;
-        }
-
-        BEConfiguracionProgramaNuevas ISessionManager.GetConfiguracionProgramaNuevas()
-        {
-            var val = HttpContext.Current.Session["ConfiguracionProgramaNuevas"];
-
-            return (BEConfiguracionProgramaNuevas)val;
-        }
-
         void ISessionManager.SetOcultarBannerTop(bool val)
         {
             HttpContext.Current.Session["OcultarBannerTop"] = val;
