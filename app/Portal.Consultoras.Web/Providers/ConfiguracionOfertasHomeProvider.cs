@@ -1,22 +1,43 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Portal.Consultoras.Web.LogManager;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class ConfiguracionOfertasHomeProvider
     {
         private ISessionManager _sessionManager;
+        private ILogManager _logManager;
         private ConfiguracionPaisProvider _configuracionPais;
         private GuiaNegocioProvider _guiaNegocio;
         private ShowRoomProvider _showRoom;
 
+        private UsuarioModel userData
+        {
+            get
+            {
+                return _sessionManager.GetUserData() ?? new UsuarioModel();
+            }
+
+        }
+
+        private MenuContenedorModel menuActivo
+        {
+            get
+            {
+                return _sessionManager.GetMenuContenedorActivo() ?? new MenuContenedorModel();
+            }
+        }
+
         public ConfiguracionOfertasHomeProvider()
             : this (SessionManager.SessionManager.Instance,
+                    LogManager.LogManager.Instance,
                    new ConfiguracionPaisProvider(),
                    new GuiaNegocioProvider(),
                    new ShowRoomProvider())
@@ -24,11 +45,13 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         public ConfiguracionOfertasHomeProvider(ISessionManager sessionManager,
+            ILogManager logManager,
             ConfiguracionPaisProvider configuracionPaisProvider,
             GuiaNegocioProvider guiaNegocio,
             ShowRoomProvider showRoom)
         {
             _sessionManager = sessionManager;
+            _logManager = logManager;
             _configuracionPais = configuracionPaisProvider;
             _guiaNegocio = guiaNegocio;
             _showRoom = showRoom;
@@ -36,38 +59,18 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital, bool esMobile)
         {
-            var modelo = new List<ConfiguracionSeccionHomeModel>();
-            var userData = _sessionManager.GetUserData();
+            var seccionesContenedorModel = new List<ConfiguracionSeccionHomeModel>();
 
             try
             {
-                if (userData == null || revistaDigital == null)
-                    return modelo;
+                if (userData == null || revistaDigital == null) return seccionesContenedorModel;
+                if (menuActivo.CampaniaId <= 0) menuActivo.CampaniaId = userData.CampaniaID;
 
-                var menuActivo = _sessionManager.GetMenuContenedorActivo();
-
-                if (menuActivo.CampaniaId <= 0)
-                    menuActivo.CampaniaId = userData.CampaniaID;
-
-
-                var listaEntidad = _sessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
-                if (listaEntidad == null)
-                {
-                    listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId);
-                    _sessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, listaEntidad);
-                }
-
-                if (menuActivo.CampaniaId > userData.CampaniaID)
-                {
-                    listaEntidad = listaEntidad.Where(entConf
-                    => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
-                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
-                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.InicioRD
-                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.HerramientasVenta).ToList();
-                }
+                var seccionesContenedor = GetSeccionesContenedor();
+                seccionesContenedor = GetSeccionesContenedorByCampania(seccionesContenedor);
 
                 var isMobile = esMobile;
-                foreach (var beConfiguracionOfertasHome in listaEntidad)
+                foreach (var beConfiguracionOfertasHome in seccionesContenedor)
                 {
                     var entConf = beConfiguracionOfertasHome;
                     entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
@@ -76,8 +79,7 @@ namespace Portal.Consultoras.Web.Providers
 
                     #region Pre Validacion
 
-                    if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais))
-                        continue;
+                    if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais)) continue;
 
                     if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
                         || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
@@ -91,9 +93,9 @@ namespace Portal.Consultoras.Web.Providers
 
                         //entConf.MobileTitulo = titulo;
                         //entConf.MobileSubTitulo = subTitulo;
-                        
-                        if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC)
-                            continue;
+
+                        if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                            && !revistaDigital.TieneRDC) continue;
 
                         if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
                         {
@@ -233,18 +235,46 @@ namespace Portal.Consultoras.Web.Providers
                     if (seccion.TemplatePresentacion == "") continue;
                     #endregion
 
-                    modelo.Add(seccion);
+                    seccionesContenedorModel.Add(seccion);
                 }
 
-                modelo = modelo.OrderBy(s => s.Orden).ToList();
+                seccionesContenedorModel = seccionesContenedorModel.OrderBy(s => s.Orden).ToList();
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseController.ObtenerConfiguracionSeccion");
+                _logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseController.ObtenerConfiguracionSeccion");
             }
 
-            return modelo;
+            return seccionesContenedorModel;
         }
+
+        private List<BEConfiguracionOfertasHome> GetSeccionesContenedor()
+        {
+            var seccionesContenedor = _sessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
+
+            if (seccionesContenedor == null)
+            {
+                seccionesContenedor = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId);
+                _sessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, seccionesContenedor);
+            }
+
+            return seccionesContenedor;
+        }
+
+        private List<BEConfiguracionOfertasHome> GetSeccionesContenedorByCampania(List<BEConfiguracionOfertasHome> seccionesContenedor)
+        {
+            if (seccionesContenedor != null && menuActivo.CampaniaId > userData.CampaniaID)
+            {
+                seccionesContenedor = seccionesContenedor.Where(entConf
+                => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
+                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.InicioRD
+                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.HerramientasVenta).ToList();
+            }
+
+            return seccionesContenedor;
+        }
+
 
         private bool SeccionTieneConfiguracionPais(ServiceSAC.BEConfiguracionPais configuracionPais)
         {
@@ -263,13 +293,20 @@ namespace Portal.Consultoras.Web.Providers
 
         private List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
         {
-            List<BEConfiguracionOfertasHome> configuracionesOfertasHomes;
+            var  configuracionesOfertasHomes = new List<BEConfiguracionOfertasHome>();
 
-            using (var sv = new SACServiceClient())
+            try
             {
-                configuracionesOfertasHomes = sv.ListarSeccionConfiguracionOfertasHome(paidId, campaniaId).ToList();
+                using (var sv = new SACServiceClient())
+                {
+                    configuracionesOfertasHomes = sv.ListarSeccionConfiguracionOfertasHome(paidId, campaniaId).ToList();
+                }
             }
-
+            catch (Exception ex)
+            {
+                _logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "OfertasController.Index");
+            }
+            
             return configuracionesOfertasHomes;
         }
 
