@@ -112,6 +112,7 @@
       <xs:element minOccurs="0" name="IndicadorBloqueoCDR" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorConsultoraDigital" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorContrato" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorContratoAceptacion" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorDupla" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorFlexiPago" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorGPRSB" type="xs:int" />

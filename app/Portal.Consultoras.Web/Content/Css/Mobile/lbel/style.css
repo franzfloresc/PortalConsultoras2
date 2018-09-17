@@ -9641,6 +9641,41 @@ a {
     font-weight: 700;
 }
 
+.camino_al_exito,
+.enlace_ver_mas_sobre_camino_al_exito
+{
+    display:block;
+    margin:0 auto;
+    font-weight:700;
+    background-repeat:no-repeat;
+}
+
+.camino_al_exito{
+    width: 167px;
+    color: #613c87;
+    font-size: 14px;
+    margin-bottom: 3px;
+    background-image: url(../../../Images/Lbel/estrellas.png);
+    background-position: right -2px;
+    background-size: 23px;
+}
+
+.enlace_ver_mas_sobre_camino_al_exito{
+    width: 63px;
+    margin: 0 auto;
+    font-size: 11px;
+    text-decoration: underline;
+    background-image: url(../../../Images/mobile/Lbel/indicador_pedido.png);
+    background-position: left 5px;
+    background-size: 6px;
+}
+
+    .enlace_ver_mas_sobre_camino_al_exito,
+    .enlace_ver_mas_sobre_camino_al_exito:hover
+    {
+        color:#000;
+    }
+
 .enlace_popupCatalogoPersonalizado a {
     display: inline;
     color: #642f80;

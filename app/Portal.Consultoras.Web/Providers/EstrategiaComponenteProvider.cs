@@ -60,16 +60,17 @@ namespace Portal.Consultoras.Web.Providers
             this.SessionManager = sessionManager;
         }
 
-        public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca)
+        public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
         {
             string joinCuv = string.Empty;
             List<BEEstrategiaProducto> listaBeEstrategiaProductos;
             esMultimarca = false;
+            mensaje = "";
 
             var userData = SessionManager.GetUserData();
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
-                //listaBeEstrategiaProductos = new List<BEEstrategiaProducto>();
+                mensaje += "SiMongo|";
                 string pathComponente = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerComponente,
                         userData.CodigoISO,
                         estrategiaModelo.CampaniaID,
@@ -89,6 +90,7 @@ namespace Portal.Consultoras.Web.Providers
                 if (!listaProductos.Any()) return new List<EstrategiaComponenteModel>();
 
                 var listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
+
                 //estrategiaModelo.CodigoVariante = "";
                 //var listaComponentesPorOrdenar = GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
                 listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
