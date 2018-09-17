@@ -21,14 +21,26 @@ namespace Portal.Consultoras.Web.Controllers
             _issuuProvider = new IssuuProvider();
         }
 
-        public BaseViewController(ISessionManager sesionManager) : base(sesionManager)
+        public BaseViewController(ISessionManager sesionManager) 
+            : base(sesionManager)
         {
 
         }
 
-        public BaseViewController(ISessionManager sesionManager, ILogManager logManager) : base(sesionManager, logManager)
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager) 
+            : base(sesionManager, logManager)
         {
 
+        }
+
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider) 
+            : base(sesionManager, logManager, ofertaPersonalizadaProvider)
+        {
+        }
+
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
+            : base(sesionManager, logManager, estrategiaComponenteProvider)
+        {
         }
 
         #region RevistaDigital
@@ -73,7 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult RDDetalleModel(string cuv, int campaniaId)
         {
-            var modelo = sessionManager.GetProductoTemporal();
+            var modelo = SessionManager.GetProductoTemporal();
             if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
@@ -168,20 +180,22 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
-                    return RedirectToAction("Index", "Ofertas");
+                if( _ofertaPersonalizadaProvider == null) throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
 
-                palanca = IdentificarPalanca(palanca, campaniaId);
+                if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
+                    return RedirectToAction("Index", "Ofertas",new { area = IsMobile() ? "Mobile" : "" });
+
+                palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
 
                 if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
-                    return RedirectToAction("Index", "Ofertas");
+                    return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
-                DetalleEstrategiaFichaModel modelo;
+                DetalleEstrategiaFichaModel modelo= null;
                 if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
                     if (estrategiaPresonalizada == null)
-                        return RedirectToAction("Index", "Ofertas");
+                        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
                     if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
@@ -191,11 +205,8 @@ namespace Portal.Consultoras.Web.Controllers
                         modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
                     }
                 }
-                else
-                {
-                    modelo = new DetalleEstrategiaFichaModel();
-                }
 
+                modelo = modelo ?? new DetalleEstrategiaFichaModel();
                 modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
                 modelo.OrigenUrl = origen;
                 modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
@@ -219,7 +230,7 @@ namespace Portal.Consultoras.Web.Controllers
                     modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
                     modelo.TieneReloj = true;
 
-                    var sessionODD = (DataModel)sessionManager.OfertaDelDia.Estrategia.Clone();
+                    var sessionODD = (DataModel)SessionManager.OfertaDelDia.Estrategia.Clone();
                     modelo.ColorFondo1 = sessionODD.ColorFondo1;
                     modelo.ConfiguracionContenedor = (ConfiguracionSeccionHomeModel)sessionODD.ConfiguracionContenedor.Clone();
                     modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
@@ -232,7 +243,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseViewController.Ficha");
             }
 
             return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
@@ -439,32 +450,36 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        public string IdentificarPalanca(string palanca, int campaniaId)
+        public string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)
         {
-            var RevistaDigital = sessionManager.GetRevistaDigital();
             switch (palanca)
             {
                 case Constantes.NombrePalanca.OfertaParaTi:
-                    if (RevistaDigital.ActivoMdo)
+                    if (revistaDigital != null)
                     {
-                        palanca = Constantes.NombrePalanca.OfertasParaMi;
-                    }
-                    else
-                    {
-                        if (revistaDigital.TieneRDC || revistaDigital.TieneRDCR)
+                        if (revistaDigital.ActivoMdo)
                         {
-                            if (revistaDigital.EsActiva)
-                            {
-                                palanca = Constantes.NombrePalanca.OfertasParaMi;
-                            }
-                            else
-                            {
-                                palanca = campaniaId == userData.CampaniaID ? Constantes.NombrePalanca.OfertaParaTi : Constantes.NombrePalanca.OfertasParaMi;
-                            }
+                            palanca = Constantes.NombrePalanca.OfertasParaMi;
                         }
                         else
                         {
-                            palanca = Constantes.NombrePalanca.OfertaParaTi;
+                            if (revistaDigital.TieneRDC || revistaDigital.TieneRDCR)
+                            {
+                                if (revistaDigital.EsActiva)
+                                {
+                                    palanca = Constantes.NombrePalanca.OfertasParaMi;
+                                }
+                                else
+                                {
+                                    palanca = campaniaId == userData.CampaniaID
+                                        ? Constantes.NombrePalanca.OfertaParaTi
+                                        : Constantes.NombrePalanca.OfertasParaMi;
+                                }
+                            }
+                            else
+                            {
+                                palanca = Constantes.NombrePalanca.OfertaParaTi;
+                            }
                         }
                     }
                     break;

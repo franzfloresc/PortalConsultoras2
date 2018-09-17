@@ -1,0 +1,51 @@
+﻿@{
+    // Asignar permisosList con los elementos solo de la cabecera
+    var permisoList = (List<Portal.Consultoras.Web.Models.PermisoModel>)ViewBag.Permiso;
+    permisoList = permisoList != null
+        ? permisoList.Where(x => x.Posicion.ToLower().Equals("header") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
+        : new List<Portal.Consultoras.Web.Models.PermisoModel>();
+}
+<div class="clear"></div>
+<div class="wrapper_header wrapper_header_cincuenta_anios_belcorp">
+    <div data-menu-header="parte1" class="wrapper_cincuenta_anios_belcorp_y_logo">
+        <div class="cincuenta_anios_belcorp">
+            <img src="@Url.Content("~/Content/Images/cincuenta_anios_belcorp_cabecera.png")" alt="" />
+        </div>
+        <div class="logo_esika">
+            <a class="@ViewBag.ClaseLogoSB" href="@Url.Action("Index", "Bienvenida")"></a>
+        </div>
+    </div>
+    <div data-menu-header="parte2" class="menu_new_esika">
+        @if (permisoList.Count > 0)
+        {
+            var listaMenu2 = new Portal.Consultoras.Web.Models.PermisoModel();
+            listaMenu2.SubMenus = permisoList;
+            @Html.Partial("~/Views/Shared/VistaParcialMenu/_Menu2.cshtml", listaMenu2)
+        }
+    </div>
+    @if (ViewBag.MostrarBuscadorYFiltros)
+    {
+        <div class="buscador_productos displayBlock">
+            <input type="text" value="" id="CampoBuscadorProductos" class="campo_buscador_productos displayBlock" placeholder="¿Buscas ofertas?" />
+            <a class="enlace_busqueda_productos displayBlock" title="Buscar">
+                <img src="@Url.Content("~/Content/Images/icono_lupa.png")" alt="Buscar" />
+            </a>
+            <a class="opcion_limpiar_campo_busqueda_productos displayBlock" title="Cerrar" style="display:none;">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
+            </a>
+            <div class="campo_busqueda_fondo_on_focus displayBlock">
+                <div class="franja_blanca"></div>
+            </div>
+            <div class="lista_resultados_busqueda_productos displayBlock text-center">
+                <div class="spinner">
+                    <img src="@Url.Content("~/Content/Images/loading_spinner.gif")" alt="" />
+                </div>
+                <div class="resultados_wrapper" id="ResultadoBuscador">
+                </div>
+            </div>
+        </div>
+    }
+    @Html.Partial("~/Views/Shared/VistaParcialMenu/_vpMenuB.cshtml")
+    <div class="clear"></div>
+</div>
+<div class="clear"></div>

@@ -1749,37 +1749,38 @@ function odd_desktop_google_analytics_addtocart(tipo, element) {
     dataLayer.push(data);
 }
 
-function odd_mobile_google_analytics_addtocart() {
+//DEUDA TECNICA
+//function odd_mobile_google_analytics_addtocart() {
 
-    var element = $("#OfertasDiaMobile").find(".slick-current").attr("data-slick-index");
-    var id = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".cuv2-odd").val();
-    var name = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".nombre-odd").val();
-    var price = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".precio-odd").val();
-    var marca = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".MarcaNombre").val();
-    var variant = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".DescripcionEstrategia").val();
-    var quantity = $('#pop_oferta_mobile').find("#txtCantidad").val();
-    if (variant == "")
-        variant = "Oferta del Día";
-    dataLayer.push({
-        'event': 'addToCart',
-        'ecommerce': {
-            'add': {
-                'actionField': { 'list': 'Oferta del día' },
-                'products': [{
-                    'name': name,
-                    'price': price,
-                    'brand': marca,
-                    'id': id,
-                    'category': 'No disponible',
-                    'variant': variant,
-                    'quantity': quantity,
-                    'dimension15': '100',
-                    'dimension16': 'Oferta del día - Detalle'
-                }]
-            }
-        }
-    });
-}
+//    var element = $("#OfertasDiaMobile").find(".slick-current").attr("data-slick-index");
+//    var id = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".cuv2-odd").val();
+//    var name = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".nombre-odd").val();
+//    var price = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".precio-odd").val();
+//    var marca = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".MarcaNombre").val();
+//    var variant = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".DescripcionEstrategia").val();
+//    var quantity = $('#pop_oferta_mobile').find("#txtCantidad").val();
+//    if (variant == "")
+//        variant = "Oferta del Día";
+//    dataLayer.push({
+//        'event': 'addToCart',
+//        'ecommerce': {
+//            'add': {
+//                'actionField': { 'list': 'Oferta del día' },
+//                'products': [{
+//                    'name': name,
+//                    'price': price,
+//                    'brand': marca,
+//                    'id': id,
+//                    'category': 'No disponible',
+//                    'variant': variant,
+//                    'quantity': quantity,
+//                    'dimension15': '100',
+//                    'dimension16': 'Oferta del día - Detalle'
+//                }]
+//            }
+//        }
+//    });
+//}
 
 function odd_google_analytics_product_click(name, id, price, brand, variant, position, listName) {
     if (variant == null || variant == "")

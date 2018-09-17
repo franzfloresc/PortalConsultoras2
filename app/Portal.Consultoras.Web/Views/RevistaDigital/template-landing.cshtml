@@ -12,7 +12,7 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Landing")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/RevistaDigital-Landing")
 }
 
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"
@@ -70,68 +70,71 @@
 
             <div id="divOfertaProductos" style="text-align: center;"></div>
         </div>
-    </div>  
-    <hr class="clear"/>
-            @if (Model.ProductosPerdio)
-            {
-                if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-                {
-                    <div id="block_inscribete">
-                        <div class="zona_dorada_contenedor_desktop"></div>
-                        <div class="contenido_zona_dorada_contenedor_desktop">
-                            <div class="fix-zona-dorada">
-                                <div class="xblock-cont-uno">
-                                    <img src="~/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png" style="width:90px;" />
-                                    <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
-                                    <div style="clear:both;"></div>
-                                </div>
-                                <div class="xblock-cont-dos">
-                                    <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
-                                </div>
-                                <div style="clear: both;"></div>
-                            </div>
+    </div>
+    <hr class="clear" />
+    @if (Model.ProductosPerdio)
+    {
+        if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        {
+            <div id="block_inscribete">
+                <div class="zona_dorada_contenedor_desktop"></div>
+                <div class="contenido_zona_dorada_contenedor_desktop">
+                    <div class="fix-zona-dorada">
+                        <div class="xblock-cont-uno">
+                            <img src="~/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png" style="width:90px;" />
+                            <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
+                            <div style="clear:both;"></div>
                         </div>
-                    </div>
-
-                }
-                else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-                {
-                    <div id="block_inscribete">
-                        <div class="zona_dorada_contenedor_desktop"></div>
-                        <div class="contenido_zona_dorada_contenedor_desktop">
-                            <div class="fix-zona-dorada">
-                                <div class="xblock-cont-uno">
-                                    <img src="~/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png" style="width:90px;" />
-                                    <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
-                                    <div style="clear:both;"></div>
-                                </div>
-                                <div style="clear: both;"></div>
-                            </div>
+                        <div class="xblock-cont-dos">
+                            <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
                         </div>
+                        <div style="clear: both;"></div>
                     </div>
-                }
-
-                <div class="content_belcorp parche_productos_1000" data-listado-content="" style="margin-bottom: 55px;">
-                    <div id="divOfertaProductosPerdio" class="divOfertaProductosPerdiofix" data-content-perdido="@Model.CampaniaID" style="position: relative; top: -230px;"></div>
                 </div>
+            </div>
+
+        }
+        else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        {
+            <div id="block_inscribete">
+                <div class="zona_dorada_contenedor_desktop"></div>
+                <div class="contenido_zona_dorada_contenedor_desktop">
+                    <div class="fix-zona-dorada">
+                        <div class="xblock-cont-uno">
+                            <img src="~/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png" style="width:90px;" />
+                            <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+            </div>
         }
 
-        <hr class="clear" />
-        <div id="divOfertaProductosLoad" style="display: none;">
-            Cargando Productos<br>
+        <div class="content_belcorp parche_productos_1000" data-listado-content="" style="margin-bottom: 55px;">
+            <div id="divOfertaProductosPerdio" class="divOfertaProductosPerdiofix" data-content-perdido="@Model.CampaniaID" style="position: relative; top: -230px;"></div>
         </div>
-        <hr class="clear" />
+    }
+
+    <hr class="clear" />
+    <div id="divOfertaProductosLoad" style="display: none;">
+        Cargando Productos<br>
     </div>
+    <hr class="clear" />
+</div>
 
 <hr class="clear" />
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
+@*
+    DEUDA TECNICA
+    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+
+    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
@@ -139,7 +142,7 @@
     <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
 </div>
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
         var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "Estrategia", new { area = ""})';
@@ -154,5 +157,5 @@
         var campaniaId = @Model.CampaniaID;
         var variableEstrategia = @Html.Raw(Json.Encode(ViewBag.variableEstrategia)) || {};
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Landing")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/RevistaDigital-Landing")
 }

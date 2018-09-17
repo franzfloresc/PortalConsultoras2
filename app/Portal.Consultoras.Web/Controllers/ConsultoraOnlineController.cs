@@ -38,9 +38,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         ~ConsultoraOnlineController()
         {
-            sessionManager.SetobjMisPedidos(null);
-            sessionManager.SetobjMisPedidosDetalle(null);
-            sessionManager.SetobjMisPedidosDetalleVal(null);
+            SessionManager.SetobjMisPedidos(null);
+            SessionManager.SetobjMisPedidosDetalle(null);
+            SessionManager.SetobjMisPedidosDetalleVal(null);
         }
 
         public ActionResult Index(string activation)
@@ -726,7 +726,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaPedidos = olstMisPedidos;
 
                 objMisPedidos = model;
-                sessionManager.SetobjMisPedidos(objMisPedidos);
+                SessionManager.SetobjMisPedidos(objMisPedidos);
                 indiceUltimaPagina = objMisPedidos.ListaPedidos.Count / registrosPagina;
                 if (objMisPedidos.ListaPedidos.Count % registrosPagina == 0) indiceUltimaPagina--;
                 TempData["indiceActualPagina"] = indiceActualPagina;
@@ -734,7 +734,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-                objMisPedidos = sessionManager.GetobjMisPedidos();
+                objMisPedidos = SessionManager.GetobjMisPedidos();
                 indiceActualPagina = (int)TempData["indiceActualPagina"];
                 indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
                 if (Pagina.Equals("<<")) indiceActualPagina = 0;
@@ -798,7 +798,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.ListaPedidos = olstMisPedidos;
 
                         objMisPedidos = model;
-                        sessionManager.SetobjMisPedidos(objMisPedidos);
+                        SessionManager.SetobjMisPedidos(objMisPedidos);
 
                         var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
 
@@ -880,13 +880,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstMisPedidosDet.Count > 0)
                 {
-                    MisPedidosModel consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
+                    MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
                     long pedidoIdAux = Convert.ToInt64(pedidoId);
                     var pedido =
                         consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoIdAux) ??
                         new BEMisPedidos();
 
-                    sessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
+                    SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
 
                     // 0=App Catalogos, >0=Portal Marca
                     if (pedido.MarcaID == 0)
@@ -915,7 +915,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 userData.CodigoZona).ToList();
                         }
 
-                        sessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
+                        SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
 
                         foreach (var item in olstMisPedidosDet)
                         {
@@ -987,7 +987,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ObtenerPagina(string Pagina)
         {
-            objMisPedidos = sessionManager.GetobjMisPedidos();
+            objMisPedidos = SessionManager.GetobjMisPedidos();
             ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
             indiceActualPagina = (int)TempData["indiceActualPagina"];
             indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
@@ -1070,12 +1070,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            MisPedidosModel consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
+            MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
             var pedidoAux =
                 consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedido.PedidoId) ??
                 new BEMisPedidos();
 
-            List<BEMisPedidosDetalle> olstMisPedidosDet = sessionManager.GetobjMisPedidosDetalle();
+            List<BEMisPedidosDetalle> olstMisPedidosDet = SessionManager.GetobjMisPedidosDetalle();
             pedidoAux.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == pedidoAux.PedidoId).ToArray();
 
             int tipo;
@@ -1130,7 +1130,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 MisPedidosModel refreshMisPedidos = new MisPedidosModel { ListaPedidos = refresh };
-                sessionManager.SetobjMisPedidos(refreshMisPedidos);
+                SessionManager.SetobjMisPedidos(refreshMisPedidos);
 
                 string clienteId;
 
@@ -1170,7 +1170,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipo == 1) // solo para App Catalogos
                 {
-                    List<ServiceODS.BEProducto> olstMisProductos = sessionManager.GetobjMisPedidosDetalleVal();
+                    List<ServiceODS.BEProducto> olstMisProductos = SessionManager.GetobjMisPedidosDetalleVal();
 
 
                     foreach (var item in pedido.ListaDetalleModel)
@@ -1252,8 +1252,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                sessionManager.SetDetallesPedido(null);
-                sessionManager.SetDetallesPedidoSetAgrupado(null);
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
                 string emailDe = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
 
                 if (pedidoAux.FlagMedio == "01")
@@ -1563,7 +1563,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var pedidoWebDetalleNula = sessionManager.GetDetallesPedido() == null;
+                var pedidoWebDetalleNula = SessionManager.GetDetallesPedido() == null;
 
                 olstTempListado = ObtenerPedidoWebDetalle();
 
@@ -1616,8 +1616,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PedidoDetalleID = obePedidoWebDetalle.PedidoDetalleID,
                     IndicadorIPUsuario = GetIPCliente(),
                     IndicadorFingerprint = "",
-                    IndicadorToken = sessionManager.GetTokenPedidoAutentico() != null
-                        ? sessionManager.GetTokenPedidoAutentico().ToString()
+                    IndicadorToken = SessionManager.GetTokenPedidoAutentico() != null
+                        ? SessionManager.GetTokenPedidoAutentico().ToString()
                         : ""
                 };
 
@@ -1643,7 +1643,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             UsuarioModel usuario = userData;
                             usuario.PedidoID = oBePedidoWebDetalleTemp.PedidoID;
-                            sessionManager.SetUserData(usuario);
+                            SessionManager.SetUserData(usuario);
                         }
 
                         olstTempListado.Add(oBePedidoWebDetalleTemp);
@@ -1670,8 +1670,8 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                sessionManager.SetDetallesPedido(null);
-                sessionManager.SetDetallesPedidoSetAgrupado(null);
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
                 olstTempListado = ObtenerPedidoWebDetalle();
                 errorServer = false;
                 tipo = tipoAdm;
@@ -1737,7 +1737,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {
-                MisPedidosModel consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
+                MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
 
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(paisId, 56);
                 var numIteracionMaximo =
@@ -2009,7 +2009,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 MisPedidosModel refreshMisPedidos = new MisPedidosModel { ListaPedidos = refresh };
-                sessionManager.SetobjMisPedidos(refreshMisPedidos);
+                SessionManager.SetobjMisPedidos(refreshMisPedidos);
             }
 
             var data = new
@@ -2030,7 +2030,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
-                    MisPedidosModel consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
+                    MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
 
                     sc.CancelarSolicitudCliente(paisId, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
                     ServiceSAC.BESolicitudCliente beSolicitudCliente = sc.GetSolicitudCliente(paisId, SolicitudId);
@@ -2049,7 +2049,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     MisPedidosModel refreshMisPedidos = new MisPedidosModel { ListaPedidos = refresh };
-                    sessionManager.SetobjMisPedidos(refreshMisPedidos);
+                    SessionManager.SetobjMisPedidos(refreshMisPedidos);
 
                 }
             }

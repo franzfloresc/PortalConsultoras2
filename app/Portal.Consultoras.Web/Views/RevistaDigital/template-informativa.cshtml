@@ -7,7 +7,7 @@
     Layout = ViewBag.TipoLayout == "2" ? "~/Views/Shared/_MainLayout.cshtml" : "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/RevistaDigital-Informativa")
 }
 
 @if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete && Model.Origen != Constantes.RevistaDigitalOrigen.Nueva)
@@ -298,7 +298,7 @@ else if (Model.CancelarSuscripcion)
         window.videoKey = '@Model.Video';
         window.estaSuscrita = '@Model.EsSuscrita';
 </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/RevistaDigital-Informativa")
 }
 
 

@@ -26,7 +26,7 @@
                 </div>
                 <div class="btn_diagonal btn_stroke_white" onclick="RedireccionarContenedorInformativa(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion);" style="top: 38px;">
                     <div class="activar_boton_dorado_a_blanco" style="padding:0 0;">
-                        <a href="#" 
+                        <a href="#"
                            style="padding-left: 0;text-align: center; color:white; padding:0 0;" onclick="">
                             SUSCRÍBETE GRATIS
                         </a>
@@ -41,24 +41,25 @@
 else if (revistaDigital.TieneRDI)
 {
     <div class="home_block_rd home_rd" style="background-color: transparent; text-align: left;">
-        <div class="content_belcorp" style="background-color: black;">
-            <div class="rd_logo">
-                <img src="@urlLogo" alt="" class="large">
-            </div>
-            <div class="hblock_text"  style="padding-top: 32px;">
-                <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-            </div>
-            <div class="btn_diagonal btn_stroke_white" style="top: 38px;">
-                <div class="activar_boton_rojo_a_blanco" style="padding:0px 0px;">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.OfertasParaTi')" style="    padding-left: 0px;
-                        text-align: center; color:white; padding:0 0;">
-                        VER TODAS MIS OFERTAS
-                    </a>
+            <div class="content_belcorp" style="background-color: black;">
+                <div class="rd_logo">
+                    <img src="@urlLogo" alt="" class="large">
+                </div>
+                <div class="hblock_text"  style="padding-top: 32px;">
+                    <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                    <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                </div>
+                <div class="btn_diagonal btn_stroke_white" style="top: 38px;">
+                    <div class="activar_boton_rojo_a_blanco" style="padding:0px 0px;">
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.OfertasParaTi')" style="    padding-left: 0px;
+                            text-align: center; color:white; padding:0 0;">
+                            VER TODAS MIS OFERTAS
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    
     <hr class="clear" />
     <div style="height: 35px; background: #fff;"></div>
 }

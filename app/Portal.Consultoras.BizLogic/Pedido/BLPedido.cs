@@ -1114,7 +1114,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 pedidoDetalle.PedidoID = pedidoID;
 
                 //Seleccionamos el Detalle de Pedido a Aceptar
-                var _pedidoDetalle = lstDetalle.Where(p => p.PedidoDetalleID == pedidoDetalle.PedidoDetalleID && p.EsBackOrder).FirstOrDefault();
+                var _pedidoDetalle = lstDetalle.FirstOrDefault(p => p.PedidoDetalleID == pedidoDetalle.PedidoDetalleID && p.EsBackOrder);
 
                 if (_pedidoDetalle == null) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_AGREGAR_BACKORDER);
 

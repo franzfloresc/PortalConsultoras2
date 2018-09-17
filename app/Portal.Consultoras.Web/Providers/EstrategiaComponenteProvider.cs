@@ -16,18 +16,48 @@ namespace Portal.Consultoras.Web.Providers
     public class EstrategiaComponenteProvider
     {
         private readonly ConfiguracionManagerProvider _configuracionManagerProvider;
-        private readonly int _paisId;
-        private readonly string _paisISO;
-        protected OfertaBaseProvider _ofertaBaseProvider;
-        protected ISessionManager sessionManager;
 
-        public EstrategiaComponenteProvider(int paisId, string paisIso)
+        private int _paisId
         {
-            _configuracionManagerProvider = new ConfiguracionManagerProvider();
-            _paisId = paisId;
-            _paisISO = paisIso;
-            _ofertaBaseProvider = new OfertaBaseProvider();
-            sessionManager = SessionManager.SessionManager.Instance;
+            get
+            {
+                return SessionManager.GetUserData().PaisID;
+            }
+        }
+        private string _paisISO
+        {
+            get
+            {
+                return SessionManager.GetUserData().CodigoISO;
+            }
+        }
+        protected OfertaBaseProvider _ofertaBaseProvider;
+        protected ISessionManager _sessionManager;
+        public virtual ISessionManager SessionManager
+        {
+            get { return _sessionManager; }
+            private set { _sessionManager = value; }
+        }
+
+        //public virtual void setConfiguracionManagerProvider(ConfiguracionManagerProvider ConfiguracionManagerProvider)
+        //{
+        //    _configuracionManagerProvider = ConfiguracionManagerProvider;
+        //}
+
+        public EstrategiaComponenteProvider() : this(
+            Web.SessionManager.SessionManager.Instance, 
+            new OfertaBaseProvider(),
+            new ConfiguracionManagerProvider())
+        {
+        }
+
+        public EstrategiaComponenteProvider(ISessionManager sessionManager,
+            OfertaBaseProvider ofertaBaseProvider,
+            ConfiguracionManagerProvider configuracionManagerProvider)
+        {
+            _configuracionManagerProvider = configuracionManagerProvider;
+            _ofertaBaseProvider = ofertaBaseProvider;
+            this.SessionManager = sessionManager;
         }
 
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
@@ -37,7 +67,7 @@ namespace Portal.Consultoras.Web.Providers
             esMultimarca = false;
             mensaje = "";
 
-            var userData = sessionManager.GetUserData();
+            var userData = SessionManager.GetUserData();
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
                 mensaje += "SiMongo|";
@@ -122,6 +152,18 @@ namespace Portal.Consultoras.Web.Providers
         //    return listaProducto;
         //}
 
+        public virtual List<BEEstrategiaProducto> GetEstrategiaProducto(int PaisID, int EstrategiaID)
+        {
+            List<BEEstrategiaProducto> listaProducto;
+            using (var svc = new PedidoServiceClient())
+            {
+                var parameters = new BEEstrategia { PaisID = PaisID, EstrategiaID = EstrategiaID };
+                listaProducto = svc.GetEstrategiaProducto(parameters).ToList();
+            }
+
+            return listaProducto;
+        }
+
 
         private List<BEEstrategiaProducto> GetEstrategiaProductos(EstrategiaPersonalizadaProductoModel estrategiaModelo)
         {
@@ -129,11 +171,9 @@ namespace Portal.Consultoras.Web.Providers
 
             if (string.IsNullOrEmpty(estrategiaModelo.CodigoVariante)) return listaProducto;
 
-            using (var svc = new PedidoServiceClient())
-            {
-                var parameters = new BEEstrategia { PaisID = _paisId, EstrategiaID = estrategiaModelo.EstrategiaID };
-                listaProducto = svc.GetEstrategiaProducto(parameters).ToList();
-            }
+            //var parameters = new BEEstrategia { PaisID = _paisId, EstrategiaID = estrategiaModelo.EstrategiaID };
+
+            listaProducto = GetEstrategiaProducto(_paisId, estrategiaModelo.EstrategiaID);
 
             listaProducto.ForEach(x =>
             {
@@ -142,7 +182,8 @@ namespace Portal.Consultoras.Web.Providers
                 x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(x.ImagenProducto) && string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
-                var codigoIsoPais = SessionManager.SessionManager.Instance.GetUserData().CodigoISO;
+                //var codigoIsoPais = Web.SessionManager.SessionManager.Instance.GetUserData().CodigoISO;
+                var codigoIsoPais = SessionManager.GetUserData().CodigoISO;
                 var campaniaId = estrategiaModelo.CampaniaID;//SessionManager.SessionManager.Instance.GetUserData().CampaniaID;
                 var codigoMarca = string.Empty;
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";

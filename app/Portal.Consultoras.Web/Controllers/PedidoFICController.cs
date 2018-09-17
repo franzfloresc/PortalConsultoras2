@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "PedidoFIC/Index")) return RedirectToAction("Index", "Bienvenida");
 
-                sessionManager.SetPedidoFIC(null);
+                SessionManager.SetPedidoFIC(null);
                 ViewBag.ClaseTabla = "tabla2";
                 ViewBag.Pais_ISO = userData.CodigoISO;
                 ViewBag.PROL = "Guardar";
@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (olstPedidoFicDetalle.Count != 0 && userData.PedidoID == 0)
                 {
                     userData.PedidoID = olstPedidoFicDetalle[0].PedidoID;
-                    sessionManager.SetUserData(userData);
+                    SessionManager.SetUserData(userData);
                 }
 
                 ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.ListaDetalleModel.Any())
                 {
                     userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
-                    sessionManager.SetUserData(userData);
+                    SessionManager.SetUserData(userData);
 
                     BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalleModel);
@@ -148,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (olstPedidoFicDetal.Count != 0)
             {
                 userData.PedidoID = olstPedidoFicDetal[0].PedidoID;
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
             }
 
             BEPedidoFICDetalle obePedidoFicDetalle = new BEPedidoFICDetalle
@@ -523,14 +523,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<BEPedidoFICDetalle> ObtenerPedidoFICDetalle()
         {
-            if (sessionManager.GetPedidoFIC() != null) return sessionManager.GetPedidoFIC();
+            if (SessionManager.GetPedidoFIC() != null) return SessionManager.GetPedidoFIC();
 
             List<BEPedidoFICDetalle> list;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 list = sv.SelectFICByCampania(userData.PaisID, Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias), userData.ConsultoraID, userData.NombreConsultora).ToList();
             }
-            sessionManager.SetPedidoFIC(list);
+            SessionManager.SetPedidoFIC(list);
             return list;
         }
 
@@ -541,15 +541,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if ( sessionManager.GetPedidoFIC() == null)
+                if (SessionManager.GetPedidoFIC() == null)
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         olstTempListado = sv.SelectFICByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
                     }
-                    sessionManager.SetPedidoFIC(olstTempListado);
+                    SessionManager.SetPedidoFIC(olstTempListado);
                 }
-                else olstTempListado = sessionManager.GetPedidoFIC();
+                else olstTempListado = SessionManager.GetPedidoFIC();
 
                 if (tipoAdm == "I")
                 {
@@ -607,7 +607,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (userData.PedidoID == 0)
                         {
                             userData.PedidoID = obe.PedidoID;
-                            sessionManager.SetUserData(userData);
+                            SessionManager.SetUserData(userData);
                         }
 
                         olstTempListado.Add(obe);
@@ -672,13 +672,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 olstTempListado = olstTempListado.OrderByDescending(p => p.PedidoDetalleID).ToList();
-                sessionManager.SetPedidoFIC(olstTempListado);
+                SessionManager.SetPedidoFIC(olstTempListado);
 
                 errorServer = false;
             }
             catch
             {
-                if (sessionManager.GetPedidoFIC() != null) olstTempListado = sessionManager.GetPedidoFIC();
+                if (SessionManager.GetPedidoFIC() != null) olstTempListado = SessionManager.GetPedidoFIC();
                 errorServer = true;
             }
 

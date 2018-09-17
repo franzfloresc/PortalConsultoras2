@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public FichaProductoController()
         {
-            _vcFichaProductoProvider = new VCFichaProductoProvider(userData.PaisID, userData.CodigoISO);
+            _vcFichaProductoProvider = new VCFichaProductoProvider();
         }
 
         public ActionResult Index()
@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (producto != null)
                     {
                     producto.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, producto.FotoProducto01);
-                        sessionManager.SetFichaProductoTemporal(producto);
+                        SessionManager.SetFichaProductoTemporal(producto);
                     }
                 }
                 if (producto == null)

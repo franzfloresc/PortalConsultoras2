@@ -850,7 +850,10 @@ function ArmarCarouselLiquidaciones(data) {
                 });
             }
         }
+    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        EstablecerLazyCarrusel($('#divCarruselLiquidaciones'));
     });
+
     TagManagerCarruselLiquidacionesInicio(data);
 
     $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
