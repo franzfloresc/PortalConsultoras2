@@ -29,6 +29,7 @@ var FichaModule = (function (config) {
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
+    var _estrategia = {};
 
     var _config = {
         palanca: config.palanca || "",
@@ -566,7 +567,9 @@ var FichaModule = (function (config) {
     };
 
     var _construirSeccionEstrategia = function () {
-        var estrategia = _getEstrategia();
+        //var estrategia = _getEstrategia();
+        _estrategia = _getEstrategia();
+        var estrategia = _estrategia;
 
         if (estrategia == null) {
             window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
@@ -629,6 +632,10 @@ var FichaModule = (function (config) {
         return true;
     };
 
+    function getEstrategia()
+    {
+        return _estrategia;
+    }
     function Inicializar() {
         
         _localStorageModule = LocalStorageModule();
@@ -642,7 +649,8 @@ var FichaModule = (function (config) {
     }
 
     return {
-        Inicializar: Inicializar
+        Inicializar: Inicializar,
+        GetEstrategia: getEstrategia
     };
 });
 

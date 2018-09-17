@@ -230,10 +230,10 @@ var AnalyticsPortalModule = (function () {
     var marcarPopupEligeUnaOpcion = function (opcion) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Contenedor - Ficha de producto',
+                'event': _evento.virtualEvent,
+                'category': _texto.contenedorfichaProducto,
                 'action': 'Ver Popup Elige 1 opción',
-                'label': '{Nombre del producto}'
+                'label': opcion.DescripcionCompleta
             });
         } catch (e) {
             console.log(_texto.exception + e);
@@ -242,10 +242,10 @@ var AnalyticsPortalModule = (function () {
     var marcarCerrarPopupEligeUnaOpcion = function (opcion) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige 1 opción',
                 'action': 'Cerrar pop up Elige 1 opción',
-                'label': '{Nombre del producto}'
+                'label': opcion.DescripcionCompleta
             });
         } catch (e) {
             console.log(_texto.exception + e);

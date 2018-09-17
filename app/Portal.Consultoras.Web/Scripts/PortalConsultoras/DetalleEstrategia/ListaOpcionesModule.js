@@ -14,6 +14,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
@@ -277,6 +278,9 @@ var ListaOpcionesModule = (function () {
             $(".modal-fondo").hide();
             $("body").removeClass("modal_activado");
         }
+        
+        var estrategia = fichaModule.GetEstrategia();
+        AnalyticsPortalModule.MarcarCerrarPopupEligeUnaOpcion(estrategia);
     }
 
     return {

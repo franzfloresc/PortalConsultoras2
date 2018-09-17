@@ -89,10 +89,12 @@ var ComponentesModule = (function () {
                 return false;
             }
         });
+        
+        AnalyticsPortalModule.MarcarPopupEligeUnaOpcion(_estrategia);
     }
 
     var SeleccionarPaletaOpcion = function (event, cuv) {
-        debugger;
+        
         var $PaletaOpcion = $(event.target);
         var CuvPadre = $PaletaOpcion.length > 0 ? $PaletaOpcion.parents("[data-tono-div]").data("tono-div") : "";
 
@@ -150,11 +152,16 @@ var ComponentesModule = (function () {
             hermano.HermanosSeleccionados = [];
         });
     }
+
+    function getEstrategia() {
+        return _estrategia;
+    }
     return {
         ListarComponentes: ListarComponentes,
         SeleccionarComponente: SeleccionarComponente,
         SeleccionarPaletaOpcion: SeleccionarPaletaOpcion,
-        LimpiarComponentes: LimpiarComponentes
+        LimpiarComponentes: LimpiarComponentes,
+        GetEstrategia: getEstrategia
     };
 }());
 
