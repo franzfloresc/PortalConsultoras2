@@ -134,7 +134,10 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.UrlMenuContenedor.DetalleOfertaParaTi:
                 case Constantes.UrlMenuContenedor.DetalleOfertasParaMi:
                 case Constantes.UrlMenuContenedor.DetallePackNuevas:
-                    menuActivo.Codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
+                    menuActivo.Codigo = 
+                        revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital 
+                        : revistaDigital.TieneRDI ? Constantes.ConfiguracionPais.OfertasParaTi 
+                        : Constantes.ConfiguracionPais.RevistaDigitalReducida;
                     menuActivo.MostrarMenuFlotante = false; 
                     break;
                 case Constantes.UrlMenuContenedor.DetalleLanzamiento:
@@ -345,10 +348,12 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (revistaDigital.TieneRDI)
                 {
-                    config.DesktopFondoBanner = revistaDigital.BannerOfertasNoActivaNoSuscrita;
+                    //config.DesktopFondoBanner = revistaDigital.BannerOfertasNoActivaNoSuscrita;
+                    config.DesktopFondoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.BannerOfertasNoActivaNoSuscrita);
                     config.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
                     config.MobileFondoBanner = string.Empty;
-                    config.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
+                    //config.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
+                    config.MobileLogoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.MLogoComercialFondoNoActiva);
                 }
                 if (revistaDigital.TieneRevistaDigital())
                 {
@@ -419,7 +424,8 @@ namespace Portal.Consultoras.Web.Providers
                         config.MobileSubTituloBanner = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, config.MobileSubTituloBanner);
 
                         config.DesktopLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
-                        config.MobileLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
+                        //config.MobileLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
+                        config.MobileLogoMenu = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.MLogoComercialFondoNoActiva);
                         config.Descripcion = string.Empty;
                         config = _configuracionPaisProvider.ActualizarTituloYSubtituloBanner(config, revistaDigital);
                         break;
@@ -449,6 +455,7 @@ namespace Portal.Consultoras.Web.Providers
                             continue;
 
                         config.UrlMenu = "#";
+                        config.DesktopTituloBanner = (revistaDigital.TieneRDC&&!revistaDigital.EsSuscrita)? "TODAS TUS OFERTAS EN UN SOLO LUGAR" : config.DesktopTituloBanner;
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
                         if (!revistaDigital.TieneRevistaDigital())
@@ -497,9 +504,28 @@ namespace Portal.Consultoras.Web.Providers
             menuContenedor = OrdenarMenuContenedor(menuContenedor, revistaDigital.TieneRevistaDigital(), esMobile);
 
             sessionManager.SetMenuContenedor(menuContenedor);
+            SetMenuContenedorNoSuscrita(menuContenedor, revistaDigital.EsSuscrita);
             return menuContenedor;
         }
-        
+        private void SetMenuContenedorNoSuscrita(List<ConfiguracionPaisModel> MenuContenedor, bool EsSuscrita)
+        {
+            if (EsSuscrita)
+            {
+                foreach (var menuContenedor in MenuContenedor)
+                {
+                    //custom Setting 
+                    if (menuContenedor.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada)
+                    {
+                        menuContenedor.DesktopTituloBanner = "DISFRUTA DE TU GUIA DE NEGOCIO ONLINE EN";
+                    }
+                    if (menuContenedor.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
+                    {
+                        menuContenedor.DesktopTituloBanner = "DISFRUTA DE LO NUEVO !NUEVO! SOLO CON";
+                    }
+                }
+            }
+            
+        }
         public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> menuContenedor, int CampaniaID, int NroCampanias)
         {
             var menuContenedorBloqueado = new List<ConfiguracionPaisModel>();

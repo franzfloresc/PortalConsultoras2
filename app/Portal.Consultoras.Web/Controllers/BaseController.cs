@@ -146,7 +146,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null)
                 {
                     string urlSignOut = ObtenerUrlCerrarSesion();
-
                     filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
