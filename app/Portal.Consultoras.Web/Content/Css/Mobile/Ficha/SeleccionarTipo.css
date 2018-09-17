@@ -198,7 +198,17 @@
     height: 8px;
 }
 
-.header_fixed{
+.content_cantidad_ficha_producto .cantidad_menos_home span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.content_cantidad_ficha_producto .cantidad_mas_home span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.header_fixed {
     position: fixed;
     width: 100%;
     top: 0px;
