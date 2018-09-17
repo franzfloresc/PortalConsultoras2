@@ -132,6 +132,14 @@
     cursor: auto;
 }
 
+.seleccion_btn .disabled {
+    background-color: #d8d8d8 !important;
+    pointer-events: none;
+    border-color: #fff !important;
+    color: #fff;
+    border-radius: 5px;
+}
+
 .seleccion_btn .active{
     background-color: #000;
     color: #ffffff;
@@ -226,22 +234,44 @@
 .seleccion_btn .cantidad_mas_home {
     height: 36px;
     line-height: 33px;
-    border: 1px solid #000;
 }
 
 .seleccion_btn .rango_cantidad_pedido {
     width: 36%;
     height: 36px;
     line-height: 48px;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border-top: none;
+    border-bottom: none;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.seleccion_btn .cantidad_mas_home, .seleccion_btn .cantidad_menos_home {
+    border: none;
+}
+
+    .seleccion_btn .cantidad_mas_home span, .seleccion_btn .cantidad_menos_home span {
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+.disabled .cantidad_menos_home span, .disabled .cantidad_mas_home span {
+    color: #fff;
+}
+
+.disabled .rango_cantidad_pedido{
+    border-color: #fff;
+}
+
+.seleccion_btn .content_cantidad_ficha_producto {
+    border: 1px solid #000;
 }
 
 .seleccion_btn .cantidad_menos_home {
     width: 32%;
     height: 36px;
     line-height: 33px;
-    border: 1px solid #000;
 }
 
 .seleccion_header h3 span{

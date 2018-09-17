@@ -57,7 +57,7 @@
                         {{/if}}
                      data-cantidad-contenedor="">
                     <a class="cantidad_menos_home" {{#if componente.EleccionBloqueada}}{{else}}onclick="javascript:ListaOpcionesModule.EliminarOpcion({{componente.Cuv}},event);"{{/if}}>
-                        <img id="imgFichaProduMenos" src="/Content/Images/Mobile/Esika/menos.png" alt="">
+                        <span>-</span>
                     </a>
                     <input type="tel"
                            {{#iff componente.cantidadSeleccionada '==' '0'}}
@@ -67,7 +67,7 @@
                            {{/iff}}
                            size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad" disabled>
                     <a class="cantidad_mas_home" onclick="javascript:ListaOpcionesModule.SeleccionarOpcion({{componente.Cuv}},event);">
-                        <img id="imgFichaProduMas" src="/Content/Images/Mobile/Esika/mas.png" alt="">
+                        <span>+</span>
                     </a>
                 </div>
             </li>
