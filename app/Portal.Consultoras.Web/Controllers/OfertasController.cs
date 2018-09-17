@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Ofertas;
 using Portal.Consultoras.Web.Providers;
 using System;
 using System.Web.Mvc;
@@ -28,17 +29,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var modelo = new EstrategiaPersonalizadaModel
+                var indexViewModel = new IndexViewModel();
+                indexViewModel.EstrategiaPersonalizada = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
                 };
+                indexViewModel.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                indexViewModel.VariablesEstrategia = GetVariableEstrategia();
 
-                ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-
-                ViewBag.variableEstrategia = GetVariableEstrategia();
-
-                return View(modelo);
+                return View(indexViewModel);
             }
             catch (Exception ex)
             {
