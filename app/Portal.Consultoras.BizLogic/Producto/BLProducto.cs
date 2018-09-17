@@ -365,7 +365,7 @@ namespace Portal.Consultoras.BizLogic
         public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv)
         {
             if (!GetFlagProgramaNuevas(paisID)) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
-            if (!GetRagoCuvProgramaNuevas(paisID, Convert.ToInt32(cuv))) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            if (!EstaEnRangoCuvProgramaNuevas(paisID, Convert.ToInt32(cuv))) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
             List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
             if (lstProdcutos == null || lstProdcutos.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
             if (!lstProdcutos.Any(x => x.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
@@ -419,21 +419,8 @@ namespace Portal.Consultoras.BizLogic
             if (listPedidoDetalle == null || listPedidoDetalle.Count == 0) return;
             if (!GetFlagProgramaNuevas(paisID)) return;
 
-            var lstCuponNuevas = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
-            if (lstCuponNuevas == null || lstCuponNuevas.Count == 0) return;
-            lstCuponNuevas = FiltrarProductosNuevasByNivelyCodigoPrograma(lstCuponNuevas, consecutivoNueva, codigoPrograma);
-            if (lstCuponNuevas.Count == 0) return;
-
-            var listCuponPedido = listPedidoDetalle.Where(d => lstCuponNuevas.Any(c => d.CUV == c.CodigoCupon)).ToList();
-            listCuponPedido.ForEach(d => d.EsCuponNueva = true);
-
-            var lstElectivas = lstCuponNuevas.Where(a => !a.IndicadorCuponIndependiente).ToList();
-            if (lstElectivas.Count > 1)
-            {
-                var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
-                var limElectivos = (GetNivelesProgramaNuevas(paisID, nivelInput) ?? new BENivelesProgramaNuevas()).UnidadesNivel;
-                if (limElectivos > 1) listCuponPedido.Where(d => lstElectivas.Any(c => d.CUV == c.CodigoCupon)).ToList().ForEach(d => d.EsDuoPerfecto = true);
-            }
+            var fnEnRango = GetFnEnRangoCuvProgramaNuevas(paisID);
+            listPedidoDetalle.ForEach(d => d.EsCuponNueva = fnEnRango(Convert.ToInt32(d.CUV)));
         }
 
         #region Metodos de Programa Nuevas
@@ -446,15 +433,19 @@ namespace Portal.Consultoras.BizLogic
             return false;
         }
 
-        private bool GetRagoCuvProgramaNuevas(int paisID, int cuv)
+        private bool EstaEnRangoCuvProgramaNuevas(int paisID, int cuv)
         {
-            var blTablaLogicaDatos = new BLTablaLogicaDatos();
-            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.Rango.TablaLogicaID);
-            if (lstTabla.Count == 0) return false;
+            var fnEnRango = GetFnEnRangoCuvProgramaNuevas(paisID);
+            return fnEnRango(cuv);
+        }
+        private Predicate<int> GetFnEnRangoCuvProgramaNuevas(int paisID)
+        {
+            var lstTabla = new BLTablaLogicaDatos().GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.Rango.TablaLogicaID);
+            if (lstTabla.Count == 0) return new Predicate<int>(cuv => false);
+
             int cuvIni = Convert.ToInt32(lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.Rango.cuvInicio).Select(b => b.Descripcion).FirstOrDefault());
             int cuvFin = Convert.ToInt32(lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.Rango.cuvFinal).Select(b => b.Descripcion).FirstOrDefault());
-            if ((cuv >= cuvIni && cuv <= cuvFin)) return true;
-            return false;
+            return new Predicate<int>(cuv => cuvIni <= cuv && cuv <= cuvFin);
         }
 
         private List<BEProductoProgramaNuevas> GetProductosProgramaNuevasByCampania(int paisID, int campaniaID)
