@@ -38,7 +38,13 @@ namespace Portal.Consultoras.Web.Controllers
                 return model;
             }
         }
-        protected RevistaDigitalModel revistaDigital;
+        protected RevistaDigitalModel revistaDigital
+        {
+            get
+            {
+                return SessionManager.GetRevistaDigital();
+            }
+        }
         protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
         protected DataModel estrategiaODD;
@@ -125,6 +131,16 @@ namespace Portal.Consultoras.Web.Controllers
             this._ofertaPersonalizadaProvider = ofertaPersonalizadaProvider;
         }
 
+        public BaseController(ISessionManager sessionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
+        {
+            //userData = new UsuarioModel();
+            SessionManager = sessionManager;
+            this.logManager = logManager;
+            this._ofertaPersonalizadaProvider = ofertaPersonalizadaProvider;
+            this._ofertaPersonalizadaProvider = ofertaPersonalizadaProvider;
+            this._ofertasViewProvider = ofertaViewProvider;
+        }
+
         public BaseController(ISessionManager sessionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
         {
             //userData = new UsuarioModel();
@@ -151,7 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return;
                 }
 
-                revistaDigital = SessionManager.GetRevistaDigital();
+                //revistaDigital = SessionManager.GetRevistaDigital();
                 herramientasVenta = SessionManager.GetHerramientasVenta();
                 guiaNegocio = SessionManager.GetGuiaNegocio();
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
