@@ -62,8 +62,7 @@ var ResumenOpcionesModule = (function () {
         }
     } 
 
-    var AplicarOpciones = function (callFromSeleccionarPaletaOpcion) {
-        var callCloseElegirOpcionesModal = callFromSeleccionarPaletaOpcion ? !callFromSeleccionarPaletaOpcion : true;
+    var AplicarOpciones = function () {
         _componente = ListaOpcionesModule.GetComponente() || _componente;
         if (!(_componente.FactorCuadre === _componente.HermanosSeleccionados.length)) {
             return false;
@@ -84,9 +83,7 @@ var ResumenOpcionesModule = (function () {
         
         $(resumenOpcionesContenedor).show();
 
-        if (callCloseElegirOpcionesModal) {
-            ListaOpcionesModule.CloseElegirOpcionesModal();
-        }
+        ListaOpcionesModule.CloseElegirOpcionesModal();
 
         SetHandlebars(_elements.resumenOpciones.template, _componente, resumenOpcionesContenedor);
 
