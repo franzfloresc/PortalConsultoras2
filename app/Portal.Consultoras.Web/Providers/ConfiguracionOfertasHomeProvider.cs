@@ -10,40 +10,51 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class ConfiguracionOfertasHomeProvider
     {
-        protected ISessionManager sessionManager;
-        protected ConfiguracionPaisProvider _configuracionPais;
-        protected GuiaNegocioProvider _guiaNegocio;
-        protected ShowRoomProvider _showRoom;
+        private ISessionManager _sessionManager;
+        private ConfiguracionPaisProvider _configuracionPais;
+        private GuiaNegocioProvider _guiaNegocio;
+        private ShowRoomProvider _showRoom;
 
         public ConfiguracionOfertasHomeProvider()
+            : this (SessionManager.SessionManager.Instance,
+                   new ConfiguracionPaisProvider(),
+                   new GuiaNegocioProvider(),
+                   new ShowRoomProvider())
         {
-            sessionManager = SessionManager.SessionManager.Instance;
-            _configuracionPais = new ConfiguracionPaisProvider();
-            _guiaNegocio = new GuiaNegocioProvider();
-            _showRoom = new ShowRoomProvider();
+        }
+
+        public ConfiguracionOfertasHomeProvider(ISessionManager sessionManager,
+            ConfiguracionPaisProvider configuracionPaisProvider,
+            GuiaNegocioProvider guiaNegocio,
+            ShowRoomProvider showRoom)
+        {
+            _sessionManager = sessionManager;
+            _configuracionPais = configuracionPaisProvider;
+            _guiaNegocio = guiaNegocio;
+            _showRoom = showRoom;
         }
 
         public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital, bool esMobile)
         {
             var modelo = new List<ConfiguracionSeccionHomeModel>();
-            var userData = sessionManager.GetUserData();
+            var userData = _sessionManager.GetUserData();
 
             try
             {
                 if (userData == null || revistaDigital == null)
                     return modelo;
 
-                var menuActivo = sessionManager.GetMenuContenedorActivo();
+                var menuActivo = _sessionManager.GetMenuContenedorActivo();
 
                 if (menuActivo.CampaniaId <= 0)
                     menuActivo.CampaniaId = userData.CampaniaID;
 
 
-                var listaEntidad = sessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
+                var listaEntidad = _sessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
                 if (listaEntidad == null)
                 {
                     listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId);
-                    sessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, listaEntidad);
+                    _sessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, listaEntidad);
                 }
 
                 if (menuActivo.CampaniaId > userData.CampaniaID)
@@ -129,7 +140,7 @@ namespace Portal.Consultoras.Web.Providers
                     switch (entConf.ConfiguracionPais.Codigo)
                     {
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                            var guiaNegocio = sessionManager.GetGuiaNegocio();
+                            var guiaNegocio = _sessionManager.GetGuiaNegocio();
                             if (!_guiaNegocio.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                                 continue;
 
@@ -163,11 +174,11 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.ShowRoomMobileContenedor : Constantes.OrigenPedidoWeb.ShowRoomDesktopContenedor;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
-                            var estrategiaODD = sessionManager.OfertaDelDia.Estrategia;
+                            var estrategiaODD = _sessionManager.OfertaDelDia.Estrategia;
                             if (!estrategiaODD.TieneOfertaDelDia)
                                 continue;
 
-                            sessionManager.OfertaDelDia.Estrategia.ConfiguracionContenedor = seccion;
+                            _sessionManager.OfertaDelDia.Estrategia.ConfiguracionContenedor = seccion;
 
                             break;
                         case Constantes.ConfiguracionPais.HerramientasVenta:
@@ -239,7 +250,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var result = false;
 
-            var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
+            var configuracionesPais = _sessionManager.GetConfiguracionesPaisModel();
             if (configuracionesPais != null)
             {
                 var cp = configuracionesPais.FirstOrDefault(x => x.Codigo == configuracionPais.Codigo);
@@ -266,13 +277,13 @@ namespace Portal.Consultoras.Web.Providers
         {
             seccion.UrlLandig = "";
 
-            if (!sessionManager.GetEsShowRoom())
+            if (!_sessionManager.GetEsShowRoom())
                 return;
 
-            if (sessionManager.GetMostrarShowRoomProductosExpiro())
+            if (_sessionManager.GetMostrarShowRoomProductosExpiro())
                 return;
 
-            if (!sessionManager.GetMostrarShowRoomProductos())
+            if (!_sessionManager.GetMostrarShowRoomProductos())
             {
 
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
@@ -308,7 +319,7 @@ namespace Portal.Consultoras.Web.Providers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
+                var listaShowRoom = _sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
                 seccion.CantidadProductos = listaShowRoom.Count;
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
