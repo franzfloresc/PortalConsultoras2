@@ -880,8 +880,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         string ISessionManager.GetTokenPedidoAutentico()
         {
-            var val = HttpContext.Current.Session["TokenPedidoAutentico"];
-            if (val == null) { return ""; }
+            var val = HttpContext.Current.Session["TokenPedidoAutentico"];            
             return (string)val;
         }
 
