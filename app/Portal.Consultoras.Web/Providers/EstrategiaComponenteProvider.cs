@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -341,7 +342,50 @@ namespace Portal.Consultoras.Web.Providers
                     break;
             }
 
+            listaEstrategiaComponenteProductos = EstrategiaComponenteImagenNoDisponible(listaEstrategiaComponenteProductos);
+
             return listaEstrategiaComponenteProductos;
+        }
+
+        private List<EstrategiaComponenteModel> EstrategiaComponenteImagenNoDisponible(List<EstrategiaComponenteModel> listaEstrategiaComponenteProductos)
+        {
+
+            foreach (var componente in listaEstrategiaComponenteProductos)
+            {
+                if(componente.Hermanos.Any())
+                {
+                    foreach (var item in componente.Hermanos)
+                    {
+                        if (String.IsNullOrEmpty(item.ImagenBulk))
+                        {
+                            item.ImagenBulk = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
+                        }else if (!ExisteS3Imgage(item.ImagenBulk))
+                        {
+                            item.ImagenBulk = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
+                        }
+                    }
+                }
+            }
+
+            return listaEstrategiaComponenteProductos;
+        }
+
+        private bool ExisteS3Imgage(string ImageUrl)
+        {
+            bool existe = false;
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ImageUrl);
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    existe = response.StatusCode == HttpStatusCode.OK;
+                }
+            }
+            catch
+            {
+            }
+
+            return existe;
         }
 
         private string GetNombreComercial(EstrategiaComponenteModel componenteModel, BEEstrategiaProducto beEstrategiaProducto, string codigoTipoEstrategia, bool esMs)
