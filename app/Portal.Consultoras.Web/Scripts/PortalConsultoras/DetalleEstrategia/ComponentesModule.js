@@ -127,7 +127,8 @@ var ComponentesModule = (function () {
 
                 opcionesEvents.applyChanges("onComponentSelected", componente);
 
-                ResumenOpcionesModule.AplicarOpciones();
+                var callFromSeleccionarPaletaOpcion = true;
+                ResumenOpcionesModule.AplicarOpciones(callFromSeleccionarPaletaOpcion);
 
                 //Marcación Analytics (EPM-1442)
                 AnalyticsPortalModule.MarcarImagenProducto(_estrategia, componente.resumenAplicados);
