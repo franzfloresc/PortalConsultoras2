@@ -8,10 +8,10 @@
                 <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
                     <button id="btn-eligelo-{{componente.Cuv}}"
                             {{#if ../esCampaniaSiguiente}}
-                            class="btn_desactivado_general"
+                            class="disabled"
                             {{else}}
                                 {{#if componente.EleccionBloqueada}}
-                                class="btn_desactivado_general"
+                                class="disabled"
                                 {{/if}}
                             {{/if}}
                             onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
@@ -35,10 +35,10 @@
                 {{/iff}}>
                 <button id="btn-eligelo-{{componente.Cuv}}"
                         {{#if ../esCampaniaSiguiente}}
-                        class="btn_desactivado_general"
+                        class="disabled"
                         {{else}}
                             {{#if componente.EleccionBloqueada}}
-                            class="btn_desactivado_general"
+                            class="disabled"
                             {{/if}}
                         {{/if}}
                         onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
@@ -50,7 +50,7 @@
                 style="display:none"
                 {{/iff}}>
                 <div    {{#if componente.EleccionBloqueada}}
-                        class="contenedor_rangos contenedor_rangos_desactivado" 
+                        class="contenedor_rangos disabled" 
                         {{else}}
                         class="contenedor_rangos"
                         {{/if}} data-cantidad-contenedor="">
