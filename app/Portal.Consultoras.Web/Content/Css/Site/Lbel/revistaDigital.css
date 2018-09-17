@@ -96,9 +96,7 @@
 
 /*BOTON NO ANIMADO*/
 .bg_activar_boton_no_animado {
-    background: none;
-    border: 1px solid;
-    border-radius: 4px;
+    background: black;
 }
 
 .activar_boton_lbel_no_animado {
@@ -112,18 +110,10 @@
 /*LOGO NO SUSCRITA GANA+*/
 .logo_no_suscrita {
     background: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png) !important;
-    background-size: 147px !important;
-    background-repeat: no-repeat !important;
-    background-position: left center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat;
 }
 
 .club_gana_mas_pedido .logo_club {
     background: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png);
-}
-
-.logo_club.no-suscrito {
-    background-size: 147px !important;
-    background-position: center center;
-    height: 100px !important;
-    width: 100% !important;
 }

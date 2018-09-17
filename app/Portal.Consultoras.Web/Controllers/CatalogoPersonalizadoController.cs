@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (SessionManager.GetUserFiltersFAV() != null)
                     SessionManager.SetUserFiltersFAV(null);
 
-                if (SessionManager.GetProductosCatalogoPersonalizadoFilter() != null)
+                if (SessionManager.GetProductosCatalogoPersonalizadoFilter()!= null)
                     SessionManager.SetProductosCatalogoPersonalizadoFilter(null);
 
                 return Json(new

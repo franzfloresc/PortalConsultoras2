@@ -21,13 +21,13 @@
             {
                 if (Util.Trim(menuActivo.ConfiguracionPais.MobileLogoBanner) != "")
                 {
-                    <div class="bc_mobile-logo" style="display: none;">
+                    <div class="bc_mobile-logo">
                         <img src="@menuActivo.ConfiguracionPais.MobileLogoBanner" alt="" />
                     </div>
                 }
                 if (Util.Trim(menuActivo.ConfiguracionPais.MobileTituloBanner) != "" || Util.Trim(menuActivo.ConfiguracionPais.MobileSubTituloBanner) != "")
                 {
-                    <div class="bc_mobile-texto" style="display: none;">
+                    <div class="bc_mobile-texto">
                         <div class="mobile-txt">
                             @if (Util.Trim(menuActivo.ConfiguracionPais.MobileTituloBanner) != "")
                             {

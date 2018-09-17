@@ -58,11 +58,6 @@
 
 .logo_no_suscrita {
     background-image: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png) !important;
+    background-size: cover !important;
     background-repeat: no-repeat;
-    background-size: 147px !important;
-    background-repeat: no-repeat;
-    width: 100% !important;
-    background-position: center;
-    height: 90px !important;
-    position: relative !important;
 }

@@ -3,28 +3,28 @@
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
-	var layout = ViewContext.MobilePedidoLayout();
-	ViewBag.Title = "Ficha-Mobile";
-	Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-	var mobileConfiguracion = Html.MobileAppConfiguracion();
-	var origen = Request.Params["origen"];
+    var layout = ViewContext.MobilePedidoLayout();
+    ViewBag.Title = "Ficha-Mobile";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
+    var origen = Request.Params["origen"];
 }
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
-	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
-	{
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
         @Styles.Render("~/Bundle/Css/Mobile/Ficha-Esika")
-	}
-	else
-	{
+    }
+    else
+    {
         @Styles.Render("~/Bundle/Css/Mobile/Ficha-Lbel")
-	}
-	<style id="styleRelojOdd"></style>
+    }
+    <style id="styleRelojOdd"></style>
 }
 @if (!Constantes.IngresoExternoOrigen.App.Equals(origen))
 {
-	@Html.Partial("_BreadCrumb", Model.BreadCrumbs)
+    @Html.Partial("_BreadCrumb", Model.BreadCrumbs)
 }
 @Html.Partial("_ElegirOpciones")
 @Html.Partial("ResumenOpcionesTemplate")
@@ -150,8 +150,8 @@
                 <div data-limitepedido="tooltip" class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: none;">
                     <div class="arrow"></div>
                     <div class="popover-content">
-                        <ul class="list-inline popover_texto"> 
-                            <li ><img class="ico_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                        <ul class="list-inline popover_texto">
+                            <li><img class="ico_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
                             <li>Lo sentimos <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f615.png" /> Has llegado al límite de pedidos para esta oferta.</li>
                         </ul>
                     </div>
@@ -223,21 +223,21 @@
         <hr>
     </div>
     <hr class="clear" />
-<div id="CarruselProducto" class="container">
-    <div class="row carrusel">
-        <div>
-            <div class="set_encuentras_producto">
-                <div class="wrapper_resumen_mobile ficha_encuentraproducto">
-                    <p id="tituloCarrusel" class="titulo_set"></p>
-                    <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
-                        <div id="divFichaCarruselProducto"></div>
+    <div id="divFichaCarrusel" class="container">
+        <div class="row carrusel">
+            <div>
+                <div class="set_encuentras_producto">
+                    <div class="wrapper_resumen_mobile ficha_encuentraproducto">
+                        <p id="tituloCarrusel" class="titulo_set"></p>
+                        <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
+                            <div id="divFichaCarruselProducto"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
 }
 
 <!--compartir-->
@@ -276,12 +276,12 @@
     }
     else
     {
-	    <div class="share"></div>
+        <div class="share"></div>
     }
 }
 else
 {
-	<div class="share"></div>
+    <div class="share"></div>
 }
 
 
@@ -290,7 +290,7 @@ else
 
 @if (ViewBag.CampaniaCodigo != Model.Campania)
 {
-	@Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
+    @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
 }
 
 @Html.Partial("_template-ofertadeldia-style")
@@ -299,7 +299,7 @@ else
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
 
-	<script>
+    <script>
         AbrirLoad();
 
 		window.videoKey = '@Model.CodigoVideo';
@@ -341,5 +341,5 @@ else
         $(document).ajaxStop(function () {
             //CerrarLoad();
         })
-	</script>
+    </script>
 }
