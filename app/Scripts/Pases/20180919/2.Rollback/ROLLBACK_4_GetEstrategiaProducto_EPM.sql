@@ -26,16 +26,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
@@ -67,16 +61,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
@@ -108,16 +96,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
@@ -149,16 +131,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
@@ -190,16 +166,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
@@ -231,16 +201,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
@@ -272,16 +236,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
@@ -313,16 +271,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
@@ -354,16 +306,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
@@ -395,16 +341,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
@@ -436,16 +376,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
@@ -477,16 +411,10 @@ BEGIN
 	, ep.NombreProducto
 	, ep.Descripcion1
 	, ep.ImagenProducto
-	, ep.NombreComercial
-	, ep.Descripcion
-	, ep.Volumen
-	, ep.ImagenBulk
-	, ep.NombreBulk
 	, ep.IdMarca
-	, NombreMarca = m.Descripcion
+	, m.Descripcion AS 'NombreMarca'
 	, ep.Activo
-	FROM EstrategiaProducto AS ep 
-		LEFT JOIN dbo.Marca AS m	ON ep.IdMarca = m.MarcaID
+	FROM EstrategiaProducto AS ep LEFT JOIN dbo.Marca AS m ON ep.IdMarca = m.MarcaID
 	WHERE EstrategiaId = @EstrategiaId
 END
 GO
