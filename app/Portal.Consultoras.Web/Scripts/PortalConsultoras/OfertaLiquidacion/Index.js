@@ -297,7 +297,7 @@ $(document).ready(function () {
                             return false;
                         }
                         else {
-                            console.log('OfertaLiquidacion - Index.js - click ".js-boton_liquidacion" - ajax ante ActualizarGanancia', 'OfertaLiquidacion/InsertOfertaWebPortal', Item);
+
                             jQuery.ajax({
                                 type: 'POST',
                                 url: baseUrl + 'OfertaLiquidacion/InsertOfertaWebPortal',
@@ -326,7 +326,7 @@ $(document).ready(function () {
                                     InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, posicion);
                                     CargarResumenCampaniaHeader(true);
                                     TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
-                                    console.log('OfertaLiquidacion - Index.js - click ".js-boton_liquidacion" - ante ActualizarGanancia', data.DataBarra);
+
                                     ActualizarGanancia(data.DataBarra);
 
                                     closeWaitingDialog();
@@ -647,7 +647,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
 }
 
 function agregarProductoAlCarrito(o) {
-    console.log('OfertaLiquidacion index.js - agregarProductoAlCarrito', o);
+
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent();
     var imagenProducto = $('.imagen_producto', contenedorItem);

@@ -363,7 +363,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ListaCUVs = lista.ToList();
 
                 ListaCUVs = ConsultarDescripcionMasivo(lista.ToList(), campaniaId.ToString(), paisId.ToString(), ref isError);
-                sessionManager.Seterrores(ListaCUVs);
+                SessionManager.Seterrores(ListaCUVs);
                 if (isCorrect && lista != null && !isError)
                 {
                     var lst = Mapper.Map<IList<MatrizCampaniaModel>, IEnumerable<BEProductoDescripcion>>(lista);
@@ -400,7 +400,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<MatrizCampaniaModel> listaEntradas;
 
-                listaEntradas = ( sessionManager.Geterrores() ?? new List<MatrizCampaniaModel>()).ToList();
+                listaEntradas = (SessionManager.Geterrores() ?? new List<MatrizCampaniaModel>()).ToList();
 
                 BEGrid grid = new BEGrid
                 {

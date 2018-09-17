@@ -1,11 +1,10 @@
 ﻿using Amazon.S3.Model;
 using System;
 using System.IO;
-using System.Configuration;
 
 namespace Portal.Consultoras.Common
 {
-    public class ConfigS3
+    public static class ConfigS3
     {
         private static readonly string MY_AWS_ACCESS_KEY_ID = System.Configuration.ConfigurationManager.AppSettings["MY_AWS_ACCESS_KEY_ID"];
         private static readonly string MY_AWS_SECRET_KEY = System.Configuration.ConfigurationManager.AppSettings["MY_AWS_SECRET_KEY"];

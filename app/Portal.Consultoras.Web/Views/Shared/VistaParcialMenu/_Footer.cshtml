@@ -1,0 +1,112 @@
+﻿@{
+    // Asignar permisosList con los elementos solo del Pie de página
+    var permisoList = (List<Portal.Consultoras.Web.Models.PermisoModel>)ViewBag.Permiso;
+
+    permisoList = permisoList != null
+        ? permisoList.Where(x => x.Posicion.ToLower().Equals("footer") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
+        : new List<Portal.Consultoras.Web.Models.PermisoModel>();
+}
+<div class="footer_wrapper">
+    <a id="aBelcorpResponde" href="http://belcorpresponde.somosbelcorp.com?@ViewBag.QSBR" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" class="footer_responde">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_esikaresponde.png")" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" /><br />
+        @if (ViewBag.CodigoISODL == "CO")
+        {
+            <text>ÉSIKA RESPONDE</text>
+        }
+        else
+        {
+            <text>BELCORP RESPONDE</text>
+        }
+        <br />
+        <span>Escríbenos o llámanos a través de nuestra Central Telefónica</span>
+    </a>
+    <a href="http://comunidad.somosbelcorp.com/" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" class="footer_responde" target="_blank">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_comunidad.png")" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" /><br />
+        COMUNIDAD VIRTUAL <br />
+        <span role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL">Conoce todo lo que compartimos las mujeres de esta comunidad.</span>
+    </a>
+    <a href="@Url.Action("Index", "MisCatalogosRevistas")" role="outbound-link" region="Footer" parent="Catálogos" title="CATÁLOGOS" class="footer_responde" target="_blank">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_catalogo.png")" role="outbound-link" region="Footer" parent="Catálogos" title="CATÁLOGOS" /><br />
+        CATÁLOGOS <br />
+        <span role="outbound-link" region="Footer" parent="Catálogos" title="CATÁLOGOS">Entérate de nuestras promociones actuales en nuestro Catálogo Virtual.</span>
+    </a>
+    <a href="http://comunidad.somosbelcorp.com/" role="outbound-link" region="Footer" parent="Noticias" title="NOTICIAS" class="footer_responde" target="_blank">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_noticias.png")" role="outbound-link" region="Footer" parent="Noticias" title="NOTICIAS" /><br />
+        NOTICIAS <br />
+        <span role="outbound-link" region="Footer" parent="Noticias" title="NOTICIAS">Entérate de las noticias de Belcorp.</span>
+    </a>
+</div>
+<hr class="clear" />
+<div class="linea_superior"></div>
+<div class="footer_wrapper">
+    <div class="logo_footer_e">
+        <img src="@Url.Content("~/Content/Images/Esika/belcorp.png")" />
+    </div>
+    <div class="sub_footer" style="text-align:left !important">
+        <h1>NUESTRAS MARCAS</h1>
+        <a href="http://www.lbel.com" target="_blank" role="outbound-link" region="Footer" parent="Nuestras Marcas" title="LBEL" id="lnk-out-lbel">L'BEL</a>
+        @if (ViewBag.PaisAnalytics != "PA")
+        {
+            <a href="http://www.esika.biz" target="_blank" role="outbound-link" region="Footer" parent="Nuestras Marcas" title="ESIKA" id="lnk-out-esika">ÉSIKA</a>
+        }
+        <a href="http://www.cyzone.com" target="_blank" role="outbound-link" region="Footer" parent="Nuestras Marcas" title="CYZONE" id="lnk-out-cyzone">CYZONE</a>
+    </div>
+    @if (permisoList.Any())
+    {
+    foreach (var menuPadre in permisoList)
+    {
+        <div class="sub_footer" style="text-align:left !important">
+            <h1>@menuPadre.Descripcion</h1>
+
+            @foreach (var menuHijo in menuPadre.SubMenus)
+            {
+                if (menuHijo.Descripcion.Trim().ToLower() == "contáctanos")
+                {
+                    menuHijo.UrlItem += "?" + ViewBag.QSBR;
+
+                    <script type="text/javascript">
+                        document.getElementById("aBelcorpResponde").href = "@Html.Raw(menuHijo.UrlItem)";
+                    </script>
+                }
+
+                var pageTarget = menuHijo.PaginaNueva ? "_blank" : "_self";
+
+                if (string.IsNullOrEmpty(menuHijo.UrlItem))
+                {
+                    <a href="javascript:;">@menuHijo.Descripcion</a>
+                }
+                else
+                {
+                    if (menuHijo.EsDireccionExterior)
+                    {
+                        <a href="javascript:;" onclick="RedirectMenu('@menuHijo.UrlItem', '',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
+                            @menuHijo.Descripcion
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="javascript:;" onclick="RedirectMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
+                            @menuHijo.Descripcion
+                        </a>
+                    }
+                }
+            }
+        </div>
+    }        
+    }
+    <div class="sub_footer" style="text-align:left !important">
+        <h1>SÍGUENOS</h1>
+        <a href="https://www.facebook.com/SomosBelcorpOficial?fref=ts" target="_blank" role="outbound-link" region="Footer" parent="Síguenos" id="lnk-out-facebook" title="Facebook Belcorp">
+            FACEBOOK<img class="logo_redes" src="@Url.Content("~/Content/Images/Esika/facebook.png")" />
+        </a>
+        <a href="https://www.youtube.com/user/somosbelcorp" target="_blank" role="outbound-link" region="Footer" parent="Síguenos" id="lnk-out-youtube" title="Youtube Belcorp">
+            YOUTUBE <img class="logo_redes" src="@Url.Content("~/Content/Images/Esika/youtube.png")" />
+        </a>
+    </div>
+</div>
+<hr class="clear" />
+<div class="footer_wrapper">
+    <div class="linea_superior"></div>
+    <div class="pedido_pais"><img src="@Url.Content(string.Format("~/Content/Banderas/{0}.png", ViewBag.CodigoISODL))" /><span>@ViewBag.NombrePais</span></div>
+    <div class="unete_2016"> Copyright Belcorp 2016. All rigths reserved.</div>
+</div>

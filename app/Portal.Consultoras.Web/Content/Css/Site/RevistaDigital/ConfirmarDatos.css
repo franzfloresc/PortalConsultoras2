@@ -7,10 +7,10 @@
     width: 100%;
 }
 
-    .popup_confirmacion_datos .contenido-table-datos .cont-datos {
-        vertical-align: middle;
-        display: table-cell;
-    }
+.popup_confirmacion_datos .contenido-table-datos .cont-datos {
+    vertical-align: middle;
+    display: table-cell;
+}
 
 .popup_confirmacion_datos {
     background: white;
@@ -20,196 +20,196 @@
     top: 57%;
 }
 
-    .popup_confirmacion_datos p.felicidades {
-        display: block;
-        font-size: 13px;
-        font-weight: 900;
-        margin-bottom: 0;
-        letter-spacing: 1px;
-        text-align: center;
-        color: #c39934;
-    }
+.popup_confirmacion_datos p.felicidades {
+    display: block;
+    font-size: 13px;
+    font-weight: 900;
+    margin-bottom: 0;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #c39934;
+}
 
-    .popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
-        width: 50px;
-        height: 50px;
-        display: block;
-        margin: auto;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
+.popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin: auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
-    .popup_confirmacion_datos p.estasganando {
-        display: block;
-        text-align: center;
-        font-size: 17px;
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: normal;
-        letter-spacing: 1px;
-        color: #000000;
-        margin-bottom: 10px;
-    }
+.popup_confirmacion_datos p.estasganando {
+    display: block;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: #000000;
+    margin-bottom: 10px;
+}
 
-    .popup_confirmacion_datos span.confirmanos {
-        display: block;
-        text-align: center;
-        letter-spacing: 0.5px;
-        font-size: 13px;
-        margin-bottom: 15px;
-        line-height: 16px;
-    }
+.popup_confirmacion_datos span.confirmanos {
+    display: block;
+    text-align: center;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+    margin-bottom: 15px;
+    line-height: 16px;
+}
 
-    .popup_confirmacion_datos .form-datos .validar_chk {
-        width: 100%;
-        margin-top: 22px;
-    }
+.popup_confirmacion_datos .form-datos .validar_chk {
+    width: 100%;
+    margin-top: 22px;
+}
 
-        .popup_confirmacion_datos .form-datos .validar_chk .inputchk {
-            width: 8%;
-            float: left;
-            margin-top: -6px;
-        }
+.popup_confirmacion_datos .form-datos .validar_chk .inputchk {
+    width: 8%;
+    float: left;
+    margin-top: -6px;
+}
 
-            .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type="checkbox"] {
-                width: 16px;
-                height: 16px;
-                display: none !important;
-            }
+.popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    display: none !important;
+}
 
-            .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox] + label {
-                display: inline-block;
-                padding: 0 0 0 0px;
-                background: white;
-                box-shadow: inset 0 0 4px #0000006b;
-                width: 16px;
-                height: 16px;
-            }
+.popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox] + label {
+    display: inline-block;
+    padding: 0 0 0 0px;
+    background: white;
+    box-shadow: inset 0 0 4px #0000006b;
+    width: 16px;
+    height: 16px;
+}
 
-            .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox]:checked + label {
-                width: 16px;
-                height: 16px;
-                display: inline-block;
-                box-shadow: none;
-                background: #c39934;
-            }
+.popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox]:checked + label {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    box-shadow: none;
+    background: #c39934;
+}
 
-        .popup_confirmacion_datos .form-datos .validar_chk .txtchk {
-            width: 92%;
-            float: left;
-            display: block;
-            text-align: left;
-            margin-top: -9.5px;
-            font-size: 12px;
-            line-height: 15px;
-        }
+.popup_confirmacion_datos .form-datos .validar_chk .txtchk {
+    width: 92%;
+    float: left;
+    display: block;
+    text-align: left;
+    margin-top: -9.5px;
+    font-size: 12px;
+    line-height: 15px;
+}
 
-            .popup_confirmacion_datos .form-datos .validar_chk .txtchk span.obligatorio {
-                color: red;
-                display: none;
-            }
+.popup_confirmacion_datos .form-datos .validar_chk .txtchk span.obligatorio {
+    color: red;
+    display: none;
+}
 
-            .popup_confirmacion_datos .form-datos .validar_chk .txtchk a.terminos {
-                padding: 0;
-                display: inline;
-                width: auto !important;
-                text-decoration: underline;
-            }
+.popup_confirmacion_datos .form-datos .validar_chk .txtchk a.terminos {
+    padding: 0;
+    display: inline;
+    width: auto !important;
+    text-decoration: underline;
+}
 
-    .popup_confirmacion_datos .form-datos button {
-        background: #e0e0e0;
-        letter-spacing: 1px;
-        color: white;
-        border: none;
-        font-size: 17px;
-        text-align: center;
-        display: block;
-        font-weight: bolder;
-        width: 100%;
-        width: 280px;
-        margin: auto;
-        height: 45px;
-        margin-bottom: 20px;
-        margin-top: 20px;
-    }
+.popup_confirmacion_datos .form-datos button {
+    background: #e0e0e0;
+    letter-spacing: 1px;
+    color: white;
+    border: none;
+    font-size: 17px;
+    text-align: center;
+    display: block;
+    font-weight: bolder;
+    width: 100%;
+    width: 280px;
+    margin: auto;
+    height: 45px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
 
-    .popup_confirmacion_datos .form-datos {
-        margin-bottom: opx;
-    }
+.popup_confirmacion_datos .form-datos {
+    margin-bottom: 0px;
+}
 
-        .popup_confirmacion_datos .form-datos .input {
-            margin-bottom: 15px;
-        }
+.popup_confirmacion_datos .form-datos .input {
+    margin-bottom: 15px;
+}
 
-            .popup_confirmacion_datos .form-datos .input:last-child {
-                margin-bottom: 0;
-            }
+.popup_confirmacion_datos .form-datos .input:last-child {
+    margin-bottom: 0;
+}
 
-            .popup_confirmacion_datos .form-datos .input img {
-                display: inline;
-                position: absolute;
-                padding: 0px 10px;
-                margin-top: 14px;
-            }
+.popup_confirmacion_datos .form-datos .input img {
+    display: inline;
+    position: absolute;
+    padding: 0px 10px;
+    margin-top: 14px;
+}
 
-                .popup_confirmacion_datos .form-datos .input img.phone {
-                    margin-top: 10px;
-                    margin-left: 4px;
-                }
+.popup_confirmacion_datos .form-datos .input img.phone {
+    margin-top: 10px;
+    margin-left: 4px;
+}
 
-                .popup_confirmacion_datos .form-datos .input img.info {
-                    display: block;
-                    padding: 0px;
-                    margin-top: 4px;
-                    border: none;
-                    background: none;
-                    width: 20px;
-                    height: 20px;
-                }
+.popup_confirmacion_datos .form-datos .input img.info {
+    display: block;
+    padding: 0px;
+    margin-top: 4px;
+    border: none;
+    background: none;
+    width: 20px;
+    height: 20px;
+}
 
-            .popup_confirmacion_datos .form-datos .input input {
-                display: inline;
-                padding: 12px 40px;
-                width: 100%;
-                border: 1px solid #e0e0e0;
-                height: 40px;
-                color: black;
-            }
+.popup_confirmacion_datos .form-datos .input input {
+    display: inline;
+    padding: 12px 40px;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    height: 40px;
+    color: black;
+}
 
-            .popup_confirmacion_datos .form-datos .input p.txtvalidar {
-                margin: 0;
-                padding: 0;
-                text-align: left;
-                display: block;
-                padding: 5px 0px 0px 40px;
-                color: red;
-                letter-spacing: .5px;
-                font-size: 12px;
-            }
+.popup_confirmacion_datos .form-datos .input p.txtvalidar {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    display: block;
+    padding: 5px 0px 0px 40px;
+    color: red;
+    letter-spacing: .5px;
+    font-size: 12px;
+}
 
-            .popup_confirmacion_datos .form-datos .input input[type="checkbox"] {
-                float: left;
-                width: 10% !important;
-                width: 16px;
-                height: 16px;
-                margin-top: 1px;
-                display: block !important;
-            }
+.popup_confirmacion_datos .form-datos .input input[type="checkbox"] {
+    float: left;
+    width: 10% !important;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+    display: block !important;
+}
 
-            .popup_confirmacion_datos .form-datos .input span {
-                text-align: left;
-                display: block;
-                width: 90%;
-                color: #808080;
-                line-height: 13px;
-                font-size: 11px;
-                float: left;
-            }
+.popup_confirmacion_datos .form-datos .input span {
+    text-align: left;
+    display: block;
+    width: 90%;
+    color: #808080;
+    line-height: 13px;
+    font-size: 11px;
+    float: left;
+}
 
-                .popup_confirmacion_datos .form-datos .input span a {
-                    text-decoration: underline;
-                    display: inline;
-                }
+.popup_confirmacion_datos .form-datos .input span a {
+    text-decoration: underline;
+    display: inline;
+}
 /* FIN CONFIRMACIÓN DE DATOS */

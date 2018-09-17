@@ -11,7 +11,7 @@ else
     <link href="@Url.Content("~/Content/Css/Site/Lbel/gestorContenido.css")" rel="stylesheet" type="text/css" />
 }
 
-@Styles.Render("~/bundles/estrategias-upselling-css")
+@Styles.Render("~/Bundle/Css/Desktop/Upselling")
 
 <div id="upSellingCRUD">
     <div data-bind="fadeVisible: !$root.mostrarFormularioUpSelling()">
@@ -182,12 +182,9 @@ else
 </form>
 
 
-@Scripts.Render("~/bundles/estrategias-upselling")
+@Scripts.Render("~/Bundle/Js/Desktop/Upselling")
 @section scripts{
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/api.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
-
+ 
     <script>
         jQuery(document).ready(function() {
             belcorp.estrategias.upselling.initialize({

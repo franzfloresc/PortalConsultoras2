@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var MiCurso = url[1].Split('=');
                 var MiId = MiCurso[1].Split('&');
                 TempData["FlagAcademiaVideo"] = 1;
-                // if (Util.IsNumeric(MiCurso[1]))
+
                 if (Util.IsNumeric(MiId[0]))
                    {
                     misCursos = Convert.ToInt32(MiId[0]);

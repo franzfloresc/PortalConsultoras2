@@ -185,7 +185,6 @@
                         CloseLoading();
                         messageInfo("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
                     } else {
-                        console.log('Intriga.cshtml - AgregarOfertaShowRoomIntriga - ajax ante CargarCantidadProductosPedidos', urlInsertOfertaWebPortal, Item);
                         jQuery.ajax({
                             type: 'POST',
                             url: urlInsertOfertaWebPortal,
@@ -208,7 +207,6 @@
                                     ShowLoading();
 
                                     AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
-                                    console.log('Intriga.cshtml - AgregarOfertaShowRoomIntriga - ante CargarCantidadProductosPedidos');
                                     CargarCantidadProductosPedidos();
                                     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                     $(".agregado").show();
@@ -249,7 +247,7 @@
         }
 
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Intriga.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
+ 
 
 }
+@Scripts.Render("~/Bundle/Js/Mixto/ShowRoom-Intriga")

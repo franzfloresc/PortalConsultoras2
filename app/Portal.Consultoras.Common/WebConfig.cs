@@ -2,7 +2,7 @@
 
 namespace Portal.Consultoras.Common
 {
-    public class WebConfig
+    public static class WebConfig
     {
         #region Variables miembre
 

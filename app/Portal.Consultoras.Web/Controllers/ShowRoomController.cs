@@ -21,15 +21,26 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Intriga()
         {
-            if (!ValidarIngresoShowRoom(true))
-            {
-                return RedirectToAction("Index", "Bienvenida");
-            }
+            return RedirectToAction("Index", "Ofertas");
 
-            var model = ObtenerPrimeraOfertaShowRoom();
-            if (model == null) return RedirectToAction("Index", "Bienvenida");
-            
-            return View(model);
+            //if (!ValidarIngresoShowRoom(true))
+            //{
+            //    return RedirectToAction("Index", "Bienvenida");
+            //}
+
+            //var model = ObtenerPrimeraOfertaShowRoom();
+            //if (model == null) return RedirectToAction("Index", "Bienvenida");
+
+            ////model.Simbolo = userData.Simbolo;
+            ////model.CodigoISO = userData.CodigoISO;
+            ////model.Suscripcion = (configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel()).Suscripcion;
+            ////model.EMail = userData.EMail;
+            ////model.EMailActivo = userData.EMailActivo;
+            ////model.Celular = userData.Celular;
+            ////model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+            ////model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
+
+            //return View(model);
         }
 
         public ActionResult Index(string query)
@@ -43,8 +54,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
-                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+                var mostrarShowRoomProductos = SessionManager.GetMostrarShowRoomProductos();
+                var mostrarShowRoomProductosExpiro = SessionManager.GetMostrarShowRoomProductosExpiro();
                 var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
                 if (mostrarPopupIntriga) return RedirectToAction("Intriga", "ShowRoom");
@@ -103,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData.CloseBannerCompraPorCompra = true;
 
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
 
                 return Json(new
                 {
@@ -591,7 +602,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult DesactivarBannerInferior()
         {
-            sessionManager.ShowRoom.BannerInferiorConfiguracion.Activo = false;
+            SessionManager.ShowRoom.BannerInferiorConfiguracion.Activo = false;
 
             return Json(ResultModel<bool>.BuildOk(true), JsonRequestBehavior.AllowGet);
         }
@@ -647,9 +658,9 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.InsPedidoWebDetalleOferta(entidad);
                 }
 
-                sessionManager.SetPedidoWeb(null);
-                sessionManager.SetDetallesPedido(null);
-                sessionManager.SetDetallesPedidoSetAgrupado(null);
+                SessionManager.SetPedidoWeb(null);
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
 
                 UpdPedidoWebMontosPROL();
 
@@ -660,8 +671,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PedidoDetalleID = entidad.PedidoDetalleID,
                     IndicadorIPUsuario = GetIPCliente(),
                     IndicadorFingerprint = "",
-                    IndicadorToken = sessionManager.GetTokenPedidoAutentico() != null
-                        ? sessionManager.GetTokenPedidoAutentico()
+                    IndicadorToken = SessionManager.GetTokenPedidoAutentico() != null
+                        ? SessionManager.GetTokenPedidoAutentico()
                         : ""
                 };
 
@@ -743,7 +754,7 @@ namespace Portal.Consultoras.Web.Controllers
             userData.EMailActivo = usuario.EMail == userData.EMail && userData.EMailActivo;
             userData.EMail = usuario.EMail;
             userData.Celular = usuario.Celular;
-            sessionManager.SetUserData(userData);
+            SessionManager.SetUserData(userData);
         }
 
         private void EnviarConfirmacionCorreoShowRoom(MisDatosModel model)

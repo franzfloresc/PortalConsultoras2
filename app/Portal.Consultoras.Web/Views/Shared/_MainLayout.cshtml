@@ -23,12 +23,12 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Site-Esika-CssSB2")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Site-Lbel-CssSB2")
     }
     <link href="@Url.Content("~/Content/Css/Site/calc.css")" rel="stylesheet" type="text/css" />
 
@@ -36,9 +36,9 @@
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))' == "True";
-        var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+        //var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
-        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        //var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var gTipoUsuario = '@ViewBag.TipoUsuario';
         var IsoPais = '@ViewBag.CodigoISODL';
@@ -63,6 +63,7 @@
         var emt_type = '0';
         var emt_device = ' ';
         var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
         // New Chat -->
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
@@ -70,6 +71,15 @@
         window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
         window.patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
+
+        // Seteando Controlador y Accion
+        @{
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        }
+        window.controllerName = '@ctrl.ToLower()';
+        window.actionName     = '@acti.ToLower()';
 
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
@@ -85,17 +95,6 @@
         var controllerName = '@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower()';
 
         var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
-
-        // Seteando Controlador y Accion
-        @{
-            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
-            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
-        }
-        window.controllerName = '@ctrl.ToLower()';
-        window.actionName     = '@acti.ToLower()';
-        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
-
     </script>
     <style id="styleRelojOdd"></style>
     @RenderSection("styles", required: false)
@@ -117,7 +116,8 @@
         </div>
     }
 
-    @if (ViewBag.PaisesConTrackingJetlore == "1")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTrackingJetlore.cshtml")
+@*@if (ViewBag.PaisesConTrackingJetlore == "1")
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
         <script type="text/javascript">
@@ -127,7 +127,7 @@
                 feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
             });
         </script>
-    }
+    }*@
 
     <script type="text/javascript">
         if (!String.prototype.startsWith) {
@@ -152,7 +152,9 @@
             <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
         }
 
-        <div class="clear"></div>
+
+        @Html.Partial("~/Views/Shared/VistaParcialMenu/_Menu.cshtml")
+        @*<div class="clear"></div>
         <div class="wrapper_header wrapper_header_cincuenta_anios_belcorp">
             <div data-menu-header="parte1" class="wrapper_cincuenta_anios_belcorp_y_logo">
                 <div class="cincuenta_anios_belcorp">
@@ -163,7 +165,7 @@
                 </div>
             </div>
             <div data-menu-header="parte2" class="menu_new_esika">
-                @Html.Partial("~/Views/Shared/_Menu.cshtml")
+                @Html.Partial("~/Views/Shared/VistaParcialMenu/_Menu.cshtml")
             </div>
             @if (ViewBag.MostrarBuscadorYFiltros)
             {
@@ -190,7 +192,7 @@
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpMenuB.cshtml")
             <div class="clear"></div>
         </div>
-        <div class="clear"></div>
+        <div class="clear"></div>*@
     </header>
 
     <div class="fondo_oscuro"></div>
@@ -231,7 +233,7 @@
 
         <hr class="clear" />
         <footer class="footer_e">
-            @Html.Partial("~/Views/Shared/_Footer.cshtml")
+            @Html.Partial("~/Views/Shared/VistaParcialMenu/_Footer.cshtml")
         </footer>
     </div>
 
@@ -299,15 +301,18 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpRegistroComunidad.cshtml")
 
-    <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
-    <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
-    <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
-    <input type="hidden" id="hdFlagOfertaWeb" value="0" />
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpInputHiddenSoloDesktop.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpInputHidden.cshtml")
+    @*<input type="hidden" id="hdFlagOfertaWeb" value="0" />
     <input type="hidden" id="hdFlagOfertaLiquidacion" value="0" />
     <input type="hidden" id="hdFlagValidacion" value="0" />
     <input type="hidden" id="hdFlagValidacionReserva" value="0" />
+
+    <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
+    <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
+    <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
-    <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
+    <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />*@
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBannerLateralShowRoom.cshtml")
 
@@ -327,11 +332,11 @@
 
     @Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
 
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        //var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var viewBagRol = '@ViewBag.Rol';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var campaniaCodigo = '@ViewBag.CampaniaCodigo';
@@ -350,12 +355,11 @@
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var codigoAnclaOdd = '@Constantes.ConfiguracionPais.OfertaDelDia';
         var OrigenDesktopODD = 0;
-        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
         var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
     <script type='text/javascript'>
         (function () {
             var proto = document.location.protocol || 'http:';
@@ -372,18 +376,107 @@
 
     <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
     <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
-    <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
+
+    <div class="CMXD-containment-wrapper"></div>
+    <div id="marca">
+        <div class="CMXD-btn-help">
+            <div id="btn_init" class="CMXD-help"></div>
+            <div id="btn_open" class="CMXD-open" style="display: none"></div>
+        </div>
+        <div class="container-movil"></div>
+        <div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none">
+            <div class="CMXD-header-chat">
+                <i class="fa fa-comments-o" aria-hidden="true"></i>
+                CHAT EN LÍNEA
+                <div class="CMXD-icons">
+                    <a class="display-a" id="btn_minimize" href="">
+                        <i class="fa fa-minus" aria-hidden="true"></i>
+                    </a>
+                    <a class="display-a" id="btn_wClose" href="" style="display: none">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <hr class="CMXD-line">
+            </div>
+            <div id="chat">
+                <div id="interaction" class="CMXD-container-welcome" style="display: none">
+                    <div class='chat-wrapper'>
+                        <div id="transcript" class='chat-message padding container-chat'></div>
+                    </div>
+                    <div id="slideDownTranscript" class="message-end CMXD-animate2">
+                        <span class="fa fa-angle-double-down"></span>
+                    </div>
+                    <div class="container-txt">
+                        <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea>
+                        <a class="" href="">
+                            <div class="send send2" id="btn_Send">
+                                <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div id="loading" class="pop-up">
+                    <div class="CMXD-container-welcome">
+                        <div class="CMXD-img-welcome">
+                            <img id="loading_image" src="" alt="">
+                        </div>
+                        <div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div>
+                        <div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div>
+                    </div>
+                </div>
+                <div id="schedule" class="pop-up">
+                    <div class="CMXD-container-welcome">
+                        <div class="CMXD-img-welcome">
+                            <img id="schedule_image" src="" alt="Imagen fuera de horario">
+                        </div>
+                        <div id="schedule_title" class="CMXD-welcome"> </div>
+                        <div id="schedule_description" class="CMXD-description"> </div>
+                    </div>
+                </div>
+                <div id="Error" class="pop-up">
+                    <div class="CMXD-container-welcome">
+                        <div class="CMXD-img-welcome">
+                            <img id="Error_image" src="" alt="">
+                        </div>
+                        <div class="CMXD-welcome"> Error de conexión </div>
+                        <div class="CMXD-description">
+                            En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br />
+                            <a href="" class="btn-no display-a" id="btn_mclose"> OK</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="alert" class="pop-up">
+                    <div class="CMXD-container-welcome">
+                        <div class="CMXD-img-welcome">
+                            <img id="alert_image" src="" alt="">
+                        </div>
+                        <div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div>
+                        <div class="CMXD-description">
+                            <a href="" class="btn-yes display-a" id="btn_close"> Si</a>
+                            <a href="" class="btn-no display-a" id="btn_nwClose"> No</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="poll" class="pop-up">
+                <div class="CMXD-container-welcome">
+                    <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div>
+                    <div id="poll_description" class="CMXD-description"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")?v1"></script>
 
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
-        @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
         <script>
             var pixelAnalytics = Analytics();
             pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
         </script>
-        TempData.Remove("PixelCodigoIso");
+        @TempData.Remove("PixelCodigoIso");
     }
-
 </body>
 </html>

@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 List<BEBuscadorYFiltros> resultBuscador;
-                var configuracionPais = sessionManager.GetBuscadorYFiltros();
+                var configuracionPais = SessionManager.GetBuscadorYFiltros();
                 var valores = configuracionPais.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador).ToList();
                 var TotalResultadosBuscador = 20;
 
@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     // Se validara Stock o lo hara el API?
                     var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-                    var pedidos = sessionManager.GetDetallesPedido();
+                    var pedidos = SessionManager.GetDetallesPedido();
 
                     foreach (var item in resultBuscador)
                     {
@@ -93,9 +93,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return Json(ListaProductosModel, JsonRequestBehavior.AllowGet);
         }
 
-        //private List<BuscadorYFiltrosModel> Data()
-        //{
-        //    return new List<BuscadorYFiltrosModel>();
-        //}
     }
 }

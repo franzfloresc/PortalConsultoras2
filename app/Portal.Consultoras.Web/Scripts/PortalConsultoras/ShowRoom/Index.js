@@ -124,6 +124,8 @@ $(document).ready(function () {
             slidesToScroll: 1,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            EstablecerLazyCarrusel($('.content_carrusel_pop_compra'));
         });
 
         var divs = $("#PopDetalleCompra").find("[data-campos]");

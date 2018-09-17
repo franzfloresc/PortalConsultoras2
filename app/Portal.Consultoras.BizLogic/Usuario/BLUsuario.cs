@@ -1,27 +1,25 @@
-﻿using Portal.Consultoras.BizLogic.Pedido;
+﻿using JWT;
+using Newtonsoft.Json;
+using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.PublicService.Cryptography;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Transactions;
 using System.Net.Http;
 using System.Text.RegularExpressions;
-
-using JWT;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Transactions;
 using Portal.Consultoras.Entities.Usuario;
 
 namespace Portal.Consultoras.BizLogic
@@ -229,22 +227,25 @@ namespace Portal.Consultoras.BizLogic
                     {
                         validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
                     }
+
                     if (validacionDato == null || validacionDato.DatoNuevo != email)
                     {
                         return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_NO_EXISTE);
                     }
+
                     if (validacionDato.Estado == Constantes.ValidacionDatosEstado.Activo)
                     {
                         return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_YA_ACTIVADA);
                     }
+
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
-                    if (!usuario.EMail.Contains(email) && daUsuario.ExistsUsuarioEmail(email))
+
+                    if (!usuario.EMail.Contains(email) && daUsuario.ExistsUsuarioEmail(email)
+                        && daUsuario.ExistsUsuarioEmail(email))
                     {
-                        if (daUsuario.ExistsUsuarioEmail(email))
-                        {
-                            return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_DUPLICADO, belcorpResponde: _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault());
-                        }
+                        return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_DUPLICADO, belcorpResponde: _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault());
                     }
+
                     daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, usuario.CampaniaID);
                     validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
                     validacionDato.UsuarioModificacion = codigoUsuario;
@@ -601,7 +602,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
                 usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
 
-                if(actualizacionEmailTask.Result != null)
+                if (actualizacionEmailTask.Result != null)
                 {
                     var resultActualizacionEmail = actualizacionEmailTask.Result.Split('|');
                     usuario.CambioCorreoPendiente = Constantes.ActualizacionDatosValidacion.CambioCorreoPendiente.Equals(resultActualizacionEmail[0]);
@@ -610,20 +611,21 @@ namespace Portal.Consultoras.BizLogic
                 if (actualizaDatosTask.Result != null)
                 {
                     var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
-                    usuario.PuedeActualizar = (item!= null ?  item.Valor == "1" : false );
+                    usuario.PuedeActualizar = (item != null && item.Valor == "1");
                 }
-                if(actualizaDatosConfigTask.Result != null)
+                if (actualizaDatosConfigTask.Result != null)
                 {
                     var opcionesVerificacion = actualizaDatosConfigTask.Result;
                     usuario.PuedeActualizarEmail = opcionesVerificacion.OpcionEmail;
                     usuario.PuedeActualizarCelular = opcionesVerificacion.OpcionSms;
                 }
-                if (contratoAceptacionTask.Result == null || usuario.TipoUsuario != Constantes.TipoUsuario.Consultora) {
+                if (contratoAceptacionTask.Result == null || usuario.TipoUsuario != Constantes.TipoUsuario.Consultora)
+                {
                     usuario.IndicadorContratoAceptacion = -1;
                 }
                 else
                 {
-                    usuario.IndicadorContratoAceptacion = contratoAceptacionTask.Result.Where(e => e.AceptoContrato == 1).Count();
+                    usuario.IndicadorContratoAceptacion = contratoAceptacionTask.Result.Count(e => e.AceptoContrato == 1);
                 }
 
                 return usuario;
@@ -931,7 +933,7 @@ namespace Portal.Consultoras.BizLogic
 
             return oResponse ?? new BECuponConsultora();
         }
-        
+
         public void UpdUsuarioProgramaNuevas(BEUsuario usuario, long consultoraId, int campania)
         {
             var consulProgNuevas = _consultorasProgramaNuevasBusinessLogic.GetByConsultoraIdAndCampania(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID.ToString());
@@ -1796,14 +1798,14 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-                if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO); 
+                if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
                 if (string.IsNullOrEmpty(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_VACIO);
                 //if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
 
                 if (usuario.EMail != correoNuevo)
                 {
                     var dAUsuario = new DAUsuario(usuario.PaisID);
-                    if (dAUsuario.ExistsUsuarioEmail(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_YA_EXISTE); 
+                    if (dAUsuario.ExistsUsuarioEmail(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_YA_EXISTE);
                 }
 
                 var dAValidacionDatos = new DAValidacionDatos(usuario.PaisID);
@@ -1836,7 +1838,7 @@ namespace Portal.Consultoras.BizLogic
                         validacionDato.UsuarioModificacion = usuario.CodigoUsuario;
                         dAValidacionDatos.UpdValidacionDatos(validacionDato);
                     }
-                    
+
                     EnviarEmailActualizarCorreo(usuario, correoNuevo);
                     transScope.Complete();
                 }
@@ -1844,19 +1846,21 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
-                return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_INTERNO, Constantes.MensajesError.UpdCorreoConsultora); 
+                return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_INTERNO, Constantes.MensajesError.UpdCorreoConsultora);
             }
-            return new BERespuestaServicio { Succcess = true, Code= Constantes.ActualizacionDatosValidacion.Code.SUCCESS };
+            return new BERespuestaServicio { Succcess = true, Code = Constantes.ActualizacionDatosValidacion.Code.SUCCESS };
         }
 
-        public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo) {
+        public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo)
+        {
 
-            var actualizaDatosPais = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(usuario.PaisID, Constantes.TablaLogica.ActualizaDatosEnabled).FirstOrDefault();            
-            usuario.PuedeActualizar = (actualizaDatosPais != null ? actualizaDatosPais.Valor == "1" : false);
+            var actualizaDatosPais = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(usuario.PaisID, Constantes.TablaLogica.ActualizaDatosEnabled).FirstOrDefault();
+            usuario.PuedeActualizar = (actualizaDatosPais != null && actualizaDatosPais.Valor == "1");
             if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
 
             var actualizaDatosConfigTask = GetOpcionesVerificacion(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
-            if(actualizaDatosConfigTask != null ? !actualizaDatosConfigTask.OpcionEmail : true) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
+            if (actualizaDatosConfigTask != null && !actualizaDatosConfigTask.OpcionEmail)
+                return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
 
             var respuestaServicio = ActualizarEmail(usuario, correoNuevo);
 
@@ -1971,7 +1975,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var daValidacionDatos = new DAValidacionDatos(paisId);
             var daUsuario = new DAUsuario(paisId);
-            
+
             try
             {
                 if (string.IsNullOrEmpty(codigoSms))
@@ -2430,7 +2434,7 @@ namespace Portal.Consultoras.BizLogic
         private List<BEContrato> GetContratoAceptacion(int PaisID, long ConsultoraID)
         {
             if (PaisID != Constantes.PaisID.Colombia) return null;
-            return _contratoAceptacionBusinessLogic.GetContratoAceptacion(PaisID, ConsultoraID);            
+            return _contratoAceptacionBusinessLogic.GetContratoAceptacion(PaisID, ConsultoraID);
         }
 
         #endregion
@@ -2805,7 +2809,7 @@ namespace Portal.Consultoras.BizLogic
                 res.mensaje = Constantes.MensajesError.ValorVacio;
             }
             else
-            { 
+            {
                 try
                 {
                     BEEnviarSms oCredencial = GetCredencialesSmsCache(paisID);
@@ -3322,12 +3326,9 @@ namespace Portal.Consultoras.BizLogic
                     return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CELULAR_LONGITUD, null, limiteMaximoTelef);
                 }
                 Common.Util.ObtenerIniciaNumeroCelular(paisID, out valida, out numero);
-                if (valida)
+                if (valida && celularNuevo.Substring(0, 1) != numero.ToString())
                 {
-                    if (celularNuevo.Substring(0, 1) != numero.ToString())
-                    {
-                        return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CELULAR_PRIMER_DIGITO, null, numero);
-                    }
+                    return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CELULAR_PRIMER_DIGITO, null, numero);
                 }
                 if (!Regex.IsMatch(celularNuevo, Constantes.ActualizacionDatosValidacion.ExpresionCelular))
                 {
@@ -3371,7 +3372,8 @@ namespace Portal.Consultoras.BizLogic
             };
         }
 
-        private BERespuestaActivarEmail ActivacionEmailRespuesta(string code, string message = null, BEBelcorpResponde belcorpResponde = null, params object[] args) {
+        private BERespuestaActivarEmail ActivacionEmailRespuesta(string code, string message = null, BEBelcorpResponde belcorpResponde = null, params object[] args)
+        {
             if (string.IsNullOrEmpty(message))
             {
                 message = Constantes.ActualizacionDatosValidacion.Message.ContainsKey(code) ?

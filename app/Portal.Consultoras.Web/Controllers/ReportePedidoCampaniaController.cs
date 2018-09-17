@@ -113,7 +113,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarPDF(string vPaisddl, string vCampaniaddl, string vRegionddl, string vZonaddl, string vCodConsultoratxt, string vPaisddl_val,
                 string vCampaniaddl_val, string vRegionddl_val, string vZonaddl_val, string vCodConsultoratxt_ID, string vUsuario)
         {
-            sessionManager.SetPaisID(userData.PaisID);
+            SessionManager.SetPaisID(userData.PaisID);
             string[] lista = new string[14];
             lista[0] = vPaisddl; lista[1] = vCampaniaddl; lista[2] = vRegionddl; lista[3] = vZonaddl; lista[4] = vCodConsultoratxt;
             lista[5] = vPaisddl_val; lista[6] = vCampaniaddl_val; lista[7] = vRegionddl_val; lista[8] = vZonaddl_val; lista[9] = vCodConsultoratxt_ID;

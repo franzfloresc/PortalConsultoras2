@@ -342,7 +342,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<ServicioCampaniaModel> BuildMenuServiceConsultoras()
         {
-            if (sessionManager.GetUserData() != null)
+            if (SessionManager.GetUserData() != null)
             {
                 IList<BEServicioCampania> lst;
 
