@@ -9,7 +9,7 @@ Add:
     <add key="RutaImagenesAppCatalogoBulk" value="https://s3-sa-east-1.amazonaws.com/appcatalogo/{0}/{1}/{2}/productos/bulk/{3} "/>
     <!--Fin -  Ruta magenes App Catalogo-->
 	
-	<add key="RutaServiceBuscadorAPI" value="http://internal-prdielbsbsearch-1618365993.us-east-1.elb.amazonaws.com/" />
+	<add key="RutaServiceBuscadorAPI" value="http://internal-qaielbsbsearch-925070621.us-east-1.elb.amazonaws.com/" />
 
 	
 Update:
