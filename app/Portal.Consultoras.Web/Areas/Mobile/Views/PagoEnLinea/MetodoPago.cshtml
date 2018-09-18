@@ -134,7 +134,74 @@
                             }
                         </div>
                     </li>
-                }               
+                }
+                <!-- HD-2960 - NUEVO MÉTODO DE PAGO -->
+                <li class="opcion_pago metodoPago text-center">
+                    <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoMobile w-100">
+                        <div class="col_izq text-left">
+                            <div class="icono_marca_tarjeta">
+                                <img src="@Url.Content("~/Content/Images/icono_banca_por_internet.png")" alt="Pagos Banca por Internet" />
+                            </div>
+                            <h4 class="titulo_monto_pago_total titulo_monto_pago_total_paso_2">
+                                Pagos banca por internet
+                            </h4>
+                        </div>
+                        <div class="col_der">
+                            <div class="icono_flecha_despliegue">
+                                <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opcion_pago_contenido_visible_al_desplegar w-100 mt-0">
+                        <p class="texto_informativo_lista_bancos">Te redireccionaremos al banco que elijas.</p>
+                        <ul class="listado_bancos primer_listado">
+                            <li class="banco_nombre">
+                                <a href="https://www.interbank.pe/" title="Interbank" class="enlace_banco" target="_blank">
+                                    <img src="@Url.Content("~/Content/Images/banco_interbank.png")" alt="Interbank" />
+                                </a>
+                            </li>
+                            <li class="banco_nombre">
+                                <a href="https://www.scotiabank.com.pe" title="Scotiabank" class="enlace_banco" target="_blank">
+                                    <img src="@Url.Content("~/Content/Images/banco_scotiabank.png")" alt="Scotiabank" />
+                                </a>
+                            </li>
+                            <li class="banco_nombre">
+                                <a href="https://www.bbvacontinental.pe/" title="BBVA" class="enlace_banco" target="_blank">
+                                    <img src="@Url.Content("~/Content/Images/banco_bbva.png")" alt="BBVA" />
+                                </a>
+                            </li>
+                            <li class="banco_nombre">
+                                <a href="https://www.viabcp.com/" title="BCP" class="enlace_banco" target="_blank">
+                                    <img src="@Url.Content("~/Content/Images/banco_bcp.png")" alt="BCP" />
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="listado_bancos segundo_listado">
+                            <li class="banco_nombre">
+                                <a href="http://www.bn.com.pe/" title="Banco de la Nación" class="enlace_banco" target="_blank">
+                                    <img src="@Url.Content("~/Content/Images/banco_de_la_nacion.png")" alt="Banco de la Nación" />
+                                </a>
+                            </li>
+                            <li class="banco_nombre">
+                                <a href="http://www.multifacil.com.pe/" title="Multifácil" class="enlace_banco" target="_blank">
+                                    <img src="@Url.Content("~/Content/Images/multi_facil.png")" alt="Multifácil" />
+                                </a>
+                            </li>
+                            <li class="banco_nombre">
+                                <a href="https://www.westernunion.com.pe/WUCOMWEB/staticMid.do?method=load&amp;pagename=agentLocator" title="Western Union" class="enlace_banco" target="_blank">
+                                    <img src="@Url.Content("~/Content/Images/western_union.png")" alt="Wester Union" />
+                                </a>
+                            </li>
+                            <li class="banco_nombre">
+                                <a href="https://www.pichincha.pe/" title="Banco Pichincha" class="enlace_banco" target="_blank">
+                                    <img src="@Url.Content("~/Content/Images/banco_pichincha.png")" alt="Banco Pichincha" />
+                                </a>
+                            </li>
+                        </ul>
+                        <a title="Ver más" class="enlace_ver_mas_opciones_banca_por_internet">Ver más</a>
+                    </div>
+                </li>
+                <!-- FIN - HD-2960 - NUEVO MÉTODO DE PAGO -->
             </ul>
         </div>
     </div>

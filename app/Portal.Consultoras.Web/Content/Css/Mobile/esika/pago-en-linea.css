@@ -24,6 +24,10 @@
     margin-right:5px;
 }
 
+.mt-0{
+    margin-top:0!important;
+}
+
 .mt-16{
     margin-top:16px;
 }
@@ -901,7 +905,7 @@
 .icono_marca_tarjeta{
     width: auto;
     height: 17px;
-    margin-right:10px;
+    margin-right:8px;
 }
 
 .icono_marca_tarjeta img{
@@ -1330,6 +1334,101 @@
     background-size:26px;
     margin-right:7px;
 }
+
+/* HD-2960 - NUEVO MÉTODO DE PAGO */
+
+.texto_informativo_lista_bancos{
+    border-top: 1px solid #b5b5b5;
+    padding-top: 13px;
+    padding-bottom: 15px;
+    font-size: 12.5px;
+    color: #000;
+    margin-bottom: 0;
+}
+
+.texto_informativo_lista_bancos,
+.listado_bancos,
+.enlace_banco,
+.enlace_ver_mas_opciones_banca_por_internet
+{
+    display:block;
+}
+
+.banco_nombre{
+    display: inline-block;
+    vertical-align: top;
+    width: 23.5%;
+    height: 45px;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    border: 1px solid #b5b5b5;
+    border-radius: 5px;
+}
+
+.banco_nombre:nth-child(4n){
+    margin-right:0;
+}
+
+.enlace_banco {
+    position: relative;
+    height: 100%;
+    opacity:1;
+    -moz-transition: box-shadow 0.3s ease;
+    -o-transition: box-shadow 0.3s ease;
+    -webkit-transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+    .enlace_banco:hover {
+        -moz-box-shadow: 0 2px 11px -3px rgba(0,0,0,.7);
+        -webkit-box-shadow: 0 2px 11px -3px rgba(0,0,0,.7);
+        box-shadow: 0 2px 11px -3px rgba(0,0,0,.7);
+    }
+
+    .enlace_banco img{
+        position:absolute;
+        margin:auto;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+    }
+
+.enlace_ver_mas_opciones_banca_por_internet{
+    display:inline-block;
+    vertical-align:middle;
+    margin-top:4px;
+    margin-bottom:3px;
+    font-weight:600;
+    font-size:10px;
+    text-transform:uppercase;
+}
+
+.enlace_ver_mas_opciones_banca_por_internet:after{
+    display: inline-block;
+    vertical-align: middle;
+    content: "";
+    background-image: url(../../../Images/flecha-despliegue.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 10px;
+    height: 9px;
+    margin-left: 6px;
+}
+
+.segundo_listado{
+    display:none;
+}
+
+@media screen and (max-width:561px){
+
+    .banco_nombre{
+        width:22%;
+    }
+
+}
+
+/* FIN - HD-2960 - NUEVO MÉTODO DE PAGO */
 
 /* MODIFICACIONES DE DISEÑO JQUERY DATEPICKER */
 

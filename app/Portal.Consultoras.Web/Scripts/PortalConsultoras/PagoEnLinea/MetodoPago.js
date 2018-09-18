@@ -26,6 +26,7 @@ $(document).ready(function () {
                     $(document).on('click', 'button[data-metodopago]', me.Eventos.ContinuarPasarelaPago);
                     $(document).on('click', 'a[data-tipovisualizacion]', me.Eventos.AbrirPopupTerminosYCondiciones);
                     $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
+                    $(document).on('click', '.enlace_ver_mas_opciones_banca_por_internet', me.Eventos.VerMasOpcionesBancaPorInternet);
                 },
                 InicializarAcciones: function () {
                     //me.globals.barraActivacion.toggleClass('activado');
@@ -63,7 +64,6 @@ $(document).ready(function () {
                             $(listaOpcionPago)[0].click();
                         }
                     }
-
                 }
             },
             me.Eventos = {
@@ -83,6 +83,13 @@ $(document).ready(function () {
                     if (siTipoPagoDetalleSeMuestra == 'block') {
                         $(this).next().slideUp(200);
                         $(this).find('.icono_flecha_despliegue').removeClass('girar180');
+                        if (window.matchMedia("(max-width:991px)").matches) {
+                            if (!($('.enlace_ver_mas_opciones_banca_por_internet').is(':visible'))) {
+                                $('.segundo_listado').fadeOut(100);
+                                $('.enlace_ver_mas_opciones_banca_por_internet').delay(50);
+                                $('.enlace_ver_mas_opciones_banca_por_internet').fadeIn(100);
+                            }
+                        }
                     } else {
                         $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
                         $('.icono_flecha_despliegue').removeClass('girar180');
@@ -120,6 +127,12 @@ $(document).ready(function () {
                     }
 
                     //alert("123");
+                },
+                VerMasOpcionesBancaPorInternet: function(e) {
+                    e.preventDefault();
+                    $(this).fadeOut(100);
+                    $('.segundo_listado').delay(50);
+                    $('.segundo_listado').fadeIn(100);
                 }
             },
             me.Inicializar = function () {
