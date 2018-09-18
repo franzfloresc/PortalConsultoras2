@@ -16,6 +16,9 @@ Update:
     <add key="CodigoCatalogoIssuu" value="{0}.{1}.c{2}.{3}{4}" />
 	
 Delete:
+	key Catalogo_Marca_Piloto_PE201807
+	key Catalogo_Marca_Piloto_PE201808
+	key Catalogo_Marca_Piloto_PE201809
     key Catalogo_Piloto_Grupos_Esika_PE201807
     key Catalogo_Piloto_Grupos_Esika_PE201808
     key Catalogo_Piloto_Grupos_Esika_PE201809
@@ -35,6 +38,9 @@ Update:
 	<add key="CodigoCatalogoIssuu" value="{0}.{1}.c{2}.{3}{4}" />
 	
 Delete:
+	key Catalogo_Marca_Piloto_PE201807
+	key Catalogo_Marca_Piloto_PE201808
+	key Catalogo_Marca_Piloto_PE201809
 	key Catalogo_Piloto_Grupos_Esika_PE201807
     key Catalogo_Piloto_Grupos_Esika_PE201808
     key Catalogo_Piloto_Grupos_Esika_PE201809
