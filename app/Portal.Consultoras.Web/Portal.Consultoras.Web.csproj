@@ -3502,6 +3502,11 @@
     <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual-desktop.png" />
     <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual.png" />
     <Content Include="Content\Images\RevistaDigital\nuevo.png" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\gana_mas_no_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\gana_mas_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_esika_no_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_esika_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_lbel_seleccionado.svg" />
     <Content Include="Content\Images\RevistaDigital\offer-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_BLANCO.svg" />
