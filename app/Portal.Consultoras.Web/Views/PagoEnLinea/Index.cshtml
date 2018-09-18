@@ -38,7 +38,7 @@
         <div class="cantidad_pasos_proceso_pago">
 
             <span class="paso_proceso_pago_en_linea paso_activo">1</span>
-            <span class="paso_proceso_pago_en_linea">2</span>
+            <span class="paso_proceso_pago_en_linea mr-0">2</span>
             @*<span class="paso_proceso_pago_en_linea mr-0">3</span>*@
 
             <div class="linea_conectora_pasos">
@@ -210,8 +210,11 @@
     <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")?v=1"></script>
 
     <script type="text/javascript">
-        var rutaGuardarDatosPago = '@Url.Action("GuardarDatosPago", "PagoEnLinea")';
-        var rutaPagoVisa = '@Url.Action("MetodoPago", "PagoEnLinea")';
+        var pasarelaActual = '@metodoPago.TipoPasarelaCodigoPlataforma';
+        var metodoPagoPasarelaVisa = '@Constantes.PagoEnLineaMetodoPago.PasarelaVisa';
+        var metodoPagoPasarelaBelcorpPayU = '@Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU';
+        var rutaGuardarDatosPago = '@Url.Action("GuardarMontoDeuda", "PagoEnLinea")';
+        var rutaPagoVisa = '@Url.Action("PagoVisa", "PagoEnLinea")';
         var urlPasarelaPago = '@Url.Action("PasarelaPago","PagoEnLinea")';
         var tipoOrigenPantalla = 1;
     </script>

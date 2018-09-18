@@ -183,6 +183,27 @@ namespace Portal.Consultoras.Web.Controllers
             });
         }
 
+
+        [HttpPost]
+        public JsonResult GuardarMontoDeuda(decimal MontoDeuda, decimal PorcentajeGastosAdministrativos)
+        {
+            var model = sessionManager.GetDatosPagoVisa();
+            if (model == null)
+            {
+                return Json(new { success = false });
+            }
+
+            model.MontoDeuda = MontoDeuda;
+            model.PorcentajeGastosAdministrativos = PorcentajeGastosAdministrativos;
+            sessionManager.SetDatosPagoVisa(model);
+
+            return Json(new
+            {
+                success = true,
+                message = "OK"
+            });
+        }
+
         public ActionResult PagoVisa()
         {
             var model = sessionManager.GetDatosPagoVisa();
