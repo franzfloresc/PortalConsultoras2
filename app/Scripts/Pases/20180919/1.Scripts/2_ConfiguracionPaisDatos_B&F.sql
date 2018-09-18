@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE BelcorpPeru
 GO
 IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'CantidadInicioSesionNovedadBuscador')

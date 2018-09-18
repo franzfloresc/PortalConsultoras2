@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE BelcorpPeru
 GO
 IF EXISTS (SELECT * FROM [OrigenPedidoWeb] WHERE [CodOrigenPedidoWeb] = '1404')
