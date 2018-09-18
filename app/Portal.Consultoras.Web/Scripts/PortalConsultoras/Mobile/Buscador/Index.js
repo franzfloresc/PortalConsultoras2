@@ -184,6 +184,14 @@ $(document).ready(function () {
                         labelAgregadoLiquidacion = agregado;
                         RegistrarProductoOferta(e);
                     } else {
+
+                        var urlInsertar = '';
+                        if (model.TipoPersonalizacion == 'CAT') {
+                            urlInsertar = baseUrl + 'Pedido/PedidoInsertarBuscador';
+                        } else {
+                            urlInsertar = baseUrl + 'Pedido/PedidoAgregarProducto';
+                        }
+
                         var cuv = model.CUV;
                         var tipoOfertaSisID = 0;
                         var configuracionOfertaID = 0;
@@ -197,6 +205,7 @@ $(document).ready(function () {
                         var tipoEstrategiaId = 0;//model.TipoEstrategiaId;
                         var LimiteVenta = model.LimiteVenta;
                         var CantidadesAgregadas = model.CantidadesAgregadas;
+                        var EstrategiaID = model.EstrategiaID;
 
                         if (!isInt(cantidad)) {
                             AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -210,6 +219,13 @@ $(document).ready(function () {
                             $(".rango_cantidad_pedido").val(1);
                             CerrarLoad();
                             return false;
+                        }
+
+                        var urlInsertar = '';
+                        if (model.TipoPersonalizacion == 'CAT') {
+                            urlInsertar = baseUrl + 'Pedido/PedidoInsertarBuscador';
+                        } else {
+                            urlInsertar = baseUrl + 'Pedido/PedidoAgregarProducto';
                         }
 
                         var model = {
@@ -231,7 +247,7 @@ $(document).ready(function () {
 
                         jQuery.ajax({
                             type: 'POST',
-                            url: baseUrl + 'Pedido/PedidoInsertarBuscador',
+                            url: urlInsertar,
                             dataType: 'json',
                             contentType: 'application/json; charset=utf-8',
                             data: JSON.stringify(model),

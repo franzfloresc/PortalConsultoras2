@@ -18,6 +18,7 @@ namespace Portal.Consultoras.Web.Models
         public string SAP { get; set; }
         public string Imagen { get; set; }
         public string Descripcion { get; set; }
+        public string DescripcionCompleta { get; set; }
         public double Valorizado { get; set; }
         public double Precio { get; set; }
         public int MarcaId { get; set; }
@@ -35,5 +36,6 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionEstrategia { get; set; }
         public string OrigenPedidoWeb { get; set; }
         public string URLBsucador { get; set; }
+        public int EstrategiaID { get; set; }
     }
 }

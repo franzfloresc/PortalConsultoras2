@@ -118,6 +118,9 @@ $(document).ready(function () {
         },
             me.Eventos = {
                 AccionesCampoBusquedaAlDigitar: function (event) {
+                    if ($('.tooltip_informativo_sobre_opcion_busqueda_prod').is(':visible')) {
+                        $('.tooltip_informativo_sobre_opcion_busqueda_prod').fadeOut(100);
+                    }
 
                     // validar teclas especiales
                     var key = keys.find(key => key.val === event.which);
@@ -251,7 +254,7 @@ $(document).ready(function () {
                         MarcaID: model.MarcaId,
                         CUV: model.CUV,
                         PrecioUnidad: model.Precio,
-                        DescripcionProd: model.Descripcion,
+                        DescripcionProd: model.DescripcionCompleta,
                         DescripcionEstrategia: model.DescripcionEstrategia,
                         origenPedidoLiquidaciones: model.OrigenPedidoWeb
                     };
@@ -261,18 +264,19 @@ $(document).ready(function () {
                         RegistrarProductoOferta(e);
                     } else {
                         var cuv = model.CUV;
-                        var tipoOfertaSisID = 0;
-                        var configuracionOfertaID = 0;
+                        var tipoOfertaSisID = model.TipoPersonalizacion == 'CAT' ? 0 : model.TipoEstrategiaId;
+                        var configuracionOfertaID = tipoOfertaSisID;
                         var indicadorMontoMinimo = 1;
                         var marcaID = model.MarcaId;
                         var precioUnidad = model.Precio;
-                        var descripcionProd = model.Descripcion;
+                        var descripcionProd = model.DescripcionCompleta;
                         var descripcionEstrategia = model.DescripcionEstrategia;
                         var OrigenPedidoWeb = model.OrigenPedidoWeb;
                         var posicion = model.posicion;
-                        var tipoEstrategiaId = 0;//model.TipoEstrategiaId;
+                        var tipoEstrategiaId = tipoOfertaSisID;
                         var LimiteVenta = model.LimiteVenta;
                         var CantidadesAgregadas = model.CantidadesAgregadas;
+                        var EstrategiaID = model.EstrategiaID;
 
                         if (!isInt(cantidad)) {
                             AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -286,6 +290,13 @@ $(document).ready(function () {
                             $(".rango_cantidad_pedido").val(1);
                             CerrarLoad();
                             return false;
+                        }
+
+                        var urlInsertar = '';
+                        if (model.TipoPersonalizacion == 'CAT') {
+                            urlInsertar = baseUrl + 'Pedido/PedidoInsertarBuscador';
+                        } else {
+                            urlInsertar = baseUrl + 'Pedido/PedidoAgregarProducto';
                         }
 
                         var model = {
@@ -302,12 +313,13 @@ $(document).ready(function () {
                             EsSugerido: false,
                             DescripcionMarca: '',
                             DescripcionEstrategia: descripcionEstrategia,
-                            Posicion: posicion
+                            Posicion: posicion,
+                            EstrategiaID: EstrategiaID
                         }
 
                         jQuery.ajax({
                             type: 'POST',
-                            url: baseUrl + 'Pedido/PedidoInsertarBuscador',
+                            url: urlInsertar,
                             dataType: 'json',
                             contentType: 'application/json; charset=utf-8',
                             data: JSON.stringify(model),
