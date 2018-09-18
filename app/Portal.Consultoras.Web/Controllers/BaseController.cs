@@ -1382,7 +1382,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     List<ServiceCliente.BEEscalaDescuentoZona> Lista = sv.ListarEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
                     ResultadoValidacion = Lista.Count > 0;
-                    if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}", URLConfig, userData.CodigoISO, Util.Security.ToMd5(userData.CodigoConsultora));
+                    if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}/{3}", URLConfig, userData.CodigoISO,userData.CampaniaID ,Util.Security.ToMd5(userData.CodigoConsultora));
                 }
             }
             catch
