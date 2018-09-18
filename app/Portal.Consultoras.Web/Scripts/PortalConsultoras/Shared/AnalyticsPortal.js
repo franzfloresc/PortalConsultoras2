@@ -323,13 +323,13 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
-    var marcarPopupBotonEligeloVariasOpciones = function (opcion) {
+    var marcarPopupBotonEligeloVariasOpciones = function (estrategia, componentes) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige más de una opción',
                 'action': 'Elígelo',
-                'label': '{Nombre del producto} - {variedad del producto}'
+                'label': estrategia.DescripcionCompleta + ' - ' + componentes
             });
         } catch (e) {
             console.log(_texto.exception + e);

@@ -216,12 +216,18 @@ var ListaOpcionesModule = (function () {
         
         var estrategia = fichaModule.GetEstrategia();
         
-        if (_componente.FactorCuadre < 2 ) {
+        if (_componente.FactorCuadre === 1 ) {
             AnalyticsPortalModule.MarcarPopupBotonEligeloSoloUno(estrategia, _componente );
         } else {
-            console.log("Complete here the second part");
+            var opcion = {};
+            $.each(_componente.Hermanos, function (index, hermano) {
+                if (cuv === hermano.Cuv) {
+                    opcion = _componente.Hermanos[index];
+                    return false;
+                }
+            });
+            AnalyticsPortalModule.MarcarPopupBotonEligeloVariasOpciones(estrategia, opcion.NombreBulk);
         }
-        
         return false;
     };
 
