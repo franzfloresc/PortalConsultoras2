@@ -150,8 +150,8 @@
                 <div data-limitepedido="tooltip" class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: none;">
                     <div class="arrow"></div>
                     <div class="popover-content">
-                        <ul class="list-inline popover_texto"> 
-                            <li ><img class="ico_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                        <ul class="list-inline popover_texto">
+                            <li><img class="ico_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
                             <li>Lo sentimos <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f615.png" /> Has llegado al límite de pedidos para esta oferta.</li>
                         </ul>
                     </div>
@@ -219,22 +219,26 @@
 </div>
 @if (Model.TieneCarrusel)
 {
-<div id="divFichaCarrusel" class="container">
-    <div class="ficha_tabs"></div>
-    <div class="row carrusel">
-        <div>
-            <div class="set_encuentras_producto">
-                <div class="wrapper_resumen_mobile ficha_encuentraproducto">
-                    <p id="tituloCarrusel" class="titulo_set"></p>
-                    <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
-                        <div id="divFichaCarruselProducto"></div>
+    <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
+        <hr>
+    </div>
+    <hr class="clear" />
+    <div id="divFichaCarrusel" class="container">
+
+        <div class="row carrusel">
+            <div>
+                <div class="set_encuentras_producto">
+                    <div class="wrapper_resumen_mobile ficha_encuentraproducto">
+                        <p id="tituloCarrusel" class="titulo_set"></p>
+                        <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
+                            <div id="divFichaCarruselProducto"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
 }
 
 <!--compartir-->
@@ -273,12 +277,12 @@
     }
     else
     {
-	    <div class="share"></div>
+        <div class="share"></div>
     }
 }
 else
 {
-	<div class="share"></div>
+    <div class="share"></div>
 }
 
 
@@ -299,31 +303,31 @@ else
     <script>
         AbrirLoad();
 
-        window.videoKey = '@Model.CodigoVideo';
-        var fichaModule;
+		window.videoKey = '@Model.CodigoVideo';
+		var fichaModule;
         var carruselModule;
 
-        var tieneCarrusel = '@Model.TieneCarrusel';
+		var tieneCarrusel = '@Model.TieneCarrusel';
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new {area = ""})';
 
         $(document).ready(function () {
-            fichaModule = FichaModule({
-                palanca: "@Model.Palanca",
-                origen: "@Model.OrigenUrl",
-                tieneSession: "@Model.TieneSession",
-                campania: "@Model.Campania",
-                cuv: "@Model.Cuv",
-                urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new {area = ""})'
-            });
-            fichaModule.Inicializar();
+			fichaModule = FichaModule({
+				palanca: "@Model.Palanca",
+				origen: "@Model.OrigenUrl",
+				tieneSession: "@Model.TieneSession",
+				campania: "@Model.Campania",
+				cuv: "@Model.Cuv",
+				urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })'
+			});
+			fichaModule.Inicializar();
             //CerrarLoad();
 
-            if (tieneCarrusel) {
+			if (tieneCarrusel) {
                 //AbrirLoad();
-                carruselModule = CarruselModule({
-                    palanca: "@Model.Palanca",
-                    campania: "@Model.Campania",
-                    cuv: "@Model.Cuv",
+				carruselModule = CarruselModule({
+					palanca: "@Model.Palanca",
+					campania: "@Model.Campania",
+					cuv: "@Model.Cuv",
                     urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new {Area = ""})',
                     idPlantillaProducto: "#producto-landing-template",
                     divCarruselContenedor: "#divFichaCarrusel",
@@ -333,7 +337,7 @@ else
                 carruselModule.Inicializar();
             }
             CerrarLoad();
-        });
+		});
 
         $(document).ajaxStop(function () {
             //CerrarLoad();
