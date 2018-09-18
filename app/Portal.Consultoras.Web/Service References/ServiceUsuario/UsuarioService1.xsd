@@ -734,6 +734,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ActualizarNovedadBuscador">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarNovedadBuscadorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarNovedadBuscadorResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="EnviarSmsCodigo">
     <xs:complexType>
       <xs:sequence>
@@ -1389,6 +1404,8 @@
         <xs:element minOccurs="0" name="origen" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="direccionIP" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="InformacionSOMobile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="imei" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="deviceID" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

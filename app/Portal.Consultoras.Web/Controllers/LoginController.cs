@@ -123,7 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
                 model.ListPaisAnalytics = GetLoginAnalyticsModel();
-      
+
             }
             catch (FaultException ex)
             {
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["FlagAcademiaVideo"] = 1;
 
                 if (Util.IsNumeric(MiId[0]))
-                   {
+                {
                     misCursos = Convert.ToInt32(MiId[0]);
                     TempData["MiAcademia"] = misCursos;
                     // PPC
@@ -377,6 +377,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
+
+            if (usuario != null)
+            {
+                using (var usuarioServiceClient = new UsuarioServiceClient())
+                {
+                    //usuarioServiceClient.actualizano
+                }
+            }
 
             misCursos = Convert.ToInt32(TempData["MiAcademia"]);
             sessionManager.SetMiAcademia(misCursos);
@@ -952,6 +960,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     #region
                     usuarioModel = new UsuarioModel();
+                    usuarioModel.NovedadBuscador = usuario.NovedadBuscador;
                     usuarioModel.CompraVDirectaCer = usuario.CompraVDirecta;
                     usuarioModel.IVACompraVDirectaCer = usuario.IVACompraVDirecta;
                     usuarioModel.RetailCer = usuario.Retail;
@@ -1298,6 +1307,11 @@ namespace Portal.Consultoras.Web.Controllers
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
 
+                    using (var usuarioCliente = new UsuarioServiceClient())
+                    {
+                        var insert = usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
+                    }
+
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
                     usuarioModel.MensajeChat = await GetMessageChat(usuarioModel.PaisID);
 
@@ -1316,6 +1330,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
+                    usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID, usuarioModel.FechaHoy);
+                    usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -2855,5 +2871,38 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Mostrar;
         }
+
+        private int GetDiaFacturacion(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID, DateTime FechaHoy)
+        {
+            int diaFacturacion = 0;
+            BEConfiguracionCampania configuracionCampania;
+            using (var sv = new PedidoServiceClient())
+            {
+                configuracionCampania = sv.GetEstadoPedido(PaisID, CampaniaID, ConsultoraID, ZonaID, RegionID);
+            }
+
+            diaFacturacion = (configuracionCampania.FechaInicioFacturacion - DateTime.Now).Days;
+
+            return diaFacturacion;
+        }
+
+        private Dictionary<string, string> getNuevasDescripcionesBuscador(int paisId)
+        {
+            var result = new Dictionary<string, string>();
+            var listaDescripciones = new List<BETablaLogicaDatos>();
+
+            using (var tablaLogica = new SACServiceClient())
+            {
+                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.NuevaDescripcionProductos).ToList();
+            }
+
+            foreach (var item in listaDescripciones)
+            {
+                result.Add(item.Codigo.ToString(), item.Descripcion.ToString());
+            }
+
+            return result;
+        }
+
     }
 }

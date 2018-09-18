@@ -8,12 +8,19 @@ Add:
     <add key="RutaImagenesAppCatalogo" value="https://s3-sa-east-1.amazonaws.com/appcatalogo/{0}/{1}/{2}/productos/{3} "/>
     <add key="RutaImagenesAppCatalogoBulk" value="https://s3-sa-east-1.amazonaws.com/appcatalogo/{0}/{1}/{2}/productos/bulk/{3} "/>
     <!--Fin -  Ruta magenes App Catalogo-->
+	
+	<add key="RutaServiceBuscadorAPI" value="http://internal-qaielbsbsearch-925070621.us-east-1.elb.amazonaws.com/" />
 
 	
 Update:
     <add key="CodigoCatalogoIssuu" value="{0}.{1}.c{2}.{3}{4}" />
+    <add key="PaisesMicroservicioPersonalizacion" value="BO,GT" />
+    <add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="009" />
 	
 Delete:
+	key Catalogo_Marca_Piloto_PE201807
+	key Catalogo_Marca_Piloto_PE201808
+	key Catalogo_Marca_Piloto_PE201809
     key Catalogo_Piloto_Grupos_Esika_PE201807
     key Catalogo_Piloto_Grupos_Esika_PE201808
     key Catalogo_Piloto_Grupos_Esika_PE201809
@@ -33,6 +40,9 @@ Update:
 	<add key="CodigoCatalogoIssuu" value="{0}.{1}.c{2}.{3}{4}" />
 	
 Delete:
+	key Catalogo_Marca_Piloto_PE201807
+	key Catalogo_Marca_Piloto_PE201808
+	key Catalogo_Marca_Piloto_PE201809
 	key Catalogo_Piloto_Grupos_Esika_PE201807
     key Catalogo_Piloto_Grupos_Esika_PE201808
     key Catalogo_Piloto_Grupos_Esika_PE201809

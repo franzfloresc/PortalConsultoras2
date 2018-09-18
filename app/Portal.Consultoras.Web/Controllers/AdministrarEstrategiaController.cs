@@ -30,6 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         protected RenderImgProvider _renderImgProvider;
         protected OfertaBaseProvider _ofertaBaseProvider;
+
         public AdministrarEstrategiaController()
         {
             _renderImgProvider = new RenderImgProvider();
@@ -64,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };
-
+                 
             }
             catch (Exception ex)
             {
@@ -1125,7 +1126,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult EliminarEstrategia(string EstrategiaID)
+        public JsonResult EliminarEstrategia(string EstrategiaID, string _id, string tipoEstrategiaCodigo)
         {
             try
             {
@@ -1134,10 +1135,19 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = userData.PaisID,
                     EstrategiaID = Convert.ToInt32(EstrategiaID)
                 };
-                using (var sv = new PedidoServiceClient())
+
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo))
                 {
-                    sv.EliminarEstrategia(entidad);
+                    administrarEstrategiaProvider.EliminarEstrategia(entidad.EstrategiaID, _id);
                 }
+                else
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        sv.EliminarEstrategia(entidad);
+                    }
+                }
+
                 return Json(new
                 {
                     success = true,
@@ -1922,6 +1932,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int[] numberRecords = null;
             int line = 0;
+            int cantidadColumnas = 6;
+
             try
             {
                 List<ServicePedido.BEEstrategia> strategyEntityList = new List<ServicePedido.BEEstrategia>();
@@ -1935,7 +1947,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string[] arrayHeader = readLine.Split('|');
                     string columnObservation = string.Empty;
                     bool errorColumn = false;
-                    if (arrayHeader.Length != 6)
+                    if (arrayHeader.Length != cantidadColumnas)
                     {
                         throw new ArgumentException("Los títulos de las columnas no son los correctos.");
                     }
@@ -1980,7 +1992,7 @@ namespace Portal.Consultoras.Web.Controllers
                         string[] arrayRows = readLine.Split('|');
                         if (arrayRows[0] != "CUV")
                         {
-                            if (arrayRows.Length != 6)
+                            if (arrayRows.Length != cantidadColumnas)
                             {
                                 throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
@@ -1997,7 +2009,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                     while (readLine != null);
-              
+
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
                     select new XElement("row",
@@ -2019,7 +2031,19 @@ namespace Portal.Consultoras.Web.Controllers
                             UsuarioModificacion = userData.CodigoUsuarioHost,
                             PaisID = Util.GetPaisID(userData.CodigoISO)
                         };
-                        numberRecords = service.InsertarEstrategiaMasiva(estrategia);
+
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo))
+                        {
+                            numberRecords = new int[2];
+                            var result = administrarEstrategiaProvider.UploadFileSetStrategyShowroom(estrategia, strategyEntityList, model.TipoEstrategiaCodigo);
+
+                            numberRecords[0] = result;
+                            numberRecords[1] = 0;
+                        }
+                        else
+                        {
+                            numberRecords = service.InsertarEstrategiaMasiva(estrategia);
+                        }
                     }
                     return Json(new
                     {
@@ -2045,6 +2069,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult UploadFileProductStrategyShowroom(DescripcionMasivoModel model)
         {
+            int cantidadColumnas = 4;
             int[] numberRecords = null;
             int line = 0;
             try
@@ -2060,7 +2085,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string[] arrayHeader = readLine.Split('|');
                     string columnObservation = string.Empty;
                     bool errorColumn = false;
-                    if (arrayHeader.Length != 5)
+                    if (arrayHeader.Length != cantidadColumnas)
                     {
                         throw new ArgumentException("Los títulos de las columnas no son los correctos.");
                     }
@@ -2084,11 +2109,6 @@ namespace Portal.Consultoras.Web.Controllers
                         columnObservation = Constantes.ColumnsProductStrategyShowroom.Description;
                         errorColumn = true;
                     }
-                    if (!arrayHeader[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct].ToLower().Equals(Constantes.ColumnsProductStrategyShowroom.BrandProduct))
-                    {
-                        columnObservation = Constantes.ColumnsProductStrategyShowroom.BrandProduct;
-                        errorColumn = true;
-                    }
                     if (errorColumn)
                     {
                         throw new ArgumentException(string.Format("Verificar los títulos de las columnas del archivo. <br /> Referencia: La observación se encontró en la columna '{0}'", columnObservation));
@@ -2101,7 +2121,7 @@ namespace Portal.Consultoras.Web.Controllers
                         int evalResult;
                         if (arrayRows[0] != "CUV")
                         {
-                            if (arrayRows.Length != 5)
+                            if (arrayRows.Length != cantidadColumnas)
                             {
                                 throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
@@ -2113,34 +2133,30 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 throw new ArgumentException(string.Format("El valor del campo 'posición' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
-                            if (!int.TryParse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct], out evalResult))
-                            {
-                                throw new ArgumentException(string.Format("El valor del campo 'Marca de Producto' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
-                            }
                             line++;
                             strategyEntityList.Add(new ServicePedido.BEEstrategiaProducto
                             {
                                 CUV = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.CUV].ToString().TrimEnd(),
                                 NombreProducto = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd(),
                                 Descripcion1 = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Description].ToString().TrimEnd(),
-                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order]),
-                                IdMarca = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct])
+                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order])
                             });
                         }
                     }
                     while (readLine != null);
+
                     if (strategyEntityList.Count == 0)
                     {
                         throw new ArgumentException("El archivo seleccionado no tiene registros.");
                     }
+
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
                     select new XElement("row",
                                  new XElement("CUV", strategy.CUV),
                                  new XElement("NombreProducto", strategy.NombreProducto),
                                  new XElement("Descripcion1", strategy.Descripcion1),
-                                 new XElement("Orden", strategy.Orden),
-                                 new XElement("IdMarca", strategy.IdMarca)
+                                 new XElement("Orden", strategy.Orden)
                                ));
                     using (var service = new PedidoServiceClient())
                     {
@@ -2153,7 +2169,20 @@ namespace Portal.Consultoras.Web.Controllers
                             UsuarioModificacion = userData.CodigoUsuarioHost,
                             PaisID = Util.GetPaisID(userData.CodigoISO)
                         };
-                        numberRecords = service.InsertarProductoShowroomMasiva(estrategia);
+
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo))
+                        {
+                            numberRecords = new int[2];
+
+                            var result = administrarEstrategiaProvider.UploadFileProductStrategyShowroom(estrategia, strategyEntityList, model.TipoEstrategiaCodigo);
+
+                            numberRecords[0] = result;
+                            numberRecords[1] = 0;
+                        }
+                        else
+                        {
+                            numberRecords = service.InsertarProductoShowroomMasiva(estrategia);
+                        }
                     }
                     return Json(new
                     {
