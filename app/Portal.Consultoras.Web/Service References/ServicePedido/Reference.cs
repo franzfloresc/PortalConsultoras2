@@ -14634,16 +14634,13 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EliminadoTemporalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EnRangoProgNuevasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsBackOrderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsCompraPorCompraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EsCuponNuevaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EsDuoPerfectoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsKitNuevaField;
@@ -15097,6 +15094,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EnRangoProgNuevas {
+            get {
+                return this.EnRangoProgNuevasField;
+            }
+            set {
+                if ((this.EnRangoProgNuevasField.Equals(value) != true)) {
+                    this.EnRangoProgNuevasField = value;
+                    this.RaisePropertyChanged("EnRangoProgNuevas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EsBackOrder {
             get {
                 return this.EsBackOrderField;
@@ -15118,32 +15128,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EsCompraPorCompraField.Equals(value) != true)) {
                     this.EsCompraPorCompraField = value;
                     this.RaisePropertyChanged("EsCompraPorCompra");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EsCuponNueva {
-            get {
-                return this.EsCuponNuevaField;
-            }
-            set {
-                if ((this.EsCuponNuevaField.Equals(value) != true)) {
-                    this.EsCuponNuevaField = value;
-                    this.RaisePropertyChanged("EsCuponNueva");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EsDuoPerfecto {
-            get {
-                return this.EsDuoPerfectoField;
-            }
-            set {
-                if ((this.EsDuoPerfectoField.Equals(value) != true)) {
-                    this.EsDuoPerfectoField = value;
-                    this.RaisePropertyChanged("EsDuoPerfecto");
                 }
             }
         }

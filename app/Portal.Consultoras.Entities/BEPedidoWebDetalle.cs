@@ -163,9 +163,7 @@ namespace Portal.Consultoras.Entities
         public int SetID { get; set; }
 
         [DataMember]
-        public bool EsCuponNueva { get; set; }
-        [DataMember]
-        public bool EsDuoPerfecto { get; set; }
+        public bool EnRangoProgNuevas { get; set; }
 
         public BEPedidoWebDetalle()
         { }

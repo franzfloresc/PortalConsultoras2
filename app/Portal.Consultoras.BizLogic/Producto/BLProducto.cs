@@ -414,13 +414,13 @@ namespace Portal.Consultoras.BizLogic
             return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarYMostrarMensaje, limElectivos) { NumElectivosEnPedido = cantElecPedido + 1 };
         }
 
-        public void UpdateFlagCupones(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<BEPedidoWebDetalle> listPedidoDetalle)
+        public void UpdateFlagCupones(int paisID, List<BEPedidoWebDetalle> listPedidoDetalle)
         {
             if (listPedidoDetalle == null || listPedidoDetalle.Count == 0) return;
             if (!GetFlagProgramaNuevas(paisID)) return;
 
             var fnEnRango = GetFnEnRangoCuvProgramaNuevas(paisID);
-            listPedidoDetalle.ForEach(d => d.EsCuponNueva = fnEnRango(Convert.ToInt32(d.CUV)));
+            listPedidoDetalle.ForEach(d => d.EnRangoProgNuevas = fnEnRango(Convert.ToInt32(d.CUV)));
         }
 
         #region Metodos de Programa Nuevas

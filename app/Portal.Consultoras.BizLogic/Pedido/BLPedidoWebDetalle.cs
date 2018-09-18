@@ -291,19 +291,22 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros, 
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros,
             bool consultoraOnLine = true)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
             var daPedidoWebDetalle = new DAPedidoWebDetalle(bePedidoWebDetalleParametros.PaisId);
 
             using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros))
+            {
                 while (reader.Read())
                 {
                     var entidad = new BEPedidoWebDetalle(reader, bePedidoWebDetalleParametros.Consultora);
                     entidad.PaisID = bePedidoWebDetalleParametros.PaisId;
                     pedidoWebDetalle.Add(entidad);
                 }
+            }
+            new BLProducto().UpdateFlagCupones(bePedidoWebDetalleParametros.PaisId, pedidoWebDetalle);
 
             #region ConsultoraOnline
             if (consultoraOnLine)
@@ -323,26 +326,11 @@ namespace Portal.Consultoras.BizLogic
                     foreach (var item in pedidoWebDetalle)
                     {
                         var itemConsultoraOnline = listaProductosConsultoraOnline.FirstOrDefault(p => p.PedidoWebID == item.PedidoID && p.PedidoWebDetalleID == item.PedidoDetalleID);
-                        if (itemConsultoraOnline != null)
-                        {
-                            item.FlagConsultoraOnline = true;
-                        }
+                        if (itemConsultoraOnline != null) item.FlagConsultoraOnline = true;
                     }
                 }
             }
-            #endregion
-
-            #region ProgramaNuevas
-
-            new BLProducto().UpdateFlagCupones(
-                bePedidoWebDetalleParametros.PaisId,
-                bePedidoWebDetalleParametros.CampaniaId,
-                bePedidoWebDetalleParametros.NumeroPedido,
-                bePedidoWebDetalleParametros.CodigoPrograma,
-                pedidoWebDetalle
-            );
-
-            #endregion
+            #endregion            
 
             return pedidoWebDetalle;
         }
