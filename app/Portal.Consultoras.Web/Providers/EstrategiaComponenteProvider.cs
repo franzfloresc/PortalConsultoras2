@@ -71,16 +71,10 @@ namespace Portal.Consultoras.Web.Providers
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
                 mensaje += "SiMongo|";
-                string pathComponente = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerComponente,
-                        userData.CodigoISO,
-                        estrategiaModelo.CampaniaID,
-                        estrategiaModelo.CUV2);
-                var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerComponenteDesdeApi(pathComponente));
-                Task.WhenAll(taskApi);
-                listaBeEstrategiaProductos = taskApi.Result;
-
-                if (listaBeEstrategiaProductos != null)
+                listaBeEstrategiaProductos = new List<BEEstrategiaProducto>();
+                if (estrategiaModelo.Hermanos != null)
                 {
+                    listaBeEstrategiaProductos = Mapper.Map<List<EstrategiaComponenteModel>, List<ServicePedido.BEEstrategiaProducto>>(estrategiaModelo.Hermanos);
                     joinCuv = String.Join("|", listaBeEstrategiaProductos.Distinct().Select(o => o.SAP));
                 }
 

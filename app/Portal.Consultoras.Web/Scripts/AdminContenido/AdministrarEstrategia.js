@@ -322,7 +322,6 @@
     };
 
     var _editar = function (data, id) {
-
         _editData = {
             EstrategiaID: data.EstrategiaID,
             CUV2: data.CUV2,
@@ -341,6 +340,7 @@
         };
 
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
+            //console.log(data);
             var TipoEstrategiaCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
             if (TipoEstrategiaCodigo == _config.tipoEstrategiaIncentivosProgramaNuevas)
                 $("#divPrecioValorizado").html("Ganancia");
@@ -729,7 +729,6 @@
     }
 
     var _showActions = function (cellvalue, options, rowObject) {
-
         var id = rowObject[0];
         var mongoId = rowObject[14];
         var tipoEstrategiaCodigo = rowObject[15];
@@ -740,7 +739,7 @@
         }
         var remove = "";
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
-            remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + id + "',event);\" >" + "<img src='" + _config.rutaImagenDelete + "' alt='Eliminar Estrategia' title='Eliminar Estrategia' border='0' /></a>";
+            remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + id + "','" + rowObject[14] + "',event);\" >" + "<img src='" + _config.rutaImagenDelete + "' alt='Eliminar Estrategia' title='Eliminar Estrategia' border='0' /></a>";
         }
 
         return edit + disable + remove;
@@ -750,7 +749,8 @@
 
         var id = rowObject[0];
         var campaniaId = $("#ddlCampania").val();
-        var cuv = rowObject[5];
+        var cuv = rowObject[5],
+            _id = rowObject[14];
 
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
         var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "',event);\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Productos ShowRoom' title='Deshabilitar Productos ShowRoom' border='0' /></a>";
@@ -1637,6 +1637,7 @@
     }
 
     var _limpiarDatosEventoShowRoom = function () {
+        $("#hd_id").val('');
         $("#txtEventoNombre").val("");
         $("#txtEventoTema").val("");
         $("#txtEventoDiasAntes").val("");
@@ -1756,9 +1757,9 @@
     }
 
     var _showActionsEvento = function (cellvalue, options, rowObject) {
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject.Estado + "','" + rowObject.TieneCategoria + "','" + rowObject.TieneCompraXcompra + "','" + rowObject.TieneSubCampania + "', " + rowObject.TienePersonalizacion + ");\" >" + "<img src='" + _config.imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
-        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "');\" >" + "<img src='" + _config.imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
-        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "');\" >" + "<img src='" + _config.imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject.Estado + "','" + rowObject.TieneCategoria + "','" + rowObject.TieneCompraXcompra + "','" + rowObject.TieneSubCampania + "', " + rowObject.TienePersonalizacion + ",'" + rowObject._id + "');\" >" + "<img src='" + _config.imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject._id + "');\" >" + "<img src='" + _config.imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
+        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject._id + "');\" >" + "<img src='" + _config.imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
 
         var resultado = edit;
 
@@ -1768,6 +1769,7 @@
         if (rowObject.Estado == "1")
             resultado += remove;
 
+        $("#hd_id").val(rowObject._id);
         $("#hdEventoID").val(options.rowId);
         //Carga de Consultoras
         $("#hdCargaEventoID").val(options.rowId);
@@ -1779,7 +1781,9 @@
         $("#hdCargaDescripcionSetsCampaniaID").val(rowObject.CampaniaID);
         //Carga de Productos Compra por Compra
         $("#hdCargarProductoCpcEventoID").val(options.rowId);
-        $("#hdCargarProductoCpcCampaniaID").val(rowObject.CampaniaID);
+		$("#hdCargarProductoCpcCampaniaID").val(rowObject.CampaniaID);
+	
+		$('#hdListaPersonalizacion').val(rowObject.PersonalizacionNivel);
 
         return resultado;
     }
@@ -1790,8 +1794,9 @@
             hidegrid: false,
             datatype: "json",
             postData: ({
-                PaisID: function () { return $("#ddlPais").val(); },
-                CampaniaID: function () { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
+                PaisID: function () { return $("#ddlPais").val(); }
+                , CampaniaID: function () { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
+                , tipoEstrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
@@ -1909,6 +1914,7 @@
     }
 
     var _guardarShowRoomEvento = function () {
+        var _ID = $("#hd_id").val();
         var eventoID = $("#hdEventoID").val();
         var campaniaID = $("#txtEventoCampaniaID").val();
         var nombre = $("#txtEventoNombre").val();
@@ -1923,6 +1929,7 @@
         var tienePersonalizacion = true;
 
         var showRoom = {
+            _id: _ID,
             EventoID: eventoID == "" || eventoID == undefined ? 0 : eventoID,
             CampaniaID: campaniaID,
             Nombre: nombre,
@@ -1934,7 +1941,8 @@
             TieneCategoria: tieneCategoria,
             TieneCompraXcompra: tieneCompraXcompra,
             TieneSubCampania: tieneSubCampania,
-            TienePersonalizacion: tienePersonalizacion
+            TienePersonalizacion: tienePersonalizacion,
+            tipoEstrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
         };
 
         waitingDialog({ title: "Procesando" });
@@ -2015,9 +2023,10 @@
         });
     }
 
-    var _registrarShowRoomPersonalizacionNivel = function (eventoId, nivelId) {
+	var _registrarShowRoomPersonalizacionNivel = function (eventoId, nivelId, idEventoMongoId) {
         var lista = $("#DialogPersonalizacionDetalle .div-3[data-idpersonalizacion]");
-        var array = new Array();
+		var array = new Array();
+		var lstPersonalizacion = $("#hdListaPersonalizacion").val();
 
         $.each(lista, function (index, value) {
             var personalizacionNivelId = $(value).find(".hdPersonalizacionNivelId").val();
@@ -2045,22 +2054,25 @@
                 Valor: valor,
                 ValorAnterior: $(value).find(".hdValorAnterior").val(),
                 EsImagen: esImagen
-            };
+			};
 
             array.push(item);
-        });
+		});
+
+		var item = {lista: array, eventoId: eventoId, _id: idEventoMongoId, lstPersonalizacion: lstPersonalizacion};
 
         jQuery.ajax({
             type: "POST",
             url: _config.urlGuardarPersonalizacionNivelShowRoom,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(array),
+			data: JSON.stringify(item),
             async: true,
             success: function (data) {
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
-                    if (data.success == true) {
+					if (data.success == true) {
+						$("#hdListaPersonalizacion").val(data.personalizacionMod)
                         alert(data.message);
 
                         HideDialog("DialogPersonalizacionDetalle");
@@ -2260,6 +2272,7 @@
         formData.append("Pais", $("#ddlPais").val());
         formData.append("CampaniaId", $("#ddlCampania").val());
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
+        formData.append("TipoEstrategiaCodigo", $("#ddlTipoEstrategia").find(':selected').data('codigo'));
 
         $.ajax({
             url: _config.urlUploadFileStrategyShowroom,
@@ -2306,10 +2319,21 @@
             return false;
         }
 
+        //var archivo = document.getElementById("fileDescMasivo").files[0];
+        //var splitArchivo = archivo.name.split('.');
+        //var lengthArray = splitArchivo.length;
+
+        //if (splitArchivo[lengthArray - 1] != 'csv') {
+        //    _toastHelper.error("Formato de archivo requerido es \".csv\".");
+        //    closeWaitingDialog();
+        //    return false;
+        //}
+
         formData.append("Documento", document.getElementById("fileDescMasivo").files[0]);
         formData.append("Pais", $("#ddlPais").val());
         formData.append("CampaniaId", $("#ddlCampania").val());
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
+        formData.append("TipoEstrategiaCodigo", $("#ddlTipoEstrategia").find(':selected').data('codigo'));
 
         $.ajax({
             url: _config.urlUploadFileProductStrategyShowroom,
@@ -2333,7 +2357,6 @@
                 $("#divDescMasivoPaso1").fadeOut(function () {
                     $("#divDescMasivoPaso2").fadeIn();
                 });
-
             },
             error: function (data) {
                 $("#estadoCargaMasiva").css('color', 'red');
@@ -2888,7 +2911,8 @@
                     var vMessage = "";
 
                     var eventoId = $("#hdEventoID").val();
-                    var nivelId = $("#cbNivelEvento").val();
+					var nivelId = $("#cbNivelEvento").val();
+					var idEventoMongoId = $("#hd_id").val();
 
                     if (eventoId == "")
                         vMessage += "- Debe seleccionar el evento.\n";
@@ -2901,7 +2925,7 @@
                         return false;
                     }
                     else {
-                        _registrarShowRoomPersonalizacionNivel(eventoId, nivelId);
+						_registrarShowRoomPersonalizacionNivel(eventoId, nivelId, idEventoMongoId);
                     }
                     return false;
                 },
@@ -3118,7 +3142,7 @@
             var rows = jQuery("#list").jqGrid('getRowData');
             for (i = 0; i < rows.length; i++) {
                 var row = rows[i];
-                if (row.CodigoTipoEstrategia === "009" || row.CodigoTipoEstrategia === "007" || row.CodigoTipoEstrategia === "008") {
+                if (row.CodigoTipoEstrategia === "009" || row.CodigoTipoEstrategia === "007" || row.CodigoTipoEstrategia === "008" || row.CodigoTipoEstrategia === '030') {
                     if (!estrategiasSeleccionadasIds.includes(row.EstrategiaID)) {
                         estrategiasNoSeleccionadas.push(row._id);
                     }
@@ -3341,7 +3365,8 @@
         },
         clickBuscarPersonalizacionNivel: function () {
             var eventoId = $("#hdEventoID").val();
-            var nivelId = $("#cbNivelEvento").val();
+			var nivelId = $("#cbNivelEvento").val();
+			var lstPersonalizacion = $("#hdListaPersonalizacion").val();
 
             if (eventoId == undefined || eventoId == 0) {
                 alert("Evento no se puedo identificar");
@@ -3351,9 +3376,10 @@
             if (nivelId == undefined || nivelId == 0) {
                 alert("Debe seleccionar un Nivel");
                 return false;
-            }
+			}
 
-            var item = { eventoId: eventoId, nivelId: nivelId };
+
+			var item = { eventoId: eventoId, nivelId: nivelId, lstPersonalizacion: lstPersonalizacion };
 
             waitingDialog({ title: "Procesando" });
             jQuery.ajax({
@@ -3980,7 +4006,7 @@
         event.preventDefault();
         event.stopPropagation();
 
-        var elimina = confirm("¿Está seguro que desea deshabiltar la estrategia seleccionada?");
+        var elimina = confirm("¿Está seguro que desea deshabilitar la estrategia seleccionada?");
         if (!elimina)
             return false;
 
@@ -4016,17 +4042,24 @@
         return false;
     }
 
-    function Remover(id, event) {
+    function Remover(id,_id,event) {
         event.preventDefault();
         event.stopPropagation();
+
         var elimina = confirm("¿Está seguro que desea eliminar el set seleccionado?");
+
         if (!elimina) {
             return false;
         }
         if (id) {
             waitingDialog();
+
             $("#hdEstrategiaID").val(id);
-            var params = { EstrategiaID: $("#hdEstrategiaID").val() };
+            var params = {
+                EstrategiaID: $("#hdEstrategiaID").val(),
+                _id: _id,
+                tipoEstrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
+            };
             jQuery.ajax({
                 type: "POST",
                 url: _config.urlEliminarEstrategia,
@@ -4073,14 +4106,16 @@
         showDialog("DialogDatosShowRoom");
     }
 
-    function DeshabilitarEvento(ID, CampaniaID) {
+    function DeshabilitarEvento(ID, CampaniaID, ObjectID) {
         var deshabilitar = confirm("¿ Está seguro que desea deshabilitar el evento?");
         if (!deshabilitar)
             return false;
 
         var item = {
-            campaniaID: CampaniaID,
-            eventoID: ID
+            campaniaID: CampaniaID
+            , eventoID: ID
+            , tipoEstrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
+            , id: ObjectID
         };
 
         waitingDialog();
@@ -4112,7 +4147,7 @@
         return false;
     }
 
-    function EliminarEvento(ID, CampaniaID) {
+    function EliminarEvento(ID, CampaniaID, ObjectID) {
         var eliminar = confirm("¿ Está seguro que desea eliminar el evento?");
         if (!eliminar)
             return false;
@@ -4120,8 +4155,10 @@
         $("#divShowRoomPerfil").css("display", "none");
 
         var item = {
-            campaniaID: CampaniaID,
-            eventoID: ID
+            campaniaId: CampaniaID
+            , eventoId: ID
+            , tipoEstrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
+            , id: ObjectID
         };
 
         waitingDialog();
