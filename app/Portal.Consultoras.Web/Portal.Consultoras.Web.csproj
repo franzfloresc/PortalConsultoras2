@@ -1533,6 +1533,8 @@
     <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\Esika\flecha_next.svg" />
     <Content Include="Content\Images\Esika\flecha_prev.svg" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-blanco-independiente2.svg" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente2.png" />
     <Content Include="Content\Images\icono_avatar.svg" />
     <Content Include="Content\Images\Esika\icono_camara.svg" />
     <Content Include="Content\Images\Esika\icono_cambiar_dato.svg" />
