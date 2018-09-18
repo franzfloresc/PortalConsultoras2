@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult AutocompleteCorreo()
         {
             var term = (Request["term"] ?? "").ToString();
-            var lista = (List<BECliente>)Session[Constantes.ConstSession.ClientesByConsultora] ?? new List<BECliente>();
+            var lista = SessionManager.GetClientesByConsultora() ?? new List<BECliente>();
             if (!lista.Any())
             {
                 using (ClienteServiceClient sv = new ClienteServiceClient())
@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     lista = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
                 lista.Update(c => { c.Nombre = c.Nombre.Trim(); c.eMail = c.eMail.Trim(); });
-                Session[Constantes.ConstSession.ClientesByConsultora] = lista;
+                SessionManager.SetClientesByConsultora(lista);
             }
             lista = lista.Where(c => c.eMail.Contains(term)).ToList();
 

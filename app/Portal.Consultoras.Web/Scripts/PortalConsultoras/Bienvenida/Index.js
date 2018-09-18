@@ -14,7 +14,6 @@ var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 var dataBarra = dataBarra || {};
-var AceptoContrato = false;
 
 //youtube
 var tag = null;
@@ -66,8 +65,7 @@ $(document).ready(function () {
 
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
-        if (VerContrato == 1 && !AceptoContrato)
-            PopupMostrar('popupAceptacionContrato');
+        if (ObtenerEstadoContrato()) PopupMostrar('popupAceptacionContrato');
     });
 
     $(".ver_video_introductorio").click(function () {
@@ -116,7 +114,7 @@ $(document).ready(function () {
         if (evt.keyCode == 27) {
             if ($('#popup_tutorial_home').is(':visible')) {
                 cerrar_popup_tutorial();
-                if (VerContrato == 1 && !AceptoContrato)
+                if (ObtenerEstadoContrato())
                     PopupMostrar('popupAceptacionContrato');
             }
             if ($('#videoIntroductorio').is(':visible')) {
@@ -2105,7 +2103,6 @@ function AbrirAceptacionContrato() {
 }
 
 function AceptarContrato() {
-   
     var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: "" };
     waitingDialog({});
 
@@ -2121,7 +2118,6 @@ function AceptarContrato() {
                     alert(data.message);
                     if (data.extra != "nocorreo") return;
                 }
-                AceptoContrato = true;
                 PopupCerrar('popupAceptacionContrato');
             }
         },
@@ -2138,7 +2134,7 @@ function DownloadAttachPDF() {
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";
     var requestedFile = urlContratoCOpdf;
-    iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
+    iframe_.setAttribute("src", baseUrl + 'WebPages/Download.aspx?file=' + requestedFile);
 
     if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
         iframe_.onreadystatechange = function () {
@@ -3153,7 +3149,8 @@ function MostrarPopupInicial() {
     }
 
     switch (TipoPopUpMostrar) {
-        case 0:
+        case popupAceptacionContrato:
+            if (ObtenerEstadoContrato()) PopupMostrar('popupAceptacionContrato');
             break;
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -3164,9 +3161,6 @@ function MostrarPopupInicial() {
             $('#fechaHasta').text(mensajeFechaDA);
             $('#fechaLuego').text(mensajeFechaDA);
             PopupMostrar('popupDemandaAnticipada');
-            break;
-        case popupAceptacionContrato:
-            PopupMostrar('popupAceptacionContrato');
             break;
         case popupShowRoom:
             CrearPopShow();
@@ -3268,4 +3262,27 @@ function ConsultarEmailPendiente() {
             alert(error);
         }
     });
+}
+
+function ObtenerEstadoContrato() {
+    var re = false;
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ObtenerEstadoContrato',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        async: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success)
+                    if (data.estado) re = true;
+            }
+        },
+        error: function (data, error) {
+            alert(error);
+        }
+    });
+
+    return re;
 }

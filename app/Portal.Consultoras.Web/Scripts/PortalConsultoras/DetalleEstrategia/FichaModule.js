@@ -275,6 +275,7 @@ var FichaModule = (function (config) {
                 dfd.resolve(data);
             },
             error: function (data, error) {
+                console.log(data, error);
                 dfd.reject(data, error);
             }
         });
@@ -304,7 +305,9 @@ var FichaModule = (function (config) {
                 codigoVariante: estrategia.CodigoVariante,
                 codigoEstrategia: estrategia.CodigoEstrategia
             };
+            console.log(param);
             _promiseObternerComponentes(param).done(function (data) {
+                console.log(data);
                 estrategia.Hermanos = data.componentes;
                 estrategia.EsMultimarca = data.esMultimarca;
                 _esMultimarca = data.esMultimarca;

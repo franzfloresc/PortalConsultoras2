@@ -20,6 +20,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
+using Portal.Consultoras.Entities.Usuario;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -3277,6 +3278,22 @@ namespace Portal.Consultoras.BizLogic
         public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
         {
             return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
+        }
+
+        public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)
+        {
+            var daUsuario = new DAUsuario(paisID);
+            var direccion = new BEUsuarioDireccion();
+
+            using (IDataReader reader = daUsuario.GetDireccionConsultora(codigoUsuario))
+            {
+                if (reader.Read())
+                {
+                    direccion = new BEUsuarioDireccion(reader);
+                }
+            }
+
+            return direccion;
         }
 
         public List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)

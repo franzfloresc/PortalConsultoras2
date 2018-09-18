@@ -281,6 +281,7 @@
       <xs:element minOccurs="0" name="IndicadorBloqueoCDR" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorConsultoraDigital" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorContrato" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorContratoAceptacion" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorDupla" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorFlexiPago" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorGPRSB" type="xs:int" />
@@ -711,6 +712,7 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BERespuestaServicio">
         <xs:sequence>
+          <xs:element minOccurs="0" name="BelcorpResponde" nillable="true" type="tns:BEBelcorpResponde" />
           <xs:element minOccurs="0" name="Usuario" nillable="true" type="tns:BEUsuario" />
         </xs:sequence>
       </xs:extension>

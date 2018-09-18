@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                 DropDownListCampania = ObtenerCampanias(),
                 DropDownListCampaniaMasiva = CargarCampaniaMasiva()
             };
-            
+
             return Json(model, JsonRequestBehavior.AllowGet);
 
         }
@@ -363,7 +363,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ListaCUVs = lista.ToList();
 
                 ListaCUVs = ConsultarDescripcionMasivo(lista.ToList(), campaniaId.ToString(), paisId.ToString(), ref isError);
-                Session["errores"] = ListaCUVs;
+                SessionManager.Seterrores(ListaCUVs);
                 if (isCorrect && lista != null && !isError)
                 {
                     var lst = Mapper.Map<IList<MatrizCampaniaModel>, IEnumerable<BEProductoDescripcion>>(lista);
@@ -400,7 +400,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<MatrizCampaniaModel> listaEntradas;
 
-                listaEntradas = (Session["errores"] as List<MatrizCampaniaModel> ?? new List<MatrizCampaniaModel>()).ToList();
+                listaEntradas = (SessionManager.Geterrores() ?? new List<MatrizCampaniaModel>()).ToList();
 
                 BEGrid grid = new BEGrid
                 {
