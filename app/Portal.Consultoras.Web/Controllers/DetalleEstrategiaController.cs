@@ -55,12 +55,14 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 bool esMultimarca = false;
-                var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca);
+                string mensaje = "";
+                var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
 
                 return Json(new
                 {
                     esMultimarca,
-                    componentes
+                    componentes,
+                    mensaje
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
