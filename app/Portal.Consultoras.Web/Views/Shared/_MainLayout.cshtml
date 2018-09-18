@@ -170,12 +170,23 @@
             @if (ViewBag.MostrarBuscadorYFiltros)
             {
                 <div class="buscador_productos displayBlock">
-                    <input type="text" value="" id="CampoBuscadorProductos" class="campo_buscador_productos displayBlock" placeholder="¿Buscas ofertas?" />
+                    <div class="tooltip_informativo_sobre_opcion_busqueda_prod" id="toolTipBuscador" style="display: none;">
+                        <div class="text-uppercase default-color novedad_busqueda_titulo">¡Nuevo!</div>
+                        <div class="novedad_busqueda_descripcion">
+                            <span class="icono_tooltip_informativo_opcion_busqueda">
+                                <img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Encuentra productos y ofertas en un click" />
+                            </span>
+                            <span class="descripcion_tooltip_informativo_opcion_busqueda">
+                                Encuentra productos y ofertas en un click.
+                            </span>
+                        </div>
+                    </div>
+                    <input type="text" value="" id="CampoBuscadorProductos" class="campo_buscador_productos displayBlock" placeholder="Busca ofertas" />
                     <a class="enlace_busqueda_productos displayBlock" title="Buscar">
-                        <img src="@Url.Content("~/Content/Images/icono_lupa.png")" alt="Buscar" />
+                        <img src="@Url.Content("~/Content/Images/icono_lupa.svg")" alt="Buscar" />
                     </a>
                     <a class="opcion_limpiar_campo_busqueda_productos displayBlock" title="Cerrar" style="display:none;">
-                        <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
+                        <img src="@Url.Content("~/Content/Images/icono_limpiar_busqueda.svg")" alt="Cerrar" />
                     </a>
                     <div class="campo_busqueda_fondo_on_focus displayBlock">
                         <div class="franja_blanca"></div>
@@ -183,6 +194,21 @@
                     <div class="lista_resultados_busqueda_productos displayBlock text-center">
                         <div class="spinner">
                             <img src="@Url.Content("~/Content/Images/loading_spinner.gif")" alt="" />
+                        </div>
+                        <div class="busqueda_sin_resultados displayBlock text-center">
+                            <div>
+                                <div class="icono_busqueda_sin_resultados displayBlock">
+                                    <img src="@Url.Content("~/Content/Images/icono_sin_resultados_busqueda.svg")" alt="" />
+                                </div>
+                                <div class="mensaje_busqueda_sin_resultados displayBlock">
+                                    <p class="displayBlock text-bold">
+                                        Ups… no tenemos ofertas con este nombre.
+                                    </p>
+                                    <p class="displayBlock">
+                                        Vuelve a intentar.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         <div class="resultados_wrapper" id="ResultadoBuscador">
                         </div>
@@ -202,12 +228,12 @@
     }
     <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
         @if (!(controllerAction == "bienvenidaindex"
-                    || controllerAction == "showroomindex"
-                    || controllerAction == "showroomintriga"
-                    || controllerAction == "revistadigitalindex"
-                    || controllerAction == "revistadigitaldetalle"
-                    || controllerAction == "revistadigitalinformacion")
-                    && (@ViewBag.Title != "" && @ViewBag.Title != null))
+            || controllerAction == "showroomindex"
+            || controllerAction == "showroomintriga"
+            || controllerAction == "revistadigitalindex"
+            || controllerAction == "revistadigitaldetalle"
+            || controllerAction == "revistadigitalinformacion")
+            && (@ViewBag.Title != "" && @ViewBag.Title != null))
         {
             <div class="SubHeader">
                 <div class="ubicacion_web">
@@ -237,67 +263,8 @@
         </footer>
     </div>
 
-    <script id="js-ResultadoBuscador" type="text/x-handlebars-template">
-        {{#each this}}
-        <div class="resultado_busqueda_producto displayBlock text-left" data-item="ProductoBuscador">
-            <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
-            <input type="hidden" class="hdBuscadorSAP" value="{{SAP}}" />
-            <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
-            <input type="hidden" class="hdBuscadorCodigoPalanca" value="{{CodigoPalanca}}" />
-            <input type="hidden" class="hdBuscadorMarcaId" value="{{MarcaId}}" />
-            <input type="hidden" class="hdBuscadorDescripcion" value="{{Descripcion}}" />
-            <input type="hidden" class="hdBuscadorDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
-            <input type="hidden" class="hdBuscadorValorizado" value="{{Valorizado}}" />
-            <input type="hidden" class="hdBuscadorPosicion" value="{{posicion}}" />
-            <input type="hidden" class="hdBuscadorEstrategiaCodigo" value="{{EstrategiaCodigo}}" />
-            <input type="hidden" class="hdBuscadorLimiteVenta" value="{{LimiteVenta}}" />
-            <input type="hidden" class="hdBuscadorCantidadesAgregadas" value="{{CantidadesAgregadas}}" />
 
-            <div class="resultado_busqueda_img_prod displayInlineBlock">
-                <img src="{{Imagen}}" alt="Imagen no disponible" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.png")'" />
-            </div>
-            <div class="resultado_busqueda_descrip_prod displayInlineBlock">
-                <div class="resultado_busqueda_nom_producto displayBlock">
-                    {{Descripcion}}
-                </div>
-                <div class="resultado_busqueda_precio_prod displayBlock">
-                    <span class="resultado_busqueda_precio_normal displayInlineBlock">{{ValorizadoString}}</span>
-                    <span class="resultado_busqueda_precio_oferta displayInlineBlock">{{PrecioString}}</span>
-                </div>
-                <div class="resultado_busqueda_tipo_oferta_prod displayBlock text-uppercase">{{DescripcionEstrategia}}</div>
-            </div>
-
-            {{#if_eq CodigoEstrategia '2003'}}
-            <div class="resultado_busqueda_btn_elegir_opcion_wrapper displayInlineBlock text-center" data-OrigenPedidoWeb="@origenPedidoWeb">
-                <a class="btn_elegir_opcion displayBlock text-center text-uppercase" href="javascript:;" onclick="BuscadorFichaDetalle('{{CampaniaID}}', '{{CUV}}', '@origenPedidoWeb', '{{EstrategiaCodigo}}');">
-                    Elige tu opción
-                </a>
-            </div>
-            {{else}}
-            <div class="resultado_busqueda_cantidad_prod displayInlineBlock js-no-popup" data-cantidad-contenedor="">
-                <a class="cantidad_menos_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                    <img src="/Content/Images/Mobile/Esika/menos.png" alt="">
-                </a>
-                <input type="tel" value="1" size="2" maxlength="2" data-input="cantidad" class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" />
-                <a class="cantidad_mas_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                    <img src="/Content/Images/Mobile/Esika/mas.png" alt="">
-                </a>
-                <div class="clear"></div>
-            </div>
-            <div class="resultado_busqueda_btn_agregar_wrapper displayInlineBlock text-center">
-                <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
-                    Agrégalo
-                </a>
-                <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold etiqueta_buscador_producto">
-                    {{Agregado}}
-                </div>
-            </div>
-            {{/if_eq}}
-        </div>
-        {{/each}}
-    </script>
-
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpRegistroComunidad.cshtml")
 
@@ -358,6 +325,9 @@
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
         var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;
+        var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
+        var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
+        var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
     <script type='text/javascript'>
@@ -479,4 +449,5 @@
         @TempData.Remove("PixelCodigoIso");
     }
 </body>
+
 </html>

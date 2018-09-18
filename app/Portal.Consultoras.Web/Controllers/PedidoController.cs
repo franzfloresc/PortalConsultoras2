@@ -503,7 +503,7 @@ namespace Portal.Consultoras.Web.Controllers
             mensajeOsb = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
             if (mensajeOsb != "") return ErrorJson(mensajeOsb, true);
 
-            if(esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
+            if (esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
             return Json(PedidoInsertarGenerico(model, false, listCuvEliminar));
         }
 
@@ -870,12 +870,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
                 {
-                    PaisId = userData.PaisID,                
+                    PaisId = userData.PaisID,
                     CampaniaId = userData.CampaniaID,
                     ConsultoraId = userData.ConsultoraID,
                     Consultora = userData.NombreConsultora,
                     EsBpt = false,   //no se usa
-                    CodigoPrograma = userData.CodigoPrograma,                
+                    CodigoPrograma = userData.CodigoPrograma,
                     NumeroPedido = userData.ConsecutivoNueva,
                     AgruparSet = true
                 };
@@ -3270,7 +3270,7 @@ namespace Portal.Consultoras.Web.Controllers
                     marca = marca + "," + Util.GetDescripcionMarca(string.IsNullOrEmpty(lst[1].MarcaID) ? 0 : Convert.ToInt32(lst[1].MarcaID));
                 }
             }
-            
+
             return Json(new
             {
                 lista = lst,
@@ -3332,7 +3332,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var carpetaPais = Globals.UrlBanner + "/" + userData.CodigoISO;
                     var carpetaFileConsultoras = Globals.UrlFileConsultoras + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ArchivoPortada = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoPortada));                        
+                    lst.Update(x => x.ArchivoPortada = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoPortada));
                     lst.Update(x => x.Archivo = ConfigCdn.GetUrlFileCdn(carpetaFileConsultoras, x.Archivo));
                 }
 
@@ -3604,7 +3604,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro, string desTipoRegistro,bool? MuestraPopup, decimal? MontoInicial)
+        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro, string desTipoRegistro, bool? MuestraPopup, decimal? MontoInicial)
         {
             try
             {
@@ -3981,6 +3981,77 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        // para salvar el día
+        public JsonResult PedidoInsertarBuscador(PedidoCrudModel model)
+        {
+            string mensaje = "", urlRedireccionar = "";
+
+            #region SesiónExpirada
+            if (userData == null)
+            {
+                mensaje = "Sesión expirada.";
+                urlRedireccionar = Url.Action("Index", "Login");
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    urlRedireccionar
+                }, JsonRequestBehavior.AllowGet);
+            }
+            #endregion
+
+            #region ReservadoOEnHorarioRestringido
+            var horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
+            if (horario)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    urlRedireccionar
+                }, JsonRequestBehavior.AllowGet);
+            }
+            #endregion
+
+            #region UnidadesPermitidas
+            List<BEPedidoWebDetalle> sesionPedidos = sessionManager.GetDetallesPedido();
+            var pedidoAgregado = sesionPedidos.Where(x => x.CUV == model.CUV).ToList();
+            int cantidadesAgregadas = 0;
+            if (model.LimiteVenta > 0)
+            {
+                if (pedidoAgregado.Any())
+                {
+                    cantidadesAgregadas = sesionPedidos[0].Cantidad;
+                }
+
+                cantidadesAgregadas += model.Cantidad.ToInt();
+
+                if (cantidadesAgregadas > model.LimiteVenta)
+                {
+                    mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + model.LimiteVenta + " ).";
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            #endregion
+            
+            mensaje = ValidarStockEstrategiaMensaje(model.CUV, model.Cantidad.ToInt(), model.TipoEstrategiaID);
+
+            if (mensaje != "")
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje
+                });
+            }
+
+            return PedidoInsertar(model, true);
+        }
+
         #region Nuevo AgregarProducto
         public JsonResult PedidoAgregarProducto(PedidoCrudModel model)
         {
@@ -4072,7 +4143,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
-
 
                 var listCuvTonos = Util.Trim(model.CuvTonos);
                 if (listCuvTonos == "")

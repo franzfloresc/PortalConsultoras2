@@ -3309,6 +3309,12 @@ namespace Portal.Consultoras.BizLogic
             }
             return BuscadorYFiltro;
         }
+        
+         public string ActuaizarNovedadBuscador(int paisId, string codigoUsuario)
+        {
+            return new DAUsuario(paisId).ActualizarNovedadBuscador(codigoUsuario);
+        }
+
 
         #region ActualizacionDatos
         public BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo)

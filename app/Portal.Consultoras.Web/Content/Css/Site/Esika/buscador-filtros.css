@@ -17,7 +17,7 @@
 .buscador_productos {
     display: inline-block;
     vertical-align: middle;
-    position: relative;
+    position:relative;
     left: 7.5px;
     border: 1px solid #E1E1E1;
     background-color: #FFF;
@@ -69,13 +69,17 @@
     left: 16.8px;
 }
 
+.buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida .campo_buscador_productos{
+    width:93%;
+}
+
 .campo_busqueda_fondo_on_focus{  
     display:none;  
     position: relative;
     width: 101%;
     left: -1px;
     top: -40px;
-    height: 47.8px;
+    height: 48px;
     background-color: #FFF;
     border-top: 1px solid #E1E1E1;
     border-left: 1px solid #E1E1E1;
@@ -118,23 +122,23 @@
 }
 
     .campo_buscador_productos::-webkit-input-placeholder {
-        color: #000;
-        font-weight: 600;
+        color: #808080;
     }
 
     .campo_buscador_productos:-moz-placeholder {
-        color: #000;
-        font-weight: 600;
+        color: #808080;
     }
 
     .campo_buscador_productos::-moz-placeholder {
-        color: #000;
-        font-weight: 600;
+        color: #808080;
     }
 
     .campo_buscador_productos:-ms-input-placeholder {
-        color: #000;
-        font-weight: 600;
+        color: #808080;
+    }
+
+    .campo_buscador_productos::-ms-clear{
+        display: none;
     }
 
     .campo_buscador_productos_activo{
@@ -179,14 +183,99 @@
     right: 13px;
 }
 
+/* INICIO - TOOLTIP INFORMATIVO SOBRE NOVEDAD DE BUSCADOR DE PRODUCTOS */
+
+.tooltip_informativo_sobre_opcion_busqueda_prod {
+    display: block;
+    position: absolute;
+    top: 38px;
+    left: -62px;
+    min-width: 206px;
+    background-color: #f5f5f5;
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+    text-align: left;
+    padding: 12px 13px;
+    font-size: 12.5px;
+    z-index:6;
+    -moz-box-shadow: 5px 6px 12px -6px #8c8c8c;
+    -webkit-box-shadow: 5px 6px 12px -6px #8c8c8c;
+    box-shadow: 5px 6px 12px -6px #8c8c8c;
+}
+
+.tooltip_informativo_sobre_opcion_busqueda_prod:after,
+.tooltip_informativo_sobre_opcion_busqueda_prod:before
+{
+	bottom: 100%;
+	left: 0;
+    right:0;
+    margin:0 auto;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.tooltip_informativo_sobre_opcion_busqueda_prod:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f5f5f5;
+	border-width: 8px;
+}
+
+.tooltip_informativo_sobre_opcion_busqueda_prod:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-bottom-color: #d7d7d7;
+	border-width: 9px;
+}
+
+.novedad_busqueda_titulo{
+    font-weight:900;
+}
+
+.novedad_busqueda_descripcion{
+    display:block;
+    margin-top:6px;
+}
+
+.icono_tooltip_informativo_opcion_busqueda,
+.descripcion_tooltip_informativo_opcion_busqueda
+{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.icono_tooltip_informativo_opcion_busqueda{
+    width: 19px;
+    height: 25px;
+    margin-right: 9px;
+    padding-top: 1px;
+}
+
+.descripcion_tooltip_informativo_opcion_busqueda{
+    width:140px;
+    overflow-wrap:break-word;
+    line-height:15px;
+    color:#000;
+    font-size:13px;
+}
+
+.icono_tooltip_informativo_opcion_busqueda img{
+    width:100%;
+    height:auto;
+}
+
+/* FIN - TOOLTIP INFORMATIVO SOBRE NOVEDAD DE BUSCADOR DE PRODUCTOS */
+
 .lista_resultados_busqueda_productos {
     display: none;
     position: absolute;
     top: 45px;
     right: -2px;
-    width: 737px;
-    height: 95px;
-    padding-bottom: 18px;
+    width: 621px;
+    min-height: 250px;
+    padding-bottom: 0;
     overflow: hidden;
     background-color: #FFF;
     border: 1px solid #E1E1E1;
@@ -203,9 +292,9 @@
     transition: all 0.2s ease;
 }
 
-.animarAlturaListaResultadosBusqueda{
+/*.animarAlturaListaResultadosBusqueda{
     height:417px;
-}
+}*/
 
 .spinner{
     display:none;
@@ -234,9 +323,10 @@
     margin-top: 17px;
     width: 98.55%;
     min-height: 65px;
-    max-height: 380px;
+    max-height: 330px;
     overflow: auto;
     position: relative;
+    padding-bottom:14px;
 }
 
     .resultados_wrapper::-webkit-scrollbar-track {
@@ -256,11 +346,12 @@
 
     .resultado_busqueda_producto:last-child{
         padding-bottom:0;
-        border-bottom:none;
+        border-bottom:none!important;
     }
 
 .resultado_busqueda_img_prod{
-    width: 177.78px;
+    margin-left: 7px;
+    width: 125.78px;
     height: 68px;
     position: relative;
     overflow: hidden;
@@ -287,14 +378,15 @@
 }
 
 .resultado_busqueda_descrip_prod{
-    width:232.33px;
-    margin-right:20px;
+    width:168.33px;
+    margin-right:16px;
 }
 
 .resultado_busqueda_nom_producto{
-    font-size:14px;
+    font-size:13px;
     letter-spacing:0.2px;
-    margin-bottom:-3px;
+    overflow-wrap:break-word;
+    /*margin-bottom:-3px;*/
     /*text-overflow:ellipsis;
     white-space:nowrap;
     overflow:hidden;*/
@@ -307,20 +399,23 @@
 }
 
 .resultado_busqueda_precio_normal{
-    font-size:12px;
+    font-size:11px;
     text-decoration:line-through;
-    margin-bottom:1px;
+    margin-bottom:-4px;
     margin-right:10px;
 }
 
 .resultado_busqueda_precio_oferta{
-    font-size:16px;
+    font-size:14px;
     font-weight:600;
+    margin-bottom:3px;
 }
 
 .resultado_busqueda_tipo_oferta_prod{
+    font-size:10px;
     margin-top:-2px;
     color:#848484;
+    text-transform:uppercase;
 }
 
 .resultado_busqueda_cantidad_prod{
@@ -381,24 +476,44 @@
 }
 
 .resultado_busqueda_btn_agregar_wrapper .boton_Agregalo_home,
-.btn_elegir_opcion
+.btn_elegir_opcion,
+.btn_inactivo
 {
     width:100%;
     height: 45px;
     line-height: 44px;
-    border: 1px solid #000;
     font-size: 12px;
     letter-spacing:0.5px;
     font-weight: 700;
     border-radius: 4px;
+    text-transform:uppercase;
+}
+
+.resultado_busqueda_btn_agregar_wrapper .boton_Agregalo_home,
+.btn_elegir_opcion
+{
+    border: 1px solid #000;
 }
 
 .resultado_busqueda_btn_elegir_opcion_wrapper{
-    width:256px;
+    width:254px;
 }
 
 .btn_elegir_opcion{
     background-color:#FFF;
+    line-height:41px;
+}
+
+.btn_inactivo{
+    background-color:#efefef;
+    line-height:45px;
+    pointer-events:none;
+    cursor:not-allowed!important;
+}
+
+.btn_elegir_opcion,
+.btn_inactivo
+{
     color:#000;
 }
 
@@ -407,9 +522,68 @@
     margin:0 auto;
     left:0;
     right:0;
-    margin-top:7px;
+    margin-top:5px;
     font-size:11px;
     color:#848484;
+}
+
+.icono_elige_tu_opcion{
+    margin-right: 4px;
+    width: 17px;
+    height: 20px;
+}
+
+.selector_cant_desactivado{
+    opacity:0.3;
+}
+
+.selector_cant_desactivado .cantidad_mas_home,
+.selector_cant_desactivado .cantidad_menos_home
+{
+    pointer-events:none;
+    cursor:not-allowed!important;
+}
+
+.busqueda_sin_resultados {
+    display:none;
+    padding-top: 30px;
+    padding-bottom: 28px;
+    min-height:250px;
+    height: 100%;
+    position:relative;
+}
+
+.busqueda_sin_resultados > div{
+    position: absolute;
+    width: 100%;
+    height: 178px;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.icono_busqueda_sin_resultados,
+.mensaje_busqueda_sin_resultados p:first-child
+{
+    margin-bottom: 20px;
+}
+
+.mensaje_busqueda_sin_resultados {
+    font-size: 13px;
+}
+
+.mensaje_busqueda_sin_resultados p {
+    margin: 0 auto;
+    padding: 0;
+    width: 31%;
+    letter-spacing:0.5px;
+}
+
+.mensaje_busqueda_sin_resultados p:first-child {
+    font-size: 15px;
+    line-height: 20px;
 }
 
 @media screen and (max-width:1354px) {
@@ -538,3 +712,257 @@
 }
 
 /* FIN - BUSCADOR DE FILTROS PORTAL CONSULTORAS */
+
+/* BUSCADOR DE FILTROS PORTAL CONSULTORAS MOBILE */
+
+@media screen and (max-width:991px){
+
+    .buscador_filtros_mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 60px;
+        background-color: #FFF;
+        padding-left: 10px;
+        padding-right: 10px;
+        position:relative;
+        border-bottom:1px solid #d8d8d8;
+        z-index:6;
+    }
+
+    .campo_buscador_filtros_mobile {
+        width: 100%;
+        height: 59px;
+        background: #fff;
+        color: #000;
+        padding-left: 10px;
+        padding-bottom: 2px;
+        line-height: 57px;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+        .campo_buscador_filtros_mobile::-webkit-input-placeholder {
+            color: #808080;
+            font-weight:400;
+        }
+
+        .campo_buscador_filtros_mobile:-moz-placeholder {
+            color: #808080;
+            font-weight:400;
+        }
+
+        .campo_buscador_filtros_mobile::-moz-placeholder {
+            color: #808080;
+            font-weight:400;
+        }
+
+        .campo_buscador_filtros_mobile:-ms-input-placeholder {
+            color: #808080;
+            font-weight:400;
+        }
+
+    .enlace_busqueda_filtros,
+    .opcion_limpiar_campo_busqueda_productos
+    {
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+    }
+
+        .enlace_busqueda_filtros img,
+        .opcion_limpiar_campo_busqueda_productos img,
+        .enlace_regresar_filtros img
+        {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+    .enlace_busqueda_filtros{
+        width: 40px;
+        right: 3px;
+    }
+
+    .enlace_regresar_filtros {
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        width: 21px;
+        height: 20px;
+        margin-right: 5px;
+    }
+
+    .enlace_regresar_filtros img,
+    .opcion_limpiar_campo_busqueda_productos img
+    {
+        width:100%;
+        height:auto;
+    }
+
+    .opcion_limpiar_campo_busqueda_productos {
+        width: 18px;
+        right: 13px;
+    }
+
+    .resultado_busqueda_producto{
+        padding-top: 15px!important;
+        padding-bottom: 12px!important;
+        border-bottom: 1px solid #b0b0b0!important;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .resultado_busqueda_producto:first-child {
+        padding-top: 0;
+    }
+
+    .resultado_busqueda_img_prod,
+    .resultado_busqueda_img_prod a
+    {
+        height: 56px;
+    }
+
+    .resultado_busqueda_img_prod {
+        width: 20%;
+        max-width: 200px;
+        text-align: center;
+        position: relative;
+        background-color: #FFF;
+    }
+
+    .resultado_busqueda_img_prod img {
+        width: 100%;
+        height: 56px;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        object-fit: contain;
+    }
+
+    .resultado_busqueda_descrip_prod{
+        width: 33%;
+        margin-left: 12px;
+        margin-right: 6px;
+    }
+
+    .resultado_wrapper_selector_cantidad_y_btn_agregar {
+        width: 38.2%;
+    }
+
+    .resultado_busqueda_nom_producto {
+        line-height: 18px;
+        margin-bottom:2px;
+    }
+
+    .resultado_busqueda_precio_prod {
+        margin: 0;
+    }
+
+    .resultado_busqueda_precio_normal,
+    .resultado_busqueda_precio_oferta
+    {
+        vertical-align: bottom;
+    }
+
+    .resultado_busqueda_precio_normal {
+        text-decoration: line-through;
+        margin-bottom: -1px;
+    }
+
+    .resultado_busqueda_precio_oferta {
+        font-weight: 400;
+    }
+
+    .resultado_busqueda_cantidad_prod{
+        margin-right:0;
+        margin-bottom:6px;
+    }
+
+    .resultado_busqueda_cantidad_prod .cantidad_menos_home,
+    .resultado_busqueda_cantidad_prod .cantidad_mas_home
+    {
+        line-height:43px;
+    }
+
+    .vistaResultadosBusquedaMobile,
+    .resultado_busqueda_cantidad_prod,
+    .resultado_busqueda_btn_agregar_wrapper,
+    .resultado_busqueda_btn_elegir_opcion_wrapper
+    {
+        width:100%;
+    }
+
+    .btn_elegir_opcion{
+        line-height: initial;
+        padding-top: 11px;
+    }
+
+    .etiqueta_prod_agregado{
+        position:relative;
+    }
+
+    .spinner{
+        margin:0 auto;
+    }
+
+    .spinner img{
+        margin:150px auto;
+    }
+
+    .busqueda_sin_resultados{
+        min-height:277px;
+        z-index:4;
+    }
+
+    .mensaje_busqueda_sin_resultados p{
+        width:64%;
+    }
+
+}
+
+@media screen and (max-width:369px){
+
+    .btn_elegir_opcion {
+        padding-top: 4px;
+    }
+
+}
+
+@media screen and (max-width:358px){
+
+    .resultado_busqueda_img_prod{
+        width:23%;
+    }
+
+    .resultado_wrapper_selector_cantidad_y_btn_agregar{
+        width: 33.2%;
+    }
+
+}
+
+@media screen and (max-width:351px){
+
+    .resultado_busqueda_descrip_prod{
+        width:37%;
+    }
+
+    .resultado_wrapper_selector_cantidad_y_btn_agregar {
+        width: 30%;
+    }
+
+    .btn_elegir_opcion {
+        height: 61px;
+    }
+
+}
+
+/* FIN - BUSCADOR DE FILTROS PORTAL CONSULTORAS MOBILE */

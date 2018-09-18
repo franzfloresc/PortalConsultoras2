@@ -1263,6 +1263,7 @@ namespace Portal.Consultoras.Web.Controllers
             var CaracteresBuscador = 0;
             var TotalListadorBuscador = 20;
             var CaracteresBuscadorMostrar = 15;
+            var CantidadVecesInicioSesionNovedad = 0;
 
             if (buscadorYFiltro.ConfiguracionPaisDatos.Any())
             {
@@ -1282,6 +1283,9 @@ namespace Portal.Consultoras.Web.Controllers
                         case Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador:
                             TotalListadorBuscador = item.Valor1.ToInt();
                             break;
+                        case Constantes.TipoConfiguracionBuscador.CantidadInicioSesionNovedadBuscador:
+                            CantidadVecesInicioSesionNovedad = item.Valor1.ToInt();
+                            break;
                     }
                 }
             }
@@ -1290,6 +1294,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CaracteresBuscador = CaracteresBuscador;
             ViewBag.TotalListadorBuscador = TotalListadorBuscador;
             ViewBag.CaracteresBuscadorMostrar = CaracteresBuscadorMostrar;
+            ViewBag.CantidadVecesInicioSesionNovedad = CantidadVecesInicioSesionNovedad;
+            ViewBag.NovedadBuscador = userData.NovedadBuscador;
         }
         
         #endregion
