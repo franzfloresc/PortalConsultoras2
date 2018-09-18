@@ -906,10 +906,6 @@
         padding-top: 11px;
     }
 
-    .btn_elegir_opcion span:last-child br {
-        display: none;
-    }
-
     .etiqueta_prod_agregado{
         position:relative;
     }
@@ -929,6 +925,14 @@
 
     .mensaje_busqueda_sin_resultados p{
         width:64%;
+    }
+
+}
+
+@media screen and (min-width:359px){
+
+    .btn_elegir_opcion span:last-child br {
+        display: none;
     }
 
 }

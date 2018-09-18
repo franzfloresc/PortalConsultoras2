@@ -937,6 +937,14 @@
 
 }
 
+@media screen and (min-width:359px){
+
+    .btn_elegir_opcion span:last-child br {
+        display: none;
+    }
+
+}
+
 @media screen and (max-width:358px){
 
     .resultado_busqueda_img_prod{
