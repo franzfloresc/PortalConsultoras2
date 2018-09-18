@@ -130,8 +130,9 @@ namespace Portal.Consultoras.Web.Models
         public PartialSectionBpt PartialSectionBpt { get; set; }
         public bool TienePagoEnLinea { get; set; }
         public bool MostrarPagoEnLinea { get; set; }
-        public int TieneContratoPopup { get; set; }
         public bool TieneFacturacionElectronica { get; set; }
+        public bool TieneCaminoExito { get; set; }
+        public string urlCaminoExito { get; set; }
 
         public BienvenidaHomeModel()
         {
@@ -140,6 +141,8 @@ namespace Portal.Consultoras.Web.Models
             TextoTelefono = "Tu Teléfono:";
             TextoCelular = "Tu Celular:";
             TextoBoton = "Actualizar";
+            TieneCaminoExito = false;
+            urlCaminoExito = default(string);
         }
     }
 }
