@@ -251,37 +251,37 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
-    var marcarPopupBotonEligeloSoloUno = function (opcion, componentes) {
+    var marcarPopupBotonEligeloSoloUno = function (estrategia, componentes) {
         try {
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige 1 opción',
                 'action': 'Elígelo',
-                'label': opcion.DescripcionCompleta + '-' + componentes.HermanosSeleccionados[0].NombreBulk
+                'label': estrategia.DescripcionCompleta + '-' + componentes.HermanosSeleccionados[0].NombreBulk
             });
         } catch (e) {
             console.log(_texto.exception + e);
         }
     }
-    var marcarBotonAplicarSeleccion = function (opcion) {
+    var marcarBotonAplicarSeleccion = function (estrategia, componentes) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige 1 opción',
                 'action': 'Aplicar selección',
-                'label': '{Nombre del producto} - {variedad del producto}'
+                'label': estrategia.DescripcionCompleta + '-' + componentes.resumenAplicados[0].NombreBulk
             });
         } catch (e) {
             console.log(_texto.exception + e);
         }
     }
-    var marcarEliminarOpcionSeleccionada = function (opcion) {
+    var marcarEliminarOpcionSeleccionada = function (estrategia, nombreComponentes) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige 1 opción',
                 'action': 'Desenmarcar Producto',
-                'label': '{Nombre del producto} - {variedad del producto}'
+                'label': estrategia.DescripcionCompleta + '-' + nombreComponentes
             });
         } catch (e) {
             console.log(_texto.exception + e);
@@ -290,10 +290,10 @@ var AnalyticsPortalModule = (function () {
     var marcarCambiarOpcion = function (opcion) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Contenedor - Ficha de producto',
+                'event': _evento.virtualEvent,
+                'category': _texto.contenedorfichaProducto,
                 'action': 'Cambiar opción',
-                'label': '{nombre del producto}'
+                'label': opcion.DescripcionCompleta
             });
         } catch (e) {
             console.log(_texto.exception + e);
@@ -302,10 +302,10 @@ var AnalyticsPortalModule = (function () {
     var marcarPopupEligeXOpciones = function (opcion) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Contenedor - Ficha de producto',
+                'event': _evento.virtualEvent,
+                'category': _texto.contenedorfichaProducto,
                 'action': 'Ver Popup Elige más de una opción',
-                'label': '{Nombre del set de productos}'
+                'label': opcion.DescripcionCompleta
             });
         } catch (e) {
             console.log(_texto.exception + e);
@@ -314,10 +314,10 @@ var AnalyticsPortalModule = (function () {
     var marcarPopupCerrarEligeXOpciones = function (opcion) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige más de una opción',
                 'action': 'Cerrar pop up Elige más de una opción',
-                'label': '{Nombre del set de productos}'
+                'label': opcion.DescripcionCompleta
             });
         } catch (e) {
             console.log(_texto.exception + e);

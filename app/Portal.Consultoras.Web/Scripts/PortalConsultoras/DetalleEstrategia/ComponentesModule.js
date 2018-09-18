@@ -75,12 +75,11 @@ var ComponentesModule = (function () {
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param cuv is not defined or null";
-
+        var componente = {}            
         $.each(_estrategia.Hermanos, function (index, hermano) {
             cuv = $.trim(cuv);
-            if (cuv === hermano.Cuv) {
-                var componente = {};
-                componente = _estrategia.Hermanos[index];
+            if (cuv === hermano.Cuv) { 
+                componente = _estrategia.Hermanos[index];   
 
                 opcionesEvents.applyChanges("onComponentSelected", componente);
 
@@ -89,8 +88,17 @@ var ComponentesModule = (function () {
                 return false;
             }
         });
-        
-        AnalyticsPortalModule.MarcarPopupEligeUnaOpcion(_estrategia);
+        if (componente.resumenAplicados) {
+            if (componente.resumenAplicados.length > 0) {
+                AnalyticsPortalModule.MarcarCambiarOpcion(_estrategia);
+                return false;
+            }
+        }
+        if (componente.FactorCuadre === 1) {
+            AnalyticsPortalModule.MarcarPopupEligeUnaOpcion(_estrategia);
+        } else {
+            AnalyticsPortalModule.MarcarPopupEligeXOpciones(_estrategia);
+        }
     }
 
     var SeleccionarPaletaOpcion = function (event, cuv) {

@@ -215,7 +215,7 @@ var ListaOpcionesModule = (function () {
         //
         
         var estrategia = fichaModule.GetEstrategia();
-        debugger;
+        
         if (_componente.FactorCuadre < 2 ) {
             AnalyticsPortalModule.MarcarPopupBotonEligeloSoloUno(estrategia, _componente );
         } else {
@@ -248,6 +248,7 @@ var ListaOpcionesModule = (function () {
     };
 
     var EliminarOpcion = function (cuv, event) {
+        
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
@@ -255,6 +256,8 @@ var ListaOpcionesModule = (function () {
         if (_componente.esCampaniaSiguiente) {
             return false;
         }
+        
+        var nombreComponente = getNombreComponente(cuv);
         //
         if (typeof event !== "undefined") EstrategiaAgregarModule.DisminuirCantidad(event);
         //
@@ -264,7 +267,22 @@ var ListaOpcionesModule = (function () {
         //
         opcionesEvents.applyChanges("onOptionSelected", _componente);
         //
+        //Google Analytics (EPM-1442)
+        
+        var estrategia = fichaModule.GetEstrategia();
+        AnalyticsPortalModule.MarcarEliminarOpcionSeleccionada(estrategia, nombreComponente)
         return false;
+    };
+    var getNombreComponente = function (cuv) {
+        var NombreBulk = "";
+        $.each(_componente.HermanosSeleccionados, function (index, item) {
+            
+            if (item.Cuv === cuv) {
+                NombreBulk = item.NombreBulk;
+            }
+            return false;
+        });
+        return NombreBulk;
     };
 
     var GetComponente = function () {
@@ -289,7 +307,13 @@ var ListaOpcionesModule = (function () {
         }
         
         var estrategia = fichaModule.GetEstrategia();
-        AnalyticsPortalModule.MarcarCerrarPopupEligeUnaOpcion(estrategia);
+        if (_componente.FactorCuadre === 1) {
+            AnalyticsPortalModule.MarcarCerrarPopupEligeUnaOpcion(estrategia);
+        } else {
+            AnalyticsPortalModule.MarcarPopupCerrarEligeXOpciones(estrategia);
+        }
+        
+        
     }
 
     return {

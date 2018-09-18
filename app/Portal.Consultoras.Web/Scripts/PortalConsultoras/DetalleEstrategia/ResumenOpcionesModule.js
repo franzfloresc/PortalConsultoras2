@@ -105,7 +105,10 @@ var ResumenOpcionesModule = (function () {
         }
 
         _verificarActivarBtn(codigoVariante);
-        
+
+        //Analytics (EPM-1442)
+        var estrategia = fichaModule.GetEstrategia();
+        AnalyticsPortalModule.MarcarBotonAplicarSeleccion(estrategia, _componente);
         return false;
     };
 
