@@ -346,34 +346,23 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
 
-        protected string ValidarMontoMaximo(decimal montoCuv, int cantidad, out bool resul)
+        protected string ValidarMontoMaximo(decimal montoCuv, int cantidad, out bool result)
         {
             var mensaje = "";
-            resul = false;
+            result = false;
             try
             {
-                if (!userData.TieneValidacionMontoMaximo)
-                    return mensaje;
-
-                if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00))
-                    return mensaje;
-
-
+                if (!userData.TieneValidacionMontoMaximo) return mensaje;
+                if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00)) return mensaje;
+                
                 var listaProducto = ObtenerPedidoWebDetalle();
-
                 var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
-                var dTotalPedido = Convert.ToDecimal(totalPedido);
+                if (totalPedido > userData.MontoMaximo && cantidad < 0) result = true;
+
                 decimal descuentoProl = 0;
+                if (listaProducto.Any()) descuentoProl = listaProducto[0].DescuentoProl;
 
-                if (dTotalPedido > userData.MontoMaximo && cantidad < 0)
-                {
-                    resul = true;
-                }
-
-                if (listaProducto.Any())
-                    descuentoProl = listaProducto[0].DescuentoProl;
-
-                var montoActual = (montoCuv * cantidad) + (dTotalPedido - descuentoProl);
+                var montoActual = (montoCuv * cantidad) + (totalPedido - descuentoProl);
                 if (montoActual > userData.MontoMaximo)
                 {
                     var strmen = (userData.EsDiasFacturacion) ? "VALIDADO" : "GUARDADO";

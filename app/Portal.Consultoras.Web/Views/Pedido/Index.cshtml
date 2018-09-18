@@ -1497,7 +1497,6 @@
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         <div class="texto_pedidos celda_codigo">{{CUV}}</div>
         <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
-
             <span class="texto_pedidos_ofertas">
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
             </span>
@@ -1514,31 +1513,30 @@
                 <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{/if_eq}}
-
-
+            
             <div id="tooltipDescPro" class="tooltipPedido">
                 {{Split DescripcionProd '|' 0}}
             </div>
 
-                    <input type="hidden" name="hdfFlagNueva{{PedidoID}}" value="{{FlagNueva}}" id="hdfFlagNueva{{PedidoID}}" class="hdfFlagNueva"/>
-                    <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" class="hdfCampaniaID"/>
-                    <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" class="hdfPedidoId"/>
-                    <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" class="hdfPedidoDetalleID"/>
-                    <input type="hidden" name="hdfTipoOfertaSisID{{PedidoID}}" value="{{TipoOfertaSisID}}" id="hdfTipoOfertaSisID{{PedidoID}}" class="hdfTipoOfertaSisID"/>
-                    <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" class="hdfCUV"/>
-                    <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" class="txtLPTempCant"/>
+            <input type="hidden" name="hdfFlagNueva{{PedidoID}}" value="{{FlagNueva}}" id="hdfFlagNueva{{PedidoID}}" class="hdfFlagNueva"/>
+            <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" class="hdfCampaniaID"/>
+            <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" class="hdfPedidoId"/>
+            <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" class="hdfPedidoDetalleID"/>
+            <input type="hidden" name="hdfTipoOfertaSisID{{PedidoID}}" value="{{TipoOfertaSisID}}" id="hdfTipoOfertaSisID{{PedidoID}}" class="hdfTipoOfertaSisID"/>
+            <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" class="hdfCUV"/>
+            <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" class="txtLPTempCant"/>
         </div>
         <div class="celda_cantidad_pedidos">
-                    <div  data-SetID="{{SetID}}"></div>
+            <div  data-SetID="{{SetID}}"></div>
             {{#if EsKitNueva}}
             <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
             {{else if FlagNueva}}
             <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
-                        <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
-                               data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
-                               onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}')" />
+                <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
+                    data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
+                    onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', '{{EnRangoProgNuevas}}')" />
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                     <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -1547,7 +1545,7 @@
             {{/if}}
         </div>
         <div class="texto_pedidos precioUnitario">
-                    <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
+            <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
             {{SimboloMoneda}} {{FormatoPrecioUnidad}}
         </div>
         <div class="texto_pedidos subtotal">
@@ -1599,8 +1597,8 @@
             {{#iff DescripcionLarga 'Contains' '\''}}
             {{Replace DescripcionLarga '\'' ''}}
             {{/iff}}
-                    <a onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}');"
-                       style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+                <a onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', '{{EnRangoProgNuevas}}');"
+                    style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
             
             {{/if}}
         </div>

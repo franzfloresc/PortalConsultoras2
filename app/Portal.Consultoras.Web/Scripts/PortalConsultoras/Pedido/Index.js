@@ -363,7 +363,6 @@ $(document).ready(function () {
             AbrirMensaje("Argumentos no validos");
             return false;
         }
-
         if (HorarioRestringido()) {
             return false;
         }

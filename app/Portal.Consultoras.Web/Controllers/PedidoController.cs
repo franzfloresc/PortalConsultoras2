@@ -1425,32 +1425,27 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        #region Zona de Estretegias
+        #region Zona de Estrategias
         [HttpPost]
-        public JsonResult ValidarStockEstrategia(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta)
+        public JsonResult ValidarStockEstrategia(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta, bool enRangoProgNuevas)
         {
-            var mensaje = "";
-            var resul = false;
+            string mensajeMontoMax = "", mensaje = "";
+            bool validoMontoMax = false, valido = false;
+
             try
             {
-                int outVal;
-                var entidad = new ServicePedido.BEEstrategia
-                {
-                    PaisID = userData.PaisID,
-                    CUV2 = CUV,
-                    CampaniaID = userData.CampaniaID,
-                    ConsultoraID = userData.ConsultoraID.ToString(),
-                    Cantidad = int.TryParse(Cantidad, out outVal) ? int.Parse(Cantidad) : 0,
-                    FlagCantidad = int.TryParse(TipoOferta, out outVal) ? int.Parse(TipoOferta) : 0
-                };
+                var intCantidad = Cantidad.ToInt32Secure();
+                mensajeMontoMax = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), intCantidad, out validoMontoMax);
+                valido = mensajeMontoMax == "" || validoMontoMax;
 
-                mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad, out resul);
-
-                if (mensaje == "" || resul)
+                if (valido)
                 {
-                    mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
-                    if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(entidad.CUV2, entidad.Cantidad, entidad.FlagCantidad);
+                    if(enRangoProgNuevas) mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
+                    if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
+                    valido = mensaje == "";
                 }
+
+                if (valido) mensaje = mensajeMontoMax;
             }
             catch (FaultException ex)
             {
@@ -1461,11 +1456,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
-            return Json(new
-            {
-                result = mensaje == "" || resul,
-                message = mensaje
-            }, JsonRequestBehavior.AllowGet);
+            return Json(new { result = valido, message = mensaje }, JsonRequestBehavior.AllowGet);
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
