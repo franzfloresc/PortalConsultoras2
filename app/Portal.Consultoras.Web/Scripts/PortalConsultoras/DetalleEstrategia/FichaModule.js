@@ -302,7 +302,8 @@ var FichaModule = (function (config) {
                 cuv2: estrategia.CUV2,
                 campania: _config.campania,
                 codigoVariante: estrategia.CodigoVariante,
-                codigoEstrategia: estrategia.CodigoEstrategia
+				codigoEstrategia: estrategia.CodigoEstrategia,
+				lstHermanos: estrategia.Hermanos
             };
             _promiseObternerComponentes(param).done(function (data) {
                 estrategia.Hermanos = data.componentes;
