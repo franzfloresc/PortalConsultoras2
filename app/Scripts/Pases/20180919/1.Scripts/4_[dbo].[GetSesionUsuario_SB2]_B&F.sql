@@ -58,6 +58,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -82,6 +83,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -195,8 +197,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -270,6 +271,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -324,8 +326,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -409,6 +410,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -433,6 +435,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -546,8 +549,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -621,6 +623,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -675,8 +678,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -760,6 +762,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -784,6 +787,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -897,8 +901,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -972,6 +975,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -1026,8 +1030,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -1111,6 +1114,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -1135,6 +1139,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -1248,8 +1253,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -1323,6 +1327,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -1377,8 +1382,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -1462,6 +1466,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -1486,6 +1491,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -1599,8 +1605,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -1674,6 +1679,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -1728,8 +1734,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -1813,6 +1818,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -1837,6 +1843,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -1950,8 +1957,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -2025,6 +2031,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -2079,8 +2086,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -2164,6 +2170,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -2188,6 +2195,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -2301,8 +2309,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -2376,6 +2383,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -2430,8 +2438,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -2515,6 +2522,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -2539,6 +2547,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -2652,8 +2661,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -2727,6 +2735,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -2781,8 +2790,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -2866,6 +2874,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -2890,6 +2899,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -3003,8 +3013,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -3078,6 +3087,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -3132,8 +3142,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -3217,6 +3226,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -3241,6 +3251,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -3354,8 +3365,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -3429,6 +3439,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -3483,8 +3494,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -3568,6 +3578,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -3592,6 +3603,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -3705,8 +3717,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -3780,6 +3791,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -3834,8 +3846,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -3919,6 +3930,7 @@ BEGIN
 		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
+
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
@@ -3943,6 +3955,7 @@ BEGIN
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
+
 		SET @FechaLimitePago = (
 			SELECT FechaConferencia
 			FROM ODS.Cronograma
@@ -4056,8 +4069,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -4131,6 +4143,7 @@ BEGIN
 			'' as Nivel,
 			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,
 			ISNULL(c.PrimerNombre,'') as PrimerNombre,
+
 			ISNULL(c.PrimerApellido,'') as PrimerApellido,
 			u.MostrarAyudaWebTraking,
 			ro.Descripcion as RolDescripcion,
@@ -4185,8 +4198,7 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
