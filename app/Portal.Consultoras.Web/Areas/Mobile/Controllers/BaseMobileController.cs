@@ -3,8 +3,10 @@ using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Infraestructure;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +20,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class BaseMobileController : BaseController
     {
-        public BaseMobileController():base()
+        public BaseMobileController() : base()
         {
-                
+
+        }
+
+        public BaseMobileController(ISessionManager sessionManager, ILogManager logManager) 
+            : base(sessionManager, logManager)
+        {
+
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)

@@ -579,7 +579,11 @@ namespace Portal.Consultoras.Common
 
             public const int BannerDesktopHome = 1111;
             public const int DesktopPedido = 12;
+            public const int DesktopHome = 11;
+            public const int DesktopCatalogo = 14;
             public const int MobilePedido = 22;
+            public const int MobileHome = 21;
+            public const int MobileCatalogo = 24;
 
             #region OfertasParaTi
             public const int OfertasParaTiDesktopHome = 1121;
@@ -2645,5 +2649,16 @@ namespace Portal.Consultoras.Common
             public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
         }
 
+        public static class RevistaDigital
+        {
+            public static class Estado
+            {
+                public const string InscritaActiva = "IA";
+                public const string NoInscritaActiva = "NIA";
+                public const string InscritaNoActiva = "INA";
+                public const string NoInscritaNoActiva = "NINA";
+                public const string Intriga = "INTRIGA";
+            }
+        }
     }
 }

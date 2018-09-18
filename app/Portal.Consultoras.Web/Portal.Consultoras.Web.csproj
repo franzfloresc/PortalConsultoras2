@@ -493,6 +493,7 @@
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
+    <Compile Include="Models\Ofertas\IndexViewModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoDetalleModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaPasarelaCamposModel.cs" />
@@ -756,6 +757,7 @@
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
     <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
+    <Compile Include="Providers\ConfiguracionPaisDatosProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
@@ -3441,6 +3443,7 @@
     <Content Include="Content\Images\RevistaDigital\bg_popups.png" />
     <Content Include="Content\Images\RevistaDigital\bg_showroom.png" />
     <Content Include="Content\Images\RevistaDigital\blanco-con-espacio.png" />
+    <Content Include="Content\Images\RevistaDigital\blanco-con-espacio2.png" />
     <Content Include="Content\Images\RevistaDigital\cerrar_04_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\bg_ficha_kadia.jpg" />
     <Content Include="Content\Images\RevistaDigital\celular_revista.png" />
