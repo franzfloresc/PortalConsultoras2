@@ -33,14 +33,14 @@
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
     <div class="proceso_de_pago_en_linea">
-        <a id="linkRegresar" class="btn_paso_anterior_pago_en_linea" href="@Url.Action("Index", "PagoEnLinea")">
+        <a id="linkRegresar" class="btn_paso_anterior_pago_en_linea" href="@Url.Action("Index", "Bienvenida")">
             <span class="icono_back_arrow">
                 <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
             </span>
             <span class="enlace_texto">VOLVER</span>
         </a>
         <div class="clear"></div>
-        <div class="cantidad_pasos_proceso_pago">
+        @*<div class="cantidad_pasos_proceso_pago">
 
             <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
             <span class="paso_proceso_pago_en_linea paso_activo">2</span>
@@ -49,15 +49,17 @@
             <div class="linea_conectora_pasos">
                 <span class="fondo_pasos_proceso_pago_avance"></span>
             </div>
-        </div>
+        </div>*@
 
         <div class="vista_confirmacion_pago">
             <h3 class="titulo_seleccion_monto_a_pagar w-100 text-center">Elige el método de pago</h3>
+            <p class="text-center">Recuerda habilitar tu tarjeta para pagos por internet.</p>
 
             @foreach (var item in Model.ListaMetodoPago)
             {
             <div class="metodo_pago_seleccion_tarjeta metodoPago text-center">
-                <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoDesktop w-100">
+                <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoDesktop w-100"
+                     data-mediopagoid="@item.PagoEnLineaMedioPagoDetalleId">
                     <div class="col_izq text-left">
                         <div class="icono_marca_tarjeta">
                             <img src="@item.RutaIcono" alt="" />
@@ -73,7 +75,7 @@
                     </div>
                 </div>
                 <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display:none;">
-                    <div class="monto_total_a_pagar mt-12 mb-14">
+                    @*<div class="monto_total_a_pagar mt-12 mb-14">
                         <span class="texto_descripcion_tipo_pago text-uppercase">Pago Total :</span>
                         <span class="tipo_moneda_pais">@Model.Simbolo</span>
                         <span class="monto_moneda_pais">@Model.MontoDeudaConGastosString</span>
@@ -119,30 +121,24 @@
                                 data-tipotarjeta="@item.TipoTarjeta">
                             Continuar
                         </button>
-                    }
+                    }*@
                 </div>
             </div>
             }
         </div>        
     </div>
-    <div class="popup_terminos_y_condiciones">
-        <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
-        </a>
-        <h4 class="titulo_terminos_y_condiciones text-uppercase">Términos y condiciones</h4>
-        <div class="contenido_terminos_y_condiciones descripcion_terminos_y_condiciones" id="divContenidoTerminosCondiciones">
-
-        </div>
-    </div>
 </div>
 
 @section scripts{
     <script type="text/javascript">
-        var colorBoton = '@Model.PagoVisaModel.FormButtonColor';
+        @*var colorBoton = '@Model.PagoVisaModel.FormButtonColor';*@
         var metodoPagoPasarelaVisa = '@Constantes.PagoEnLineaMetodoPago.PasarelaVisa';
         var metodoPagoPasarelaBelcorpPayU = '@Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU';
         var tipoOrigenPantalla = 1;
         var urlPasarelaPago = '@Url.Action("PasarelaPago","PagoEnLinea")';
+        var urlPagoMonto = '@Url.Action("Index", "PagoEnLinea")';
+        var rutaGuardarDatosPago = '@Url.Action("GuardarDatosPago", "PagoEnLinea")';
     </script>
 
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/MetodoPago.js")?v1"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/MetodoPago.js")?v2"></script>
 }

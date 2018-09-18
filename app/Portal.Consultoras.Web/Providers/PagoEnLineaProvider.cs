@@ -29,9 +29,33 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogica = new TablaLogicaProvider();
         }
 
+        public void CargarDataMetodoPago(PagoEnLineaModel model)
+        {
+            var metodo = model.MetodoPagoSeleccionado;
+
+            switch (metodo.TipoPasarelaCodigoPlataforma)
+            {
+                //case Constantes.PagoEnLineaMetodoPago.PasarelaVisa:
+                //    model.PagoVisaModel = ObtenerValoresPagoVisa(model);
+                //    break;
+                case Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU:
+                    model.PagoVisaModel = ObtenerValoresPagoPayu(model);
+                    break;
+                default:
+                    model.PagoVisaModel = new PagoVisaModel();
+                    break;
+            }
+        }
+
         public PagoEnLineaModel ObtenerValoresPagoEnLinea()
         {
             var model = new PagoEnLineaModel();
+
+            return ObtenerValoresPagoEnLinea(model);
+        }
+
+        public PagoEnLineaModel ObtenerValoresPagoEnLinea(PagoEnLineaModel model)
+        {
             var userData = sessionManager.GetUserData();
 
             model.CodigoIso = userData.CodigoISO;
@@ -303,8 +327,7 @@ namespace Portal.Consultoras.Web.Providers
                 UrlPagoPayu = settings[Constantes.PagoEnLineaPasarelaPayu.Endpoint],
                 IsTest = settings[Constantes.PagoEnLineaPasarelaPayu.Test] == "1"
             };
-
-
+            
             return pagoModel;
         }
 
@@ -617,11 +640,11 @@ namespace Portal.Consultoras.Web.Providers
             return result;
         }
 
-        public PagoEnLineaMedioPagoDetalleModel ObtenerMetodoPagoSelecccionado(PagoEnLineaModel pago, string card, int medio)
+        public PagoEnLineaMedioPagoDetalleModel ObtenerMetodoPagoSelecccionado(PagoEnLineaModel pago, string metodo, string card, int medio)
         {
             return pago.ListaMetodoPago
                 .FirstOrDefault(m =>
-                    m.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU &&
+                    m.TipoPasarelaCodigoPlataforma == metodo &&
                     m.PagoEnLineaMedioPagoId == medio &&
                     m.TipoTarjeta == card);
         }

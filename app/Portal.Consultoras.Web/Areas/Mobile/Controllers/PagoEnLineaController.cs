@@ -52,17 +52,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (pago == null || pago.ListaMetodoPago == null) return RedirectToAction("Index");
             if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
-            if (!string.IsNullOrEmpty(cardType))
-            {
-                var selected = _pagoEnLineaProvider.ObtenerMetodoPagoSelecccionado(pago, cardType, medio);
+            //if (!string.IsNullOrEmpty(cardType))
+            //{
+            //    var selected = _pagoEnLineaProvider.ObtenerMetodoPagoSelecccionado(pago, cardType, medio);
 
-                if (selected == null)
-                {
-                    return RedirectToAction("Index");
-                }
-                pago.MetodoPagoSeleccionado = selected;
-                sessionManager.SetDatosPagoVisa(pago);
-            }
+            //    if (selected == null)
+            //    {
+            //        return RedirectToAction("Index");
+            //    }
+            //    pago.MetodoPagoSeleccionado = selected;
+            //    sessionManager.SetDatosPagoVisa(pago);
+            //}
             
             if (pago.MetodoPagoSeleccionado == null)
             {

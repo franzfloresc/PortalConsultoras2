@@ -22,10 +22,8 @@ $(document).ready(function () {
             InicializarEventos: function () {                
                 $(document).on('click', '.opcionPagoMobile', me.Eventos.MostrarDetalleTipoPago);
                 $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
-                $(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
-                $(document).on('click', '.ver_terminos_y_condiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
+                $(document).on('click', 'a[data-tipovisualizacion]', me.Eventos.AbrirPopupTerminosYCondiciones);
                 $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
-                $(document).on('click', '.btn_continuar', me.Eventos.MostrarTooltipAceptarTerminosYCondiciones);
                 $(document).on('keyup', '#txtMontoParcial', me.Eventos.ObtenerMontosPagoParcial);
                 $(document).on('click', '#txtMontoParcial', me.Eventos.OnClickTxtMontoParcial);
                 $(document).on('click', '#btnPagarVisa', me.Eventos.PagarConVisaPaso1);
@@ -116,13 +114,21 @@ $(document).ready(function () {
             },
             AbrirPopupTerminosYCondiciones: function (e) {
                 e.preventDefault();
-                $('body').css({"overflow-y":"hidden"});
-                $('.fondo_modal').fadeIn(300);
+
+                var contenedorPadre = $(this).parents('.aceptar_terminos_y_condiciones')[0];
+
+                var htmlTerminosCondiciones = $(contenedorPadre).find('input[data-terminos]').val();
+                $('#divContenidoTerminosCondiciones').html(htmlTerminosCondiciones);
+                $('.proceso_de_pago_en_linea').fadeOut(200);
+                $('body,html').animate({
+                    scrollTop: 47
+                }, 200);
+                $('.popup_terminos_y_condiciones').fadeIn(200);
             },
             CerrarPopupTerminosYCondiciones: function (e) {
                 e.preventDefault();
-                $('body').css({ "overflow-y": "auto" });
-                $('.fondo_modal').fadeOut(300);
+                $(this).parents('.popup_terminos_y_condiciones').fadeOut(200);
+                $('.proceso_de_pago_en_linea').fadeIn(200);
             },
             ObtenerMontosPagoParcial: function (e) {
                 var montoParcial = parseFloat($(this).val());

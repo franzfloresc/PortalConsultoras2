@@ -4,6 +4,7 @@
 
 @{
     ViewBag.Title = "Pago en Línea";
+    var metodoPago = Model.MetodoPagoSeleccionado;
 }
 
 @section styles{
@@ -38,7 +39,7 @@
 
             <span class="paso_proceso_pago_en_linea paso_activo">1</span>
             <span class="paso_proceso_pago_en_linea">2</span>
-            <span class="paso_proceso_pago_en_linea mr-0">3</span>
+            @*<span class="paso_proceso_pago_en_linea mr-0">3</span>*@
 
             <div class="linea_conectora_pasos">
                 <span class="fondo_pasos_proceso_pago_avance"></span>
@@ -90,6 +91,24 @@
                                     <div class="w-53 text-left text-bold-black">TOTAL POR PAGAR :</div>
                                     <div class="w-45 text-right text-bold-black">@Model.MontoDeudaConGastosString</div>
                                 </div>
+                                <div class="aceptar_terminos_y_condiciones">
+                                    <input type="hidden" value="@metodoPago.TerminosCondiciones" data-terminos />
+                                    <div class="descripcion_opcion_activacion">
+                                        Al presionar continuar aceptas los
+                                        @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
+                                        {
+                                            <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
+                                                términos y condiciones
+                                            </a>
+                                        }
+                                        @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Archivo)
+                                        {
+                                            <a class="ver_terminos_y_condiciones" target="_blank" href="@metodoPago.TerminosCondiciones">
+                                                términos y condiciones
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
                                 <button type="button" class="cta_pago_en_linea btn_pago_tarjeta_credito default-background" id="btnPagoTotal">
                                     Continuar
                                 </button>
@@ -135,6 +154,24 @@
                                         @Util.DecimalToStringFormat(0, Model.CodigoIso)
                                     </div>
                                 </div>
+                                <div class="aceptar_terminos_y_condiciones">
+                                    <input type="hidden" value="@metodoPago.TerminosCondiciones" data-terminos />
+                                    <div class="descripcion_opcion_activacion">
+                                        Al presionar continuar aceptas los
+                                        @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
+                                        {
+                                            <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
+                                                términos y condiciones
+                                            </a>
+                                        }
+                                        @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Archivo)
+                                        {
+                                            <a class="ver_terminos_y_condiciones" target="_blank" href="@metodoPago.TerminosCondiciones">
+                                                términos y condiciones
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
                                 <button type="button" class="cta_pago_en_linea btn_pago_tarjeta_credito default-background" id="btnPagoParcial">
                                     Continuar
                                 </button>
@@ -159,6 +196,14 @@
             </p>
         </div>
     </div>
+    <div class="popup_terminos_y_condiciones">
+        <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
+        </a>
+        <h4 class="titulo_terminos_y_condiciones text-uppercase">Términos y condiciones</h4>
+        <div class="contenido_terminos_y_condiciones descripcion_terminos_y_condiciones" id="divContenidoTerminosCondiciones">
+
+        </div>
+    </div>
 </div>
 
 @section scripts{
@@ -167,6 +212,7 @@
     <script type="text/javascript">
         var rutaGuardarDatosPago = '@Url.Action("GuardarDatosPago", "PagoEnLinea")';
         var rutaPagoVisa = '@Url.Action("MetodoPago", "PagoEnLinea")';
+        var urlPasarelaPago = '@Url.Action("PasarelaPago","PagoEnLinea")';
         var tipoOrigenPantalla = 1;
     </script>
 }

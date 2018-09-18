@@ -36,9 +36,13 @@ namespace Portal.Consultoras.Web.Controllers
             if (!userData.TienePagoEnLinea)
                 return RedirectToAction("Index", "Bienvenida");
 
-            sessionManager.SetDatosPagoVisa(null);
+            var model = sessionManager.GetDatosPagoVisa();
+            if (model == null) return RedirectToAction("Index");
 
-            var model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea();
+            model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea(model);
+            _pagoEnLineaProvider.CargarDataMetodoPago(model);
+            //sessionManager.SetDatosPagoVisa(model);
+
             ViewBag.PagoEnLineaGastosLabel = userData.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.GastosLabelMx : Constantes.PagoEnLineaMensajes.GastosLabelPe;
 
             return View(model);
@@ -46,34 +50,36 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult MetodoPago()
         {
-            var model = sessionManager.GetDatosPagoVisa();
+            if (!userData.TienePagoEnLinea)
+                return RedirectToAction("Index", "Bienvenida");
 
-            if (model == null)
-                return RedirectToAction("Index", "PagoEnLinea");
-
-            model = _pagoEnLineaProvider.ObtenerValoresMetodoPago(model);
+            var model = new PagoEnLineaModel
+            {
+                ListaMetodoPago = _pagoEnLineaProvider.ObtenerListaMetodoPago()
+            };
+            sessionManager.SetDatosPagoVisa(model);
 
             return View(model);
         }
 
         [HttpGet]
-        public ActionResult PasarelaPago(string cardType, int medio = 0)
+        public ActionResult PasarelaPago()
         {
             var pago = sessionManager.GetDatosPagoVisa();
-            if (pago == null || pago.ListaMetodoPago == null) return RedirectToAction("Index");
+            if (pago == null || pago.MetodoPagoSeleccionado == null) return RedirectToAction("Index");
             if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida");
 
-            if (!string.IsNullOrEmpty(cardType))
-            {
-                var selected = _pagoEnLineaProvider.ObtenerMetodoPagoSelecccionado(pago, cardType, medio);
+            //if (!string.IsNullOrEmpty(cardType))
+            //{
+            //    var selected = _pagoEnLineaProvider.ObtenerMetodoPagoSelecccionado(pago, cardType, medio);
 
-                if (selected == null)
-                {
-                    return RedirectToAction("Index");
-                }
-                pago.MetodoPagoSeleccionado = selected;
-                sessionManager.SetDatosPagoVisa(pago);
-            }
+            //    if (selected == null)
+            //    {
+            //        return RedirectToAction("Index");
+            //    }
+            //    pago.MetodoPagoSeleccionado = selected;
+            //    sessionManager.SetDatosPagoVisa(pago);
+            //}
             
             if (pago.MetodoPagoSeleccionado == null)
             {
@@ -152,10 +158,21 @@ namespace Portal.Consultoras.Web.Controllers
             return View(info);
         }
 
-        public JsonResult GuardarDatosPago(PagoEnLineaModel model)
+        [HttpPost]
+        public JsonResult GuardarDatosPago(int id)
         {
-            model.CodigoIso = userData.CodigoISO;
-            model.Simbolo = userData.Simbolo;
+            var model = sessionManager.GetDatosPagoVisa();
+            if (model == null)
+            {
+                return Json(new { success = false });
+            }
+            
+            model.MetodoPagoSeleccionado = model.ListaMetodoPago.FirstOrDefault(r => r.PagoEnLineaMedioPagoDetalleId == id);
+
+            if (model.MetodoPagoSeleccionado == null)
+            {
+                return Json(new { success = false });
+            }
 
             sessionManager.SetDatosPagoVisa(model);
 
