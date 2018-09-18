@@ -19,9 +19,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "Cliente", new { area = "Mobile" });
+                //return RedirectToAction("Index", "Cliente", new { area = "Mobile" });
+                if (url.Length > 1)
+                {
+                    sap = url[1];
+                    return RedirectToAction("Index", "Cliente", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Cliente", new { area = "Mobile" });
+                }
+
             }
             
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Cliente/Index"))

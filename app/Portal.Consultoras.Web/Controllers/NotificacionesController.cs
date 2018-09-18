@@ -25,13 +25,25 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _cdrProvider = new CdrProvider();
             _notificacionProvider = new NotificacionProvider();
-        }
+        } 
 
         public ActionResult Index()
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
+                //return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
+
+                if (url.Length > 1)
+                {
+                    sap = url[1];
+                    return RedirectToAction("Index", "Notificaciones", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
+                }
             }
 
             Session["fechaGetNotificacionesSinLeer"] = null;

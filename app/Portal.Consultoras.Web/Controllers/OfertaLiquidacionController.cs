@@ -29,9 +29,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult OfertasLiquidacion()
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
+
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile" });
+                // return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile" });
+                if (url.Length > 1)
+                {
+                    sap = url[1];
+                    return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile" });
+                }
             }
 
             if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)

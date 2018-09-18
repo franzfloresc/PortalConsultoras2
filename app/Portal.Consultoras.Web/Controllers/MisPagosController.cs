@@ -13,6 +13,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.Routing;  // PPC
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -27,11 +28,33 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Acciones
 
-        public ActionResult Index(string pestanhaInicial)
+         public ActionResult Index(string pestanhaInicial)
+        //  public ActionResult Index(string pestanhaInicial, string utm_source = "",string utm_medium ="",string utm_campaign = "", string utm_term = "", string utm_content = "")  //  PPC
         {
+            string sap="";
+            var url = (Request.Url.Query).Split('?');
+
+            //String s = String.Format("sap-outbound-id");
+            //var ID = (Request.Url.OriginalString).Split('=');
+            //var MIID = ID[1];
+
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile" });
+                // return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile" });
+                //if url[1].Length > 0 
+                // return RedirectToAction("Index", new RouteValueDictionary(new { controller = "EstadoCuenta", area = "Mobile", sap= url[1] }));
+                // return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile", sapoutboundid = MIID,  utm_source = utm_source, utm_medium = utm_medium, utm_campaign = utm_campaign, utm_term = utm_term, utm_content = utm_content });
+
+                if (url.Length > 1)
+                {
+                    sap = url[1];
+                    return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile" });
+                }
+
             }
             sessionManager.SetListadoEstadoCuenta(null);
 

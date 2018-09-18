@@ -28,9 +28,20 @@ namespace Portal.Consultoras.Web.Controllers
         // GET: PagoEnLinea
         public ActionResult Index()
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
+                //return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
+                if (url.Length > 1)
+                {
+                    sap = url[1];
+                    return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
+                }
             }
 
             if (!userData.TienePagoEnLinea)
