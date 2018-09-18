@@ -4014,7 +4014,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             #region UnidadesPermitidas
-            List<BEPedidoWebDetalle> sesionPedidos = sessionManager.GetDetallesPedido();
+            List<BEPedidoWebDetalle> sesionPedidos = SessionManager.GetDetallesPedido();
             var pedidoAgregado = sesionPedidos.Where(x => x.CUV == model.CUV).ToList();
             int cantidadesAgregadas = 0;
             if (model.LimiteVenta > 0)

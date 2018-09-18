@@ -162,7 +162,7 @@ $(document).ready(function () {
                 },
                 AgregarProducto: function (e) {
                     e.preventDefault();
-                    AbrirLoad();
+                   
 
                     var divPadre = $(this).parents("[data-item='ProductoBuscador']").eq(0);
                     var model = JSON.parse($(divPadre).find(".hdBuscadorJSON").val());
@@ -184,7 +184,7 @@ $(document).ready(function () {
                         labelAgregadoLiquidacion = agregado;
                         RegistrarProductoOferta(e);
                     } else {
-
+                        AbrirLoad();
                         var urlInsertar = '';
                         if (model.TipoPersonalizacion == 'CAT') {
                             urlInsertar = baseUrl + 'Pedido/PedidoInsertarBuscador';
@@ -264,7 +264,7 @@ $(document).ready(function () {
                                 }
                                 $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
-                                CerrarLoad();
+                                CerrarLoad();                               
                                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
                                 agregado.html("Agregado");
                                 var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
