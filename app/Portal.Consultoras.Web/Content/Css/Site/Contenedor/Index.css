@@ -347,10 +347,14 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
             }
 
                 .op-menu-horizontal .subnavegador li a img {
-                    width: 16px;
+                    width: 60px;
                     margin-bottom: -2px;
-                    padding-right: 3.5px;
                 }
+
+            .logo_ofertas_digitales {
+                width: 65px !important;
+                margin-bottom: -5px !important;
+               }
 
             .op-menu-horizontal .subnavegador li a.activado{
                 border-bottom: 3px solid #c39934;
@@ -750,12 +754,12 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
 
 .fixed_head {
     position: fixed;
-    top: 61px;
+    top: 110px;
     width: 100%;
     margin: auto;
     z-index: 9;
     right: 0;
-    padding-left: 142px;
+    /*padding-left: 142px;*/
     max-width: initial;
 }
 
