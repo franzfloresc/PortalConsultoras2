@@ -390,6 +390,7 @@ namespace Portal.Consultoras.Common
             public const string UrlChatGT = "UrlChatGT";
             public const string UrlChatDefault = "UrlChatDefault";
             public const string TokenAtento = "TokenAtento_";
+            public const string URLCaminoExisto = "URLCaminoExisto";
 
             public const string EmailCodigoProceso = "EmailCodigoProceso";
             public const string NumeroCampanias = "NumeroCampanias";
@@ -1987,7 +1988,14 @@ namespace Portal.Consultoras.Common
             public const string IsSubcampaign = "essubcampania";
             public const string OfferStatus = "estado de oferta";
 
-            public enum Position { CUV = 0, AllowedUnits = 1, NameSet = 2, BusinessTip = 3, IsSubcampaign = 4, OfferStatus = 5 };
+            public enum Position {
+                CUV = 0,
+                AllowedUnits = 1,
+                NameSet = 2,
+                BusinessTip = 3,
+                IsSubcampaign = 4,
+                OfferStatus = 5
+            };
         }
 
         public static class ColumnsProductStrategyShowroom
@@ -2430,12 +2438,12 @@ namespace Portal.Consultoras.Common
 
         public static class PagoEnLineaPasarelaPayu
         {
-            public const string MerchantId = "01";
-            public const string ApiLogin = "02";
-            public const string ApiKey = "03";
-            public const string AccountId = "04";
-            public const string Endpoint = "05";
-            public const string Test = "06";
+            public const string MerchantId = "PayuMerchantId";
+            public const string ApiLogin = "PayuApiLogin";
+            public const string ApiKey = "PayuApiKey";
+            public const string AccountId = "PayuAccountId";
+            public const string Endpoint = "PayuEndpoint";
+            public const string Test = "PayuTest";
         }
 
         public static class PagoEnLineaCampos
@@ -2455,6 +2463,7 @@ namespace Portal.Consultoras.Common
             public const string Country = "MX";
             public const string Currency = "MXN";
             public const string TransactionType = "AUTHORIZATION_AND_CAPTURE";
+            public const string DefaultCity = "Mexico";
         }
 
         public static class PagoEnLineaMensajes
@@ -2496,7 +2505,7 @@ namespace Portal.Consultoras.Common
 
             //api/Estrategia/descripcion/{pais}/{tipo}/{campania}
             public const string UrlUploadCsv = "api/estrategia/descripcion/{0}/{1}/{2}";
-                                                
+
             //api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
             public const string UrlEstrategiaCuv = "api/estrategia/cuv/{0}/{1}/{2}/{3}";
 
@@ -2511,6 +2520,39 @@ namespace Portal.Consultoras.Common
 
             //api/Estrategia/multiple/{pais}
             public const string UrlListarEstrategiaPorConfigurarWebApi = "api/Estrategia/multiple/{0}";
+
+            //api/Evento/eliminar/{pais}/{id}
+            public const string UrlEliminarShowRoomEvento = "api/Evento/eliminar/{0}/{1}";
+
+            //api/Evento/listar/{pais}/{campania}
+            public const string UrlConsultarShowRoom = "api/Evento/listar/{0}/{1}";
+
+            //api/Evento/deshabilitar/{pais}/{id}?usuario={usuario}
+            public const string UrlDeshabilitarShowRoomEvento = "api/Evento/deshabilitar/{0}/{1}?usuario={2}";
+
+            //api/Evento/personalizacion/guardar/{pais}/{idevento}
+            public const string UrlEventoPersonalizacion = "/api/Evento/personalizacion/guardar/{0}/{1}";
+
+            //api/Estrategia/descripcion/{pais}/{tipo}/{campania}?tipoEstrategia={tipoEstrategia}&usuario={usuario}
+            public const string UrlUploadFileSetStrategyShowroom = "api/Estrategia/descripcion/{0}/{1}/{2}?tipoEstrategia={3}&usuario={4}";
+
+            //api/Componente/descripcion/{pais}/{tipo}/{campania}?usuario={usuario}
+            public const string UrlUploadFileProductStrategyShowroom = "api/Componente/descripcion/{0}/{1}/{2}?usuario={3}";
+
+            //api/Evento/registrar/{pais}
+            public const string UrlGuardarShowRoom = "api/Evento/registrar/{0}";
+
+            //api/Evento/editar/{pais}
+            public const string UrlUpdateShowRoomEvento = "api/Evento/editar/{0}";
+
+            //api/Estrategia/eliminar/{pais}?id={id}
+            public const string UrlEliminarEstrategia = "api/Estrategia/eliminar/{0}?id={1}";
+
+            //api/Componente/deshabilitar/{pais}
+            public const string UrlEliminarOfertaShowRoomDetalleNew = "api/Componente/deshabilitar/{0}";
+
+            //api/Componente/editar/{pais}/{tipo}
+            public const string UrlUpdateOfertaShowRoomDetalleNew = "api/Componente/editar/{0}/{1}";
             #endregion
 
             #region Oferta
@@ -2640,5 +2682,11 @@ namespace Portal.Consultoras.Common
             public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
         }
 
+        public class AceptacionContrato
+        {
+            public const string UrlDescargarContratoCO = "http://somosbelcorpprd.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
+            public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
+            public const string AcionesOmitidas = "ActualizarContrasenia";
+        }
     }
 }
