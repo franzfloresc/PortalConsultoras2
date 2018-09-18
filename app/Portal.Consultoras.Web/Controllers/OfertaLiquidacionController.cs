@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _renderImgProvider = new RenderImgProvider();
         }
-        
+
         #region Visualización de Pedidos Liquidación
 
         public ActionResult OfertasLiquidacion()
@@ -222,8 +222,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PedidoDetalleID = entidad.PedidoDetalleID,
                     IndicadorIPUsuario = GetIPCliente(),
                     IndicadorFingerprint = "",
-                    IndicadorToken = (Session["TokenPedidoAutentico"] != null)
-                        ? Session["TokenPedidoAutentico"].ToString()
+                    IndicadorToken = (SessionManager.GetTokenPedidoAutentico() != null)
+                        ? SessionManager.GetTokenPedidoAutentico().ToString()
                         : ""
                 };
 
@@ -715,8 +715,8 @@ namespace Portal.Consultoras.Web.Controllers
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
-                    
-                    #endregion                    
+
+                    #endregion
 
                     sv.InsOfertaProducto(entidad);
                 }
@@ -1307,6 +1307,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
     }
 }

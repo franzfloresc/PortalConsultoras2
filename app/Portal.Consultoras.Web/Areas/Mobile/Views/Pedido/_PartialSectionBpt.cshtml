@@ -42,12 +42,13 @@
                 <div class="zona-items">
 
                     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-                         new ViewDataDictionary {
-                    { "Source", 3 },
-                    { "NombreConsultora", ViewBag.NombreConsultora },
-                    { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido },
-                    { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
-                                                             });
+                        new ViewDataDictionary
+                        {
+                            { "Source", 3 },
+                            { "NombreConsultora", ViewBag.NombreConsultora },
+                            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido },
+                            { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
+                        });
                 </div>
             }
 
@@ -80,12 +81,13 @@
                 else
                 {
                     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-                            new ViewDataDictionary {
-                                                { "Source", 3 },
-                                                { "NombreConsultora", ViewBag.NombreConsultora },
-                                                { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido },
-                                                { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
-                                                    });
+                        new ViewDataDictionary
+                        {
+                            { "Source", 3 },
+                            { "NombreConsultora", ViewBag.NombreConsultora },
+                            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido },
+                            { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
+                        });
                 }
             </div>
         </div>
@@ -119,6 +121,7 @@ else if (revistaDigital.TieneRDI)
         { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
         { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
         });*@
+
     <div class="wrapper_resumen_mobile_clubganamas">
         <div class="zonadecolor">
             <div class="logo-club-etiqueta logo_no_suscrita">
@@ -131,13 +134,14 @@ else if (revistaDigital.TieneRDI)
             </a>
         </div>
         <div class="zona-items">
-            @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml", new ViewDataDictionary
-            {
-                { "Source", 3 },
-                { "NombreConsultora", ViewBag.NombreConsultora },
-                { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido },
-                { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
-            });
+            @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml", 
+                new ViewDataDictionary
+                {
+                    { "Source", 3 },
+                    { "NombreConsultora", ViewBag.NombreConsultora },
+                    { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido },
+                    { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
+                });
         </div>
     </div>
 }
@@ -145,11 +149,12 @@ else
 {
 
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-    new ViewDataDictionary {
-{ "Source", 1 },
-{ "NombreConsultora", ViewBag.NombreConsultora },
-{ "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido },
-{ "NombrePalanca", revistaDigital.NombreComercialNoActiva}
-    });
+        new ViewDataDictionary
+        {
+            { "Source", 1 },
+            { "NombreConsultora", ViewBag.NombreConsultora },
+            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido },
+            { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
+        });
 
 }
