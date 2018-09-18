@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Common
             {
                 if (string.IsNullOrEmpty(_urlMatriz))
                 {
-                    _urlMatriz = ConfigurationManager.AppSettings["Matriz"];
+                    _urlMatriz = ConfigurationManager.AppSettings["Matriz"] ?? string.Empty;
                 }
 
                 return _urlMatriz;
