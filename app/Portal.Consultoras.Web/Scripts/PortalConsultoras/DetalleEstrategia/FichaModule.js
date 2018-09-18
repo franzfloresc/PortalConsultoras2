@@ -177,6 +177,7 @@
                 dfd.resolve(data);
             },
             error: function (data, error) {
+                console.log(data, error);
                 dfd.reject(data, error);
             }
         });
@@ -194,7 +195,9 @@
 				codigoEstrategia: estrategia.CodigoEstrategia,
 				lstHermanos: estrategia.Hermanos
             };
+            console.log(param);
             _promiseObternerComponentes(param).done(function (data) {
+                console.log(data);
                 estrategia.Hermanos = data.componentes;
                 estrategia.EsMultimarca = data.esMultimarca;
                 _esMultimarca = data.esMultimarca;
@@ -268,7 +271,7 @@
         }
 
         if (estrategia == null) {
-            window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
+            window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
             return false;
         }
 
