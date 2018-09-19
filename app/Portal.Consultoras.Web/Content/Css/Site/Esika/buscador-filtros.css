@@ -957,11 +957,11 @@
 @media screen and (max-width:351px){
 
     .resultado_busqueda_descrip_prod{
-        width:31%;
+        width:27%;
     }
 
     .resultado_wrapper_selector_cantidad_y_btn_agregar {
-        width: 35%;
+        width: 39%;
     }
 
     .btn_elegir_opcion {
