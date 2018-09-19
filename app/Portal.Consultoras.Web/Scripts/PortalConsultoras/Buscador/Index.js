@@ -123,7 +123,10 @@ $(document).ready(function () {
                     }
 
                     // validar teclas especiales
-                    var key = keys.find(key => key.val === event.which);
+                    //var key = keys.find(key => key.val === event.which);
+                    var key = keys.find(function (key) {
+                        return key.val === event.which
+                    });
                     if (typeof key != 'undefined') {
                         return false;
                     }
@@ -314,7 +317,8 @@ $(document).ready(function () {
                             DescripcionMarca: '',
                             DescripcionEstrategia: descripcionEstrategia,
                             Posicion: posicion,
-                            EstrategiaID: EstrategiaID
+                            EstrategiaID: EstrategiaID,
+                            LimiteVenta: LimiteVenta
                         }
 
                         jQuery.ajax({

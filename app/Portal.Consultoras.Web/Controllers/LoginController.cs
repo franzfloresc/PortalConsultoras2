@@ -174,7 +174,7 @@ namespace Portal.Consultoras.Web.Controllers
                         TempData["FlagAcademiaVideo"] = 0;
                         flagMiAcademiaVideo = 0;
                     }
-                    
+
 
                 }
             }
@@ -393,7 +393,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);  //PPC
                 sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  //PPC
-                
+
                 returnUrl = Url.Action("Index", "MiAcademia");
 
                 if (usuario.RolID != Constantes.Rol.Consultora)
@@ -918,7 +918,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Exists = res
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
         private JsonResult SuccessJson(string message, bool allowGet = false)
         {
             return Json(new { success = allowGet, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
@@ -2123,7 +2123,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
             revistaDigitalModel.EsActiva = revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
-            
+
             revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
             #endregion
@@ -2880,8 +2880,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 configuracionCampania = sv.GetEstadoPedido(PaisID, CampaniaID, ConsultoraID, ZonaID, RegionID);
             }
-
-            diaFacturacion = (configuracionCampania.FechaInicioFacturacion - DateTime.Now).Days;
+            if (configuracionCampania != null) diaFacturacion = (configuracionCampania.FechaInicioFacturacion - DateTime.Now).Days;
 
             return diaFacturacion;
         }
