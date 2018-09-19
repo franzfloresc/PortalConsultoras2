@@ -1,9 +1,5 @@
 ﻿var PagoEnLineaMetodoPago;
-var colorBoton = colorBoton || "";
-var metodoPagoPasarelaVisa = metodoPagoPasarelaVisa || "";
-var metodoPagoPasarelaBelcorpPayU = metodoPagoPasarelaBelcorpPayU || "";
 var tipoOrigenPantalla = tipoOrigenPantalla || 0;
-var urlPasarelaPago = urlPasarelaPago || "";
 var urlPagoMonto = urlPagoMonto || "";
 var rutaGuardarDatosPago = rutaGuardarDatosPago || '';
 
@@ -25,20 +21,19 @@ $(document).ready(function () {
                     //$(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
                     $(document).on('click', '.opcionPagoMobile', me.Eventos.MostrarDetalleTipoPago);
                     $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
-                    //$(document).on('click', 'button[data-metodopago]', me.Eventos.ContinuarPasarelaPago);
                     $(document).on('click', 'a[data-tipovisualizacion]', me.Eventos.AbrirPopupTerminosYCondiciones);
                     $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
                 },
                 InicializarAcciones: function () {
                     //me.globals.barraActivacion.toggleClass('activado');
-                    var boton = $("button[type='submit']")[0];
+                    //var boton = $("button[type='submit']")[0];
 
-                    if (boton) {
-                        $(boton).css("background", colorBoton);
-                        $(boton).addClass("btn_pago_tarjeta_credito");
-                        $(boton).addClass("w-100");
-                        $(boton).addClass("text-uppercase");
-                        $(boton).addClass("text-bold");
+                    //if (boton) {
+                    //    $(boton).css("background", colorBoton);
+                    //    $(boton).addClass("btn_pago_tarjeta_credito");
+                    //    $(boton).addClass("w-100");
+                    //    $(boton).addClass("text-uppercase");
+                    //    $(boton).addClass("text-bold");
                         //$(boton).css("width", "100%");
                         //$(boton).css("font-family", "Lato");
                         //$(boton).css("border-radius", "0%");
@@ -47,8 +42,8 @@ $(document).ready(function () {
                         //if (tipoOrigenPantalla == 1)
                         //    $(boton).css("max-width", "308px");
 
-                        $(boton).html("PAGA CON VISA");
-                    }
+                    //    $(boton).html("PAGA CON VISA");
+                    //}
 
                     //var esPagoEnLineaMobile = window.matchMedia("(max-width:991px)").matches;
 
@@ -148,19 +143,6 @@ $(document).ready(function () {
                 //    $(this).parents('.popup_terminos_y_condiciones').fadeOut(200);
                 //    $('.proceso_de_pago_en_linea').fadeIn(200);
                 //},
-                ContinuarPasarelaPago: function (e) {
-                    e.preventDefault();
-
-                    var metodoPago = $(this).data("metodopago");
-
-                    if (metodoPago == metodoPagoPasarelaBelcorpPayU) {
-                        var medioPago = $(this).data("mediopago");
-                        var cardType = $(this).data("tipotarjeta");
-                        window.location.href = urlPasarelaPago + "?cardType=" + cardType + "&medio=" + medioPago;
-                    }
-
-                    //alert("123");
-                }
             },
             me.Inicializar = function () {
                 me.Funciones.InicializarEventos();

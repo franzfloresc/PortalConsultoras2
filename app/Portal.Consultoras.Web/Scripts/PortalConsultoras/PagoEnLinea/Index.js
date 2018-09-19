@@ -83,7 +83,7 @@ $(document).ready(function () {
                     }
                 });
             },
-            RealizarPago: function() {
+            IrPasarela: function() {
                 if (pasarelaActual == metodoPagoPasarelaVisa) {
                     window.location.href = rutaPagoVisa;
 
@@ -95,9 +95,6 @@ $(document).ready(function () {
                     window.location.href = urlPasarelaPago;
                     return;
                 }
-            },
-            CargarPasarelaVisa: function() {
-
             }
         },
         me.Eventos = {
@@ -201,7 +198,7 @@ $(document).ready(function () {
                 var porcentajeGastosAdministrativos = $("#hdPorcentajeGastosAdministrativos").val();
                 me.Funciones.GuardarMontos(montoDeuda, porcentajeGastosAdministrativos);
 
-                me.Funciones.RealizarPago();
+                me.Funciones.IrPasarela();
             },
             PagoParcial: function (e) {
                 e.preventDefault();
@@ -223,7 +220,7 @@ $(document).ready(function () {
                 var porcentajeGastosAdministrativos = $("#hdPorcentajeGastosAdministrativos").val();
                 me.Funciones.GuardarMontos(montoDeuda, porcentajeGastosAdministrativos);  
 
-                me.Funciones.RealizarPago();
+                me.Funciones.IrPasarela();
             },
             MarcacionMetodoPago: function (e) {
                 dataLayer.push({

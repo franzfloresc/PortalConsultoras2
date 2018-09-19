@@ -35,6 +35,13 @@
     <div class="pestana_lbel"></div>
 
     <div class="proceso_de_pago_en_linea">
+        <a id="linkRegresar" class="btn_paso_anterior_pago_en_linea" href="@Url.Action("MetodoPago")">
+            <span class="icono_back_arrow">
+                <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
+            </span>
+            <span class="enlace_texto">VOLVER</span>
+        </a>
+        <div class="clear"></div>
         <div class="cantidad_pasos_proceso_pago">
 
             <span class="paso_proceso_pago_en_linea paso_activo">1</span>
@@ -49,8 +56,8 @@
             <div class="seleccion_tipo_pago w-100 text-center">
                 <h3 class="titulo_seleccion_tipo_pago">SELECCIONA EL TIPO DE PAGO</h3>
 
-                <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
-                <input type="hidden" id="hdPorcentajeGastosAdministrativos" value="@Model.PorcentajeGastosAdministrativos" name="PorcentajeGastosAdministrativos" />
+                <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda"/>
+                <input type="hidden" id="hdPorcentajeGastosAdministrativos" value="@Model.PorcentajeGastosAdministrativos" name="PorcentajeGastosAdministrativos"/>
 
                 @foreach (var item in Model.ListaTipoPago)
                 {
@@ -72,11 +79,11 @@
                                 </div>
                                 <div class="col_der">
                                     <div class="icono_flecha_despliegue">
-                                        <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
+                                        <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido"/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display:none;">
+                            <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display: none;">
                                 <div class="opcion_pago_monto">
                                     <div class="w-53 text-left">Monto :</div>
                                     <div class="w-45 text-right">@Model.MontoDeudaString</div>
@@ -85,13 +92,13 @@
                                     <div class="w-53 text-left">@ViewBag.PagoEnLineaGastosLabel (@Model.PorcentajeGastosAdministrativos%) :</div>
                                     <div class="w-45 text-right">@Model.MontoGastosAdministrativosString</div>
                                 </div>
-                                <hr class="linea_separacion_montos_y_total w-100" />
+                                <hr class="linea_separacion_montos_y_total w-100"/>
                                 <div class="opcion_pago_total_a_pagar">
                                     <div class="w-53 text-left text-bold-black">TOTAL POR PAGAR :</div>
                                     <div class="w-45 text-right text-bold-black">@Model.MontoDeudaConGastosString</div>
                                 </div>
                                 <div class="aceptar_terminos_y_condiciones">
-                                    <input type="hidden" value="@metodoPago.TerminosCondiciones" data-terminos />
+                                    <input type="hidden" value="@metodoPago.TerminosCondiciones" data-terminos/>
                                     <div class="descripcion_opcion_activacion">
                                         Al presionar continuar aceptas los
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
@@ -124,16 +131,16 @@
                                         <span>@Model.Simbolo </span>
                                         <input type="text" class="monto_a_editar" id="txtMontoParcial"
                                                placeholder="@Util.DecimalToStringFormat(0, Model.CodigoIso)"
-                                               value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);" />
+                                               value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);"/>
                                     </div>
                                 </div>
                                 <div class="col_der">
                                     <div class="icono_flecha_despliegue">
-                                        <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
+                                        <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido"/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display:none;" id="pnParcial">
+                            <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display: none;" id="pnParcial">
                                 <div class="opcion_pago_monto">
                                     <div class="w-53 text-left">Monto :</div>
                                     <div class="w-45 text-right" id="spnMontoParcial">
@@ -146,7 +153,7 @@
                                         @Util.DecimalToStringFormat(0, Model.CodigoIso)
                                     </div>
                                 </div>
-                                <hr class="linea_separacion_montos_y_total w-100" />
+                                <hr class="linea_separacion_montos_y_total w-100"/>
                                 <div class="opcion_pago_total_a_pagar">
                                     <div class="w-53 text-left text-bold-black">TOTAL POR PAGAR :</div>
                                     <div class="w-45 text-right text-bold-black" id="spnMontoParcialConGastos">
@@ -154,7 +161,7 @@
                                     </div>
                                 </div>
                                 <div class="aceptar_terminos_y_condiciones">
-                                    <input type="hidden" value="@metodoPago.TerminosCondiciones" data-terminos />
+                                    <input type="hidden" value="@metodoPago.TerminosCondiciones" data-terminos/>
                                     <div class="descripcion_opcion_activacion">
                                         Al presionar continuar aceptas los
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
@@ -186,7 +193,7 @@
                 @foreach (var itemMedioPago in Model.ListaMedioPago)
                 {
                     <div class="icono_marca_tarjeta">
-                        <img src="@itemMedioPago.RutaIcono" alt="" />
+                        <img src="@itemMedioPago.RutaIcono" alt=""/>
                     </div>
                 }
             </div>
