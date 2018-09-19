@@ -172,21 +172,11 @@ $(document).ready(function () {
                     var cantidad = $(divPadre).find("[data-input='cantidad']").val();
                     var agregado = $(divPadre).find(".etiqueta_buscador_producto");
 
-                    modelLiquidacionOfertas = {
-                        Cantidad: cantidad,
-                        ConfiguracionOfertaID: 3,
-                        MarcaID: model.MarcaId,
-                        CUV: model.CUV,
-                        PrecioUnidad: model.Precio,
-                        DescripcionProd: model.Descripcion,
-                        DescripcionEstrategia: model.DescripcionEstrategia,
-                        origenPedidoLiquidaciones: model.OrigenPedidoWeb
-                    };
+                    AbrirLoad();
 
                     if (model.TipoPersonalizacion == 'LIQ') {
                         RegistroLiquidacion(model, cantidad, agregado);
-                    } else {
-                        AbrirLoad();
+                    } else {                       
                         var urlInsertar = '';
                         if (model.TipoPersonalizacion == 'CAT') {
                             urlInsertar = baseUrl + 'Pedido/PedidoInsertarBuscador';
@@ -345,7 +335,7 @@ function RegistroLiquidacion(model, cantidad, producto) {
             return false;
         }
 
-        if (parseInt(data.Saldo) < parseInt(Cantidad)) {
+        if (parseInt(data.Saldo) < parseInt(cantidad)) {
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;
             $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: model.CUV }, function (data) {
@@ -365,7 +355,7 @@ function RegistroLiquidacion(model, cantidad, producto) {
                 cache: false
             });
             $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: model.CUV }, function (data) {
-                if (parseInt(data.Stock) < parseInt(Cantidad)) {
+                if (parseInt(data.Stock) < parseInt(cantidad)) {
                     AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.", "LO SENTIMOS");
                     CerrarLoad();
                     return false;
@@ -391,7 +381,7 @@ function RegistroLiquidacion(model, cantidad, producto) {
                                 return false;
                             }
 
-                            labelAgregadoLiquidacion.html('Agregado');
+                            producto.html('Agregado');
 
                             CerrarLoad();
                         },
