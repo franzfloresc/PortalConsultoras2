@@ -303,7 +303,7 @@ function ActualizaCuvAgregado(cuv, valor, lista, indCampania) {
                         item.IsAgregado = valor;
                     }
 
-                    ok = true;
+                    //ok = true;
                     if (cuv != "todo") {
                         return false;
                     }
