@@ -70,6 +70,7 @@ namespace Portal.Consultoras.Web.Providers
                             SAP = item.SAP.Trim(),
                             Imagen = item.Imagen,
                             Descripcion = item.Descripcion,
+                            DescripcionCompleta = item.Descripcion,
                             Valorizado = item.Valorizado,
                             Precio = item.Precio,
                             CodigoEstrategia = item.CodigoEstrategia,
@@ -85,7 +86,8 @@ namespace Portal.Consultoras.Web.Providers
                             Stock = !item.Stock,
                             OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile),
                             TipoPersonalizacion = item.TipoPersonalizacion,
-                            URLBsucador = item.URLBsucador
+                            URLBsucador = item.URLBsucador,
+                            EstrategiaID = item.EstrategiaID
                         });
                     }
                 }

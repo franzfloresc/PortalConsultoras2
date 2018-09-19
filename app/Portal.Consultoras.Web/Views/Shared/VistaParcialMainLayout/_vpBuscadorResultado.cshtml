@@ -18,6 +18,7 @@
         <input type="hidden" class="hdBuscadorCampaniaID" value="{{CampaniaID}}" />
         <input type="hidden" class="hdBuscadorOrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
         <input type="hidden" class="hdBuscadorTipoPersonalizacion" value="{{TipoPersonalizacion}}" />
+        <input type="hidden" class="hdBuscadorEstrategiaID" value="{{EstrategiaID}}" />
 
         <div class="resultado_busqueda_img_prod displayInlineBlock redireccionarFicha">
             <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
@@ -44,7 +45,7 @@
                         <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
                     </span>
                     <span class="displayInlineBlock">
-                        Elige tu opción
+                        Elige<br /> tu opción
                     </span>
                 </a>
             </div>

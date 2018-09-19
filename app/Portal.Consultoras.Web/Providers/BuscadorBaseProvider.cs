@@ -51,7 +51,8 @@ namespace Portal.Consultoras.Web.Providers
                                 TipoEstrategiaId = item.TipoEstrategiaId,
                                 LimiteVenta = item.LimiteVenta,
                                 Stock = item.Stock,
-                                URLBsucador = path
+                                URLBsucador = path,
+                                EstrategiaID = item.EstrategiaID
                             };
 
                             resultados.Add(buscador);

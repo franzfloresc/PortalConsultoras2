@@ -195,7 +195,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -323,7 +324,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -345,6 +347,7 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO
 USE BelcorpMexico
@@ -543,7 +546,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -671,7 +675,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -693,6 +698,7 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO
 USE BelcorpColombia
@@ -891,7 +897,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -1019,7 +1026,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -1041,6 +1049,7 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO
 USE BelcorpSalvador
@@ -1239,7 +1248,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -1367,7 +1377,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -1389,6 +1400,7 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO
 USE BelcorpPuertoRico
@@ -1587,7 +1599,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -1715,7 +1728,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -1737,6 +1751,7 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO
 USE BelcorpPanama
@@ -1935,7 +1950,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -2063,7 +2079,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -2085,6 +2102,7 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO
 USE BelcorpGuatemala
@@ -2283,7 +2301,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -2411,7 +2430,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -2433,6 +2453,7 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO
 USE BelcorpEcuador
@@ -2631,7 +2652,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -2759,7 +2781,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -2781,6 +2804,7 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO
 USE BelcorpDominicana
@@ -2979,7 +3003,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -3107,7 +3132,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -3129,6 +3155,7 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO
 USE BelcorpCostaRica
@@ -3327,7 +3354,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -3455,7 +3483,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -3477,6 +3506,7 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO
 USE BelcorpChile
@@ -3675,7 +3705,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -3803,7 +3834,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -3825,6 +3857,7 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO
 USE BelcorpBolivia
@@ -4023,7 +4056,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -4151,7 +4185,8 @@ BEGIN
 			ISNULL(ctd.TotalCompra, 0) TotalCompra, /*HD-2192*/
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
-			ISNULL(u.NovedadBuscador, 0) NovedadBuscador
+			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
+			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -4173,5 +4208,6 @@ BEGIN
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
+
 
 GO

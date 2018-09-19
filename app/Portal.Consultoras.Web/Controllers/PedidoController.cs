@@ -4029,7 +4029,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (model.LimiteVenta > 0)
             {
-                if (sesionPedidos.Any())
+                if (pedidoAgregado.Any())
                 {
                     cantidadesAgregadas = sesionPedidos[0].Cantidad;
                 }
@@ -4063,8 +4063,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Nuevo AgregarProducto
-
-
         public JsonResult PedidoAgregarProducto(PedidoCrudModel model)
         {
             try
