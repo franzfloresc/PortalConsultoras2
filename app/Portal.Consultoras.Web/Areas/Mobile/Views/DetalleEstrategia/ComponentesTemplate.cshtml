@@ -81,7 +81,9 @@
                         <span class="cantidad_producto_opt">x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</span>
                         <div class="nombre-producto-ficha">
                             {{componente.NombreComercial}}
+                            {{#if componente.TienenNombreReferencial}}
                             <span class="text_referencial_tipos">*Nombre de producto referencial</span>
+                            {{/if}}
                         </div>
                         <br class="clear" />
                     </div>
