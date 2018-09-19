@@ -35,9 +35,9 @@ namespace Portal.Consultoras.Web.Providers
 
             switch (metodo.TipoPasarelaCodigoPlataforma)
             {
-                //case Constantes.PagoEnLineaMetodoPago.PasarelaVisa:
-                //    model.PagoVisaModel = ObtenerValoresPagoVisa(model);
-                //    break;
+                case Constantes.PagoEnLineaMetodoPago.PasarelaVisa:
+                    model.PagoVisaModel = ObtenerValoresPagoVisa(model);
+                    break;
                 case Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU:
                     model.PagoVisaModel = ObtenerValoresPagoPayu(model);
                     break;
@@ -196,15 +196,6 @@ namespace Portal.Consultoras.Web.Providers
             var userData = sessionManager.GetUserData();
 
             #region Valores Configuracion Pago En Linea
-
-            //var listaConfiguracion = _tablaLogica.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
-
-            //pagoVisaModel.MerchantId = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MerchantId);
-            //pagoVisaModel.AccessKeyId = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.AccessKeyId);
-            //pagoVisaModel.SecretAccessKey = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.SecretAccessKey);
-            //pagoVisaModel.UrlSessionBotonPagos = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlSessionBotonPago);
-            //pagoVisaModel.UrlGenerarNumeroPedido = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlGenerarNumeroPedido);
-            //pagoVisaModel.UrlLibreriaPagoVisa = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLibreriaPagoVisa);
             pagoVisaModel.SessionToken = Guid.NewGuid().ToString().ToUpper();
 
             var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaVisa;
@@ -638,15 +629,6 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return result;
-        }
-
-        public PagoEnLineaMedioPagoDetalleModel ObtenerMetodoPagoSelecccionado(PagoEnLineaModel pago, string metodo, string card, int medio)
-        {
-            return pago.ListaMetodoPago
-                .FirstOrDefault(m =>
-                    m.TipoPasarelaCodigoPlataforma == metodo &&
-                    m.PagoEnLineaMedioPagoId == medio &&
-                    m.TipoTarjeta == card);
         }
 
         public bool CanPay(UsuarioModel userData, PagoEnLineaModel pago)
