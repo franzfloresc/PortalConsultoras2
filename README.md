@@ -1,5 +1,8 @@
 # Portal Consultoras SB2
 
-PI2-EPM-Sprint1-Inicio
+PI2-EPM-Sprint1-Mejora
 
-- Integracion de todo Sprint 4 + Sprint 5
+- Sonar 
+- Kibana
+- DeudaTecnica
+
