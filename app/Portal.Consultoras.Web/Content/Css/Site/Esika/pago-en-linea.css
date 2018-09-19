@@ -216,7 +216,7 @@
 
 .cantidad_pasos_proceso_pago{
     margin:0 auto;
-    max-width:218px;
+    max-width:132px;
     position:relative;
     margin-bottom:36px;
 }
@@ -356,6 +356,7 @@
 .info_pago_seguro_con_tarjetas{
     margin:0 auto;
     max-width:405px;
+    text-align:center;
 }
 
 .icono_marca_tarjeta{
