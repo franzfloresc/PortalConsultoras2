@@ -325,6 +325,10 @@
         var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
         var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
 
+        // Buscados
+        var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
+        var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
+
         // Seteando Controlador y Accion
         @{
             var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
