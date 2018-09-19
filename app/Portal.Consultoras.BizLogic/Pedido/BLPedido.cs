@@ -654,6 +654,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public async Task<BEPedidoReservaResult> Reserva(BEUsuario usuario)
         {
+            BEResultadoReservaProl resultadoReserva;
+
             try
             {
                 //Validacion reserva u horario restringido
@@ -691,7 +693,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     CodigoPrograma = usuario.CodigoPrograma,
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
-                var resultadoReserva = await _reservaBusinessLogic.EjecutarReserva(input);
+
+                if(string.IsNullOrEmpty(usuario.CodigoZona))
+                    resultadoReserva = await _reservaBusinessLogic.CargarSesionAndEjecutarReserva(usuario.CodigoISO, usuario.CampaniaID, usuario.ConsultoraID, usuario.usuarioPrueba, usuario.AceptacionConsultoraDA, true, false);
+                else
+                    resultadoReserva = await _reservaBusinessLogic.EjecutarReserva(input);
+
                 var code = string.Empty;
                 var enumReserva = (int)resultadoReserva.ResultadoReservaEnum;
                 if (usuario.DiaPROL) code = (enumReserva + 2010).ToString();
