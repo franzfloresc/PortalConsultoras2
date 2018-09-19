@@ -86,9 +86,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!showRoomEventoModel.TieneOfertasAMostrar) return RedirectToAction("Index", "Bienvenida");
 
-                ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
-
-                ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                showRoomEventoModel.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
+                showRoomEventoModel.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 var dato = _ofertasViewProvider.ObtenerPerdioTitulo(userData.CampaniaID, IsMobile());
                 showRoomEventoModel.ProductosPerdio = dato.Estado;
@@ -96,6 +95,7 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
                 showRoomEventoModel.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
                 showRoomEventoModel.TieneCategoria = false;
+                showRoomEventoModel.PerdioLogo = revistaDigital.DLogoComercialActiva;
 
                 return View(showRoomEventoModel);
             }
