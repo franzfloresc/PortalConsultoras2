@@ -435,7 +435,7 @@ function RegistroLiquidacion(model, cantidad, producto) {
             return false;
         }
 
-        if (parseInt(data.Saldo) < parseInt(Cantidad)) {
+        if (parseInt(data.Saldo) < parseInt(cantidad)) {
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;
             $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: model.CUV }, function (data) {
@@ -455,7 +455,7 @@ function RegistroLiquidacion(model, cantidad, producto) {
                 cache: false
             });
             $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: model.CUV }, function (data) {
-                if (parseInt(data.Stock) < parseInt(Cantidad)) {
+                if (parseInt(data.Stock) < parseInt(cantidad)) {
                     AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.", "LO SENTIMOS");
                     CerrarLoad();
                     return false;
@@ -481,7 +481,7 @@ function RegistroLiquidacion(model, cantidad, producto) {
                                 return false;
                             }
 
-                            labelAgregadoLiquidacion.html('Agregado');
+                            producto.html('Agregado');
 
                             if (isPagina('pedido')) {
                                 if (model != null && model != undefined)
@@ -491,6 +491,8 @@ function RegistroLiquidacion(model, cantidad, producto) {
                                 MostrarBarra(data);
                             }
 
+                            microefectoPedidoGuardado();
+                            CargarResumenCampaniaHeader();
                             CerrarLoad();
                         },
                         error: function (data, error) {

@@ -216,7 +216,9 @@
     var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
     var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
     var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
-    var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
+        var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
+        var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
+        var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
     </script>
 
     <script type="text/javascript">
