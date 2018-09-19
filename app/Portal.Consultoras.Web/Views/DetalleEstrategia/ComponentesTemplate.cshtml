@@ -78,7 +78,9 @@
                     <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</span>
                     <div class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
                         {{componente.NombreComercial}}
+                        {{#if componente.TienenNombreReferencial}}
                         <span class="text_referencial_tipos">*Nombre de producto referencial</span>
+                        {{/if}}
                     </div>
                     
                 </div>

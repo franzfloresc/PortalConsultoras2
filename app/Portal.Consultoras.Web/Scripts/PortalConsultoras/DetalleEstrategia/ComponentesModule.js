@@ -52,6 +52,14 @@ var ComponentesModule = (function () {
             estrategia === null) throw "param estrategia is not defined or null";
 
         _estrategia = estrategia;
+        $.each(_estrategia.Hermanos, function (index, hermano) {
+            hermano.TienenNombreReferencial = false;
+            if (hermano.Hermanos.length > 0) {
+                if (hermano.NombreComercial.indexOf(hermano.NombreBulk) >= 0) {
+                    hermano.TienenNombreReferencial = true;
+                }
+            }
+        });
         SetHandlebars(_elements.componentes.templateId, _estrategia, _elements.componentes.id);
     };
 
