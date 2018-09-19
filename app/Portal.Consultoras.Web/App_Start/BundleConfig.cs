@@ -879,7 +879,7 @@ namespace Portal.Consultoras.Web
 
      
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/ShowRoom-index").Include(
-                "~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js",
+                //"~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js",
                 "~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js",
                 "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
