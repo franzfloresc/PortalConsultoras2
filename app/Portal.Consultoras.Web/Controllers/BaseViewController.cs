@@ -70,13 +70,15 @@ namespace Portal.Consultoras.Web.Controllers
                 FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
                 Success = true,
                 MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()),
-                CantidadFilas = 15
+                CantidadFilas = 20
             };
 
             var dato = _ofertasViewProvider.ObtenerPerdioTitulo(model.CampaniaID, IsMobile());
             model.ProductosPerdio = dato.Estado;
             model.PerdioTitulo = dato.Valor1;
             model.PerdioSubTitulo = dato.Valor2;
+
+            model.PerdioLogo = revistaDigital.DLogoComercialActiva;
 
             model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
 

@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult AutocompleteCorreo()
         {
             var term = (Request["term"] ?? "").ToString();
-            var lista = (List<BECliente>)Session[Constantes.ConstSession.ClientesByConsultora] ?? new List<BECliente>();
+            var lista = SessionManager.GetClientesByConsultora() ?? new List<BECliente>();
             if (!lista.Any())
             {
                 using (ClienteServiceClient sv = new ClienteServiceClient())
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 lista.Update(c => { c.Nombre = c.Nombre.Trim(); c.eMail = c.eMail.Trim(); });
                 lista = lista.Where(c => c.eMail != "").ToList();
-                Session[Constantes.ConstSession.ClientesByConsultora] = lista;
+                SessionManager.SetClientesByConsultora(lista);
             }
             lista = lista.Where(c => c.eMail.Contains(term)).ToList();
 
@@ -557,7 +557,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string codigo = _issuuProvider.GetRevistaCodigoIssuu(campania, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
                 if (string.IsNullOrEmpty(codigo)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-                
+
                 string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);

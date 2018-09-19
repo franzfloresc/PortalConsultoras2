@@ -63,8 +63,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var indexViewModel = new IndexViewModel();
                 bool esMobile = IsMobile();
-                var modelo = new EstrategiaPersonalizadaModel
+                indexViewModel.EstrategiaPersonalizada = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, esMobile),
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
@@ -72,9 +73,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 };
 
-                ViewBag.variableEstrategia = GetVariableEstrategia();
+                indexViewModel.VariablesEstrategia = GetVariableEstrategia();
 
-                return View("Index", modelo);
+                return View("Index", indexViewModel);
             }
             catch (Exception ex)
             {

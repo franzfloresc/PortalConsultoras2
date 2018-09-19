@@ -152,23 +152,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 VerifyDoNotCallLogManager();
             }
 
-            protected void SetupPalancaInSession(string configuracionPaisCodigo)
-            {
-                if (!string.IsNullOrEmpty(configuracionPaisCodigo))
-                {
-                    SessionManager
-                        .Setup(x => x.GetConfiguracionesPaisModel())
-                        .Returns(
-                            new List<ConfiguracionPaisModel>
-                            {
-                                new ConfiguracionPaisModel
-                                {
-                                    Codigo = configuracionPaisCodigo
-                                }
-                            });
-                }
-            }
-
             private void SetupProviderToReturnNull()
             {
                 OfertaPersonalizadaProvider.Setup(x => x.ObtenerEstrategiaPersonalizada(
@@ -191,19 +174,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 // Assert
                 var breadCrumbOfertas = ((DetalleEstrategiaFichaModel)result.Model).BreadCrumbs.Ofertas.Texto;
                 Assert.AreEqual("Ofertas Digitales", breadCrumbOfertas);
-            }
-
-            protected void SetupRevistaDigitalInSession(bool esSuscrita, bool esActiva)
-            {
-                SessionManager
-                    .Setup(x => x.GetRevistaDigital())
-                    .Returns(
-                        new RevistaDigitalModel
-                        {
-                            TieneRDC = true,
-                            EsSuscrita = esSuscrita,
-                            EsActiva = esActiva
-                        });
             }
 
             public virtual void Ficha_PalancaOpmYConsultoraNoTieneRevistaDigital_BreadCrumOfertasReturnsOfertasDigitales()

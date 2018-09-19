@@ -265,7 +265,8 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             bool esMultimarca = false;
-            ofertaShowRoomModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, Constantes.TipoEstrategiaCodigo.ShowRoom, out esMultimarca);
+            string mensaje = "";
+            ofertaShowRoomModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, Constantes.TipoEstrategiaCodigo.ShowRoom, out esMultimarca, out mensaje);
 
             return ofertaShowRoomModelo;
         }

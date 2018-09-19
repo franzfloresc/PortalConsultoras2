@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Portal.Consultoras.Web.LogManager;
+using System.Web.Script.Serialization;
+using System.Diagnostics;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -290,7 +292,7 @@ namespace Portal.Consultoras.Web.Providers
             return result;
         }
 
-        private List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
+        protected virtual List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
         {
             var  configuracionesOfertasHomes = new List<BEConfiguracionOfertasHome>();
 
@@ -305,7 +307,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 LogManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "OfertasController.Index");
             }
-            
+
             return configuracionesOfertasHomes;
         }
 

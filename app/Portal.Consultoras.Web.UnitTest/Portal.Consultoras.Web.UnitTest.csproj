@@ -116,12 +116,13 @@
     <Compile Include="Controllers\LoginControllerUnitTest.cs" />
     <Compile Include="Controllers\DetalleEstrategiaControllerUnitTests.cs" />
     <Compile Include="Controllers\BaseViewControllerUnitTests.cs" />
-    <Compile Include="Extensions\DataHandlerExtensions.cs" />
+    <Compile Include="Extensions\DataHandler.cs" />
     <Compile Include="Extensions\RedirectToRouteResultExtensions.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhoneTests.cs" />
     <Compile Include="Controllers\RevistaDigitalControllerUnitTest.cs" />
     <Compile Include="Models\RevistaDigitalModelUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ConfiguracionOfertasHomeProviderUnitTests.cs" />
     <Compile Include="Providers\ShowRoomProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +135,10 @@
     <None Include="DataTesting\2003MultiComponenteMixtoNMData.json" />
     <None Include="DataTesting\2003MultiComponenteNMData.json" />
     <None Include="DataTesting\2003UnComponenteNMData.json" />
+    <None Include="DataTesting\ConfiguracionOfertasHome\ObtenerConfiguracionSeccion\ConfiguracionOfertasHomeOPT.json" />
+    <None Include="DataTesting\ConfiguracionOfertasHome\ObtenerConfiguracionSeccion\ConfiguracionOfertasHomeRDR.json" />
+    <None Include="DataTesting\ConfiguracionOfertasHome\ObtenerConfiguracionSeccion\ConfiguracionOfertasHomeRD.json" />
+    <None Include="DataTesting\ConfiguracionOfertasHome\ObtenerConfiguracionSeccion\ConfiguracionOfertasHome.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

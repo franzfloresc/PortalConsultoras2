@@ -34,8 +34,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
             }
 
-            Session["fechaGetNotificacionesSinLeer"] = null;
-            Session["cantidadGetNotificacionesSinLeer"] = null;
+            SessionManager.SetfechaGetNotificacionesSinLeer(null);
+            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
 
             List<BENotificaciones> olstNotificaciones;
             NotificacionesModel model = new NotificacionesModel();
@@ -108,8 +108,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                Session["fechaGetNotificacionesSinLeer"] = null;
-                Session["cantidadGetNotificacionesSinLeer"] = null;
+                SessionManager.SetfechaGetNotificacionesSinLeer(null);
+                SessionManager.SetcantidadGetNotificacionesSinLeer(null);
 
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
@@ -362,7 +362,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 logsGprValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();
             }
-            
+
             _notificacionProvider.CargarMensajesNotificacionesGPR(model, logsGprValidacion, userData.CodigoISO, userData.Simbolo, userData.MontoMinimo, userData.MontoMaximo);
             model.NombreConsultora = string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre;
             model.Total = model.SubTotal + model.Descuento;
@@ -460,7 +460,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (CheckDataSessionCantidadNotificaciones())
                 {
-                    cantidadNotificaciones = Convert.ToInt32(Session["cantidadGetNotificacionesSinLeer"]);
+                    cantidadNotificaciones = Convert.ToInt32(SessionManager.GetcantidadGetNotificacionesSinLeer());
                 }
                 else
                 {
@@ -469,8 +469,8 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea);
                     }
 
-                    Session["fechaGetNotificacionesSinLeer"] = DateTime.Now.Ticks;
-                    Session["cantidadGetNotificacionesSinLeer"] = cantidadNotificaciones;
+                    SessionManager.SetfechaGetNotificacionesSinLeer(DateTime.Now.Ticks);
+                    SessionManager.SetcantidadGetNotificacionesSinLeer(cantidadNotificaciones);
                 }
             }
             catch (Exception ex)
@@ -483,10 +483,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool CheckDataSessionCantidadNotificaciones()
         {
-            if (Session["fechaGetNotificacionesSinLeer"] != null &&
-                Session["cantidadGetNotificacionesSinLeer"] != null)
+            if (SessionManager.GetfechaGetNotificacionesSinLeer() != null &&
+                SessionManager.GetcantidadGetNotificacionesSinLeer() != null)
             {
-                var ticks = Convert.ToInt64(Session["fechaGetNotificacionesSinLeer"]);
+                var ticks = Convert.ToInt64(SessionManager.GetfechaGetNotificacionesSinLeer());
                 var fecha = new DateTime(ticks);
                 var diferencia = DateTime.Now - fecha;
                 return (diferencia.TotalMinutes <= 30);

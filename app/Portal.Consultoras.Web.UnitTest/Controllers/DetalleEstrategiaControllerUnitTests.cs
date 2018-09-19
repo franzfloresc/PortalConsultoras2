@@ -202,7 +202,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 43285))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2003UnComponenteNMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2003UnComponenteNMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
@@ -253,7 +253,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 43512))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteNMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteNMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
@@ -327,7 +327,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 43485))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteMixtoNMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteMixtoNMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
@@ -401,7 +401,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 43510))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2001UnComponenteNMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2001UnComponenteNMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
@@ -475,7 +475,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 28103))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2002MultiComponenteMMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2002MultiComponenteMMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
@@ -509,7 +509,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 37334))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteMixtoMMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteMixtoMMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 

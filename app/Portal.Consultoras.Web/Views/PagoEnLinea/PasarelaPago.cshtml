@@ -97,7 +97,7 @@
                     {
                         <div class="grupo_campo_formulario_pasarela_pago">
                             <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
-                            @Html.TextBoxFor(m => m.Birthdate, new { @class = "campo_formulario_pasarela_pago w-100" , placeholder = "00/00/0000", required = "true", data_val_date = Constantes.MvcErrorMessages.DateErrorMessage })
+                            @Html.TextBoxFor(m => m.Birthdate, new { @class = "campo_formulario_pasarela_pago w-100" , placeholder = "dd/mm/aaaa", required = "true", data_val_date = Constantes.MvcErrorMessages.DateErrorMessage })
                             @Html.PagoValidationMessageFor(m => m.Birthdate)
                         </div>
                     }
@@ -118,7 +118,7 @@
                         </div>
                     }
                     <button type="submit" class="cta_pago_en_linea btn_pago_tarjeta_credito text-bold text-uppercase default-background w-100 mt-40 mb-30">
-                        Pagar
+                        Pagar @ViewBag.PagoMontoTotal
                     </button>
                 }
             </div>
