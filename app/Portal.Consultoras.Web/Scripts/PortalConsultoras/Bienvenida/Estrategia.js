@@ -204,13 +204,13 @@ function _pintarEstrellas(item) {
 }
 
 function ArmarCarouselEstrategias(data) {
-
     $("#divListaEstrategias").hide();
     $(".js-slick-prev").remove();
     $(".js-slick-next").remove();
     $("#divListadoEstrategia.slick-initialized").slick("unslick");
     data.Lista = data.Lista || [];
     if (data.Lista.length == 0) {
+
         $("#divListaEstrategias").show();
         $("#divContenedorListaEstrategia").hide();
         $(".contenido_gana_mas").hide();
