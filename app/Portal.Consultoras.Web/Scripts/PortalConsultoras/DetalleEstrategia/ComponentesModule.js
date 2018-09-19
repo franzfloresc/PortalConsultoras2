@@ -121,7 +121,7 @@ var ComponentesModule = (function () {
             CuvPadre === null ||
             $.trim(CuvPadre) === "") throw "param CuvPadre is not defined or null";
         CuvPadre = $.trim(CuvPadre);
-
+        
         $.each(_estrategia.Hermanos, function (index, hermano) {
             CuvPadre = $.trim(CuvPadre);
             if (CuvPadre === hermano.Cuv) {
@@ -143,7 +143,6 @@ var ComponentesModule = (function () {
 
                 var callFromSeleccionarPaletaOpcion = true;
                 ResumenOpcionesModule.AplicarOpciones(callFromSeleccionarPaletaOpcion);
-
                 //Marcación Analytics (EPM-1442)
                 AnalyticsPortalModule.MarcarImagenProducto(_estrategia, componente.resumenAplicados);
 
