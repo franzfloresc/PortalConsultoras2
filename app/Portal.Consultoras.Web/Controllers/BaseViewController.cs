@@ -78,6 +78,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.PerdioTitulo = dato.Valor1;
             model.PerdioSubTitulo = dato.Valor2;
 
+            model.PerdioLogo = revistaDigital.DLogoComercialActiva;
+
             model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
 
             return PartialView("template-landing", model);
