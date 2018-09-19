@@ -139,7 +139,6 @@
     font-stretch: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #AD1F78;
 }
 
 .contenido_titulo {
@@ -461,9 +460,9 @@
     display: block;
 }
 .ficha_lineaencuentraproducto hr {
-    border-color: #000 !important;
+    border-color: #ccc !important;
 }
 
 .ficha_tabs {
-    border-top: 1px solid #ccc;
+    /*border-top: 1px solid #ccc;*/
 }

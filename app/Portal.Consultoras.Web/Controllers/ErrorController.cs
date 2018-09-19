@@ -7,15 +7,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            UsuarioModel usuario = UserData();
-            LogManager.LogManager.LogErrorWebServicesBus(((HandleErrorInfo)ViewData.Model).Exception, usuario.CodigoConsultora, usuario.CodigoISO);
+            LogManager.LogManager.LogErrorWebServicesBus(((HandleErrorInfo)ViewData.Model).Exception, userData.CodigoConsultora, userData.CodigoISO);
             return View();
         }
 
         public ActionResult NotFound()
         {
-            UsuarioModel usuario = UserData();
-            LogManager.LogManager.LogErrorWebServicesBus(((HandleErrorInfo)ViewData.Model).Exception, usuario.CodigoConsultora, usuario.CodigoISO);
+            LogManager.LogManager.LogErrorWebServicesBus(((HandleErrorInfo)ViewData.Model).Exception, userData.CodigoConsultora, userData.CodigoISO);
             return View();
         }
     }

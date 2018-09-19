@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         private const int numeroFilas = 10;
 
+        protected ProductoFaltanteProvider _productoFaltanteProvider;
+
+        public ProductosAgotadosController()
+        {
+            _productoFaltanteProvider = new ProductoFaltanteProvider();
+        }
+
         public ActionResult Index()
         {
-            var userData = UserData();
+
             var model = new PedidoDetalleModel();
             try
             {
-                var lstProductoFaltante = this.GetProductosFaltantes();
-                Session["ListaProductoFaltantes"] = lstProductoFaltante;
+                var lstProductoFaltante = _productoFaltanteProvider.GetProductosFaltantes(userData);
+                sessionManager.SetListaProductoFaltantes(lstProductoFaltante); 
                 model.ListaProductoFaltante = lstProductoFaltante.Take(numeroFilas).ToList();
             }
             catch (FaultException ex)
@@ -39,7 +47,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var lstProductoFaltante = Session["ListaProductoFaltantes"] as List<BEProductoFaltante>;
+                var lstProductoFaltante = sessionManager.GetListaProductoFaltantes() as List<BEProductoFaltante>;
 
                 if (lstProductoFaltante != null)
                     return Json(new

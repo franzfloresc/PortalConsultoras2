@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index");
 
             _cdrProvider.CargarInformacion(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-            model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
+            model.ListaCampania = sessionManager.GetCDRCampanias();
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
 
             if (pedidoId != 0)
@@ -931,10 +931,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            int paisId = UserData().PaisID;
+            int paisId = userData.PaisID;
             int campaniaIdActual;
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -1335,7 +1335,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampanias(int PaisID)
         {
-            PaisID = UserData().PaisID;
+            PaisID = userData.PaisID;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
 
             return Json(new
@@ -1363,9 +1363,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -1373,9 +1373,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
         {
-            if (Session[Constantes.ConstSession.CDRExpressMensajes] != null)
+            if (sessionManager.GetCDRExpressMensajes() != null)
             {
-                return (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.CDRExpressMensajes];
+                return sessionManager.GetCDRExpressMensajes();
             }
 
             var listMensaje = new List<BETablaLogicaDatos>();
@@ -1390,7 +1390,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            Session[Constantes.ConstSession.CDRExpressMensajes] = listMensaje;
+            sessionManager.SetCDRExpressMensajes(listMensaje);
             return listMensaje;
         }
 

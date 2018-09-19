@@ -4,6 +4,7 @@ using Portal.Consultoras.BizLogic.PagoEnlinea;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
@@ -263,11 +264,18 @@ namespace Portal.Consultoras.Service
             blUsuario.InsLogIngresoPortal(paisID, CodigoConsultora, IPOrigen, Tipo, DetalleError, Canal);
         }
 
-        public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora , string origen, string direccionIP, string InformacionSOMobile)
+        public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora , string origen, string direccionIP, string InformacionSOMobile, string imei, string deviceID)
         {
             var blContratoAceptacion = new BLContratoAceptacion();
-            return blContratoAceptacion.AceptarContratoAceptacion(paisID, consultoraid, codigoConsultora, origen, direccionIP, InformacionSOMobile);
+            return blContratoAceptacion.AceptarContratoAceptacion(paisID, consultoraid, codigoConsultora, origen, direccionIP, InformacionSOMobile, imei, deviceID);
         }
+
+        public List<BeReporteContrato> ReporteContratoAceptacion(int paisID,string codigoConsultora, string cedula, DateTime? FechaInicio, DateTime? FechaFin)
+        {
+            var blContratoAceptacion = new BLContratoAceptacion();
+            return blContratoAceptacion.ReporteContratoAceptacion(paisID, codigoConsultora, cedula, FechaInicio, FechaFin);
+        }
+
 
         public BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta)
         {
@@ -741,9 +749,9 @@ namespace Portal.Consultoras.Service
             return _usuarioBusinessLogic.RegistrarEnvioSms(paisId, codigoUsuario, codigoConsultora, campaniaId, esMobile, celularActual, celularNuevo);
         }
 
-        public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania)
+        public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania, bool soloValidar)
         {
-            return _usuarioBusinessLogic.ConfirmarCelularPorCodigoSms(paisId, codigoUsuario, codigoSms, campania);
+            return _usuarioBusinessLogic.ConfirmarCelularPorCodigoSms(paisId, codigoUsuario, codigoSms, campania, soloValidar);
         }
 
         public string AceptarContrato(BEUsuario usuario)
@@ -839,6 +847,7 @@ namespace Portal.Consultoras.Service
         }
 
         #region OLVIDE CONTRASENIA
+
         public BEUsuarioDatos GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad)
         {
             var BLUsuario = new BLUsuario();
@@ -851,7 +860,7 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ProcesaEnvioEmail(paisID, oUsu, CantidadEnvios);
         }
 
-        public bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios)
+        public BERespuestaSMS ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.ProcesaEnvioSms(paisID, oUsu, CantidadEnvios);
@@ -862,6 +871,7 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return (BLUsuario.VerificarIgualdadCodigoIngresado(paisID, oUsu, codigoIngresado));
         }
+
         #endregion
 
         #region Verificacion de Autenticidad
@@ -890,10 +900,26 @@ namespace Portal.Consultoras.Service
             return BLUsuario.CancelarAtualizacionEmail(paisID, codigoUsuario);
         }
 
+        public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)
+        {
+            return _usuarioBusinessLogic.GetDireccionConsultora(paisID, codigoUsuario);
+        }
+
         public List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.listaProductos(paisID,CampaniaID, filas, CodigoDescripcion, regionId, zonaId, codigoRegion, codigoZona);
         }
+
+        #region ActualizacionDatos
+        public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo)
+        {
+            return _usuarioBusinessLogic.ActualizarEmailWS(usuario, correoNuevo);
+        }
+        public BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo)
+        {
+            return _usuarioBusinessLogic.EnviarSmsCodigo(paisID, codigoUsuario, codigoConsultora, campaniaID, esMobile, celularActual, celularNuevo);
+        }
+        #endregion
     }
 }

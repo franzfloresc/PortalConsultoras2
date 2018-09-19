@@ -20,9 +20,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class ConsultoraOnlineController : BaseMobileController
     {
         #region Variables
-
-        private const string keyFechaGetCantidadPedidos = "fechaGetCantidadPedidos";
-        private const string keyCantidadGetCantidadPedidos = "cantidadGetCantidadPedidos";
+        
         private const int refrescoGetCantidadPedidos = 30;
         MisPedidosModel objMisPedidos;
         readonly bool isEsika = false;
@@ -38,14 +36,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         ~ConsultoraOnlineController()
         {
-            Session["objMisPedidos"] = null;
-            Session["objMisPedidosDetalle"] = null;
-            Session["objMisPedidosDetalleVal"] = null;
+            sessionManager.SetobjMisPedidos(null);
+            sessionManager.SetobjMisPedidosDetalle(null);
+            sessionManager.SetobjMisPedidosDetalleVal(null);
         }
 
         public ActionResult Index(string data)
         {
-            var userData = UserData();
             var consultora = new ClienteContactaConsultoraModel();
 
             if (data != null)
@@ -81,7 +78,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Informacion()
         {
-            var userData = UserData();
+            
             var strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
@@ -104,7 +101,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult Inscripcion(ClienteContactaConsultoraModel model)
         {
-            var userData = UserData();
 
             if (ModelState.IsValid)
             {
@@ -189,10 +185,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                             }
 
-                            UserData().CambioClave = 1;
-                            UserData().EMail = sEmail;
-                            UserData().Telefono = sTelefono;
-                            UserData().Celular = sCelular;
+                            userData.CambioClave = 1;
+                            userData.EMail = sEmail;
+                            userData.Telefono = sTelefono;
+                            userData.Celular = sCelular;
+
+                            sessionManager.SetUserData(userData);
 
                             return Json(new
                             {
@@ -229,11 +227,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Afiliar()
         {
-            var userData = UserData();
+            
             try
             {
-                Session[keyFechaGetCantidadPedidos] = null;
-                Session[keyCantidadGetCantidadPedidos] = null;
+                sessionManager.SetkeyFechaGetCantidadPedidos(null);
+                sessionManager.SetkeyCantidadGetCantidadPedidos(null);
 
                 var consultoraAfiliar = new ClienteContactaConsultoraModel();
                 using (var sc = new SACServiceClient())
@@ -298,7 +296,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult EnviaCorreo()
         {
-            var userData = UserData();
+            
             var strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return Json(new
@@ -352,12 +350,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                Session[keyFechaGetCantidadPedidos] = null;
-                Session[keyCantidadGetCantidadPedidos] = null;
+                sessionManager.SetkeyFechaGetCantidadPedidos(null);
+                sessionManager.SetkeyCantidadGetCantidadPedidos(null);
 
                 using (var sc = new SACServiceClient())
                 {
-                    sc.UpdDesafiliaClienteConsultora(UserData().PaisID, consultoraID, false, opcionDesafiliacion);
+                    sc.UpdDesafiliaClienteConsultora(userData.PaisID, consultoraID, false, opcionDesafiliacion);
 
                     var data = new
                     {
@@ -383,11 +381,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult MisPedidos()
         {
-            Session[keyFechaGetCantidadPedidos] = null;
-            Session[keyCantidadGetCantidadPedidos] = null;
-
-            var userData = UserData();
-
+            sessionManager.SetkeyFechaGetCantidadPedidos(null);
+            sessionManager.SetkeyCantidadGetCantidadPedidos(null);
+            
             var model = new MisPedidosModel();
 
             using (var sv = new UsuarioServiceClient())
@@ -396,7 +392,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ListaPedidos = lstPedidos.OrderByDescending(x => x.FechaSolicitud).ToList();
             }
 
-            Session["objMisPedidos"] = model;
+            sessionManager.SetobjMisPedidos(model);
 
             return View(model);
         }
@@ -406,7 +402,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+                var consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
 
                 return Json(new
                 {
@@ -430,17 +426,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult DetallePedido(int pedidoId)
         {
             var model = new MisPedidosModel();
-            if (Session["objMisPedidos"] == null)
+            if (sessionManager.GetobjMisPedidos() == null)
             {
                 using (var sv = new UsuarioServiceClient())
                 {
                     model.ListaPedidos = sv.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
                 }
 
-                Session["objMisPedidos"] = model;
+                sessionManager.SetobjMisPedidos(model);
             }
 
-            var consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+            var consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
 
             var pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoId);
             ViewBag.NombreCompleto = userData.NombreConsultora;
@@ -449,7 +445,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             using (UsuarioServiceClient svc = new UsuarioServiceClient())
             {
                 olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
-                Session["objMisPedidosDetalle"] = olstMisPedidosDet;
+                sessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
             }
 
             if (pedido != null)
@@ -465,12 +461,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             string message;
             var success = true;
-            var userData = UserData();
+            
             try
             {
                 using (var sc = new SACServiceClient())
                 {
-                    var consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+                    var consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
 
                     sc.CancelarSolicitudCliente(userData.PaisID, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
 
@@ -486,7 +482,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
 
                     MisPedidosModel refreshMisPedidos = new MisPedidosModel { ListaPedidos = refresh };
-                    Session["objMisPedidos"] = refreshMisPedidos;
+                    sessionManager.SetobjMisPedidos(refreshMisPedidos);
                 }
 
                 message = "El pedido fue cancelado.";
@@ -508,11 +504,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var mensaje = string.Empty;
             try
             {
-                var userData = UserData();
+                
 
-                if (Session[keyFechaGetCantidadPedidos] != null && Session[keyCantidadGetCantidadPedidos] != null)
+                if (sessionManager.GetkeyFechaGetCantidadPedidos() != null && sessionManager.GetkeyCantidadGetCantidadPedidos() != null)
                 {
-                    var fecha = Convert.ToDateTime(Session[keyFechaGetCantidadPedidos]);
+                    var fecha = Convert.ToDateTime(sessionManager.GetkeyFechaGetCantidadPedidos());
                     var diferencia = DateTime.Now - fecha;
                     if (diferencia.TotalMinutes > refrescoGetCantidadPedidos)
                     {
@@ -521,12 +517,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             cantidadPedidos = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
                         }
 
-                        Session[keyFechaGetCantidadPedidos] = DateTime.Now;
-                        Session[keyCantidadGetCantidadPedidos] = cantidadPedidos;
+                        sessionManager.SetkeyFechaGetCantidadPedidos(DateTime.Now);
+                        sessionManager.SetkeyCantidadGetCantidadPedidos(cantidadPedidos);
                     }
                     else
                     {
-                        cantidadPedidos = Convert.ToInt32(Session[keyCantidadGetCantidadPedidos]);
+                        cantidadPedidos = Convert.ToInt32(sessionManager.GetkeyCantidadGetCantidadPedidos());
                     }
                 }
                 else
@@ -536,8 +532,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         cantidadPedidos = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
                     }
 
-                    Session[keyFechaGetCantidadPedidos] = DateTime.Now;
-                    Session[keyCantidadGetCantidadPedidos] = cantidadPedidos;
+                    sessionManager.SetkeyFechaGetCantidadPedidos(DateTime.Now);
+                    sessionManager.SetkeyCantidadGetCantidadPedidos(cantidadPedidos);
                 }
             }
             catch (Exception ex)
@@ -553,7 +549,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private ClienteContactaConsultoraModel DatoUsuario()
         {
-            var userData = UserData();
+            
 
             var consultoraAfiliar = new ClienteContactaConsultoraModel { NombreConsultora = userData.PrimerNombre };
 
@@ -584,7 +580,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string mensajeConsultora(string consultora, string url)
         {
-            string tlfBelcorpResponde = _configuracionManagerProvider.GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, UserData().CodigoISO));
+            string tlfBelcorpResponde = _configuracionManagerProvider.GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, userData.CodigoISO));
             string carpetaPais = "Correo/CCC";
             string spacerGif = ConfigCdn.GetUrlFileCdn(carpetaPais, "spacer.gif");
             string mailing03 = ConfigCdn.GetUrlFileCdn(carpetaPais, "1-Mailing_03.png");
@@ -903,7 +899,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model.ListaPedidos = olstMisPedidos;
 
                         objMisPedidos = model;
-                        Session["objMisPedidos"] = objMisPedidos;
+                        sessionManager.SetobjMisPedidos(objMisPedidos);
 
                         var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
 
@@ -950,7 +946,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+                MisPedidosModel consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
                 long _pedidoId = Convert.ToInt64(pedidoId);
                 BEMisPedidos pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0);
 
@@ -976,7 +972,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     model.MiPedido = pedido;
 
-                    Session["objMisPedidosDetalle"] = olstMisPedidosDet;
+                    sessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
 
                     // 0=App Catalogos, >0=Portal Marca
                     if (pedido.MarcaID == 0)
@@ -1003,7 +999,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID, inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
                         }
 
-                        Session["objMisPedidosDetalleVal"] = olstMisProductos;
+                        sessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
 
                         foreach (var item in olstMisPedidosDet)
                         {

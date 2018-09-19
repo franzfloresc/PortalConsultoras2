@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarFeErratas/Index"))
                     return RedirectToAction("Index", "Bienvenida");
 
-                IEnumerable<CampaniaModel> lstCampania = DropDowListCampanias(UserData().PaisID);
+                IEnumerable<CampaniaModel> lstCampania = DropDowListCampanias(userData.PaisID);
                 var administrarFeErratasModel = new AdministrarFeErratasModel()
                 {
                     listaPaises = DropDowListPaises(),
@@ -40,11 +40,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View(new AdministrarFeErratasModel());
         }
@@ -54,9 +54,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -181,7 +181,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Mantener(AdministrarFeErratasModel model)
         {
-            var listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
+            var listaEntradas = sessionManager.Getentradas() ?? new List<AdministrarFeErratasModel>();
             if (listaEntradas.Count > 0)
             {
                 var updateErratas = listaEntradas.Where(x => !x.Eliminar).Select(Mapper.Map<AdministrarFeErratasModel, BEFeErratas>).ToArray();
@@ -200,7 +200,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 catch (FaultException ex)
                 {
-                    LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                     return Json(new
                     {
                         success = false,
@@ -210,7 +210,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     return Json(new
                     {
                         success = false,
@@ -235,7 +235,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    sv.DeleteFeErratas(UserData().PaisID, FeErratasID);
+                    sv.DeleteFeErratas(userData.PaisID, FeErratasID);
                 }
                 return Json(new
                 {
@@ -247,7 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -257,7 +257,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -273,9 +273,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<AdministrarFeErratasModel> listaEntradas;
 
-                if (Session["entradas"] != null)
+                if (sessionManager.Getentradas() != null)
                 {
-                    listaEntradas = (Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>())
+                    listaEntradas = (sessionManager.Getentradas() ?? new List<AdministrarFeErratasModel>())
                         .Where(e => !e.Eliminar).ToList();
                 }
                 else
@@ -289,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                     List<AdministrarFeErratasModel> entidades = Mapper.Map<IEnumerable<BEFeErratas>, List<AdministrarFeErratasModel>>(lst);
                     listaEntradas = new List<AdministrarFeErratasModel>();
                     listaEntradas.AddRange(entidades);
-                    Session["entradas"] = listaEntradas;
+                    sessionManager.Setentradas(listaEntradas);
                 }
 
                 BEGrid grid = new BEGrid
@@ -366,15 +366,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session["entradas"] == null)
+                if (sessionManager.Getentradas() == null)
                 {
-                    Session["entradas"] = new List<AdministrarFeErratasModel>();
+                    sessionManager.Setentradas(new List<AdministrarFeErratasModel>());
                 }
-                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
+                List<AdministrarFeErratasModel> listaEntradas = sessionManager.Getentradas() ?? new List<AdministrarFeErratasModel>();
                 int nuevoId = (listaEntradas.Count + 1) * -1;
                 model.FeErratasID = nuevoId;
                 listaEntradas.Add(model);
-                Session["entradas"] = listaEntradas;
+                sessionManager.Setentradas(listaEntradas);
 
                 return Json(new
                 {
@@ -385,7 +385,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -395,7 +395,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -410,12 +410,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
+                List<AdministrarFeErratasModel> listaEntradas = sessionManager.Getentradas() ?? new List<AdministrarFeErratasModel>();
                 AdministrarFeErratasModel entrada = listaEntradas.SingleOrDefault(e => e.FeErratasID == model.FeErratasID) ?? new AdministrarFeErratasModel();
                 entrada.Pagina = model.Pagina;
                 entrada.Dice = model.Dice;
                 entrada.DebeDecir = model.DebeDecir;
-                Session["entradas"] = listaEntradas;
+                sessionManager.Setentradas(listaEntradas);
 
                 return Json(new
                 {
@@ -426,7 +426,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -436,7 +436,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -451,7 +451,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
+                List<AdministrarFeErratasModel> listaEntradas = sessionManager.Getentradas() ?? new List<AdministrarFeErratasModel>();
                 AdministrarFeErratasModel entrada = listaEntradas.SingleOrDefault(e => e.FeErratasID == FeErratasID) ?? new AdministrarFeErratasModel();
                 if (entrada.FeErratasID < 0)
                 {
@@ -461,7 +461,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     entrada.Eliminar = true;
                 }
-                Session["entradas"] = listaEntradas;
+                sessionManager.Setentradas(listaEntradas);
 
                 return Json(new
                 {
@@ -473,7 +473,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -483,7 +483,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

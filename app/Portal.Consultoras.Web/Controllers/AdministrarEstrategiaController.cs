@@ -30,6 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         protected RenderImgProvider _renderImgProvider;
         protected OfertaBaseProvider _ofertaBaseProvider;
+
         public AdministrarEstrategiaController()
         {
             _renderImgProvider = new RenderImgProvider();
@@ -533,8 +534,7 @@ namespace Portal.Consultoras.Web.Controllers
                     "text/html");
             }
         }
-
-        //TODO validar yrdsf
+        
         [HttpPost]
         public JsonResult GetOfertaByCUV(string CampaniaID, string CUV2,
             string TipoEstrategiaID, string CUV1, string flag,
@@ -560,7 +560,6 @@ namespace Portal.Consultoras.Web.Controllers
                     var objEstrategia = administrarEstrategiaProvider.ObtenerEstrategiaCuv(CUV2,
                                                                 CampaniaID, tipoEstrategiaCodigo,
                                                                 userData.CodigoISO, FlagRecoProduc, FlagRecoPerfil);
-                    //success = resultByCuv["success"].ToString().Equals("true");
 
                     if (objEstrategia != null)
                     {
@@ -1127,7 +1126,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult EliminarEstrategia(string EstrategiaID)
+        public JsonResult EliminarEstrategia(string EstrategiaID, string _id, string tipoEstrategiaCodigo)
         {
             try
             {
@@ -1136,10 +1135,19 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = userData.PaisID,
                     EstrategiaID = Convert.ToInt32(EstrategiaID)
                 };
-                using (var sv = new PedidoServiceClient())
+
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo))
                 {
-                    sv.EliminarEstrategia(entidad);
+                    administrarEstrategiaProvider.EliminarEstrategia(entidad.EstrategiaID, _id);
                 }
+                else
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        sv.EliminarEstrategia(entidad);
+                    }
+                }
+
                 return Json(new
                 {
                     success = true,
@@ -1312,8 +1320,8 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoDetalleID = entidad.PedidoDetalleID,
                         IndicadorIPUsuario = GetIPCliente(),
                         IndicadorFingerprint = "",
-                        IndicadorToken = Session["TokenPedidoAutentico"] != null
-                            ? Session["TokenPedidoAutentico"].ToString()
+                        IndicadorToken = sessionManager.GetTokenPedidoAutentico() != null
+                            ? sessionManager.GetTokenPedidoAutentico().ToString()
                             : ""
                     };
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
@@ -1535,7 +1543,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var entidad = new BEConfiguracionProgramaNuevasApp()
                 {
-                    PaisID = UserData().PaisID,
+                    PaisID = userData.PaisID,
                     CodigoPrograma = CodigoPrograma,
                 };
 
@@ -1572,7 +1580,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var resultado = false;
                 var entidad = Mapper.Map<ConfiguracionProgramaNuevasAppModel, BEConfiguracionProgramaNuevasApp>(inModel);
-                entidad.PaisID = UserData().PaisID;
+                entidad.PaisID = userData.PaisID;
 
                 using (var sv = new PedidoServiceClient())
                 {
@@ -1612,7 +1620,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var nombreArchivo = Request["qqfile"];
                 new UploadHelper().UploadFile(Request, nombreArchivo);
 
-                var carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO,
+                var carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, userData.CodigoISO,
                     Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
 
                 var newfilename = string.Empty;
@@ -1631,7 +1639,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var entidad = new BEConfiguracionProgramaNuevasApp()
                     {
-                        PaisID = UserData().PaisID,
+                        PaisID = userData.PaisID,
                         CodigoPrograma = codigoPrograma,
                         CodigoNivel = codigoNivel,
                         ArchivoBannerCupon = (tipoBanner == Constantes.ProgramaNuevas.TipoBanner.BannerCupon ? newfilename : null),
@@ -1652,7 +1660,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -1669,11 +1677,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string filenameCupon = string.Empty;
                 string filenamePremio = string.Empty;
-                string carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
+                string carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, userData.CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
 
                 var entidad = new BEConfiguracionProgramaNuevasApp()
                 {
-                    PaisID = UserData().PaisID,
+                    PaisID = userData.PaisID,
                     CodigoPrograma = codigoPrograma,
                     CodigoNivel = codigoNivel
                 };
@@ -1704,7 +1712,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -1924,6 +1932,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int[] numberRecords = null;
             int line = 0;
+            int cantidadColumnas = 6;
+
             try
             {
                 List<ServicePedido.BEEstrategia> strategyEntityList = new List<ServicePedido.BEEstrategia>();
@@ -1937,7 +1947,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string[] arrayHeader = readLine.Split('|');
                     string columnObservation = string.Empty;
                     bool errorColumn = false;
-                    if (arrayHeader.Length != 6)
+                    if (arrayHeader.Length != cantidadColumnas)
                     {
                         throw new ArgumentException("Los títulos de las columnas no son los correctos.");
                     }
@@ -1982,7 +1992,7 @@ namespace Portal.Consultoras.Web.Controllers
                         string[] arrayRows = readLine.Split('|');
                         if (arrayRows[0] != "CUV")
                         {
-                            if (arrayRows.Length != 6)
+                            if (arrayRows.Length != cantidadColumnas)
                             {
                                 throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
@@ -1999,7 +2009,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                     while (readLine != null);
-              
+
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
                     select new XElement("row",
@@ -2021,7 +2031,19 @@ namespace Portal.Consultoras.Web.Controllers
                             UsuarioModificacion = userData.CodigoUsuarioHost,
                             PaisID = Util.GetPaisID(userData.CodigoISO)
                         };
-                        numberRecords = service.InsertarEstrategiaMasiva(estrategia);
+
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo))
+                        {
+                            numberRecords = new int[2];
+                            var result = administrarEstrategiaProvider.UploadFileSetStrategyShowroom(estrategia, strategyEntityList, model.TipoEstrategiaCodigo);
+
+                            numberRecords[0] = result;
+                            numberRecords[1] = 0;
+                        }
+                        else
+                        {
+                            numberRecords = service.InsertarEstrategiaMasiva(estrategia);
+                        }
                     }
                     return Json(new
                     {
@@ -2047,6 +2069,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult UploadFileProductStrategyShowroom(DescripcionMasivoModel model)
         {
+            int cantidadColumnas = 4;
             int[] numberRecords = null;
             int line = 0;
             try
@@ -2062,7 +2085,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string[] arrayHeader = readLine.Split('|');
                     string columnObservation = string.Empty;
                     bool errorColumn = false;
-                    if (arrayHeader.Length != 5)
+                    if (arrayHeader.Length != cantidadColumnas)
                     {
                         throw new ArgumentException("Los títulos de las columnas no son los correctos.");
                     }
@@ -2086,11 +2109,6 @@ namespace Portal.Consultoras.Web.Controllers
                         columnObservation = Constantes.ColumnsProductStrategyShowroom.Description;
                         errorColumn = true;
                     }
-                    if (!arrayHeader[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct].ToLower().Equals(Constantes.ColumnsProductStrategyShowroom.BrandProduct))
-                    {
-                        columnObservation = Constantes.ColumnsProductStrategyShowroom.BrandProduct;
-                        errorColumn = true;
-                    }
                     if (errorColumn)
                     {
                         throw new ArgumentException(string.Format("Verificar los títulos de las columnas del archivo. <br /> Referencia: La observación se encontró en la columna '{0}'", columnObservation));
@@ -2103,7 +2121,7 @@ namespace Portal.Consultoras.Web.Controllers
                         int evalResult;
                         if (arrayRows[0] != "CUV")
                         {
-                            if (arrayRows.Length != 5)
+                            if (arrayRows.Length != cantidadColumnas)
                             {
                                 throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
@@ -2115,34 +2133,30 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 throw new ArgumentException(string.Format("El valor del campo 'posición' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
-                            if (!int.TryParse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct], out evalResult))
-                            {
-                                throw new ArgumentException(string.Format("El valor del campo 'Marca de Producto' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
-                            }
                             line++;
                             strategyEntityList.Add(new ServicePedido.BEEstrategiaProducto
                             {
                                 CUV = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.CUV].ToString().TrimEnd(),
                                 NombreProducto = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd(),
                                 Descripcion1 = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Description].ToString().TrimEnd(),
-                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order]),
-                                IdMarca = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct])
+                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order])
                             });
                         }
                     }
                     while (readLine != null);
+
                     if (strategyEntityList.Count == 0)
                     {
                         throw new ArgumentException("El archivo seleccionado no tiene registros.");
                     }
+
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
                     select new XElement("row",
                                  new XElement("CUV", strategy.CUV),
                                  new XElement("NombreProducto", strategy.NombreProducto),
                                  new XElement("Descripcion1", strategy.Descripcion1),
-                                 new XElement("Orden", strategy.Orden),
-                                 new XElement("IdMarca", strategy.IdMarca)
+                                 new XElement("Orden", strategy.Orden)
                                ));
                     using (var service = new PedidoServiceClient())
                     {
@@ -2155,7 +2169,20 @@ namespace Portal.Consultoras.Web.Controllers
                             UsuarioModificacion = userData.CodigoUsuarioHost,
                             PaisID = Util.GetPaisID(userData.CodigoISO)
                         };
-                        numberRecords = service.InsertarProductoShowroomMasiva(estrategia);
+
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo))
+                        {
+                            numberRecords = new int[2];
+
+                            var result = administrarEstrategiaProvider.UploadFileProductStrategyShowroom(estrategia, strategyEntityList, model.TipoEstrategiaCodigo);
+
+                            numberRecords[0] = result;
+                            numberRecords[1] = 0;
+                        }
+                        else
+                        {
+                            numberRecords = service.InsertarProductoShowroomMasiva(estrategia);
+                        }
                     }
                     return Json(new
                     {

@@ -34,8 +34,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
             }
 
-            Session["fechaGetNotificacionesSinLeer"] = null;
-            Session["cantidadGetNotificacionesSinLeer"] = null;
+            sessionManager.SetfechaGetNotificacionesSinLeer(null);
+            sessionManager.SetcantidadGetNotificacionesSinLeer(null);
 
             List<BENotificaciones> olstNotificaciones;
             NotificacionesModel model = new NotificacionesModel();
@@ -108,8 +108,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                Session["fechaGetNotificacionesSinLeer"] = null;
-                Session["cantidadGetNotificacionesSinLeer"] = null;
+                sessionManager.SetfechaGetNotificacionesSinLeer(null);
+                sessionManager.SetcantidadGetNotificacionesSinLeer(null);
 
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
@@ -278,8 +278,7 @@ namespace Portal.Consultoras.Web.Controllers
                             mensaje.AppendFormat("aceptas o rechazas el pedido. Si te demoras más de {0} horas, el pedido <br/>", horas);
                             mensaje.Append("será asignado a otra consultora y ya no podrás ver los datos del cliente.<br/><br/>");
                             mensaje.Append("Gracias,<br/>Belcorp.</p>");
-                            Util.EnviarMail("no-responder@somosbelcorp.com", nuevaConsultora.Email, emailOculto, asunto,
-                               mensaje.ToString(), true);
+                            Util.EnviarMail("no-responder@somosbelcorp.com", nuevaConsultora.Email, emailOculto, asunto, mensaje.ToString(), true);
                         }
                         catch (Exception ex)
                         {
@@ -461,7 +460,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (CheckDataSessionCantidadNotificaciones())
                 {
-                    cantidadNotificaciones = Convert.ToInt32(Session["cantidadGetNotificacionesSinLeer"]);
+                    cantidadNotificaciones = Convert.ToInt32(sessionManager.GetcantidadGetNotificacionesSinLeer());
                 }
                 else
                 {
@@ -470,8 +469,8 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea);
                     }
 
-                    Session["fechaGetNotificacionesSinLeer"] = DateTime.Now.Ticks;
-                    Session["cantidadGetNotificacionesSinLeer"] = cantidadNotificaciones;
+                    sessionManager.SetfechaGetNotificacionesSinLeer(DateTime.Now.Ticks);
+                    sessionManager.SetcantidadGetNotificacionesSinLeer(cantidadNotificaciones);
                 }
             }
             catch (Exception ex)
@@ -484,10 +483,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool CheckDataSessionCantidadNotificaciones()
         {
-            if (Session["fechaGetNotificacionesSinLeer"] != null &&
-                Session["cantidadGetNotificacionesSinLeer"] != null)
+            if ( sessionManager.GetfechaGetNotificacionesSinLeer() != null &&
+                sessionManager.GetcantidadGetNotificacionesSinLeer() != null)
             {
-                var ticks = Convert.ToInt64(Session["fechaGetNotificacionesSinLeer"]);
+                var ticks = Convert.ToInt64(sessionManager.GetfechaGetNotificacionesSinLeer());
                 var fecha = new DateTime(ticks);
                 var diferencia = DateTime.Now - fecha;
                 return (diferencia.TotalMinutes <= 30);
