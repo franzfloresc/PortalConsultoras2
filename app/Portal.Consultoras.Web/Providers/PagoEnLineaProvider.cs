@@ -656,6 +656,11 @@ namespace Portal.Consultoras.Web.Providers
                    userData.MontoDeuda >= pago.MontoDeuda;
         }
 
+        public bool IsLoadMetodoPago(PagoEnLineaModel pago)
+        {
+            return pago != null && pago.MetodoPagoSeleccionado != null && pago.PagoVisaModel != null;
+        }
+
         public IEnumerable<string> ObtenerMeses()
         {
             return Enumerable.Range(1, 12).Select(i => i.ToString("00"));

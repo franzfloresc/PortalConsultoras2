@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             var model = sessionManager.GetDatosPagoVisa();
-            if (model == null) return RedirectToAction("Index");
+            if (model == null) return RedirectToAction("MetodoPago");
 
             model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea(model);
             _pagoEnLineaProvider.CargarDataMetodoPago(model);
@@ -66,24 +66,12 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult PasarelaPago()
         {
             var pago = sessionManager.GetDatosPagoVisa();
-            if (pago == null || pago.MetodoPagoSeleccionado == null) return RedirectToAction("Index");
+            if (!_pagoEnLineaProvider.IsLoadMetodoPago(pago)) return RedirectToAction("MetodoPago");
             if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida");
 
-            //if (!string.IsNullOrEmpty(cardType))
-            //{
-            //    var selected = _pagoEnLineaProvider.ObtenerMetodoPagoSelecccionado(pago, cardType, medio);
-
-            //    if (selected == null)
-            //    {
-            //        return RedirectToAction("Index");
-            //    }
-            //    pago.MetodoPagoSeleccionado = selected;
-            //    sessionManager.SetDatosPagoVisa(pago);
-            //}
-            
             if (pago.MetodoPagoSeleccionado == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("MetodoPago");
             }
 
             SetDeviceSessionId(pago);
@@ -105,7 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> PasarelaPago(PaymentInfo info)
         {
             var pago = sessionManager.GetDatosPagoVisa();
-            if (pago == null || pago.ListaMetodoPago == null) return RedirectToAction("Index");
+            if (!_pagoEnLineaProvider.IsLoadMetodoPago(pago)) return RedirectToAction("MetodoPago");
             if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida");
 
             var requiredFields = _pagoEnLineaProvider.ObtenerCamposRequeridos();
