@@ -33,30 +33,30 @@
     }
     @if (!ViewBag.TieneRevistaDigital)
     {
-        @**@<div class="contenedor_top">
-                @if (menuActivo.ConfiguracionPais.DesktopLogoBanner != "")
-                {
-                    <div class="logo">
-                        <img class="imagen_logo" src="@menuActivo.ConfiguracionPais.DesktopLogoBanner" alt="">
+        <div class="contenedor_top">
+            @if (menuActivo.ConfiguracionPais.DesktopLogoBanner != "")
+            {
+                <div class="logo">
+                    <img class="imagen_logo" src="@menuActivo.ConfiguracionPais.DesktopLogoBanner" alt="">
+                </div>
+            }
+            @if (menuActivo.ConfiguracionPais.DesktopTituloBanner != "" || menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
+            {
+                <div class="texto-info">
+                    <div class="centrar-horizontal">
+                        @if (menuActivo.ConfiguracionPais.DesktopTituloBanner != "")
+                        {
+                            <p>@menuActivo.ConfiguracionPais.DesktopTituloBanner</p>
+                        }
+                        @if (menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
+                        {
+                            <span>@menuActivo.ConfiguracionPais.DesktopSubTituloBanner</span>
+                        }
                     </div>
-                }
-                @if (menuActivo.ConfiguracionPais.DesktopTituloBanner != "" || menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
-                {
-                    <div class="texto-info">
-                        <div class="centrar-horizontal">
-                            @if (menuActivo.ConfiguracionPais.DesktopTituloBanner != "")
-                            {
-                                <p>@menuActivo.ConfiguracionPais.DesktopTituloBanner</p>
-                            }
-                            @if (menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
-                            {
-                                <span>@menuActivo.ConfiguracionPais.DesktopSubTituloBanner</span>
-                            }
-                        </div>
-                    </div>
-                }
-            </div>
-            <div class="clear"></div>
+                </div>
+            }
+        </div>
+        <div class="clear"></div>
     }
     @if (menuActivo.CampaniaX0 > 0)
     {
