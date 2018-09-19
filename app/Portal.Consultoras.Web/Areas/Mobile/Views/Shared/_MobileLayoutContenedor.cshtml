@@ -136,7 +136,10 @@
 
         @if (!esIngresoUnico)
         {
-            @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenu.cshtml", new ViewDataDictionary { { "vbEsContenedor", 1 } })
+            @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenu.cshtml", new ViewDataDictionary {
+           { "vbEsContenedor", 1 },
+           { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
+        })
 
         }
 
