@@ -335,37 +335,37 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
-    var marcarPopupBotonAplicarSeleccionVariasOpciones = function (opcion) {
+    var marcarPopupBotonAplicarSeleccionVariasOpciones = function (componentes_Concatenados) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige más de una opción',
                 'action': 'Aplicar selección',
-                'label': '{Nombre de los productos seleccionados}'
+                'label': componentes_Concatenados
             });
         } catch (e) {
             console.log(_texto.exception + e);
         }
     }
-    var marcarEliminarOpcionSeleccionadaVariasOpciones = function (opcion) {
+    var marcarEliminarOpcionSeleccionadaVariasOpciones = function (estrategia, nombreComponentes ) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige más de una opción',
                 'action': 'Desenmarcar opción',
-                'label': ' {Nombre del producto} - {variedad del producto}'
+                'label': estrategia.DescripcionCompleta + ' - ' + nombreComponentes
             });
         } catch (e) {
             console.log(_texto.exception + e);
         }
     }
-    var marcarAumentardisminuirOpcionProducto = function (opcion) {
+    var marcarAumentardisminuirOpcionProducto = function (operacion, estrategia, nombreComponentes) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige más de una opción',
-                'action': '{Operación realizada}',
-                'label': ' {Nombre del producto} - {variedad del producto}'
+                'action': operacion,
+                'label': estrategia.DescripcionCompleta + ' - ' + nombreComponentes
             });
         } catch (e) {
             console.log(_texto.exception + e);
@@ -374,10 +374,10 @@ var AnalyticsPortalModule = (function () {
     var marcarCambiarOpcionVariasOpciones = function (opcion) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Contenedor - Ficha de producto',
                 'action': 'Cambiar opciones',
-                'label': ' {Nombre del producto}'
+                'label': opcion.DescripcionCompleta
             });
         } catch (e) {
             console.log(_texto.exception + e);

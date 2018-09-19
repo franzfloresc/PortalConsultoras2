@@ -533,6 +533,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var adicionarCantidad = function (e) {
+       
         e.stopPropagation();
         //
         var $this = $(e.target);
@@ -546,7 +547,9 @@ var EstrategiaAgregarModule = (function () {
         return false;
     };
 
+    
     var disminuirCantidad = function (e) {
+        
         e.stopPropagation();
         //
         var $this = $(e.target);

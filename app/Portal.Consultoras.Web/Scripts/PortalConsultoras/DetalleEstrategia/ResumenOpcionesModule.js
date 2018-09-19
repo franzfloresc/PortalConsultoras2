@@ -107,8 +107,22 @@ var ResumenOpcionesModule = (function () {
         _verificarActivarBtn(codigoVariante);
 
         //Analytics (EPM-1442)
+        
         var estrategia = fichaModule.GetEstrategia();
-        AnalyticsPortalModule.MarcarBotonAplicarSeleccion(estrategia, _componente);
+        var nombreConcat = "";
+        if (_componente.FactorCuadre === 1) {
+            AnalyticsPortalModule.MarcarBotonAplicarSeleccion(estrategia, _componente);
+        } else {
+            $.each(_componente.resumenAplicados, function (index, opcion) {
+                if (opcion.cantidadSeleccionada > 0) {
+                    nombreConcat += " " + opcion.NombreBulk + " |";
+                }
+            });
+            
+            nombreConcat = Left(nombreConcat, nombreConcat.length - 1).trim();
+            AnalyticsPortalModule.MarcarPopupBotonAplicarSeleccionVariasOpciones(nombreConcat);
+        }
+        
         return false;
     };
 

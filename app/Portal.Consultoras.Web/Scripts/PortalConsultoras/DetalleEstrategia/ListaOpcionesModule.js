@@ -215,18 +215,25 @@ var ListaOpcionesModule = (function () {
         //
         
         var estrategia = fichaModule.GetEstrategia();
+        var nombreComponente = getNombreComponente(cuv);
+        //var opcion = {};
+        //$.each(_componente.Hermanos, function (index, hermano) {
+        //    if (cuv == hermano.Cuv) {
+        //        opcion = _componente.Hermanos[index];
+        //        return false;
+        //    }
+        //});
+
+        if (typeof event !== "undefined") {
+            //AnalyticsPortalModule.MarcarAumentardisminuirOpcionProducto("Aumentar", estrategia, opcion.NombreBulk);
+            AnalyticsPortalModule.MarcarAumentardisminuirOpcionProducto("Aumentar", estrategia, nombreComponente);
+            return false;
+        }
         
         if (_componente.FactorCuadre === 1 ) {
             AnalyticsPortalModule.MarcarPopupBotonEligeloSoloUno(estrategia, _componente );
         } else {
-            var opcion = {};
-            $.each(_componente.Hermanos, function (index, hermano) {
-                if (cuv === hermano.Cuv) {
-                    opcion = _componente.Hermanos[index];
-                    return false;
-                }
-            });
-            AnalyticsPortalModule.MarcarPopupBotonEligeloVariasOpciones(estrategia, opcion.NombreBulk);
+            AnalyticsPortalModule.MarcarPopupBotonEligeloVariasOpciones(estrategia, nombreComponente);
         }
         return false;
     };
@@ -274,19 +281,31 @@ var ListaOpcionesModule = (function () {
         opcionesEvents.applyChanges("onOptionSelected", _componente);
         //
         //Google Analytics (EPM-1442)
-        
         var estrategia = fichaModule.GetEstrategia();
-        AnalyticsPortalModule.MarcarEliminarOpcionSeleccionada(estrategia, nombreComponente)
+        if (typeof event !== "undefined") {
+            AnalyticsPortalModule.MarcarAumentardisminuirOpcionProducto("Disminuir", estrategia, nombreComponente);
+
+            return false;
+        }
+
+        
+        if (_componente.FactorCuadre === 1) {
+            AnalyticsPortalModule.MarcarEliminarOpcionSeleccionada(estrategia, nombreComponente)
+        } else {
+            AnalyticsPortalModule.MarcarEliminarOpcionSeleccionadaVariasOpciones(estrategia, nombreComponente)
+        }
+        
         return false;
     };
     var getNombreComponente = function (cuv) {
         var NombreBulk = "";
         $.each(_componente.HermanosSeleccionados, function (index, item) {
             
-            if (item.Cuv === cuv) {
+            if (item.Cuv == cuv) {
                 NombreBulk = item.NombreBulk;
+                return false;
             }
-            return false;
+            
         });
         return NombreBulk;
     };

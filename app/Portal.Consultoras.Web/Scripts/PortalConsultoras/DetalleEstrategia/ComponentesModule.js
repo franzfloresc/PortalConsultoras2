@@ -88,9 +88,15 @@ var ComponentesModule = (function () {
                 return false;
             }
         });
+        
         if (componente.resumenAplicados) {
             if (componente.resumenAplicados.length > 0) {
-                AnalyticsPortalModule.MarcarCambiarOpcion(_estrategia);
+                if (componente.FactorCuadre === 1) {
+                    AnalyticsPortalModule.MarcarCambiarOpcion(_estrategia);
+                } else {
+                    AnalyticsPortalModule.MarcarCambiarOpcionVariasOpciones(_estrategia);
+                }
+                
                 return false;
             }
         }
