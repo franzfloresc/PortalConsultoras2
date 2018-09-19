@@ -3607,7 +3607,7 @@ namespace Portal.Consultoras.Common
                                     result = lista[Constantes.NuevoCatalogoProducto.GUIADENEGOCIODIGITAL];
                                     break;
                                 case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                                    result = lista[Constantes.TipoEstrategiaCodigo.HerramientasVenta];
+                                    result = lista[Constantes.NuevoCatalogoProducto.HERRAMIENTASDEVENTA];
                                     break;
                                 case Constantes.TipoEstrategiaCodigo.ShowRoom:
                                     result = lista[Constantes.NuevoCatalogoProducto.ESPECIALES];
