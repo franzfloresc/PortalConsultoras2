@@ -33,6 +33,13 @@
     <div class="pestana_lbel"></div>
 
     <div class="proceso_de_pago_en_linea">
+        <a id="linkRegresar" class="btn_paso_anterior_pago_en_linea" href="@Url.Action("Index", "PagoEnLinea")">
+            <span class="icono_back_arrow">
+                <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
+            </span>
+            <span class="enlace_texto">VOLVER</span>
+        </a>
+        <div class="clear"></div>
         <div class="cantidad_pasos_proceso_pago">
 
             <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
@@ -70,7 +77,7 @@
                 </div>
                 <div class="icono_marcas_tarjetas">
                     <span class="icono_marca_visa">
-                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa"/>
                     </span>
                 </div>
             </div>
@@ -78,8 +85,7 @@
         </div>
 
         <div class="contenedor_btn_pagar_con_visa">
-            <a id="linkRegresar" class="btn_paso_anterior_pago_en_linea" href="@Url.Action("Index","PagoEnLinea")">REGRESAR</a>
-            <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea")" method="post">
+            <form id="formBoton" action="@Url.Action("PagoVisaResultado", "PagoEnLinea")" method="post">
                 <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
                         data-sessiontoken="@Model.PagoVisaModel.SessionToken"
                         data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
@@ -88,7 +94,7 @@
                         data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
                         data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
                         data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
-                        data-buttonsize="LARGE"></script>                
+                        data-buttonsize="LARGE"></script>
             </form>
         </div>
 

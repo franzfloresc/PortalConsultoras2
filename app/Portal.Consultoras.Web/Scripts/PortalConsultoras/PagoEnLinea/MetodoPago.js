@@ -125,24 +125,6 @@ $(document).ready(function () {
                         $(this).find('.icono_flecha_despliegue').addClass('girar180');
                     }
                 },
-                //AbrirPopupTerminosYCondiciones: function (e) {
-                //    e.preventDefault();
-
-                //    var contenedorPadre = $(this).parents('.aceptar_terminos_y_condiciones')[0];
-
-                //    var htmlTerminosCondiciones = $(contenedorPadre).find('input[data-terminos]').val();                    
-                //    $('#divContenidoTerminosCondiciones').html(htmlTerminosCondiciones);
-                //    $('.proceso_de_pago_en_linea').fadeOut(200);
-                //    $('body,html').animate({
-                //        scrollTop: 47
-                //    }, 200);
-                //    $('.popup_terminos_y_condiciones').fadeIn(200);
-                //},
-                //CerrarPopupTerminosYCondiciones: function (e) {
-                //    e.preventDefault();
-                //    $(this).parents('.popup_terminos_y_condiciones').fadeOut(200);
-                //    $('.proceso_de_pago_en_linea').fadeIn(200);
-                //},
             },
             me.Inicializar = function () {
                 me.Funciones.InicializarEventos();
