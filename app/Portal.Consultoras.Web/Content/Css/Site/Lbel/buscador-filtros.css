@@ -721,6 +721,10 @@
 
 @media screen and (max-width:991px){
 
+    .mt-60{
+        margin-top:60px;
+    }
+
     .buscador_filtros_mobile {
         display: flex;
         justify-content: space-between;
@@ -730,7 +734,8 @@
         background-color: #FFF;
         padding-left: 10px;
         padding-right: 10px;
-        position:relative;
+        position:fixed;
+        top:0;
         border-bottom:1px solid #d8d8d8;
         z-index:6;
     }
