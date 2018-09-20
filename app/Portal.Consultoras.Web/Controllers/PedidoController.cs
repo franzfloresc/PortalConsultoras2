@@ -4021,7 +4021,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (pedidoAgregado.Any())
                 {
-                    cantidadesAgregadas = sesionPedidos[0].Cantidad;
+                    cantidadesAgregadas = pedidoAgregado[0].Cantidad;
                 }
 
                 cantidadesAgregadas += model.Cantidad.ToInt();
