@@ -197,7 +197,7 @@ var EstrategiaAgregarModule = (function () {
                 dataItemHtml.find(dataProperties.dataItemTagContenido).css("position", "initial");
                 dataItemHtml.find(dataProperties.dataItemTagContenido).attr("class", "");
                 //
-                $(elementosPopPup.contenedorPopupDetalleCarousel.replace("#", ".")).hide();
+                //$(elementosPopPup.contenedorPopupDetalleCarousel.replace("#", ".")).hide();
                 //
                 return this;
             },

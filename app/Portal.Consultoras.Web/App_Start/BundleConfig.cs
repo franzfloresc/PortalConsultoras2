@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web
                "~/Scripts/Jqgrid/jquery.jqGrid*"
             ));
 
-            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/ShowRoomJs").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/ShowRoom-Index").Include(
                 "~/Scripts/nieve.js",
                 "~/Scripts/ion.rangeSlider/ion.rangeSlider.js",
                 "~/Scripts/PortalConsultoras/ShowRoom/Index.js",
@@ -508,7 +508,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/RedesSociales.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
-             
+
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Ofertas").Include(
                 "~/Scripts/jquery.flexslider.js",
@@ -767,9 +767,9 @@ namespace Portal.Consultoras.Web
                  "~/Scripts/Tag/jquery.tags.input.js",
                  "~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js",
                  "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
-                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
-                 //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
-                 //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
+            //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
+            //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
+            //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
             ));
 
             #endregion
@@ -816,7 +816,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
-            
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/HerramientaVenta-Landing").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
@@ -845,7 +845,7 @@ namespace Portal.Consultoras.Web
             ));
 
             #endregion
-             
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/EstrategiaProducto-DetalleProducto").Include(
                "~/Scripts/jquery.flexslider.js",
                "~/Scripts/jquery.rateyo.js",
@@ -877,9 +877,9 @@ namespace Portal.Consultoras.Web
              ));
 
 
-     
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/ShowRoom-index").Include(
-                "~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js",
+                //"~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js",
                 "~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js",
                 "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
@@ -891,23 +891,23 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
            ));
 
-           
-                bundles.Add(new ScriptBundle("~/Bundle/Css/Desktop/ShowRoom-Index").Include(
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/ShowRoom-Index").Include(
                 "~/Content/Css/Site/ion.rangeSlider/normalize.css",
                 "~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.css",
                 "~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.skinHTML5.css",
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/Landing/producto.landing.css"
-                ));
+            ));
 
-             
 
-                bundles.Add(new ScriptBundle("~/Bundle/Css/Mobile/ShowRoom-Index").Include(
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/ShowRoom-Index").Include(
                 "~/Content/Css/Mobile/esika/slick.css",
                 "~/Content/Css/Mobile/esika/bootstrap-slider.min.css",
                 "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css",
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
-                ));
+            ));
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;

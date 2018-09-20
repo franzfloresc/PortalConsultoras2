@@ -669,7 +669,7 @@ namespace Portal.Consultoras.Web.Providers
                             listaProducto.Where(c => c.CUV2 == x.CUV2 && c.CampaniaID == x.CampaniaID)
                             .FirstOrDefault().EstrategiaProducto.ToList());
                 });
-            var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
+            var listaPedido = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado(0);
             var listaEstrategiaPedidoModel = ConsultarEstrategiasFormatoModelo1(listaProductoModel, listaPedido, codigoISO, campaniaID);
             return listaEstrategiaPedidoModel;
         }
@@ -707,7 +707,7 @@ namespace Portal.Consultoras.Web.Providers
             listaProductoModel.ForEach(estrategia =>
             {
                 estrategia.ClaseBloqueada = estrategia.CampaniaID > 0 && estrategia.CampaniaID != campaniaID ? claseBloqueada : "";
-                estrategia.IsAgregado = estrategia.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
+                estrategia.IsAgregado = estrategia.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.EstrategiaId == estrategia.EstrategiaID);
                 estrategia.DescripcionResumen = "";
                 estrategia.DescripcionDetalle = "";
                 estrategia.EstrategiaDetalle = estrategia.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
@@ -1187,19 +1187,16 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (revisarLista != null)
             {
-                if (revisarLista.Any())
+                if (!revisarLista.Any()) return new List<EstrategiaPersonalizadaProductoModel>();
+                var listaPedido = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado(0);
+                revisarLista.Update(x =>
                 {
-                    var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
-                    revisarLista.Update(x =>
+                    x.IsAgregado = listaPedido.Any(p => p.EstrategiaId == x.EstrategiaID);
+                    if (ficha)
                     {
-                        x.IsAgregado = listaPedido.Any(p => p.CUV == x.CUV2);
-                        if (ficha)
-                        {
-                            x.ImagenURL = "";// no mostrar en el carrusel de la ficha
-                        }
-
-                    });
-                }
+                        x.ImagenURL = "";// no mostrar en el carrusel de la ficha
+                    }
+                });
             }
             else
                 revisarLista = new List<EstrategiaPersonalizadaProductoModel>();
