@@ -34,6 +34,8 @@ namespace Portal.Consultoras.Web.Controllers
         private string pasoLog;
         private int misCursos = 0;
         private int flagMiAcademiaVideo = 0;  //  PPC
+        private string urlSapParametro = "";  //  PPC
+
         private readonly string IP_DEFECTO = "190.187.154.154";
         private readonly string ISO_DEFECTO = Constantes.CodigosISOPais.Peru;
         private readonly int USUARIO_VALIDO = 3;
@@ -74,6 +76,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     sessionManager.SetMiAcademia(misCursos);
                     sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  //PPC
+                    sessionManager.SetMiAcademiaParametro(urlSapParametro);  //PPC
+                    
                     return RedirectToAction("Index", "MiAcademia");
                 }
 
@@ -152,11 +156,28 @@ namespace Portal.Consultoras.Web.Controllers
         {
             TempData["MiAcademia"] = 0;
             TempData["FlagAcademiaVideo"] = 0;
+            TempData["SapParametros"] = "";
             var url = (Request.Url.OriginalString).Split('?');
             if (url.Length > 1)
             {
                 var MiCurso = url[1].Split('=');
                 var MiId = MiCurso[1].Split('&');
+
+                var url9 = url[1].ToUpper();
+                //var param="";
+                if (url9.Contains("MIACADEMIAVIDEO") && url9.Contains("SAP"))
+                {
+                    urlSapParametro = url9.Remove(0, 21);
+                    TempData["SapParametros"] = url9.Remove(0, 21);
+
+                }
+                else
+                if (url9.Contains("MIACADEMIA") && url9.Contains("SAP"))
+                {
+                    urlSapParametro = url9.Remove(0, 15);
+                    TempData["SapParametros"] = url9.Remove(0, 15);
+                }
+
                 TempData["FlagAcademiaVideo"] = 1;
                 // if (Util.IsNumeric(MiCurso[1]))
                 if (Util.IsNumeric(MiId[0]))

@@ -575,6 +575,21 @@ namespace Portal.Consultoras.Web.SessionManager
                 return 0;
         }
 
+        public void SetMiAcademiaParametro(string value)
+        {
+            HttpContext.Current.Session["SapParametros"] = value;
+        }
+
+        public string GetMiAcademiaParametro()
+        {
+            if (HttpContext.Current.Session["SapParametros"] != null)
+
+                return (string)HttpContext.Current.Session["SapParametros"];
+            else
+                return "";
+        }
+
+
         void ISessionManager.setBEUsuarioModel(List<ServiceUsuario.BEUsuario> model)
         {
             HttpContext.Current.Session["BEUsuarioModel"] = model;

@@ -227,6 +227,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         int GetMiAcademiaVideo();
 
+        void SetMiAcademiaParametro(string value);
+
+        string GetMiAcademiaParametro();
+
         void SetPedidoValidado(bool validado);
 
         bool GetPedidoValidado();

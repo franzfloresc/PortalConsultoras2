@@ -19,6 +19,9 @@ namespace Portal.Consultoras.Web.Controllers
             var flagHome = 0;
             var IdCurso = 0;
             var FlagVideo = 0;
+            var parametrosSap = "";
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
             try
             {
                 //var IdCurso = sessionManager.GetMiAcademia();
@@ -28,6 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //}
                 IdCurso = sessionManager.GetMiAcademia();
                 FlagVideo = sessionManager.GetMiAcademiaVideo();  //PPC
+                parametrosSap = sessionManager.GetMiAcademiaParametro();  //PPC
                 sessionManager.SetMiAcademia(0);
                 sessionManager.SetMiAcademiaVideo(0);  //PPC
 
@@ -80,8 +84,20 @@ namespace Portal.Consultoras.Web.Controllers
                 var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
-                urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
-                UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, IdCurso);
+
+                if (parametrosSap.Length > 1 && parametrosSap.Contains("SAP"))
+                {
+                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
+                    urlLms = urlLms + "&" + parametrosSap;
+                   UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, IdCurso);
+                   UrlCursoMiAcademiaVideo = UrlCursoMiAcademiaVideo + "&" + parametrosSap;
+                }
+                else
+                {
+                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
+                    UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, IdCurso);
+                }                
+
 
                 if (exito)
                 {

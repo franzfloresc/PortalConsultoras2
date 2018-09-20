@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
                 if (url.Length > 1)
                 {
-                    sap = url[1];
+                    sap = "&" + url[1];
                     return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile", sap });
                 }
                 else

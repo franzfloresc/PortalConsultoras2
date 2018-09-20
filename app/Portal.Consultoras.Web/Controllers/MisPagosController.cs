@@ -34,6 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
             string sap="";
             var url = (Request.Url.Query).Split('?');
 
+            //var sap-outbound-id = "";
             //String s = String.Format("sap-outbound-id");
             //var ID = (Request.Url.OriginalString).Split('=');
             //var MIID = ID[1];
@@ -43,12 +44,14 @@ namespace Portal.Consultoras.Web.Controllers
                 // return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile" });
                 //if url[1].Length > 0 
                 // return RedirectToAction("Index", new RouteValueDictionary(new { controller = "EstadoCuenta", area = "Mobile", sap= url[1] }));
-                // return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile", sapoutboundid = MIID,  utm_source = utm_source, utm_medium = utm_medium, utm_campaign = utm_campaign, utm_term = utm_term, utm_content = utm_content });
+                // return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile", sapoutboundid = ID[1],  utm_source = utm_source, utm_medium = utm_medium, utm_campaign = utm_campaign, utm_term = utm_term, utm_content = utm_content });
 
-                if (url.Length > 1)
+                if (url.Length > 1 && url[1].Contains("sap"))
                 {
-                    sap = url[1];
-                    return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile", sap });
+                    //sap = HttpUtility.UrlEncode(url[1]);
+                    sap = "&" + url[1];
+                   return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile", sap });
+
                 }
                 else
                 {

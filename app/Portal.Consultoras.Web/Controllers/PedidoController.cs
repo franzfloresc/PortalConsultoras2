@@ -51,9 +51,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (EsDispositivoMovil())
             {
                 //return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
-                if (url.Length > 1)
+                if (url.Length > 1 && url[1].Contains("sap"))
                 {
-                    sap = url[1];
+                    sap = "&" + url[1];
                     return RedirectToAction("Index", "Pedido", new { area = "Mobile", sap });
                 }
                 else
@@ -373,7 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (url.Length > 1 && url[1].Contains("sap"))
                     {
-                        sap = url[1].Remove(0, 22);
+                        sap = "&" + url[1].Remove(0, 22);
                         return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param, sap }));
                     }
                     else

@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
                // return RedirectToAction("Comprar", "HerramientasVenta", new { area = "Mobile" });
                 if (url.Length > 1)
                 {
-                    sap = url[1];
+                    sap = "&" + url[1];
                     return RedirectToAction("Comprar", "HerramientasVenta", new { area = "Mobile", sap });
                 }
                 else

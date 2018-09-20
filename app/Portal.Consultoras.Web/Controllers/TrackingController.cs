@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (url1.Length > 1)
                 {
-                    sap = url1[1];
+                    sap = "&" + url1[1];
                     return RedirectToAction("Index", "SeguimientoPedido", new { area = "Mobile", sap });
                 }
                 else

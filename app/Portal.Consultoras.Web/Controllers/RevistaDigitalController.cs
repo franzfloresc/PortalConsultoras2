@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
                // return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
                 if (url.Length > 1)
                 {
-                    sap = url[1];
+                    sap = "&" + url[1];
                     return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile", sap });
                 }
                 else

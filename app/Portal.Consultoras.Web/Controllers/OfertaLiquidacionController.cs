@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile" });
                 if (url.Length > 1)
                 {
-                    sap = url[1];
+                    sap = "&" + url[1];
                     return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile", sap });
                 }
                 else

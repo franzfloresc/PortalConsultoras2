@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
                 if (url.Length > 1)
                 {
-                    sap = url[1];
+                    sap = "&" + url[1];
                     return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", sap });
                 }
                 else
