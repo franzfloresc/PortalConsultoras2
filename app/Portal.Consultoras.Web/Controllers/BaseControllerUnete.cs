@@ -346,9 +346,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (codigoPais != Constantes.CodigosISOPais.Colombia)
                 return Json(new { EsZonaPreferencial = false });
 
-            if (sessionManager.GetResultadoZona() != null )
+            if (SessionManager.GetResultadoZona() != null )
             {
-                var codigoRegion = sessionManager.GetResultadoZona().ToString().Substring(0, 2);
+                var codigoRegion = SessionManager.GetResultadoZona().ToString().Substring(0, 2);
                 return Json(new { EsZonaPreferencial = codigoRegion == "24" });
             }
 

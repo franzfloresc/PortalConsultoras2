@@ -5,16 +5,19 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/ficha")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha")
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/FichaEsika")
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Esika")
     }
     else
     {
-        @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/FichaLbel")
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Lbel")
     }
 }
+
+@Html.Partial("_ElegirOpciones")
+@Html.Partial("ResumenOpcionesTemplate")
 
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" style="display:none;"></div>
 <div class="contenedor_detalle texto_font">
@@ -41,24 +44,6 @@
                     </div>
                     {{/iff}}
                     <div>
-                        @*
-                            <div class="contenedor_carrusel_tonos">
-                                <div id="carrusel_tonos" style="display:none;">
-                                    <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                                        <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                                    </div>
-                                    <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                                        <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                                    </div>
-                                    <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                                        <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                                    </div>
-                                    <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                                        <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                                    </div>
-                                </div>
-                            </div>
-                        *@
                     </div>
 
                 </div>
@@ -96,7 +81,6 @@
                     </div>
                     {{/if}}
                     <div id="EtiquetaPackNuevas" class="contenedor_etiqueta_nuevo">
-                        @*<div class="triangulo_etiqueta_nuevo"></div>*@
                         <div class="etiqueta_nuevo">
                             {{#IsNullOrEmpty ImagenURL '!='}}
                             <img src="{{ImagenURL}}" alt="" />
@@ -134,9 +118,7 @@
                                     {{/each}}
                                 </li>
                             </ul>
-                            @*<span class="subprecio">x1 s/.32</span>
-                                <span class="subprecio">x2 s/.64</span>
-                                <span class="subprecio">x3 s/.128</span>*@
+
                             {{#iff Ganancia '>' 0}}
                             <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
                             {{/iff}}
@@ -153,125 +135,49 @@
                     </div>
                     <hr class="clear">
                     {{/IsNullOrEmpty}}
-                    <div data-codigovariante="{{CodigoVariante}}">
-                        {{#iff CodigoVariante '==' '2001'}}
-                        @*<div id="DescripcionAdicional"></div>*@
-                        {{#each this.Hermanos as |componente|}}
-                        <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
-                            <div class="tono_select_opt">
-                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                    <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                    <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
-                                    <hr class="clear">
-                                </div>
-                                <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
-                                    {{#each componente.Hermanos as |variedad|}}
-                                    <div class="content_tono_elegido" data-tono-change="2"
-                                         data-tono-cuv="{{variedad.Cuv}}"
-                                         data-tono-nombre="{{variedad.NombreBulk}}"
-                                         data-tono-descripcion="{{variedad.NombreComercial}}">
-                                        <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
-                                        <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
-                                        <hr class="clear" />
-                                    </div>
-                                    {{/each}}
-                                </div>
-                            </div>
-                            <div class="content_tonos_maquillaje" data-tono-div="">
-                                {{#each componente.Hermanos as |variedad|}}
-                                <div style="display: none;">
-                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
-                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
-                                </div>
-                                <div id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle"
-                                     data-tono-cuv="{{variedad.Cuv}}"
-                                     data-tono-change="2"
-                                     data-tono-nombre="{{variedad.NombreBulk}}"
-                                     data-tono-descripcion="{{variedad.NombreComercial}}">
-                                    <img src="{{variedad.ImagenBulk}}" alt="">
-                                </div>
-                                {{/each}}
-                            </div>
-                        </div>
-                        {{/each}}
-                        {{/iff}}
-                        {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
-                        <div class="contenido_titulo">
-                            <div class="">
-                                <span>CONTENIDO:</span>
-                            </div>
-                        </div>
-                        <div class="contenedor_lista_detalle">
-                            {{#each this.Hermanos as |componente|}}
-                            {{#ifVerificarMarcaLast componente.DescripcionMarca}}
-                            <div style="border-bottom: 1px solid #ccc; margin:15px 0px;"></div>
-                            {{/ifVerificarMarcaLast}}
-                            <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}}; margin-bottom: 10px">
-                                <div style="display: none;">
-                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
-                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
-                                </div>
-                                <div class="marca_cantidad_descripcion_detalle" data-tono-visible="">
-                                    {{#ifVerificarMarca componente.DescripcionMarca}}
-                                    <div class="marca_detalle_producto">
-                                        <span data-marca_detalle_producto>{{componente.DescripcionMarca}}</span>
-                                    </div>
-                                    {{/ifVerificarMarca}}
-                                    <div class="cantidad_descripcion_detalle">
-                                        <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{componente.Cantidad}}</span>
-                                        <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
-                                            {{componente.NombreComercial}}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {{#iff componente.Digitable '==' '1'}}
-                                <div class="content_right_ficha" style="width:43%;">
-                                    <div class="tono_select_opt">
-                                        <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                            <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                            <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
-                                            <hr class="clear">
-                                        </div>
-                                        <div class="content_tonos_select" style="width:102%;" data-tono-select-area="1">
-                                            {{#each componente.Hermanos as |variedad|}}
-                                            <div class="content_tono_elegido" data-tono-change="2"
-                                                 data-tono-cuv="{{variedad.Cuv}}"
-                                                 data-tono-nombre="{{variedad.NombreBulk}}"
-                                                 data-tono-descripcion="{{variedad.NombreComercial}}">
-                                                <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt="PRODUCTO"></div>
-                                                <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
-                                                <hr class="clear">
-                                            </div>
-                                            {{/each}}
-                                        </div>
-                                    </div>
-                                </div>
-                                {{/iff}}
-                                <hr class="clear">
-                            </div>
-
-                            {{/each}}
-                        </div>
-                        {{/iff}}
+                    
+                    <div id="componentes" data-codigovariante="{{CodigoVariante}}">
                     </div>
 
                 </div>
                 <div id="dvContenedorAgregar" class="contenedor_agregar">
-                    <div class="contenedor_rangos {{ClaseBloqueadaRangos}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
-                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{RangoInputEnabled}} type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
+                    <div class="contenedor_rangos {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
+                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}} type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
                         <div>
-                            <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="{{ClaseBloqueadaRangos}}" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                <div class="dibujar_linea dibujar_menos" data-bloqueada="{{ClaseBloqueadaRangos}}"></div>
+                            <a class="txt_menos" data-cantidad-agregar="-" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                <div class="dibujar_linea dibujar_menos" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}"></div>
                             </a>
-                            <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="{{ClaseBloqueadaRangos}}" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                <div class="dibujar_linea dibujar_mas" data-bloqueada="{{ClaseBloqueadaRangos}}"></div>
+                            <a class="txt_mas" data-cantidad-agregar="+" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                <div class="dibujar_linea dibujar_mas" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}"></div>
                             </a>
                         </div>
                     </div>
-                    <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
 
-                    <div class="ficha_div_libre_agregado" style="padding-top: 15px;">
+                    <div data-selecciontono="tooltip" class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: none;">
+                        <div class="arrow" style="left: 20%;"></div>
+                        <div class="popover-content">
+                            <ul class="list-inline popover_texto">
+                                <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                                <li>Debes elegir tus opciones para poder agregar la oferta.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div data-limitepedido="tooltip" class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: none;">
+                        <div class="arrow"></div>
+                        <div class="popover-content">
+                            <ul class="list-inline popover_texto">
+                                <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                                <li>Lo sentimos <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f615.png" /> Has llegado al límite de pedidos para esta oferta.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo"
+                       class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                       {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
+                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
+
+                    <hr class="clear">
+                    <div class="ficha_div_libre_agregado">
                         {{#iff TextoLibre '!=' ''}}
                         <div class="limit_pack"><span>!</span>{{TextoLibre}}</div>
                         {{/iff}}
@@ -289,7 +195,9 @@
             </div>
         </script>
 
-        <div id="ContenidoProducto" class="contenedor_ficha_tabs">
+        @Html.Partial("ComponentesTemplate")
+
+        <div id="ContenidoProducto" class="contenedor_ficha_tabs" style="display:none;">
             <div class="tabla_ficha_tab">
                 <div class="row_ficha_tab">
                     <div class="cell_ficha_tab" id="div_ficha_tab1">
@@ -400,7 +308,7 @@
         </div>
         @if (Model.TieneCarrusel)
         {
-            <div id="CarruselProducto" class="contenedor_ficha_carrusel">
+            <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
                 <div class="contenedor_titulo_carrusel">
                     <div class="contenedor_linea_carrusel">
                         <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
@@ -412,9 +320,7 @@
                 </div>
                 <!--carrusel-->
                 <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
-                    <div id="carrusel" style="text-align:center;">
-
-                    </div>
+                    <div id="divFichaCarruselProducto" style="text-align:center;"></div>
                 </div>
             </div>
         }
@@ -426,16 +332,17 @@
 
 @section scripts{
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
-    @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
-    <script type="text/javascript">
+<script type="text/javascript">
+        AbrirLoad();
+
         var fichaModule;
         var carruselModule;
         var tieneCarrusel = '@Model.TieneCarrusel';
 
         $(document).ready(function () {
-
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
@@ -445,23 +352,29 @@
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
             });
             fichaModule.Inicializar();
+            //CerrarLoad();
 
             if (tieneCarrusel)
             {
+                //AbrirLoad();
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
                     cuv: "@Model.Cuv",
-                    idPlantilla: "#producto-landing-template",
-                    divCarrusel: "#carrusel",
-                    divSetsProductosdata: "#CarruselProducto",
                     urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
-                    idTituloCarrusel: "#tituloCarrusel"
+                    idPlantillaProducto: "#producto-landing-template",
+                    divCarruselContenedor: "#divFichaCarrusel",
+                    idTituloCarrusel: "#tituloCarrusel",
+                    divCarruselProducto: "#divFichaCarruselProducto"
                 });
                 carruselModule.Inicializar();
             }
+            CerrarLoad();
         });
-    </script>
 
+        $(document).ajaxStop(function () {
+            //CerrarLoad();
+        })
 
+</script>
 }

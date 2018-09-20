@@ -32,16 +32,16 @@ namespace Portal.Consultoras.Web.Controllers
             
             ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
-            if (sessionManager.GetListFiltersFAV() != null)
+            if (SessionManager.GetListFiltersFAV() != null)
             {
-                var lst = sessionManager.GetListFiltersFAV() ?? new List<BETablaLogicaDatos>();
+                var lst = SessionManager.GetListFiltersFAV() ?? new List<BETablaLogicaDatos>();
                 model.FiltersBySorting = lst.Where(x => x.TablaLogicaID == 94).ToList();
                 model.FiltersByCategory = lst.Where(x => x.TablaLogicaID == 95).ToList();
                 model.FiltersByBrand = lst.Where(x => x.TablaLogicaID == 96).ToList();
                 model.FiltersByPublished = lst.Where(x => x.TablaLogicaID == 97).ToList();
             }
 
-            var listaProductoModel = sessionManager.GetProductosCatalogoPersonalizado() ?? new List<ProductoModel>();
+            var listaProductoModel = SessionManager.GetProductosCatalogoPersonalizado() ?? new List<ProductoModel>();
             if (listaProductoModel.Any())
             {
                 var entProd = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault() ?? new ProductoModel();
@@ -84,11 +84,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (sessionManager.GetUserFiltersFAV() != null)
-                    sessionManager.SetUserFiltersFAV(null);
+                if (SessionManager.GetUserFiltersFAV() != null)
+                    SessionManager.SetUserFiltersFAV(null);
 
-                if (sessionManager.GetProductosCatalogoPersonalizadoFilter()!= null)
-                    sessionManager.SetProductosCatalogoPersonalizadoFilter(null);
+                if (SessionManager.GetProductosCatalogoPersonalizadoFilter()!= null)
+                    SessionManager.SetProductosCatalogoPersonalizadoFilter(null);
 
                 return Json(new
                 {
@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 #region obtener catalogo personalizado
-                if (sessionManager.GetProductosCatalogoPersonalizado() == null)
+                if (SessionManager.GetProductosCatalogoPersonalizado() == null)
                 {
                     string paisesConPcm = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
                     int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
@@ -240,13 +240,13 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        sessionManager.SetProductosCatalogoPersonalizado(listaProductoModel);
+                        SessionManager.SetProductosCatalogoPersonalizado(listaProductoModel);
 
                     }
                 }
                 else
                 {
-                    listaProductoModel = sessionManager.GetProductosCatalogoPersonalizado() ?? new List<ProductoModel>();
+                    listaProductoModel = SessionManager.GetProductosCatalogoPersonalizado() ?? new List<ProductoModel>();
                 }
                 #endregion
 
@@ -261,9 +261,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var precioMaximo = prodModel.PrecioCatalogoString;
                 var totalRegistrosFilter = totalRegistros;
 
-                if (lstFilters == null && tipoOrigen == 1 && sessionManager.GetUserFiltersFAV() != null)
+                if (lstFilters == null && tipoOrigen == 1 && SessionManager.GetUserFiltersFAV() != null)
                 {
-                    lstFilters = sessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
+                    lstFilters = SessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
                 }
 
                 if (lstFilters != null)
@@ -286,9 +286,9 @@ namespace Portal.Consultoras.Web.Controllers
                     List<ProductoModel> lstProductoModelFilter;
                     var changedFilters = false;
 
-                    if (sessionManager.GetUserFiltersFAV() != null)
+                    if (SessionManager.GetUserFiltersFAV() != null)
                     {
-                        var userFilters = sessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
+                        var userFilters = SessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
                         foreach (var filter in lstFilters)
                         {
                             var userFilter = userFilters.FirstOrDefault(x => x.Id == filter.Id);
@@ -367,12 +367,12 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        sessionManager.SetUserFiltersFAV(lstFilters);
-                        sessionManager.SetProductosCatalogoPersonalizadoFilter(lstProductoModelFilter);
+                        SessionManager.SetUserFiltersFAV(lstFilters);
+                        SessionManager.SetProductosCatalogoPersonalizadoFilter(lstProductoModelFilter);
                     }
                     else
                     {
-                        lstProductoModelFilter = sessionManager.GetProductosCatalogoPersonalizadoFilter() ?? new List<ProductoModel>();
+                        lstProductoModelFilter = SessionManager.GetProductosCatalogoPersonalizadoFilter() ?? new List<ProductoModel>();
                     }
 
                     listaProductoModel = lstProductoModelFilter;
@@ -617,7 +617,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaProductoModel = sessionManager.GetProductosCatalogoPersonalizado() ?? new List<ProductoModel>();
+                var listaProductoModel = SessionManager.GetProductosCatalogoPersonalizado() ?? new List<ProductoModel>();
                 var productoModel = listaProductoModel.FirstOrDefault(x => x.CUV == cuv);
 
                 if (productoModel == null || !productoModel.EsMaquillaje || productoModel.Hermanos != null)
@@ -676,7 +676,7 @@ namespace Portal.Consultoras.Web.Controllers
                         productoModel.Tonos = listaTonos;
                     }
 
-                    sessionManager.SetProductosCatalogoPersonalizadoFilter(listaProductoModel);
+                    SessionManager.SetProductosCatalogoPersonalizadoFilter(listaProductoModel);
                 }
                 else
                 {
@@ -705,9 +705,9 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var lstProductoModelFilter = new List<FiltroResultadoModel>();
-                if (sessionManager.GetUserFiltersFAV() != null)
+                if (SessionManager.GetUserFiltersFAV() != null)
                 {
-                    lstProductoModelFilter = sessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
+                    lstProductoModelFilter = SessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
                 }
 
                 return Json(new

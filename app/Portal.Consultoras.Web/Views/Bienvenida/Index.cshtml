@@ -5,8 +5,8 @@
 
 @section styles{
 
-    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssBienvenida")
-    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/AsesoraOnline")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/CssBienvenida")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-AsesoraOnline")
 
     <style type="text/css">
         .contenedorCuponInfo .contenedor-texto-agregar {
@@ -539,8 +539,10 @@
         </div>
     </div>
 </div>
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+@*
+  DEUDA TECNICA  
+  <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>*@
+@*<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>*@
 
 <div class="contenedor_fondo_popup contenedor_fondo_popup_oscuro" id="fondoComunPopUp" style="display:none;">
     <div id="virtual-coach-dialog" class="popup_inscripcion_asesoria_online tipografia_lato" style="display:none;">
@@ -1234,8 +1236,10 @@
 </div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@*
+DEUDA TECNICA
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
 
 <script id="liquidacion-template" type="text/x-handlebars-template">
     {{#each this}}
@@ -2130,7 +2134,7 @@
         var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
         var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Bienvenida")
 
 <script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script> 
 <script>

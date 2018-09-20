@@ -1382,6 +1382,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private short EstadoItemField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstrategiaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1894,6 +1897,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.EstadoItemField.Equals(value) != true)) {
                     this.EstadoItemField = value;
                     this.RaisePropertyChanged("EstadoItem");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstrategiaId {
+            get {
+                return this.EstrategiaIdField;
+            }
+            set {
+                if ((this.EstrategiaIdField.Equals(value) != true)) {
+                    this.EstrategiaIdField = value;
+                    this.RaisePropertyChanged("EstrategiaId");
                 }
             }
         }
