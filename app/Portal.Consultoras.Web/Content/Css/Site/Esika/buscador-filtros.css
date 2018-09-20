@@ -733,12 +733,12 @@
 
     .campo_buscador_filtros_mobile {
         width: 100%;
-        height: 59px;
+        height: 32px;
         background: #fff;
         color: #000;
         padding-left: 10px;
         padding-bottom: 2px;
-        line-height: 57px;
+        line-height: 25px;
         font-size: 18px;
         font-weight: 700;
     }
