@@ -106,21 +106,13 @@ var menuModule = (function () {
             $(elementos.bcParaTiMenuActivo).find("img.click-menu").css("display", "inline");
         }
          
+        
+
         if (currentLocation.indexOf("#") > -1) {
             $(elementos.claseimgSeleccionado).hide();
             $(elementos.claseimgNoSeleccionado).show();
-
-        }
-       
-
-        //if ($(elementos.aHover).hasClass(elementos.claseActivo)) {
-            
-        //    var img = $.trim($(elementos.aMenuActivo()).find("img").attr("src"));
-        //    if (img !== "") {
-        //        img = img.replace("_normal.", "_hover.");
-        //        $(elementos.aMenuActivo()).find("img").attr("src", img);
-        //    }
-        //}
+        }     
+ 
     }
     function setHover() {
         $(elementos.aHover).hover(function (e) {
@@ -205,7 +197,6 @@ var menuModule = (function () {
                         _animateScrollTo(elementos.html, menuHeight);
                     }
                 }
-               // _changeLogoMenuDesktopAndMobile();
             }
         }
         if (_var.Mobile) {
@@ -225,21 +216,6 @@ var menuModule = (function () {
         objHtmlEvent.find("a").addClass(elementos.claseActivo);
 
         if (esAncla === "True") {
-            //_changeLogoMenuDesktopAndMobile();
-            // ofertasparati y Lanzamientos, ya no existen
-            //if (currentLocation.indexOf("/ofertasparati") > -1 || currentLocation.indexOf("/Lanzamientos/Detalle") > -1) {
-            //    var indexOf = currentLocation.replace("?", "&").indexOf("&campaniaid=");
-            //    var controller = "Ofertas#";
-            //    if (indexOf > 0) {
-            //        indexOf = currentLocation.split("&campaniaid=")[1];
-            //        indexOf = indexOf.split("&")[0];
-            //        if (indexOf !== campaniaCodigo) {
-            //            controller = "Ofertas/Revisar#";
-            //        }
-            //    }
-            //    window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + controller + codigo;
-            //} else         
-
 
             if (currentLocation.indexOf("/ofertas") > -1) {
                 if ($(elementos.seccionMenuFija).css("position") === "fixed") menuHeight += seccionFixedMenuHeigt;
@@ -253,8 +229,6 @@ var menuModule = (function () {
                 else
                     window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + "Ofertas#" + codigo;
             }
-             
-
             
             if (codigo.indexOf("INICIO") > -1) {
                 $(elementos.claseimgSeleccionado).show();
@@ -273,11 +247,9 @@ var menuModule = (function () {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
             if (codigo.indexOf("INICIO") > -1) {
-                //var img = $.trim($(elementos.menuMobHome).find("img").attr("src"));
-                //if (img !== "") {
-                //    img = img.replace("_normal.", "_hover.");
-                //    $(elementos.menuMobHome).find("img").attr("src", img);
-                //}
+                
+                $(elementos.claseimgSeleccionado).show();
+                $(elementos.claseimgNoSeleccionado).hide();
                 _animateScrollTo(elementos.html, menuHeight);
             }
 
@@ -353,7 +325,6 @@ var menuModule = (function () {
 
 $(document).ready(function () {
     menuModule.init();
-   // menuModule.setHover();
     LayoutHeaderFin();
     $(window).on("scroll",
         function () {
