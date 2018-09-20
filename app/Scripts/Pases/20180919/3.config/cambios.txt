@@ -10,17 +10,12 @@ Add:
     <!--Fin -  Ruta magenes App Catalogo-->
 	
 	<add key="RutaServiceBuscadorAPI" value="http://internal-qaielbsbsearch-925070621.us-east-1.elb.amazonaws.com/" />
-
 	
 Update:
     <add key="CodigoCatalogoIssuu" value="{0}.{1}.c{2}.{3}{4}" />
-    <add key="UrlMicroservicioPersonalizacionSearch" value="http://internal-elbwcf-sbmicroserviciosqas-1282604982.us-east-1.elb.amazonaws.com:5004/" />
-    
-    <add key="UrlMicroservicioPersonalizacionConfig" value="http://internal-elbwcf-sbmicroserviciosqas-1282604982.us-east-1.elb.amazonaws.com:5006/" />
-
-   
-    <add key="PaisesMicroservicioPersonalizacion" value="PE,GT,CR" />
-  
+    <add key="UrlMicroservicioPersonalizacionSearch" value="http://internal-elbwcf-sbmicroserviciosqas-1282604982.us-east-1.elb.amazonaws.com:5004/" />    
+    <add key="UrlMicroservicioPersonalizacionConfig" value="http://internal-elbwcf-sbmicroserviciosqas-1282604982.us-east-1.elb.amazonaws.com:5006/" />   
+    <add key="PaisesMicroservicioPersonalizacion" value="CR" />  
     <add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="101,007,008,009" />
 	
 Delete:
