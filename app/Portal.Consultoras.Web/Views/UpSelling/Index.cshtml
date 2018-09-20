@@ -93,7 +93,7 @@ else
                 <div class="div-3">
                     <div class="titC titCD" data-bind="preview : 'TextoGanasteBoton'">Texto Ganaste Boton:</div>
                     <div class="selectA" data-bind="css: { error: TextoGanasteBoton.hasError }">
-                        <input type="text" data-bind="value: TextoGanasteBoton"  maxlength="21" />
+                        <input type="text" data-bind="value: TextoGanasteBoton" maxlength="21" />
                     </div>
                 </div>
                 <div class="div-3">
@@ -181,10 +181,7 @@ else
     <input type="submit" value="Submit">
 </form>
 
-
-@Scripts.Render("~/Bundle/Js/Desktop/Upselling")
 @section scripts{
- 
     <script>
         jQuery(document).ready(function() {
             belcorp.estrategias.upselling.initialize({
@@ -219,4 +216,5 @@ else
             });
         });
     </script>
+    @Scripts.Render("~/Bundle/Js/Desktop/Upselling")
 }
