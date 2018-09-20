@@ -378,11 +378,28 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
 
-            if (usuario != null)
+            //if (usuario != null)
+            //{
+            //    using (var usuarioServiceClient = new UsuarioServiceClient())
+            //    {
+            //        //usuarioServiceClient.actualizano
+            //    }
+            //}
+
+            if (usuario == null)
             {
-                using (var usuarioServiceClient = new UsuarioServiceClient())
+                if (Request.IsAjaxRequest())
                 {
-                    //usuarioServiceClient.actualizano
+                    return Json(new
+                    {
+                        success = false,
+                        redirectTo = "Error al procesar la solicitud"
+                    });
+                }
+                else
+                {
+                    var url = GetUrlUsuarioDesconocido();
+                    return Redirect(url);
                 }
             }
 
@@ -399,23 +416,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (usuario.RolID != Constantes.Rol.Consultora)
                 {
                     returnUrl = "";
-                }
-            }
-
-            if (usuario == null)
-            {
-                if (Request.IsAjaxRequest())
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        redirectTo = "Error al procesar la solicitud"
-                    });
-                }
-                else
-                {
-                    var url = GetUrlUsuarioDesconocido();
-                    return Redirect(url);
                 }
             }
 
