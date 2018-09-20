@@ -556,6 +556,14 @@
     transform:rotate(-180deg);
 }
 
+.girar270 {
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+
 .pagoTotal .icono_flecha_despliegue{
     top: 19px;
 }
