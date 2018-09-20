@@ -17,7 +17,7 @@ $(document).ready(function () {
 
             $("#PopDetalleCompra").show();
 
-            EstablecerLazyCarrusel($('.content_carrusel_pop_compra'));
+            EstablecerLazyCarrusel('.content_carrusel_pop_compra');
             $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');
             $('.content_carrusel_pop_compra').not('.slick-initialized').slick({
                 lazyLoad: 'ondemand',
@@ -30,13 +30,13 @@ $(document).ready(function () {
                 prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
                 nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
             }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-                EstablecerLazyCarrusel($('.content_carrusel_pop_compra'));
+                EstablecerLazyCarruselAfterChange('.content_carrusel_pop_compra');
             });
 
             $('.content_carrusel_pop_compra').slick('slickGoTo', parseInt(posicion) - 1);
         });
 
-        EstablecerLazyCarrusel($('.responsive'));
+        EstablecerLazyCarrusel('.responsive');
 
         $('.responsive').not('.slick-initialized').slick({
             lazyLoad: 'ondemand',
@@ -49,10 +49,10 @@ $(document).ready(function () {
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;text-align:right"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
         }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstablecerLazyCarrusel($('.responsive'));
+            EstablecerLazyCarruselAfterChange($('.responsive'));
         });
 
-        EstablecerLazyCarrusel($('.content_ficha_compra'));
+        EstablecerLazyCarrusel('.content_ficha_compra');
         $('.content_ficha_compra').slick({
             lazyLoad: 'ondemand',
             dots: true,
@@ -65,7 +65,7 @@ $(document).ready(function () {
             prevArrow: '<button type="button" data-role="none" class="slick-next next_compraxcompra"></button>',
             nextArrow: '<button type="button" data-role="none" class="slick-prev previous_compraxcompra"></button>'
         }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstablecerLazyCarrusel($('.content_ficha_compra'));
+            EstablecerLazyCarruselAfterChange($('.content_ficha_compra'));
         });
 
         //marca google analytics*******************************
@@ -110,7 +110,7 @@ $(document).ready(function () {
             $('body').css({ 'overflow-y': 'hidden' });
             $('#PopCompra').show();
 
-            EstablecerLazyCarrusel($('.content_pop_compra'));
+            EstablecerLazyCarrusel('.content_pop_compra');
             $('.content_pop_compra.slick-initialized').slick('unslick');
             $('.content_pop_compra').slick({
                 lazyLoad: 'ondemand',
@@ -123,7 +123,7 @@ $(document).ready(function () {
                 prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -10%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
                 nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -10%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
             }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-                EstablecerLazyCarrusel($('.content_pop_compra'));
+                EstablecerLazyCarruselAfterChange('.content_pop_compra');
             });
 
             $('.content_pop_compra').slick('slickGoTo', parseInt(posicion) - 1);
@@ -137,7 +137,7 @@ $(document).ready(function () {
         $("footer").hide();
         $("#content").css("margin-top", "63px");
 
-        EstablecerLazyCarrusel($('.variable-width'));
+        EstablecerLazyCarrusel('.variable-width');
 
         $('.variable-width').on('init', function (event, slick) {
             setTimeout(function () {
@@ -168,10 +168,10 @@ $(document).ready(function () {
 
             $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(posicion);
         }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstablecerLazyCarrusel($('.variable-width'));
+            EstablecerLazyCarruselAfterChange('.variable-width');
         });
 
-        EstablecerLazyCarrusel($('.content_compra_carrusel'));
+        EstablecerLazyCarrusel('.content_compra_carrusel');
         $('.content_compra_carrusel').slick({
             lazyLoad: 'ondemand',
             dots: false,
@@ -183,7 +183,7 @@ $(document).ready(function () {
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -13%; top:30%;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_left.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -13%; top:30%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_right.png")" alt="" /></a>'
         }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstablecerLazyCarrusel($('.content_compra_carrusel'));
+            EstablecerLazyCarruselAfterChange('.content_compra_carrusel');
         });
 
         //marca google analytics*******************************
@@ -627,7 +627,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                     SetHandlebars("#producto-landing-template", objData, "#contenedor-showroom-subcampanias");
                     $('#divContentSubCampania').show();
 
-                    EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias'));
+                    EstablecerLazyCarrusel('#contenedor-showroom-subcampanias');
                     
                     if (!$(objData.lista).filter(function (a, b) {
                         return b.Hermanos.length > 0
@@ -743,7 +743,7 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
                 //SetHandlebars("#producto-landing-template", objData, "#contenedor-showroom-subcampanias-mobile");
                 $('#divContentSubCampania').show();
 
-                EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias-mobile'));
+                EstablecerLazyCarrusel('#contenedor-showroom-subcampanias-mobile');
 
                 if (!$(objData.lista).filter(function (a, b) {
                       return b.Hermanos.length > 0

@@ -2014,6 +2014,10 @@ function EstablecerLazyCarrusel(elementoHtml) {
 
 }
 
+function EstablecerLazyCarruselAfterChange(elementoHtml) {
+    //EstablecerLazyCarrusel(elementoHtml);
+}
+
 /*
 Detectando IE 6 - 11
 */
