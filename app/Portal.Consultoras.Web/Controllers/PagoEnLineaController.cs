@@ -134,13 +134,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GuardarMontoDeuda(decimal MontoDeuda, decimal PorcentajeGastosAdministrativos)
+        public JsonResult GuardarMontoDeuda(decimal MontoDeuda)
         {
             var model = sessionManager.GetDatosPagoVisa();
             if (model == null) return Json(new { success = false });
 
             model.MontoDeuda = MontoDeuda;
-            model.PorcentajeGastosAdministrativos = PorcentajeGastosAdministrativos;
             sessionManager.SetDatosPagoVisa(model);
 
             return Json(new

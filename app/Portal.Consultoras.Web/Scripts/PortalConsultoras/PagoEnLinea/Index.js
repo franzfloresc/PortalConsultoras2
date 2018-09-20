@@ -52,11 +52,10 @@ $(document).ready(function () {
                     }
                 }
             },
-            GuardarMontos: function(montoDeuda, porcentajeGastosAdministrativos) {
+            GuardarMonto: function(montoDeuda) {
 
                 var parametros = {
-                    MontoDeuda: parseFloat(montoDeuda).toFixed(2),
-                    PorcentajeGastosAdministrativos: porcentajeGastosAdministrativos
+                    MontoDeuda: parseFloat(montoDeuda).toFixed(2)
                 };
 
                 jQuery.ajax({
@@ -194,9 +193,8 @@ $(document).ready(function () {
                     AbrirMensaje("El monto a pagar debe ser mayor o igual a 0.50");
                     return false;
                 }
-
-                var porcentajeGastosAdministrativos = $("#hdPorcentajeGastosAdministrativos").val();
-                me.Funciones.GuardarMontos(montoDeuda, porcentajeGastosAdministrativos);
+                
+                me.Funciones.GuardarMonto(montoDeuda);
 
                 me.Funciones.IrPasarela();
             },
@@ -216,9 +214,8 @@ $(document).ready(function () {
                     AbrirMensaje("El monto a pagar excede tu deuda, por favor ingresa otro monto");
                     return false;
                 }
-
-                var porcentajeGastosAdministrativos = $("#hdPorcentajeGastosAdministrativos").val();
-                me.Funciones.GuardarMontos(montoDeuda, porcentajeGastosAdministrativos);  
+                
+                me.Funciones.GuardarMonto(montoDeuda);  
 
                 me.Funciones.IrPasarela();
             },
