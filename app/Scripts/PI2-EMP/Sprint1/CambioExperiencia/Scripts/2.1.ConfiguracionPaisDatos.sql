@@ -4,16 +4,27 @@ go
 print  'BD : ' + db_name()
 
 declare @RevistaDigital_Codigo varchar(50) = 'RD'
+--
 declare @LogoComercialFondoActiva_Codigo varchar(50) = 'LogoComercialFondoActiva'
 declare @LogoComercialFondoActiva_Valor1 varchar(800) = 'logo-club-ganamas-dorado2.png'
+--
 declare @LogoMenuOfertasActiva_Codigo varchar(50) = 'LogoMenuOfertasActiva'
 declare @LogoMenuOfertasActiva_Valor1 varchar(800) = 'gif-club-ganamas2.gif'
+--
 declare @PopupImagenEtiqueta_Codigo varchar(50) = 'PopupImagenEtiqueta'
 declare @PopupImagenEtiqueta_Valor1 varchar(800) = 'ClubGanaMas-etiqueta-dorado2.png'
+--
 declare @PopupBotonTexto_Codigo varchar(50) = 'PopupBotonTexto'
 declare @PopupBotonTexto_Valor1 varchar(800) = 'Conoce Gana+'
+--
 declare @LogoComercialActiva_Codigo varchar(50) = 'LogoComercialActiva'
 declare @LogoComercialActiva_Valor1 varchar(800) = 'logotipo-club-ganamaplus-blanco2.svg'
+--
+declare @PopupBloqueadoNS_Codigo varchar(50) = 'PopupBloqueadoNS'
+declare @PopupBloqueadoNS_Valor2 varchar(800) = 'ESTE Y OTROS PRODUCTOS SOLO EN GANA+'
+--
+declare @PopupBloqueadoSNA_Codigo varchar(50) = 'PopupBloqueadoSNA'
+declare @PopupBloqueadoSNA_Valor2 varchar(800) = 'los beneficios de gana+'
 declare @InformativoVideo_Codigo varchar(50) = 'InformativoVideo'
 declare @InformativoVideo_Valor1 varchar(800) = 'Pj_whuH1j7E'
 declare @UrlPreguntasFrecuentes_Codigo varchar(50) = 'UrlPreguntasFrecuentes'
@@ -73,6 +84,26 @@ from ConfiguracionPais cp
 where cp.codigo = @RevistaDigital_Codigo
 and cpd.Codigo = @LogoComercialActiva_Codigo
 
+print  'Actualizando ''PopupBloqueadoNS'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor2 = @PopupBloqueadoNS_Valor2
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigital_Codigo
+and cpd.Codigo = @PopupBloqueadoNS_Codigo
+
+print  'Rollback ''Actualizando'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor2 = @PopupBloqueadoSNA_Valor2
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigital_Codigo
+and cpd.Codigo = @PopupBloqueadoSNA_Codigo
+
 print  'Actualizando ''InformativoVideo'' en ''ConfiguracionPaisDatos'''
 
 update cpd
@@ -113,16 +144,27 @@ go
 print  'BD : ' + db_name()
 
 declare @RevistaDigital_Codigo varchar(50) = 'RD'
+--
 declare @LogoComercialFondoActiva_Codigo varchar(50) = 'LogoComercialFondoActiva'
 declare @LogoComercialFondoActiva_Valor1 varchar(800) = 'logo-club-ganamas-dorado2.png'
+--
 declare @LogoMenuOfertasActiva_Codigo varchar(50) = 'LogoMenuOfertasActiva'
 declare @LogoMenuOfertasActiva_Valor1 varchar(800) = 'gif-club-ganamas2.gif'
+--
 declare @PopupImagenEtiqueta_Codigo varchar(50) = 'PopupImagenEtiqueta'
 declare @PopupImagenEtiqueta_Valor1 varchar(800) = 'ClubGanaMas-etiqueta-dorado2.png'
+--
 declare @PopupBotonTexto_Codigo varchar(50) = 'PopupBotonTexto'
 declare @PopupBotonTexto_Valor1 varchar(800) = 'Conoce Gana+'
+--
 declare @LogoComercialActiva_Codigo varchar(50) = 'LogoComercialActiva'
 declare @LogoComercialActiva_Valor1 varchar(800) = 'logotipo-club-ganamaplus-blanco2.svg'
+--
+declare @PopupBloqueadoNS_Codigo varchar(50) = 'PopupBloqueadoNS'
+declare @PopupBloqueadoNS_Valor2 varchar(800) = 'ESTE Y OTROS PRODUCTOS SOLO EN GANA+'
+--
+declare @PopupBloqueadoSNA_Codigo varchar(50) = 'PopupBloqueadoSNA'
+declare @PopupBloqueadoSNA_Valor2 varchar(800) = 'los beneficios de gana+'
 declare @InformativoVideo_Codigo varchar(50) = 'InformativoVideo'
 declare @InformativoVideo_Valor1 varchar(800) = 'pyO8sDNywIA'
 declare @UrlPreguntasFrecuentes_Codigo varchar(50) = 'UrlPreguntasFrecuentes'
@@ -182,6 +224,26 @@ from ConfiguracionPais cp
 where cp.codigo = @RevistaDigital_Codigo
 and cpd.Codigo = @LogoComercialActiva_Codigo
 
+print  'Actualizando ''PopupBloqueadoNS'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor2 = @PopupBloqueadoNS_Valor2
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigital_Codigo
+and cpd.Codigo = @PopupBloqueadoNS_Codigo
+
+print  'Rollback ''Actualizando'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor2 = @PopupBloqueadoSNA_Valor2
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigital_Codigo
+and cpd.Codigo = @PopupBloqueadoSNA_Codigo
+
 print  'Actualizando ''InformativoVideo'' en ''ConfiguracionPaisDatos'''
 
 update cpd
@@ -222,16 +284,27 @@ go
 print  'BD : ' + db_name()
 
 declare @RevistaDigital_Codigo varchar(50) = 'RD'
+--
 declare @LogoComercialFondoActiva_Codigo varchar(50) = 'LogoComercialFondoActiva'
 declare @LogoComercialFondoActiva_Valor1 varchar(800) = 'logo-club-ganamas-dorado2.png'
+--
 declare @LogoMenuOfertasActiva_Codigo varchar(50) = 'LogoMenuOfertasActiva'
 declare @LogoMenuOfertasActiva_Valor1 varchar(800) = 'gif-club-ganamas2.gif'
+--
 declare @PopupImagenEtiqueta_Codigo varchar(50) = 'PopupImagenEtiqueta'
 declare @PopupImagenEtiqueta_Valor1 varchar(800) = 'ClubGanaMas-etiqueta-dorado2.png'
+--
 declare @PopupBotonTexto_Codigo varchar(50) = 'PopupBotonTexto'
 declare @PopupBotonTexto_Valor1 varchar(800) = 'Conoce Gana+'
+--
 declare @LogoComercialActiva_Codigo varchar(50) = 'LogoComercialActiva'
 declare @LogoComercialActiva_Valor1 varchar(800) = 'logotipo-club-ganamaplus-blanco2.svg'
+--
+declare @PopupBloqueadoNS_Codigo varchar(50) = 'PopupBloqueadoNS'
+declare @PopupBloqueadoNS_Valor2 varchar(800) = 'ESTE Y OTROS PRODUCTOS SOLO EN GANA+'
+--
+declare @PopupBloqueadoSNA_Codigo varchar(50) = 'PopupBloqueadoSNA'
+declare @PopupBloqueadoSNA_Valor2 varchar(800) = 'los beneficios de gana+'
 declare @InformativoVideo_Codigo varchar(50) = 'InformativoVideo'
 declare @InformativoVideo_Valor1 varchar(800) = 'OJum4M_65MI'
 declare @UrlPreguntasFrecuentes_Codigo varchar(50) = 'UrlPreguntasFrecuentes'
@@ -290,6 +363,26 @@ from ConfiguracionPais cp
 		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
 where cp.codigo = @RevistaDigital_Codigo
 and cpd.Codigo = @LogoComercialActiva_Codigo
+
+print  'Actualizando ''PopupBloqueadoNS'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor2 = @PopupBloqueadoNS_Valor2
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigital_Codigo
+and cpd.Codigo = @PopupBloqueadoNS_Codigo
+
+print  'Rollback ''Actualizando'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor2 = @PopupBloqueadoSNA_Valor2
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigital_Codigo
+and cpd.Codigo = @PopupBloqueadoSNA_Codigo
 
 print  'Actualizando ''InformativoVideo'' en ''ConfiguracionPaisDatos'''
 
