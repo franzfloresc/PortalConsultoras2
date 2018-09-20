@@ -2,7 +2,7 @@
 var menuModule = (function () {
     var elementos = {
         html: "html, body",
-        claseActivo: "activo",
+        claseActivo: "activado",
         claseActivoP: "titulo-menu",
         menu2: "[data-layout-menu2]",
         menu1: "[data-layout-menu1]",
@@ -92,7 +92,7 @@ var menuModule = (function () {
         var esSuscrita = $(elementos.subnavegadorUl).data("es-suscrita");
 
         if (esSuscrita) {
-            elementos.claseActivo = "activo-dorado";
+            elementos.claseActivo = "activado-dorado";
         }
 
         url = document.location.href;
@@ -201,6 +201,7 @@ var menuModule = (function () {
         }
     }
     function menuClick(e, url) {
+    
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
         var codigo = objHtmlEvent.data("codigo") || "";
@@ -225,7 +226,9 @@ var menuModule = (function () {
             //        }
             //    }
             //    window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + controller + codigo;
-            //} else
+            //} else         
+
+
             if (currentLocation.indexOf("/ofertas") > -1) {
                 if ($(elementos.seccionMenuFija).css("position") === "fixed") menuHeight += seccionFixedMenuHeigt;
                 _animateScrollTo(anchorMark + codigo, menuHeight);
@@ -238,7 +241,24 @@ var menuModule = (function () {
                 else
                     window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + "Ofertas#" + codigo;
             }
+
+            
+            if (codigo.indexOf("INICIO") > -1) {
+                $('.imgSeleccionado').show();
+                $('.imgNoSeleccionado').hide();
+
+            }
+            else {
+                $('.imgSeleccionado').hide();
+                $('.imgNoSeleccionado').show();
+            }
+
+
         } else {
+            
+            $('.imgSeleccionado').hide();
+            $('.imgNoSeleccionado').show();
+
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
             if (codigo.indexOf("INICIO") > -1) {

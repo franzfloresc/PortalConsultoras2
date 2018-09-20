@@ -356,9 +356,7 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
                 margin-bottom: -5px !important;
                }
 
-            .op-menu-horizontal .subnavegador li a.activado{
-                border-bottom: 3px solid #c39934;
-            }
+            
 
             .op-menu-horizontal .subnavegador li .gana_mas_horizontal {
                 color: #c39934;
@@ -808,3 +806,11 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
         width: 17%;
     }
 }
+
+.op-menu-horizontal .subnavegador li .activado-dorado {
+    border-bottom: 3px solid #c39934;
+    color: #c39934;
+}
+
+
+

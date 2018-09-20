@@ -83,28 +83,47 @@
                     <ul class="subnavegador" style="width: 100%; height: 45px; background: #fff;" data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()" data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
                         @foreach (var menuhijo in menuList)
                         {
-                            var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : string.Empty;
+                            var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activado" : string.Empty;
                             if (ViewBag.EsSuscrita)
                             {
-                                claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activo-dorado" : "default-dorado";
+                                claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activado-dorado" : "default-dorado";
                             }
                             <li data-campania="@menuhijo.CampaniaId" data-activo="1"
                                 data-codigo="@menuhijo.Codigo"
                                 data-es-ancla="@menuhijo.EsAncla"
                                 onclick="menuModule.menuClick(this, '@menuhijo.UrlMenuMobile')">
+
                                 <a href="javascript:;" class="@claseActivo" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu">
                                     @if (!string.IsNullOrEmpty(menuhijo.MobileLogoMenu))
                                     {
 
-                                        <span class="opcion_home_vistaOfertas">
+                                        @*<span class="opcion_home_vistaOfertas">
                                             <img src="@menuhijo.MobileLogoMenu" alt="Inicio" class="icono-submenu-tabs icono-logo-submenu-tabs" style="display: inline !important" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" />
-                                        </span>
+                                        </span>*@
+
+                                        if (menuhijo.Codigo == menuActivo.Codigo)
+                                        {
+
+                                            <img   src="@menuhijo.DesktopLogoMenu"  alt="Inicio" class="imgSeleccionado icono-submenu-tabs icono-logo-submenu-tabs" style="display: inline !important" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu"  />
+                                            <img  src="@menuhijo.DesktopLogoMenuNoActivo" alt="Inicio" class="imgNoSeleccionado hide icono-submenu-tabs icono-logo-submenu-tabs" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu"/>
+
+                                        }
+                                        else
+                                        {
+                                            <img src="@menuhijo.DesktopLogoMenuNoActivo"  alt="Inicio" class="icono-submenu-tabs icono-logo-submenu-tabs" style="display: inline !important" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" />
+
+                                        }  
+
+
+
                                     }
                                     else
                                     {
                                         <p>@menuhijo.MobileTituloMenu</p>
                                     }
                                 </a>
+
+
                             </li>
                         }
                     </ul>

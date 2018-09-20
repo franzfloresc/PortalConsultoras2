@@ -15,6 +15,9 @@ namespace Portal.Consultoras.Web.Models
         public int Orden { get; set; }
 
         public bool TienePerfil { get; set; }
+        public string DesktopLogoMenuNoActivo { get; set; }
+       // public string MobileLogoMenuNoActivo { get; set; }
+
         public string DesktopLogoMenu { get; set; }
         public string MobileLogoMenu { get; set; }
         public string DesktopTituloMenu { get; set; }

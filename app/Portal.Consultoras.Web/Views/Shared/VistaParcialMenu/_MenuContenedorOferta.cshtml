@@ -150,45 +150,48 @@
             </ul>
         </div>*@
         <div class="op-menu-horizontal">
-            <ul class="subnavegador">
-                <li>
-                    <a class="gana_mas_horizontal activado" href="javascript:void(0);">
-                        <img src="~/Content/Images/RevistaDigital/NuevosLogos/gana_mas_no_seleccionado.svg" alt="" />
+            <ul class="subnavegador" data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()" data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
+                 @foreach (var menuhijo in menuList)
+                {
+                    var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activado" : string.Empty;
 
-                        @*Logo cuando esta seleccionado*@
-                        @*<img src="~/Content/Images/RevistaDigital/NuevosLogos/gana_mas_seleccionado.svg" alt="" />*@
+                    if (ViewBag.EsSuscrita)
+                    {
+                        claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activado-dorado" : "default-dorado ";
+                    }
+                    <li data-campania="@menuhijo.CampaniaId" data-activo="1"
+                        data-codigo="@menuhijo.Codigo"
+                        data-es-ancla="@menuhijo.EsAncla"
+                        onclick="menuModule.menuClick(this, '@menuhijo.UrlMenu')">
 
+                         
+                        @if (!string.IsNullOrEmpty(menuhijo.DesktopLogoMenu))
+                        {            
 
+                            <a class="gana_mas_horizontal @claseActivo" href="javascript:void(0);">
 
-                        @*OFERTAS DIGITALES*@
-                        @*<img class="logo_ofertas_digitales" src="~/Content/Images/RevistaDigital/NuevosLogos/ofertas_digitales_esika_no_seleccionado.svg" alt="" />*@
+                            @if (menuhijo.Codigo == menuActivo.Codigo)
+                            {
+                                <img class="imgSeleccionado" src="@menuhijo.DesktopLogoMenu"  role="menu" region="Lateral" parent="@tagContenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" alt=""  />
+                                <img class="imgNoSeleccionado hide"src="@menuhijo.DesktopLogoMenuNoActivo"  role="menu" region="Lateral" parent="@tagContenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" alt="" />
 
-                        @*Logo seleccionado Esika*@
-                        @*<img class="logo_ofertas_digitales" src="~/Content/Images/RevistaDigital/NuevosLogos/ofertas_digitales_esika_seleccionado.svg" alt="" />*@
+                            }
+                            else
+                            {
+                                <img src="@menuhijo.DesktopLogoMenuNoActivo"  role="menu" region="Lateral" parent="@tagContenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" alt="" />
 
-                        @*Logo seleccionado Lbel*@
-                        @*<img class="logo_ofertas_digitales" src="~/Content/Images/RevistaDigital/NuevosLogos/ofertas_digitales_lbel_seleccionado.svg" alt="" />*@
-                    </a>
-                    
-                </li>
-                <li>
-                    <a href="javascript:void(0);">OFERTAS ESPECIALES</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">LO NUEVO ¡NUEVO!</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">OFERTAS PARA TI</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">¡SOLO HOY!</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">DEMOSTRADORES</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">SABER MÁS</a>
-                </li>
+                            }  
+                         </a>   
+
+                        }
+                        @if (!string.IsNullOrEmpty(menuhijo.DesktopTituloMenu))
+                        {                                        
+
+                                  <a href="javascript:void(0);"  class="@claseActivo">@menuhijo.DesktopTituloMenu</a>
+                        }
+                        
+                    </li>
+                }  
             </ul>
         </div>
     }
