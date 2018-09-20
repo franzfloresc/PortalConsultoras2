@@ -1440,7 +1440,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (valido)
                 {
-                    if(enRangoProgNuevas) mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
+                    //if(enRangoProgNuevas)
+                    mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
                     valido = mensaje == "";
                 }
