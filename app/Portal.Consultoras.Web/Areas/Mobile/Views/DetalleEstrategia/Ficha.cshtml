@@ -219,11 +219,12 @@
 </div>
 @if (Model.TieneCarrusel)
 {
+    
+<div id="divFichaCarrusel" class="container">
     <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
         <hr>
     </div>
     <hr class="clear" />
-    <div id="divFichaCarrusel" class="container">
 
         <div class="row carrusel">
             <div>
@@ -303,31 +304,31 @@ else
     <script>
         AbrirLoad();
 
-		window.videoKey = '@Model.CodigoVideo';
-		var fichaModule;
+        window.videoKey = '@Model.CodigoVideo';
+        var fichaModule;
         var carruselModule;
 
-		var tieneCarrusel = '@Model.TieneCarrusel';
+        var tieneCarrusel = '@Model.TieneCarrusel';
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new {area = ""})';
 
         $(document).ready(function () {
-			fichaModule = FichaModule({
-				palanca: "@Model.Palanca",
-				origen: "@Model.OrigenUrl",
-				tieneSession: "@Model.TieneSession",
-				campania: "@Model.Campania",
-				cuv: "@Model.Cuv",
-				urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })'
-			});
-			fichaModule.Inicializar();
+            fichaModule = FichaModule({
+                palanca: "@Model.Palanca",
+                origen: "@Model.OrigenUrl",
+                tieneSession: "@Model.TieneSession",
+                campania: "@Model.Campania",
+                cuv: "@Model.Cuv",
+                urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new {area = ""})'
+            });
+            fichaModule.Inicializar();
             //CerrarLoad();
 
-			if (tieneCarrusel) {
+            if (tieneCarrusel) {
                 //AbrirLoad();
-				carruselModule = CarruselModule({
-					palanca: "@Model.Palanca",
-					campania: "@Model.Campania",
-					cuv: "@Model.Cuv",
+                carruselModule = CarruselModule({
+                    palanca: "@Model.Palanca",
+                    campania: "@Model.Campania",
+                    cuv: "@Model.Cuv",
                     urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new {Area = ""})',
                     idPlantillaProducto: "#producto-landing-template",
                     divCarruselContenedor: "#divFichaCarrusel",
@@ -337,7 +338,7 @@ else
                 carruselModule.Inicializar();
             }
             CerrarLoad();
-		});
+        });
 
         $(document).ajaxStop(function () {
             //CerrarLoad();
