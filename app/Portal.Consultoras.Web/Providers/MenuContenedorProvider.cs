@@ -387,7 +387,7 @@ namespace Portal.Consultoras.Web.Providers
 
 
                         config.DesktopLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
-                        //config.MobileLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
+
                         if (!revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.DLogoMenuInicioNoActiva))
                         {
                             config.DesktopLogoMenu = revistaDigital.DLogoMenuInicioNoSuscrita;
@@ -398,14 +398,7 @@ namespace Portal.Consultoras.Web.Providers
                             config.DesktopLogoMenu = revistaDigital.DLogoMenuInicioActiva;
                             config.DesktopLogoMenuNoActivo = revistaDigital.DLogoMenuInicioNoActiva;
                         }
-                        //if (!revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.MLogoMenuInicioNoActiva))
-                        //{
-                        //    config.MobileLogoMenu = revistaDigital.MLogoMenuInicioNoActiva;
-                        //}
-                        //if (revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.MLogoMenuInicioActiva))
-                        //{
-                        //    config.MobileLogoMenu = revistaDigital.MLogoMenuInicioActiva;
-                        //}
+           
                         config.Descripcion = string.Empty;
                         config = _configuracionPaisProvider.ActualizarTituloYSubtituloBanner(config, revistaDigital);
                         break;

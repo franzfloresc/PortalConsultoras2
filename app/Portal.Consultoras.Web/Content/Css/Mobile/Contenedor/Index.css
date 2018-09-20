@@ -466,3 +466,6 @@ img.icono-logo-submenu-tabs {
 .activado-dorado img{
     height: 13px !important
 }
+.ocultar {
+    display: none;
+}
