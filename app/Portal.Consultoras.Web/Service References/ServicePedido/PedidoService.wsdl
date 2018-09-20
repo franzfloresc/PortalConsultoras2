@@ -325,6 +325,12 @@
   <wsdl:message name="IPedidoService_ObtenerPagoEnLineaPasarelaCampos_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaPasarelaCamposResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaURLPaginasBancos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaURLPaginasBancos" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaURLPaginasBancos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaURLPaginasBancosResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerPagoEnLineaNumeroOrden_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaNumeroOrden" />
   </wsdl:message>
@@ -2644,6 +2650,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCampos" message="tns:IPedidoService_ObtenerPagoEnLineaPasarelaCampos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCamposResponse" message="tns:IPedidoService_ObtenerPagoEnLineaPasarelaCampos_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaURLPaginasBancos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancos" message="tns:IPedidoService_ObtenerPagoEnLineaURLPaginasBancos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancosResponse" message="tns:IPedidoService_ObtenerPagoEnLineaURLPaginasBancos_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPagoEnLineaNumeroOrden">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrdenResponse" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_OutputMessage" />
@@ -4483,6 +4493,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPagoEnLineaPasarelaCampos">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCampos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaURLPaginasBancos">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8105,6 +8124,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPagoEnLineaPasarelaCampos">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCampos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaURLPaginasBancos">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
