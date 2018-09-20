@@ -1558,9 +1558,13 @@
     <Content Include="Content\Images\icono_avatar_menu.svg" />
     <Content Include="Content\Images\icono_cargar_foto_desde_galeria.svg" />
     <Content Include="Content\Images\icono_carrito.svg" />
+    <Content Include="Content\Images\icono_catalogos.svg" />
     <Content Include="Content\Images\icono_cerrar_menu_mobile.png" />
+    <Content Include="Content\Images\icono_comunidad_virtual.svg" />
+    <Content Include="Content\Images\icono_esika_responde.png" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
     <Content Include="Content\Images\icono_lupa.svg" />
+    <Content Include="Content\Images\icono_noticias.svg" />
     <Content Include="Content\Images\icono_notificaciones.svg" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
@@ -1578,6 +1582,12 @@
     <Content Include="Content\Images\Lbel\estrellas.png" />
     <Content Include="Content\Images\Lbel\logo_marca_pais.svg" />
     <Content Include="Content\Images\Lbel\vineta_indicador.png" />
+    <Content Include="Content\Images\logo_belcorp_desktop.png" />
+    <Content Include="Content\Images\logo_belcorp_mobile.svg" />
+    <Content Include="Content\Images\logo_facebook.svg" />
+    <Content Include="Content\Images\logo_youtube.svg" />
+    <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
+    <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
     <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\icono_editar_foto_perfil.svg" />
@@ -5299,6 +5309,7 @@
     <Content Include="Views\Shared\_MenuSecundarioResponsive.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpBuscadorResultadoResponsive.cshtml" />
     <Content Include="Views\BusquedaProductos\Index.cshtml" />
+    <Content Include="Views\Shared\_FooterResponsive.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
