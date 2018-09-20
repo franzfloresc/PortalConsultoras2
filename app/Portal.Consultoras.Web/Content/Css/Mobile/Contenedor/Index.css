@@ -461,3 +461,6 @@ img.icono-logo-submenu-tabs {
     border-bottom: 2px solid #c39934;
     color: #c39934;
 }
+.hide {
+display:none
+}
