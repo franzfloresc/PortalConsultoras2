@@ -10,7 +10,10 @@
 
     var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
 }
-@Styles.Render("~/Bundle/Css/Desktop/ShowRoom-Index");
+
+@section styles{
+    @Styles.Render("~/Bundle/Css/Desktop/ShowRoom-Index")
+}
 
 @*<input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
     <input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />*@
@@ -552,6 +555,6 @@
         var esShowRoom = true;
     </script>
 
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/ShowRoomJs")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/ShowRoom-Index")
 
 }

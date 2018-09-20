@@ -3,18 +3,19 @@
 @model Portal.Consultoras.Web.Models.EstrategiaOutModel
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Detalle Oferta";
-                Layout = "~/Views/Shared/_MainLayout.cshtml";
+    ViewBag.Title = "Detalle Oferta";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-@Styles.Render("~/Bundle/Css/Desktop/EstrategiaProducto-DetalleProducto")
+
 @section styles{
     <style>
         .SubHeader {
             display: none;
         }
     </style>
+    @Styles.Render("~/Bundle/Css/Desktop/EstrategiaProducto-DetalleProducto")
 }
 <div id="contenedor-detalle-producto"></div>
 <hr class="clear" />
