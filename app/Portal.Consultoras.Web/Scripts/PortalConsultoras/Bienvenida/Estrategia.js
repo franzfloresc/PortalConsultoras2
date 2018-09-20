@@ -315,7 +315,7 @@ function ArmarCarouselEstrategias(data) {
         $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel");
         $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel($("#divListadoEstrategia"));
+        EstablecerLazyCarrusel("#divListadoEstrategia");
 
         $("#divListadoEstrategia").not(".slick-initialized").slick({
             lazyLoad: "ondemand",
@@ -339,7 +339,7 @@ function ArmarCarouselEstrategias(data) {
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselAfterChange();
+            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
         });
     }
     else if (tipoOrigenEstrategia == 11) {
@@ -359,7 +359,7 @@ function ArmarCarouselEstrategias(data) {
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
         cant = data.CodigoEstrategia == "101" ? (data.Lista.length > 4 ? 4 : data.Lista.length) : cant;
 
-        EstablecerLazyCarrusel($("#divListadoEstrategia"));
+        EstablecerLazyCarrusel("#divListadoEstrategia");
 
         var claseFlechaDoradaNext = "";
         var claseFlechaDoradaPrev = "";
@@ -389,7 +389,7 @@ function ArmarCarouselEstrategias(data) {
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselAfterChange();
+            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
         });
 
         if (data.Lista.length > cant) {
@@ -401,7 +401,7 @@ function ArmarCarouselEstrategias(data) {
         $("#div-linea-OPT").show();
         $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel($("#divListadoEstrategia"));
+        EstablecerLazyCarrusel("#divListadoEstrategia");
 
         $("#divListadoEstrategia").slick({
             lazyload: "ondemand",
@@ -431,13 +431,13 @@ function ArmarCarouselEstrategias(data) {
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselAfterChange();
+            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
         });
     }
     else if (tipoOrigenEstrategia == 21) {
         $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel($("#divListadoEstrategia"));
+        EstablecerLazyCarrusel("#divListadoEstrategia");
 
         $("#divListadoEstrategia").slick({
             lazyLoad: "ondemand",
@@ -468,7 +468,7 @@ function ArmarCarouselEstrategias(data) {
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselAfterChange();
+            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
         });
     }
 
@@ -548,10 +548,6 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
             'label': "Ver siguiente"
         });
     }
-}
-
-function EstrategiaCarouselAfterChange() {
-    EstablecerLazyCarrusel($("#divListadoEstrategia"));
 }
 
 function EstructurarDataCarousel(array) {
