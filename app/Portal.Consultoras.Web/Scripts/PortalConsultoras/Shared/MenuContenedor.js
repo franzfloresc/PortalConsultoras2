@@ -105,8 +105,7 @@ var menuModule = (function () {
             $(elementos.bcParaTiMenuActivo).find("img.default").css("display", "none");
             $(elementos.bcParaTiMenuActivo).find("img.click-menu").css("display", "inline");
         }
-
-        
+         
         if (currentLocation.indexOf("#") > -1) {
             $(elementos.claseimgSeleccionado).hide();
             $(elementos.claseimgNoSeleccionado).show();
@@ -254,7 +253,7 @@ var menuModule = (function () {
                 else
                     window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + "Ofertas#" + codigo;
             }
-            
+             
 
             
             if (codigo.indexOf("INICIO") > -1) {
