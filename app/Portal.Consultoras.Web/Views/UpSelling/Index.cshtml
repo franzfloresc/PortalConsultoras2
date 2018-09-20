@@ -11,9 +11,7 @@ else
     <link href="@Url.Content("~/Content/Css/Site/Lbel/gestorContenido.css")" rel="stylesheet" type="text/css" />
 }
 
-@section styles {
-    @Styles.Render("~/Bundle/Css/Desktop/Upselling")
-}
+@Styles.Render("~/Bundle/Css/Desktop/Upselling")
 
 <div id="upSellingCRUD">
     <div data-bind="fadeVisible: !$root.mostrarFormularioUpSelling()">

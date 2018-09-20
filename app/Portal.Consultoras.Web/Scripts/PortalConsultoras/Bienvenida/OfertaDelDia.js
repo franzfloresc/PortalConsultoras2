@@ -245,7 +245,7 @@ var OfertaDelDiaModule = function () {
         }
 
         if (cantidadProductos > 2) {
-            EstablecerLazyCarrusel($("#divOddCarrusel"));
+            EstablecerLazyCarrusel("#divOddCarrusel");
 
             $("#divOddCarrusel.slick-initialized").slick("unslick");
             $("#divOddCarrusel").not(".slick-initialized").slick({
@@ -262,7 +262,7 @@ var OfertaDelDiaModule = function () {
             }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
                 odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide);
             }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-                EstablecerLazyCarrusel($("#divOddCarrusel"));
+                EstablecerLazyCarruselAfterChange("#divOddCarrusel");
             });
 
             // esto debe ser automatico

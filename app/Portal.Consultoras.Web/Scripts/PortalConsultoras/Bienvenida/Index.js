@@ -742,7 +742,7 @@ function ArmarCarouselLiquidaciones(data) {
     }
     $('#divCarruselLiquidaciones').empty().html(htmlDiv);
 
-    EstablecerLazyCarrusel($('#divCarruselLiquidaciones'));
+    EstablecerLazyCarrusel('#divCarruselLiquidaciones');
 
     $('#divCarruselLiquidaciones').slick({
         lazyLoad: 'ondemand',
@@ -855,7 +855,7 @@ function ArmarCarouselLiquidaciones(data) {
             }
         }
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-        EstablecerLazyCarrusel($('#divCarruselLiquidaciones'));
+        EstablecerLazyCarruselAfterChange('#divCarruselLiquidaciones');
     });
 
     TagManagerCarruselLiquidacionesInicio(data);
