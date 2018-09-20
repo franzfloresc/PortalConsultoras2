@@ -5313,6 +5313,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTrackingJetlore.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHidden.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHiddenSoloDesktop.cshtml" />
+    <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
