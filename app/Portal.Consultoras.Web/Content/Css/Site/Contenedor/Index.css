@@ -314,9 +314,6 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
                     font-family: 'Lato';
                 }*/
 
-.bc_plantilla_estrategia_personalizada {
-    margin-top: 50px;
-}
 .op-menu-horizonta-fixed {
     position: fixed;
     width: 100%;
@@ -325,6 +322,7 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
 }
 .op-menu-horizontal {
     text-align: center;
+    height: 52px;
 }
 
     .op-menu-horizontal .subnavegador {
@@ -752,7 +750,7 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
 
 .fixed_head {
     position: fixed;
-    top: 110px;
+    top: 113px;
     width: 100%;
     margin: auto;
     z-index: 9;
@@ -813,6 +811,10 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
 }
 .hide {
     display: none
+}
+
+.seccion-content-contenedor {
+    padding-top: 52px;
 }
 
 
