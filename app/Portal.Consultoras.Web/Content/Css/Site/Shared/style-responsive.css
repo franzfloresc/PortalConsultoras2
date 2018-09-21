@@ -186,7 +186,7 @@ body > img{
     text-transform:uppercase;
     font-weight:700;
     cursor:pointer;
-    letter-spacing:0.5px;
+    /*letter-spacing:0.5px;*/
 }
 
 .menu__link{
@@ -1376,9 +1376,9 @@ body > img{
     }
 
     .menu__link--cerrar-sesion{
-        margin-top:60px;
-        height:auto;
-        border-bottom:none;
+        margin-top: 50px;
+        height: auto;
+        border-bottom: none!important;
     }
 
     .menu__link--conSubmenu,
