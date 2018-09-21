@@ -16,23 +16,24 @@
             e.preventDefault();
             $(me.Elements.menuPrincipal).animate({
                     left: 0 + "%"
-                },
-                200);
+                }, 150);
         },
         CerrarMenuMobile: function(e) {
             e.preventDefault();
             $(me.Elements.menuPrincipal).animate({
                     left: -100 + "%"
-                },  200);
+                }, 150);
+                $('.menu__link--conSubmenuMobile').next().slideUp(80);
             },
             AbrirSubmenuMobile: function (e) {
                 e.preventDefault();
                 var subMenuMobile = $(this).next();
-                $('.menu__link--conSubmenuMobile').next().slideUp();
-                if(subMenuMobile.css('display') == 'block'){
-                    subMenuMobile.slideUp();
+                $('.menu__link--conSubmenuMobile').next().slideUp(80);
+                if(subMenuMobile.css('display') == 'flex'){
+                    subMenuMobile.slideUp(80);
                 } else {
-                    subMenuMobile.slideDown();
+                    subMenuMobile.css('display', 'flex');
+                    subMenuMobile.slideDown(130);
                 }
         }
     },
