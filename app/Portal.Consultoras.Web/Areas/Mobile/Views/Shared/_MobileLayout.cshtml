@@ -30,14 +30,14 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
-        @Styles.Render("~/Content/Css/Mobile/Esika/Contenedor")
+        @Styles.Render("~/Bundle/Css/Mobile/esika-CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/Esika-Contenedor")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
-        @Styles.Render("~/Content/Css/Mobile/Lbel/Contenedor")
+        @Styles.Render("~/Bundle/Css/Mobile/lbel-CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/Lbel-Contenedor")
     }
 
     <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
@@ -67,65 +67,67 @@
         </div>
     }
 
-    @if (ViewBag.PaisesConTrackingJetlore == "1")
-    {
-        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTrackingJetlore.cshtml")
+    @*@if (ViewBag.PaisesConTrackingJetlore == "1")
+        {
+            <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
 
-        <script type="text/javascript">
-            var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+            <script type="text/javascript">
+                var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
 
-            JL.tracking({
-                cid: trackingJetloreAccessToken,
-                user_id: '@ViewBag.CodigoConsultoraDL',
-                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
-            });
-        </script>
-    }
+                JL.tracking({
+                    cid: trackingJetloreAccessToken,
+                    user_id: '@ViewBag.CodigoConsultoraDL',
+                    feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
+                });
+            </script>
+        }*@
 
-    <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
-    <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
-    <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
-    <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
-    <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpInputHidden.cshtml")
+    @*<input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
+        <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
+        <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
+        <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
+        <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />*@
 
-    <div class="menu">
-        <div class="content_close">
-            <div class="icon-close">
-                <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
-            </div>
-        </div>
-        <div class="foto_menu">
-            @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
-            {
-                <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" title="Actualizar datos" class="subir_foto_mobile subir_foto_mobile_menu default-background"></a>
-                <div class="foto_usuaria_mobile">
-                    @if (ViewBag.FotoPerfilAncha)
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:auto; height:100%" />
-                    }
-                    else
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
-                    }
-
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenuLateral.cshtml")
+    @*<div class="menu">
+            <div class="content_close">
+                <div class="icon-close">
+                    <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
                 </div>
-            }
-        </div>
-        <br />
-        <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
-        @Html.Partial("_MobileMenuLateral")
-        <a id="lnk-cerrar-sesion" role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
-    </div>
+            </div>
+            <div class="foto_menu">
+                @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
+                {
+                    <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" title="Actualizar datos" class="subir_foto_mobile subir_foto_mobile_menu default-background"></a>
+                    <div class="foto_usuaria_mobile">
+                        @if (ViewBag.FotoPerfilAncha)
+                        {
+                            <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:auto; height:100%" />
+                        }
+                        else
+                        {
+                            <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                        }
+                    </div>
+                }
+            </div>
+            <br />
+            <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
+            @Html.Partial("_MobileMenuLateral")
+            <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
+        </div>*@
 
-    <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
-        <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
-
-            <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
-            <span id="spanNumeroPedidoOnline1" class="alert-number"></span>
-            <div class="alert-text upper center-min">TIENES <span id="spanNumeroPedidoOnline2">0</span> NUEVOS PEDIDOS DE CONSULTORA ONLINE</div>
-        </a>
-        <span class="alert-close"><i class="icon-close-belcorp"></i></span>
-    </div>
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpAlertaPedidosOnline.cshtml")
+    @*<div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
+            <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
+                <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
+                <span id="spanNumeroPedidoOnline1" class="alert-number"></span>
+                <div class="alert-text upper center-min">TIENES <span id="spanNumeroPedidoOnline2">0</span> NUEVOS PEDIDOS DE CONSULTORA ONLINE</div>
+            </a>
+            <span class="alert-close"><i class="icon-close-belcorp"></i></span>
+        </div>*@
 
     <header id="new-header">
         @if (ViewBag.mostrarBannerPostulante == true)
@@ -147,7 +149,6 @@
                             @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml");
                         </li>
                     }
-
                     @if (Session["EsShowRoom"] != null && @Session["EsShowRoom"].ToString() == "1")
                     {
                         @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueBannerShowRoomTop.cshtml", showRoomBannerLateral)
@@ -160,60 +161,13 @@
             <div class="banner_app"><div>X</div></div>
         }
 
-        <div class="container-fluid agregarBackgroundCincuentaAniosBelcorp" style="padding-top:9px; padding-bottom:9px;">
-            <div class="row">
-                <div class="col-xs-4 icono_menuMobile_cincuenta_anios_belcorp">
-                    @*<img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />*@
-                    <img src="@Url.Content("~/Content/Images/mobile/icono-menu-mobile.svg")" id="ic_menu" class="icon-menu" alt="Menú" />
-                </div>
-                <div class="col-xs-3 text-center">
-                    <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
-                       class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
-                </div>
-                <div class="col-xs-5 text-right">
-                    <div class="menu-shop">
-                        <div class="contenedor_circulos">
-                            <div class="circulo-1 iniciarTransicion"></div>
-                            <div class="circulo-2 iniciarTransicion"></div>
-                            <div class="circulo-3 iniciarTransicion"></div>
-                        </div>
-                        <a role="link" region="Superior" parent="Pedido" title="Pedido"
-                           class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
-                            <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
-                            <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
-                        </a>
-                        <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
-                           class="campana_mobile" href="@Url.Action("Index", "Notificaciones", new { area="Mobile" })" style="margin-left: -15px;">
-                            <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
-                        </a>
-
-                        @if (ViewBag.MostrarBuscadorYFiltros == true)
-                        {
-                            <a role="link" region="Superior" parent="Buscador" title="Buscador"
-                               class="campana_mobile opcion_menu_buscador" href="@Url.Action("Index", "Buscador", new { area = "Mobile" })" style="margin-right: 20px;">
-                                <div role="link" region="Superior" parent="Buscador" title="Buscador" class="icono_busqueda_mobile">
-                                    <img src="@Url.Content("~/Content/Images/icono_lupa.svg")" alt="Buscar" />
-                                    @*<i class="fa fa-search fa-sm"></i>*@
-                                </div>
-                                <div class="tooltip_informativo_sobre_opcion_busqueda_prod" style="display:none;">
-                                    <div class="text-uppercase default-color novedad_busqueda_titulo">¡Nuevo!</div>
-                                    <div class="novedad_busqueda_descripcion">
-                                        <span class="icono_tooltip_informativo_opcion_busqueda">
-                                            <img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Encuentra productos y ofertas en un click" />
-                                        </span>
-                                        <span class="descripcion_tooltip_informativo_opcion_busqueda">
-                                            Encuentra productos y ofertas en un clic.
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>
-                        }
+    
+        @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenu.cshtml", new ViewDataDictionary {
+            { "vbEsContenedor", 0 },
+            { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
+        })
 
 
-                    </div>
-                </div>
-            </div>
-        </div>
     </header>
 
     <section style="min-height: 380px;">
@@ -248,7 +202,9 @@
                     </div>
                 }
             }
-            @RenderBody()
+            <div id="mob-content-layout">
+                @RenderBody()
+            </div>
         </div>
         <div class="clear">
             <br />
@@ -257,92 +213,31 @@
     </section>
 
     <footer class="footer-page">
-        @Html.Partial("_MobileMenuFooter")
+        @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenuFooter.cshtml")
         <hr class="clear" />
     </footer>
 
-    <div class="content-spinner2" id="loading-spin">
-        <div class="busy-loader">
-            <div class="w-ball-wrapper ball-1">
-                <div class="w-ball"></div>
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
+    @*<div class="content-spinner2" id="loading-spin">
+            <div class="busy-loader">
+                <div class="w-ball-wrapper ball-1">
+                    <div class="w-ball"></div>
+                </div>
+                <div class="w-ball-wrapper ball-2">
+                    <div class="w-ball"></div>
+                </div>
+                <div class="w-ball-wrapper ball-3">
+                    <div class="w-ball"> </div>
+                </div> <div class="w-ball-wrapper ball-4">
+                    <div class="w-ball"> </div>
+                </div>
+                <div class="w-ball-wrapper ball-5">
+                    <div class="w-ball"> </div>
+                </div>
             </div>
-            <div class="w-ball-wrapper ball-2">
-                <div class="w-ball"></div>
-            </div>
-            <div class="w-ball-wrapper ball-3">
-                <div class="w-ball"> </div>
-            </div> <div class="w-ball-wrapper ball-4">
-                <div class="w-ball"> </div>
-            </div>
-            <div class="w-ball-wrapper ball-5">
-                <div class="w-ball"> </div>
-            </div>
-        </div>
-    </div>
+        </div>*@
 
-    @*<script id="estrategia-template_carrusel" type="text/x-handlebars-template">
-            {{#each this.ListaOfertas  as |oferta|}}
-            <div data-item="">
-                <div style="display:none;" data-item-campos="">
-                    <input type="text" class="tipoestrategia-id-odd" value="{{oferta.TipoEstrategiaID}}" />
-                    <input type="text" class="estrategia-id-odd" value="{{oferta.EstrategiaID}}" />
-                    <input type="text" class="marca-id-odd" value="{{oferta.MarcaID}}" />
-                    <input type="text" class="cuv2-odd" value="{{oferta.CUV2}}" />
-                    <input type="text" class="limite-venta-odd" value="{{oferta.LimiteVenta}}" />
-                    <input type="text" class="flagnueva-odd" value="{{oferta.FlagNueva}}" />
-                    <input type="text" class="precio-odd" value="{{oferta.PrecioOferta}}" />
-                    <input type="text" class="nombre-odd" value="{{oferta.NombreOferta}}" />
-                    <input type="text" class="indmonto-min-odd" value="{{oferta.IndicadorMontoMinimo}}" />
-                    <input type="text" class="teimagenmostrar-odd" value="{{oferta.TipoEstrategiaImagenMostrar}}" />
-                    <input type="text" Class="imagen-odd" value="{{oferta.ImagenDisplay}}" />
-                    <input type="text" class="origenPedidoWeb-odd" value="1" />
-                    <input type="hidden" class="DescripcionEstrategia" value="{{oferta.DescripcionEstrategia}}" />
-                </div>
-                <div data-compartir-campos="" style="display:none;">
-                    <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
-                    <input type="hidden" class="rsFBMensaje" value="" />
-                    <input type="hidden" class="rsWAMensaje" value="" />
-                    <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenDisplay}}" />
-                    <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenDisplay}}" />
-                    <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />
-                    <input type="hidden" class="MarcaNombre" value="{{oferta.DescripcionMarca}}" />
-                    <input type="hidden" class="Nombre" value="{{oferta.NombreOferta}}" />
-                    <input type="hidden" class="ProductoDescripcion" value="{{oferta.DescripcionOferta}}" />
-                    <input type="hidden" class="Palanca" value="ODD" />
-                </div>
-                <div class="saludo_paginacion">
-                    <p>@ViewBag.NombreConsultora</p>, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
-                    {{#iff ../CantidadProductos '>' 1}}
-                    &nbsp;ofertas
-                    {{/iff}}
-                    {{#iff ../CantidadProductos '<' 2}}
-                    &nbsp;oferta
-                    {{/iff}}
-                </div>
-                <div class="producto_img_mobile">
-                    <img src="{{oferta.ImagenDisplay}}" alt="" id="img-display-odd" />
-                </div>
-                <div class="nombre_set_display">{{oferta.NombreOferta}}</div>
-                <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.PrecioCatalogoFormat}}</span></div>
-                <div class="producto_precio_hoy_mobile">
-                    A SOLO <span>@ViewBag.Simbolo {{oferta.PrecioOfertaFormat}}</span>
-                </div>
-
-                {{#IsNullOrEmpty oferta.DescripcionOferta '!='}}
-                <div class="titulo_contenido">CONTENIDO</div>
-                <div class="nombre_set_producto_hoy">{{{oferta.DescripcionOferta}}}</div>
-                {{/IsNullOrEmpty}}
-
-                <div class="content_redes_ficha" data-item="">
-                    <div class="texto_redes">Comparte este producto con tus clientes:</div>
-                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
-                </div>
-            </div>
-            {{/each}}
-        </script>*@
-
-    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
@@ -351,7 +246,7 @@
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
 
-    @Scripts.Render("~/Scripts/MobileLayout")
+    @Scripts.Render("~/Bundle/Js/Mobile/MobileLayout")
 
     <script type="text/javascript">
         var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
@@ -375,7 +270,7 @@
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        //var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
 
         var IsoPais = '@ViewBag.CodigoISODL';
@@ -389,6 +284,7 @@
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
+        //ODD
         var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var campaniaCodigo = '@ViewBag.CampaniaCodigo';
@@ -453,19 +349,14 @@
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
-        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
     </script>
 
     @if (ViewBag.TieneOfertaDelDia == true)
     {
-        @System.Web.Optimization.Scripts.Render("~/bundles/js/OfertaDelDia")
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/OfertaDelDia")
         <script type="text/javascript">
             $(document).ready(function () {
-                window.OfertaDelDia.CargarODD();
-
-                //$("div[id^='content_oferta_dia_mobile']").click(function () {
-                //    document.location.href = urlOfertaDelDiaMobile;
-                //});
+                OfertaDelDiaModule.Inicializar();
             });
         </script>
     }
@@ -693,19 +584,82 @@
                     <div class="CMXD-header-chat">
                         <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA
                         <div class="CMXD-icons">
-                            <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a>
+                            <a class="display-a" id="btn_minimize" href="">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </a>
+                            <a class="display-a" id="btn_wClose" href="" style="display: none">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
                         </div>
                         <hr class="CMXD-line">
                     </div>
                     <div id="chat">
                         <div id="interaction" class="CMXD-container-welcome" style="display: none">
-                            <div class='chat-wrapper'><div id="transcript" class='chat-message padding container-chat'></div></div>
-                            <div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span></div>
-                            <div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div>
+                            <div class='chat-wrapper'>
+                                <div id="transcript" class='chat-message padding container-chat'></div>
+                            </div>
+                            <div id="slideDownTranscript" class="message-end CMXD-animate2">
+                                <span class="fa fa-angle-double-down"></span>
+                            </div>
+                            <div class="container-txt">
+                                <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea>
+                                <a class="" href="">
+                                    <div class="send send2" id="btn_Send">
+                                        <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                                        <br>Enviar
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                        <div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div>
-                        <div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div>
-                    </div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div>
+                        <div id="loading" class="pop-up">
+                            <div class="CMXD-container-welcome">
+                                <div class="CMXD-img-welcome">
+                                    <img id="loading_image" src="" alt="">
+                                </div>
+                                <div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div>
+                                <div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div>
+                            </div>
+                        </div>
+                        <div id="schedule" class="pop-up">
+                            <div class="CMXD-container-welcome">
+                                <div class="CMXD-img-welcome">
+                                    <img id="schedule_image" src="" alt="Imagen fuera de horario">
+                                </div>
+                                <div id="schedule_title" class="CMXD-welcome"> </div>
+                                <div id="schedule_description" class="CMXD-description"> </div>
+                            </div>
+                        </div>
+                        <div id="Error" class="pop-up">
+                            <div class="CMXD-container-welcome">
+                                <div class="CMXD-img-welcome">
+                                    <img id="Error_image" src="" alt="">
+                                </div>
+                                <div class="CMXD-welcome"> Error de conexión </div>
+                                <div class="CMXD-description">
+                                    En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br />
+                                    <a href="" class="btn-no display-a" id="btn_mclose"> OK</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="alert" class="pop-up">
+                            <div class="CMXD-container-welcome">
+                                <div class="CMXD-img-welcome">
+                                    <img id="alert_image" src="" alt="">
+                                </div>
+                                <div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div>
+                                <div class="CMXD-description">
+                                    <a href="" class="btn-yes display-a" id="btn_close"> Si</a>
+                                    <a href="" class="btn-no display-a" id="btn_nwClose"> No</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="poll" class="pop-up">
+                        <div class="CMXD-container-welcome">
+                            <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div>
+                            <div id="poll_description" class="CMXD-description"> </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")?v1"></script>
@@ -714,12 +668,12 @@
 
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
-        @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
         <script>
             var pixelAnalytics = Analytics();
             pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
         </script>
-        TempData.Remove("PixelCodigoIso");
+        @TempData.Remove("PixelCodigoIso");
     }
 
     <script>

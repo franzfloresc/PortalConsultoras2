@@ -77,7 +77,10 @@ $(document).ready(function () {
                 AccionesCampoBusquedaMobileAlDigitar: function () {
 
                     // validar teclas especiales
-                    var key = keys.find(key => key.val === event.which);
+                    //var key = keys.find(key => key.val === event.which);
+                    var key = keys.find(function (key) {
+                        return key.val === event.which
+                    });
                     if (typeof key != 'undefined') {
                         return false;
                     }
@@ -162,29 +165,18 @@ $(document).ready(function () {
                 },
                 AgregarProducto: function (e) {
                     e.preventDefault();
-                    AbrirLoad();
+                   
 
                     var divPadre = $(this).parents("[data-item='ProductoBuscador']").eq(0);
                     var model = JSON.parse($(divPadre).find(".hdBuscadorJSON").val());
                     var cantidad = $(divPadre).find("[data-input='cantidad']").val();
                     var agregado = $(divPadre).find(".etiqueta_buscador_producto");
 
-                    modelLiquidacionOfertas = {
-                        Cantidad: cantidad,
-                        ConfiguracionOfertaID: 3,
-                        MarcaID: model.MarcaId,
-                        CUV: model.CUV,
-                        PrecioUnidad: model.Precio,
-                        DescripcionProd: model.Descripcion,
-                        DescripcionEstrategia: model.DescripcionEstrategia,
-                        origenPedidoLiquidaciones: model.OrigenPedidoWeb
-                    };
+                    AbrirLoad();
 
                     if (model.TipoPersonalizacion == 'LIQ') {
-                        labelAgregadoLiquidacion = agregado;
-                        RegistrarProductoOferta(e);
-                    } else {
-
+                        RegistroLiquidacion(model, cantidad, agregado);
+                    } else {                       
                         var urlInsertar = '';
                         if (model.TipoPersonalizacion == 'CAT') {
                             urlInsertar = baseUrl + 'Pedido/PedidoInsertarBuscador';
@@ -242,7 +234,9 @@ $(document).ready(function () {
                             EsSugerido: false,
                             DescripcionMarca: '',
                             DescripcionEstrategia: descripcionEstrategia,
-                            Posicion: posicion
+                            Posicion: posicion,
+                            EstrategiaID: EstrategiaID,
+                            LimiteVenta: LimiteVenta
                         }
 
                         jQuery.ajax({
@@ -264,7 +258,7 @@ $(document).ready(function () {
                                 }
                                 $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
-                                CerrarLoad();
+                                CerrarLoad();                               
                                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
                                 agregado.html("Agregado");
                                 var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
@@ -311,151 +305,94 @@ $(document).ready(function () {
 
 });
 
-
 function AjaxError(data) {
     CerrarLoad();
     if (checkTimeout(data)) AbrirMensaje(data.message);
 }
 
-function PedidoOnSuccessSugerido(model) {
+function RegistroLiquidacion(model, cantidad, producto) {
 
-    $("#divObservaciones").html("");
-    $("#hdnDescripcionEstrategia").val("");
-    $("#hdnDescripcionLarga").val("");
-    $("#hdnDescripcionProd").val("");
+    if (ReservadoOEnHorarioRestringido())
+        return false;
 
-    $("#hdfCUV").val("");
-    $("#hdfDescripcionProd").val("");
-    $("#txtCUV").val("");
-    $("#hdfMarcaID").val("");
-    $("#hdfPrecioUnidad").val("");
-    $("#txtPrecioR").val("");
-    $("#txtDescripcionProd").val("");
-    $("#txtCantidad").val("");
-    $("#txtClienteDescripcion").val($("#hdfClienteDescripcion").val());
-    $("#btnAgregar").attr("disabled", "disabled");
+    var Item = {
+        MarcaID: model.MarcaId,
+        Cantidad: cantidad,
+        PrecioUnidad: model.Precio,
+        CUV: model.CUV,
+        ConfiguracionOfertaID: 3,
+        OrigenPedidoWeb: model.OrigenPedidoWeb
+    };
 
-    $("#hdnRegistrosPaginar").val($("#hdnRegistros").val());
-    $("#hdnRegistrosDePaginar").val($("#hdnRegistrosDe").val());
-    $("#hdnRegistrosTotalPaginar").val($("#hdnRegistrosTotal").val());
-    $("#hdnPaginaPaginar").val($("#hdnPagina").val());
-    $("#hdnPaginaDePaginar").val($("#hdnPaginaDe").val());
-    $("#ddlClientes").val($("#hdnClienteID2_").val());
-    $("#hdnClienteID_").val($("#hdnClienteID2_").val());
-
-    CalcularTotal();
-    $("#txtCUV").focus();
-}
-
-function HorarioRestringido() {
-    var horarioRestringido = false;
     $.ajaxSetup({
         cache: false
     });
-    jQuery.ajax({
-        type: "GET",
-        url: baseUrl + "Pedido/EnHorarioRestringido",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        async: false,
-        success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.success == true) {
-                    if (mostrarAlerta == true)
-                        AbrirMensaje(data.message);
-                    horarioRestringido = true;
+
+    $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: model.CUV, Cantidad: cantidad, PrecioUnidad: model.Precio }, function (data) {
+        if (data.message != "") {
+            CerrarLoad();
+            AbrirMensaje(data.message);
+            return false;
+        }
+
+        if (parseInt(data.Saldo) < parseInt(cantidad)) {
+            var Saldo = data.Saldo;
+            var UnidadesPermitidas = data.UnidadesPermitidas;
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: model.CUV }, function (data) {
+                if (Saldo == UnidadesPermitidas)
+                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.", "LO SENTIMOS");
+                else {
+                    if (Saldo == "0")
+                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
+                    else
+                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
                 }
-            }
-        },
-        error: function (data, error) { }
-    });
-    return horarioRestringido;
-}
-
-function CargarDetallePedido(page, rows) {
-    $(".pMontoCliente").css("display", "none");
-
-    $("#tbobyDetallePedido").html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
-
-    var clienteId = $("#ddlClientes").val() || -1;
-    var obj = {
-        sidx: "",
-        sord: "",
-        page: page || 1,
-        rows: rows || $($('[data-paginacion="rows"]')[0]).val() || 20,
-        clienteId: clienteId
-    };
-
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "Pedido/CargarDetallePedido",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(obj),
-        async: true,
-        success: function (response) {
-            if (checkTimeout(response)) {
-                var data = response.data;
-
-                ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
-
-                $("#pCantidadProductosPedido").html(data.TotalProductos);
-
-                $("#hdnRegistrosPaginar").val(data.Registros);
-                $("#hdnRegistrosDePaginar").val(data.RegistrosDe);
-                $("#hdnRegistrosTotalPaginar").val(data.RegistrosTotal);
-                $("#hdnPaginaPaginar").val(data.Pagina);
-                $("#hdnPaginaDePaginar").val(data.PaginaDe);
-
-                $("#hdnRegistros").val(data.Registros);
-                $("#hdnRegistrosDe").val(data.RegistrosDe);
-                $("#hdnRegistrosTotal").val(data.RegistrosTotal);
-                $("#hdnPagina").val(data.Pagina);
-                $("#hdnPaginaDe").val(data.PaginaDe);
-
-                var htmlCliente = "";
-
-                $("#ddlClientes").empty();
-
-                $.each(data.ListaCliente, function (index, value) {
-                    if (value.ClienteID == -1) {
-                        htmlCliente += '<option value="-1">Cliente</option>';
-                    } else {
-                        htmlCliente += '<option value="' + value.ClienteID + '">' + value.Nombre + "</option>";
-                    }
-                });
-
-                $("#ddlClientes").append(htmlCliente);
-                $("#ddlClientes").val(clienteId);
-
-                data.ListaDetalleModel = data.ListaDetalleModel || [];
-                $.each(data.ListaDetalleModel, function (ind, item) {
-                    item.EstadoSimplificacionCuv = data.EstadoSimplificacionCuv;
-                });
-
-                var html = ArmarDetallePedido(data.ListaDetalleModel);
-                $("#tbobyDetallePedido").html(html);
-
-                var htmlPaginador = ArmarDetallePedidoPaginador(data);
-                $("#paginadorCab").html(htmlPaginador);
-                $("#paginadorPie").html(htmlPaginador);
-
-                $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
-                $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
-
-                MostrarInformacionCliente(clienteId);
-                mostrarSimplificacionCUV();
-
-                MostrarBarra(response);
-                CargarAutocomplete();
-
-                if ($("#penmostreo").length > 0) {
-                    if ($("#penmostreo").attr("[data-tab-activo]") == "1") {
-                        $("ul.paginador_notificaciones").hide();
-                    }
+                CerrarLoad();
+                return false;
+            });
+        } else {
+            $.ajaxSetup({
+                cache: false
+            });
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: model.CUV }, function (data) {
+                if (parseInt(data.Stock) < parseInt(cantidad)) {
+                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.", "LO SENTIMOS");
+                    CerrarLoad();
+                    return false;
                 }
-            }
-        },
-        error: function (response, error) { }
+                else {
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: baseUrl + 'OfertaLiquidacion/InsertOfertaWebPortal',
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(Item),
+                        async: true,
+                        success: function (data) {
+                            if (!checkTimeout(data)) {
+                                CerrarLoad();
+                                return false;
+                            }
+
+                            if (data.success != true) {
+                                messageInfoError(data.message);
+                                CerrarLoad();
+                                return false;
+                            }
+
+                            producto.html('Agregado');
+
+                            CerrarLoad();
+                        },
+                        error: function (data, error) {
+                            CerrarLoad();
+                        }
+                    });
+
+                }
+            });
+        }
     });
+
 }

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace Portal.Consultoras.Common
-{   
-    public class ConfigCdn
+{
+    public static class ConfigCdn
     {
         public static string URL_S3 = ConfigurationManager.AppSettings["URL_S3"];
         public static string RutaCdn = ConfigurationManager.AppSettings["RutaCDN"];

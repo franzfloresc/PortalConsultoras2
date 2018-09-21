@@ -14,10 +14,14 @@ namespace Portal.Consultoras.Web.Providers
         protected ISessionManager sessionManager;
         protected ConfiguracionManagerProvider _configuracionManager;
 
-        public PedidoWebProvider()
+        public PedidoWebProvider() : this(SessionManager.SessionManager.Instance, new ConfiguracionManagerProvider())
         {
-            sessionManager = SessionManager.SessionManager.Instance;
-            _configuracionManager = new ConfiguracionManagerProvider();
+        }
+
+        public PedidoWebProvider(ISessionManager sessionManager, ConfiguracionManagerProvider configuracionManagerProvider)
+        {
+            this.sessionManager = sessionManager;
+            this._configuracionManager = configuracionManagerProvider;
         }
 
         public virtual BEPedidoWeb ObtenerPedidoWeb(int paisId, int campaniaId, long consultoraId)
@@ -170,7 +174,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
-                sessionManager.SetDetallesPedido(detallesPedidoWeb);
+                sessionManager.SetDetallesPedidoSetAgrupado(detallesPedidoWeb);
 
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }

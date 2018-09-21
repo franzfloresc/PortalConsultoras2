@@ -654,6 +654,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public async Task<BEPedidoReservaResult> Reserva(BEUsuario usuario)
         {
+            BEResultadoReservaProl resultadoReserva;
+
             try
             {
                 //Validacion reserva u horario restringido
@@ -691,7 +693,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     CodigoPrograma = usuario.CodigoPrograma,
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
-                var resultadoReserva = await _reservaBusinessLogic.EjecutarReserva(input);
+
+                if(string.IsNullOrEmpty(usuario.CodigoZona))
+                    resultadoReserva = await _reservaBusinessLogic.CargarSesionAndEjecutarReserva(usuario.CodigoISO, usuario.CampaniaID, usuario.ConsultoraID, usuario.usuarioPrueba, usuario.AceptacionConsultoraDA, true, false);
+                else
+                    resultadoReserva = await _reservaBusinessLogic.EjecutarReserva(input);
+
                 var code = string.Empty;
                 var enumReserva = (int)resultadoReserva.ResultadoReservaEnum;
                 if (usuario.DiaPROL) code = (enumReserva + 2010).ToString();
@@ -1132,7 +1139,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 pedidoDetalle.PedidoID = pedidoID;
 
                 //Seleccionamos el Detalle de Pedido a Aceptar
-                var _pedidoDetalle = lstDetalle.Where(p => p.PedidoDetalleID == pedidoDetalle.PedidoDetalleID && p.EsBackOrder).FirstOrDefault();
+                var _pedidoDetalle = lstDetalle.FirstOrDefault(p => p.PedidoDetalleID == pedidoDetalle.PedidoDetalleID && p.EsBackOrder);
 
                 if (_pedidoDetalle == null) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_AGREGAR_BACKORDER);
 

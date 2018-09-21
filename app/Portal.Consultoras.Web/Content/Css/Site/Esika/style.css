@@ -10,7 +10,10 @@
 @font-face {
     font-family: 'icomoon';
     src: url('fonts/icomoon.eot?-q1bfik');
-    src: url('fonts/icomoon.eot?#iefix-q1bfik') format('embedded-opentype'), url('fonts/icomoon.woff?-q1bfik') format('woff'), url('fonts/icomoon.ttf?-q1bfik') format('truetype'), url('fonts/icomoon.svg?-q1bfik#icomoon') format('svg');
+    src: url('fonts/icomoon.eot?#iefix-q1bfik') format('embedded-opentype'),
+        url('fonts/icomoon.woff?-q1bfik') format('woff'),
+        url('fonts/icomoon.ttf?-q1bfik') format('truetype'), 
+        url('fonts/icomoon.svg?-q1bfik#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -18,7 +21,10 @@
 @font-face {
     font-family: 'OldStandard-Italic';
     src: url('fonts/OldStandard-Italic.eot');
-    src: url('fonts/OldStandard-Italic.eot?#iefix') format('embedded-opentype'), url('fonts/OldStandard-Italic.woff') format('woff'), url('fonts/OldStandard-Italic.ttf') format('truetype'), url('fonts/OldStandard-Italic.svg#OldStandardItalic') format('svg');
+    src: url('fonts/OldStandard-Italic.eot?#iefix') format('embedded-opentype'), 
+        url('fonts/OldStandard-Italic.woff') format('woff'), 
+        url('fonts/OldStandard-Italic.ttf') format('truetype'), 
+        url('fonts/OldStandard-Italic.svg#OldStandardItalic') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -143,12 +149,12 @@ header {
         -o-transition: all .3s ease;
         -ms-transition: all .3s ease;
         -webkit-transition: all .3s ease;
-        background: url('../../../Images/flecha_scroll.svg') center center no-repeat;
+        background: url('/Content/Images/flecha_scroll.svg') center center no-repeat;
         background-size: cover;
     }
 
 .flecha_scroll_arriba {
-    background: url('../../../Images/flecha_scroll_arriba.svg') center center no-repeat !important;
+    background: url('/Content/Images/flecha_scroll_arriba.svg') center center no-repeat !important;
     background-size: cover;
 }
 
@@ -169,7 +175,7 @@ header {
     float: left;
     width: 20px;
     height: 24px;
-    background: url('../../../Images/Esika/carrito.png') no-repeat;
+    background: url('/Content/Images/Esika/carrito.png') no-repeat;
     background-position: 0 4px;
 }
 
@@ -179,12 +185,12 @@ header {
 }
 
 .mensaje_svg {
-    background: url('../../../Images/Esika/notificaciones-header.png') no-repeat;
+    background: url('/Content/Images/Esika/notificaciones-header.png') no-repeat;
     background-position: 0 2px;
 }
 
 .campana:hover .mensaje_svg {
-    background: url('../../../Images/Esika/notificaciones-header.png') no-repeat !important;
+    background: url('/Content/Images/Esika/notificaciones-header.png') no-repeat !important;
     background-position: 0 2px !important;
 }
 
@@ -310,7 +316,7 @@ header {
     padding-left: 65px;
     padding-right: 60px;
     display: none;
-    background: rgba(255,255,255,.95) url('../../../Images/Esika/fondo.png');
+    background: rgba(255,255,255,.95) url('/Content/Images/Esika/fondo.png');
     -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
@@ -326,7 +332,7 @@ header {
     height: 188px;
     padding-left: 60px;
     padding-right: 60px;
-    background: rgba(255,255,255,.95) url('../../../Images/Esika/fondo.png');
+    background: rgba(255,255,255,.95) url('/Content/Images/Esika/fondo.png');
     -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
@@ -348,7 +354,7 @@ header {
     right: 0;
     left: 0;
     margin: 0 auto;
-    background: url('../../../Images/Esika/pestana_esika.png');
+    background: url('/Content/Images/Esika/pestana_esika.png');
     background-size: cover;
 }
 
@@ -363,7 +369,7 @@ header {
     font-size: 13px;
     letter-spacing: .3px;
     font-weight: 700;
-    background: url('../../../Images/Esika/fle_.png') no-repeat;
+    background: url('/Content/Images/Esika/fle_.png') no-repeat;
     background-position: 0 5px;
     padding-left: 13px;
     margin-bottom: 10px;
@@ -411,9 +417,9 @@ header {
     margin-left: -161px;
 }
 
-.icon-flechita {
+/*.icon-flechita {
     content: '\e900';
-}
+}*/
 
 .flechita_info {
     position: absolute;
@@ -570,7 +576,7 @@ header {
     bottom: 10px !important;
 }
 
-.boton-home {
+/*.boton-home {
     position: relative;
     display: block;
     overflow: hidden;
@@ -587,7 +593,7 @@ header {
     font-size: 10pt;
     line-height: 11.2pt;
     color: #000;
-    background: #FFF url('../../../Images/Esika/ayuda.png') no-repeat;
+    background: #FFF url('/Content/Images/Esika/ayuda.png') no-repeat;
     background-position: 18px 4px;
 }
 
@@ -607,29 +613,29 @@ header {
         -webkit-transition: .8s;
         transition: .8s;
         z-index: -1;
-    }
+    }*/
 
 .fondo_b {
-    background: url('../../../Images/Esika/bajar.png') no-repeat;
+    background: url('/Content/Images/Esika/bajar.png') no-repeat;
     background-position: 22px 5px;
 }
 
     .fondo_b:hover {
-        background: url('../../../Images/Esika/bajar_hover.png') no-repeat;
+        background: url('/Content/Images/Esika/bajar_hover.png') no-repeat;
         background-position: 22px 5px !important;
-        background: black url('../../../Images/Esika/bajar_hover.png') no-repeat\9;
+        background: black url('/Content/Images/Esika/bajar_hover.png') no-repeat\9;
         color: white;
     }
 
 .fondo_a {
-    background: url('../../../Images/Esika/subir.png') no-repeat;
+    background: url('/Content/Images/Esika/subir.png') no-repeat;
     background-position: 22px 5px;
 }
 
     .fondo_a:hover {
-        background: url('../../../Images/Esika/subir_hover.png') no-repeat;
+        background: url('/Content/Images/Esika/subir_hover.png') no-repeat;
         background-position: 22px 5px !important;
-        background: black url('../../../Images/Esika/subir_hover.png') no-repeat\9;
+        background: black url('/Content/Images/Esika/subir_hover.png') no-repeat\9;
         color: white;
     }
 
@@ -676,7 +682,7 @@ header {
     z-index: 10;
 }
 
-.triangulo-equilatero-bottom-left {
+/*.triangulo-equilatero-bottom-left {
     z-index: 1000;
     position: absolute;
     top: 0;
@@ -686,16 +692,16 @@ header {
     border-top: 0 solid transparent;
     border-left: 0 solid white;
     border-bottom: 381px solid white;
-}
+}*/
 
-.slider_promocional {
+/*.slider_promocional {
     margin-top: 60px;
     float: left;
     background: white;
     width: 100%;
     height: 379px;
     overflow: hidden;
-}
+}*/
 
 .nombre_c {
     text-align: left;
@@ -721,7 +727,7 @@ header {
         color: rgb(51,204,153);
     }
 
-.campana_actual p {
+/*.campana_actual p {
     text-align: center;
     font-family: 'lato-regular';
     font-size: 12px;
@@ -749,21 +755,21 @@ header {
     margin-top: 20px;
     overflow: hidden;
     float: left;
-}
+}*/
 
 .campana_ml {
     margin-left: 10px;
 }
 
-.divisor_campana {
+/*.divisor_campana {
     margin-right: 4px;
     margin-left: 4px;
     margin-top: 23px;
     float: left;
     width: 12px;
     height: 40px;
-    background: url('../../../Images/Esika/divisor.png') no-repeat;
-}
+    background: url('/Content/Images/Esika/divisor.png') no-repeat;
+}*/
 
 .gz_es {
     margin-top: 15px;
@@ -790,7 +796,7 @@ header {
     color: black;
 }
 
-.resumen_total {
+/*.resumen_total {
     font-family: 'lato';
     font-weight: 400;
     font-size: 8pt;
@@ -799,7 +805,7 @@ header {
 
     .resumen_total span {
         font-weight: 700;
-    }
+    }*/
 
 .precio_total {
     line-height: 18px;
@@ -814,7 +820,7 @@ header {
     float: left;
 }
 
-.precio_total_dinero {
+/*.precio_total_dinero {
     line-height: 18px;
     margin-top: 10px;
     font-family: 'lato';
@@ -824,16 +830,16 @@ header {
     width: 75px;
     float: right;
     text-align: right;
-}
+}*/
 
-.wrapper_home_content {
+/*.wrapper_home_content {
     overflow: hidden;
     margin: 0 auto;
     max-width: 1110px;
     padding-bottom: 40px;
-}
+}*/
 
-.wrapper_home_absolute {
+/*.wrapper_home_absolute {
     margin-left: auto;
     margin-right: auto;
     left: 0;
@@ -841,7 +847,7 @@ header {
     position: absolute;
     z-index: 10;
     width: 1110px;
-}
+}*/
 
 .item_home {
     text-align: center;
@@ -879,24 +885,24 @@ header {
     color: black;
 }
 
-.descripcion_info {
+/*.descripcion_info {
     font-family: 'lato';
     font-size: 9.5pt;
     margin-top: 10px;
     color: black;
     line-height: 12pt;
     margin-bottom: 10px;
-}
+}*/
 
-.wrapper_item a {
+/*.wrapper_item a {
     margin-top: 10px;
     color: black;
     font-family: 'lato';
     font-weight: 300 !important;
     font-size: 9pt;
-}
+}*/
 
-.item_oculto {
+/*.item_oculto {
     display: none;
     width: 100%;
     height: 100%;
@@ -908,7 +914,7 @@ header {
 
 .item_home:hover .item_oculto {
     display: block;
-}
+}*/
 
 .item_home:hover .titulo_item {
     display: none;
@@ -1966,7 +1972,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     height: 20px;
     top: -1px;
     margin-right: 7px;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') center center no-repeat;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') center center no-repeat;
 }
 
 .caja_guardar_pedido {
@@ -2095,7 +2101,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
     -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
     box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
-    background: url('../../../Images/Esika/fondo_pestana.png') no-repeat right center;
+    background: url('/Content/Images/Esika/fondo_pestana.png') no-repeat right center;
     font-family: 'Lato';
     font-size: 15px;
     font-weight: 900;
@@ -3643,7 +3649,7 @@ a.subir_carousel, a.bajar_carousel {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -3806,7 +3812,7 @@ a.subir_carousel, a.bajar_carousel {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -3912,7 +3918,7 @@ a.subir_carousel, a.bajar_carousel {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -4040,7 +4046,7 @@ a.subir_carousel, a.bajar_carousel {
     left: 4.5%;
     bottom: 0;
     margin-top: -20px;
-    background: url('../../../Images/Esika/icono_exclamacion.png') no-repeat center center;
+    background: url('/Content/Images/Esika/icono_exclamacion.png') no-repeat center center;
 }
 
     .btn_cerrar_productosSugeridos a img {
@@ -4288,7 +4294,7 @@ a.subir_carousel, a.bajar_carousel {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
     overflow: auto;
 }
@@ -4298,7 +4304,7 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 .fondo_tutorial {
-    background: transparent url('../../../Images/bg_popup_tutorial.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popup_tutorial.png') repeat left top;
 }
 
 .btn_cerrar_invitacionFlexipago {
@@ -4426,7 +4432,7 @@ a.subir_carousel, a.bajar_carousel {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -4494,7 +4500,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 31.8%;
     height: 225px;
     border: none;
-    background: url('../../../Images/Esika/demanda_anticipada_regalo_img.png') center center no-repeat;
+    background: url('/Content/Images/Esika/demanda_anticipada_regalo_img.png') center center no-repeat;
 }
 
 .ver_belcorpNoticias {
@@ -4528,7 +4534,7 @@ a.subir_carousel, a.bajar_carousel {
     }
 
 .icono_check {
-    background: url('../../../Images/icono_check.svg') center center no-repeat;
+    background: url('/Content/Images/icono_check.svg') center center no-repeat;
     width: 12px;
     height: 8px;
     margin-right: 10px;
@@ -4583,7 +4589,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') center center no-repeat;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion.svg') center center no-repeat;
 }
 
 .texto_notaDemanda {
@@ -4649,7 +4655,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 60px;
     height: 60px;
     margin: 0 auto;
-    background: url('../../../Images/Esika/icono_check_esika.png') center center no-repeat;
+    background: url('/Content/Images/Esika/icono_check_esika.png') center center no-repeat;
     margin-bottom: 18px;
     background-size: cover;
 }
@@ -4659,7 +4665,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 60px;
     height: 60px;
     margin: 0 auto;
-    background: url('../../../Images/Esika/icono_exclamacion_esika.png') center center no-repeat;
+    background: url('/Content/Images/Esika/icono_exclamacion_esika.png') center center no-repeat;
     margin-bottom: 18px;
     background-size: cover;
 }
@@ -4761,7 +4767,7 @@ a.subir_carousel, a.bajar_carousel {
     display: block;
     width: 60px;
     height: 60px;
-    background: url('../../../Images/Esika/icono_exclamacion_esika.svg') center center no-repeat;
+    background: url('/Content/Images/Esika/icono_exclamacion_esika.svg') center center no-repeat;
     margin: 0 auto 18px auto;
     background-size: cover;
 }
@@ -5015,7 +5021,9 @@ a.subir_carousel, a.bajar_carousel {
     max-width: 378px;
 }
 
-.btn_cerrar_detalleCarousel {
+/*
+    DEUDA TÉCNICA
+    .btn_cerrar_detalleCarousel {
     display: block;
     width: 100%;
     max-width: 29px;
@@ -5023,7 +5031,7 @@ a.subir_carousel, a.bajar_carousel {
     position: absolute;
     top: 5px;
     right: -43px;
-}
+}*/
 
     .btn_cerrar_detalleCarousel img {
         width: 100%;
@@ -5053,9 +5061,11 @@ a.subir_carousel, a.bajar_carousel {
         margin-bottom: 21px;
     }
 /* POPUP DETALLE CARRUSEL OFERTAS PARA TI - PACK NUEVAS */
-#popupDetalleCarousel_packNuevas {
+/*
+    DEUDA TECNICA
+    #popupDetalleCarousel_packNuevas {
     display: none;
-}
+}*/
 
 .packNuevas {
     max-width: 633px;
@@ -5065,7 +5075,9 @@ a.subir_carousel, a.bajar_carousel {
         max-width: 600px;
     }
 
-.bloque_producto_packNuevas, .descripcion_set_packNuevas {
+/*
+    DEUDA TECNICA
+    .bloque_producto_packNuevas, .descripcion_set_packNuevas {
     display: inline-block;
     vertical-align: middle;
 }
@@ -5082,6 +5094,7 @@ a.subir_carousel, a.bajar_carousel {
 .bloque_producto_packNuevas .producto_precio {
     margin-bottom: 9px;
 }
+*/
 
 .monto_ganancia_producto {
     display: inline-block;
@@ -5093,13 +5106,15 @@ a.subir_carousel, a.bajar_carousel {
     line-height: 18px;
 }
 
-.descripcion_set_packNuevas h6 {
+/*
+    DEUDA TECNICA
+    .descripcion_set_packNuevas h6 {
     font-size: 14px;
     font-weight: 700 !important;
     letter-spacing: .2px;
     color: #000;
     margin-bottom: 15px;
-}
+}*/
 
 .descripcion_lista {
     display: block;
@@ -5119,9 +5134,13 @@ a.subir_carousel, a.bajar_carousel {
             border-bottom: 1px solid #CCC;
         }
 
-.descripcion_set_packNuevas .mensaje_advertencia_detalleCarousel {
+
+/*
+    DEUDA TECNICA
+    .descripcion_set_packNuevas .mensaje_advertencia_detalleCarousel {
     width: 98%;
-}
+}*/
+
 /* POPUP ACTUALIZAR MIS DATOS */
 .popup_actualizarMisDatos {
     display: block;
@@ -5626,7 +5645,7 @@ a.subir_carousel, a.bajar_carousel {
     font-family: 'lato';
     font-weight: 700;
     font-size: 8pt;
-    background: url('../../../Images/Esika/boton_pedido.png') no-repeat;
+    background: url('/Content/Images/Esika/boton_pedido.png') no-repeat;
     background-position: 74px 8px;
 }
 
@@ -5650,8 +5669,8 @@ a.subir_carousel, a.bajar_carousel {
 
     .boton-pedido:hover {
         background-position: 74px 8px !important;
-        background: url('../../../Images/Esika/boton_pedido_hover.png') no-repeat;
-        background: black url('../../../Images/Esika/boton_pedido_hover.png') no-repeat\9;
+        background: url('/Content/Images/Esika/boton_pedido_hover.png') no-repeat;
+        background: black url('/Content/Images/Esika/boton_pedido_hover.png') no-repeat\9;
         color: white;
     }
 
@@ -5669,13 +5688,13 @@ a.subir_carousel, a.bajar_carousel {
     z-index: 20;
     width: 96px;
     height: 22px;
-    background: url('../../../Images/Esika/oferta.png') no-repeat;
+    background: url('/Content/Images/Esika/oferta.png') no-repeat;
 }
 
 .reco_star {
     position: absolute;
     left: 105px;
-    background: url('../../../Images/Esika/star_reco.png') no-repeat;
+    background: url('/Content/Images/Esika/star_reco.png') no-repeat;
     background-size: 23px 23px;
     width: 32px;
     height: 32px;
@@ -5687,7 +5706,7 @@ a.subir_carousel, a.bajar_carousel {
     z-index: 21;
     width: 98px;
     height: 22px;
-    background: url('../../../Images/Esika/oferta_web.png') no-repeat;
+    background: url('/Content/Images/Esika/oferta_web.png') no-repeat;
 }
 
 .pedidos_subtitulo {
@@ -5963,7 +5982,7 @@ a.subir_carousel, a.bajar_carousel {
     float: left;
     font-family: 'lato';
     font-size: 8.5pt;
-    background: url('../../../Images/Esika/ayuda_pedido.png') no-repeat;
+    background: url('/Content/Images/Esika/ayuda_pedido.png') no-repeat;
 }
 
 .pop_pedido {
@@ -5977,7 +5996,7 @@ a.subir_carousel, a.bajar_carousel {
     padding-top: 38px;
     padding-left: 35px;
     padding-right: 35px;
-    background: url('../../../Images/Esika/pop_liquidacion.png') no-repeat;
+    background: url('/Content/Images/Esika/pop_liquidacion.png') no-repeat;
 }
 /*POP UP LIQUIDACION*/
 .pop_liquidacion_home {
@@ -5991,7 +6010,7 @@ a.subir_carousel, a.bajar_carousel {
     padding-top: 38px;
     padding-left: 35px;
     padding-right: 35px;
-    background: url('../../../Images/Esika/pop_liquidacion.png') no-repeat;
+    background: url('/Content/Images/Esika/pop_liquidacion.png') no-repeat;
 }
 
 .pop_liquidacion {
@@ -6005,7 +6024,7 @@ a.subir_carousel, a.bajar_carousel {
     padding-top: 38px;
     padding-left: 35px;
     padding-right: 35px;
-    background: url('../../../Images/Esika/pop_liquidacion.png') no-repeat;
+    background: url('/Content/Images/Esika/pop_liquidacion.png') no-repeat;
 }
 
 .check_liquidacion {
@@ -6155,7 +6174,7 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 .loadingScreen-mensaje {
-    background: url('../../../Images/Loading.gif') no-repeat 0 0;
+    background: url('/Content/Images/Loading.gif') no-repeat 0 0;
     padding-left: 25px;
     margin-top: 10px;
     padding-bottom: 5px;
@@ -6230,7 +6249,7 @@ a.subir_carousel, a.bajar_carousel {
     }
 
 .calendario_svg {
-    background: url('../../../Images/Esika/calendario.png') no-repeat;
+    background: url('/Content/Images/Esika/calendario.png') no-repeat;
     background-position: 0 4px;
 }
 
@@ -6248,12 +6267,12 @@ a.subir_carousel, a.bajar_carousel {
 
 .logo_esika a {
     height: 50px;
-    background: url('../../../Images/Esika/logo_esika.png') no-repeat;
+    background: url('/Content/Images/Esika/logo_esika.png') no-repeat;
     background-size: cover;
 }
 
     .logo_esika a.negro {
-        background: url('../../../Images/Esika/logo_esika_negro.png') no-repeat;
+        background: url('/Content/Images/Esika/logo_esika_negro.png') no-repeat;
         background-size: cover;
     }
 
@@ -7378,7 +7397,7 @@ a.subir_carousel, a.bajar_carousel {
         }
 
     .ver-mas-vertical span.icon {
-        background: url('../../../Images/ver-mas-flecha-vertical.svg') center no-repeat;
+        background: url('/Content/Images/ver-mas-flecha-vertical.svg') center no-repeat;
     }
 
 /* fin ver mas la fleca abajo*/
@@ -7552,7 +7571,7 @@ blockquote {
         position: absolute;
         width: 20px;
         height: 16px;
-        background-image: url('../../Images/quote.png');
+        background-image: url('/Content/Images/quote.png');
         background-repeat: no-repeat;
         background-position: 0 0;
         content: '';
@@ -7843,7 +7862,7 @@ hr.divider {
         padding-right: 16px;
         outline: medium none;
         border: 0 none;
-        background: url('../../Images/top-arrow.png') no-repeat center right;
+        background: url('/Content/Images/top-arrow.png') no-repeat center right;
         color: #FDBE0F;
         font-weight: 700;
         cursor: pointer;
@@ -7907,27 +7926,27 @@ ul.type-6 li {
 }
 
 ul.type-1 li {
-    background: url('../../Images/icons/small/list-icon1.png') no-repeat 7px center;
+    background: url('/Content/Images/icons/small/list-icon1.png') no-repeat 7px center;
 }
 
 ul.type-2 li {
-    background: url('../../Images/icons/small/list-icon2.png') no-repeat 10px center;
+    background: url('/Content/Images/icons/small/list-icon2.png') no-repeat 10px center;
 }
 
 ul.type-3 li {
-    background: url('../../Images/icons/small/list-icon3.png') no-repeat 4px center;
+    background: url('/Content/Images/icons/small/list-icon3.png') no-repeat 4px center;
 }
 
 ul.type-4 li {
-    background: url('../../Images/icons/small/list-icon4.png') no-repeat 7px center;
+    background: url('/Content/Images/icons/small/list-icon4.png') no-repeat 7px center;
 }
 
 ul.type-5 li {
-    background: url('../../Images/icons/small/list-icon5.png') no-repeat 6px center;
+    background: url('/Content/Images/icons/small/list-icon5.png') no-repeat 6px center;
 }
 
 ul.type-6 li {
-    background: url('../../Images/icons/small/list-icon6.png') no-repeat 7px center;
+    background: url('/Content/Images/icons/small/list-icon6.png') no-repeat 7px center;
 }
 /* ---------------------------------------------------------------------- */
 /*	Buttons */
@@ -8507,7 +8526,7 @@ ul.tabs {
     line-height: 40px;
     padding: 0;
     margin: 0 10px 0 0;
-    background: url('../../Images/buscar1_e.png') 0 0 no-repeat;
+    background: url('/Content/Images/buscar1_e.png') 0 0 no-repeat;
     color: #fff;
     font-size: 14px;
     border: 0;
@@ -8520,7 +8539,7 @@ ul.tabs {
     line-height: 40px;
     padding: 0;
     margin: 0 10px 0 0;
-    background: url('../../../Images/buscar.png') 0 0 no-repeat;
+    background: url('/Content/Images/buscar.png') 0 0 no-repeat;
     color: #fff;
     font-size: 14px;
     border: 0;
@@ -8537,7 +8556,7 @@ ul.tabs {
     line-height: 40px;
     padding: 0;
     margin: 10px 0 0 0;
-    background: url('../../Images/bloquear.png') 0 0 no-repeat;
+    background: url('/Content/Images/bloquear.png') 0 0 no-repeat;
     color: #fff;
     font-size: 14px;
     border: 0;
@@ -8576,7 +8595,7 @@ ul.tabs {
         height: auto;
         padding: 0;
         overflow: hidden;
-        background: url('../../images/bg_C_t.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_C_t.png') 0 0 no-repeat;
     }
 
     .div-1 .box-c {
@@ -8584,7 +8603,7 @@ ul.tabs {
         padding: 0 10px 0 10px;
         overflow: hidden;
         display: none;
-        background: url('../../images/bg_C_c.png') 0 0 repeat;
+        background: url('/Content/Images/bg_C_c.png') 0 0 repeat;
     }
 
     .div-1 .box-b {
@@ -8592,7 +8611,7 @@ ul.tabs {
         height: 10px;
         padding: 0;
         overflow: hidden;
-        background: url('../../images/bg_C_b.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_C_b.png') 0 0 no-repeat;
     }
 
     .div-1 .box p {
@@ -9152,7 +9171,7 @@ ul.tabs {
     width: 250px;
     height: 40px;
     padding: 5px 10px 5px 10px;
-    background: url('../../images/select_input_tab.png') 0 0 no-repeat;
+    background: url('/Content/Images/select_input_tab.png') 0 0 no-repeat;
     color: #702789;
     margin-right: 10px;
     border: 0;
@@ -9639,7 +9658,7 @@ ul.tabs {
     width: 145px;
     height: 40px;
     padding: 0 10px 0 10px;
-    background: url('../../Images/filtros_faltantes.png') 0 0 no-repeat;
+    background: url('/Content/Images/filtros_faltantes.png') 0 0 no-repeat;
     color: #702789;
     margin-right: 10px;
     border: 0;
@@ -9739,7 +9758,7 @@ ul.tabs {
     height: 46px;
     line-height: 46px;
     padding: 0;
-    background: url('../../Images/bg_input3.png') 0 0 no-repeat;
+    background: url('/Content/Images/bg_input3.png') 0 0 no-repeat;
     color: #fff;
     font-size: 16px;
     border: 0;
@@ -9751,7 +9770,7 @@ ul.tabs {
         height: 46px;
         line-height: 46px;
         padding: 0;
-        background: url('../../Images/bg_input3_over.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input3_over.png') 0 0 no-repeat;
         color: #fff;
         font-size: 16px;
         border: 0;
@@ -9790,7 +9809,7 @@ ul.tabs {
         height: 40px;
         line-height: 40px;
         padding: 0;
-        background: url('../../Images/bg_input4.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input4.png') 0 0 no-repeat;
         color: #fff;
         font-size: 16px;
         border: 0;
@@ -9802,7 +9821,7 @@ ul.tabs {
     height: 46px;
     line-height: 46px;
     padding: 0;
-    background: url('../../Images/bg_input4_e.png') 0 0 no-repeat;
+    background: url('/Content/Images/bg_input4_e.png') 0 0 no-repeat;
     color: #fff;
     font-size: 16px;
     border: 0;
@@ -9814,7 +9833,7 @@ ul.tabs {
         height: 46px;
         line-height: 46px;
         padding: 0;
-        background: url('../../Images/bg_input4_over_e.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input4_over_e.png') 0 0 no-repeat;
         color: #fff;
         font-size: 16px;
         border: 0;
@@ -9826,7 +9845,7 @@ ul.tabs {
     height: 46px;
     line-height: 46px;
     padding: 0;
-    background: url('../../Images/bg_input7.png') 0 0 no-repeat;
+    background: url('/Content/Images/bg_input7.png') 0 0 no-repeat;
     color: #fff;
     font-size: 16px;
     border: 0;
@@ -9838,7 +9857,7 @@ ul.tabs {
         height: 46px;
         line-height: 46px;
         padding: 0;
-        background: url('../../Images/bg_input7_over.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input7_over.png') 0 0 no-repeat;
         color: #fff;
         font-size: 16px;
         border: 0;
@@ -9850,7 +9869,7 @@ ul.tabs {
     height: 46px;
     line-height: 46px;
     padding: 0;
-    background: url('../../Images/bg_input7.png') 0 0 no-repeat;
+    background: url('/Content/Images/bg_input7.png') 0 0 no-repeat;
     color: #fff;
     font-size: 16px;
     border: 0;
@@ -9862,7 +9881,7 @@ ul.tabs {
         height: 46px;
         line-height: 46px;
         padding: 0;
-        background: url('../../Images/bg_input7_over.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input7_over.png') 0 0 no-repeat;
         color: #fff;
         font-size: 16px;
         border: 0;
@@ -9925,7 +9944,7 @@ ul.tabs {
     height: 37px;
     line-height: 37px;
     padding: 0;
-    background: url('../../Images/btn_modifica_pedido_e.png') 0 0 no-repeat;
+    background: url('/Content/Images/btn_modifica_pedido_e.png') 0 0 no-repeat;
     color: #fff;
     font-size: 15px;
     border: 0;
@@ -9958,7 +9977,7 @@ ul.tabs {
     height: 37px;
     line-height: 30px;
     padding: 0;
-    background: url('../../Images/bg_g3.png') 0 0 no-repeat;
+    background: url('/Content/Images/bg_g3.png') 0 0 no-repeat;
     color: #fff;
     font-size: 13px;
     text-align: center;
@@ -10051,7 +10070,7 @@ ul.tabs {
             font-size: 18px !Important;
             font-family: 'museo_sans_700regular';
             font-weight: normal !Important;
-            background: url('../../Images/ico_alerts.png') 0 0 no-repeat;
+            background: url('/Content/Images/ico_alerts.png') 0 0 no-repeat;
         }
 
         .div-4 .noti2 ul.mensajes {
@@ -10105,7 +10124,7 @@ ul.tabs {
             font-size: 18px !Important;
             font-family: 'museo_sans_700regular';
             font-weight: normal !Important;
-            background: url('../../Images/ico_alerts.png') 0 0 no-repeat;
+            background: url('/Content/Images/ico_alerts.png') 0 0 no-repeat;
         }
 
         .div-4 .noti ul.mensajes {
@@ -10132,7 +10151,7 @@ ul.tabs {
         height: 26px;
         line-height: 26px;
         padding: 0;
-        background: url('../../Images/bg_input5.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input5.png') 0 0 no-repeat;
         color: #fff;
         font-size: 12px;
         border: 0;
@@ -10146,7 +10165,7 @@ ul.tabs {
         height: 26px;
         line-height: 26px;
         padding: 0;
-        background: url('../../Images/bg_input6.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input6.png') 0 0 no-repeat;
         color: #fff;
         font-size: 12px;
         border: 0;
@@ -10222,7 +10241,7 @@ ul.tabs {
     height: 30px;
     line-height: 24px;
     padding-left: 30px;
-    background: url('../../Images/ico_mail.png') 0 0 no-repeat;
+    background: url('/Content/Images/ico_mail.png') 0 0 no-repeat;
 }
 
 .imprimir {
@@ -10231,11 +10250,11 @@ ul.tabs {
     height: 30px;
     line-height: 24px;
     padding-left: 30px;
-    background: url('../../Images/ico_print.png') 0 0 no-repeat;
+    background: url('/Content/Images/ico_print.png') 0 0 no-repeat;
 }
 
 .eliminar {
-    background: url('../../Images/trash_e.png') no-repeat center right;
+    background: url('/Content/Images/trash_e.png') no-repeat center right;
     display: block;
     height: 26px;
     width: 21px;
@@ -10244,7 +10263,7 @@ ul.tabs {
 }
 
 .update {
-    background: url('../../Images/update.png') no-repeat center right;
+    background: url('/Content/Images/update.png') no-repeat center right;
     height: 26px;
     width: 21px;
     margin-top: 2px;
@@ -10253,7 +10272,7 @@ ul.tabs {
 }
 
 .cancel {
-    background: url('../../Images/cancel.png') no-repeat center right;
+    background: url('/Content/Images/cancel.png') no-repeat center right;
     height: 26px;
     width: 21px;
     margin-top: 2px;
@@ -10676,13 +10695,13 @@ ol {
             padding: 3px 5px 3px 10px;
             color: #5c6f7c;
             font-size: 11px;
-            background: url('../../Images/nav-arrow.png') 0 -11px no-repeat;
+            background: url('/Content/Images/nav-arrow.png') 0 -11px no-repeat;
         }
 
             ol li a:hover {
                 color: #00a2e8;
                 text-decoration: underline;
-                background: url('../../Images/nav-arrow.png') 0 8px no-repeat;
+                background: url('/Content/Images/nav-arrow.png') 0 8px no-repeat;
             }
 
 .foot_social {
@@ -10804,7 +10823,7 @@ ol {
     padding: 5px 0 40px 0;
     overflow: hidden;
     display: block;
-    background: url('../../Images/bg_catalogos.png') 328px 93px no-repeat;
+    background: url('/Content/Images/bg_catalogos.png') 328px 93px no-repeat;
 }
 
 .logospace {
@@ -11028,7 +11047,7 @@ ol {
     }
 
         #top-panel .toggle:after {
-            background: url('../../Images/more.png') no-repeat;
+            background: url('/Content/Images/more.png') no-repeat;
         }
 
         #top-panel .toggle:after {
@@ -11115,7 +11134,7 @@ ol {
     width: 150px;
     height: 27px;
     float: left;
-    background: url('../../Images/bg_search.png') top left no-repeat;
+    background: url('/Content/Images/bg_search.png') top left no-repeat;
     display: none;
 }
 
@@ -11155,7 +11174,7 @@ ol {
             padding: 0;
             margin: 0;
             border: 0;
-            background: url('../../Images/bg_btn_search.png') top left no-repeat;
+            background: url('/Content/Images/bg_btn_search.png') top left no-repeat;
         }
 
 .top_head4 {
@@ -11199,7 +11218,7 @@ ol {
     padding: 15px 0 0 0;
     width: 150px;
     height: 118px;
-    background: url('../../Images/bg_logo.png') top left no-repeat;
+    background: url('/Content/Images/bg_logo.png') top left no-repeat;
     text-align: center;
     position: absolute;
     top: 0;
@@ -11245,40 +11264,55 @@ ol {
 /* Generated by Font Squirrel (http://www.fontsquirrel.com) on August 29, 2012 */
 @font-face {
     font-family: 'museo_sans_900regular';
-    src: url('../../fonts/museo/museosans_900-webfont.eot');
-    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('/Content/fonts/museo/museosans_900-webfont.eot');
+    src: url('/Content/fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('/Content/fonts/museo/museosans_900-webfont.woff') format('woff'), 
+        url('/Content/fonts/museo/museosans_900-webfont.ttf') format('truetype'),
+        url('/Content/fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'museo_sans_700regular';
-    src: url('../../fonts/museo/museosans_700-webfont.eot');
-    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    src: url('/Content/fonts/museo/museosans_700-webfont.eot');
+    src: url('/Content/fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('/Content/fonts/museo/museosans_700-webfont.woff') format('woff'), 
+        url('/Content/fonts/museo/museosans_700-webfont.ttf') format('truetype'),
+        url('/Content/fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'museo_sans_500regular';
-    src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('/Content/fonts/museo/museosans_500-webfont.eot');
+    src: url('/Content/fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('/Content/fonts/museo/museosans_500-webfont.woff') format('woff'),
+        url('/Content/fonts/museo/museosans_500-webfont.ttf') format('truetype'), 
+        url('/Content/fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'museo_300regular';
-    src: url('../../fonts/museo/museo300-regular-webfont.eot');
-    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
+    src: url('/Content/fonts/museo/museo300-regular-webfont.eot');
+    src: url('/Content/fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/Content/fonts/museo/museo300-regular-webfont.woff') format('woff'), 
+        url('/Content/fonts/museo/museo300-regular-webfont.ttf') format('truetype'), 
+        url('/Content/fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'museo_sans_100regular';
-    src: url('../../fonts/museo/museosans-100-webfont.eot');
-    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans-100-webfont.woff') format('woff'), url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    src: url('/Content/fonts/museo/museosans-100-webfont.eot');
+    src: url('/Content/fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('/Content/fonts/museo/museosans-100-webfont.woff') format('woff'), 
+        url('/Content/fonts/museo/museosans-100-webfont.ttf') format('truetype'), 
+        url('/Content/fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -11286,7 +11320,7 @@ ol {
 *                    LOGIN                       *
 *************************************************/
 .body_login {
-    background: url('../../Images/body_login.png') top left repeat-x;
+    background: url('/Content/Images/body_login.png') top left repeat-x;
     text-align: center;
 }
 
@@ -11311,7 +11345,7 @@ ol {
     width: 150px;
     height: 108px;
     padding: 13px 0 0 0;
-    background: url('../../Images/bg_logo.png');
+    background: url('/Content/Images/bg_logo.png');
     text-align: center;
     float: left;
 }
@@ -11347,7 +11381,7 @@ ol {
     }
 
 .sombra_login {
-    background: url('../../images/sombra_login.png') bottom left no-repeat;
+    background: url('/Content/Images/sombra_login.png') bottom left no-repeat;
     padding: 0 0 10px 34px;
     margin: 0 0 0 0;
     position: relative;
@@ -11426,12 +11460,12 @@ ol {
 .banner_login_item {
     float: left;
     padding: 162px 5px 8px 5px;
-    background: url('../../Images/sombra_banner_login.png') bottom center no-repeat;
+    background: url('/Content/Images/sombra_banner_login.png') bottom center no-repeat;
 }
 
 .foot_login {
     height: 82px;
-    background: url('../../Images/foot_login.png') top left repeat-x;
+    background: url('/Content/Images/foot_login.png') top left repeat-x;
     text-align: center;
 }
 
@@ -11466,7 +11500,7 @@ ol {
 *               PANTALLA ERROR                   *
 *************************************************/
 .bg_modal {
-    background: url('../../Images/bg_modal.png') top left repeat-x;
+    background: url('/Content/Images/bg_modal.png') top left repeat-x;
     text-align: center;
 }
 
@@ -11552,7 +11586,7 @@ ol {
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: url('../../../Images/buscar.png') 0 0 no-repeat;
+    background: url('/Content/Images/buscar.png') 0 0 no-repeat;
     color: #fff;
     font-size: 14px;
     border: 0;
@@ -11565,7 +11599,7 @@ ol {
         height: 40px;
         line-height: 40px;
         padding: 0;
-        background: url('../../Images/bg_input3t_over.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input3t_over.png') 0 0 no-repeat;
         color: #fff;
         font-size: 14px;
         border: 0;
@@ -11582,7 +11616,7 @@ ol {
         height: 40px;
         line-height: 40px;
         padding: 0;
-        background: url('../../../Images/buscar.png') 0 0 no-repeat;
+        background: url('/Content/Images/buscar.png') 0 0 no-repeat;
         color: #fff;
         font-size: 14px;
         border: 0;
@@ -11594,7 +11628,7 @@ ol {
             height: 40px;
             line-height: 40px;
             padding: 0;
-            background: url('../../Images/bg_input3t_over.png') 0 0 no-repeat;
+            background: url('/Content/Images/bg_input3t_over.png') 0 0 no-repeat;
             color: #fff;
             font-size: 14px;
             border: 0;
@@ -11667,7 +11701,7 @@ ol {
     padding: 5px 0 40px 0;
     overflow: hidden;
     display: block;
-    background: url('../../Images/bg_catalogos.png') bottom center no-repeat;
+    background: url('/Content/Images/bg_catalogos.png') bottom center no-repeat;
     text-align: center;
 }
 
@@ -11881,7 +11915,7 @@ ol {
                 }
 /* Fin Cambios_Landing_Comunidad */
 .responde_item_telf {
-    background: url('../../Images/telefono_menu.png') top left no-repeat !important;
+    background: url('/Content/Images/telefono_menu.png') top left no-repeat !important;
     padding-left: 60px !important;
     width: 190px;
     height: 46px;
@@ -11890,11 +11924,11 @@ ol {
 }
 
     .responde_item_telf:hover {
-        background: url('../../Images/telefono_menu.png') top left no-repeat #F6E4F4 !important;
+        background: url('/Content/Images/telefono_menu.png') top left no-repeat #F6E4F4 !important;
     }
 
 .responde_item_email {
-    background: url('../../Images/email_menu.png') top left no-repeat !important;
+    background: url('/Content/Images/email_menu.png') top left no-repeat !important;
     padding-left: 60px !important;
     width: 190px;
     height: 46px;
@@ -11903,11 +11937,11 @@ ol {
 }
 
     .responde_item_email:hover {
-        background: url('../../Images/email_menu.png') top left no-repeat #F6E4F4 !important;
+        background: url('/Content/Images/email_menu.png') top left no-repeat #F6E4F4 !important;
     }
 
 .responde_item_chat {
-    background: url('../../Images/user_menu.png') top left no-repeat !important;
+    background: url('/Content/Images/user_menu.png') top left no-repeat !important;
     padding-left: 60px !important;
     width: 190px;
     height: 46px;
@@ -11916,7 +11950,7 @@ ol {
 }
 
     .responde_item_chat:hover {
-        background: url('../../Images/user_menu.png') top left no-repeat #F6E4F4 !important;
+        background: url('/Content/Images/user_menu.png') top left no-repeat #F6E4F4 !important;
     }
 /****************LIST BOX****************/
 .list_content {
@@ -11965,14 +11999,14 @@ ol {
 }
 
 .productos_fixed .carrito_compras {
-    background: url('../../Images/bg_C_c.png') top left repeat;
+    background: url('/Content/Images/bg_C_c.png') top left repeat;
     padding: 8px 20px 5px 25px;
     margin: -45px 0 8px 0;
     position: relative;
 }
 
     .productos_fixed .carrito_compras div {
-        background: url('../../Images/cesta.png') top left no-repeat;
+        background: url('/Content/Images/cesta.png') top left no-repeat;
         font-family: 'lato-regular';
         padding: 10px 5px 0 80px;
         height: 46px;
@@ -12003,7 +12037,7 @@ ol {
 }
 
     .fixed .carrito_compras {
-        background: url('../../Images/bg_C_c.png') top left repeat;
+        background: url('/Content/Images/bg_C_c.png') top left repeat;
         padding: 8px 20px 5px 25px;
         margin: 0 0 8px 0;
         position: relative;
@@ -12080,7 +12114,7 @@ ol {
 
     .modulo_ofertas_dupla .ofertas_cantidad input[type='text'] {
         border: none;
-        background: url('../../Images/cantidad_dupla.png') top left no-repeat;
+        background: url('/Content/Images/cantidad_dupla.png') top left no-repeat;
         width: 45px;
         height: 35px;
         padding: 5px 0 0 0;
@@ -12649,7 +12683,7 @@ ol {
         height: 40px;
         line-height: 40px;
         padding: 0;
-        background: url('../../Images/bg_input3t.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input3t.png') 0 0 no-repeat;
         color: #fff;
         font-size: 14px;
         border: 0;
@@ -12806,7 +12840,7 @@ ol {
         height: 40px;
         line-height: 40px;
         padding: 0;
-        background: url('../../Images/bg_input3t.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input3t.png') 0 0 no-repeat;
         color: #fff;
         font-size: 14px;
         border: 0;
@@ -12825,7 +12859,7 @@ ol {
         height: 40px;
         line-height: 40px;
         padding: 0;
-        background: url('../../Images/bg_input4_over_e.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input4_over_e.png') 0 0 no-repeat;
         color: #fff;
         font-size: 14px;
         border: 0;
@@ -12837,7 +12871,7 @@ ol {
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: url('../../Images/bg_input3t.png') 0 0 no-repeat;
+    background: url('/Content/Images/bg_input3t.png') 0 0 no-repeat;
     color: #fff;
     font-size: 14px;
     border: 0;
@@ -12849,7 +12883,7 @@ ol {
         height: 40px;
         line-height: 40px;
         padding: 0;
-        background: url('../../Images/bg_input3t_over.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input3t_over.png') 0 0 no-repeat;
         color: #fff;
         font-size: 14px;
         border: 0;
@@ -12865,7 +12899,7 @@ ol {
         height: 45px;
         line-height: 45px;
         padding: 0;
-        background: url('../../Images/bg_input4_over_e.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input4_over_e.png') 0 0 no-repeat;
         color: #fff;
         font-size: 14px;
         border: 0;
@@ -12889,7 +12923,7 @@ ol {
 }
 
     .listaOfertas li {
-        background: #fff url('../../Images/bullet.png') 0 3px no-repeat;
+        background: #fff url('/Content/Images/bullet.png') 0 3px no-repeat;
         font-size: 8pt;
         padding: 1px;
         padding-left: 15px;
@@ -12918,7 +12952,7 @@ ol {
 
     .lista_cross li {
         list-style: none;
-        background: url('../../Images/icon_modal_list.png') 0 0 no-repeat;
+        background: url('/Content/Images/icon_modal_list.png') 0 0 no-repeat;
         padding: 0 0 5px 10px;
     }
 
@@ -12958,7 +12992,7 @@ ol {
         height: 24px;
         line-height: 24px;
         padding: 0;
-        background: url('../../Images/agregar_cross.png') 0 0 no-repeat;
+        background: url('/Content/Images/agregar_cross.png') 0 0 no-repeat;
         color: #fff;
         border: 0;
         margin: 0 auto;
@@ -13024,7 +13058,7 @@ ol {
             padding: 5px 15px 0 15px;
             margin: 0 auto;
             color: #fff;
-            background: url('../../Images/btn_modifica_pedido.png') top center no-repeat;
+            background: url('/Content/Images/btn_modifica_pedido.png') top center no-repeat;
             text-align: center;
         }
 /********************* PAYPAL *************************/
@@ -13047,7 +13081,7 @@ ol {
 }
 
 .flexipago_pedido_cont {
-    background: url('../../Images/flexipago_logo.png') top left no-repeat;
+    background: url('/Content/Images/flexipago_logo.png') top left no-repeat;
     font-family: 'lato-regular';
     height: 34px;
     padding: 5px 0 0 120px;
@@ -13092,7 +13126,7 @@ ol {
     }
 
 .flexipago_title {
-    background: url('../../Images/item_cal.png') top left no-repeat;
+    background: url('/Content/Images/item_cal.png') top left no-repeat;
     padding: 0 0 0 57px;
     margin: 0 0 10px 0;
     height: 45px;
@@ -13354,7 +13388,7 @@ ol {
 
 .toggleMenu {
     display: none;
-    background: url('../../Images/menu_rwd.png') #00A0E6 right no-repeat;
+    background: url('/Content/Images/menu_rwd.png') #00A0E6 right no-repeat;
     padding: 4px 30px 4px 10px;
     color: #fff;
     font-size: 14px !Important;
@@ -13363,7 +13397,7 @@ ol {
 
     .toggleMenu:hover {
         display: none;
-        background: url('../../Images/menu_rwd.png') #008AC6 right no-repeat;
+        background: url('/Content/Images/menu_rwd.png') #008AC6 right no-repeat;
     }
 
 .nav {
@@ -13417,7 +13451,7 @@ ol {
         }
 
             .nav > li > a:hover {
-                background: url('../../Images/btn_modifica.png') top center no-repeat;
+                background: url('/Content/Images/btn_modifica.png') top center no-repeat;
                 color: #fff;
             }
 
@@ -13522,7 +13556,7 @@ ol {
 .tooltip {
     position: absolute;
     width: 122px;
-    background: transparent url('../../Images/tipMid.png') top no-repeat;
+    background: transparent url('/Content/Images/tipMid.png') top no-repeat;
     padding: 12px 10px 4px 10px;
     line-height: 17px;
     color: #702789;
@@ -13721,7 +13755,7 @@ ol {
 
     .modal_2_texto li {
         list-style: none;
-        background: url('../../Images/icon_modal_list.png') 0 0 no-repeat;
+        background: url('/Content/Images/icon_modal_list.png') 0 0 no-repeat;
         padding: 0 0 5px 10px;
     }
 
@@ -13731,7 +13765,7 @@ ol {
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: url('../../Images/bg_input4_e.png') 0 0 no-repeat;
+    background: url('/Content/Images/bg_input4_e.png') 0 0 no-repeat;
     color: #fff;
     font-size: 16px;
     border: 0;
@@ -13743,7 +13777,7 @@ ol {
         height: 40px;
         line-height: 40px;
         padding: 0;
-        background: url('../../Images/bg_input4_over_e.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input4_over_e.png') 0 0 no-repeat;
         color: #fff;
         font-size: 16px;
         border: 0;
@@ -13755,7 +13789,7 @@ ol {
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: url('../../Images/bg_input4_e.png') 0 0 no-repeat;
+    background: url('/Content/Images/bg_input4_e.png') 0 0 no-repeat;
     color: #fff;
     font-size: 16px;
     border: 0;
@@ -13768,7 +13802,7 @@ ol {
         height: 40px;
         line-height: 40px;
         padding: 0;
-        background: url('../../Images/bg_input4_over_e.png') 0 0 no-repeat;
+        background: url('/Content/Images/bg_input4_over_e.png') 0 0 no-repeat;
         color: #fff;
         font-size: 16px;
         border: 0;
@@ -13815,7 +13849,7 @@ ol {
 .color_title_right {
     color: #00A2E8;
     float: right;
-    background: url('../../Images/icon_productos.png') top right no-repeat;
+    background: url('/Content/Images/icon_productos.png') top right no-repeat;
     padding: 0 30px 0 0;
     margin: 0 15px 0 0;
 }
@@ -13938,7 +13972,7 @@ ol {
 .mCSB_scrollTools .mCSB_buttonDown,
 .mCSB_scrollTools .mCSB_buttonLeft,
 .mCSB_scrollTools .mCSB_buttonRight {
-    background-image: url('../../Images/mCSB_buttons.png');
+    background-image: url('/Content/Images/mCSB_buttons.png');
     background-repeat: no-repeat;
 }
 
@@ -14006,7 +14040,7 @@ ol {
             }
 
                 .menu_header_preview ul li a:hover, .menu_header_preview ul li:hover a.nivel1 {
-                    background: url('../../Images/btn_modifica.png') top center no-repeat;
+                    background: url('/Content/Images/btn_modifica.png') top center no-repeat;
                     color: #fff;
                     position: relative;
                     -webkit-border-radius: 7px;
@@ -14114,7 +14148,7 @@ table.falsa {
                 }
 
                 .jqueryslidemenu ul li a:hover {
-                    background: url('../../Images/btn_modifica.png') top center no-repeat;
+                    background: url('/Content/Images/btn_modifica.png') top center no-repeat;
                     color: #fff;
                 }
             /***** SUB ******/
@@ -14298,7 +14332,7 @@ table.falsa {
             font-weight: bold;
             padding: 0 0 0 10px;
             margin-left: 6px;
-            background: url('../../Images/nav-arrow.png') no-repeat scroll 0 -14px transparent;
+            background: url('/Content/Images/nav-arrow.png') no-repeat scroll 0 -14px transparent;
         }
 
     .cab_resumen_lista span {
@@ -14354,7 +14388,7 @@ table.falsa {
             height: 37px;
             line-height: 34px;
             padding: 0;
-            background: url('../../Images/zona_.png') 0 0 no-repeat;
+            background: url('/Content/Images/zona_.png') 0 0 no-repeat;
             color: #fff;
             font-size: 14px;
             text-align: center;
@@ -14441,7 +14475,7 @@ table.falsa {
     text-transform: uppercase;
     text-decoration: none;
     background-color: #818181;
-    background-image: url('../../../Images/icons/arrow.png');
+    background-image: url('/Content/Images/icons/arrow.png');
     background-position: 50%;
     background-repeat: no-repeat;
     text-indent: -9999px;
@@ -14481,7 +14515,7 @@ table.falsa {
     background-color: #fff;
     background-position: 1px 1px;
     background-repeat: repeat-x;
-    background-image: url('../../Images/bg-page-title.png');
+    background-image: url('/Content/Images/bg-page-title.png');
 }
 
     .page-title span {
@@ -14493,7 +14527,7 @@ table.falsa {
     height: 20px;
     background-position: 1px 1px;
     background-repeat: repeat-x;
-    background-image: url('../../Images/bg-page-title.png');
+    background-image: url('/Content/Images/bg-page-title.png');
 }
 
 .page-title h1 {
@@ -14509,7 +14543,7 @@ table.falsa {
 .grid-title {
     margin-bottom: 1.1em;
     padding-bottom: .9em;
-    background: url('../../Images/bg-section-title.png') repeat-x bottom;
+    background: url('/Content/Images/bg-section-title.png') repeat-x bottom;
 }
 
 .grid-title {
@@ -14558,11 +14592,11 @@ ul.service-list {
             font-family: 'lato-regular';
             font-weight: lighter !Important;
             text-align: left;
-            background: url('../../Images/btn_01_e.png') 0 0 no-repeat;
+            background: url('/Content/Images/btn_01_e.png') 0 0 no-repeat;
         }
 
             ul.service-list li .q1:hover {
-                background: url('../../Images/btn_01_e.png') 0 -38px no-repeat;
+                background: url('/Content/Images/btn_01_e.png') 0 -38px no-repeat;
                 color: #fff;
             }
 
@@ -14583,11 +14617,11 @@ ul.service-list {
             font-family: 'lato-regular';
             font-weight: lighter !Important;
             text-align: left;
-            background: url('../../Images/btn_pagoLinea.png') 0 0 no-repeat;
+            background: url('/Content/Images/btn_pagoLinea.png') 0 0 no-repeat;
         }
 
             ul.service-list li .q1pl:hover {
-                background: url('../../Images/btn_pagoLinea.png') 0 -38px no-repeat;
+                background: url('/Content/Images/btn_pagoLinea.png') 0 -38px no-repeat;
                 color: #fff;
             }
 
@@ -14607,11 +14641,11 @@ ul.service-list {
             font-family: 'lato-regular';
             font-weight: lighter !Important;
             text-align: center;
-            background: url('../../Images/btn_02_e.png') 0 0 no-repeat;
+            background: url('/Content/Images/btn_02_e.png') 0 0 no-repeat;
         }
 
             ul.service-list li .q2:hover {
-                background: url('../../Images/btn_02_e.png') 0 -38px no-repeat;
+                background: url('/Content/Images/btn_02_e.png') 0 -38px no-repeat;
                 color: #fff;
             }
 
@@ -14632,11 +14666,11 @@ ul.service-list {
             font-family: 'lato-regular';
             font-weight: lighter !Important;
             text-align: center;
-            background: url('../../Images/btn_03.png') 0 0 no-repeat;
+            background: url('/Content/Images/btn_03.png') 0 0 no-repeat;
         }
 
             ul.service-list li .q3:hover {
-                background: url('../../Images/btn_03.png') 0 -38px no-repeat;
+                background: url('/Content/Images/btn_03.png') 0 -38px no-repeat;
                 color: #fff;
             }
 
@@ -14663,7 +14697,7 @@ ul.services-list-items {
             width: 41px;
             height: 41px;
             background-color: #313131;
-            background-image: url('../../Images/icons/sprite-list-items.png');
+            background-image: url('/Content/Images/icons/sprite-list-items.png');
             background-repeat: no-repeat;
             -webkit-border-radius: 50%;
             -moz-border-radius: 50%;
@@ -14740,19 +14774,19 @@ ul.services-list-items {
             .MenuLeft li a:link, #menu8 li a:visited {
                 color: #702789;
                 display: block;
-                background: url('../../Images/Menu.gif');
+                background: url('/Content/Images/Menu.gif');
                 padding: 5px 0 3px 25px;
             }
 
             .MenuLeft li a:hover {
                 color: #702789;
-                background: url('../../Images/Menu.gif') 0 -32px;
+                background: url('/Content/Images/Menu.gif') 0 -32px;
                 padding: 5px 0 3px 25px;
             }
 
             .MenuLeft li a:active {
                 color: #702789;
-                background: url('../../Images/Menu.gif') 0 -64px;
+                background: url('/Content/Images/Menu.gif') 0 -64px;
                 padding: 5px 0 3px 25px;
             }
 
@@ -14885,7 +14919,7 @@ ul.block-with-images {
 }
 
 ul.block-with-images li:hover {
-    background-image: url('../../Images/bg-service-list-active.png');
+    background-image: url('/Content/Images/bg-service-list-active.png');
     background-repeat: repeat;
     background-color: #ffd000;
 }
@@ -14908,7 +14942,7 @@ ul.block-with-images li a {
         left: 12px;
         width: 36px;
         height: 34px;
-        background-image: url('../../Images/icons/sprite-block-icons.png');
+        background-image: url('/Content/Images/icons/sprite-block-icons.png');
         background-repeat: no-repeat;
         content: '';
     }
@@ -15270,7 +15304,7 @@ widget_recent_entries ul {
     display: block;
     width: 9px;
     height: 16px;
-    background: url('../../Images/arrow-comments-entry.png') no-repeat;
+    background: url('/Content/Images/arrow-comments-entry.png') no-repeat;
     content: '';
 }
 
@@ -15656,11 +15690,11 @@ widget_recent_entries ul {
 }
 
 .picture-icon .curtain {
-    background-image: url('../../Images/zoom.png');
+    background-image: url('/Content/Images/zoom.png');
 }
 
 .video-icon .curtain {
-    background-image: url('../../Images/video-icon.png');
+    background-image: url('/Content/Images/video-icon.png');
 }
 
 .single-image:hover img,
@@ -15748,7 +15782,7 @@ div.recent:hover .title-item {
         width: 25px;
         height: 25px;
         cursor: pointer;
-        background: url('../../Images/slider-arrows.png') no-repeat #1c1c1c;
+        background: url('/Content/Images/slider-arrows.png') no-repeat #1c1c1c;
         text-indent: -9999px;
     }
 
@@ -15807,7 +15841,7 @@ a.all-projects {
         margin-left: 10px;
         width: 25px;
         height: 25px;
-        background-image: url('../../Images/icons/icon-all.png');
+        background-image: url('/Content/Images/icons/icon-all.png');
         background-repeat: no-repeat;
         background-position: 0 0;
         background-color: #e9e9e9;
@@ -15824,7 +15858,7 @@ a.all-projects {
 .pagination-project {
     margin: 10px 0 20px;
     padding-bottom: 25px;
-    background: url('../../Images/bg-section-title.png') repeat-x bottom;
+    background: url('/Content/Images/bg-section-title.png') repeat-x bottom;
     text-align: right;
 }
 
@@ -15832,7 +15866,7 @@ a.all-projects {
         display: inline-block;
         width: 25px;
         height: 25px;
-        background: url('../../Images/slider-arrows.png') no-repeat #e9e9e9;
+        background: url('/Content/Images/slider-arrows.png') no-repeat #e9e9e9;
         text-align: right;
         text-indent: -9999px;
         cursor: pointer;
@@ -16046,7 +16080,7 @@ ul.error_messages {
         height: 14px;
         border: none;
         cursor: pointer;
-        background: url('../../Images/search.png') no-repeat;
+        background: url('/Content/Images/search.png') no-repeat;
         -webkit-transition: all .25s linear;
         -moz-transition: all .25s linear;
         -ms-transition: all .25s linear;
@@ -16166,7 +16200,7 @@ ul.error_messages {
 #footer .widget-title {
     margin-bottom: .8em;
     padding-bottom: 1.1em;
-    background: url('../../Images/bg-footer-section-title.png') repeat-x bottom;
+    background: url('/Content/Images/bg-footer-section-title.png') repeat-x bottom;
     color: #b9b9b9;
     font-size: 18px;
 }
@@ -16218,7 +16252,7 @@ ul.error_messages {
             display: block;
             width: 30px;
             height: 30px;
-            background: url('../../Images/social-links.png') no-repeat;
+            background: url('/Content/Images/social-links.png') no-repeat;
             text-indent: -9999px;
             cursor: pointer;
         }
@@ -16229,7 +16263,7 @@ ul.error_messages {
                 left: 0;
                 bottom: 0;
                 right: 0;
-                background: url('../../Images/social-links.png') no-repeat;
+                background: url('/Content/Images/social-links.png') no-repeat;
                 opacity: 0;
                 filter: alpha(opacity = 0);
                 -webkit-transition: opacity .5s;
@@ -16393,7 +16427,7 @@ ul.tabs-nav li.active {
             margin-top: -8px;
             width: 17px;
             height: 17px;
-            background-image: url('../../Images/collapse.png');
+            background-image: url('/Content/Images/collapse.png');
             background-color: #313131;
             background-repeat: no-repeat;
             background-position: 0 0;
@@ -16472,7 +16506,7 @@ ul.tabs-nav li.active {
     margin-top: -8px;
     width: 17px;
     height: 17px;
-    background-image: url('../../Images/collapse.png');
+    background-image: url('/Content/Images/collapse.png');
     background-color: #313131;
     background-repeat: no-repeat;
     background-position: 0 0;
@@ -16513,7 +16547,7 @@ ul.tabs-nav li.active {
     position: relative;
     margin: 0 auto;
     padding: 0;
-    background: url('../../Images/preloader.gif') center center no-repeat;
+    background: url('/Content/Images/preloader.gif') center center no-repeat;
 }
 
 .TB_Wrapper {
@@ -16522,12 +16556,12 @@ ul.tabs-nav li.active {
 }
 
     .TB_Wrapper .icon {
-        background-image: url('../../Images/icons.png');
+        background-image: url('/Content/Images/icons.png');
         background-repeat: no-repeat;
     }
 
     .TB_Wrapper .timer_sprite {
-        background-image: url('../../Images/timer-sprite.png');
+        background-image: url('/Content/Images/timer-sprite.png');
     }
 
     .TB_Wrapper .Slides {
@@ -16548,7 +16582,7 @@ ul.tabs-nav li.active {
         height: 100%;
         left: 0;
         top: 0;
-        background: #EEEEEE url('../../Images/preloader.gif') center center no-repeat;
+        background: #EEEEEE url('/Content/Images/preloader.gif') center center no-repeat;
     }
 
         .TB_Wrapper .Slide img {
@@ -16812,7 +16846,7 @@ ul.tabs-nav li.active {
     }
 
     #scrollbar1 .scrollbar {
-        background: transparent url('../../Images/bg-scrollbar-track-y.png') no-repeat 0 0;
+        background: transparent url('/Content/Images/bg-scrollbar-track-y.png') no-repeat 0 0;
         position: relative;
         background-position: 0 0;
         float: right;
@@ -16820,7 +16854,7 @@ ul.tabs-nav li.active {
     }
 
     #scrollbar1 .track {
-        background: transparent url('../../Images/bg-scrollbar-trackend-y.png') no-repeat 0 100%;
+        background: transparent url('/Content/Images/bg-scrollbar-trackend-y.png') no-repeat 0 100%;
         height: 100%;
         width: 13px;
         position: relative;
@@ -16828,7 +16862,7 @@ ul.tabs-nav li.active {
     }
 
     #scrollbar1 .thumb {
-        background: transparent url('../../Images/bg-scrollbar-thumb-y.png') no-repeat 50% 100%;
+        background: transparent url('/Content/Images/bg-scrollbar-thumb-y.png') no-repeat 50% 100%;
         height: 20px;
         width: 25px;
         cursor: pointer;
@@ -16839,7 +16873,7 @@ ul.tabs-nav li.active {
     }
 
         #scrollbar1 .thumb .end {
-            background: transparent url('../../Images/bg-scrollbar-thumb-y.png') no-repeat 50% 0;
+            background: transparent url('/Content/Images/bg-scrollbar-thumb-y.png') no-repeat 50% 0;
             overflow: hidden;
             height: 5px;
             width: 25px;
@@ -16867,7 +16901,7 @@ ul.tabs-nav li.active {
 }
 
 .qq-upload-button {
-    background: url('../../../Images/buscar.png') no-repeat scroll 0 0 transparent;
+    background: url('/Content/Images/buscar.png') no-repeat scroll 0 0 transparent;
     border: 0 none;
     color: #fff;
     float: left;
@@ -16886,7 +16920,7 @@ ul.tabs-nav li.active {
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: url('../../../Images/buscar.png') 0 0 no-repeat;
+    background: url('/Content/Images/buscar.png') 0 0 no-repeat;
     color: #fff;
     font-size: 13px;
     border: 0;
@@ -16945,7 +16979,7 @@ ul.tabs-nav li.active {
 
 .qq-upload-spinner {
     display: inline-block;
-    background: url('../Images/UploadLoading.gif');
+    background: url('/Content/Images/UploadLoading.gif');
     width: 15px;
     height: 15px;
     vertical-align: text-bottom;
@@ -16980,11 +17014,11 @@ span.icon-edit, span.icon-del {
 }
 
 span.icon-edit {
-    background: url('../../Images/Edit.png') no-repeat;
+    background: url('/Content/Images/Edit.png') no-repeat;
 }
 
 span.icon-del {
-    background: url('../../Images/delete.png') no-repeat;
+    background: url('/Content/Images/delete.png') no-repeat;
 }
 /******* VERSION 1*************/
 .elementsX {
@@ -17027,7 +17061,7 @@ span.icon-del {
         height: 37px;
         line-height: 34px;
         padding: 0;
-        background: url('../../Images/zona_.png') 0 0 no-repeat;
+        background: url('/Content/Images/zona_.png') 0 0 no-repeat;
         color: #fff;
         font-size: 14px;
         text-align: center;
@@ -17076,7 +17110,7 @@ span.icon-del {
     height: 26px;
     line-height: 26px;
     padding: 0;
-    background: url('../../Images/btn_pag_1_e.png') 0 0 no-repeat;
+    background: url('/Content/Images/btn_pag_1_e.png') 0 0 no-repeat;
     color: #fff;
     font-size: 0;
     text-indent: 99999;
@@ -17085,7 +17119,7 @@ span.icon-del {
 }
 
     .btn_pag_1:hover {
-        background: url('../../Images/btn_pag_1_e.png') 0 -26px no-repeat;
+        background: url('/Content/Images/btn_pag_1_e.png') 0 -26px no-repeat;
         color: #fff;
     }*/
 
@@ -17094,7 +17128,7 @@ span.icon-del {
     height: 26px;
     line-height: 26px;
     padding: 0;
-    background: url('../../Images/btn_pag_2_e.png') 0 0 no-repeat;
+    background: url('/Content/Images/btn_pag_2_e.png') 0 0 no-repeat;
     color: #fff;
     font-size: 0;
     text-indent: 99999;
@@ -17103,7 +17137,7 @@ span.icon-del {
 }
 
     .btn_pag_2:hover {
-        background: url('../../Images/btn_pag_2_e.png') 0 -26px no-repeat;
+        background: url('/Content/Images/btn_pag_2_e.png') 0 -26px no-repeat;
         color: #fff;
     }*/
 
@@ -17112,7 +17146,7 @@ span.icon-del {
     height: 26px;
     line-height: 26px;
     padding: 0;
-    background: url('../../Images/btn_pag_3_e.png') 0 0 no-repeat;
+    background: url('/Content/Images/btn_pag_3_e.png') 0 0 no-repeat;
     color: #fff;
     font-size: 0;
     text-indent: 99999;
@@ -17121,7 +17155,7 @@ span.icon-del {
 }
 
     .btn_pag_3:hover {
-        background: url('../../Images/btn_pag_3_e.png') 0 -26px no-repeat;
+        background: url('/Content/Images/btn_pag_3_e.png') 0 -26px no-repeat;
         color: #fff;
     }*/
 
@@ -17130,7 +17164,7 @@ span.icon-del {
     height: 26px;
     line-height: 26px;
     padding: 0;
-    background: url('../../Images/btn_pag_4_e.png') 0 0 no-repeat;
+    background: url('/Content/Images/btn_pag_4_e.png') 0 0 no-repeat;
     color: #fff;
     font-size: 0;
     text-indent: 99999;
@@ -17139,7 +17173,7 @@ span.icon-del {
 }
 
     .btn_pag_4:hover {
-        background: url('../../Images/btn_pag_4_e.png') 0 -26px no-repeat;
+        background: url('/Content/Images/btn_pag_4_e.png') 0 -26px no-repeat;
         color: #fff;
     }*/
 
@@ -17166,14 +17200,14 @@ span.icon-del {
     color: #000000;
     display: block;
     text-indent: -9999px;
-    background-image: url('../../Images/chat_belcorp.png');
+    background-image: url('/Content/Images/chat_belcorp.png');
 }
 
 .belcorpChatPedido {
     width: 227px !important;
     height: 152px !important;
     display: inline-block !important;
-    background-image: url('../../Images/chat_banner.png');
+    background-image: url('/Content/Images/chat_banner.png');
 }
 
 .CatalogoInputGeneral {
@@ -17254,8 +17288,11 @@ span.icon-del {
 /* modificado 15082014 - Inicio */
 @font-face {
     font-family: 'Museo Sans 300';
-    src: url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot');
-    src: url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.woff') format('woff'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.ttf') format('truetype'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.svg') format('svg');
+    src: url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot');
+    src: url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.woff') format('woff'),
+        url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.ttf') format('truetype'),
+        url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -17616,11 +17653,11 @@ body, html {
 }
 
 .user {
-    background: url('../../../images/comunidad/user_ico.png') top left no-repeat #fff;
+    background: url('/Content/Images/comunidad/user_ico.png') top left no-repeat #fff;
 }
 
 .mail {
-    background: url('../../../images/comunidad/correo_ico.png') top left no-repeat #fff;
+    background: url('/Content/Images/comunidad/correo_ico.png') top left no-repeat #fff;
 }
 
 .Content_modal_Com {
@@ -17639,7 +17676,7 @@ body, html {
     right: 0;
     top: 370px;
     z-index: 999;
-    background: url('../../images/ChatOnline_b.png') top left no-repeat;
+    background: url('/Content/Images/ChatOnline_b.png') top left no-repeat;
     width: 72px;
     height: 64px;
 }
@@ -17754,7 +17791,7 @@ body, html {
     height: 40px;
     line-height: 26px;
     padding: 0;
-    background: url('../../../Images/buscar.png') 0 0 no-repeat;
+    background: url('/Content/Images/buscar.png') 0 0 no-repeat;
     color: #fff;
     font-size: 14px;
     border: 0;
@@ -17903,7 +17940,7 @@ body, html {
     }
 
         #paForm ul li input {
-            background: url('../../Images/afiliacion/enterate_mas.png') 0 0 no-repeat;
+            background: url('/Content/Images/afiliacion/enterate_mas.png') 0 0 no-repeat;
             border: 0;
             width: 190px;
             line-height: 37px;
@@ -17917,7 +17954,7 @@ body, html {
         }
 
         #paForm ul li.paAcept input {
-            background: url('../../Images/afiliacion/aceptar.png') 0 0 no-repeat;
+            background: url('/Content/Images/afiliacion/aceptar.png') 0 0 no-repeat;
             border: 0;
             width: 190px;
             line-height: 37px;
@@ -18101,7 +18138,7 @@ body, html {
     margin-left: 60px;
     width: 202px;
     height: 201px;
-    background-image: url('../../Images/afiliacion/01.png');
+    background-image: url('/Content/Images/afiliacion/01.png');
 }
 
 #ImgEnterate2 {
@@ -18110,7 +18147,7 @@ body, html {
     position: absolute;
     width: 215px;
     height: 214px;
-    background-image: url('../../Images/afiliacion/02.png');
+    background-image: url('/Content/Images/afiliacion/02.png');
 }
 
 #ImgEnterate3 {
@@ -18119,14 +18156,14 @@ body, html {
     position: absolute;
     width: 307px;
     height: 306px;
-    background-image: url('../../Images/afiliacion/03.png');
+    background-image: url('/Content/Images/afiliacion/03.png');
 }
 
 #ImgEnterate4 {
     margin-left: 326px;
     margin-top: 120px;
     position: absolute;
-    background: url('../../Images/afiliacion/04.png');
+    background: url('/Content/Images/afiliacion/04.png');
     width: 287px;
     height: 286px;
 }
@@ -18137,7 +18174,7 @@ body, html {
     position: absolute;
     width: 265px;
     height: 264px;
-    background-image: url('../../Images/afiliacion/05.png');
+    background-image: url('/Content/Images/afiliacion/05.png');
 }
 
 #ImgEnterate6 {
@@ -18146,7 +18183,7 @@ body, html {
     position: absolute;
     width: 232px;
     height: 231px;
-    background-image: url('../../Images/afiliacion/06.png');
+    background-image: url('/Content/Images/afiliacion/06.png');
 }
 
 #ImgEnterate {
@@ -18189,7 +18226,7 @@ body, html {
 }
 
 #ldnHeader {
-    background: url('../../Images/afiliacion/fondo.jpg') center;
+    background: url('/Content/Images/afiliacion/fondo.jpg') center;
     background-size: 727px 99px;
     width: 727px;
     height: 99px;
@@ -18229,7 +18266,7 @@ body, html {
     font-size: 15px;
     line-height: 15px;
     padding: 15px 0 15px 40px;
-    background-image: url('../../Images/afiliacion/correo.png');
+    background-image: url('/Content/Images/afiliacion/correo.png');
     background-size: 50px;
     background-repeat: no-repeat;
     background-position: 92% center;
@@ -18433,7 +18470,7 @@ body, html {
 .borde_inferior {
     padding-top: 10px;
     width: 344px;
-    background: url('../../../Images/showroom/borde_inferior.png') no-repeat;
+    background: url('/Content/Images/showroom/borde_inferior.png') no-repeat;
 }
 
     .borde_inferior p {
@@ -18876,16 +18913,20 @@ label.checkpop.c_on {
 /*PAGINA SHOW ROOM*/
 @font-face {
     font-family: 'ArialMT';
-    src: url('../../fonts/arialMT/arialmt.eot');
-    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), url('../../fonts/arialMT/arialmt.ttf') format('truetype'), url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
+    src: url('/Content/fonts/arialMT/arialmt.eot');
+    src: url('/Content/fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), 
+        url('/Content/fonts/arialMT/arialmt.ttf') format('truetype'), 
+        url('/Content/fonts/arialMT/arialmt.svg#arialmt') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'ArialBoldMT';
-    src: url('../../fonts/arialboldMT/arialboldMT.eot');
-    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'), url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
+    src: url('/Content/fonts/arialboldMT/arialboldMT.eot');
+    src: url('/Content/fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'),
+        url('/Content/fonts/arialboldMT/arialboldMT.ttf') format('truetype'), 
+        url('/Content/fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -19519,7 +19560,7 @@ label.checkpop.c_on {
 }
 
 .notificaciones_activas {
-    background: url('../../../Images/Esika/circulo.png') no-repeat;
+    background: url('/Content/Images/Esika/circulo.png') no-repeat;
     color: white;
 }
 
@@ -19544,7 +19585,7 @@ label.checkpop.c_on {
     height: 80px;
     padding-top: 30px;
     padding-left: 120px;
-    background: #f5f5f7 url('../../../Images/detailLiqui.png') no-repeat right top;
+    background: #f5f5f7 url('/Content/Images/detailLiqui.png') no-repeat right top;
     padding-right: 85px;
 }
 
@@ -19683,7 +19724,7 @@ label.checkpop.c_on {
     position: relative;
     float: left;
     background-color:rgba(229,229,229,1);
-    /*background-image:url('../../../Images/icono_avatar.svg');
+    /*background-image:url('/Content/Images/icono_avatar.svg');
     background-repeat:no-repeat;
     background-position: center 14px;
     background-size: 75%;*/
@@ -19696,7 +19737,7 @@ label.checkpop.c_on {
     }
 
 .actualizar_datos {
-    background-image: url('../../../Images/mobile/icono_editar_foto_perfil.svg');
+    background-image: url('/Content/Images/Mobile/icono_editar_foto_perfil.svg');
     background-position: center 5px;
     background-repeat: no-repeat;
     background-size: 63%;
@@ -19731,7 +19772,7 @@ label.checkpop.c_on {
 .icono_info_alerta{
     width: 20px;
     height: 20px;
-    background-image: url(../../../Images/Esika/icono_info_alerta.svg);
+    background-image: url(/Content/Images/Esika/icono_info_alerta.svg);
     margin-right: 5px;
 }
 
@@ -20008,11 +20049,11 @@ label.checkpop.c_on {
     float: left;
     width: 14%;
     height: 36px;
-    background: url('../../../Images/Esika/carpeta.png') no-repeat;
+    background: url('/Content/Images/Esika/carpeta.png') no-repeat;
 }
 
 .mis_ganancias_img {
-    background: url('../../../Images/Esika/dolar.png') no-repeat;
+    background: url('/Content/Images/Esika/dolar.png') no-repeat;
 }
 
 .titulo_home_belcorp {
@@ -20081,14 +20122,14 @@ label.checkpop.c_on {
     font-weight: 700;
     padding-top: 13px;
     padding-left: 45px;
-    background: white url('../../../Images/icono-tarjeta.svg') no-repeat;
+    background: white url('/Content/Images/icono-tarjeta.svg') no-repeat;
     background-position: 23px 10px;
 }
 
 .boton_facturacion_e {
     width: 100px;
     height: auto;
-    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
+    background: url('/Content/Images/Esika/indicador_pedido.png') no-repeat;
     float: left;
     padding-left: 14px;
     background-position: 0 4px;
@@ -20105,7 +20146,7 @@ label.checkpop.c_on {
 .boton_ultimos_movimientos {
     width: 200px;
     height:auto;
-    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
+    background: url('/Content/Images/Esika/indicador_pedido.png') no-repeat;
     padding-top:11px;
     padding-left: 14px;
     background-position: 0 15px;
@@ -20197,7 +20238,7 @@ label.checkpop.c_on {
     left: 40%;
     width: 17px;
     height: 17px;
-    background: url('../../../Images/Esika/escala_indicador.png') no-repeat;
+    background: url('/Content/Images/Esika/escala_indicador.png') no-repeat;
 }
 
 .item_catalogo {
@@ -20242,7 +20283,7 @@ label.checkpop.c_on {
     display: inline-block;
     vertical-align: top;
     width: 49%;
-    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
+    background: url('/Content/Images/Esika/indicador_pedido.png') no-repeat;
     background-position: 0 5px;
     font-family: 'lato';
     font-size: 11px;
@@ -20289,7 +20330,7 @@ label.checkpop.c_on {
     }
 
 .subir_foto {
-    background: url('../../../Images/Esika/camara.png') no-repeat;
+    background: url('/Content/Images/Esika/camara.png') no-repeat;
     width: 26px;
     height: 26px;
     position: absolute;
@@ -20315,7 +20356,7 @@ label.checkpop.c_on {
 
     .btn_100_paga:hover {
         color: #FFF;
-        background: #000 url('../../../Images/icono-tarjeta-blanco.svg') 27.5% 10px no-repeat;
+        background: #000 url('/Content/Images/icono-tarjeta-blanco.svg') 27.5% 10px no-repeat;
     }
 
 .btn_100_facturacion {
@@ -20892,7 +20933,7 @@ label.checkpop.c_on {
     color: white;
     float: left;
     margin-bottom: 33px;
-    background: black url('../../../Images/Esika/liquidacion_home.png') no-repeat;
+    background: black url('/Content/Images/Esika/liquidacion_home.png') no-repeat;
     background-position: right;
 }
 
@@ -20967,7 +21008,7 @@ label.checkpop.c_on {
 .titulo_interiores {
     padding-right: 50px;
     float: left;
-    background: black url('../../../Images/Esika/titulo_interiores.png') no-repeat;
+    background: black url('/Content/Images/Esika/titulo_interiores.png') no-repeat;
     background-position: right;
     height: 50px;
     font-family: 'lato';
@@ -21086,7 +21127,7 @@ hr {
     height: 31px;
     margin-right: 10px;
     margin-top: 0 !important;
-    background: url('../../../Images/Esika/estado_cuenta.png') no-repeat;
+    background: url('/Content/Images/Esika/estado_cuenta.png') no-repeat;
 }
 
 .titulo_mis_certificados_img {
@@ -21095,7 +21136,7 @@ hr {
     height: 36px;
     margin-right: 10px;
     margin-top: 0 !important;
-    background: url('../../../Images/MisCertificados/icono-certificado-esika.svg') no-repeat;
+    background: url('/Content/Images/MisCertificados/icono-certificado-esika.svg') no-repeat;
     background-size: 100%;
 }
 
@@ -21105,7 +21146,7 @@ hr {
     height: 31px;
     margin-right: 10px;
     margin-top: 0 !important;
-    background: url('../../../Images/Esika/icono_percepciones.png') no-repeat;
+    background: url('/Content/Images/Esika/icono_percepciones.png') no-repeat;
 }
 
 .titulo_detalle_lugares_img {
@@ -21114,7 +21155,7 @@ hr {
     height: 31px;
     margin-right: 10px;
     margin-top: 0 !important;
-    background: url('../../../Images/Esika/lugares_pago.png') no-repeat;
+    background: url('/Content/Images/Esika/lugares_pago.png') no-repeat;
 }
 
 .titulo_detalle_pago div,
@@ -21422,7 +21463,7 @@ body {
     }
 
 .tutoriales_svg {
-    background: url('../../../Images/Esika/tutorial.png') no-repeat;
+    background: url('/Content/Images/Esika/tutorial.png') no-repeat;
     background-position: 2px 3px;
     width: 24px;
     height: 25px;
@@ -21934,7 +21975,7 @@ body {
     }
 
     .imagen_3_factura {
-        background: url('../../../Images/Lbel/facturacion_electronica.png') no-repeat !important;
+        background: url('/Content/Images/Lbel/facturacion_electronica.png') no-repeat !important;
         background-position: 3% 7px !important;
     }
 
@@ -21993,7 +22034,7 @@ body {
     vertical-align: middle;
     width: 26px;
     height: 26px;
-    background: url('../../../Images/Esika/icono-campanias.svg') center center no-repeat;
+    background: url('/Content/Images/Esika/icono-campanias.svg') center center no-repeat;
     margin-right: 5px;
 }
 
@@ -22319,7 +22360,7 @@ body {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -22368,7 +22409,7 @@ body {
         height: 31px;
         display: inline-block;
         vertical-align: middle;
-        background: url('../../../Images/Esika/icono_percepciones.png');
+        background: url('/Content/Images/Esika/icono_percepciones.png');
         margin-right: 7px;
     }
 
@@ -22704,7 +22745,7 @@ body {
         width: 24px;
         height: 25px;
         margin-right: 10px;
-        background: url('../../../Images/Esika/icono_pedidos_facturados.png') no-repeat center center;
+        background: url('/Content/Images/Esika/icono_pedidos_facturados.png') no-repeat center center;
     }
 
         .pedidosFacturados_campania span img {
@@ -23068,7 +23109,7 @@ body {
 
         .acordion_titulo .titulo_nombreCliente .icono_despliegue_acordion {
             display: inline-block;
-            background: url('../../../Images/Esika/icono_acordion_despliegue.png') no-repeat;
+            background: url('/Content/Images/Esika/icono_acordion_despliegue.png') no-repeat;
             background-position: center top;
             width: 21px;
             height: 21px;
@@ -23191,7 +23232,7 @@ body {
 }
 
 .background_vermas {
-    background-image: url('../../../Images/Esika/ver-mas-liquidaciones-2.jpg');
+    background-image: url('/Content/Images/Esika/ver-mas-liquidaciones-2.jpg');
     background-repeat: no-repeat;
     background-position: center 40px;
 }
@@ -24007,13 +24048,13 @@ img {
     height: 21px;
     padding-left: 22px;
     padding-top: 3px;
-    background-image: url('../../images/comunidad/box-01.png');
+    background-image: url('/Content/Images/comunidad/box-01.png');
     background-repeat: no-repeat;
     transition: background-image 250ms ease;
 }
 
     #wrap_box:hover {
-        background-image: url('../../images/comunidad/box-02.png');
+        background-image: url('/Content/Images/comunidad/box-02.png');
     }
 
 .item_selected {
@@ -24207,40 +24248,55 @@ img {
 
 @font-face {
     font-family: 'museo_sans_900regular';
-    src: url('../../fonts/museo/museosans_900-webfont.eot');
-    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('/Content/fonts/museo/museosans_900-webfont.eot');
+    src: url('/Content/fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('/Content/fonts/museo/museosans_900-webfont.woff') format('woff'), 
+        url('/Content/fonts/museo/museosans_900-webfont.ttf') format('truetype'), 
+        url('/Content/fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'museo_sans_700regular';
-    src: url('../../fonts/museo/museosans_700-webfont.eot');
-    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    src: url('/Content/fonts/museo/museosans_700-webfont.eot');
+    src: url('/Content/fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/Content/fonts/museo/museosans_700-webfont.woff') format('woff'), 
+        url('/Content/fonts/museo/museosans_700-webfont.ttf') format('truetype'), 
+        url('/Content/fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'museo_sans_500regular';
-    src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('/Content/fonts/museo/museosans_500-webfont.eot');
+    src: url('/Content/fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/Content/fonts/museo/museosans_500-webfont.woff') format('woff'),
+        url('/Content/fonts/museo/museosans_500-webfont.ttf') format('truetype'), 
+        url('/Content/fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'museo_300regular';
-    src: url('../../fonts/museo/museo300-regular-webfont.eot');
-    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
+    src: url('/Content/fonts/museo/museo300-regular-webfont.eot');
+    src: url('/Content/fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('/Content/fonts/museo/museo300-regular-webfont.woff') format('woff'), 
+        url('/Content/fonts/museo/museo300-regular-webfont.ttf') format('truetype'), 
+        url('/Content/fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'museo_sans_100regular';
-    src: url('../../fonts/museo/museosans-100-webfont.eot');
-    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans-100-webfont.woff') format('woff'), url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    src: url('/Content/fonts/museo/museosans-100-webfont.eot');
+    src: url('/Content/fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('/Content/fonts/museo/museosans-100-webfont.woff') format('woff'), 
+        url('/Content/fonts/museo/museosans-100-webfont.ttf') format('truetype'), 
+        url('/Content/fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -25194,35 +25250,35 @@ button {
 
 @font-face {
     font-family: 'Museo Sans';
-    src: url('../../fonts/museo/MuseoSans_100.otf');
+    src: url('/Content/fonts/museo/museosans_100.otf');
     font-weight: 100;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Museo Sans';
-    src: url('../../fonts/museo/MuseoSans_300.otf');
+    src: url('/Content/fonts/museo/museosans_300.otf');
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Museo Sans';
-    src: url('../../fonts/museo/MuseoSans_500.otf');
+    src: url('/Content/fonts/museo/museosans_500.otf');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Museo Sans';
-    src: url('../../fonts/museo/MuseoSans_700.otf');
+    src: url('/Content/fonts/museo/museosans_700.otf');
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Museo Sans';
-    src: url('../../fonts/museo/MuseoSans_900.otf');
+    src: url('/Content/fonts/museo/museosans_900.otf');
     font-weight: 900;
     font-style: normal;
 }
@@ -25654,7 +25710,7 @@ div.subir_archivo {
 .fondo_popNoti {
     width: 100%;
     height: 130px;
-    background: #000 url('../../../Images/Esika/background_pedido.png') no-repeat left bottom;
+    background: #000 url('/Content/Images/Esika/background_pedido.png') no-repeat left bottom;
 }
 
 .content_popNotificaciones {
@@ -25771,7 +25827,7 @@ div.subir_archivo {
     margin-bottom: 40px;
     border: 1px solid #ccc;
     padding-left: 10px;
-    background: url('../../../Images/Esika/lupa.png') no-repeat right center;
+    background: url('/Content/Images/Esika/lupa.png') no-repeat right center;
     float: left;
 }
 
@@ -25817,7 +25873,7 @@ div.subir_archivo {
     border: 1px solid #ccc;
     font-family: 'Lato';
     font-size: 13px;
-    background: url('../../../Images/Esika/flecha_abajo.png') no-repeat right center;
+    background: url('/Content/Images/Esika/flecha_abajo.png') no-repeat right center;
 }
 
 .resultado_busqueda {
@@ -25940,7 +25996,7 @@ div.subir_archivo {
     top: 0;
     position: fixed;
     z-index: 1050;
-    background: url('../../../Images/bg_popups.png') repeat left top;
+    background: url('/Content/Images/bg_popups.png') repeat left top;
     box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
     -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
     -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
@@ -26037,7 +26093,7 @@ div.subir_archivo {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -26085,7 +26141,7 @@ div.subir_archivo {
         display: block;
         width: 67px;
         height: 67px;
-        background: url('../../../Images/Esika/icono_advertencia.png') center center no-repeat;
+        background: url('/Content/Images/Esika/icono_advertencia.png') center center no-repeat;
         margin: 0 auto 13px auto;
         background-size: cover;
     }
@@ -26168,7 +26224,7 @@ div.subir_archivo {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
     top: 0;
 }
@@ -26225,7 +26281,7 @@ div.subir_archivo {
     color: #000000;
     padding-left: 14px;
     text-decoration: underline;
-    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
+    background: url('/Content/Images/Esika/indicador_pedido.png') no-repeat;
     background-position: 0 2px;
 }
 
@@ -26400,7 +26456,7 @@ input[type='checkbox']:checked + span:after {
     height: 44px;
     float: left;
     margin-top: 4px;
-    background: url('../../../Images/mobile/esika/bandera.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/bandera.png') no-repeat;
 }
 
 .BarraPosicion {
@@ -26486,19 +26542,19 @@ input[type='checkbox']:checked + span:after {
     margin-top: -1px;
     width: 14px;
     height: 10px;
-    background: url('../../../Images/mobile/esika/flechita_barra.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/flechita_barra.png') no-repeat;
 }
 
 .tippingPoint {
     height: 25px;
     width: 24px;
     margin: 0 auto;
-    background: url('../../../Images/tippingPointActivo.svg') no-repeat;
+    background: url('/Content/Images/tippingPointActivo.svg') no-repeat;
     background-size:100%;
 }
 
     .tippingPoint.activo {
-        background: url('../../../Images/tippingPointActivo.svg') no-repeat;
+        background: url('/Content/Images/tippingPointActivo.svg') no-repeat;
         background-size:100%;
     }
 
@@ -26565,7 +26621,7 @@ input[type='checkbox']:checked + span:after {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1020;
     display: none;
 }
@@ -26600,7 +26656,7 @@ input[type='checkbox']:checked + span:after {
 }
 
 .icono_check_alerta {
-    background: url('../../../Images/Esika/icono_check_esika.png') center center no-repeat;
+    background: url('/Content/Images/Esika/icono_check_esika.png') center center no-repeat;
     background-size: 80%;
 }
 
@@ -26638,7 +26694,7 @@ input[type='checkbox']:checked + span:after {
 }
 
 .icono_exclamacion_alerta {
-    background: url('../../../Images/Esika/icono_exclamacion_esika.png') no-repeat center center;
+    background: url('/Content/Images/Esika/icono_exclamacion_esika.png') no-repeat center center;
     background-size: cover;
 }
 /* POPUP LAYOUT */
@@ -26652,7 +26708,7 @@ input[type='checkbox']:checked + span:after {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -26706,7 +26762,7 @@ input[type='checkbox']:checked + span:after {
             .popup_frame .popup_btn_cerrar_top .icono_regresar .img {
                 width: 14px;
                 height: 19px;
-                background: transparent url('../../../Images/btn_regresar.svg') center center no-repeat;
+                background: transparent url('/Content/Images/btn_regresar.svg') center center no-repeat;
             }
 
         .popup_frame .popup_btn_cerrar_top .texto_btn_regresar {
@@ -26787,7 +26843,7 @@ input[type='checkbox']:checked + span:after {
     -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
     -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
     box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
-    background: url('../../../Images/Esika/fondo_pestana.png') no-repeat right center;
+    background: url('/Content/Images/Esika/fondo_pestana.png') no-repeat right center;
     background-color: #fff;
 }
 
@@ -26922,7 +26978,7 @@ input[type='checkbox']:checked + span:after {
     -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
     -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
     box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
-    background: url('../../../Images/Esika/fondo_pestana.png') no-repeat right center;
+    background: url('/Content/Images/Esika/fondo_pestana.png') no-repeat right center;
     font-family: 'Lato';
     font-size: 15px;
     text-align: center;
@@ -26945,7 +27001,7 @@ input[type='checkbox']:checked + span:after {
     float: left;
     width: 20px;
     height: 20px;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
     background-size: cover;
 }
 
@@ -27023,7 +27079,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     display: block;
     width: 100%;
     height: 212px;
-    background: url('../../../Images/Esika/banner_misBeneficios.png') no-repeat center center;
+    background: url('/Content/Images/Esika/banner_misBeneficios.png') no-repeat center center;
     background-size: cover;
     position: relative;
     margin-top: -62px;
@@ -27300,14 +27356,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         width: 11px;
         height: 11px;
         display: inline-block;
-        background: url('../../../Images/group.svg') center center no-repeat;
+        background: url('/Content/Images/group.svg') center center no-repeat;
     }
 
 .agregado .icono {
     width: 11px;
     height: 11px;
     display: inline-block;
-    background: url('../../../Images/group.svg') center center no-repeat;
+    background: url('/Content/Images/group.svg') center center no-repeat;
     background-size: contain;
     position: relative;
     top: 1px;
@@ -27320,7 +27376,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     height: 50px;
     padding-left: 21px;
     float: left;
-    background-image: url('../../../Images/Esika/titulo_interiores_2.png');
+    background-image: url('/Content/Images/Esika/titulo_interiores_2.png');
     background-repeat: no-repeat;
     background-position: right;
 }
@@ -27461,7 +27517,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     padding: 40px;
     display: none;
     top: 0;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
 }
 
 .wrapper_seguimiento {
@@ -27484,7 +27540,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-size: 15px;
     color: white;
     top: -40px;
-    background: transparent url('../../../Images/Esika/regresar.png') no-repeat left center;
+    background: transparent url('/Content/Images/Esika/regresar.png') no-repeat left center;
     text-align: center;
     right: 0;
 }
@@ -27600,7 +27656,7 @@ span.datoPedidoCliente {
     width: 34px;
     height: 34px;
     margin-right: 6px;
-    background: url('../../../Images/Esika/online.png') no-repeat center center;
+    background: url('/Content/Images/Esika/online.png') no-repeat center center;
 }
 
 .content_datos_pendientes {
@@ -28358,27 +28414,27 @@ a#cierreMotivoRechazo img {
     }
 
     #slide1_images .img_slide1 {
-        background: url('../../../Images/Esika/tutorialHome/tutorial-home-esika1.jpg') no-repeat center top;
+        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika1.jpg') no-repeat center top;
         z-index: 9;
     }
 
     #slide1_images .img_slide2 {
-        background: url('../../../Images/Esika/tutorialHome/tutorial-home-esika2.jpg') no-repeat center top;
+        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika2.jpg') no-repeat center top;
         z-index: 8;
     }
 
     #slide1_images .img_slide3 {
-        background: url('../../../Images/Esika/tutorialHome/tutorial-home-esika3.jpg') no-repeat center top;
+        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika3.jpg') no-repeat center top;
         z-index: 7;
     }
 
     #slide1_images .img_slide4 {
-        background: url('../../../Images/Esika/tutorialHome/tutorial-home-esika4.jpg') no-repeat center top;
+        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika4.jpg') no-repeat center top;
         z-index: 6;
     }
 
     #slide1_images .img_slide5 {
-        background: url('../../../Images/Esika/tutorialHome/tutorial-home-esika5.jpg') no-repeat center top;
+        background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika5.jpg') no-repeat center top;
         z-index: 5;
     }
 
@@ -28432,12 +28488,12 @@ a#cierreMotivoRechazo img {
 }
 
     .optionsRechazo:hover, .optionsRechazo.optionsSeleccionado {
-        background: url('../../../Images/icono_check.png') no-repeat #f0f0f0;
+        background: url('/Content/Images/icono_check.png') no-repeat #f0f0f0;
         background-position: 15px 15px;
     }
 
 .optRechazoSelect, .optionsRechazoSelect {
-    background: url('../../../Images/icono_check.png') no-repeat #f0f0f0;
+    background: url('/Content/Images/icono_check.png') no-repeat #f0f0f0;
     background-position: 15px 15px;
 }
 
@@ -28481,7 +28537,7 @@ div.motivoRechazo textarea {
 .truco_bloqueo {
     position: absolute;
     z-index: 8;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
 }
 
 .cambio_bk_pendientes {
@@ -28565,27 +28621,27 @@ div.motivoRechazo textarea {
     }
 
 #slide1_images .img_slide6 {
-    background: url('../../../Images/Esika/tutorialHome/tutorial-home-esika6.jpg') no-repeat center top;
+    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika6.jpg') no-repeat center top;
     z-index: 4;
 }
 
 #slide1_images .img_slide7 {
-    background: url('../../../Images/Esika/tutorialHome/tutorial-home-esika7.jpg') no-repeat center top;
+    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika7.jpg') no-repeat center top;
     z-index: 3;
 }
 
 #slide1_images .img_slide8 {
-    background: url('../../../Images/Esika/tutorialHome/tutorial-home-esika8.jpg') no-repeat center top;
+    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika8.jpg') no-repeat center top;
     z-index: 2;
 }
 
 #slide1_images .img_slide9 {
-    background: url('../../../Images/Esika/tutorialHome/tutorial-home-esika9.jpg') no-repeat center top;
+    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika9.jpg') no-repeat center top;
     z-index: 1;
 }
 
 #slide1_images .img_slide1Pedido {
-    background: url('../../../Images/Esika/tutorialPedido/esika_tutorial1.jpg') no-repeat center top;
+    background: url('/Content/Images/Esika/tutorialPedido/esika_tutorial1.jpg') no-repeat center top;
     z-index: 8;
 }
 
@@ -28612,23 +28668,23 @@ h1#penmostreo .campana {
 }
 
 #slide1_images .img_slide2Pedido {
-    background: url('../../../Images/Esika/tutorialPedido/esika_tutorial2.jpg') no-repeat center top;
+    background: url('/Content/Images/Esika/tutorialPedido/esika_tutorial2.jpg') no-repeat center top;
     z-index: 7;
 }
 
 #slide1_images .img_slide3Pedido {
-    background: url('../../../Images/Esika/tutorialPedido/esika_tutorial3.jpg') no-repeat center top;
+    background: url('/Content/Images/Esika/tutorialPedido/esika_tutorial3.jpg') no-repeat center top;
     z-index: 6;
 }
 /* Fin Consultora Online */
 
 #slide1_images .img_slide4Pedido {
-    background: url('../../../Images/Esika/tutorialPedido/esika_tutorial4.jpg') no-repeat center top;
+    background: url('/Content/Images/Esika/tutorialPedido/esika_tutorial4.jpg') no-repeat center top;
     z-index: 5;
 }
 
 #slide1_images .img_slide5Pedido {
-    background: url('../../../Images/Esika/tutorialPedido/esika_tutorial5.jpg') no-repeat center top;
+    background: url('/Content/Images/Esika/tutorialPedido/esika_tutorial5.jpg') no-repeat center top;
     z-index: 4;
 }
 /*POP UP FOTO CARGADA*/
@@ -28869,7 +28925,7 @@ h1#penmostreo .campana {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -29083,7 +29139,7 @@ h1#penmostreo .campana {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -29284,7 +29340,7 @@ h1#penmostreo .campana {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -29529,7 +29585,7 @@ h1#penmostreo .campana {
 .marquer {
     width: 85%;
     float: left;
-    background: black url('../../../Images/Esika/titulo_interiores.png') no-repeat;
+    background: black url('/Content/Images/Esika/titulo_interiores.png') no-repeat;
     background-position: right;
     height: 40px;
     color: white;
@@ -29556,7 +29612,7 @@ h1#penmostreo .campana {
     display: none;
     width: 100%;
     height: 100%;
-    background: url('../../../Images/bg_popups.png') repeat;
+    background: url('/Content/Images/bg_popups.png') repeat;
     position: fixed;
     top: 0;
     z-index: 1100;
@@ -29706,7 +29762,7 @@ h1#penmostreo .campana {
     padding-left: 15px;
     padding-right: 15px;
     position: relative;
-    background: #ededed url('../../../Images/Mobile/Esika/fondo_oferta.png') top repeat-x;
+    background: #ededed url('/Content/Images/Mobile/Esika/fondo_oferta.png') top repeat-x;
 }
 
 .row_40 {
@@ -29839,7 +29895,7 @@ h1#penmostreo .campana {
 /* FIN POPUPS OFERTAS REVISTA */
 /* ACTUALIZAR CONTRASEÑA */
 .titulo_interiores.tituloCambioContrasenia {
-    background: black url("../../../Images/Esika/titulo_interiores_2.png") no-repeat;
+    background: black url("/Content/Images/Esika/titulo_interiores_2.png") no-repeat;
     background-position: right;
     transform: scaleY(-1);
     -moz-transform: scaleY(-1);
@@ -29997,7 +30053,7 @@ h1#penmostreo .campana {
     width: 60px;
     height: 60px;
     margin: 0 auto 22px auto;
-    background: url(../../../Images/Esika/icono_check_esika.png) no-repeat center;
+    background: url(/Content/Images/Esika/icono_check_esika.png) no-repeat center;
 }
 
 .mensaje_felicitaciones span:first-child {
@@ -30049,7 +30105,7 @@ h1#penmostreo .campana {
     }
 
     .titulo_interiores.tituloCambioContrasenia {
-        background: black url("../../../Images/Esika/titulo_interiores_2.png") no-repeat;
+        background: black url("/Content/Images/Esika/titulo_interiores_2.png") no-repeat;
         background-position: right;
         width: 96%;
         max-width: 305px;
@@ -30165,28 +30221,28 @@ h1#penmostreo .campana {
 }
 
 .imagen_1 {
-    background: url('../../../Images/Esika/estado_cuenta.png') no-repeat;
+    background: url('/Content/Images/Esika/estado_cuenta.png') no-repeat;
 }
 
 .imagen_2 {
-    background: url('../../../Images/Esika/lugares_pago.png') no-repeat !important;
+    background: url('/Content/Images/Esika/lugares_pago.png') no-repeat !important;
 }
 
 .imagen_3 {
-    background: url('../../../Images/Esika/facturacion_electronica.png') no-repeat !important;
+    background: url('/Content/Images/Esika/facturacion_electronica.png') no-repeat !important;
 }
 
 .imagen_4 {
-    background: url('../../../Images/Esika/icono_percepciones.png') no-repeat !important;
+    background: url('/Content/Images/Esika/icono_percepciones.png') no-repeat !important;
 }
 
 .ultima_campana {
-    background: url('../../../Images/Esika/ultima_campana.png') no-repeat;
+    background: url('/Content/Images/Esika/ultima_campana.png') no-repeat;
     background-size: cover;
 }
 
 .online_2 {
-    background: url('../../../Images/Esika/online.png') no-repeat;
+    background: url('/Content/Images/Esika/online.png') no-repeat;
     background-size: cover;
 }
 
@@ -30219,7 +30275,7 @@ h1#penmostreo .campana {
     width: 34px;
     height: 34px;
     margin-right: 10px;
-    background: url('../../../Images/Esika/online.png') no-repeat !important;
+    background: url('/Content/Images/Esika/online.png') no-repeat !important;
     margin-top: 50px;
 }
 
@@ -30455,7 +30511,7 @@ h1#penmostreo .campana {
         content: '';
         position: absolute;
         width: 36px;
-        background-image: url('../../../Images/Esika/tabs_consultora.png');
+        background-image: url('/Content/Images/Esika/tabs_consultora.png');
         background-color: #fff;
         background-repeat: repeat-x;
         height: 100%;
@@ -30480,7 +30536,7 @@ h1#penmostreo .campana {
     content: '';
     position: absolute;
     width: 100%;
-    background-image: url('../../../Images/Esika/tabs_consultora.png');
+    background-image: url('/Content/Images/Esika/tabs_consultora.png');
     background-color: #fff;
     background-repeat: repeat-x;
     height: 100%;
@@ -30605,7 +30661,7 @@ h1#penmostreo .campana {
     width: 7%;
     height: 20px;
     background-size: cover;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center center;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center center;
     display: inline-block;
     vertical-align: middle;
 }
@@ -31053,7 +31109,7 @@ h1#penmostreo .campana {
     margin-top: 30px;
     float: left;
     text-align: center;
-    background: url('../../../Images/Esika/indicador_esika.png') no-repeat center;
+    background: url('/Content/Images/Esika/indicador_esika.png') no-repeat center;
 }
 
 .titulo_resumen {
@@ -31192,12 +31248,12 @@ h1#penmostreo .campana {
     padding-left: 35px;
     padding-bottom: 10px;
     padding-top: 2px;
-    background: url('../../../Images/Esika/terminos.png') no-repeat;
+    background: url('/Content/Images/Esika/terminos.png') no-repeat;
     display: inline;
 }
 
 .politica_reclamos_icono_active {
-    background: url('../../../Images/Esika/icono_check_esika.png') no-repeat;
+    background: url('/Content/Images/Esika/icono_check_esika.png') no-repeat;
     background-size: 75%;
 }
 
@@ -31243,7 +31299,7 @@ h1#penmostreo .campana {
     height: 24px;
     margin-right: 10px;
     vertical-align: middle;
-    background: url('../../../Images/Esika/imprimir_reclamo.png') no-repeat;
+    background: url('/Content/Images/Esika/imprimir_reclamo.png') no-repeat;
 }
 
 .detalle_estado_reclamo {
@@ -31291,7 +31347,7 @@ h1#penmostreo .campana {
     margin-top: 50px;
     margin-bottom: 50px;
     padding-left: 20px;
-    background: url('../../../Images/Esika/icono_solicitud.png') no-repeat;
+    background: url('/Content/Images/Esika/icono_solicitud.png') no-repeat;
     background-position: 0 4px;
 }
 
@@ -31482,7 +31538,7 @@ h1#penmostreo .campana {
 }
 
 .icono_resumen_resolucion {
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
     background-position: 0 33px;
 }
 
@@ -31903,7 +31959,7 @@ h1#penmostreo .campana {
     margin-top: 23px;
     width: 360px;
     padding-left: 25px;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
 }
 
 .btn_eliminar_observado {
@@ -31931,7 +31987,7 @@ h1#penmostreo .campana {
     padding-left: 25px;
     margin-top: 25px;
     margin-bottom: 40px;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
     font-family: 'Lato';
     font-size: 11px;
     color: #9b9b9b;
@@ -32231,7 +32287,7 @@ h1#penmostreo .campana {
 
 .btn_ver_todo_filtros {
     display: inline-block;
-    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
+    background: url('/Content/Images/Esika/indicador_pedido.png') no-repeat;
     background-position: 0 5px;
     padding-left: 15px;
     margin-left: 20px;
@@ -32450,7 +32506,7 @@ h1#penmostreo .campana {
 .bloque_oferta_dia {
     width: 100%;
     height: 100px;
-    background: url('../../../Images/PL20/textura_fondo.png') repeat-x;
+    background: url('/Content/Images/PL20/textura_fondo.png') repeat-x;
     position: relative;
     z-index: 6;
 }
@@ -33336,7 +33392,7 @@ h1#penmostreo .campana {
     margin-top: -10px;
     margin-right: -10px;
     padding-left: 20px;
-    background: url('../../../Images/Esika/arrow_left.png') no-repeat left;
+    background: url('/Content/Images/Esika/arrow_left.png') no-repeat left;
     background-size: 18px 18px;
 }
 
@@ -33348,7 +33404,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 12.5px;
     padding-left: 25px;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat left;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat left;
     padding-top: 3px;
     margin-top: 30px;
 }
@@ -33533,7 +33589,7 @@ h1#penmostreo .campana {
     }
 
 .buscar_icono {
-    background: white url('../../../Images/Esika/lupa.png') no-repeat center right;
+    background: white url('/Content/Images/Esika/lupa.png') no-repeat center right;
     width: 40px;
     height: 32px;
     border: 1px solid #ccc;
@@ -33542,7 +33598,7 @@ h1#penmostreo .campana {
 }
 
     .buscar_icono:hover {
-        background: #ecebf0 url('../../../Images/Esika/lupa.png') no-repeat center right;
+        background: #ecebf0 url('/Content/Images/Esika/lupa.png') no-repeat center right;
     }
 
 .content_imagen_fav {
@@ -34032,7 +34088,8 @@ h1#penmostreo .campana {
     border-bottom: 1px solid black;
 }
 
-.nombre_marca_set {
+/*  DEUDA TECNICA
+    .nombre_marca_set {
     margin: 21px 0 0 2.5%;
     font-size: 11px;
     text-transform: uppercase;
@@ -34044,7 +34101,7 @@ h1#penmostreo .campana {
 .content_detalle_showroom {
     width: 100%;
     margin-top: 5px;
-}
+}*/
 
 .cantidad_set_individual {
     width: 5%;
@@ -34058,12 +34115,16 @@ h1#penmostreo .campana {
     font-size: 13px;
 }
 
-.tonos_set_individual {
+/*
+    DEUDA TECNICA
+    .tonos_set_individual {
     float: right;
     width: 36%;
-}
+}*/
 
-.detalle_set_showroom {
+/*
+    DEUDA TECNICA
+    .detalle_set_showroom {
     font-size: 13px;
     font-weight: 300;
     display: block;
@@ -34075,7 +34136,7 @@ h1#penmostreo .campana {
     float: right;
     font-size: 12px;
     font-weight: 300;
-}
+}*/
 
 .btn_aregar_set {
     float: right;
@@ -34083,7 +34144,9 @@ h1#penmostreo .campana {
     color: white;
 }
 
-.titulo_carrusel_showroom {
+/*
+    DEUDA TECNICA
+    .titulo_carrusel_showroom {
     font-family: 'Lato';
     font-size: 15px;
     font-weight: 300;
@@ -34099,7 +34162,7 @@ h1#penmostreo .campana {
     border-top: 1px solid black;
     padding-top: 20px;
     margin-left: 10em;
-}
+}*/
 
 .titulo_tip {
     text-transform: uppercase;
@@ -34107,14 +34170,16 @@ h1#penmostreo .campana {
     font-size: 16px;
 }
 
-.tip_negocio_showroom {
+/*
+    DEUDA TECNICA
+    .tip_negocio_showroom {
     font-size: 13px;
     font-family: 'Lato';
-    background: url('../../../Images/Showroom/icono_tip.png') no-repeat;
+    background: url('/Content/Images/Showroom/icono_tip.png') no-repeat;
     padding-left: 55px;
     padding-top: 15px;
     margin-bottom: 50px;
-}
+}*/
 
 .titulo_compra_POP {
     font-family: 'LAto';
@@ -34175,7 +34240,7 @@ h1#penmostreo .campana {
 
 .notificacion_compra {
     margin-left: 29%;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat;
     background-size: 16px 16px;
     font-family: 'Lato';
     font-size: 11px;
@@ -34318,11 +34383,12 @@ h1#penmostreo .campana {
     padding-left: 19px;
 }
 
-.content_imagen_individual {
+/*  DEUDA TECNICA
+    .content_imagen_individual {
     width: 9%;
     margin-right: 1%;
     float: left;
-}
+}*/
 
 .titulo_promocion {
     font-family: 'Lato';
@@ -34408,7 +34474,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     color: black;
-    background: url('../../../Images/mobile/Esika/menu_mobile.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/menu_mobile.png') no-repeat;
     background-position: 98% 19px;
     position: relative;
     margin-bottom: 5px;
@@ -34522,7 +34588,7 @@ h1#penmostreo .campana {
 }
 
 .icono_celular {
-    background: url('../../../Images/Esika/celular_mailing.png') no-repeat;
+    background: url('/Content/Images/Esika/celular_mailing.png') no-repeat;
     background-position: 4px 0;
     height: 24px;
     padding-top: 3px;
@@ -34659,7 +34725,7 @@ h1#penmostreo .campana {
     }
 
 .backgroud2_srd {
-    background: url('../../../Images/RevistaDigital/fondo_srd2.svg');
+    background: url('/Content/Images/RevistaDigital/fondo_srd2.svg');
     width: 605px;
     height: 675px;
 }
@@ -34671,7 +34737,7 @@ h1#penmostreo .campana {
     letter-spacing: .2px;
     float: left;
     margin-right: 15px;
-    background: url('../../../Images/Esika/regresar.png') no-repeat;
+    background: url('/Content/Images/Esika/regresar.png') no-repeat;
     background-size: 13px 24px;
     padding-left: 16px;
 }
@@ -34888,7 +34954,7 @@ h1#penmostreo .campana {
     height: 35px;
     border: 1px solid black;
     text-align: center;
-    background: black url('../../../Images/PL20/flecha_set_Especial_white.png') no-repeat;
+    background: black url('/Content/Images/PL20/flecha_set_Especial_white.png') no-repeat;
     background-position: 6px 6px;
     padding-left: 34px;
     padding-right: 20px;
@@ -34900,7 +34966,7 @@ h1#penmostreo .campana {
 }
 
 .info_desplegable {
-    background: black url('../../../Images/PL20/flecha_set_Especial_2white.png') no-repeat;
+    background: black url('/Content/Images/PL20/flecha_set_Especial_2white.png') no-repeat;
     background-position: 4px 8px;
     width: 35px;
     float: right;
@@ -35003,7 +35069,7 @@ h1#penmostreo .campana {
     z-index: 100;
     padding-left: 10%;
     padding-top: 8px;
-    background: black url('../../../Images/PL20/icono_cupon.png') no-repeat;
+    background: black url('/Content/Images/PL20/icono_cupon.png') no-repeat;
     background-size: 20%;
     background-position: 21% 9px;
 }
@@ -35030,7 +35096,7 @@ h1#penmostreo .campana {
 .content_cupon_pedido {
     width: 94%;
     height: 44px;
-    background: black url('../../../Images/PL20/icono_cupon.png') no-repeat;
+    background: black url('/Content/Images/PL20/icono_cupon.png') no-repeat;
     background-size: 22%;
     background-position: 19px 6px;
     position: relative;
@@ -35113,7 +35179,7 @@ h1#penmostreo .campana {
     position: relative;
     top: 50%;
     margin: 13% auto auto auto;
-    background: url('../../../Images/PL20/fondo_cupon1.png') no-repeat;
+    background: url('/Content/Images/PL20/fondo_cupon1.png') no-repeat;
 }
 
 .content_monto_cupon {
@@ -35225,7 +35291,7 @@ h1#penmostreo .campana {
 .cupon2 {
     text-align: center;
     padding-top: 50px;
-    background: url('../../../Images/PL20/fondo_cupon2.png') no-repeat;
+    background: url('/Content/Images/PL20/fondo_cupon2.png') no-repeat;
 }
 
 .titulo_cupon2 {
@@ -35265,21 +35331,21 @@ h1#penmostreo .campana {
     width: 59px;
     height: 41px;
     margin: 0 auto;
-    background: url('../../../Images/PL20/icono_pop_up_cupon.png') no-repeat;
+    background: url('/Content/Images/PL20/icono_pop_up_cupon.png') no-repeat;
     margin-bottom: 5px;
 }
 
 .cupon3 {
     text-align: center;
     padding-top: 30px;
-    background: url('../../../Images/PL20/fondo_cupon3.png') no-repeat;
+    background: url('/Content/Images/PL20/fondo_cupon3.png') no-repeat;
 }
 
 .icono_cupon3 {
     width: 120px;
     height: 45px;
     margin: 0 auto;
-    background: url('../../../Images/PL20/cupon_gif_rojo.gif') no-repeat;
+    background: url('/Content/Images/PL20/cupon_gif_rojo.gif') no-repeat;
     margin-bottom: 3px;
 }
 
@@ -35353,7 +35419,7 @@ h1#penmostreo .campana {
 .icono_alerta_cupon {
     width: 17px;
     height: 17px;
-    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
     background-size: contain;
     position: absolute;
     right: 0;
@@ -35544,15 +35610,15 @@ h1#penmostreo .campana {
     width: 34px;
     height: 42px;
     margin: 0 auto;
-    background: url('../../../Images/PL20/calendario.png') no-repeat center bottom;
+    background: url('/Content/Images/PL20/calendario.png') no-repeat center bottom;
 }
 
 .recuerda_icono2 {
-    background: url('../../../Images/PL20/maquillaje.png') no-repeat center bottom;
+    background: url('/Content/Images/PL20/maquillaje.png') no-repeat center bottom;
 }
 
 .recuerda_icono3 {
-    background: url('../../../Images/PL20/agenda.png') no-repeat center bottom;
+    background: url('/Content/Images/PL20/agenda.png') no-repeat center bottom;
 }
 
 .titulo_mas_vendido {
@@ -35795,7 +35861,7 @@ h1#penmostreo .campana {
     letter-spacing: .4px;
     padding-left: 25px;
     cursor: pointer;
-    background: url('../../../Images/PL20/icono_agregar.png') no-repeat;
+    background: url('/Content/Images/PL20/icono_agregar.png') no-repeat;
 }
 
 .contentValoracion {
@@ -35902,7 +35968,7 @@ h1#penmostreo .campana {
     width: 60px;
     height: 60px;
     margin: 0 auto;
-    background: url('../../../Images/Esika/icono_check_esika.png') no-repeat;
+    background: url('/Content/Images/Esika/icono_check_esika.png') no-repeat;
     background-size: cover;
     margin-top: 30px;
 }
@@ -36368,7 +36434,7 @@ h1#penmostreo .campana {
     padding-left: 35px;
     padding-bottom: 10px;
     padding-top: 2px;
-    background: url('../../../Images/Esika/terminos.png') no-repeat;
+    background: url('/Content/Images/Esika/terminos.png') no-repeat;
     display: inline;
 }
 
@@ -36377,7 +36443,7 @@ h1#penmostreo .campana {
     padding-bottom: 10px;
     padding-top: 2px;
     display: inline;
-    background: url('../../../Images/Esika/icono_check_esika.svg') no-repeat;
+    background: url('/Content/Images/Esika/icono_check_esika.svg') no-repeat;
     background-size: 75%;
 }
 
@@ -36516,7 +36582,7 @@ h1#penmostreo .campana {
 }
 
     .content_item_carrusel_ODD .agregado .icono {
-        background: url('../../../Images/group_blanco.svg') center center no-repeat;
+        background: url('/Content/Images/group_blanco.svg') center center no-repeat;
     }
 
 .imagen_dias_intriga_inicio {
@@ -36651,7 +36717,7 @@ h1#penmostreo .campana {
     overflow: hidden;
     position: relative;
     top: -2px;
-    /*background-image: url(../../../Images/icono_avatar_menu.svg);
+    /*background-image: url(/Content/Images/icono_avatar_menu.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;*/
@@ -36721,7 +36787,7 @@ h1#penmostreo .campana {
     background-size:100%;
     width:78px;
     height:46px;
-    background-image:url('../../../Images/Esika/icono_envelope.svg');
+    background-image:url('/Content/Images/Esika/icono_envelope.svg');
 }
 
 .icono_correo_sobre img{
@@ -37075,7 +37141,7 @@ h1#penmostreo .campana {
     width: 53.95px;
     height: 49.28px;
     margin: 0 auto;
-    background: url('../../../Images/Esika/icono_contrato.svg') center center no-repeat;
+    background: url('/Content/Images/Esika/icono_contrato.svg') center center no-repeat;
     margin-bottom: 21px;
     background-size: 99%;
 }

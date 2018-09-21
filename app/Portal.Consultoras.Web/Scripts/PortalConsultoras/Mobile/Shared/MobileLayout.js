@@ -54,7 +54,6 @@ $(function () {
         $(this).parent(".alert-top").slideUp();
     });
 
-    console.log('MobileLayout.js -  - ante CargarCantidadProductosPedidos');
     CargarCantidadProductosPedidos(true);
     CargarCantidadNotificacionesSinLeer();
 
@@ -843,9 +842,7 @@ function messageConfirmacion(message, fnAceptar) {
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
     noMostrarEfecto = noMostrarEfecto || false;
     var montoWebAcumulado = "";
-
-    console.log('MobileLayout.js - ajax ante num-menu-shop', urlGetCantidadProductos, { soloCantidad: true });
-
+    
     jQuery.ajax({
         type: 'POST',
         url: urlGetCantidadProductos,
@@ -868,7 +865,6 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
                         montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
                 }
 
-                console.log('MobileLayout.js - CargarCantidadProductosPedidos', data);
                 $(".num-menu-shop").html(data.cantidadProductos);
                 $(".js-span-pedidoingresado").html(montoWebAcumulado);
                 if (!noMostrarEfecto) {

@@ -100,11 +100,11 @@
     }
 
     #cssmenu > ul > li.has-sub > a {
-        background: url('../../Images/mobile/img-icon/mobile_icon_mas.png') 100% top no-repeat;
+        background: url('/Content/Images/mobile/img-icon/mobile_icon_mas.png') 100% top no-repeat;
     }
 
     #cssmenu > ul > li.active > a {
-        background: url('../../Images/mobile/img-icon/mobile_icon_menos.png') 100% top no-repeat;
+        background: url('/Content/Images/mobile/img-icon/mobile_icon_menos.png') 100% top no-repeat;
     }
 
     #cssmenu > ul > li > a > figure,
@@ -318,12 +318,12 @@ div#caja-back-header {
 }
 
 .indicador_bel {
-    background: url('../../../Images/mobile/Lbel/indicador_pedido.png') no-repeat;
+    background: url('/Content/Images/Mobile/Lbel/indicador_pedido.png') no-repeat;
     background-position: 10px 17px;
 }
 
 .indicador_submenu {
-    background: url('../../../Images/mobile/Esika/menu_mobile.png') no-repeat;
+    background: url('/Content/Images/Mobile/Esika/menu_mobile.png') no-repeat;
     background-position: 95% 19px;
 }
 
