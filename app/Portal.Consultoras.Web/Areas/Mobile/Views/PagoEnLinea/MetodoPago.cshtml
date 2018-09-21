@@ -44,10 +44,10 @@
     PAGO EN LÍNEA
 </div>
 
-<div class="content_belcorp">
+<div class="content_belcorp" id="divOpciones" style="display:none">
     <div class="pestana_lbel"></div>
 
-    <div class="proceso_de_pago_en_linea">
+    <div class="proceso_de_pago_en_linea" >
 
         <div class="confirmacion_pago">
             <h3 class="titulo_resumen_pago_exitoso">
@@ -69,7 +69,7 @@
                                 </h4>
                             </div>
                             <div class="col_der">
-                                <div class="icono_flecha_despliegue">
+                                <div class="icono_flecha_despliegue girar90n">
                                     <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
                                 </div>
                             </div>
@@ -78,6 +78,27 @@
                         </div>
                     </li>
                 }
+                <!-- HD-2960 - NUEVO MÉTODO DE PAGO -->
+                <li class="opcion_pago metodoPago text-center" id="divBancaPorInternet" style="display:none">
+                    <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoMobile w-100">
+                        <div class="col_izq text-left">
+                            <div class="icono_marca_tarjeta" id="divIcono">
+                               
+                            </div>
+                            <h4 class="titulo_monto_pago_total titulo_monto_pago_total_paso_2">
+                                Pagos banca por internet
+                            </h4>
+                        </div>
+                        <div class="col_der">
+                            <div class="icono_flecha_despliegue girar90n">
+                                <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opcion_pago_contenido_visible_al_desplegar w-100 mt-0" id="ullistaBancos" style="display:none">
+                    </div>
+                </li>
+                <!-- FIN - HD-2960 - NUEVO MÉTODO DE PAGO -->
             </ul>
         </div>
     </div>
@@ -90,7 +111,7 @@
         </div>
     </div>
 </div>
-
+<input id="hdfUrlRaiz" type="hidden" value='@Url.Content("~")' />
 @section scripts{
     <script type="text/javascript">
         var urlPagoMonto = '@Url.Action("Index", "PagoEnLinea", new { area = "Mobile" })';

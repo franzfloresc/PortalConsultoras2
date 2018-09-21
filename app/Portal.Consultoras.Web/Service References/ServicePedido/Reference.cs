@@ -39914,6 +39914,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCampos", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCamposResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaPasarelaCampos[]> ObtenerPagoEnLineaPasarelaCamposAsync(int paisId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancos", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancosResponse")]
+        string ObtenerPagoEnLineaURLPaginasBancos(int paisId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancos", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancosResponse")]
+        System.Threading.Tasks.Task<string> ObtenerPagoEnLineaURLPaginasBancosAsync(int paisId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrdenResponse")]
         int ObtenerPagoEnLineaNumeroOrden(int paisId);
         
@@ -42478,6 +42484,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaPasarelaCampos[]> ObtenerPagoEnLineaPasarelaCamposAsync(int paisId) {
             return base.Channel.ObtenerPagoEnLineaPasarelaCamposAsync(paisId);
+        }
+        
+        public string ObtenerPagoEnLineaURLPaginasBancos(int paisId) {
+            return base.Channel.ObtenerPagoEnLineaURLPaginasBancos(paisId);
+        }
+        
+        public System.Threading.Tasks.Task<string> ObtenerPagoEnLineaURLPaginasBancosAsync(int paisId) {
+            return base.Channel.ObtenerPagoEnLineaURLPaginasBancosAsync(paisId);
         }
         
         public int ObtenerPagoEnLineaNumeroOrden(int paisId) {

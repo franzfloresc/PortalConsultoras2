@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -48,6 +49,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
+
+
+        [HttpPost]
+        public string ObtenerBancos()
+        {
+            string bancos = "";
+            using (var ps = new PedidoServiceClient())
+            {
+                bancos = ps.ObtenerPagoEnLineaURLPaginasBancos(userData.PaisID);
+            }
+            return bancos;
+        }
+
 
         [HttpGet]
         public ActionResult PasarelaPago()

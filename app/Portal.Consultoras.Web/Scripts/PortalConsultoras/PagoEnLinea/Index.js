@@ -34,23 +34,6 @@ $(document).ready(function () {
             InicializarAcciones: function () {
                 me.globals.barraActivacion.toggleClass('activado');
                 me.globals.barraActivacion.attr('data-estado', 1);
-
-                var esPagoEnLineaMobile = tipoOrigenPantalla == 2;
-
-                var listaOpcionPago;
-                if (esPagoEnLineaMobile) {
-                    listaOpcionPago = me.globals.listaOpcionPagoMobile;
-                } else {
-                    listaOpcionPago = me.globals.listaOpcionPagoDesktop;
-                }
-                
-                if (listaOpcionPago) {
-                    var cantidad = listaOpcionPago.length;
-
-                    if (cantidad > 0) {
-                        $(listaOpcionPago)[0].click();
-                    }
-                }
             },
             GuardarMonto: function(montoDeuda) {
 

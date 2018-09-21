@@ -44,6 +44,10 @@
     margin-bottom:16px;
 }
 
+.pt-0{
+    padding-top:0!important;
+}
+
 .pt-12{
     padding-top:12px!important;
 }
@@ -560,12 +564,12 @@
     transform:rotate(-180deg);
 }
 
-.girar270 {
-    -moz-transform: rotate(270deg);
-    -ms-transform: rotate(270deg);
-    -o-transform: rotate(270deg);
-    -webkit-transform: rotate(270deg);
-    transform: rotate(270deg);
+.girar90n {
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
 }
 
 .pagoTotal .icono_flecha_despliegue{
@@ -1439,6 +1443,66 @@
     background-size:26px;
     margin-right:7px;
 }
+
+/*  HD-2960 - NUEVO MÉTODO DE PAGO */
+
+.texto_informativo_lista_bancos{
+    border-top:1px solid #b5b5b5;
+    padding-top:15px;
+    padding-bottom:15px;
+    font-size:13px;
+    color:#000;
+    margin-bottom:0;
+}
+
+.texto_informativo_lista_bancos,
+.listado_bancos,
+.enlace_banco
+{
+    display:block;
+}
+
+.banco_nombre{
+    display:inline-block;
+    vertical-align:top;
+    width:22%;
+    height:45px;
+    margin-right:10px;
+    margin-bottom:10px;
+    border:1px solid #b5b5b5;
+    border-radius:5px;
+}
+
+.banco_nombre:nth-child(4n){
+    margin-right:0;
+}
+
+.enlace_banco {
+    position: relative;
+    height: 100%;
+    opacity:1;
+    -moz-transition: box-shadow 0.3s ease;
+    -o-transition: box-shadow 0.3s ease;
+    -webkit-transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+    .enlace_banco:hover {
+        -moz-box-shadow: 0 2px 11px -3px rgba(0,0,0,.7);
+        -webkit-box-shadow: 0 2px 11px -3px rgba(0,0,0,.7);
+        box-shadow: 0 2px 11px -3px rgba(0,0,0,.7);
+    }
+
+    .enlace_banco img{
+        position:absolute;
+        margin:auto;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+    }
+
+/*  FIN - HD-2960 - NUEVO MÉTODO DE PAGO */
 
 /* MODIFICACIONES DE DISEÑO JQUERY DATEPICKER */
 

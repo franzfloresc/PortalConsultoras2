@@ -15,54 +15,65 @@ $(document).ready(function () {
             barraActivacion: $('.barra_activacion'),
             listaOpcionPagoMobile: $(".opcionPagoMobile"),
             listaOpcionPagoDesktop: $(".opcionPagoDesktop")
-        },
-            me.Funciones = {
-                InicializarEventos: function () {
-                    //$(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
-                    $(document).on('click', '.opcionPagoMobile', me.Eventos.MostrarDetalleTipoPago);
-                    $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
-                    $(document).on('click', 'a[data-tipovisualizacion]', me.Eventos.AbrirPopupTerminosYCondiciones);
-                    $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
-                },
-                InicializarAcciones: function () {
-                    //me.globals.barraActivacion.toggleClass('activado');
-                    //var boton = $("button[type='submit']")[0];
+        };
+        me.Funciones = {
+            InicializarEventos: function() {
+                //$(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
+                $(document).on('click', '.opcionPagoMobile', me.Eventos.MostrarDetalleTipoPago);
+                $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
+                //$(document).on('click', 'a[data-tipovisualizacion]', me.Eventos.AbrirPopupTerminosYCondiciones);
+                //$(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
+                //$(document).on('click', '.enlace_ver_mas_opciones_banca_por_internet', me.Eventos.VerMasOpcionesBancaPorInternet);
+            },
+            InicializarAcciones: function() {
+                me.Funciones.listarBancos();
+            },
+            listarBancos: function() {
+                var raiz = document.getElementById("hdfUrlRaiz").value;
+                var urlBase = window.location.protocol + '//' + window.location.host + raiz;
 
-                    //if (boton) {
-                    //    $(boton).css("background", colorBoton);
-                    //    $(boton).addClass("btn_pago_tarjeta_credito");
-                    //    $(boton).addClass("w-100");
-                    //    $(boton).addClass("text-uppercase");
-                    //    $(boton).addClass("text-bold");
-                        //$(boton).css("width", "100%");
-                        //$(boton).css("font-family", "Lato");
-                        //$(boton).css("border-radius", "0%");
-                        //$(boton).css("letter-spacing", "0.5px");
+                var content = "";
+                $.ajax({
+                    type: 'POST',
+                    url: urlBase + 'PagoEnLinea/ObtenerBancos',
+                    dataType: "Text",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function(response) {
+                        if (response == '1') {
+                            document.getElementById('divOpciones').style.display = 'block';
+                            return false;
+                        }
+                        var result = response.split('¬');
+                        content +=
+                            "<p class='texto_informativo_lista_bancos'>Te redireccionaremos al banco que elijas.</p>";
+                        content += "<ul class='listado_bancos'>";
+                        var rutaIcono = "";
+                        for (var i = 0; i < result.length; i++) {
+                            var fila = result[i].split('¦');
+                            content += "<li class='banco_nombre'>";
+                            content += "<a href='" +
+                                fila[1] +
+                                "' title='" +
+                                fila[0] +
+                                "' class='enlace_banco' target='_blank'>";
+                            content += " <img src=" + fila[2] + " alt='" + fila[0] + "' /> </a> </li>";
+                            rutaIcono = fila[3];
+                        }
+                        document.getElementById('divIcono').innerHTML =
+                            "<img src='" + rutaIcono + "' alt= 'Pagos Banca por Internet' /> ";
 
-                        //if (tipoOrigenPantalla == 1)
-                        //    $(boton).css("max-width", "308px");
-
-                    //    $(boton).html("PAGA CON VISA");
-                    //}
-
-                    //var esPagoEnLineaMobile = window.matchMedia("(max-width:991px)").matches;
-
-                    //if (esPagoEnLineaMobile) {
-                    //    var listaOpcionPago = me.globals.listaOpcionPagoMobile;
-                    //} else {
-                    //    var listaOpcionPago = me.globals.listaOpcionPagoDesktop;
-                    //}
-
-                    //if (listaOpcionPago) {
-                    //    var cantidad = listaOpcionPago.length;
-
-                    //    if (cantidad > 0) {
-                    //        $(listaOpcionPago)[0].click();
-                    //    }
-                    //}
+                        content += "</ul>";
+                        document.getElementById('ullistaBancos').innerHTML = content;
+                        document.getElementById('divBancaPorInternet').style.display = 'block';
+                        document.getElementById('divOpciones').style.display = 'block';
+                    },
+                    error: function() {
+                        alert("error");
+                    }
+                });
 
             },
-            GuardarMetodoPago: function (parametros) {
+            GuardarMetodoPago: function(parametros) {
 
                 jQuery.ajax({
                     type: 'POST',
@@ -71,7 +82,7 @@ $(document).ready(function () {
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(parametros),
                     async: true,
-                    success: function (response) {
+                    success: function(response) {
                         if (response.success) {
                             dataLayer.push({
                                 'event': 'virtualEvent',
@@ -83,53 +94,59 @@ $(document).ready(function () {
                             window.location.href = urlPagoMonto;
                         }
                     },
-                    error: function (data, error) {
-                            if (checkTimeout(data)) {
+                    error: function(data, error) {
+                        if (checkTimeout(data)) {
                         }
                     }
                 });
             }
+        };
+        me.Eventos = {
+            AceptarTerminosYCondiciones: function(e) {
+                me.globals.barraActivacion.toggleClass('activado');
+                if (me.globals.barraActivacion.is('.activado')) {
+                    me.globals.barraActivacion.attr('data-estado', 1);
+                    $('.tooltip_terminos_y_condiciones').fadeOut();
+                    $("#divTooltipTerminosCondiciones").hide();
+                } else {
+                    me.globals.barraActivacion.attr('data-estado', 0);
+                }
             },
-            me.Eventos = {
-                AceptarTerminosYCondiciones: function (e) {
-                    me.globals.barraActivacion.toggleClass('activado');
-                    if (me.globals.barraActivacion.is('.activado')) {
-                        me.globals.barraActivacion.attr('data-estado', 1);
-                        $('.tooltip_terminos_y_condiciones').fadeOut();
-                        $("#divTooltipTerminosCondiciones").hide();
-                    } else {
-                        me.globals.barraActivacion.attr('data-estado', 0);
-                    }
-                },
-                MostrarDetalleTipoPago: function () {
-                    var elm = $(this);
-                    var content = $.trim(elm.next().html());
-                    if (content == '') {
-                        var parametros = {
-                            id: elm.data("mediopagoid"),
-                        };
-                        me.Funciones.GuardarMetodoPago(parametros);
+            MostrarDetalleTipoPago: function() {
+                var elm = $(this);
+                var content = $.trim(elm.next().html());
+                if (content == '') {
+                    var parametros = {
+                        id: elm.data("mediopagoid"),
+                    };
+                    me.Funciones.GuardarMetodoPago(parametros);
 
-                        return;
-                    }
+                    return;
+                }
 
-                    var siTipoPagoDetalleSeMuestra = $(this).next().css('display');
+                var div = $(this);
+                var element = div.next();
+                var arrow = div.find('.icono_flecha_despliegue');
 
-                    if (siTipoPagoDetalleSeMuestra == 'block') {
-                        $(this).next().slideUp(200);
-                        $(this).find('.icono_flecha_despliegue').removeClass('girar180');
-                    } else {
-                        $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
-                        $('.icono_flecha_despliegue').removeClass('girar180');
-                        $(this).next().slideDown(200);
-                        $(this).find('.icono_flecha_despliegue').addClass('girar180');
-                    }
-                },
+                if (element.is(':visible')) {
+                    element.slideUp(200);
+                    arrow.addClass('girar90n');
+                } else {
+                    arrow.removeClass('girar90n');
+                    element.slideDown(200);
+                }
             },
-            me.Inicializar = function () {
-                me.Funciones.InicializarEventos();
-                me.Funciones.InicializarAcciones();
+            VerMasOpcionesBancaPorInternet: function(e) {
+                e.preventDefault();
+                $(this).fadeOut(100);
+                $('.segundo_listado').delay(50);
+                $('.segundo_listado').fadeIn(100);
             }
+        };
+        me.Inicializar = function() {
+            me.Funciones.InicializarEventos();
+            me.Funciones.InicializarAcciones();
+        };
     }
 
     PagoEnLineaMetodoPago = new mainPL();

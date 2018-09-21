@@ -60,6 +60,18 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public string ObtenerBancos()
+        {
+            string bancos = "";
+            using (var ps = new PedidoServiceClient())
+            {
+                bancos = ps.ObtenerPagoEnLineaURLPaginasBancos(userData.PaisID);
+        
+            }
+            return bancos;
+        }
+
         [HttpGet]
         public ActionResult PasarelaPago()
         {

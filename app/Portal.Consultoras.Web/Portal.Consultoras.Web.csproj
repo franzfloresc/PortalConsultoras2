@@ -1408,6 +1408,12 @@
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
+    <Content Include="Content\Images\banco_bbva.png" />
+    <Content Include="Content\Images\banco_bcp.png" />
+    <Content Include="Content\Images\banco_de_la_nacion.png" />
+    <Content Include="Content\Images\banco_interbank.png" />
+    <Content Include="Content\Images\banco_pichincha.png" />
+    <Content Include="Content\Images\banco_scotiabank.png" />
     <Content Include="Content\Images\cincuenta_anios_belcorp_cabecera.png" />
     <Content Include="Content\Images\Buscador\product-iphone.png" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
@@ -1555,6 +1561,7 @@
     <Content Include="Content\Images\flecha-campo-select.svg" />
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\icono_avatar_menu.svg" />
+    <Content Include="Content\Images\icono_banca_por_internet.png" />
     <Content Include="Content\Images\icono_cargar_foto_desde_galeria.svg" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
     <Content Include="Content\Images\icono_lupa.svg" />
@@ -3339,6 +3346,7 @@
     <Content Include="Content\Images\MontoMinimoBannerVEC4.jpg" />
     <Content Include="Content\Images\more.png" />
     <Content Include="Content\Images\mujer-seccion-revista-bienvenida.png" />
+    <Content Include="Content\Images\multi_facil.png" />
     <Content Include="Content\Images\nav-arrow.png" />
     <Content Include="Content\Images\nav-bg.png" />
     <Content Include="Content\Images\new_email.png" />
@@ -3703,6 +3711,7 @@
     <Content Include="Content\Images\webtracking\regresar.png" />
     <Content Include="Content\Images\webtracking\settings.png" />
     <Content Include="Content\Images\webtracking\si.png" />
+    <Content Include="Content\Images\western_union.png" />
     <Content Include="Content\Images\xloading.gif" />
     <Content Include="Content\Images\zona_.png" />
     <Content Include="Content\layer-flx-cl\img\boton_conoce_05.png" />
