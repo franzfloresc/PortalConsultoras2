@@ -715,11 +715,10 @@ function CargarCarouselLiquidaciones() {
     });
 }
 function ArmarCarouselLiquidaciones(data) {
+    
     data = EstructurarDataCarouselLiquidaciones(data.lista);
     arrayLiquidaciones = data;
-
     var htmlDiv = SetHandlebars("#liquidacion-template", data);
-
     if ($.trim(htmlDiv).length > 0) {
         htmlDiv += [
             '<div>',
@@ -741,10 +740,9 @@ function ArmarCarouselLiquidaciones(data) {
             '</div>'
         ].join("\n");
     }
-
     $('#divCarruselLiquidaciones').empty().html(htmlDiv);
 
-    EstablecerLazyCarrusel($('#divCarruselLiquidaciones'));
+    EstablecerLazyCarrusel('#divCarruselLiquidaciones');
 
     $('#divCarruselLiquidaciones').slick({
         lazyLoad: 'ondemand',
@@ -759,9 +757,15 @@ function ArmarCarouselLiquidaciones(data) {
     }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
         var accion = nextSlide > currentSlide ? 'next' : 'prev';
+        console.log('======================');
+        console.log('aquí entro');
+        console.log('======================');
         var itemsLength = $('#divCarruselLiquidaciones').find('.slick-slide').length;
         var indexActive = $($('#divCarruselLiquidaciones').find('.slick-active')).attr('data-slick-index');
         var posicionEstrategia, recomendado, arrayEstrategia;
+        console.log('======================');
+        console.log('aquí entro');
+        console.log('======================');
         if (accion == 'prev') {
             if (Number(indexActive) - 1 == 0) {
                 $('.js-slick-prev-liq').hide();
@@ -850,7 +854,10 @@ function ArmarCarouselLiquidaciones(data) {
                 });
             }
         }
+    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        EstablecerLazyCarruselAfterChange('#divCarruselLiquidaciones');
     });
+
     TagManagerCarruselLiquidacionesInicio(data);
 
     $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
@@ -944,7 +951,7 @@ function AgregarProductoLiquidacion(contenedor) {
                     return false;
                 }
                 else {
-                    console.log('Bienvenida - index.js - AgregarProductoLiquidacion - ajax ante ActualizarGanancia', 'OfertaLiquidacion/InsertOfertaWebPortal');
+
                     jQuery.ajax({
                         type: 'POST',
                         url: baseUrl + 'OfertaLiquidacion/InsertOfertaWebPortal',
@@ -964,7 +971,7 @@ function AgregarProductoLiquidacion(contenedor) {
                                 return false;
                             }
                             MostrarBarra(data, '1');
-                            console.log('Bienvenida - index.js - AgregarProductoLiquidacion - ante ActualizarGanancia', data.DataBarra);
+
                             ActualizarGanancia(data.DataBarra);
                             CargarResumenCampaniaHeader(true);
                             TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
@@ -1250,7 +1257,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
     };
     var categoriacad = "";
     var variantcad = "";
-    console.log('Bienvenida - index.js - InsertarPedidoCuvBanner - ante ActualizarGanancia', 'Pedido/InsertarPedidoCuvBanner');
+
     waitingDialog({});
     jQuery.ajax({
         type: 'POST',
@@ -1273,7 +1280,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
             }
 
             MostrarBarra(result, '1');
-            console.log('Bienvenida - index.js - InsertarPedidoCuvBanner - ante ActualizarGanancia', result.DataBarra);
+
             ActualizarGanancia(result.DataBarra);
 
             CargarResumenCampaniaHeader(true);

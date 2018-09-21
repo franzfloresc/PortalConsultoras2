@@ -1,0 +1,123 @@
+﻿<script id="componentes-template" type="text/x-handlebars-template">
+    {{#iff CodigoVariante '==' '2001'}}
+    @*<div id="DescripcionAdicional"></div>*@
+    {{#each this.Hermanos as |componente|}}
+    <div class="content_tonos" data-tono="" data-opciones-seleccionadas="0" @*data-tono-select="{{CUVSelect}}"*@ data-tono-digitable="1">
+        <div class="tono_select_opt">
+            <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
+                <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
+                <div class="texto_tono_seleccionado">
+                    {{#iff componente.FactorCuadre '==' '1'}}
+                    ELIGE 1 OPCIÓN
+                    {{else}}
+                    ELIGE {{componente.FactorCuadre}} OPCIONES
+                    {{/iff}}
+                </div>
+                <hr class="clear">
+            </div>
+            <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
+                {{#each componente.Hermanos as |variedad|}}
+                <div class="content_tono_elegido" data-tono-change="2"
+                     data-tono-cuv="{{variedad.Cuv}}"
+                     data-tono-nombre="{{variedad.NombreBulk}}"
+                     data-tono-descripcion="{{variedad.NombreComercial}}">
+                    <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
+                    <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                    <hr class="clear" />
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <div id="resumen-opciones-{{componente.Cuv}}" class="tonos_seleccionados" style="display:none;"></div>
+        {{#iff FactorCuadre '==' '1'}}
+        <div class="content_tonos_maquillaje" data-tono-div="{{componente.Cuv}}">
+            {{#each componente.Hermanos as |variedad|}}
+            <div style="display: none;">
+                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
+                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
+            </div>
+            <div id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle"
+                 {{#unless ../esCampaniaSiguiente}}
+                 onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}})"
+                 {{/unless}}
+                 data-tono-cuv="{{variedad.Cuv}}"
+                 data-tono-change="2"
+                 data-tono-nombre="{{variedad.NombreBulk}}"
+                 data-tono-descripcion="{{variedad.NombreComercial}}">
+                <img src="{{variedad.ImagenBulk}}" alt="">
+            </div>
+            {{/each}}
+        </div>
+        {{/iff}}
+    </div>
+    {{/each}}
+    {{/iff}}
+    {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
+    <div class="contenido_titulo">
+        <div class="">
+            <span>CONTENIDO:</span>
+        </div>
+    </div>
+    <div class="contenedor_lista_detalle">
+        {{#each this.Hermanos as |componente|}}
+        {{#ifVerificarMarcaLast componente.DescripcionMarca}}
+        <div style="border-bottom: 1px solid #ccc; margin:15px 0px;"></div>
+        {{/ifVerificarMarcaLast}}
+        <div class="content_producto_tono detalle_producto" data-opciones-seleccionadas="0" @*data-tono="" data-tono-select="{{componente.CUVSelect}}"*@ data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}}; margin-bottom: 10px">
+            <div style="display: none;">
+                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
+                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+            </div>
+            <div class="marca_cantidad_descripcion_detalle" data-tono-visible="">
+                {{#ifVerificarMarca componente.DescripcionMarca}}
+                <div class="marca_detalle_producto">
+                    <span data-marca_detalle_producto>{{componente.DescripcionMarca}}</span>
+                </div>
+                {{/ifVerificarMarca}}
+                <div class="cantidad_descripcion_detalle">
+                    <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</span>
+                    <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
+                        {{componente.NombreComercial}}
+                    </span>
+                </div>
+            </div>
+
+            {{#iff componente.Digitable '==' '1'}}
+            <div class="content_right_ficha" style="width:43%;">
+                <div class="tono_select_opt">
+                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" data-tono-change-cuv="{{componente.Cuv}}"
+                     onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
+                        <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
+                        <div class="texto_tono_seleccionado">
+                            {{#iff componente.FactorCuadre '==' '1'}}
+                            ELIGE 1 OPCIÓN
+                            {{else}}
+                            ELIGE {{componente.FactorCuadre}} OPCIONES
+                            {{/iff}}
+                        </div>
+                        <hr class="clear">
+                    </div>
+                    <div class="content_tonos_select" style="display:none;width:102%;" data-tono-select-area="1">
+                        {{#each componente.Hermanos as |variedad|}}
+                        <div class="content_tono_elegido" data-tono-change="2"
+                             data-tono-cuv="{{variedad.Cuv}}"
+                             data-tono-nombre="{{variedad.NombreBulk}}"
+                             data-tono-descripcion="{{variedad.NombreComercial}}">
+                            <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt="PRODUCTO"></div>
+                            <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                            <hr class="clear">
+                        </div>
+                        {{/each}}
+                    </div>
+                    <div class="tonos_seleccionados" id="opciones-elegidas{{componente.Cuv}}" style="display:none;"></div>
+                </div>
+                <div id="resumen-opciones-{{componente.Cuv}}" class="tonos_seleccionados" style="display:none;"></div>
+            </div>
+            {{/iff}}
+            <hr class="clear">
+        </div>
+
+        {{/each}}
+    </div>
+    {{/iff}}
+</script>

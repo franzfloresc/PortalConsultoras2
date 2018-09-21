@@ -319,6 +319,12 @@
   <wsdl:message name="IUsuarioService_listaProductos_OutputMessage">
     <wsdl:part name="parameters" element="tns:listaProductosResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarNovedadBuscador_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarNovedadBuscador" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarNovedadBuscador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarNovedadBuscadorResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_EnviarSmsCodigo_InputMessage">
     <wsdl:part name="parameters" element="tns:EnviarSmsCodigo" />
   </wsdl:message>
@@ -1023,6 +1029,10 @@
     <wsdl:operation name="listaProductos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/listaProductos" message="tns:IUsuarioService_listaProductos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/listaProductosResponse" message="tns:IUsuarioService_listaProductos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarNovedadBuscador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscador" message="tns:IUsuarioService_ActualizarNovedadBuscador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscadorResponse" message="tns:IUsuarioService_ActualizarNovedadBuscador_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EnviarSmsCodigo">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" message="tns:IUsuarioService_EnviarSmsCodigo_InputMessage" />
@@ -1787,6 +1797,15 @@
     </wsdl:operation>
     <wsdl:operation name="listaProductos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/listaProductos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarNovedadBuscador">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscador" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2988,6 +3007,15 @@
     </wsdl:operation>
     <wsdl:operation name="listaProductos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/listaProductos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarNovedadBuscador">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscador" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
