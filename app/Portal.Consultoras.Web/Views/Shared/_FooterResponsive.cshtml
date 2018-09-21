@@ -48,24 +48,24 @@
                 @foreach (var item in itemsFooter)
                 {
                     @*<li class="col-12 col-lg col-xl footer__item mostrarEnDesktop">
-                                <h5 class="footer__item__title">Nuestras marcas</h5>
-                                <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
-                                    <li class="col-12 pl-0 pr-0 footer__item__content">
-                                        <a class="footer__item__link d-block" title="L'bel">
-                                            L'bel
-                                        </a>
-                                    </li>
-                                    <li class="col-12 pl-0 pr-0 footer__item__content">
-                                        <a class="footer__item__link d-block" title="Ésika">
-                                            Ésika
-                                        </a>
-                                    </li>
-                                    <li class="col-12 pl-0 pr-0 footer__item__content">
-                                        <a class="footer__item__link d-block" title="Cyzone">
-                                            Cyzone
-                                        </a>
-                                    </li>
-                                </ul>
+                            <h5 class="footer__item__title">Nuestras marcas</h5>
+                            <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
+                                <li class="col-12 pl-0 pr-0 footer__item__content">
+                                    <a class="footer__item__link d-block" title="L'bel">
+                                        L'bel
+                                    </a>
+                                </li>
+                                <li class="col-12 pl-0 pr-0 footer__item__content">
+                                    <a class="footer__item__link d-block" title="Ésika">
+                                        Ésika
+                                    </a>
+                                </li>
+                                <li class="col-12 pl-0 pr-0 footer__item__content">
+                                    <a class="footer__item__link d-block" title="Cyzone">
+                                        Cyzone
+                                    </a>
+                                </li>
+                            </ul>
                         </li>*@
 
                     <li class="col-12 col-lg col-xl footer__item">
@@ -171,7 +171,7 @@
                         <img src="@Url.Content("~/Content/Images/logo_belcorp_desktop.png")" alt="Belcorp">
                     </picture>
                 </li>
-                <li class="col-4 col-lg col-xl footer__item">
+                <li class="col-4 col-lg col-xl footer__item text-right text-lg-left text-xl-left">
                     <h5 class="col-12 footer__item__title mostrarEnDesktop">Síguenos</h5>
                     <ul class="row flex-row ml-0 mr-0 footer__item__content__list footer__item__content__list--siguenos">
                         <li class="col-6 col-lg-12 col-xl-12 footer__item__content">
@@ -196,17 +196,21 @@
                         </li>
                     </ul>
                 </li>
-                @*<li class="col-3 col-lg col-xl footer__item footer__item--logo">
-                        <a class="col-12 d-block footer__item__link text-right" title="Facebook Somos Belcorp">
-                            <img src="@Url.Content("~/Content/Images/logo_facebook.svg")" alt="Facebook Somos Belcorp">
-                        </a>
-                    </li>
-                    <li class="col-2 col-lg col-xl footer__item footer__item--logo">
-                        <a class="col-12 d-block footer__item__link text-right" title="YouTube Somos Belcorp">
-                            <img src="@Url.Content("~/Content/Images/logo_youtube.svg")" alt="YouTube Somos Belcorp">
-                        </a>
-                    </li>*@
             </ul>
         </nav>
+    </div>
+    <div class="col-12 row flex-row justify-content-between align-items-center ml-0 mr-0 footer__wrapper mostrarEnDesktop">
+        <hr class="col-12 pl-0 pr-0 linea__separadora mostrarEnDesktop">
+        <div class="col-6 pl-0 pr-0 bandera__pais text-left">
+            <span class="d-inline-block icono__bandera__pais">
+                <img src="@Url.Content("~/Content/Images/Banderas/PE.png")" alt="Perú">
+            </span>
+            <span class="d-inline-block nombre__pais text-uppercase">
+                Perú
+            </span>
+        </div>
+        <div class="col-6 pl-0 pr-0 info__copyright text-right">
+            Copyright Belcorp 2016. All rigths reserved.
+        </div>
     </div>
 </footer>
