@@ -2697,7 +2697,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CELULAR_INVALIDO = "1002";
                 public const string ERROR_CELULAR_USADO = "1003";
                 public const string ERROR_CELULAR_PRIMER_DIGITO = "1004";
-
+                
                 public const string ERROR_CORREO_CAMBIO_NO_AUTORIZADO = "1101";
                 public const string ERROR_CORREO_VACIO = "1102";
                 public const string ERROR_CORREO_YA_EXISTE = "1103";
@@ -2706,7 +2706,10 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CORREO_ACTIVACION_NO_EXISTE = "1202";
                 public const string ERROR_CORREO_ACTIVACION_YA_ACTIVADA = "1203";
                 public const string ERROR_CORREO_ACTIVACION_DUPLICADO = "1204";
-                
+
+                public const string ERROR_CELULAR_ACTIVACION = "1301";
+                public const string ERROR_CELULAR_ACTIVACION_LIMITE_INTENTOS = "1302";
+
             }
             public static Dictionary<string, string> Message
             {
@@ -2731,6 +2734,8 @@ namespace Portal.Consultoras.Common
                        {Code.ERROR_CORREO_ACTIVACION_YA_ACTIVADA,"Esta dirección de correo electrónico ya ha sido validada."},
                        {Code.ERROR_CORREO_ACTIVACION_DUPLICADO,"La dirección de correo electrónico ingresada ya pertenece a otra Consultora."},
 
+                       {Code.ERROR_CELULAR_ACTIVACION,"Opción de Validación no Disponible."},
+                       {Code.ERROR_CELULAR_ACTIVACION_LIMITE_INTENTOS,"Superaste el máximo de envios. Podrás volver a intentar en {0}"},
                    });
                 }
             }
@@ -2747,7 +2752,38 @@ namespace Portal.Consultoras.Common
             }
 
         }
-        
+
+        public static class VerificacionValidacion
+        {
+            public const int TIME_REINTENTO = 24*60*60;
+
+            private static Dictionary<string, string> _Message;
+            public static class Code
+            {
+                public const string SUCCESS = "0000";
+                public const string ERROR_INTERNO = "9999";
+
+                public const string ERROR_CELULAR_ACTIVACION = "1001";
+                public const string ERROR_CELULAR_ACTIVACION_LIMITE_INTENTOS = "1002";
+
+            }
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                   {
+                       {Code.SUCCESS, "OK"},
+                       {Code.ERROR_INTERNO, string.Empty},
+
+                       {Code.ERROR_CELULAR_ACTIVACION,"Opción de Validación no Disponible."},
+                       {Code.ERROR_CELULAR_ACTIVACION_LIMITE_INTENTOS,"Superaste el máximo de envios. Podrás volver a intentar en {0}"},
+                   });
+                }
+            }
+
+        }
+
         public static class RedireccionAndroidApp
         {
             public const string EsikaConmigo = "https://kpt22.app.goo.gl/esika";
@@ -2792,6 +2828,11 @@ namespace Portal.Consultoras.Common
             public const string Liquidacion = "LIQ";
             public const string Catalogo = "CAT";
             public const string OfertaDelDia = "ODD";
+        }
+
+        public static class MetaConsultora
+        {
+            public const string VerificacionCambioClave = "VF_CAMBIO_CLAVE";
         }
     }
 }

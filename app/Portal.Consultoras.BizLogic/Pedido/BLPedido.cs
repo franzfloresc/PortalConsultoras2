@@ -1166,7 +1166,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         return PedidoInsertarBuscador(pedidoDetalle);
                     default:
                         return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-                        break;
                 }
             }
             catch (Exception ex)

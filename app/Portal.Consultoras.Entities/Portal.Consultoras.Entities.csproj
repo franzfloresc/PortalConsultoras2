@@ -88,6 +88,7 @@
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
+    <Compile Include="OpcionesVerificacion\BECodigoGenerado.cs" />
     <Compile Include="OpcionesVerificacion\BEFiltrosOpcionesVerificacion.cs" />
     <Compile Include="OpcionesVerificacion\BEOpcionesVerificacion.cs" />
     <Compile Include="OpcionesVerificacion\BEZonasOpcionesVerificacion.cs" />

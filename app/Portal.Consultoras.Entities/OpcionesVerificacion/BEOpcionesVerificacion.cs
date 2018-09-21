@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -17,6 +18,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         public bool OpcionEmail { get; set; }
         [DataMember]
         public bool OpcionSms { get; set; }
+        [DataMember]
+        public int IntentosSms { get; set; }        
         [DataMember]
         public bool OpcionChat { get; set; }
         [DataMember]
@@ -54,29 +57,40 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
             Activo = row.ToBoolean("Activo");
             TieneAlcanse = row.ToBoolean("TieneAlcanse");
             OpcionContrasena = row.ToBoolean("OpcionContrasena");
+            IntentosSms = row.ToInt32("IntentosSms");
         }
     }
 
     [DataContract]
     public class BEUsuarioDatos
     {
+        
         [DataMember]
+        [Column("CodigoUsuario")]
         public string CodigoUsuario { get; set; }
         [DataMember]
+        [Column("CodigoConsultora")]
         public string CodigoConsultora { get; set; }
         [DataMember]
+        [Column("Cantidad")]
         public int Cantidad { get; set; }
         [DataMember]
+        [Column("PrimerNombre")]
         public string PrimerNombre { get; set; }
         [DataMember]
+        [Column("IdEstadoActividad")]
         public int IdEstadoActividad { get; set; }
         [DataMember]
+        [Column("Celular")]
         public string Celular { get; set; }
         [DataMember]
+        [Column("Correo")]
         public string Correo { get; set; }
         [DataMember]
+        [Column("RegionID")]
         public int RegionID { get; set; }
         [DataMember]
+        [Column("ZonaID")]
         public int ZonaID { get; set; }
         [DataMember]
         public int OrigenID { get; set; }
@@ -123,14 +137,17 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public int OpcionVerificacionCorreo { get; set; }
         [DataMember]
+        [Column("OpcionCambioClave")]
         public int OpcionCambioClave { get; set; }
+        [DataMember]
+        public int IntentosRestanteSms { get; set; }
 
-        public BEUsuarioDatos()
-        { }
+        public BEUsuarioDatos(){
+            IntentosRestanteSms = -1;
+        }
 
         public BEUsuarioDatos(IDataRecord row)
-        {
-            
+        {            
             CodigoUsuario = row.ToString("CodigoUsuario");
             CodigoConsultora = row.ToString("CodigoConsultora");
             Cantidad = row.ToInt32("Cantidad");            
@@ -142,6 +159,7 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
             RegionID = row.ToInt32("RegionID");
             CodigoConsultora = row.ToString("CodigoConsultora");
             OpcionCambioClave = row.ToInt32("OpcionCambioClave");
+            IntentosRestanteSms = -1;
         }
     }
 }
