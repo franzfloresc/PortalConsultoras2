@@ -344,8 +344,8 @@ $(document).ready(function () {
 
                         me.Funciones.CloseLoading();
                         if (popup) {
-                            CerrarPopup('#popupDetalleCarousel_lanzamiento');
-                            $('#popupDetalleCarousel_packNuevas').hide();
+                            //CerrarPopup('#popupDetalleCarousel_lanzamiento'); //DEUDA TECNICA
+                            //$('#popupDetalleCarousel_packNuevas').hide(); //DEUDA TECNICA
                         }
 
                     },

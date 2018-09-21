@@ -81,6 +81,7 @@
                 word-break: break-word;
                 overflow: hidden;
                 display: block;
+                max-height: 36px;
             }
 
             .lonuevo_carrusel .lonuevo_carrusel_info .cont span {
@@ -96,7 +97,7 @@
                 color: #ffffff;
                 display: block;
                 margin-bottom: 20px;
-                word-wrap: break-word;
+                word-break: break-word;
                 overflow: hidden;
                 max-height: 108px;
                 display: block;

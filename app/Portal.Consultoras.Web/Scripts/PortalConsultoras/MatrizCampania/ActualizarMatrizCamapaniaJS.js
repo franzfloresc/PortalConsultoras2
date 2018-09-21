@@ -358,7 +358,7 @@ function ObtenerDatosMatrizCampania() {
         //data: JSON.stringify({ "first-name": $('#first-name').val(), "last-name": $('#last-name').val() }),
         processData: false,
         success: function (data, textStatus, jQxhr) {
-         //   console.log(data);
+
             llenarComboPais(data.listaPaises);
         },
         error: function (jqXhr, textStatus, errorThrown) {

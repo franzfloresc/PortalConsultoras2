@@ -2,7 +2,7 @@
 /* CSS Document */
 body {
     background-color: #efeef2;
-    background-image: url('../../Images/comunidad/bg_login.png');
+    background-image: url('/Content/Images/comunidad/bg_login.png');
     background-position: right 100px;
     background-repeat: no-repeat;
     font-family: 'Roboto', sans-serif;

@@ -51,7 +51,7 @@ namespace Portal.Consultoras.BizLogic
         NivelesProgramaNuevas
     }
 
-    internal class CacheManager<T>
+    internal static class CacheManager<T>
     {
         private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
         {
