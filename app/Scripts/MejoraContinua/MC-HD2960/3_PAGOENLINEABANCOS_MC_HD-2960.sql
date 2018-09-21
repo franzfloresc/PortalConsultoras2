@@ -1,5 +1,6 @@
 USE BelcorpPeru
 GO
+
 IF EXISTS (
 SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE = 'U')
    DROP TABLE PagoEnLineaBancos
@@ -23,7 +24,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -34,12 +35,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE
@@ -73,8 +75,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
-
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -85,13 +86,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE
@@ -125,8 +126,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
-
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -137,13 +137,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE
@@ -177,8 +177,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
-
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -189,13 +188,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE
@@ -229,8 +228,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
-
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -241,13 +239,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE
@@ -281,8 +279,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
-
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -293,13 +290,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE
@@ -333,8 +330,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
-
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -345,13 +341,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE
@@ -385,8 +381,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
-
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -397,13 +392,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE
@@ -437,8 +432,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
-
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -449,13 +443,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE
@@ -489,8 +483,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
-
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -501,13 +494,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE
@@ -541,8 +534,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
-
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -553,13 +545,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE
@@ -593,8 +585,7 @@ insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
-insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
-
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
 go
 
 IF EXISTS (
@@ -605,13 +596,13 @@ IF EXISTS (
 ) 
 	DROP PROCEDURE ObtenerPagoEnLineaURLPaginasBancos
 GO
-create procedure ObtenerPagoEnLineaURLPaginasBancos
+CREATE procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-
 	   
 	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
-	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono  + '¦' +
+		               (select top 1 rutaIcono from PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1 )
 			FROM PagoEnLineaBancos where Estado=1
 		FOR XML PATH('')), 1, 1, ''))
 		ELSE

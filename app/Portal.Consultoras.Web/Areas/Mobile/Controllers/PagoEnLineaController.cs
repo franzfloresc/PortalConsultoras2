@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         public string ObtenerBancos()
         {
             string bancos = "";

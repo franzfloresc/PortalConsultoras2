@@ -136,11 +136,11 @@
                     </li>
                 }
                 <!-- HD-2960 - NUEVO MÉTODO DE PAGO -->
-                <li class="opcion_pago metodoPago text-center">
+                <li class="opcion_pago metodoPago text-center" id="divBancaPorInternet" style="display:none">
                     <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoMobile w-100">
                         <div class="col_izq text-left">
-                            <div class="icono_marca_tarjeta">
-                                <img src="@Url.Content("~/Content/Images/icono_banca_por_internet.png")" alt="Pagos Banca por Internet" />
+                            <div class="icono_marca_tarjeta" id="divIcono">
+                               
                             </div>
                             <h4 class="titulo_monto_pago_total titulo_monto_pago_total_paso_2">
                                 Pagos banca por internet
@@ -152,53 +152,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="opcion_pago_contenido_visible_al_desplegar w-100 mt-0">
-                        <p class="texto_informativo_lista_bancos">Te redireccionaremos al banco que elijas.</p>
-                        <ul class="listado_bancos primer_listado">
-                            <li class="banco_nombre">
-                                <a href="@ViewBag.Interbank" title="Interbank" class="enlace_banco" target="_blank">
-                                    <img src="@Url.Content("~/Content/Images/banco_interbank.png")" alt="Interbank" />
-                                </a>
-                            </li>
-                            <li class="banco_nombre">
-                                <a href="@ViewBag.Scotiabank" title="Scotiabank" class="enlace_banco" target="_blank">
-                                    <img src="@Url.Content("~/Content/Images/banco_scotiabank.png")" alt="Scotiabank" />
-                                </a>
-                            </li>
-                            <li class="banco_nombre">
-                                <a href="@ViewBag.Continental" title="BBVA" class="enlace_banco" target="_blank">
-                                    <img src="@Url.Content("~/Content/Images/banco_bbva.png")" alt="BBVA" />
-                                </a>
-                            </li>
-                            <li class="banco_nombre">
-                                <a href="@ViewBag.VCP" title="BCP" class="enlace_banco" target="_blank">
-                                    <img src="@Url.Content("~/Content/Images/banco_bcp.png")" alt="BCP" />
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="listado_bancos segundo_listado">
-                            <li class="banco_nombre">
-                                <a href="@ViewBag.BancoNacion" title="Banco de la Nación" class="enlace_banco" target="_blank">
-                                    <img src="@Url.Content("~/Content/Images/banco_de_la_nacion.png")" alt="Banco de la Nación" />
-                                </a>
-                            </li>
-                            <li class="banco_nombre">
-                                <a href="@ViewBag.Multifacil" title="Multifácil" class="enlace_banco" target="_blank">
-                                    <img src="@Url.Content("~/Content/Images/multi_facil.png")" alt="Multifácil" />
-                                </a>
-                            </li>
-                            <li class="banco_nombre">
-                                <a href="@ViewBag.WesterUnion" title="Western Union" class="enlace_banco" target="_blank">
-                                    <img src="@Url.Content("~/Content/Images/western_union.png")" alt="Wester Union" />
-                                </a>
-                            </li>
-                            <li class="banco_nombre">
-                                <a href="@ViewBag.Pichincha" title="Banco Pichincha" class="enlace_banco" target="_blank">
-                                    <img src="@Url.Content("~/Content/Images/banco_pichincha.png")" alt="Banco Pichincha" />
-                                </a>
-                            </li>
-                        </ul>
-                        <a title="Ver más" class="enlace_ver_mas_opciones_banca_por_internet">Ver más</a>
+                    <div class="opcion_pago_contenido_visible_al_desplegar w-100 mt-0" id="ullistaBancos">
+
+                        
+                        @*<a title="Ver más" class="enlace_ver_mas_opciones_banca_por_internet">Ver más</a>*@
                     </div>
                 </li>
                 <!-- FIN - HD-2960 - NUEVO MÉTODO DE PAGO -->
@@ -214,7 +171,7 @@
         </div>
     </div>
 </div>
-
+<input id="hdfUrlRaiz" type="hidden" value='@Url.Content("~")' />
 @section scripts{
     <script type="text/javascript">
 
