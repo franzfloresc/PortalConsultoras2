@@ -664,7 +664,7 @@ body > img{
     display:block;
     position: absolute;
     right: 0;
-    bottom: 9px;
+    bottom: 8px;
     z-index: 5;
     cursor:pointer;
 }
@@ -1350,6 +1350,10 @@ body > img{
         height:100%;
     }
 
+    .menu__link:hover{
+        text-decoration:none!important;
+    }
+
     .header__menu--lateralIzquierdo .menu__link{
         font-size:14px;
         padding-left:28px;
@@ -1359,7 +1363,7 @@ body > img{
         text-transform:initial;
     }
 
-    .menu__item:nth-child(5) .menu__link,
+    /*.menu__item:nth-child(5) .menu__link,*/
     .menu__item[data-title="Ofertas"] .menu__link,
     .menu__link--ofertas
     {
@@ -1404,9 +1408,13 @@ body > img{
     }
 
     .submenu__lista{
-        display:flex;
+        display:none;
         position:relative;
         box-shadow:none;
+    }
+
+    .menu__item:nth-child(3):hover > .submenu__lista{
+        display:none;
     }
 
     .submenu__item{
@@ -1675,14 +1683,14 @@ body > img{
     .footer__item__title{
         padding-top:10px;
         border-bottom:1px solid #9e9e9f;
-        background-image:url(../../../Images/icono_mas_footer_mobile.png);
+        background-image:url(../../../Images/mobile/icono_mas_footer_mobile.png);
         background-position:96.5% center;
         background-repeat:no-repeat;
         font-weight:400;
     }
 
     .footer__item__title--desplegado{
-        background-image:url(../../../Images/icono_menos_footer_mobile.png);
+        background-image:url(../../../Images/mobile/icono_menos_footer_mobile.png);
     }
 
     .footer__item__content__list{

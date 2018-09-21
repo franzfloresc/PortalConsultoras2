@@ -17,196 +17,103 @@
     var tipoUsuario = ViewBag.TipoUsuario;
 }
 
-
-<nav class="header__menu header__menu--lateralIzquierdo">
-    <div class="mostrarEnMobile">
-        <div class="icono__cerrar row flex-column align-items-end ml-0 mr-0">
-            <img src="@Url.Content("~/Content/Images/icono_cerrar_menu_mobile.png")" alt="Cerrar">
+<!-- MENÚ PRINCIPAL MOBILE -->
+<nav class="header__menu header__menu--lateralIzquierdo mostrarEnMobile">
+    <div class="icono__cerrar row flex-column align-items-end ml-0 mr-0">
+        <img src="@Url.Content("~/Content/Images/icono_cerrar_menu_mobile.png")" alt="Cerrar">
+    </div>
+    <div class="consultora__saludo row flex-column justify-content-center align-items-center ml-0 mr-0 mb-30">
+        <div class="consultora__datos consultora__datos--menu">
+            <div class="consultora__imagen w-100">
+                <img src="@Url.Content("~/Content/Images/icono_avatar.svg")" alt="Foto Consultora" class="w-100">
+            </div>
+            <div class="icono__actualizarDatos text-center">
+                <img src="@Url.Content("~/Content/Images/mobile/icono_editar_foto_perfil.svg")" alt="Actualizar datos">
+            </div>
         </div>
-        <div class="consultora__saludo row flex-column justify-content-center align-items-center ml-0 mr-0 mb-30">
-            <div class="consultora__datos consultora__datos--menu">
-                <div class="consultora__imagen w-100">
-                    <img src="@Url.Content("~/Content/Images/icono_avatar.svg")" alt="Foto Consultora" class="w-100">
-                </div>
-                <div class="icono__actualizarDatos text-center">
-                    <img src="@Url.Content("~/Content/Images/mobile/icono_editar_foto_perfil.svg")" alt="Actualizar datos">
-                </div>
-            </div>
-            <div class="consultora__saludo consultora__saludo--menu">
-                ¡Hola Mary!
-            </div>
+        <div class="consultora__saludo consultora__saludo--menu">
+            ¡Hola Mary!
         </div>
     </div>
     <ul class="menu__lista row flex-column flex-lg-row flex-xl-row justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center ml-0 mr-0 mb-0 pl-0">
-        <li class="menu__item mostrarEnMobile" data-title="Ingresa tu pedido">
+        <li class="menu__item">
             <a class="menu__link menu__link--pedido d-block text-uppercase" title="Ingresa tu pedido">
                 Ingresa <span class="text-bold">tu pedido</span>
             </a>
         </li>
-        <li class="menu__item mostrarEnMobile" data-title="Inicio">
+        <li class="menu__item">
             <a class="menu__link d-block" title="Inicio">
                 Inicio
             </a>
         </li>
-        <li class="menu__item mostrarEnDesktop" data-title="Socia Empresaria">
-            <a class="menu__link d-block" title="Socia Empresaria">
-                Socia Empresaria
-            </a>
-        </li>
-        <li class="menu__item" data-title="Mi Negocio">
-            <a class="menu__link d-block menu__link--conSubmenu" title="Mi Negocio">
+        <li class="menu__item">
+            <a class="menu__link d-block menu__link--conSubmenu menu__link--conSubmenuMobile" title="Mi Negocio">
                 Mi Negocio
             </a>
             <ul class="submenu__lista submenu__lista--miNegocio row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
-                <li class="submenu__item" data-title="Seguimiento a tu pedido">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Seguimiento a tu pedido">
                         Seguimiento a tu pedido
                     </a>
                 </li>
-                <li class="submenu__item mostrarEnMobile" data-title="Pedidos ingresados">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Pedidos ingresados">
                         Pedidos ingresados
                     </a>
                 </li>
-                <li class="submenu__item mostrarEnMobile" data-title="Pedidos facturados">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Pedidos facturados">
                         Pedidos facturados
                     </a>
                 </li>
-                <li class="submenu__item mostrarEnMobile" data-title="Estado de cuenta">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Estado de cuenta">
                         Estado de cuenta
                     </a>
                 </li>
-                <li class="submenu__item" data-title="App de Catálogos">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="App de catálogos">
                         App de catálogos
                     </a>
                 </li>
-                <li class="submenu__item" data-title="Mis clientes">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Mis clientes">
                         Mis clientes
                     </a>
                 </li>
-                <li class="submenu__item" data-title="Expofertas">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Expofertas">
                         Expofertas
                     </a>
                 </li>
-                <li class="submenu__item mostrarEnMobile" data-title="Productos agotados">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Productos Agotados">
                         Productos Agotados
                     </a>
                 </li>
-                <li class="submenu__item" data-title="Mis pedidos">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Mis pedidos">
                         Mis pedidos
                     </a>
                 </li>
-                <li class="submenu__item mostrarEnMobile" data-title="Mi Perfil">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Mi Perfil">
                         Mi Perfil
                     </a>
                 </li>
-                <li class="submenu__item" data-title="Cambios y devoluciones">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Cambios y devoluciones">
                         Cambios y devoluciones
                     </a>
                 </li>
-                <li class="submenu__item" data-title="Mis certificados">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Mis certificados">
                         Mis certificados
                     </a>
                 </li>
-                <!-- ITEMS DEL MENÚ EN DESKTOP -->
-                <li class="submenu__item submenu__item--IngresaTuPedido mostrarEnDesktop" data-title="Ingresa tu pedido">
-                    <a class="submenu__link menu__link--pedido d-block text-uppercase">
-                        Ingresa <span class="text-bold">tu pedido</span>
-                    </a>
-                </li>
-                <li class="submenu__item mostrarEnDesktop" data-title="Mis pagos">
-                    <a class="submenu__link d-block" title="Mis pagos">
-                        Mis pagos
-                    </a>
-                </li>
-                <li class="submenu__item mostrarEnDesktop" data-title="Mis beneficios">
-                    <a class="submenu__link d-block" title="Mis beneficios">
-                        Mis beneficios
-                    </a>
-                </li>
-                <li class="submenu__item submenu__item--AsesorBelleza mostrarEnDesktop" data-title="Mi Asesor de Belleza">
-                    <a class="submenu__link d-block" title="Mi Asesor de Belleza">
-                        Mi Asesor de belleza
-                    </a>
-                    <div class="submenu__lista submenu__lista--miAsesorBelleza row flex-row justify-content-start ml-0 mr-0">
-                        <div class="sub__menu__asesorBelleza">
-                            <h4>Ésika</h4>
-                            <ul class="row flex-column ml-0 mr-0">
-                                <li class="submenu__item" data-title="Esika Trend">
-                                    <a class="submenu__link d-block" title="Diagnóstico de piel">
-                                        Ésika Trend
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="sub__menu__asesorBelleza">
-                            <h4>Lbel</h4>
-                            <ul class="row flex-column ml-0 mr-0">
-                                <li class="submenu__item" data-title="Diagnóstico de piel">
-                                    <a class="submenu__link d-block" title="Diagnóstico de piel">
-                                        Diagnóstico de piel
-                                    </a>
-                                </li>
-                                <li class="submenu__item" data-title="Asesor de Bases y Polvos">
-                                    <a class="submenu__link d-block" title="Asesor de Bases y Polvos">
-                                        Asesor de Bases y Polvos
-                                    </a>
-                                </li>
-                                <li class="submenu__item" data-title="Belleza a tu medida">
-                                    <a class="submenu__link d-block" title="Belleza a tu medida">
-                                        Belleza a tu medida
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="sub__menu__asesorBelleza">
-                            <h4>Cyzone</h4>
-                            <ul class="row flex-column ml-0 mr-0">
-                                <li class="submenu__item" data-title="Maquillador virtual">
-                                    <a class="submenu__link d-block" title="Maquillador virtual">
-                                        Maquillador virtual
-                                    </a>
-                                </li>
-                                <li class="submenu__item" data-title="Manicure virtual">
-                                    <a class="submenu__link d-block" title="Manicure virtual">
-                                        Manicure virtual
-                                    </a>
-                                </li>
-                                <li class="submenu__item" data-title="Look book">
-                                    <a class="submenu__link d-block" title="Look book">
-                                        Look book
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="submenu__item submenu__item--Catalogos mostrarEnDesktop" data-title="Catálogos">
-                    <a class="submenu__link d-block" title="Catálogos">
-                        <img src="https://S3.amazonaws.com/somosbelcorpqa/Menu/MiNegocio/PE/imagen_01.png" class="w-100" alt="Catálogos">
-                        <div class="submenu__item__title w-100">Catálogos</div>
-                    </a>
-                </li>
-                <li class="submenu__item submenu__item--Incentivos mostrarEnDesktop" data-title="Incentivos">
-                    <a class="submenu__link d-block" title="Incentivos">
-                        <img src="https://S3.amazonaws.com/somosbelcorpqa/Menu/MiNegocio/PE/imagen_03.png" class="w-100" alt="Incentivos">
-                        <div class="submenu__item__title w-100">Incentivos</div>
-                    </a>
-                </li>
-                <!-- FIN - ITEMS DEL MENÚ EN DESKTOP -->
             </ul>
         </li>
-        <li class="menu__item menu__item--ofertas" data-title="Ofertas">
+        <li class="menu__item menu__item--ofertas">
             <a class="menu__link d-block menu__link--ofertas" title="Ofertas">
                 <!-- Se muestra ésta imagen si la consultora no tiene suscripción activa -->
                 <img src="https://cdn1-prd.somosbelcorp.com/RevistaDigital/PE/gif-ganamas.gif" alt="Gana Más" style="display:none;">
@@ -216,62 +123,61 @@
                 <!-- Fin - Se muestra ésta imagen si la consultora tiene suscripción activa -->
             </a>
         </li>
-        <li class="menu__item mostrarEnMobile" data-title="App de Catálogos">
+        <li class="menu__item">
             <!-- Agregar clase menu__link--sinAfiliacionAppCatalogo cuando consultora no esté afiliada al app de catálogos -->
-            <a class="menu__link d-block menu__link--conSubmenu" title="App de Catálogos">
+            <a class="menu__link d-block menu__link--conSubmenu menu__link--conSubmenuMobile" title="App de Catálogos">
                 App de Catálogos
             </a>
             <!-- Fin - Agregar clase menu__link--sinAfiliacionAppCatalogo cuando consultora no esté afiliada al app de catálogos -->
             <!-- Si la consultora no esté afiliada al app de catálogos no se le debe mostrar este submenú -->
-            <!-- <div class="mostrarEnMobile"> -->
             <ul class="submenu__lista row flex-column flex-nowrap ml-0 mr-0 mb-0 pl-0">
-                <li class="submenu__item" data-title="Información">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Información">
                         Información
                     </a>
                 </li>
-                <li class="submenu__item" data-title="Pedidos pendientes">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Pedidos pendientes">
                         Pedidos pendientes
                         <span class="notificaciones__cantidad notificaciones__cantidad--pedidosPendientes d-block">1</span>
                     </a>
                 </li>
-                <li class="submenu__item" data-title="Historial de pedidos">
+                <li class="submenu__item">
                     <a class="submenu__link d-block" title="Historial de pedidos">
                         Historial de pedidos
                     </a>
                 </li>
             </ul>
-            <!-- </div> -->
             <!-- Fin - Si la consultora no esté afiliada al app de catálogos no se le debe mostrar este submenú -->
         </li>
-        <li class="menu__item mostrarEnMobile" data-title="Catálogos">
+        <li class="menu__item">
             <a class="menu__link d-block" title="Catálogos">
                 Catálogos
             </a>
         </li>
-        <li class="menu__item mostrarEnMobile" data-title="Mi Asesor de Belleza">
+        <li class="menu__item">
             <a class="menu__link d-block" title="Mi Asesor de Belleza">
                 Mi Asesor de Belleza
             </a>
         </li>
-        <li class="menu__item" data-title="Mi Academia">
+        <li class="menu__item">
             <a class="menu__link d-block" title="Mi Academia">
                 Mi Academia
             </a>
         </li>
-        <li class="menu__item" data-title="Mi Comunidad">
+        <li class="menu__item">
             <a class="menu__link d-block" title="Mi Comunidad">
                 Mi Comunidad
             </a>
         </li>
-        <li class="menu__item mostrarEnMobile" data-title="Mis Notificaciones">
+        <li class="menu__item">
             <a class="menu__link d-block" title="Mis Notificaciones">
                 Mis Notificaciones
             </a>
         </li>
     </ul>
-    <a class="menu__link menu__link--cerrar-sesion text-underline mostrarEnMobile" title="Cerrar Sesión">
+    <a class="menu__link menu__link--cerrar-sesion text-underline d-block" title="Cerrar Sesión">
         Cerrar sesión
     </a>
 </nav>
+<!-- FIN - MENÚ PRINCIPAL MOBILE -->
