@@ -2780,12 +2780,18 @@ namespace Portal.Consultoras.Common
             public const int CYZONE = 10;
         }
 
-
         public class AceptacionContrato
         {
             public const string UrlDescargarContratoCO = "http://somosbelcorpprd.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
             public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
             public const string AcionesOmitidas = "ActualizarContrasenia";
+        }
+
+        public class CodigoEstrategiaBuscador
+        {
+            public const string Liquidacion = "LIQ";
+            public const string Catalogo = "CAT";
+            public const string OfertaDelDia = "ODD";
         }
     }
 }
