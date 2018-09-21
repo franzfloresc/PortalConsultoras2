@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var lstProductoFaltante = SessionManager.GetListaProductoFaltantes() as List<BEProductoFaltante>;
+                var lstProductoFaltante = SessionManager.GetListaProductoFaltantes();
 
                 if (lstProductoFaltante != null)
                     return Json(new

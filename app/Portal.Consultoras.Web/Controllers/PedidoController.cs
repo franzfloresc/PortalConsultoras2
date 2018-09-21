@@ -4038,7 +4038,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region VirtualCoach 
                 if (estrategia.EstrategiaID <= 0)
                 {
-                    var ficha = (FichaProductoDetalleModel)SessionManager.GetFichaProductoTemporal();
+                    var ficha = SessionManager.GetFichaProductoTemporal();
                     if (ficha == null)
                     {
                         mensaje = "Estrategia no encontrada.";
