@@ -44,9 +44,10 @@ $(document).ready(function () {
                 e.preventDefault();
                 var subMenuMobile = $(this).next();
                 $('.menu__link--conSubmenuMobile').next().slideUp(80);
-                if(subMenuMobile.css('display') == 'block'){
+                if(subMenuMobile.css('display') == 'flex'){
                     subMenuMobile.slideUp(80);
                 } else {
+                    subMenuMobile.css('display', 'flex');
                     subMenuMobile.slideDown(130);
                 }
             }
