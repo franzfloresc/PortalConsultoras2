@@ -204,13 +204,13 @@ function _pintarEstrellas(item) {
 }
 
 function ArmarCarouselEstrategias(data) {
-
     $("#divListaEstrategias").hide();
     $(".js-slick-prev").remove();
     $(".js-slick-next").remove();
     $("#divListadoEstrategia.slick-initialized").slick("unslick");
     data.Lista = data.Lista || [];
     if (data.Lista.length == 0) {
+
         $("#divListaEstrategias").show();
         $("#divContenedorListaEstrategia").hide();
         $(".contenido_gana_mas").hide();
@@ -315,7 +315,7 @@ function ArmarCarouselEstrategias(data) {
         $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel");
         $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel($("#divListadoEstrategia"));
+        EstablecerLazyCarrusel("#divListadoEstrategia");
 
         $("#divListadoEstrategia").not(".slick-initialized").slick({
             lazyLoad: "ondemand",
@@ -338,6 +338,8 @@ function ArmarCarouselEstrategias(data) {
             ]
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
         });
     }
     else if (tipoOrigenEstrategia == 11) {
@@ -357,7 +359,7 @@ function ArmarCarouselEstrategias(data) {
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
         cant = data.CodigoEstrategia == "101" ? (data.Lista.length > 4 ? 4 : data.Lista.length) : cant;
 
-        EstablecerLazyCarrusel($("#divListadoEstrategia"));
+        EstablecerLazyCarrusel("#divListadoEstrategia");
 
         var claseFlechaDoradaNext = "";
         var claseFlechaDoradaPrev = "";
@@ -386,6 +388,8 @@ function ArmarCarouselEstrategias(data) {
             nextArrow: '<button type="button" data-role="none" class="slick-prev ' + claseFlechaDoradaPrev+'"></button>'
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
         });
 
         if (data.Lista.length > cant) {
@@ -397,7 +401,7 @@ function ArmarCarouselEstrategias(data) {
         $("#div-linea-OPT").show();
         $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel($("#divListadoEstrategia"));
+        EstablecerLazyCarrusel("#divListadoEstrategia");
 
         $("#divListadoEstrategia").slick({
             lazyload: "ondemand",
@@ -426,12 +430,14 @@ function ArmarCarouselEstrategias(data) {
             ]
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
         });
     }
     else if (tipoOrigenEstrategia == 21) {
         $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel($("#divListadoEstrategia"));
+        EstablecerLazyCarrusel("#divListadoEstrategia");
 
         $("#divListadoEstrategia").slick({
             lazyLoad: "ondemand",
@@ -461,6 +467,8 @@ function ArmarCarouselEstrategias(data) {
             ]
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
         });
     }
 
@@ -469,7 +477,6 @@ function ArmarCarouselEstrategias(data) {
 }
 
 function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
-
     var posicionEstrategia, recomendado, arrayEstrategia;
     var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedido" :
         tipoOrigenEstrategia == 2 ? "MobileHome" : tipoOrigenEstrategia == 21 ? "MobilePedido" : "";
@@ -542,7 +549,6 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         });
     }
 }
-
 
 function EstructurarDataCarousel(array) {
     array = array || [];
@@ -637,7 +643,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                     divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
                 }
 
-                $(".contenedor_popup_detalleCarousel").hide();
+                //$(".contenedor_popup_detalleCarousel").hide(); DEUDA TECNICA
                 $("#divMensajeBloqueada").show();
             }
         }
@@ -809,7 +815,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                 }
                 CerrarLoad();
             } else {
-                console.log('Estrategia.js - EstrategiaAgregarProducto - ajax ante ActualizarGanancia', "Pedido/AgregarProductoZE");
+
                 jQuery.ajax({
                     type: "POST",
                     url: baseUrl + "Pedido/AgregarProductoZE",
@@ -837,7 +843,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 
                         if (tipoOrigenEstrategia == 1) {
                             MostrarBarra(data, "1");
-                            console.log('Estrategia.js - EstrategiaAgregarProducto - ante ActualizarGanancia', data.DataBarra);
+
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias();
                           
@@ -862,7 +868,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             CargarResumenCampaniaHeader(true);
                         }
                         else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
-                            console.log('Estrategia.js - EstrategiaAgregarProducto - ante ActualizarGanancia', data.DataBarra);
+
                             ActualizarGanancia(data.DataBarra);
                             if (tipoOrigenEstrategia == 262) {
                                 origenRetorno = $.trim(origenRetorno);
@@ -913,7 +919,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 }
 
 function HidePopupEstrategiasEspeciales() {
-    $("#popupDetalleCarousel_packNuevas").hide();
+    //$("#popupDetalleCarousel_packNuevas").hide(); DEUDA TECNICA (BORRAR ESTA FUNCIÓN DESPUES)
 }
 
 function CerrarLoad() {

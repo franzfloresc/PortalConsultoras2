@@ -61,6 +61,9 @@
     <Reference Include="MvcContrib.TestHelper, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvcContrib.Mvc3.TestHelper-ci.3.0.100.0\lib\MvcContrib.TestHelper.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <HintPath>..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
     </Reference>
@@ -68,6 +71,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
@@ -94,9 +98,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AreasMobile\Mobile\GuiaNegocioControllerUnitTests.cs" />
-    <Compile Include="AreasMobile\Mobile\BaseGuiaNegocioControllerUnitTests.cs" />
-    <Compile Include="AreasMobile\Mobile\OfertasParaTiUnitTests.cs" />
+    <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaControllerUnitTests.cs" />
+    <Compile Include="Areas\Mobile\Controllers\GuiaNegocioControllerUnitTests.cs" />
+    <Compile Include="Areas\Mobile\Controllers\BaseGuiaNegocioControllerUnitTests.cs" />
+    <Compile Include="Areas\Mobile\Controllers\OfertasParaTiUnitTests.cs" />
     <Compile Include="Attributes\ExpectedExceptionWithMessageAttribute.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="Controllers\BaseControllerUnitTest.cs" />
@@ -107,6 +112,10 @@
     <Compile Include="Controllers\GestionContenidoControllerUnitTest.cs" />
     <Compile Include="Controllers\PedidoControllerUnitTest.cs" />
     <Compile Include="Controllers\LoginControllerUnitTest.cs" />
+    <Compile Include="Controllers\DetalleEstrategiaControllerUnitTests.cs" />
+    <Compile Include="Controllers\BaseViewControllerUnitTests.cs" />
+    <Compile Include="Extensions\DataHandlerExtensions.cs" />
+    <Compile Include="Extensions\RedirectToRouteResultExtensions.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhoneTests.cs" />
     <Compile Include="Controllers\RevistaDigitalControllerUnitTest.cs" />
     <Compile Include="Models\RevistaDigitalModelUnitTests.cs" />
@@ -114,7 +123,15 @@
     <Compile Include="Providers\ShowRoomProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataTesting\2001UnComponenteNMData.json" />
+    <None Include="DataTesting\2002MultiComponenteMMData.json" />
+    <None Include="DataTesting\2003MultiComponenteMixtoMMData.json" />
+    <None Include="DataTesting\2003MultiComponenteMixtoNMData.json" />
+    <None Include="DataTesting\2003MultiComponenteNMData.json" />
+    <None Include="DataTesting\2003UnComponenteNMData.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

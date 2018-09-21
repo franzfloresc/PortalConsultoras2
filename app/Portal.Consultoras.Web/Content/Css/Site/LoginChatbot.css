@@ -333,12 +333,12 @@ body {
 }
 
 .check_icono_mobile {
-    background: url('../../Images/Esika/icono_check_esika.svg') no-repeat;
+    background: url('/Content/Images/Esika/icono_check_esika.svg') no-repeat;
     background-size: cover;
 }
 
 .exclamacion_icono_mobile {
-    background: url('../../Images/Esika/icono_exclamacion_esika.png') no-repeat;
+    background: url('/Content/Images/Esika/icono_exclamacion_esika.png') no-repeat;
     background-size: cover;
 }
 
@@ -401,7 +401,7 @@ body {
     font-family: 'Lato';
     padding: 0;
     padding-left: 16px;
-    background: #3b56a8 url('../../Images/PL20/facebook_login.png') no-repeat;
+    background: #3b56a8 url('/Content/Images/PL20/facebook_login.png') no-repeat;
     background-position: 21px 14px;
     display: block;
     text-align: center;
@@ -455,7 +455,7 @@ body {
     font-size: 12px;
     text-decoration: none;
     color: black;
-    background: url('../../Images/PL20/flecha_regresa_chat.png') no-repeat;
+    background: url('/Content/Images/PL20/flecha_regresa_chat.png') no-repeat;
 }
 
 .campo_input_chat {

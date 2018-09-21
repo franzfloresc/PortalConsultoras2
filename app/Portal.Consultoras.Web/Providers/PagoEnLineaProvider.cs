@@ -282,7 +282,7 @@ namespace Portal.Consultoras.Web.Providers
                 string accessKeyId = model.PagoVisaModel.AccessKeyId;
                 string secretAccessKey = model.PagoVisaModel.SecretAccessKey;
 
-                var respuestaAutorizacion = GenerarAutorizacionBotonPagos(userData.PaisID, sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
+                var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
                 var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
 
                 BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa, userData);
@@ -362,7 +362,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        private string GenerarAutorizacionBotonPagos(int paisId, string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
+        private string GenerarAutorizacionBotonPagos(string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
         {
             var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaVisa;
             var listaPasarelaVisa = ObtenerPagoEnLineaTipoPasarela(tipoPasarelaVisa);

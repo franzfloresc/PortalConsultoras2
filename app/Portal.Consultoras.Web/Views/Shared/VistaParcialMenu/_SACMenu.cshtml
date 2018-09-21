@@ -1,0 +1,391 @@
+﻿@{
+    List<Portal.Consultoras.Web.Models.PermisoModel> permisoList = ViewBag.Permiso;
+    string ServiceController = ViewBag.ServiceController;
+    string ServiceAction = ViewBag.ServiceAction;
+    int IndicadorPermisoFIC = ViewBag.IndicadorPermisoFIC ?? 0;
+    bool IndicadorPermisoFlexipago = ViewBag.IndicadorPermisoFlexipago ?? false;
+
+    // Asignar permisosList con los elementos solo de la cabecera
+    permisoList = permisoList != null
+        ? permisoList.Where(x => x.Posicion.ToLower().Equals("header") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
+        : new List<Portal.Consultoras.Web.Models.PermisoModel>();
+}
+<script type="text/javascript">
+    if (!Array.prototype.indexOf) {
+        Array.prototype.indexOf = function (elt) {
+            var len = this.length >>> 0;
+
+            var from = Number(arguments[1]) || 0;
+            from = (from < 0)
+                 ? Math.ceil(from)
+                 : Math.floor(from);
+            if (from < 0)
+                from += len;
+            for (; from < len; from++) {
+                if (from in this &&
+                    this[from] === elt)
+                    return from;
+            }
+            return -1;
+        };
+    }
+
+    function SetAnalyticsMenu(ActionName, ControllerName, Flag, Descripcion, TipoMenu, RolID) {
+        var estado = true;
+        // se valida si la URL es externa (no tiene Controladora)
+        var URL = '';
+        if (ControllerName == '') {
+            URL = ActionName;
+        }
+        else // la url es interna
+        {
+            if (ActionName == "Index")
+                URL = location.protocol + "//" + location.host + "/" + ControllerName;
+            else
+                URL = location.protocol + "//" + location.host + "/" + ControllerName + "/" + ActionName;
+        }
+
+        if (TipoMenu == "1") {
+        }
+        else
+            if (RolID == "1" || RolID == "4") {
+            }
+            else {
+            }
+
+        //
+        if (Descripcion != "Pedidos") {
+            if ($("#hdFlagOfertaWeb").val() == "1") {
+                MostrarMensajeConsultora();
+                return false;
+            }
+            else if ($("#hdFlagOfertaLiquidacion").val() == "1") {
+                MostrarMensajeConsultora();
+                return false;
+            }
+        }
+
+        if ($("#hdFlagValidacion").val() == "1") {
+            if ($('#hdFlagValidacionReserva').val() == "1") {
+                MostrarMensajeConsultoraValidacion();
+            }
+            return false;
+        }
+
+        if (Flag == "1") {
+            window.open(URL, '_blank');
+            estado = false;
+        }
+        else
+            location.href = URL;
+
+        return estado;
+    }
+
+    function SetAnalyticsProgramasBelcorp(Descripcion) {
+    }
+
+    function MostrarMensajeConsultora() {
+        showDialog("DialogMensajeProducto");
+        $("#DialogMensajeProducto").siblings(".ui-dialog-titlebar").hide();
+    }
+
+    function MostrarMensajeConsultoraValidacion() {
+        showDialog("DialogMensajeValidacion");
+        $("#DialogMensajeValidacion").siblings(".ui-dialog-titlebar").hide();
+    }
+</script>
+<div id="wrap_header_menu_background">
+    <div id="wrap_header_menu" class="field100">
+        <div id="logo_tsmv" class="field20">
+            <a href="@Url.Action("Index", "Bienvenida")" style="cursor:pointer;text-decoration:underline;" target="_self">
+                <img src="@Url.Content("~/Content/Images/belcorp_logo.png")" alt="SomosBelcorp" width="82" height="82" />
+            </a>
+        </div>
+
+        <div id="cont_menus" class="field80">
+            <div id="header_tsmv">
+                <div class="field50">
+                    <div class="menu_opciones_sh"><span class="margin_right_20">@ViewBag.Usuario</span></div>
+                    <div class="menu_opciones">
+                        <span class="margin_right_20">
+                        </span>
+                    </div>
+                    <div class="menu_opciones">
+                        <span class="margin_right_20">
+                            @Html.ActionLink("Cerrar Sesión", "LogOut", "Login")
+                        </span>
+                    </div>
+                </div>
+                <div class="field50"></div>
+            </div>
+
+@if (permisoList.Count > 0)
+{
+    var cantsubMenus = permisoList.Count();
+    var MostrarMenuComunidad = true;
+    var MostrarMenuAcademia = false;
+    var Lider = ViewBag.Lider == 1 && ViewBag.PortalLideres ? true : false;
+    
+    <div id="wrap_menu_principal" class="field100">
+        <ul id="menu" class="field100">
+            @foreach (var primerNivelMenu in permisoList)
+            {
+                var pageTarget = primerNivelMenu.PaginaNueva ? "_blank" : "_self";
+
+                if (!Lider && primerNivelMenu.Descripcion.ToUpper() == "SOCIA EMPRESARIA")
+                {
+                    cantsubMenus = cantsubMenus - 1;
+                    continue;
+                }
+
+                var fieldPrimerMenu = cantsubMenus == 4 ? "field25"
+                    : cantsubMenus == 3 ? "field33"
+                    : cantsubMenus == 2 ? "field50"
+                    : cantsubMenus == 1 ? "field100"
+                    : "field20";
+                     
+                <li class="@fieldPrimerMenu">
+                    <div class="menu_border_right">
+
+                        @if (String.IsNullOrWhiteSpace(primerNivelMenu.UrlItem))
+                        {
+                            if (ViewBag.EsUsuarioComunidad == 0 && primerNivelMenu.Descripcion.Trim().ToUpper() == "MI COMUNIDAD")
+                            {
+                            <a href="javascript:;" onclick="AbrirModalRegistroComunidad()" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
+                                @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
+                                {
+                                <img class="vertical_align_text" src="@primerNivelMenu.UrlImagen" alt="SomosBelcorp" />
+                                }
+                                @primerNivelMenu.Descripcion</a>
+                                MostrarMenuComunidad = false;
+                            }
+                            else
+                            {
+                            <a href="#" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
+                                @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
+                                {
+                                <img class="vertical_align_text" src="@primerNivelMenu.UrlImagen" alt="SomosBelcorp" />
+                                }
+                                @primerNivelMenu.Descripcion</a>
+                            }
+                        }
+                        else if (!primerNivelMenu.EsDireccionExterior)
+                        {
+                            if (ViewBag.EsUsuarioComunidad == 0 && primerNivelMenu.Descripcion.Trim().ToUpper() == "MI COMUNIDAD")
+                            {
+                            <a href="javascript:;" onclick="AbrirModalRegistroComunidad()" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
+                                @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
+                                {
+                                <img class="vertical_align_text" src="@primerNivelMenu.UrlImagen" alt="SomosBelcorp" />
+                                }
+                                @primerNivelMenu.Descripcion</a>
+                                MostrarMenuComunidad = false;
+                            }
+                            else
+                            {
+                            <a href="javascript:;" onclick="return SetAnalyticsMenu('@primerNivelMenu.UrlItem.Split('/')[1]', '@primerNivelMenu.UrlItem.Split('/')[0]',@Convert.ToInt32(primerNivelMenu.PaginaNueva), '@primerNivelMenu.Descripcion',1, '@primerNivelMenu.RolId')" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
+                                @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
+                                {
+                                <img class="vertical_align_text" src="@primerNivelMenu.UrlImagen" alt="SomosBelcorp" />
+                                }
+                                @primerNivelMenu.Descripcion
+                            </a>
+                            }
+                        }
+                        else
+                        {
+                            <a href="javascript:;" onclick="return SetAnalyticsMenu('@primerNivelMenu.UrlItem', '',@Convert.ToInt32(primerNivelMenu.PaginaNueva), '@primerNivelMenu.Descripcion',1, '@primerNivelMenu.RolId')" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
+                                @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
+                                {
+                                <img class="vertical_align_text" src="@primerNivelMenu.UrlImagen" alt="SomosBelcorp" />
+                                }
+                                @primerNivelMenu.Descripcion
+                            </a>
+                        }
+                    </div>
+                </li>
+            }
+        </ul>
+
+        @{
+            var submenu = 1;
+        }
+
+        @foreach (var primerNivelMenu in permisoList)
+        {
+            if (primerNivelMenu.Descripcion.Trim().ToUpper() == "MI COMUNIDAD" && !MostrarMenuComunidad)
+            {
+                submenu++;
+                continue;
+            }
+            if (primerNivelMenu.Descripcion.Trim().ToUpper() == "MI ACADEMIA" && !MostrarMenuAcademia)
+            {
+                submenu++;
+                continue;
+            }
+            if (!Lider && primerNivelMenu.Descripcion.ToUpper() == "SOCIA EMPRESARIA")
+            {
+                continue;
+            }
+
+            if (primerNivelMenu.SubMenus.Count > 0)
+            {
+                var pageTargetSegundoNivel = primerNivelMenu.EsDireccionExterior ? "_blank" : "_self";
+                var fieldSegundoMenu = primerNivelMenu.SubMenus.Count == 5 ? "field20"
+                    : primerNivelMenu.SubMenus.Count == 4 ? "field25"
+                    : primerNivelMenu.SubMenus.Count == 3 ? "field33"
+                    : primerNivelMenu.SubMenus.Count == 2 ? "field50"
+                    : primerNivelMenu.SubMenus.Count == 1 ? "field100"
+                    : "field20";
+                var classMenu = "submenu_" + primerNivelMenu.SubMenus.Count;
+
+                if (primerNivelMenu.SubMenus.Count <= 3)
+                {
+                    classMenu = "subs_marcas " + classMenu;
+                }
+                
+            <div id="@string.Format("submenu{0}", submenu)" class="submenu @classMenu">
+                <ul>
+                    @foreach (var segundoNivelMenu in primerNivelMenu.SubMenus)
+                    {
+                        <li class="@fieldSegundoMenu">
+                            @if (!String.IsNullOrEmpty(segundoNivelMenu.Descripcion))
+                            {
+                                if (String.IsNullOrWhiteSpace(segundoNivelMenu.UrlItem))
+                                {
+                                    <a href="#">
+                                        @if (!segundoNivelMenu.EsSoloImagen)
+                                        {
+                                            <label>@segundoNivelMenu.Descripcion</label>
+                                        }
+                                        else
+                                        {
+                                            <img src="@segundoNivelMenu.Descripcion" alt="titulo" />
+                                        }
+                                        <br />
+                                        @if (!string.IsNullOrEmpty(segundoNivelMenu.UrlImagen))
+                                        {
+                                            <img class="menu_image_description" src="@segundoNivelMenu.UrlImagen" alt="SomosBelcorp" />
+                                        }
+                                    </a>
+                                }
+                                else if (!segundoNivelMenu.EsDireccionExterior)
+                                {
+                                    <a href="javascript:;" onclick="return SetAnalyticsMenu('@segundoNivelMenu.UrlItem.Split('/')[1]', '@segundoNivelMenu.UrlItem.Split('/')[0]',@Convert.ToInt32(segundoNivelMenu.PaginaNueva), '@segundoNivelMenu.Descripcion',1, '@segundoNivelMenu.RolId')" target="@pageTargetSegundoNivel" role ="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@segundoNivelMenu.Descripcion">
+                                        @segundoNivelMenu.Descripcion <br />
+                                        @if (!string.IsNullOrEmpty(segundoNivelMenu.UrlImagen))
+                                        {
+                                            <img class="menu_image_description" src="@segundoNivelMenu.UrlImagen" alt="SomosBelcorp" />
+                                        }
+                                    </a>
+                                }
+                            }
+
+                            @if (segundoNivelMenu.SubMenus.Count > 0)
+                            {
+                                <ul>
+                                    @foreach (var tercerNivelMenu in segundoNivelMenu.SubMenus)
+                                    {
+                                        if(tercerNivelMenu.Mostrar)
+                                        {
+                                        var pageTargetTercerNivel = tercerNivelMenu.PaginaNueva ? "_blank" : "_self";
+                                        var classEspecial = tercerNivelMenu.EsMenuEspecial ? "submenu_important" : string.Empty;
+                                                    
+                                        <li class="@classEspecial" id="@string.Format("permiso_{0}", tercerNivelMenu.PermisoID)">
+                                            @if (tercerNivelMenu.EsMenuEspecial)
+                                            {
+                                                <img class="vertical_align_text" src="@tercerNivelMenu.UrlImagen" alt="SomosBelcorp" width="16" height="16" />
+                                            }
+                                            @if (String.IsNullOrWhiteSpace(tercerNivelMenu.UrlItem))
+                                            {
+                                                <a href="#">
+                                                    @tercerNivelMenu.Descripcion
+                                                </a>
+                                            }
+                                            else if (!tercerNivelMenu.EsDireccionExterior)
+                                            {
+                                                if (tercerNivelMenu.Descripcion == "Pedido FIC")
+                                                {
+                                                    if (IndicadorPermisoFIC == 1)
+                                                    {
+                                                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem.Split('/')[1]', '@tercerNivelMenu.UrlItem.Split('/')[0]',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent ="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
+                                                            @tercerNivelMenu.Descripcion
+                                                        </a>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (tercerNivelMenu.Descripcion == "Ofertas FlexiPago")
+                                                    {
+                                                        if (IndicadorPermisoFlexipago)
+                                                        { 
+                                                            <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem.Split('/')[1]', '@tercerNivelMenu.UrlItem.Split('/')[0]',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
+                                                                @tercerNivelMenu.Descripcion
+                                                            </a>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem.Split('/')[1]', '@tercerNivelMenu.UrlItem.Split('/')[0]',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
+                                                            @tercerNivelMenu.Descripcion
+                                                        </a>
+                                                    }
+                                                }
+                                            }
+                                            else if (tercerNivelMenu.Descripcion.ToUpper() == "INSCRIBE POSTULANTE")
+                                            {
+                                                <a href="javascript:;" onclick="window.open('@tercerNivelMenu.UrlItem', '_blank').focus();" target="@pageTargetTercerNivel" role="menu" region="Principal" parent="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
+                                                    @tercerNivelMenu.Descripcion <br />
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                if (tercerNivelMenu.Descripcion == "Pedido FIC")
+                                                {
+                                                    if (IndicadorPermisoFIC == 1)
+                                                    {
+                                                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem', '',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
+                                                            @tercerNivelMenu.Descripcion <br />
+                                                        </a>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (tercerNivelMenu.Descripcion == "Ofertas FlexiPago")
+                                                    {
+                                                        if (IndicadorPermisoFlexipago)
+                                                        { 
+                                                            <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem', '',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
+                                                                @tercerNivelMenu.Descripcion <br />
+                                                            </a>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem', '',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
+                                                            @tercerNivelMenu.Descripcion <br />
+                                                        </a>
+                                                    }
+                                                }
+                                            }
+                                        </li>
+                                        }
+                                    }
+                                </ul>
+                                <div class="clear"></div>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+            }
+            submenu++;
+        }
+    </div>
+}
+
+        </div>
+    </div>
+    <div id="white_bg_for_menu"></div>
+</div>

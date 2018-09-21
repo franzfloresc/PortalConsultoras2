@@ -3115,6 +3115,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private string CodigoEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string Descripcion1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3136,7 +3139,16 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private int IdMarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenBulkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenProductoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreBulkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreComercialField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreMarcaField;
@@ -3164,6 +3176,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsuarioModificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string VolumenField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -3280,6 +3295,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Descripcion1 {
             get {
                 return this.Descripcion1Field;
@@ -3371,6 +3399,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenBulk {
+            get {
+                return this.ImagenBulkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenBulkField, value) != true)) {
+                    this.ImagenBulkField = value;
+                    this.RaisePropertyChanged("ImagenBulk");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ImagenProducto {
             get {
                 return this.ImagenProductoField;
@@ -3379,6 +3420,32 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((object.ReferenceEquals(this.ImagenProductoField, value) != true)) {
                     this.ImagenProductoField = value;
                     this.RaisePropertyChanged("ImagenProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreBulk {
+            get {
+                return this.NombreBulkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreBulkField, value) != true)) {
+                    this.NombreBulkField = value;
+                    this.RaisePropertyChanged("NombreBulk");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreComercial {
+            get {
+                return this.NombreComercialField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreComercialField, value) != true)) {
+                    this.NombreComercialField = value;
+                    this.RaisePropertyChanged("NombreComercial");
                 }
             }
         }
@@ -3496,6 +3563,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
                     this.UsuarioModificacionField = value;
                     this.RaisePropertyChanged("UsuarioModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Volumen {
+            get {
+                return this.VolumenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VolumenField, value) != true)) {
+                    this.VolumenField = value;
+                    this.RaisePropertyChanged("Volumen");
                 }
             }
         }

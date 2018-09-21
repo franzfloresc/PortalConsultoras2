@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!userData.TienePagoEnLinea)
                 return RedirectToAction("Index", "Bienvenida");
 
-            var model = sessionManager.GetDatosPagoVisa();
+            var model = SessionManager.GetDatosPagoVisa();
             if (!_pagoEnLineaProvider.IsLoadMetodoPago(model)) return RedirectToAction("MetodoPago");
 
             model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea(model);
@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 ListaMetodoPago = _pagoEnLineaProvider.ObtenerListaMetodoPago()
             };
-            sessionManager.SetDatosPagoVisa(model);
+            SessionManager.SetDatosPagoVisa(model);
 
             return View(model);
         }
@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public ActionResult PasarelaPago()
         {
-            var pago = sessionManager.GetDatosPagoVisa();
+            var pago = SessionManager.GetDatosPagoVisa();
             if (!_pagoEnLineaProvider.IsLoadMetodoPago(pago)) return RedirectToAction("MetodoPago");
             if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida");
 
@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> PasarelaPago(PaymentInfo info)
         {
-            var pago = sessionManager.GetDatosPagoVisa();
+            var pago = SessionManager.GetDatosPagoVisa();
             if (!_pagoEnLineaProvider.IsLoadMetodoPago(pago)) return RedirectToAction("MetodoPago");
             if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida");
 
@@ -105,20 +105,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult PagoVisa()
         {
-            var model = sessionManager.GetDatosPagoVisa();
+            var model = SessionManager.GetDatosPagoVisa();
 
             if (!_pagoEnLineaProvider.IsLoadMetodoPago(model)) return RedirectToAction("MetodoPago");
             if (!_pagoEnLineaProvider.CanPay(userData, model)) return RedirectToAction("Index", "Bienvenida");
 
             model.PagoVisaModel = _pagoEnLineaProvider.ObtenerValoresPagoVisa(model);
-            sessionManager.SetDatosPagoVisa(model);
+            SessionManager.SetDatosPagoVisa(model);
 
             return View(model);
         }
 
         public ActionResult PagoVisaResultado()
         {
-            var model = sessionManager.GetDatosPagoVisa();
+            var model = SessionManager.GetDatosPagoVisa();
 
             if (model == null)
                 return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
@@ -162,8 +162,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             };
 
             var success = await provider.Pay(info, pago);
-            sessionManager.SetDatosPagoVisa(null);
-            sessionManager.SetListadoEstadoCuenta(null);
+            SessionManager.SetDatosPagoVisa(null);
+            SessionManager.SetListadoEstadoCuenta(null);
 
             if (!success)
                 return View("PagoRechazado", pago);
@@ -179,7 +179,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private void LoadViewParameters(PagoEnLineaModel pago, string[] requiredFields)
         {
             pago.DeviceSessionId = GetDeviceSessionId();
-            sessionManager.SetDatosPagoVisa(pago);
+            SessionManager.SetDatosPagoVisa(pago);
 
             ViewBag.DeviceSessionId = pago.DeviceSessionId;
             ViewBag.PagoLineaCampos = requiredFields;
