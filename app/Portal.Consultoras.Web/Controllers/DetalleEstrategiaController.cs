@@ -62,6 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
+                    success = true,
                     esMultimarca,
                     componentes,
                     mensaje
@@ -70,7 +71,13 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson("Error al obtener los Componentes: " + ex.Message, true);
+
+                return Json(new
+                {
+                    success = false,
+                    ex
+                }, JsonRequestBehavior.AllowGet);
+                //return ErrorJson("Error al obtener los Componentes: " + ex.Message, true);
             }
 
         }

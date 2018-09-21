@@ -185,11 +185,11 @@ function registrarLogError(objError) {
 function registrarLogErrorElastic(objError) {
 
     if (isPagina('localhost')) {
-        console.error(objError);
+        console.log(objError);
         return;
     }
     else if (location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') >= 0) {
-        console.error(objError);
+        console.log(objError);
     }
 
     if (!urlLogElastic) return;
