@@ -630,7 +630,7 @@ body > img{
 }
 
 .campo_busqueda_fondo_on_focus {
-    /* display:none; */
+    display:none; 
     background-color: #FFF;
     border: 1px solid #d8d8d8;
     width: 101.5%;
@@ -664,7 +664,7 @@ body > img{
     display:block;
     position: absolute;
     right: 0;
-    bottom: 9px;
+    bottom: 8px;
     z-index: 5;
     cursor:pointer;
 }
@@ -680,7 +680,7 @@ body > img{
 }
 
 .lista_resultados_busqueda_productos{
-    /* display: none; */
+     display: none; 
     position: absolute;
     top: 42px;
     right: -3px;
@@ -725,7 +725,7 @@ body > img{
 }
 
 .resultados_wrapper{
-    /* display:none; */
+     display:none; 
     margin-top: 17px;
     width: 98.55%;
     min-height: 65px;
@@ -1045,8 +1045,14 @@ body > img{
     max-width:1110px;
 }
 
+.footer__wrapper:nth-of-type(2){
+    margin-top:25px;
+    margin-bottom:15px;
+}
+
 .footer__wrapper:last-child{
-    margin-top:20px;
+    padding-left:30px;
+    padding-right:30px;
 }
 
 .footer__items__list{
@@ -1123,6 +1129,30 @@ body > img{
 {
     text-decoration:underline!important;
     cursor:pointer;
+}
+
+.bandera__pais,
+.info__copyright
+{
+    margin-top:10px;
+}
+
+.bandera__pais span,
+.info__copyright
+{
+    font-size:10px;
+}
+
+.bandera__pais span{
+    vertical-align:middle;
+}
+
+.icono__bandera__pais{
+    margin-right:5px;
+}
+
+.nombre__pais{
+    margin-top:2px;
 }
 
 /* FIN - FOOTER*/
@@ -1609,8 +1639,9 @@ body > img{
         padding-bottom:20px;
     }
 
-    .footer__wrapper:last-child{
+    .footer__wrapper:nth-of-type(2){
         margin-top:0;
+        margin-bottom:0;
     }
 
     .footer__items__list__wrapper{
@@ -1644,14 +1675,14 @@ body > img{
     .footer__item__title{
         padding-top:10px;
         border-bottom:1px solid #9e9e9f;
-        background-image:url(../../../Images/icono_mas_footer_mobile.png);
+        background-image:url(../../../Images/mobile/icono_mas_footer_mobile.png);
         background-position:96.5% center;
         background-repeat:no-repeat;
         font-weight:400;
     }
 
     .footer__item__title--desplegado{
-        background-image:url(../../../Images/icono_menos_footer_mobile.png);
+        background-image:url(../../../Images/mobile/icono_menos_footer_mobile.png);
     }
 
     .footer__item__content__list{
