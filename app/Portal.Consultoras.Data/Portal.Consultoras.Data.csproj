@@ -90,6 +90,7 @@
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
     <Compile Include="DACategoria.cs" />
+    <Compile Include="DAEscalaDescuentoZona.cs" />
     <Compile Include="DAHorario.cs" />
     <Compile Include="DAClienteDB.cs" />
     <Compile Include="DACalculoPROL.cs" />

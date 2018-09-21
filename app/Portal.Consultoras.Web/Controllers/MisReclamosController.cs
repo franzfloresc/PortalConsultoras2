@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index");
 
             _cdrProvider.CargarInformacion(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-            model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
+            model.ListaCampania = sessionManager.GetCDRCampanias();
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
 
             if (pedidoId != 0)
@@ -1384,9 +1384,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
         {
-            if (Session[Constantes.ConstSession.CDRExpressMensajes] != null)
+            if (sessionManager.GetCDRExpressMensajes() != null)
             {
-                return (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.CDRExpressMensajes];
+                return sessionManager.GetCDRExpressMensajes();
             }
 
             var listMensaje = new List<BETablaLogicaDatos>();
@@ -1401,7 +1401,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            Session[Constantes.ConstSession.CDRExpressMensajes] = listMensaje;
+            sessionManager.SetCDRExpressMensajes(listMensaje);
             return listMensaje;
         }
 

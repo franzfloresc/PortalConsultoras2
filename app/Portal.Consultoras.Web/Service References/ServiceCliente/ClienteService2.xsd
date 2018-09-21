@@ -315,4 +315,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoDDWebDetalle" nillable="true" type="tns:BEPedidoDDWebDetalle" />
+  <xs:complexType name="ArrayOfBEEscalaDescuentoZona">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEscalaDescuentoZona" nillable="true" type="tns:BEEscalaDescuentoZona" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEEscalaDescuentoZona" nillable="true" type="tns:ArrayOfBEEscalaDescuentoZona" />
+  <xs:complexType name="BEEscalaDescuentoZona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaCarga" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MontoHasta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PorDescuento" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEEscalaDescuentoZona" nillable="true" type="tns:BEEscalaDescuentoZona" />
 </xs:schema>

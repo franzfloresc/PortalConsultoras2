@@ -5870,6 +5870,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int IndicadorContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IndicadorContratoAceptacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorDuplaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7587,6 +7590,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.IndicadorContratoField.Equals(value) != true)) {
                     this.IndicadorContratoField = value;
                     this.RaisePropertyChanged("IndicadorContrato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IndicadorContratoAceptacion {
+            get {
+                return this.IndicadorContratoAceptacionField;
+            }
+            set {
+                if ((this.IndicadorContratoAceptacionField.Equals(value) != true)) {
+                    this.IndicadorContratoAceptacionField = value;
+                    this.RaisePropertyChanged("IndicadorContratoAceptacion");
                 }
             }
         }
