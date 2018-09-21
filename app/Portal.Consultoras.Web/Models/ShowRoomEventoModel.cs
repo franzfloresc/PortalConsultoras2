@@ -6,6 +6,7 @@ namespace Portal.Consultoras.Web.Models
     [Serializable]
     public class ShowRoomEventoModel
     {
+        public string _id { get; set; }
         public int EventoID { get; set; }
         public int CampaniaID { get; set; }
         public string Nombre { get; set; }

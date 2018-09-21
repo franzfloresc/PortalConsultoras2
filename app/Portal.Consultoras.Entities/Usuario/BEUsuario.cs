@@ -309,7 +309,7 @@ namespace Portal.Consultoras.Entities
             IvaTotal = row.ToDouble("IvaTotal");
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
-
+            NovedadBuscador = row.ToInt32("NovedadBuscador");
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -1215,6 +1215,8 @@ namespace Portal.Consultoras.Entities
         public string NivelProyectado { get; set; }
         [DataMember]
         public double PromedioVenta { get; set; }
+        [DataMember]
+        public int NovedadBuscador { get; set; }
         [DataMember]
         public bool CambioCorreoPendiente { get; set; }
         [DataMember]

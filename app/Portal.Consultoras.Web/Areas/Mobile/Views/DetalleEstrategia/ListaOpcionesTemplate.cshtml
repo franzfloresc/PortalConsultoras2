@@ -42,7 +42,7 @@
                 style="display:none"
                 {{/iff}}>
                 <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
-                    <a class="cantidad_menos_home" onclick="javascript:ListaOpcionesModule.EliminarOpcion({{componente.Cuv}},event);">
+                    <a class="cantidad_menos_home" onclick="javascript:ListaOpcionesModule.EliminarOpcion('{{componente.Cuv}}',event);">
                         <img id="imgFichaProduMenos" src="/Content/Images/Mobile/Esika/menos.png" alt="">
                     </a>
                     <input type="tel"
@@ -52,7 +52,7 @@
                            value="{{componente.cantidadSeleccionada}}"
                            {{/iff}}
                            size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad" disabled>
-                    <a class="cantidad_mas_home" onclick="javascript:ListaOpcionesModule.SeleccionarOpcion({{componente.Cuv}},event);">
+                    <a class="cantidad_mas_home" onclick="javascript:ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}',event);">
                         <img id="imgFichaProduMas" src="/Content/Images/Mobile/Esika/mas.png" alt="">
                     </a>
                 </div>
