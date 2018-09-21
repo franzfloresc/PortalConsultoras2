@@ -8,160 +8,6 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEPedidoWebDetalle
     {
-        [DataMember]
-        public int CampaniaID { set; get; }
-        [DataMember]
-        public int PedidoID { set; get; }
-        [DataMember]
-        public Int16 PedidoDetalleID { set; get; }
-        [DataMember]
-        public Int16 PedidoDetalleIDPadre { set; get; }
-        [DataMember]
-        public byte MarcaID { set; get; }
-        [DataMember]
-        public long ConsultoraID { set; get; }
-        [DataMember]
-        public Int16 ClienteID { set; get; }
-        [DataMember]
-        public int Cantidad { get; set; }
-        [DataMember]
-        public decimal PrecioUnidad { get; set; }
-        [DataMember]
-        public decimal ImporteTotal { get; set; }
-        [DataMember]
-        public string CUV { get; set; }
-        [DataMember]
-        public string DescripcionProd { get; set; }
-        [DataMember]
-        public string DescripcionCortadaProd { get; set; }
-        [DataMember]
-        public int PaisID { get; set; }
-        [DataMember]
-        public string Nombre { get; set; }
-        [DataMember]
-        public string eMail { get; set; }
-        [DataMember]
-        public bool OfertaWeb { get; set; }
-        [DataMember]
-        public string Mensaje { get; set; }
-        [DataMember]
-        public string ClaseFila { get; set; }
-        [DataMember]
-        public int TipoObservacion { get; set; }
-        [DataMember]
-        public string CUVPadre { get; set; }
-        [DataMember]
-        public bool ModificaPedidoReservado { get; set; }
-        [DataMember]
-        public string Simbolo { get; set; }
-        [DataMember]
-        public int Clientes { get; set; }
-        [DataMember]
-        public decimal ImporteTotalPedido { get; set; }
-        [DataMember]
-        public short EstadoItem { get; set; }
-        [DataMember]
-        public bool CUVNuevo { get; set; }
-        [DataMember]
-        public bool EliminadoTemporal { get; set; }
-        [DataMember]
-        public int ConfiguracionOfertaID { get; set; }
-        [DataMember]
-        public int TipoOfertaSisID { get; set; }
-        [DataMember]
-        public int CantidadAnterior { set; get; }
-        [DataMember]
-        public int Flag { set; get; }
-        [DataMember]
-        public int Stock { set; get; }
-        [DataMember]
-        public int IndicadorMontoMinimo { get; set; }
-        [DataMember]
-        public string IPUsuario { get; set; }
-        [DataMember]
-        public string CodigoUsuarioCreacion { get; set; }
-        [DataMember]
-        public string CodigoUsuarioModificacion { get; set; }
-        [DataMember]
-        public int SubTipoOfertaSisID { get; set; }
-        [DataMember]
-        public string TipoPedido { get; set; }
-        [DataMember]
-        public string DescripcionOferta { get; set; }
-        [DataMember]
-        public string ObservacionPROL { get; set; }
-        [DataMember]
-        public DateTime FechaCreacion { get; set; }
-        [DataMember]
-        public string DescripcionLarga { get; set; }
-        [DataMember]
-        public string Categoria { get; set; }
-        [DataMember]
-        public string DescripcionEstrategia { get; set; }
-        [DataMember]
-        public int TipoEstrategiaID { get; set; }
-
-        [DataMember]
-        public bool IndicadorOfertaCUV { get; set; }
-        [DataMember]
-        public decimal MontoTotalProl { get; set; }
-
-        [DataMember]
-        public string NombreCliente { get; set; }
-
-        [DataMember]
-        public bool EsSugerido { get; set; }
-
-        [DataMember]
-        public bool EsKitNueva { get; set; }
-
-        [DataMember]
-        public int OrdenPedidoWD { get; set; }
-
-        [DataMember]
-        public decimal DescuentoProl { get; set; }
-        [DataMember]
-        public bool FlagConsultoraOnline { get; set; }
-
-        [DataMember]
-        public decimal MontoEscala { get; set; }
-        [DataMember]
-        public decimal MontoAhorroCatalogo { get; set; }
-        [DataMember]
-        public decimal MontoAhorroRevista { get; set; }
-        [DataMember]
-        public int OrigenPedidoWeb { get; set; }
-        [DataMember]
-        public bool EsBackOrder { get; set; }
-        [DataMember]
-        public bool AceptoBackOrder { get; set; }
-        [DataMember]
-        public bool EsCompraPorCompra { get; set; }
-
-        [DataMember]
-        public BEIndicadorPedidoAutentico IndicadorPedidoAutentico { get; set; }
-
-        [DataMember]
-        public int CodigoCatalago { get; set; }
-
-        [DataMember]
-        public bool EsOfertaIndependiente { get; set; }
-
-        [DataMember]
-        public string TipoEstrategiaCodigo { get; set; }
-
-        [DataMember]
-        public bool FlagNueva { get; set; }
-
-        [DataMember]
-        public bool ProgramaNuevoActivado { get; set; }
-
-        [DataMember]
-        public string CodigoTipoOferta { get; set; }
-
-        [DataMember]
-        public int SetID { get; set; }
-
         public BEPedidoWebDetalle()
         { }
 
@@ -215,6 +61,7 @@ namespace Portal.Consultoras.Entities
             ProgramaNuevoActivado = row.ToBoolean("ProgramaNuevoActivado");
             CodigoTipoOferta = row.ToString("CodigoTipoOferta");
             SetID = row.ToInt32("SetID");
+            EstrategiaId = row.ToInt32("EstrategiaId");
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -271,7 +118,213 @@ namespace Portal.Consultoras.Entities
             ProgramaNuevoActivado = row.ToBoolean("ProgramaNuevoActivado");
             CodigoTipoOferta = row.ToString("CodigoTipoOferta");
             SetID = row.ToInt32("SetID");
+            EstrategiaId = row.ToInt32("EstrategiaId");
         }
+
+        [DataMember]
+        public bool AceptoBackOrder { get; set; }
+
+        [DataMember]
+        public int CampaniaID { set; get; }
+        [DataMember]
+        public int Cantidad { get; set; }
+
+        [DataMember]
+        public int CantidadAnterior { set; get; }
+
+        [DataMember]
+        public string Categoria { get; set; }
+
+        [DataMember]
+        public string ClaseFila { get; set; }
+
+        [DataMember]
+        public Int16 ClienteID { set; get; }
+
+        [DataMember]
+        public int Clientes { get; set; }
+
+        [DataMember]
+        public int CodigoCatalago { get; set; }
+
+        [DataMember]
+        public string CodigoTipoOferta { get; set; }
+
+        [DataMember]
+        public string CodigoUsuarioCreacion { get; set; }
+
+        [DataMember]
+        public string CodigoUsuarioModificacion { get; set; }
+
+        [DataMember]
+        public int ConfiguracionOfertaID { get; set; }
+
+        [DataMember]
+        public long ConsultoraID { set; get; }
+
+        [DataMember]
+        public string CUV { get; set; }
+
+        [DataMember]
+        public bool CUVNuevo { get; set; }
+
+        [DataMember]
+        public string CUVPadre { get; set; }
+
+        [DataMember]
+        public string DescripcionCortadaProd { get; set; }
+
+        [DataMember]
+        public string DescripcionEstrategia { get; set; }
+
+        [DataMember]
+        public string DescripcionLarga { get; set; }
+
+        [DataMember]
+        public string DescripcionOferta { get; set; }
+
+        [DataMember]
+        public string DescripcionProd { get; set; }
+
+        [DataMember]
+        public decimal DescuentoProl { get; set; }
+
+        [DataMember]
+        public bool EliminadoTemporal { get; set; }
+
+        [DataMember]
+        public string eMail { get; set; }
+
+        [DataMember]
+        public bool EsBackOrder { get; set; }
+
+        [DataMember]
+        public bool EsCompraPorCompra { get; set; }
+
+        [DataMember]
+        public bool EsKitNueva { get; set; }
+
+        [DataMember]
+        public bool EsOfertaIndependiente { get; set; }
+
+        [DataMember]
+        public bool EsSugerido { get; set; }
+
+        [DataMember]
+        public short EstadoItem { get; set; }
+
+        [DataMember]
+        public int EstrategiaId { get; set; }
+
+        [DataMember]
+        public DateTime FechaCreacion { get; set; }
+
+        [DataMember]
+        public int Flag { set; get; }
+
+        [DataMember]
+        public bool FlagConsultoraOnline { get; set; }
+
+        [DataMember]
+        public bool FlagNueva { get; set; }
+
+        [DataMember]
+        public decimal ImporteTotal { get; set; }
+
+        [DataMember]
+        public decimal ImporteTotalPedido { get; set; }
+
+        [DataMember]
+        public int IndicadorMontoMinimo { get; set; }
+
+        [DataMember]
+        public bool IndicadorOfertaCUV { get; set; }
+
+        [DataMember]
+        public BEIndicadorPedidoAutentico IndicadorPedidoAutentico { get; set; }
+
+        [DataMember]
+        public string IPUsuario { get; set; }
+
+        [DataMember]
+        public byte MarcaID { set; get; }
+
+        [DataMember]
+        public string Mensaje { get; set; }
+
+        [DataMember]
+        public bool ModificaPedidoReservado { get; set; }
+
+        [DataMember]
+        public decimal MontoAhorroCatalogo { get; set; }
+
+        [DataMember]
+        public decimal MontoAhorroRevista { get; set; }
+
+        [DataMember]
+        public decimal MontoEscala { get; set; }
+
+        [DataMember]
+        public decimal MontoTotalProl { get; set; }
+
+        [DataMember]
+        public string Nombre { get; set; }
+
+        [DataMember]
+        public string NombreCliente { get; set; }
+
+        [DataMember]
+        public string ObservacionPROL { get; set; }
+
+        [DataMember]
+        public bool OfertaWeb { get; set; }
+
+        [DataMember]
+        public int OrdenPedidoWD { get; set; }
+
+        [DataMember]
+        public int OrigenPedidoWeb { get; set; }
+
+        [DataMember]
+        public int PaisID { get; set; }
+
+        [DataMember]
+        public Int16 PedidoDetalleID { set; get; }
+
+        [DataMember]
+        public Int16 PedidoDetalleIDPadre { set; get; }
+
+        [DataMember]
+        public int PedidoID { set; get; }
+        [DataMember]
+        public decimal PrecioUnidad { get; set; }
+        [DataMember]
+        public bool ProgramaNuevoActivado { get; set; }
+
+        [DataMember]
+        public int SetID { get; set; }
+
+        [DataMember]
+        public string Simbolo { get; set; }
+
+        [DataMember]
+        public int Stock { set; get; }
+
+        [DataMember]
+        public int SubTipoOfertaSisID { get; set; }
+
+        [DataMember]
+        public string TipoEstrategiaCodigo { get; set; }
+
+        [DataMember]
+        public int TipoEstrategiaID { get; set; }
+
+        [DataMember]
+        public int TipoObservacion { get; set; }
+        [DataMember]
+        public int TipoOfertaSisID { get; set; }
+        [DataMember]
+        public string TipoPedido { get; set; }
     }
 
 }

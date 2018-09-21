@@ -11,7 +11,7 @@ else
     <link href="@Url.Content("~/Content/Css/Site/Lbel/gestorContenido.css")" rel="stylesheet" type="text/css" />
 }
 
-@Styles.Render("~/bundles/estrategias-upselling-css")
+@Styles.Render("~/Bundle/Css/Desktop/Upselling")
 
 <div id="upSellingCRUD">
     <div data-bind="fadeVisible: !$root.mostrarFormularioUpSelling()">
@@ -93,7 +93,7 @@ else
                 <div class="div-3">
                     <div class="titC titCD" data-bind="preview : 'TextoGanasteBoton'">Texto Ganaste Boton:</div>
                     <div class="selectA" data-bind="css: { error: TextoGanasteBoton.hasError }">
-                        <input type="text" data-bind="value: TextoGanasteBoton"  maxlength="21" />
+                        <input type="text" data-bind="value: TextoGanasteBoton" maxlength="21" />
                     </div>
                 </div>
                 <div class="div-3">
@@ -181,13 +181,7 @@ else
     <input type="submit" value="Submit">
 </form>
 
-
-@Scripts.Render("~/bundles/estrategias-upselling")
 @section scripts{
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/api.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
-
     <script>
         jQuery(document).ready(function() {
             belcorp.estrategias.upselling.initialize({
@@ -222,4 +216,5 @@ else
             });
         });
     </script>
+    @Scripts.Render("~/Bundle/Js/Desktop/Upselling")
 }

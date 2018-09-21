@@ -3,16 +3,22 @@
 
 @font-face {
     font-family: 'logo_esika';
-    src: url('../fonts/icomoon/logo_esika.eot?ur7cdc');
-    src: url('../fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'), url('../fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'), url('../fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'), url('../fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
+    src: url('/Content/Css/Site/fonts/icomoon/logo_esika.eot?ur7cdc');
+    src: url('/Content/Css/Site/fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'), 
+        url('/Content/Css/Site/fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'),
+        url('/Content/Css/Site/fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'),
+        url('/Content/Css/Site/fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'iconos_cambio_pass';
-    src: url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r');
-    src: url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r#iefix') format('embedded-opentype'), url('../fonts/icomoon/iconos-cambio-pass.ttf?dhvc7r') format('truetype'), url('../fonts/icomoon/iconos-cambio-pass.woff?dhvc7r') format('woff'), url('../fonts/icomoon/iconos-cambio-pass.svg?dhvc7r#icomoon') format('svg');
+    src: url('/Content/Css/Site/fonts/icomoon/iconos-cambio-pass.eot?dhvc7r');
+    src: url('/Content/Css/Site/fonts/icomoon/iconos-cambio-pass.eot?dhvc7r#iefix') format('embedded-opentype'), 
+         url('/Content/Css/Site/fonts/icomoon/iconos-cambio-pass.ttf?dhvc7r') format('truetype'), 
+         url('/Content/Css/Site/fonts/icomoon/iconos-cambio-pass.woff?dhvc7r') format('woff'), 
+         url('/Content/Css/Site/fonts/icomoon/iconos-cambio-pass.svg?dhvc7r#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -243,7 +249,7 @@ h6, .h6 {
     }
 
 .nav0 {
-    background: url('../Images/separador.png') no-repeat;
+    background: url('/Content/Css/Site/Images/separador.png') no-repeat;
     background-position: right;
 }
 
@@ -251,14 +257,14 @@ Image .nav0:hover {
 }
 
 .nav1 {
-    background: url('../Images/separador.png') no-repeat;
+    background: url('/Content/Css/Site/Images/separador.png') no-repeat;
     background-position: right;
 }
 
 
 
 .nav2 {
-    background: url('../Images/separador.png') no-repeat;
+    background: url('/Content/Css/Site/Images/separador.png') no-repeat;
     background-position: right;
 }
 
@@ -477,7 +483,7 @@ Image .nav0:hover {
 .pais {
     width: 100%;
     font-family: 'icomoon';
-    background: url('../Images/Banderas/00.png') top -7px left -10px no-repeat;
+    background: url('/Content/Css/Site/Images/Banderas/00.png') top -7px left -10px no-repeat;
 }
 
     .pais:before {
@@ -493,7 +499,7 @@ Image .nav0:hover {
 .email {
     width: 100%;
     font-family: 'icomoon';
-    background: url('../Images/email.png') top 8px left 1px no-repeat;
+    background: url('/Content/Css/Site/Images/email.png') top 8px left 1px no-repeat;
     background-size: 5%;
 }
 
@@ -538,7 +544,7 @@ Image .nav0:hover {
     .boxform .admin a {
         text-decoration: none;
         color: #959595;
-        background: url('../images/ico_admin_esika.png') 0 0 no-repeat;
+        background: url('/Content/Css/Site/Images/ico_admin_esika.png') 0 0 no-repeat;
         padding-left: 15px;
         font-weight: 300;
         font-size: 11px;
@@ -577,7 +583,7 @@ Image .nav0:hover {
 }
 
 .detalle {
-    background: url('../images/tooltip.png') top left no-repeat;
+    background: url('/Content/Css/Site/Images/tooltip.png') top left no-repeat;
     width: 242px;
     height: 69px;
     -webkit-border-radius: 10px;
@@ -604,7 +610,7 @@ Image .nav0:hover {
 .detalle2 {
     position: absolute;
     z-index: 1000;
-    background: url('../images/tooltip.png') top left no-repeat;
+    background: url('/Content/Css/Site/Images/tooltip.png') top left no-repeat;
     width: 242px;
     height: 69px;
     top: -16px;
@@ -649,8 +655,11 @@ Image .nav0:hover {
 
 @font-face {
     font-family: 'icomoon';
-    src: url('../fonts/icomoon/icomoon.eot?ur7cdc');
-    src: url('../fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'), url('../fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'), url('../fonts/icomoon/icomoon.woff?ur7cdc') format('woff'), url('../fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
+    src: url('/Content/Css/Site/fonts/icomoon/icomoon.eot?ur7cdc');
+    src: url('/Content/Css/Site/fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'),
+         url('/Content/Css/Site/fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'),
+         url('/Content/Css/Site/fonts/icomoon/icomoon.woff?ur7cdc') format('woff'),
+         url('/Content/Css/Site/fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -897,7 +906,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cerrar-p {
-    background-image: url('../Images/popup/cerrar_04.png');
+    background-image: url('/Content/Css/Site/Images/popup/cerrar_04.png');
     background-repeat: no-repeat;
     height: 16px;
     width: 16px;
@@ -962,7 +971,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .flecha_select {
-    background: url('../Images/flecha_select.png') no-repeat;
+    background: url('/Content/Css/Site/Images/flecha_select.png') no-repeat;
     background-position: right;
     height: 32px;
     margin-right: 1px;
@@ -970,7 +979,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .sombra_superior {
     width: 100%;
-    background: url('../Images/sombra_superior.png');
+    background: url('/Content/Css/Site/Images/sombra_superior.png');
     position: absolute;
     height: 126px;
     z-index: -1;
@@ -1019,7 +1028,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 220;
     width: 100%;
     height: 100%;
-    background: url('../Images/popup_esika/fondo_pop_up.png');
+    background: url('/Content/Css/Site/Images/popup_esika/fondo_pop_up.png');
 }
 
 #bg_1, #popup_olvidasteContrasenia, #popup_cambioContrasenia, #popup_opciones_recuperacion_contrasenia {
@@ -1029,7 +1038,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 200;
     width: 100%;
     height: 100%;
-    background: url('../Images/popup_esika/fondo_pop_up.png');
+    background: url('/Content/Css/Site/Images/popup_esika/fondo_pop_up.png');
 }
 
     #popup_olvidasteContrasenia .formcontrol {
@@ -1101,7 +1110,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1000;
     width: 100%;
     height: 100%;
-    background: url('../Images/popup_esika/fondo_pop_up.png');
+    background: url('/Content/Css/Site/Images/popup_esika/fondo_pop_up.png');
     overflow-y: scroll;
 }
 
@@ -1490,7 +1499,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     width: 120px;
     height: 75px;
-    background-image: url(../../../Images/Login2/Icons/icono-nuevo-correo-esika.svg);
+    background-image: url(/Content/Images/Login2/Icons/icono-nuevo-correo-esika.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -1592,7 +1601,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 39px;
     width: 100%;
-    background-image: url('../Images/popup_esika/titulos_03.png');
+    background-image: url('/Content/Css/Site/Images/popup_esika/titulos_03.png');
     background-repeat: no-repeat;
 }
 
@@ -1600,7 +1609,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 39px;
     width: 100%;
-    background-image: url('../Images/popup_esika/titulos_06.png');
+    background-image: url('/Content/Css/Site/Images/popup_esika/titulos_06.png');
     background-repeat: no-repeat;
 }
 
@@ -1608,7 +1617,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 39px;
     width: 100%;
-    background-image: url('../Images/popup_esika/titulos_08.png');
+    background-image: url('/Content/Css/Site/Images/popup_esika/titulos_08.png');
     background-repeat: no-repeat;
 }
 
@@ -1616,7 +1625,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 63px;
     width: 100%;
-    background-image: url('../Images/popup_esika/corre_titulo_03.png');
+    background-image: url('/Content/Css/Site/Images/popup_esika/corre_titulo_03.png');
     background-repeat: no-repeat;
 }
 
@@ -1630,7 +1639,7 @@ h1, h2, h3, h4, h5, h6 {
 .gmail {
     height: 67px;
     width: 187px;
-    background-image: url('../Images/popup_esika/gmail_03.png');
+    background-image: url('/Content/Css/Site/Images/popup_esika/gmail_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1643,7 +1652,7 @@ h1, h2, h3, h4, h5, h6 {
 .yahoo {
     height: 67px;
     width: 187px;
-    background-image: url('../Images/popup_esika/yahoo_03.png');
+    background-image: url('/Content/Css/Site/Images/popup_esika/yahoo_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1656,7 +1665,7 @@ h1, h2, h3, h4, h5, h6 {
 .hotmail {
     height: 67px;
     width: 187px;
-    background-image: url('../Images/popup_esika/hotmail_03.png');
+    background-image: url('/Content/Css/Site/Images/popup_esika/hotmail_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1669,7 +1678,7 @@ h1, h2, h3, h4, h5, h6 {
 .outlook {
     height: 67px;
     width: 187px;
-    background-image: url('../Images/popup_esika/outlook_03.png');
+    background-image: url('/Content/Css/Site/Images/popup_esika/outlook_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1680,7 +1689,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 .cerrar {
-    background-image: url('../Images/popup_esika/cerrar_04.png');
+    background-image: url('/Content/Css/Site/Images/popup_esika/cerrar_04.png');
     background-repeat: no-repeat;
     height: 24px;
     width: 24px;
@@ -1790,7 +1799,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .fondo_estandar {
-        background: url('../images/login-esika-1920.jpg');
+        background: url('/Content/Css/Site/Images/login-esika-1920.jpg');
     }
 
     .logo-esika {
@@ -2307,12 +2316,12 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .fondo_estandar {
-        background: url('../images/login-esika-1920.jpg') no-repeat fixed !important;
+        background: url('/Content/Css/Site/Images/login-esika-1920.jpg') no-repeat fixed !important;
     }
 }
 
 .img_error_login {
-    background: url('../../../Images/Login2/error_login.svg') no-repeat;
+    background: url('/Content/Images/Login2/error_login.svg') no-repeat;
     padding-left: 20px;
     background-size: 15px;
 }
@@ -2320,7 +2329,7 @@ h1, h2, h3, h4, h5, h6 {
 .header_facebook {
     height: 55px;
     width: 80%;
-    background: black url('../Images/popup_esika/fondo_header.png') top left no-repeat;
+    background: black url('/Content/Css/Site/Images/popup_esika/fondo_header.png') top left no-repeat;
     background-position: right;
     FONT-FAMILY: 'Lato';
     color: white;
@@ -2334,7 +2343,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn_cerrar_login {
-    background-image: url('../Images/popup_esika/cerrar_04.png');
+    background-image: url('/Content/Css/Site/Images/popup_esika/cerrar_04.png');
     background-repeat: no-repeat;
     height: 24px;
     width: 24px;
@@ -2749,13 +2758,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /*Fin Facebook*/
 .icono_esika {
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('/Content/Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
     background-size: 15px;
     color: #e81c36;
 }
 
 .fondo_estandar {
-    background: url('../Images/login-esika-1920.jpg') center center no-repeat fixed;
+    background: url('/Content/Css/Site/Images/login-esika-1920.jpg') center center no-repeat fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -2766,7 +2775,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .campoPais {
     width: 93% !important;
-    background-image: url(../../../Images/Login2/Icons/arrow-select.svg) !important;
+    background-image: url(/Content/Images/Login2/Icons/arrow-select.svg) !important;
     background-position: 99% center !important;
     background-repeat: no-repeat !important;
 }
@@ -2891,7 +2900,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .icono_correo_electronico {
     width: 57.6px;
-    background-image: url(../../../Images/Login2/Icons/icono-mail-esika.svg);
+    background-image: url(/Content/Images/Login2/Icons/icono-mail-esika.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -2899,7 +2908,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .icono_sms {
     width: 55.6px;
-    background-image: url(../../../Images/Login2/Icons/icono-mensaje-sms-esika.svg);
+    background-image: url(/Content/Images/Login2/Icons/icono-mensaje-sms-esika.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -2914,7 +2923,7 @@ h1, h2, h3, h4, h5, h6 {
 .icono_chatea_con_nosotros {
     width: 42.1px;
     height: 61.8px;
-    background-image: url(../../../Images/Login2/Icons/icono-chatea-con-nosotros-esika.svg);
+    background-image: url(/Content/Images/Login2/Icons/icono-chatea-con-nosotros-esika.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -2923,7 +2932,7 @@ h1, h2, h3, h4, h5, h6 {
 .icono_llamada {
     width: 51.9px;
     height: 51.7px;
-    background-image: url(../../../Images/Login2/Icons/icono-llamanos-esika.svg);
+    background-image: url(/Content/Images/Login2/Icons/icono-llamanos-esika.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -2931,7 +2940,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .icono_reloj,
 .icono_reloj_2 {
-    background-image: url(../../../Images/Login2/Icons/icono-reloj-esika.svg);
+    background-image: url(/Content/Images/Login2/Icons/icono-reloj-esika.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -2950,7 +2959,7 @@ h1, h2, h3, h4, h5, h6 {
 .icono_mensaje_sms {
     width: 77px;
     height: 62px;
-    background-image: url(../../../Images/Login2/Icons/icono-sms-esika.svg);
+    background-image: url(/Content/Images/Login2/Icons/icono-sms-esika.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -2964,7 +2973,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: -8px;
     margin-right: 2px;
     margin-bottom: 3px;
-    background-image: url(../../../Images/Login2/Icons/icono-alerta-error-esika.png);
+    background-image: url(/Content/Images/Login2/Icons/icono-alerta-error-esika.png);
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -3106,7 +3115,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 10px;
     margin-left: 1px;
     margin-bottom: 1px;
-    background-image: url(../../../Images/Login2/Icons/flecha-ver-mas-opciones-esika.svg);
+    background-image: url(/Content/Images/Login2/Icons/flecha-ver-mas-opciones-esika.svg);
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -3266,7 +3275,7 @@ h1, h2, h3, h4, h5, h6 {
         background: #d12a35;
         border-radius: 100%;
         margin-bottom: 12px;
-        background-image: url(../../../Images/Login2/Icons/icono-llamada-mobile.svg);
+        background-image: url(/Content/Images/Login2/Icons/icono-llamada-mobile.svg);
         background-repeat: no-repeat;
         background-position: center;
     }

@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace Portal.Consultoras.Common
 {
-    public class Globals
+    public static class Globals
     {
         #region Variables miembro
         private static string _rutaImagenesRevista;

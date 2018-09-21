@@ -235,7 +235,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     userData.CambioClave = 1;
-                    sessionManager.SetPrimeraVezSession(null);
+                    SessionManager.SetPrimeraVezSession(null);
 
                     return Json(new
                     {

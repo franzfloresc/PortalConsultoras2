@@ -1026,13 +1026,103 @@ body > img{
 /* FOOTER */
 
 .layout__footer{
-    display:none;
+    /* display:none; */
     background-color:#ecebf0;
+    border-top:1px solid #000;
     min-height:50px;
+    padding-top:30px;
+    padding-bottom:20px;
 }
 
-.footer__items__list__wrapper{
-    max-width:1169px;
+.linea__separadora{
+    background-color: #CCC;
+    height: 1px;
+    margin: 0;
+    border: 0;
+}
+
+.footer__wrapper{
+    max-width:1110px;
+}
+
+.footer__wrapper:last-child{
+    margin-top:20px;
+}
+
+.footer__items__list{
+    margin-bottom:0;
+}
+
+.footer__items__list--primerListado .footer__item{
+    padding-top:15px;
+    margin-bottom:50px;
+}
+
+.footer__link{
+    cursor:pointer;
+}
+
+.footer__link__imagen{
+    width:50px;
+    height:41px;
+    margin-bottom:15px;
+}
+
+.footer__link__title,
+.footer__link__text
+{
+    font-size:13px;
+}
+
+.footer__link__title{
+    margin-bottom:5px;
+}
+
+.footer__link__text{
+    color:#666;
+    font-weight:300;
+    max-width:203px;
+}
+
+.footer__item--logoBelcorp{
+    order:-1;
+}
+
+.footer__item__title{
+    font-size:10px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+.footer__item__link{
+    font-size:10.2px;
+    margin-bottom:10px;
+}
+
+.footer__item__link,
+.footer__item__link span
+{
+    font-size:10.2px;
+}
+
+.footer__item__link span{
+    display:inline-block;
+    margin-right:10px;
+}
+
+.footer__item__content__list--siguenos a:hover{
+    text-decoration:none!important;
+}
+
+.footer__item__link__text{
+    min-width:54px;
+}
+
+.footer__item__link__text:hover,
+.footer__item__link:hover
+{
+    text-decoration:underline!important;
+    cursor:pointer;
 }
 
 /* FIN - FOOTER*/
@@ -1514,7 +1604,13 @@ body > img{
     /* FOOTER MOBILE */
 
     .layout__footer{
+        border-top:none;
+        padding-top:0;
         padding-bottom:20px;
+    }
+
+    .footer__wrapper:last-child{
+        margin-top:0;
     }
 
     .footer__items__list__wrapper{
@@ -1542,22 +1638,24 @@ body > img{
         padding-bottom:10px;
         min-height:34px;
         font-size:12px;
+        margin-bottom:0;
     }
 
     .footer__item__title{
         padding-top:10px;
         border-bottom:1px solid #9e9e9f;
-        background-image:url(../../../Images/mobile/icono_mas_footer_mobile.png);
+        background-image:url(../../../Images/icono_mas_footer_mobile.png);
         background-position:96.5% center;
         background-repeat:no-repeat;
+        font-weight:400;
     }
 
     .footer__item__title--desplegado{
-        background-image:url(../../../Images/mobile/icono_menos_footer_mobile.png);
+        background-image:url(../../../Images/icono_menos_footer_mobile.png);
     }
 
     .footer__item__content__list{
-        /*display:none;*/
+        /* display:none; */
         background-color:#e2e1e7;
     }
 
@@ -1571,6 +1669,23 @@ body > img{
 
     .footer__item--logo{
         margin-top:17px;
+    }
+
+    .footer__item--logoBelcorp{
+        order:0;
+    }
+
+    .footer__item__content__list--siguenos{
+        background-color:#ecebf0;
+        margin-top:17px;
+    }
+
+    .footer__item__content__list--siguenos .footer__item__content{
+        border-bottom:0;
+    }
+
+    .footer__item__link__text{
+        display:none!important;
     }
 
     /* FIN - FOOTER MOBILE */ 

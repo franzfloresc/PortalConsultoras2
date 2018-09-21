@@ -32,7 +32,7 @@ using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Common
 {
-    public class Util
+    public static class Util
     {
         static public int ParseInt(object value)
         {
@@ -3607,7 +3607,7 @@ namespace Portal.Consultoras.Common
                                     result = lista[Constantes.NuevoCatalogoProducto.GUIADENEGOCIODIGITAL];
                                     break;
                                 case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                                    result = lista[Constantes.TipoEstrategiaCodigo.HerramientasVenta];
+                                    result = lista[Constantes.NuevoCatalogoProducto.HERRAMIENTASDEVENTA];
                                     break;
                                 case Constantes.TipoEstrategiaCodigo.ShowRoom:
                                     result = lista[Constantes.NuevoCatalogoProducto.ESPECIALES];

@@ -9,61 +9,65 @@
 
 
     <footer class="layout__footer row flex-row justify-content-start justify-content-lg-center justify-content-xl-center ml-0 mr-0 mostrarEnMobile">
+
         @*<nav class="col-12 pl-0 pr-0 footer__items__list__wrapper mostrarEnDesktop">
-            <ul class="row flex-row flex-lg-nowrap flex-xl-nowrap ml-0 mr-0 footer__items__list">
+            <ul class="row flex-row flex-lg-nowrap flex-xl-nowrap ml-0 mr-0 footer__items__list footer__items__list--primerListado">
                 <li class="col-12 col-lg-3 col-xl-3 footer__item">
-                    <a class="row flex-row ml-0 mr-0 footer__link" title="Belcorp Responde">
+                    <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Belcorp Responde">
                         <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_esika_responde.png")" alt="Belcorp Responde">
-                        <h3 class="footer__link__title">Belcorp Responde</h3>
-                        <p class="footer__link__text">Escríbenos o llámanos a través de nuestra Central Telefónica</p>
+                        <h3 class="footer__link__title text-uppercase">Belcorp Responde</h3>
+                        <p class="footer__link__text text-center">Escríbenos o llámanos a través de nuestra Central Telefónica</p>
                     </a>
                 </li>
                 <li class="col-12 col-lg-3 col-xl-3 footer__item">
-                    <a class="row flex-row ml-0 mr-0 footer__link" title="Comunidad Virtual">
+                    <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Comunidad Virtual">
                         <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_comunidad_virtual.svg")" alt="Comunidad Virtual">
-                        <h3 class="footer__link__title">Comunidad Virtual</h3>
-                        <p class="footer__link__text">Conoce todo lo que compartimos las mujeres de esta comunidad.</p>
+                        <h3 class="footer__link__title text-uppercase">Comunidad Virtual</h3>
+                        <p class="footer__link__text text-center">Conoce todo lo que compartimos las mujeres de esta comunidad.</p>
                     </a>
                 </li>
                 <li class="col-12 col-lg-3 col-xl-3 footer__item">
-                    <a class="row flex-row ml-0 mr-0 footer__link" title="Catálogos">
+                    <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Catálogos">
                         <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_catalogos.svg")" alt="Catálogos">
-                        <h3 class="footer__link__title">Catálogos</h3>
-                        <p class="footer__link__text">Entérate de nuestras promociones actuales en nuestro Catálogo Virtual.</p>
+                        <h3 class="footer__link__title text-uppercase">Catálogos</h3>
+                        <p class="footer__link__text text-center">Entérate de nuestras promociones actuales en nuestro Catálogo Virtual.</p>
                     </a>
                 </li>
                 <li class="col-12 col-lg-3 col-xl-3 footer__item">
-                    <a class="row flex-row ml-0 mr-0 footer__link" title="Noticias">
+                    <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Noticias">
                         <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_noticias.svg")" alt="Noticias">
-                        <h3 class="footer__link__title">Noticias</h3>
-                        <p class="footer__link__text">Entérate de las noticias de Belcorp.</p>
+                        <h3 class="footer__link__title text-uppercase">Noticias</h3>
+                        <p class="footer__link__text text-center">Entérate de las noticias de Belcorp.</p>
                     </a>
                 </li>
             </ul>
         </nav>*@
+    </div>
+    <hr class="col-12 pl-0 pr-0 linea__separadora mostrarEnDesktop">
+    <div class="col-12 pl-0 pr-0 footer__wrapper">
         <nav class="col-12 pl-0 pr-0 footer__items__list__wrapper">
-            <ul class="row flex-row flex-lg-nowrap flex-xl-nowrap align-items-center ml-0 mr-0 footer__items__list text-uppercase">
+            <ul class="row flex-row flex-lg-nowrap flex-xl-nowrap align-items-center align-items-lg-start align-items-xl-start ml-0 mr-0 footer__items__list text-uppercase">
                 @foreach (var item in itemsFooter)
                 {
                     @*<li class="col-12 col-lg col-xl footer__item mostrarEnDesktop">
-                <h5 class="footer__item__title">Nuestras marcas</h5>
-                <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
-                    <li class="col-12 pl-0 pr-0 footer__item__content">
-                        <a class="footer__item__link d-block" title="L'bel">
-                            L'bel
-                        </a>
-                    </li>
-                    <li class="col-12 pl-0 pr-0 footer__item__content">
-                        <a class="footer__item__link d-block" title="Ésika">
-                            Ésika
-                        </a>
-                    </li>
-                    <li class="col-12 pl-0 pr-0 footer__item__content">
-                        <a class="footer__item__link d-block" title="Cyzone">
-                            Cyzone
-                        </a>
-                    </li>
-                </ul>
+                    <h5 class="footer__item__title">Nuestras marcas</h5>
+                    <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
+                        <li class="col-12 pl-0 pr-0 footer__item__content">
+                            <a class="footer__item__link d-block" title="L'bel">
+                                L'bel
+                            </a>
+                        </li>
+                        <li class="col-12 pl-0 pr-0 footer__item__content">
+                            <a class="footer__item__link d-block" title="Ésika">
+                                Ésika
+                            </a>
+                        </li>
+                        <li class="col-12 pl-0 pr-0 footer__item__content">
+                            <a class="footer__item__link d-block" title="Cyzone">
+                                Cyzone
+                            </a>
+                        </li>
+                    </ul>
             </li>*@
 
                     <li class="col-12 col-lg col-xl footer__item">
@@ -162,14 +166,39 @@
                     </ul>
                 </li>*@
                 
-                <li class="col-7 col-lg col-xl footer__item footer__item--logo">
+                <li class="col-8 col-lg col-xl footer__item footer__item--logo footer__item--logoBelcorp">
                     <picture class="col-12 d-block w-100">
                         <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/Images/logo_belcorp_desktop.png")">
                         <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/Images/logo_belcorp_mobile.svg")">
                         <img src="@Url.Content("~/Content/Images/logo_belcorp_desktop.png")" alt="Belcorp">
                     </picture>
                 </li>
-                <li class="col-3 col-lg col-xl footer__item footer__item--logo">
+                <li class="col-4 col-lg col-xl footer__item">
+                    <h5 class="col-12 footer__item__title mostrarEnDesktop">Síguenos</h5>
+                    <ul class="row flex-row ml-0 mr-0 footer__item__content__list footer__item__content__list--siguenos">
+                        <li class="col-6 col-lg-12 col-xl-12 footer__item__content">
+                            <a class="footer__item__link d-block" title="Facebook">
+                                <span class="footer__item__link__text">
+                                    Facebook
+                                </span>
+                                <span>
+                                    <img src="@Url.Content("~/Content/Images/logo_facebook.svg")" alt="Facebook Somos Belcorp">
+                                </span>
+                            </a>
+                        </li>
+                        <li class="col-6 col-lg-12 col-xl-12 footer__item__content">
+                            <a class="footer__item__link d-block" title="YouTube">
+                                <span class="footer__item__link__text">
+                                    YouTube
+                                </span>
+                                <span>
+                                    <img src="@Url.Content("~/Content/Images/logo_youtube.svg")" alt="YouTube Somos Belcorp">
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @*<li class="col-3 col-lg col-xl footer__item footer__item--logo">
                     <a class="col-12 d-block footer__item__link text-right" title="Facebook Somos Belcorp">
                         <img src="@Url.Content("~/Content/Images/logo_facebook.svg")" alt="Facebook Somos Belcorp">
                     </a>
@@ -181,4 +210,5 @@
                 </li>
             </ul>
         </nav>
+    </div>
     </footer>

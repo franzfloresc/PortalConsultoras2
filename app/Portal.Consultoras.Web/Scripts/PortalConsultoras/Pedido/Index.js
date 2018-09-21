@@ -1800,15 +1800,14 @@ function CerrarProductoAgregado() {
 }
 
 function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
-    console.log('ConfirmarEliminarRegaloGenerico - Inicio', campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId);
+
     if (typeof esUpselling !== "undefined" && esUpselling) {
-        console.log('ConfirmarEliminarRegaloGenerico - typeof esUpselling !== "undefined" && esUpselling');
+
         var regalo = GetUpSellingGanado();
         if (regalo != null) {
-            console.log('ConfirmarEliminarRegaloGenerico - regalo != null');
 
             var popup = $("#divAvisoEliminarRegaloGenerico");
-            console.log('ConfirmarEliminarRegaloGenerico - popup', popup);
+
             popup.attr("data-campaniaId", campaniaId);
             popup.attr("data-pedidoId", pedidoId);
             popup.attr("data-pedidoDetalleId", pedidoDetalleId);
@@ -1841,7 +1840,7 @@ function CerrarAvisoEliminarRegalo() {
 }
 
 function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
-    console.log('DeletePedido - inicio');
+
     var param = {
         CampaniaID: campaniaId,
         PedidoID: pedidoId,
@@ -1859,11 +1858,11 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
     if (HorarioRestringido()) {
         CerrarSplash();
-        console.log('DeletePedido - HorarioRestringido', param);
+
         return;
     }
 
-    console.log('DeletePedido - Antes Ajax', param);
+
     jQuery.ajax({
         type: "POST",
         url: baseUrl + "Pedido/Delete",
@@ -1873,9 +1872,9 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         async: true,
         success: function (data) {
 
-            console.log('DeletePedido - Ajax - success ', data);
             CerrarSplash();
             CerrarAvisoEliminarRegalo();
+
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
                 messageInfoError(data.message);
@@ -1889,10 +1888,13 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias();
             }
+
             MostrarBarra(data);
+
             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
             microefectoPedidoGuardado();
             TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+
             dataLayer.push({
                 'event': "removeFromCart",
                 'ecommerce': {
@@ -1909,20 +1911,22 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                     }
                 }
             });
+
             CerrarSplash();
 
-            window.OfertaDelDia.CargarODDEscritorio();
+            OfertaDelDiaModule.CargarODDEscritorio();
             ProcesarActualizacionMostrarContenedorCupon();
 
-            ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
-            ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
-            ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
-            ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
-
+            var localStorageModule = new LocalStorageModule();
+            localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
+            
+            //ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
+            //ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
+            //ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
+            //ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
+       
         },
         error: function (data, error) {
-
-            console.log('DeletePedido - Ajax - error ', data, error);
             if (checkTimeout(data)) {
                 HideDialog("divVistaPrevia");
                 CerrarSplash();
@@ -3336,8 +3340,8 @@ function AjaxError(data) {
 }
 
 function HidePopupEstrategiasEspeciales() {
-    $("#popupDetalleCarousel_lanzamiento").hide();
-    $("#popupDetalleCarousel_packNuevas").hide();
+    //$("#popupDetalleCarousel_lanzamiento").hide(); //DEUDA TECNICA
+    //$("#popupDetalleCarousel_packNuevas").hide();  //DEUDA TECNICA
 }
 
 function MostrarDetalleGanancia() {

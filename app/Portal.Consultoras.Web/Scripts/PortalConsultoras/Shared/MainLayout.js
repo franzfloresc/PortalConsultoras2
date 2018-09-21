@@ -32,7 +32,8 @@ $(document).ready(function () {
     }
 
     if (tieneOfertaDelDia == "True") {
-        window.OfertaDelDia.CargarODD();
+        OfertaDelDiaModule.Inicializar();
+        //window.OfertaDelDia.CargarODD();
     }
 
     $(document).keyup(function (e) {
@@ -81,19 +82,6 @@ $(document).ready(function () {
             }
         }
     });
-
-    //$('body').click(function (e) {
-    //    if (!$(e.target).closest('#OfertaDelDia').length) {
-    //        console.log("#body-OfertaDelDia");
-    //        if ($('#PopOfertaDia').is(':visible')) {
-    //            if (showDisplayODD == 1) {
-    //                $('#PopOfertaDia').slideUp();
-    //                $('.circulo_hoy span').html('+');
-    //                showDisplayODD = 0;
-    //            }
-    //        }
-    //    }
-    //});
 
     $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
 
@@ -1017,7 +1005,7 @@ function animacionFlechaScroll() {
 }
 
 function agregarProductoAlCarrito(o) {
-    console.log('MainLayout.js - agregarProductoAlCarrito', o);
+
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent().parent();
     var imagenProducto = $('.imagen_producto', contenedorItem);

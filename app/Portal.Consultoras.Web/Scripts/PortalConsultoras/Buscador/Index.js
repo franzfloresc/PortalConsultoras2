@@ -123,7 +123,10 @@ $(document).ready(function () {
                     }
 
                     // validar teclas especiales
-                    var key = keys.find(key => key.val === event.which);
+                    //var key = keys.find(key => key.val === event.which);
+                    var key = keys.find(function (key) {
+                        return key.val === event.which
+                    });
                     if (typeof key != 'undefined') {
                         return false;
                     }
@@ -248,20 +251,8 @@ $(document).ready(function () {
                     var cantidad = $(divPadre).find("[data-input='cantidad']").val();
                     var agregado = $(divPadre).find(".etiqueta_buscador_producto");
 
-                    modelLiquidacionOfertas = {
-                        Cantidad: cantidad,
-                        ConfiguracionOfertaID: 3,
-                        MarcaID: model.MarcaId,
-                        CUV: model.CUV,
-                        PrecioUnidad: model.Precio,
-                        DescripcionProd: model.DescripcionCompleta,
-                        DescripcionEstrategia: model.DescripcionEstrategia,
-                        origenPedidoLiquidaciones: model.OrigenPedidoWeb
-                    };
-
                     if (model.TipoPersonalizacion == 'LIQ') {
-                        labelAgregadoLiquidacion = agregado;
-                        RegistrarProductoOferta(e);
+                        RegistroLiquidacion(model, cantidad, agregado);
                     } else {
                         var cuv = model.CUV;
                         var tipoOfertaSisID = model.TipoPersonalizacion == 'CAT' ? 0 : model.TipoEstrategiaId;
@@ -314,7 +305,8 @@ $(document).ready(function () {
                             DescripcionMarca: '',
                             DescripcionEstrategia: descripcionEstrategia,
                             Posicion: posicion,
-                            EstrategiaID: EstrategiaID
+                            EstrategiaID: EstrategiaID,
+                            LimiteVenta: LimiteVenta
                         }
 
                         jQuery.ajax({
@@ -416,4 +408,101 @@ $(document).keyup(function (e) {
 function AjaxError(data) {
     CerrarLoad();
     if (checkTimeout(data)) AbrirMensaje(data.message);
+}
+
+function RegistroLiquidacion(model, cantidad, producto) {
+
+    if (ReservadoOEnHorarioRestringido())
+        return false;
+
+    var Item = {
+        MarcaID: model.MarcaId,
+        Cantidad: cantidad,
+        PrecioUnidad: model.Precio,
+        CUV: model.CUV,
+        ConfiguracionOfertaID: 3,
+        OrigenPedidoWeb: model.OrigenPedidoWeb
+    };
+
+    $.ajaxSetup({
+        cache: false
+    });
+
+    $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: model.CUV, Cantidad: cantidad, PrecioUnidad: model.Precio }, function (data) {
+        if (data.message != "") {
+            CerrarLoad();
+            AbrirMensaje(data.message);
+            return false;
+        }
+
+        if (parseInt(data.Saldo) < parseInt(cantidad)) {
+            var Saldo = data.Saldo;
+            var UnidadesPermitidas = data.UnidadesPermitidas;
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: model.CUV }, function (data) {
+                if (Saldo == UnidadesPermitidas)
+                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.", "LO SENTIMOS");
+                else {
+                    if (Saldo == "0")
+                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
+                    else
+                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
+                }
+                CerrarLoad();
+                return false;
+            });
+        } else {
+            $.ajaxSetup({
+                cache: false
+            });
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: model.CUV }, function (data) {
+                if (parseInt(data.Stock) < parseInt(cantidad)) {
+                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.", "LO SENTIMOS");
+                    CerrarLoad();
+                    return false;
+                }
+                else {
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: baseUrl + 'OfertaLiquidacion/InsertOfertaWebPortal',
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(Item),
+                        async: true,
+                        success: function (data) {
+                            if (!checkTimeout(data)) {
+                                CerrarLoad();
+                                return false;
+                            }
+
+                            if (data.success != true) {
+                                messageInfoError(data.message);
+                                CerrarLoad();
+                                return false;
+                            }
+
+                            producto.html('Agregado');
+
+                            if (isPagina('pedido')) {
+                                if (model != null && model != undefined)
+                                    PedidoOnSuccessSugerido(model);
+
+                                CargarDetallePedido();
+                                MostrarBarra(data);
+                            }
+
+                            microefectoPedidoGuardado();
+                            CargarResumenCampaniaHeader();
+                            CerrarLoad();
+                        },
+                        error: function (data, error) {
+                            CerrarLoad();
+                        }
+                    });
+
+                }
+            });
+        }
+    });
+
 }

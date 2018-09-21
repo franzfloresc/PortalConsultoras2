@@ -13,6 +13,25 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorYFiltrosProvider : BuscadorBaseProvider
     {
+        public async Task<string> GetPersonalizacion(UsuarioModel usuario)
+        {
+            var resultado = "";
+            try
+            {
+                string pathPersonalziacion = string.Format(Constantes.RutaBuscadorService.UrlPersonalizacion, 
+                    usuario.CodigoISO,
+                    usuario.CampaniaID,
+                    usuario.CodigoConsultora);
+
+                resultado = await ObtenerPersonalizaciones(pathPersonalziacion);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return resultado;
+        }
+
         public async Task<List<BuscadorYFiltrosModel>> GetBuscador(BuscadorModel buscadorModel)
         {
             List<BuscadorYFiltrosModel> resultados = null;
@@ -35,6 +54,11 @@ namespace Portal.Consultoras.Web.Providers
                             buscadorModel.revistaDigital.TieneRDCR,
                             buscadorModel.userData.DiaFacturacion
                     );
+
+                if (buscadorModel.userData.IndicadorConsultoraDummy == 1)
+                {
+                    pathBuscador = pathBuscador + '/' + buscadorModel.userData.PersonalizacionesDummy;
+                }
 
                 resultados = await ObtenerBuscadorDesdeApi(pathBuscador);
             }
