@@ -14,6 +14,10 @@ SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE 
    DROP TABLE PagoEnLineaBancos
 GO
 
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
+
 USE BelcorpMexico
 GO
 
@@ -29,6 +33,10 @@ IF EXISTS (
 SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE = 'U')
    DROP TABLE PagoEnLineaBancos
 GO
+
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
 
 USE BelcorpColombia
 GO
@@ -46,6 +54,10 @@ SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE 
    DROP TABLE PagoEnLineaBancos
 GO
 
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
+
 USE BelcorpSalvador
 GO
 
@@ -61,6 +73,10 @@ IF EXISTS (
 SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE = 'U')
    DROP TABLE PagoEnLineaBancos
 GO
+
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
 
 USE BelcorpPuertoRico
 GO
@@ -78,6 +94,10 @@ SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE 
    DROP TABLE PagoEnLineaBancos
 GO
 
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
+
 USE BelcorpPanama
 GO
 
@@ -93,6 +113,10 @@ IF EXISTS (
 SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE = 'U')
    DROP TABLE PagoEnLineaBancos
 GO
+
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
 
 USE BelcorpGuatemala
 GO
@@ -110,6 +134,10 @@ SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE 
    DROP TABLE PagoEnLineaBancos
 GO
 
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
+
 USE BelcorpEcuador
 GO
 
@@ -125,6 +153,10 @@ IF EXISTS (
 SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE = 'U')
    DROP TABLE PagoEnLineaBancos
 GO
+
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
 
 USE BelcorpDominicana
 GO
@@ -142,6 +174,10 @@ SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE 
    DROP TABLE PagoEnLineaBancos
 GO
 
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
+
 USE BelcorpCostaRica
 GO
 
@@ -157,6 +193,10 @@ IF EXISTS (
 SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE = 'U')
    DROP TABLE PagoEnLineaBancos
 GO
+
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
 
 USE BelcorpChile
 GO
@@ -174,6 +214,10 @@ SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE 
    DROP TABLE PagoEnLineaBancos
 GO
 
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
+
 USE BelcorpBolivia
 GO
 
@@ -190,4 +234,7 @@ SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE 
    DROP TABLE PagoEnLineaBancos
 GO
 
+if(select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=1
+ delete from PagoEnLineaMedioPago where Codigo='PBI'
+go
 

@@ -1,6 +1,5 @@
 USE BelcorpPeru
 GO
-
 IF EXISTS (
 SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.PagoEnLineaBancos') AND TYPE = 'U')
    DROP TABLE PagoEnLineaBancos
@@ -10,18 +9,23 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -33,10 +37,13 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 
@@ -52,18 +59,24 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -75,10 +88,14 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 
@@ -94,18 +111,24 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -117,10 +140,14 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 
@@ -136,18 +163,24 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -159,10 +192,14 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 
@@ -178,18 +215,24 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -201,10 +244,14 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 
@@ -220,18 +267,24 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -243,10 +296,14 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 
@@ -262,18 +319,24 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -285,10 +348,14 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 
@@ -304,18 +371,24 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -327,10 +400,14 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 
@@ -346,18 +423,24 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -369,10 +452,14 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 
@@ -388,18 +475,24 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -411,10 +504,14 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 
@@ -430,18 +527,24 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -453,10 +556,14 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 
@@ -472,18 +579,24 @@ create table PagoEnLineaBancos
   Id int identity(1,1) primary key,
   Banco varchar(100),
   URlPaginaWeb varchar(800),
+  URLIcono varchar(800),
   Estado bit
 )
 go
-insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/',1)
-insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe',1)
-insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/',1)
+insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
+insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
+insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
+insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+
+if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
+insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','',3,'',1)
+
 go
+
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
@@ -495,10 +608,14 @@ GO
 create procedure ObtenerPagoEnLineaURLPaginasBancos
 as
 begin
-		SELECT STUFF(
-		(SELECT '¦' + UrlPaginaWeb
-		FROM PagoEnLineaBancos where Estado=1
-		FOR XML PATH ('')),1,1, '')
+
+	   
+	    IF(SELECT COUNT(1) FROM PagoEnLineaMedioPago WHERE CODIGO='PBI' AND ESTADO =1)>0
+	   	(Select STUFF((Select '¬' + Banco + '¦' + UrlPaginaWeb + '¦' + URLIcono
+			FROM PagoEnLineaBancos where Estado=1
+		FOR XML PATH('')), 1, 1, ''))
+		ELSE
+		SELECT 1
 end
 GO
 

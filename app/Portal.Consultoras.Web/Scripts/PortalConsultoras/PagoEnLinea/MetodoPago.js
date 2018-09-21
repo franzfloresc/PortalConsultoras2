@@ -7,7 +7,8 @@ var urlPasarelaPago = urlPasarelaPago || "";
 
 $(document).ready(function () {
     //'use strict';
-
+ 
+    listarBancos();
     var mainPL;
 
     mainPL = function () {
@@ -144,3 +145,40 @@ $(document).ready(function () {
     PagoEnLineaMetodoPago = new mainPL();
     PagoEnLineaMetodoPago.Inicializar();
 });
+
+function listarBancos() {
+    var raiz = document.getElementById("hdfUrlRaiz").value;
+    var urlBase = window.location.protocol + '//' + window.location.host + raiz;
+    window.sessionStorage.setItem("urlBase", urlBase);
+
+    var content = "";
+    $.ajax({
+        type: 'POST',
+        url: urlBase + 'PagoEnLinea/ObtenerBancos',
+        dataType: "Text",
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            if (response == '1') {
+                document.getElementById('divOpciones').style.display = 'block'; 
+                return false;
+            }
+            var result = response.split('¬');
+            content += "<p class='texto_informativo_lista_bancos'>Te redireccionaremos al banco que elijas.</p>";
+            content += "<ul class='listado_bancos'>";
+            for (var i = 0; i < result.length; i++) {
+                var fila = result[i].split('¦');
+                content += "<li class='banco_nombre'>";
+                content += "<a href='" + fila[1] + "' title='" + fila[0]+"' class='enlace_banco' target='_blank'>";
+                content += " <img src=" + fila[2] + " alt='" + fila[0] + "' /> </a> </li>";
+            }
+            content += "</ul>";
+            document.getElementById('ullistaBancos').innerHTML = content;
+            document.getElementById('divBancaPorInternet').style.display = 'block';
+            document.getElementById('divOpciones').style.display = 'block'; 
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+
+}

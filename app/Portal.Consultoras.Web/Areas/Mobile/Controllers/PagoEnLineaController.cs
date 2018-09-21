@@ -42,22 +42,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
 
             model = _pagoEnLineaProvider.ObtenerValoresMetodoPago(model);
+              return View(model);
+        }
+
+
+        [HttpGet]
+        public string ObtenerBancos()
+        {
+            string bancos = "";
             using (var ps = new PedidoServiceClient())
             {
-                string urls = ps.ObtenerPagoEnLineaURLPaginasBancos(userData.PaisID);
-                ViewBag.Interbank = urls.Split('¦')[0];
-                ViewBag.Scotiabank = urls.Split('¦')[1];
-                ViewBag.Continental = urls.Split('¦')[2];
-                ViewBag.VCP = urls.Split('¦')[3];
-                ViewBag.BancoNacion = urls.Split('¦')[4];
-                ViewBag.Multifacil = urls.Split('¦')[5];
-                ViewBag.WesterUnion = urls.Split('¦')[6];
-                ViewBag.Pichincha = urls.Split('¦')[7];
+                bancos = ps.ObtenerPagoEnLineaURLPaginasBancos(userData.PaisID);
             }
-
-
-            return View(model);
+            return bancos;
         }
+
 
         [HttpGet]
         public ActionResult PasarelaPago(string cardType, int medio = 0)

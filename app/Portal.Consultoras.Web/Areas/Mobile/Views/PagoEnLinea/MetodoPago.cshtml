@@ -44,10 +44,10 @@
     PAGO EN LÍNEA
 </div>
 
-<div class="content_belcorp">
+<div class="content_belcorp" id="divOpciones" style="display:none">
     <div class="pestana_lbel"></div>
 
-    <div class="proceso_de_pago_en_linea">
+    <div class="proceso_de_pago_en_linea" >
 
         <div class="cantidad_pasos_proceso_pago">
 
@@ -217,6 +217,7 @@
 
 @section scripts{
     <script type="text/javascript">
+
         var colorBoton = '@Model.PagoVisaModel.FormButtonColor';
         var metodoPagoPasarelaVisa = '@Constantes.PagoEnLineaMetodoPago.PasarelaVisa';
         var metodoPagoPasarelaBelcorpPayU = '@Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU';
