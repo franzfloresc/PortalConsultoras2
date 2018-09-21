@@ -672,7 +672,7 @@ function InsertarProductoSugerido(model) {
             $("#hdCuvEnSession").val("");
 
             if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
-            else if (!IsNullOrEmpty(data.mensajeAviso != '')) messageInfo(data.mensajeAviso);
+            else if (!IsNullOrEmpty(data.mensajeAviso)) messageInfo(data.mensajeAviso);
 
             if (belcorp.pedido.applyChanges) belcorp.pedido.applyChanges("onProductoAgregado", data);
         },
@@ -833,7 +833,7 @@ function InsertarProducto() {
 
             PedidoOnSuccess();
             if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
-            else if (!IsNullOrEmpty(data.mensajeAviso != '')) messageInfo(data.mensajeAviso);
+            else if (!IsNullOrEmpty(data.mensajeAviso)) messageInfo(data.mensajeAviso);
 
             $("#hdCuvEnSession").val("");
             ProcesarActualizacionMostrarContenedorCupon();
