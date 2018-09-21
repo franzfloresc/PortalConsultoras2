@@ -5,11 +5,11 @@
         iconoMenuMobile: ".header__icono__menu",
         iconoCerrarMenuMobile: ".icono__cerrar",
         menuPrincipal: ".header__menu--lateralIzquierdo",
-            enlaceConSubmenuMobile: $('.menu__link--conSubmenuMobile')
+        enlaceConSubmenuMobile: ".menu__link--conSubmenuMobile",
+        itemFooter: ".footer__item__title"
     },
     me.Config = {
         isMobile: window.matchMedia("(max-width:991px)").matches
-                    $(me.globals.enlaceConSubmenuMobile).on('click', me.Eventos.AbrirSubmenuMobile);
     },
     me.Eventos = {
         MostrarMenuMobile: function(e) {
@@ -22,19 +22,24 @@
             e.preventDefault();
             $(me.Elements.menuPrincipal).animate({
                     left: -100 + "%"
-                }, 150);
-                $('.menu__link--conSubmenuMobile').next().slideUp(80);
-            },
-            AbrirSubmenuMobile: function (e) {
-                e.preventDefault();
-                var subMenuMobile = $(this).next();
-                $('.menu__link--conSubmenuMobile').next().slideUp(80);
-                if(subMenuMobile.css('display') == 'flex'){
-                    subMenuMobile.slideUp(80);
-                } else {
-                    subMenuMobile.css('display', 'flex');
-                    subMenuMobile.slideDown(130);
-                }
+            }, 150);
+            $(me.Elements.enlaceConSubmenuMobile).next().slideUp(80);
+        },
+        AbrirSubmenuMobile: function (e) {
+            e.preventDefault();
+            var subMenuMobile = $(this).next();
+            $(me.Elements.enlaceConSubmenuMobile).next().slideUp(80);
+            if(subMenuMobile.css("display") === "flex"){
+                subMenuMobile.slideUp(80);
+            } else {
+                subMenuMobile.css("display", "flex");
+                subMenuMobile.slideDown(130);
+            }
+                
+        },
+        ToogleMenuFooter : function(e) {
+            e.preventDefault();
+            $(this).next().slideToggle("fast");
         }
     },
     me.Funciones = { //private functions
@@ -42,7 +47,8 @@
             if (me.Config.isMobile) {
                 $(me.Elements.iconoMenuMobile).on("click", me.Eventos.MostrarMenuMobile);
                 $(me.Elements.iconoCerrarMenuMobile).on("click", me.Eventos.CerrarMenuMobile);
-                $(me.globals.enlaceConSubmenuMobile).on('click', me.Eventos.AbrirSubmenuMobile);
+                $(me.Elements.enlaceConSubmenuMobile).on("click", me.Eventos.AbrirSubmenuMobile);
+                $(me.Elements.itemFooter).on("click", me.Eventos.ToogleMenuFooter);
             }
         }
     };
