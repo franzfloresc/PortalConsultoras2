@@ -664,7 +664,7 @@ body > img{
     display:block;
     position: absolute;
     right: 0;
-    bottom: 9px;
+    bottom: 8px;
     z-index: 5;
     cursor:pointer;
 }
@@ -1675,14 +1675,14 @@ body > img{
     .footer__item__title{
         padding-top:10px;
         border-bottom:1px solid #9e9e9f;
-        background-image:url(../../../Images/icono_mas_footer_mobile.png);
+        background-image:url(../../../Images/mobile/icono_mas_footer_mobile.png);
         background-position:96.5% center;
         background-repeat:no-repeat;
         font-weight:400;
     }
 
     .footer__item__title--desplegado{
-        background-image:url(../../../Images/icono_menos_footer_mobile.png);
+        background-image:url(../../../Images/mobile/icono_menos_footer_mobile.png);
     }
 
     .footer__item__content__list{
