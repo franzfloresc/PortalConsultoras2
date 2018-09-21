@@ -6,7 +6,7 @@ belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
     CreateLoading();
-
+    eventCloseDialogMensaje();
     $("header").resize(function () {
         LayoutMenu();
     });
@@ -596,7 +596,11 @@ function CreateLoading() {
     });
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
-
+function eventCloseDialogMensaje() {
+    $('#alertDialogMensajes').on('dialogclose', function (event) {
+        $('body,html').css('overflow', 'scroll');
+    });
+}
 function printElement(selector) {
     var element = document.querySelector(selector);
     if (!element) {
@@ -703,6 +707,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             $('#alertDialogMensajes').dialog('open');
+            $('body,html').css('overflow', 'hidden'); 
 
             $('.ui-dialog .ui-button').off('click');
             $('.ui-dialog .ui-icon-closethick').off('click');

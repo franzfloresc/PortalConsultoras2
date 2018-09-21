@@ -616,7 +616,12 @@ function alert_msg(message, titulo, funcion) {
         });
     }
     $('#alertDialogMensajes').dialog('open');
+    $('body,html').css('overflow', 'hidden');
 }
+
+$('#alertDialogMensajes').on('dialogclose', function (event) {
+    $('body,html').css('overflow', 'scroll');
+});
 
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
