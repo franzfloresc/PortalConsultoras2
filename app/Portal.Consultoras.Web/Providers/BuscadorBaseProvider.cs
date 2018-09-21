@@ -15,6 +15,27 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorBaseProvider
     {
+        public async Task<string> ObtenerPersonalizaciones(string path)
+        {
+            var personalizacion = "";
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var httpResponse = await httpClient.GetAsync(path);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    var jsonString = await httpResponse.Content.ReadAsStringAsync();
+                    personalizacion = JsonConvert.DeserializeObject<string>(jsonString);
+                }
+            }
+
+            return personalizacion;
+        }
+
         public async Task<List<BuscadorYFiltrosModel>> ObtenerBuscadorDesdeApi(string path)
         {
             var resultados = new List<BuscadorYFiltrosModel>();
@@ -64,10 +85,10 @@ namespace Portal.Consultoras.Web.Providers
                     }
                 }
             }
-          
+
             return resultados;
         }
 
-     
+
     }
 }
