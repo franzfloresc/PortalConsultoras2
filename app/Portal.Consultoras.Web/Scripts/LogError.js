@@ -188,7 +188,7 @@ function registrarLogErrorElastic(objError) {
         console.log(objError);
         return;
     }
-    else if (location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') > 0) {
+    else if (location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') >= 0) {
         console.log(objError);
     }
 
