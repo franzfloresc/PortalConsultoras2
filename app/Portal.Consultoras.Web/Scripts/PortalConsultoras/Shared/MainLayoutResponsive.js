@@ -29,10 +29,9 @@
             e.preventDefault();
             var subMenuMobile = $(this).next();
             $(me.Elements.enlaceConSubmenuMobile).next().slideUp(80);
-            if(subMenuMobile.css("display") === "flex"){
+            if(subMenuMobile.css('display') == 'block'){
                 subMenuMobile.slideUp(80);
             } else {
-                subMenuMobile.css("display", "flex");
                 subMenuMobile.slideDown(130);
             }
                 
