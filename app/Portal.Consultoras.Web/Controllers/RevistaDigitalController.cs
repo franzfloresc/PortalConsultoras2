@@ -235,7 +235,7 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigital.NoVolverMostrar = true;
                 revistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
                 revistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
-                Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
+                SessionManager.SetTipoPopUpMostrar(Constantes.TipoPopUp.Ninguno);
 
                 return Json(new
                 {
@@ -289,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var listaDatos = revistaDigital.ConfiguracionPaisDatos.Where(d => d.Componente != Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas).ToList();
                     listaDatos.AddRange(listaDatosPopup);
                     revistaDigital.ConfiguracionPaisDatos = listaDatos;
-                    sessionManager.SetRevistaDigital(revistaDigital);
+                    SessionManager.SetRevistaDigital(revistaDigital);
                 }
 
                 if (!listaDatosPopup.Any())
@@ -421,7 +421,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userDataX.EMail = usuario.EMail;
                 }
                 userDataX.Celular = usuario.Celular;
-                sessionManager.SetUserData(userDataX);
+                SessionManager.SetUserData(userDataX);
             }
 
             return resultado;
@@ -450,11 +450,11 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigital.EsActiva = revistaDigital.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
                 revistaDigital.NoVolverMostrar = true; // se puede copiar la logica del login
 
-                sessionManager.SetRevistaDigital(revistaDigital);
+                SessionManager.SetRevistaDigital(revistaDigital);
                 userData.MenuMobile = null;
                 userData.Menu = null;
-                sessionManager.SetMenuContenedor(null);
-                sessionManager.SetUserData(userData);
+                SessionManager.SetMenuContenedor(null);
+                SessionManager.SetUserData(userData);
 
                 if (_revistaDigitalProvider.EsSuscripcionInmediata())
                 {
@@ -470,19 +470,19 @@ namespace Portal.Consultoras.Web.Controllers
         private void LimpiarEstrategia(int paisID, string campaniaID)
         {
             //Limpiar session del servidor
-            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada), null);
-            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.HerramientasVenta),null);
-            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.Lanzamiento),null);
-            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.LosMasVendidos), null);
-            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaParaTi), null);
-            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaWeb), null);
-            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.PackNuevas), null);
-            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital), null);
-            sessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, string.Empty), null);// OPT
-            sessionManager.ShowRoom.Ofertas = null;
-            sessionManager.ShowRoom.OfertasSubCampania = null;
-            sessionManager.ShowRoom.OfertasPerdio = null;
-            sessionManager.ShowRoom.CargoOfertas = "0";
+            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada), null);
+            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.HerramientasVenta),null);
+            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.Lanzamiento),null);
+            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.LosMasVendidos), null);
+            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaParaTi), null);
+            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaWeb), null);
+            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.PackNuevas), null);
+            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital), null);
+            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, string.Empty), null);// OPT
+            SessionManager.ShowRoom.Ofertas = null;
+            SessionManager.ShowRoom.OfertasSubCampania = null;
+            SessionManager.ShowRoom.OfertasPerdio = null;
+            SessionManager.ShowRoom.CargoOfertas = "0";
 
             //Limpia cache de Redis
             using (PedidoServiceClient sv = new PedidoServiceClient())

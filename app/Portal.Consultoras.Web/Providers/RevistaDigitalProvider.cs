@@ -16,18 +16,33 @@ namespace Portal.Consultoras.Web.Providers
     public class RevistaDigitalProvider : OfertaBaseProvider
     {
         protected ISessionManager sessionManager;
-        protected UsuarioModel userData;
-        protected RevistaDigitalModel revistaDigital;
+        protected UsuarioModel userData
+        {
+            get
+            {
+                return sessionManager.GetUserData();
+            }
+        }
+        protected RevistaDigitalModel revistaDigital
+        {
+            get
+            {
+                return sessionManager.GetRevistaDigital();
+            }
+        }
         protected ConfiguracionManagerProvider _configuracionManager;
         private readonly ILogManager logManager = LogManager.LogManager.Instance;
 
-        public RevistaDigitalProvider()
+        public RevistaDigitalProvider() : this(SessionManager.SessionManager.Instance, new ConfiguracionManagerProvider())
         {
-            sessionManager = SessionManager.SessionManager.Instance;
-            userData = sessionManager.GetUserData();
-            revistaDigital = sessionManager.GetRevistaDigital();
-            _configuracionManager = new ConfiguracionManagerProvider();
         }
+
+        public RevistaDigitalProvider(ISessionManager sessionManager, ConfiguracionManagerProvider configuracionManager)
+        {
+            this.sessionManager = SessionManager.SessionManager.Instance;
+            this._configuracionManager = configuracionManager;
+        }
+
 
         public RevistaDigitalInformativoModel InformativoModel(bool esMobile)
         {

@@ -28,9 +28,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             
             ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
-            if (Session["ListFiltersFAV"] != null)
+            if (SessionManager.GetListFiltersFAV() != null)
             {
-                var lst = (List<BETablaLogicaDatos>)Session["ListFiltersFAV"] ?? new List<BETablaLogicaDatos>();
+                var lst = SessionManager.GetListFiltersFAV() ?? new List<BETablaLogicaDatos>();
                 model.FiltersBySorting = lst.Where(x => x.TablaLogicaID == 94).ToList();
                 model.FiltersByCategory = lst.Where(x => x.TablaLogicaID == 95).ToList();
                 model.FiltersByBrand = lst.Where(x => x.TablaLogicaID == 96).ToList();
@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (string.IsNullOrEmpty(model.CUVFP))
                 return RedirectToAction("Index");
 
-            var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"];
+            var listaProductoModel = SessionManager.GetProductosCatalogoPersonalizado();
             if (listaProductoModel == null)
                 return RedirectToAction("Index");
             if (!listaProductoModel.Any((x => x.CUV == model.CUVFP)))
@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         productoModel.EsMaquillaje = false;
                     }
 
-                    Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
+                    SessionManager.SetProductosCatalogoPersonalizado(listaProductoModel);
                 }
             }
             

@@ -21,14 +21,26 @@ namespace Portal.Consultoras.Web.Controllers
             _issuuProvider = new IssuuProvider();
         }
 
-        public BaseViewController(ISessionManager sesionManager) : base(sesionManager)
+        public BaseViewController(ISessionManager sesionManager) 
+            : base(sesionManager)
         {
 
         }
 
-        public BaseViewController(ISessionManager sesionManager, ILogManager logManager) : base(sesionManager, logManager)
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager) 
+            : base(sesionManager, logManager)
         {
 
+        }
+
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider) 
+            : base(sesionManager, logManager, ofertaPersonalizadaProvider)
+        {
+        }
+
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
+            : base(sesionManager, logManager, estrategiaComponenteProvider)
+        {
         }
 
         #region RevistaDigital
@@ -58,7 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
                 Success = true,
                 MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()),
-                CantidadFilas = 15
+                CantidadFilas = 20
             };
 
             var dato = _ofertasViewProvider.ObtenerPerdioTitulo(model.CampaniaID, IsMobile());
@@ -73,7 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult RDDetalleModel(string cuv, int campaniaId)
         {
-            var modelo = sessionManager.GetProductoTemporal();
+            var modelo = SessionManager.GetProductoTemporal();
             if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
@@ -168,20 +180,22 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
-                    return RedirectToAction("Index", "Ofertas");
+                if( _ofertaPersonalizadaProvider == null) throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
 
-                palanca = IdentificarPalanca(palanca, campaniaId);
+                if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
+                    return RedirectToAction("Index", "Ofertas",new { area = IsMobile() ? "Mobile" : "" });
+
+                palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
 
                 if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
-                    return RedirectToAction("Index", "Ofertas");
+                    return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
-                DetalleEstrategiaFichaModel modelo;
+                DetalleEstrategiaFichaModel modelo= null;
                 if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
                     if (estrategiaPresonalizada == null)
-                        return RedirectToAction("Index", "Ofertas");
+                        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
                     if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
@@ -191,11 +205,8 @@ namespace Portal.Consultoras.Web.Controllers
                         modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
                     }
                 }
-                else
-                {
-                    modelo = new DetalleEstrategiaFichaModel();
-                }
 
+                modelo = modelo ?? new DetalleEstrategiaFichaModel();
                 modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
                 modelo.OrigenUrl = origen;
                 modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
@@ -219,7 +230,7 @@ namespace Portal.Consultoras.Web.Controllers
                     modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
                     modelo.TieneReloj = true;
 
-                    var sessionODD = (DataModel)sessionManager.OfertaDelDia.Estrategia.Clone();
+                    var sessionODD = (DataModel)SessionManager.OfertaDelDia.Estrategia.Clone();
                     modelo.ColorFondo1 = sessionODD.ColorFondo1;
                     modelo.ConfiguracionContenedor = (ConfiguracionSeccionHomeModel)sessionODD.ConfiguracionContenedor.Clone();
                     modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
@@ -232,7 +243,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseViewController.Ficha");
             }
 
             return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
@@ -308,14 +319,6 @@ namespace Portal.Consultoras.Web.Controllers
             NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
 
             NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, "Ofertas Para ti");
-            //NombrePalancas.Add(Constantes.NombrePalanca.OfertaWeb, "Oferta Web");
-            //NombrePalancas.Add(Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para Mi");
-            //NombrePalancas.Add(Constantes.NombrePalanca.PackAltoDesembolso, "Pack de Alto Desembolso");
-
-            //NombrePalancas.Add(Constantes.NombrePalanca.LosMasVendidos, "Los Más Vendidos");
-            //NombrePalancas.Add(Constantes.NombrePalanca.IncentivosProgramaNuevas, "Incentivos Programa de Nuevas");
-            //NombrePalancas.Add(Constantes.NombrePalanca.Incentivos, "Incentivos");
-            //NombrePalancas.Add(Constantes.NombrePalanca.ProgramaNuevasRegalo, "Oferta Del Día");
             return NombrePalancas;
         }
 
@@ -342,6 +345,9 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedor:
                     result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedorPopup;
                     break;
+                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscador:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscadorFicha;
+                    break;
                 //Mobile
                 case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
                     result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileHomePopUp;
@@ -351,6 +357,9 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor:
                     result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup;
+                    break;
+                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscador:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscadorFicha;
                     break;
                 // RD
                 case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion:
@@ -388,6 +397,9 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage:
                     result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
                     break;
+                case Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscador:
+                    result = Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscadorFicha;
+                    break;
                 //Mobile
                 case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
                     result = Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup;
@@ -395,12 +407,21 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage:
                     result = Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage;
                     break;
+                case Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscador:
+                    result = Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscadorFicha;
+                    break;
                 //GND
                 case Constantes.OrigenPedidoWeb.GNDMobileLanding:
                     result = Constantes.OrigenPedidoWeb.GNDMobileLandingPopup;
                     break;
                 case Constantes.OrigenPedidoWeb.GNDDesktopLanding:
                     result = Constantes.OrigenPedidoWeb.GNDDesktopLandingPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscador:
+                    result = Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscadorFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscador:
+                    result = Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscadorFicha;
                     break;
                 //HV
                 case Constantes.OrigenPedidoWeb.HVMobileLanding:
@@ -412,6 +433,12 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.HVDesktopContenedor:
                     result = Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
                     break;
+                case Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscador:
+                    result = Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscadorFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscador:
+                    result = Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscadorFicha;
+                    break;
                 //SR
                 case Constantes.OrigenPedidoWeb.ShowRoomDesktopHome:
                 case Constantes.OrigenPedidoWeb.ShowRoomDesktopContenedor:
@@ -420,12 +447,18 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.ShowRoomDesktopSubCampania:
                     result = Constantes.OrigenPedidoWeb.ShowRoomDesktopProductPage;
                     break;
+                case Constantes.OrigenPedidoWeb.EspecialesDesktopBuscador:
+                    result = Constantes.OrigenPedidoWeb.EspecialesDesktopBuscadorFicha;
+                    break;
                 //Mobile
                 case Constantes.OrigenPedidoWeb.ShowRoomMobileContenedor:
                 case Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra:
                 case Constantes.OrigenPedidoWeb.ShowRoomMobileLandingIntriga:
                 case Constantes.OrigenPedidoWeb.ShowRoomMobileSubCampania:
                     result = Constantes.OrigenPedidoWeb.ShowRoomMobileProductPage;
+                    break;
+                case Constantes.OrigenPedidoWeb.EspecialesMobileBuscador:
+                    result = Constantes.OrigenPedidoWeb.EspecialesMobileBuscadorFicha;
                     break;
                 //ODD
                 case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopHomeBanner:
@@ -434,10 +467,16 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopContenedor:
                     result = Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopFicha;
                     break;
+                case Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador:
+                    result = Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscadorFicha;
+                    break;
                 //Mobile
                 case Constantes.OrigenPedidoWeb.OfertaDelDiaMobileHomeBanner:
                 case Constantes.OrigenPedidoWeb.OfertaDelDiaMobileContenedor:
                     result = Constantes.OrigenPedidoWeb.OfertaDelDiaMobileFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador:
+                    result = Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscadorFicha;
                     break;
             }
 
@@ -447,32 +486,36 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        public string IdentificarPalanca(string palanca, int campaniaId)
+        public string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)
         {
-            var RevistaDigital = sessionManager.GetRevistaDigital();
             switch (palanca)
             {
                 case Constantes.NombrePalanca.OfertaParaTi:
-                    if (RevistaDigital.ActivoMdo)
+                    if (revistaDigital != null)
                     {
-                        palanca = Constantes.NombrePalanca.OfertasParaMi;
-                    }
-                    else
-                    {
-                        if (revistaDigital.TieneRDC || revistaDigital.TieneRDCR)
+                        if (revistaDigital.ActivoMdo)
                         {
-                            if (revistaDigital.EsActiva)
-                            {
-                                palanca = Constantes.NombrePalanca.OfertasParaMi;
-                            }
-                            else
-                            {
-                                palanca = campaniaId == userData.CampaniaID ? Constantes.NombrePalanca.OfertaParaTi : Constantes.NombrePalanca.OfertasParaMi;
-                            }
+                            palanca = Constantes.NombrePalanca.OfertasParaMi;
                         }
                         else
                         {
-                            palanca = Constantes.NombrePalanca.OfertaParaTi;
+                            if (revistaDigital.TieneRDC || revistaDigital.TieneRDCR)
+                            {
+                                if (revistaDigital.EsActiva)
+                                {
+                                    palanca = Constantes.NombrePalanca.OfertasParaMi;
+                                }
+                                else
+                                {
+                                    palanca = campaniaId == userData.CampaniaID
+                                        ? Constantes.NombrePalanca.OfertaParaTi
+                                        : Constantes.NombrePalanca.OfertasParaMi;
+                                }
+                            }
+                            else
+                            {
+                                palanca = Constantes.NombrePalanca.OfertaParaTi;
+                            }
                         }
                     }
                     break;

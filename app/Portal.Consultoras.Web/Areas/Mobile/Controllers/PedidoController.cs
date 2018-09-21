@@ -24,10 +24,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var model = new PedidoMobileModel();
 
-            sessionManager.SetObservacionesProl(null);
-            sessionManager.SetPedidoWeb(null);
-            sessionManager.SetDetallesPedido(null);
-            sessionManager.SetDetallesPedidoSetAgrupado(null);
+            SessionManager.SetObservacionesProl(null);
+            SessionManager.SetPedidoWeb(null);
+            SessionManager.SetDetallesPedido(null);
+            SessionManager.SetDetallesPedidoSetAgrupado(null);
 
             var configuracionCampania = GetConfiguracionCampania(userData);
             if (configuracionCampania == null)
@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if ((detallesPedidoWeb == null || !detallesPedidoWeb.Any())
                 && GetSeInsertoProductoAutomaticos(userData))
             {
-                sessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedido(null);
                 detallesPedidoWeb = ObtenerPedidoWebDetalle();
                 UpdPedidoWebMontosPROL();
             }
@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (userData.PedidoID == 0 && detallesPedidoWeb.Count > 0)
             {
                 userData.PedidoID = detallesPedidoWeb[0].PedidoID;
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
             }
 
             model.PaisId = userData.PaisID;
@@ -173,9 +173,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Detalle(bool autoReservar = false)
         {
-            sessionManager.SetObservacionesProl(null);
-            sessionManager.SetDetallesPedido(null);
-            sessionManager.SetDetallesPedidoSetAgrupado(null);
+            SessionManager.SetObservacionesProl(null);
+            SessionManager.SetDetallesPedido(null);
+            SessionManager.SetDetallesPedidoSetAgrupado(null);
 
             BEConfiguracionCampania beConfiguracionCampania;
             using (var sv = new PedidoServiceClient())
@@ -286,12 +286,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
-            var ofertaFinalModel = sessionManager.GetOfertaFinalModel();
+            var ofertaFinalModel = SessionManager.GetOfertaFinalModel();
             ViewBag.OfertaFinalEstado = ofertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = ofertaFinalModel.Algoritmo;
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
 
-            if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+            if (!SessionManager.GetEsShowRoom() && SessionManager.GetEsShowRoom().ToString() == "1")
             {
                 ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Mobile");
                 ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
@@ -399,7 +399,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (userData.PedidoID == 0)
                 {
                     userData.PedidoID = lstPedidoWebDetalle[0].PedidoID;
-                    sessionManager.SetUserData(userData);
+                    SessionManager.SetUserData(userData);
                 }
                 model.Email = userData.EMail;
             }
@@ -526,13 +526,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 usuario.FechaFacturacion = beConfiguracionCampania.FechaFinFacturacion;
                 usuario.HoraFacturacion = beConfiguracionCampania.HoraFin;
             }
-            sessionManager.SetUserData(usuario);
+            SessionManager.SetUserData(usuario);
         }
 
         private int BuildFechaNoHabil()
         {
             int result = 0;
-            if (sessionManager.GetUserData() != null)
+            if (SessionManager.GetUserData() != null)
             {
                 using (var sv = new PedidoServiceClient())
                 {
@@ -608,7 +608,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, sessionManager.GetOfertaFinalModel().Algoritmo).ToList();
+                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, SessionManager.GetOfertaFinalModel().Algoritmo).ToList();
                 }
             }
             catch (Exception ex)

@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public FichaProductoController()
         {
-            _vcFichaProductoProvider = new VCFichaProductoProvider(userData.PaisID, userData.CodigoISO);
+            _vcFichaProductoProvider = new VCFichaProductoProvider();
         }
 
         public ActionResult Index()
@@ -35,19 +35,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     producto = _vcFichaProductoProvider.FichaProductoFormatearModelo(lst, listaPedido).SingleOrDefault();
                     producto = _vcFichaProductoProvider.FichaProductoHermanos(producto, listaPedido, userData.CampaniaID);
+                    if (producto != null)
+                    {
                     producto.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, producto.FotoProducto01);
-                    Session[Constantes.SessionNames.FichaProductoTemporal] = producto;
+                        SessionManager.SetFichaProductoTemporal(producto);
+                    }
                 }
                 if (producto == null)
                 {
                     return View("ProductoNotFound");
                 }
+                else
+                {
                 ViewBag.OrigenUrl = Url.Action("Index", "Pedido", new { area = "Mobile" });
 
                 ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                 ViewBag.VirtualCoachCuv = cuv;
                 ViewBag.VirtualCoachCampana = campanaId;
                 return View(producto);
+                }
             }
             catch (Exception ex)
             {

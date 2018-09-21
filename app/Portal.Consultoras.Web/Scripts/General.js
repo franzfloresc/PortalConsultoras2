@@ -38,7 +38,6 @@ jQuery(document).ready(function () {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
             if ($('.resultado_busqueda_producto').is(':visible')) {
-                console.log('lkasakslasklasadklaj');
             }
         }
     };
@@ -326,6 +325,17 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(cadena);
             });
 
+            Handlebars.registerHelper('Substr', function (length, cadena) {
+                cadena = cadena || "";
+                cadena = $.trim(cadena);
+
+                if (cadena.length > length) {
+                    cadena = cadena.substring(0, length) + "...";
+                }
+
+                return new Handlebars.SafeString(cadena);
+            });
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
@@ -371,6 +381,16 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('SimboloMoneda', function () {
                 var simbMon = variablesPortal.SimboloMoneda || "";
                 return new Handlebars.SafeString(simbMon);
+            });
+
+            Handlebars.registerHelper('Multiplicar', function (a,b) {
+                //var array = (JSON.parse(obj) instanceof Array) ? JSON.parse(obj) : [obj];
+                //var resultado = 1;
+                //$.each(array, function (index, value) {
+                //    resultado = resultado * value;
+                //});
+                //return resultado;
+                return a * b;
             });
         }
     }
@@ -556,6 +576,9 @@ function validateEmail(email) {
 }
 
 function CreateLoading() {
+    if ($("#loadingScreen").find(".loadingScreen-titulo").length !== 0 ||
+        $("#loadingScreen").find(".loadingScreen-mensaje").length !== 0) return false;
+
     $("#loadingScreen").append("<div class='loadingScreen-titulo'></div>");
     $("#loadingScreen").append("<div class='loadingScreen-mensaje'></div>");
 
@@ -868,7 +891,6 @@ function paginadorAccionGenerico(obj) {
 }
 
 function ActualizarGanancia(data) {
-    console.log('General.js - ActualizarGanancia - ante num-menu-shop', data);
     data = data || new Object();
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
@@ -1278,7 +1300,6 @@ function LayoutMenuFin() {
     // caso no entre en el menu
     // poner en dos renglones
     if ($(idnMenuHeader).height() > 61) {
-        console.log("menu en mas de una linea");
     }
 
     LayoutHeader();
@@ -1734,37 +1755,38 @@ function odd_desktop_google_analytics_addtocart(tipo, element) {
     dataLayer.push(data);
 }
 
-function odd_mobile_google_analytics_addtocart() {
+//DEUDA TECNICA
+//function odd_mobile_google_analytics_addtocart() {
 
-    var element = $("#OfertasDiaMobile").find(".slick-current").attr("data-slick-index");
-    var id = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".cuv2-odd").val();
-    var name = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".nombre-odd").val();
-    var price = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".precio-odd").val();
-    var marca = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".MarcaNombre").val();
-    var variant = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".DescripcionEstrategia").val();
-    var quantity = $('#pop_oferta_mobile').find("#txtCantidad").val();
-    if (variant == "")
-        variant = "Oferta del Día";
-    dataLayer.push({
-        'event': 'addToCart',
-        'ecommerce': {
-            'add': {
-                'actionField': { 'list': 'Oferta del día' },
-                'products': [{
-                    'name': name,
-                    'price': price,
-                    'brand': marca,
-                    'id': id,
-                    'category': 'No disponible',
-                    'variant': variant,
-                    'quantity': quantity,
-                    'dimension15': '100',
-                    'dimension16': 'Oferta del día - Detalle'
-                }]
-            }
-        }
-    });
-}
+//    var element = $("#OfertasDiaMobile").find(".slick-current").attr("data-slick-index");
+//    var id = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".cuv2-odd").val();
+//    var name = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".nombre-odd").val();
+//    var price = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".precio-odd").val();
+//    var marca = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".MarcaNombre").val();
+//    var variant = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".DescripcionEstrategia").val();
+//    var quantity = $('#pop_oferta_mobile').find("#txtCantidad").val();
+//    if (variant == "")
+//        variant = "Oferta del Día";
+//    dataLayer.push({
+//        'event': 'addToCart',
+//        'ecommerce': {
+//            'add': {
+//                'actionField': { 'list': 'Oferta del día' },
+//                'products': [{
+//                    'name': name,
+//                    'price': price,
+//                    'brand': marca,
+//                    'id': id,
+//                    'category': 'No disponible',
+//                    'variant': variant,
+//                    'quantity': quantity,
+//                    'dimension15': '100',
+//                    'dimension16': 'Oferta del día - Detalle'
+//                }]
+//            }
+//        }
+//    });
+//}
 
 function odd_google_analytics_product_click(name, id, price, brand, variant, position, listName) {
     if (variant == null || variant == "")
@@ -1938,38 +1960,37 @@ Object.defineProperty(Object.prototype, "in", {
 var registerEvent = function (eventName) {
     var self = this;
     self[eventName] = self[eventName] || {};
-    self[eventName].callBacks = [];
-    self[eventName].subscribe = function (cb) {
+    self[eventName].callBacks = self[eventName].callBacks || [];
+    self[eventName].subscribe = self[eventName].subscribe || function(cb) {
         if (!!cb && typeof cb == "function") {
             self[eventName].callBacks.push(cb);
             return;
         }
+    };
 
-    }
-
-    self[eventName].emit = function (args) {
-        self[eventName].callBacks.forEach(function (cb) {
+    self[eventName].emit = self[eventName].emit || function(args) {
+        self[eventName].callBacks.forEach(function(cb) {
             cb.call(undefined, args);
         });
-    }
+    };
 
-    self.subscribe = function (event, cb) {
+    self.subscribe = self.subscribe || function (event, cb) {
         if (!!event) {
             if (self[event]) {
                 self[event].subscribe(cb);
                 return;
             }
         }
-    }
+    };
 
-    self.applyChanges = function (event, args) {
+    self.applyChanges = self.applyChanges || function (event, args) {
         if (self[event]) {
-            self[event].callBacks.forEach(function (cb) {
+            self[event].callBacks.forEach(function(cb) {
                 cb.call(undefined, args);
             });
         }
-    }
-}
+    };
+};
 
 function EstablecerLazyCarrusel(elementoHtml) {
     if (!$(elementoHtml).length) {
@@ -1996,7 +2017,40 @@ function EstablecerLazyCarrusel(elementoHtml) {
 
 }
 
+function EstablecerLazyCarruselAfterChange(elementoHtml) {
+    //EstablecerLazyCarrusel(elementoHtml);
+}
+
+/*
+Detectando IE 6 - 11
+*/
+function isMSIE() {
+    return (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0);
+}
+
+
+(function () {
+
+    /*
+    Cuando es: IE 6 - 11
+    hacks para : EstablecerAccionLazyImagen & EstablecerAccionLazyImagenAll
+    bug: Error inesperado para elemento si padre en lazy load para el metodo getBoundingClientRect()
+    */
+    if (isMSIE()) HTMLElement.prototype.getBoundingClientRect = (function () {
+        var oldGetBoundingClientRect = HTMLElement.prototype.getBoundingClientRect;
+        return function () {
+            try {
+                return oldGetBoundingClientRect.apply(this, arguments);
+            } catch (e) {
+                return { left: 0.0, right: 0.0, top: 0.0, bottom: 0.0 };
+            }
+        };
+    })();
+
+})();
+
 function EstablecerAccionLazyImagen(nombreAtributo, withTimeout) {
+
     //Si se requiere esperar un momento, withTimeout = true
     if (withTimeout == undefined || withTimeout == null)
         withTimeout = true;

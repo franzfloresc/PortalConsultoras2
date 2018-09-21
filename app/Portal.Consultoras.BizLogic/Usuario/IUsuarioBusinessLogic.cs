@@ -1,5 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
-
+using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
 
@@ -94,7 +94,9 @@ namespace Portal.Consultoras.BizLogic
         int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
         bool EsConsultoraNueva(BEUsuario usuario);
         string ObtenerCodigoRevistaFisica(int paisId);
+        BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario);
         BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais);
+        string ActuaizarNovedadBuscador(int paisId, string codigoUsuario);
         #region ActualizacionDatos
         BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo);
         BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);

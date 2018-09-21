@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index");
 
             _cdrProvider.CargarInformacion(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-            model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
+            model.ListaCampania = SessionManager.GetCDRCampanias();
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
 
             if (pedidoId != 0)
@@ -641,7 +641,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult DetalleCargar(MisReclamosModel model)
         {
-            sessionManager.SetCDRWebDetalle(null);
+            SessionManager.SetCDRWebDetalle(null);
             var lista = _cdrProvider.CargarDetalle(model, userData.PaisID, userData.CodigoISO);
 
             return Json(new
@@ -737,7 +737,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.EMail = model.Email;
                 userData.Celular = model.Telefono;
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
 
                 if (!string.IsNullOrWhiteSpace(model.Email))
                 {
@@ -1373,9 +1373,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
         {
-            if (Session[Constantes.ConstSession.CDRExpressMensajes] != null)
+            if (SessionManager.GetCDRExpressMensajes() != null)
             {
-                return (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.CDRExpressMensajes];
+                return SessionManager.GetCDRExpressMensajes();
             }
 
             var listMensaje = new List<BETablaLogicaDatos>();
@@ -1390,7 +1390,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            Session[Constantes.ConstSession.CDRExpressMensajes] = listMensaje;
+            SessionManager.SetCDRExpressMensajes(listMensaje);
             return listMensaje;
         }
 

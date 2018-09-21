@@ -2,7 +2,7 @@
 
 namespace Portal.Consultoras.Data.Hana
 {
-    public class Util
+    public static class Util
     {
         public static string ObtenerJsonServicioHana(string url)
         {
