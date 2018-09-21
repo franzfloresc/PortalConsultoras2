@@ -816,6 +816,15 @@ namespace Portal.Consultoras.Web.Controllers
                             cuv = model.CUV,
                             origen = Constantes.IngresoExternoOrigen.App
                         });
+                    case Constantes.IngresoExternoPagina.LoNuevoNuevo:
+                        return RedirectToUniqueRoute("Ofertas", "Index", null, "LAN");
+                    case Constantes.IngresoExternoPagina.OfertasParaTi:
+                        return RedirectToUniqueRoute("RevistaDigital", "Comprar");
+                    case Constantes.IngresoExternoPagina.SoloHoy:
+                        return RedirectToUniqueRoute("Ofertas", "Index", null, "ODD");
+                    case Constantes.IngresoExternoPagina.HerramientasDeVenta:
+                        return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
+                        //case Constantes.IngresoExternoPagina.SaberMasInscripcion:
                 }
             }
             catch (Exception ex)
@@ -2621,13 +2630,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData)
+        private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData = null, string anchor = null)
         {
             var route = new RouteValueDictionary(new
             {
                 Controller = controller,
                 Action = action,
-                guid = this.GetUniqueKey()
+                guid = this.GetUniqueKey(),
+                anchor = anchor
             });
 
             if (routeData != null)
@@ -2636,7 +2646,9 @@ namespace Portal.Consultoras.Web.Controllers
                 routeDataAditional.ForEach(item => { route.Add(item.Key, item.Value); });
             }
 
-            return RedirectToRoute("UniqueRoute", route);
+            var routeName = string.IsNullOrEmpty(anchor) ? "UniqueRoute" : "UniqueRouteAnchor";
+
+            return RedirectToRoute(routeName, route);
         }
 
         #region OLVIDE CONTRASEÑA

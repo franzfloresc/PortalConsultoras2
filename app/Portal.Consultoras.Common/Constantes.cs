@@ -1178,6 +1178,11 @@ namespace Portal.Consultoras.Common
             public const string CambiosDevoluciones = "CAMBIODEVOLUCIONES";
             public const string PedidosFIC = "PEDIDOSFIC";
             public const string DetalleEstrategia = "DETALLEESTRATEGIA";
+            public const string LoNuevoNuevo = "LONUEVONUEVO";
+            public const string OfertasParaTi = "OFERTASPARATI";
+            public const string SoloHoy = "SOLOHOY";
+            public const string HerramientasDeVenta = "HERRAMIENTASDEVENTA";
+            public const string SaberMasInscripcion = "SABERMASINSCRIPCION";
         }
 
         public static class IngresoExternoOrigen {
