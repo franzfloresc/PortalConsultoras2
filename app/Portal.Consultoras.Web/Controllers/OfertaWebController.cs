@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                 usuario.FechaFacturacion = obeConfiguracionCampania.FechaFinFacturacion;
                 usuario.HoraFacturacion = obeConfiguracionCampania.HoraFin;
             }
-            sessionManager.SetUserData(usuario);
+            SessionManager.SetUserData(usuario);
         }
 
         #region Visualización Ofertas Web
@@ -151,8 +151,8 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoDetalleID = entidad.PedidoDetalleID,
                         IndicadorIPUsuario = GetIPCliente(),
                         IndicadorFingerprint = "",
-                        IndicadorToken = (sessionManager.GetTokenPedidoAutentico() != null)
-                            ? sessionManager.GetTokenPedidoAutentico().ToString()
+                        IndicadorToken = (SessionManager.GetTokenPedidoAutentico() != null)
+                            ? SessionManager.GetTokenPedidoAutentico().ToString()
                             : ""
                     };
 

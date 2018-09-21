@@ -18,9 +18,9 @@
 
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <script type="text/javascript">var baseUrl = "@Url.Content("~")"; </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
-    @System.Web.Optimization.Scripts.Render("~/bundles/JQGridJs")
-    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssMain")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JQGridJs")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssMain")
     <link href="@Url.Content("~/Content/Css/Spectrum/spectrum.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/colorpicker/colorpicker.css")" rel="stylesheet" type="text/css" />
 
@@ -63,8 +63,8 @@
         })();
     </script>
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/JSTree")
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsPluginsHeaderSAC")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JSTree")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/PluginsHeaderSAC")
     <script type="text/javascript" src="@Url.Content("~/Scripts/Spectrum/spectrum.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/colorpicker/colorpicker.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/fuzescale-1.3.min.js")"></script>
@@ -72,8 +72,9 @@
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="" style="height: 750px;">
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
-
-    <div id="wrap_header_menu_background">
+    
+    @Html.Partial("~/Views/Shared/VistaParcialMenu/_SACMenu.cshtml")
+    @*<div id="wrap_header_menu_background">
         <div id="wrap_header_menu" class="field100">
             <div id="logo_tsmv" class="field20">
                 <a href="@Url.Action("Index", "Bienvenida")" style="cursor:pointer;text-decoration:underline;" target="_self">
@@ -99,11 +100,12 @@
 
                     </div>
                 </div>
-                @Html.Partial("_SACMenu")
+                @Html.Partial("~/Views/Shared/VistaParcialMenu/_SACMenu.cshtml")
             </div>
         </div>
         <div id="white_bg_for_menu"></div>
-    </div>
+    </div>*@
+
     <div id="cont_contenido" style="">
         <div class="clear top"></div>
 
@@ -112,11 +114,12 @@
             @RenderBody()
         </div>
     </div>
+
     <div class="clear"></div>
     <div id="footer">
-        @Html.Partial("_SACFooter")
+        @Html.Partial("~/Views/Shared/VistaParcialMenu/_SACFooter.cshtml")
     </div>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsPluginsFooterSAC")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/PluginsFooterSAC")
     @RenderSection("scripts", required: false)
 
 </body>

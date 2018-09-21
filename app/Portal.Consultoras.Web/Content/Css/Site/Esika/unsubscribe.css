@@ -3,14 +3,20 @@
 /* -------------------------------------------------- */
 @font-face {
   font-family: 'lato';
-  src: url("../../../fonts/lato/lato-bold.eot");
-  src: url("../../../fonts/lato/lato-regular.eot?#iefix") format("embedded-opentype"), url("../../../fonts/lato/lato-regular.woff") format("woff"), url("../../../fonts/lato/lato-regular.ttf") format("truetype"), url("../../../fonts/lato/lato-regular.svg#lato_regular") format("svg");
+  src: url("/Content/fonts/lato/lato-bold.eot");
+  src: url("/Content/fonts/lato/lato-regular.eot?#iefix") format("embedded-opentype"),
+      url("/Content/fonts/lato/lato-regular.woff") format("woff"), 
+      url("/Content/fonts/lato/lato-regular.ttf") format("truetype"),
+      url("/Content/fonts/lato/lato-regular.svg#lato_regular") format("svg");
   font-weight: normal;
   font-style: normal; }
 @font-face {
   font-family: 'lato-bold';
-  src: url("../../../fonts/lato/lato-bold.eot");
-  src: url("../../../fonts/lato/lato-bold.eot?#iefix") format("embedded-opentype"), url("../../../fonts/lato/lato-bold.woff") format("woff"), url("../../../fonts/lato/lato-bold.ttf") format("truetype"), url("../../../fonts/lato/lato-bold.svg#lato_bold") format("svg");
+  src: url("/Content/fonts/lato/lato-bold.eot");
+  src: url("/Content/fonts/lato/lato-bold.eot?#iefix") format("embedded-opentype"), 
+      url("/Content/fonts/lato/lato-bold.woff") format("woff"), 
+      url("/Content/fonts/lato/lato-bold.ttf") format("truetype"), 
+      url("/Content/fonts/lato/lato-bold.svg#lato_bold") format("svg");
   font-weight: normal;
   font-style: normal; }
 /* ---------------------------------------------------------------------- */
@@ -79,7 +85,7 @@ blockquote {
     position: absolute;
     width: 20px;
     height: 16px;
-    background-image: url("../../../Images/quote.png");
+    background-image: url("/Content/Images/quote.png");
     background-repeat: no-repeat;
     background-position: 0 0;
     content: ''; }
@@ -87,7 +93,7 @@ blockquote {
     position: absolute;
     width: 20px;
     height: 16px;
-    background-image: url("../../../Images/quote.png");
+    background-image: url("/Content/Images/quote.png");
     background-repeat: no-repeat;
     background-position: 0 0;
     content: '';

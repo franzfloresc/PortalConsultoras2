@@ -28,6 +28,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public bool FlagConfig { get; set; }
         public string Zona { get; set; }
         public bool FlagEstrella { get; set; }
+        public string ImagenMiniatura { get; set; }
 
         //TipoEstrategia
         public int TipoEstrategiaId { get; set; }
@@ -50,5 +51,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public string UsuarioModificacion { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
+
+        public bool? EsSubCampania { get; set; }
     }
 }

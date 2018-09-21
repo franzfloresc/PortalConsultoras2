@@ -28,12 +28,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "MisCertificados/Index"))
                     return RedirectToAction("Index", "Bienvenida");
 
-                listaCertificados = sessionManager.GetMisCertificados() ?? new List<MiCertificadoModel>();
+                listaCertificados = SessionManager.GetMisCertificados() ?? new List<MiCertificadoModel>();
 
                 if (!listaCertificados.Any())
                 {
                     listaCertificados = ObtenerCertificados();
-                    sessionManager.SetMisCertificados(listaCertificados);
+                    SessionManager.SetMisCertificados(listaCertificados);
                 }
 
                 ViewBag.PaisUser = userData.PaisID;
@@ -217,7 +217,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var tmp = model;
                     var tipo = Convert.ToInt16(id);
 
-                    var listaData = sessionManager.GetMisCertificadosData() ?? new List<BEMiCertificado>();
+                    var listaData = SessionManager.GetMisCertificadosData() ?? new List<BEMiCertificado>();
                     BEMiCertificado beMiCertificado;
                     var existsData = false;
 
@@ -242,7 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (beMiCertificado != null && beMiCertificado.Result == 1)
                         {
                             listaData.Add(beMiCertificado);
-                            sessionManager.SetMisCertificadosData(listaData);
+                            SessionManager.SetMisCertificadosData(listaData);
                             model = Mapper.Map<MiCertificadoModel>(beMiCertificado);
                         }
                     }
@@ -380,7 +380,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private MiCertificadoModel ObtenerCertificadoById(int id)
         {
-            var listaCertificados = sessionManager.GetMisCertificados() ?? new List<MiCertificadoModel>();
+            var listaCertificados = SessionManager.GetMisCertificados() ?? new List<MiCertificadoModel>();
 
             var certificado = listaCertificados.FirstOrDefault(p => p.CertificadoId == id) ?? new MiCertificadoModel();
 
