@@ -1698,7 +1698,7 @@ body > img{
     }
 
     .footer__item__content__list{
-        /* display:none; */
+        display:none; 
         background-color:#e2e1e7;
     }
 
