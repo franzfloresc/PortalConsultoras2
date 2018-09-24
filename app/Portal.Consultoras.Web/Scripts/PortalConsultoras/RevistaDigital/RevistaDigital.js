@@ -672,7 +672,6 @@ function CheckClickCarrousel(action, source) {
 function CallAnalitycsClickArrow() {
     if (sliderWay !== 0 && clickedSlider !== 0) {
         if (typeof rdAnalyticsModule !== "undefined") {
-            console.log("values of direction : " + sliderWay);
             rdAnalyticsModule.ClickArrowLan(sliderWay);
         }
         sliderWay = 0;

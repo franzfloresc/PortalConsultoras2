@@ -4499,6 +4499,12 @@ table > thead > tr > th {
     background-position: center -1px;
 }
 
+/* INICIO - ICONO BÚSQUEDA DE PRODUCTOS MOBILE Y TOOLTIP INFORMATIVO SOBRE NOVEDAD DE BUSCADOR DE PRODUCTOS */
+
+.opcion_menu_buscador{
+    position:relative;
+}
+
 .icono_busqueda_mobile{
     display: block;
     position: relative;
@@ -4521,6 +4527,88 @@ table > thead > tr > th {
     width:100%;
     height:auto;
 }
+
+.tooltip_informativo_sobre_opcion_busqueda_prod {
+    display: block;
+    position: absolute;
+    top: 49px;
+    left: -85px;
+    min-width: 183px;
+    background-color: #f5f5f5;
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+    text-align: left;
+    padding: 12px 13px;
+    font-size: 12.5px;
+    -moz-box-shadow: 5px 6px 12px -6px #8c8c8c;
+    -webkit-box-shadow: 5px 6px 12px -6px #8c8c8c;
+    box-shadow: 5px 6px 12px -6px #8c8c8c;
+}
+
+.tooltip_informativo_sobre_opcion_busqueda_prod:after,
+.tooltip_informativo_sobre_opcion_busqueda_prod:before
+{
+	bottom: 100%;
+	left: 0;
+    right:0;
+    margin:0 auto;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.tooltip_informativo_sobre_opcion_busqueda_prod:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f5f5f5;
+	border-width: 10px;
+}
+
+.tooltip_informativo_sobre_opcion_busqueda_prod:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-bottom-color: #d7d7d7;
+	border-width: 11px;
+}
+
+.novedad_busqueda_titulo{
+    font-weight:900;
+}
+
+.novedad_busqueda_descripcion{
+    display:block;
+    margin-top:6px;
+}
+
+.icono_tooltip_informativo_opcion_busqueda,
+.descripcion_tooltip_informativo_opcion_busqueda
+{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.icono_tooltip_informativo_opcion_busqueda{
+    width: 19px;
+    height: 19px;
+    margin-right: 4px;
+    padding-top: 3px;
+}
+
+.descripcion_tooltip_informativo_opcion_busqueda{
+    width:129px;
+    overflow-wrap:break-word;
+    line-height:15px;
+    color:#000;
+    font-size:13px;
+}
+
+.icono_tooltip_informativo_opcion_busqueda img{
+    width:100%;
+    height:auto;
+}
+
+/* FIN - ICONO BÚSQUEDA DE PRODUCTOS MOBILE Y TOOLTIP INFORMATIVO SOBRE NOVEDAD DE BUSCADOR DE PRODUCTOS */
 
 .notificaciones_mobiles {
     width: 20px;
@@ -7124,7 +7212,7 @@ input[type='checkbox']:checked + span:after {
     overflow: hidden;
     overflow-y: scroll;
     background: rgba(0, 0, 0, .85);
-    z-index: 10000;
+    z-index: 2000;
 }
 
 .contenedor_popup_demandaAnticipada {
