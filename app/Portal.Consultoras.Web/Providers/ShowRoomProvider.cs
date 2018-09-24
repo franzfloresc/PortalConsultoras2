@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Response;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
@@ -8,6 +10,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora;
 using BEShowRoomNivel = Portal.Consultoras.Web.ServicePedido.BEShowRoomNivel;
 
@@ -400,6 +403,22 @@ namespace Portal.Consultoras.Web.Providers
             return model == null
                 ? string.Empty
                 : model.Valor;
+        }
+
+        public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
+        {
+            List<ServiceOferta.BEEstrategia> lEstrategia = new List<ServiceOferta.BEEstrategia>();
+            UsuarioModel userData = sessionManager.GetUserData();
+
+            string path = string.Format(Constantes.PersonalizacionOfertasService.UrlGetShowRoomOfertasConsultora, userData.CodigoISO, Constantes.ConfiguracionPais.ShowRoom, userData.CampaniaID, userData.GetCodigoConsultora(), string.Empty, string.Empty);
+
+            var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(path, userData.CodigoISO));
+
+            Task.WhenAll(taskApi);
+
+            var l = taskApi.Result;
+
+            return l;
         }
     }
 }

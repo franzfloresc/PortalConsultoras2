@@ -96,9 +96,8 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.UrlMenuContenedor.SwInicioIndex:
                 case Constantes.UrlMenuContenedor.SwPersonalizado:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
-                    menuActivo.OrigenPantalla = esMobile
-                        ? Constantes.OrigenPantallaWeb.MShowRoom
-                        : Constantes.OrigenPantallaWeb.DShowRoom;
+                    menuActivo.OrigenPantalla = esMobile ? Constantes.OrigenPantallaWeb.MShowRoom : Constantes.OrigenPantallaWeb.DShowRoom;
+
                     break;
                 //case Constantes.UrlMenuContenedor.OptDetalle:
                 //    var PathOrigen = GetOrigenFromQueryString(Request);
@@ -432,6 +431,7 @@ namespace Portal.Consultoras.Web.Providers
                             continue;
 
                         config.UrlMenu = string.Empty;
+
                         if (!sessionManager.GetMostrarShowRoomProductos() &&
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
@@ -442,8 +442,8 @@ namespace Portal.Consultoras.Web.Providers
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
                             config.UrlMenu = "ShowRoom";
-
                         }
+
                         if (config.UrlMenu == "")
                             continue;
 
