@@ -21,11 +21,6 @@ namespace Portal.Consultoras.Web.Controllers
             var FlagVideo = 0;
             try
             {
-                //var IdCurso = SessionManager.GetMiAcademia();
-                //if (IdCurso > 0)
-                //{
-                //    SessionManager.SetMiAcademia(0);
-                //}
                 IdCurso = SessionManager.GetMiAcademia();
                 FlagVideo = SessionManager.GetMiAcademiaVideo();  //PPC
                 SessionManager.SetMiAcademia(0);

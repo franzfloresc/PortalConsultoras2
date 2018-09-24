@@ -284,6 +284,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                //"~/Scripts/PortalConsultoras/OfertaLiquidacion/Index.js",
                 "~/Scripts/PortalConsultoras/Buscador/Index.js"
             ));
 
@@ -656,7 +657,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-SeccionDorada.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/Mobile/GuiaNegocio-Landing").Include(
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/GuiaNegocio").Include(
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
@@ -878,7 +879,7 @@ namespace Portal.Consultoras.Web
 
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/ShowRoom-index").Include(
-                "~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js",
+                //"~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js",
                 "~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js",
                 "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",

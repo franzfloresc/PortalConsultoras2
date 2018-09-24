@@ -235,7 +235,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaAgregar = function (event, popup, limite, esFicha) {
-        console.log('estrategiaAgregar', event, popup, limite, esFicha);
+
         popup = popup || false;
         limite = limite || 0;
 
@@ -324,7 +324,7 @@ var EstrategiaAgregarModule = (function () {
             FlagNueva: $.trim(estrategia.FlagNueva)
             // ClienteID_:
         };
-        console.log('estrategiaAgregar', params);
+
         EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
             if (!checkTimeout(data)) {
                 CerrarLoad();
