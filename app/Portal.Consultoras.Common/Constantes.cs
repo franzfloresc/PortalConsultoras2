@@ -1994,7 +1994,7 @@ namespace Portal.Consultoras.Common
                 "Están agregados en tu pedido bajo la descripción RECUPC16.Puedes mantenerlos para recibirlos con tu caja de C17 o borrarlos de tu pedido si ya no los necesitas.";
         }
 
-        public class ProgramaNuevas
+        public static class ProgramaNuevas
         {
             public const string CarpetaBanner = "AppConsultora/{0}/ProgramaNuevas/{1}";
             public const string ArchivoBannerCupones = "Cupon{0}_{1}.jpg";
@@ -2031,7 +2031,7 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public class VentaExclusiva
+        public static class VentaExclusiva
         {
             public const string CuvNoEsVentaExclusiva = "El código solicitado pertenece a la Venta Exclusiva. Usted no cumple las condiciones para solicitarlo.";
 
@@ -2078,7 +2078,7 @@ namespace Portal.Consultoras.Common
             public enum Position { CUV = 0, Order = 1, ProductName = 2, Description = 3, BrandProduct = 4 };
         }
 
-        public class GanaMas
+        public static class GanaMas
         {
             public const short PaisSinRD = 1;
             public const short PaisConRD_SuscritaActiva = 2;
@@ -2335,7 +2335,7 @@ namespace Portal.Consultoras.Common
         }
 
         #region Olvide Contrasenia
-        public class OlvideContrasenia
+        public static class OlvideContrasenia
         {
             public const int Origen = 1;
             public const string OrigenDescripcion = "Olvide Contraseña";
@@ -2383,7 +2383,7 @@ namespace Portal.Consultoras.Common
         #endregion
 
         #region Verificar Pin Autenticidad
-        public class VerificacionAutenticidad
+        public static class VerificacionAutenticidad
         {
             public const string OrigenDescripcion = "Verificacion de Autenticidad";
 
@@ -2412,7 +2412,7 @@ namespace Portal.Consultoras.Common
 
         public class EnviarSMS
         {
-            public class CredencialesProvedoresSMS
+            public static class CredencialesProvedoresSMS
             {
                 public const short TablaLogicaID = 133;
                 public static class Bolivia
@@ -2637,7 +2637,7 @@ namespace Portal.Consultoras.Common
 
             #endregion
         }
-        public class OfertaFinalLog
+        public static class OfertaFinalLog
         {
             private static Dictionary<int, string> _Message;
 
@@ -2739,7 +2739,7 @@ namespace Portal.Consultoras.Common
                 }
             }
 
-            public class VerificacionEmail
+            public static class VerificacionEmail
             {
                 public const string UpsOcurrioUnProblema = "UPSS! OCURRIÓ UN PROBLEMA";
                 public const string TuCorreoYaFueValidado = "TU CORREO YA FUE VALIDADO";
@@ -2785,7 +2785,7 @@ namespace Portal.Consultoras.Common
         }
 
 
-        public class AceptacionContrato
+        public static class AceptacionContrato
         {
             public const string UrlDescargarContratoCO = "http://somosbelcorpprd.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
             public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
