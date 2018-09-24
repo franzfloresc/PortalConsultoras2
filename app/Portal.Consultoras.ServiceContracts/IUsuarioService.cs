@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -403,7 +404,14 @@ namespace Portal.Consultoras.ServiceContracts
         string CancelarAtualizacionEmail(int paisID, string codigoUsuario);
 
         [OperationContract]
+        BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario);
+
+        [OperationContract]
         List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
+        
+         [OperationContract]
+        string ActualizarNovedadBuscador(int paisID, string codigoUsuario);
+
         #region ActualizacionDatos
         [OperationContract]
         BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);

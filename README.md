@@ -1,4 +1,5 @@
-# Portal Consultoras SB2.
+# Portal Consultoras 2
 
-HU => EPM-1431 - Oferta web esta solicitando condición (factor de cuadre)
+PPR FIX
 
+2018-09-21

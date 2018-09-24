@@ -36,12 +36,12 @@ namespace Portal.Consultoras.Web.Controllers
                 model.NombreCompleto = beusuario.Nombre;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;
                 model.EMail = beusuario.EMail;
-                if (!userData.EMail.Contains(model.EMail)) userData.EMail = model.EMail;
+                if (!userData.EMail.Contains(string.IsNullOrEmpty(model.EMail) ? "" : model.EMail)) userData.EMail = model.EMail;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;
                 model.Telefono = beusuario.Telefono;
                 model.TelefonoTrabajo = beusuario.TelefonoTrabajo;
                 model.Celular = beusuario.Celular;
-                if (!userData.Celular.Contains(model.Celular)) userData.Celular = model.Celular;
+                if (!userData.Celular.Contains(string.IsNullOrEmpty(model.Celular) ? "" : model.Celular)) userData.Celular = model.Celular;
                 model.Sobrenombre = beusuario.Sobrenombre;
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
@@ -271,7 +271,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.FotoOriginalSinModificar = nameImage;
                     ViewBag.FotoPerfilSinModificar = nameImage;
 
-                    sessionManager.SetUserData(userData);
+                    SessionManager.SetUserData(userData);
                     result = true;
                 }
 
@@ -307,7 +307,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
                 ViewBag.FotoPerfilSinModificar = "";
 
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
 
                 return Json(new { success = true, message = "Foto de perfil eliminada correctamente." }, "text/html");
             }

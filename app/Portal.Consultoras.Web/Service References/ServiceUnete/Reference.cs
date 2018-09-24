@@ -9949,7 +9949,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ZonaGZField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IpOrigenField;
+
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -10583,7 +10586,20 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IpOrigen{
+            get{
+                return this.IpOrigenField;
+            }
+            set{
+                if ((object.ReferenceEquals(this.IpOrigenField, value) != true)){
+                    this.IpOrigenField = value;
+                    this.RaisePropertyChanged("IpOrigen");
+                }
+            }
+        }
+
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -12188,6 +12204,131 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EventoSolicitudPostulante", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
+    [System.SerializableAttribute()]
+    public partial class EventoSolicitudPostulante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EventoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ObservacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante SolicitudPostulanteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SolicitudPostulanteIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoEventoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EventoId {
+            get {
+                return this.EventoIdField;
+            }
+            set {
+                if ((this.EventoIdField.Equals(value) != true)) {
+                    this.EventoIdField = value;
+                    this.RaisePropertyChanged("EventoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime Fecha {
+            get {
+                return this.FechaField;
+            }
+            set {
+                if ((this.FechaField.Equals(value) != true)) {
+                    this.FechaField = value;
+                    this.RaisePropertyChanged("Fecha");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Observacion {
+            get {
+                return this.ObservacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ObservacionField, value) != true)) {
+                    this.ObservacionField = value;
+                    this.RaisePropertyChanged("Observacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante SolicitudPostulante {
+            get {
+                return this.SolicitudPostulanteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SolicitudPostulanteField, value) != true)) {
+                    this.SolicitudPostulanteField = value;
+                    this.RaisePropertyChanged("SolicitudPostulante");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SolicitudPostulanteId {
+            get {
+                return this.SolicitudPostulanteIdField;
+            }
+            set {
+                if ((this.SolicitudPostulanteIdField.Equals(value) != true)) {
+                    this.SolicitudPostulanteIdField = value;
+                    this.RaisePropertyChanged("SolicitudPostulanteId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoEvento {
+            get {
+                return this.TipoEventoField;
+            }
+            set {
+                if ((this.TipoEventoField.Equals(value) != true)) {
+                    this.TipoEventoField = value;
+                    this.RaisePropertyChanged("TipoEvento");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceUnete.IPortalService")]
     public interface IPortalService {
@@ -12639,6 +12780,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GuardarEnvioCorreoSmsSolicitudPostulante", ReplyAction="http://tempuri.org/IPortalService/GuardarEnvioCorreoSmsSolicitudPostulanteRespons" +
             "e")]
         System.Threading.Tasks.Task<int> GuardarEnvioCorreoSmsSolicitudPostulanteAsync(string codigoIso, Portal.Consultoras.Web.ServiceUnete.RegistroEnvioCorreoSmsSolicitudPostulanteBE model);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulante", ReplyAction="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulanteResponse")]
+        void AgregarEventoSolicitudPostulante(string CodigoIso, Portal.Consultoras.Web.ServiceUnete.EventoSolicitudPostulante evento);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulante", ReplyAction="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulanteResponse")]
+        System.Threading.Tasks.Task AgregarEventoSolicitudPostulanteAsync(string CodigoIso, Portal.Consultoras.Web.ServiceUnete.EventoSolicitudPostulante evento);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -13226,6 +13373,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         public System.Threading.Tasks.Task<int> GuardarEnvioCorreoSmsSolicitudPostulanteAsync(string codigoIso, Portal.Consultoras.Web.ServiceUnete.RegistroEnvioCorreoSmsSolicitudPostulanteBE model) {
             return base.Channel.GuardarEnvioCorreoSmsSolicitudPostulanteAsync(codigoIso, model);
+        }
+        
+        public void AgregarEventoSolicitudPostulante(string CodigoIso, Portal.Consultoras.Web.ServiceUnete.EventoSolicitudPostulante evento) {
+            base.Channel.AgregarEventoSolicitudPostulante(CodigoIso, evento);
+        }
+        
+        public System.Threading.Tasks.Task AgregarEventoSolicitudPostulanteAsync(string CodigoIso, Portal.Consultoras.Web.ServiceUnete.EventoSolicitudPostulante evento) {
+            return base.Channel.AgregarEventoSolicitudPostulanteAsync(CodigoIso, evento);
         }
     }
 }

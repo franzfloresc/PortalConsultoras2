@@ -407,7 +407,7 @@ namespace Portal.Consultoras.BizLogic
             if (limElectivos <= 0) limElectivos = 1;
 
             var listElecPedido = lstCuvPedido.Where(c => lstElectivas.Any(e => e.CodigoCupon == c)).ToList();
-            var cantElecPedido = listElecPedido.Count();
+            var cantElecPedido = listElecPedido.Count;
             if (cantElecPedido == 1 && limElectivos == 1) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Reemplazar, listElecPedido);
             if (cantElecPedido >= limElectivos) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite, limElectivos);
 

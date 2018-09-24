@@ -24,7 +24,7 @@
         var name = $("#LlamarPopCompra").data("promotion-impresion-name");
         odd_mobile_promotion_impression(id, name);
 
-        EstablecerLazyCarrusel($('.content_pop_compra'));
+        EstablecerLazyCarrusel('.content_pop_compra');
         $('.content_pop_compra').slick({
             lazyLoad: 'ondemand',
             dots: false,
@@ -35,6 +35,8 @@
             slidesToScroll: 1,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -10%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -10%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            EstablecerLazyCarruselAfterChange('.content_pop_compra');
         });
     });
 

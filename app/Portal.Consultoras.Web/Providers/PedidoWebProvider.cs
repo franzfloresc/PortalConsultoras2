@@ -14,12 +14,16 @@ namespace Portal.Consultoras.Web.Providers
         protected ISessionManager sessionManager;
         protected ConfiguracionManagerProvider _configuracionManager;
 
-        public PedidoWebProvider()
+        public PedidoWebProvider() : this(SessionManager.SessionManager.Instance, new ConfiguracionManagerProvider())
         {
-            sessionManager = SessionManager.SessionManager.Instance;
-            _configuracionManager = new ConfiguracionManagerProvider();
         }
-        
+
+        public PedidoWebProvider(ISessionManager sessionManager, ConfiguracionManagerProvider configuracionManagerProvider)
+        {
+            this.sessionManager = sessionManager;
+            this._configuracionManager = configuracionManagerProvider;
+        }
+
         public virtual BEPedidoWeb ObtenerPedidoWeb(int paisId, int campaniaId, long consultoraId)
         {
             var pedidoWeb = (BEPedidoWeb)null;
@@ -55,6 +59,10 @@ namespace Portal.Consultoras.Web.Providers
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             var userData = sessionManager.GetUserData();
+            var pedidoValidado = sessionManager.GetPedidoValidado();
+            var revistaDigital = sessionManager.GetRevistaDigital();
+            var suscripcionActiva = (revistaDigital.EsSuscrita == true && revistaDigital.EsActiva == true);
+
             try
             {
                 if (userData == null)
@@ -86,7 +94,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
-                    item.DescripcionOferta = ObtenerDescripcionOferta(item);
+                    item.DescripcionOferta = ObtenerDescripcionOferta(item, pedidoValidado, suscripcionActiva, userData.NuevasDescripcionesBuscador);
                 }
 
                 var observacionesProl = sessionManager.GetObservacionesProl();
@@ -114,6 +122,9 @@ namespace Portal.Consultoras.Web.Providers
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             var userData = sessionManager.GetUserData();
+            var pedidoValidado = sessionManager.GetPedidoValidado();
+            var revistaDigital = sessionManager.GetRevistaDigital();
+            var suscripcionActiva = (revistaDigital.EsSuscrita == true && revistaDigital.EsActiva == true);
 
             try
             {
@@ -144,7 +155,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
-                    item.DescripcionOferta = ObtenerDescripcionOferta(item);
+                    item.DescripcionOferta = ObtenerDescripcionOferta(item, pedidoValidado, suscripcionActiva, userData.NuevasDescripcionesBuscador);
                 }
                 var observacionesProl = sessionManager.GetObservacionesProl();
                 if (observacionesProl != null && detallesPedidoWeb.Count > 0)
@@ -161,7 +172,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
-                sessionManager.SetDetallesPedido(detallesPedidoWeb);
+                sessionManager.SetDetallesPedidoSetAgrupado(detallesPedidoWeb);
 
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
@@ -235,7 +246,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
         }
-        
+
         private List<BEPedidoWebDetalle> TraerHijosFaltantesEnObsPROL(List<BEPedidoWebDetalle> pedido, int paisId, int campaniaId, long consultoraId, int pedidoId)
         {
             var idSetList = pedido.Where(x => x.SetID != 0).Select(x => x.SetID).ToList();
@@ -253,71 +264,15 @@ namespace Portal.Consultoras.Web.Providers
             return cuvHijos;
         }
 
-        private string ObtenerDescripcionOferta(BEPedidoWebDetalle item)
+        private string ObtenerDescripcionOferta(BEPedidoWebDetalle item, bool pedidoValidado, bool suscripcion, Dictionary<string, string> lista)
         {
             var descripcion = "";
-            var pedidoValidado = sessionManager.GetPedidoValidado();
 
-            if (pedidoValidado)
-            {
-                if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
-                {
-                    descripcion = (item.DescripcionOferta.Replace("[", "")).Replace("]", "");
-                }
-                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
-                {
-                    descripcion = "OFERTA LIQUIDACIÓN";
-                }
-                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
-                {
-                    descripcion = "OFERTA FLEXIPAGO";
-                }
-                else
-                {
-                    descripcion = "";
-                }
-            }
-            else
-            {
-                if (item.FlagConsultoraOnline)
-                {
-                    descripcion = "CLIENTE ONLINE";
-                }
-                else
-                {
-                    if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal)
-                    {
-                        descripcion = "";
-                    }
-                    else if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal)
-                    {
-                        descripcion = "";
-                    }
-                    else if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
-                    {
-                        descripcion = item.DescripcionOferta;
-                    }
-                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
-                    {
-                        descripcion = "OFERTA LIQUIDACIÓN";
-                    }
-                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
-                    {
-                        descripcion = "OFERTA FLEXIPAGO";
-                    }
-                    else if (item.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
-                    {
-                        descripcion = "OFERTAS ESPECIALES GANA+";
-                    }
-                    else
-                    {
-                        descripcion = "";
-                    }
-                }
-            }
+            descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado, item.FlagConsultoraOnline,
+                item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID, item.CodigoCatalago, item.DescripcionOferta);
 
             return descripcion;
         }
-        
+
     }
 }

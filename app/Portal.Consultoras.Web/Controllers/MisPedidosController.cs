@@ -226,9 +226,9 @@ namespace Portal.Consultoras.Web.Controllers
                 BarraConsultoraModel dataBarra = new BarraConsultoraModel();
                 try
                 {
-                    sessionManager.SetObservacionesProl(null);
-                    sessionManager.SetDetallesPedido(null);
-                    sessionManager.SetDetallesPedidoSetAgrupado(null);
+                    SessionManager.SetObservacionesProl(null);
+                    SessionManager.SetDetallesPedido(null);
+                    SessionManager.SetDetallesPedidoSetAgrupado(null);
                     UpdPedidoWebMontosPROL();
                     dataBarra = GetDataBarra();
                 }
@@ -768,14 +768,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
 
-            var listx = Session["MisPedidos-DetallePorCampania"];
-            string campSes = (string)Session["MisPedidos-DetallePorCampania-Campania"];
-            string estadoCombo = (string)Session["MisPedidos-DetallePorCampania-Estado"];
-            int pedidoIdSesion = (int)(Session["MisPedidos-DetallePorCampania-PedidoId"] ?? 0);
+            var listx = SessionManager.GetMisPedidosDetallePorCampania();
+            string campSes = SessionManager.GetMisPedidosDetallePorCampaniaCampania();
+            string estadoCombo = SessionManager.GetMisPedidosDetallePorCampaniaEstado();
+            int pedidoIdSesion = SessionManager.GetMisPedidosDetallePorCampaniaPedidoId();
 
             if (!(listx == null || campSes == null || campSes != campaniaId || estadoCombo == null || estadoCombo != estado || pedidoIdSesion != pedidoId))
             {
-                lst = (List<BEPedidoWebDetalle>)listx;
+                lst = listx;
                 return lst;
             }
             estado = (estado ?? "").Trim().ToLower();
@@ -844,10 +844,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
             }
 
-            Session["MisPedidos-DetallePorCampania"] = lst;
-            Session["MisPedidos-DetallePorCampania-Campania"] = campaniaId;
-            Session["MisPedidos-DetallePorCampania-Estado"] = estado;
-            Session["MisPedidos-DetallePorCampania-PedidoId"] = pedidoId;
+            SessionManager.SetMisPedidosDetallePorCampania(lst);
+            SessionManager.SetMisPedidosDetallePorCampaniaCampania(campaniaId);
+            SessionManager.SetMisPedidosDetallePorCampaniaEstado(estado);
+            SessionManager.SetMisPedidosDetallePorCampaniaPedidoId(pedidoId);
 
             return lst;
         }

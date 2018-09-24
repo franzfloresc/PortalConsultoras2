@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -292,18 +293,17 @@ namespace Portal.Consultoras.Web.Providers
 
         public PagoVisaModel ObtenerValoresPagoPayu(PagoEnLineaModel model)
         {
-            var pagoModel = new PagoVisaModel();
-            var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU;
-            var listaPasarelaVisa = ObtenerPagoEnLineaTipoPasarela(tipoPasarelaVisa);
-            if (listaPasarelaVisa.Count > 0)
+            var settings = ConfigurationManager.AppSettings;
+            var pagoModel = new PagoVisaModel
             {
-                pagoModel.MerchantId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.MerchantId);
-                pagoModel.AccessKeyId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.ApiLogin);
-                pagoModel.SecretAccessKey = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.ApiKey);
-                pagoModel.AccountId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.AccountId);
-                pagoModel.UrlPagoPayu = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.Endpoint);
-                pagoModel.IsTest = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.Test) == "1";
-            }
+                MerchantId = settings[Constantes.PagoEnLineaPasarelaPayu.MerchantId],
+                AccessKeyId = settings[Constantes.PagoEnLineaPasarelaPayu.ApiLogin],
+                SecretAccessKey = settings[Constantes.PagoEnLineaPasarelaPayu.ApiKey],
+                AccountId = settings[Constantes.PagoEnLineaPasarelaPayu.AccountId],
+                UrlPagoPayu = settings[Constantes.PagoEnLineaPasarelaPayu.Endpoint],
+                IsTest = settings[Constantes.PagoEnLineaPasarelaPayu.Test] == "1"
+            };
+
 
             return pagoModel;
         }
@@ -320,7 +320,7 @@ namespace Portal.Consultoras.Web.Providers
                 string accessKeyId = model.PagoVisaModel.AccessKeyId;
                 string secretAccessKey = model.PagoVisaModel.SecretAccessKey;
 
-                var respuestaAutorizacion = GenerarAutorizacionBotonPagos(userData.PaisID, sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
+                var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
                 var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
 
                 BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa, userData);
@@ -400,7 +400,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        private string GenerarAutorizacionBotonPagos(int paisId, string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
+        private string GenerarAutorizacionBotonPagos(string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
         {
             var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaVisa;
             var listaPasarelaVisa = ObtenerPagoEnLineaTipoPasarela(tipoPasarelaVisa);
@@ -624,6 +624,13 @@ namespace Portal.Consultoras.Web.Providers
                     m.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU &&
                     m.PagoEnLineaMedioPagoId == medio &&
                     m.TipoTarjeta == card);
+        }
+
+        public bool CanPay(UsuarioModel userData, PagoEnLineaModel pago)
+        {
+            return userData.TienePagoEnLinea &&
+                   pago.MontoDeuda > 0 &&
+                   userData.MontoDeuda >= pago.MontoDeuda;
         }
 
         public IEnumerable<string> ObtenerMeses()

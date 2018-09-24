@@ -1382,6 +1382,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private short EstadoItemField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstrategiaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1894,6 +1897,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.EstadoItemField.Equals(value) != true)) {
                     this.EstadoItemField = value;
                     this.RaisePropertyChanged("EstadoItem");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstrategiaId {
+            get {
+                return this.EstrategiaIdField;
+            }
+            set {
+                if ((this.EstrategiaIdField.Equals(value) != true)) {
+                    this.EstrategiaIdField = value;
+                    this.RaisePropertyChanged("EstrategiaId");
                 }
             }
         }
@@ -4858,6 +4874,131 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEEscalaDescuentoZona", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEEscalaDescuentoZona : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CampaniaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodRegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodZonaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FechaCargaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoHastaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PorDescuentoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CampaniaId {
+            get {
+                return this.CampaniaIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CampaniaIdField, value) != true)) {
+                    this.CampaniaIdField = value;
+                    this.RaisePropertyChanged("CampaniaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodRegion {
+            get {
+                return this.CodRegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodRegionField, value) != true)) {
+                    this.CodRegionField = value;
+                    this.RaisePropertyChanged("CodRegion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodZona {
+            get {
+                return this.CodZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodZonaField, value) != true)) {
+                    this.CodZonaField = value;
+                    this.RaisePropertyChanged("CodZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FechaCarga {
+            get {
+                return this.FechaCargaField;
+            }
+            set {
+                if ((this.FechaCargaField.Equals(value) != true)) {
+                    this.FechaCargaField = value;
+                    this.RaisePropertyChanged("FechaCarga");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoHasta {
+            get {
+                return this.MontoHastaField;
+            }
+            set {
+                if ((this.MontoHastaField.Equals(value) != true)) {
+                    this.MontoHastaField = value;
+                    this.RaisePropertyChanged("MontoHasta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PorDescuento {
+            get {
+                return this.PorDescuentoField;
+            }
+            set {
+                if ((this.PorDescuentoField.Equals(value) != true)) {
+                    this.PorDescuentoField = value;
+                    this.RaisePropertyChanged("PorDescuento");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceCliente.IClienteService")]
     public interface IClienteService {
@@ -5097,6 +5238,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/MovimientoDetalleActualizar", ReplyAction="http://tempuri.org/IClienteService/MovimientoDetalleActualizarResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd> MovimientoDetalleActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/ListarEscalaDescuentoZona", ReplyAction="http://tempuri.org/IClienteService/ListarEscalaDescuentoZonaResponse")]
+        Portal.Consultoras.Web.ServiceCliente.BEEscalaDescuentoZona[] ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/ListarEscalaDescuentoZona", ReplyAction="http://tempuri.org/IClienteService/ListarEscalaDescuentoZonaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEEscalaDescuentoZona[]> ListarEscalaDescuentoZonaAsync(int paisID, int campaniaID, string region, string zona);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -5436,6 +5583,14 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd> MovimientoDetalleActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle) {
             return base.Channel.MovimientoDetalleActualizarAsync(paisId, movimientoDetalle);
+        }
+        
+        public Portal.Consultoras.Web.ServiceCliente.BEEscalaDescuentoZona[] ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona) {
+            return base.Channel.ListarEscalaDescuentoZona(paisID, campaniaID, region, zona);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEEscalaDescuentoZona[]> ListarEscalaDescuentoZonaAsync(int paisID, int campaniaID, string region, string zona) {
+            return base.Channel.ListarEscalaDescuentoZonaAsync(paisID, campaniaID, region, zona);
         }
     }
 }

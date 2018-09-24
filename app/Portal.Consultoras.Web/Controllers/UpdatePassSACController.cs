@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                sessionManager.setBEUsuarioModel(items.ToList());
+                SessionManager.setBEUsuarioModel(items.ToList());
 
                 foreach (var item in items)
                 {
@@ -226,7 +226,7 @@ namespace Portal.Consultoras.Web.Controllers
         private void registraDynamo(UpdatePassSACModel model)
         {
             var extraeContraseñaAnterior = "";
-            var lstUsuario = sessionManager.getBEUsuarioModel();
+            var lstUsuario = SessionManager.getBEUsuarioModel();
             foreach (var item in lstUsuario)
             {
                 if (item.CodigoConsultora == model.CodigoConsultora)

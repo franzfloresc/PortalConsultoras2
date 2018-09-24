@@ -65,13 +65,14 @@
                 <input type="hidden" class="Volumen" value="" />
                 <input type="hidden" class="Palanca" value="OPT" />
             </div>
-            @if (Model.CodigoEstrategia != "")
+            @*@if (Model.CodigoEstrategia != "")
             {
                 <div data-estrategia="@Model.CodigoVariante">
 
                     @if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
                     {
-                        if ((Model.Hermanos.Any()))
+                        if (Model.Hermanos != null && Model.Hermanos.Any())
+                        //if ((Model.Hermanos.Any()))
                         {
                             btnDesabled = 1;
                             <div class="content_tonos_producto" data-tono="" data-tono-select="" data-tono-digitable="1">
@@ -169,7 +170,7 @@
 
                     }
                 </div>
-            }
+            }*@
             @if (mobileConfiguracion.MostrarHipervinculo)
             {
                 <div>
