@@ -175,8 +175,8 @@ namespace Portal.Consultoras.Common
                 public static readonly int ColorFondoDisplay = 9302;
             }
 
-            public const int ActualizaEscalaDescuentoDestokp = 14514;
-            public const int ActualizaEscalaDescuentoMobile = 14515;
+            public const int ActualizaEscalaDescuentoDestokp = 7201;
+            public const int ActualizaEscalaDescuentoMobile = 7301;
 
         }
 

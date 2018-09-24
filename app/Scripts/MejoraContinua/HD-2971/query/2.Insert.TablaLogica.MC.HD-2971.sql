@@ -3,8 +3,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
@@ -23,8 +23,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
@@ -43,8 +43,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
@@ -63,8 +63,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
@@ -83,8 +83,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
@@ -103,8 +103,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
@@ -123,8 +123,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
@@ -143,8 +143,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
@@ -163,8 +163,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
@@ -183,8 +183,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
@@ -203,8 +203,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
@@ -223,8 +223,8 @@ GO
 
 DECLARE @IDtablalogicaDestopk		INT = 72;
 DECLARE @IDtablalogicaMobile		INT = 73;
-DECLARE @IDTablaLogicaDatosDestopk	INT = 14514;
-DECLARE @IDTablaLogicaDatosMobile	INT = 14515;
+DECLARE @IDTablaLogicaDatosDestopk	INT = 7201;
+DECLARE @IDTablaLogicaDatosMobile	INT = 7301;
 
 IF (SELECT COUNT(1) FROM dbo.TablaLogica WHERE TablaLogicaID = @IDtablalogicaDestopk) = 0
 BEGIN
