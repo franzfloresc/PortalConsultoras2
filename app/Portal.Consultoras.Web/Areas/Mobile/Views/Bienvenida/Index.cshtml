@@ -300,7 +300,7 @@
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
             @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
             {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index","PagoEnLinea")">
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("MetodoPago","PagoEnLinea")">
                     <div class="texto_btn_pago_en_linea">
                         <span>PAGA EN LÍNEA</span>
                         @*<span>con Crédito Visa</span>*@
