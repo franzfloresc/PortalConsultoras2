@@ -2,6 +2,7 @@
 // ViewBag.Title = "Actualización – Matriz Campaña";
 //var imagenVacia = "prod_grilla_vacio.png";
 }
+@using Portal.Consultoras.Common
 
 <div class="wrap_cab">
     <div class="filtros2">
@@ -162,6 +163,9 @@
                             @*<input id="uplArchivo" name="uplArchivo" type="file" />*@
                             <input type="file" id="uplArchivo" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.xlsx" />
                         </div>
+                        <div id="downxlxs">
+                            <a href="javascript:;" onclick="return DescargarArchivoExcel();">Descargar plantilla .xlsx</a>
+                        </div>
                     </div>
                     <div class="div-3" id="divregistrosValidos" style="display:none">
                         <div class="titB">Registros Válidos:</div>
@@ -192,8 +196,6 @@
 
                             </div>
 
-
-
                         </div>
 
                     </div>
@@ -208,6 +210,10 @@
 </div>
 <input id="hdfUrlRaiz" type="hidden" value='@Url.Content("~")' />
 @section scripts{
+    <script type="text/javascript">
+        var urlExcelMatrizCampania = '@Constantes.PlantillaExcel.UrlExcelMatrizCampania';
+    </script>
+
     <script type="text/javascript" src="~/Scripts/jquery.form.js"></script>
     <script src="~/Scripts/PortalConsultoras/MatrizCampania/ActualizarMatrizCamapaniaJS.js?v=3.41"></script>
 }

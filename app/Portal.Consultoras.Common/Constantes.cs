@@ -2782,5 +2782,10 @@ namespace Portal.Consultoras.Common
             public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
             public const string AcionesOmitidas = "ActualizarContrasenia";
         }
+
+        public class PlantillaExcel
+        {
+            public const string UrlExcelMatrizCampania = "http://somosbelcorpprd.s3.amazonaws.com/Matriz/PLANTILLA_MASIVO_MATRIZ.xlsx";
+        }
     }
 }

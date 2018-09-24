@@ -1068,3 +1068,35 @@ function limpiarFormulario() {
     document.getElementById('txtPrecioNuevo').value = "";
     document.getElementById('txtFactorRepeticionNuevo').value = "";
 }
+
+function DescargarArchivoExcel() {
+    var iframe_ = document.createElement("iframe");
+    iframe_.style.display = "none";
+    var requestedFile = urlExcelMatrizCampania;
+    iframe_.setAttribute("src", baseUrl + 'WebPages/Download.aspx?file=' + requestedFile);
+
+    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
+        iframe_.onreadystatechange = function () {
+            switch (this.readyState) {
+                case "loading":
+                    waitingDialog({});
+                    break;
+                case "complete":
+                case "interactive":
+                case "uninitialized":
+                    closeWaitingDialog();
+                    break;
+                default:
+                    closeWaitingDialog();
+                    break;
+            }
+        };
+    }
+    else {
+        // Si es Firefox o Chrome
+        $(iframe_).ready(function () {
+            closeWaitingDialog();
+        });
+    }
+    document.body.appendChild(iframe_);
+}
