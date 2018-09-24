@@ -186,7 +186,7 @@ body > img{
     text-transform:uppercase;
     font-weight:700;
     cursor:pointer;
-    letter-spacing:0.5px;
+    /*letter-spacing:0.5px;*/
 }
 
 .menu__link{
@@ -1376,9 +1376,9 @@ body > img{
     }
 
     .menu__link--cerrar-sesion{
-        margin-top:60px;
-        height:auto;
-        border-bottom:none;
+        margin-top: 50px;
+        height: auto;
+        border-bottom: none!important;
     }
 
     .menu__link--conSubmenu,
@@ -1413,7 +1413,11 @@ body > img{
         box-shadow:none;
     }
 
-    .menu__item:nth-child(3):hover > .submenu__lista{
+    .menu__item[data-title="App de Catálogos"]:hover > .submenu__lista,
+    .menu__item[data-title="Mi Negocio"]:hover > .submenu__lista,
+    .menu__item:nth-child(3):hover > .submenu__lista,
+    .submenu__item[data-title="Mi Asesor de Belleza"]:hover > .submenu__lista
+    {
         display:none;
     }
 
@@ -1694,7 +1698,7 @@ body > img{
     }
 
     .footer__item__content__list{
-        /* display:none; */
+        display:none; 
         background-color:#e2e1e7;
     }
 
