@@ -18,21 +18,36 @@
 }
 
 <!-- MENÚ PRINCIPAL MOBILE -->
-<nav class="header__menu header__menu--lateralIzquierdo mostrarEnMobile">
+<nav class="header__menu header__menu--lateralIzquierdo header__menu--lateralMobile mostrarEnMobile">
     <div class="icono__cerrar row flex-column align-items-end ml-0 mr-0">
         <img src="@Url.Content("~/Content/Images/icono_cerrar_menu_mobile.png")" alt="Cerrar">
     </div>
     <div class="consultora__saludo row flex-column justify-content-center align-items-center ml-0 mr-0 mb-30">
         <div class="consultora__datos consultora__datos--menu">
-            <div class="consultora__imagen w-100">
-                <img src="@Url.Content("~/Content/Images/icono_avatar.svg")" alt="Foto Consultora" class="w-100">
-            </div>
-            <div class="icono__actualizarDatos text-center">
-                <img src="@Url.Content("~/Content/Images/mobile/icono_editar_foto_perfil.svg")" alt="Actualizar datos">
-            </div>
+            @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
+            {
+                <div class="consultora__imagen w-100">
+                    @if (ViewBag.FotoPerfilAncha)
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="Foto Consultora" style="width:auto; height:100%" />
+                    }
+                    else
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="Foto Consultora" style="width:100%; height:auto" />
+                    }
+
+                </div>
+                <div class="icono__actualizarDatos text-center">
+                    <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})">
+                        <img src="@Url.Content("~/Content/Images/mobile/icono_editar_foto_perfil.svg")" alt="Actualizar datos">
+                    </a>                    
+                </div>
+            }
+
+
         </div>
         <div class="consultora__saludo consultora__saludo--menu">
-            ¡Hola Mary!
+            ¡Hola @ViewBag.NombreConsultora!
         </div>
     </div>
     <ul class="menu__lista row flex-column flex-lg-row flex-xl-row justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center ml-0 mr-0 mb-0 pl-0">
@@ -181,3 +196,166 @@
     </a>
 </nav>
 <!-- FIN - MENÚ PRINCIPAL MOBILE -->
+
+<!-- MENÚ PRINCIPAL DESKTOP -->
+
+<nav class="header__menu header__menu--lateralIzquierdo mostrarEnDesktop">
+    <ul class="menu__lista row flex-column flex-lg-row flex-xl-row justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center ml-0 mr-0 mb-0 pl-0">
+        <li class="menu__item menu__item--sociaEmpresaria" data-title="Socia Empresaria">
+            <a class="menu__link d-block" title="Socia Empresaria">
+                Socia Empresaria
+            </a>
+        </li>
+        <li class="menu__item menu__item--miNegocio" data-title="Mi Negocio">
+            <a class="menu__link d-block menu__link--conSubmenu" title="Mi Negocio">
+                Mi Negocio
+            </a>
+            <ul class="submenu__lista submenu__lista--miNegocio row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
+                <li class="submenu__item submenu__item--IngresaTuPedido" data-title="Ingresa tu pedido">
+                    <a class="submenu__link menu__link--pedido d-block text-uppercase">
+                        Ingresa <span class="text-bold">tu pedido</span>
+                    </a>
+                </li>
+                <li class="submenu__item">
+                    <a class="submenu__link d-block" title="Seguimiento a tu pedido">
+                        Seguimiento a tu pedido
+                    </a>
+                </li>
+                <li class="submenu__item">
+                    <a class="submenu__link d-block" title="Mis pedidos">
+                        Mis pedidos
+                    </a>
+                </li>
+                <li class="submenu__item">
+                    <a class="submenu__link d-block" title="Mis pagos">
+                        Mis pagos
+                    </a>
+                </li>
+                <li class="submenu__item">
+                    <a class="submenu__link d-block" title="Mis beneficios">
+                        Mis beneficios
+                    </a>
+                </li>
+                <li class="submenu__item">
+                    <a class="submenu__link d-block" title="Mis certificados">
+                        Mis certificados
+                    </a>
+                </li>
+                <li class="submenu__item">
+                    <a class="submenu__link d-block" title="App de catálogos">
+                        App de catálogos
+                    </a>
+                </li>
+                <li class="submenu__item">
+                    <a class="submenu__link d-block" title="Mis clientes">
+                        Mis clientes
+                    </a>
+                </li>
+                <li class="submenu__item">
+                    <a class="submenu__link d-block" title="Expofertas">
+                        Expofertas
+                    </a>
+                </li>
+                <li class="submenu__item">
+                    <a class="submenu__link d-block" title="Cambios y devoluciones">
+                        Cambios y devoluciones
+                    </a>
+                </li>
+                <li class="submenu__item submenu__item--AsesorBelleza">
+                    <a class="submenu__link d-block" title="Mi Asesor de Belleza">
+                        Mi Asesor de belleza
+                    </a>
+                    <div class="submenu__lista submenu__lista--miAsesorBelleza row flex-row justify-content-start ml-0 mr-0">
+                        <div class="sub__menu__asesorBelleza">
+                            <h4>Ésika</h4>
+                            <ul class="row flex-column ml-0 mr-0">
+                                <li class="submenu__item" data-title="Esika Trend">
+                                    <a class="submenu__link d-block" title="Diagnóstico de piel">
+                                        Ésika Trend
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sub__menu__asesorBelleza">
+                            <h4>Lbel</h4>
+                            <ul class="row flex-column ml-0 mr-0">
+                                <li class="submenu__item" data-title="Diagnóstico de piel">
+                                    <a class="submenu__link d-block" title="Diagnóstico de piel">
+                                        Diagnóstico de piel
+                                    </a>
+                                </li>
+                                <li class="submenu__item" data-title="Asesor de Bases y Polvos">
+                                    <a class="submenu__link d-block" title="Asesor de Bases y Polvos">
+                                        Asesor de Bases y Polvos
+                                    </a>
+                                </li>
+                                <li class="submenu__item" data-title="Belleza a tu medida">
+                                    <a class="submenu__link d-block" title="Belleza a tu medida">
+                                        Belleza a tu medida
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sub__menu__asesorBelleza">
+                            <h4>Cyzone</h4>
+                            <ul class="row flex-column ml-0 mr-0">
+                                <li class="submenu__item" data-title="Maquillador virtual">
+                                    <a class="submenu__link d-block" title="Maquillador virtual">
+                                        Maquillador virtual
+                                    </a>
+                                </li>
+                                <li class="submenu__item" data-title="Manicure virtual">
+                                    <a class="submenu__link d-block" title="Manicure virtual">
+                                        Manicure virtual
+                                    </a>
+                                </li>
+                                <li class="submenu__item" data-title="Look book">
+                                    <a class="submenu__link d-block" title="Look book">
+                                        Look book
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="submenu__item submenu__item--Catalogos">
+                    <a class="submenu__link d-block" title="Catálogos">
+                        <img src="https://S3.amazonaws.com/somosbelcorpqa/Menu/MiNegocio/PE/imagen_01.png" class="w-100" alt="Catálogos">
+                        <div class="submenu__item__title w-100">Catálogos</div>
+                    </a>
+                </li>
+                <li class="submenu__item submenu__item--Incentivos">
+                    <a class="submenu__link d-block" title="Incentivos">
+                        <img src="https://S3.amazonaws.com/somosbelcorpqa/Menu/MiNegocio/PE/imagen_03.png" class="w-100" alt="Incentivos">
+                        <div class="submenu__item__title w-100">Incentivos</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu__item">
+            <a class="menu__link d-block" title="Mi Academia">
+                Mi Academia
+            </a>
+        </li>
+        <li class="menu__item">
+            <a class="menu__link d-block" title="Mi Comunidad">
+                Mi Comunidad
+            </a>
+        </li>
+        <li class="menu__item menu__item--ofertas">
+            <a class="menu__link d-block menu__link--ofertas" title="Ofertas">
+                <!-- Se muestra ésta imagen si la consultora no tiene suscripción activa -->
+                <img src="https://cdn1-prd.somosbelcorp.com/RevistaDigital/PE/gif-ganamas.gif" alt="Gana Más" style="display:none;">
+                <!-- Fin - Se muestra ésta imagen si la consultora no tiene suscripción activa -->
+                <!-- Se muestra ésta imagen si la consultora tiene suscripción activa -->
+                <img src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/gif-clubganamas.gif" alt="Club Gana Más">
+                <!-- Fin - Se muestra ésta imagen si la consultora tiene suscripción activa -->
+            </a>
+        </li>
+    </ul>
+    <a class="menu__link menu__link--cerrar-sesion text-underline mostrarEnMobile" title="Cerrar Sesión">
+        Cerrar sesión
+    </a>
+</nav>
+
+<!-- FIN - MENÚ PRINCIPAL DESKTOP -->

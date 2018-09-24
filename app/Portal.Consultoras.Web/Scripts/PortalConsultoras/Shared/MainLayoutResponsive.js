@@ -4,12 +4,14 @@
     me.Elements = {
         iconoMenuMobile: ".header__icono__menu",
         iconoCerrarMenuMobile: ".icono__cerrar",
-        menuPrincipal: ".header__menu--lateralIzquierdo",
+        menuPrincipal: ".header__menu--lateralMobile",
         enlaceConSubmenuMobile: ".menu__link--conSubmenuMobile",
-        itemFooter: ".footer__item__title"
+        itemFooter: ".layout__footer--mobile .footer__item__title"
     },
     me.Config = {
         isMobile: window.matchMedia("(max-width:991px)").matches
+
+                    document.getElementById('pUrlProductosPedido').href = '/Mobile/Pedido/Detalle';
     },
     me.Eventos = {
         MostrarMenuMobile: function(e) {
@@ -43,12 +45,10 @@
     },
     me.Funciones = { //private functions
         InicializarEventos: function() {
-            if (me.Config.isMobile) {
-                $(me.Elements.iconoMenuMobile).on("click", me.Eventos.MostrarMenuMobile);
-                $(me.Elements.iconoCerrarMenuMobile).on("click", me.Eventos.CerrarMenuMobile);
-                $(me.Elements.enlaceConSubmenuMobile).on("click", me.Eventos.AbrirSubmenuMobile);
-                $(me.Elements.itemFooter).on("click", me.Eventos.ToogleMenuFooter);
-            }
+            $(me.Elements.iconoMenuMobile).on("click", me.Eventos.MostrarMenuMobile);
+            $(me.Elements.iconoCerrarMenuMobile).on("click", me.Eventos.CerrarMenuMobile);
+            $(me.Elements.enlaceConSubmenuMobile).on("click", me.Eventos.AbrirSubmenuMobile);
+            $(me.Elements.itemFooter).on("click", me.Eventos.ToogleMenuFooter);
         }
     };
     

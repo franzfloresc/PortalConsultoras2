@@ -3824,11 +3824,14 @@
     <Content Include="Scripts\ImageHelper\xzoomSetup.js" />
     <Content Include="Scripts\ion.rangeSlider\ion.rangeSlider.js" />
     <Content Include="Scripts\ion.rangeSlider\ion.rangeSlider.min.js" />
-    <Content Include="Scripts\jquery-1.11.2.js" />
-    <Content Include="Scripts\jquery-1.11.2.min.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\jquery-labelauty.js" />
-    <Content Include="Scripts\jquery-migrate-1.2.1.js" />
-    <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Scripts\jquery-migrate-3.0.0.js" />
+    <Content Include="Scripts\jquery-migrate-3.0.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.custom-scrollbar.js" />
@@ -4342,6 +4345,8 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpAlertaPedidosOnline.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpLoadingMobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
