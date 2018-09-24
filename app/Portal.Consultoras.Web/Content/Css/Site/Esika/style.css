@@ -36888,13 +36888,17 @@ h1#penmostreo .campana {
 
 }
 
-/*@media screen and (max-width:1212px){
+@media screen and (max-width:1250px){
 
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
-        width:350px!important;
+    .wrapper_cincuenta_anios_belcorp_y_logo{
+        width: 17.5%!important;
     }
 
-}*/
+    /*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+        width:350px!important;
+    }*/
+
+}
 
 @media screen and (min-width:1145px) and (max-width:1212px){
 
