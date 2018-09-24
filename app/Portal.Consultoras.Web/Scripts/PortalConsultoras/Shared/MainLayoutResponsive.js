@@ -10,6 +10,8 @@
     },
     me.Config = {
         isMobile: window.matchMedia("(max-width:991px)").matches
+
+                    document.getElementById('pUrlProductosPedido').href = '/Mobile/Pedido/Detalle';
     },
     me.Eventos = {
         MostrarMenuMobile: function(e) {

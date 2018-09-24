@@ -7212,7 +7212,7 @@ input[type='checkbox']:checked + span:after {
     overflow: hidden;
     overflow-y: scroll;
     background: rgba(0, 0, 0, .85);
-    z-index: 10000;
+    z-index: 2000;
 }
 
 .contenedor_popup_demandaAnticipada {
