@@ -9,9 +9,7 @@
         itemFooter: ".layout__footer--mobile .footer__item__title"
     },
     me.Config = {
-        isMobile: window.matchMedia("(max-width:991px)").matches
-
-                    document.getElementById('pUrlProductosPedido').href = '/Mobile/Pedido/Detalle';
+        isMobile: window.matchMedia("(max-width:991px)").matches                    
     },
     me.Eventos = {
         MostrarMenuMobile: function(e) {
@@ -55,6 +53,10 @@
     //Public functions
     function Inicializar() {
         me.Funciones.InicializarEventos();
+        if (me.Config.isMobile) {
+            document.getElementById('pUrlProductosPedido').href = '/Mobile/Pedido/Detalle';
+        }
+
     }
     
     return {

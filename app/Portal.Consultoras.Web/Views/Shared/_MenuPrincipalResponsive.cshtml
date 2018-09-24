@@ -18,7 +18,7 @@
 }
 
 <!-- MENÚ PRINCIPAL MOBILE -->
-<nav class="header__menu header__menu--lateralIzquierdo mostrarEnMobile">
+<nav class="header__menu header__menu--lateralIzquierdo header__menu--lateralMobile mostrarEnMobile">
     <div class="icono__cerrar row flex-column align-items-end ml-0 mr-0">
         <img src="@Url.Content("~/Content/Images/icono_cerrar_menu_mobile.png")" alt="Cerrar">
     </div>
@@ -40,7 +40,7 @@
                 <div class="icono__actualizarDatos text-center">
                     <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})">
                         <img src="@Url.Content("~/Content/Images/mobile/icono_editar_foto_perfil.svg")" alt="Actualizar datos">
-                    </a>                    
+                    </a>
                 </div>
             }
 
