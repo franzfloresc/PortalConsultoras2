@@ -129,142 +129,23 @@
                     </ul>
                 </li>
             }
+
+            if (item.Descripcion == "¿Necesitas ayuda?")
+            {
+                <li class="menu__item">
+                    <a class="menu__link d-block" 
+                       parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
+                       target="@item.PageTarget"
+                       href="@item.UrlItem"
+                       id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo"
+                       >
+                        @item.Descripcion
+                    </a>
+                </li>
+            }
         }
 
-        @*<li class="menu__item">
-                <a class="menu__link d-block" title="Inicio">
-                    Inicio
-                </a>
-            </li>
-            <li class="menu__item">
-                <a class="menu__link d-block menu__link--conSubmenu menu__link--conSubmenuMobile" title="Mi Negocio">
-                    Mi Negocio
-                </a>
-                <ul class="submenu__lista submenu__lista--miNegocio row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Seguimiento a tu pedido">
-                            Seguimiento a tu pedido
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Pedidos ingresados">
-                            Pedidos ingresados
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Pedidos facturados">
-                            Pedidos facturados
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Estado de cuenta">
-                            Estado de cuenta
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="App de catálogos">
-                            App de catálogos
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Mis clientes">
-                            Mis clientes
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Expofertas">
-                            Expofertas
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Productos Agotados">
-                            Productos Agotados
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Mis pedidos">
-                            Mis pedidos
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Mi Perfil">
-                            Mi Perfil
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Cambios y devoluciones">
-                            Cambios y devoluciones
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Mis certificados">
-                            Mis certificados
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu__item menu__item--ofertas">
-                <a class="menu__link d-block menu__link--ofertas" title="Ofertas">
-                    <!-- Se muestra ésta imagen si la consultora no tiene suscripción activa -->
-                    <img src="https://cdn1-prd.somosbelcorp.com/RevistaDigital/PE/gif-ganamas.gif" alt="Gana Más" style="display:none;">
-                    <!-- Fin - Se muestra ésta imagen si la consultora no tiene suscripción activa -->
-                    <!-- Se muestra ésta imagen si la consultora tiene suscripción activa -->
-                    <img src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/gif-clubganamas.gif" alt="Club Gana Más">
-                    <!-- Fin - Se muestra ésta imagen si la consultora tiene suscripción activa -->
-                </a>
-            </li>
-            <li class="menu__item">
-                <!-- Agregar clase menu__link--sinAfiliacionAppCatalogo cuando consultora no esté afiliada al app de catálogos -->
-                <a class="menu__link d-block menu__link--conSubmenu menu__link--conSubmenuMobile" title="App de Catálogos">
-                    App de Catálogos
-                </a>
-                <!-- Fin - Agregar clase menu__link--sinAfiliacionAppCatalogo cuando consultora no esté afiliada al app de catálogos -->
-                <!-- Si la consultora no esté afiliada al app de catálogos no se le debe mostrar este submenú -->
-                <ul class="submenu__lista row flex-column flex-nowrap ml-0 mr-0 mb-0 pl-0">
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Información">
-                            Información
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Pedidos pendientes">
-                            Pedidos pendientes
-                            <span class="notificaciones__cantidad notificaciones__cantidad--pedidosPendientes d-block">1</span>
-                        </a>
-                    </li>
-                    <li class="submenu__item">
-                        <a class="submenu__link d-block" title="Historial de pedidos">
-                            Historial de pedidos
-                        </a>
-                    </li>
-                </ul>
-                <!-- Fin - Si la consultora no esté afiliada al app de catálogos no se le debe mostrar este submenú -->
-            </li>
-            <li class="menu__item">
-                <a class="menu__link d-block" title="Catálogos">
-                    Catálogos
-                </a>
-            </li>
-            <li class="menu__item">
-                <a class="menu__link d-block" title="Mi Asesor de Belleza">
-                    Mi Asesor de Belleza
-                </a>
-            </li>
-            <li class="menu__item">
-                <a class="menu__link d-block" title="Mi Academia">
-                    Mi Academia
-                </a>
-            </li>
-            <li class="menu__item">
-                <a class="menu__link d-block" title="Mi Comunidad">
-                    Mi Comunidad
-                </a>
-            </li>
-            <li class="menu__item">
-                <a class="menu__link d-block" title="Mis Notificaciones">
-                    Mis Notificaciones
-                </a>
-            </li>*@
+     
     </ul>
     <a href="@Url.Action("LogOut", "Login", new { area = "" })" class="menu__link menu__link--cerrar-sesion text-underline d-block" title="Cerrar Sesión">
         Cerrar sesión
