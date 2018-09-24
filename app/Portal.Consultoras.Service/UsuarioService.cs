@@ -866,10 +866,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ProcesaEnvioSms(paisID, oUsu, CantidadEnvios);
         }
 
-        public bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado)
+        public bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado, bool soloValidar)
         {
             var BLUsuario = new BLUsuario();
-            return (BLUsuario.VerificarIgualdadCodigoIngresado(paisID, oUsu, codigoIngresado));
+            return (BLUsuario.VerificarIgualdadCodigoIngresado(paisID, oUsu, codigoIngresado, soloValidar));
         }
 
         #endregion

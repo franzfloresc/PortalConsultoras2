@@ -2649,20 +2649,20 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado)
+        public bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado, bool soloValidar)
         {
             if (oUsu.OrigenID == Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad)
-                return VerificarIgualdadCodigoIngresadoAutenticidad(paisID, oUsu, codigoIngresado);
-            return VerificarIgualdadCodigoIngresadoBase(paisID, oUsu, codigoIngresado);
+                return VerificarIgualdadCodigoIngresadoAutenticidad(paisID, oUsu, codigoIngresado, soloValidar);
+            return VerificarIgualdadCodigoIngresadoBase(paisID, oUsu, codigoIngresado, soloValidar);
         }
 
-        private bool VerificarIgualdadCodigoIngresadoBase(int paisID, BEUsuarioDatos oUsu, string codigoIngresado)
+        private bool VerificarIgualdadCodigoIngresadoBase(int paisID, BEUsuarioDatos oUsu, string codigoIngresado, bool soloValidar)
         {
             var DAUsuario = new DAUsuario(paisID);
-            return DAUsuario.VerificarIgualdadCodigoIngresado(oUsu, codigoIngresado);
+            return DAUsuario.VerificarIgualdadCodigoIngresado(oUsu, codigoIngresado, soloValidar);
         }
 
-        private bool VerificarIgualdadCodigoIngresadoAutenticidad(int paisID, BEUsuarioDatos oUsuDatos, string codigoIngresado) {
+        private bool VerificarIgualdadCodigoIngresadoAutenticidad(int paisID, BEUsuarioDatos oUsuDatos, string codigoIngresado, bool soloValidar) {
             /*Obteniendo Datos de Verificacion de Autenticidad*/
             var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
             if (opcion == null) return false;
@@ -2682,7 +2682,7 @@ namespace Portal.Consultoras.BizLogic
                 var DAUsuario = new DAUsuario(paisID);
                 DAUsuario.InsMetaConsultora(oUsuDatos.CodigoUsuario, Constantes.MetaConsultora.VerificacionCambioClave, "1");
             }
-            return VerificarIgualdadCodigoIngresadoBase(paisID, oUsuDatos, codigoIngresado);
+            return VerificarIgualdadCodigoIngresadoBase(paisID, oUsuDatos, codigoIngresado, soloValidar);
         }
 
 

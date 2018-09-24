@@ -837,13 +837,14 @@ namespace Portal.Consultoras.Data
             return (Context.ExecuteReader(command));
         }
 
-        public bool VerificarIgualdadCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado)
+        public bool VerificarIgualdadCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado, bool soloValidar)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetVerificarCodigo");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
             Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoIngresado);
             Context.Database.AddInParameter(command, "@IdEstadoActividad", DbType.Int32, oUsu.IdEstadoActividad);
+            Context.Database.AddInParameter(command, "@SoloValidar", DbType.Boolean, soloValidar); 
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
         #endregion

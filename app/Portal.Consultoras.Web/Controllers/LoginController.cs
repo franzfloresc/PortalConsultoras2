@@ -2780,7 +2780,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, oUsu, Codigoingresado);
+                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, oUsu, Codigoingresado, false);
                 }
 
                 if (iguales)

@@ -386,7 +386,7 @@ namespace Portal.Consultoras.ServiceContracts
         BERespuestaSMS ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
 
         [OperationContract]
-        bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado);
+        bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado, bool soloValidar);
         #endregion
 
         #region Pin Autenticidad
