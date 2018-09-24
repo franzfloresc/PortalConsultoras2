@@ -187,7 +187,9 @@
     <nav class="col-12 pl-0 pr-0 footer__items__list__wrapper mostrarEnDesktop">
         <ul class="row flex-row flex-lg-nowrap flex-xl-nowrap ml-0 mr-0 footer__items__list footer__items__list--primerListado">
             <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
-                <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Belcorp Responde"
+                <a id="aBelcorpResponde"
+                   class="row flex-column align-items-center ml-0 mr-0 footer__link" 
+                   title="Belcorp Responde"
                    href="http://belcorpresponde.somosbelcorp.com?@ViewBag.QSBR" >
                     <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_esika_responde.png")" alt="Belcorp Responde">
                     @if (ViewBag.CodigoISODL == "CO")
@@ -267,9 +269,15 @@
                                 {
                                     menuHijo.UrlItem += "?" + ViewBag.QSBR;
 
-                                    <script type="text/javascript">
+                                    @*<script type="text/javascript">
                                         document.getElementById("aBelcorpResponde").href = "@Html.Raw(menuHijo.UrlItem)";
-                                    </script>
+                                    </script>*@
+                                    <li id="urlContactanos" 
+                                        class="d-none" 
+                                        data-url-contactanos="@Html.Raw(menuHijo.UrlItem)">
+                                        Hide me.
+                                    </li>
+                                    
                                 }
                                 var pageTarget = menuHijo.PaginaNueva ? "_blank" : "_self";
                                 if (string.IsNullOrEmpty(menuHijo.UrlItem))

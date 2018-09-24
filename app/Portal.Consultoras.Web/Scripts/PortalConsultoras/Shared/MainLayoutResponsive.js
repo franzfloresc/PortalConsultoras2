@@ -6,7 +6,9 @@
         iconoCerrarMenuMobile: ".icono__cerrar",
         menuPrincipal: ".header__menu--lateralMobile",
         enlaceConSubmenuMobile: ".menu__link--conSubmenuMobile",
-        itemFooter: ".layout__footer--mobile .footer__item__title"
+        itemFooter: ".layout__footer--mobile .footer__item__title",
+        idUrlContactanos: "#urlContactanos",
+        belcorpResponde: "·aBelcorpResponde"
     },
     me.Config = {
         isMobile: window.matchMedia("(max-width:991px)").matches                    
@@ -29,7 +31,7 @@
             e.preventDefault();
             var subMenuMobile = $(this).next();
             $(me.Elements.enlaceConSubmenuMobile).next().slideUp(80);
-            if(subMenuMobile.css('display') == 'block'){
+            if(subMenuMobile.css("display") == "block"){
                 subMenuMobile.slideUp(80);
             } else {
                 subMenuMobile.slideDown(130);
@@ -39,6 +41,7 @@
         ToogleMenuFooter : function(e) {
             e.preventDefault();
             $(this).next().slideToggle("fast");
+            $(this).toggleClass("footer__item__title--desplegado");
         }
     },
     me.Funciones = { //private functions
@@ -47,6 +50,11 @@
             $(me.Elements.iconoCerrarMenuMobile).on("click", me.Eventos.CerrarMenuMobile);
             $(me.Elements.enlaceConSubmenuMobile).on("click", me.Eventos.AbrirSubmenuMobile);
             $(me.Elements.itemFooter).on("click", me.Eventos.ToogleMenuFooter);
+        },
+        SetUrlContactanos : function() {
+            if ($(me.Elements.idUrlContactanos).length) {
+                $(me.Elements.belcorpResponde).attr("href", $(me.Elements.idUrlContactanos).data("url-contactanos"));
+            } 
         }
     };
     
@@ -54,9 +62,9 @@
     function Inicializar() {
         me.Funciones.InicializarEventos();
         if (me.Config.isMobile) {
-            document.getElementById('pUrlProductosPedido').href = '/Mobile/Pedido/Detalle';
+            document.getElementById("pUrlProductosPedido").href = "/Mobile/Pedido/Detalle";
         }
-
+        me.Funciones.SetUrlContactanos();
     }
     
     return {
