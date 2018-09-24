@@ -386,24 +386,20 @@ namespace Portal.Consultoras.Web.Providers
                         config.MobileTituloBanner = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_TituloBanner, config.MobileTituloBanner);
                         config.MobileSubTituloBanner = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_SubTituloBanner, config.MobileSubTituloBanner);
 
+
                         config.DesktopLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
-                        config.MobileLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
+
                         if (!revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.DLogoMenuInicioNoActiva))
                         {
-                            config.DesktopLogoMenu = revistaDigital.DLogoMenuInicioNoActiva;
+                            config.DesktopLogoMenu = revistaDigital.DLogoMenuInicioNoSuscrita;
+                            config.DesktopLogoMenuNoActivo = revistaDigital.DLogoMenuInicioNoActivaNoSuscrita;
                         }
                         if (revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.DLogoMenuInicioActiva))
                         {
                             config.DesktopLogoMenu = revistaDigital.DLogoMenuInicioActiva;
+                            config.DesktopLogoMenuNoActivo = revistaDigital.DLogoMenuInicioNoActiva;
                         }
-                        if (!revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.MLogoMenuInicioNoActiva))
-                        {
-                            config.MobileLogoMenu = revistaDigital.MLogoMenuInicioNoActiva;
-                        }
-                        if (revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.MLogoMenuInicioActiva))
-                        {
-                            config.MobileLogoMenu = revistaDigital.MLogoMenuInicioActiva;
-                        }
+           
                         config.Descripcion = string.Empty;
                         config = _configuracionPaisProvider.ActualizarTituloYSubtituloBanner(config, revistaDigital);
                         break;
@@ -426,7 +422,7 @@ namespace Portal.Consultoras.Web.Providers
 
                         config.DesktopLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
                         //config.MobileLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
-                        config.MobileLogoMenu = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.MLogoComercialFondoNoActiva);
+                        //config.MobileLogoMenu = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.MLogoComercialFondoNoActiva);
                         config.Descripcion = string.Empty;
                         config = _configuracionPaisProvider.ActualizarTituloYSubtituloBanner(config, revistaDigital);
                         break;
@@ -506,6 +502,8 @@ namespace Portal.Consultoras.Web.Providers
 
             sessionManager.SetMenuContenedor(menuContenedor);
             SetMenuContenedorNoSuscrita(menuContenedor, revistaDigital.EsSuscrita);
+
+            menuContenedor.Add(new ConfiguracionPaisModel() { DesktopTituloMenu="SABER MAS", Codigo ="SABERMAS", CampaniaId=userData.CampaniaID ,UrlMenu= "RevistaDigital/Informacion" , MobileTituloMenu =  "SABER MAS" });
             return menuContenedor;
         }
         private void SetMenuContenedorNoSuscrita(List<ConfiguracionPaisModel> MenuContenedor, bool EsSuscrita)
