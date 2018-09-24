@@ -3273,7 +3273,7 @@ namespace Portal.Consultoras.BizLogic
                         CodigoConsultora = usuario.CodigoConsultora,
                         CodigoRegion = usuario.CodigorRegion,
                         CodigoZona = usuario.CodigoZona,
-                        CodigoSeccion = usuario.SeccionAnalytics
+                        CodigoSeccion = usuario.Seccion
                     }
                 };
 
@@ -3304,7 +3304,7 @@ namespace Portal.Consultoras.BizLogic
                             CodigoConsultora = usuario.CodigoConsultora,
                             CodigoRegion = usuario.CodigorRegion,
                             CodigoZona = usuario.CodigoZona,
-                            CodigoSeccion = usuario.SeccionAnalytics
+                            CodigoSeccion = usuario.Seccion
                         }
                     }
                 };
