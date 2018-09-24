@@ -90,7 +90,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
 
 
-                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
+                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
 
                 model.ListaLan = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
                 model.ListaModelo = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
@@ -158,16 +158,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var tipo = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPerdio(model, tipoConsulta);
 
-                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
+                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
                 var listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaFinal1, listaPedido, userData.CodigoISO, userData.CampaniaID, tipo, userData.esConsultoraLider, userData.Simbolo);
 
                 var cantidadTotal = listModel.Count;
 
-                bool guarda = true;
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca))
-                {
-                    guarda = false;
-                }
+                var guarda = !_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca);
 
                 return Json(new
                 {
@@ -288,7 +284,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 descuentoprol = listPedido[0].DescuentoProl;
             }
 
-            var ofertaFinal = sessionManager.GetOfertaFinalModel();
+            var ofertaFinal = SessionManager.GetOfertaFinalModel();
             var objOfertaFinal = new ListaParametroOfertaFinal
             {
                 ZonaID = userData.ZonaID,
@@ -472,7 +468,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 modelo.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.FotoProducto01);
             }
 
-            sessionManager.SetProductoTemporal(modelo);
+            SessionManager.SetProductoTemporal(modelo);
 
             return Json(new
             {
@@ -500,7 +496,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 else if (palanca == Constantes.NombrePalanca.PackNuevas)
                 {
                     var varSession = Constantes.ConstSession.ListaEstrategia + Constantes.TipoEstrategiaCodigo.PackNuevas;
-                    var listaEstrategia = sessionManager.GetBEEstrategia(varSession);
+                    var listaEstrategia = SessionManager.GetBEEstrategia(varSession);
                     if (listaEstrategia.Any())
                     {
                         listaOfertasModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasModelFormato(listaEstrategia, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo);

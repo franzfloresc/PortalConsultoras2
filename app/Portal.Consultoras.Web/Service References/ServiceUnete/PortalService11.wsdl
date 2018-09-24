@@ -433,6 +433,12 @@
   <wsdl:message name="IPortalService_GuardarEnvioCorreoSmsSolicitudPostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:GuardarEnvioCorreoSmsSolicitudPostulanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_AgregarEventoSolicitudPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:AgregarEventoSolicitudPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AgregarEventoSolicitudPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AgregarEventoSolicitudPostulanteResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUnete" message="tns:IPortalService_ObtenerParametrosUnete_InputMessage" />
@@ -713,6 +719,10 @@
     <wsdl:operation name="GuardarEnvioCorreoSmsSolicitudPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GuardarEnvioCorreoSmsSolicitudPostulante" message="tns:IPortalService_GuardarEnvioCorreoSmsSolicitudPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GuardarEnvioCorreoSmsSolicitudPostulanteResponse" message="tns:IPortalService_GuardarEnvioCorreoSmsSolicitudPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AgregarEventoSolicitudPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulante" message="tns:IPortalService_AgregarEventoSolicitudPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulanteResponse" message="tns:IPortalService_AgregarEventoSolicitudPostulante_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -1340,6 +1350,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarEnvioCorreoSmsSolicitudPostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/GuardarEnvioCorreoSmsSolicitudPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarEventoSolicitudPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

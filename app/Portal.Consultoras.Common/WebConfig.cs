@@ -2,7 +2,7 @@
 
 namespace Portal.Consultoras.Common
 {
-    public class WebConfig
+    public static class WebConfig
     {
         #region Variables miembre
 
@@ -128,11 +128,21 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["RutaServicePROLConsultas"] ?? string.Empty;
             }
         }
+
+        public static string RutaServiceBuscadorAPI
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RutaServiceBuscadorAPI"] ?? string.Empty;
+            }
+        }
         #endregion
 
         public static string GetByTagName(string tagName)
         {
             return ConfigurationManager.AppSettings[tagName] ?? string.Empty;
         }
+
+    
     }
 }

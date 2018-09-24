@@ -1,0 +1,48 @@
+﻿
+/*Mobile*/
+.box_producto_mobile_fix {
+    /*height: 300px;*/
+    padding: 0px 12px;
+    /*box-sizing: content-box;*/
+}
+
+.btn_elige_tono {
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+.btn_elige_tono div img{
+    margin-right: 5px;
+}
+
+.btn_agregalo {
+    display: block;
+    width: 100%;
+    height: 45px;
+    line-height: 44px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    border: 1px solid #000;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.boton_Agregalo_home{
+    border-radius: 4px;
+}
+
+.cantidad_menos_home {
+    border-radius: 4px 0px 0px 4px;
+}
+
+.cantidad_mas_home {
+    border-radius: 0px 4px 4px 0px;
+}
+.contenedor_carrusel_home .content_item_carrusel_clubganamas_off a.portada, .btn_agregar_ficha_producto {
+    border-radius: 4px;
+}

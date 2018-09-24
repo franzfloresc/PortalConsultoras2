@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Portal.Consultoras.Common
 {
-    public class BaseUtilities
+    public static class BaseUtilities
     {
         private const string PrefijoCodigoPais = "CodigoPais";
         private const string PrefijoNombrePais = "NombrePais";

@@ -1320,8 +1320,8 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoDetalleID = entidad.PedidoDetalleID,
                         IndicadorIPUsuario = GetIPCliente(),
                         IndicadorFingerprint = "",
-                        IndicadorToken = sessionManager.GetTokenPedidoAutentico() != null
-                            ? sessionManager.GetTokenPedidoAutentico().ToString()
+                        IndicadorToken = SessionManager.GetTokenPedidoAutentico() != null
+                            ? SessionManager.GetTokenPedidoAutentico().ToString()
                             : ""
                     };
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
