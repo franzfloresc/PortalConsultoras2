@@ -5,35 +5,221 @@
     var items = (List<MenuMobileModel>)ViewBag.MenuMobile;
     var itemsFooter = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("footer")).ToList();
     var urlDomain = Util.GetUrlHost(Request);
+
+    // Asignar permisosList con los elementos solo del Pie de página
+    var permisoList = (List<Portal.Consultoras.Web.Models.PermisoModel>)ViewBag.Permiso;
+
+    permisoList = permisoList != null
+        ? permisoList.Where(x => x.Posicion.ToLower().Equals("footer") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
+        : new List<Portal.Consultoras.Web.Models.PermisoModel>();
 }
 
 
 <footer class="layout__footer layout__footer--mobile row flex-row justify-content-start justify-content-lg-center justify-content-xl-center ml-0 mr-0 mostrarEnMobile">
+<nav class="col-12 pl-0 pr-0 footer__items__list__wrapper mostrarEnDesktop">
+    <ul class="row flex-row flex-lg-nowrap flex-xl-nowrap ml-0 mr-0 footer__items__list footer__items__list--primerListado">
+        <li class="col-12 col-lg-3 col-xl-3 footer__item">
+            <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Belcorp Responde">
+                <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_esika_responde.png")" alt="Belcorp Responde">
+                <h3 class="footer__link__title text-uppercase">Belcorp Responde</h3>
+                <p class="footer__link__text text-center">Escríbenos o llámanos a través de nuestra Central Telefónica</p>
+            </a>
+        </li>
+        <li class="col-12 col-lg-3 col-xl-3 footer__item">
+            <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Comunidad Virtual">
+                <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_comunidad_virtual.svg")" alt="Comunidad Virtual">
+                <h3 class="footer__link__title text-uppercase">Comunidad Virtual</h3>
+                <p class="footer__link__text text-center">Conoce todo lo que compartimos las mujeres de esta comunidad.</p>
+            </a>
+        </li>
+        <li class="col-12 col-lg-3 col-xl-3 footer__item">
+            <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Catálogos">
+                <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_catalogos.svg")" alt="Catálogos">
+                <h3 class="footer__link__title text-uppercase">Catálogos</h3>
+                <p class="footer__link__text text-center">Entérate de nuestras promociones actuales en nuestro Catálogo Virtual.</p>
+            </a>
+        </li>
+        <li class="col-12 col-lg-3 col-xl-3 footer__item">
+            <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Noticias">
+                <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_noticias.svg")" alt="Noticias">
+                <h3 class="footer__link__title text-uppercase">Noticias</h3>
+                <p class="footer__link__text text-center">Entérate de las noticias de Belcorp.</p>
+            </a>
+        </li>
+    </ul>
+</nav>
+<hr class="col-12 pl-0 pr-0 linea__separadora mostrarEnDesktop">
+<div class="col-12 pl-0 pr-0 footer__wrapper">
+    <nav class="col-12 pl-0 pr-0 footer__items__list__wrapper">
+        <ul class="row flex-row flex-lg-nowrap flex-xl-nowrap align-items-center align-items-lg-start align-items-xl-start ml-0 mr-0 footer__items__list text-uppercase">
+            <li class="col-12 col-lg col-xl footer__item mostrarEnDesktop">
+                <h5 class="footer__item__title">Nuestras marcas</h5>
+                <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
+                    <li class="col-12 pl-0 pr-0 footer__item__content">
+                        <a class="footer__item__link d-block" title="L'bel">
+                            L'bel
+                        </a>
+                    </li>
+                    <li class="col-12 pl-0 pr-0 footer__item__content">
+                        <a class="footer__item__link d-block" title="Ésika">
+                            Ésika
+                        </a>
+                    </li>
+                    <li class="col-12 pl-0 pr-0 footer__item__content">
+                        <a class="footer__item__link d-block" title="Cyzone">
+                            Cyzone
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @foreach (var item in itemsFooter)
+            {
+                <li class="col-12 col-lg col-xl footer__item">
+                    <h5 class="col-12 footer__item__title">@item.Descripcion.ToUpper()</h5>
+
+                    <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
+                        @foreach (var subitem in item.SubMenu)
+                        {
+                            var target = subitem.PaginaNueva ? "_blank" : "_self";
+                            var url = subitem.Version == "Completa"
+                                ? subitem.UrlItem.Trim().StartsWith("http") ? subitem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subitem.UrlItem)
+                                : subitem.UrlItem.Trim().StartsWith("http") ? subitem.UrlItem : string.Format("{0}{1}", urlDomain, subitem.UrlItem);
+
+                            <li class="col-12 footer__item__content">
+                                @if (subitem.Descripcion == "Tutorial")
+                                {
+                                    <a class="footer__item__link d-block"
+                                       title="@subitem.Descripcion"
+                                       role="link"
+                                       region="Footer"
+                                       parent="@item.Descripcion"
+                                       href="#"
+                                       id="tutorialFooterMobile">
+                                        @subitem.Descripcion.ToUpper()
+                                    </a>
+                                }
+                                else
+                                {
+                                    if (subitem.Descripcion.Trim().ToLower() == "contáctanos")
+                                    {
+                                        url += "?" + ViewBag.QSBR;
+                                    }
+                                    if (subitem.Version == "Click")
+                                    {
+                                        <a class="footer__item__link d-block"
+                                           title="@subitem.Descripcion"
+                                           role="button"
+                                           onclick="@string.Concat("javascript:", @subitem.UrlItem, "()")"
+                                           region="Footer"
+                                           parent="@item.Descripcion">
+                                            @subitem.Descripcion.ToUpper()
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="footer__item__link d-block"
+                                           title="@subitem.Descripcion"
+                                           role="link"
+                                           region="Footer"
+                                           parent="@item.Descripcion"
+                                           target="@target"
+                                           href="@url">@subitem.Descripcion.ToUpper()</a>
+                                    }
+
+                                }
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+            <li class="col-8 col-lg col-xl footer__item footer__item--logo footer__item--logoBelcorp">
+                <picture class="col-12 d-block w-100">
+                    <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/Images/logo_belcorp_desktop.png")">
+                    <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/Images/logo_belcorp_mobile.svg")">
+                    <img src="@Url.Content("~/Content/Images/logo_belcorp_desktop.png")" alt="Belcorp">
+                </picture>
+            </li>
+            <li class="col-4 col-lg col-xl footer__item text-right text-lg-left text-xl-left">
+                <h5 class="col-12 footer__item__title mostrarEnDesktop">Síguenos</h5>
+                <ul class="row flex-row ml-0 mr-0 footer__item__content__list footer__item__content__list--siguenos">
+                    <li class="col-6 col-lg-12 col-xl-12 footer__item__content">
+                        <a class="footer__item__link d-block" title="Facebook">
+                            <span class="footer__item__link__text">
+                                Facebook
+                            </span>
+                            <span>
+                                <img src="@Url.Content("~/Content/Images/logo_facebook.svg")" alt="Facebook Somos Belcorp">
+                            </span>
+                        </a>
+                    </li>
+                    <li class="col-6 col-lg-12 col-xl-12 footer__item__content">
+                        <a class="footer__item__link d-block" title="YouTube">
+                            <span class="footer__item__link__text">
+                                YouTube
+                            </span>
+                            <span>
+                                <img src="@Url.Content("~/Content/Images/logo_youtube.svg")" alt="YouTube Somos Belcorp">
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="col-12 row flex-row justify-content-between align-items-center ml-0 mr-0 footer__wrapper mostrarEnDesktop">
+    <hr class="col-12 pl-0 pr-0 linea__separadora mostrarEnDesktop">
+    <div class="col-6 pl-0 pr-0 bandera__pais text-left">
+        <span class="d-inline-block icono__bandera__pais">
+            <img src="@Url.Content("~/Content/Images/Banderas/PE.png")" alt="Perú">
+        </span>
+        <span class="d-inline-block nombre__pais text-uppercase">
+            Perú
+        </span>
+    </div>
+    <div class="col-6 pl-0 pr-0 info__copyright text-right">
+        Copyright Belcorp 2016. All rigths reserved.
+    </div>
+</div>
+</footer>
+    
+<footer class="layout__footer row flex-row justify-content-start justify-content-lg-center justify-content-xl-center ml-0 mr-0 mostrarEnDesktop">
     <nav class="col-12 pl-0 pr-0 footer__items__list__wrapper mostrarEnDesktop">
         <ul class="row flex-row flex-lg-nowrap flex-xl-nowrap ml-0 mr-0 footer__items__list footer__items__list--primerListado">
-            <li class="col-12 col-lg-3 col-xl-3 footer__item">
-                <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Belcorp Responde">
+            <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
+                <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Belcorp Responde"
+                   href="http://belcorpresponde.somosbelcorp.com?@ViewBag.QSBR" >
                     <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_esika_responde.png")" alt="Belcorp Responde">
-                    <h3 class="footer__link__title text-uppercase">Belcorp Responde</h3>
+                    @if (ViewBag.CodigoISODL == "CO")
+                    {
+                        <h3 class="footer__link__title text-uppercase">Ésika Responde</h3>
+                    }
+                    else
+                    {
+                        <h3 class="footer__link__title text-uppercase">Belcorp Responde</h3>
+                    }
                     <p class="footer__link__text text-center">Escríbenos o llámanos a través de nuestra Central Telefónica</p>
                 </a>
             </li>
-            <li class="col-12 col-lg-3 col-xl-3 footer__item">
-                <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Comunidad Virtual">
+            <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
+                <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Comunidad Virtual"
+                   href="http://comunidad.somosbelcorp.com/">
                     <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_comunidad_virtual.svg")" alt="Comunidad Virtual">
                     <h3 class="footer__link__title text-uppercase">Comunidad Virtual</h3>
                     <p class="footer__link__text text-center">Conoce todo lo que compartimos las mujeres de esta comunidad.</p>
                 </a>
             </li>
-            <li class="col-12 col-lg-3 col-xl-3 footer__item">
-                <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Catálogos">
+            <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
+                <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Catálogos"
+                   href="@Url.Action("Index", "MisCatalogosRevistas")">
                     <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_catalogos.svg")" alt="Catálogos">
                     <h3 class="footer__link__title text-uppercase">Catálogos</h3>
                     <p class="footer__link__text text-center">Entérate de nuestras promociones actuales en nuestro Catálogo Virtual.</p>
                 </a>
             </li>
-            <li class="col-12 col-lg-3 col-xl-3 footer__item">
-                <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Noticias">
+            <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
+                <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Noticias"
+                   href="http://comunidad.somosbelcorp.com/">
                     <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_noticias.svg")" alt="Noticias">
                     <h3 class="footer__link__title text-uppercase">Noticias</h3>
                     <p class="footer__link__text text-center">Entérate de las noticias de Belcorp.</p>
@@ -45,123 +231,94 @@
     <div class="col-12 pl-0 pr-0 footer__wrapper">
         <nav class="col-12 pl-0 pr-0 footer__items__list__wrapper">
             <ul class="row flex-row flex-lg-nowrap flex-xl-nowrap align-items-center align-items-lg-start align-items-xl-start ml-0 mr-0 footer__items__list text-uppercase">
-                @foreach (var item in itemsFooter)
+                <li class="col-12 col-lg col-xl footer__item mostrarEnDesktop">
+                    <h5 class="footer__item__title">Nuestras marcas</h5>
+                    <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
+                        <li class="col-12 pl-0 pr-0 footer__item__content" role="outbound-link" region="Footer">
+                            <a href="http://www.lbel.com" class="footer__item__link d-block" title="L'bel">
+                                L'bel
+                            </a>
+                        </li>
+                        @if (ViewBag.PaisAnalytics != "PA")
+                        {
+                            <li class="col-12 pl-0 pr-0 footer__item__content" role="outbound-link" region="Footer">
+                                <a href="http://www.esika.biz" class="footer__item__link d-block" title="Ésika">
+                                    Ésika
+                                </a>
+                            </li>
+                        }
+                        <li class="col-12 pl-0 pr-0 footer__item__content" role="outbound-link" region="Footer">
+                            <a href="http://www.cyzone.com" class="footer__item__link d-block" title="Cyzone">
+                                Cyzone
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @foreach (var menuPadre in permisoList)
                 {
-                    @*<li class="col-12 col-lg col-xl footer__item mostrarEnDesktop">
-                            <h5 class="footer__item__title">Nuestras marcas</h5>
-                            <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
-                                <li class="col-12 pl-0 pr-0 footer__item__content">
-                                    <a class="footer__item__link d-block" title="L'bel">
-                                        L'bel
-                                    </a>
-                                </li>
-                                <li class="col-12 pl-0 pr-0 footer__item__content">
-                                    <a class="footer__item__link d-block" title="Ésika">
-                                        Ésika
-                                    </a>
-                                </li>
-                                <li class="col-12 pl-0 pr-0 footer__item__content">
-                                    <a class="footer__item__link d-block" title="Cyzone">
-                                        Cyzone
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>*@
-
                     <li class="col-12 col-lg col-xl footer__item">
-                        <h5 class="col-12 footer__item__title">@item.Descripcion.ToUpper()</h5>
+                        <h5 class="col-12 footer__item__title">@menuPadre.Descripcion.ToUpper()</h5>
 
                         <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
-                            @foreach (var subitem in item.SubMenu)
+                            
+                            @foreach (var menuHijo in menuPadre.SubMenus)
                             {
-                                var target = subitem.PaginaNueva ? "_blank" : "_self";
-                                var url = subitem.Version == "Completa"
-                                    ? subitem.UrlItem.Trim().StartsWith("http") ? subitem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subitem.UrlItem)
-                                    : subitem.UrlItem.Trim().StartsWith("http") ? subitem.UrlItem : string.Format("{0}{1}", urlDomain, subitem.UrlItem);
+                                if (menuHijo.Descripcion.Trim().ToLower() == "contáctanos")
+                                {
+                                    menuHijo.UrlItem += "?" + ViewBag.QSBR;
 
-                                <li class="col-12 footer__item__content">
-                                    @if (subitem.Descripcion == "Tutorial")
-                                    {
+                                    <script type="text/javascript">
+                                        document.getElementById("aBelcorpResponde").href = "@Html.Raw(menuHijo.UrlItem)";
+                                    </script>
+                                }
+                                var pageTarget = menuHijo.PaginaNueva ? "_blank" : "_self";
+                                if (string.IsNullOrEmpty(menuHijo.UrlItem))
+                                {
+                                    <li class="col-12 footer__item__content" role="outbound-link" region="Footer">
                                         <a class="footer__item__link d-block"
-                                           title="@subitem.Descripcion"
-                                           role="link"
-                                           region="Footer"
-                                           parent="@item.Descripcion"
-                                           href="#"
-                                           id="tutorialFooterMobile">
-                                            @subitem.Descripcion.ToUpper()
+                                           href="javascript:;"
+                                           title=" @menuHijo.Descripcion">
+                                            @menuHijo.Descripcion
                                         </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    if (menuHijo.EsDireccionExterior)
+                                    {
+                                        <li class="col-12 footer__item__content" role="outbound-link" region="Footer" >
+                                            <a class="footer__item__link d-block" 
+                                               title="@menuHijo.Descripcion"
+                                               href="javascript:;" 
+                                               onclick="RedirectMenu('@menuHijo.UrlItem', '',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" 
+                                               target="@pageTarget" 
+                                               
+                                               parent="@menuPadre.Descripcion" 
+                                               id="lnk-out-@menuHijo.DescripcionFormateada">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        </li>
                                     }
                                     else
                                     {
-                                        if (subitem.Descripcion.Trim().ToLower() == "contáctanos")
-                                        {
-                                            url += "?" + ViewBag.QSBR;
-                                        }
-                                        if (subitem.Version == "Click")
-                                        {
+                                        <li class="col-12 footer__item__content" role="outbound-link" region="Footer" >
                                             <a class="footer__item__link d-block"
-                                               title="@subitem.Descripcion"
-                                               role="button"
-                                               onclick="@string.Concat("javascript:", @subitem.UrlItem, "()")"
-                                               region="Footer"
-                                               parent="@item.Descripcion">
-                                                @subitem.Descripcion.ToUpper()
+                                               href="javascript:;" 
+                                               onclick="RedirectMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" 
+                                               target="@pageTarget" 
+                                               
+                                               parent="@menuPadre.Descripcion" 
+                                               id="lnk-out-@menuHijo.DescripcionFormateada" 
+                                               title="@menuHijo.Descripcion">
+                                                @menuHijo.Descripcion
                                             </a>
-                                        }
-                                        else
-                                        {
-                                            <a class="footer__item__link d-block"
-                                               title="@subitem.Descripcion"
-                                               role="link"
-                                               region="Footer"
-                                               parent="@item.Descripcion"
-                                               target="@target"
-                                               href="@url">@subitem.Descripcion.ToUpper()</a>
-                                        }
-
+                                        </li>
                                     }
-                                </li>
+                                }
                             }
                         </ul>
                     </li>
                 }
-                @*<li class="col-12 col-lg col-xl footer__item">
-                        <h5 class="col-12 footer__item__title">Legal</h5>
-                        <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
-                            <li class="col-12 footer__item__content">
-                                <a class="footer__item__link d-block" title="Políticas de privacidad">
-                                    Políticas de privacidad
-                                </a>
-                            </li>
-                            <li class="col-12 footer__item__content">
-                                <a class="footer__item__link d-block" title="Condiciones de uso web">
-                                    Condiciones de uso web
-                                </a>
-                            </li>
-                            <li class="col-12 footer__item__content">
-                                <a class="footer__item__link d-block" title="Procedimiento y formulario para el ejercicio de derechos Arco">
-                                    Procedimiento y formulario para el ejercicio de derechos Arco
-                                </a>
-                            </li>
-                            <li class="col-12 footer__item__content">
-                                <a class="footer__item__link d-block" title="Código de ética Capevedi">
-                                    Código de ética Capevedi
-                                </a>
-                            </li>
-                            <li class="col-12 footer__item__content">
-                                <a class="footer__item__link d-block" title="Quiz Capevedi">
-                                    Quiz Capevedi
-                                </a>
-                            </li>
-                            <li class="col-12 footer__item__content">
-                                <a class="footer__item__link d-block" title="Video Capevedi">
-                                    Video Capevedi
-                                </a>
-                            </li>
-                        </ul>
-                    </li>*@
-
                 <li class="col-8 col-lg col-xl footer__item footer__item--logo footer__item--logoBelcorp">
                     <picture class="col-12 d-block w-100">
                         <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/Images/logo_belcorp_desktop.png")">
@@ -212,3 +369,4 @@
         </div>
     </div>
 </footer>
+
