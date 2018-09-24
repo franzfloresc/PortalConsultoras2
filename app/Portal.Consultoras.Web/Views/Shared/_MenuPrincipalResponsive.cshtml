@@ -15,6 +15,33 @@
     var itemsMenu = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("menu")).ToList();
     var urlDomain = Util.GetUrlHost(Request);
     var tipoUsuario = ViewBag.TipoUsuario;
+
+    var permisoList = (List<Portal.Consultoras.Web.Models.PermisoModel>)ViewBag.Permiso;
+    permisoList = permisoList != null
+        ? permisoList.Where(x => x.Posicion.ToLower().Equals("header") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
+        : new List<Portal.Consultoras.Web.Models.PermisoModel>();
+
+    if (permisoList.Count > 0)
+    {
+        var listaMenu2 = new Portal.Consultoras.Web.Models.PermisoModel();
+        listaMenu2.SubMenus = permisoList;
+
+        permisoList = listaMenu2.SubMenus?? new List<Portal.Consultoras.Web.Models.PermisoModel>();
+
+        string urlProgramaNuevas = "";
+        var programasBelcorpMenu = (List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>)ViewBag.ProgramaBelcorpMenu;
+        programasBelcorpMenu = programasBelcorpMenu ?? new List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>();
+        foreach (var item in programasBelcorpMenu)
+        {
+            if (item.Descripcion.ToLower().Trim() == "programa nuevas")
+            {
+                urlProgramaNuevas = item.Url;
+            }
+        }
+
+        var claseSociaEmpresaria = (ViewBag.Lider == 1 && ViewBag.PortalLideres) ? "menu_socia_empresaria" : "";
+
+    }
 }
 
 <!-- MENÚ PRINCIPAL MOBILE -->
@@ -133,19 +160,18 @@
             if (item.Descripcion == "¿Necesitas ayuda?")
             {
                 <li class="menu__item">
-                    <a class="menu__link d-block" 
+                    <a class="menu__link d-block"
                        parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
                        target="@item.PageTarget"
                        href="@item.UrlItem"
-                       id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo"
-                       >
+                       id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo">
                         @item.Descripcion
                     </a>
                 </li>
             }
         }
 
-     
+
     </ul>
     <a href="@Url.Action("LogOut", "Login", new { area = "" })" class="menu__link menu__link--cerrar-sesion text-underline d-block" title="Cerrar Sesión">
         Cerrar sesión
