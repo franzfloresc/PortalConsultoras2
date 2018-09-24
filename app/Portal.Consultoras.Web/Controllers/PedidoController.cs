@@ -1766,18 +1766,6 @@ namespace Portal.Consultoras.Web.Controllers
                     .ToList();
             }
 
-            // el campo BloqueoProductoDigital se llenaba en el login, hacer cambio para cargar el campo con listaDatos
-            //if (estrategiaODD.ListaDeOferta != null)
-            //{
-            //    var prodOdd = estrategiaODD.ListaDeOferta.FirstOrDefault();
-            //    if (prodOdd.BloqueoProductoDigital)
-            //    {
-            //        beProductos = beProductos
-            //        .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia)
-            //        .ToList();
-            //    }
-            //}
-
             if (guiaNegocio.BloqueoProductoDigital)
             {
                 beProductos = beProductos
@@ -3994,6 +3982,77 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        // para salvar el día
+        public JsonResult PedidoInsertarBuscador(PedidoCrudModel model)
+        {
+            string mensaje = "", urlRedireccionar = "";
+
+            #region SesiónExpirada
+            if (userData == null)
+            {
+                mensaje = "Sesión expirada.";
+                urlRedireccionar = Url.Action("Index", "Login");
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    urlRedireccionar
+                }, JsonRequestBehavior.AllowGet);
+            }
+            #endregion
+
+            #region ReservadoOEnHorarioRestringido
+            var horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
+            if (horario)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    urlRedireccionar
+                }, JsonRequestBehavior.AllowGet);
+            }
+            #endregion
+
+            #region UnidadesPermitidas
+            List<BEPedidoWebDetalle> sesionPedidos = SessionManager.GetDetallesPedido();
+            var pedidoAgregado = sesionPedidos.Where(x => x.CUV == model.CUV).ToList();
+            int cantidadesAgregadas = 0;
+            if (model.LimiteVenta > 0)
+            {
+                if (pedidoAgregado.Any())
+                {
+                    cantidadesAgregadas = pedidoAgregado[0].Cantidad;
+                }
+
+                cantidadesAgregadas += model.Cantidad.ToInt();
+
+                if (cantidadesAgregadas > model.LimiteVenta)
+                {
+                    mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + model.LimiteVenta + " ).";
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            #endregion
+            
+            mensaje = ValidarStockEstrategiaMensaje(model.CUV, model.Cantidad.ToInt(), model.TipoEstrategiaID);
+
+            if (mensaje != "")
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje
+                });
+            }
+
+            return PedidoInsertar(model, true);
+        }
+
         #region Nuevo AgregarProducto
         public JsonResult PedidoAgregarProducto(PedidoCrudModel model)
         {
@@ -4085,7 +4144,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
-
 
                 var listCuvTonos = Util.Trim(model.CuvTonos);
                 if (listCuvTonos == "")

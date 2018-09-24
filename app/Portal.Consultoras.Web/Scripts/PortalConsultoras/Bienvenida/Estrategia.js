@@ -204,13 +204,13 @@ function _pintarEstrellas(item) {
 }
 
 function ArmarCarouselEstrategias(data) {
-
     $("#divListaEstrategias").hide();
     $(".js-slick-prev").remove();
     $(".js-slick-next").remove();
     $("#divListadoEstrategia.slick-initialized").slick("unslick");
     data.Lista = data.Lista || [];
     if (data.Lista.length == 0) {
+
         $("#divListaEstrategias").show();
         $("#divContenedorListaEstrategia").hide();
         $(".contenido_gana_mas").hide();
@@ -815,7 +815,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                 }
                 CerrarLoad();
             } else {
-                console.log('Estrategia.js - EstrategiaAgregarProducto - ajax ante ActualizarGanancia', "Pedido/AgregarProductoZE");
+
                 jQuery.ajax({
                     type: "POST",
                     url: baseUrl + "Pedido/AgregarProductoZE",
@@ -843,7 +843,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 
                         if (tipoOrigenEstrategia == 1) {
                             MostrarBarra(data, "1");
-                            console.log('Estrategia.js - EstrategiaAgregarProducto - ante ActualizarGanancia', data.DataBarra);
+
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias();
                           
@@ -868,7 +868,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             CargarResumenCampaniaHeader(true);
                         }
                         else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
-                            console.log('Estrategia.js - EstrategiaAgregarProducto - ante ActualizarGanancia', data.DataBarra);
+
                             ActualizarGanancia(data.DataBarra);
                             if (tipoOrigenEstrategia == 262) {
                                 origenRetorno = $.trim(origenRetorno);

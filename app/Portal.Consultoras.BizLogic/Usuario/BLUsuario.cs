@@ -3039,6 +3039,7 @@ namespace Portal.Consultoras.BizLogic
                             revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuario.CodigoISO);
                             revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuario);
                             revistaDigitalModel.BloqueoRevistaImpresa = configuracion.BloqueoRevistaImpresa;
+
                             usuario.RevistaDigital = revistaDigitalModel;
                             break;
                         case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
@@ -3188,6 +3189,8 @@ namespace Portal.Consultoras.BizLogic
 
                 revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
             }
+
+            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
             #endregion
 
             return revistaDigitalModel;
@@ -3309,6 +3312,12 @@ namespace Portal.Consultoras.BizLogic
             }
             return BuscadorYFiltro;
         }
+
+        public string ActuaizarNovedadBuscador(int paisId, string codigoUsuario)
+        {
+            return new DAUsuario(paisId).ActualizarNovedadBuscador(codigoUsuario);
+        }
+
 
         #region ActualizacionDatos
         public BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo)
