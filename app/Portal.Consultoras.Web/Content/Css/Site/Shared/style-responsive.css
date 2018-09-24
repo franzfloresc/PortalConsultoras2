@@ -1291,11 +1291,11 @@ body > img{
         padding-left:0;
     }
 
-    .menu__link,
+    /*.menu__link,
     .submenu__link
     {
         height:100%;
-    }
+    }*/
 
     .menu__link:hover{
         text-decoration:none!important;
