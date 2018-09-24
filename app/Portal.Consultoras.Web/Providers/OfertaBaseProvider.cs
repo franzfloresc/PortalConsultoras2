@@ -17,12 +17,15 @@ namespace Portal.Consultoras.Web.Providers
 
         static OfertaBaseProvider()
         {
-            httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch))
+            {
+                httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
         }
 
-        public async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
+        public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
         {
             var estrategias = new List<ServiceOferta.BEEstrategia>();
             var httpResponse = await httpClient.GetAsync(path);
@@ -67,6 +70,7 @@ namespace Portal.Consultoras.Web.Providers
                             TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
                             TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
                             TipoEstrategiaImagenMostrar = 6,
+                            EsSubCampania = Convert.ToBoolean(item.esSubCampania ) ? 1 : 0
                         };
 
                         estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };

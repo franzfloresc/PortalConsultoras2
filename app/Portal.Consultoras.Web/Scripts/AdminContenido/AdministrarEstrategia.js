@@ -49,7 +49,7 @@
         rutastylejstree: config.rutastylejstree,
         urlUploadBloqueoCuv: config.urlUploadBloqueoCuv
     };
-
+     
     var _variables = {
         isNuevo: false,
         cantidadPrecargar: 0,

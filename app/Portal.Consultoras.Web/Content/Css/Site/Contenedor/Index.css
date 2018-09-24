@@ -198,12 +198,12 @@
         padding-bottom: 10px;
     }
 
-        .contenedor_cabecera_2018 .sb_contenedor_cabecera_2018 img {
-            top: 4px;
-            margin-left: 1px;
-            height: 25px;
-            position: relative;
-        }
+    .contenedor_cabecera_2018 .sb_contenedor_cabecera_2018 img {
+        top: 4px;
+        margin-left: 1px;
+        height: 25px;
+        position: relative;
+    }
 
 .centrar-horizontal {
     width: 100%;
@@ -218,13 +218,13 @@
     width: 100%;
 }
 
-.sin-active-menu1 {
+/*.sin-active-menu1 {
     color: white !important;
-}
+}*/
 
-.sin-active-menu2 {
+/*.sin-active-menu2 {
     color: #333 !important;
-}
+}*/
 
 .op-menu-vertical {
     width: 145px;
@@ -331,9 +331,9 @@
                     font-family: 'Lato';
                 }
 
-.negrita-p {
+/*.negrita-p {
     font-weight: bolder;
-}
+}*/
 
 .contenedorMenu {
     height: 66px;
@@ -365,15 +365,15 @@
     width: 90px;
 }
 
-.bc_menu_estrategia-contenido {
+/*.bc_menu_estrategia-contenido {
     background: url('img/Rectangle75.png');
     height: 500px;
     background-color: #bf0223;
-}
+}*/
 
-.bc_menu_estrategia-clearfix {
+/*.bc_menu_estrategia-clearfix {
     clear: both;
-}
+}*/
 
 .menu-fixed {
     position: fixed;
@@ -381,7 +381,7 @@
     z-index: 1000;
 }
 
-.boton-ir a {
+/*.boton-ir a {
     color: white;
     display: block;
     width: 210px;
@@ -392,7 +392,7 @@
     margin-top: -5px;
     letter-spacing: 1px;
     font-family: 'Lato';
-}
+}*/
 
 .btn-set-previous {
     width: 80px !important;
@@ -428,9 +428,6 @@
     margin-bottom: 0;
     font-family: 'Lato';
     color: #b52e36;
-}
-
-.bc_estrategia_contenido {
 }
 
 .seccion-content-contenedor {

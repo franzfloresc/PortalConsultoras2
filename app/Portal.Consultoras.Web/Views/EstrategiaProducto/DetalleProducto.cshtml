@@ -1,20 +1,21 @@
-﻿@using System.Configuration
+﻿@using System.Web.Optimization
 @using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.EstrategiaOutModel
 
 @{
+    /**/
+
     ViewBag.Title = "Detalle Oferta";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
+
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
-    <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
     <style>
         .SubHeader {
             display: none;
         }
     </style>
+    @Styles.Render("~/Bundle/Css/Desktop/EstrategiaProducto-DetalleProducto")
 }
 <div id="contenedor-detalle-producto"></div>
 <hr class="clear" />
@@ -70,7 +71,7 @@
     <div>
         <div class="fondo_set_best_seller">
             <div class="content_belcorp" data-popup-body="" data-item="">
-                <div class="content_solo_ficha_set" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MasVendidosDesktopProductPageFicha"  data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
+                <div class="content_solo_ficha_set" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MasVendidosDesktopProductPageFicha" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
                     <div data-compartir-campos="" style="display:none;">
                         <input type="hidden" class="CUV" value="{{CUV2}}" />
                         <input type="hidden" class="rsFBMensaje" value="" />
@@ -192,17 +193,9 @@
             });
         });
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
-    <script src="~/Scripts/PortalConsultoras/BestSeller/BestSellerCommentModule.js"></script>
-    <script src="~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"></script>
-    <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"></script>
-    <script src="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js"></script>
-    <script src="~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js"></script>
-    <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarPovider.js"></script>
-    <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"></script>
-    <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js"></script>
-    <script src="~/Scripts/PortalConsultoras/Pedido/barra.js"></script>
+
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/EstrategiaProducto-DetalleProducto")
+
     <script type="text/javascript">
         var tipoOrigenEstrategia = 1;
         var tieneMasVendidos = 1;

@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/styleDefault.css")">
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/verificacion-pin.css")">
     }
-    @Styles.Render("~/Content/Css/Login")    
+    @Styles.Render("~/Bundle/Css/Mixto/Content-Login")    
 </head>
 <body>
     <div class="fondo_f9f9f9">
@@ -241,8 +241,8 @@
     var VerCambioClaveMobile = '@Url.Action("Index", "MisDatos", new { area = "Mobile" })';
 </script>
 
-@*@Scripts.Render("~/bundles/JQueryJs")*@
-@Scripts.Render("~/bundles/JS-Login-VerificaAutenticidad")
+@*@Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")*@
+@Scripts.Render("~/Bundle/Js/Mixto/Login-VerificaAutenticidad")
 
 @{
     if (Request.Browser.IsMobileDevice)

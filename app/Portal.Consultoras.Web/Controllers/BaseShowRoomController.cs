@@ -27,9 +27,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected void ActionExecutingMobile()
         {
-            if (sessionManager.GetUserData() == null) return;
+            if (SessionManager.GetUserData() == null) return;
 
-            var userData = UserData();
+            //var userData = UserData();
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
 
             try
@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
                     ShowRoomBannerLateralModel showRoomBannerLateral = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
                     ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
-                    ViewBag.MostrarShowRoomBannerLateral = sessionManager.GetEsShowRoom() &&
+                    ViewBag.MostrarShowRoomBannerLateral = SessionManager.GetEsShowRoom() &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
 
@@ -114,9 +114,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return false;
 
             var resultado = false;
-            var esShowRoom = sessionManager.GetEsShowRoom();
-            var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
-            var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+            var esShowRoom = SessionManager.GetEsShowRoom();
+            var mostrarShowRoomProductos = SessionManager.GetMostrarShowRoomProductos();
+            var mostrarShowRoomProductosExpiro = SessionManager.GetMostrarShowRoomProductosExpiro();
 
             if (esIntriga)
             {
@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Web.Controllers
             var ofertaShowRoomModelo = new EstrategiaPersonalizadaProductoModel();
             if (idOferta <= 0) return ofertaShowRoomModelo;
             
-            ofertaShowRoomModelo = sessionManager.ShowRoom.Ofertas.Find(o => o.EstrategiaID == idOferta) ?? new EstrategiaPersonalizadaProductoModel();
+            ofertaShowRoomModelo = SessionManager.ShowRoom.Ofertas.Find(o => o.EstrategiaID == idOferta) ?? new EstrategiaPersonalizadaProductoModel();
 
             if (ofertaShowRoomModelo.EstrategiaID <= 0) return ofertaShowRoomModelo;
             
@@ -295,7 +295,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void CargarValoresGenerales(UsuarioModel userData)
         {
-            if (sessionManager.GetUserData() != null)
+            if (SessionManager.GetUserData() != null)
             {
                 ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
                 int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');

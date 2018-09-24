@@ -12,13 +12,11 @@
     };
 
     var _elementos = {
-        idPlantillaProductoLanding: config.idPlantilla,
-        divCarruselSetsProductosRelacionados: config.divCarrusel,
-        divProductosRelacionados: config.divCarrusel,
+        idPlantillaProducto: config.idPlantillaProducto,
+        divCarruselContenedor: config.divCarruselContenedor,
         idTituloCarrusel: config.idTituloCarrusel,
-        divCarruselContenedor: config.divSetsProductosdata,
-        ContenidoProducto: config.ContenidoProducto,
-        CarruselProducto: config.CarruselProducto
+        divCarruselProducto: config.divCarruselProducto,
+        dataLazy: config.dataLazy || "img[data-lazy-seccion-revista-digital]"
     };
 
     var _variable = {
@@ -36,7 +34,6 @@
             async: false,
             cache: false,
             success: function (data) {
-
                 dfd.resolve(data);
             },
             error: function (data, error) {
@@ -88,8 +85,6 @@
 
         var platform = !isMobile() ? 'desktop' : 'mobile';
 
-        //EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
-
         var slickArrows = {
             'mobile': {
                 prev: '<a class="carrusel_fechaprev_mobile" href="javascript:void(0);"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
@@ -103,12 +98,12 @@
 
         var widthDimamico = !isMobile();
 
-        $(_elementos.divProductosRelacionados).fadeIn();
+        $(_elementos.divCarruselProducto).fadeIn();
 
         if ((widthDimamico && _variable.cantidadProdCarrusel > 2) || !widthDimamico) {
 
-            $(_elementos.divCarruselSetsProductosRelacionados + '.slick-initialized').slick('unslick');
-            $(_elementos.divCarruselSetsProductosRelacionados).not('.slick-initialized').slick({
+            $(_elementos.divCarruselProducto + '.slick-initialized').slick('unslick');
+            $(_elementos.divCarruselProducto).not('.slick-initialized').slick({
                 dots: false,
                 infinite: true,
                 speed: 260,
@@ -131,12 +126,11 @@
             });
         }
 
-        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+        EstablecerAccionLazyImagen(_elementos.divCarruselProducto + " " + _elementos.dataLazy);
     }
 
     var _ocultarElementos = function () {
-
-        $(_elementos.divProductosRelacionados).fadeOut();
+        $(_elementos.divCarruselProducto).fadeOut();
     }
 
     var _mostrarTitulo = function () {
@@ -155,7 +149,6 @@
 
         $(_elementos.idTituloCarrusel).html(titulo);
     }
-
     var _mostrarCarrusel = function () {
 
         var data = {
@@ -186,34 +179,36 @@
 
         if (data.lista.length > 0) {
             _variable.cantidadProdCarrusel = data.lista.length;
-            SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
+            SetHandlebars(_elementos.idPlantillaProducto, data, _elementos.divCarruselProducto);
             _mostrarTitulo();
             _mostrarSlicks();
         }
         _ocultarCarrusel(data);
     };
-
     var _ocultarCarrusel = function (data) {
         if (typeof data != "undefined")
+        {
             if (Array.isArray(data.lista) && data.lista.length > 0) {
                 $(_elementos.divCarruselContenedor).show();
                 return;
-            } else {
-                //$(_elementos.ContenidoProducto).hide();
-                $(_elementos.CarruselProducto).hide();
             }
+            else {
+                $(_elementos.divCarruselContenedor).hide();
+            }
+        }
         $(_elementos.divCarruselContenedor).hide();
     }
+
     var _initSwipeCarrusel = function () {
         _initArraysCarrusel();
         //quita duplicados
-        
+
         setCarruselMarcacionAnalytics = multiDimensionalUnico(setCarruselMarcacionAnalytics);
         marcaCuvsActivos();
         //Hace la marcación a analytics
         _marcarSwipeCarrusel();
         _initSlideArrowCarrusel();
-        
+
     }
     var _initArraysCarrusel = function () {
         var containerItemsSlick = $(".slick-slide");
@@ -222,13 +217,13 @@
             setCarruselMarcacionAnalytics.push([infoCuvItem.CUV2, 0]);
             setCarruselCuv.push(infoCuvItem);
         });
-        
+
     }
     var _initSlideArrowCarrusel = function () {  ///cuando el usuario hace clic sobre las flechas del carrusel.
 
         var containerItemsSlick = $(".slick-arrow");
         $(containerItemsSlick).click(function (e) {
-            EstablecerAccionLazyImagen(_elementos.divProductosRelacionados + " img[data-lazy-seccion-revista-digital]");
+            EstablecerAccionLazyImagen(_elementos.divCarruselProducto + " " + _elementos.dataLazy);
             //_initArraysCarrusel();
             _agregaNewCuvActivo();
             setCarruselMarcacionAnalytics = multiDimensionalUnico(setCarruselMarcacionAnalytics);
@@ -241,12 +236,11 @@
         //Hace la marcación a analytics
         //_marcarSwipeCarrusel();
     }
-
     function _agregaNewCuvActivo() {
         var containterSlickActive = $(".slick-active");
         $(containterSlickActive).each(function (index, element) {
             var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
-            
+
             if (verificaNuevoCUVParaAnalytic(infoCuvItem))
                 setCarruselMarcacionAnalytics.push([infoCuvItem.CUV2, 0]);
         });
@@ -258,11 +252,11 @@
             preparaCUVAnalytic(infoCuvItem);
         });
     }
-    
+
     //Marca como registrado
     function preparaCUVAnalytic(infoCuvItem) {
         for (var i = 0; i < setCarruselMarcacionAnalytics.length; i++) {
-            if (setCarruselMarcacionAnalytics[i][0] == infoCuvItem.CUV2 && setCarruselMarcacionAnalytics[i][1] == 0) 
+            if (setCarruselMarcacionAnalytics[i][0] == infoCuvItem.CUV2 && setCarruselMarcacionAnalytics[i][1] == 0)
                 setCarruselMarcacionAnalytics[i][1] = 1;
         }
     }
@@ -299,7 +293,7 @@
         for (var i = 0; i < setCarruselMarcacionAnalytics.length; i++) {
             if (setCarruselMarcacionAnalytics[i][1] == 1) {
                 var infoCuv = getCuvDeCarrusel(setCarruselMarcacionAnalytics[i][0]); //obtiene info del cuv
-                
+
                 cuvsAnalytics.push({
                     'name': infoCuv.DescripcionCortada,
                     'id': infoCuv.CUV2,
@@ -313,12 +307,13 @@
                 setCarruselMarcacionAnalytics[i][1] = 2;
             }
         }
-        
+
         if (cuvsAnalytics.length > 0) {
             cuvsAnalytics = JSON.stringify(cuvsAnalytics);
             AnalyticsPortalModule.MarImpresionSetProductos(cuvsAnalytics);
         }
     }
+
     function Inicializar() {
         _ocultarElementos();
         _mostrarCarrusel();

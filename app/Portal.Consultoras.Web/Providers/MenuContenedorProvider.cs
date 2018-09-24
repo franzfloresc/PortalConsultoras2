@@ -96,15 +96,14 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.UrlMenuContenedor.SwInicioIndex:
                 case Constantes.UrlMenuContenedor.SwPersonalizado:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
-                    menuActivo.OrigenPantalla = esMobile
-                        ? Constantes.OrigenPantallaWeb.MShowRoom
-                        : Constantes.OrigenPantallaWeb.DShowRoom;
+                    menuActivo.OrigenPantalla = esMobile ? Constantes.OrigenPantallaWeb.MShowRoom : Constantes.OrigenPantallaWeb.DShowRoom;
+
                     break;
                 //case Constantes.UrlMenuContenedor.OptDetalle:
                 //    var PathOrigen = GetOrigenFromQueryString(Request);
                 //    menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(PathOrigen, revistaDigital, CodigoConsultora, CodigoISO);
                 //    if (menuActivo.Codigo == "")
-                //        menuActivo = sessionManager.GetMenuContenedorActivo();
+                //        menuActivo = SessionManager.GetMenuContenedorActivo();
                 //    break;
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
                 case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
@@ -134,7 +133,11 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.UrlMenuContenedor.DetalleOfertaParaTi:
                 case Constantes.UrlMenuContenedor.DetalleOfertasParaMi:
                 case Constantes.UrlMenuContenedor.DetallePackNuevas:
-                    menuActivo.Codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
+                    menuActivo.Codigo =
+                        revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital
+                        : revistaDigital.TieneRDI ? Constantes.ConfiguracionPais.OfertasParaTi
+                        : Constantes.ConfiguracionPais.RevistaDigitalReducida;
+
                     menuActivo.MostrarMenuFlotante = false; 
                     break;
                 case Constantes.UrlMenuContenedor.DetalleLanzamiento:
@@ -428,6 +431,7 @@ namespace Portal.Consultoras.Web.Providers
                             continue;
 
                         config.UrlMenu = string.Empty;
+
                         if (!sessionManager.GetMostrarShowRoomProductos() &&
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
@@ -438,8 +442,8 @@ namespace Portal.Consultoras.Web.Providers
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
                             config.UrlMenu = "ShowRoom";
-
                         }
+
                         if (config.UrlMenu == "")
                             continue;
 
@@ -499,7 +503,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager.SetMenuContenedor(menuContenedor);
             return menuContenedor;
         }
-
+        
         public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> menuContenedor, int CampaniaID, int NroCampanias)
         {
             var menuContenedorBloqueado = new List<ConfiguracionPaisModel>();

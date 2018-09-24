@@ -34,8 +34,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            sessionManager.SetfechaGetNotificacionesSinLeer(null);
-            sessionManager.SetcantidadGetNotificacionesSinLeer(null);
+            SessionManager.SetfechaGetNotificacionesSinLeer(null);
+            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
 
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
             return View(model);

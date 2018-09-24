@@ -35,19 +35,19 @@
     width: 30px;
     height: 153px;
     text-decoration: none;
-    background: url('../../Images/prev_slide_a.png') left 100px no-repeat;
+    background: url('/Content/Images/prev_slide_a.png') left 100px no-repeat;
 }
 
 #jCarouselLiteDemo .carousel a.next, #jCarouselLiteDemo .carousel a.next2 {
-    background: url('../../Images/next_slide_a.png') right 100px no-repeat;
+    background: url('/Content/Images/next_slide_a.png') right 100px no-repeat;
 }
 
     #jCarouselLiteDemo .carousel a.next:hover {
-        background: url('../../Images/next_slide_ahover.png') right 100px no-repeat;
+        background: url('/Content/Images/next_slide_ahover.png') right 100px no-repeat;
     }
 
 #jCarouselLiteDemo .carousel a.prev:hover {
-    background: url('../../Images/prev_slide_ahover.png') left 100px no-repeat;
+    background: url('/Content/Images/prev_slide_ahover.png') left 100px no-repeat;
 }
 
 #jCarouselLiteDemo .carousel a:hover, #jCarouselLiteDemo .carousel a:active {

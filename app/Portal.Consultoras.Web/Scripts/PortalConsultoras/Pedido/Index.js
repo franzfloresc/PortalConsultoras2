@@ -557,6 +557,7 @@ function CargarDialogMesajePostulantePedido() {
         return false;
     }
 }
+
 function CerrarDialogMesajePostulantePedido() {
     $("#dialog_MensajePostulante_Pedido").hide();
     abrir_popup_tutorial();
@@ -859,6 +860,7 @@ function InsertarProducto(form) {
         error: function (response, x, xh, xhr) { }
     });
 }
+
 function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
     var param2 = {
         CUV: $("#txtCUV").val(),
@@ -1798,15 +1800,14 @@ function CerrarProductoAgregado() {
 }
 
 function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
-    console.log('ConfirmarEliminarRegaloGenerico - Inicio', campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId);
+
     if (typeof esUpselling !== "undefined" && esUpselling) {
-        console.log('ConfirmarEliminarRegaloGenerico - typeof esUpselling !== "undefined" && esUpselling');
+
         var regalo = GetUpSellingGanado();
         if (regalo != null) {
-            console.log('ConfirmarEliminarRegaloGenerico - regalo != null');
 
             var popup = $("#divAvisoEliminarRegaloGenerico");
-            console.log('ConfirmarEliminarRegaloGenerico - popup', popup);
+
             popup.attr("data-campaniaId", campaniaId);
             popup.attr("data-pedidoId", pedidoId);
             popup.attr("data-pedidoDetalleId", pedidoDetalleId);
@@ -1838,10 +1839,8 @@ function CerrarAvisoEliminarRegalo() {
     $("#divAvisoEliminarRegaloGenerico").dialog("close");
 }
 
-
-
 function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
-    console.log('DeletePedido - inicio');
+
     var param = {
         CampaniaID: campaniaId,
         PedidoID: pedidoId,
@@ -1859,11 +1858,11 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
     if (HorarioRestringido()) {
         CerrarSplash();
-        console.log('DeletePedido - HorarioRestringido', param);
+
         return;
     }
 
-    console.log('DeletePedido - Antes Ajax', param);
+
     jQuery.ajax({
         type: "POST",
         url: baseUrl + "Pedido/Delete",
@@ -1873,9 +1872,9 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         async: true,
         success: function (data) {
 
-            console.log('DeletePedido - Ajax - success ', data);
             CerrarSplash();
             CerrarAvisoEliminarRegalo();
+
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
                 messageInfoError(data.message);
@@ -1889,10 +1888,13 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias();
             }
+
             MostrarBarra(data);
+
             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
             microefectoPedidoGuardado();
             TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+
             dataLayer.push({
                 'event': "removeFromCart",
                 'ecommerce': {
@@ -1909,20 +1911,22 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                     }
                 }
             });
+
             CerrarSplash();
 
-            window.OfertaDelDia.CargarODDEscritorio();
+            OfertaDelDiaModule.CargarODDEscritorio();
             ProcesarActualizacionMostrarContenedorCupon();
 
-            ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
-            ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
-            ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
-            ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
-
+            var localStorageModule = new LocalStorageModule();
+            localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
+            
+            //ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
+            //ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
+            //ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
+            //ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
+       
         },
         error: function (data, error) {
-
-            console.log('DeletePedido - Ajax - error ', data, error);
             if (checkTimeout(data)) {
                 HideDialog("divVistaPrevia");
                 CerrarSplash();
@@ -2167,6 +2171,7 @@ function CrearPopupObservaciones(data, inicio) {
 
     ArmarPopupObsReserva(data.EsDiaProl ? "Importante" : "Aviso", html);
 }
+
 function AlmacenarRespuestaReservaEnHidden(data) {
     $("#hdfAccionPROL").val(data.Prol);
     $("#hdfReserva").val(data.Reserva);
@@ -2177,6 +2182,7 @@ function AlmacenarRespuestaReservaEnHidden(data) {
     $("#hdMontoDescuento").val(data.MontoDescuento);
     $("#hdMontoEscala").val(data.MontoEscala);
 }
+
 function ActualizarObjMontosTotales(data) {
     $("#spnMontoGanancia").html(data.FormatoMontoGanancia);
     if (parseFloat(data.MontoDescuento) > 0) {
@@ -2201,6 +2207,7 @@ function ActualizarObjMontosTotales(data) {
         $("#divMontosEscalaDescuento").html("").hide();
     }
 }
+
 function ActualizarBtnGuardar(data) {
     var tooltips = data.ProlTooltip.split("|");
     $(".tooltip_importanteGuardarPedido")[0].children[0].innerHTML = tooltips[0];
@@ -2220,6 +2227,7 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
 
     EjecutarAccionesReservaExitosa(response);
 }
+
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
     AnalyticsPedidoValidado(response);
@@ -3052,6 +3060,7 @@ function BlurF(event, CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV
 
     Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, setId, rowElement);
 }
+
 function InfoCommerceGoogleProductoRecomendados() {
     var cantidadProductosRecomendado = $("#hdCantItemRecomendado").val();
     var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
@@ -3331,9 +3340,10 @@ function AjaxError(data) {
 }
 
 function HidePopupEstrategiasEspeciales() {
-    $("#popupDetalleCarousel_lanzamiento").hide();
-    $("#popupDetalleCarousel_packNuevas").hide();
+    //$("#popupDetalleCarousel_lanzamiento").hide(); //DEUDA TECNICA
+    //$("#popupDetalleCarousel_packNuevas").hide();  //DEUDA TECNICA
 }
+
 function MostrarDetalleGanancia() {
     var div = $("#detalleGanancia");
     div[0].children[0].innerHTML = $("#hdeCabezaEscala").val();
@@ -3359,6 +3369,7 @@ function AnalyticsBannersInferiores(obj) {
         }
     });
 }
+
 function AnalyticsBannersInferioresImpression() {
     var promotionsBajos = [];
     $(".contenedor_banners li").each(function (index) {
@@ -3380,6 +3391,7 @@ function AnalyticsBannersInferioresImpression() {
         });
     }
 }
+
 function AnalyticsGuardarValidar(response) {
     var arrayEstrategiasAnalytics = [];
     var accion = $("#hdAccionBotonProl").val();
@@ -3413,6 +3425,7 @@ function AnalyticsGuardarValidar(response) {
         }
     });
 }
+
 function AnalyticsPedidoValidado(response) {
     var arrayEstrategiasAnalytics = [];
 
@@ -3530,6 +3543,7 @@ function ArmarPopupObsReserva(titulo, mensaje) {
     $("#divTituloObservacionesPROL").html(titulo);
     $("#divMensajeObservacionesPROL").html(mensaje);
 }
+
 function MostrarPopupErrorReserva(mensajePedido, esAviso) {
     mostrarAlerta = typeof mostrarAlerta !== "undefined" ? mostrarAlerta : true;
 
