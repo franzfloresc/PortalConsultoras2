@@ -164,17 +164,21 @@ function registrarLogError(objError) {
     };
 
     if (urlLogError != "") {
-        $.ajax({
-            type: "POST",
-            async: true,
-            crossDomain: true,
-            url: urlLogError,
-            dataType: "json",
-            global: false,
-            data: data,
-            success: function (result) { },
-            error: function (x, xh, xhr) { }
-        });
+        try {
+            $.ajax({
+                type: "POST",
+                async: true,
+                crossDomain: true,
+                url: urlLogError,
+                dataType: "json",
+                global: false,
+                data: data,
+                success: function (result) { },
+                error: function (x, xh, xhr) { }
+            });
+        } catch (e) {
+            console.error(e);
+        }
     }
 }
 
@@ -184,7 +188,7 @@ function registrarLogErrorElastic(objError) {
         console.log(objError);
         return;
     }
-    else if (location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') > 0) {
+    else if (location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') >= 0) {
         console.log(objError);
     }
 
@@ -216,19 +220,23 @@ function registrarLogErrorElastic(objError) {
         'Exception': JSON.stringify(objError.StackTrace)
     };
 
-    if (urlLogError != "") {
-        $.ajax({
-            type: "POST",
-            async: true,
-            crossOrigin: true,
-            url: urlLogError,
-            dataType: "json",
-            contentType: 'application/json',
-            global: false,
-            data: JSON.stringify(data),
-            success: function (result) { },
-            error: function (x, xh, xhr) { }
-        });
+    try {
+        if (urlLogError != "") {
+            $.ajax({
+                type: "POST",
+                async: true,
+                crossOrigin: true,
+                url: urlLogError,
+                dataType: "json",
+                contentType: 'application/json',
+                global: false,
+                data: JSON.stringify(data),
+                success: function (result) { },
+                error: function (x, xh, xhr) { }
+            });
+        }
+    } catch (e) {
+        console.error(e);
     }
 }
 

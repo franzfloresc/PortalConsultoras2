@@ -110,8 +110,6 @@ function SeccionCargarProductos(objConsulta) {
         $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
 
-    console.log('SeccionCargarProductos', objConsulta);
-
     if (objConsulta.UrlObtenerProductos === "")
         return false;
 
@@ -169,7 +167,6 @@ function SeccionCargarProductos(objConsulta) {
         cache: false
     });
 
-    console.log(objConsulta, param);
     $.ajax({
         type: "POST",
         url: baseUrl + objConsulta.UrlObtenerProductos,
