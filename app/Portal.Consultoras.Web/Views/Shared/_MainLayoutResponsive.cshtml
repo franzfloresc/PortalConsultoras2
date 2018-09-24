@@ -108,14 +108,14 @@
                     <img src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
                 </picture>
                 @*<picture class="d-block w-100">
-                <source media="(min-width: 1024px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-                <img src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-            </picture>*@
+                        <source media="(min-width: 1024px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                        <img src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                    </picture>*@
             </div>
             @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
             @if (ViewBag.MostrarBuscadorYFiltros)
             {
-                <section class="buscador__productos flex-grow-1">
+                <section class="buscador__productos buscador_productos flex-grow-1">
                     <div class="campo_busqueda_fondo_on_focus">
                         <div class="franja__blanca"></div>
                     </div>
@@ -123,7 +123,7 @@
                         <a class="enlace_regresar_filtros" title="Regresar">
                             <img src="@Url.Content("~/Content/Images/flecha_icono.svg")" alt="Regresar">
                         </a>
-                    <input type="text" id="CampoBuscadorProductos" class="col-12 pl-0 d-block campo_buscador_productos" placeholder="Busca ofertas">
+                        <input type="text" id="CampoBuscadorProductos" class="col-12 pl-0 d-block campo_buscador_productos" placeholder="Busca ofertas">
                         <a class="enlace_busqueda_productos" title="Buscar">
                             <img src="@Url.Content("~/Content/Images/icono_lupa.svg")" alt="Buscar">
                         </a>
@@ -151,7 +151,6 @@
                             </div>
                         </div>
                         <div class="resultados_wrapper" id="ResultadoBuscador">
-                            @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultadoResponsive.cshtml")
                         </div>
                     </div>
                 </section>
@@ -162,6 +161,8 @@
         @RenderBody()
         @Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
     </div>
+
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
 
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
@@ -220,7 +221,7 @@
 
     @RenderSection("scripts", required: false)
 
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 
 </body>
