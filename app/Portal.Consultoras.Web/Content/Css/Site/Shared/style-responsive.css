@@ -1310,6 +1310,7 @@ body > img{
         text-transform:initial;
     }
 
+    .menu__item:nth-child(4) .menu__link,
     .menu__link--ofertas
     {
         padding-top:10px;
