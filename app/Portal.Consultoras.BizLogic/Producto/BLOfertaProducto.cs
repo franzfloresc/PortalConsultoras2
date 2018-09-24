@@ -7,7 +7,7 @@ using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLOfertaProducto
+    public class BLOfertaProducto : IOfertaProductoBusinessLogic
     {
         public IList<BEConfiguracionOferta> GetTipoOfertasAdministracion(int paisID, int TipoOfertaSisID)
         {
