@@ -108,6 +108,10 @@ body > img{
     position:relative;
 }
 
+.header__menu--lateralDerecho{
+    flex-basis:0;
+}
+
 .header__icono__menu img{
     height:auto;
 }
@@ -151,7 +155,7 @@ body > img{
     padding-left:25px;
 }
 
-.menu__item,
+.header__menu--lateralIzquierdo .menu__item,
 .submenu__item--AsesorBelleza
 {
     letter-spacing:0.5px;
@@ -202,12 +206,8 @@ body > img{
 .submenu__item--AsesorBelleza > .submenu__link
 {
     background-image:url(../../../images/down_arrow.png);
-    background-position:92% center;
+    background-position:97% center;
 }
-
-/*.menu__link--conSubmenu {
-    width: 90px;
-}*/
 
 .menu__link--sinAfiliacionAppCatalogo{
     background-image:none;
@@ -502,7 +502,6 @@ body > img{
 
 .menu__item--campaniaActual{
     min-width: 53px;
-    background-color: #a18328;
     padding-top: 17px;
     position: relative;
     z-index: 0;

@@ -6,7 +6,10 @@
     margin-top:-1px;
 }
 
-.icono__actualizarDatos{
+.icono__actualizarDatos,
+.notificaciones__cantidad,
+.btn__productos__agregados--IngresarPedido
+{
     background-color:#e81c36;
 }
 
@@ -14,12 +17,8 @@
     background-image:url(../../../images/esika/vineta_indicador.png);
 }
 
-.notificaciones__cantidad{
-    background-color: #e81c36;
-}
-
-.btn__productos__agregados--IngresarPedido{
-    background-color:#e81c36;
+.menu__item--campaniaActual{
+    background-color: #a18328;
 }
 
 @media screen and (max-width:991px){

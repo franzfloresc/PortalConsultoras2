@@ -712,6 +712,14 @@
 
 }
 
+@media screen and (max-width:1250px){
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
+        width: 15.5%;
+    }
+
+}
+
 /* FIN - BUSCADOR DE FILTROS PORTAL CONSULTORAS */
 
 /* BUSCADOR DE FILTROS PORTAL CONSULTORAS MOBILE */
