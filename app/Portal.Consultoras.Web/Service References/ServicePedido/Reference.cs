@@ -5954,6 +5954,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string NombrePaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NovedadBuscadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NroCampaniasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7954,6 +7957,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.NombrePaisField, value) != true)) {
                     this.NombrePaisField = value;
                     this.RaisePropertyChanged("NombrePais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NovedadBuscador {
+            get {
+                return this.NovedadBuscadorField;
+            }
+            set {
+                if ((this.NovedadBuscadorField.Equals(value) != true)) {
+                    this.NovedadBuscadorField = value;
+                    this.RaisePropertyChanged("NovedadBuscador");
                 }
             }
         }
