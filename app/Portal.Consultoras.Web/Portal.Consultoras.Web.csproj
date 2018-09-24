@@ -307,8 +307,11 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Models\Buscador\BuscadorModel.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
+    <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
+    <Compile Include="Controllers\LanzamientosController.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
     <Compile Include="Infraestructure\Sms\ISmsSender.cs" />
@@ -326,7 +329,6 @@
     <Compile Include="Models\DetalleEstrategia\DetalleEstrategiaBreadCrumbsModel.cs" />
     <Compile Include="Models\EstrategiaComponenteModel.cs" />
     <Compile Include="Models\EstrategiaFichaPersonalizadaProductoModel.cs" />
-    <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Models\Estrategia\OfertaDelDia\DataModel.cs" />
     <Compile Include="Models\BarraTippingPoint.cs" />
     <Compile Include="Models\Cache\CacheModel.cs" />
@@ -334,6 +336,8 @@
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ConfigModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
+    <Compile Include="Models\Estrategia\ShowRoom\ShowRoomEventoModelo.cs" />
+    <Compile Include="Models\Estrategia\VariablesGeneralEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ShowRoomEventoConsultoraModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ShowRoomNivelModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingFullModel.cs" />
@@ -488,7 +492,6 @@
     <Compile Include="Models\Estrategia\UpSellingAdminModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
-    <Compile Include="Models\Estrategia\VariablesGeneralEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\WaEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
@@ -758,6 +761,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Providers\AdministrarEstrategiaProvider.cs" />
+    <Compile Include="Providers\BuscadorBaseProvider.cs" />
+    <Compile Include="Providers\BuscadorYFiltrosProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
     <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
@@ -1344,7 +1349,6 @@
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
-    <Content Include="Content\Css\Mobile\esika\buscador-filtros.css" />
     <Content Include="Content\Css\Mobile\esika\mi-perfil.css" />
     <Content Include="Content\Css\Mobile\Ficha\Esika\FichaEsika.css" />
     <Content Include="Content\Css\Mobile\Ficha\Lbel\FichaLbel.css" />
@@ -1353,7 +1357,6 @@
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
     <Content Include="Content\Css\Mobile\Ficha\SeleccionarTipo.css" />
-    <Content Include="Content\Css\Mobile\lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
@@ -1535,6 +1538,8 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\flecha_icono.svg" />
+    <Content Include="Content\Images\icono-elige-tu-opcion.svg" />
     <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\Esika\flecha_next.svg" />
     <Content Include="Content\Images\Esika\flecha_prev.svg" />
@@ -1551,8 +1556,13 @@
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\icono_avatar_menu.svg" />
     <Content Include="Content\Images\icono_cargar_foto_desde_galeria.svg" />
+    <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
+    <Content Include="Content\Images\icono_lupa.svg" />
+    <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
+    <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
+    <Content Include="Content\Images\imagen_prod_no_disponible.svg" />
     <Content Include="Content\Images\Lbel\icono_cambiar_dato.svg" />
     <Content Include="Content\Images\Lbel\icono_candado.svg" />
     <Content Include="Content\Images\Lbel\icono_envelope.svg" />
@@ -5296,7 +5306,7 @@
     <Content Include="Views\Shared\PagoEnLinea\_PayuDeviceScript.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerHeader.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
-    <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpBuscadorResultado.cshtml" />
     <Content Include="Views\ReporteContrato\Index.cshtml" />
     <Content Include="Views\DetalleEstrategia\SeleccionarTipos.cshtml" />
     <Content Include="Views\DetalleEstrategia\_ElegirOpciones.cshtml" />
@@ -5308,6 +5318,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTrackingJetlore.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHidden.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHiddenSoloDesktop.cshtml" />
+    <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

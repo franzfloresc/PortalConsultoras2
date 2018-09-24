@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 
@@ -317,6 +318,8 @@ namespace Portal.Consultoras.Web.Models
             get { return FechaHoy >= FechaInicioCampania.Date && FechaHoy <= FechaFinCampania.Date; }
         }
 
+        
+
         public bool HizoLoginExterno { get; set; }
         public bool TieneLoginExterno { get; set; }
         public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
@@ -386,6 +389,10 @@ namespace Portal.Consultoras.Web.Models
         public bool EsConsultora()
         {
             return RolID == Constantes.Rol.Consultora;
-        }
+        }        
+
+        public int DiaFacturacion { get; set; }
+        public Dictionary<string, string> NuevasDescripcionesBuscador { get; set; }
+        public int NovedadBuscador { get; set; }
     }
 }
