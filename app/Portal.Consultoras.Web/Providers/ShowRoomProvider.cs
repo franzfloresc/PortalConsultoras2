@@ -408,7 +408,7 @@ namespace Portal.Consultoras.Web.Providers
         public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
         {
             List<ServiceOferta.BEEstrategia> lEstrategia = new List<ServiceOferta.BEEstrategia>();
-            UsuarioModel userData = sessionManager.GetUserData();
+            UsuarioModel userData = _sessionManager.GetUserData();
 
             string path = string.Format(Constantes.PersonalizacionOfertasService.UrlGetShowRoomOfertasConsultora, userData.CodigoISO, Constantes.ConfiguracionPais.ShowRoom, userData.CampaniaID, userData.GetCodigoConsultora(), string.Empty, string.Empty);
 
