@@ -110,21 +110,21 @@ function SeccionCargarProductos(objConsulta) {
         $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
 
-    console.log('SeccionCargarProductos', objConsulta);
-
     if (objConsulta.UrlObtenerProductos === "")
         return false;
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId] = objConsulta;
 
-    var paisHabilitado = variableEstrategia.PaisHabilitado.includes(IsoPais);
+    //var paisHabilitado = variableEstrategia.PaisHabilitado.includes(IsoPais);
+    var paisHabilitado = typeof variableEstrategia.PaisHabilitado == "string" && variableEstrategia.PaisHabilitado.indexOf(IsoPais) > -1
     var guardaEnLS = true;
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.RDR
         || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
-            var tipoEstrategiaHabilitado = variableEstrategia.TipoEstrategiaHabilitado.includes("101");
+            //var tipoEstrategiaHabilitado = variableEstrategia.TipoEstrategiaHabilitado.includes("101");
+            var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf('101') > -1
             if (paisHabilitado && tipoEstrategiaHabilitado) {
                 guardaEnLS = false;
             }
@@ -166,7 +166,6 @@ function SeccionCargarProductos(objConsulta) {
         cache: false
     });
 
-    console.log(objConsulta, param);
     $.ajax({
         type: "POST",
         url: baseUrl + objConsulta.UrlObtenerProductos,

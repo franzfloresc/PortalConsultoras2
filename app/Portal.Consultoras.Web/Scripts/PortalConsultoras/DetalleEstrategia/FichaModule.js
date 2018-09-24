@@ -127,7 +127,7 @@ var FichaModule = (function (config) {
         }
     });
 
-    var _fijarFooterCampaniaSiguiente = function() {
+    var _fijarFooterCampaniaSiguiente = function () {
         if (isMobile()) {
             var $elemento = $(".content_inscribirte");
             if ($elemento.length !== 0) {
@@ -272,10 +272,15 @@ var FichaModule = (function (config) {
             async: false,
             cache: false,
             success: function (data) {
-                dfd.resolve(data);
+                if (data.success) {
+                    dfd.resolve(data);
+                }
+                else {
+                    console.log(data);
+                    dfd.reject(data, error);
+                }
             },
             error: function (data, error) {
-                console.log(data, error);
                 dfd.reject(data, error);
             }
         });
@@ -303,11 +308,10 @@ var FichaModule = (function (config) {
                 cuv2: estrategia.CUV2,
                 campania: _config.campania,
                 codigoVariante: estrategia.CodigoVariante,
-                codigoEstrategia: estrategia.CodigoEstrategia
+				codigoEstrategia: estrategia.CodigoEstrategia,
+				lstHermanos: estrategia.Hermanos
             };
-            console.log(param);
             _promiseObternerComponentes(param).done(function (data) {
-                console.log(data);
                 estrategia.Hermanos = data.componentes;
                 estrategia.EsMultimarca = data.esMultimarca;
                 _esMultimarca = data.esMultimarca;
@@ -395,7 +399,7 @@ var FichaModule = (function (config) {
             }
 
             $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
-        }        
+        }
     };
 
     var _validarDesactivadoGeneral = function (estrategia) {
@@ -481,7 +485,7 @@ var FichaModule = (function (config) {
 
         setTimeout(_resizeBotonAgregar(), 1000);
     };
-    
+
     var _resizeBotonAgregar = function () {
         var dvFoto = $("#dvSeccionFoto");
         var dvRedesSociales = $("#Contenedor_redes_sociales");
@@ -572,14 +576,14 @@ var FichaModule = (function (config) {
         var estrategia = _getEstrategia();
 
         if (estrategia == null) {
-            window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
+            window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
             return false;
         }
 
         $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
-        
+
         if (estrategia.CodigoVariante === _codigoVariedad.IndividualVariable ||
             estrategia.CodigoVariante === _codigoVariedad.CompuestaVariable ||
             estrategia.esCampaniaSiguiente) _validarDesactivadoGeneral(estrategia);
@@ -587,7 +591,7 @@ var FichaModule = (function (config) {
         if (estrategia.TipoAccionAgregar <= 0) {
             $(_seccionesFichaProducto.dvContenedorAgregar).hide();
         }
-        
+
         opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
         var imgFondo = "";
         if (isMobile()) {
@@ -633,7 +637,7 @@ var FichaModule = (function (config) {
     };
 
     function Inicializar() {
-        
+
         _localStorageModule = LocalStorageModule();
         _construirSeccionEstrategia();
         _ocultarSecciones();
@@ -641,7 +645,7 @@ var FichaModule = (function (config) {
         _crearTabs();
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
-        
+
     }
 
     return {
@@ -652,5 +656,5 @@ var FichaModule = (function (config) {
 //Funcion temporal hasta estandarizar RevistaDigital.js
 var baseUrl = baseUrl || "";
 function RDPageInformativa() {
-    window.location = (isMobile() ? "/Mobile/" : "") + baseUrl + "revistadigital/Informacion";
+    window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "RevistaDigital/Informacion";
 }

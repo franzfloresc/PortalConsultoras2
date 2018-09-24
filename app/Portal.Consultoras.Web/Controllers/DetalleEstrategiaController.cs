@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Providers;
@@ -42,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
             return base.Ficha(palanca, campaniaId, cuv, origen);
         }
 
-        public JsonResult ObtenerComponentes(string estrategiaId, string cuv2,  string campania, string codigoVariante, string codigoEstrategia = "")
+        public JsonResult ObtenerComponentes(string estrategiaId, string cuv2,  string campania, string codigoVariante, string codigoEstrategia = "", List<EstrategiaComponenteModel> lstHermanos = null)
         {
             try
             {
@@ -51,7 +52,8 @@ namespace Portal.Consultoras.Web.Controllers
                     EstrategiaID = estrategiaId.ToInt(),
                     CUV2 = cuv2,
                     CampaniaID = campania.ToInt(),
-                    CodigoVariante = codigoVariante
+                    CodigoVariante = codigoVariante,
+                    Hermanos = lstHermanos
                 };
 
                 bool esMultimarca = false;
@@ -60,14 +62,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
+                    success = true,
                     esMultimarca,
                     componentes,
                     mensaje
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return ErrorJson("Error al obtener los Componentes: " + e.Message, true);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                return Json(new
+                {
+                    success = false,
+                    ex
+                }, JsonRequestBehavior.AllowGet);
+                //return ErrorJson("Error al obtener los Componentes: " + ex.Message, true);
             }
 
         }

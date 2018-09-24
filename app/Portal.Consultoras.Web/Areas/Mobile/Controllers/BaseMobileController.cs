@@ -4,11 +4,8 @@ using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -231,31 +228,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToRoute(uniqueSessionAttribute.RouteName, routeValues);
         }
-
-        //#region BannerApp
-        //[HttpGet]
-        //public JsonResult OcultarBannerApp()
-        //{
-        //    try
-        //    {
-        //        Session["OcultarBannerApp"] = true;
-
-        //        return Json(new
-        //        {
-        //            success = true,
-        //        }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = "No se pudo procesar la solicitud"
-        //        }, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
-
+        
         private void MostrarBannerApp()
         {
             if (SessionManager.GetOcultarBannerApp() != null)
@@ -277,29 +250,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.BannerApp = oComunicados;
             }
         }
-
-        //#endregion
-
-        //public List<BEComunicado> ObtenerComunicadoPorConsultora()
-        //{
-        //    using (var sac = new SACServiceClient())
-        //    {
-        //        var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
-        //                Constantes.ComunicadoTipoDispositivo.Mobile, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
-
-        //        return lstComunicados.ToList();
-        //    }
-        //}
-
-        //public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
-        //{
-        //    using (var sac = new SACServiceClient())
-        //    {
-        //        var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(UserData().PaisID, UserData().CodigoConsultora,
-        //                Constantes.ComunicadoTipoDispositivo.Mobile, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
-
-        //        return lstComunicados.ToList();
-        //    }
-        //}
+        
     }
 }

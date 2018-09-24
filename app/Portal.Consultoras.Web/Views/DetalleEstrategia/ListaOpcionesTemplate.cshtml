@@ -61,10 +61,10 @@
                            value="{{componente.cantidadSeleccionada}}"
                            {{/iff}} size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-" disabled>
                     <div>
-                        <a class="txt_menos" data-cantidad-agregar="-" {{#if componente.EleccionBloqueada}}{{else}}onclick="javascript:ListaOpcionesModule.EliminarOpcion({{componente.Cuv}},event)"{{/if}}>
+                        <a class="txt_menos" data-cantidad-agregar="-" {{#if componente.EleccionBloqueada}}{{else}}onclick="javascript:ListaOpcionesModule.EliminarOpcion('{{componente.Cuv}}',event)"{{/if}}>
                             <div class="dibujar_linea dibujar_menos"></div>
                         </a>
-                        <a class="txt_mas" data-cantidad-agregar="+" onclick="javascript:ListaOpcionesModule.SeleccionarOpcion({{componente.Cuv}},event)">
+                        <a class="txt_mas" data-cantidad-agregar="+" onclick="javascript:ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}',event)">
                             <div class="dibujar_linea dibujar_mas"></div>
                         </a>
                     </div>

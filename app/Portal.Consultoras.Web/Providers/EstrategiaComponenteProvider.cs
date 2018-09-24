@@ -72,42 +72,47 @@ namespace Portal.Consultoras.Web.Providers
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
                 mensaje += "SiMongo|";
-                string pathComponente = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerComponente,
-                        userData.CodigoISO,
-                        estrategiaModelo.CampaniaID,
-                        estrategiaModelo.CUV2);
-                var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerComponenteDesdeApi(pathComponente));
-                Task.WhenAll(taskApi);
-                listaBeEstrategiaProductos = taskApi.Result;
-
-                if (listaBeEstrategiaProductos != null)
+                listaBeEstrategiaProductos = new List<BEEstrategiaProducto>();
+                if (estrategiaModelo.Hermanos != null)
                 {
+                    listaBeEstrategiaProductos = Mapper.Map<List<EstrategiaComponenteModel>, List<ServicePedido.BEEstrategiaProducto>>(estrategiaModelo.Hermanos);
                     joinCuv = String.Join("|", listaBeEstrategiaProductos.Distinct().Select(o => o.SAP));
                 }
 
                 if (joinCuv == "") return new List<EstrategiaComponenteModel>();
 
+
+                mensaje += "EstrategiaProductos= " + listaBeEstrategiaProductos.Count + "|";
+
                 var listaProductos = GetAppProductoBySap(estrategiaModelo, joinCuv);
                 if (!listaProductos.Any()) return new List<EstrategiaComponenteModel>();
 
-                var listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
+                mensaje += "GetAppProductoBySap = " + listaProductos.Count + "|";
 
+                var listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
+                mensaje += "GetEstrategiaDetalleCompuestaMs = " + listaEstrategiaComponente.Count + "|";
                 //estrategiaModelo.CodigoVariante = "";
                 //var listaComponentesPorOrdenar = GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
                 listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
+                mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
                 return listaEstrategiaComponente;
 
             }
             else
             {
+                mensaje += "NoMongo|";
 
                 listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
                 if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
 
+                mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
+
                 var listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos, codigoTipoEstrategia);
+                mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
                 //var listaComponentesPorOrdenar = GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
                 var listaComponentesPorOrdenar = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
+                mensaje += "OrdenarComponentesPorMarca = " + listaComponentesPorOrdenar.Count + "|";
                 return listaComponentesPorOrdenar;
             }
 
@@ -190,12 +195,21 @@ namespace Portal.Consultoras.Web.Providers
         private List<Producto> GetAppProductoBySap(EstrategiaPersonalizadaProductoModel estrategiaModelo, string joinSap)
         {
             List<Producto> listaAppCatalogo;
-            var numeroCampanias = Convert.ToInt32(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
-            using (var svc = new ProductoServiceClient())
+            try
             {
-                listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(_paisISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
+                var numeroCampanias = Convert.ToInt32(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
+                using (var svc = new ProductoServiceClient())
+                {
+                    listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(_paisISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
+                }
+                listaAppCatalogo = listaAppCatalogo.Any() ? listaAppCatalogo : new List<Producto>();
+
             }
-            listaAppCatalogo = listaAppCatalogo.Any() ? listaAppCatalogo : new List<Producto>();
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", _paisISO, "EstrategiaComponenteProvider.GetAppProductoBySap");
+                listaAppCatalogo = new List<Producto>();
+            }
             return listaAppCatalogo;
         }
 
