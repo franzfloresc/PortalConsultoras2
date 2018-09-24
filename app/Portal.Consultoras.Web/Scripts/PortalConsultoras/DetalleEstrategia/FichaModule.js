@@ -29,6 +29,7 @@ var FichaModule = (function (config) {
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
+    var _estrategia = {};
 
     var _config = {
         palanca: config.palanca || "",
@@ -573,7 +574,9 @@ var FichaModule = (function (config) {
     };
 
     var _construirSeccionEstrategia = function () {
-        var estrategia = _getEstrategia();
+        //var estrategia = _getEstrategia();
+        _estrategia = _getEstrategia();
+        var estrategia = _estrategia;
 
         if (estrategia == null) {
             window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
@@ -631,11 +634,15 @@ var FichaModule = (function (config) {
         _construirSeccionDetalleFichas(estrategia);
 
         // Se realiza la marcación en analytics de la información de la ficha de un producto.
-        //var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
-        //AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
+        var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+        AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
         return true;
     };
 
+    function getEstrategia()
+    {
+        return _estrategia;
+    }
     function Inicializar() {
 
         _localStorageModule = LocalStorageModule();
@@ -649,7 +656,8 @@ var FichaModule = (function (config) {
     }
 
     return {
-        Inicializar: Inicializar
+        Inicializar: Inicializar,
+        GetEstrategia: getEstrategia
     };
 });
 

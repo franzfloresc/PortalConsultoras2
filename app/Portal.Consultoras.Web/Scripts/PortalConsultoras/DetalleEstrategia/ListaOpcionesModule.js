@@ -14,6 +14,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
@@ -233,6 +234,28 @@ var ListaOpcionesModule = (function () {
         //
         opcionesEvents.applyChanges("onOptionSelected", _componente);
         //
+        
+        var estrategia = fichaModule.GetEstrategia();
+        var nombreComponente = getNombreComponente(cuv);
+        //var opcion = {};
+        //$.each(_componente.Hermanos, function (index, hermano) {
+        //    if (cuv == hermano.Cuv) {
+        //        opcion = _componente.Hermanos[index];
+        //        return false;
+        //    }
+        //});
+
+        if (typeof event !== "undefined") {
+            //AnalyticsPortalModule.MarcarAumentardisminuirOpcionProducto("Aumentar", estrategia, opcion.NombreBulk);
+            AnalyticsPortalModule.MarcarAumentardisminuirOpcionProducto("Aumentar", estrategia, nombreComponente);
+            return false;
+        }
+        
+        if (_componente.FactorCuadre === 1 ) {
+            AnalyticsPortalModule.MarcarPopupBotonEligeloSoloUno(estrategia, _componente );
+        } else {
+            AnalyticsPortalModule.MarcarPopupBotonEligeloVariasOpciones(estrategia, nombreComponente);
+        }
         return false;
     };
 
@@ -259,6 +282,7 @@ var ListaOpcionesModule = (function () {
     };
 
     var EliminarOpcion = function (cuv, event) {
+        
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
@@ -266,6 +290,8 @@ var ListaOpcionesModule = (function () {
         if (_componente.esCampaniaSiguiente) {
             return false;
         }
+        
+        var nombreComponente = getNombreComponente(cuv);
         //
         if (typeof event !== "undefined") EstrategiaAgregarModule.DisminuirCantidad(event);
         //
@@ -275,7 +301,34 @@ var ListaOpcionesModule = (function () {
         //
         opcionesEvents.applyChanges("onOptionSelected", _componente);
         //
+        //Google Analytics (EPM-1442)
+        var estrategia = fichaModule.GetEstrategia();
+        if (typeof event !== "undefined") {
+            AnalyticsPortalModule.MarcarAumentardisminuirOpcionProducto("Disminuir", estrategia, nombreComponente);
+
+            return false;
+        }
+
+        
+        if (_componente.FactorCuadre === 1) {
+            AnalyticsPortalModule.MarcarEliminarOpcionSeleccionada(estrategia, nombreComponente)
+        } else {
+            AnalyticsPortalModule.MarcarEliminarOpcionSeleccionadaVariasOpciones(estrategia, nombreComponente)
+        }
+        
         return false;
+    };
+    var getNombreComponente = function (cuv) {
+        var NombreBulk = "";
+        $.each(_componente.HermanosSeleccionados, function (index, item) {
+            
+            if (item.Cuv == cuv) {
+                NombreBulk = item.NombreBulk;
+                return false;
+            }
+            
+        });
+        return NombreBulk;
     };
 
     var GetComponente = function () {
@@ -298,6 +351,15 @@ var ListaOpcionesModule = (function () {
             $(".modal-fondo").hide();
             $("body").removeClass("modal_activado");
         }
+        
+        var estrategia = fichaModule.GetEstrategia();
+        if (_componente.FactorCuadre === 1) {
+            AnalyticsPortalModule.MarcarCerrarPopupEligeUnaOpcion(estrategia);
+        } else {
+            AnalyticsPortalModule.MarcarPopupCerrarEligeXOpciones(estrategia);
+        }
+        
+        
     }
 
     return {
