@@ -272,7 +272,13 @@ var FichaModule = (function (config) {
             async: false,
             cache: false,
             success: function (data) {
-                dfd.resolve(data);
+                if (data.success) {
+                    dfd.resolve(data);
+                }
+                else {
+                    console.log(data);
+                    dfd.reject(data, error);
+                }
             },
             error: function (data, error) {
                 dfd.reject(data, error);
