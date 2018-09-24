@@ -53,7 +53,9 @@ namespace Portal.Consultoras.Web.Providers
             modelo.EstadoSuscripcion = revistaDigital.EstadoSuscripcion;
             modelo.Video = GetVideoInformativo(esMobile);
             modelo.UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones, esMobile);
-            modelo.UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes, esMobile);
+            modelo.UrlPreguntasFrecuentes = (revistaDigital.SuscripcionEfectiva.Origen == Constantes.RevistaDigitalOrigen.Unete || revistaDigital.SuscripcionEfectiva.Origen == Constantes.RevistaDigitalOrigen.Nueva) ?
+                                            GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes, esMobile, 2) :
+                                            GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes, esMobile);
             modelo.Origen = revistaDigital.SuscripcionEfectiva.Origen;
             modelo.NombreConsultora = userData.Sobrenombre.ToUpper();
             modelo.Email = userData.EMail;

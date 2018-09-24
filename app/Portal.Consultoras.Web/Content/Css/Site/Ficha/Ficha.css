@@ -105,7 +105,7 @@ body {
 
 .contenedor_izquierdo {
     float: left;
-    width: 65%;
+    width: 60%;
 }
 
 .nombre_marca {
@@ -126,7 +126,7 @@ body {
 .contenedor_derecho {
     float: right;
     text-align: right;
-    width: 35%;
+    width: 40%;
 }
 
 .precio_valorizado {

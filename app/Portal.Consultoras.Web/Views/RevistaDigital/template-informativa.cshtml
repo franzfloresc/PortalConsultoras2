@@ -43,7 +43,7 @@
                 </span>
             </div>
         </div>
-        
+
         <div class="caja-gana-mas codigos">
             <div class="caja-gana-mas-cont">
                 <p class="titulo-bloque">
@@ -58,7 +58,7 @@
                 </span>
             </div>
         </div>
-        
+
         <div class="caja-gana-mas pack-medida">
             <div class="caja-gana-mas-cont">
                 <p class="titulo-bloque">
@@ -73,7 +73,7 @@
                 </span>
             </div>
         </div>
-        
+
         <div class="clear"></div>
     </div>
 </div>
@@ -84,7 +84,8 @@
         <div class="contenedor-suscripcion">
             <div class="arrow-down"></div>
             <p class="como-funciona-txt">
-                ¿POR QUÉ EL CLUB ES PERFECTO PARA TI?
+                @*¿POR QUÉ EL CLUB ES PERFECTO PARA TI?*@
+                ¿POR QUÉ GANA+ ES PERFECTO PARA TI?
             </p>
             <div class="caja-club-izquierda">
                 <img src="~/Content/Images/visual_de_causa.png" />
@@ -94,7 +95,10 @@
                 <span class="cont-caja-club">Te ofrecemos ofertas <b>exclusivas</b> para ti.</span>
                 <hr class="dorado" />
                 <p class="titulo-caja-club">2. PORQUE ERES RÁPIDA:</p>
-                <span class="cont-caja-club">El Club GANA+ es una plataforma confiable y veloz: ¡como tú!</span>
+                <span class="cont-caja-club">
+                    @*El Club GANA+ es una plataforma confiable y veloz: ¡como tú!*@
+                    GANA+ es una plataforma confiable y veloz: ¡como tú!
+                </span>
                 <hr class="dorado" />
                 <p class="titulo-caja-club">3. PORQUE ERES MODERNA:</p>
                 <span class="cont-caja-club">¡Lo digital es para ti!</span>
@@ -116,11 +120,17 @@ else
                 <span class="txt">
                     @if (Model.EsSuscripcionInmediata)
                     {
-                        <text> Suscríbete hoy mismo con un solo clic al Club Gana+</text>
+                        <text>
+                            @*Suscríbete hoy mismo con un solo clic al Club Gana+*@
+                            Suscríbete hoy mismo con un solo clic a Gana+
+                        </text>
                     }
                     else
                     {
-                        <text>  En esta campaña te suscribes al Club GANA+</text>
+                        <text>
+                            @*En esta campaña te suscribes al Club GANA+*@
+                            En esta campaña te suscribes a GANA+
+                        </text>
                     }
 
                 </span>
@@ -146,30 +156,33 @@ else
                     }
                     else
                     {
-                        <text> En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!</text>
+                        <text>
+                            @*En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!*@
+                            En la siguiente campaña, ¡podrás disfrutar de ser parte de GANA+!
+                        </text>
                     }
 
                 </span>
                 <div class="clear"></div>
-            
 
-                   @if (Model.EsSuscripcionInmediata)
-                    {
-                        <text>   <span class="txt recuerda-txt-2">
-                                <b>
-                                    Recuerda que al suscribirte dejarás de recibir tu guía de negocio impresa<br />
-                                </b>
-                                (Ejemplo: Si te suscribes en C10, dejarás de recibir tu guía de negocio en C12).
-                            </span></text>
-                    }
-                    else
-                    {
-                        <text>  <span class="txt recuerda-txt">
-                                RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
-                            </span></text>
 
-                    }
-                
+                @if (Model.EsSuscripcionInmediata)
+                {
+                    <text>   <span class="txt recuerda-txt-2">
+                            <b>
+                                Recuerda que al suscribirte dejarás de recibir tu guía de negocio impresa<br />
+                            </b>
+                            (Ejemplo: Si te suscribes en C10, dejarás de recibir tu guía de negocio en C12).
+                        </span></text>
+                }
+                else
+                {
+                    <text>  <span class="txt recuerda-txt">
+                            RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
+                        </span></text>
+
+                }
+
             </div>
             <div class="caja-img">
                 <div class="visual-funcionamiento"></div>
@@ -188,8 +201,11 @@ else
                 <p class="txt-deseas-cancelar">
                     ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
                 </p>
+                @*<span class="deseas-cancelar">
+                        Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+                    </span>*@
                 <span class="deseas-cancelar">
-                    Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+                    Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda GANA+
                 </span>
                 <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
             }
@@ -210,7 +226,8 @@ else if (Model.CancelarSuscripcion)
             @if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
             {
                 <p class="txt-deseas-cancelar">
-                    ¿NO TE GUSTÓ EL CLUB?
+                    @*¿NO TE GUSTÓ EL CLUB?*@
+                    ¿NO TE GUSTÓ GANA+?
                 </p>
                 <span class="deseas-cancelar">
                     Cancela tu suscripción haciendo clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
@@ -228,66 +245,168 @@ else if (Model.CancelarSuscripcion)
     </div>
 }
 
-<div class="preguntas-frecuentes-cont-sus">
-    <div class="contenedor-mobile-fix">
-        <span class="titulo-p-frecuente">PREGUNTAS FRECUENTES</span>
-        <ul class="preg-frecuentes">
-            <li>
-                <a class="abrir-preg-frecuente"><p>¿Cuál es diferencia entre GANA+ y Club GANA+? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
-                <ul>
+    <div class="preguntas-frecuentes-cont-sus">
+        <div class="contenedor-mobile-fix">
+            <span class="titulo-p-frecuente">PREGUNTAS FRECUENTES</span>
+            <ul class="preg-frecuentes">
+                @if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete || Model.Origen == Constantes.RevistaDigitalOrigen.Nueva)
+                {
                     <li>
-                        <span>
-                            GANA+ es un conjunto de ofertas exclusivas para ti que encontrarás entrando desde el App Ésika Conmigo o desde somosbelcorp.com
-                            Club GANA+ es un espacio exclusivo para nuestras consultoras suscritas, en donde recibirán muchos beneficios como: más ofertas hechas a su medida que GANA+, packs de sus productos favoritos, no tendrán que digitar códigos y mucho más.
-                        </span>
-                    </li>
+                        <a class="abrir-preg-frecuente"><p>¿Qué	es	Gana+? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    Gana+	es	la	sección	de	ofertas	hechas	a	tu	medida	en	el	App	y/o	portal	Somos	Belcorp
+                                    dónde	encuentras	más	de	150	ofertas	pensadas	especialmente	para	hacer	crecer	tu
+                                    negocio.
+                                </span>
+                            </li>
 
-                </ul>
-            </li>
-            <li>
-                <a class="abrir-preg-frecuente"><p>¿Cómo cancelo mi suscripción? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
-                <ul>
+                        </ul>
+                    </li>
                     <li>
-                        <span>
-                            Ingresa a tu cuenta y haz clic en “Saber más”. Una vez ahí, baja el cursor hasta el botón “CANCELA TU SUSCRIPCIÓN AQUÍ” y al hacer clic, tu suscripción se anulará.
-                            Recuerda que puedes suscribirte nuevamente cuando desees.
-                        </span>
-                    </li>
+                        <a class="abrir-preg-frecuente"><p>¿Qué	encuentro	en	Gana+? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    En	cada campaña	encuentras	los	lanzamientos	de	las	3	marcas:	Ésika,	L´Bel	y	Cyzone	en	la
+                                    sección	“Lo	Nuevo	¡Nuevo!”;	una	nueva	oferta	cada	24	horas	en	“¡Solo	Hoy!”;	ofertas	de
+                                    las 3	marcas	en	“Ofertas	para	ti” y	“Demostradores	y	Herramientas de	ventas”.
+                                    En	algunas	campañas	también	está	disponible	la	sección	“Ofertas	Especiales” con
+                                    productos,	packs	y	novedades	exclusivas	para	fechas	festivas (Navidad,	Día	del	Padre,	Día
+                                    de	la	Madre	etc.).
+                                </span>
+                            </li>
 
-                </ul>
-            </li>
-            <div style="clear:both;"></div>
-            <li>
-                <a class="abrir-preg-frecuente"><p>¿Por qué ya no recibo la guía de negocio impresa? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
-                <ul>
+                        </ul>
+                    </li>
+                    <div style="clear:both;"></div>
                     <li>
-                        <span>
-                            Al suscribirte al Club GANA+, dejarás de recibir la guía de negocio impresa desde la siguiente campaña, pues siendo miembro del Club, contarás con muchos beneficios que reemplazarán a tu guía.
-                        </span>
-                    </li>
+                        <a class="abrir-preg-frecuente"><p>¿Cuáles	son	los	beneficios	de	Gana+? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    Con	Gana+	podrás	acceder	a	más de 150	ofertas	personalizadas	todas	las	campañas.
+                                    Además,	recibirás	cada	campaña	un	material	impreso	con	las	mejores	ofertas	de	Gana+
+                                    para	que	puedas	hacer	crecer	tu	negocio.
+                                </span>
+                            </li>
 
-                </ul>
-            </li>
-            <li>
-                <a class="abrir-preg-frecuente"><p>¿Las ofertas del Club Gana+ tienen alguna restricción?<span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
-                <ul>
+                        </ul>
+
+                    </li>
                     <li>
-                        <span>
-                            Al seleccionar “Club Gana+” aparecerá un pequeño cuadro con la posibilidad de agregar la cantidad de unidades o sets que desees. Si el producto o set que seleccionaste tiene alguna restricción, ésta se mostrará escrita en rojo debajo del precio del producto.
-                        </span>
-                    </li>
+                        <a class="abrir-preg-frecuente"><p>¿El	precio	de	las	ofertas	de	Gana+	es	el	precio	neto?<span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    Sí,	el	valor	que	aparece	en	Gana+	es	precio	final	neto	(PARA	TI),	además	podrás	revisar	el
+                                    total	de	ganancia	dando	clic	a	la imagen de	la	oferta.
+                                </span>
+                            </li>
 
-                </ul>
-            </li>
-            <div style="clear:both;"></div>
-        </ul>
-        <a class="descargar" href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a>
+                        </ul>
+                    </li>
+                    <div style="clear:both;"></div>
+                }
+                else
+                {
+                    <li>
+                        @*<a class="abrir-preg-frecuente"><p>¿Cuál es diferencia entre GANA+ y Club GANA+? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    GANA+ es un conjunto de ofertas exclusivas para ti que encontrarás entrando desde el App Ésika Conmigo o desde somosbelcorp.com
+                                    Club GANA+ es un espacio exclusivo para nuestras consultoras suscritas, en donde recibirán muchos beneficios como: más ofertas hechas a su medida que GANA+, packs de sus productos favoritos, no tendrán que digitar códigos y mucho más.
+                                </span>
+                            </li>
+
+                        </ul>*@
+                        <a class="abrir-preg-frecuente"><p>¿Cuál es la diferencia entre Ofertas Digitales y GANA+? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    Ofertas Digitales es un conjunto de ofertas exclusivas para ti que encontrarás entrando desde el App Ésika Conmigo o desde somosbelcorp.com.
+                                    GANA+ es un espacio exclusivo para nuestras consultoras suscritas, en donde recibirán muchos beneficios como: más ofertas hechas a su medida que en Ofertas Digitales, packs de sus productos favoritos, no tendrán que digitar códigos y mucho más.
+                                </span>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        @*<a class="abrir-preg-frecuente"><p>¿Cómo cancelo mi suscripción? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    Ingresa a tu cuenta y haz clic en “Saber más”. Una vez ahí, baja el cursor hasta el botón “CANCELA TU SUSCRIPCIÓN AQUÍ” y al hacer clic, tu suscripción se anulará.
+                                    Recuerda que puedes suscribirte nuevamente cuando desees.
+                                </span>
+                            </li>
+
+                        </ul>*@
+                        <a class="abrir-preg-frecuente"><p>¿Cómo cancelo mi suscripción? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    Ingresa a tu cuenta y haz clic en “Saber más”. Una vez ahí, baja el cursor hasta el botón “QUIERO CANCELAR MI CUENTA” y al hacer clic, tu suscripción se anulará. Recuerda que puedes suscribirte nuevamente cuando desees.
+                                </span>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <div style="clear:both;"></div>
+                    <li>
+                        @*<a class="abrir-preg-frecuente"><p>¿Por qué ya no recibo la guía de negocio impresa? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    Al suscribirte al Club GANA+, dejarás de recibir la guía de negocio impresa desde la siguiente campaña, pues siendo miembro del Club, contarás con muchos beneficios que reemplazarán a tu guía.
+                                </span>
+                            </li>
+
+                        </ul>*@
+                        <a class="abrir-preg-frecuente"><p>¿Por qué ya no recibo la guía de negocio impresa? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    Al suscribirte a GANA+, dejarás de recibir la guía de negocio impresa desde la siguiente campaña, pues siendo miembro de GANA+, contarás con más y mejores beneficios.
+                                </span>
+                            </li>
+
+                        </ul>
+
+                    </li>
+                    <li>
+                        @*<a class="abrir-preg-frecuente"><p>¿Las ofertas del Club Gana+ tienen alguna restricción?<span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    Al seleccionar “Club Gana+” aparecerá un pequeño cuadro con la posibilidad de agregar la cantidad de unidades o sets que desees. Si el producto o set que seleccionaste tiene alguna restricción, ésta se mostrará escrita en rojo debajo del precio del producto.
+                                </span>
+                            </li>
+
+                        </ul>*@
+                        <a class="abrir-preg-frecuente"><p>¿Las ofertas de GANA+ tienen alguna restricción?<span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                        <ul>
+                            <li>
+                                <span>
+                                    Antes de seleccionar “Agrégalo” tendrás la posibilidad de agregar la cantidad de unidades o sets que desees. Si el producto o set que seleccionaste tiene alguna restricción, ésta se mostrará escrita en rojo debajo del precio del producto.
+                                </span>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <div style="clear:both;"></div>
+                }
+            </ul>
+            <a class="descargar" href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a>
+        </div>
     </div>
-</div>
+
 @Html.Partial("~/Views/RevistaDigital/template-confirmacion-datos.cshtml", Model)
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
         var EsSuscripcionInmediata = '@Model.EsSuscripcionInmediata'=='True'?true:false;
         var done = false;
 
@@ -297,7 +416,7 @@ else if (Model.CancelarSuscripcion)
         var isScroll = false;
         window.videoKey = '@Model.Video';
         window.estaSuscrita = '@Model.EsSuscrita';
-</script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/RevistaDigital-Informativa")
 }
 
