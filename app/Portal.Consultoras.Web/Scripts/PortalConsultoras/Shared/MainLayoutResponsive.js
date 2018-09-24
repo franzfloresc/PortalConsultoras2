@@ -22,6 +22,8 @@ $(document).ready(function () {
                     $(me.globals.iconoMenuMobile).on('click', me.Eventos.MostrarMenuMobile);
                     $(me.globals.iconoCerrarMenuMobile).on('click', me.Eventos.CerrarMenuMobile);
                     $(me.globals.enlaceConSubmenuMobile).on('click', me.Eventos.AbrirSubmenuMobile);
+
+                    document.getElementById('pUrlProductosPedido').href = '/Mobile/Pedido/Detalle';
                 }
             }
         },

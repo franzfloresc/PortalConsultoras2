@@ -2,8 +2,10 @@
 @{
     string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
     controllerAction = controllerAction.ToLower();
-
+    
 }
+
+
 <nav class="header__menu header__menu--lateralDerecho text-right">
     <ul class="menu__lista row flex-row flex-nowrap justify-content-between justify-content-lg-end justify-content-xl-end align-items-center ml-0 mr-0 mb-0 pl-0">
         <li class="menu__item menu__item--lateralDerechoIcono mostrarEnMobile" data-title="Buscar Producto">
@@ -19,16 +21,24 @@
                 0
             </span>
         </li>
-        <li class="campana cart_compras row flex-row flex-nowrap align-items-center ml-0 mr-0 menu__item menu__item--lateralDerechoIcono menu__item--carrito mostrarEnMobile" data-title="Pedido">
+
+
+
+
+
+
+        @*<li class="campana cart_compras row flex-row flex-nowrap align-items-center ml-0 mr-0 menu__item menu__item--lateralDerechoIcono menu__item--carrito mostrarEnMobile" data-title="Pedido">
             <a href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" class="menu__link menu__link--carrito d-inline-block">
                 <img src="@Url.Content("~/Content/Images/icono_carrito.svg")" alt="Pedido">
             </a>
             <span id="pCantidadProductosPedido" class="num__cantidad__prod d-inline-block">0</span>
-        </li>
-        <li class="campana cart_compras row flex-row flex-nowrap align-items-center ml-0 mr-0 menu__item menu__item--lateralDerechoIcono menu__item--carrito mostrarEnDesktop" data-title="Pedido">
-            <a class="menu__link menu__link--carrito d-inline-block" title="Pedido">
+        </li>*@
+
+        <li class="campana cart_compras row flex-row flex-nowrap align-items-center ml-0 mr-0 menu__item menu__item--lateralDerechoIcono menu__item--carrito" data-title="Pedido">
+
+            <a id="pUrlProductosPedido" class="menu__link menu__link--carrito d-inline-block" title="Pedido">
                 <img src="@Url.Content("~/Content/Images/icono_carrito.svg")" alt="Pedido">
-            </a>           
+            </a>
             <span id="pCantidadProductosPedido" class="num__cantidad__prod d-inline-block">0</span>
             <!-- MOSTRAR ÚLTIMOS PRODUCTOS AGREGADOS -->
             <div class="row flex-row align-content-start productos__agregados ml-0 mr-0 text-left">
