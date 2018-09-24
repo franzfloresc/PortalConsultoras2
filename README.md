@@ -1,5 +1,5 @@
 # Portal Consultoras SB2
 
-PI2-EPM-Sprint1-Inicio
+PI2-EPM-Sprint1-Pase
 
-- Integracion de todo Sprint 4 + Sprint 5
+- Integracion de todo PI 2 - Sprint 1
