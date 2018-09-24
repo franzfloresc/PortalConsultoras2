@@ -3088,7 +3088,8 @@ namespace Portal.Consultoras.BizLogic
                 var codGenerado = GetCodigoGeneradoSms(paisID, opcion.OrigenID, CodigoUsuario);
                 if (codGenerado != null) {
                     var dateDiffHours = Common.Util.DateDiff(Enumeradores.DateInterval.Hour, codGenerado.FechaRegistro, codGenerado.FechaActual);
-                    oUsu.HoraRestanteSms = (dateDiffHours > 23 ? oUsu.HoraRestanteSms : (int)(Constantes.VerificacionValidacion.TIME_REINTENTO - Common.Util.DateDiff(Enumeradores.DateInterval.Second, codGenerado.FechaRegistro, codGenerado.FechaActual)));
+                    oUsu.HoraRestanteSms = (dateDiffHours > 23 ? oUsu.HoraRestanteSms : (int)(Constantes.VerificacionValidacion.TIME_REINTENTO - Common.Util.DateDiff(Enumeradores.DateInterval.Second, codGenerado.FechaRegistro, codGenerado.FechaActual)));                    
+                    oUsu.IntentosRestanteSms = (dateDiffHours < 24 ? Math.Max(0,opcion.IntentosSms - codGenerado.CantidadEnvios) : opcion.IntentosSms);
                 }
 
                 oUsu.OpcionVerificacionSMS = opcion.OpcionSms ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
@@ -3168,8 +3169,9 @@ namespace Portal.Consultoras.BizLogic
                     if (opcionDesabilitado)
                     {
                         /* Completo el Limite Maximo de Intentos de Envios */
-                        var time = Constantes.VerificacionValidacion.TIME_REINTENTO -  Common.Util.DateDiff(Enumeradores.DateInterval.Second, codGenerado.FechaRegistro, codGenerado.FechaActual);
-                        return EnvioSMSRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CELULAR_ACTIVACION_LIMITE_INTENTOS, message: ""+time);
+                        var segundosRestantes = Constantes.VerificacionValidacion.TIME_REINTENTO - Math.Max(0, Common.Util.DateDiff(Enumeradores.DateInterval.Second, codGenerado.FechaRegistro, codGenerado.FechaActual));
+                        var diff = TimeSpan.FromSeconds(segundosRestantes);
+                        return EnvioSMSRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CELULAR_ACTIVACION_LIMITE_INTENTOS, SegundosRestantes: (int)segundosRestantes, args: new string[] { diff.ToTimeHourMinuteFormat() });
                     }
                 }
             }
@@ -3580,19 +3582,20 @@ namespace Portal.Consultoras.BizLogic
             };
         }
 
-        private BERespuestaSMS EnvioSMSRespuesta(string code, string message = null, params object[] args)
+        private BERespuestaSMS EnvioSMSRespuesta(string code, string message = null, int SegundosRestantes = -1, params object[] args)
         {
             if (string.IsNullOrEmpty(message))
             {
-                message = Constantes.VerificacionValidacion.Message.ContainsKey(code) ?
-                                    Constantes.VerificacionValidacion.Message[code] : message;
+                message = Constantes.ActualizacionDatosValidacion.Message.ContainsKey(code) ?
+                                    Constantes.ActualizacionDatosValidacion.Message[code] : message;
             }
 
             return new BERespuestaSMS()
             {
                 codigo = code,
                 mensaje = string.Format(message, args),
-                resultado = code == Constantes.ActualizacionDatosValidacion.Code.SUCCESS
+                resultado = code == Constantes.ActualizacionDatosValidacion.Code.SUCCESS,
+                SegundosRestantes = SegundosRestantes
             };
         }
         #endregion
