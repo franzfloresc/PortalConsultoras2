@@ -604,7 +604,7 @@ namespace Portal.Consultoras.Common
             public const int OfertasParaTiMobilePedidoPopUp = 2222;
             public const int OfertasParaTiMobileContenedor = 2821;
             public const int OfertasParaTiMobileContenedorPopup = 2822;
-         
+
             #endregion
 
             #region CatalogoPersonalizado
@@ -646,7 +646,7 @@ namespace Portal.Consultoras.Common
             public const int ShowRoomMobileSubCampania = 2524;
             public const int ShowRoomMobileContenedor = 2871;
             //public const int MobileShowRoom = 2571;
-          
+
             #endregion
 
             #region OfertaDelDia 
@@ -865,14 +865,14 @@ namespace Portal.Consultoras.Common
             public const int HerramientaDeVentaMobileBuscadorFicha = 2482;
 
             public const int LBelDesktopBuscador = 14;
-            public const int LBelMobileBuscador = 24;                         
+            public const int LBelMobileBuscador = 24;
             public const int EsikaDesktopBuscador = 14;
-            public const int EsikaMobileBuscador = 24;                         
+            public const int EsikaMobileBuscador = 24;
             public const int CyzoneDesktopBuscador = 14;
-            public const int CyzoneMobileBuscador = 24;                         
+            public const int CyzoneMobileBuscador = 24;
             public const int LiquidacionDesktopBuscador = 1464;
             public const int LiquidacionMobileBuscador = 2464;
-            
+
 
             //public const string Liquidacion = "1464";
             //public const string LiquidacionMobile = "2464";
@@ -2058,7 +2058,8 @@ namespace Portal.Consultoras.Common
             public const string IsSubcampaign = "essubcampania";
             public const string OfferStatus = "estado de oferta";
 
-            public enum Position {
+            public enum Position
+            {
                 CUV = 0,
                 AllowedUnits = 1,
                 NameSet = 2,
@@ -2759,8 +2760,8 @@ namespace Portal.Consultoras.Common
             public const string AppRedirectFormat = "IR AL APP {0} CONMIGO";
             public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
         }
-        
-            public class NuevoCatalogoProducto
+
+        public class NuevoCatalogoProducto
         {
             public const string CLUBGANA = "CLUBGANA+";
             public const string SOLOHOY = "SOLOHOY";
