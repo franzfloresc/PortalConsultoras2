@@ -106,15 +106,15 @@
                 @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
                 {
                     <picture class="d-block w-100">
-                        <source media="(min-width: 1024px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
-                        <source media="(max-width: 1023px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
+                        <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
+                        <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
                         <img src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
                     </picture>
                 }
                 else
                 {
                     <picture class="d-block w-100">
-                        <source media="(min-width: 1024px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                        <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
                         <img src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
                     </picture>
                 }

@@ -1135,10 +1135,6 @@ body > img{
         width: 163px;
     }
 
-    .header__marca__pais picture{
-        height:29px;
-    }
-
     .menu__item--sociaEmpresaria {
         padding-left: 20px;
     }
@@ -1146,10 +1142,6 @@ body > img{
 }
 
 @media screen and (max-width:1249px){
-
-    .header__marca__pais picture{
-        height:27px;
-    }
 
     .menu__item--ofertas{
         width:125px;
