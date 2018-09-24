@@ -260,6 +260,13 @@ body {
     width: 88%;
 }
 
+.text_referencial_tipos {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    padding-top: 3px;
+}
+
 .dibujar_linea::before, .dibujar_linea::after {
     content: '';
     border-bottom: solid 2px #000;
@@ -819,6 +826,7 @@ body {
     padding: 13px 15px 13px 14px !important;
     height: auto;
     margin: 0;
+    line-height: normal;
 }
 
 .texto_sin_tono .tono_seleccionado {

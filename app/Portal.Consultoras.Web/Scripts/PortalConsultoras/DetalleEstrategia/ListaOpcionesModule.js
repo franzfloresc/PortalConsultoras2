@@ -132,26 +132,47 @@ var ListaOpcionesModule = (function () {
         }
     };
 
-    var _renderListaOpciones = function() {
+    var _renderListaOpciones = function () {
         
         if (_componente.HermanosSeleccionados.length === 0) {
             moverListaOpcionesOcultarSeleccionados();
         } else {
             moverListaOpcionesMostrarSeleccionados();
         }
-        //
-        $(_elements.listaOpciones.id).html("");
-        SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
-        //
+
         if (_componente.HermanosSeleccionados.length === _componente.FactorCuadre) {
+
+            //$("#elegir-opciones-modal").find(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
+            //$("#elegir-opciones-modal").find(".seleccion_btn").find("button").addClass("btn_desactivado_general");
+
+            _bloquearEleccion();
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)
                 .addClass(_elements.btnAplicarSeleccion.activeClass);
         } else {
+            _desbloquearEleccion();
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.activeClass)
                 .addClass(_elements.btnAplicarSeleccion.disabledClass);
         }
+
+        //
+        $(_elements.listaOpciones.id).html("");
+        SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
+        //
+        
+    };
+
+    var _bloquearEleccion = function () {
+        $.each(_componente.Hermanos, function (index, hermano) {
+            hermano.EleccionBloqueada = true;
+        });
+    };
+
+    var _desbloquearEleccion = function () {
+        $.each(_componente.Hermanos, function (index, hermano) {
+            hermano.EleccionBloqueada = false;
+        });
     };
 
     var ListarOpciones = function (componente) {

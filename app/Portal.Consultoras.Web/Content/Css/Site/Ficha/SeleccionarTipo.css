@@ -146,6 +146,28 @@
     cursor: auto;
 }
 
+.seleccion_btn .disabled {
+    background-color: #d8d8d8 !important;
+    cursor: auto;
+    color: #fff;
+    pointer-events: none;
+    border-color: #fff !important;
+    border-radius: 5px;
+}
+
+.contenedor_rangos.disabled .txt_cantidad_pedido {
+    border-color: #fff;
+    color: #fff;
+}
+
+.contenedor_rangos.disabled div .dibujar_linea::after, .contenedor_rangos.disabled div .dibujar_linea::before {
+    border-color: #fff;
+}
+
+.seleccion_btn .dibujar_menos {
+    margin-top: 17.5px;
+}
+
 .seleccion_btn .active {
     background-color: #000;
     color: #ffffff;
