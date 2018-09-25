@@ -268,7 +268,7 @@ body > img{
     left:-153px;
     height: 239px;
     z-index:4;
-    align-content:space-between;
+    align-content:space-evenly;
     text-align:left;
 }
 
