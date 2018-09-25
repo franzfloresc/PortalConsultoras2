@@ -47,6 +47,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult RDIndexModel()
         {
+          
+
             if (revistaDigital.TieneRDI)
                 return View("template-informativa-rdi");
 
