@@ -79,7 +79,6 @@ namespace Portal.Consultoras.Web.Providers
                     break;
                 case Constantes.UrlMenuContenedor.RdInformacion:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Informacion;
-                    menuActivo.CampaniaId = 0;
                     menuActivo.OrigenPantalla = esMobile
                         ? Constantes.OrigenPantallaWeb.MRevistaDigitalInfo
                         : Constantes.OrigenPantallaWeb.DRevistaDigitalInfo;
@@ -503,7 +502,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager.SetMenuContenedor(menuContenedor);
             SetMenuContenedorNoSuscrita(menuContenedor, revistaDigital.EsSuscrita);
 
-            menuContenedor.Add(new ConfiguracionPaisModel() { DesktopTituloMenu="SABER MAS", Codigo ="SABERMAS", CampaniaId=userData.CampaniaID ,UrlMenu= "RevistaDigital/Informacion" , MobileTituloMenu =  "SABER MAS" });
+            menuContenedor.Add(new ConfiguracionPaisModel() { DesktopTituloMenu="SABER MÁS", Codigo = "INFO", CampaniaId=userData.CampaniaID ,UrlMenu= "RevistaDigital/Informacion" , MobileTituloMenu =  "SABER MAS" });
             return menuContenedor;
         }
         private void SetMenuContenedorNoSuscrita(List<ConfiguracionPaisModel> MenuContenedor, bool EsSuscrita)
