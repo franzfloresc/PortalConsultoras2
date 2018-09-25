@@ -1,6 +1,5 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
-
 IF EXISTS (
 	SELECT * FROM sys.objects 
 	WHERE object_id = 
