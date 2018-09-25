@@ -990,10 +990,8 @@ body > img{
     position: absolute;
     bottom: -19px;
     margin-top: 5px;
-    padding-right: 23px;
     font-size: 11px;
     color: #848484;
-    text-align:right;
 }
 
 .icono_elige_tu_opcion{
@@ -1678,6 +1676,10 @@ body > img{
         padding-right: 17px;
     }
 
+    .btn_elegir_opcion span:last-child br {
+        display: none;
+    }
+
     .icono_elige_tu_opcion{
         height:21px;
     }
@@ -1780,6 +1782,14 @@ body > img{
 
     .resultado_busqueda_img_prod img{
         left:-6px;
+    }
+
+}
+
+@media screen and (min-width:359px){
+
+    .btn_elegir_opcion span:last-child br {
+        display: none;
     }
 
 }
