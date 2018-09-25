@@ -1135,10 +1135,6 @@ body > img{
         width: 163px;
     }
 
-    .header__marca__pais picture{
-        height:29px;
-    }
-
     .menu__item--sociaEmpresaria {
         padding-left: 20px;
     }
@@ -1146,10 +1142,6 @@ body > img{
 }
 
 @media screen and (max-width:1249px){
-
-    .header__marca__pais picture{
-        height:27px;
-    }
 
     .menu__item--ofertas{
         width:125px;
@@ -1291,11 +1283,11 @@ body > img{
         padding-left:0;
     }
 
-    .menu__link,
+    /*.menu__link,
     .submenu__link
     {
         height:100%;
-    }
+    }*/
 
     .menu__link:hover{
         text-decoration:none!important;
@@ -1310,6 +1302,7 @@ body > img{
         text-transform:initial;
     }
 
+    .menu__item:nth-child(4) .menu__link,
     .menu__link--ofertas
     {
         padding-top:10px;

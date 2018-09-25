@@ -598,11 +598,11 @@
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida{
-        width:22.2%;
+        width:20.2%;
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida {
-        width: 29.85%;
+        width: 29%;
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria {
@@ -722,6 +722,18 @@
         width: 23.7%;
     }
 
+}
+
+@media screen and (max-width:1224px) {
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
+        width: 13%;
+        left:5px;
+    }
+
+    .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida {
+        width: 21%;
+    }
 
 }
 

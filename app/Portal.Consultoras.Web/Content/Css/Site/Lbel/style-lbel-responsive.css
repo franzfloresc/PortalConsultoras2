@@ -24,14 +24,18 @@
     order:-1;
 }
 
+@media screen and (max-width:1270px){
+
+    .header__marca__pais picture {
+        height: auto;
+    }
+
+}
+
 @media screen and (max-width:991px){
     
     .header__marca__pais{
         width:148px;
-    }
-
-    .header__marca__pais picture {
-        margin-top: 9px;
     }
 
     .header__marca__pais img{
