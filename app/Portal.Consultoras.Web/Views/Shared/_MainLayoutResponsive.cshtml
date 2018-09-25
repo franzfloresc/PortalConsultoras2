@@ -2,7 +2,7 @@
 @using Portal.Consultoras.Common
 
 @{
-    var origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopBuscador;
+    var origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopBuscador;
 }
 
 <!DOCTYPE html>
@@ -86,13 +86,11 @@
         // Seteando Controlador y Accion
         @{
             var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
-            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+            var ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            var acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
-        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
-
     </script>
 </head>
 <body>
@@ -185,9 +183,9 @@
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
 
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
+    @Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
 
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/PageResponsive")
+    @Scripts.Render("~/Bundle/Js/Mixto/PageResponsive")
 
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
