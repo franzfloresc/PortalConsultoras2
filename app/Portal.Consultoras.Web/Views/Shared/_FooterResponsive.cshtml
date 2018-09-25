@@ -367,7 +367,7 @@
         <hr class="col-12 pl-0 pr-0 linea__separadora mostrarEnDesktop">
         <div class="col-6 pl-0 pr-0 bandera__pais text-left">
             <span class="d-inline-block icono__bandera__pais">
-                <img src="@Url.Content("~/Content/Images/Banderas/PE.png")" alt="Perú">
+                <img src="@Url.Content(string.Format("~/Content/Banderas/{0}.png", ViewBag.CodigoISODL))"  alt="">
             </span>
             <span class="d-inline-block nombre__pais text-uppercase">
                 Perú

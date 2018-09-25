@@ -148,7 +148,11 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/PageResponsive").Include(
-                "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js"
+                "~/Scripts/handlebars.js",
+                "~/Scripts/LogError.js",
+                "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
+                "~/Scripts/PortalConsultoras/Buscador/buscadorLayout.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Fuzemodal").Include(
