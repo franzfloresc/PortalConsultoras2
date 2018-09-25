@@ -668,6 +668,7 @@ body > img{
 .opcion_limpiar_campo_busqueda_productos {
     display:none;
     width: 17px;
+    height:23px;
 }
 
 .lista_resultados_busqueda_productos{
