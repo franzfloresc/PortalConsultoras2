@@ -129,7 +129,7 @@ $(document).ready(function () {
                         return key.val === event.which
                     });
 
-                    if (typeof key === 'undefined') {                        
+                    if (typeof key === 'undefined') {
 
                         $('#ResultadoBuscador').html('');
                         var valBusqueda = $(this).val();
@@ -217,7 +217,7 @@ $(document).ready(function () {
 
                     }
 
-                    
+
 
                 },
                 LimpiarCampoBusqueda: function (e) {
