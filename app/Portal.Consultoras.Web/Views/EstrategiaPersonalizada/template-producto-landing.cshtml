@@ -1,7 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 <script id="producto-landing-template" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
-    1debugger;
     {{#if EsBanner}}
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
@@ -92,7 +91,7 @@
                         <div class="texto_elige_tono"></div>
                         <div class="clear"></div>
                         <div class="liquidacion_rango_home">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' disabled="disabled"
+                            <input type="text" value="1" size="2" maxlength="2"  data-input='cantidad' disabled="disabled"
                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                                    style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" />
                         </div>
@@ -105,7 +104,7 @@
                         <div class="texto_elige_tono"></div>
                         <div class="clear"></div>
                         <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
-                        <input type="text" value="1" size="2" maxlength="2" data-input='cantidad'
+                        <input type="text" value="1" size="2" maxlength="2" data-input='cantidad' 
                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
                                    {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
                             <div class="liquidacion_rango_right_pedido js-no-popup">
