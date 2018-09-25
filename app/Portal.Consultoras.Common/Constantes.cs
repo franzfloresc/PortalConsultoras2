@@ -483,6 +483,8 @@ namespace Portal.Consultoras.Common
 
             public const string RutaImagenesAppCatalogo = "RutaImagenesAppCatalogo";
             public const string RutaImagenesAppCatalogoBulk = "RutaImagenesAppCatalogoBulk";
+            
+            public const string PaisesEscalaDescuento = "PaisesEscalaDescuento";
 
         }
 
