@@ -35,8 +35,40 @@ body > img{
 
 /* HELPERS CSS */
 
+.ml-0{
+    margin-left:0;
+}
+
+.mr-0{
+    margin-right:0;
+}
+
 .mb-30{
     margin-bottom:30px;
+}
+
+.pl-0{
+    padding-left:0;
+}
+
+.pr-0{
+    padding-right:0;
+}
+
+.d-block{
+    display:block;
+}
+
+.text-center{
+    text-align:center;
+}
+
+.text-uppercase{
+    text-transform:uppercase;
+}
+
+.d-inline-block{
+    display:inline-block;
 }
 
 .text-bold{
@@ -151,7 +183,9 @@ body > img{
     text-align: center;
 }
 
-.menu__item--sociaEmpresaria{
+.menu__item[data-title="SOCIA EMPRESARIA"],
+.menu__item--sociaEmpresaria
+{
     padding-left:25px;
 }
 
@@ -167,6 +201,7 @@ body > img{
     line-height: 60px;
 }
 
+.menu__item[data-title="MI NEGOCIO"]:hover > .submenu__lista,
 .menu__item--miNegocio:hover > .submenu__lista,
 .submenu__item--AsesorBelleza:hover > .submenu__lista
 {
@@ -233,7 +268,7 @@ body > img{
     left:-153px;
     height: 239px;
     z-index:4;
-    align-content:space-evenly;
+    align-content:space-between;
     text-align:left;
 }
 
@@ -636,7 +671,7 @@ body > img{
 }
 
 .lista_resultados_busqueda_productos{
-     display: none; 
+    display: none; 
     position: absolute;
     top: 42px;
     right: -3px;
@@ -681,7 +716,7 @@ body > img{
 }
 
 .resultados_wrapper{
-     display:none; 
+    display:none; 
     margin-top: 17px;
     width: 98.55%;
     min-height: 65px;
@@ -696,7 +731,23 @@ body > img{
         border-radius: 4px;
     }
 
+.resultado_busqueda_producto,
+.resultado_wrapper_selector_cantidad_y_btn_agregar,
+.btn_elegir_opcion
+{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    flex-direction:row;
+    align-items:center;
+}
+
 .resultado_busqueda_producto{
+    justify-content:space-evenly;
+    text-align:left;
     padding: 15px 19px 15px 5px;
     border-bottom:1px solid #b0b0b0;
     cursor:pointer;
@@ -712,8 +763,11 @@ body > img{
     }
 
 .resultado_busqueda_img_prod{
-    margin-left: 7px;
-    /* width: 125.78px; */
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+    /*margin-left: 7px;
+    width: 125.78px; */
     height: 68px;
     position: relative;
     overflow: hidden;
@@ -741,6 +795,9 @@ body > img{
 
 .resultado_busqueda_descrip_prod{
     /* width:168.33px; */
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
     margin-right:16px;
 }
 
@@ -752,6 +809,19 @@ body > img{
     /*text-overflow:ellipsis;
     white-space:nowrap;
     overflow:hidden;*/
+}
+
+.resultado_busqueda_nom_producto,
+.resultado_busqueda_precio_prod,
+.resultado_busqueda_precio_normal,
+.resultado_busqueda_precio_oferta,
+.resultado_busqueda_tipo_oferta_prod,
+.etiqueta_prod_agregado,
+.resultado_busqueda_btn_elegir_opcion_wrapper
+{
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
 }
 
 .resultado_busqueda_precio_normal,
@@ -781,9 +851,22 @@ body > img{
 }
 
 .resultado_wrapper_selector_cantidad_y_btn_agregar{
+    justify-content:space-between;
+    flex-grow:0;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
     min-width:244.66px;
     position:relative;
     padding-right:0;
+}
+
+.resultado_busqueda_cantidad_prod,
+.resultado_busqueda_btn_agregar_wrapper
+{
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
 }
 
 .resultado_busqueda_cantidad_prod{
@@ -799,7 +882,7 @@ body > img{
 .cantidad_menos_home,
 .cantidad_mas_home
 {
-   float: left;
+    float: left;
     width: 30%;
     height: 45px;
     text-align: center;
@@ -879,6 +962,7 @@ body > img{
 }*/
 
 .btn_elegir_opcion{
+    justify-content:center;
     width:103%;
     background-color:#FFF;
     line-height:41px;
@@ -902,12 +986,14 @@ body > img{
 }
 
 .etiqueta_prod_agregado{
+    width:100%;
     position: absolute;
     bottom: -19px;
     margin-top: 5px;
     padding-right: 23px;
     font-size: 11px;
     color: #848484;
+    text-align:right;
 }
 
 .icono_elige_tu_opcion{
@@ -1115,7 +1201,9 @@ body > img{
 
 @media screen and (min-width:1272px) and (max-width:1286px){
 
-    .menu__item--sociaEmpresaria ~ .menu__item{
+    .menu__item[data-title="SOCIA EMPRESARIA"] ~ .menu__item, 
+    .menu__item--sociaEmpresaria ~ .menu__item
+    {
         min-width:107px;
     }
 
@@ -1123,7 +1211,9 @@ body > img{
 
 @media screen and (max-width:1271px){
 
-    .menu__item--sociaEmpresaria ~ .menu__item{
+    .menu__item[data-title="SOCIA EMPRESARIA"] ~ .menu__item,
+    .menu__item--sociaEmpresaria ~ .menu__item
+    {
         min-width:98px;
     }
 
@@ -1135,7 +1225,9 @@ body > img{
         width: 163px;
     }
 
-    .menu__item--sociaEmpresaria {
+    .menu__item[data-title="SOCIA EMPRESARIA"],
+    .menu__item--sociaEmpresaria
+    {
         padding-left: 20px;
     }
 
@@ -1166,7 +1258,9 @@ body > img{
         width:158.36px;
     }
 
-    .menu__item--sociaEmpresaria ~ .menu__item {
+    .menu__item[data-title="SOCIA EMPRESARIA"] ~ .menu__item,
+    .menu__item--sociaEmpresaria ~ .menu__item
+    {
         min-width: 89px;
     }
 
@@ -1513,6 +1607,9 @@ body > img{
     }    
     
     .resultado_busqueda_img_prod{
+        -ms-flex: 0 0 16.666667%;
+        flex: 0 0 16.666667%;
+        max-width: 16.666667%;
         min-width:56px;
         max-width:150px;
         margin-left:10px;
@@ -1530,15 +1627,29 @@ body > img{
     }
     
     .resultado_busqueda_descrip_prod{
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%;
         min-width:96px;
         max-width:200px;
         margin-right:10px;
     }
     
     .resultado_wrapper_selector_cantidad_y_btn_agregar{
+        flex-wrap:wrap;
+        flex-grow:1;
+        align-items:flex-start;
         min-width:128px;
         max-width:250px;
         padding-right:10px;
+    }
+
+    .resultado_busqueda_cantidad_prod,
+    .resultado_busqueda_btn_agregar_wrapper
+    {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 
     .resultado_busqueda_cantidad_prod{
@@ -1557,6 +1668,7 @@ body > img{
         position: relative;
         bottom: 0;
         padding-right:0;
+        text-align:center;
     }
 
     .btn_elegir_opcion{
