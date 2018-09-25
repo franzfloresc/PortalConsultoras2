@@ -21,6 +21,22 @@
     background-color: #a18328;
 }
 
+@media screen and (max-width:1270px){
+
+    .header__marca__pais picture{
+        height:29px;
+    }
+
+}
+
+@media screen and (max-width:1249px){
+
+    .header__marca__pais picture{
+        height:27px;
+    }
+
+}
+
 @media screen and (max-width:991px){
 
     .header__marca__pais{
