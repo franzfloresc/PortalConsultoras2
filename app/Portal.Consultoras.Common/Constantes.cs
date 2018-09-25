@@ -2150,6 +2150,10 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_ELIMINAR_SET = "2113";
                 public const string ERROR_ACTUALIZAR_SET = "2114";
                 public const string ERROR_SET_NOENCONTRADO = "2115";
+                public const string ERROR_UNIDAD_SOBREPASA_PERMITIDO = "2116";
+                public const string ERROR_UNIDAD_SINSALDO = "2117";
+                public const string ERROR_UNIDAD_CONSALDO = "2118";
+                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -2201,6 +2205,10 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
                         {Code.ERROR_ACTUALIZAR_SET, "Ocurrió un error al actualizar el set." },
                         {Code.ERROR_SET_NOENCONTRADO, "Set no encontrado."},
+                        {Code.ERROR_UNIDAD_SOBREPASA_PERMITIDO, "Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta ({0}) del producto."},
+                        {Code.ERROR_UNIDAD_SINSALDO, "Las Unidades Permitidas de Venta son solo ({0}), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique." },
+                        {Code.ERROR_UNIDAD_CONSALDO, "Las Unidades Permitidas de Venta son solo ({0}), pero Usted solo puede adicionar ({1}) más, debido a que ya agregó este producto a su pedido, verifique." },
+                        {Code.ERROR_UNIDAD_SOBREPASA_STOCK, "Lamentablemente, la cantidad solicitada sobrepasa el stock actual ({0}) del producto, verifique." },
                         {Code.ERROR_ELIMINAR, "Ocurrió un error al eliminar el detalle de pedido." },
                         {Code.ERROR_ELIMINAR_SET, "Ocurrió un error al eliminar el detalle del set."},
                         {Code.ERROR_ELIMINAR_TODO, "Ocurrió un error al eliminar el pedido." },
