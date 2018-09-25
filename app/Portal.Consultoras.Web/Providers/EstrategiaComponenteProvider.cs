@@ -184,9 +184,7 @@ namespace Portal.Consultoras.Web.Providers
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
                 if (x.IdMarca == Constantes.Marca.Cyzone) codigoMarca = "C";
-                x.ImagenBulk = string.IsNullOrWhiteSpace(x.ImagenBulk) ?
-                    string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenProducto) :
-                    string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenBulk);
+                x.ImagenBulk = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenBulk);
             });
 
             return listaProducto;
@@ -368,7 +366,7 @@ namespace Portal.Consultoras.Web.Providers
 
             foreach (var componente in listaEstrategiaComponenteProductos)
             {
-                if(componente.Hermanos.Any())
+                if(componente.Hermanos != null && componente.Hermanos.Any())
                 {
                     foreach (var item in componente.Hermanos)
                     {
