@@ -125,7 +125,7 @@
 
         texto = texto.ReplaceAll("&", "y");
 
-        return "whatsapp://send?text=" + texto;
+        return "whatsapp://send?text=" + texto; 
     }
 
     var CompartirRedesSocialesAnalytics = function (tipoRedes, ruta, nombre) {
