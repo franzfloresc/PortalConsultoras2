@@ -57,13 +57,14 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
             class OfertasControllerStub : OfertasController
             {
-                public bool EsDispositivoMovil_ { get; set; } = false;
+                public bool EsDispositivoMovil_ { get; set; }
                 public OfertasControllerStub(ISessionManager sessionManager,
                     ILogManager logManager,
                     ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider,
                     OfertaViewProvider ofertaViewProvider)
                     : base(sessionManager, logManager, configuracionOfertasHomeProvider, ofertaViewProvider)
                 {
+                    EsDispositivoMovil_ = false;
                 }
                 public override bool EsDispositivoMovil()
                 {
