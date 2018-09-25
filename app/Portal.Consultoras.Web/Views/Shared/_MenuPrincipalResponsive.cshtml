@@ -178,6 +178,7 @@
     </a>
 </nav>
 <!-- FIN - MENÚ PRINCIPAL MOBILE -->
+
 <!-- MENÚ PRINCIPAL DESKTOP -->
 
 <nav class="header__menu header__menu--lateralIzquierdo mostrarEnDesktop">
@@ -186,10 +187,10 @@
         <ul class="menu__lista row flex-column flex-lg-row flex-xl-row justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center ml-0 mr-0 mb-0 pl-0">
             @foreach (var menuPadre in permisoList)
             {
-                <li class="menu__item menu__item--sociaEmpresaria" data-title="Socia Empresaria">
+                <li class="menu__item" data-title="@menuPadre.Descripcion">
                     @if (menuPadre.SubMenus.Count > 0)
                     {
-                        <a class="menu__link d-block"
+                        <a class="menu__link menu__link--conSubmenu d-block"
                            id="lnk-pri-@menuPadre.DescripcionFormateada"
                            title="@menuPadre.Descripcion">
                             @menuPadre.Descripcion
