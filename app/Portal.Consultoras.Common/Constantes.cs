@@ -174,6 +174,10 @@ namespace Portal.Consultoras.Common
                 public static readonly int ColorFondoBanner = 9301;
                 public static readonly int ColorFondoDisplay = 9302;
             }
+
+            public const int ActualizaEscalaDescuentoDestokp = 7201;
+            public const int ActualizaEscalaDescuentoMobile = 7301;
+
         }
 
         public static class ParametrosNames
@@ -483,6 +487,8 @@ namespace Portal.Consultoras.Common
 
             public const string RutaImagenesAppCatalogo = "RutaImagenesAppCatalogo";
             public const string RutaImagenesAppCatalogoBulk = "RutaImagenesAppCatalogoBulk";
+            
+            public const string PaisesEscalaDescuento = "PaisesEscalaDescuento";
 
         }
 
@@ -1609,6 +1615,9 @@ namespace Portal.Consultoras.Common
             public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
             public const short NuevaDescripcionProductos = 145;
+
+            public const short EscalaDescuentoDestokp = 72;
+            public const short EscalaDescuentoMobile = 73;
         }
 
         public struct MensajesCDRExpress
