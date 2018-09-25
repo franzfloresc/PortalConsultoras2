@@ -3035,12 +3035,14 @@ namespace Portal.Consultoras.BizLogic
                 if (opcion == null) return null;                
                 /*Verificando si tiene Verificacion*/
                 var oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
+                var vCambioClave = false;
                 if (oUsu.Cantidad == 0)
                 {
                     /*Verificando que tiene Pendiente Cambio de Contraseña */
                     oUsu = GetUsuarioVerificacionCambioClave(paisID, CodigoUsuario);
                     if (oUsu == null) return null;
                     if (oUsu.OpcionCambioClave != 0) return null;
+                    vCambioClave = true;
                 }
                 /*validando si tiene Zona*/
                 if (opcion.TieneZonas)
@@ -3053,7 +3055,7 @@ namespace Portal.Consultoras.BizLogic
                 if (opcion.lstFiltros.Count > 0)
                 {
                     var usuFiltro = opcion.lstFiltros.FirstOrDefault(a => a.IdEstadoActividad == oUsu.IdEstadoActividad);
-                    if (usuFiltro == null && oUsu.OpcionCambioClave != 0) return null;
+                    if (usuFiltro == null && oUsu.OpcionCambioClave == 0 && (!opcion.OpcionContrasena || !vCambioClave)) return null;
                     if (usuFiltro != null)
                     {
                         /*Validando campania*/
@@ -3086,10 +3088,14 @@ namespace Portal.Consultoras.BizLogic
                 /* Verifica si las opciones estan habilitadas */
                 GetOpcionHabilitar(paisID, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
                 var codGenerado = GetCodigoGeneradoSms(paisID, opcion.OrigenID, CodigoUsuario);
-                if (codGenerado != null) {
+                if (codGenerado != null && oUsu.Cantidad != 0)
+                {
                     var dateDiffHours = Common.Util.DateDiff(Enumeradores.DateInterval.Hour, codGenerado.FechaRegistro, codGenerado.FechaActual);
-                    oUsu.HoraRestanteSms = (dateDiffHours > 23 ? oUsu.HoraRestanteSms : (int)(Constantes.VerificacionValidacion.TIME_REINTENTO - Common.Util.DateDiff(Enumeradores.DateInterval.Second, codGenerado.FechaRegistro, codGenerado.FechaActual)));                    
-                    oUsu.IntentosRestanteSms = (dateDiffHours < 24 ? Math.Max(0,opcion.IntentosSms - codGenerado.CantidadEnvios) : opcion.IntentosSms);
+                    oUsu.HoraRestanteSms = (dateDiffHours > 23 ? oUsu.HoraRestanteSms : (int)(Constantes.VerificacionValidacion.TIME_REINTENTO - Common.Util.DateDiff(Enumeradores.DateInterval.Second, codGenerado.FechaRegistro, codGenerado.FechaActual)));
+                    oUsu.IntentosRestanteSms = (dateDiffHours < 24 ? Math.Max(0, opcion.IntentosSms - codGenerado.CantidadEnvios) : opcion.IntentosSms);
+                }
+                else {
+                    oUsu.IntentosRestanteSms = opcion.IntentosSms;
                 }
 
                 oUsu.OpcionVerificacionSMS = opcion.OpcionSms ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
