@@ -8,6 +8,7 @@
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
     var origen = Request.Params["origen"];
+    origen = origen ?? "";
 }
 
 @section styles{
@@ -22,7 +23,7 @@
     }
     <style id="styleRelojOdd"></style>
 }
-@if (!Constantes.IngresoExternoOrigen.App.Equals(origen))
+@if (!origen.StartsWith(Constantes.IngresoExternoOrigen.App))
 {
     @Html.Partial("_BreadCrumb", Model.BreadCrumbs)
 }

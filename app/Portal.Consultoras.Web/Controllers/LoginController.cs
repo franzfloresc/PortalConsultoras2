@@ -809,12 +809,17 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
                     case Constantes.IngresoExternoPagina.DetalleEstrategia:
+                        if (string.IsNullOrEmpty(model.NombrePalanca)) {
+                            model.NombrePalanca = Constantes.NombrePalanca.Palancas.Keys.Contains(model.PalancaID) ?
+                                Constantes.NombrePalanca.Palancas[model.PalancaID] : model.PalancaID;
+                        }
+                        model.OrigenPedido = model.OrigenPedido ?? Constantes.IngresoExternoOrigen.App;
                         return RedirectToUniqueRoute("DetalleEstrategia", "Ficha", new
                         {
                             palanca = model.NombrePalanca,
                             campaniaId = model.Campania,
                             cuv = model.CUV,
-                            origen = Constantes.IngresoExternoOrigen.App
+                            origen = model.OrigenPedido
                         });
                     case Constantes.IngresoExternoPagina.LoNuevoNuevo:
                         return RedirectToUniqueRoute("Ofertas", "Index", null, "LAN");

@@ -260,6 +260,33 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevasRegalo = "ProgramaNuevasRegalo";
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
+
+            private static Dictionary<string, string> _Palancas;
+            public static Dictionary<string, string> Palancas
+            {
+                get
+                {
+                    return _Palancas ?? (_Palancas = new Dictionary<string, string>
+                    {
+                        {TipoEstrategiaCodigo.OfertaParaTi, NombrePalanca.OfertaParaTi},
+                        {TipoEstrategiaCodigo.PackNuevas, NombrePalanca.PackNuevas},
+                        {TipoEstrategiaCodigo.OfertaWeb, NombrePalanca.OfertaWeb},
+                        {TipoEstrategiaCodigo.Lanzamiento, NombrePalanca.Lanzamiento},
+                        {TipoEstrategiaCodigo.OfertasParaMi, NombrePalanca.OfertasParaMi},
+                        {TipoEstrategiaCodigo.PackAltoDesembolso, NombrePalanca.PackAltoDesembolso},
+                        {TipoEstrategiaCodigo.RevistaDigital, NombrePalanca.RevistaDigital},
+                        {TipoEstrategiaCodigo.LosMasVendidos, NombrePalanca.LosMasVendidos},
+                        {TipoEstrategiaCodigo.IncentivosProgramaNuevas, NombrePalanca.IncentivosProgramaNuevas},
+                        {TipoEstrategiaCodigo.OfertaDelDia, NombrePalanca.OfertaDelDia},
+                        {TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, NombrePalanca.GuiaDeNegocioDigitalizada},
+                        {TipoEstrategiaCodigo.Incentivos, NombrePalanca.Incentivos},
+                        {TipoEstrategiaCodigo.ShowRoom, NombrePalanca.ShowRoom},
+                        {TipoEstrategiaCodigo.HerramientasVenta, NombrePalanca.HerramientasVenta},
+                        {TipoEstrategiaCodigo.NotParticipaProgramaNuevas, NombrePalanca.NotParticipaProgramaNuevas},
+                    });
+                }
+            }
+
         }
         public static class ConstSession
         {
