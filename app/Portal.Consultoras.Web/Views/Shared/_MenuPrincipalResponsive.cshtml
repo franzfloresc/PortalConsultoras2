@@ -207,24 +207,25 @@
                             {
                                 if (menuHijo.SubMenus.Count > 0)
                                 {
-                                    var nieto = menuHijo.SubMenus[0];
-                                    if (nieto.SubMenus.Any())
-                                    {
-                                        subMenuModel = menuHijo;
-                                        subMenu2 = true;
-                                        break;
-                                    }
+                                    //var nieto = menuHijo.SubMenus[0];
+                                    //if (nieto.SubMenus.Any())
+                                    //{
+                                    //    subMenuModel = menuHijo;
+                                    //    subMenu2 = true;
+                                    //    break;
+                                    //}
 
-                                    <li class="submenu__item">
-                                        <a class="submenu__link d-block" title="@menuHijo.Descripcion">
-                                            @menuHijo.Descripcion
-                                        </a>
+                                    @*<li class="submenu__item">
+                                            <a class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                                @menuHijo.Descripcion
+                                            </a>
 
-                                    </li>
+                                        </li>*@
                                 }
                                 else
                                 {
                                     addImgen = true;
+
 
                                     if (contadorRe == 0)
                                     {
@@ -241,9 +242,9 @@
                                     <li class="submenu__item">
                                         @if (menuHijo.UrlItem == "")
                                         {
-                                        <a href="javascript:;" class="submenu__link d-block" title="@menuHijo.Descripcion">
-                                            @menuHijo.Descripcion
-                                        </a>
+                                            <a href="javascript:;" class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                                @menuHijo.Descripcion
+                                            </a>
                                         }
                                         else
                                         {
@@ -253,7 +254,53 @@
                                             </a>
                                         }
                                     </li>
+
+
+
+
                                 }
+                            }
+
+                            var nieto = menuPadre.SubMenus[8];
+
+                            if (nieto.Descripcion != "")
+                            {
+                                <li class="submenu__item submenu__item--AsesorBelleza">
+                                    <a class="submenu__link d-block" title="@nieto.Descripcion">
+                                        @nieto.Descripcion
+                                    </a>
+                                    <div class="submenu__lista submenu__lista--miAsesorBelleza row flex-row justify-content-start ml-0 mr-0">
+
+                                        @foreach (var q in nieto.SubMenus)
+                                        {
+                                            <div class="sub__menu__asesorBelleza">
+                                                <h4>@q.Descripcion</h4>
+                                                <ul class="row flex-column ml-0 mr-0">
+                                                    @foreach (var w in q.SubMenus)
+                                                    {
+                                                        <li class="submenu__item" data-title="Esika Trend">
+                                                            @if (w.UrlItem == "")
+                                                            {
+                                                                <a href="javascript:;" class="submenu__link d-block">
+                                                                    @w.Descripcion
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="javascript:;" class="submenu__link d-block" onclick="@w.OnClickFunt"
+                                                                   target="@w.PageTarget" role="menu" region="Principal" parent="@w.Descripcion" title="@w.Descripcion" id="lnk-pri-@w.DescripcionFormateada">
+                                                                    @w.Descripcion
+                                                                </a>
+                                                            }
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+
+
+                                    </div>
+                                </li>
                             }
 
                             if (addImgen)
