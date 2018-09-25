@@ -368,7 +368,7 @@ namespace Portal.Consultoras.Web.Providers
 
             foreach (var componente in listaEstrategiaComponenteProductos)
             {
-                if(componente.Hermanos.Any())
+                if(componente.Hermanos != null && componente.Hermanos.Any())
                 {
                     foreach (var item in componente.Hermanos)
                     {
