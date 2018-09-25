@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 <script id="producto-landing-template" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
-
+    1debugger;
     {{#if EsBanner}}
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
@@ -101,11 +101,11 @@
                             AGR&Eacute;GALO
                         </a>
                     {{/iff}}
-                    {{#iff TipoAccionAgregar '==' '2'}}
+                    {{#iff TipoAccionAgregar '==' '2'}} 
                         <div class="texto_elige_tono"></div>
                         <div class="clear"></div>
                         <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad'
+                        <input type="text" value="1" size="2" maxlength="2" data-input='cantidad'
                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
                                    {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
                             <div class="liquidacion_rango_right_pedido js-no-popup">
