@@ -108,6 +108,10 @@ body > img{
     position:relative;
 }
 
+.header__menu--lateralDerecho{
+    flex-basis:0;
+}
+
 .header__icono__menu img{
     height:auto;
 }
@@ -147,8 +151,14 @@ body > img{
     text-align: center;
 }
 
-.menu__item[data-title="Socia Empresaria"]{
+.menu__item--sociaEmpresaria{
     padding-left:25px;
+}
+
+.header__menu--lateralIzquierdo .menu__item,
+.submenu__item--AsesorBelleza
+{
+    letter-spacing:0.5px;
 }
 
 .menu__item{
@@ -157,36 +167,29 @@ body > img{
     line-height: 60px;
 }
 
-.menu__item[data-title="App de Catálogos"]:hover > .submenu__lista,
-.menu__item[data-title="Mi Negocio"]:hover > .submenu__lista,
-.menu__item:nth-child(3):hover > .submenu__lista,
-.submenu__item[data-title="Mi Asesor de Belleza"]:hover > .submenu__lista
+.menu__item--miNegocio:hover > .submenu__lista,
+.submenu__item--AsesorBelleza:hover > .submenu__lista
 {
     display:flex;
 }
 
-.menu__item[data-title="Ofertas"],
-.menu__item--ofertas
-{
-    order:5;
+.menu__item--ofertas{
     width:144px;
     padding-left:7px;
     overflow:hidden;
 }
 
-.menu__item[data-title="Ofertas"] img, .menu__link--ofertas img {
+.menu__link--ofertas img {
     width: 192.36px;
 }
 
 .menu__link,
-.submenu__item[data-title="Mi Asesor de Belleza"] > .submenu__link,
 .submenu__item--AsesorBelleza > .submenu__link
 {
     font-size:10.5px;
     text-transform:uppercase;
     font-weight:700;
     cursor:pointer;
-    /*letter-spacing:0.5px;*/
 }
 
 .menu__link{
@@ -200,32 +203,23 @@ body > img{
 }
 
 .menu__link--conSubmenu,
-.submenu__item[data-title="Mi Asesor de Belleza"] > .submenu__link,
 .submenu__item--AsesorBelleza > .submenu__link
 {
     background-image:url(../../../images/down_arrow.png);
-    background-position:95.5% center;
+    background-position:97% center;
 }
 
-/*.menu__link--conSubmenu {
-    width: 90px;
-}*/
-
-.menu__item[data-title="App de Catálogos"] > .menu__link--sinAfiliacionAppCatalogo,
-.menu__link--sinAfiliacionAppCatalogo
-{
+.menu__link--sinAfiliacionAppCatalogo{
     background-image:none;
 }
 
-.submenu__lista,
-.submenu__lista--miNegocio,
-.submenu__lista--miAsesorBelleza
-{
+.submenu__lista{
     display:none;
     position: absolute;
     background-color:#FFF;
     padding-top: 26px;
     padding-bottom: 16px;
+    letter-spacing:normal;
     box-shadow: 0 4px 16px -5px rgba(120,120,120,1);
     -moz-box-shadow: 0 4px 16px -5px rgba(120,120,120,1);
     -ms-box-shadow: 0 4px 16px -5px rgba(120,120,120,1);
@@ -233,9 +227,7 @@ body > img{
     -webkit-box-shadow: 0 4px 16px -5px rgba(120,120,120,1);
 }
 
-.menu__item[data-title="Mi Negocio"] > .submenu__lista,
-.submenu__lista--miNegocio
-{
+.submenu__lista--miNegocio{
     width: 937px;
     top:51px;
     left:-153px;
@@ -245,15 +237,11 @@ body > img{
     text-align:left;
 }
 
-.submenu__item[data-title="Mi Asesor de Belleza"],
-.submenu__item--AsesorBelleza
-{
+.submenu__item--AsesorBelleza{
     width:183px;
 }
 
-.submenu__item[data-title="Mi Asesor de Belleza"] > .submenu__link,
-.submenu__item--AsesorBelleza > .submenu__link
-{
+.submenu__item--AsesorBelleza > .submenu__link{
     background-repeat:no-repeat;
 }
 
@@ -282,49 +270,18 @@ body > img{
     position:relative;
 }
 
-.submenu__item[data-title="Seguimiento a tu pedido"]{
-    order:-5;
-}
-
-.submenu__item[data-title="Mis pedidos"]{
-    order:-4;
-}
-
-.submenu__item[data-title="Mis certificados"]{
-    order:-1;
-}
-
-.submenu__item[data-title="Ingresa tu pedido"],
-.submenu__item--IngresaTuPedido
-{
-    order:-6;
-}
-
-.submenu__item[data-title="Mis pagos"]{
-    order:-3;
-}
-
-.submenu__item[data-title="Mis beneficios"]{
-    order:-2;
-}
-
-.submenu__item[data-title="Catálogos"],
-.submenu__item[data-title="Incentivos"],
 .submenu__item--Catalogos,
 .submenu__item--Incentivos
 {
     width:180px;
 }
 
-.submenu__item[data-title="Catálogos"] .submenu__link,
-.submenu__item[data-title="Incentivos"] .submenu__link,
 .submenu__item--Catalogos .submenu__link,
 .submenu__item--Incentivos .submenu__link
 {
     padding-left:0;
 }
 
-.submenu__item[data-title="Mi Asesor de Belleza"] > .submenu__lista,
 .submenu__lista--miAsesorBelleza
 {
     width:615px;
@@ -545,7 +502,6 @@ body > img{
 
 .menu__item--campaniaActual{
     min-width: 53px;
-    background-color: #a18328;
     padding-top: 17px;
     position: relative;
     z-index: 0;
@@ -1159,7 +1115,7 @@ body > img{
 
 @media screen and (min-width:1272px) and (max-width:1286px){
 
-    .menu__item[data-title="Socia Empresaria"] ~ .menu__item{
+    .menu__item--sociaEmpresaria ~ .menu__item{
         min-width:107px;
     }
 
@@ -1167,7 +1123,7 @@ body > img{
 
 @media screen and (max-width:1271px){
 
-    .menu__item[data-title="Socia Empresaria"] ~ .menu__item{
+    .menu__item--sociaEmpresaria ~ .menu__item{
         min-width:98px;
     }
 
@@ -1183,7 +1139,7 @@ body > img{
         height:29px;
     }
 
-    .menu__item[data-title="Socia Empresaria"] {
+    .menu__item--sociaEmpresaria {
         padding-left: 20px;
     }
 
@@ -1195,15 +1151,11 @@ body > img{
         height:27px;
     }
 
-    .menu__item[data-title="Ofertas"],
-    .menu__item--ofertas
-    {
+    .menu__item--ofertas{
         width:125px;
     }
 
-    .menu__item[data-title="Ofertas"] img,
-    .menu__link--ofertas img
-    {
+    .menu__link--ofertas img{
         width: 166.36px;
     }
 
@@ -1212,19 +1164,17 @@ body > img{
 @media screen and (min-width:992px) and (max-width:1199px){
 
     .menu__link,
-    .submenu__item[data-title="Mi Asesor de Belleza"] > .submenu__link,
     .submenu__item--AsesorBelleza > .submenu__link
     {
         font-size:10px;
     }
 
-    .menu__item[data-title="Ofertas"] img,
     .menu__link--ofertas img
     {
         width:158.36px;
     }
 
-    .menu__item[data-title="Socia Empresaria"] ~ .menu__item {
+    .menu__item--sociaEmpresaria ~ .menu__item {
         min-width: 89px;
     }
 
@@ -1336,10 +1286,7 @@ body > img{
         text-align:left;
     }
 
-    .menu__item[data-title="Ofertas"],
-    .menu__item--ofertas
-    {
-        order:0;
+    .menu__item--ofertas{
         width:auto;
         padding-left:0;
     }
@@ -1363,8 +1310,6 @@ body > img{
         text-transform:initial;
     }
 
-    /*.menu__item:nth-child(5) .menu__link,*/
-    .menu__item[data-title="Ofertas"] .menu__link,
     .menu__link--ofertas
     {
         padding-top:10px;
@@ -1382,25 +1327,20 @@ body > img{
     }
 
     .menu__link--conSubmenu,
-    .menu__item[data-title="Ofertas"] img,
     .menu__link--ofertas img
     {
         width:auto;
     }
 
     .menu__item:nth-child(3) > .submenu__lista,
-    .menu__item[data-title="Mi Negocio"] > .submenu__lista,
-    .menu__item:nth-child(5) > .submenu__lista,
-    .menu__item[data-title="App de Catálogos"] .submenu__lista
+    .menu__item:nth-child(5) > .submenu__lista
     {
         background-color:#f1f1f1;
         padding-top:18px;
         padding-bottom:18px;
     }
 
-    .menu__item[data-title="Mi Negocio"] > .submenu__lista,
-    .submenu__lista--miNegocio
-    {
+    .submenu__lista--miNegocio{
         width:auto;
         height:auto;
         top:0;
@@ -1413,17 +1353,13 @@ body > img{
         box-shadow:none;
     }
 
-    .menu__item[data-title="App de Catálogos"]:hover > .submenu__lista,
-    .menu__item[data-title="Mi Negocio"]:hover > .submenu__lista,
-    .menu__item:nth-child(3):hover > .submenu__lista,
-    .submenu__item[data-title="Mi Asesor de Belleza"]:hover > .submenu__lista
-    {
+    .menu__link--conSubmenuMobile{
         display:none;
+        background-position:96% center;
     }
 
     .submenu__item{
         min-height:35px;
-        order:0!important;
     }
 
     .submenu__link{

@@ -62,7 +62,7 @@
 }
 
 .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida {
-    width: 29.8%;
+    width: 28.8%;
     left: 16.8px;
 }
 
@@ -229,6 +229,7 @@
 
 .novedad_busqueda_titulo{
     font-weight:900;
+    text-transform:uppercase;
 }
 
 .novedad_busqueda_descripcion{
@@ -703,7 +704,7 @@
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida {
-        width: 25.3%;
+        width: 23.3%;
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria {

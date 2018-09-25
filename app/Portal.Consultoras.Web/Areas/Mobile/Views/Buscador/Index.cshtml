@@ -25,7 +25,8 @@
 }
 
 <div class="buscador_filtros_mobile">
-    <a href="@Url.Action("Index","Bienvenida",new { Area = "Mobile" })" class="enlace_regresar_filtros" title="Buscar">
+    @*<a href="@Url.Action("Index","Bienvenida",new { Area = "Mobile" })" class="enlace_regresar_filtros" title="Buscar">*@
+    <a href="javascript: history.go(-1)" class="enlace_regresar_filtros" title="Buscar">
         <img src="@Url.Content("~/Content/Images/flecha_icono.svg")" alt="Buscar" />
     </a>
     <input type="search" value="" id="CampoBuscadorProductosMobile" class="campo_buscador_filtros_mobile" placeholder="Busca ofertas" />

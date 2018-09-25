@@ -84,10 +84,12 @@ var OpcionesSeleccionadasModule = (function () {
                     '<a id="opciones-seleccionadas-next" class="flecha_ofertas-tipo" style="display: block; right:-5%; text-align:right;display:none;"><img src="' +
                     baseUrl +
                     'Content/Images/Esika/next.png")" alt="" /></a>';
+            } else {
+                slickSettings.slidesToShow = 5;
             }
             var lastSlideIndex = cantidadSeleccionados - slickSettings.slidesToShow;
             $(_elements.divOpcionesSeleccionadas.id).slick(slickSettings);
-            if (!isMobile() && cantidadSeleccionados > slickSettings.slidesToShow) {
+            if (cantidadSeleccionados > slickSettings.slidesToShow) {
                 $(_elements.divOpcionesSeleccionadas.id)
                     .slick("slickGoTo", lastSlideIndex);
             }
