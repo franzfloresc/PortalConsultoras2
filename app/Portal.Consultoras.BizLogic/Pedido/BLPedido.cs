@@ -2133,7 +2133,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             //ValidarUnidadesPermitidasPedidoProducto
             var mensaje = ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle, out result);
-            if (!result) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
+            if (!string.IsNullOrEmpty(mensaje)) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
 
             var entidad = new BEOfertaProducto
             {
