@@ -150,7 +150,7 @@ function closeMant() {
 function RedirectComunidadVirtual() {
     analytics.invocarEventoPixel("ComunidadVirtual");
 
-    window.open('http://comunidad.somosbelcorp.com', '_self');
+    window.open('https://esikatuvozonline.questionpro.com/', '_self');
     return false;
 }
 function RedirectBelcorpResponde() {

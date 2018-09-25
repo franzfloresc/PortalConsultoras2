@@ -625,7 +625,7 @@ function alert_msg_com(message) {
 function AbrirModalRegistroComunidad() {
 
     if (gTipoUsuario == '2') {
-        URL = 'http://comunidad.somosbelcorp.com/';
+        URL = 'https://esikatuvozonline.questionpro.com/';
         window.open(URL, '_blank');
         return false;
     }
