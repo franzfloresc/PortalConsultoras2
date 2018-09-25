@@ -10,7 +10,7 @@
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
 
     bool esIngresoUnico = ViewContext.EsIngresoUnico();
-
+    string urlProgramaNuevas = "";
     var items = (List<MenuMobileModel>)ViewBag.MenuMobile;
     var itemsMenu = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("menu")).ToList();
     var urlDomain = Util.GetUrlHost(Request);
@@ -28,7 +28,7 @@
 
         permisoList = listaMenu2.SubMenus ?? new List<Portal.Consultoras.Web.Models.PermisoModel>();
 
-        string urlProgramaNuevas = "";
+
         var programasBelcorpMenu = (List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>)ViewBag.ProgramaBelcorpMenu;
         programasBelcorpMenu = programasBelcorpMenu ?? new List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>();
         foreach (var item in programasBelcorpMenu)
@@ -215,38 +215,85 @@
                                         break;
                                     }
 
-                                     <li class="submenu__item">
-                                         <a class="submenu__link d-block" title="@menuHijo.Descripcion">
-                                             @menuHijo.Descripcion
-                                         </a>
+                                    <li class="submenu__item">
+                                        <a class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                            @menuHijo.Descripcion
+                                        </a>
 
-                                     </li>
-                                 }
-                                 else
-                                 {
-                                     addImgen = true;
+                                    </li>
+                                }
+                                else
+                                {
+                                    addImgen = true;
 
-                                     if (contadorRe == 0)
-                                     {
-                                         contadorRe++;
-                                         <li class="submenu__item submenu__item--IngresaTuPedido" data-title="Ingresa tu pedido">
-                                             <a href="javascript:;" class="submenu__link menu__link--pedido d-block text-uppercase"
-                                                onclick="RedirectMenu('Index', 'Pedido', 0, 'Pedido')"
-                                                target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Ingreso Pedido" id="lnk-pri-ingreso-pedidos">
-                                                 Ingresa <span class="text-bold">tu pedido</span>
-                                             </a>
-                                         </li>
-                                     }
+                                    if (contadorRe == 0)
+                                    {
+                                        contadorRe++;
+                                        <li class="submenu__item submenu__item--IngresaTuPedido" data-title="Ingresa tu pedido">
+                                            <a href="javascript:;" class="submenu__link menu__link--pedido d-block text-uppercase"
+                                               onclick="RedirectMenu('Index', 'Pedido', 0, 'Pedido')"
+                                               target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Ingreso Pedido" id="lnk-pri-ingreso-pedidos">
+                                                Ingresa <span class="text-bold">tu pedido</span>
+                                            </a>
+                                        </li>
+                                    }
 
-                                     <li class="submenu__item">
-                                         <a class="submenu__link d-block" title="@menuHijo.Descripcion">
-                                             @menuHijo.Descripcion
-                                         </a>
-                                     </li>
-                                 }
-                             }
+
+
+                                    <li class="submenu__item">
+                                        @if (menuHijo.UrlItem == "")
+                                        {
+                                        <a href="javascript:;" class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                            @menuHijo.Descripcion
+                                        </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="javascript:;" class="submenu__link d-block" onclick="@menuHijo.OnClickFunt"
+                                               target="@menuHijo.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+                                    </li>
+                                }
+                            }
+
+                            if (addImgen)
+                            {
+                                var opcion = "CATÁLOGOS Y REVISTAS";
+                                var tooltip = "Mis Catálogos y Revistas";
+                                opcion = !ViewBag.TituloCatalogo ? "CATÁLOGOS" : opcion;
+                                tooltip = !ViewBag.TituloCatalogo ? "Mis Catálogos" : tooltip;
+
+                                <li class="submenu__item submenu__item--Catalogos">
+                                    <a href="javascript:;" class="submenu__link d-block" onclick="RedirectMenu('Index', 'MisCatalogosRevistas', 0, 'MisCatalogosRevistas')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="@tooltip" id="lnk-pri-miscatalogosrevistas">
+                                        <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_01.png" class="w-100" alt="Catálogos">
+                                        <div class="submenu__item__title w-100">@opcion</div>
+                                    </a>
+                                </li>
+
+
+                                if (ViewBag.SegmentoConsultoraMenu == 1)
+                                {
+                                    <li class="submenu__item submenu__item--Catalogos">
+                                        <a href="@urlProgramaNuevas" class="submenu__link d-block" title="Catálogos">
+                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_02.png" class="w-100" alt="Catálogos">
+                                            <div class="submenu__item__title w-100">PROGRAMA NUEVAS</div>
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="submenu__item submenu__item--Incentivos">
+                                        <a href="javascript:;" class="submenu__link d-block" title="Incentivos" onclick="RedirectMenu('Index', 'Incentivos', 0, 'Incentivos')">
+                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_03.png" class="w-100" alt="Incentivos">
+                                            <div class="submenu__item__title w-100">Incentivos</div>
+                                        </a>
+                                    </li>
+                                }
+                            }
                         }
-                        </ul>
+                    </ul>
                 </li>
             }
             else
