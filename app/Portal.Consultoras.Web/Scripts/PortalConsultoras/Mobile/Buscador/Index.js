@@ -142,7 +142,6 @@ $(document).ready(function () {
                             }
 
                             xhr.then(successBusqueda, function (e) {
-                                console.log(e);
                             });
 
                         }, 200);

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,7 +18,19 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class AdministrarEstrategiaProvider
     {
+        private readonly static HttpClient httpClientMicroservicioSync = new HttpClient();
+
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
+
+        static AdministrarEstrategiaProvider()
+        {
+            if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSync))
+            {
+                httpClientMicroservicioSync.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSync);
+                httpClientMicroservicioSync.DefaultRequestHeaders.Accept.Clear();
+                httpClientMicroservicioSync.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+        }
 
         private static async Task<string> RespSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType, UsuarioModel userData)
         {
@@ -789,6 +802,24 @@ namespace Portal.Consultoras.Web.Providers
                 ));
 
             Task.WhenAll(taskApi);
+        }
+
+        public void JobBuscador(string codigoCampania, string codigoEstrategia, UsuarioModel userData)
+        {
+            var tipoPersonalizacion = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoEstrategia);
+
+            var requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlJobBuscador, userData.CodigoISO, tipoPersonalizacion, codigoCampania);
+
+            var httpContent = new StringContent(string.Empty, Encoding.UTF8);
+            
+            var taskApi = Task.Run(() => httpClientMicroservicioSync.PostAsync(requestUrl, httpContent));
+
+            Task.WhenAll(taskApi);
+
+            if (taskApi.Result != null && !taskApi.Result.IsSuccessStatusCode)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception("AdministrarEstrategiaProvider_JobBuscador:" + taskApi.Result.StatusCode.ToString()), userData.CodigoConsultora, userData.CodigoISO);
+            }
         }
     }
 }

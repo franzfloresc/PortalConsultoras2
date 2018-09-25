@@ -236,6 +236,18 @@ namespace Portal.Consultoras.Common
             public const string NotParticipaProgramaNuevas = "0";
         }
 
+        public static class TipoPersonalizacion
+        {
+            public const string OfertaParaTi = "OPT";
+            public const string Lanzamiento = "LAN";
+            public const string OfertasParaMi = "OPM";
+            public const string PackAltoDesembolso = "PAD";
+            public const string OfertaDelDia = "ODD";
+            public const string GuiaDeNegocioDigitalizada = "GND";
+            public const string ShowRoom = "SR";
+            public const string HerramientasVenta = "HV";
+        }
+
         public static class EstadoRespuestaServicio
         {
             public const string Success = "OK";
@@ -2614,6 +2626,9 @@ namespace Portal.Consultoras.Common
 
             //api/Componente/editar/{pais}/{tipo}
             public const string UrlUpdateOfertaShowRoomDetalleNew = "api/Componente/editar/{0}/{1}";
+
+            //api/Estrategia/buscador/{pais}/{tipo}/{campania}
+            public const string UrlJobBuscador = "api/Estrategia/buscador/{0}/{1}/{2}";
             #endregion
 
             #region Oferta
