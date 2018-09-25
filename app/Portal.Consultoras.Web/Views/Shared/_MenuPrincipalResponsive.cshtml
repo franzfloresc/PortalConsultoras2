@@ -10,7 +10,7 @@
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
 
     bool esIngresoUnico = ViewContext.EsIngresoUnico();
-
+    string urlProgramaNuevas = "";
     var items = (List<MenuMobileModel>)ViewBag.MenuMobile;
     var itemsMenu = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("menu")).ToList();
     var urlDomain = Util.GetUrlHost(Request);
@@ -28,7 +28,7 @@
 
         permisoList = listaMenu2.SubMenus ?? new List<Portal.Consultoras.Web.Models.PermisoModel>();
 
-        string urlProgramaNuevas = "";
+
         var programasBelcorpMenu = (List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>)ViewBag.ProgramaBelcorpMenu;
         programasBelcorpMenu = programasBelcorpMenu ?? new List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>();
         foreach (var item in programasBelcorpMenu)
@@ -178,60 +178,156 @@
     </a>
 </nav>
 <!-- FIN - MENÚ PRINCIPAL MOBILE -->
-
 <!-- MENÚ PRINCIPAL DESKTOP -->
 
 <nav class="header__menu header__menu--lateralIzquierdo mostrarEnDesktop">
-    @if (permisoList.Count > 0)
-    {
-        <ul class="menu__lista row flex-column flex-lg-row flex-xl-row justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center ml-0 mr-0 mb-0 pl-0">
-            @foreach (var menuPadre in permisoList)
+    <ul class="menu__lista row flex-column flex-lg-row flex-xl-row justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center ml-0 mr-0 mb-0 pl-0">
+
+        @foreach (var menuPadre in permisoList)
+        {
+            if (menuPadre.SubMenus.Count > 0)
             {
-                <li class="menu__item" data-title="@menuPadre.Descripcion">
-                    @if (menuPadre.SubMenus.Count > 0)
+                <li class="menu__item menu__item--miNegocio" data-title=" @menuPadre.Descripcion">
+                    <a class="menu__link d-block menu__link--conSubmenu" title=" @menuPadre.Descripcion">
+                        @menuPadre.Descripcion
+                    </a>
+                    <ul class="submenu__lista submenu__lista--miNegocio row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
+                        @{
+                            var margin = "";
+                            var contador = 0;
+                            var contadorRe = 0;
+                            var totolSubMenu = menuPadre.SubMenus.Count() + 1;
+                            var cantPorFilaHijo = 6;
+                            var divHtmlF = "";
+                            var addImgen = false;
+                            var subMenu2 = false;
+                            var subMenuModel = new Portal.Consultoras.Web.Models.PermisoModel();
+
+                            foreach (var menuHijo in menuPadre.SubMenus)
+                            {
+                                if (menuHijo.SubMenus.Count > 0)
+                                {
+                                    var nieto = menuHijo.SubMenus[0];
+                                    if (nieto.SubMenus.Any())
+                                    {
+                                        subMenuModel = menuHijo;
+                                        subMenu2 = true;
+                                        break;
+                                    }
+
+                                    <li class="submenu__item">
+                                        <a class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                            @menuHijo.Descripcion
+                                        </a>
+
+                                    </li>
+                                }
+                                else
+                                {
+                                    addImgen = true;
+
+                                    if (contadorRe == 0)
+                                    {
+                                        contadorRe++;
+                                        <li class="submenu__item submenu__item--IngresaTuPedido" data-title="Ingresa tu pedido">
+                                            <a href="javascript:;" class="submenu__link menu__link--pedido d-block text-uppercase"
+                                               onclick="RedirectMenu('Index', 'Pedido', 0, 'Pedido')"
+                                               target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Ingreso Pedido" id="lnk-pri-ingreso-pedidos">
+                                                Ingresa <span class="text-bold">tu pedido</span>
+                                            </a>
+                                        </li>
+                                    }
+
+                                    <li class="submenu__item">
+                                        @if (menuHijo.UrlItem == "")
+                                        {
+                                        <a href="javascript:;" class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                            @menuHijo.Descripcion
+                                        </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="javascript:;" class="submenu__link d-block" onclick="@menuHijo.OnClickFunt"
+                                               target="@menuHijo.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+                                    </li>
+                                }
+                            }
+
+                            if (addImgen)
+                            {
+                                var opcion = "CATÁLOGOS Y REVISTAS";
+                                var tooltip = "Mis Catálogos y Revistas";
+                                opcion = !ViewBag.TituloCatalogo ? "CATÁLOGOS" : opcion;
+                                tooltip = !ViewBag.TituloCatalogo ? "Mis Catálogos" : tooltip;
+
+                                <li class="submenu__item submenu__item--Catalogos">
+                                    <a href="javascript:;" class="submenu__link d-block" onclick="RedirectMenu('Index', 'MisCatalogosRevistas', 0, 'MisCatalogosRevistas')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="@tooltip" id="lnk-pri-miscatalogosrevistas">
+                                        <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_01.png" class="w-100" alt="Catálogos">
+                                        <div class="submenu__item__title w-100">@opcion</div>
+                                    </a>
+                                </li>
+
+
+                                if (ViewBag.SegmentoConsultoraMenu == 1)
+                                {
+                                    <li class="submenu__item submenu__item--Catalogos">
+                                        <a href="@urlProgramaNuevas" class="submenu__link d-block" title="Catálogos">
+                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_02.png" class="w-100" alt="Catálogos">
+                                            <div class="submenu__item__title w-100">PROGRAMA NUEVAS</div>
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="submenu__item submenu__item--Incentivos">
+                                        <a href="javascript:;" class="submenu__link d-block" title="Incentivos" onclick="RedirectMenu('Index', 'Incentivos', 0, 'Incentivos')">
+                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_03.png" class="w-100" alt="Incentivos">
+                                            <div class="submenu__item__title w-100">Incentivos</div>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li class="menu__item">
+                    @if (menuPadre.UrlItem == "")
                     {
-                        <a class="menu__link menu__link--conSubmenu d-block"
-                           id="lnk-pri-@menuPadre.DescripcionFormateada"
-                           title="@menuPadre.Descripcion">
+                        <a href="javascript:;" class="menu__link d-block" title="@menuPadre.Descripcion">
                             @menuPadre.Descripcion
                         </a>
                     }
                     else
                     {
-                        if (menuPadre.UrlItem == "")
-                        {
-                            <a class="menu__link d-block"
-                               href="javascript:;">
+                        <a href="javascript:;" class="menu__link d-block"
+                           onclick="@menuPadre.OnClickFunt"
+                           target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                            @if (menuPadre.UrlImagen != "")
+                            {
+                                <img src="@menuPadre.UrlImagen" alt="@menuPadre.Descripcion" style="margin-top: -5px;" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" />
+                            }
+                            else
+                            {
                                 @menuPadre.Descripcion
-                            </a>
-                        }
-                        else
-                        {
-                            <a class="menu__link d-block"
-                               href="javascript:;"
-                               onclick="@menuPadre.OnClickFunt"
-                               target="@menuPadre.PageTarget">
-                                @if (menuPadre.UrlImagen != "")
-                                {
-                                    <img src="@menuPadre.UrlImagen" alt="@menuPadre.Descripcion" style="margin-top: -5px;" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" />
-                                }
-                                else
-                                {
-                                    @menuPadre.Descripcion
-                                }
-                            </a>
-                        }
-
+                            }
+                        </a>
                     }
-
                 </li>
             }
-        </ul>
-    }
+        }
+    </ul>
+
+
+
+
 
     <a class="menu__link menu__link--cerrar-sesion text-underline mostrarEnMobile" title="Cerrar Sesión">
         Cerrar sesión
     </a>
 </nav>
-
-<!-- FIN - MENÚ PRINCIPAL DESKTOP -->
