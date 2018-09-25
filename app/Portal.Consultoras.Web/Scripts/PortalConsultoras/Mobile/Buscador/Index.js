@@ -108,7 +108,7 @@ $(document).ready(function () {
                                 async: true,
                                 cache: false,
                                 success: function (msg) {
-                                    console.log(msg);
+                                    //console.log(msg);
                                 }
                             });
 
@@ -288,7 +288,7 @@ $(document).ready(function () {
                         var UrlDetalle = GetPalanca(codigoEstrategia);
                         if (UrlDetalle == "") return false;
                         UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-                        console.log(UrlDetalle);
+                        //console.log(UrlDetalle);
                         window.location = UrlDetalle;
                         return true;
                     }

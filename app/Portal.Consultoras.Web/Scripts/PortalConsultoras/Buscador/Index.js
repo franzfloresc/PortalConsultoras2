@@ -163,7 +163,6 @@ $(document).ready(function () {
                                 async: true,
                                 cache: false,
                                 success: function (msg) {
-                                    console.log(msg);
                                 }
                             });
 
@@ -184,11 +183,6 @@ $(document).ready(function () {
                                     $('.spinner').fadeOut(150);
                                     $('.busqueda_sin_resultados').fadeIn(60);
                                 } else {
-                                    console.log('============ URL BUSCADOR ==========');
-                                    console.log(lista[0].URLBsucador);
-                                    console.log('============ URL BUSCADOR ==========');
-
-
                                     setTimeout(function () {
                                         if ($('.busqueda_sin_resultados').is(':visible')) {
                                             $('.busqueda_sin_resultados').fadeOut(60);
@@ -365,7 +359,6 @@ $(document).ready(function () {
                         var UrlDetalle = GetPalanca(codigoEstrategia);
                         if (UrlDetalle == "") return false;
                         UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-                        //console.log(UrlDetalle);
                         window.location = UrlDetalle;
                         return true;
                     }
