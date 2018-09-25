@@ -217,7 +217,6 @@ $(document).ready(function () {
             AgregarProducto: function (e) {
                 e.preventDefault();
                 AbrirLoad();
-
                 var divPadre = $(this).parents("[data-item='ProductoBuscador']").eq(0);
                 var model = JSON.parse($(divPadre).find(".hdBuscadorJSON").val());
                 var cantidad = $(divPadre).find("[data-input='cantidad']").val();
