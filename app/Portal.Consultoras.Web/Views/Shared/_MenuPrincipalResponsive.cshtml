@@ -192,8 +192,7 @@
                         @menuPadre.Descripcion
                     </a>
                     <ul class="submenu__lista submenu__lista--miNegocio row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
-                        @foreach (var menuHijo in menuPadre.SubMenus)
-                        {
+                        @{
                             var margin = "";
                             var contador = 0;
                             var contadorRe = 0;
@@ -204,48 +203,50 @@
                             var subMenu2 = false;
                             var subMenuModel = new Portal.Consultoras.Web.Models.PermisoModel();
 
-                            if (menuHijo.SubMenus.Count > 0)
+                            foreach (var menuHijo in menuPadre.SubMenus)
                             {
-                                var nieto = menuHijo.SubMenus[0];
-                                if (nieto.SubMenus.Any())
+                                if (menuHijo.SubMenus.Count > 0)
                                 {
-                                    subMenuModel = menuHijo;
-                                    subMenu2 = true;
-                                    break;
-                                }
+                                    var nieto = menuHijo.SubMenus[0];
+                                    if (nieto.SubMenus.Any())
+                                    {
+                                        subMenuModel = menuHijo;
+                                        subMenu2 = true;
+                                        break;
+                                    }
 
-                                <li class="submenu__item">
-                                    <a class="submenu__link d-block" title="@menuHijo.Descripcion">
-                                        @menuHijo.Descripcion
-                                    </a>
+                                     <li class="submenu__item">
+                                         <a class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                             @menuHijo.Descripcion
+                                         </a>
 
-                                </li>
-                            }
-                            else
-                            {
-                                addImgen = true;
+                                     </li>
+                                 }
+                                 else
+                                 {
+                                     addImgen = true;
 
-                                if (contadorRe == 0)
-                                {
-                                    contadorRe++;
-                                    <li class="submenu__item submenu__item--IngresaTuPedido" data-title="Ingresa tu pedido">
-                                        <a href="javascript:;" class="submenu__link menu__link--pedido d-block text-uppercase"
-                                             onclick="RedirectMenu('Index', 'Pedido', 0, 'Pedido')"
-                                               target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Ingreso Pedido" id="lnk-pri-ingreso-pedidos">
-                                            Ingresa <span class="text-bold">tu pedido</span>
-                                        </a>
-                                    </li>
-                                }
+                                     if (contadorRe == 0)
+                                     {
+                                         contadorRe++;
+                                         <li class="submenu__item submenu__item--IngresaTuPedido" data-title="Ingresa tu pedido">
+                                             <a href="javascript:;" class="submenu__link menu__link--pedido d-block text-uppercase"
+                                                onclick="RedirectMenu('Index', 'Pedido', 0, 'Pedido')"
+                                                target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Ingreso Pedido" id="lnk-pri-ingreso-pedidos">
+                                                 Ingresa <span class="text-bold">tu pedido</span>
+                                             </a>
+                                         </li>
+                                     }
 
-                                <li class="submenu__item">
-                                    <a class="submenu__link d-block" title="@menuHijo.Descripcion">
-                                        @menuHijo.Descripcion
-                                    </a>
-                                </li>
-                            }
+                                     <li class="submenu__item">
+                                         <a class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                             @menuHijo.Descripcion
+                                         </a>
+                                     </li>
+                                 }
+                             }
                         }
-
-                    </ul>
+                        </ul>
                 </li>
             }
             else
