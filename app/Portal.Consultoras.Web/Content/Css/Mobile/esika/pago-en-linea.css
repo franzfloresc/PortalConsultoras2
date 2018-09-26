@@ -1099,6 +1099,27 @@
     margin-bottom:19.65px;
 }*/
 
+.info_importante_tarjeta_credito_habilitada{
+    margin-top: 30px;
+    margin-bottom: 16px;
+}
+
+.info_importante_tarjeta_credito_habilitada span{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.info_importante_tarjeta_credito_habilitada span:first-child{
+    margin-top:1px;
+    margin-right:5px;
+    height:20px;
+}
+
+.info_importante_tarjeta_credito_habilitada span:last-child{
+    width:90%;
+    color:#e81c36;
+}
+
 .resumen_pago{
     border: 1px solid #d2d2d2;
     padding:14px 13px;

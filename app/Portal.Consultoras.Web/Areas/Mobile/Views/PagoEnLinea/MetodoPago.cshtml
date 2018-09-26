@@ -47,13 +47,20 @@
 <div class="content_belcorp" id="divOpciones" style="display:none">
     <div class="pestana_lbel"></div>
 
-    <div class="proceso_de_pago_en_linea" >
+    <div class="proceso_de_pago_en_linea">
 
         <div class="confirmacion_pago">
             <h3 class="titulo_resumen_pago_exitoso">
                 Elige el método de pago
             </h3>
-            <p>Recuerda habilitar tu tarjeta para pagos por internet.</p>
+            <p class="info_importante_tarjeta_credito_habilitada">
+                <span>
+                    <img src="@Url.Content("~/Content/Images/icono_alerta.svg")" alt="Recuerda habilitar tu tarjeta de crédito para pagos por internet" />
+                </span>
+                <span class="text-bold">
+                    Recuerda habilitar tu tarjeta de crédito para pagos por internet.
+                </span>
+            </p>
             <ul class="lista_opciones_pago">
                 @foreach (var item in Model.ListaMetodoPago)
                 {
@@ -83,7 +90,7 @@
                     <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoMobile w-100">
                         <div class="col_izq text-left">
                             <div class="icono_marca_tarjeta" id="divIcono">
-                               
+
                             </div>
                             <h4 class="titulo_monto_pago_total titulo_monto_pago_total_paso_2">
                                 Pagos banca por internet
