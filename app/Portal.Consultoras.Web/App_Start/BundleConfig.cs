@@ -152,6 +152,13 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/LogError.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
+                "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
+                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/PortalConsultoras/Buscador/buscadorLayout.js"
             ));
 
@@ -917,6 +924,15 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
             ));
 
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
+                "~/Content/Css/Site/Shared/style-responsive.css",
+                "~/Content/Css/Site/Esika/style-esika-responsive.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
+                "~/Content/Css/Site/Shared/style-responsive.css",
+                "~/Content/Css/Site/Lbel/style-lbel-responsive.css"
+            ));
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
