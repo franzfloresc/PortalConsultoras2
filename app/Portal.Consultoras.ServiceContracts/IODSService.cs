@@ -164,6 +164,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido);
+
+        [OperationContract]
+        bool EsDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         #endregion
 
         #region ValidarVentaExclusiva

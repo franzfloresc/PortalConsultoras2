@@ -1254,6 +1254,7 @@ namespace Portal.Consultoras.Common
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
             public const string RecuperarContrasenia = "Error en la respuesta del servicio de Recuperar Contraseña.";
+            public const string SinConexion = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_LoginChatbot = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_CatalogoRevistaIssu = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_Reserva = "Necesita tener conexion a internet para poder reservar.";
@@ -1984,7 +1985,7 @@ namespace Portal.Consultoras.Common
                 "Están agregados en tu pedido bajo la descripción RECUPC16.Puedes mantenerlos para recibirlos con tu caja de C17 o borrarlos de tu pedido si ya no los necesitas.";
         }
 
-        public class ProgramaNuevas
+        public class ProgNuevas
         {
             public const string CarpetaBanner = "AppConsultora/{0}/ProgramaNuevas/{1}";
             public const string ArchivoBannerCupones = "Cupon{0}_{1}.jpg";
@@ -2009,15 +2010,28 @@ namespace Portal.Consultoras.Common
                 public const string cuvFinal = "cuvFinal";
             }
 
-            public static class MensajeValidacionBusqueda
+            public static class Mensaje
             {
                 public const string ConsultoraNoNueva = "El código solicitado es exclusivo para quienes participan del Programa de Nuevas.";
                 public const string CuvNoPerteneceASuPrograma = "El codigo ingresado es incorrecto. Revise el folleto del Programa de Nuevas y solicite el que le corresponde.";
+                public const string ExcedeLimiteUnidades = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña";
+                public const string Electivo_NoAgregarPorLimite = "No puedes agregar este producto a tu pedido por haber alcanzado el límite de {0} cuvs del programa nuevas.";
+                public const string Electivo_PromocionNombre = "dúo perfecto";
+                public const string Electivo_CompletasteLimite = "¡Completaste los {0} cupones del {1}!";
+                public const string Electivo_TeFaltaPocoLimite = "¡Agregaste 1 cupón del {1}, te falta(n) {0} para completar!";
+                public const string DuoPerfecto_ConfirmaEliminar = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña";
             }
 
             public static class MensajeValidacionCantidadMaxima
             {
-                public const string ExcedeCantidad = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
+            }
+            
+            public static class MensajesElectivosNuevas
+            {
+                public const string NoAgregarPorLimite = "No puedes agregar este producto a tu pedido por haber alcanzado el límite de {0} cuvs del programa nuevas.";
+                public const string PromocionNombre = "dúo perfecto";
+                public const string CompletasteLimite = "¡Completaste los {0} cupones del {1}!";
+                public const string TeFaltaPocoLimite = "¡Agregaste 1 cupón del {1}, te falta(n) {0} para completar!";
             }
         }
 
@@ -2780,14 +2794,6 @@ namespace Portal.Consultoras.Common
             public const string UrlDescargarContratoCO = "http://somosbelcorpprd.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
             public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
             public const string AcionesOmitidas = "ActualizarContrasenia";
-        }
-                        
-        public static class MensajesElectivosNuevas
-        {
-            public const string NoAgregarPorLimite = "No puedes agregar este producto a tu pedido por haber alcanzado el límite de {0} cuvs del programa nuevas.";
-            public const string PromocionNombre = "dúo perfecto";
-            public const string CompletasteLimite = "¡Completaste los {0} cupones del {1}!";
-            public const string TeFaltaPocoLimite = "¡Agregaste 1 cupón del {1}, te falta(n) {0} para completar!";
         }
     }
 }

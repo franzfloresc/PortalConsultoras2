@@ -1620,17 +1620,17 @@ namespace Portal.Consultoras.Web.Controllers
                 var nombreArchivo = Request["qqfile"];
                 new UploadHelper().UploadFile(Request, nombreArchivo);
 
-                var carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, userData.CodigoISO,
+                var carpetaPais = string.Format(Constantes.ProgNuevas.CarpetaBanner, userData.CodigoISO,
                     Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
 
                 var newfilename = string.Empty;
                 switch (tipoBanner)
                 {
-                    case Constantes.ProgramaNuevas.TipoBanner.BannerCupon:
-                        newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, codigoPrograma, FileManager.RandomString());
+                    case Constantes.ProgNuevas.TipoBanner.BannerCupon:
+                        newfilename = string.Format(Constantes.ProgNuevas.ArchivoBannerCupones, codigoPrograma, FileManager.RandomString());
                         break;
-                    case Constantes.ProgramaNuevas.TipoBanner.BannerPremio:
-                        newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, codigoPrograma, FileManager.RandomString());
+                    case Constantes.ProgNuevas.TipoBanner.BannerPremio:
+                        newfilename = string.Format(Constantes.ProgNuevas.ArchivoBannerPremios, codigoPrograma, FileManager.RandomString());
                         break;
                 }
 
@@ -1642,8 +1642,8 @@ namespace Portal.Consultoras.Web.Controllers
                         PaisID = userData.PaisID,
                         CodigoPrograma = codigoPrograma,
                         CodigoNivel = codigoNivel,
-                        ArchivoBannerCupon = (tipoBanner == Constantes.ProgramaNuevas.TipoBanner.BannerCupon ? newfilename : null),
-                        ArchivoBannerPremio = (tipoBanner == Constantes.ProgramaNuevas.TipoBanner.BannerPremio ? newfilename : null),
+                        ArchivoBannerCupon = (tipoBanner == Constantes.ProgNuevas.TipoBanner.BannerCupon ? newfilename : null),
+                        ArchivoBannerPremio = (tipoBanner == Constantes.ProgNuevas.TipoBanner.BannerPremio ? newfilename : null),
                     };
 
                     using (var sv = new PedidoServiceClient())
@@ -1677,7 +1677,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string filenameCupon = string.Empty;
                 string filenamePremio = string.Empty;
-                string carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, userData.CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
+                string carpetaPais = string.Format(Constantes.ProgNuevas.CarpetaBanner, userData.CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
 
                 var entidad = new BEConfiguracionProgramaNuevasApp()
                 {

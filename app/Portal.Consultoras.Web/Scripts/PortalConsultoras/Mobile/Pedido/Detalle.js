@@ -428,43 +428,54 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     };
     PedidoUpdate(item);
 }
-function ConfigurarPopUpConfirmacion() {
-
-    if (typeof esUpselling !== 'undefined' && esUpselling) {
-        var regalo = GetUpSellingGanado();
-        if (regalo != null) {
-            $('#mensaleAvisoRegalo').show();
-        }
-        else {
-            $('#mensaleAvisoRegalo').hide();
-        }
-    }
-    else {
-        $('#mensaleAvisoRegalo').hide();
-    }
-
-    $("#popup-eliminar-item").show();
- 
-
-}
 
 function EliminarPedidoEvento(evento, esBackOrder) {
     var target = $(evento.currentTarget);
     var id = $.trim(target.attr("data-pedidodetalleid")) || "0";
     var setId = $.trim(target.attr("data-setId"));
-
     var obj = GetProductoEntidad(id, setId);
-    if (!obj) {
-        return false;
-    }
+    if (!obj) return false;
 
-    EliminarPedido(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.CantidadTemporal, obj.DescripcionProd, obj.PrecioUnidad, obj.MarcaID, obj.DescripcionOferta, esBackOrder, obj.SetID);
+    ConfigurarFnEliminarProducto(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.CantidadTemporal, obj.DescripcionProd, obj.PrecioUnidad, obj.MarcaID, obj.DescripcionOferta, esBackOrder, obj.SetID);
+    if (MuestraPopupDeleteRegaloGenerico()) return false;
+    ValidDeleteElectivoNuevas(obj, function (esDuoPerfecto) {
+        if (esDuoPerfecto) fnEliminarProducto();
+        else $("#popup-eliminar-item").show();
+    });
 }
 
-function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta, esBackOrder, setId) {
+function ValidDeleteElectivoNuevas(obj, fnDelete) {
+    if (!$.isFunction(fnDelete)) fnDelete = function () { };
+    if (!obj.EnRangoProgNuevas) {
+        fnDelete(false);
+        return;
+    }
 
-    ConfigurarPopUpConfirmacion();
+    ShowLoading();
+    jQuery.ajax({
+        type: 'POST',
+        url: urlEsPedidoDetalleDuoPerfecto,
+        dataType: 'json',
+        data: JSON.stringify({ cuv: obj.CUV }),
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        cache: false
+    })
+        .always(CloseLoading)
+        .done(function (response) {
+            if (!checkTimeout(response)) return;
+            if (!response.success) {
+                messageInfoError(response.message);
+                return;
+            }
 
+            if (!response.esDuoPerfecto) fnDelete(false);
+            else messageConfirmacion(response.message, function () { fnDelete(true); });
+        })
+        .fail(function () { messageInfoError(mensajeSinConexionGenerico); });
+}
+
+function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta, esBackOrder, setId) {
     fnEliminarProducto = function () {
         var param = ({
             CampaniaID: CampaniaID,
@@ -485,7 +496,6 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
         });
 
         ShowLoading();
-
         jQuery.ajax({
             type: 'POST',
             url: urlPedidoDelete,
@@ -533,6 +543,29 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
             }
         });
     };
+}
+
+function MuestraPopupDeleteRegaloGenerico() {
+    $('#mensaleAvisoRegalo').hide();
+    if (typeof esUpselling === 'undefined' || !esUpselling) return false;
+
+    var regalo = GetUpSellingGanado();
+    if (regalo == null) return false;
+    
+    ('#mensaleAvisoRegalo').show();
+    $("#popup-eliminar-item").show();
+    return true;
+}
+function ConfigurarPopUpConfirmacion() {
+    if (typeof esUpselling !== 'undefined' && esUpselling) {
+        var regalo = GetUpSellingGanado();
+
+        if (regalo != null) $('#mensaleAvisoRegalo').show();
+        else $('#mensaleAvisoRegalo').hide();
+    }
+    else $('#mensaleAvisoRegalo').hide();
+
+    $("#popup-eliminar-item").show();
 }
 
 function ConfirmaEliminarPedido() {

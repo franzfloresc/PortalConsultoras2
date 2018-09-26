@@ -1431,7 +1431,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Zona de Estrategias
         [HttpPost]
-        public JsonResult ValidarStockEstrategia(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta, bool enRangoProgNuevas)
+        public JsonResult ValidarStockEstrategia(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta, bool enRangoProgNuevas = false)
         {
             string mensajeMontoMax = "", mensaje = "";
             bool validoMontoMax = false, valido = false;
@@ -1613,10 +1613,10 @@ namespace Portal.Consultoras.Web.Controllers
                         productosModel.Add(GetProductoNoExiste());
                         return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva:
-                        productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.ConsultoraNoNueva));
+                        productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgNuevas.Mensaje.ConsultoraNoNueva));
                         return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma:
-                        productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.CuvNoPerteneceASuPrograma));
+                        productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgNuevas.Mensaje.CuvNoPerteneceASuPrograma));
                         return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas:
                         SessionManager.SetCuvEsProgramaNuevas(true);
@@ -4427,6 +4427,30 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        [HttpPost]
+        public JsonResult EsPedidoDetalleDuoPerfecto(string cuv)
+        {
+            try
+            {
+                bool esDuoPerfecto;
+                using (var svc = new ODSServiceClient())
+                {
+                    esDuoPerfecto = svc.EsDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
+                }
+
+                return Json(new {
+                    success = true,
+                    esDuoPerfecto = esDuoPerfecto,
+                    message = esDuoPerfecto ? Constantes.ProgNuevas.Mensaje.DuoPerfecto_ConfirmaEliminar : ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.ErrorGenerico);
+            }
+        }
+
         private PartialSectionBpt GetPartialSectionBptModel()
         {
             var partial = new PartialSectionBpt();
@@ -4501,7 +4525,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 valor = svc.ValidarCantidadMaximaProgramaNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cantidadPedido, cuvingresado, cantidadIngresada);
             }
-            if (valor != 0) return Constantes.ProgramaNuevas.MensajeValidacionCantidadMaxima.ExcedeCantidad.Replace("#n#", valor.ToString());
+            if (valor != 0) return string.Format(Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades, valor);
 
             return "";
         }
@@ -4529,7 +4553,7 @@ namespace Portal.Consultoras.Web.Controllers
                         EliminarDetallePackNueva(respElectivos.ListCuvEliminar.ToList());
                         return respElectivos.ListCuvEliminar.ToList();
                     case Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite:
-                        mensajeError = string.Format(Constantes.MensajesElectivosNuevas.NoAgregarPorLimite, respElectivos.LimNumElectivos);
+                        mensajeError = string.Format(Constantes.ProgNuevas.Mensaje.Electivo_NoAgregarPorLimite, respElectivos.LimNumElectivos);
                         return new List<string>();
                     default:
                         return new List<string>();
@@ -4545,14 +4569,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string CrearAvisoCuponElectivo(BERespValidarElectivos respElectivos)
         {
-            var promocionNombre = Constantes.MensajesElectivosNuevas.PromocionNombre;
+            var promocionNombre = Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre;
             if (respElectivos.LimNumElectivos == respElectivos.NumElectivosEnPedido)
             {
-                return string.Format(Constantes.MensajesElectivosNuevas.CompletasteLimite, respElectivos.LimNumElectivos, promocionNombre);
+                return string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, respElectivos.LimNumElectivos, promocionNombre);
             }
 
             var numFaltantes = respElectivos.LimNumElectivos - respElectivos.NumElectivosEnPedido;
-            return string.Format(Constantes.MensajesElectivosNuevas.TeFaltaPocoLimite, numFaltantes, promocionNombre);
+            return string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, numFaltantes, promocionNombre);
         }
 
         private int GetCantidadCuvPedidoWeb(string cuvIngresado)

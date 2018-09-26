@@ -395,9 +395,9 @@ namespace Portal.Consultoras.BizLogic
             lstProductos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProductos, consecutivoNueva, codigoPrograma);
             if (lstProductos.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
 
-            var oCuv = lstProductos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
-            if (oCuv == null) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
-            if (oCuv.IndicadorCuponIndependiente) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
+            var cuv = lstProductos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
+            if (cuv == null) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
+            if (cuv.IndicadorCuponIndependiente) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
 
             List<BEProductoProgramaNuevas> lstElectivas = lstProductos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
             if (lstElectivas.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
@@ -408,10 +408,20 @@ namespace Portal.Consultoras.BizLogic
 
             var listElecPedido = lstCuvPedido.Where(c => lstElectivas.Any(e => e.CodigoCupon == c)).ToList();
             var cantElecPedido = listElecPedido.Count;
-            if (cantElecPedido == 1 && limElectivos == 1) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Reemplazar, listElecPedido);
-            if (cantElecPedido >= limElectivos) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite, limElectivos);
+            if (cantElecPedido > limElectivos) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite, limElectivos);
 
-            return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarYMostrarMensaje, limElectivos) { NumElectivosEnPedido = cantElecPedido + 1 };
+            BERespValidarElectivos resp;
+            if (limElectivos == 1)
+            {
+                if (cantElecPedido == 1) resp = new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Reemplazar, listElecPedido);
+                else resp = new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
+            }
+            else
+            {
+                if (cantElecPedido == limElectivos) resp = new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite, limElectivos);
+                else resp = new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarYMostrarMensaje, limElectivos) { NumElectivosEnPedido = cantElecPedido + 1 };
+            }
+            return resp;
         }
 
         public void UpdateFlagCupones(int paisID, List<BEPedidoWebDetalle> listPedidoDetalle)
@@ -423,13 +433,34 @@ namespace Portal.Consultoras.BizLogic
             listPedidoDetalle.ForEach(d => d.EnRangoProgNuevas = fnEnRango(Convert.ToInt32(d.CUV)));
         }
 
+        public bool EsDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
+        {
+            if (!GetFlagProgramaNuevas(paisID)) return false;
+
+            var lstCuponNuevas = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
+            if (lstCuponNuevas == null || lstCuponNuevas.Count == 0) return false;
+            lstCuponNuevas = FiltrarProductosNuevasByNivelyCodigoPrograma(lstCuponNuevas, consecutivoNueva, codigoPrograma);
+            if (lstCuponNuevas.Count == 0) return false;
+
+            var lstElectivas = lstCuponNuevas.Where(c => !c.IndicadorCuponIndependiente).ToList();
+            if (lstElectivas.Count <= 1) return false;
+            var electivo = lstElectivas.FirstOrDefault(e => e.CodigoCupon == cuv);
+            if (electivo == null) return false;
+
+            var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
+            var limElectivos = (GetNivelesProgramaNuevas(paisID, nivelInput) ?? new BENivelesProgramaNuevas()).UnidadesNivel;
+            if (limElectivos <= 1) return false;
+            return true;
+        }
+
         #region Metodos de Programa Nuevas
+
         private bool GetFlagProgramaNuevas(int paisID)
         {
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
-            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.EncenderValidacion.TablaLogicaID);
+            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgNuevas.EncenderValidacion.TablaLogicaID);
             if (lstTabla.Count == 0) return false;
-            if (lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.EncenderValidacion.FlagActivar).Select(b => b.Valor).FirstOrDefault() == "1") return true;
+            if (lstTabla.Where(a => a.Codigo == Constantes.ProgNuevas.EncenderValidacion.FlagActivar).Select(b => b.Valor).FirstOrDefault() == "1") return true;
             return false;
         }
 
@@ -440,11 +471,11 @@ namespace Portal.Consultoras.BizLogic
         }
         private Predicate<int> GetFnEnRangoCuvProgramaNuevas(int paisID)
         {
-            var lstTabla = new BLTablaLogicaDatos().GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.Rango.TablaLogicaID);
+            var lstTabla = new BLTablaLogicaDatos().GetTablaLogicaDatosCache(paisID, Constantes.ProgNuevas.Rango.TablaLogicaID);
             if (lstTabla.Count == 0) return new Predicate<int>(cuv => false);
 
-            int cuvIni = Convert.ToInt32(lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.Rango.cuvInicio).Select(b => b.Descripcion).FirstOrDefault());
-            int cuvFin = Convert.ToInt32(lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.Rango.cuvFinal).Select(b => b.Descripcion).FirstOrDefault());
+            int cuvIni = Convert.ToInt32(lstTabla.Where(a => a.Codigo == Constantes.ProgNuevas.Rango.cuvInicio).Select(b => b.Descripcion).FirstOrDefault());
+            int cuvFin = Convert.ToInt32(lstTabla.Where(a => a.Codigo == Constantes.ProgNuevas.Rango.cuvFinal).Select(b => b.Descripcion).FirstOrDefault());
             return new Predicate<int>(cuv => cuvIni <= cuv && cuv <= cuvFin);
         }
 
@@ -510,7 +541,7 @@ namespace Portal.Consultoras.BizLogic
         private bool GetFlagVentaExclusiva(int paisID)
         {
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
-            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.EncenderValidacion.TablaLogicaID);
+            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgNuevas.EncenderValidacion.TablaLogicaID);
             if (lstTabla.Count == 0) return false;
             if (lstTabla.Where(a => a.Codigo == Constantes.VentaExclusiva.EncenderValidacion.FlagActivar).Select(b => b.Valor).FirstOrDefault() == "1") return true;
             return false;

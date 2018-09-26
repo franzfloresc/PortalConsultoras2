@@ -1800,35 +1800,66 @@ function CerrarProductoAgregado() {
     $("#pop_liquidacion").hide();
 }
 
-function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
+function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, enRangoProgNuevas) {
+    if (MuestraPopupDeleteRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId)) return;
 
-    if (typeof esUpselling !== "undefined" && esUpselling) {
+    ValidDeleteElectivoNuevas(
+        cuv,
+        enRangoProgNuevas,
+        function () { DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, enRangoProgNuevas); }
+    )
+}
 
-        var regalo = GetUpSellingGanado();
-        if (regalo != null) {
+function MuestraPopupDeleteRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
+    if (typeof esUpselling === "undefined" || !esUpselling) return false;
 
-            var popup = $("#divAvisoEliminarRegaloGenerico");
+    var regalo = GetUpSellingGanado();
+    if (regalo == null) return false;
 
-            popup.attr("data-campaniaId", campaniaId);
-            popup.attr("data-pedidoId", pedidoId);
-            popup.attr("data-pedidoDetalleId", pedidoDetalleId);
-            popup.attr("data-tipoOfertaSisId", tipoOfertaSisId);
-            popup.attr("data-cuv", cuv);
-            popup.attr("data-cantidad", cantidad);
-            popup.attr("data-clienteId", clienteId);
-            popup.attr("data-cuvReco", cuvReco);
-            popup.attr("data-esBackOrder", esBackOrder);
-            popup.attr("data-setId", setId);
-            showDialog("divAvisoEliminarRegaloGenerico");
+    var popup = $("#divAvisoEliminarRegaloGenerico");
+    popup.attr("data-campaniaId", campaniaId);
+    popup.attr("data-pedidoId", pedidoId);
+    popup.attr("data-pedidoDetalleId", pedidoDetalleId);
+    popup.attr("data-tipoOfertaSisId", tipoOfertaSisId);
+    popup.attr("data-cuv", cuv);
+    popup.attr("data-cantidad", cantidad);
+    popup.attr("data-clienteId", clienteId);
+    popup.attr("data-cuvReco", cuvReco);
+    popup.attr("data-esBackOrder", esBackOrder);
+    popup.attr("data-setId", setId);
+    showDialog("divAvisoEliminarRegaloGenerico");
+    return true;
+}
 
-        }
-        else {
-            DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId);
-        }
-    } else {
-        DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId);
+function ValidDeleteElectivoNuevas(cuv, enRangoProgNuevas, fnDelete) {
+    if (!$.isFunction(fnDelete)) fnDelete = function () { };
+    if (!enRangoProgNuevas) {
+        fnDelete(false);
+        return;
     }
 
+    AbrirSplash();
+    jQuery.ajax({
+        type: 'POST',
+        url: urlEsPedidoDetalleDuoPerfecto,
+        dataType: 'json',
+        data: JSON.stringify({ cuv: cuv }),
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        cache: false
+    })
+        .always(CerrarSplash)
+        .done(function (response) {
+            if (!checkTimeout(response)) return;
+            if (!response.success) {
+                alert_msg(response.message);
+                return;
+            }
+
+            if (!response.esDuoPerfecto) fnDelete(false);
+            else messageConfirmacion('Titulo', response.message, function () { fnDelete(true); });
+        })
+        .fail(function() { alert_msg(mensajeSinConexionGenerico); });
 }
 
 function ContinuarEliminacion() {
@@ -1840,8 +1871,7 @@ function CerrarAvisoEliminarRegalo() {
     $("#divAvisoEliminarRegaloGenerico").dialog("close");
 }
 
-function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
-
+function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, enRangoProgNuevas) {
     var param = {
         CampaniaID: campaniaId,
         PedidoID: pedidoId,
@@ -1856,13 +1886,10 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
     };
 
     AbrirSplash();
-
     if (HorarioRestringido()) {
         CerrarSplash();
-
         return;
     }
-
 
     jQuery.ajax({
         type: "POST",
@@ -1872,7 +1899,6 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
-
             CerrarSplash();
             CerrarAvisoEliminarRegalo();
 
@@ -2629,7 +2655,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, setI
     });
 }
 
-function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId) {
+function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, enRangoProgNuevas) {
     var rowElement = $(event.target).closest(".contenido_ingresoPedido");
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
@@ -3006,7 +3032,8 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                 Descripcion: 0,
                 Cantidad: CantidadSoli,
                 IndicadorMontoMinimo: 0,
-                TipoOferta: TipoOfertaSisID || 0
+                TipoOferta: TipoOfertaSisID || 0,
+                enRangoProgNuevas: EnRangoProgNuevas
             });
 
             jQuery.ajax({
