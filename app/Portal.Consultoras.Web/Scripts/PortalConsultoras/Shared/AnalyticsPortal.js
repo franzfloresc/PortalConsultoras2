@@ -214,6 +214,7 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    // Ini - Rama TiposAnalytics
     //Nuevos métodos para HU EMP-1442 (Jira)
     var marcarImagenProducto = function (opcion, detalle) {
         try {
@@ -383,6 +384,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
+    // Fin - Rama TiposAnalytics
 
     return {
         MarcarVerFichaProducto: marcarVerFichaProducto,
@@ -395,7 +397,7 @@ var AnalyticsPortalModule = (function () {
         MarcarClicSetProductos: marcarClicSetProductos,
         MarImpresionSetProductos: marcarImpresionSetProductos,
         MarcarFichaBreadcrumb: marcarFichaBreadcrumb,
-
+        // Ini - Rama TiposAnalytics
         MarcarImagenProducto: marcarImagenProducto,
         MarcarPopupEligeUnaOpcion: marcarPopupEligeUnaOpcion,
         MarcarCerrarPopupEligeUnaOpcion: marcarCerrarPopupEligeUnaOpcion,
@@ -409,6 +411,9 @@ var AnalyticsPortalModule = (function () {
         MarcarPopupBotonAplicarSeleccionVariasOpciones: marcarPopupBotonAplicarSeleccionVariasOpciones,
         MarcarEliminarOpcionSeleccionadaVariasOpciones: marcarEliminarOpcionSeleccionadaVariasOpciones,
         MarcarAumentardisminuirOpcionProducto: marcarAumentardisminuirOpcionProducto,
-        MarcarCambiarOpcionVariasOpciones: marcarCambiarOpcionVariasOpciones
+        MarcarCambiarOpcionVariasOpciones: marcarCambiarOpcionVariasOpciones,
+        // Fin - Rama TiposAnalytics
+        // este metodo es para no perder la coma del ultimo metodo al integrar 
+        MarcarAuxFinMetodos: function(){}
     }
 })();
