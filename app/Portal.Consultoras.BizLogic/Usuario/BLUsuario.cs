@@ -3055,7 +3055,7 @@ namespace Portal.Consultoras.BizLogic
                 if (opcion.lstFiltros.Count > 0)
                 {
                     var usuFiltro = opcion.lstFiltros.FirstOrDefault(a => a.IdEstadoActividad == oUsu.IdEstadoActividad);
-                    if (usuFiltro == null && oUsu.OpcionCambioClave == 0 && (!opcion.OpcionContrasena || !vCambioClave)) return null;
+                    if (usuFiltro == null && oUsu.OpcionCambioClave == 0 && (!opcion.OpcionContrasena || !vCambioClave) && opcion.OpcionSms) return null;
                     if (usuFiltro != null)
                     {
                         /*Validando campania*/
