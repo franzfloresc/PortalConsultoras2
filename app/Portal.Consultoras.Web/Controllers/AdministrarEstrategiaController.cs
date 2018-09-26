@@ -208,6 +208,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string CampaniaID,
             string TipoEstrategiaID, string CUV, string Consulta, int Imagen, int Activo, string TipoEstrategiaCodigo)
         {
+
             try
             {
                 if (ModelState.IsValid)
