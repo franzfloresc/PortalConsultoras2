@@ -1700,7 +1700,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoProducto = producto.CodigoProducto,
                     LimiteVenta = estrategia.LimiteVenta,
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
-                    TieneRDC = tieneRdc
+                    TieneRDC = tieneRdc,
+                    EstrategiaID = producto.EstrategiaID
                 });
             }
             catch (Exception ex)
@@ -1753,16 +1754,21 @@ namespace Portal.Consultoras.Web.Controllers
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
 
+            beProductos = beProductos
+                    .Where(prod =>
+                         !(prod.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    )
+                    .ToList();
+
             if (revistaDigital.BloqueoProductoDigital)
             {
                 beProductos = beProductos
                     .Where(prod =>
                         !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                           || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                         )
-                    )
-                    .ToList();
+                        .ToList();
             }
 
             if (guiaNegocio.BloqueoProductoDigital)

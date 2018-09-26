@@ -43,83 +43,85 @@
     <div class="clear"></div>
 
     <div class="pedido_ingreso_c2">
-        <form id="frmInsertPedido" action="@Url.Action("PedidoInsertar", "Pedido")" method="post" role="form">
-            <input type="hidden" id="hdfDescripcionCategoria" />
-            <input type="hidden" id="hdfDescripcionEstrategia" />
-            <input type="hidden" id="hdfDescripcionMarca" />
-            <input type="hidden" id="hdfCUV" />
-            <input type="hidden" id="hdfClienteDescripcion" />
-            <input type="hidden" id="hdnRegistrosPaginar" value="@Model.Registros" name="Registros" />
-            <input type="hidden" id="hdnRegistrosDePaginar" value="@Model.RegistrosDe" name="RegistrosDe" />
-            <input type="hidden" id="hdnRegistrosTotalPaginar" value="@Model.RegistrosTotal" name="RegistrosTotal" />
-            <input type="hidden" id="hdnPaginaPaginar" value="@Model.Pagina" name="Pagina" />
-            <input type="hidden" id="hdnPaginaDePaginar" value="@Model.PaginaDe" name="PaginaDe" />
-            <input type="hidden" id="hdnClienteID_" value="@Model.ClienteID_" name="ClienteID_" />
-            <input type="hidden" id="hdfTipo" value="@Model.Tipo" name="Tipo" />
-            <input type="hidden" id="hdfIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" name="IndicadorMontoMinimo" />
-            <input type="hidden" id="hdTipoOfertaSisID" value="@Model.TipoOfertaSisID" name="TipoOfertaSisID" />
-            <input type="hidden" id="hdConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" name="ConfiguracionOfertaID" />
-            <input type="hidden" id="hdnDescripcionEstrategia" value="@Model.DescripcionEstrategia" name="DescripcionEstrategia" />
-            <input type="hidden" id="hdnDescripcionLarga" value="@Model.DescripcionLarga" name="DescripcionLarga" />
-            <input type="hidden" id="hdfDescripcionProd" value="@Model.DescripcionProd" name="DescripcionProd" />
-            <input type="hidden" id="hdfMarcaID" value="@Model.MarcaID" name="MarcaID" />
-            <input type="hidden" id="hdfPrecioUnidad" value="@Model.PrecioUnidad" name="PrecioUnidad" />
-            <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
-            <input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedido" name="OrigenPedidoWeb" />
+		<form id="frmInsertPedido" action="@Url.Action("PedidoInsertar", "Pedido")" method="post" role="form">
+			<input type="hidden" id="hdfDescripcionCategoria" />
+			<input type="hidden" id="hdfDescripcionEstrategia" />
+			<input type="hidden" id="hdfDescripcionMarca" />
+			<input type="hidden" id="hdfCUV" />
+			<input type="hidden" id="hdfClienteDescripcion" />
+			<input type="hidden" id="hdnRegistrosPaginar" value="@Model.Registros" name="Registros" />
+			<input type="hidden" id="hdnRegistrosDePaginar" value="@Model.RegistrosDe" name="RegistrosDe" />
+			<input type="hidden" id="hdnRegistrosTotalPaginar" value="@Model.RegistrosTotal" name="RegistrosTotal" />
+			<input type="hidden" id="hdnPaginaPaginar" value="@Model.Pagina" name="Pagina" />
+			<input type="hidden" id="hdnPaginaDePaginar" value="@Model.PaginaDe" name="PaginaDe" />
+			<input type="hidden" id="hdnClienteID_" value="@Model.ClienteID_" name="ClienteID_" />
+			<input type="hidden" id="hdfTipo" value="@Model.Tipo" name="Tipo" />
+			<input type="hidden" id="hdfIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" name="IndicadorMontoMinimo" />
+			<input type="hidden" id="hdTipoOfertaSisID" value="@Model.TipoOfertaSisID" name="TipoOfertaSisID" />
+			<input type="hidden" id="hdConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" name="ConfiguracionOfertaID" />
+			<input type="hidden" id="hdnDescripcionEstrategia" value="@Model.DescripcionEstrategia" name="DescripcionEstrategia" />
+			<input type="hidden" id="hdnDescripcionLarga" value="@Model.DescripcionLarga" name="DescripcionLarga" />
+			<input type="hidden" id="hdfDescripcionProd" value="@Model.DescripcionProd" name="DescripcionProd" />
+			<input type="hidden" id="hdfMarcaID" value="@Model.MarcaID" name="MarcaID" />
+			<input type="hidden" id="hdfPrecioUnidad" value="@Model.PrecioUnidad" name="PrecioUnidad" />
+			<input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
+			<input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedido" name="OrigenPedidoWeb" />
+			<input type="hidden" id="hdfEsBusquedaSR" />
+			<input type="hidden" id="hdfEstrategiaId" value="0" />
 
-            <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
+			<div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
-            <div class="pedido_ingreso_datos campo_codigo">
-                <br />
-                <input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral" placeholder="Código" />
-            </div>
+			<div class="pedido_ingreso_datos campo_codigo">
+				<br />
+				<input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral" placeholder="Código" />
+			</div>
 
-            <div class="pedido_ingreso_datos campo_descripcion_producto">
-                <!-- MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
-                <div id="divObservacionesDescripProd" class="pedidos_no_existe" style="display:none;">
-                    <div class="noti mensaje_producto_noExiste">
-                        <div class="noti_message red_texto_size">
-                            <span class="icono_advertencia_notificacion"></span>
-                            El producto solicitado no existe.
-                        </div>
-                    </div>
-                </div>
-                <!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
-                <br />
-                <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
-                       onkeyup="PreValidarCUV(event);" placeholder="Descripción producto" />
-            </div>
+			<div class="pedido_ingreso_datos campo_descripcion_producto">
+				<!-- MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
+				<div id="divObservacionesDescripProd" class="pedidos_no_existe" style="display:none;">
+					<div class="noti mensaje_producto_noExiste">
+						<div class="noti_message red_texto_size">
+							<span class="icono_advertencia_notificacion"></span>
+							El producto solicitado no existe.
+						</div>
+					</div>
+				</div>
+				<!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
+				<br />
+				<input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
+					   onkeyup="PreValidarCUV(event);" placeholder="Descripción producto" />
+			</div>
 
-            <div class="pedido_ingreso_datos campo_precio">
-                <br />
-                <input id="txtPrecioR" disabled="disabled" class="preciounitario" placeholder="Precio" />
-            </div>
+			<div class="pedido_ingreso_datos campo_precio">
+				<br />
+				<input id="txtPrecioR" disabled="disabled" class="preciounitario" placeholder="Precio" />
+			</div>
 
-            <div class="pedido_ingreso_datos campo_cantidad">
-                <br />
-                <div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
-                    <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                           onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)" />
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                        <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
-                    </div>
-                </div>
-            </div>
+			<div class="pedido_ingreso_datos campo_cantidad">
+				<br />
+				<div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
+					<input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+						   onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)" />
+					<div class="liquidacion_rango_right_pedido">
+						<a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+						<a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+					</div>
+				</div>
+			</div>
 
-            <div class="pedido_ingreso_datos campo_cliente">
-                <br />
-                <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
-                       maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
-                <span class="pedido_ingreso_datos_icono_mas">+</span>
-                <a class="pedidos_cliente" onclick="showClienteDetalle(null);">
-                    AGREGAR NUEVO CLIENTE
-                </a>
-            </div>
-            <input type="hidden" id="hdFlagNueva" />
-            <input type="hidden" id="hdMetodoBusqueda" />
-            <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular(event);" class="pedido_agregado" />
-        </form>
+			<div class="pedido_ingreso_datos campo_cliente">
+				<br />
+				<input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
+					   maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
+				<span class="pedido_ingreso_datos_icono_mas">+</span>
+				<a class="pedidos_cliente" onclick="showClienteDetalle(null);">
+					AGREGAR NUEVO CLIENTE
+				</a>
+			</div>
+			<input type="hidden" id="hdFlagNueva" />
+			<input type="hidden" id="hdMetodoBusqueda" />
+			<input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular(event);" class="pedido_agregado" />
+		</form>
     </div>
     <div class="clear"></div>
 

@@ -796,6 +796,15 @@ function ValidarStockEstrategia() {
 }
 
 function InsertarProducto(form) {
+
+	var flag = $("#hdfEsBusquedaSR").val();
+
+	if (flag == "true")
+	{
+		form.url = baseUrl + "Pedido/PedidoAgregarProducto";
+		form.data.EstrategiaID = $("#hdfEstrategiaId").val();
+	}
+
     $.ajax({
         url: form.url,
         type: form.type,
@@ -1554,19 +1563,26 @@ function CambiarCliente(elem) {
 
 function ObservacionesProducto(item) {
     
-    if (item.TipoOfertaSisID == "1707") {
+    //if (item.TipoOfertaSisID == "1707") {
 
-        $("#divObservaciones").html("");
+        //$("#divObservaciones").html("");
 
-        if (sesionEsShowRoom) {
-            $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Este producto sólo se puede agregar desde la sección de Pre-venta Digital.</div></div>");
-        } else {
-            $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Esta promoción no se encuentra disponible.</div></div>");
-        }
+        //if (sesionEsShowRoom) {
+        //    $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Este producto sólo se puede agregar desde la sección de Pre-venta Digital.</div></div>");
+        //} else {
+        //    $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Esta promoción no se encuentra disponible.</div></div>");
+        //}
 
-        $("#btnAgregar").attr("disabled", "disabled");
-
-    } else {
+        //$("#btnAgregar").attr("disabled", "disabled");
+	$("#hdfEsBusquedaSR").val(false);
+	$("#hdfEstrategiaId").val(0);
+	if (item.EstrategiaID > 0)
+	{
+		$("#hdfEsBusquedaSR").val(true);
+		$("#hdfEstrategiaId").val(item.EstrategiaID);
+		//$("#btnAgregar").removeAttr("disabled");
+	}
+    //} else {
         if (item.TieneStock == true) {
             if (item.TieneSugerido != 0) {
                 $("#divObservaciones").html("");
@@ -1598,7 +1614,7 @@ function ObservacionesProducto(item) {
                 IngresoFAD(item);
             }
         }
-    }
+    //}
 
     $("#txtCUV").val(item.CUV);
     $("#hdfCUV").val(item.CUV);

@@ -74,6 +74,7 @@ namespace Portal.Consultoras.Web.Models
         public int TipoOfertaSisID { get; set; }
         public List<ProductoModel> Tonos { get; set; }
         public string Volumen { get; set; }
+        public int EstrategiaID { get; set; }
         public object Clone()
         {
             return this.MemberwiseClone();
