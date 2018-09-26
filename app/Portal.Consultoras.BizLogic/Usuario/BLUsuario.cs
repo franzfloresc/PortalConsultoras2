@@ -3058,7 +3058,7 @@ namespace Portal.Consultoras.BizLogic
                     /* Validando configuraciones a nivel de Opcion */
                     if (usuFiltro == null && (!opcion.OpcionSms || !opcion.OpcionContrasena)) return null;
                     /* Validando si existe pendiente un Cambio de Clave */
-                    if (usuFiltro == null && oUsu.OpcionCambioClave != 0 && !vCambioClave) return null;
+                    if (usuFiltro == null && (oUsu.OpcionCambioClave != 0 || !vCambioClave)) return null;
                     if (usuFiltro != null)
                     {
                         /*Validando campania*/
