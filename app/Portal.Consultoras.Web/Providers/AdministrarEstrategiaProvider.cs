@@ -806,19 +806,28 @@ namespace Portal.Consultoras.Web.Providers
 
         public void JobBuscador(string codigoCampania, string codigoEstrategia, UsuarioModel userData)
         {
-            var tipoPersonalizacion = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoEstrategia);
-
-            var requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlJobBuscador, userData.CodigoISO, tipoPersonalizacion, codigoCampania);
-
-            var httpContent = new StringContent(string.Empty, Encoding.UTF8);
-            
-            var taskApi = Task.Run(() => httpClientMicroservicioSync.PostAsync(requestUrl, httpContent));
-
-            Task.WhenAll(taskApi);
-
-            if (taskApi.Result != null && !taskApi.Result.IsSuccessStatusCode)
+            try
             {
-                LogManager.LogManager.LogErrorWebServicesBus(new Exception("AdministrarEstrategiaProvider_JobBuscador:" + taskApi.Result.StatusCode.ToString()), userData.CodigoConsultora, userData.CodigoISO);
+                var tipoPersonalizacion = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoEstrategia);
+
+                var requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlJobBuscador, userData.CodigoISO, tipoPersonalizacion, codigoCampania);
+
+                var httpContent = new StringContent(string.Empty, Encoding.UTF8);
+
+                var taskApi = Task.Run(() => httpClientMicroservicioSync.PostAsync(requestUrl, httpContent));
+
+                Task.WhenAll(taskApi);
+
+                if (taskApi.Result != null && !taskApi.Result.IsSuccessStatusCode)
+                {
+                    var message = string.Format("AdministrarEstrategiaProvider_JobBuscador: campania={0}, tipoPersonalizacion={1}, respuesta={2}", codigoCampania, tipoPersonalizacion, taskApi.Result.StatusCode);
+                    LogManager.LogManager.LogErrorWebServicesBus(new Exception(message), userData.CodigoConsultora, userData.CodigoISO);
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = string.Format("AdministrarEstrategiaProvider_JobBuscador: campania={0}, codigoEstrategia={1}, exception={2}", codigoCampania, codigoEstrategia, ex.Message);
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception(message, ex), userData.CodigoConsultora, userData.CodigoISO);
             }
         }
     }
