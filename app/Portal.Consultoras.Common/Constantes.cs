@@ -1331,7 +1331,7 @@ namespace Portal.Consultoras.Common
         {
             public const string BloqueoProductoDigital = "BloqueoProductoDigital";
             public const string ActivoMdo = "ActivoMDO";
-            public const string BloqueoProductoSR = "BloqueoProductoSR";
+            public const int ConfigPaisSR = 8;
 
             public static class RD
             {

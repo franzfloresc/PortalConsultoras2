@@ -1642,7 +1642,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 var userModel = userData;
-                var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
+                var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 5, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
                 var siExiste = productos.Any(p => p.CUV == model.CUV);
                 BloqueoProductosCatalogo(ref productos);
                 BloqueoProductosDigitales(ref productos);
@@ -1796,6 +1796,13 @@ namespace Portal.Consultoras.Web.Controllers
                         .Where(prod => !dato.Valor1.Contains(prod.CUV))
                         .ToList();
                 }
+            }
+
+            if (configEstrategiaSR.BloqueoProductoDigital)
+            {
+                beProductos = beProductos
+                    .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.ShowRoom)
+                    .ToList();
             }
         }
 

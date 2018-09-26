@@ -234,6 +234,8 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     _sessionManager.SetEsShowRoom("1");
 
+                    configEstrategiaSR.BloqueoProductoDigital = ObtenerBloquedoProductoDigital(model);
+
                     var fechaHoy = model.FechaHoy;
 
                     if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
@@ -400,6 +402,48 @@ namespace Portal.Consultoras.Web.Providers
             return model == null
                 ? string.Empty
                 : model.Valor;
+        }
+
+        private bool ObtenerBloquedoProductoDigital(UsuarioModel usuarioModel)
+        {
+            ServiceUsuario.BEConfiguracionPaisDatos entidadConfig;
+            bool result = false;
+
+            try
+            {
+                var entidad = new ServiceUsuario.BEConfiguracionPaisDatos
+                {
+                    PaisID = usuarioModel.PaisID,
+                    CampaniaID = usuarioModel.CampaniaID,
+                    ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
+                    {
+                        Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
+                        {
+                            CodigoConsultora = usuarioModel.CodigoConsultora,
+                            CodigoRegion = usuarioModel.CodigorRegion,
+                            CodigoZona = usuarioModel.CodigoZona,
+                            CodigoSeccion = usuarioModel.SeccionAnalytics
+                        }
+                    }
+                };
+
+                using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                {
+                    var lst =  sv.GetConfiguracionPaisDatos(entidad);
+                    //listaEntidad = lst;
+                    entidadConfig = lst.FirstOrDefault(c => c.ConfiguracionPaisID == Constantes.ConfiguracionPaisDatos.ConfigPaisSR && c.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                }
+
+                if (entidadConfig != null) result = entidadConfig.Valor1 == "1"; 
+               
+            }
+            catch (Exception ex )
+            {
+                _logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(),
+                    "ShowRoomProvider.ObtenerBloquedoProductoDigital");
+            }
+
+            return result;
         }
     }
 }
