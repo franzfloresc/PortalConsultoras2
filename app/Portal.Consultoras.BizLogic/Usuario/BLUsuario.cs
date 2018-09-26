@@ -3275,7 +3275,7 @@ namespace Portal.Consultoras.BizLogic
                         CodigoConsultora = usuario.CodigoConsultora,
                         CodigoRegion = usuario.CodigorRegion,
                         CodigoZona = usuario.CodigoZona,
-                        CodigoSeccion = usuario.Seccion
+                        CodigoSeccion = string.IsNullOrEmpty(usuario.SeccionAnalytics) ? usuario.Seccion : usuario.SeccionAnalytics
                     }
                 };
 
@@ -3306,7 +3306,7 @@ namespace Portal.Consultoras.BizLogic
                             CodigoConsultora = usuario.CodigoConsultora,
                             CodigoRegion = usuario.CodigorRegion,
                             CodigoZona = usuario.CodigoZona,
-                            CodigoSeccion = usuario.Seccion
+                            CodigoSeccion = string.IsNullOrEmpty(usuario.SeccionAnalytics) ? usuario.Seccion : usuario.SeccionAnalytics
                         }
                     }
                 };

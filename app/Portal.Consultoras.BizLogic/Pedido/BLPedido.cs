@@ -91,6 +91,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #region Publicos
         public BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar)
         {
+            var lstProductoFinal = new List<BEProducto>();
+            var validacionTipoEstrategia = string.Empty;
+
             try
             {
                 //Informacion de palancas
@@ -104,7 +107,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
 
                 //Validación producto no existe
-                var producto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
+                var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
                                     productoBuscar.PaisID,
                                     usuario.CampaniaID,
                                     productoBuscar.CodigoDescripcion,
@@ -114,16 +117,40 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     usuario.CodigoZona,
                                     productoBuscar.Criterio,
                                     productoBuscar.RowCount,
-                                    productoBuscar.ValidarOpt).FirstOrDefault();
+                                    productoBuscar.ValidarOpt);
+
+                if(!lstProducto.Any()) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
+
+                foreach (var item in lstProducto)
+                {
+                    if (!string.IsNullOrEmpty(item.TipoEstrategiaID))
+                    {
+                        validacionTipoEstrategia = BloqueoTipoEstrategia(productoBuscar.PaisID, item.TipoEstrategiaID);
+                        if (string.IsNullOrEmpty(validacionTipoEstrategia))
+                        {
+                            lstProductoFinal.Add(item);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        lstProductoFinal.Add(item);
+                        break;
+                    }
+                }
+
+                //Validacion Tipo Estrategia
+                if (!string.IsNullOrEmpty(validacionTipoEstrategia)) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_ESTRATEGIA, validacionTipoEstrategia);
+
+                var producto = lstProductoFinal.FirstOrDefault();
                 if (producto == null) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
+
+                //Validacion producto con tonos
+                if (producto.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_SET);
 
                 //Validación producto en catalogos
                 var bloqueoProductoCatalogo = BloqueoProductosCatalogo(usuario.RevistaDigital, usuario.CodigosRevistaImpresa, producto);
                 if (!bloqueoProductoCatalogo) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
-
-                //Validacion Tipo Estrategia
-                var validacionTipoEstrategia = BloqueoTipoEstrategia(productoBuscar.PaisID, producto.TipoEstrategiaID);
-                if (!string.IsNullOrEmpty(validacionTipoEstrategia)) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_ESTRATEGIA, validacionTipoEstrategia);
 
                 //Validación producto agotado
                 if (!producto.TieneStock) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_AGOTADO, null, producto);
@@ -163,6 +190,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
+                //Agrega cuvs al pedido de palancas
+                if (pedidoDetalle.Producto.EstrategiaID > 0)
+                {
+                    return PedidoAgregarProducto(pedidoDetalle);
+                }
+
                 //Informacion de usuario
                 var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
                 usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
@@ -2327,14 +2360,21 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             var pedidoID = 0;
 
+            var usuario = pedidoDetalle.Usuario;
+
+            var taskRevistaDigital = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital));
+            var taskValidacionMontoMaximo = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo));
+
+            Task.WaitAll(taskRevistaDigital, taskValidacionMontoMaximo);
+
             //Configuracion pais - RevistaDigital
-            var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.RevistaDigital);
+            usuario.RevistaDigital = taskRevistaDigital.Result.RevistaDigital;
 
             //Configuracion pais - ValidacionMontoMaximo
-            usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
+            usuario.TieneValidacionMontoMaximo = usuario.TieneValidacionMontoMaximo;
 
             //Validacion reserva u horario restringido
-            var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
+            var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID,
                                                                 usuario.ConsultoraID,
                                                                 usuario.CampaniaID,
                                                                 usuario.UsuarioPrueba == 1,
@@ -2343,7 +2383,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
 
             //FiltrarEstrategiaPedido
-            var estrategia = FiltrarEstrategiaPedido(pedidoDetalle.PaisID, pedidoDetalle.Producto.EstrategiaID, 0);
+            var estrategia = FiltrarEstrategiaPedido(usuario.PaisID, pedidoDetalle.Producto.EstrategiaID, 0);
             var cuvSet = estrategia.CUV2;
 
             //UnidadesPermitidas
@@ -2372,7 +2412,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             //Obtener Detalle
             var pedidoDetalleBuscar = new BEPedidoBuscar()
             {
-                PaisID = pedidoDetalle.PaisID,
+                PaisID = usuario.PaisID,
                 CampaniaID = usuario.CampaniaID,
                 ConsultoraID = usuario.ConsultoraID,
                 NombreConsultora = usuario.Nombre,
