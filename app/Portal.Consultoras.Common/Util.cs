@@ -3750,6 +3750,42 @@ namespace Portal.Consultoras.Common
                         
             return result;
         }
+
+        public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)
+        {
+            var tipoPersonalizacion = string.Empty;
+
+            switch (codigoEstrategia)
+            {
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.Lanzamiento;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaParaTi;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertasParaMi;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.PackAltoDesembolso;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.GuiaDeNegocioDigitalizada;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.HerramientasVenta;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.ShowRoom;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
+                    break;
+                default:
+                    break;
+            }
+            return tipoPersonalizacion;
+        }
     }
 
     public static class DataRecord
