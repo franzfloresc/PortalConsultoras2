@@ -8,7 +8,7 @@
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
     var origen = Request.Params["origen"];
-    origen = origen ?? "";
+    origen = origen ?? string.Empty;
 }
 
 @section styles{
