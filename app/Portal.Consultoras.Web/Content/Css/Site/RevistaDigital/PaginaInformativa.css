@@ -142,16 +142,20 @@
     height: 330px;
 }
 
-.como-funciona .arrow-down {
-    display: block;
-    margin: auto;
-    width: 20px;
-    height: 26px !important;
-    background: url('/Content/Images/RevistaDigital/triangulo-dorado.svg');
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
+    .como-funciona .contenedor-suscripcion{
+        margin-top: 0px !important;
+    }
+
+    .como-funciona .arrow-down {
+        display: block;
+        margin: auto;
+        width: 20px;
+        height: 26px !important;
+        background: url('/Content/Images/RevistaDigital/triangulo-dorado.svg');
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
 
 .como-funciona p.como-funciona-txt {
     color: #c39934;
