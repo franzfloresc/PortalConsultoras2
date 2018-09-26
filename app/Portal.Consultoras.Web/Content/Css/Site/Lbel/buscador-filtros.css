@@ -1081,7 +1081,7 @@
 @media screen and (max-width:351px){
 
     .btn_elegir_opcion {
-        padding-top:6px;
+        padding-top:2px;
     }
 
     .btn_elegir_opcion span:last-child{
