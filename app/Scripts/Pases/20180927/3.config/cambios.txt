@@ -17,3 +17,6 @@ Add:
     <add key="RevistaPiloto_Zonas_CR201818_ESCrdr1" value="0823, 0826" />
     <add key="RevistaPiloto_Zonas_CR201818_ESCrdr2" value="0803,0830" />
 	
+Agregar lo siguiente debajo de la key: UrlMicroservicioPersonalizacionConfig
+<add key="UrlMicroservicioPersonalizacionSync" value="http://internal-elbwcf-sbmicroserviciosprd-435783028.us-east-1.elb.amazonaws.com:5001/"/>
+	
