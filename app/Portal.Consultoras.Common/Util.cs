@@ -3635,7 +3635,13 @@ namespace Portal.Consultoras.Common
             {
                 result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
 
-                if (result == "") result = (descripcion.Replace("[", "")).Replace("]", "");
+                if (result == "")
+                {
+                    if (string.IsNullOrEmpty(descripcion))
+                        result = "";
+                    else 
+                        result = (descripcion.Replace("[", "")).Replace("]", "");
+                }
 
                 if (string.IsNullOrWhiteSpace(result))
                 {
