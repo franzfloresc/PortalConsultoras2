@@ -315,6 +315,15 @@
     padding-bottom:16px;
 }
 
+.info_importante_tarjeta_credito_habilitada span:first-child{
+    margin-right:5px;
+    height:20px;
+}
+
+.info_importante_tarjeta_credito_habilitada span:last-child{
+    color:#e81c36;
+}
+
 .metodo_pago_seleccionado{
     position:relative;
     border:1px solid #D2D2D2;
