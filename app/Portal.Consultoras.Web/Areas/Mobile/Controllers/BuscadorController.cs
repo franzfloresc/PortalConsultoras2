@@ -16,34 +16,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             return View();
         }
-
-        public async Task<JsonResult> BusquedaProductos(string busqueda, int totalResultados)
-        {
-            List<BuscadorYFiltrosModel> ListaProductosModel;
-            try
-            {
-
-                var buscadorModel = new BuscadorModel
-                {
-                    userData = userData,
-                    revistaDigital = revistaDigital,
-                    TextoBusqueda = busqueda,
-                    CantidadProductos = totalResultados
-                };
-
-                var resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(buscadorModel);
-
-                ListaProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, SessionManager.GetDetallesPedido(), userData, revistaDigital, true);
-
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                ListaProductosModel = new List<BuscadorYFiltrosModel>();
-            }
-            return Json(ListaProductosModel, JsonRequestBehavior.AllowGet);
-        }
-
-
     }
 }
