@@ -319,6 +319,11 @@
     padding-bottom:16px;
 }
 
+.info_importante_tarjeta_credito_habilitada{
+    font-size:12.5px;
+    letter-spacing:0.3px;
+}
+
 .info_importante_tarjeta_credito_habilitada span:first-child{
     margin-right:5px;
     height:20px;
