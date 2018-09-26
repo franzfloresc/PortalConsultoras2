@@ -261,7 +261,7 @@
                                 }
                             }
 
-                            var nieto = menuPadre.SubMenus[8];
+                            var nieto = menuPadre.SubMenus.ToList().Where(x => x.Descripcion == "MI ASESOR DE BELLEZA").FirstOrDefault();
 
                             if (nieto.Descripcion != "")
                             {
