@@ -925,11 +925,13 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
+                "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/Shared/style-responsive.css",
                 "~/Content/Css/Site/Esika/style-esika-responsive.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
+                "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/Shared/style-responsive.css",
                 "~/Content/Css/Site/Lbel/style-lbel-responsive.css"
             ));

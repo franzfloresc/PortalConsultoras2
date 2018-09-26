@@ -12,7 +12,7 @@ html, body{
     margin:0;
 }
 
-header,nav, section, aside, picture, fieldset, h1, h2, h3, h4, h5, h6, p{
+header,nav, section, aside, picture, fieldset, caption, figure, h1, h2, h3, h4, h5, h6, p{
     margin:0;
     padding:0;
 }
@@ -32,6 +32,46 @@ body > img{
 }
 
 /* FIN - ESTILOS GENERALES */
+
+/* ESTILOS MODIFICADORES JQUERY UI */
+
+.ui-dialog.ui-widget-content {
+    width: auto !important;
+    background: #FFFFFF !important;
+    color: #555 !important;
+    border-radius:0;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    padding: 0 0 0 10px;
+}
+
+#loadingScreen {
+    padding: 20px 30px;
+}
+
+.loadingScreen-titulo {
+    font-weight: 700;
+    font-family: lato;
+    font-size: 10pt;
+    color: #0C0B0C;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.loadingScreen-mensaje {
+    background: url(/Content/Images/Loading.gif) no-repeat 0 0;
+    padding-left: 25px;
+    margin-top: 10px;
+    padding-bottom: 5px;
+    font-family: 'lato';
+    font-size: 10pt;
+    color: black;
+    margin-top: 20px;
+}
+
+/* FIN - ESTILOS MODIFICADORES JQUERY UI */
 
 /* HELPERS CSS */
 
