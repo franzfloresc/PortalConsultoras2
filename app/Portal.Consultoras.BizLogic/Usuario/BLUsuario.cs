@@ -3032,7 +3032,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 /*Obteniendo Datos de Verificacion de Autenticidad*/
                 var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
-                if (opcion == null) return null;                
+                if (opcion == null) return null;
                 /*Verificando si tiene Verificacion*/
                 var oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
                 var vCambioClave = false;
@@ -3101,7 +3101,7 @@ namespace Portal.Consultoras.BizLogic
 
                 oUsu.OpcionVerificacionSMS = opcion.OpcionSms ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
                 oUsu.OpcionVerificacionCorreo = opcion.OpcionEmail ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
-                oUsu.OpcionCambioClave = opcion.OpcionContrasena ? oUsu.OpcionCambioClave : -1;
+                oUsu.OpcionCambioClave = (opcion.OpcionContrasena && opcion.OpcionSms) ? oUsu.OpcionCambioClave : -1;
 
                 return oUsu;
             }
