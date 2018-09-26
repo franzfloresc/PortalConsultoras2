@@ -133,15 +133,15 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     if (!permiso.Mostrar)
                         continue;
-
-                    if (permiso.Descripcion.ToUpperInvariant() == "SOCIA EMPRESARIA" && permiso.IdPadre == 0
+                    var description = permiso.Descripcion.ToUpperInvariant();
+                    if (description == "SOCIA EMPRESARIA" && permiso.IdPadre == 0
                         && !(userSession.Lider == 1 && userSession.PortalLideres))
                     {
                         continue;
                     }
 
                     permiso.PageTarget = permiso.PaginaNueva ? "_blank" : "_self";
-                    permiso.ClaseSubMenu = permiso.Descripcion == "MI NEGOCIO" ? "sub_menu_home1" : "sub_menu_home2";
+                    permiso.ClaseSubMenu = description == "MI NEGOCIO" ? "sub_menu_home1" : "sub_menu_home2";
 
                     if (permiso.IdPadre == 0)
                     {
@@ -149,8 +149,8 @@ namespace Portal.Consultoras.Web.Providers
                         permiso.ClaseMenuItem = "";
                         var urlSplit = permiso.UrlItem.Split('/');
                         permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + ", '" + permiso.Descripcion + "')";
-
-                        if (permiso.Descripcion.ToUpperInvariant() == "TU VOZ ONLINE")
+                        
+                        if (description == "TU VOZ ONLINE" || description == "MI COMUNIDAD")
                         {
                             if (!userSession.EsUsuarioComunidad)
                             {
@@ -162,7 +162,7 @@ namespace Portal.Consultoras.Web.Providers
                             }
                         }
 
-                        if (permiso.Descripcion.ToUpperInvariant() == "SOCIA EMPRESARIA")
+                        if (description == "SOCIA EMPRESARIA")
                         {
                             permiso.ClaseMenu = "menu_socia_empresaria";
                             if (userSession.Lider == 1 && userSession.PortalLideres)

@@ -294,7 +294,7 @@ $(document).ready(function () {
     });
 
     setInterval(animacionFlechaScroll, 1000);
-
+    setComunidadFooterLink();
 });
 
 function AbrirVentanaBelcorpChat(url) {
@@ -625,7 +625,7 @@ function alert_msg_com(message) {
 function AbrirModalRegistroComunidad() {
 
     if (gTipoUsuario == '2') {
-        URL = 'https://esikatuvozonline.questionpro.com/';
+        URL = getUrlComunidad();
         window.open(URL, '_blank');
         return false;
     }
@@ -640,6 +640,21 @@ function AbrirModalRegistroComunidad() {
     SendPushMiComunidad();
 
     return false;
+}
+
+function getUrlComunidad() {
+    var url = IsoPais === 'PE' || IsoPais === 'CO'
+        ? 'https://esikatuvozonline.questionpro.com/'
+        : 'http://comunidad.somosbelcorp.com/';
+
+    return url;
+}
+
+function setComunidadFooterLink() {
+    var url = getUrlComunidad();
+    var title = IsoPais === 'PE' || IsoPais === 'CO' ? 'TU VOZ ONLINE' : 'COMUNIDAD VIRTUAL';
+    $('#lnkComunidad').attr('href', url);
+    $('#capTuVoz').html(title);
 }
 
 function SendPushMiComunidad() {

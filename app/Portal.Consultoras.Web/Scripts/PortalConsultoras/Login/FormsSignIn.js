@@ -88,11 +88,17 @@ $(document).ready(function () {
         imgISO = $("#ddlPais").val();
         analytics.invocarAnalyticsByCodigoIso(imgISO);
 
-        if ($("#ddlPais").val() == "MX") {
+        if (imgISO == "PE" || imgISO == "CO") {
+            $("#RecuadroComunidad").hide();
+        } else {
+            $("#RecuadroComunidad").show();
+        }
+
+        if (imgISO == "MX") {
             $("#AvisoASP").show();
         } else {
             $("#AvisoASP").hide();
-        };
+        }
 
         if (imgISO == "PA") $("#footer_esika").hide();
         else $("#footer_esika").show();
