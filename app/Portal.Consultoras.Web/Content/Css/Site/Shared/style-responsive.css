@@ -308,12 +308,24 @@ body > img{
 
 .submenu__lista--miNegocio{
     width: 937px;
-    top:51px;
     left:-153px;
     height: 239px;
     z-index:4;
     align-content:space-evenly;
     text-align:left;
+}
+
+.submenu__lista--miNegocio,
+.submenu__lista--miAsesorBelleza
+{
+    border-top: 1px solid #000;
+}
+
+.pestana__marca__pais{
+    z-index: 1000;
+    position: absolute;
+    right: 0;
+    background-repeat:no-repeat;
 }
 
 .submenu__item--AsesorBelleza{
@@ -365,11 +377,11 @@ body > img{
 {
     width:615px;
     height:188px;
-    margin-top:-1px;
     left:105px;
     padding-top:38px;
     padding-left: 57px;
     padding-right: 20px;
+    z-index:2;
 }
 
 .sub__menu__asesorBelleza{
@@ -1485,7 +1497,8 @@ body > img{
     .submenu__lista--miNegocio{
         width:auto;
         height:auto;
-        top:0;
+        top:0!important;
+        border-top:none;
         left:0;
     }
 
@@ -1508,6 +1521,10 @@ body > img{
         padding-left:43px;
         line-height:35px;
         position:relative;
+    }
+
+    .notificaciones_menu_mobile2{
+        margin-left:10px;
     }
 
     .header__menu--lateralDerecho .menu__link{

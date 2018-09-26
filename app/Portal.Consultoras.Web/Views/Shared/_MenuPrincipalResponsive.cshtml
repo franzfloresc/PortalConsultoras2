@@ -129,13 +129,13 @@
                                     @subItem.Descripcion
                                     @if (tipoUsuario == 2 && subItem.Descripcion.ToLower().Trim() == "app de catálogos")
                                     {
-                                        <div class="notificaciones_menu_mobile2">¡Afiliate!</div>
+                                        <div class="notificaciones_menu_mobile2 d-inline-block text-bold">¡Afiliate!</div>
                                     }
                                     else if (ViewBag.TipoMenuConsultoraOnline == 1)
                                     {
                                         if (subItem.MenuMobileID == ViewBag.MenuHijoIDConsultoraOnline)
                                         {
-                                            <div class="notificaciones_menu_mobile2">¡Afiliate!</div>
+                                            <div class="notificaciones_menu_mobile2 d-inline-block text-bold">¡Afiliate!</div>
                                         }
                                     }
                                     else if (ViewBag.TipoMenuConsultoraOnline == 2)
@@ -193,6 +193,7 @@
                         @menuPadre.Descripcion
                     </a>
                     <ul class="submenu__lista submenu__lista--miNegocio row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
+                        <div class="pestana__marca__pais"></div>
                         @{
                             var margin = "";
                             var contador = 0;
@@ -216,12 +217,12 @@
                                     //    break;
                                     //}
 
-                                    @*<li class="submenu__item">
-                                            <a class="submenu__link d-block" title="@menuHijo.Descripcion">
-                                                @menuHijo.Descripcion
-                                            </a>
+                                @*<li class="submenu__item">
+                        <a class="submenu__link d-block" title="@menuHijo.Descripcion">
+                            @menuHijo.Descripcion
+                        </a>
 
-                                        </li>*@
+                    </li>*@
                                 }
                                 else
                                 {
@@ -271,7 +272,7 @@
                                         @nieto.Descripcion
                                     </a>
                                     <div class="submenu__lista submenu__lista--miAsesorBelleza row flex-row justify-content-start ml-0 mr-0">
-
+                                        <div class="pestana__marca__pais"></div>
                                         @foreach (var q in nieto.SubMenus)
                                         {
                                             <div class="sub__menu__asesorBelleza">
