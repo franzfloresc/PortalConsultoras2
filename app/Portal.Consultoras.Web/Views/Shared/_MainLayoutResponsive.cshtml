@@ -1,7 +1,8 @@
-﻿@using Portal.Consultoras.Common
+﻿@using System.Web.Optimization
+@using Portal.Consultoras.Common
 
 @{
-    var origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopBuscador;
+    var origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopBuscador;
 }
 
 <!DOCTYPE html>
@@ -16,18 +17,16 @@
 
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Shared/style-responsive.css")">
+    
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        //@System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/style-esika-responsive.css")">
+        @Styles.Render("~/Bundle/Css/Mixto/EsikaPageResponsive")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        //@System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/style-lbel-responsive.css")">
+        @Styles.Render("~/Bundle/Css/Mixto/LebelPageResponsive")
     }
 
     <script type="text/javascript">
@@ -87,13 +86,11 @@
         // Seteando Controlador y Accion
         @{
             var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
-            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+            var ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            var acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
-        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
-
     </script>
 </head>
 <body>
@@ -186,9 +183,9 @@
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
 
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
+    @Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
 
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/PageResponsive")
+    @Scripts.Render("~/Bundle/Js/Mixto/PageResponsive")
 
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
@@ -219,7 +216,6 @@
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
     </script>
-
     <script type='text/javascript'>
         (function () {
             var proto = document.location.protocol || 'http:';
