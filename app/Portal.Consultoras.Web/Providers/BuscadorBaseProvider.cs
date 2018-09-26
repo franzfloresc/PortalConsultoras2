@@ -13,15 +13,15 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorBaseProvider
     {
-        private readonly static HttpClient httpClient = new HttpClient();
+        private readonly static HttpClient httpClientBuscador = new HttpClient();
 
         static BuscadorBaseProvider()
         {
             if (!string.IsNullOrEmpty(WebConfig.RutaServiceBuscadorAPI))
             {
-                httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClientBuscador.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
+                httpClientBuscador.DefaultRequestHeaders.Accept.Clear();
+                httpClientBuscador.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             }
         }
 
@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var resultados = new List<BuscadorYFiltrosModel>();
 
-            var httpResponse = await httpClient.GetAsync(path);
+            var httpResponse = await httpClientBuscador.GetAsync(path);
 
             if (httpResponse.IsSuccessStatusCode)
             {
