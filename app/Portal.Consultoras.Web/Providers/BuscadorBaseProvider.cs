@@ -4,6 +4,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -36,34 +37,28 @@ namespace Portal.Consultoras.Web.Providers
 
                 var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
 
-                foreach (var item in list)
+                resultados.AddRange(list.Select(item => new BuscadorYFiltrosModel
                 {
-                    BuscadorYFiltrosModel buscador = new BuscadorYFiltrosModel
-                    {
-                        CUV = item.CUV,
-                        SAP = item.SAP,
-                        Imagen = item.Imagen,
-                        Descripcion = item.Descripcion,
-                        Valorizado = item.Valorizado,
-                        Precio = item.Precio,
-                        MarcaId = item.MarcaId,
-                        TipoPersonalizacion = item.TipoPersonalizacion,
-                        CodigoEstrategia = item.CodigoEstrategia,
-                        CodigoTipoEstrategia = item.CodigoTipoEstrategia,
-                        TipoEstrategiaId = item.TipoEstrategiaId,
-                        LimiteVenta = item.LimiteVenta,
-                        Stock = item.Stock,
-                        URLBsucador = path,
-                        EstrategiaID = item.EstrategiaID
-                    };
-
-                    resultados.Add(buscador);
-                }
+                    CUV = item.CUV,
+                    SAP = item.SAP,
+                    Imagen = item.Imagen,
+                    Descripcion = item.Descripcion,
+                    Valorizado = item.Valorizado,
+                    Precio = item.Precio,
+                    MarcaId = item.MarcaId,
+                    TipoPersonalizacion = item.TipoPersonalizacion,
+                    CodigoEstrategia = item.CodigoEstrategia,
+                    CodigoTipoEstrategia = item.CodigoTipoEstrategia,
+                    TipoEstrategiaId = item.TipoEstrategiaId,
+                    LimiteVenta = item.LimiteVenta,
+                    Stock = item.Stock,
+                    URLBsucador = path,
+                    EstrategiaID = item.EstrategiaID
+                }));
             }
 
             return resultados;
         }
-
      
     }
 }
