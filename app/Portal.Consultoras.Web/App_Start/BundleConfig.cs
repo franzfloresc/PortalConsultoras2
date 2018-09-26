@@ -152,7 +152,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/LogError.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
-                "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
