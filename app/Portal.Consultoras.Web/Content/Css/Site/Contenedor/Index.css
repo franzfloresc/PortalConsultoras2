@@ -319,6 +319,7 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
     width: 100%;
     background-color: #fff;
     z-index: 5;
+    box-shadow: 1px 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 .op-menu-horizontal {
     text-align: center;

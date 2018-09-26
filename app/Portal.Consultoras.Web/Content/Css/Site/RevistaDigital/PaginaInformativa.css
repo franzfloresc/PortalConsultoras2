@@ -25,9 +25,10 @@
     height: auto;
     float: initial;
     height: 95px;
-    background: url(/Content/Images/logo-club-ganamas-dorado.svg);
-    background-size: cover;
+    background: url(/Content/Images/logo-club-ganamas-dorado2.svg);
+    background-size: 217px;
     background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .gana-mas p.sblogo {
