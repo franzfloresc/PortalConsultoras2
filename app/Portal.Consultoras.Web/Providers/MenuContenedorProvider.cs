@@ -502,7 +502,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager.SetMenuContenedor(menuContenedor);
             SetMenuContenedorNoSuscrita(menuContenedor, revistaDigital.EsSuscrita);
 
-            menuContenedor.Add(new ConfiguracionPaisModel() { DesktopTituloMenu="SABER MÁS", Codigo = "INFO", CampaniaId=userData.CampaniaID ,UrlMenu= "RevistaDigital/Informacion" , MobileTituloMenu =  "SABER MAS" });
+            menuContenedor.Add(new ConfiguracionPaisModel() { DesktopTituloMenu="SABER MÁS", Codigo = "INFO", CampaniaId=userData.CampaniaID ,UrlMenu= "RevistaDigital/Informacion" , MobileTituloMenu =  "SABER MÁS" });
             return menuContenedor;
         }
         private void SetMenuContenedorNoSuscrita(List<ConfiguracionPaisModel> MenuContenedor, bool EsSuscrita)
