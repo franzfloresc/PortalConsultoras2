@@ -244,7 +244,7 @@
 
 .seleccion_btn .cantidad_mas_home {
     height: 36px;
-    line-height: 33px;
+    line-height: 36px;
 }
 
 .seleccion_btn .rango_cantidad_pedido {
@@ -263,7 +263,7 @@
 
     .seleccion_btn .cantidad_mas_home span, .seleccion_btn .cantidad_menos_home span {
         border: none;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: bold;
     }
 
@@ -282,7 +282,7 @@
 .seleccion_btn .cantidad_menos_home {
     width: 32%;
     height: 36px;
-    line-height: 33px;
+    line-height: 35px;
 }
 
 .seleccion_header h3 span{

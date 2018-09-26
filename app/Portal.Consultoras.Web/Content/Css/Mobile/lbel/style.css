@@ -5383,6 +5383,7 @@ table > thead > tr > th {
     font-weight: 700;
     border-top: 1px solid #b0b0b0;
     border-bottom: 1px solid #b0b0b0;
+    font-size: 11px;
 }
 
 .cantidad_mas_home {
