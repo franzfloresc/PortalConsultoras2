@@ -78,7 +78,7 @@
         </div>
     </div>
     <ul class="menu__lista row flex-column flex-lg-row flex-xl-row justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center ml-0 mr-0 mb-0 pl-0">
-        <li class="menu__item">
+        <li class="menu__item" data-title="INGRESA TU PEDIDO">
             <a class="menu__link menu__link--pedido d-block text-uppercase" title="Ingresa tu pedido">
                 Ingresa <span class="text-bold">tu pedido</span>
             </a>
@@ -90,7 +90,7 @@
             {
                 if (item.Descripcion != "¿Necesitas ayuda?")
                 {
-                    <li class="menu__item">
+                    <li class="menu__item" data-title="@item.Descripcion">
                         <a class="menu__link d-block"
                            title="@item.Descripcion"
                            href="@item.UrlItem"
@@ -109,7 +109,7 @@
             }
             else
             {
-                <li class="menu__item">
+                <li class="menu__item" data-title="@item.Descripcion">
                     <a class="menu__link d-block menu__link--conSubmenu menu__link--conSubmenuMobile"
                        parent="@item.Descripcion" title="@item.Descripcion"
                        data-toggle="collapse" data-parent="#accordion"
@@ -159,7 +159,7 @@
 
             if (item.Descripcion == "¿Necesitas ayuda?")
             {
-                <li class="menu__item">
+                <li class="menu__item" data-title="@item.Descripcion">
                     <a class="menu__link d-block"
                        parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
                        target="@item.PageTarget"
@@ -188,8 +188,8 @@
         {
             if (menuPadre.SubMenus.Count > 0)
             {
-                <li class="menu__item menu__item--miNegocio" data-title=" @menuPadre.Descripcion">
-                    <a class="menu__link d-block menu__link--conSubmenu" title=" @menuPadre.Descripcion">
+                <li class="menu__item menu__item--miNegocio" data-title="@menuPadre.Descripcion">
+                    <a class="menu__link d-block menu__link--conSubmenu" title="@menuPadre.Descripcion">
                         @menuPadre.Descripcion
                     </a>
                     <ul class="submenu__lista submenu__lista--miNegocio row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
@@ -232,7 +232,7 @@
                                     if (contadorRe == 0)
                                     {
                                         contadorRe++;
-                                        <li class="submenu__item submenu__item--IngresaTuPedido" data-title="Ingresa tu pedido">
+                                        <li class="submenu__item submenu__item--IngresaTuPedido" data-title="INGRESA TU PEDIDO">
                                             <a href="javascript:;" class="submenu__link menu__link--pedido d-block text-uppercase"
                                                onclick="RedirectMenu('Index', 'Pedido', 0, 'Pedido')"
                                                target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Ingreso Pedido" id="lnk-pri-ingreso-pedidos">
@@ -345,7 +345,7 @@
             }
             else
             {
-                <li class="menu__item">
+                <li class="menu__item" data-title="@menuPadre.Descripcion">
                     @if (menuPadre.UrlItem == "")
                     {
                         <a href="javascript:;" class="menu__link d-block" title="@menuPadre.Descripcion">
