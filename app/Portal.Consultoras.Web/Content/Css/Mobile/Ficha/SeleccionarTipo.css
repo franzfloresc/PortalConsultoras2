@@ -128,15 +128,17 @@
 }
 
 .aplicar_seleccion .disabled{
-    background-color: #d8d8d8 !important;
+    background-color: rgba(216, 216, 216, 0.5) !important;
     cursor: auto;
+    color: rgba(128, 128, 128, 0.5);
+    border: 1px solid rgba(128, 128, 128, 0.5);
 }
 
 .seleccion_btn .disabled {
-    background-color: #d8d8d8 !important;
+    background-color: rgba(216, 216, 216, 0.5);
     pointer-events: none;
-    border-color: #fff !important;
-    color: #fff;
+    border-color: rgba(128, 128, 128, 0.5) !important;
+    color: rgba(128, 128, 128, 0.5);
     border-radius: 5px;
 }
 
@@ -268,11 +270,11 @@
     }
 
 .disabled .cantidad_menos_home span, .disabled .cantidad_mas_home span {
-    color: #fff;
+    color: rgba(128, 128, 128, 0.5);
 }
 
-.disabled .rango_cantidad_pedido{
-    border-color: #fff;
+.disabled .rango_cantidad_pedido {
+    border-color: rgba(128, 128, 128, 0.5);
 }
 
 .seleccion_btn .content_cantidad_ficha_producto {
