@@ -1458,6 +1458,10 @@ namespace Portal.Consultoras.Common
 
             public static class RDI
             {
+                
+            public const string LogoMenuRevistaDigitaIntrigaNoActivo = "LogoMenuRevistaDigitaIntrigaNoActivo";
+            public const string LogoMenuRevistaDigitaIntrigaActiva = "LogoMenuRevistaDigitaIntrigaActiva";
+
                 public const string LogoMenuOfertas = "LogoMenuOfertas";
                 public const string DBienvenidaIntriga = "DBienvenidaIntriga";
                 public const string MBienvenidaIntriga = "MBienvenidaIntriga";

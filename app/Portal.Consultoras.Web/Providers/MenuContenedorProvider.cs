@@ -418,9 +418,10 @@ namespace Portal.Consultoras.Web.Providers
                         config.MobileTituloBanner = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_TituloBanner, config.MobileTituloBanner);
                         config.MobileSubTituloBanner = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, config.MobileSubTituloBanner);
 
-                       // config.DesktopLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
-                        //config.MobileLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
-                        //config.MobileLogoMenu = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.MLogoComercialFondoNoActiva);
+         
+                        config.DesktopLogoMenu = revistaDigital.DLogoMenuInicioActiva;
+                        config.DesktopLogoMenuNoActivo = revistaDigital.DLogoMenuInicioNoActiva;
+ 
                         config.Descripcion = string.Empty;
                         config = _configuracionPaisProvider.ActualizarTituloYSubtituloBanner(config, revistaDigital);
                         break;

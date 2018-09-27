@@ -1,4 +1,4 @@
-use belcorpperu_bpt
+use belcorpchile_bpt
 go
 
 
@@ -69,3 +69,72 @@ begin
 
 end
 GO
+
+
+
+
+if(not(exists(select 1 from configuracionpaisdatos where codigo='LogoMenuRevistaDigitaIntrigaActiva' )))
+begin
+
+		INSERT INTO [dbo].[ConfiguracionPaisDatos]
+				   ( 
+				   configuracionpaisid,
+				   [Codigo]
+				   ,[CampaniaID]
+				   ,[Valor1]
+				   ,[Valor2]
+				   ,[Valor3]
+				   ,[Descripcion]
+				   ,[Estado]
+				   ,[Componente])
+			 VALUES
+				   ( 
+				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
+				   'LogoMenuRevistaDigitaIntrigaActiva'
+				   ,0
+				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_seleccionado.svg'
+				   ,null
+				   ,'Logo del menu inicio para desktop y mobile para la consultora Activa'
+				   ,1
+				   ,null)
+
+
+end
+
+GO
+
+
+if(not(exists(select 1 from configuracionpaisdatos where codigo='LogoMenuRevistaDigitaIntrigaNoActivo' )))
+begin
+
+
+
+			INSERT INTO [dbo].[ConfiguracionPaisDatos]
+					   ( 
+					   configuracionpaisid,
+					   [Codigo]
+					   ,[CampaniaID]
+					   ,[Valor1]
+					   ,[Valor2]
+					   ,[Valor3]
+					   ,[Descripcion]
+					   ,[Estado]
+					   ,[Componente])
+				 VALUES
+					   ( 
+						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
+					   'LogoMenuRevistaDigitaIntrigaNoActivo'
+					   ,0
+					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,null
+					   ,'Logo del menu inicio para desktop y mobile para la consultora '
+					   ,1
+					   ,null)
+
+end
+GO
+
+
+
