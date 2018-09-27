@@ -2061,6 +2061,11 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigital.MLogoComercialNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor2);
                 }
 
+
+                 
+                revistaDigital.DLogoMenuInicioActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaActiva, paisIso);
+                 revistaDigital.DLogoMenuInicioNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaNoActivo, paisIso);
+                
                 confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercialFondo);
                 if (confPaisDatoTmp != null)
