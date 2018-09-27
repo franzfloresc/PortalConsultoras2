@@ -346,9 +346,9 @@ namespace Portal.Consultoras.Web.Controllers
                 List<List<BEEstadoServicio>> lista;
 
                 if (CampaniaFinalId == "0")
-                    lista = sessionManager.GetListaIndividual();
+                    lista = SessionManager.GetListaIndividual();
                 else
-                    lista = sessionManager.GetListaRango();
+                    lista = SessionManager.GetListaRango();
 
                 foreach (List<BEEstadoServicio> item in lista)
                 {
@@ -372,9 +372,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 if (CampaniaFinalId == "0")
-                    sessionManager.SetListaIndividual(lista);
+                    SessionManager.SetListaIndividual(lista);
                 else
-                    sessionManager.SetListaRango(lista);
+                    SessionManager.SetListaRango(lista);
 
                 return Json(new
                 {
@@ -470,7 +470,7 @@ namespace Portal.Consultoras.Web.Controllers
                         List<List<BEEstadoServicio>> lista;
                         if (CampaniaFinalId == "0")
                         {
-                            lista = sessionManager.GetListaIndividual();
+                            lista = SessionManager.GetListaIndividual();
 
                             foreach (List<BEEstadoServicio> list in lista)
                             {
@@ -552,7 +552,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            lista = sessionManager.GetListaRango();
+                            lista = SessionManager.GetListaRango();
 
                             foreach (List<BEEstadoServicio> list in lista)
                             {
@@ -750,8 +750,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                sessionManager.SetListaIndividual(null);
-                sessionManager.SetListaRango(null);
+                SessionManager.SetListaIndividual(null);
+                SessionManager.SetListaRango(null);
 
                 List<BEServicio> lst = new List<BEServicio>();
                 if (vCampaniaInicial != "0")
@@ -992,14 +992,14 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.GetEstadoServiciobyPais(ServicioId, CampaniaInicioID).ToList();
                         lst[0].CampaniaInicialId = CampaniaInicioID.ToString();
                         lst[0].ServicioId = ServicioId;
-                        if (sessionManager.GetListaIndividual() == null)
+                        if (SessionManager.GetListaIndividual() == null)
                         {
                             List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>> { lst };
-                            sessionManager.SetListaIndividual(lista);
+                            SessionManager.SetListaIndividual(lista);
                         }
                         else
                         {
-                            List<List<BEEstadoServicio>> lista = sessionManager.GetListaIndividual();
+                            List<List<BEEstadoServicio>> lista = SessionManager.GetListaIndividual();
                             foreach (List<BEEstadoServicio> item in lista)
                             {
                                 if (item[0].ServicioId == ServicioId && item[0].CampaniaInicialId == CampaniaInicioID.ToString())
@@ -1010,7 +1010,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             if (contador == 0)
                                 lista.Add(lst);
-                            sessionManager.SetListaIndividual(lista);
+                            SessionManager.SetListaIndividual(lista);
                         }
                     }
                     else
@@ -1019,14 +1019,14 @@ namespace Portal.Consultoras.Web.Controllers
                         lst[0].CampaniaInicialId = CampaniaInicioID.ToString();
                         lst[0].CampaniaFinalId = CampaniaFinalID.ToString();
                         lst[0].ServicioId = ServicioId;
-                        if (sessionManager.GetListaRango() == null)
+                        if (SessionManager.GetListaRango() == null)
                         {
                             List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>> { lst };
-                            sessionManager.SetListaRango(lista);
+                            SessionManager.SetListaRango(lista);
                         }
                         else
                         {
-                            List<List<BEEstadoServicio>> lista = sessionManager.GetListaRango();
+                            List<List<BEEstadoServicio>> lista = SessionManager.GetListaRango();
                             foreach (List<BEEstadoServicio> item in lista)
                             {
                                 if (item[0].ServicioId == ServicioId && item[0].CampaniaInicialId == CampaniaInicioID.ToString() && item[0].CampaniaFinalId == CampaniaFinalID.ToString())
@@ -1038,7 +1038,7 @@ namespace Portal.Consultoras.Web.Controllers
                             if (contador == 0)
                                 lista.Add(lst);
                             lista.Add(lst);
-                            sessionManager.SetListaRango(lista);
+                            SessionManager.SetListaRango(lista);
                         }
                     }
                 }

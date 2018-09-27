@@ -88,7 +88,7 @@ namespace Portal.Consultoras.BizLogic
             return BEPedidoWebResult.BuildOk();
         }
 
-        public class ResponseCode
+        public static class ResponseCode
         {
             public const string ERROR_PRODUCTO_NO_ENCONTRADO = "05";
             public const string ERROR_PRODUCTO_STOCK_INVALIDO = "06";

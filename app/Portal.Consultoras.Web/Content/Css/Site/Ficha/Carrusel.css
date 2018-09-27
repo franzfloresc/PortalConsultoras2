@@ -24,9 +24,9 @@
     width: 33px;
 }
 
-    .dibujar_linea_titulo_carrusel::before, .dibujar_linea_titulo_carrusel::after {
-        border-bottom: solid 2px #979797;
-    }
+.dibujar_linea_titulo_carrusel::before, .dibujar_linea_titulo_carrusel::after {
+    border-bottom: solid 2px #979797;
+}
 
 .linea_izquierda {
     margin-left: 90%;
@@ -47,7 +47,6 @@
 
 .contenedor_carrusel {
     margin: 27px auto 0 auto;
-    /*width: 75%;*/
     width: 813.75px;
 }
 
@@ -71,14 +70,14 @@
     position: relative;
 }
 
-    .contenedor_imagen_carrusel img {
-        height: 100%;
-        width: auto;
-    }
+.contenedor_imagen_carrusel img {
+    height: 100%;
+    width: auto;
+}
 
-    .contenedor_imagen_carrusel:hover .btn_ver_detalle {
-        opacity: 1;
-    }
+.contenedor_imagen_carrusel:hover .btn_ver_detalle {
+    opacity: 1;
+}
 
 .btn_ver_detalle {
     background-color: #fff;
@@ -134,10 +133,6 @@
     font-weight: 700;
     width: 50%;
 }
-
-.contenedor_elige_tu_tono_carrusel {
-}
-
 
 .contenedor_agregar_carrusel {
     margin-top: 30px;
@@ -212,18 +207,18 @@
     width: 38px;
 }
 
-    .dibujar_flecha_carrusel::before, .dibujar_flecha_carrusel::after {
-        border-bottom: solid 3px #000;
-        left: 0;
-    }
+.dibujar_flecha_carrusel::before, .dibujar_flecha_carrusel::after {
+    border-bottom: solid 3px #000;
+    left: 0;
+}
 
-    .dibujar_flecha_carrusel::before {
-        top: 25%;
-    }
+.dibujar_flecha_carrusel::before {
+    top: 25%;
+}
 
-    .dibujar_flecha_carrusel::after {
-        bottom: 25%;
-    }
+.dibujar_flecha_carrusel::after {
+    bottom: 25%;
+}
 
 .dibujar_flecha_izquierda_carrusel::before {
     -webkit-transform: rotate(127deg);
@@ -268,9 +263,9 @@
     width: 22px;
 }
 
-    .dibujar_flecha_carrusel_tonos::before, .dibujar_flecha_carrusel_tonos::after {
-        border-bottom: solid 1px #000;
-    }
+.dibujar_flecha_carrusel_tonos::before, .dibujar_flecha_carrusel_tonos::after {
+    border-bottom: solid 1px #000;
+}
 
 #carrusel .slick-track, #carrusel_tonos .slick-track, #carrusel_odd .slick-track {
     margin: 0 auto;
