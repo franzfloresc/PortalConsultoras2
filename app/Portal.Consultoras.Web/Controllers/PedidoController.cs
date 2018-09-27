@@ -985,6 +985,7 @@ namespace Portal.Consultoras.Web.Controllers
             return lastResult.Item2;
         }
 
+
         private Tuple<bool, JsonResult> DeletePedidoWeb(int campaniaId, int pedidoID, short pedidoDetalleId, int tipoOfertaSisId, string CUV, int cantidad, string clienteId, bool esBackOrder, string cuvPadre)
         {
             try
@@ -1044,6 +1045,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var message = !errorServer ? "OK"
                             : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.";
 
+                //Validar si el cuv sigue agregado
+                var EsAgregado = ValidarEsAgregado(pedidoAgrupado);
+
                 return new Tuple<bool, JsonResult>(!errorServer, Json(new
                 {
                     success = !errorServer,
@@ -1053,6 +1057,7 @@ namespace Portal.Consultoras.Web.Controllers
                     formatoTotalCliente,
                     listaCliente,
                     tipo,
+                    EsAgregado,
                     DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
                     data = new
                     {
@@ -1073,6 +1078,12 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return new Tuple<bool, JsonResult>(false, ErrorJson(ex.Message));
             }
+        }
+
+        private bool ValidarEsAgregado(BEPedidoWebDetalle pedidoAgrupado)
+        {
+            var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
+            return listaPedidoWebDetalleAgrupado.Where(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId).Count() > 0 ? true : false;
         }
 
         private string GetObservacionesProlPorCuv(string cuv)
