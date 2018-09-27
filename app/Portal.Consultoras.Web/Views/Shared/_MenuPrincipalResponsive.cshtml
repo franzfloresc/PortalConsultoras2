@@ -78,7 +78,7 @@
         </div>
     </div>
     <ul class="menu__lista row flex-column flex-lg-row flex-xl-row justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center ml-0 mr-0 mb-0 pl-0">
-        <li class="menu__item">
+        <li class="menu__item" data-title="Ingresa tu pedido">
             <a class="menu__link menu__link--pedido d-block text-uppercase" title="Ingresa tu pedido">
                 Ingresa <span class="text-bold">tu pedido</span>
             </a>
@@ -90,7 +90,7 @@
             {
                 if (item.Descripcion != "¿Necesitas ayuda?")
                 {
-                    <li class="menu__item">
+                    <li class="menu__item" data-title="@item.Descripcion">
                         <a class="menu__link d-block"
                            title="@item.Descripcion"
                            href="@item.UrlItem"
@@ -109,7 +109,7 @@
             }
             else
             {
-                <li class="menu__item">
+                <li class="menu__item" data-title="@item.Descripcion">
                     <a class="menu__link d-block menu__link--conSubmenu menu__link--conSubmenuMobile"
                        parent="@item.Descripcion" title="@item.Descripcion"
                        data-toggle="collapse" data-parent="#accordion"
@@ -129,13 +129,13 @@
                                     @subItem.Descripcion
                                     @if (tipoUsuario == 2 && subItem.Descripcion.ToLower().Trim() == "app de catálogos")
                                     {
-                                        <div class="notificaciones_menu_mobile2">¡Afiliate!</div>
+                                        <div class="notificaciones_menu_mobile2 d-inline-block text-bold">¡Afiliate!</div>
                                     }
                                     else if (ViewBag.TipoMenuConsultoraOnline == 1)
                                     {
                                         if (subItem.MenuMobileID == ViewBag.MenuHijoIDConsultoraOnline)
                                         {
-                                            <div class="notificaciones_menu_mobile2">¡Afiliate!</div>
+                                            <div class="notificaciones_menu_mobile2 d-inline-block text-bold">¡Afiliate!</div>
                                         }
                                     }
                                     else if (ViewBag.TipoMenuConsultoraOnline == 2)
@@ -159,7 +159,7 @@
 
             if (item.Descripcion == "¿Necesitas ayuda?")
             {
-                <li class="menu__item">
+                <li class="menu__item" data-title="@item.Descripcion">
                     <a class="menu__link d-block"
                        parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
                        target="@item.PageTarget"
@@ -178,6 +178,7 @@
     </a>
 </nav>
 <!-- FIN - MENÚ PRINCIPAL MOBILE -->
+
 <!-- MENÚ PRINCIPAL DESKTOP -->
 
 <nav class="header__menu header__menu--lateralIzquierdo mostrarEnDesktop">
@@ -187,11 +188,12 @@
         {
             if (menuPadre.SubMenus.Count > 0)
             {
-                <li class="menu__item menu__item--miNegocio" data-title=" @menuPadre.Descripcion">
-                    <a class="menu__link d-block menu__link--conSubmenu" title=" @menuPadre.Descripcion">
+                <li class="menu__item menu__item--miNegocio" data-title="@menuPadre.Descripcion">
+                    <a class="menu__link d-block menu__link--conSubmenu" title="@menuPadre.Descripcion">
                         @menuPadre.Descripcion
                     </a>
                     <ul class="submenu__lista submenu__lista--miNegocio row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
+                        <div class="pestana__marca__pais"></div>
                         @{
                             var margin = "";
                             var contador = 0;
@@ -215,12 +217,12 @@
                                     //    break;
                                     //}
 
-                                    @*<li class="submenu__item">
-                                            <a class="submenu__link d-block" title="@menuHijo.Descripcion">
-                                                @menuHijo.Descripcion
-                                            </a>
+                                @*<li class="submenu__item">
+                        <a class="submenu__link d-block" title="@menuHijo.Descripcion">
+                            @menuHijo.Descripcion
+                        </a>
 
-                                        </li>*@
+                    </li>*@
                                 }
                                 else
                                 {
@@ -230,7 +232,7 @@
                                     if (contadorRe == 0)
                                     {
                                         contadorRe++;
-                                        <li class="submenu__item submenu__item--IngresaTuPedido" data-title="Ingresa tu pedido">
+                                        <li class="submenu__item submenu__item--IngresaTuPedido" data-title="INGRESA TU PEDIDO">
                                             <a href="javascript:;" class="submenu__link menu__link--pedido d-block text-uppercase"
                                                onclick="RedirectMenu('Index', 'Pedido', 0, 'Pedido')"
                                                target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Ingreso Pedido" id="lnk-pri-ingreso-pedidos">
@@ -261,7 +263,7 @@
                                 }
                             }
 
-                            var nieto = menuPadre.SubMenus[8];
+                            var nieto = menuPadre.SubMenus.ToList().Where(x => x.Descripcion == "MI ASESOR DE BELLEZA").FirstOrDefault();
 
                             if (nieto.Descripcion != "")
                             {
@@ -270,7 +272,7 @@
                                         @nieto.Descripcion
                                     </a>
                                     <div class="submenu__lista submenu__lista--miAsesorBelleza row flex-row justify-content-start ml-0 mr-0">
-
+                                        <div class="pestana__marca__pais"></div>
                                         @foreach (var q in nieto.SubMenus)
                                         {
                                             <div class="sub__menu__asesorBelleza">
@@ -343,7 +345,7 @@
             }
             else
             {
-                <li class="menu__item">
+                <li class="menu__item" data-title="@menuPadre.Descripcion">
                     @if (menuPadre.UrlItem == "")
                     {
                         <a href="javascript:;" class="menu__link d-block" title="@menuPadre.Descripcion">

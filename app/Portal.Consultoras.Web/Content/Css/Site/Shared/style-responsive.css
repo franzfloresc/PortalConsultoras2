@@ -12,7 +12,7 @@ html, body{
     margin:0;
 }
 
-header,nav, section, aside, picture, fieldset, h1, h2, h3, h4, h5, h6, p{
+header,nav, section, aside, picture, fieldset, caption, figure, h1, h2, h3, h4, h5, h6, p{
     margin:0;
     padding:0;
 }
@@ -32,6 +32,46 @@ body > img{
 }
 
 /* FIN - ESTILOS GENERALES */
+
+/* ESTILOS MODIFICADORES JQUERY UI */
+
+.ui-dialog.ui-widget-content {
+    width: auto !important;
+    background: #FFFFFF !important;
+    color: #555 !important;
+    border-radius:0;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    padding: 0 0 0 10px;
+}
+
+#loadingScreen {
+    padding: 20px 30px;
+}
+
+.loadingScreen-titulo {
+    font-weight: 700;
+    font-family: lato;
+    font-size: 10pt;
+    color: #0C0B0C;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.loadingScreen-mensaje {
+    background: url(/Content/Images/Loading.gif) no-repeat 0 0;
+    padding-left: 25px;
+    margin-top: 10px;
+    padding-bottom: 5px;
+    font-family: 'lato';
+    font-size: 10pt;
+    color: black;
+    margin-top: 20px;
+}
+
+/* FIN - ESTILOS MODIFICADORES JQUERY UI */
 
 /* HELPERS CSS */
 
@@ -208,7 +248,7 @@ body > img{
     display:flex;
 }
 
-.menu__item:nth-child(4),
+.menu__item[data-title="OFERTAS"],
 .menu__item--ofertas
 {
     width:144px;
@@ -216,7 +256,7 @@ body > img{
     overflow:hidden;
 }
 
-.menu__item:nth-child(4) img,
+.menu__item[data-title="OFERTAS"] img,
 .menu__link--ofertas img
 {
     width: 192.36px;
@@ -268,12 +308,24 @@ body > img{
 
 .submenu__lista--miNegocio{
     width: 937px;
-    top:51px;
-    left:-153px;
+    left:-45px;
     height: 239px;
     z-index:4;
     align-content:space-evenly;
     text-align:left;
+}
+
+.submenu__lista--miNegocio,
+.submenu__lista--miAsesorBelleza
+{
+    border-top: 1px solid #000;
+}
+
+.pestana__marca__pais{
+    z-index: 1000;
+    position: absolute;
+    right: 0;
+    background-repeat:no-repeat;
 }
 
 .submenu__item--AsesorBelleza{
@@ -325,11 +377,11 @@ body > img{
 {
     width:615px;
     height:188px;
-    margin-top:-1px;
     left:105px;
     padding-top:38px;
     padding-left: 57px;
     padding-right: 20px;
+    z-index:2;
 }
 
 .sub__menu__asesorBelleza{
@@ -1238,13 +1290,13 @@ body > img{
 
 @media screen and (max-width:1249px){
 
-    .menu__item:nth-child(4),
+    .menu__item[data-title="OFERTAS"],
     .menu__item--ofertas
     {
         width:125px;
     }
 
-    .menu__item:nth-child(4) img,
+    .menu__item[data-title="OFERTAS"] img,
     .menu__link--ofertas img
     {
         width: 166.36px;
@@ -1260,6 +1312,7 @@ body > img{
         font-size:10px;
     }
 
+    .menu__item[data-title="OFERTAS"] img
     .menu__link--ofertas img
     {
         width:158.36px;
@@ -1379,15 +1432,15 @@ body > img{
         text-align:left;
     }
 
-    .menu__item:nth-child(4),
+    .menu__item[data-title="OFERTAS"],
     .menu__item--ofertas
     {
         width:auto;
         padding-left:0;
     }
 
-    .menu__item:nth-child(4),
-    .menu__item:nth-child(4) img
+    .menu__item[data-title="OFERTAS"],
+    .menu__item[data-title="OFERTAS"] img
     {
         width:auto;
     }
@@ -1411,7 +1464,7 @@ body > img{
         text-transform:initial;
     }
 
-    .menu__item:nth-child(4) .menu__link,
+    .menu__item[data-title="OFERTAS"] .menu__link,
     .menu__link--ofertas
     {
         padding-top:10px;
@@ -1445,7 +1498,8 @@ body > img{
     .submenu__lista--miNegocio{
         width:auto;
         height:auto;
-        top:0;
+        top:0!important;
+        border-top:none;
         left:0;
     }
 
@@ -1468,6 +1522,10 @@ body > img{
         padding-left:43px;
         line-height:35px;
         position:relative;
+    }
+
+    .notificaciones_menu_mobile2{
+        margin-left:10px;
     }
 
     .header__menu--lateralDerecho .menu__link{
@@ -1758,7 +1816,7 @@ body > img{
     }
 
     .footer__item__content__list{
-        display:none; 
+        /*display:none;*/ 
         background-color:#e2e1e7;
     }
 

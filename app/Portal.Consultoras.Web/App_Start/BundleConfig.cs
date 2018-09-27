@@ -152,7 +152,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/LogError.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
-                "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
@@ -925,11 +924,13 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
+                "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/Shared/style-responsive.css",
                 "~/Content/Css/Site/Esika/style-esika-responsive.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
+                "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/Shared/style-responsive.css",
                 "~/Content/Css/Site/Lbel/style-lbel-responsive.css"
             ));

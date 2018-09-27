@@ -21,6 +21,29 @@
     background-color: #a18328;
 }
 
+.pestana__marca__pais {
+    width:20px;
+    height:17px;
+    background-color: #FFF;
+    background-image: url('../../../Images/Esika/pestana_esika.png');
+    background-size: 20px;
+    background-position: center 1px;
+    top:-17px;
+    left:10.3%;
+}
+
+.submenu__lista--miNegocio{
+    top:54px;
+}
+
+.submenu__lista--miAsesorBelleza{
+    margin-top:7px;
+}
+
+.submenu__lista--miAsesorBelleza .pestana__marca__pais{
+    left:38%;
+}
+
 @media screen and (max-width:1270px){
 
     .header__marca__pais picture{
