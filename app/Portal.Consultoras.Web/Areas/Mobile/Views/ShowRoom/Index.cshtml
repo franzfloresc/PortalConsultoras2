@@ -150,7 +150,7 @@
     <div class="contenedor_productos_liquidacion content_showroom" style="position: relative;">
         <div id="divProductosShowRoom"
              style="display: inline-flex; flex-wrap: wrap; justify-content: center;"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra">
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomCarrusel">
         </div>
     </div>
 </div>
@@ -244,7 +244,7 @@
             <hr class="clear" />
 
         </div>
-        <div class="content_display_set_suboferta" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.ShowRoomMobileSubCampania">
+        <div class="content_display_set_suboferta" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampaña">
             <div class="content_header_sub">
                 <div class="content_titulo_sub_oferta">
                     <hr class="clear" />
@@ -472,8 +472,8 @@ else
         var precioMax = '@Model.PrecioMaxFiltro';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom", new {area = "Mobile"})';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra';
-        var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.ShowRoomMobileSubCampania';
+        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomCarrusel';
+        var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampaña';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
         var tieneSubCampania = '@Model.TieneSubCampania';
     </script>

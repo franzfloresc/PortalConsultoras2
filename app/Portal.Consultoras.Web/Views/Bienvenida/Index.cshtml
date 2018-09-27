@@ -89,7 +89,7 @@
             else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br />@nombreConsultora
+                    ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br />@nombreConsultora
                 </div>
             }
             else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && revistaDigital.EsActiva)
@@ -100,7 +100,7 @@
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
                     <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                        ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br />@nombreConsultora
+                        ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br />@nombreConsultora
                     </div>
                 }
                 else
@@ -312,7 +312,7 @@
             <div class="clear"></div>
             <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos.</span><a class="btn_ver_todo_filtros" href="/ShowRoom">VER TODOS</a></div>
             <hr class="clear">
-            <div class="contenedor_productos_showroom" id="divProductosShowRoom" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.ShowRoomDesktopHome">
+            <div class="contenedor_productos_showroom" id="divProductosShowRoom" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarrusel">
             </div>
         </div>
         <hr class="clear">
@@ -2085,7 +2085,7 @@ DEUDA TECNICA
         var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "" })';
         var tipoOrigenEstrategia = 1;
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel';
 
         var urlOfertasIndex = '@Url.Action("Index", "ShowRoom")';
         var urlShowRoomIntriga = '@Url.Action("Intriga", "ShowRoom")';
@@ -2094,8 +2094,8 @@ DEUDA TECNICA
         var urlRevistaDigitalInformacion = '@Url.Action("Informacion", "RevistaDigital")';
         var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
-        var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.ShowRoomDesktopHome';
-        var DesktopHomeLiquidacion = @Constantes.OrigenPedidoWeb.DesktopHomeLiquidacion;
+        var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarrusel';
+        var DesktopHomeLiquidacion = @Constantes.OrigenPedidoWeb.DesktopHomeLiquidaciónCarrusel;
         var tipoOrigenPantalla = 1;
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         var tieneCupon = '@Model.TieneCupon';

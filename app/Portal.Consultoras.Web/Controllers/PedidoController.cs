@@ -1255,7 +1255,7 @@ namespace Portal.Consultoras.Web.Controllers
                     DescripcionLarga = producto.DescripcionMarca,
                     DescripcionEstrategia = producto.DescripcionEstrategia,
                     Categoria = producto.DescripcionCategoria,
-                    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome,
+                    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopHomeBannersCarrusel,
                     TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0
                 };
 

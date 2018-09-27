@@ -316,13 +316,13 @@ var OfertaDelDiaModule = function () {
                 var _data = response.data;
                 var origenPedidoWeb = 0;
                 if (isPagina('bienvenida')) {
-                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.OfertaDelDiaDesktopHomeBanner;
+                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.DesktopHomeOfertaDeliaBannerSuperior;
                 }
                 else if (isPagina('pedido')) {
-                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.OfertaDelDiaDesktopPedidoBanner;
+                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.DesktopPedidoOfertaDelDiaBannerSuperior;
                 }
                 else {
-                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.OfertaDelDiaDesktopGeneralBanner;
+                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.DesktopOtrasOfertaDelDiaBannerSuperior;
                 }
 
                 _data.OrigenPedidoWeb = origenPedidoWeb;

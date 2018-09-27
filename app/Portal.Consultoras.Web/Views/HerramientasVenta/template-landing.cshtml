@@ -11,8 +11,8 @@
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/HerramientaVenta-Landing")
 }
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"
-     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
-     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
+     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopLandingHerramientasdeVentaHerramientasdeVentaCarrusel"
+     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopLandingHerramientasdeVentaHerramientasdeVentasFicha">
     <div class="content_belcorp parche_productos_1000" data-listado-content="" style="">
 
         <div id="orderby-filter">
@@ -55,8 +55,8 @@
         </div>
 
         <div id="RDListado" data-content-item="@Model.CampaniaID"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.HVDesktopLanding"
-             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp">
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopLandingHerramientasdeVentaHerramientasdeVentaCarrusel"
+             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopLandingHerramientasdeVentaHerramientasdeVentasFicha">
 
             <div id="divOfertaProductos" style="text-align: center; margin-left:0 !important;"></div>
             <div id="no-productos" class="seccion-no-productos">
@@ -92,7 +92,7 @@ DEUDA TECNICA
     var tipoOrigenPantalla = 1;
     var urlOfertaCargarProductos = '@Url.Action("HVObtenerProductos", "Estrategia", new { area = ""})';
     var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
-    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.HVDesktopLanding';
+    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopLandingHerramientasdeVentaHerramientasdeVentaCarrusel';
     var tipoOrigenEstrategia = 1;
     var CantidadFilas = @Model.CantidadFilas;
     var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';

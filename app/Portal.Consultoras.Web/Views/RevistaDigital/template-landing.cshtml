@@ -16,8 +16,8 @@
 }
 
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"
-     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
-     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
+     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiCarrusel"
+     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiFicha">
     <div class="content_belcorp parche_productos_1000" data-listado-content="">
 
         @if (Model.MostrarFiltros)
@@ -65,8 +65,8 @@
     </div>
     <div class="content_belcorp parche_productos_1000" data-listado-content="" style="">
         <div id="RDListado" data-content-item="@Model.CampaniaID"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
-             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiCarrusel"
+             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiFicha">
 
             <div id="divOfertaProductos" style="text-align: center;"></div>
         </div>
@@ -148,7 +148,7 @@
         var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "Estrategia", new { area = ""})';
         var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiCarrusel';
         var tipoOrigenEstrategia = 17;
         var CantidadFilas = @Model.CantidadFilas;
         var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';

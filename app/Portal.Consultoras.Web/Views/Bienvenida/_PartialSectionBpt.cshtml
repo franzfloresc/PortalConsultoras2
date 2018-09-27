@@ -40,7 +40,7 @@
                             <div class="centrar_cont_club club_btn_dorado">
                                 <div class="activar_boton_blanco_no_animado" 
                                      style="cursor: pointer;"
-                                     onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion,'@Constantes.ConfiguracionPais.RevistaDigital')">
+                                     onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel,'@Constantes.ConfiguracionPais.RevistaDigital')">
                                     <a href="javascript:;">VER MÁS OFERTAS</a>
                                 </div>
 
@@ -56,8 +56,8 @@
 
                             <hr class="clear" />
                             <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 20px;"
-                                    data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion"
-                                    data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomePopUp"></div>
+                                    data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel"
+                                    data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiFicha"></div>
                             <hr class="clear" />
                             <div class="clearfix"></div>
                     }
@@ -67,7 +67,7 @@
                                                 new ViewDataDictionary {
                             { "Source", 3 },
                             { "NombreConsultora", revistaDigital.NombreConsultora },
-                            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome },
+                            { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
                             { "NombrePalanca", revistaDigital.NombreComercialNoActiva}});
                     }
 
@@ -100,7 +100,7 @@
                             <div class="centrar_cont_club">
                                 <div class="activar_boton_esika_no_animado bg_activar_boton_no_animado"
                                      style="cursor: pointer;"
-                                     onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion)" >
+                                     onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel)" >
                                     <a href="javascript:;">VER MÁS OFERTAS</a>
                                 </div>
                             </div>
@@ -114,8 +114,8 @@
 
                         <hr class="clear" />
                         <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 20px;"
-                                data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion"
-                                data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomePopUp"></div>
+                                data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel"
+                                data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiFicha"></div>
                         <hr class="clear" />
                         <div class="clearfix"></div>
                     }
@@ -125,7 +125,7 @@
                                          new ViewDataDictionary {
                         { "Source", 3 },
                         { "NombreConsultora", revistaDigital.NombreConsultora },
-                        { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome },
+                        { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
                         { "NombrePalanca", revistaDigital.NombreComercialNoActiva}});
                    }
 
@@ -147,7 +147,7 @@ else if (revistaDigital.TieneRDI)
                 <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
             </div>
             <div class="btn_diagonal">
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome, '@Constantes.ConfiguracionPais.OfertasParaTi')">
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel, '@Constantes.ConfiguracionPais.OfertasParaTi')">
                     VER TODAS MIS OFERTAS
                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" alt="">
                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" alt="">
@@ -160,7 +160,7 @@ else if (revistaDigital.TieneRDI)
     new ViewDataDictionary {
         { "Source", 2 },
         { "NombreConsultora", revistaDigital.NombreConsultora },
-        { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome },
+        { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
         { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
     });
 }
@@ -170,7 +170,7 @@ else
     new ViewDataDictionary {
         { "Source", 1 },
         { "NombreConsultora", revistaDigital.NombreConsultora },
-        { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome },
+        { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
         { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
     });
 }

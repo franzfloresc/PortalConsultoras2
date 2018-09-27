@@ -622,7 +622,7 @@
                                             <div class="clear"></div>
                                         </div>
                                     </div>
-                                    <a class="boton_Agregalo_home agregarOfertaFinal" onclick="of_google_analytics_addtocar('mobile','list',{{ID}},'{{TipoMeta}}')">
+                                    <a class="boton_Agregalo_home agregarOfertaFinal" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel" onclick="of_google_analytics_addtocar('mobile','list',{{ID}},'{{TipoMeta}}')">
                                         AGRÉGALO
                                     </a>
                                     <div class="clear"></div>
@@ -822,7 +822,7 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                         <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
-                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" href="javascript:;" data-popup-verdetalle="{{id}}"
+                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha" href="javascript:;" data-popup-verdetalle="{{id}}"
                            onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>
                     <hr class="clear">
                 </div>
@@ -893,7 +893,7 @@
         var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
         var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
         var nombreConsultora = '@ViewBag.NombreConsultora';
-        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
+        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel;
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';

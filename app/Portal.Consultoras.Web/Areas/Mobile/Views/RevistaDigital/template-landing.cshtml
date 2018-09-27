@@ -34,7 +34,7 @@
     </style>
 }
 
-<div data-listado-campania="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding">
+<div data-listado-campania="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileLandingOfertasParaTiOfertasParaTiCarrusel">
 
     <div data-listado-content="" style="display: none;">
         <div>
@@ -82,7 +82,7 @@
         <div>
             <hr class="clear" />
             <div class="wrapper_resumen_mobile ">
-                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
+                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileLandingOfertasParaTiOfertasParaTiCarrusel"
                      data-content-item="@Model.CampaniaID"
                      class="ofertaProductoslanding flex-container"
                      style="display: inline-flex; flex-wrap:wrap; justify-content:center;margin-top: 14px;"></div>
@@ -127,7 +127,7 @@
                 }
 
                 <hr class="clear" />
-                <div id="divOfertaProductosPerdio" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
+                <div id="divOfertaProductosPerdio" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileLandingOfertasParaTiOfertasParaTiCarrusel"
                      data-content-perdido="@Model.CampaniaID"
                      class="flex-container fix_zona_dorada_mobile " style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
                 <hr class="clear" />
@@ -154,7 +154,7 @@
         var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "Estrategia", new { area = ""})';
         var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileLandingOfertasParaTiOfertasParaTiCarrusel';
         var tipoOrigenEstrategia = 27;
         var CantidadFilas = @Model.CantidadFilas;
         var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';

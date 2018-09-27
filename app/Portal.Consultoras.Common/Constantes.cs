@@ -866,11 +866,131 @@ namespace Portal.Consultoras.Common
             public const int CyzoneMobileBuscador = 24;                         
             public const int LiquidacionDesktopBuscador = 1464;
             public const int LiquidacionMobileBuscador = 2464;
-            
+
 
             //public const string Liquidacion = "1464";
             //public const string LiquidacionMobile = "2464";
 
+
+            #endregion
+
+            #region Nuevos Códigos Origen Pedido
+            public const int DesktopHomeOfertasParaTiCarrusel = 1010001;
+            public const int DesktopHomeOfertasParaTiFicha = 1010002;
+            public const int DesktopContenedorOfertasParaTiCarrusel = 1080001;
+            public const int DesktopContenedorOfertasParaTiFicha = 1080002;
+            public const int DesktopLandingOfertasParaTiOfertasParaTiCarrusel = 1070001;
+            public const int DesktopLandingOfertasParaTiOfertasParaTiFicha = 1070002;
+            public const int DesktopPedidoOfertasParaTiCarrusel = 1020001;
+            public const int DesktopPedidoOfertasParaTiFicha = 1020002;
+            public const int MobileHomeOfertasParaTiCarrusel = 2010001;
+            public const int MobileHomeOfertasParaTiFicha = 2010002;
+            public const int MobileLandingOfertasParaTiOfertasParaTiCarrusel = 2070001;
+            public const int MobileLandingOfertasParaTiOfertasParaTiFicha = 2070002;
+            public const int AppConsultoraLandingOfertasParaTiOfertasParaTiFicha = 4070002;
+            public const int MobilePedidoOfertasParaTiCarrusel = 2020001;
+            public const int MobilePedidoOfertasParaTiFicha = 2020002;
+            public const int AppConsultoraPedidoOfertasParaTiCarrusel = 4020001;
+            public const int AppConsultoraPedidoOfertasParaTiFicha = 4020002;
+            public const int AppConsultoraContenedorOfertasParaTiCarrusel = 4080001;
+            public const int AppConsultoraContenedorOfertasParaTiFicha = 4080002;
+            public const int MobileContenedorOfertasParaTiCarrusel = 2080001;
+            public const int MobileContenedorOfertasParaTiFicha = 2080002;
+
+            public const int DesktopContenedorLanzamientosCarrusel = 1080201;
+            public const int DesktopContenedorLanzamientosFicha = 1080202;
+            public const int DesktopContenedorLanzamientosCarruselVerMas = 1080205;
+            public const int MobileContenedorLanzamientosFicha = 2080202;
+            public const int AppConsultoraContenedorLanzamientosFicha = 4080202;
+            public const int DesktopHomeOfertaDelDiaBannerSuperior = 1010306;
+            public const int DesktopContenedorOfertaDelDiaCarrusel = 1080301;
+            public const int DesktopContenedorOfertaDelDiaFicha = 1080302;
+            public const int DesktopContenedorOfertaDelDiaCarruselVerMas = 1080305;
+            public const int DesktopOtrasOfertaDelDiaBannerSuperior = 1090306;
+            public const int DesktopPedidoOfertaDelDiaBannerSuperior = 1020306;
+            public const int MobileHomeOfertaDelDiaCarrusel = 2010301;
+            public const int MobileHomeOfertaDelDiaFicha = 2010302;
+            public const int MobileOtrasOfertaDelDiaFicha = 2090302;
+            public const int MobileContenedorOfertaDelDiaCarrusel = 2080301;
+            public const int MobileContenedorOfertaDelDiaFicha = 2080302;
+            public const int AppConsultoraContenedorOfertaDelDiaFicha = 4080302;
+            public const int DesktopHomeShowroomCarrusel = 1010101;
+            public const int DesktopHomeShowroomFicha = 1010102;
+            public const int DesktopHomeShowroomCarruselVerMas = 1010105;
+            public const int DesktopContenedorShowroomCarrusel = 1080101;
+            public const int DesktopContenedorShowroomFicha = 1080102;
+            public const int DesktopContenedorShowroomCarruselVerMas = 1080105;
+            public const int DesktopLandingShowroomShowroomCarrusel = 1050101;
+            public const int DesktopLandingShowroomShowroomFicha = 1050102;
+            public const int DesktopLandingShowroomShowroomCarruselVerMas = 1050105;
+            public const int DesktopLandingShowroomShowroomSubCampaña = 1050107;
+            public const int MobileLandingShowroomShowroomCarrusel = 2050101;
+            public const int MobileLandingShowroomShowroomFicha = 2050102;
+            public const int AppConsultoraLandingShowroomShowroomFicha = 4050102;
+            public const int MobileLandingShowroomShowroomSubCampaña = 2050107;
+            public const int AppConsultoraLandingShowroomShowroomSubCampaña = 4050107;
+            public const int DesktopLandingGNDGNDCarrusel = 1060501;
+            public const int DesktopLandingGNDGNDFicha = 1060502;
+            public const int MobileLandingGNDGNDCarrusel = 2060501;
+            public const int MobileLandingGNDGNDFicha = 2060502;
+            public const int AppConsultoraLandingGNDGNDFicha = 4060502;
+            public const int DesktopPedidoOfertaFinalCarrusel = 1020401;
+            public const int DesktopPedidoOfertaFinalFicha = 1020402;
+            public const int MobilePedidoOfertaFinalCarrusel = 2020401;
+            public const int AppConsultoraPedidoOfertaFinalCarrusel = 4020401;
+            public const int MobilePedidoOfertaFinalFicha = 2020402;
+            public const int AppConsultoraPedidoOfertaFinalFicha = 4020402;
+            public const int DesktopContenedorHerramientasdeVentaCarrusel = 1080801;
+            public const int DesktopContenedorHerramientasdeVentaFicha = 1080802;
+            public const int DesktopLandingHerramientasdeVentaHerramientasdeVentaCarrusel = 1000801;
+            public const int DesktopLandingHerramientasdeVentaHerramientasdeVentasFicha = 1000802;
+            public const int MobileLandingHerramientasdeVentaHerramientasdeVentaCarrusel = 2000801;
+            public const int MobileLandingHerramientasdeVentaHerramientasdeVentaFicha = 2000802;
+            public const int AppConsultoraLandingHerramientasdeVentaHerramientasdeVentaFicha = 4000802;
+            public const int DesktopHomeLiquidacionCarrusel = 1010601;
+            public const int DesktopLandingLiquidacionLiquidacionCarrusel = 1030601;
+            public const int MobileLandingLiquidacionLiquidacionCarrusel = 2030601;
+            public const int DesktopPedidoProductoSugeridoCarrusel = 1020701;
+            public const int MobilePedidoProductoSugeridoCarrusel = 2020701;
+            public const int DesktopHomeBannersCarrusel = 1010901;
+            public const int DesktopPedidoDigitado = 10210;
+            public const int MobilePedidoDigitado = 20210;
+            public const int AppConsultoraPedidoDigitado = 40210;
+            public const int DesktopBuscadorOfertasParaTiDesplegableBuscador = 1040004;
+            public const int DesktopBuscadorShowroomDesplegableBuscador = 1040104;
+            public const int DesktopBuscadorLanzamientosDesplegableBuscador = 1040204;
+            public const int DesktopBuscadorOfertaDelDiaDesplegableBuscador = 1040304;
+            public const int DesktopBuscadorLiquidacionDesplegableBuscador = 1040604;
+            public const int DesktopBuscadorHerramientasdeVentaDesplegableBuscador = 1040804;
+            public const int DesktopBuscadorGNDDesplegableBuscador = 1040504;
+            public const int DesktopBuscadorCatalogoLbelDesplegableBuscador = 1041104;
+            public const int DesktopBuscadorCatalogoEsikaDesplegableBuscador = 1041204;
+            public const int DesktopBuscadorCatalogoCyzoneDesplegableBuscador = 1041304;
+            public const int DesktopBuscadorOfertasParaTiFicha = 1040002;
+            public const int DesktopBuscadorShowroomFicha = 1040102;
+            public const int DesktopBuscadorLanzamientosFicha = 1040202;
+            public const int DesktopBuscadorOfertaDelDiaFicha = 1040302;
+            public const int DesktopBuscadorGNDFicha = 1040502;
+            public const int DesktopBuscadorHerramientasdeVentaFicha = 1040802;
+            public const int MobileBuscadorOfertasParaTiDesplegableBuscador = 2040004;
+            public const int MobileBuscadorShowroomDesplegableBuscador = 2040104;
+            public const int MobileBuscadorLanzamientosDesplegableBuscador = 2040204;
+            public const int MobileBuscadorOfertaDelDiaDesplegableBuscador = 2040304;
+            public const int MobileBuscadorLiquidacionDesplegableBuscador = 2040604;
+            public const int MobileBuscadorHerramientasdeVentaDesplegableBuscador = 2040804;
+            public const int MobileBuscadorGNDDesplegableBuscador = 2040504;
+            public const int MobileBuscadorCatalogoLbelDesplegableBuscador = 2041104;
+            public const int MobileBuscadorCatalogoEsikaDesplegableBuscador = 2041204;
+            public const int MobileBuscadorCatalogoCyzoneDesplegableBuscador = 2041304;
+            public const int MobileBuscadorOfertasParaTiFicha = 2040002;
+            public const int MobileBuscadorShowroomFicha = 2040102;
+            public const int MobileBuscadorLanzamientosFicha = 2040202;
+            public const int MobileBuscadorOfertaDelDiaFicha = 2040302;
+            public const int MobileBuscadorGNDFicha = 2040502;
+            public const int MobileBuscadorHerramientasdeVentaFicha = 2040802;
+
+            public const int MobileContenedorShowroomCarrusel = 2080101;
+            public const int MobileContenedorLanzamientosCarrusel= 2080201;
 
             #endregion
         }

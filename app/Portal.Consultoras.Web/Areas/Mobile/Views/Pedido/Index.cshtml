@@ -399,7 +399,7 @@
         @if (mobileConfiguracion.MostrarHipervinculo)
         {
             <text>
-                mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
+                mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" }))' + ">Liquidación Web.</a>";
             </text>
         }
 
@@ -413,20 +413,20 @@
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
-        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
-        var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
+        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new { area = "" })';
+        var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new { area = "" })';
         var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Estrategia", new { area = "" })';
-        var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
-        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
+        var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new { area = "" })';
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
 
         var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
         var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
 
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
-        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
-        var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
-        var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
+        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new { area = "" })';
+        var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new { area = "" })';
+        var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new { area = "" })';
         var urlSesionExperirada = '@Url.Action("SesionExpirada", "Login", new { area = "" })';
         var paisIDSesion = '@Model.PaisId';
 
@@ -449,10 +449,10 @@
         var esEmailActivo = '@Model.EmailActivo';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var tipoOrigenEstrategia = 21;
-        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido;
-        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.VirtualCoachMobilePedido;
-        var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
-        var origenPedidoWebMobilePedido = @Constantes.OrigenPedidoWeb.MobilePedido;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel;
+        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiFicha;
+        var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel;
+        var origenPedidoWebMobilePedido = @Constantes.OrigenPedidoWeb.MobilePedidoDigitado;
         var paisISO = '@ViewBag.paisISO';
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';

@@ -32,7 +32,7 @@
     </style>
 }
 
-<div data-listado-campania="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.HVMobileLanding">
+<div data-listado-campania="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileLandingHerramientasdeVentaHerramientasdeVentaCarrusel">
     <div data-listado-content="" style="display: none;">
         <div>
                 <div class="subtitulo_landing" style="display: none;">OFERTAS CLUB GANA+</div>
@@ -75,7 +75,7 @@
         <hr class="clear" />
         <div>
             <div class="wrapper_resumen_mobile ">
-                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.HVMobileLanding"
+                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileLandingHerramientasdeVentaHerramientasdeVentaCarrusel"
                      data-content-item="@Model.CampaniaID"
                      class="ofertaProductoslanding flex-container"
                      style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
@@ -89,7 +89,7 @@
 <hr class="clear" />
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
-<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.HVMobileLanding"></div>
+<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileLandingHerramientasdeVentaHerramientasdeVentaCarrusel"></div>
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 
@@ -99,7 +99,7 @@
     var tipoOrigenPantalla = 2;
     var urlOfertaCargarProductos = '@Url.Action("HVObtenerProductos", "Estrategia", new { area = ""})';
     var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
-    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.HVMobileLanding';
+    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileLandingHerramientasdeVentaHerramientasdeVentaCarrusel';
     var tipoOrigenEstrategia = 27;
     var CantidadFilas = @Model.CantidadFilas;
     var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';

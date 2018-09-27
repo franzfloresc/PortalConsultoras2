@@ -23,7 +23,7 @@
                         <p class="primero">@Html.Raw(configuracionPaisDatosModel.Valor1)</p> 
                         <p class="segundo">@Html.Raw(configuracionPaisDatosModel.Valor2)</p>
                     </span>
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion,'@Constantes.ConfiguracionPais.RevistaDigital')" class="boton-ver-mas">
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel,'@Constantes.ConfiguracionPais.RevistaDigital')" class="boton-ver-mas">
                         VER MÁS OFERTAS
                     </a>
 
@@ -35,7 +35,7 @@
                         <hr class="clear" />
                         <div style="padding-top:20px; background:transparent;">
                             <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
-                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion" style="width: 100%;"></div>
+                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel" style="width: 100%;"></div>
                         </div>
                     </div>
                     }
@@ -45,7 +45,7 @@
                                               new ViewDataDictionary {
                             { "Source", 3 },
                             { "NombreConsultora", revistaDigital.NombreConsultora },
-                            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+                            { "Origen", Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel },
                             { "NombrePalanca", revistaDigital.NombreComercialNoActiva} });
                     }
 
@@ -62,7 +62,7 @@
                     <span class="margin_top">
                         @Html.Raw(configuracionPaisDatosModel.Valor1) 
                     </span>
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion)" class="boton-ver-mas" style="background:black">
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel)" class="boton-ver-mas" style="background:black">
                     VER MÁS OFERTAS
                     </a>
 
@@ -75,7 +75,7 @@
                         <hr class="clear" />
                         <div style="padding-top:20px; background:transparent;">
                             <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
-                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion" style="width: 100%;"></div>
+                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel" style="width: 100%;"></div>
                         </div>
 
                     </div>
@@ -86,7 +86,7 @@
                                         new ViewDataDictionary {
                             { "Source", 3 },
                             { "NombreConsultora", revistaDigital.NombreConsultora },
-                            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+                            { "Origen", Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel },
                             { "NombrePalanca", revistaDigital.NombreComercialNoActiva} });
                     }
                 </div>
@@ -108,7 +108,7 @@ else if (revistaDigital.TieneRDI)
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
                 <div class="btn_red">
-                    <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.OfertasParaTi')">
+                    <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel, '@Constantes.ConfiguracionPais.OfertasParaTi')">
                         VER TODAS MIS OFERTAS
                     </a>
                 </div>
@@ -120,7 +120,7 @@ else if (revistaDigital.TieneRDI)
 new ViewDataDictionary {
 { "Source", 2 },
 { "NombreConsultora", revistaDigital.NombreConsultora },
-{ "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+{ "Origen", Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel },
 { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
 });
 
@@ -132,7 +132,7 @@ else
 new ViewDataDictionary {
 { "Source", 1 },
 { "NombreConsultora", revistaDigital.NombreConsultora },
-{ "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+{ "Origen", Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel },
 { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
                                             });
 }

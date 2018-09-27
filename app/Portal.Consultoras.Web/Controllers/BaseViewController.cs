@@ -221,7 +221,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca
                         || Constantes.NombrePalanca.ShowRoom == palanca
                         || Constantes.NombrePalanca.OfertaDelDia == palanca);
-
+                modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetOrigenPedidoWebDetalle(origen, modelo.TieneCarrusel):0;
                 modelo.TieneCompartir = !(Constantes.NombrePalanca.HerramientasVenta == palanca
                     || Constantes.NombrePalanca.PackNuevas == palanca);
 
@@ -322,7 +322,7 @@ namespace Portal.Consultoras.Web.Controllers
             return NombrePalancas;
         }
 
-        public int GetOrigenPedidoWebDetalle(string origen)
+        public int GetOrigenPedidoWebDetalle(string origen,bool tieneCarrusel = false)
         {
             origen = Util.Trim(origen);
             if (origen == "")
@@ -335,6 +335,124 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (intOrigen)
             {
+                #region Desktop
+                case Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarruselVerMas :  Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopHomeShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingGNDGNDCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingGNDGNDFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingHerramientasdeVentaHerramientasdeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingHerramientasdeVentaHerramientasdeVentasFicha;
+                    break;
+                #endregion Desktop
+                #region Mobile
+                case Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingOfertasParaTiOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingOfertasParaTiOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingHerramientasdeVentaHerramientasdeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingHerramientasdeVentaHerramientasdeVentaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileContenedorOfertaDelDiaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomFicha;
+                    break;
+
+                #endregion Mobile
+
+                #region Buscador Desktop
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorGNDFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaFicha;
+                    break;
+                #endregion Buscador Desktop
+
+                #region Buscador Mobile
+                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorGNDFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaFicha;
+                    break;
+                #endregion Buscador Mobile
+
+
                 //OPT
                 case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome:
                     result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHomePopUp;

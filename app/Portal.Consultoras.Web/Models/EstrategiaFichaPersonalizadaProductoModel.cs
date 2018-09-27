@@ -14,6 +14,7 @@ namespace Portal.Consultoras.Web.Models
         public String CodigoVideo { get; set; } //Por defecto 1 video
         public string OrigenUrl { get; set; }
         public int OrigenAgregar { get; set; }
+        public int OrigenAgregarCarrusel { get; set; }
         public string Palanca { get; set; }
         public bool TieneSession { get; set; }
         public int Campania { get; set; }
