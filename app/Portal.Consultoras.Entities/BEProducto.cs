@@ -120,6 +120,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool EsOfertaIndependiente { get; set; }
 
+        [DataMember]
+        public string CodigoEstrategia { get; set; }
+
         public BEProducto(IDataRecord row)
         {
             CUV = row.ToString("CUV");
@@ -159,6 +162,8 @@ namespace Portal.Consultoras.Entities
             DescripcionProducto = row.ToString("DescripcionProducto");
             TipoEstrategiaCodigo = row.ToString("TipoEstrategiaCodigo");
             EsOfertaIndependiente = row.ToBoolean("EsOfertaIndependiente");
+            EstrategiaID = row.ToInt32("EstrategiaID", 0);
+            CodigoEstrategia = row.ToString("CodigoEstrategia");
         }
 
         //Refactor Inheritance
