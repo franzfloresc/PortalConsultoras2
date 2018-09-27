@@ -134,7 +134,7 @@
     font-family: 'Lato', sans-serif;
     font-size: 14px;
     color: #000;
-    font-weight: 400;
+    font-weight: 700;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -299,7 +299,7 @@
     position: absolute;
     top: 45px;
     right: -2px;
-    width: 675px;
+    width: 621px;
     min-height: 250px;
     padding-bottom: 0;
     overflow: hidden;
@@ -393,9 +393,9 @@
     }
 
 .resultado_busqueda_img_prod{
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 25%;
+    -ms-flex: 0 0 27%;
+    flex: 0 0 27%;
+    max-width: 27%;
     /*margin-left: 7px;
     width: 125.78px; */
     height: 68px;
@@ -409,7 +409,7 @@
         height: 100%;
         position: absolute;
         top: 0;
-        left: -7px;
+        left: -10px;
         right: 0;
         bottom: 0;
         margin: auto;
@@ -427,7 +427,7 @@
     /*width:168.33px;*/
     -ms-flex: 0 0 32%;
     flex: 0 0 32%;
-    max-width:177px;
+    max-width:129px;
     /*max-width: 32%;*/
     margin-right:5px;
 }
@@ -982,14 +982,14 @@
         max-width: 25%;
         min-width:96px;
         max-width:200px;
-        margin-right:2px;
+        margin-right:10px;
     }
 
     .resultado_wrapper_selector_cantidad_y_btn_agregar {
         flex-wrap:wrap;
         flex-grow:1;
         align-items:flex-start;
-        min-width:128px;
+        min-width:145px;
         /*max-width:250px;
         padding-right:10px;*/
     }
@@ -1032,8 +1032,8 @@
     .btn_elegir_opcion{
         width:100%;
         line-height:initial;
-        padding-left: 15px;
-        padding-right: 17px;
+        padding-left: 4px;
+        padding-right: 4px;
     }
 
     .btn_elegir_opcion span:last-child br {
@@ -1041,6 +1041,7 @@
     }
 
     .icono_elige_tu_opcion{
+        margin-right:6px;
         height:21px;
     }
 
@@ -1080,6 +1081,10 @@
 }
 
 @media screen and (max-width:351px){
+
+    .resultado_wrapper_selector_cantidad_y_btn_agregar{
+        min-width:120px;
+    }
 
     .btn_elegir_opcion {
         padding-top:2px;
