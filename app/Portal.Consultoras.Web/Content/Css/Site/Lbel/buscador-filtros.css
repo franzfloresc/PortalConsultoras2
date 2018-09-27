@@ -299,7 +299,7 @@
     position: absolute;
     top: 45px;
     right: -2px;
-    width: 621px;
+    width: 675px;
     min-height: 250px;
     padding-bottom: 0;
     overflow: hidden;
@@ -378,7 +378,7 @@
     width:100%;
     justify-content:space-evenly;
     text-align:left;
-    padding: 15px 19px 15px 5px;
+    padding: 15px 5px 15px 5px;
     border-bottom:1px solid #b0b0b0;
     cursor:pointer;
 }
@@ -409,7 +409,7 @@
         height: 100%;
         position: absolute;
         top: 0;
-        left: -11px;
+        left: -7px;
         right: 0;
         bottom: 0;
         margin: auto;
@@ -425,10 +425,11 @@
 
 .resultado_busqueda_descrip_prod{
     /*width:168.33px;*/
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 25%;
-    margin-right:16px;
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
+    max-width:177px;
+    /*max-width: 32%;*/
+    margin-right:5px;
 }
 
 .resultado_busqueda_nom_producto{
