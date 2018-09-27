@@ -835,6 +835,18 @@
 
 /* FIN - BUSCADOR DE FILTROS PORTAL CONSULTORAS */
 
+/* CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
+
+    [data-codigo='contenedorofertas'].new_menu a img{
+        max-width:none;
+    }
+
+}
+
+/* FIN - CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
+
 /* BUSCADOR DE FILTROS PORTAL CONSULTORAS MOBILE */
 
 @media screen and (max-width:991px){
