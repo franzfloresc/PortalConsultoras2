@@ -1917,10 +1917,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             OfertaDelDiaModule.CargarODDEscritorio();
             ProcesarActualizacionMostrarContenedorCupon();
 
-            if (!data.EsAgregado) {
-                var localStorageModule = new LocalStorageModule();
-                localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
-            }
+            var localStorageModule = new LocalStorageModule();
+            localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
             
             //ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
             //ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
