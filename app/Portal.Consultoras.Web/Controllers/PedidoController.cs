@@ -985,6 +985,7 @@ namespace Portal.Consultoras.Web.Controllers
             return lastResult.Item2;
         }
 
+
         private Tuple<bool, JsonResult> DeletePedidoWeb(int campaniaId, int pedidoID, short pedidoDetalleId, int tipoOfertaSisId, string CUV, int cantidad, string clienteId, bool esBackOrder, string cuvPadre)
         {
             try
