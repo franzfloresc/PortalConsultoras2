@@ -78,12 +78,11 @@ $(document).ready(function () {
 
                     // validar teclas especiales
                     //var key = keys.find(key => key.val === event.which);
-                    var key = keys.find(function (key) {
-                        return key.val === event.which
+                    var key = false;
+                    $.each(keys, function (i, value) {
+                        if (value.val === event.which) key = true;
                     });
-                    if (typeof key != 'undefined') {
-                        return false;
-                    }
+                    if (key) return false;
 
                     $('#ResultadoBuscadorMobile').html('');
                     var valBusqueda = $(this).val();

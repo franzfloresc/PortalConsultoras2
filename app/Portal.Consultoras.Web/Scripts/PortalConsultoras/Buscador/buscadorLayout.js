@@ -96,13 +96,11 @@ $(document).ready(function () {
                     $('.tooltip_informativo_sobre_opcion_busqueda_prod').fadeOut(100);
                 }
 
-                var key = keys.find(function (key) {
-                    return key.val === event.which
+                var key = false;
+                $.each(keys, function (i, value) {
+                    if (value.val === event.which) key = true;
                 });
-
-                if (typeof key != 'undefined') {
-                    return false;
-                }
+                if (key) return false;
 
                 $('#ResultadoBuscador').html('');
                 var valBusqueda = $(this).val();
