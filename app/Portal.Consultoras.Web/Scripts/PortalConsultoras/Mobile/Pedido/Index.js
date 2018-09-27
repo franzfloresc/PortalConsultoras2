@@ -648,7 +648,7 @@ function InsertarProductoSugerido(model) {
                 return false;
             }
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
             var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
             if (existeError == "1") {
                 AbrirMensaje("Ocurrió un error al ejecutar la operación.");
@@ -816,7 +816,7 @@ function InsertarProducto() {
 
             }, 2000);
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
             var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
             if (existeError == "1") {
                 $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Ocurrió un error al ejecutar la operación.</div>');

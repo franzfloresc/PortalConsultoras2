@@ -105,6 +105,7 @@ function CargarPedido(firstLoad) {
 
             SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
             belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
+            MostrarBarra(data);
 
             if ($('#divContenidoDetalle').find(".icono_advertencia_notificacion").length > 0) {
                 $("#iconoAdvertenciaNotificacion").show();
@@ -502,7 +503,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                     return false;
                 }
 
-                ActualizarGanancia(data.DataBarra);
+                MostrarBarra(data);
                 CargarPedido();
                 TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                 dataLayer.push({
@@ -577,7 +578,7 @@ function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
 
             ShowLoading();
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
             CargarPedido();
             CloseLoading();
         },
@@ -656,7 +657,7 @@ function PedidoDetalleEliminarTodo() {
             }
 
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
             TrackingJetloreRemoveAll(listaDetallePedido);
             dataLayer.push({
                 'event': 'virtualEvent',
@@ -780,7 +781,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
                 return false;
             }
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
 
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
@@ -1175,7 +1176,7 @@ function InsertarProducto(model, asyncX, urlMobile) {
 
             setTimeout(function () { }, 2000);
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
 
             TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
             dataLayer.push({

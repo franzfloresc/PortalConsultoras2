@@ -428,7 +428,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                "~/Scripts/PortalConsultoras/Pedido/barra.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/_LoginLayout-Esika").Include(

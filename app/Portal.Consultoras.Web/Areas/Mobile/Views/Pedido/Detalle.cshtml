@@ -37,7 +37,9 @@
                     MI PEDIDO
                     <span>@Model.DescripcionCampaniaActual</span>
                 </h2>
-
+                @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
+                <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
+                <input type="hidden" id="hdfTotal" value="@Model.Total" />
                 <div id="divProductosDetalle">
                     <div class="text-center">
                         <img alt="Cargando..." src="@Url.Content("~/Content/images/Loading.gif")" />
@@ -898,7 +900,7 @@
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
+    @Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
 
     @if (Model.MostrarPopupPrecargados)
     {
