@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Data
 
             DbCommand command;
             if (busquedaCuv)
-                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCuvByFilter2");
+                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCuvByFilter");
             else
                 command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByDescripcionByFilter");
 
