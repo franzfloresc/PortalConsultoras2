@@ -12007,12 +12007,15 @@ span.icon-advertencia {
     font-family: 'Lato';
     font-size: 11px;
     font-weight: 700;
-    color: #613c87;
     text-align: center;
     margin-bottom: 5px;
     margin-left: 10px;
     margin-right: 10px;
 }
+
+    .texto_elige_tono img {
+        padding-right: 4px;
+    }
 
 .check_intriga:before {
     content: '✓';
