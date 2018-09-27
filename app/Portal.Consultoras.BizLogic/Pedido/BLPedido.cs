@@ -190,11 +190,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
-                //Agrega cuvs al pedido de palancas
-                if (pedidoDetalle.Producto.EstrategiaID > 0)
-                {
-                    return PedidoAgregarProducto(pedidoDetalle);
-                }
+                //Agrega cuvs de estrategia al pedido
+                if (pedidoDetalle.Producto.EstrategiaID > 0) return PedidoAgregarProducto(pedidoDetalle);
 
                 //Informacion de usuario
                 var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
