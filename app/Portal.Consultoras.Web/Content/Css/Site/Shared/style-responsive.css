@@ -154,7 +154,7 @@ body > img{
 }
 
 .layout__header{
-    background-image:url(../../../images/cincuenta_anios_belcorp_cabecera.png);
+    background-image:url(/Content/images/cincuenta_anios_belcorp_cabecera.png);
     background-position:left top;
     height:60px;
     padding-left:12px;
@@ -284,7 +284,7 @@ body > img{
 .menu__link--conSubmenu,
 .submenu__item--AsesorBelleza > .submenu__link
 {
-    background-image:url(../../../images/down_arrow.png);
+    background-image:url(/Content/images/down_arrow.png);
     background-position:97% center;
 }
 
@@ -676,6 +676,10 @@ body > img{
     font-weight:400;
 }
 
+.campo_buscador_productos::-ms-clear{
+    display: none;
+}
+
 .campo_busqueda_fondo_on_focus {
     display:none; 
     background-color: #FFF;
@@ -777,7 +781,7 @@ body > img{
     margin-top: 17px;
     width: 98.55%;
     min-height: 65px;
-    max-height: 330px;
+    max-height: 397px;
     overflow: auto;
     position: relative;
     padding-bottom:14px;
@@ -805,7 +809,7 @@ body > img{
 .resultado_busqueda_producto{
     justify-content:space-evenly;
     text-align:left;
-    padding: 15px 5px 15px 5px;
+    padding: 15px 9px 15px 5px;
     border-bottom:1px solid #b0b0b0;
     cursor:pointer;
 }
@@ -854,9 +858,9 @@ body > img{
     /*width:168.33px;*/
     -ms-flex: 0 0 32%;
     flex: 0 0 32%;
-    max-width:129px;
+    max-width:137px;
     /*max-width: 32%;*/
-    margin-right:5px;
+    margin-right:10px;
 }
 
 .resultado_busqueda_nom_producto{
@@ -1263,6 +1267,19 @@ body > img{
         max-width:none;
     }
 
+    .campo_busqueda_fondo_on_focus{
+        height:49px;
+    }
+
+    .resultado_busqueda_descrip_prod{
+        max-width:153px;
+    }
+
+    .icono_elige_tu_opcion {
+        display: inline-block;
+        vertical-align:middle;
+    }
+
 }
 
 /* FIN - CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
@@ -1370,7 +1387,7 @@ body > img{
     } */
 
     .layout__header{
-        background-image:url(../../../images/mobile/cincuenta_anios_belcorp_cabecera_mobile.png);
+        background-image:url(/Content/images/mobile/cincuenta_anios_belcorp_cabecera_mobile.png);
         background-position:-23px top;
         padding-right:12px;
     }
@@ -1819,14 +1836,14 @@ body > img{
     .footer__item__title{
         padding-top:10px;
         border-bottom:1px solid #9e9e9f;
-        background-image:url(../../../Images/mobile/icono_mas_footer_mobile.png);
+        background-image:url(/Content/Images/mobile/icono_mas_footer_mobile.png);
         background-position:96.5% center;
         background-repeat:no-repeat;
         font-weight:400;
     }
 
     .footer__item__title--desplegado{
-        background-image:url(../../../Images/mobile/icono_menos_footer_mobile.png);
+        background-image:url(/Content/Images/mobile/icono_menos_footer_mobile.png);
     }
 
     .footer__item__content__list{
