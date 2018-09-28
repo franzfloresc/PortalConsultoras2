@@ -1372,7 +1372,7 @@
     <Content Include="Content\Css\Site\Esika\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
     <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
-    <Content Include="Content\Css\Site\Esika\style-esika-responsive.css" />
+    <Content Include="Content\Css\Site\Esika\marca-pais-responsive.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Esika\verificacion-pin.css" />
@@ -1395,7 +1395,7 @@
     <Content Include="Content\Css\Site\Landing\producto.landing.css" />
     <Content Include="Content\Css\Site\Lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Lbel\mi-perfil.css" />
-    <Content Include="Content\Css\Site\Lbel\style-lbel-responsive.css" />
+    <Content Include="Content\Css\Site\Lbel\marca-pais-responsive.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
@@ -1410,7 +1410,12 @@
     <Content Include="Content\Css\Site\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
-    <Content Include="Content\Css\Site\Shared\style-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\buscador-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\footer-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\header-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\menu-principal-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\menu-secundario-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\general.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Images\cincuenta_anios_belcorp_cabecera.png" />
     <Content Include="Content\Images\Buscador\product-iphone.png" />
