@@ -271,12 +271,6 @@
   <wsdl:message name="IClienteService_MovimientoDetalleActualizar_OutputMessage">
     <wsdl:part name="parameters" element="tns:MovimientoDetalleActualizarResponse" />
   </wsdl:message>
-  <wsdl:message name="IClienteService_ListarEscalaDescuentoZona_InputMessage">
-    <wsdl:part name="parameters" element="tns:ListarEscalaDescuentoZona" />
-  </wsdl:message>
-  <wsdl:message name="IClienteService_ListarEscalaDescuentoZona_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ListarEscalaDescuentoZonaResponse" />
-  </wsdl:message>
   <wsdl:portType name="IClienteService">
     <wsdl:operation name="Insert">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/Insert" message="tns:IClienteService_Insert_InputMessage" />
@@ -433,10 +427,6 @@
     <wsdl:operation name="MovimientoDetalleActualizar">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/MovimientoDetalleActualizar" message="tns:IClienteService_MovimientoDetalleActualizar_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/MovimientoDetalleActualizarResponse" message="tns:IClienteService_MovimientoDetalleActualizar_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ListarEscalaDescuentoZona">
-      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/ListarEscalaDescuentoZona" message="tns:IClienteService_ListarEscalaDescuentoZona_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/ListarEscalaDescuentoZonaResponse" message="tns:IClienteService_ListarEscalaDescuentoZona_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IClienteService" type="tns:IClienteService">
@@ -792,15 +782,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ListarEscalaDescuentoZona">
-      <soap:operation soapAction="http://tempuri.org/IClienteService/ListarEscalaDescuentoZona" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IClienteService" type="tns:IClienteService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IClienteService_policy" />
@@ -1149,15 +1130,6 @@
     </wsdl:operation>
     <wsdl:operation name="MovimientoDetalleActualizar">
       <soap:operation soapAction="http://tempuri.org/IClienteService/MovimientoDetalleActualizar" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ListarEscalaDescuentoZona">
-      <soap:operation soapAction="http://tempuri.org/IClienteService/ListarEscalaDescuentoZona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

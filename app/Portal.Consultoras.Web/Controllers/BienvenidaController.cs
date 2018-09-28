@@ -21,9 +21,12 @@ namespace Portal.Consultoras.Web.Controllers
     public class BienvenidaController : BaseController
     {
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        protected Providers.TablaLogicaProvider _tablaLogica;
+
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
+            _tablaLogica = new Providers.TablaLogicaProvider();
         }
 
         public BienvenidaController(ILogManager logManager)
@@ -217,9 +220,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Camino al Exito
 
-                var CaminoExito = this.ObjectCaminoExito();
-                model.TieneCaminoExito = CaminoExito.Item1;
-                model.urlCaminoExito = CaminoExito.Item2 ?? "";
+                var LogicaCaminoExisto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
+                if (LogicaCaminoExisto.Any())
+                {
+                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoDestokp) ?? new TablaLogicaDatosModel();
+                    bool caminiExitoActive = (CaminoExistoFirst != null && CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
+                    if (caminiExitoActive)
+                    {
+                        var accesoCaminoExito = this.ObjectCaminoExito();
+                        model.TieneCaminoExito = accesoCaminoExito.Item1;
+                        model.urlCaminoExito = accesoCaminoExito.Item2 ?? "";
+                    }
+                }
 
                 #endregion
 
