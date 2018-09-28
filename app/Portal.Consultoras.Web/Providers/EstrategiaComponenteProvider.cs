@@ -205,6 +205,9 @@ namespace Portal.Consultoras.Web.Providers
 
                 listaAppCatalogo.ForEach(x =>
                 {
+                    x.NombreComercial = x.NombreComercial ?? string.Empty;
+                    x.NombreBulk = String.IsNullOrEmpty(x.NombreBulk) ? x.NombreComercial : x.NombreBulk;
+
                     x.ImagenBulk = string.IsNullOrWhiteSpace(x.ImagenBulk) ?
                         x.Imagen :
                         x.ImagenBulk;
