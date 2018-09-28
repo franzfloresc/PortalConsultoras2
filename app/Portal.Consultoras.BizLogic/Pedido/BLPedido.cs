@@ -497,13 +497,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         }
 
-        public BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario)
+        public BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario, int campaniaID, string region, string zona)
         {
             var config = new BEConfiguracionPedido();
 
             try
             {
-                config.Barra = GetDataBarra(paisID);
+                config.Barra = GetDataBarra(paisID, campaniaID, region, zona);
             }
             catch (Exception ex)
             {
@@ -1579,14 +1579,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #endregion
 
         #region Configuracion
-        private BEPedidoBarra GetDataBarra(int paisID)
+        private BEPedidoBarra GetDataBarra(int paisID, int campaniaID, string region, string zona)
         {
             var objR = new BEPedidoBarra
             {
                 ListaEscalaDescuento = new List<BEEscalaDescuento>(),
                 ListaMensajeMeta = new List<BEMensajeMetaConsultora>()
             };
-            objR.ListaEscalaDescuento = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisID) ?? new List<BEEscalaDescuento>();
+            objR.ListaEscalaDescuento = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisID,  campaniaID,  region,  zona) ?? new List<BEEscalaDescuento>();
 
             var entity = new BEMensajeMetaConsultora() { TipoMensaje = string.Empty };
             objR.ListaMensajeMeta = _mensajeMetaConsultoraBusinessLogic.GetMensajeMetaConsultora(paisID, entity) ?? new List<BEMensajeMetaConsultora>();

@@ -489,6 +489,7 @@
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreGerenteZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombrePais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NovedadBuscador" type="xs:int" />
       <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />
       <xs:element minOccurs="0" name="NuevoPROL" type="xs:boolean" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
@@ -892,8 +893,14 @@
   <xs:element name="ArrayOfBEEscalaDescuento" nillable="true" type="tns:ArrayOfBEEscalaDescuento" />
   <xs:complexType name="BEEscalaDescuento">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Algoritmo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaCarga" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="MontoDesde" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoHasta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NameDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PorDescuento" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioMinimo" type="xs:decimal" />
       <xs:element minOccurs="0" name="Seleccionado" type="xs:boolean" />
