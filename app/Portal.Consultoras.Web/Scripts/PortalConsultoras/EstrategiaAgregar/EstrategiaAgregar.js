@@ -510,8 +510,7 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
             }
-            if (!IsNullOrEmpty(data.mensajeAviso)) (isMobile() ? messageInfo : alert_msg)(data.mensajeAviso);
-
+            if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
             
             return false;
         })

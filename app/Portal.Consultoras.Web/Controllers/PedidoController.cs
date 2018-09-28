@@ -505,17 +505,23 @@ namespace Portal.Consultoras.Web.Controllers
                 CrearLogProgNuevas("DuoPerfecto: PedidoInsertar", model.CUV);
 
                 listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, out mensajeError, out mensajeAviso);
-                if (mensajeError != "") return ErrorJson(mensajeError, true);
+                if (mensajeError != "")
+                {
+                    return Json(
+                        new { success = false, message = mensajeError, tituloMensaje = Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper() },
+                        JsonRequestBehavior.AllowGet
+                    );
+                }
 
                 mensajeError = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
                 if (mensajeError != "") return ErrorJson(mensajeError, true);
             }
 
             if (esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
-            return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso));
+            return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso, !string.IsNullOrEmpty(mensajeAviso)));
         }
 
-        private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "")
+        private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "", bool esMensajeDuoPerfecto = false)
         {
             try
             {
@@ -599,6 +605,7 @@ namespace Portal.Consultoras.Web.Controllers
                         : tipo.Length > 1 ? tipo
                         : "Ocurrió un error al ejecutar la operación.",
                     mensajeAviso,
+                    tituloMensaje = esMensajeDuoPerfecto ? Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper() : "",
                     data = pedidoWebDetalleModel,
                     listCuvEliminar,
                     total,
@@ -4543,7 +4550,7 @@ namespace Portal.Consultoras.Web.Controllers
                         EliminarDetallePackNueva(respElectivos.ListCuvEliminar.ToList());
                         return respElectivos.ListCuvEliminar.ToList();
                     case Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite:
-                        mensajeError = string.Format(Constantes.ProgNuevas.Mensaje.Electivo_NoAgregarPorLimite, respElectivos.LimNumElectivos);
+                        mensajeError = string.Format(Constantes.ProgNuevas.Mensaje.Electivo_NoAgregarPorLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre);
                         return new List<string>();
                     default:
                         return new List<string>();
@@ -4562,7 +4569,7 @@ namespace Portal.Consultoras.Web.Controllers
             var promocionNombre = Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre;
             if (respElectivos.LimNumElectivos == respElectivos.NumElectivosEnPedido)
             {
-                return string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, respElectivos.LimNumElectivos, promocionNombre);
+                return string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, promocionNombre);
             }
 
             var numFaltantes = respElectivos.LimNumElectivos - respElectivos.NumElectivosEnPedido;
