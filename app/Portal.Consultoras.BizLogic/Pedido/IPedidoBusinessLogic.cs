@@ -13,7 +13,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoWeb Get(BEUsuario usuario);
         bool InsertKitInicio(BEUsuario usuario);
         BEPedidoDetalleResult Update(BEPedidoDetalle pedidoDetalle);
-        BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario);
+        BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario, int campaniaID, string region, string zona);
         Task<BEPedidoDetalleResult> Delete(BEPedidoDetalle pedidoDetalle);
         Task<BEPedidoReservaResult> Reserva(BEUsuario usuario);
         BEPedidoDetalleResult ModificarReserva(BEUsuario usuario, BEPedidoWeb pedido = null);
