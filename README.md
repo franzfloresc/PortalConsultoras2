@@ -1,5 +1,5 @@
 # Portal Consultoras 2
 
-PPR FIX
+PI2-EPM-1532
 
-2018-09-21
+texto referencial de la descripcion de componente
