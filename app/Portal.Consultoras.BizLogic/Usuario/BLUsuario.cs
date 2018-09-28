@@ -20,8 +20,8 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
-using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.Entities.ProgramaNuevas;
+using Portal.Consultoras.Entities.Usuario;
 
 namespace Portal.Consultoras.BizLogic
 {
