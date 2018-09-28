@@ -193,9 +193,9 @@ declare @PopupBloqueadoNS_Valor2 varchar(800) = 'ESTE Y OTROS PRODUCTOS SOLO EN 
 declare @PopupBloqueadoSNA_Codigo varchar(50) = 'PopupBloqueadoSNA'
 declare @PopupBloqueadoSNA_Valor2 varchar(800) = 'los beneficios del club gana+'
 declare @InformativoVideo_Codigo varchar(50) = 'InformativoVideo'
-declare @InformativoVideo_Valor1 varchar(800) = 'Ajoq2mlOliw'
+declare @InformativoVideo_Valor1 varchar(800) = 'ryVnFoi4VtM'
 declare @UrlPreguntasFrecuentes_Codigo varchar(50) = 'UrlPreguntasFrecuentes'
-declare @UrlPreguntasFrecuentes_Valor1 varchar(800) = 'http://cdn1-prd.somosbelcorp.com/FileConsultoras/PE/Preguntas_Frecuentes_club_gana_mas.pdf'
+declare @UrlPreguntasFrecuentes_Valor1 varchar(800) = 'http://cdn1-prd.somosbelcorp.com/FileConsultoras/CL/Preguntas_Frecuentes_club_gana_mas.pdf'
 declare @UrlTerminosCondiciones_Codigo varchar(50) = 'UrlTerminosCondiciones'
 declare @UrlTerminosCondiciones_Valor1 varchar(800) = 'http://cdn1-prd.somosbelcorp.com/FileConsultoras/CL/Terminos_y_condiciones_club_gana_mas.pdf'
 --
@@ -359,9 +359,9 @@ declare @PopupBloqueadoNS_Valor2 varchar(800) = 'ESTE Y OTROS PRODUCTOS SOLO EN 
 declare @PopupBloqueadoSNA_Codigo varchar(50) = 'PopupBloqueadoSNA'
 declare @PopupBloqueadoSNA_Valor2 varchar(800) = 'los beneficios del club gana+'
 declare @InformativoVideo_Codigo varchar(50) = 'InformativoVideo'
-declare @InformativoVideo_Valor1 varchar(800) = 'Ajoq2mlOliw'
+declare @InformativoVideo_Valor1 varchar(800) = 'rDg0pqMxwuY'
 declare @UrlPreguntasFrecuentes_Codigo varchar(50) = 'UrlPreguntasFrecuentes'
-declare @UrlPreguntasFrecuentes_Valor1 varchar(800) = 'http://cdn1-prd.somosbelcorp.com/FileConsultoras/PE/Preguntas_Frecuentes_club_gana_mas.pdf'
+declare @UrlPreguntasFrecuentes_Valor1 varchar(800) = 'http://cdn1-prd.somosbelcorp.com/FileConsultoras/CR/Preguntas_Frecuentes_club_gana_mas.pdf'
 declare @UrlTerminosCondiciones_Codigo varchar(50) = 'UrlTerminosCondiciones'
 declare @UrlTerminosCondiciones_Valor1 varchar(800) = 'http://cdn1-prd.somosbelcorp.com/FileConsultoras/CR/Terminos_y_condiciones_club_gana_mas.pdf'
 --
