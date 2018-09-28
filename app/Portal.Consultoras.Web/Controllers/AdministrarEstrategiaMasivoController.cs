@@ -633,6 +633,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                administrarEstrategiaProvider.JobBuscador(campaniaId.ToString(), codigoEstrategia, userData);
+
                 return Json(new
                 {
                     success = lote > 0,
