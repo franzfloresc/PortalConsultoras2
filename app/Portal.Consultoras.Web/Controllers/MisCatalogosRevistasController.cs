@@ -28,9 +28,22 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string marca = "")
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
+
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca = marca });
+               // return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca = marca });
+                if (url.Length > 1 && url[1].Contains("sap"))
+                {                    
+                    sap = "&" + url[1].Remove(0, 12);
+                    return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca = marca, sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca = marca });
+                }
+
             }
 
             var clienteModel = new MisCatalogosRevistasModel

@@ -45,9 +45,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
+
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+                //return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+                if (url.Length > 1 && url[1].Contains("sap"))
+                {
+                    sap = "&" + url[1];
+                    return RedirectToAction("Index", "Pedido", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+                }
             }
 
             var model = new PedidoSb2Model();
@@ -354,7 +366,21 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (Request.Browser.IsMobileDevice)
                 {
-                    return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
+                    string sap = "";
+                    var url = (Request.Url.Query).Split('?');
+
+                    //return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
+
+                    if (url.Length > 1 && url[1].Contains("sap"))
+                    {
+                        sap = "&" + url[1].Remove(0, 22);
+                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param, sap }));
+                    }
+                    else
+                    {
+                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
+                    }
+
                 }
 
                 var cuv = param.Substring(0, 5);

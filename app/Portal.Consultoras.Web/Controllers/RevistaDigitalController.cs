@@ -60,10 +60,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Comprar()
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
 
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
+               // return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
+                if (url.Length > 1)
+                {
+                    sap = "&" + url[1];
+                    return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
+                }
             }
             
             try
