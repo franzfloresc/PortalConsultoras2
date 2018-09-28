@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Providers
     public class BuscadorBaseProvider
     {
     
-    	private readonly static HttpClient httpClientBuscador = new HttpClient();
+    	private static readonly HttpClient httpClientBuscador = new HttpClient();
 
         static BuscadorBaseProvider()
         {
@@ -51,30 +51,29 @@ namespace Portal.Consultoras.Web.Providers
 
             var httpResponse = await httpClientBuscador.GetAsync(path);
 
-                if (!httpResponse.IsSuccessStatusCode) return resultados;
-                var jsonString = await httpResponse.Content.ReadAsStringAsync();
+            if (!httpResponse.IsSuccessStatusCode) return resultados;
+            var jsonString = await httpResponse.Content.ReadAsStringAsync();
 
-                var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
+            var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
 
-                resultados.AddRange(list.Select(item => new BuscadorYFiltrosModel
-                {
-                    CUV = item.CUV,
-                    SAP = item.SAP,
-                    Imagen = item.Imagen,
-                    Descripcion = item.Descripcion,
-                    Valorizado = item.Valorizado,
-                    Precio = item.Precio,
-                    MarcaId = item.MarcaId,
-                    TipoPersonalizacion = item.TipoPersonalizacion,
-                    CodigoEstrategia = item.CodigoEstrategia,
-                    CodigoTipoEstrategia = item.CodigoTipoEstrategia,
-                    TipoEstrategiaId = item.TipoEstrategiaId,
-                    LimiteVenta = item.LimiteVenta,
-                    Stock = item.Stock,
-                    URLBsucador = path,
-                    EstrategiaID = item.EstrategiaID
-                }));
-            }
+            resultados.AddRange(list.Select(item => new BuscadorYFiltrosModel
+            {
+                CUV = item.CUV,
+                SAP = item.SAP,
+                Imagen = item.Imagen,
+                Descripcion = item.Descripcion,
+                Valorizado = item.Valorizado,
+                Precio = item.Precio,
+                MarcaId = item.MarcaId,
+                TipoPersonalizacion = item.TipoPersonalizacion,
+                CodigoEstrategia = item.CodigoEstrategia,
+                CodigoTipoEstrategia = item.CodigoTipoEstrategia,
+                TipoEstrategiaId = item.TipoEstrategiaId,
+                LimiteVenta = item.LimiteVenta,
+                Stock = item.Stock,
+                URLBsucador = path,
+                EstrategiaID = item.EstrategiaID
+            }));
 
             return resultados;
         }

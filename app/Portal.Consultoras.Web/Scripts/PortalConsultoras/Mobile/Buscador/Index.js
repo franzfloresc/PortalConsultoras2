@@ -175,13 +175,6 @@ $(document).ready(function () {
                     if (model.TipoPersonalizacion == 'LIQ') {
                         RegistroLiquidacion(model, cantidad, agregado);
                     } else {                       
-                        var urlInsertar = '';
-                        if (model.TipoPersonalizacion == 'CAT') {
-                            urlInsertar = baseUrl + 'Pedido/PedidoInsertarBuscador';
-                        } else {
-                            urlInsertar = baseUrl + 'Pedido/PedidoAgregarProducto';
-                        }
-
                         var cuv = model.CUV;
                         var tipoOfertaSisID = 0;
                         var configuracionOfertaID = 0;
