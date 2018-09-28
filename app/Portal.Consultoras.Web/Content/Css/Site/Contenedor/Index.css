@@ -314,13 +314,15 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
                     font-family: 'Lato';
                 }*/
 
-.op-menu-horizonta-fixed {
+
+/*.op-menu-horizonta-fixed {
     position: fixed;
     width: 100%;
     background-color: #fff;
     z-index: 5;
     box-shadow: 1px 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
+
 .op-menu-horizontal {
     text-align: center;
     height: 52px;
@@ -351,17 +353,14 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
                     margin-bottom: -2px;
                 }
 
-            .logo_ofertas_digitales {
-                width: 65px !important;
-                margin-bottom: -5px !important;
-               }
-
-            
-
             .op-menu-horizontal .subnavegador li .gana_mas_horizontal {
                 color: #c39934;
-            }
+            }*/
 
+.logo_ofertas_digitales {
+    width: 65px !important;
+    margin-bottom: -5px !important;
+}
 /*.negrita-p {
     font-weight: bolder;
 }*/
@@ -780,9 +779,9 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
 }
 
 @media (max-width: 950px) {
-    .op-menu-horizontal .subnavegador li {
+    /*.op-menu-horizontal .subnavegador li {
         padding: 0px 15px;
-    }
+    }*/
 
     .bc_menu_estrategia .logo {
         width: 15%;
@@ -798,26 +797,26 @@ img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-ro
 }
 
 @media (max-width: 850px) {
-    .op-menu-horizontal .subnavegador li {
+    /*.op-menu-horizontal .subnavegador li {
         padding: 0px 10px;
-    }
+    }*/
 
     .bc_menu_estrategia .logo {
         width: 17%;
     }
 }
 
-.op-menu-horizontal .subnavegador li .activado-dorado {
+/*.op-menu-horizontal .subnavegador li .activado-dorado {
     border-bottom: 3px solid #c39934;
     color: #c39934;
-}
+}*/
 .ocultar {
     display: none
 }
 
-.seccion-content-contenedor {
+/*.seccion-content-contenedor {
     padding-top: 52px;
-}
+}*/
 
 #RDListado{
     margin-top: 35px;
