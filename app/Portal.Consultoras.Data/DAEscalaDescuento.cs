@@ -26,5 +26,15 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader ListarEscalaDescuentoZona(int campaniaID, string region, string zona)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEscalaDescuentoZona");
+            Context.Database.AddInParameter(command, "CampaniaId", DbType.String, campaniaID);
+            Context.Database.AddInParameter(command, "CodRegion", DbType.String, region);
+            Context.Database.AddInParameter(command, "CodZona", DbType.String, zona);
+            return Context.ExecuteReader(command);
+        }
+
     }
 }

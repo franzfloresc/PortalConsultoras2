@@ -608,21 +608,4 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ListarEscalaDescuentoZona">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
-        <xs:element minOccurs="0" name="region" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="zona" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ListarEscalaDescuentoZonaResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListarEscalaDescuentoZonaResult" nillable="true" type="q45:ArrayOfBEEscalaDescuentoZona" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
 </xs:schema>
