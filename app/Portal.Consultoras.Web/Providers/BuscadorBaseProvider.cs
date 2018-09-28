@@ -13,6 +13,19 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorBaseProvider
     {
+    
+    	private readonly static HttpClient httpClientBuscador = new HttpClient();
+
+        static BuscadorBaseProvider()
+        {
+            if (!string.IsNullOrEmpty(WebConfig.RutaServiceBuscadorAPI))
+            {
+                httpClientBuscador.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
+                httpClientBuscador.DefaultRequestHeaders.Accept.Clear();
+                httpClientBuscador.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+        }
+
         public async Task<string> ObtenerPersonalizaciones(string path)
         {
             var personalizacion = "";
@@ -35,13 +48,8 @@ namespace Portal.Consultoras.Web.Providers
         public async Task<List<BuscadorYFiltrosModel>> ObtenerBuscadorDesdeApi(string path)
         {
             var resultados = new List<BuscadorYFiltrosModel>();
-            using (var httpClient = new HttpClient())
-            {
-                httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var httpResponse = await httpClient.GetAsync(path);
+            var httpResponse = await httpClientBuscador.GetAsync(path);
 
                 if (!httpResponse.IsSuccessStatusCode) return resultados;
                 var jsonString = await httpResponse.Content.ReadAsStringAsync();
@@ -70,7 +78,6 @@ namespace Portal.Consultoras.Web.Providers
 
             return resultados;
         }
-
-
+     
     }
 }
