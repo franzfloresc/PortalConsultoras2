@@ -748,7 +748,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     });
 }
 
-
 function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     AbrirLoad();
     var marcaID = datosEst.MarcaID;
@@ -798,7 +797,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         ClienteID_: "-1",
         TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
         Descripcion: descripcion,
-        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val()
+        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
+        enRangoProgNuevas: datosEst.FlagNueva == "1"
     };
 
     jQuery.ajax({

@@ -498,12 +498,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var mensajeError = "";
             var mensajeAviso = "";
+            var listCuvEliminar = new List<string>();
 
-            var listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, out mensajeError, out mensajeAviso);
-            if (mensajeError != "") return ErrorJson(mensajeError, true);
+            if (model.EnRangoProgramaNuevas)
+            {
+                CrearLogProgNuevas("DuoPerfecto: PedidoInsertar", model.CUV);
 
-            mensajeError = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
-            if (mensajeError != "") return ErrorJson(mensajeError, true);
+                listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, out mensajeError, out mensajeAviso);
+                if (mensajeError != "") return ErrorJson(mensajeError, true);
+
+                mensajeError = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
+                if (mensajeError != "") return ErrorJson(mensajeError, true);
+            }
 
             if (esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
             return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso));
@@ -1444,8 +1450,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (valido)
                 {
-                    //if(enRangoProgNuevas)
-                    mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
+                    if (enRangoProgNuevas)
+                    {
+                        CrearLogProgNuevas("DuoPerfecto: ValidarStockEstrategia", CUV);
+                        mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
+                    }
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
                     valido = mensaje == "";
                 }
@@ -1604,9 +1613,10 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model.CUV = Util.Trim(model.CUV);
+
                 #region ValidarProgramaNuevas
+                var esProgNuevas = false;
                 Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(model.CUV);
-                SessionManager.SetCuvEsProgramaNuevas(false);
                 switch (num)
                 {
                     case Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste:
@@ -1619,13 +1629,13 @@ namespace Portal.Consultoras.Web.Controllers
                         productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgNuevas.Mensaje.CuvNoPerteneceASuPrograma));
                         return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas:
-                        SessionManager.SetCuvEsProgramaNuevas(true);
+                        esProgNuevas = true;
                         break;
                 }
                 #endregion
 
                 #region Venta exclusiva
-                if (!Convert.ToBoolean(SessionManager.GetCuvEsProgramaNuevas()))
+                if (!esProgNuevas)
                 {
                     Enumeradores.ValidacionVentaExclusiva numExclu = ValidarVentaExclusiva(model.CUV);
                     if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
@@ -1695,7 +1705,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoProducto = producto.CodigoProducto,
                     LimiteVenta = estrategia.LimiteVenta,
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
-                    TieneRDC = tieneRdc
+                    TieneRDC = tieneRdc,
+                    EsProgNuevas = esProgNuevas
                 });
             }
             catch (Exception ex)
@@ -4191,38 +4202,18 @@ namespace Portal.Consultoras.Web.Controllers
             #region Validar Stock Estrategia
             var ofertas = estrategia.DescripcionCUV2.Split('|');
             var descripcion = ofertas[0];
-            if (estrategia.FlagNueva == 1)
-            {
-                estrategia.Cantidad = estrategia.LimiteVenta;
-            }
-            else
-            {
-                descripcion = estrategia.DescripcionCUV2;
-            }
+
+            if (estrategia.FlagNueva == 1) estrategia.Cantidad = estrategia.LimiteVenta;
+            else descripcion = estrategia.DescripcionCUV2;
 
             var resul = false;
             mensaje = ValidarMontoMaximo(estrategia.Precio2, estrategia.Cantidad, out resul);
-            if (mensaje.Length > 1)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = mensaje
-                });
-            }
+            if (mensaje.Length > 1) return ErrorJson(mensaje);
 
             if (revisionIndividualStock)
             {
                 mensaje = ValidarStockEstrategiaMensaje(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
-
-                if (mensaje != "")
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje
-                    });
-                }
+                if (mensaje != "") return ErrorJson(mensaje);
             }
             #endregion
 
@@ -4239,7 +4230,8 @@ namespace Portal.Consultoras.Web.Controllers
                 IndicadorMontoMinimo = estrategia.IndicadorMontoMinimo.ToString(),
                 ClienteID_ = model.ClienteID_,
                 TipoEstrategiaImagen = model.TipoEstrategiaImagen,
-                EsOfertaIndependiente = estrategia.EsOfertaIndependiente
+                EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
+                EnRangoProgramaNuevas = model.FlagNueva == "1"
             };
 
             return AgregarProductoZE(modelo);
@@ -4517,8 +4509,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string ValidarCantidadEnProgramaNuevas(string cuvingresado, int cantidadIngresada)
         {
-            if (!Convert.ToBoolean(SessionManager.GetCuvEsProgramaNuevas())) return "";
-
             int cantidadPedido = GetCantidadCuvPedidoWeb(cuvingresado);
             int valor = 0;
             using (var svc = new ODSServiceClient())
@@ -4604,6 +4594,17 @@ namespace Portal.Consultoras.Web.Controllers
         private bool ValidarTieneRDoRDR()
         {
             return (revistaDigital.TieneRDC && revistaDigital.EsActiva) || revistaDigital.TieneRDCR;
+        }
+
+        private void CrearLogProgNuevas(string message, string cuv)
+        {
+            if(WebConfig.Ambiente != "QA") return;
+
+            var listConsultoraRegistro = new List<string> { "006926193", "043862731" };
+            if (!listConsultoraRegistro.Contains(userData.CodigoConsultora)) return;
+            
+            var exTrace =string.Format("ISO:{0};Consultora{1};Cuv:{2}", userData.CodigoISO, userData.CodigoConsultora, cuv);
+            LogManager.LogManager.LogErrorWebServicesBus(new CustomTraceException(message, exTrace), userData.CodigoConsultora, userData.CodigoISO);
         }
     }
 }

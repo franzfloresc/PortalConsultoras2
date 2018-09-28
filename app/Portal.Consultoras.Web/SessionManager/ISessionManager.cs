@@ -436,10 +436,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<BETablaLogicaDatos> GetCDRExpressMensajes();
 
-        void SetCuvEsProgramaNuevas(bool val);
-
-        bool GetCuvEsProgramaNuevas();
-
         void SetOcultarBannerTop(bool val);
 
         bool GetOcultarBannerTop();

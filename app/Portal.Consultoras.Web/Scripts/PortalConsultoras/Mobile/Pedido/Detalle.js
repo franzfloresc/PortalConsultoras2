@@ -146,9 +146,7 @@ function UpdateLiquidacionEvento(evento) {
     var id = $.trim(target.attr("data-pedidodetalleid")) || "0";
     var setId = $.trim(target.attr("data-setId"));
     var obj = GetProductoEntidad(id, setId);
-    if (!obj) {
-        return false;
-    }
+    if (!obj) return false;
 
     var cantidadElement = $(targetRow).find(".Cantidad");
     var cantidad = $(cantidadElement).val() || "";
@@ -170,40 +168,43 @@ function UpdateLiquidacionEvento(evento) {
         return false;
     }
     
-    UpdateLiquidacionSegunTipoOfertaSis(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.FlagValidacion, obj.CantidadTemporal, obj.EsBackOrder, obj.PrecioUnidad, obj, targetRow);
+    UpdateLiquidacionSegunTipoOfertaSis(obj, targetRow);
 }
 
-function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad, detalleObj, elementRow) {
+function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
     var urls = new Object();
-    if (TipoOfertaSisID == ofertaLiquidacion) {
-        urls.urlValidarUnidadesPermitidas = urlValidarUnidadesPermitidasPedidoProducto;
-        urls.urlObtenerStockActual = urlObtenerStockActualProducto;
-    }
-    else if (TipoOfertaSisID == ofertaShowRoom) {
-        urls.urlValidarUnidadesPermitidas = urlValidarUnidadesPermitidasPedidoProductoShowRoom;
-        urls.urlObtenerStockActual = urlObtenerStockActualProductoShowRoom;
-    }
-    else if (TipoOfertaSisID == ofertaAccesorizate) {
-        urls.urlValidarUnidadesPermitidas = urlValidarUnidadesPermitidasPedidoProducto2;
-        urls.urlObtenerStockActual = urlObtenerStockActualProducto2;
+    switch (obj.TipoOfertaSisID)
+    {
+        case ofertaLiquidacion:
+            urls.urlValidarUnidadesPermitidas = urlValidarUnidadesPermitidasPedidoProducto;
+            urls.urlObtenerStockActual = urlObtenerStockActualProducto;
+            break;
+        case ofertaShowRoom:
+            urls.urlValidarUnidadesPermitidas = urlValidarUnidadesPermitidasPedidoProductoShowRoom;
+            urls.urlObtenerStockActual = urlObtenerStockActualProductoShowRoom;
+            break;
+        case ofertaAccesorizate:
+            urls.urlValidarUnidadesPermitidas = urlValidarUnidadesPermitidasPedidoProducto2;
+            urls.urlObtenerStockActual = urlObtenerStockActualProducto2;
+            break;
     }
 
     urls.urlValidarUnidadesPermitidas = $.trim(urls.urlValidarUnidadesPermitidas);
     if (urls.urlValidarUnidadesPermitidas != "") {
-        UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad, detalleObj, elementRow);
+        UpdateLiquidacionTipoOfertaSis(urls, obj, elementRow);
     }
     else {
         ShowLoading();
         if (ReservadoOEnHorarioRestringido()) {
-            detalleObj.Cantidad = detalleObj.CantidadTemporal;
-            belcorp.mobile.pedido.setDetalleById(detalleObj);
+            obj.Cantidad = obj.CantidadTemporal;
+            belcorp.mobile.pedido.setDetalleById(obj);
             CloseLoading();
             return false;
         }
 
         var cantidadElement = $(elementRow).find(".Cantidad");
         var Cantidad = $(cantidadElement).val() || "";
-        var cantidadAnterior = detalleObj.CantidadTemporal;
+        var cantidadAnterior = obj.CantidadTemporal;
         
         if (Cantidad == cantidadAnterior) {
             CloseLoading();
@@ -211,18 +212,17 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
         }
 
         var CantidadSoli = Cantidad;
-        if (TipoOfertaSisID) {
-            CantidadSoli = (Cantidad - cantidadAnterior);
-        }
+        if (obj.TipoOfertaSisID) CantidadSoli = (Cantidad - cantidadAnterior);
 
         var param = ({
             MarcaID: 0,
-            CUV: CUV,
-            PrecioUnidad: PrecioUnidad,
+            CUV: obj.CUV,
+            PrecioUnidad: obj.PrecioUnidad,
             Descripcion: 0,
             Cantidad: CantidadSoli,
             IndicadorMontoMinimo: 0,
-            TipoOferta: TipoOfertaSisID || 0
+            TipoOferta: obj.TipoOfertaSisID || 0,
+            enRangoProgNuevas: obj.EnRangoProgNuevas
         });
         ShowLoading();
 
@@ -241,7 +241,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
                         CargarPedido();
                         return false;
                     }
-                    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder, detalleObj, elementRow);
+                    Update(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.FlagValidacion, obj.CUV, obj.EsBackOrder, obj, elementRow);
                     if (datos.message.length > 3)
                         messageInfoMalo(datos.message);
                 }
@@ -253,10 +253,10 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
     }
 }
 
-function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad, detalleObj, elementRow) {
+function UpdateLiquidacionTipoOfertaSis(urls, obj, elementRow) {
     var cantidadElement = $(elementRow).find(".Cantidad");
     var valCant = $(cantidadElement).val() || "";
-    var valTemp = detalleObj.CantidadTemporal;
+    var valTemp = obj.CantidadTemporal;
 
     if (valCant === "" || valTemp === "" || isNaN(valCant) || isNaN(valTemp))
         return false;
@@ -293,9 +293,9 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
 
     $.ajaxSetup({ cache: false });
 
-    var CliID = detalleObj.ClienteID;
-    var CliDes = detalleObj.Nombre;
-    var DesProd = detalleObj.DescripcionProd;
+    var CliID = obj.ClienteID;
+    var CliDes = obj.Nombre;
+    var DesProd = obj.DescripcionProd;
     var Flag = 2;
     var StockNuevo = cantidadActual - cantidadAnterior;
     var PROL = falgValidacionPedido;
@@ -303,7 +303,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
     if (CliDes.length == 0)
         CliID = 0;
 
-    $.getJSON(urls.urlValidarUnidadesPermitidas, { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad }, function (data) {
+    $.getJSON(urls.urlValidarUnidadesPermitidas, { CUV: obj.CUV, Cantidad: StockNuevo, PrecioUnidad: obj.PrecioUnidad }, function (data) {
         if (data.message.length > 0) {
             CloseLoading();
             messageInfoMalo(data.message);
@@ -319,63 +319,63 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
 
         if (parseInt(data.UnidadesPermitidas) < Cantidad) {
             if (PROL == "1") {
-                UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV, EsBackOrder);
-                $(cantidadElement).val(CantidadModi);
+                UpdateConCantidad(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.FlagValidacion, obj.CantidadTemporal, obj.CUV, obj.EsBackOrder);
+                $(cantidadElement).val(obj.CantidadTemporal);
             } else
                 $(cantidadElement).val(cantidadAnterior);
 
             if (Saldo == UnidadesPermitidas)
-                messageInfoMalo("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto " + CUV + ".");
+                messageInfoMalo("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto " + obj.CUV + ".");
             else {
                 if (Saldo == "0")
-                    messageInfoMalo("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto (" + CUV + ") a su pedido, verifique.");
+                    messageInfoMalo("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto (" + obj.CUV + ") a su pedido, verifique.");
                 else
-                    messageInfoMalo("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto (" + CUV + ") a su pedido, verifique.");
+                    messageInfoMalo("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto (" + obj.CUV + ") a su pedido, verifique.");
             }
 
             CloseLoading();
             return false;
         }
 
-        $.getJSON(urls.urlObtenerStockActual, { CUV: CUV }, function (data) {
+        $.getJSON(urls.urlObtenerStockActual, { CUV: obj.CUV }, function (data) {
             var CantidadActual = $(cantidadElement).val();
             var CantidadaValidar = CantidadActual - cantidadAnterior;
             if (parseInt(data.Stock) < CantidadaValidar) {
                 if (PROL == "1") {
-                    UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV, EsBackOrder, detalleObj);
-                    $(cantidadElement).val(CantidadModi);
+                    UpdateConCantidad(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.FlagValidacion, obj.CantidadTemporal, obj.CUV, obj.EsBackOrder, obj);
+                    $(cantidadElement).val(obj.CantidadTemporal);
                 } else
                     $(cantidadElement).val(cantidadAnterior);
 
-                messageInfoMalo("Lamentablemente, no puede actualizar la cantidad del Producto (" + CUV + "), ya que sobrepasa el stock actual (" + data.Stock + "), verifique.");
+                messageInfoMalo("Lamentablemente, no puede actualizar la cantidad del Producto (" + obj.CUV + "), ya que sobrepasa el stock actual (" + data.Stock + "), verifique.");
 
                 CloseLoading();
                 return false;
             }
 
-            var PrecioUnidad = detalleObj.PrecioUnidad;
+            var PrecioUnidad = obj.PrecioUnidad;
             var Unidad = $(cantidadElement).val();
             var Total = DecimalToStringFormat(parseFloat(cantidadActual * Unidad));
             $(elementRow).find(".ImporteTotal").html(Total);
 
             var item = {
-                CampaniaID: CampaniaID,
-                PedidoID: PedidoID,
-                PedidoDetalleID: PedidoDetalleID,
+                CampaniaID: obj.CampaniaID,
+                PedidoID: obj.PedidoID,
+                PedidoDetalleID: obj.PedidoDetalleID,
                 ClienteID: CliID,
                 Cantidad: cantidadActual,
-                PrecioUnidad: PrecioUnidad,
+                PrecioUnidad: obj.PrecioUnidad,
                 ClienteDescripcion: CliDes,
                 DescripcionProd: DesProd,
                 Stock: StockNuevo,
                 Flag: Flag,
-                TipoOfertaSisID: TipoOfertaSisID,
-                CUV: CUV,
+                TipoOfertaSisID: obj.TipoOfertaSisID,
+                CUV: obj.CUV,
                 ClienteID_: "-1",
-                EsBackOrder: EsBackOrder
+                EsBackOrder: obj.EsBackOrder
             };
 
-            PedidoUpdate(item, PROL, detalleObj, elementRow);
+            PedidoUpdate(item, PROL, obj, elementRow);
         });
     });
 
@@ -1178,12 +1178,10 @@ function MostrarDetalleGanancia() {
     $('#popupGanancias').show();
 }
 
-function InsertarProducto(model, asyncX, urlMobile) {
-    
+function InsertarProducto(model, asyncX, urlMobile) {    
     var retorno = new Object();
 
     urlPedidoInsert = (!urlMobile ? urlPedidoInsert : baseUrl + "Pedido/" + urlMobile);
-
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoInsert,

@@ -1165,18 +1165,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BETablaLogicaDatos>)val;
         }
 
-        void ISessionManager.SetCuvEsProgramaNuevas(bool val)
-        {
-            HttpContext.Current.Session["CuvEsProgramaNuevas"] = val;
-        }
-
-        bool ISessionManager.GetCuvEsProgramaNuevas()
-        {
-            var val = HttpContext.Current.Session["CuvEsProgramaNuevas"];
-            if (val == null) { return false; }
-            return (bool)val;
-        }
-
         void ISessionManager.SetOcultarBannerTop(bool val)
         {
             HttpContext.Current.Session["OcultarBannerTop"] = val;

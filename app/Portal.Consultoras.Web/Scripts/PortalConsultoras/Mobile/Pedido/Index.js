@@ -6,6 +6,7 @@ var existeCUV = false;
 var mensajeParametrizableCuv = '';
 var cuvbuscado = "";
 var precioCuvBuscado = "";
+var cuvEsProgNuevas = false;
 
 var belcorp = belcorp || {};
 belcorp.pedido = belcorp.pedido || {};
@@ -512,6 +513,7 @@ function ObservacionesProducto(item) {
     $("#hdfDescripcionProd").val(item.Descripcion);
     $("#txtCodigoProducto").val(item.CUV);
     $("#txtCantidad").val("1");
+    cuvEsProgNuevas = item.EsProgNuevas;
 
     $("#txtCantidad, #suma, #resta").attr("disabled", item.FlagNueva == "1");
 
@@ -700,7 +702,8 @@ function AgregarProductoListado() {
         Descripcion: 0,
         Cantidad: Cantidad,
         IndicadorMontoMinimo: 0,
-        TipoOferta: $("#hdTipoEstrategiaID").val()
+        TipoOferta: $("#hdTipoEstrategiaID").val(),
+        enRangoProgNuevas: cuvEsProgNuevas
     });
 
     jQuery.ajax({
@@ -754,7 +757,8 @@ function InsertarProducto() {
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val(),
             ClienteID: $("#txtClienteId").val(),
-            ClienteDescripcion: $("#txtClienteNombre").val()
+            ClienteDescripcion: $("#txtClienteNombre").val(),
+            EnRangoProgramaNuevas: cuvEsProgNuevas
         };
 
     } else {
@@ -768,7 +772,8 @@ function InsertarProducto() {
             DescripcionProd: $("#divNombreProducto").html(),
             TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
-            TipoEstrategiaImagen: 2
+            TipoEstrategiaImagen: 2,
+            EnRangoProgramaNuevas: cuvEsProgNuevas
         };
     }
 

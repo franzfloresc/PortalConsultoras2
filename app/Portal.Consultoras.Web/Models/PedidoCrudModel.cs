@@ -45,6 +45,7 @@
         public string FlagNueva { get; set; }
 
         public int LimiteVenta { get; set; }
-
+        
+        public bool EnRangoProgramaNuevas { get; set; }
     }
 }
