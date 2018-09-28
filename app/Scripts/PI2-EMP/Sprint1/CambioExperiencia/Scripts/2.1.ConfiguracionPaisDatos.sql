@@ -4,6 +4,7 @@ go
 print  'BD : ' + db_name()
 
 declare @RevistaDigital_Codigo varchar(50) = 'RD'
+declare @RevistaDigitalIntriga_Codigo varchar(50) = 'RDI'
 --
 declare @LogoComercialFondoActiva_Codigo varchar(50) = 'LogoComercialFondoActiva'
 declare @LogoComercialFondoActiva_Valor1 varchar(800) = 'logo-club-ganamas-dorado2.png'
@@ -32,6 +33,12 @@ declare @UrlPreguntasFrecuentes_Valor1 varchar(800) = 'https://somosbelcorpqa.s3
 declare @UrlPreguntasFrecuentes_Valor2 varchar(800) = 'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/Preguntas_Frecuentes-GanaMasNuevas.pdf'
 declare @UrlTerminosCondiciones_Codigo varchar(50) = 'UrlTerminosCondiciones'
 declare @UrlTerminosCondiciones_Valor1 varchar(800) = 'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/Terminos_y_Condiciones-GanaMas.pdf'
+--
+declare @LogoMenuOfertasNoActiva_Codigo varchar(50) = 'LogoMenuOfertasNoActiva'
+declare @LogoMenuOfertasNoActiva_Valor1 varchar(800) = 'menuOfertas.jpg'
+--
+declare @LogoMenuOfertas_Codigo varchar(50) = 'LogoMenuOfertas'
+declare @LogoMenuOfertas_Valor1 varchar(800) = 'menuOfertas.jpg'
 
 print  'Actualizando ''LogoComercialFondoActiva'' en ''ConfiguracionPaisDatos'''
 
@@ -94,7 +101,7 @@ from ConfiguracionPais cp
 where cp.codigo = @RevistaDigital_Codigo
 and cpd.Codigo = @PopupBloqueadoNS_Codigo
 
-print  'Rollback ''Actualizando'' en ''ConfiguracionPaisDatos'''
+print  'Actualizando ''Actualizando'' en ''ConfiguracionPaisDatos'''
 
 update cpd
 set cpd.Valor2 = @PopupBloqueadoSNA_Valor2
@@ -136,6 +143,26 @@ from ConfiguracionPais cp
 where cp.codigo = @RevistaDigital_Codigo
 and cpd.Codigo = @UrlTerminosCondiciones_Codigo
 
+print  'Actualizando ''LogoMenuOfertasNoActiva'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor1 = @LogoMenuOfertasNoActiva_Valor1
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigital_Codigo
+and cpd.Codigo = @LogoMenuOfertasNoActiva_Codigo
+
+print  'Actualizando ''LogoMenuOfertas'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor1 = @LogoMenuOfertas_Valor1
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigitalIntriga_Codigo
+and cpd.Codigo = @LogoMenuOfertas_Codigo
+
 go
 
 use BelcorpChile_BPT
@@ -144,6 +171,7 @@ go
 print  'BD : ' + db_name()
 
 declare @RevistaDigital_Codigo varchar(50) = 'RD'
+declare @RevistaDigitalIntriga_Codigo varchar(50) = 'RDI'
 --
 declare @LogoComercialFondoActiva_Codigo varchar(50) = 'LogoComercialFondoActiva'
 declare @LogoComercialFondoActiva_Valor1 varchar(800) = 'logo-club-ganamas-dorado2.png'
@@ -172,6 +200,12 @@ declare @UrlPreguntasFrecuentes_Valor1 varchar(800) = 'https://somosbelcorpqa.s3
 declare @UrlPreguntasFrecuentes_Valor2 varchar(800) = 'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/CL/Preguntas_Frecuentes-GanaMasNuevas.pdf'
 declare @UrlTerminosCondiciones_Codigo varchar(50) = 'UrlTerminosCondiciones'
 declare @UrlTerminosCondiciones_Valor1 varchar(800) = 'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/CL/Terminos_y_Condiciones-GanaMas.pdf'
+--
+declare @LogoMenuOfertasNoActiva_Codigo varchar(50) = 'LogoMenuOfertasNoActiva'
+declare @LogoMenuOfertasNoActiva_Valor1 varchar(800) = 'menuOfertas.jpg'
+--
+declare @LogoMenuOfertas_Codigo varchar(50) = 'LogoMenuOfertas'
+declare @LogoMenuOfertas_Valor1 varchar(800) = 'menuOfertas.jpg'
 
 print  'Actualizando ''LogoComercialFondoActiva'' en ''ConfiguracionPaisDatos'''
 
@@ -234,7 +268,7 @@ from ConfiguracionPais cp
 where cp.codigo = @RevistaDigital_Codigo
 and cpd.Codigo = @PopupBloqueadoNS_Codigo
 
-print  'Rollback ''Actualizando'' en ''ConfiguracionPaisDatos'''
+print  'Actualizando ''Actualizando'' en ''ConfiguracionPaisDatos'''
 
 update cpd
 set cpd.Valor2 = @PopupBloqueadoSNA_Valor2
@@ -276,6 +310,26 @@ from ConfiguracionPais cp
 where cp.codigo = @RevistaDigital_Codigo
 and cpd.Codigo = @UrlTerminosCondiciones_Codigo
 
+print  'Actualizando ''LogoMenuOfertasNoActiva'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor1 = @LogoMenuOfertasNoActiva_Valor1
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigital_Codigo
+and cpd.Codigo = @LogoMenuOfertasNoActiva_Codigo
+
+print  'Actualizando ''LogoMenuOfertas'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor1 = @LogoMenuOfertas_Valor1
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigitalIntriga_Codigo
+and cpd.Codigo = @LogoMenuOfertas_Codigo
+
 go
 
 use BelcorpCostaRica_BPT
@@ -284,6 +338,7 @@ go
 print  'BD : ' + db_name()
 
 declare @RevistaDigital_Codigo varchar(50) = 'RD'
+declare @RevistaDigitalIntriga_Codigo varchar(50) = 'RDI'
 --
 declare @LogoComercialFondoActiva_Codigo varchar(50) = 'LogoComercialFondoActiva'
 declare @LogoComercialFondoActiva_Valor1 varchar(800) = 'logo-club-ganamas-dorado2.png'
@@ -312,6 +367,12 @@ declare @UrlPreguntasFrecuentes_Valor1 varchar(800) = 'https://somosbelcorpqa.s3
 declare @UrlPreguntasFrecuentes_Valor2 varchar(800) = 'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/CR/Preguntas_Frecuentes-GanaMasNuevas.pdf'
 declare @UrlTerminosCondiciones_Codigo varchar(50) = 'UrlTerminosCondiciones'
 declare @UrlTerminosCondiciones_Valor1 varchar(800) = 'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/CR/Terminos_y_Condiciones-GanaMas.pdf'
+--
+declare @LogoMenuOfertasNoActiva_Codigo varchar(50) = 'LogoMenuOfertasNoActiva'
+declare @LogoMenuOfertasNoActiva_Valor1 varchar(800) = 'menuOfertas.jpg'
+--
+declare @LogoMenuOfertas_Codigo varchar(50) = 'LogoMenuOfertas'
+declare @LogoMenuOfertas_Valor1 varchar(800) = 'menuOfertas.jpg'
 
 print  'Actualizando ''LogoComercialFondoActiva'' en ''ConfiguracionPaisDatos'''
 
@@ -374,7 +435,7 @@ from ConfiguracionPais cp
 where cp.codigo = @RevistaDigital_Codigo
 and cpd.Codigo = @PopupBloqueadoNS_Codigo
 
-print  'Rollback ''Actualizando'' en ''ConfiguracionPaisDatos'''
+print  'Actualizando ''Actualizando'' en ''ConfiguracionPaisDatos'''
 
 update cpd
 set cpd.Valor2 = @PopupBloqueadoSNA_Valor2
@@ -415,6 +476,26 @@ from ConfiguracionPais cp
 		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
 where cp.codigo = @RevistaDigital_Codigo
 and cpd.Codigo = @UrlTerminosCondiciones_Codigo
+
+print  'Actualizando ''LogoMenuOfertasNoActiva'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor1 = @LogoMenuOfertasNoActiva_Valor1
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigital_Codigo
+and cpd.Codigo = @LogoMenuOfertasNoActiva_Codigo
+
+print  'Actualizando ''LogoMenuOfertas'' en ''ConfiguracionPaisDatos'''
+
+update cpd
+set cpd.Valor1 = @LogoMenuOfertas_Valor1
+from ConfiguracionPais cp
+	join ConfiguracionPaisDatos cpd 
+		on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID 
+where cp.codigo = @RevistaDigitalIntriga_Codigo
+and cpd.Codigo = @LogoMenuOfertas_Codigo
 
 go
 
