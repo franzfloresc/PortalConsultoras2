@@ -689,6 +689,45 @@
     display:none;
 }
 
+.ver_todos_los_resultados_wrapper,
+.enlace_ver_todos_los_resultados
+{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.ver_todos_los_resultados_wrapper{
+    width: 97.17%;
+    align-items: center;
+    background-color: #FFF;
+    position: absolute;
+    bottom: 0;
+    height: 65px;
+    z-index:3;
+}
+
+.enlace_ver_todos_los_resultados {
+    width: 280px;
+    height: 45px;
+    line-height: 44px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .enlace_ver_todos_los_resultados:hover{
+        background-color:#000;
+        color:#FFF!important;
+    }
+
 @media screen and (max-width:1354px) {
 
     .buscador_productos_con_enlace_menu_socia_empresaria{
@@ -1095,6 +1134,13 @@
 
     .mensaje_busqueda_sin_resultados p{
         width:64%;
+    }
+
+    .ver_todos_los_resultados_wrapper{
+        width:100%;
+        left:0;
+        position:fixed;
+        z-index:10;
     }
 
 }

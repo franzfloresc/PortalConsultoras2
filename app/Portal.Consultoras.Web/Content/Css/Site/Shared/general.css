@@ -95,6 +95,10 @@ body > img{
     padding-right:0;
 }
 
+.d-none{
+    display:none;
+}
+
 .d-block{
     display:block;
 }
@@ -109,6 +113,10 @@ body > img{
 
 .d-inline-block{
     display:inline-block;
+}
+
+.d-flex{
+    display:flex;
 }
 
 .text-bold{
