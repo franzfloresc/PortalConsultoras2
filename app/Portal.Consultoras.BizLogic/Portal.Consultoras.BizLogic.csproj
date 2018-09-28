@@ -137,7 +137,9 @@
     <Compile Include="Pedido\IEscalaDescuentoBusinessLogic.cs" />
     <Compile Include="Pedido\IMensajeMetaConsultoraBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />
+    <Compile Include="Producto\BLBuscador.cs" />
     <Compile Include="Producto\BLOfertaProducto.cs" />
+    <Compile Include="Producto\IBuscadorBusinessLogic.cs" />
     <Compile Include="Producto\IOfertaProductoBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConsultorasProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Reserva\BLReserva.cs" />
