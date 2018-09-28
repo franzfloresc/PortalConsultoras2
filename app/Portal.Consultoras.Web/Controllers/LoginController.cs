@@ -830,13 +830,27 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
                     case Constantes.IngresoExternoPagina.DetalleEstrategia:
+                        if (string.IsNullOrEmpty(model.NombrePalanca)) {
+                            model.NombrePalanca = Constantes.NombrePalanca.Palancas.Keys.Contains(model.PalancaID) ?
+                                Constantes.NombrePalanca.Palancas[model.PalancaID] : model.PalancaID;
+                        }
+                        model.OrigenPedido = model.OrigenPedido ?? Constantes.IngresoExternoOrigen.App;
                         return RedirectToUniqueRoute("DetalleEstrategia", "Ficha", new
                         {
                             palanca = model.NombrePalanca,
                             campaniaId = model.Campania,
                             cuv = model.CUV,
-                            origen = Constantes.IngresoExternoOrigen.App
+                            origen = model.OrigenPedido
                         });
+                    case Constantes.IngresoExternoPagina.LoNuevoNuevo:
+                        return RedirectToUniqueRoute("Ofertas", "Index", null, "LAN");
+                    case Constantes.IngresoExternoPagina.OfertasParaTi:
+                        return RedirectToUniqueRoute("RevistaDigital", "Comprar");
+                    case Constantes.IngresoExternoPagina.SoloHoy:
+                        return RedirectToUniqueRoute("Ofertas", "Index", null, "ODD");
+                    case Constantes.IngresoExternoPagina.HerramientasDeVenta:
+                        return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
+                        //case Constantes.IngresoExternoPagina.SaberMasInscripcion:
                 }
             }
             catch (Exception ex)
@@ -2642,13 +2656,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData)
+        private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData = null, string anchor = null)
         {
             var route = new RouteValueDictionary(new
             {
                 Controller = controller,
                 Action = action,
-                guid = this.GetUniqueKey()
+                guid = this.GetUniqueKey(),
+                anchor = anchor
             });
 
             if (routeData != null)
@@ -2657,7 +2672,9 @@ namespace Portal.Consultoras.Web.Controllers
                 routeDataAditional.ForEach(item => { route.Add(item.Key, item.Value); });
             }
 
-            return RedirectToRoute("UniqueRoute", route);
+            var routeName = string.IsNullOrEmpty(anchor) ? "UniqueRoute" : "UniqueRouteAnchor";
+
+            return RedirectToRoute(routeName, route);
         }
 
         #region OLVIDE CONTRASEÑA
@@ -2789,7 +2806,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, oUsu, Codigoingresado);
+                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, oUsu, Codigoingresado, false);
                 }
 
                 if (iguales)
@@ -2842,7 +2859,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEUsuarioDatos oVerificacion;
                 using (var sv = new UsuarioServiceClient())
                 {
-                    oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario);
+                    oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario, true);
                 }
 
                 if (oVerificacion == null) return false;
