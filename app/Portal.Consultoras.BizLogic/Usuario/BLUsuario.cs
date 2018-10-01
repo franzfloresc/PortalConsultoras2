@@ -3096,6 +3096,7 @@ namespace Portal.Consultoras.BizLogic
                     var dateDiffHours = Common.Util.DateDiff(Enumeradores.DateInterval.Hour, codGenerado.FechaRegistro, codGenerado.FechaActual);
                     oUsu.HoraRestanteSms = (dateDiffHours > 23 ? oUsu.HoraRestanteSms : (int)(Constantes.VerificacionValidacion.TIME_REINTENTO - Common.Util.DateDiff(Enumeradores.DateInterval.Second, codGenerado.FechaRegistro, codGenerado.FechaActual)));                    
                     oUsu.IntentosRestanteSms = (dateDiffHours < 24 ? Math.Max(0,opcion.IntentosSms - codGenerado.CantidadEnvios) : opcion.IntentosSms);
+                    oUsu.HoraRestanteSms = oUsu.IntentosRestanteSms < 1 ? oUsu.HoraRestanteSms : 0;
                 }
                 else
                 {
