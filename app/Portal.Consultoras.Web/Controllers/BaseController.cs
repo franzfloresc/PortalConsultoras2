@@ -431,15 +431,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<PermisoModel> BuildMenu(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
-            if (userData.Menu != null)
+            if (userData == null)
+                throw new ArgumentNullException("userData");
+
+            if (revistaDigital == null)
+                throw new ArgumentNullException("revistaDigital");
+ 
+            ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
+            if (userData.Menu == null)
             {
-                ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
-                return _menuProvider.SepararItemsMenu(userData.Menu);
+                userData = _menuProvider.GetPermisosByRol(userData, revistaDigital);
             }
 
-            userData = _menuProvider.GetPermisosByRol(userData, revistaDigital);
-            
-            ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
             return _menuProvider.SepararItemsMenu(userData.Menu);
         }
         

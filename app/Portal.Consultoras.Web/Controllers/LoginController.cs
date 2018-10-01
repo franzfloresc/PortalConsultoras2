@@ -13,6 +13,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.Providers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -1308,11 +1309,13 @@ namespace Portal.Consultoras.Web.Controllers
                         var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntrega(usuario));
                         var linkPaisTask = Task.Run(() => GetLinksPorPais(usuario.PaisID));
                         var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidad(usuario));
+                        var personalizacionesTask = Task.Run(() => GetPersonalizaiones(usuarioModel));                        
 
-                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
+                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask, personalizacionesTask);
 
                         usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
                         usuarioModel.TieneNotificaciones = notificacionTask.Result;
+                        usuarioModel.PersonalizacionesDummy = personalizacionesTask.Result;
 
                         var fechaPromesa = fechaPromesaTask.Result;
                         if (!string.IsNullOrEmpty(fechaPromesa))
@@ -1495,6 +1498,25 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return result != null;
+        }
+
+        private async Task<string> GetPersonalizaiones(UsuarioModel usuarioModel)
+        {
+            if (usuarioModel.IndicadorConsultoraDummy == 0) return "";
+            var resultado = "";
+
+            try
+            {
+                BuscadorYFiltrosProvider personalizacion = new BuscadorYFiltrosProvider();
+                resultado = await personalizacion.GetPersonalizacion(usuarioModel);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            return resultado;
         }
 
         private async Task<ServiceUsuario.BEUsuario> ActualizarDatosHana(UsuarioModel model)
@@ -1913,7 +1935,13 @@ namespace Portal.Consultoras.Web.Controllers
                                 herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel, configuracionPaisDatos);
                                 break;
                             case Constantes.ConfiguracionPais.BuscadorYFiltros:
+                                usuarioModel.IndicadorConsultoraDummy = 0;
                                 buscadorYFiltrosModel = ConfiguracionPaisBuscadorYFiltro(buscadorYFiltrosModel, configuracionPaisDatos);
+                                var listaDummy = configuracionPaisDatos.Where(n => n.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).ToList();
+                                if (listaDummy.Any())
+                                {
+                                    usuarioModel.IndicadorConsultoraDummy = listaDummy[0].Valor1.ToInt();
+                                }
                                 break;
                         }
 
