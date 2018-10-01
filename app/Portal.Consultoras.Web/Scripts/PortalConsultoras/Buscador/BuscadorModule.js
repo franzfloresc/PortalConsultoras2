@@ -67,8 +67,8 @@ var BuscadorModule = (function(){
             $("#ResultadoBuscador").html("");
             
             if (event.which === 27 && !me.Config.isMobile) {
-                if ($('.lista_resultados_busqueda_productos').length > 0) {
-                    me.Funciones.AccionesLimpiarBusqueda($('#CampoBuscadorProductos'), $('#ResultadoBuscador'));
+                if ($(".lista_resultados_busqueda_productos").length > 0) {
+                    me.Funciones.AccionesLimpiarBusqueda($("#CampoBuscadorProductos"), $("#ResultadoBuscador"));
                     return false;
                 }
             }
@@ -146,14 +146,14 @@ var BuscadorModule = (function(){
                     $(".busqueda_sin_resultados").fadeOut(60);
                 }
                 $("#ResultadoBuscador").fadeOut(150);
-                if (me.Config.isMobile) me.Funciones.CampoDeBusquedaSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
+                if (me.Config.isMobile) me.Funciones.CampoDeBusquedaSinCaracteres($(".opcion_limpiar_campo_busqueda_productos"));
                 else me.Funciones.CampoDeBusquedaSinCaracteres($("#CampoBuscadorProductos"));
             }
         },
 
         LimpiarCampoBusqueda: function (e) {
             e.preventDefault();
-            if (me.Config.isMobile) me.Funciones.CampoDeBusquedaSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
+            if (me.Config.isMobile) me.Funciones.CampoDeBusquedaSinCaracteres($(".opcion_limpiar_campo_busqueda_productos"));
             else me.Funciones.CampoDeBusquedaSinCaracteres($("#ResultadoBuscador"));
             $("#CampoBuscadorProductos").val("");
             $("#CampoBuscadorProductos").focus();
@@ -322,9 +322,9 @@ var BuscadorModule = (function(){
         CampoDeBusquedaConCaracteres: function (campoBuscador) {
             if (campoBuscador !== undefined) $(campoBuscador).addClass("campo_buscador_productos_activo");
             if (me.Config.isMobile) {
-                $('.vistaResultadosBusquedaMobile').delay(50);
-                $('.vistaResultadosBusquedaMobile').fadeIn(100);
-                $('.enlace_busqueda_filtros').fadeOut(100);
+                $(".vistaResultadosBusquedaMobile").delay(50);
+                $(".vistaResultadosBusquedaMobile").fadeIn(100);
+                $(".enlace_busqueda_filtros").fadeOut(100);
             } else {
                 $(".campo_busqueda_fondo_on_focus").fadeIn(100);
                 $(".lista_resultados_busqueda_productos").delay(50);
@@ -336,11 +336,11 @@ var BuscadorModule = (function(){
         },
         CampoDeBusquedaSinCaracteres: function (element) {
             if (me.Config.isMobile) {
-                $('.vistaResultadosBusquedaMobile').fadeOut(100);
+                $(".vistaResultadosBusquedaMobile").fadeOut(100);
                 $(element).fadeOut(100);
-                $('.enlace_busqueda_filtros').delay(50);
-                $('.enlace_busqueda_filtros').fadeIn(100);
-                $('#ResultadoBuscador').html('');
+                $(".enlace_busqueda_filtros").delay(50);
+                $(".enlace_busqueda_filtros").fadeIn(100);
+                $("#ResultadoBuscador").html("");
             } else {
                 $(".lista_resultados_busqueda_productos").fadeOut(100);
                 $(".lista_resultados_busqueda_productos").animate({
@@ -362,27 +362,27 @@ var BuscadorModule = (function(){
         },
         ModificarAnchoBuscadorFiltros: function () {
 
-            var enlacesVisiblesMenuLateralDerechoSegunVista = $('.visibilidadEnlaceMenu:visible');
+            var enlacesVisiblesMenuLateralDerechoSegunVista = $(".visibilidadEnlaceMenu:visible");
 
-            if ($('.new_menu').first().find('a').attr("title") == "SOCIA EMPRESARIA") {
+            if ($(".new_menu").first().find("a").attr("title") == "SOCIA EMPRESARIA") {
                 if (enlacesVisiblesMenuLateralDerechoSegunVista.length > 2) {
-                    $('.buscador_productos').addClass('buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido');
+                    $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido");
                 } else {
                     if (window.location.href.indexOf("Bienvenida") > -1) {
-                        $('.buscador_productos').addClass('buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida');
+                        $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida");
                     } else {
-                        $('.buscador_productos').addClass('buscador_productos_con_enlace_menu_socia_empresaria');
+                        $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria");
                     }
                 }
             } else {
-                $('.menu_new_esika').addClass('anchoMenu_sinEnlaceSociaEmpresaria');
+                $(".menu_new_esika").addClass("anchoMenu_sinEnlaceSociaEmpresaria");
                 if (enlacesVisiblesMenuLateralDerechoSegunVista.length > 2) {
-                    $('.buscador_productos').addClass('buscador_productos_sin_enlace_menu_socia_empresaria_vista_pedido');
+                    $(".buscador_productos").addClass("buscador_productos_sin_enlace_menu_socia_empresaria_vista_pedido");
                 } else {
                     if (window.location.href.indexOf("Bienvenida") > -1) {
-                        $('.buscador_productos').addClass('buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida');
+                        $(".buscador_productos").addClass("buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida");
                     } else {
-                        $('.buscador_productos').addClass('buscador_productos_sin_enlace_menu_socia_empresaria');
+                        $(".buscador_productos").addClass("buscador_productos_sin_enlace_menu_socia_empresaria");
                     }
                 }
             }
