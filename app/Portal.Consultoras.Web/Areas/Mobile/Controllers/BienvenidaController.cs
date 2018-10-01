@@ -8,6 +8,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
