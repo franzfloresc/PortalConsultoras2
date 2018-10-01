@@ -18,7 +18,6 @@ insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe
 insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
 insert into PagoEnLineaBancos values('BCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
 insert into PagoEnLineaBancos values('Banco de la Nación','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
-insert into PagoEnLineaBancos values('Multifácil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
 insert into PagoEnLineaBancos values('Wester Unión','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
 insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_p.png',1)
 
