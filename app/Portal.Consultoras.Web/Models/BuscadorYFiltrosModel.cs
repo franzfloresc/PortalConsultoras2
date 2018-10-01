@@ -14,6 +14,12 @@ namespace Portal.Consultoras.Web.Models
         }
 
         public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
+        public int total { get; set; }
+        public IList<Productos> Productos { get; set; }
+    }
+
+    public class Productos
+    {
         public string CUV { get; set; }
         public string SAP { get; set; }
         public string Imagen { get; set; }

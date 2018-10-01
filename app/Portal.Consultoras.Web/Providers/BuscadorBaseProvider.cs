@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
 
-                resultados.AddRange(list.Select(item => new BuscadorYFiltrosModel
+                /*resultados.AddRange(list.Select(item => new BuscadorYFiltrosModel
                 {
                     CUV = item.CUV,
                     SAP = item.SAP,
@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Providers
                     Stock = item.Stock,
                     URLBsucador = path,
                     EstrategiaID = item.EstrategiaID
-                }));
+                }));*/
             }
 
             return resultados;
