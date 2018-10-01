@@ -188,10 +188,22 @@
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
 
-    @Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
+    
+    <script type='text/javascript'>
+        (function () {
+            var proto = document.location.protocol || 'http:';
+            var trme = document.createElement('script');
+            trme.type = 'text/javascript';
+            trme.async = true;
+            trme.src = proto + '//trackme-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/trackme/js/tm.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(trme, s);
+        })();
 
-    @Scripts.Render("~/Bundle/Js/Mixto/PageResponsive")
-
+        function Buscador() {
+            location.href = baseUrl + 'Mobile/Buscador';
+        }
+    </script>
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         @*var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';*@
@@ -221,21 +233,10 @@
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
     </script>
-    <script type='text/javascript'>
-        (function () {
-            var proto = document.location.protocol || 'http:';
-            var trme = document.createElement('script');
-            trme.type = 'text/javascript';
-            trme.async = true;
-            trme.src = proto + '//trackme-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/trackme/js/tm.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(trme, s);
-        })();
 
-        function Buscador() {
-            location.href = baseUrl + 'Mobile/Buscador';
-        }
-    </script>
+    @Scripts.Render("~/Bundle/Js/Desktop/JQuery3Js")
+
+    @Scripts.Render("~/Bundle/Js/Mixto/PageResponsive")
 
     @RenderSection("scripts", required: false)
 
