@@ -1,15 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models.Buscador
 {
+    [Serializable]
     public class BuscadorModel
     {
-        public UsuarioModel userData { get; set; }
-        public RevistaDigitalModel revistaDigital { get; set; }
         public string TextoBusqueda { get; set; }
         public int CantidadProductos { get; set; }
+        public Orden Orden { get; set; }
+        public Paginacion Paginacion { get; set; }
+    }
+    
+    public class Paginacion
+    {
+        public int NumeroPagina { get; set; }
+        public int Cantidad { get; set; }
+    }
+    
+    public class Orden
+    {
+        public string Campo { get; set; }
+        public string Tipo { get; set; }
     }
 }
