@@ -16,11 +16,11 @@ go
 insert into PagoEnLineaBancos values('Interbank','https://www.interbank.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/interbank.png',1)
 insert into PagoEnLineaBancos values('Scotiabank','https://www.scotiabank.com.pe','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/scotiabank.png',1)
 insert into PagoEnLineaBancos values('Continental','https://www.bbvacontinental.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bbva.png',1)
-insert into PagoEnLineaBancos values('VCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
-insert into PagoEnLineaBancos values('BancoNacion','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
-insert into PagoEnLineaBancos values('Multifacil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
-insert into PagoEnLineaBancos values('WesterUnion','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
-insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('BCP','https://www.viabcp.com/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/bcp.png',1)
+insert into PagoEnLineaBancos values('Banco de la Nación','http://www.bn.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_de_la_nacion.png',1)
+insert into PagoEnLineaBancos values('Multifácil','http://www.multifacil.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/multi_facil.png',1)
+insert into PagoEnLineaBancos values('Wester Unión','https://www.westernunion.com.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/w_u.png',1)
+insert into PagoEnLineaBancos values('Pichincha','https://www.pichincha.pe/','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banco_p.png',1)
 
 if( select count(*) from PagoEnLineaMedioPago where Codigo='PBI')=0
 insert into PagoEnLineaMedioPago values('PAGOS BANCA POR INTERNET','PBI','https://somosbelcorpqa.s3.amazonaws.com/PagoEnLinea/banca_internet_45px.png',3,'',1)
