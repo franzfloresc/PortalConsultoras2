@@ -1,0 +1,41 @@
+﻿
+/* PÁGINA DE RESULTADOS DESKTOP */
+
+.layout__content__wrapper{
+    max-width:1040px;
+}
+
+.busqueda__productos__titulo{
+    font-size:25px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    padding-top:10px;
+    margin-bottom:12px;
+}
+
+.busqueda__productos__encontrados{
+    font-size:13px;
+    letter-spacing:0.2px;
+}
+
+/* FIN - PÁGINA DE RESULTADOS DESKTOP */
+
+/* PÁGINA DE RESULTADOS MOBILE */
+
+@media screen and (max-width:991px){
+
+    .layout__content__wrapper{
+        max-width:none;
+    }
+
+    .busqueda__productos__titulo{
+        font-size:22px;
+        font-weight:normal;
+        letter-spacing:normal;
+        padding-top:2px;
+        margin-bottom:10px;
+    }
+
+}
+
+/* FIN - PÁGINA DE RESULTADOS MOBILE */
