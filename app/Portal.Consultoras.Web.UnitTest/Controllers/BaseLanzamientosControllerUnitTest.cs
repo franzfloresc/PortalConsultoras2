@@ -17,7 +17,7 @@
 
 //            public virtual BaseLanzamientosController GetLanzamientosController()
 //            {
-//                return new BaseLanzamientosController(sessionManager.Object, logManager.Object);
+//                return new BaseLanzamientosController(SessionManager.Object, logManager.Object);
 //            }
 
 //            [TestInitialize]
@@ -83,7 +83,7 @@
 //            [TestMethod]
 //            public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaYProductoTemporalEsNulo_DebeRedireccionarAOfertas()
 //            {
-//                sessionManager.Setup(x => x.GetProductoTemporal()).Returns((EstrategiaPersonalizadaProductoModel)null);
+//                SessionManager.Setup(x => x.GetProductoTemporal()).Returns((EstrategiaPersonalizadaProductoModel)null);
 //                controller.RevistaDigital = new RevistaDigitalModel
 //                {
 //                    TieneRDC = true,
@@ -99,7 +99,7 @@
 //            [TestMethod]
 //            public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaProductoTemporalIdEsCero_DebeRedireccionarAOfertas()
 //            {
-//                sessionManager
+//                SessionManager
 //                    .Setup(x => x.GetProductoTemporal())
 //                    .Returns(new EstrategiaPersonalizadaProductoModel { });
 //                controller.RevistaDigital = new RevistaDigitalModel
@@ -119,7 +119,7 @@
 //            [DataRow(3, DisplayName = "Mayor a campania de usuario")]
 //            public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaProductoTemporalTieneCampaniaInvalida_DebeRedireccionarAOfertas(int campaniaId)
 //            {
-//                sessionManager
+//                SessionManager
 //                    .Setup(x => x.GetProductoTemporal())
 //                    .Returns(new EstrategiaPersonalizadaProductoModel { EstrategiaID = 1, CampaniaID = campaniaId });
 //                controller.RevistaDigital = new RevistaDigitalModel
@@ -137,7 +137,7 @@
 //            [TestMethod]
 //            public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaCuvDelUrlNoCoincideConProductoTemporal_DebeRedireccionarAOfertas()
 //            {
-//                sessionManager
+//                SessionManager
 //                    .Setup(x => x.GetProductoTemporal())
 //                    .Returns(new EstrategiaPersonalizadaProductoModel { EstrategiaID = 1, CUV2 = "99988" });
 //                controller.RevistaDigital = new RevistaDigitalModel
@@ -155,7 +155,7 @@
 //            [TestMethod]
 //            public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaCampaniaIdDelUrlNoCoincideConProductoTemporal_DebeRedireccionarAOfertas()
 //            {
-//                sessionManager
+//                SessionManager
 //                    .Setup(x => x.GetProductoTemporal())
 //                    .Returns(new EstrategiaPersonalizadaProductoModel { EstrategiaID = 1, CUV2 = "99988", CampaniaID = 0 });
 //                controller.RevistaDigital = new RevistaDigitalModel

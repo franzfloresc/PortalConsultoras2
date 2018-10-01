@@ -2,7 +2,7 @@
 
 namespace Portal.Consultoras.Data.Hana.AutoMapper
 {
-    public class AutoMapperConfiguration
+    public static class AutoMapperConfiguration
     {
         public static void Configure()
         {

@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void GetPartialSectionBptModel_RevistaDigitalModelNoTieneDBienvenidaInscritaActiva_ResultConfiguracionPaisDatosIsNotNull()
             {
-                var controller = new BienvenidaController(logManager.Object);
+                var controller = new BienvenidaController(LogManager.Object);
                 var revistaDigitalModel = new RevistaDigitalModel
                 {
                     TieneRDC = true,
@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void GetPartialSectionBptModel_RevistaDigitalModelTieneDBienvenidaInscritaActiva_ResultTieneDBienvenidaInscritaActiva()
             {
-                var controller = new BienvenidaController(logManager.Object);
+                var controller = new BienvenidaController(LogManager.Object);
                 var revistaDigitalModel = new RevistaDigitalModel
                 {
                     TieneRDC = true,
@@ -94,7 +94,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void GetPartialSectionBptModel_RevistaDigitalModelNoTieneDBienvenidaNoInscritaActiva_ResultConfiguracionPaisDatosIsNotNull()
             {
-                var controller = new BienvenidaController(logManager.Object);
+                var controller = new BienvenidaController(LogManager.Object);
                 var revistaDigitalModel = new RevistaDigitalModel
                 {
                     TieneRDC = true,
@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void GetPartialSectionBptModel_RevistaDigitalModelTieneDBienvenidaNoInscritaActiva_ResultTieneDBienvenidaInscritaActiva()
             {
-                var controller = new BienvenidaController(logManager.Object);
+                var controller = new BienvenidaController(LogManager.Object);
                 var revistaDigitalModel = new RevistaDigitalModel
                 {
                     TieneRDC = true,
@@ -139,7 +139,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void GetPartialSectionBptModel_RevistaDigitalModelNoTieneDBienvenidaInscritaNoActiva_ResultConfiguracionPaisDatosIsNotNull()
             {
-                var controller = new BienvenidaController(logManager.Object);
+                var controller = new BienvenidaController(LogManager.Object);
                 var revistaDigitalModel = new RevistaDigitalModel
                 {
                     TieneRDC = true,
@@ -159,7 +159,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void GetPartialSectionBptModel_RevistaDigitalModelTieneDBienvenidaInscritaNoActiva_ResultTieneDBienvenidaInscritaNoActiva()
             {
-                var controller = new BienvenidaController(logManager.Object);
+                var controller = new BienvenidaController(LogManager.Object);
                 var revistaDigitalModel = new RevistaDigitalModel
                 {
                     TieneRDC = true,
@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void GetPartialSectionBptModel_RevistaDigitalModelNoTieneDBienvenidaNoInscritaNoActiva_ResultConfiguracionPaisDatosIsNotNull()
             {
-                var controller = new BienvenidaController(logManager.Object);
+                var controller = new BienvenidaController(LogManager.Object);
                 var revistaDigitalModel = new RevistaDigitalModel
                 {
                     TieneRDC = true,
@@ -204,7 +204,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void GetPartialSectionBptModel_RevistaDigitalModelTieneDBienvenidaNoInscritaNoActiva_ResultTieneDBienvenidaNoInscritaNoActiva()
             {
-                var controller = new BienvenidaController(logManager.Object);
+                var controller = new BienvenidaController(LogManager.Object);
                 var revistaDigitalModel = new RevistaDigitalModel
                 {
                     TieneRDC = true,
@@ -230,7 +230,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void GetPartialSectionBptModel_RevistaDigitalModelNoTieneDBienvenidaIntriga_ResultConfiguracionPaisDatosIsNotNull()
             {
-                var controller = new BienvenidaController(logManager.Object);
+                var controller = new BienvenidaController(LogManager.Object);
                 var revistaDigitalModel = new RevistaDigitalModel
                 {
                     TieneRDI = true,
@@ -248,7 +248,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void GetPartialSectionBptModel_RevistaDigitalModelTieneDBienvenidaIntriga_ResultTieneDBienvenidaIntriga()
             {
-                var controller = new BienvenidaController(logManager.Object);
+                var controller = new BienvenidaController(LogManager.Object);
                 var revistaDigitalModel = new RevistaDigitalModel
                 {
                     TieneRDI = true,

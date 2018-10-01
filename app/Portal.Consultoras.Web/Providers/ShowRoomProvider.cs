@@ -29,25 +29,42 @@ namespace Portal.Consultoras.Web.Providers
 
         private readonly TablaLogicaProvider _tablaLogicaProvider;
         private readonly ILogManager _logManager;
-        private readonly ISessionManager sessionManager;
+        private readonly ISessionManager _sessionManager;
         private readonly ConfiguracionManagerProvider _configuracionManager;
         protected OfertaBaseProvider _ofertaBaseProvider;
 
-        public ShowRoomProvider(TablaLogicaProvider tablaLogicaProvider)
+
+        public ShowRoomProvider() : this(LogManager.LogManager.Instance,
+            SessionManager.SessionManager.Instance,
+            new ConfiguracionManagerProvider(),
+            new OfertaBaseProvider())
         {
-            _tablaLogicaProvider = tablaLogicaProvider;
-            _logManager = LogManager.LogManager.Instance;
-            sessionManager = SessionManager.SessionManager.Instance;
-            _configuracionManager = new ConfiguracionManagerProvider();
-            _ofertaBaseProvider = new OfertaBaseProvider();
+
         }
 
-        public ShowRoomProvider()
+        public ShowRoomProvider(
+                   ILogManager logManager,
+                   ISessionManager sessionManager,
+                   ConfiguracionManagerProvider configuracionManagerProvider,
+                   OfertaBaseProvider ofertaBaseProvider)
         {
-            _logManager = LogManager.LogManager.Instance;
-            sessionManager = SessionManager.SessionManager.Instance;
-            _configuracionManager = new ConfiguracionManagerProvider();
+            this._logManager = logManager;
+            this._sessionManager = sessionManager;
+            this._configuracionManager = configuracionManagerProvider;
+            _ofertaBaseProvider = ofertaBaseProvider;
         }
+
+        public ShowRoomProvider(TablaLogicaProvider tablaLogicaProvider) : this(
+            LogManager.LogManager.Instance, 
+            SessionManager.SessionManager.Instance, 
+            new ConfiguracionManagerProvider(),
+            new OfertaBaseProvider())
+        {
+            this._tablaLogicaProvider = tablaLogicaProvider;
+        }
+
+       
+        
 
         /// <summary>
         /// Obtiene la configuracion de Base de datos
@@ -230,14 +247,14 @@ namespace Portal.Consultoras.Web.Providers
         
         public void CargarEntidadesShowRoom(UsuarioModel model)
         {
-            var configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+            var configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
             try
             {
                 const int SHOWROOM_ESTADO_ACTIVO = 1;
 
-                sessionManager.SetEsShowRoom("0");
-                sessionManager.SetMostrarShowRoomProductos("0");
-                sessionManager.SetMostrarShowRoomProductosExpiro("0");
+                _sessionManager.SetEsShowRoom("0");
+                _sessionManager.SetMostrarShowRoomProductos("0");
+                _sessionManager.SetMostrarShowRoomProductosExpiro("0");
 
                 configEstrategiaSR.BeShowRoomConsultora = null;
                 configEstrategiaSR.BeShowRoom = null;
@@ -261,18 +278,18 @@ namespace Portal.Consultoras.Web.Providers
                     configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO &&
                     configEstrategiaSR.BeShowRoomConsultora != null)
                 {
-                    sessionManager.SetEsShowRoom("1");
+                    _sessionManager.SetEsShowRoom("1");
 
                     var fechaHoy = model.FechaHoy;
 
                     if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
                         && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
                     {
-                        sessionManager.SetMostrarShowRoomProductos("1");
+                        _sessionManager.SetMostrarShowRoomProductos("1");
                     }
 
                     if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
-                        sessionManager.SetMostrarShowRoomProductosExpiro("1");
+                        _sessionManager.SetMostrarShowRoomProductosExpiro("1");
                 }
 
                 configEstrategiaSR.CargoEntidadesShowRoom = true;
@@ -283,7 +300,7 @@ namespace Portal.Consultoras.Web.Providers
                 configEstrategiaSR.CargoEntidadesShowRoom = false;
             }
 
-            sessionManager.SetEstrategiaSR(configEstrategiaSR);
+            _sessionManager.SetEstrategiaSR(configEstrategiaSR);
         }
 
         public bool PaisTieneShowRoom(string codigoIsoPais)
@@ -304,7 +321,7 @@ namespace Portal.Consultoras.Web.Providers
             if (!PaisTieneShowRoom(codigoIso))
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
-            var configEstrategiaSR = sessionManager.GetEstrategiaSR();
+            var configEstrategiaSR = _sessionManager.GetEstrategiaSR();
             if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
@@ -320,7 +337,7 @@ namespace Portal.Consultoras.Web.Providers
                 fechaHoy <= fechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
                 model.MostrarShowRoomProductos = true;
-                sessionManager.SetMostrarShowRoomProductos("1");
+                _sessionManager.SetMostrarShowRoomProductos("1");
             }
             if (fechaHoy > fechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date)
                 model.EstaActivoLateral = false;
@@ -429,7 +446,7 @@ namespace Portal.Consultoras.Web.Providers
         
         public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
         {
-            var configEstrategiaSR = sessionManager.GetEstrategiaSR(); 
+            var configEstrategiaSR = _sessionManager.GetEstrategiaSR(); 
             if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
                 return string.Empty;
 
@@ -443,7 +460,7 @@ namespace Portal.Consultoras.Web.Providers
         public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
         {
             List<ServiceOferta.BEEstrategia> lEstrategia = new List<ServiceOferta.BEEstrategia>();
-            UsuarioModel userData = sessionManager.GetUserData();
+            UsuarioModel userData = _sessionManager.GetUserData();
 
             string path = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasShowRoom, userData.CodigoISO, Constantes.ConfiguracionPais.ShowRoom, userData.CampaniaID, userData.GetCodigoConsultora(), string.Empty, string.Empty);
 

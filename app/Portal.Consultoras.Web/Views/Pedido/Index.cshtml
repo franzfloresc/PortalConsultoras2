@@ -8,7 +8,7 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssPedido")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
 }
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="envolvente_pop_up">
@@ -391,10 +391,10 @@
                         </div>
                     </div>
 
-                    <div id="divCondicionesCupon" style="display: none; color: #9b9b9b">    
-                        <div style="margin-top: 19px;width: 42%;float:right;text-align:center;">*No incluye herramientas de venta</div> 
-                        <div class="clearfix"></div>    
-                    </div>  
+                    <div id="divCondicionesCupon" style="display: none; color: #9b9b9b">
+                        <div style="margin-top: 19px;width: 42%;float:right;text-align:center;">*No incluye herramientas de venta</div>
+                        <div class="clearfix"></div>
+                    </div>
 
                     <div class="clear"></div>
 
@@ -421,14 +421,14 @@
                     </p>
                 </div>
 
-                
+
                 <p class="texto_eliminar_pedido">
                     <span class="texto_pedido_completo">
                         Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
                     </span>
                 </p>
-                
-                
+
+
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
@@ -639,8 +639,8 @@
     <div class="terminos_title_2">
         IMPORTANTE
     </div>
-    <div id="dataEliminar" data-campaniaId="" data-pedidoId="" data-pedidoDetalleId="" data-tipoOfertaSisId="" data-cuv="" 
-         data-cantidad="" data-clienteId="" data-cuvReco="" data-esBackOrder="" ></div>
+    <div id="dataEliminar" data-campaniaId="" data-pedidoId="" data-pedidoDetalleId="" data-tipoOfertaSisId="" data-cuv=""
+         data-cantidad="" data-clienteId="" data-cuvReco="" data-esBackOrder=""></div>
 
     <div class="pop_pedido_mensaje">
         ¿Estás segura que quieres eliminar el producto?<br /><br />
@@ -837,7 +837,7 @@
             <div class="content_cuv">
                 <section>
                     <div class="filtroInput">
-                        <label  for="ddlCategoriaProductoAgotado">Categoria</label>
+                        <label for="ddlCategoriaProductoAgotado">Categoria</label>
                         <select id="ddlCategoriaProductoAgotado" class="producto_faltante"></select>
                     </div>
                     <div class="filtroInput">
@@ -849,8 +849,8 @@
                         <input id="producto-faltante-busqueda-descripcion" type="text" class="producto_faltante">
                     </div>
                     <div class="filtroInput">
-                        <label  for="ddlCatalogoRevistaProductoAgotado">Catalogo o Revista</label>
-                        <select id="ddlCatalogoRevistaProductoAgotado"  class="producto_faltante"></select>
+                        <label for="ddlCatalogoRevistaProductoAgotado">Catalogo o Revista</label>
+                        <select id="ddlCatalogoRevistaProductoAgotado" class="producto_faltante"></select>
                     </div>
                     <div class="filtroButton">
                         <input type="button" onclick="CargarProductoAgotados(0);" class="buscar_icono">
@@ -948,8 +948,13 @@
         <hr class="clear" />
     </div>
 </div>
+
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+
+@*
+    DEUDA TECNICA
+    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
+    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>*@
 
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
@@ -1520,25 +1525,25 @@
                 {{Split DescripcionProd '|' 0}}
             </div>
 
-                    <input type="hidden" name="hdfFlagNueva{{PedidoID}}" value="{{FlagNueva}}" id="hdfFlagNueva{{PedidoID}}" class="hdfFlagNueva"/>
-                    <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" class="hdfCampaniaID"/>
-                    <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" class="hdfPedidoId"/>
-                    <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" class="hdfPedidoDetalleID"/>
-                    <input type="hidden" name="hdfTipoOfertaSisID{{PedidoID}}" value="{{TipoOfertaSisID}}" id="hdfTipoOfertaSisID{{PedidoID}}" class="hdfTipoOfertaSisID"/>
-                    <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" class="hdfCUV"/>
-                    <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" class="txtLPTempCant"/>
+            <input type="hidden" name="hdfFlagNueva{{PedidoID}}" value="{{FlagNueva}}" id="hdfFlagNueva{{PedidoID}}" class="hdfFlagNueva" />
+            <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" class="hdfCampaniaID" />
+            <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" class="hdfPedidoId" />
+            <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" class="hdfPedidoDetalleID" />
+            <input type="hidden" name="hdfTipoOfertaSisID{{PedidoID}}" value="{{TipoOfertaSisID}}" id="hdfTipoOfertaSisID{{PedidoID}}" class="hdfTipoOfertaSisID" />
+            <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" class="hdfCUV" />
+            <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" class="txtLPTempCant" />
         </div>
         <div class="celda_cantidad_pedidos">
-                    <div  data-SetID="{{SetID}}"></div>
+            <div data-SetID="{{SetID}}"></div>
             {{#if EsKitNueva}}
             <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
             {{else if FlagNueva}}
             <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
-                        <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
-                               data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
-                               onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}')" />
+                <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
+                       data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
+                       onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}')" />
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                     <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -1547,7 +1552,7 @@
             {{/if}}
         </div>
         <div class="texto_pedidos precioUnitario">
-                    <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
+            <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
             {{SimboloMoneda}} {{FormatoPrecioUnidad}}
         </div>
         <div class="texto_pedidos subtotal">
@@ -1556,7 +1561,7 @@
             </span>
             <span>
                 {{SimboloMoneda}}
-                        <label for="item_ImporteTotal" class="classImporteTotal lblLPImpTotal">{{FormatoImporteTotal}}</label>
+                <label for="item_ImporteTotal" class="classImporteTotal lblLPImpTotal">{{FormatoImporteTotal}}</label>
                 {{#if EstadoSimplificacionCuv}}
                 {{#if IndicadorOfertaCUV}}
                 <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
@@ -1568,17 +1573,17 @@
         <div class="texto_pedidos clientePedido">
             {{#if EsKitNueva}}
             {{else}}
-                    <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCliIni" />
-                    <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCli" />
-                    <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
-                    <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
+            <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCliIni" />
+            <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCli" />
+            <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
+            <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
 
             {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Nueva'}}
-                    <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
+            <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
             {{else}}
-                    <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
-                           onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
+            <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
+                   onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
                    datapedido="{{PedidoDetalleID}}" />
             {{/if_eq}}
             {{/if}}
@@ -1599,9 +1604,9 @@
             {{#iff DescripcionLarga 'Contains' '\''}}
             {{Replace DescripcionLarga '\'' ''}}
             {{/iff}}
-                    <a onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}');"
-                       style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
-            
+            <a onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}');"
+               style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+
             {{/if}}
         </div>
         {{#if EsBackOrder}}
@@ -1643,8 +1648,10 @@
 </script>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@*
+DEUDA TECNICA
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
 @Html.Partial("~/Views/FichaProducto/template-ficha-producto.cshtml")
 
 <script id="productos-faltantes-template" type="text/x-handlebars-template">
@@ -1749,7 +1756,7 @@
         <div class="content_info_regalo">
             <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
             <div class="content_imagen_sorpresa">
-                <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt=""/>
+                <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt="" />
             </div>
             <div class="descripcion_regalo" id="of-regalo-descripcion-larga">
                 Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
@@ -1802,7 +1809,7 @@
                         {{/iff}}
                         {{else if_eq TipoMeta 'RG'}}
                         <span>@ViewBag.NombreConsultora, APROVECHA ESTAS OFERTAS Y <b>GANA PREMIOS INCREÍBLES</b></span>
-                        {{else}} 
+                        {{else}}
                         <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{SimboloMoneda}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                         {{/if_eq}}
                     </div>
@@ -1900,7 +1907,7 @@
                 </div>
                 <div style="display: block; position: relative;">
                     <div class="contenedor_boton_reservarPedido">
-                        <a id="btnNoGraciasOfertaFinal" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" 
+                        <a id="btnNoGraciasOfertaFinal" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido"
                            style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                             RESERVA TU PEDIDO
                         </a>
@@ -1997,7 +2004,7 @@
 </script>
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
         var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
@@ -2062,7 +2069,7 @@
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
     {
         <script>

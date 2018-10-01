@@ -827,6 +827,7 @@
       <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
+      <xs:element minOccurs="0" name="EstrategiaId" type="xs:int" />
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Flag" type="xs:int" />
       <xs:element minOccurs="0" name="FlagConsultoraOnline" type="xs:boolean" />
@@ -890,8 +891,14 @@
   <xs:element name="ArrayOfBEEscalaDescuento" nillable="true" type="tns:ArrayOfBEEscalaDescuento" />
   <xs:complexType name="BEEscalaDescuento">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Algoritmo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaCarga" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="MontoDesde" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoHasta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NameDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PorDescuento" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioMinimo" type="xs:decimal" />
       <xs:element minOccurs="0" name="Seleccionado" type="xs:boolean" />
@@ -1048,6 +1055,7 @@
       <xs:element minOccurs="0" name="CodigoError" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoErrorObs" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Digitable" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
@@ -1055,7 +1063,10 @@
       <xs:element minOccurs="0" name="FactorCuadre" type="xs:int" />
       <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IdMarca" type="xs:int" />
+      <xs:element minOccurs="0" name="ImagenBulk" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreBulk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreComercial" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
@@ -1065,6 +1076,7 @@
       <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Volumen" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEstrategiaProducto" nillable="true" type="tns:BEEstrategiaProducto" />

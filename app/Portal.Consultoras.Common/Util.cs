@@ -28,10 +28,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
+using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Common
 {
-    public class Util
+    public static class Util
     {
         static public int ParseInt(object value)
         {
@@ -3449,7 +3450,7 @@ namespace Portal.Consultoras.Common
             string caracter = "*".PadLeft(longitudOcultar, '*');
             return celular.Replace(strOcultar, caracter);
         }
-        
+
         public static string EnmascararTarjeta(string numero)
         {
             if (string.IsNullOrWhiteSpace(numero)) return string.Empty;
@@ -3465,7 +3466,7 @@ namespace Portal.Consultoras.Common
 
             var init = numero.Substring(0, initLen);
             var last = numero.Substring(longitud - lastLen);
-            
+
             return init + new string('*', longitud - totalLen) + last;
         }
         public static string GetDescripcionMarca(int marcaId)
@@ -3514,7 +3515,7 @@ namespace Portal.Consultoras.Common
                 {
                     byte[] inputBytes = Encoding.ASCII.GetBytes(input);
                     byte[] hashBytes = md5.ComputeHash(inputBytes);
-                
+
                     StringBuilder sb = new StringBuilder();
                     foreach (var item in hashBytes)
                     {
@@ -3534,6 +3535,262 @@ namespace Portal.Consultoras.Common
 
                 return response.GetResponseStream();
             }
+        }
+
+        //Validación de la descripción del producto
+        public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista,
+            bool suscripcion,
+            string codigoEstrategia,
+            string tipoEstrategiaCodigo,
+            int marcaId,
+            int codigoCatalago,
+            bool buscador = false)
+        {
+            var result = "";
+
+            if (!lista.Any()) return result;
+
+            if (string.IsNullOrEmpty(tipoEstrategiaCodigo) && buscador == false)
+            {
+                switch (codigoCatalago)
+                {
+                    case Constantes.CodigosCatalogos.ESIKA:
+                        result = lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA];
+                        break;
+                    case Constantes.CodigosCatalogos.LBEL:
+                        result = lista[Constantes.NuevoCatalogoProducto.CATALOGOLBEL];
+                        break;
+                    case Constantes.CodigosCatalogos.CYZONE:
+                        result = lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE];
+                        break;
+                    default:
+                        result = "";
+                        break;
+                }
+            }
+            else
+            {
+                switch (codigoEstrategia)
+                {
+                    case "LIQ":
+                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
+                        break;
+                    case "CAT":
+                        result = (marcaId == 1 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOLBEL] :
+                            (marcaId == 2 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA] :
+                            lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE]));
+                        break;
+                    case "ODD":
+                        result = lista[Constantes.NuevoCatalogoProducto.SOLOHOY];
+                        break;
+                    default:
+                        if (suscripcion)
+                        {
+                            result = lista[Constantes.NuevoCatalogoProducto.CLUBGANA];
+                        }
+                        else
+                        {
+                            switch (tipoEstrategiaCodigo)
+                            {
+                                case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                                case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                                case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTAPARATI];
+                                    break;
+                                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                                    result = lista[Constantes.NuevoCatalogoProducto.LANZAMIENTOS];
+                                    break;
+                                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTADELDIA];
+                                    break;
+                                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                                    result = lista[Constantes.NuevoCatalogoProducto.GUIADENEGOCIODIGITAL];
+                                    break;
+                                case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                                    result = lista[Constantes.NuevoCatalogoProducto.HERRAMIENTASDEVENTA];
+                                    break;
+                                case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                                    result = lista[Constantes.NuevoCatalogoProducto.ESPECIALES];
+                                    break;
+                                default:
+                                    result = "";
+                                    break;
+                            }
+                        }
+                        break;
+                }
+            }
+
+            return result;
+        }
+
+        public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
+            bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion,
+            string tipoEstrategiaCodigo, int marcaId, int codigoCatalogo, string descripcion)
+        {
+            var result = "";
+
+
+            if (pedidoValidado)
+            {
+                result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
+
+                if (result == "")
+                {
+                    if (string.IsNullOrEmpty(descripcion))
+                        result = "";
+                    else 
+                        result = (descripcion.Replace("[", "")).Replace("]", "");
+                }
+
+                if (string.IsNullOrWhiteSpace(result))
+                {
+                    switch (ofertaId)
+                    {
+                        case Constantes.TipoOferta.Liquidacion:
+                            result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
+                            break;
+                        case Constantes.TipoOferta.Flexipago:
+                            result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
+                            break;
+                        default:
+                            result = "";
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                if (consultoraOnline)
+                {
+                    result = "CLIENTE ONLINE";
+                }
+                else
+                {
+                    switch (origenPedido)
+                    {
+                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
+                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
+                            result = "";
+                            break;
+                        default:
+                            result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
+
+                            if (result == "") result = descripcion;
+
+                            if (string.IsNullOrWhiteSpace(result))
+                            {
+                                switch (ofertaId)
+                                {
+                                    case Constantes.TipoOferta.Liquidacion:
+                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
+                                        break;
+                                    case Constantes.TipoOferta.Flexipago:
+                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
+                                        break;
+                                    default:
+                                        result = "";
+                                        break;
+                                }
+                            }
+
+                            break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        //Obtener el código de origen
+        public static string obtenerCodigoOrigenWeb(
+            string codigoEstrategia,
+            string codigoTipoEstrategia,
+            int marcaId,
+            //int codigoCatalago,
+            bool IsMobile)
+        {
+            var result = "";
+
+            switch (codigoEstrategia)
+            {
+                case "LIQ":
+                    result = IsMobile ? Constantes.OrigenPedidoWeb.LiquidacionMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LiquidacionDesktopBuscador.ToString();
+                    break;
+                case "CAT":
+                    result = (marcaId == 1 ? (IsMobile ? Constantes.OrigenPedidoWeb.LBelMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LBelDesktopBuscador.ToString()) :
+                        (marcaId == 2 ? (IsMobile ? Constantes.OrigenPedidoWeb.EsikaMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.EsikaDesktopBuscador.ToString()) :
+                        (IsMobile ? Constantes.OrigenPedidoWeb.CyzoneMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.CyzoneDesktopBuscador.ToString())));
+                    break;
+                case "ODD":
+                    result = IsMobile ? Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador.ToString();
+                    break;
+                default:
+                    switch (codigoTipoEstrategia)
+                    {
+                        case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.EspecialesMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.EspecialesDesktopBuscador.ToString();
+                            break;
+                        case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscador.ToString();
+                            break;
+                        case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                        case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                        case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscador.ToString();
+                            break;
+                        case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador.ToString();
+                            break;
+                        case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscador.ToString();
+                            break;
+                        case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscador.ToString();
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+            }
+                        
+            return result;
+        }
+
+        public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)
+        {
+            var tipoPersonalizacion = string.Empty;
+
+            switch (codigoEstrategia)
+            {
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.Lanzamiento;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaParaTi;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertasParaMi;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.PackAltoDesembolso;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.GuiaDeNegocioDigitalizada;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.HerramientasVenta;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.ShowRoom;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
+                    break;
+                default:
+                    break;
+            }
+            return tipoPersonalizacion;
         }
     }
 
@@ -3603,6 +3860,7 @@ namespace Portal.Consultoras.Common
             }
         }
         
+
         #region Convert
 
         public static string ToString(this IDataRecord lector, string name, string valorDefecto = default(string))
@@ -3751,4 +4009,5 @@ namespace Portal.Consultoras.Common
             }
         }
     }
+
 }
