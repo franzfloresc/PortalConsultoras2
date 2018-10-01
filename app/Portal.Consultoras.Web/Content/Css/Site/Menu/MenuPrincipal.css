@@ -3,9 +3,7 @@
     margin: 0 auto;
     max-width: 1189px;
     position: relative;
-    box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
-    -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
-    -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
+    box-shadow: 0 3px 5px 0 rgba(126, 126, 126, .35);
 }
 
 .wrapper_header_cincuenta_anios_belcorp {
