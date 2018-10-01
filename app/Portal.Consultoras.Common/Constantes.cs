@@ -175,6 +175,10 @@ namespace Portal.Consultoras.Common
                 public static readonly int ColorFondoBanner = 9301;
                 public static readonly int ColorFondoDisplay = 9302;
             }
+
+            public const int ActualizaEscalaDescuentoDestokp = 7201;
+            public const int ActualizaEscalaDescuentoMobile = 7301;
+
         }
 
         public static class ParametrosNames
@@ -235,6 +239,18 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "030";
             public const string HerramientasVenta = "011";
             public const string NotParticipaProgramaNuevas = "0";
+        }
+
+        public static class TipoPersonalizacion
+        {
+            public const string OfertaParaTi = "OPT";
+            public const string Lanzamiento = "LAN";
+            public const string OfertasParaMi = "OPM";
+            public const string PackAltoDesembolso = "PAD";
+            public const string OfertaDelDia = "ODD";
+            public const string GuiaDeNegocioDigitalizada = "GND";
+            public const string ShowRoom = "SR";
+            public const string HerramientasVenta = "HV";
         }
 
         public static class EstadoRespuestaServicio
@@ -484,6 +500,8 @@ namespace Portal.Consultoras.Common
 
             public const string RutaImagenesAppCatalogo = "RutaImagenesAppCatalogo";
             public const string RutaImagenesAppCatalogoBulk = "RutaImagenesAppCatalogoBulk";
+            
+            public const string PaisesEscalaDescuento = "PaisesEscalaDescuento";
 
         }
 
@@ -1615,6 +1633,9 @@ namespace Portal.Consultoras.Common
             public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
             public const short NuevaDescripcionProductos = 145;
+
+            public const short EscalaDescuentoDestokp = 72;
+            public const short EscalaDescuentoMobile = 73;
         }
 
         public struct MensajesCDRExpress
@@ -2620,6 +2641,9 @@ namespace Portal.Consultoras.Common
 
             //api/Componente/editar/{pais}/{tipo}
             public const string UrlUpdateOfertaShowRoomDetalleNew = "api/Componente/editar/{0}/{1}";
+
+            //api/Estrategia/buscador/{pais}/{tipo}/{campania}
+            public const string UrlJobBuscador = "api/Estrategia/buscador/{0}/{1}/{2}";
             #endregion
 
             #region Oferta

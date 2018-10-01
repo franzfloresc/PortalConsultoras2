@@ -861,10 +861,10 @@ namespace Portal.Consultoras.Web
            ));
 
 
-            bundles.Add(new ScriptBundle("~/Bundle/Css/Desktop/EstrategiaProducto-DetalleProducto").Include(
-               "~/Content/Css/Site/slick-pedido.css",
-                  "~/Content/Css/Site/jquery.rateyo.css",
-                     "~/Content/Css/Mobile/esika/bootstrap-slider.min.css"
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/EstrategiaProducto-DetalleProducto").Include(
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/jquery.rateyo.css",
+                "~/Content/Css/Mobile/esika/bootstrap-slider.min.css"
            ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/ShowRoom-Intriga").Include(

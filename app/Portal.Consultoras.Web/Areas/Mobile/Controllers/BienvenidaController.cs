@@ -8,16 +8,20 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class BienvenidaController : BaseMobileController
     {
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        protected TablaLogicaProvider _tablaLogica;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
+            _tablaLogica = new TablaLogicaProvider();
         }
+
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(int verSeccion = 0)
@@ -122,11 +126,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
+
                 #region Camino al Exito
 
-                var CaminoExito = this.ObjectCaminoExito();
-                model.TieneCaminoExito = CaminoExito.Item1;
-                model.urlCaminoExito = CaminoExito.Item2 ?? "";
+                var LogicaCaminoExisto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
+                if (LogicaCaminoExisto.Any())
+                {
+                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
+                    bool caminiExitoActive = (CaminoExistoFirst != null && CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
+                    if (caminiExitoActive)
+                    {
+                        var accesoCaminoExito = this.ObjectCaminoExito();
+                        model.TieneCaminoExito = accesoCaminoExito.Item1;
+                        model.urlCaminoExito = accesoCaminoExito.Item2 ?? "";
+                    }
+                }
 
                 #endregion
 
