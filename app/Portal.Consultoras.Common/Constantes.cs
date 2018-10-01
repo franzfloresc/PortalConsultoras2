@@ -2040,19 +2040,7 @@ namespace Portal.Consultoras.Common
                 public const string Electivo_NoAgregarPorLimite = "Ya no puedes añadir otro producto, tu {0} está completo.";
                 public const string Electivo_CompletasteLimite = "¡Completaste tu {0}!";
                 public const string Electivo_TeFaltaPocoLimite = "¡Agregaste 1 producto, te falta {0} para completar tu {1}!";
-                public const string DuoPerfecto_ConfirmaEliminar = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña";
-            }
-
-            public static class MensajeValidacionCantidadMaxima
-            {
-            }
-            
-            public static class MensajesElectivosNuevas
-            {
-                public const string NoAgregarPorLimite = "No puedes agregar este producto a tu pedido por haber alcanzado el límite de {0} cuvs del programa nuevas.";
-                public const string PromocionNombre = "dúo perfecto";
-                public const string CompletasteLimite = "¡Completaste los {0} cupones del {1}!";
-                public const string TeFaltaPocoLimite = "¡Agregaste 1 cupón del {1}, te falta(n) {0} para completar!";
+                public const string DuoPerfecto_ConfirmaEliminar = "Si eliminas este producto te quedarás sin tu {0}";
             }
         }
 

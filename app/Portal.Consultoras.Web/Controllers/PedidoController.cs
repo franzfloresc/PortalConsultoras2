@@ -4440,7 +4440,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new {
                     success = true,
                     esDuoPerfecto = esDuoPerfecto,
-                    message = esDuoPerfecto ? Constantes.ProgNuevas.Mensaje.DuoPerfecto_ConfirmaEliminar : ""
+                    message = esDuoPerfecto ?
+                        string.Format(Constantes.ProgNuevas.Mensaje.DuoPerfecto_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre) :
+                        ""
                 });
             }
             catch (Exception ex)
