@@ -101,14 +101,14 @@ $(document).ready(function () {
 
                             xhr = $.ajax({
                                 type: 'POST',
-                                url: baseUrl + "Buscador/BusquedaProductos",
+                                url: baseUrl + "Mobile/Buscador/BusquedaProductos",
                                 data: JSON.stringify({ busqueda: valBusqueda, totalResultados: TotalResultadosBuscador }),
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
                                 async: true,
                                 cache: false,
                                 success: function (msg) {
-                                    console.log(msg);
+                                    //console.log(msg);
                                 }
                             });
 
@@ -142,7 +142,6 @@ $(document).ready(function () {
                             }
 
                             xhr.then(successBusqueda, function (e) {
-                                console.log(e);
                             });
 
                         }, 200);
@@ -288,7 +287,7 @@ $(document).ready(function () {
                         var UrlDetalle = GetPalanca(codigoEstrategia);
                         if (UrlDetalle == "") return false;
                         UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-                        console.log(UrlDetalle);
+                        //console.log(UrlDetalle);
                         window.location = UrlDetalle;
                         return true;
                     }
