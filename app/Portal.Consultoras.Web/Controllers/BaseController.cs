@@ -627,6 +627,7 @@ namespace Portal.Consultoras.Web.Controllers {
                 objR.CantidadCuv = listProducto.Count;
 
                 #region listaEscalaDescuento
+
                 var listaEscalaDescuento = new List<BEEscalaDescuento> ();
                 if (inEscala) {
                     listaEscalaDescuento = GetListaEscalaDescuento () ?? new List<BEEscalaDescuento> ();
@@ -641,6 +642,7 @@ namespace Portal.Consultoras.Web.Controllers {
                             PorDescuento = escala.PorDescuento,
                     });
                 }
+
                 #endregion
 
                 #region Mensajes
@@ -661,7 +663,7 @@ namespace Portal.Consultoras.Web.Controllers {
 
             try {
                 using (var sv = new PedidoServiceClient ()) {
-                    listaEscalaDescuento = sv.GetEscalaDescuento (userData.PaisID).ToList ();
+                    listaEscalaDescuento = sv.GetEscalaDescuento(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
                 }
             } catch (Exception ex) {
                 LogManager.LogManager.LogErrorWebServicesBus (ex, userData.CodigoConsultora, userData.CodigoISO);
@@ -1195,19 +1197,23 @@ namespace Portal.Consultoras.Web.Controllers {
         }
 
         public Tuple<bool, string> ObjectCaminoExito () {
-            string URLConfig = _configuracionManagerProvider.GetConfiguracionManager (Constantes.ConfiguracionManager.URLCaminoExisto);
+            string URLConfig = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URLCaminoExisto);
             string URLCaminoExisto = string.Empty;
             bool ResultadoValidacion = false;
-            try {
-                using (var sv = new ServiceCliente.ClienteServiceClient ()) {
-                    List<ServiceCliente.BEEscalaDescuentoZona> Lista = sv.ListarEscalaDescuentoZona (userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList ();
+            try
+            {
+                using (var svc = new PedidoServiceClient())
+                {
+                    List<BEEscalaDescuento> Lista = svc.ListarEscalaDescuentoZona(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).ToList();
                     ResultadoValidacion = Lista.Count > 0;
-                    if (ResultadoValidacion) URLCaminoExisto = string.Format ("{0}{1}/{2}/{3}", URLConfig, userData.CodigoISO, userData.CampaniaID, Util.Security.ToMd5 (userData.CodigoConsultora));
+                    if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}/{3}", URLConfig, userData.CodigoISO, userData.CampaniaID, Util.Security.ToMd5(userData.CodigoConsultora));
                 }
-            } catch {
+            }
+            catch (Exception e)
+            {
                 ResultadoValidacion = false;
             }
-            return Tuple.Create (ResultadoValidacion, URLCaminoExisto);
+            return Tuple.Create(ResultadoValidacion, URLCaminoExisto);
         }
 
     }
