@@ -408,15 +408,20 @@ namespace Portal.Consultoras.Web.Providers
         {
             ServiceUsuario.BEConfiguracionPaisDatos entidadConfig;
             bool result = false;
-
+            
             try
             {
+
+                var ConfigPaisSR = _sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.ShowRoom); 
+
                 var entidad = new ServiceUsuario.BEConfiguracionPaisDatos
                 {
                     PaisID = usuarioModel.PaisID,
                     CampaniaID = usuarioModel.CampaniaID,
+                    ConfiguracionPaisID = ConfigPaisSR.ConfiguracionPaisID,
                     ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
                     {
+                        Codigo = Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital,
                         Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
                         {
                             CodigoConsultora = usuarioModel.CodigoConsultora,
@@ -430,8 +435,7 @@ namespace Portal.Consultoras.Web.Providers
                 using (var sv = new ServiceUsuario.UsuarioServiceClient())
                 {
                     var lst =  sv.GetConfiguracionPaisDatos(entidad);
-                    //listaEntidad = lst;
-                    entidadConfig = lst.FirstOrDefault(c => c.ConfiguracionPaisID == Constantes.ConfiguracionPaisDatos.ConfigPaisSR && c.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                    entidadConfig = lst.FirstOrDefault();
                 }
 
                 if (entidadConfig != null) result = entidadConfig.Valor1 == "1"; 
