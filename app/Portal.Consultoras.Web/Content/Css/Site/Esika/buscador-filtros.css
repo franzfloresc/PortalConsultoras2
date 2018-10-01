@@ -702,13 +702,13 @@
 }
 
 .ver_todos_los_resultados_wrapper{
-    width: 97.17%;
-    align-items: center;
+    width: 100%;
+    align-items: flex-end;
     background-color: #FFF;
-    position: absolute;
-    bottom: 0;
-    height: 65px;
-    z-index:3;
+    position: sticky;
+    bottom: -14px;
+    height: 54px;
+    z-index: 3;
 }
 
 .enlace_ver_todos_los_resultados {
@@ -1137,9 +1137,10 @@
     }
 
     .ver_todos_los_resultados_wrapper{
-        width:100%;
+        align-items:center;
+        height:65px;
         left:0;
-        position:fixed;
+        bottom:0;
         z-index:10;
     }
 
