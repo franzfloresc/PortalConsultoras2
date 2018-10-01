@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
-                "~/Scripts/PortalConsultoras/Buscador/buscadorLayout.js"
+                "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Fuzemodal").Include(
@@ -299,7 +299,7 @@ namespace Portal.Consultoras.Web
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 //"~/Scripts/PortalConsultoras/OfertaLiquidacion/Index.js",
-                "~/Scripts/PortalConsultoras/Buscador/Index.js"
+                "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Bienvenida").Include(
@@ -925,14 +925,24 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
-                "~/Content/Css/Site/Shared/style-responsive.css",
-                "~/Content/Css/Site/Esika/style-esika-responsive.css"
+                "~/Content/Css/Site/Shared/general.css",
+                "~/Content/Css/Site/Shared/header-responsive.css",
+                "~/Content/Css/Site/Shared/menu-principal-responsive.css",
+                "~/Content/Css/Site/Shared/buscador-responsive.css",
+                "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
+                "~/Content/Css/Site/Shared/footer-responsive.css",
+                "~/Content/Css/Site/Esika/marca-pais-responsive.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
-                "~/Content/Css/Site/Shared/style-responsive.css",
-                "~/Content/Css/Site/Lbel/style-lbel-responsive.css"
+                "~/Content/Css/Site/Shared/general.css",
+                "~/Content/Css/Site/Shared/header-responsive.css",
+                "~/Content/Css/Site/Shared/menu-principal-responsive.css",
+                "~/Content/Css/Site/Shared/buscador-responsive.css",
+                "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
+                "~/Content/Css/Site/Shared/footer-responsive.css",
+                "~/Content/Css/Site/Lbel/marca-pais-responsive.css"
             ));
 #if DEBUG
             BundleTable.EnableOptimizations = false;

@@ -1,0 +1,196 @@
+﻿/* ESTILOS GENERALES */
+
+*{
+    box-sizing:border-box;
+    font-family:'Lato';
+    font-size:14px;
+    font-weight:400;
+    color:#000;
+}
+
+html, body{
+    margin:0;
+}
+
+header,nav, section, aside, picture, fieldset, caption, figure, h1, h2, h3, h4, h5, h6, p{
+    margin:0;
+    padding:0;
+}
+
+ul{
+    list-style-type:none;
+    padding:0;
+}
+
+a, a:hover,a:active{
+    color:#000!important;
+    text-decoration:none;
+}
+
+body > img{
+    display:none;
+}
+
+/* FIN - ESTILOS GENERALES */
+
+/* ESTILOS MODIFICADORES JQUERY UI */
+
+.ui-dialog.ui-widget-content {
+    width: auto !important;
+    background: #FFFFFF !important;
+    color: #555 !important;
+    border-radius:0;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    padding: 0 0 0 10px;
+}
+
+#loadingScreen {
+    padding: 20px 30px;
+}
+
+.loadingScreen-titulo {
+    font-weight: 700;
+    font-family: lato;
+    font-size: 10pt;
+    color: #0C0B0C;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.loadingScreen-mensaje {
+    background: url(/Content/Images/Loading.gif) no-repeat 0 0;
+    padding-left: 25px;
+    margin-top: 10px;
+    padding-bottom: 5px;
+    font-family: 'lato';
+    font-size: 10pt;
+    color: black;
+    margin-top: 20px;
+}
+
+/* FIN - ESTILOS MODIFICADORES JQUERY UI */
+
+/* HELPERS CSS */
+
+.ml-0{
+    margin-left:0;
+}
+
+.mr-0{
+    margin-right:0;
+}
+
+.mb-30{
+    margin-bottom:30px;
+}
+
+.pl-0{
+    padding-left:0;
+}
+
+.pr-0{
+    padding-right:0;
+}
+
+.d-none{
+    display:none;
+}
+
+.d-block{
+    display:block;
+}
+
+.text-center{
+    text-align:center;
+}
+
+.text-uppercase{
+    text-transform:uppercase;
+}
+
+.d-inline-block{
+    display:inline-block;
+}
+
+.d-flex{
+    display:flex;
+}
+
+.text-bold{
+    font-weight:700;
+}
+
+.text-underline{
+    text-decoration:underline!important;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(124,124,124,.47);
+    border-radius: 20px;
+}
+
+/* FIN - HELPERS CSS*/
+
+.mostrarEnMobile{
+    display:none;
+}
+
+.row.mostrarEnMobile{
+    display:none;
+}
+
+.mostrarEnDesktop{
+    display:block;
+}
+
+.row.mostrarEnDesktop{
+    display:flex;
+}
+
+/* SECCIÓN CONTENIDO */
+
+.layout__content{
+    padding:20px 15px;
+    min-height:calc(100vh - 207px);
+}
+
+/* FIN - SECCIÓN CONTENIDO */
+
+/* CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
+
+    [data-codigo='contenedorofertas'].new_menu a img{
+        max-width:none;
+    }
+
+}
+
+/* FIN - CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
+
+@media screen and (max-width:991px) {
+
+    .mostrarEnMobile{
+        display:block;
+    }
+
+    .row.mostrarEnMobile{
+        display:flex;
+    }
+
+    .mostrarEnDesktop{
+        display:none;
+    }
+
+    .row.mostrarEnDesktop{
+        display:none;
+    }
+
+}

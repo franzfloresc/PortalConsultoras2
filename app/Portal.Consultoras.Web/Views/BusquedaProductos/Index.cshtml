@@ -4,7 +4,16 @@
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 }
 
-<section class="layout__content">
-    <p>Búsqueda Productos</p>
+<link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/busqueda-productos.css")" rel="stylesheet" />
+
+<section class="row flex-row ml-0 mr-0 layout__content">
+    <div class="row flex-row align-content-start ml-0 mr-0 w-100 mx-auto layout__content__wrapper">
+        <h1 class="col-12 pl-0 pr-0 busqueda__productos__titulo">
+            Resultados de la búsqueda
+        </h1>
+        <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados">
+            <span class="busqueda__num__productos__encontrados">4</span>  resultados para: <span class="busqueda__nom__filtro text-bold">Kalos</span>
+        </p>
+    </div>
 </section>
 

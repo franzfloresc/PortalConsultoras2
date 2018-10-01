@@ -5,11 +5,19 @@ using Portal.Consultoras.Web.ServicePedido;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorYFiltrosProvider : BuscadorBaseProvider
     {
+        protected ISessionManager _sessionManager;
+
+        public BuscadorYFiltrosProvider()
+        {
+            _sessionManager = SessionManager.SessionManager.Instance;
+        }
+
         public async Task<string> GetPersonalizacion(UsuarioModel usuario)
         {
             var pathPersonalziacion = string.Format(Constantes.RutaBuscadorService.UrlPersonalizacion, 
@@ -22,28 +30,29 @@ namespace Portal.Consultoras.Web.Providers
 
         public async Task<List<BuscadorYFiltrosModel>> GetBuscador(BuscadorModel buscadorModel)
         {
+            var revistaDigital = _sessionManager.GetRevistaDigital();
+            var userData = _sessionManager.GetUserData();
             
-            var suscripcionActiva = (buscadorModel.revistaDigital.EsSuscrita && buscadorModel.revistaDigital.EsActiva);
-
+            var suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
             var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
-                        buscadorModel.userData.CodigoISO,
-                        buscadorModel.userData.CampaniaID,
-                        buscadorModel.userData.CodigoConsultora,
-                        buscadorModel.userData.CodigoZona,
+                        userData.CodigoISO,
+                        userData.CampaniaID,
+                        userData.CodigoConsultora,
+                        userData.CodigoZona,
                         buscadorModel.TextoBusqueda,
                         buscadorModel.CantidadProductos,
-                        buscadorModel.userData.Lider,
+                        userData.Lider,
                         suscripcionActiva,
-                        buscadorModel.revistaDigital.ActivoMdo,
-                        buscadorModel.revistaDigital.TieneRDC,
-                        buscadorModel.revistaDigital.TieneRDI,
-                        buscadorModel.revistaDigital.TieneRDCR,
-                        buscadorModel.userData.DiaFacturacion
+                        revistaDigital.ActivoMdo,
+                        revistaDigital.TieneRDC,
+                        revistaDigital.TieneRDI,
+                        revistaDigital.TieneRDCR,
+                        userData.DiaFacturacion
                 );
 
-            if (buscadorModel.userData.IndicadorConsultoraDummy == 1)
+            if (userData.IndicadorConsultoraDummy == 1)
             {
-                pathBuscador = pathBuscador + '/' + buscadorModel.userData.PersonalizacionesDummy;
+                pathBuscador = pathBuscador + '/' + userData.PersonalizacionesDummy;
             }
            
             return await ObtenerBuscadorDesdeApi(pathBuscador);
