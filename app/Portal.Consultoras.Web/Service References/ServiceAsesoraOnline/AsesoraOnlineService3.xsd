@@ -112,6 +112,7 @@
       <xs:element minOccurs="0" name="IndicadorBloqueoCDR" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorConsultoraDigital" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorContrato" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorContratoAceptacion" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorDupla" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorFlexiPago" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorGPRSB" type="xs:int" />
@@ -139,6 +140,7 @@
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreGerenteZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombrePais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NovedadBuscador" type="xs:int" />
       <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />
       <xs:element minOccurs="0" name="NuevoPROL" type="xs:boolean" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />

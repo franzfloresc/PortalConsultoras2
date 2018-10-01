@@ -36,11 +36,12 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int CUV_NO_TIENE_CREDITO = 2;
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
-
+        private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         public PedidoController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
             _productoFaltanteProvider = new ProductoFaltanteProvider();
+            _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
         }
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
@@ -277,7 +278,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
-                model.PartialSectionBpt = GetPartialSectionBptModel();
+                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.DesktopPedido);
 
                 ViewBag.NombreConsultora = userData.Sobrenombre;
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -949,7 +950,7 @@ namespace Portal.Consultoras.Web.Controllers
                            detalle.CUV,
                            set.Cantidad * detalle.FactorRepeticion,
                            ClienteID,
-                           EsBackOrder, 
+                           EsBackOrder,
                            CUV);
 
                         if (!lastResult.Item1)
@@ -983,6 +984,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return lastResult.Item2;
         }
+
 
         private Tuple<bool, JsonResult> DeletePedidoWeb(int campaniaId, int pedidoID, short pedidoDetalleId, int tipoOfertaSisId, string CUV, int cantidad, string clienteId, bool esBackOrder, string cuvPadre)
         {
@@ -4157,7 +4159,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var listSp = tono.Split(';');
                     estrategia.CUV2 = listSp.Length > 0 ? listSp[0] : estrategia.CUV2;
-                    estrategia.MarcaID = (listSp.Length > 1  && ! string.IsNullOrEmpty(listSp[1]))  ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
+                    estrategia.MarcaID = (listSp.Length > 1 && !string.IsNullOrEmpty(listSp[1])) ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                     estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
 
                     respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model, false);
@@ -4426,57 +4428,13 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
                     , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
             }
-            
+
             ObtenerPedidoWebSetDetalleAgrupado(true);
         }
 
         #endregion
 
-        private PartialSectionBpt GetPartialSectionBptModel()
-        {
-            var partial = new PartialSectionBpt();
-
-            try
-            {
-                partial.RevistaDigital = revistaDigital;
-
-                if (revistaDigital.TieneRDC)
-                {
-                    if (revistaDigital.EsActiva)
-                    {
-                        if (revistaDigital.EsSuscrita)
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                        else
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                    }
-                    else
-                    {
-                        if (revistaDigital.EsSuscrita)
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                        else
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                    }
-                }
-                else if (revistaDigital.TieneRDI)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DPedidoIntriga) ?? new ConfiguracionPaisDatosModel();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-
-            return partial;
-        }
+        
 
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
         {

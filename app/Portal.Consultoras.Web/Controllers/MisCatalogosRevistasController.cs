@@ -20,10 +20,12 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
         private readonly IssuuProvider _issuuProvider;
+        private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
         public MisCatalogosRevistasController()
         {
             _issuuProvider = new IssuuProvider();
+            _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
         }
 
         public ActionResult Index(string marca = "")
@@ -44,12 +46,10 @@ namespace Portal.Consultoras.Web.Controllers
                 TieneGND = userData.TieneGND
             };
             clienteModel.Titulo = clienteModel.TieneSeccionRD || clienteModel.TieneSeccionRevista ? "Catálogos y Revistas" : "Catálogos";
-
             clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
-
-            clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
+            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.DesktopCatalogo);
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
@@ -557,7 +557,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string codigo = _issuuProvider.GetRevistaCodigoIssuu(campania, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
                 if (string.IsNullOrEmpty(codigo)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-                
+
                 string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
@@ -584,50 +584,6 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
-        private PartialSectionBpt GetPartialSectionBptModel()
-        {
-            var partial = new PartialSectionBpt();
-            try
-            {
-                partial.RevistaDigital = revistaDigital;
-                partial.TieneGND = userData.TieneGND;
-
-                if (revistaDigital.TieneRDC)
-                {
-                    if (revistaDigital.EsActiva)
-                    {
-                        if (revistaDigital.EsSuscrita)
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                        else
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                    }
-                    else
-                    {
-                        if (revistaDigital.EsSuscrita)
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                        else
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                    }
-                }
-                else if (revistaDigital.TieneRDI)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DCatalogoIntriga) ?? new ConfiguracionPaisDatosModel();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-
-            return partial;
-        }
+      
     }
 }

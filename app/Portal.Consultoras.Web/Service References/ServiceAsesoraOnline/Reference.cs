@@ -518,6 +518,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private int IndicadorContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IndicadorContratoAceptacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorDuplaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -597,6 +600,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombrePaisField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NovedadBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NroCampaniasField;
@@ -2240,6 +2246,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IndicadorContratoAceptacion {
+            get {
+                return this.IndicadorContratoAceptacionField;
+            }
+            set {
+                if ((this.IndicadorContratoAceptacionField.Equals(value) != true)) {
+                    this.IndicadorContratoAceptacionField = value;
+                    this.RaisePropertyChanged("IndicadorContratoAceptacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int IndicadorDupla {
             get {
                 return this.IndicadorDuplaField;
@@ -2586,6 +2605,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.NombrePaisField, value) != true)) {
                     this.NombrePaisField = value;
                     this.RaisePropertyChanged("NombrePais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NovedadBuscador {
+            get {
+                return this.NovedadBuscadorField;
+            }
+            set {
+                if ((this.NovedadBuscadorField.Equals(value) != true)) {
+                    this.NovedadBuscadorField = value;
+                    this.RaisePropertyChanged("NovedadBuscador");
                 }
             }
         }

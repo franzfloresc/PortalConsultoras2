@@ -1841,6 +1841,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalIntriga(revistaDigitalModel, configuracionPaisDatos, usuarioModel.CodigoISO);
                                 revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                                 revistaDigitalModel.TieneRDI = true;
+                                revistaDigitalModel.BannerOfertasNoActivaNoSuscrita = c.DesktopFondoBanner;
+                                revistaDigitalModel.MLogoComercialFondoNoActiva = c.MobileLogoBanner;
                                 break;
                             case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
                                 usuarioModel.TieneValidacionMontoMaximo = c.Estado;

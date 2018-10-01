@@ -299,7 +299,7 @@ namespace Portal.Consultoras.Web.Controllers
                 IEnumerable<BEPedidoWeb> items = lst;
 
                 #region Sort Section
-                if(sidx == "CodZona")
+                if (sidx == "CodZona")
                 {
                     items = (sord == "asc") ? lst.OrderBy(x => x.CodigoZona) : lst.OrderByDescending(x => x.CodigoZona);
                 }

@@ -821,7 +821,7 @@ transition: all .2s ease-in-out;
     vertical-align: middle;
     width: 100%;
     height: 96px;
-    background: url('/Content/Images/RevistaDigital/blanco-con-espacio.png');
+    background: url('/Content/Images/RevistaDigital/blanco-con-espacio2.png');
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -855,7 +855,6 @@ transition: all .2s ease-in-out;
     letter-spacing: 1px;
     text-align: center;
     color: black;
-    text-transform: uppercase;
     margin-bottom: 0;
 }
 
@@ -982,7 +981,6 @@ transition: all .2s ease-in-out;
 /*BOTON ESIKA NO ANIMADO: ROJO*/
 
 .activar_boton_esika_no_animado {
-    color: white !important;
     padding: 15px 0px;
 }
 
@@ -1040,9 +1038,9 @@ transition: all .2s ease-in-out;
 }
 
 .club_gana_mas_pedido {
-    height: 289px;
+    height: 319px;
     background: #f5f5f5;
-    padding: 65px 50px;
+    padding: 95px 50px;
 }
 
 .club_gana_mas_pedido .logo_club {
@@ -1084,8 +1082,6 @@ transition: all .2s ease-in-out;
 }
 
 .club_gana_mas_pedido a {
-    color: white;
-    border: 1px solid white;
     width: 100%;
     display: block;
     text-align: center;
@@ -1096,15 +1092,18 @@ transition: all .2s ease-in-out;
     font-stretch: normal;
     line-height: normal;
     letter-spacing: 1px;
-    background: #000000;
+    color: #000;
+    border: 1px solid;
+    border-radius: 4px;
 }
 
 .club_gana_mas_pedido_activo {
     background: #f8f8f8;
+    padding: 65px 50px !important;
 }
 
 .club_gana_mas_pedido_activo .logo_club_activo {
-    background: url(/Content/Images/etiqueta-club-ganamas-dorado-independiente.png);
+    background: url(/Content/Images/etiqueta-club-ganamas-dorado-independiente2.png);
     height: 45px;
     position: absolute;
     left: 0;
@@ -1126,4 +1125,9 @@ transition: all .2s ease-in-out;
 
 .revistaDigitalCompleta .contenedor_productos {
     top: -115px;
+}
+
+.boton-suscrito {
+    color: #fff !important;
+    border-radius: 0px !important;
 }

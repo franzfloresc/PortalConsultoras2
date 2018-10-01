@@ -19,7 +19,8 @@ namespace Portal.Consultoras.Common
             public const int Finart = 4;
         }
 
-        public static class MarcaNombre {
+        public static class MarcaNombre
+        {
             public const string LBel = "L'bel";
             public const string Esika = "Ésika";
         }
@@ -456,7 +457,7 @@ namespace Portal.Consultoras.Common
             public const string URL_ABCProductos = "URL_ABCProductos";
             public const string secret_key = "secret_key";
             public const string UrlLMS = "UrlLMS";
-            public const string CursosMarquesina = "CursosMarquesina"; 
+            public const string CursosMarquesina = "CursosMarquesina";
             public const string UrlCursoMiAcademiaVideo = "UrlCursoMiAcademiaVideo";
             public const string UrlMisCursos = "UrlMisCursos";
             public const string TokenMisCursos = "TokenMisCursos";
@@ -493,7 +494,7 @@ namespace Portal.Consultoras.Common
             public const string UrlImagenLbel = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca-lbel.png";
             public const string ColorTemaEsika = "#e81c36";
             public const string ColorTemaLbel = "#613c87";
-            
+
             public const string ORDEN_COMPONENTES_FICHA_ESIKA = "ORDEN_COMPONENTES_FICHA_ESIKA";
             public const string ORDEN_COMPONENTES_FICHA_LBEL = "ORDEN_COMPONENTES_FICHA_LBEL";
 
@@ -599,7 +600,11 @@ namespace Portal.Consultoras.Common
 
             public const int BannerDesktopHome = 1111;
             public const int DesktopPedido = 12;
+            public const int DesktopHome = 11;
+            public const int DesktopCatalogo = 14;
             public const int MobilePedido = 22;
+            public const int MobileHome = 21;
+            public const int MobileCatalogo = 24;
 
             #region OfertasParaTi
             public const int OfertasParaTiDesktopHome = 1121;
@@ -918,7 +923,7 @@ namespace Portal.Consultoras.Common
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
             public const string mensajeBackOrderDestokp = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
-            public const string mensajeBackOrderMobile  = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
+            public const string mensajeBackOrderMobile = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
         }
 
         public static class EstadoCDRWeb
@@ -1198,7 +1203,8 @@ namespace Portal.Consultoras.Common
             public const string DetalleEstrategia = "DETALLEESTRATEGIA";
         }
 
-        public static class IngresoExternoOrigen {
+        public static class IngresoExternoOrigen
+        {
             public const string App = "4";
         }
 
@@ -2231,7 +2237,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_RESERVA_MONTO_MAX, "Pedido no reservado, excede monto máximo." },
                         {Code.ERORR_RESERVA_NO_DISP, "Reserva no disponible." },
                         {Code.ERROR_RESERVA_DEUDA, "Pedido no reservado, deuda pendiente." },
-                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"}, 
+                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"},
                         {Code.ERROR_GUARDAR_NINGUNO, "El pedido no se guardó." },
                         {Code.SUCCESS_GUARDAR, "Pedido guardado." },
                         {Code.SUCCESS_GUARDAR_OBS, "Pedido guardado, productos con observaciones." },
@@ -2327,7 +2333,7 @@ namespace Portal.Consultoras.Common
 
         public static class CambioCorreoResult
         {
-            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";            
+            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";
             public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
 
@@ -2725,7 +2731,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CORREO_ACTIVACION_NO_EXISTE = "1202";
                 public const string ERROR_CORREO_ACTIVACION_YA_ACTIVADA = "1203";
                 public const string ERROR_CORREO_ACTIVACION_DUPLICADO = "1204";
-                
+
             }
             public static Dictionary<string, string> Message
             {
@@ -2766,7 +2772,7 @@ namespace Portal.Consultoras.Common
             }
 
         }
-        
+
         public static class RedireccionAndroidApp
         {
             public const string EsikaConmigo = "https://kpt22.app.goo.gl/esika";
@@ -2805,6 +2811,20 @@ namespace Portal.Consultoras.Common
             public const string UrlDescargarContratoCO = "http://somosbelcorpprd.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
             public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
             public const string AcionesOmitidas = "ActualizarContrasenia";
+        }
+
+        public static class RevistaDigital
+        {
+            public static class Estado
+            {
+                public const string InscritaActiva = "IA";
+                public const string NoInscritaActiva = "NIA";
+                public const string InscritaNoActiva = "INA";
+                public const string NoInscritaNoActiva = "NINA";
+                public const string Intriga = "INTRIGA";
+            }
+
+
         }
     }
 }
