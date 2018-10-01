@@ -29,7 +29,7 @@
     <a href="javascript: history.go(-1)" class="enlace_regresar_filtros" title="Buscar">
         <img src="@Url.Content("~/Content/Images/flecha_icono.svg")" alt="Buscar" />
     </a>
-    <input type="search" value="" id="CampoBuscadorProductosMobile" class="campo_buscador_filtros_mobile" placeholder="Busca ofertas" />
+    <input type="search" value="" id="CampoBuscadorProductos" class="campo_buscador_filtros_mobile" placeholder="Busca ofertas" />
     <a class="enlace_busqueda_filtros" title="Buscar">
         <img src="@Url.Content("~/Content/Images/icono_lupa.svg")" alt="Buscar" />
     </a>
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="row lista_resultados_busqueda_productos_mobile displayBlock" id="ResultadoBuscadorMobile">
+        <div class="row lista_resultados_busqueda_productos_mobile displayBlock" id="ResultadoBuscador">
         </div>
     </div>
     <!-- FIN - LISTA DE RESULTADOS DE BÚSQUEDA MOBILE -->
@@ -160,6 +160,6 @@
 
 @section scripts{
 
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Buscador/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js")"></script>
 
 }
