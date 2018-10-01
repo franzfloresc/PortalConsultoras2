@@ -2568,10 +2568,13 @@ namespace Portal.Consultoras.Common
             public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}";
 
             ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}
-            public const string UrlGetShowRoomOfertasConsultora = "/api/Oferta/{0}/{1}/{2}/{3}?codigoRegion={4}&codigoZona={5}";
+            public const string UrlObtenerOfertasShowRoom = "/api/Oferta/{0}/{1}/{2}/{3}?codigoRegion={4}&codigoZona={5}";
 
             //api/Componente/{pais}/{codigoCampania}/{cuv}
             public const string UrlObtenerComponente = "api/Componente/{0}/{1}/{2}";
+
+            //api/Evento/Get/{pais}/{campania}
+            public const string UrlObtenerEvento = "api/Evento/Get/{0}/{1}";
 
             #endregion
         }

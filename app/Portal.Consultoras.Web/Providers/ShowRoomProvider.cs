@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Providers
     /// <summary>
     /// Propiedades y metodos de ShowRoom
     /// </summary>
-    public class ShowRoomProvider
+    public class ShowRoomProvider: OfertaBaseProvider
     {
         private const string ImageUrlCode = "bar_in_img";
         private const string RedirectCode = "bar_in_url";
@@ -31,6 +31,7 @@ namespace Portal.Consultoras.Web.Providers
         private readonly ILogManager _logManager;
         private readonly ISessionManager sessionManager;
         private readonly ConfiguracionManagerProvider _configuracionManager;
+        protected OfertaBaseProvider _ofertaBaseProvider;
 
         public ShowRoomProvider(TablaLogicaProvider tablaLogicaProvider)
         {
@@ -38,6 +39,7 @@ namespace Portal.Consultoras.Web.Providers
             _logManager = LogManager.LogManager.Instance;
             sessionManager = SessionManager.SessionManager.Instance;
             _configuracionManager = new ConfiguracionManagerProvider();
+            _ofertaBaseProvider = new OfertaBaseProvider();
         }
 
         public ShowRoomProvider()
@@ -90,10 +92,22 @@ namespace Portal.Consultoras.Web.Providers
 
         public ShowRoomEventoModel GetShowRoomEventoByCampaniaId(UsuarioModel model)
         {
-            using (var sv = new PedidoServiceClient())
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
             {
-                var showRoomEvento = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
-                return Mapper.Map<ServicePedido.BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
+                Task<ShowRoomEventoModel> taskApi = Task.Run(() => ObtenerEventoShowroomDesdeApi(
+                        string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerEvento, model.CodigoISO, model.CampaniaID),
+                        model.CodigoISO));
+                Task.WhenAll(taskApi);
+
+                return taskApi.Result;
+            }
+            else
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    var showRoomEvento = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+                    return Mapper.Map<ServicePedido.BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
+                }
             }
         }
 
@@ -122,20 +136,45 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<ShowRoomPersonalizacionModel> GetShowRoomPersonalizacion(UsuarioModel model)
         {
-            using (var sv = new PedidoServiceClient())
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
             {
-                var personalizacion = sv.GetShowRoomPersonalizacion(model.PaisID).ToList();
-                return Mapper.Map<IList<ServicePedido.BEShowRoomPersonalizacion>, List<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
+                Task<List<ShowRoomPersonalizacionModel>> taskApi = Task.Run(() => ObtenerPersonalizacionShowroomDesdeApi(
+                        string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerEvento, model.CodigoISO, model.CampaniaID),
+                        model.CodigoISO));
+                Task.WhenAll(taskApi);
+
+                return taskApi.Result;
+            }
+            else
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    var personalizacion = sv.GetShowRoomPersonalizacion(model.PaisID).ToList();
+                    return Mapper.Map<IList<ServicePedido.BEShowRoomPersonalizacion>, List<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
+                }
             }
         }
 
         public List<ShowRoomPersonalizacionNivelModel> GetShowRoomPersonalizacionNivel(UsuarioModel model,int eventoId, int showRoomNivelId,int categoriaId)
         {
-            using (var sv = new PedidoServiceClient())
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
             {
-                var personalizacionesNivel = sv.GetShowRoomPersonalizacionNivel(model.PaisID, eventoId, showRoomNivelId, categoriaId).ToList();
-                return Mapper.Map<List<ServicePedido.BEShowRoomPersonalizacionNivel>, List<ShowRoomPersonalizacionNivelModel>>(personalizacionesNivel).ToList();
+                Task<List<ShowRoomPersonalizacionNivelModel>> taskApi = Task.Run(() => ObtenerPersonalizacionNivelShowroomDesdeApi(
+                        string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerEvento, model.CodigoISO, model.CampaniaID),
+                        model.CodigoISO));
+                Task.WhenAll(taskApi);
+
+                return taskApi.Result;
             }
+            else
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    var personalizacionesNivel = sv.GetShowRoomPersonalizacionNivel(model.PaisID, eventoId, showRoomNivelId, categoriaId).ToList();
+                    return Mapper.Map<List<ServicePedido.BEShowRoomPersonalizacionNivel>, List<ShowRoomPersonalizacionNivelModel>>(personalizacionesNivel).ToList();
+                }
+            }
+          
         }
 
         public void ShowRoomProgramarAviso(int paisId, ShowRoomEventoConsultoraModel showRoomConsultora)
@@ -338,38 +377,47 @@ namespace Portal.Consultoras.Web.Providers
         
         private void ActualizarValorPersonalizacionesShowRoom(UsuarioModel model, ConfigModel configEstrategiaSR)
         {
-            var personalizacionesNivel = GetShowRoomPersonalizacionNivel(model,
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+            {
+                List<ShowRoomPersonalizacionModel> personalizaciones = configEstrategiaSR.ListaPersonalizacionConsultora;
+                var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+                configEstrategiaSR.ListaPersonalizacionConsultora.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor) : item.Valor);
+            }
+            else
+            {
+                var personalizacionesNivel = GetShowRoomPersonalizacionNivel(model,
                                     configEstrategiaSR.BeShowRoom.EventoID,
                                     configEstrategiaSR.ShowRoomNivelId,
                                     0);
 
-            var personalizaciones = configEstrategiaSR.ListaPersonalizacionConsultora;
+                var personalizaciones = configEstrategiaSR.ListaPersonalizacionConsultora;
 
-            if (personalizacionesNivel == null || !personalizacionesNivel.Any()) return;
+                if (personalizacionesNivel == null || !personalizacionesNivel.Any()) return;
 
-            foreach (var item in personalizaciones)
-            {
-                item.PersonalizacionNivelId = 0;
-                item.Valor = string.Empty;
-
-                var personalizacionNivel = personalizacionesNivel.Find(
-                    p => p.NivelId == configEstrategiaSR.ShowRoomNivelId &&
-                         p.EventoID == configEstrategiaSR.BeShowRoom.EventoID &&
-                         p.PersonalizacionId == item.PersonalizacionId);
-
-                if (personalizacionNivel == null) continue;
-                item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
-                item.Valor = personalizacionNivel.Valor;
-
-                if (item.TipoAtributo != "IMAGEN") continue;
-                if (string.IsNullOrEmpty(item.Valor))
+                foreach (var item in personalizaciones)
                 {
+                    item.PersonalizacionNivelId = 0;
                     item.Valor = string.Empty;
-                    continue;
-                }
 
-                var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                item.Valor = ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
+                    var personalizacionNivel = personalizacionesNivel.Find(
+                        p => p.NivelId == configEstrategiaSR.ShowRoomNivelId &&
+                             p.EventoID == configEstrategiaSR.BeShowRoom.EventoID &&
+                             p.PersonalizacionId == item.PersonalizacionId);
+
+                    if (personalizacionNivel == null) continue;
+                    item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
+                    item.Valor = personalizacionNivel.Valor;
+
+                    if (item.TipoAtributo != "IMAGEN") continue;
+                    if (string.IsNullOrEmpty(item.Valor))
+                    {
+                        item.Valor = string.Empty;
+                        continue;
+                    }
+
+                    var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+                    item.Valor = ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
+                }
             }
         }
         
@@ -397,7 +445,7 @@ namespace Portal.Consultoras.Web.Providers
             List<ServiceOferta.BEEstrategia> lEstrategia = new List<ServiceOferta.BEEstrategia>();
             UsuarioModel userData = sessionManager.GetUserData();
 
-            string path = string.Format(Constantes.PersonalizacionOfertasService.UrlGetShowRoomOfertasConsultora, userData.CodigoISO, Constantes.ConfiguracionPais.ShowRoom, userData.CampaniaID, userData.GetCodigoConsultora(), string.Empty, string.Empty);
+            string path = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasShowRoom, userData.CodigoISO, Constantes.ConfiguracionPais.ShowRoom, userData.CampaniaID, userData.GetCodigoConsultora(), string.Empty, string.Empty);
 
             var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(path, userData.CodigoISO));
 

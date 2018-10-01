@@ -1,5 +1,6 @@
 ﻿using   Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -121,6 +122,124 @@ namespace Portal.Consultoras.Web.Providers
                 
             }
             return estrategias;
+        }
+
+        public static async Task<ShowRoomEventoModel> ObtenerEventoShowroomDesdeApi(string path, string codigoISO)
+        {
+            ShowRoomEventoModel evento = new ShowRoomEventoModel();
+            HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string json = await httpResponse.Content.ReadAsStringAsync();
+                foreach (dynamic item in Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(json))
+                {
+                    try
+                    {
+                        evento.CampaniaID = Convert.ToInt32(item.campaniaId);
+                        evento.DiasAntes = Convert.ToInt32(item.diasAntes);
+                        evento.DiasDespues = Convert.ToInt32(item.diasDespues);
+                        evento.Estado = Convert.ToInt32(item.estado);
+                        evento.EventoID = Convert.ToInt32( item.eventoId);
+                        evento.Imagen1 = item.imagen1;
+                        evento.Imagen2 = item.imagen2;
+                        evento.ImagenCabeceraProducto = item.imagenCabeceraProducto;
+                        evento.ImagenPestaniaShowRoom = item.imagenPestaniaShowRoom;
+                        evento.ImagenPreventaDigital = item.imagenPreventaDigital;
+                        evento.ImagenVentaSetPopup = item.imagenVentaSetPopup;
+                        evento.ImagenVentaTagLateral = item.imagenVentaTagLateral;
+                        evento.Nombre = item.nombre;
+                        evento.NumeroPerfiles= Convert.ToInt32(item.numeroPerfiles);
+                        evento.Tema = item.tema;
+                        evento.TieneCategoria = Convert.ToBoolean(item.tieneCategoria);
+                        evento.TieneCompraXcompra = Convert.ToBoolean(item.tieneCompraXcompra);
+                        evento.TienePersonalizacion = Convert.ToBoolean(item.tienePersonalizacion);
+                        evento.TieneSubCampania = Convert.ToBoolean(item.tieneSubCampania);
+                    }
+                    catch (Exception ex)
+                    {
+                        Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
+                    }
+                }
+            }
+            return evento;
+        }
+
+        public static async Task<List<ShowRoomPersonalizacionModel>> ObtenerPersonalizacionShowroomDesdeApi(string path, string codigoISO)
+        {
+            List<ShowRoomPersonalizacionModel> personalizaciones = new List<ShowRoomPersonalizacionModel>();
+            HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string json = await httpResponse.Content.ReadAsStringAsync();
+                List<dynamic> list = JsonConvert.DeserializeObject<List<dynamic>>(json);
+
+                foreach (dynamic item in list)
+                {
+                    try
+                    {
+                        foreach (var item2 in item.personalizacionNivel)
+                        {
+                            ShowRoomPersonalizacionModel personalizacion = new ShowRoomPersonalizacionModel
+                            {
+                                PersonalizacionId = Convert.ToInt32(item2.personalizacionId),
+                                TipoAplicacion = item2.tipoAplicacion,
+                                Atributo = item2.atributo,
+                                TextoAyuda = item2.textoAyuda,
+                                TipoAtributo = item2.tipoAtributo,
+                                TipoPersonalizacion = item2.tipoPersonalizacion,
+                                Orden = Convert.ToInt32(item2.orden),
+                                Estado = Convert.ToBoolean(item2.estado),
+                                Valor = item2.valor,
+                                NivelId = Convert.ToInt32(item2.nivelId)
+                            };
+                            personalizaciones.Add(personalizacion);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
+                    }
+                }
+            }
+            return personalizaciones;
+        }
+
+
+        public static async Task<List<ShowRoomPersonalizacionNivelModel>> ObtenerPersonalizacionNivelShowroomDesdeApi(string path, string codigoISO)
+        {
+            List<ShowRoomPersonalizacionNivelModel> personalizaciones = new List<ShowRoomPersonalizacionNivelModel>();
+            HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string json = await httpResponse.Content.ReadAsStringAsync();
+                List<dynamic> list = JsonConvert.DeserializeObject<List<dynamic>>(json);
+
+                foreach (dynamic item in list)
+                {
+                    try
+                    {
+                        foreach (var item2 in item.personalizacionNivel)
+                        {
+                            ShowRoomPersonalizacionNivelModel personalizacion = new ShowRoomPersonalizacionNivelModel
+                            {
+                                PersonalizacionId = Convert.ToInt32(item2.personalizacionId),
+                                EventoID = Convert.ToInt32(item2.eventoId),
+                                Valor = item2.valor,
+                                NivelId = Convert.ToInt32(item2.nivelId)
+                            };
+                            personalizaciones.Add(personalizacion);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
+                    }
+                }
+            }
+            return personalizaciones;
         }
 
         public string ObtenerDescripcionOferta(string descripcionCuv2)
