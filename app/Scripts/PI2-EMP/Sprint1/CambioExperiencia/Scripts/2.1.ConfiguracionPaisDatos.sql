@@ -35,10 +35,10 @@ declare @UrlTerminosCondiciones_Codigo varchar(50) = 'UrlTerminosCondiciones'
 declare @UrlTerminosCondiciones_Valor1 varchar(800) = 'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/Terminos_y_Condiciones-GanaMas.pdf'
 --
 declare @LogoMenuOfertasNoActiva_Codigo varchar(50) = 'LogoMenuOfertasNoActiva'
-declare @LogoMenuOfertasNoActiva_Valor1 varchar(800) = 'menuOfertas.jpg'
+declare @LogoMenuOfertasNoActiva_Valor1 varchar(800) = 'menuOfertas_20181001_1121.jpg'
 --
 declare @LogoMenuOfertas_Codigo varchar(50) = 'LogoMenuOfertas'
-declare @LogoMenuOfertas_Valor1 varchar(800) = 'menuOfertas.jpg'
+declare @LogoMenuOfertas_Valor1 varchar(800) = 'menuOfertas_20181001_1121.jpg'
 
 print  'Actualizando ''LogoComercialFondoActiva'' en ''ConfiguracionPaisDatos'''
 
@@ -202,10 +202,10 @@ declare @UrlTerminosCondiciones_Codigo varchar(50) = 'UrlTerminosCondiciones'
 declare @UrlTerminosCondiciones_Valor1 varchar(800) = 'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/CL/Terminos_y_Condiciones-GanaMas.pdf'
 --
 declare @LogoMenuOfertasNoActiva_Codigo varchar(50) = 'LogoMenuOfertasNoActiva'
-declare @LogoMenuOfertasNoActiva_Valor1 varchar(800) = 'menuOfertas.jpg'
+declare @LogoMenuOfertasNoActiva_Valor1 varchar(800) = 'menuOfertas_20181001_1121.jpg'
 --
 declare @LogoMenuOfertas_Codigo varchar(50) = 'LogoMenuOfertas'
-declare @LogoMenuOfertas_Valor1 varchar(800) = 'menuOfertas.jpg'
+declare @LogoMenuOfertas_Valor1 varchar(800) = 'menuOfertas_20181001_1121.jpg'
 
 print  'Actualizando ''LogoComercialFondoActiva'' en ''ConfiguracionPaisDatos'''
 
@@ -369,10 +369,10 @@ declare @UrlTerminosCondiciones_Codigo varchar(50) = 'UrlTerminosCondiciones'
 declare @UrlTerminosCondiciones_Valor1 varchar(800) = 'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/CR/Terminos_y_Condiciones-GanaMas.pdf'
 --
 declare @LogoMenuOfertasNoActiva_Codigo varchar(50) = 'LogoMenuOfertasNoActiva'
-declare @LogoMenuOfertasNoActiva_Valor1 varchar(800) = 'menuOfertas.jpg'
+declare @LogoMenuOfertasNoActiva_Valor1 varchar(800) = 'menuOfertas_20181001_1121.jpg'
 --
 declare @LogoMenuOfertas_Codigo varchar(50) = 'LogoMenuOfertas'
-declare @LogoMenuOfertas_Valor1 varchar(800) = 'menuOfertas.jpg'
+declare @LogoMenuOfertas_Valor1 varchar(800) = 'menuOfertas_20181001_1121.jpg'
 
 print  'Actualizando ''LogoComercialFondoActiva'' en ''ConfiguracionPaisDatos'''
 
