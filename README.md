@@ -1,5 +1,5 @@
 # Portal Consultoras SB2
 
--PI2-EPM-Sprint2-HomologarAgregarPedido
+origin/PI2-EPM-Sprint2_HomologarAgregarPedido
 
-
+- Homologar el agregar de SB con el del app
