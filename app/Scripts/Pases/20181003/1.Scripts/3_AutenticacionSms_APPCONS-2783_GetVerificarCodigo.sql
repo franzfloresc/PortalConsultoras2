@@ -46,7 +46,6 @@ ALTER PROC [dbo].[GetVerificarCodigo]
 (
 	@CodigoUsuario varchar(20),
 	@OrigenID int,
-	@OrigenID int,
 	@CodigoIngresado varchar(8),
 	@IdEstadoActividad int,
 	@SoloValidar bit = 0
@@ -277,7 +276,7 @@ BEGIN
 	End
 	select @Iguales as SonIguales
 END
-GOs
+GO
 
 USE BelcorpDominicana
 GO
