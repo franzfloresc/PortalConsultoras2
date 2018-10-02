@@ -497,6 +497,7 @@
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
+    <Compile Include="Models\Ofertas\IndexViewModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoDetalleModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaPasarelaCamposModel.cs" />
@@ -767,6 +768,7 @@
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
     <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
+    <Compile Include="Providers\ConfiguracionPaisDatosProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
@@ -1402,6 +1404,8 @@
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
     <Content Include="Content\Css\Site\MailConfirmacion\style.css" />
+    <Content Include="Content\Css\Site\Menu\MenuPrincipal.css" />
+    <Content Include="Content\Css\Site\Menu\MenuContenedor.css" />
     <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
@@ -1542,6 +1546,7 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente2.svg" />
     <Content Include="Content\Images\down_arrow.png" />
     <Content Include="Content\Images\Esika\logo_marca_pais_desktop.svg" />
     <Content Include="Content\Images\Esika\logo_marca_pais_mobile.svg" />
@@ -1552,6 +1557,8 @@
     <Content Include="Content\Images\Esika\flecha_next.svg" />
     <Content Include="Content\Images\icono-menu-mobile.svg" />
     <Content Include="Content\Images\Esika\flecha_prev.svg" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-blanco-independiente2.svg" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente2.png" />
     <Content Include="Content\Images\icono_avatar.svg" />
     <Content Include="Content\Images\Esika\icono_camara.svg" />
     <Content Include="Content\Images\Esika\icono_cambiar_dato.svg" />
@@ -1588,6 +1595,7 @@
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
     <Content Include="Content\Images\Lbel\estrellas.png" />
+    <Content Include="Content\Images\logo-club-ganamas-dorado2.svg" />
     <Content Include="Content\Images\Lbel\logo_marca_pais.svg" />
     <Content Include="Content\Images\Lbel\vineta_indicador.png" />
     <Content Include="Content\Images\logo_belcorp_desktop.png" />
@@ -3480,6 +3488,7 @@
     <Content Include="Content\Images\RevistaDigital\bg_popups.png" />
     <Content Include="Content\Images\RevistaDigital\bg_showroom.png" />
     <Content Include="Content\Images\RevistaDigital\blanco-con-espacio.png" />
+    <Content Include="Content\Images\RevistaDigital\blanco-con-espacio2.png" />
     <Content Include="Content\Images\RevistaDigital\cerrar_04_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\bg_ficha_kadia.jpg" />
     <Content Include="Content\Images\RevistaDigital\celular_revista.png" />
@@ -3489,13 +3498,16 @@
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco2.svg" />
     <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-blanco-independiente.png" />
     <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-blanco-independiente.svg" />
+    <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-blanco-independiente2.svg" />
     <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-dorado-independiente.svg" />
+    <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-dorado-independiente2.svg" />
     <Content Include="Content\Images\RevistaDigital\exclamacion_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\fill-1.svg" />
     <Content Include="Content\Images\RevistaDigital\fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_popup.jpg" />
     <Content Include="Content\Images\RevistaDigital\fondo_repeat.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_titulo.png" />
+    <Content Include="Content\Images\RevistaDigital\gana-mas-etiqueta-dorado.png" />
     <Content Include="Content\Images\RevistaDigital\GIF-4.0.gif" />
     <Content Include="Content\Images\RevistaDigital\group.png" />
     <Content Include="Content\Images\RevistaDigital\HOME_NEGRO.svg" />
@@ -3543,6 +3555,11 @@
     <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual-desktop.png" />
     <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual.png" />
     <Content Include="Content\Images\RevistaDigital\nuevo.png" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\gana_mas_no_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\gana_mas_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_esika_no_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_esika_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_lbel_seleccionado.svg" />
     <Content Include="Content\Images\RevistaDigital\offer-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_BLANCO.svg" />
@@ -4630,6 +4647,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService62.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">

@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Providers
         //}
 
         public EstrategiaComponenteProvider() : this(
-            Web.SessionManager.SessionManager.Instance, 
+            Web.SessionManager.SessionManager.Instance,
             new OfertaBaseProvider(),
             new ConfiguracionManagerProvider())
         {

@@ -374,7 +374,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 logsGprValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();
             }
-            
+
             _notificacionProvider.CargarMensajesNotificacionesGPR(model, logsGprValidacion, userData.CodigoISO, userData.Simbolo, userData.MontoMinimo, userData.MontoMaximo);
             model.NombreConsultora = string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre;
             model.Total = model.SubTotal + model.Descuento;

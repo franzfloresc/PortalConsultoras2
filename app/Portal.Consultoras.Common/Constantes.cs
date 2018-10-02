@@ -19,7 +19,8 @@ namespace Portal.Consultoras.Common
             public const int Finart = 4;
         }
 
-        public static class MarcaNombre {
+        public static class MarcaNombre
+        {
             public const string LBel = "L'bel";
             public const string Esika = "Ésika";
         }
@@ -483,7 +484,7 @@ namespace Portal.Consultoras.Common
             public const string URL_ABCProductos = "URL_ABCProductos";
             public const string secret_key = "secret_key";
             public const string UrlLMS = "UrlLMS";
-            public const string CursosMarquesina = "CursosMarquesina"; 
+            public const string CursosMarquesina = "CursosMarquesina";
             public const string UrlCursoMiAcademiaVideo = "UrlCursoMiAcademiaVideo";
             public const string UrlMisCursos = "UrlMisCursos";
             public const string TokenMisCursos = "TokenMisCursos";
@@ -520,13 +521,13 @@ namespace Portal.Consultoras.Common
             public const string UrlImagenLbel = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca-lbel.png";
             public const string ColorTemaEsika = "#e81c36";
             public const string ColorTemaLbel = "#613c87";
-            
+
             public const string ORDEN_COMPONENTES_FICHA_ESIKA = "ORDEN_COMPONENTES_FICHA_ESIKA";
             public const string ORDEN_COMPONENTES_FICHA_LBEL = "ORDEN_COMPONENTES_FICHA_LBEL";
 
             public const string RutaImagenesAppCatalogo = "RutaImagenesAppCatalogo";
             public const string RutaImagenesAppCatalogoBulk = "RutaImagenesAppCatalogoBulk";
-            
+
             public const string PaisesEscalaDescuento = "PaisesEscalaDescuento";
 
         }
@@ -626,7 +627,11 @@ namespace Portal.Consultoras.Common
 
             public const int BannerDesktopHome = 1111;
             public const int DesktopPedido = 12;
+            public const int DesktopHome = 11;
+            public const int DesktopCatalogo = 14;
             public const int MobilePedido = 22;
+            public const int MobileHome = 21;
+            public const int MobileCatalogo = 24;
 
             #region OfertasParaTi
             public const int OfertasParaTiDesktopHome = 1121;
@@ -643,7 +648,7 @@ namespace Portal.Consultoras.Common
             public const int OfertasParaTiMobilePedidoPopUp = 2222;
             public const int OfertasParaTiMobileContenedor = 2821;
             public const int OfertasParaTiMobileContenedorPopup = 2822;
-         
+
             #endregion
 
             #region CatalogoPersonalizado
@@ -685,7 +690,7 @@ namespace Portal.Consultoras.Common
             public const int ShowRoomMobileSubCampania = 2524;
             public const int ShowRoomMobileContenedor = 2871;
             //public const int MobileShowRoom = 2571;
-          
+
             #endregion
 
             #region OfertaDelDia 
@@ -904,14 +909,14 @@ namespace Portal.Consultoras.Common
             public const int HerramientaDeVentaMobileBuscadorFicha = 2482;
 
             public const int LBelDesktopBuscador = 14;
-            public const int LBelMobileBuscador = 24;                         
+            public const int LBelMobileBuscador = 24;
             public const int EsikaDesktopBuscador = 14;
-            public const int EsikaMobileBuscador = 24;                         
+            public const int EsikaMobileBuscador = 24;
             public const int CyzoneDesktopBuscador = 14;
-            public const int CyzoneMobileBuscador = 24;                         
+            public const int CyzoneMobileBuscador = 24;
             public const int LiquidacionDesktopBuscador = 1464;
             public const int LiquidacionMobileBuscador = 2464;
-            
+
 
             //public const string Liquidacion = "1464";
             //public const string LiquidacionMobile = "2464";
@@ -945,7 +950,7 @@ namespace Portal.Consultoras.Common
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
             public const string mensajeBackOrderDestokp = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
-            public const string mensajeBackOrderMobile  = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
+            public const string mensajeBackOrderMobile = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
         }
 
         public static class EstadoCDRWeb
@@ -1170,6 +1175,18 @@ namespace Portal.Consultoras.Common
             public const string Nueva = "NUEVA";
         }
 
+        public static class RevistaDigital
+        {
+            public static class Estado
+            {
+                public const string InscritaActiva = "IA";
+                public const string NoInscritaActiva = "NIA";
+                public const string InscritaNoActiva = "INA";
+                public const string NoInscritaNoActiva = "NINA";
+                public const string Intriga = "INTRIGA";
+            }
+        }
+
         public static class MatrizNemotecnicoMensajes
         {
             public const string TooltipInformacionFormatoBusqueda = "Formato de búsqueda de Nemotécnico: &lt;SAP_1&gt;#&lt;Cantidad_1&gt;&amp;&lt;SAP_2&gt;#&lt;Cantidad_2&gt;&amp;...&lt;SAP_N&gt;#&lt;Cantidad_N&gt; , ejemplos: 210080203, 210080203#01, 200083988 210080203, 200083988&210080203, 200083988#02&210080203#01";
@@ -1230,7 +1247,8 @@ namespace Portal.Consultoras.Common
             public const string SaberMasInscripcion = "SABERMASINSCRIPCION";
         }
 
-        public static class IngresoExternoOrigen {
+        public static class IngresoExternoOrigen
+        {
             public const string App = "4";
         }
 
@@ -1391,6 +1409,8 @@ namespace Portal.Consultoras.Common
                 public const string NombreComercialNoActiva = "NombreComercialNoActiva";
                 public const string LogoMenuInicioActiva = "LogoMenuInicioActiva";
                 public const string LogoMenuInicioNoActiva = "LogoMenuInicioNoActiva";
+                public const string LogoMenuInicioNoSuscrita = "LogoMenuInicioNoSuscrita";
+                public const string LogoMenuInicioNoActivaNoSuscrita = "LogoMenuInicioNoActivaNoSuscrita";
                 public const string LogoComercialActiva = "LogoComercialActiva";
                 public const string LogoComercialNoActiva = "LogoComercialNoActiva";
                 public const string LogoComercialFondoActiva = "LogoComercialFondoActiva";
@@ -1506,6 +1526,10 @@ namespace Portal.Consultoras.Common
 
             public static class RDI
             {
+
+                public const string LogoMenuRevistaDigitaIntrigaNoActivo = "LogoMenuRevistaDigitaIntrigaNoActivo";
+                public const string LogoMenuRevistaDigitaIntrigaActiva = "LogoMenuRevistaDigitaIntrigaActiva";
+
                 public const string LogoMenuOfertas = "LogoMenuOfertas";
                 public const string DBienvenidaIntriga = "DBienvenidaIntriga";
                 public const string MBienvenidaIntriga = "MBienvenidaIntriga";
@@ -2038,7 +2062,7 @@ namespace Portal.Consultoras.Common
                 "Están agregados en tu pedido bajo la descripción RECUPC16.Puedes mantenerlos para recibirlos con tu caja de C17 o borrarlos de tu pedido si ya no los necesitas.";
         }
 
-        public class ProgramaNuevas
+        public static class ProgramaNuevas
         {
             public const string CarpetaBanner = "AppConsultora/{0}/ProgramaNuevas/{1}";
             public const string ArchivoBannerCupones = "Cupon{0}_{1}.jpg";
@@ -2075,7 +2099,7 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public class VentaExclusiva
+        public static class VentaExclusiva
         {
             public const string CuvNoEsVentaExclusiva = "El código solicitado pertenece a la Venta Exclusiva. Usted no cumple las condiciones para solicitarlo.";
 
@@ -2102,7 +2126,8 @@ namespace Portal.Consultoras.Common
             public const string IsSubcampaign = "essubcampania";
             public const string OfferStatus = "estado de oferta";
 
-            public enum Position {
+            public enum Position
+            {
                 CUV = 0,
                 AllowedUnits = 1,
                 NameSet = 2,
@@ -2122,7 +2147,7 @@ namespace Portal.Consultoras.Common
             public enum Position { CUV = 0, Order = 1, ProductName = 2, Description = 3, BrandProduct = 4 };
         }
 
-        public class GanaMas
+        public static class GanaMas
         {
             public const short PaisSinRD = 1;
             public const short PaisConRD_SuscritaActiva = 2;
@@ -2273,7 +2298,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_RESERVA_MONTO_MAX, "Pedido no reservado, excede monto máximo." },
                         {Code.ERORR_RESERVA_NO_DISP, "Reserva no disponible." },
                         {Code.ERROR_RESERVA_DEUDA, "Pedido no reservado, deuda pendiente." },
-                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"}, 
+                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"},
                         {Code.ERROR_GUARDAR_NINGUNO, "El pedido no se guardó." },
                         {Code.SUCCESS_GUARDAR, "Pedido guardado." },
                         {Code.SUCCESS_GUARDAR_OBS, "Pedido guardado, productos con observaciones." },
@@ -2369,7 +2394,7 @@ namespace Portal.Consultoras.Common
 
         public static class CambioCorreoResult
         {
-            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";            
+            public const string Valido = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.<br />Te recomendamos además actualizar tu contraseña por tu seguridad.";
             public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
 
@@ -2389,7 +2414,7 @@ namespace Portal.Consultoras.Common
         }
 
         #region Olvide Contrasenia
-        public class OlvideContrasenia
+        public static class OlvideContrasenia
         {
             public const int Origen = 1;
             public const string OrigenDescripcion = "Olvide Contraseña";
@@ -2437,7 +2462,7 @@ namespace Portal.Consultoras.Common
         #endregion
 
         #region Verificar Pin Autenticidad
-        public class VerificacionAutenticidad
+        public static class VerificacionAutenticidad
         {
             public const string OrigenDescripcion = "Verificacion de Autenticidad";
 
@@ -2466,7 +2491,7 @@ namespace Portal.Consultoras.Common
 
         public class EnviarSMS
         {
-            public class CredencialesProvedoresSMS
+            public static class CredencialesProvedoresSMS
             {
                 public const short TablaLogicaID = 133;
                 public static class Bolivia
@@ -2694,7 +2719,7 @@ namespace Portal.Consultoras.Common
 
             #endregion
         }
-        public class OfertaFinalLog
+        public static class OfertaFinalLog
         {
             private static Dictionary<int, string> _Message;
 
@@ -2762,7 +2787,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CELULAR_INVALIDO = "1002";
                 public const string ERROR_CELULAR_USADO = "1003";
                 public const string ERROR_CELULAR_PRIMER_DIGITO = "1004";
-                
+
                 public const string ERROR_CORREO_CAMBIO_NO_AUTORIZADO = "1101";
                 public const string ERROR_CORREO_VACIO = "1102";
                 public const string ERROR_CORREO_YA_EXISTE = "1103";
@@ -2805,7 +2830,7 @@ namespace Portal.Consultoras.Common
                 }
             }
 
-            public class VerificacionEmail
+            public static class VerificacionEmail
             {
                 public const string UpsOcurrioUnProblema = "UPSS! OCURRIÓ UN PROBLEMA";
                 public const string TuCorreoYaFueValidado = "TU CORREO YA FUE VALIDADO";
@@ -2820,7 +2845,7 @@ namespace Portal.Consultoras.Common
 
         public static class VerificacionValidacion
         {
-            public const int TIME_REINTENTO = 24*60*60;
+            public const int TIME_REINTENTO = 24 * 60 * 60;
 
             private static Dictionary<string, string> _Message;
             public static class Code
@@ -2856,8 +2881,8 @@ namespace Portal.Consultoras.Common
             public const string AppRedirectFormat = "IR AL APP {0} CONMIGO";
             public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
         }
-        
-            public class NuevoCatalogoProducto
+
+        public class NuevoCatalogoProducto
         {
             public const string CLUBGANA = "CLUBGANA+";
             public const string SOLOHOY = "SOLOHOY";
@@ -2881,7 +2906,7 @@ namespace Portal.Consultoras.Common
             public const int CYZONE = 10;
         }
 
-        public class AceptacionContrato
+        public static class AceptacionContrato
         {
             public const string UrlDescargarContratoCO = "http://somosbelcorpprd.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
             public const string ControladoresOmitidas = "Bienvenida;DescargarApp";
@@ -2899,5 +2924,6 @@ namespace Portal.Consultoras.Common
         {
             public const string VerificacionCambioClave = "VF_CAMBIO_CLAVE";
         }
+
     }
 }

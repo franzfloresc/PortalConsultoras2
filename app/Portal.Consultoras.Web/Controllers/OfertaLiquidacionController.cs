@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _renderImgProvider = new RenderImgProvider();
         }
-        
+
         #region Visualización de Pedidos Liquidación
 
         public ActionResult OfertasLiquidacion()
@@ -727,8 +727,8 @@ namespace Portal.Consultoras.Web.Controllers
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
-                    
-                    #endregion                    
+
+                    #endregion
 
                     sv.InsOfertaProducto(entidad);
                 }
@@ -1319,6 +1319,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
     }
 }

@@ -7,7 +7,7 @@ namespace Portal.Consultoras.Web.Helpers
     {
         public static string GetUniqueRoute(this RouteData routeData, string identifier)
         {
-            return routeData.Values[identifier] != null ? routeData.Values[identifier].ToString() : null;
+            return routeData != null && routeData.Values[identifier] != null ? routeData.Values[identifier].ToString() : null;
         }
 
         /// <summary>
