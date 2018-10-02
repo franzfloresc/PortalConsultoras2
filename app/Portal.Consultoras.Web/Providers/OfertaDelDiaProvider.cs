@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     using (var osc = new OfertaServiceClient())
                     {
-                        ofertasDelDia = osc.GetEstrategiaODD(entidad, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
+                        ofertasDelDia = osc.GetEstrategiaODD(entidad, entidad.ConsultoraID, model.FechaInicioCampania.Date).ToList();
                     }
                 }
             }
