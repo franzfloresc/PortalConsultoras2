@@ -2734,6 +2734,7 @@ namespace Portal.Consultoras.Common
             public const string CaracteresBuscadorMostrar = "CaracteresBuscadorMostrar";
             public const string TotalResultadosBuscador = "TotalResultadosBuscador";
             public const string CantidadInicioSesionNovedadBuscador = "CantidadInicioSesionNovedadBuscador";
+            public const string ConsultoraDummy = "ConsultoraDummy";
         }
 
 

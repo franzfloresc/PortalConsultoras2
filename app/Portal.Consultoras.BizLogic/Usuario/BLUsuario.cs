@@ -3422,29 +3422,33 @@ namespace Portal.Consultoras.BizLogic
         {
             var buscadorYFiltrosConfiguracion = new BEBuscadorYFiltrosConfiguracion();
             short valor1 = 0;
+
             var mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBuscador).FirstOrDefault();
-            if (mostrarBuscador != null)
-            {
-                buscadorYFiltrosConfiguracion.MostrarBuscador = mostrarBuscador.Valor1 == "1";
-            }
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBuscador = mostrarBuscador.Valor1 == "1";
+
             mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscador).FirstOrDefault();
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscador = valor1;
             }
+
             mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar).FirstOrDefault();
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscadorMostrar = valor1;
             }
+
             mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador).FirstOrDefault();
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.TotalResultadosBuscador = valor1;
             }
+
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).FirstOrDefault();
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 == "1";
 
             return buscadorYFiltrosConfiguracion;
         }
