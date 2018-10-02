@@ -1,7 +1,5 @@
 ﻿var MainLayoutResponsiveModule = (function() {
-    var me = this;
-
-    me.Elements = {
+    var _elements = {
         iconoMenuMobile: ".header__icono__menu",
         iconoCerrarMenuMobile: ".icono__cerrar",
         menuPrincipal: ".header__menu--lateralMobile",
@@ -9,62 +7,64 @@
         itemFooter: ".layout__footer--mobile .footer__item__title",
         idUrlContactanos: "#urlContactanos",
         belcorpResponde: "·aBelcorpResponde"
-    },
-    me.Config = {
-        isMobile: window.matchMedia("(max-width:991px)").matches                    
-    },
-    me.Eventos = {
+    };
+    var _config = {
+        isMobile: window.matchMedia("(max-width:991px)").matches
+    };
+    var _eventos = {
         MostrarMenuMobile: function(e) {
             e.preventDefault();
-            $(me.Elements.menuPrincipal).animate({
+            $(_elements.menuPrincipal).animate({
                     left: 0 + "%"
-                }, 150);
+                },
+                150);
         },
         CerrarMenuMobile: function(e) {
             e.preventDefault();
-            $(me.Elements.menuPrincipal).animate({
+            $(_elements.menuPrincipal).animate({
                     left: -100 + "%"
-            }, 150);
-            $(me.Elements.enlaceConSubmenuMobile).next().slideUp(80);
+                },
+                150);
+            $(_elements.enlaceConSubmenuMobile).next().slideUp(80);
         },
-        AbrirSubmenuMobile: function (e) {
+        AbrirSubmenuMobile: function(e) {
             e.preventDefault();
             var subMenuMobile = $(this).next();
-            $(me.Elements.enlaceConSubmenuMobile).next().slideUp(80);
-            if(subMenuMobile.css("display") == "block"){
+            $(_elements.enlaceConSubmenuMobile).next().slideUp(80);
+            if (subMenuMobile.css("display") == "block") {
                 subMenuMobile.slideUp(80);
             } else {
                 subMenuMobile.slideDown(130);
             }
-                
+
         },
-        ToogleMenuFooter : function(e) {
+        ToogleMenuFooter: function(e) {
             e.preventDefault();
             $(this).next().slideToggle("fast");
             $(this).toggleClass("footer__item__title--desplegado");
         }
-    },
-    me.Funciones = { //private functions
+    };
+    var _funciones = { //private functions
         InicializarEventos: function() {
-            $(me.Elements.iconoMenuMobile).on("click", me.Eventos.MostrarMenuMobile);
-            $(me.Elements.iconoCerrarMenuMobile).on("click", me.Eventos.CerrarMenuMobile);
-            $(me.Elements.enlaceConSubmenuMobile).on("click", me.Eventos.AbrirSubmenuMobile);
-            $(me.Elements.itemFooter).on("click", me.Eventos.ToogleMenuFooter);
+            $(_elements.iconoMenuMobile).on("click", _eventos.MostrarMenuMobile);
+            $(_elements.iconoCerrarMenuMobile).on("click", _eventos.CerrarMenuMobile);
+            $(_elements.enlaceConSubmenuMobile).on("click", _eventos.AbrirSubmenuMobile);
+            $(_elements.itemFooter).on("click", _eventos.ToogleMenuFooter);
         },
         SetUrlContactanos : function() {
-            if ($(me.Elements.idUrlContactanos).length) {
-                $(me.Elements.belcorpResponde).attr("href", $(me.Elements.idUrlContactanos).data("url-contactanos"));
+            if ($(_elements.idUrlContactanos).length) {
+                $(_elements.belcorpResponde).attr("href", $(_elements.idUrlContactanos).data("url-contactanos"));
             } 
         }
     };
     
     //Public functions
     function Inicializar() {
-        me.Funciones.InicializarEventos();
-        if (me.Config.isMobile) {
+        _funciones.InicializarEventos();
+        if (_config.isMobile) {
             document.getElementById("pUrlProductosPedido").href = "/Mobile/Pedido/Detalle";
         }
-        me.Funciones.SetUrlContactanos();
+        _funciones.SetUrlContactanos();
     }
     
     return {

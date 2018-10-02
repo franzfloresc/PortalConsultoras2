@@ -3390,6 +3390,8 @@
     <Content Include="Content\Images\ojito.png" />
     <Content Include="Content\Images\ojos.svg" />
     <Content Include="Content\Images\ojos_negro.svg" />
+    <Content Include="Content\Images\ordenar-flecha-icono.svg" />
+    <Content Include="Content\Images\ordenar-icono.svg" />
     <Content Include="Content\Images\paquete_doc.png" />
     <Content Include="Content\Images\paquete_documentario.svg" />
     <Content Include="Content\Images\paypal_error.png" />
@@ -3835,6 +3837,7 @@
     <Content Include="Scripts\jquery-labelauty.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Scripts\jquery-migrate-3.0.0.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.custom-scrollbar.js" />
@@ -4349,6 +4352,7 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpAlertaPedidosOnline.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpLoadingMobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5354,6 +5358,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHidden.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHiddenSoloDesktop.cshtml" />
     <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
+    <Content Include="Views\Shared\_BuscadorResponsive.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

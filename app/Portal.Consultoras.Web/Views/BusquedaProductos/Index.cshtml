@@ -7,13 +7,31 @@
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/busqueda-productos.css")" rel="stylesheet" />
 
 <section class="row flex-row ml-0 mr-0 layout__content">
-    <div class="row flex-row align-content-start ml-0 mr-0 w-100 mx-auto layout__content__wrapper">
-        <h1 class="col-12 pl-0 pr-0 busqueda__productos__titulo">
-            Resultados de la búsqueda
-        </h1>
-        <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados">
-            <span class="busqueda__num__productos__encontrados">4</span>  resultados para: <span class="busqueda__nom__filtro text-bold">Kalos</span>
-        </p>
-    </div>
+    <section class="row flex-row flex-lg-nowrap flex-xl-nowrap justify-content-lg-between justify-content-xl-between align-self-start ml-0 mr-0 w-100 mx-auto layout__content__wrapper">
+        <section class="col-12 col-lg-6 col-xl-6">
+            <h1 class="col-12 pl-0 pr-0 busqueda__productos__titulo">
+                Resultados de la búsqueda
+            </h1>
+            <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados">
+                <span class="busqueda__num__productos__encontrados">4</span>  resultados para: <span class="busqueda__nom__filtro text-bold">Kalos</span>
+            </p>
+        </section>
+        <section class="col-12 col-lg-6 col-xl-6 lista__opciones_ordenamiento">
+            <div class="row flex-row justify-content-end ml-0 mr-0">
+                <div class="col-6 col-lg-9 col-xl-9 pl-0 pr-0 opcion_ordenamiento text-lg-right text-xl-right">
+                    <label class="col-12 col-lg-3 col-xl-3 pl-0 pr-0 d-inline-block text-center text-lg-left text-xl-left opcion__ordenamiento__label">Ordenar</label>
+                    <div class="col-12 col-lg-7 col-xl-7 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
+                        <span class="col-11 opcion__ordenamiento__dropdown__seleccionada mostrarEnDesktop">Recomendación</span>
+                    </div>
+                </div>
+                @*<ul class="col-12 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown__lista">
+                    <li>Recomendación</li>
+                    <li>Ganancia</li>
+                    <li>Precio de menor a mayor</li>
+                    <li>Precio de mayor a menor</li>
+                </ul>*@
+            </div>
+        </section>
+    </section>
 </section>
 
