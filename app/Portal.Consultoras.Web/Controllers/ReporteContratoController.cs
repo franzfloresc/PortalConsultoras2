@@ -52,14 +52,16 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    cell = new string[]
                                    {
-                                a.Registro.ToString(),
-                                a.CodigoConsultora ?? string.Empty,
-                                a.NombreConsultora ?? string.Empty,
-                                a.AceptoContrato ?? string.Empty,
-                                a.FechaAceptacion ?? string.Empty,
-                                a.Origen ?? string.Empty,
-                                a.DireccionIP ?? string.Empty,
-                                a.InformacionSOMobile ?? string.Empty
+                                    a.Registro.ToString(),
+                                    a.CodigoConsultora ?? string.Empty,
+                                    a.NombreConsultora ?? string.Empty,
+                                    a.AceptoContrato ?? string.Empty,
+                                    a.FechaAceptacion ?? string.Empty,
+                                    a.Origen ?? string.Empty,
+                                    a.DireccionIP ?? string.Empty,
+                                    a.InformacionSOMobile ?? string.Empty,
+                                    a.IMEI ?? string.Empty,
+                                    a.DeviceID ?? string.Empty
                                    }
                                }
                     };
@@ -105,7 +107,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Fecha Aceptacion", "FechaAceptacion"},
                 {"Origen", "Origen"},
                 {"Dirección IP", "DireccionIP"},
-                {"InformacionSOMobile", "InformacionSOMobile"}
+                {"InformacionSOMobile", "InformacionSOMobile"},
+                {"IMEI", "IMEI"},
+                {"DeviceID", "DeviceID"}
             };
             Util.ExportToExcel<BeReporteContrato>("ReporteContratoExcel", lst, dic);
             return View();

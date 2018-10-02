@@ -16,5 +16,8 @@ namespace Portal.Consultoras.Entities
         public string Origen { get; set; }
         public string DireccionIP { get; set; }
         public string InformacionSOMobile { get; set; }
+        public string IMEI { get; set; }
+        public string DeviceID { get; set; }
+
     }
 }
