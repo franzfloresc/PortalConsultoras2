@@ -20,5 +20,7 @@
         public string Identifier { get; set; }
         public string CUV { get; set; }
         public string NombrePalanca { get; set; }
+        public string PalancaID { get; set; }
+        public string OrigenPedido { get; set; }
     }
 }

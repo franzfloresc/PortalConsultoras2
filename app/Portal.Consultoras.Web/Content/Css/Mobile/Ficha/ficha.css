@@ -255,9 +255,16 @@ ul.breadcumbs li:last-child a {
     margin-top: 2px;
 }
 
-.nombre_producto_opt span:nth-child(2){
-    float: left;
-    width: 80%;
+    .nombre_producto_opt .nombre-producto-ficha {
+        float: left;
+        width: 80%;
+    }
+
+.text_referencial_tipos {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    padding-top: 1px;
 }
 
 .nombre_producto_opt span:first-child{
