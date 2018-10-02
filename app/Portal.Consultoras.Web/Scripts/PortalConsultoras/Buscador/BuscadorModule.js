@@ -234,7 +234,7 @@ var BuscadorModule = (function(){
         }
     };
     var _eventos = {
-        AccionesCampoBusquedaAlDigitar: function () {
+        AccionesCampoBusquedaAlDigitar: function (event) {
             if ($(".tooltip_informativo_sobre_opcion_busqueda_prod").is(":visible") && !_config.isMobile) {
                 $(".tooltip_informativo_sobre_opcion_busqueda_prod").fadeOut(100);
             }
