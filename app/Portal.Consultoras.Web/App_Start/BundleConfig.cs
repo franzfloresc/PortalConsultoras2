@@ -20,7 +20,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-Contenedor").Include(
                 "~/Content/Css/Site/flipclock.css",
-                "~/Content/Css/Site/slick.css"
+                "~/Content/Css/Site/slick.css",
+               "~/Content/Css/Site/Menu/MenuContenedor.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-CssMain").Include(
@@ -173,6 +174,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/Esika/reset.css",
                "~/Content/Css/Site/Esika/style.css",
+               "~/Content/Css/Site/Menu/MenuPrincipal.css",
                "~/Content/Css/Site/Esika/styleDefault.css",
                "~/Content/Css/ui.jquery/Esika/jquery-ui.css",
                "~/Content/Css/Site/RevistaDigital/index.css",
@@ -203,6 +205,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/reset.css",
                "~/Content/Css/Site/Lbel/styleDefault.css",
                "~/Content/Css/Site/Lbel/style.css",
+               "~/Content/Css/Site/Menu/MenuPrincipal.css",
                "~/Content/Css/ui.jquery/Lbel/jquery-ui.css",
                "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Lbel/revistaDigital.css",
@@ -224,6 +227,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/icomon.css",
                "~/Content/Css/Mobile/Esika/menu.css",
                "~/Content/Css/Mobile/Esika/style.css",
+               "~/Content/Css/Site/Menu/MenuPrincipal.css",
                "~/Content/Css/Site/Esika/styleDefault.css",
                "~/Content/Css/Mobile/Esika/theme.css",
                "~/Content/Css/Mobile/flexslider.css",
@@ -241,6 +245,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/lbel/icomon.css",
                "~/Content/Css/Mobile/lbel/menu.css",
                "~/Content/Css/Mobile/lbel/style.css",
+               "~/Content/Css/Site/Menu/MenuPrincipal.css",
                "~/Content/Css/Site/Lbel/styleDefault.css",
                "~/Content/Css/Mobile/lbel/theme.css",
                "~/Content/Css/Mobile/flexslider.css",

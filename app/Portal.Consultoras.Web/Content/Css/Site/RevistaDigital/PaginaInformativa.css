@@ -25,9 +25,10 @@
     height: auto;
     float: initial;
     height: 95px;
-    background: url(/Content/Images/logo-club-ganamas-dorado2.png);
-    background-size: cover;
+    background: url(/Content/Images/logo-club-ganamas-dorado2.svg);
+    background-size: 217px;
     background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .gana-mas p.sblogo {
@@ -141,16 +142,20 @@
     height: 330px;
 }
 
-.como-funciona .arrow-down {
-    display: block;
-    margin: auto;
-    width: 20px;
-    height: 26px !important;
-    background: url('/Content/Images/RevistaDigital/triangulo-dorado.svg');
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
+    .como-funciona .contenedor-suscripcion{
+        margin-top: 0px !important;
+    }
+
+    .como-funciona .arrow-down {
+        display: block;
+        margin: auto;
+        width: 20px;
+        height: 26px !important;
+        background: url('/Content/Images/RevistaDigital/triangulo-dorado.svg');
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
 
 .como-funciona p.como-funciona-txt {
     color: #c39934;
