@@ -1260,62 +1260,50 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.HabilitarChatEmtelco = _chatEmtelcoProvider.HabilitarChatEmtelco(userData.PaisID, esMobile);
 
-            var MostrarBuscador = false;
-            var CaracteresBuscador = 0;
-            var TotalListadorBuscador = 20;
-            var CaracteresBuscadorMostrar = 15;
-            var CantidadVecesInicioSesionNovedad = 0;
-            var MostrarBotonVerTodos = false;
-            var CantidadProductosBotonVerTodos = 20;
-            var MostrarOpcionesOrdenamiento = false;
-
-            if (buscadorYFiltro.ConfiguracionPaisDatos.Any())
-            {
-                foreach (var item in buscadorYFiltro.ConfiguracionPaisDatos)
-                {
-                    switch (item.Codigo)
-                    {
-                        case Constantes.TipoConfiguracionBuscador.MostrarBuscador:
-                            MostrarBuscador = Convert.ToBoolean(item.Valor1.ToInt());
-                            break;
-                        case Constantes.TipoConfiguracionBuscador.CaracteresBuscador:
-                            CaracteresBuscador = item.Valor1.ToInt();
-                            break;
-                        case Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar:
-                            CaracteresBuscadorMostrar = item.Valor1.ToInt();
-                            break;
-                        case Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador:
-                            TotalListadorBuscador = item.Valor1.ToInt();
-                            break;
-                        case Constantes.TipoConfiguracionBuscador.CantidadInicioSesionNovedadBuscador:
-                            CantidadVecesInicioSesionNovedad = item.Valor1.ToInt();
-                            break;
-                        case Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos:
-                            MostrarBotonVerTodos = Convert.ToBoolean(item.Valor1.ToInt());
-                            break;
-                        case Constantes.TipoConfiguracionBuscador.CantidadProductosBotonVerTodos:
-                            CantidadProductosBotonVerTodos = item.Valor1.ToInt();
-                            break;
-                        case Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento:
-                            MostrarOpcionesOrdenamiento = Convert.ToBoolean(item.Valor1.ToInt());
-                            break;
-                    }
-                }
-            }
-
-            ViewBag.MostrarBuscadorYFiltros = MostrarBuscador;
-            ViewBag.CaracteresBuscador = CaracteresBuscador;
-            ViewBag.TotalListadorBuscador = TotalListadorBuscador;
-            ViewBag.CaracteresBuscadorMostrar = CaracteresBuscadorMostrar;
-            ViewBag.CantidadVecesInicioSesionNovedad = CantidadVecesInicioSesionNovedad;
+            ViewBag.MostrarBuscadorYFiltros = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBuscador).ToBool();
+            ViewBag.CaracteresBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
+            ViewBag.TotalListadorBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador); 
+            ViewBag.CaracteresBuscadorMostrar = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar);
+            ViewBag.CantidadVecesInicioSesionNovedad = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CantidadInicioSesionNovedadBuscador);
             ViewBag.NovedadBuscador = userData.NovedadBuscador;
-            ViewBag.MostrarBotonVerTodos = MostrarBotonVerTodos;            
-            ViewBag.CantidadProductosBotonVerTodos = CantidadProductosBotonVerTodos;
-            ViewBag.MostrarOpcionesOrdenamiento = MostrarOpcionesOrdenamiento;
+            ViewBag.MostrarBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).ToBool();
+            ViewBag.CantidadProductosBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CantidadProductosBotonVerTodos);
+            ViewBag.MostrarOpcionesOrdenamiento = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento).ToBool();
         }
 
         #endregion
 
+        public int ObtenerConfiguracionBuscador(string codigo)
+        {
+            if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return ObtenerValorPorDefecto(codigo);
+            var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor1).FirstOrDefault();
+            return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
+        }
+
+        private int ObtenerValorPorDefecto(string codigo)
+        {
+            switch (codigo)
+            {
+                case Constantes.TipoConfiguracionBuscador.MostrarBuscador:
+                    return 0;
+                case Constantes.TipoConfiguracionBuscador.CaracteresBuscador:
+                    return 0;
+                case Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar:
+                    return 15;
+                case Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador:
+                    return 20;
+                case Constantes.TipoConfiguracionBuscador.CantidadInicioSesionNovedadBuscador:
+                    return 0;
+                case Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos:
+                    return 0;
+                case Constantes.TipoConfiguracionBuscador.CantidadProductosBotonVerTodos:
+                    return 20;
+                case Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento:
+                    return 0;
+                default:
+                    return 0;
+            }
+        }
         protected int GetMostradoPopupPrecargados()
         {
             var flag = 1;

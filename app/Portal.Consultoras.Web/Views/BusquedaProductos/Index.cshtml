@@ -1,4 +1,5 @@
-﻿
+﻿@using System.Web.Optimization
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
@@ -33,22 +34,24 @@
                     </div>
                     <ul class="col-9 col-md-10 col-lg-6 col-xl-6 pl-0 pr-0 opcion__ordenamiento__dropdown__lista">
                         <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                            <a href="#" class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada" title="Recomendación">
+                        <!-- CUANDO UNA OPCIÓN ESTÁ SELECCIONADA AGREGAR LA CLASE opcion__ordenamiento__dropdown__link--seleccionada -->
+                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada" title="Recomendación">
                                 Recomendación
                             </a>
+                        <!-- FIN - CUANDO UNA OPCIÓN ESTÁ SELECCIONADA AGREGAR LA CLASE opcion__ordenamiento__dropdown__link--seleccionada -->
                         </li>
                         <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                            <a href="#" class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Ganancia">
+                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Ganancia">
                                 Ganancia
                             </a>
                         </li>
                         <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                            <a href="#" class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Precio de menor a mayor">
+                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Precio de menor a mayor">
                                 Precio de menor a mayor
                             </a>
                         </li>
                         <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                            <a href="#" class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Precio de mayor a menor">
+                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Precio de mayor a menor">
                                 Precio de mayor a menor
                             </a>
                         </li>
@@ -59,4 +62,6 @@
 
     </section>
 </section>
-
+@section scripts{
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js")"></script>
+}

@@ -181,6 +181,7 @@
     line-height:38px;
     font-size: 13px;
     letter-spacing:0.5px;
+    cursor:pointer;
 }
 
 .opcion__ordenamiento__dropdown__link:hover,
