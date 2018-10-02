@@ -31,6 +31,7 @@
 
 .opcion__ordenamiento__label{
     position:relative;
+    padding-right:10px;
     top:0;
     margin-bottom:0;
     font-size:13px;
@@ -239,6 +240,7 @@
     }
 
     .opcion__ordenamiento__label{
+        padding-right:0;
         font-size: 12px;
         font-weight:normal;
         letter-spacing: 1px;
