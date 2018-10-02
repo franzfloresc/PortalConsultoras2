@@ -159,7 +159,13 @@ $(document).ready(function () {
 
     $('#hrefTerminosMD').click(function () { EnlaceTerminosCondiciones(); });
 
-    ConsultarActualizaEmail();
+    //ConsultarActualizaEmail();
+    if (TieneToolTipPerfil != '0') {
+        if (data.split('|')[0] == '1') {
+            document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+            document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
+        }
+    }
     CancelarAtualizacionEmail();
 });
 
@@ -484,28 +490,28 @@ function SubirImagen(url, image) {
     });
 }
 
-function ConsultarActualizaEmail() {
-    var elementA = document.getElementById('hrefNocambiarCorreo');
-    if (elementA) {
-        $.ajax({
-            type: 'POST',
-            url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
-            dataType: 'Text',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    if (data.split('|')[0] == '1') {
-                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
-                        document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
-                    }
-                }
-            },
-            error: function (data, error) {
-                alert(error);
-            }
-        });
-    }
-}
+//function ConsultarActualizaEmail() {
+//    var elementA = document.getElementById('hrefNocambiarCorreo');
+//    if (elementA) {
+//        $.ajax({
+//            type: 'POST',
+//            url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
+//            dataType: 'Text',
+//            contentType: 'application/json; charset=utf-8',
+//            success: function (data) {
+//                if (checkTimeout(data)) {
+//                    if (data.split('|')[0] == '1') {
+//                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+//                        document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
+//                    }
+//                }
+//            },
+//            error: function (data, error) {
+//                alert(error);
+//            }
+//        });
+//    }
+//}
 
 function CancelarAtualizacionEmail() {
     var elementA = document.getElementById('hrefNocambiarCorreo');

@@ -133,6 +133,7 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneFacturacionElectronica { get; set; }
         public bool TieneCaminoExito { get; set; }
         public string urlCaminoExito { get; set; }
+        public string TieneToolTipPerfil{ get; set; }
 
         public BienvenidaHomeModel()
         {

@@ -212,7 +212,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
-                
+                model.TieneToolTipPerfil = ObtenerActualizacionEmail();
+
                 #region Camino al Exito
 
                 var CaminoExito = this.ObjectCaminoExito();
@@ -2394,7 +2395,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-
                 using (var svClient = new UsuarioServiceClient())
                 {
                     var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoUsuario);

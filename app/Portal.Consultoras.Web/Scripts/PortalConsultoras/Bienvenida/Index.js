@@ -3255,7 +3255,7 @@ function ConsultarEmailPendiente() {
         dataType: 'Text',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            if (checkTimeout(data)) {
+            if (checkTimeout(data)) {                
                 if (data.split('|')[0] == '1') {
                     document.getElementById('spnEmail').innerHTML = data.split('|')[1];
                     document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
