@@ -5,7 +5,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO
@@ -15,7 +15,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO
@@ -25,7 +25,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO
@@ -35,7 +35,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO
@@ -45,7 +45,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO
@@ -55,7 +55,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO
@@ -65,7 +65,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO
@@ -75,7 +75,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO
@@ -85,7 +85,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO
@@ -95,7 +95,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO
@@ -105,7 +105,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO
@@ -115,7 +115,7 @@ IF NOT EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'ConsultoraDu
 BEGIN
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'ConsultoraDummy',0, 1, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
+	VALUES (@id, 'ConsultoraDummy',0, 0, NULL, NULL, 'Flag para activar y/o deseactivar consultora dummy', 1, NULL)
 END
 
 GO

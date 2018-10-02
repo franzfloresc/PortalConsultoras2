@@ -462,10 +462,13 @@ img.icono-logo-submenu-tabs {
     border-bottom: 2px solid #c39934;
     color: #c39934;
 }
-
-.activado-dorado img{
+.bc_para_ti-menu-opciones ul li a.default-dorado img {
     height: 13px !important
 }
+
+/*.activado-dorado img{
+    height: 13px !important
+}*/
 .ocultar {
     display: none;
 }
