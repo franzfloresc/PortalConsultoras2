@@ -169,8 +169,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
-                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js"
-                //"~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js"
+                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
+                "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Fuzemodal").Include(
