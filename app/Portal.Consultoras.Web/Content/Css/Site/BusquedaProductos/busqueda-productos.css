@@ -2,7 +2,7 @@
 /* PÁGINA DE RESULTADOS DESKTOP */
 
 .layout__content__wrapper{
-    max-width:1040px;
+    max-width:1169px;
 }
 
 .busqueda__productos__titulo{
@@ -18,11 +18,59 @@
     letter-spacing:0.2px;
 }
 
+.lista__opciones_ordenamiento{
+    padding-top:10px;
+}
+
+.opcion__ordenamiento__label,
+.opcion__ordenamiento__dropdown
+{
+    vertical-align:middle;
+}
+
+.opcion__ordenamiento__label{
+    position:relative;
+    top:0;
+    margin-bottom:0;
+    font-size:13px;
+    font-weight:bold;
+    letter-spacing:0.5px;
+}
+
+.opcion__ordenamiento__label:before{
+    display:none;
+}
+
+.opcion__ordenamiento__label:after{
+    display:inline-block;
+    margin-left:3px;
+    content:"por :";
+}
+
+.opcion__ordenamiento__dropdown{
+    height:35px;
+    border-radius:4px;
+    border:1px solid #d8d8d8;
+    background-image: url(/Content/Images/ordenar-flecha-icono.svg);
+    background-position: 95.5% center;
+    background-repeat: no-repeat;
+    background-size: 12px;
+}
+
+.opcion__ordenamiento__dropdown__seleccionada{
+    padding-top:5px;
+}
+
 /* FIN - PÁGINA DE RESULTADOS DESKTOP */
 
 /* PÁGINA DE RESULTADOS MOBILE */
 
 @media screen and (max-width:991px){
+
+    .layout__content{
+        padding-left:0;
+        padding-right:0;
+    }
 
     .layout__content__wrapper{
         max-width:none;
@@ -34,6 +82,65 @@
         letter-spacing:normal;
         padding-top:2px;
         margin-bottom:10px;
+    }
+
+    .lista__opciones_ordenamiento{
+        margin-top:17px;
+        padding-top:5px;
+        background-color:#f5f5f5;
+    }
+
+    .opcion_ordenamiento{
+        position:relative;
+    }
+
+    .opcion__ordenamiento__label,
+    .opcion__ordenamiento__dropdown
+    {
+        vertical-align:initial;
+    }
+
+    .opcion__ordenamiento__label{
+        font-size: 12px;
+        font-weight:normal;
+        letter-spacing: 1px;
+        color: #000;
+        height: 20px;
+        text-transform: uppercase;
+        position: absolute;
+        margin: auto;
+        top: -3px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 2;
+    }
+
+    .opcion__ordenamiento__label:before{
+        display: inline-block;
+        content: "";
+        width: 11px;
+        height: 12.7px;
+        background-image: url(/Content/Images/ordenar-icono.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        position: relative;
+        top: 3px;
+        left: -5px;
+    }
+
+    .opcion__ordenamiento__label:after{
+        display:none;
+    }
+
+    .opcion__ordenamiento__dropdown{
+        height:45px;
+        background-color:#FFF;
+        background-image:none;
+        border:none;
+        -webkit-appearance:none;
+        -moz-appearance:none;
+        font-weight:400;
     }
 
 }
