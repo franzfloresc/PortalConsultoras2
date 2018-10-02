@@ -1,6 +1,6 @@
 ﻿<script id="js-ResultadoBuscador" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <div class="resultado_busqueda_producto displayBlock text-left" data-item="ProductoBuscador">
+    <div class="resultado_busqueda_producto ml-0 mr-0" data-item="ProductoBuscador">
         <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
         <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
         <input type="hidden" class="hdBuscadorSAP" value="{{SAP}}" />
@@ -20,58 +20,58 @@
         <input type="hidden" class="hdBuscadorTipoPersonalizacion" value="{{TipoPersonalizacion}}" />
         <input type="hidden" class="hdBuscadorEstrategiaID" value="{{EstrategiaID}}" />
 
-        <div class="resultado_busqueda_img_prod displayInlineBlock redireccionarFicha">
+        <div class="resultado_busqueda_img_prod redireccionarFicha pl-0 pr-0">
             <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
         </div>
-        <div class="resultado_busqueda_descrip_prod displayInlineBlock redireccionarFicha">
-            <div class="resultado_busqueda_nom_producto displayBlock">
+        <div class="resultado_busqueda_descrip_prod pl-0 pr-0 redireccionarFicha">
+            <div class="resultado_busqueda_nom_producto pl-0 pr-0">
                 {{Descripcion}}
             </div>
-            <div class="resultado_busqueda_precio_prod displayBlock">
+            <div class="resultado_busqueda_precio_prod pl-0 pr-0">
                 {{#if_eq TipoPersonalizacion 'LIQ'}}
-                <span class="resultado_busqueda_precio_oferta displayBlock">{{PrecioString}}</span>
+                <span class="resultado_busqueda_precio_oferta d-block pl-0 pr-0">{{PrecioString}}</span>
                 {{else}}
-                <span class="resultado_busqueda_precio_normal displayBlock">{{ValorizadoString}}</span>
-                <span class="resultado_busqueda_precio_oferta displayBlock">{{PrecioString}}</span>
+                <span class="resultado_busqueda_precio_normal d-block pl-0 pr-0">{{ValorizadoString}}</span>
+                <span class="resultado_busqueda_precio_oferta d-block pl-0 pr-0">{{PrecioString}}</span>
                 {{/if_eq}}
             </div>
-            <div class="resultado_busqueda_tipo_oferta_prod displayBlock">{{DescripcionEstrategia}}</div>
+            <div class="resultado_busqueda_tipo_oferta_prod pl-0 pr-0">{{DescripcionEstrategia}}</div>
         </div>
-        <div class="resultado_wrapper_selector_cantidad_y_btn_agregar displayInlineBlock">
+        <div class="resultado_wrapper_selector_cantidad_y_btn_agregar ml-0 mr-0 pl-0">
             {{#if_eq CodigoEstrategia '2003'}}
-            <div class="resultado_busqueda_btn_elegir_opcion_wrapper displayInlineBlock text-center" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
-                <a class="btn_elegir_opcion displayBlock text-center text-uppercase redireccionarFicha" href="javascript:;">
-                    <span class="icono_elige_tu_opcion displayInlineBlock">
+            <div class="resultado_busqueda_btn_elegir_opcion_wrapper pl-0 pr-0 text-center" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
+                <a class="btn_elegir_opcion ml-0 mr-0 text-uppercase redireccionarFicha" href="javascript:;">
+                    <span class="icono_elige_tu_opcion d-inline-block">
                         <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
                     </span>
-                    <span class="displayInlineBlock">
+                    <span class="d-inline-block text-bold">
                         Elige<br /> tu opción
                     </span>
                 </a>
             </div>
             {{else}}
-            <div class="resultado_busqueda_cantidad_prod displayInlineBlock js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
-                <a class="cantidad_menos_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+            <div class="resultado_busqueda_cantidad_prod pl-0 pr-0 {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
+                <a class="cantidad_menos_home d-inline-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                     <img src="/Content/Images/Mobile/Esika/menos.png" alt="">
                 </a>
                 <input type="tel" value="1" size="2" maxlength="2" data-input="cantidad"
                        class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" {{#if Stock}} disabled {{/if}} />
-                <a class="cantidad_mas_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                <a class="cantidad_mas_home d-inline-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
                     <img src="/Content/Images/Mobile/Esika/mas.png" alt="">
                 </a>
                 <div class="clear"></div>
             </div>
-            <div class="resultado_busqueda_btn_agregar_wrapper displayInlineBlock text-center">
+            <div class="resultado_busqueda_btn_agregar_wrapper pl-0 pr-0 text-center">
                 {{#if Stock}}
-                <a class="btn_inactivo displayBlock text-center text-uppercase">
+                <a class="btn_inactivo d-block text-center text-uppercase">
                     Agotado
                 </a>
                 {{else}}
-                <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
+                <a class="boton_Agregalo_home text-center text-uppercase d-block agregarProductoBuscador">
                     Agrégalo
                 </a>
                 {{/if}}
-                <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold etiqueta_buscador_producto">
+                <div class="etiqueta_prod_agregado text-uppercase text-bold pl-0 etiqueta_buscador_producto">
                     {{Agregado}}
                 </div>
             </div>

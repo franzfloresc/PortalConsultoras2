@@ -33,8 +33,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        public BaseViewController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider) 
-            : base(sesionManager, logManager, ofertaPersonalizadaProvider)
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
+            : base(sesionManager, logManager, ofertaPersonalizadaProvider, ofertaViewProvider)
         {
         }
 
@@ -47,6 +47,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult RDIndexModel()
         {
+          
+
             if (revistaDigital.TieneRDI)
                 return View("template-informativa-rdi");
 
@@ -77,6 +79,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.ProductosPerdio = dato.Estado;
             model.PerdioTitulo = dato.Valor1;
             model.PerdioSubTitulo = dato.Valor2;
+
+            model.PerdioLogo = revistaDigital.DLogoComercialActiva;
 
             model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
 
@@ -256,51 +260,58 @@ namespace Portal.Consultoras.Web.Controllers
             var area = IsMobile() ? "mobile" : string.Empty;
             //
             breadCrumbs.Inicio.Texto = "Inicio";
-            breadCrumbs.Inicio.Url = Url.Action("Index", new { controller = "Bienvenida", area });
-            //
-            breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Club Gana +" : "Ofertas";
-            var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
-            breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
-            //
+            breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Gana +" : "Ofertas Digitales";
             breadCrumbs.Palanca.Texto = GetNombresPalancas().ContainsKey(palanca) ? GetNombresPalancas()[palanca] : string.Empty;
-            breadCrumbs.Palanca.Url = "#";
-            if (!string.IsNullOrWhiteSpace(breadCrumbs.Palanca.Texto))
+            //
+            try
             {
-                breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area });
-                if (palanca == Constantes.NombrePalanca.ShowRoom)
-                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
-                if (palanca == Constantes.NombrePalanca.Lanzamiento)
+                breadCrumbs.Inicio.Url = Url.Action("Index", new { controller = "Bienvenida", area });
+                //
+                var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
+                breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
+                //
+                breadCrumbs.Palanca.Url = "#";
+                if (!string.IsNullOrWhiteSpace(breadCrumbs.Palanca.Texto))
                 {
-                    var actionPalanca = productoPerteneceACampaniaActual ? "Index" : "Revisar";
-                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#LAN";
-                }
-                if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
-                    palanca == Constantes.NombrePalanca.OfertasParaMi ||
-                    palanca == Constantes.NombrePalanca.RevistaDigital ||
-                    palanca == Constantes.NombrePalanca.PackNuevas)
-                {
-                    if (tieneRevistaDigital)
+                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area });
+                    if (palanca == Constantes.NombrePalanca.ShowRoom)
+                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
+                    if (palanca == Constantes.NombrePalanca.Lanzamiento)
+                    {
+                        var actionPalanca = productoPerteneceACampaniaActual ? "Index" : "Revisar";
+                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#LAN";
+                    }
+                    if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
+                        palanca == Constantes.NombrePalanca.OfertasParaMi ||
+                        palanca == Constantes.NombrePalanca.RevistaDigital ||
+                        palanca == Constantes.NombrePalanca.PackNuevas)
+                    {
+                        if (tieneRevistaDigital)
+                        {
+                            var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
+                            breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "RevistaDigital", area });
+                        }
+                        else
+                        {
+                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#OPT";
+                        }
+                    }
+                    if (palanca == Constantes.NombrePalanca.OfertaDelDia)
+                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#ODD";
+                    if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
+                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
+                    if (palanca == Constantes.NombrePalanca.HerramientasVenta)
                     {
                         var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
-                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "RevistaDigital", area });
-                    }
-                    else
-                    {
-                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#OPT";
+                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "HerramientasVenta", area });
                     }
                 }
-                if (palanca == Constantes.NombrePalanca.OfertaDelDia)
-                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#ODD";
-                if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
-                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
-                if (palanca == Constantes.NombrePalanca.HerramientasVenta)
-                {
-                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
-                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "HerramientasVenta", area });
-                }
+                //
+                breadCrumbs.Producto.Url = "#";
             }
-            //
-            breadCrumbs.Producto.Url = "#";
+            catch
+            {
+            }
             //
             return breadCrumbs;
         }

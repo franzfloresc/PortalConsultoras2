@@ -4574,6 +4574,7 @@ table > thead > tr > th {
 
 .novedad_busqueda_titulo{
     font-weight:900;
+    text-transform:uppercase;
 }
 
 .novedad_busqueda_descripcion{
@@ -15198,4 +15199,9 @@ span.icon-advertencia {
 
 .info_academia p{
     margin:0;
+}
+
+.bc_para_ti-menu-opciones ul li .activado {
+    border-color: #6c398a !important;
+    color: #6c398a;
 }

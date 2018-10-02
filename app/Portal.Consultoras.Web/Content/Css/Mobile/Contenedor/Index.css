@@ -119,15 +119,12 @@
         }
 
         .bc_para_ti-menu-opciones ul li a {
-            padding: 11px 9px;
+            padding: 15px 9px 11px 9px;
             letter-spacing: 1px;
-            display: inline;
             cursor: pointer;
             font-size: 12px;
             text-transform: uppercase;
             transition: .3s;
-            position: relative;
-            top: 7px;
         }
 
         @media (max-width:359px){
@@ -139,7 +136,6 @@
             .bc_para_ti-menu-opciones ul li a p {
                 display: inline;
                 position: relative;
-                top: 6px;
             }
 
 
@@ -178,6 +174,7 @@
     .bc_para_ti-menu-opciones ul > div {
         width: 80%;
         margin: 0 auto;
+        padding: 0px 0 !important;
     }
 
 .bc_para_ti-menu-opciones li a.activo {
@@ -334,13 +331,16 @@ section {
 
 img.icono-submenu-tabs {
     margin: auto;
-    margin-left: 10px;
-    margin-top: 7px;
+    margin-top: -2px;
 }
 
+.bc_para_ti-menu-opciones ul li .activado {
+    border-bottom: solid 2px #c39934;
+}
+
+
 img.icono-logo-submenu-tabs {
-    height: 21px;
-    width: auto;
+    width: 66px;
 }
 
 img.c {
@@ -450,5 +450,22 @@ img.c {
     margin-bottom: 50px;
     font-size: 18px;
     text-align: center;
+    display: none;
+}
+
+img.icono-logo-submenu-tabs {
+    height: 18px;
+    width: auto;
+}
+
+.bc_para_ti-menu-opciones ul li a.activado-dorado {
+    border-bottom: 2px solid #c39934;
+    color: #c39934;
+}
+
+.activado-dorado img{
+    height: 13px !important
+}
+.ocultar {
     display: none;
 }
