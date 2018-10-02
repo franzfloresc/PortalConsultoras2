@@ -159,6 +159,8 @@ body > img{
 .layout__content{
     padding:20px 15px;
     min-height:calc(100vh - 207px);
+    position:relative;
+    z-index:2;
 }
 
 /* FIN - SECCIÓN CONTENIDO */

@@ -20,17 +20,40 @@
         <section class="col-12 col-lg-6 col-xl-6 lista__opciones_ordenamiento">
             <div class="row flex-row justify-content-end ml-0 mr-0">
                 <div class="col-6 col-lg-9 col-xl-9 pl-0 pr-0 opcion_ordenamiento text-lg-right text-xl-right">
-                    <label class="col-12 col-lg-3 col-xl-3 pl-0 pr-0 d-inline-block text-center text-lg-left text-xl-left opcion__ordenamiento__label">Ordenar</label>
-                    <div class="col-12 col-lg-7 col-xl-7 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
+                    <label class="col-12 col-lg-3 col-xl-3 pl-0 d-inline-block text-center text-lg-right text-xl-right opcion__ordenamiento__label">Ordenar</label>
+                    <!-- AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
+                    <div class="col-12 col-lg-67 col-xl-6 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
                         <span class="col-11 opcion__ordenamiento__dropdown__seleccionada mostrarEnDesktop">Recomendación</span>
+                        <span class="col pl-0 pr-0 opcion__ordenamiento__dropdown__icono mostrarEnDesktop">
+                            <img src="@Url.Content("~/Content/Images/ordenar-flecha-icono.svg")" alt="" />
+                        </span>
                     </div>
+                    <!-- FIN - AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
                 </div>
-                @*<ul class="col-12 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown__lista">
-                        <li>Recomendación</li>
-                        <li>Ganancia</li>
-                        <li>Precio de menor a mayor</li>
-                        <li>Precio de mayor a menor</li>
-                    </ul>*@
+                <ul class="col-9 col-md-10 col-lg-6 col-xl-6 pl-0 pr-0 opcion__ordenamiento__dropdown__lista">
+                    <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
+                        <!-- CUANDO UNA OPCIÓN ESTÁ SELECCIONADA AGREGAR LA CLASE opcion__ordenamiento__dropdown__link--seleccionada -->
+                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada" title="Recomendación">
+                            Recomendación
+                        </a>
+                        <!-- FIN - CUANDO UNA OPCIÓN ESTÁ SELECCIONADA AGREGAR LA CLASE opcion__ordenamiento__dropdown__link--seleccionada -->
+                    </li>
+                    <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
+                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Ganancia">
+                            Ganancia
+                        </a>
+                    </li>
+                    <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
+                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Precio de menor a mayor">
+                            Precio de menor a mayor
+                        </a>
+                    </li>
+                    <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
+                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Precio de mayor a menor">
+                            Precio de mayor a menor
+                        </a>
+                    </li>
+                </ul>
             </div>
         </section>
     </section>
