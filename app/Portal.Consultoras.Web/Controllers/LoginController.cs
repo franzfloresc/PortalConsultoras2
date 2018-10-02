@@ -1808,7 +1808,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 var buscadorYFiltrosModel = new BuscadorYFiltrosModel();
-
+                
                 if (configuracionesPaisModels.Any())
                 {
                     var configuracionPaisDatosAll = await GetConfiguracionPaisDatos(usuarioModel);

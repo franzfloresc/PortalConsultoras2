@@ -1644,7 +1644,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 var userModel = userData;
-                var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
+                var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 5, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
                 var siExiste = productos.Any(p => p.CUV == model.CUV);
                 BloqueoProductosCatalogo(ref productos);
                 BloqueoProductosDigitales(ref productos);
@@ -1702,7 +1702,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoProducto = producto.CodigoProducto,
                     LimiteVenta = estrategia.LimiteVenta,
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
-                    TieneRDC = tieneRdc
+                    TieneRDC = tieneRdc,
+                    EstrategiaID = producto.EstrategiaID
                 });
             }
             catch (Exception ex)
@@ -1755,16 +1756,21 @@ namespace Portal.Consultoras.Web.Controllers
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
 
+            beProductos = beProductos
+                    .Where(prod =>
+                         !(prod.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    )
+                    .ToList();
+
             if (revistaDigital.BloqueoProductoDigital)
             {
                 beProductos = beProductos
                     .Where(prod =>
                         !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                           || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                         )
-                    )
-                    .ToList();
+                        .ToList();
             }
 
             if (guiaNegocio.BloqueoProductoDigital)
@@ -1792,6 +1798,13 @@ namespace Portal.Consultoras.Web.Controllers
                         .Where(prod => !dato.Valor1.Contains(prod.CUV))
                         .ToList();
                 }
+            }
+
+            if (configEstrategiaSR.BloqueoProductoDigital)
+            {
+                beProductos = beProductos
+                    .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.ShowRoom)
+                    .ToList();
             }
         }
 
