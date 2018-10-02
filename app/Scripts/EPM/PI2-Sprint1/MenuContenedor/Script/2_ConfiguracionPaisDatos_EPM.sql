@@ -8,18 +8,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -42,8 +42,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -72,8 +72,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -101,8 +101,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -129,8 +129,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -138,6 +138,8 @@ BEGIN
 END
 
 
+
+GO
 
 GO
 USE BelcorpMexico
@@ -149,18 +151,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -183,8 +185,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -213,8 +215,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -242,8 +244,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -270,8 +272,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -279,6 +281,8 @@ BEGIN
 END
 
 
+
+GO
 
 GO
 USE BelcorpColombia
@@ -290,18 +294,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -324,8 +328,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -354,8 +358,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -383,8 +387,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -411,8 +415,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -420,6 +424,8 @@ BEGIN
 END
 
 
+
+GO
 
 GO
 USE BelcorpSalvador
@@ -431,18 +437,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -465,8 +471,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -495,8 +501,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -524,8 +530,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -552,8 +558,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -561,6 +567,8 @@ BEGIN
 END
 
 
+
+GO
 
 GO
 USE BelcorpPuertoRico
@@ -572,18 +580,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -606,8 +614,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -636,8 +644,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -665,8 +673,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -693,8 +701,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -702,6 +710,8 @@ BEGIN
 END
 
 
+
+GO
 
 GO
 USE BelcorpPanama
@@ -713,18 +723,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -747,8 +757,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -777,8 +787,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -806,8 +816,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -834,8 +844,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -843,6 +853,8 @@ BEGIN
 END
 
 
+
+GO
 
 GO
 USE BelcorpGuatemala
@@ -854,18 +866,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -888,8 +900,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -918,8 +930,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -947,8 +959,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -975,8 +987,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -984,6 +996,8 @@ BEGIN
 END
 
 
+
+GO
 
 GO
 USE BelcorpEcuador
@@ -995,18 +1009,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -1029,8 +1043,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -1059,8 +1073,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -1088,8 +1102,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -1116,8 +1130,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -1125,6 +1139,8 @@ BEGIN
 END
 
 
+
+GO
 
 GO
 USE BelcorpDominicana
@@ -1136,18 +1152,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -1170,8 +1186,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -1200,8 +1216,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -1229,8 +1245,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -1257,8 +1273,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -1266,6 +1282,8 @@ BEGIN
 END
 
 
+
+GO
 
 GO
 USE BelcorpCostaRica
@@ -1277,18 +1295,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -1311,8 +1329,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -1341,8 +1359,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -1370,8 +1388,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
+				   ,'ofertas_digitales_lbel_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -1398,8 +1416,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -1407,6 +1425,8 @@ BEGIN
 END
 
 
+
+GO
 
 GO
 USE BelcorpChile
@@ -1418,18 +1438,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -1452,8 +1472,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -1482,8 +1502,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -1511,8 +1531,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -1539,8 +1559,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -1548,6 +1568,8 @@ BEGIN
 END
 
 
+
+GO
 
 GO
 USE BelcorpBolivia
@@ -1559,18 +1581,18 @@ IF  EXISTS (
 		)
 BEGIN
 	UPDATE configuracionpaisdatos
-	SET valor1 = 'gana_mas_seleccionado.svg'
-		,valor2 = 'gana_mas_seleccionado.svg'
+	SET valor1 = 'gana_mas_tag_seleccionado.svg'
+		,valor2 = 'gana_mas_tag_seleccionado.svg'
 	WHERE codigo = 'LogoMenuInicioActiva';
 END
-GO
+
 IF  EXISTS (
 		SELECT 1
 		FROM configuracionpaisdatos
 		WHERE codigo = 'LogoMenuInicioNoActiva'
 		)
 BEGIN
-update configuracionpaisdatos set valor1='gana_mas_no_seleccionado.svg', valor2='gana_mas_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
+update configuracionpaisdatos set valor1='gana_mas_tag_no_seleccionado.svg', valor2='gana_mas_tag_no_seleccionado.svg' where codigo='LogoMenuInicioNoActiva';
 END
 GO
 IF NOT EXISTS (
@@ -1593,8 +1615,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RD'),
 				   'LogoMenuInicioNoSuscrita'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo del menu inicio para desktop y mobile no suscrita'
 				   ,1
@@ -1623,8 +1645,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RD'),
 					   'LogoMenuInicioNoActivaNoSuscrita'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo Menu Inicio No Activa No Suscrita'
 					   ,1
@@ -1652,8 +1674,8 @@ BEGIN
 				  ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 				   'LogoMenuRevistaDigitaIntrigaActiva'
 				   ,0
-				   ,'ofertas_digitales_seleccionado.svg'
-				   ,'ofertas_digitales_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
+				   ,'ofertas_digitales_esika_tag_seleccionado.svg'
 				   ,null
 				   ,'Logo de Menu RevistaDigitaIntriga Activa'
 				   ,1
@@ -1680,8 +1702,8 @@ BEGIN
 						 ( select configuracionpaisid from configuracionpais where codigo='RDI'),
 					   'LogoMenuRevistaDigitaIntrigaNoActivo'
 					   ,0
-					   ,'ofertas_digitales_no_seleccionado.svg'
-					   ,'ofertas_digitales_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
+					   ,'ofertas_digitales_tag_no_seleccionado.svg'
 					   ,null
 					   ,'Logo de Menu RevistaDigita Intriga No Activo'
 					   ,1
@@ -1691,3 +1713,6 @@ END
 
 
 GO
+
+GO
+
