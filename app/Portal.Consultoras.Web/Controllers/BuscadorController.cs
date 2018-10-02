@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var buscadorModel = new BuscadorModel
                 {
-                    
+                    TextoBusqueda = model.TextoBusqueda,
                     CantidadProductos = 20
                 };
 

@@ -1265,6 +1265,8 @@ namespace Portal.Consultoras.Web.Controllers
             var TotalListadorBuscador = 20;
             var CaracteresBuscadorMostrar = 15;
             var CantidadVecesInicioSesionNovedad = 0;
+            var MostrarBotonVerTodos = false;
+            var CantidadProductosBotonVerTodos = 20;
             var MostrarOpcionesOrdenamiento = false;
 
             if (buscadorYFiltro.ConfiguracionPaisDatos.Any())
@@ -1288,6 +1290,12 @@ namespace Portal.Consultoras.Web.Controllers
                         case Constantes.TipoConfiguracionBuscador.CantidadInicioSesionNovedadBuscador:
                             CantidadVecesInicioSesionNovedad = item.Valor1.ToInt();
                             break;
+                        case Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos:
+                            MostrarBotonVerTodos = Convert.ToBoolean(item.Valor1.ToInt());
+                            break;
+                        case Constantes.TipoConfiguracionBuscador.CantidadProductosBotonVerTodos:
+                            CantidadProductosBotonVerTodos = item.Valor1.ToInt();
+                            break;
                         case Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento:
                             MostrarOpcionesOrdenamiento = Convert.ToBoolean(item.Valor1.ToInt());
                             break;
@@ -1301,6 +1309,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CaracteresBuscadorMostrar = CaracteresBuscadorMostrar;
             ViewBag.CantidadVecesInicioSesionNovedad = CantidadVecesInicioSesionNovedad;
             ViewBag.NovedadBuscador = userData.NovedadBuscador;
+            ViewBag.MostrarBotonVerTodos = MostrarBotonVerTodos;            
+            ViewBag.CantidadProductosBotonVerTodos = CantidadProductosBotonVerTodos;
             ViewBag.MostrarOpcionesOrdenamiento = MostrarOpcionesOrdenamiento;
         }
 

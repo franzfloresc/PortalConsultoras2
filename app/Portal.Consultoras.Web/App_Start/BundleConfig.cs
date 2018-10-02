@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/Login2").Include(
-                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-1.11.2.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/jquery.custom-scrollbar.js",
                 "~/Scripts/PortalConsultoras/Shared/LoginLayout.js",
@@ -31,8 +31,8 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JQueryJs").Include(
-               "~/Scripts/jquery-{version}.js",
-               "~/Scripts/jquery-migrate-{version}.js",
+               "~/Scripts/jquery-1.11.2.js",
+               "~/Scripts/jquery-migrate-1.2.1.js",
                "~/Scripts/jquery.validate.js",
                "~/Scripts/jquery.validate.unobtrusive.js",
                "~/Scripts/jquery.unobtrusive-ajax.js",
@@ -41,7 +41,18 @@ namespace Portal.Consultoras.Web
                "~/Scripts/donetyping.js",
                "~/Scripts/jquery.lazy.js"
             ));
-
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JQuery3Js").Include(
+                "~/Scripts/jquery-3.3.1.js",
+                "~/Scripts/jquery-migrate-1.2.1.js",
+                "~/Scripts/jquery-migrate-3.0.0.js",
+                "~/Scripts/jquery.validate.js",
+                "~/Scripts/jquery.validate.unobtrusive.js",
+                "~/Scripts/jquery.unobtrusive-ajax.js",
+                "~/Scripts/jquery-ui-1.9.2.custom.js",
+                "~/Scripts/HojaInscripcion/validations.js",
+                "~/Scripts/donetyping.js",
+                "~/Scripts/jquery.lazy.js"
+            ));
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JQGridJs").Include(
                "~/Scripts/Jqgrid/grid.locale-sp*",
                "~/Scripts/Jqgrid/jquery.jqGrid*"
@@ -87,7 +98,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/MobileLayout").Include(
-                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-1.11.2.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js",
@@ -113,7 +124,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/MobileLayoutContenedor").Include(
-                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-1.11.2.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js",
@@ -136,7 +147,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/LayoutEmpty").Include(
-                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-1.11.2.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js",
@@ -151,6 +162,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/handlebars.js",
                 "~/Scripts/LogError.js",
                 "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Shared/Menu.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
@@ -171,7 +183,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/JS/Desktop/HojaInscripcion").Include(
-                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-1.11.2.js",
                 "~/Scripts/jquery.unobtrusive-ajax.js",
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js",
@@ -407,7 +419,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Login-VerificaAutenticidad").Include(
-                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-1.11.2.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Login/VerificaAutenticidad.js"
