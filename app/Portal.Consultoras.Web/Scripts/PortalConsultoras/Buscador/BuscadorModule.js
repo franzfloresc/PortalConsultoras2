@@ -10,7 +10,9 @@ var delay = (function () {
 })();
 
 var BuscadorModule = (function(){
+
     var _keys = [
+        { name: 'tab', val: 9 },
         { name: "shift", val: 16 },
         { name: "ctrl", val: 17 },
         { name: "alt", val: 18 },
