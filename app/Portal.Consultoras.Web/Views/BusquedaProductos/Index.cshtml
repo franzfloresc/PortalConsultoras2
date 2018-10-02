@@ -1,4 +1,5 @@
-﻿
+﻿@using System.Web.Optimization
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
@@ -25,13 +26,15 @@
                     </div>
                 </div>
                 @*<ul class="col-12 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown__lista">
-                    <li>Recomendación</li>
-                    <li>Ganancia</li>
-                    <li>Precio de menor a mayor</li>
-                    <li>Precio de mayor a menor</li>
-                </ul>*@
+                        <li>Recomendación</li>
+                        <li>Ganancia</li>
+                        <li>Precio de menor a mayor</li>
+                        <li>Precio de mayor a menor</li>
+                    </ul>*@
             </div>
         </section>
     </section>
 </section>
-
+@section scripts{
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js")"></script>
+}

@@ -3881,7 +3881,7 @@
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\PopusJS.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorModule.js" />
-    <Content Include="Scripts\PortalConsultoras\Buscador\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
