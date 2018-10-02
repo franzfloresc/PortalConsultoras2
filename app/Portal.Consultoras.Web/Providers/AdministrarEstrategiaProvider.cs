@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,9 +18,21 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class AdministrarEstrategiaProvider
     {
+        private readonly static HttpClient httpClientMicroservicioSync = new HttpClient();
+
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
 
-        public static async Task<string> RespSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType, UsuarioModel userData)
+        static AdministrarEstrategiaProvider()
+        {
+            if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSync))
+            {
+                httpClientMicroservicioSync.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSync);
+                httpClientMicroservicioSync.DefaultRequestHeaders.Accept.Clear();
+                httpClientMicroservicioSync.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+        }
+
+        private static async Task<string> RespSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType, UsuarioModel userData)
         {
             using (var client = new HttpClient())
             {
@@ -789,6 +802,33 @@ namespace Portal.Consultoras.Web.Providers
                 ));
 
             Task.WhenAll(taskApi);
+        }
+
+        public void JobBuscador(string codigoCampania, string codigoEstrategia, UsuarioModel userData)
+        {
+            try
+            {
+                var tipoPersonalizacion = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoEstrategia);
+
+                var requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlJobBuscador, userData.CodigoISO, tipoPersonalizacion, codigoCampania);
+
+                var httpContent = new StringContent(string.Empty, Encoding.UTF8);
+
+                var taskApi = Task.Run(() => httpClientMicroservicioSync.PostAsync(requestUrl, httpContent));
+
+                Task.WhenAll(taskApi);
+
+                if (taskApi.Result != null && !taskApi.Result.IsSuccessStatusCode)
+                {
+                    var message = string.Format("AdministrarEstrategiaProvider_JobBuscador: campania={0}, tipoPersonalizacion={1}, respuesta={2}", codigoCampania, tipoPersonalizacion, taskApi.Result.StatusCode);
+                    LogManager.LogManager.LogErrorWebServicesBus(new Exception(message), userData.CodigoConsultora, userData.CodigoISO);
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = string.Format("AdministrarEstrategiaProvider_JobBuscador: campania={0}, codigoEstrategia={1}, exception={2}", codigoCampania, codigoEstrategia, ex.Message);
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception(message, ex), userData.CodigoConsultora, userData.CodigoISO);
+            }
         }
     }
 }
