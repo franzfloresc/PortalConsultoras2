@@ -45,6 +45,7 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 	SET NOCOUNT OFF  
 END
+GO
 
 USE BelcorpMexico
 GO
@@ -93,6 +94,7 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 	SET NOCOUNT OFF  
 END
+GO
 
 USE BelcorpColombia
 GO
@@ -141,6 +143,7 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 	SET NOCOUNT OFF  
 END
+GO
 
 USE BelcorpSalvador
 GO
@@ -189,6 +192,7 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 	SET NOCOUNT OFF  
 END
+GO
 
 USE BelcorpPuertoRico
 GO
@@ -237,6 +241,7 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 	SET NOCOUNT OFF  
 END
+GO
 
 USE BelcorpPanama
 GO
@@ -285,6 +290,7 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 	SET NOCOUNT OFF  
 END
+GO
 
 USE BelcorpGuatemala
 GO
@@ -333,6 +339,7 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 	SET NOCOUNT OFF  
 END
+GO
 
 USE BelcorpEcuador
 GO
@@ -381,6 +388,7 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 	SET NOCOUNT OFF  
 END
+GO
 
 USE BelcorpDominicana
 GO
@@ -429,6 +437,7 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 	SET NOCOUNT OFF  
 END
+GO
 
 USE BelcorpCostaRica
 GO
@@ -477,6 +486,7 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 	SET NOCOUNT OFF  
 END
+GO
 
 USE BelcorpChile
 GO
@@ -525,6 +535,7 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 	SET NOCOUNT OFF  
 END
+GO
 
 USE BelcorpBolivia
 GO

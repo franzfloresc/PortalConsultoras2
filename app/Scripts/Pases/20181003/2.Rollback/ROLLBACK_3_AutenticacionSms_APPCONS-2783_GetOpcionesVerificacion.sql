@@ -94,7 +94,7 @@ IF (OBJECT_ID ( 'dbo.GetOpcionesVerificacion', 'P' ) IS NULL)
     EXEC('CREATE PROCEDURE dbo.GetOpcionesVerificacion AS SET NOCOUNT ON;')
 GO
 -- GetOpcionesVerificacion 2
-CREATE PROC GetOpcionesVerificacion
+ALTER PROC GetOpcionesVerificacion
 (
 @OrigenID int
 )
