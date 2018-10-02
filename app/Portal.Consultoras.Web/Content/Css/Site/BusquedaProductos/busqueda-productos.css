@@ -141,7 +141,7 @@
 }
 
 .opcion__ordenamiento__dropdown__lista {
-    display: none;
+    /*display: none;*/
     padding-top: 3px;
     padding-bottom: 5px;
     top: 45px;
