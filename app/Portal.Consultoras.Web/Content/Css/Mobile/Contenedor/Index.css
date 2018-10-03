@@ -339,9 +339,10 @@ img.icono-submenu-tabs {
 }
 
 
-img.icono-logo-submenu-tabs {
-    width: 66px;
-}
+/*img.icono-logo-submenu-tabs {
+    height: 21px;
+    width: auto;
+}*/
 
 img.c {
     height: 21px;
@@ -454,7 +455,7 @@ img.c {
 }
 
 img.icono-logo-submenu-tabs {
-    height: 18px;
+    /*height: 18px;*/
     width: auto;
 }
 
