@@ -168,6 +168,10 @@
     cursor:pointer;
 }
 
+    .productos__agregados__info .btn__productos__agregados:hover{
+        color:#FFF!important;
+    }
+
 .btn__productos__agregados--verMiPedido{
     font-size:14px;
 }
