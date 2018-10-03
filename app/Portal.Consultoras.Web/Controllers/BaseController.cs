@@ -1267,7 +1267,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CantidadVecesInicioSesionNovedad = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CantidadInicioSesionNovedadBuscador);
             ViewBag.NovedadBuscador = userData.NovedadBuscador;
             ViewBag.MostrarBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).ToBool();
-            ViewBag.CantidadProductosBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CantidadProductosBotonVerTodos);
+            ViewBag.AplicarLogicaCantidadBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos).ToBool();
             ViewBag.MostrarOpcionesOrdenamiento = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento).ToBool();
         }
 
@@ -1296,8 +1296,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return 0;
                 case Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos:
                     return 0;
-                case Constantes.TipoConfiguracionBuscador.CantidadProductosBotonVerTodos:
-                    return 20;
+                case Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos:
+                    return 0;
                 case Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento:
                     return 0;
                 default:
