@@ -1,4 +1,5 @@
-﻿USE BelcorpPeru
+﻿﻿GO
+USE BelcorpPeru
 GO
 UPDATE TablaLogicaDatos SET Descripcion = 'Gana+' WHERE TablaLogicaDatosID = 14501
 UPDATE TablaLogicaDatos SET Descripcion = 'Ofertas Digitales' WHERE TablaLogicaDatosID IN (14507, 14508, 14510, 14511, 14512)
