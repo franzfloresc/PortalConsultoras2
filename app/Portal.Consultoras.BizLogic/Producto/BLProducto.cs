@@ -433,7 +433,6 @@ namespace Portal.Consultoras.BizLogic
             listPedidoDetalle.ForEach(d => d.EnRangoProgNuevas = fnEnRango(Convert.ToInt32(d.CUV)));
         }
 
-        //Test
         public bool EsDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
         {
             if (!GetFlagProgramaNuevas(paisID)) return false;
