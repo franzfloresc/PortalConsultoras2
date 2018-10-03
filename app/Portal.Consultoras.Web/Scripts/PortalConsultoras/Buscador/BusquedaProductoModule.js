@@ -2,10 +2,8 @@
 
     var _elementos = {
         body: "body",
-        textBusqueda: function () { return $('.textoProductoBuscado') },
-        totalProducto: function () { return $('.totalProductosEncontrados') }
         opcionOrdenar: "#dpw-ordenar",
-        spanTotalProductos: "#TotalProductos"
+        spanTotalProductos: "#TotalProductos",
         desplegado: "opcion__ordenamiento__dropdown--desplegado"
     };
     var _config = {
@@ -46,7 +44,7 @@
         InicializarEventos: function () {
             $(document).on("click", _elementos.opcionOrdenar, _eventos.Ordenar);
         },
-        ConstruirModeloBusqueda: function() {
+        ConstruirModeloBusqueda: function () {
             var modelo = {
                 TextoBusqueda: _config.textoBusqueda,
                 Paginacion: {
@@ -64,22 +62,22 @@
 
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
-            .done(function (data) {
-                _config.totalProductos = data.total;
-                $(_elementos.spanTotalProductos).html(data.total);
-                $.each(data.productos, function (index, item) {
-                    item.posicion = index + 1;
-                    if (item.Descripcion.length > _config.maxCaracteresDesc) {
-                        item.Descripcion = item.Descripcion.substring(0, _config.maxCaracteresDesc) + "...";
-                    }
-                    console.log(item.Descripcion);
+                .done(function (data) {
+                    _config.totalProductos = data.total;
+                    consol.log(data);
+                    $(_elementos.spanTotalProductos).html(data.total);
+                    $.each(data.productos, function (index, item) {
+                        item.posicion = index + 1;
+                        if (item.Descripcion.length > _config.maxCaracteresDesc) {
+                            item.Descripcion = item.Descripcion.substring(0, _config.maxCaracteresDesc) + "...";
+                        }
+                        console.log(item.Descripcion);
                     });
-                
-                // setear handlebar aqui lista data.productos
+
+                    // setear handlebar aqui lista data.productos
                 }).fail(function (data, error) {
-                console.error(error.toString());
+                    console.error(error.toString());
                 });
-            
         }
     };
     var _eventos = {
