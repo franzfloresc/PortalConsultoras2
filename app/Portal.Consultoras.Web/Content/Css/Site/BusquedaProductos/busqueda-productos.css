@@ -2,7 +2,11 @@
 /* PÁGINA DE RESULTADOS DESKTOP */
 
 .layout__content__wrapper{
-    max-width:1169px;
+    max-width:970px;
+}
+
+.busqueda__productos__encontrados__wrapper{
+    padding-left:10px;
 }
 
 .busqueda__productos__titulo{
@@ -20,6 +24,7 @@
 
 .lista__opciones_ordenamiento{
     padding-top:10px;
+    padding-right:10px;
     position:relative;
 }
 
@@ -144,8 +149,8 @@
     /*display: none;*/
     padding-top: 3px;
     padding-bottom: 5px;
-    top: 45px;
-    right: 16px;
+    top: 44px;
+    right: 11px;
     min-width: 290px;
     height: auto;
     z-index: 3;
@@ -201,6 +206,196 @@
     background-position:center;
 }
 
+/* FICHAS DE PRODUCTOS DESKTOP */
+
+.fichas__productos__wrapper{
+    margin-top:20px;
+}
+
+.ficha__producto{
+    width: calc(25% - 23px);
+    min-width: 220px;
+    height: 370px;
+    padding: 20px;
+    background-color: #FFF;
+    border: 1px solid #e7e1e1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 17px;
+    vertical-align: top;
+    cursor:pointer;
+}
+
+.ficha__producto__imagen{
+    height:158px;
+    padding:10px;
+}
+
+.ficha__producto__imagen img{
+    width:auto;
+    height:100%;
+}
+
+.ficha__producto__descrip {
+    margin-top: 8px;
+    margin-bottom:20px;
+}
+
+.ficha__producto__descrip__marca__pais{
+    font-size:11px;
+    margin-bottom:2px;
+}
+
+.ficha__producto__descrip__nom,
+.ficha__producto__precio__normal
+{
+    font-size:13px;
+}
+
+.ficha__producto__precio{
+    padding-top:5px;
+    margin-bottom:14px;
+}
+
+.ficha__producto__precio__normal{
+    text-decoration:line-through;
+    margin-right:10px;
+}
+
+.ficha__producto__precio__oferta{
+    font-size:15px;
+}
+
+.liquidacion_rango_home{
+    width: 68px;
+    overflow: hidden;
+    height: 45px;
+}
+
+.liquidacion_rango_cantidad_pedido,
+.liquidacion_rango_right_pedido
+{
+    vertical-align:top;
+}
+
+.liquidacion_rango_cantidad_pedido{
+    width: 40px;
+    height: 45px;
+    border-left: 1px solid #ccc;
+    border-right: 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    background-color:#FFF;
+    border-radius: 4px 0 0 4px;
+    margin-right:-3px;
+}
+
+.ficha__producto__agregar__producto{
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.boton_Agregalo_home,
+.btn_elegir_opcion span:last-child
+{
+    font-size:13px;
+    letter-spacing:0.5px;
+}
+
+.liquidacion_rango_right_pedido {
+    width: 23px;
+    height: 45px;
+    border: 1px solid #ccc;
+    border-radius: 0 4px 4px 0;
+}
+
+.liquidacion_rango_right_pedido .mas,
+.liquidacion_rango_right_pedido .menos
+{
+    position:relative;
+    height:23px;
+}
+
+.liquidacion_rango_right_pedido .mas {
+    border-bottom: 1px solid #b0b0b0;
+}
+
+.liquidacion_rango_right_pedido .menos {
+    border-bottom:none;
+}
+
+.liquidacion_rango_right_pedido .mas img,
+.liquidacion_rango_right_pedido .menos img
+{
+    position:absolute;
+    margin:auto;
+    bottom:0;
+    right:0;
+}
+
+.liquidacion_rango_right_pedido .mas img{
+    top:0;
+    left:1px;
+}
+
+.liquidacion_rango_right_pedido .menos img{
+    top:-6px;
+    left:-1px;
+}
+
+.selector_cant_desactivado{
+    opacity:0.3;
+}
+
+.selector_cant_desactivado .cantidad_mas_home,
+.selector_cant_desactivado .cantidad_menos_home
+{
+    pointer-events:none;
+    cursor:not-allowed!important;
+}
+
+.btn_elegir_opcion{
+    background-color:#FFF;
+    height: 45px;
+    line-height:41px;
+}
+
+.btn_inactivo{
+    border-color:#efefef;
+    background-color:#efefef;
+    line-height:45px;
+    pointer-events:none;
+    cursor:not-allowed!important;
+}
+
+.btn_elegir_opcion,
+.btn_inactivo
+{
+    color:#000!important;
+}
+
+.icono_elige_tu_opcion {
+    margin-right: -7px;
+    width: 6px;
+    height: 23px;
+    position: relative;
+    overflow: hidden;
+}
+
+.icono_elige_tu_opcion img{
+    position: absolute;
+    margin: auto;
+    top: 9px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 79%;
+}
+
+/* FIN - FICHAS DE PRODUCTOS DESKTOP */
+
 /* FIN - PÁGINA DE RESULTADOS DESKTOP */
 
 /* PÁGINA DE RESULTADOS MOBILE */
@@ -216,6 +411,11 @@
         max-width:none;
     }
 
+    .busqueda__productos__encontrados__wrapper{
+        padding-left:15px;
+        padding-right:15px;
+    }
+
     .busqueda__productos__titulo{
         font-size:22px;
         font-weight:normal;
@@ -227,6 +427,7 @@
     .lista__opciones_ordenamiento{
         margin-top:17px;
         padding-top:5px;
+        padding-right:15px;
         background-color:#f5f5f5;
     }
 
@@ -302,6 +503,14 @@
         height: 42px;
         line-height: 42px;
     }
+
+    /* FICHAS DE PRODUCTOS MOBILE */
+
+    .fichas__productos__wrapper{
+        display:none;
+    }
+
+    /* FIN - FICHAS DE PRODUCTOS MOBILE */
 
 }
 

@@ -381,6 +381,7 @@
     margin-top: 0;
     background-color: #000;
     color: #FFF!important;
+    cursor:pointer!important;
 }
 
     .boton_Agregalo_home:hover{
