@@ -8,8 +8,8 @@
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/busqueda-productos.css")" rel="stylesheet" />
 
 <section class="row flex-row ml-0 mr-0 layout__content">
-    <section class="row flex-row flex-lg-nowrap flex-xl-nowrap justify-content-lg-between justify-content-xl-between align-self-start ml-0 mr-0 w-100 mx-auto layout__content__wrapper">
-        <section class="col-12 col-lg-6 col-xl-6">
+    <section class="row flex-row justify-content-lg-between justify-content-xl-between align-self-start ml-0 mr-0 w-100 mx-auto layout__content__wrapper">
+        <section class="col-12 col-lg-6 col-xl-6 busqueda__productos__encontrados__wrapper">
             <h1 class="col-12 pl-0 pr-0 busqueda__productos__titulo">
                 Resultados de la búsqueda
             </h1>
@@ -19,7 +19,7 @@
         </section>
         <section class="col-12 col-lg-6 col-xl-6 lista__opciones_ordenamiento">
             <div class="row flex-row justify-content-end ml-0 mr-0">
-                <div class="col-6 col-lg-9 col-xl-9 pl-0 pr-0 opcion_ordenamiento text-lg-right text-xl-right">
+                <div class="col-6 col-lg-10 col-xl-10 pl-0 pr-0 opcion_ordenamiento text-lg-right text-xl-right">
                     <label class="col-12 col-lg-3 col-xl-3 pl-0 d-inline-block text-center text-lg-right text-xl-right opcion__ordenamiento__label">Ordenar</label>
                     <!-- AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
                     <div class="col-12 col-lg-67 col-xl-6 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
@@ -55,6 +55,352 @@
                     </li>
                 </ul>
             </div>
+        </section>
+        <section class="col-12 pl-0 pr-0 fichas__productos__wrapper">
+            <article class="ficha__producto d-inline-block">
+                <div class="row flex-row justify-content-center ml-0 mr-0">
+                    <figure class="col-12 ficha__producto__imagen text-center">
+                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/CR/CR_2000906882018838235_fsopdcxnhf.png" alt="" />
+                    </figure>
+                    <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                            Lbel
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold">
+                            Máscara Multi-Extense + Essential Loción...
+                        </div>
+                    </div>
+                    <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                        <div class="ficha__producto__precio__normal text-left">
+                            ¢ 60.920
+                        </div>
+                        <div class="ficha__producto__precio__oferta text-bold text-left">
+                            ¢ 20.990
+                        </div>
+                    </div>
+                    <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                        <div class="col pl-0 pr-0">
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
+                                    <a href="#" class="mas d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
+                                    </a>
+                                    <a href="#" class="menos d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 pl-0 pr-0 flex-grow-1">
+                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
+                                Agrégalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="ficha__producto d-inline-block">
+                <div class="row flex-row justify-content-center ml-0 mr-0">
+                    <figure class="ficha__producto__imagen d-block mx-auto text-center">
+                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/CR/CR_2000907852018841473_egjjosates.png" alt="" />
+                    </figure>
+                    <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                            Lbel
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold">
+                            Máscara Multi-Extense + Essential Loción...
+                        </div>
+                    </div>
+                    <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                        <div class="ficha__producto__precio__normal text-left">
+                            ¢ 60.920
+                        </div>
+                        <div class="ficha__producto__precio__oferta text-bold text-left">
+                            ¢ 20.990
+                        </div>
+                    </div>
+                    <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                        <div class="col pl-0 pr-0">
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
+                                    <a href="#" class="mas d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
+                                    </a>
+                                    <a href="#" class="menos d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 pl-0 pr-0 flex-grow-1">
+                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
+                                Agrégalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="ficha__producto d-inline-block">
+                <div class="row flex-row justify-content-center ml-0 mr-0">
+                    <figure class="ficha__producto__imagen d-block mx-auto text-center">
+                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/CR/CR_200091759201886644_bmloukkunm.png" alt="" />
+                    </figure>
+                    <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                            Lbel
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold">
+                            Máscara Multi-Extense + Essential Loción...
+                        </div>
+                    </div>
+                    <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                        <div class="ficha__producto__precio__normal text-left">
+                            ¢ 60.920
+                        </div>
+                        <div class="ficha__producto__precio__oferta text-bold text-left">
+                            ¢ 20.990
+                        </div>
+                    </div>
+                    <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                        <div class="col pl-0 pr-0">
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
+                                    <a href="#" class="mas d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
+                                    </a>
+                                    <a href="#" class="menos d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 pl-0 pr-0 flex-grow-1">
+                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
+                                Agrégalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="ficha__producto d-inline-block">
+                <div class="row flex-row justify-content-center ml-0 mr-0">
+                    <figure class="ficha__producto__imagen d-block mx-auto text-center">
+                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/CR/CR_2000906462018845925_fxlumpwyti.png" alt="" />
+                    </figure>
+                    <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                            Lbel
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold">
+                            Máscara Multi-Extense + Essential Loción...
+                        </div>
+                    </div>
+                    <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                        <div class="ficha__producto__precio__normal text-left">
+                            ¢ 60.920
+                        </div>
+                        <div class="ficha__producto__precio__oferta text-bold text-left">
+                            ¢ 20.990
+                        </div>
+                    </div>
+                    <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                        <div class="col pl-0 pr-0">
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
+                                    <a href="#" class="mas d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
+                                    </a>
+                                    <a href="#" class="menos d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 pl-0 pr-0 flex-grow-1">
+                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
+                                Agrégalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="ficha__producto d-inline-block">
+                <div class="row flex-row justify-content-center ml-0 mr-0">
+                    <figure class="ficha__producto__imagen d-block mx-auto text-center">
+                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/CR/CR_200088259201881712_pgmpzooehv.png" alt="" />
+                    </figure>
+                    <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                            Lbel
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold">
+                            Máscara Multi-Extense + Essential Loción...
+                        </div>
+                    </div>
+                    <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                        <div class="ficha__producto__precio__normal text-left">
+                            ¢ 60.920
+                        </div>
+                        <div class="ficha__producto__precio__oferta text-bold text-left">
+                            ¢ 20.990
+                        </div>
+                    </div>
+                    <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                        <div class="col pl-0 pr-0">
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
+                                    <a href="#" class="mas d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
+                                    </a>
+                                    <a href="#" class="menos d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 pl-0 pr-0 flex-grow-1">
+                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
+                                Agrégalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="ficha__producto d-inline-block">
+                <div class="row flex-row justify-content-center ml-0 mr-0">
+                    <figure class="ficha__producto__imagen d-block mx-auto text-center">
+                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/CR/CR_2000922802018822358_netiavgkhf.png" alt="" />
+                    </figure>
+                    <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                            Lbel
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold">
+                            Máscara Multi-Extense + Essential Loción...
+                        </div>
+                    </div>
+                    <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                        <div class="ficha__producto__precio__normal text-left">
+                            ¢ 60.920
+                        </div>
+                        <div class="ficha__producto__precio__oferta text-bold text-left">
+                            ¢ 20.990
+                        </div>
+                    </div>
+                    <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                        <div class="col pl-0 pr-0">
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
+                                    <a href="#" class="mas d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
+                                    </a>
+                                    <a href="#" class="menos d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 pl-0 pr-0 flex-grow-1">
+                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
+                                Agrégalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="ficha__producto d-inline-block">
+                <div class="row flex-row justify-content-center ml-0 mr-0">
+                    <figure class="ficha__producto__imagen d-block mx-auto text-center">
+                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/CR/CR_2000923602018823725_ixbrpkxbnr.png" alt="" />
+                    </figure>
+                    <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                            Lbel
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold">
+                            Máscara Multi-Extense + Essential Loción...
+                        </div>
+                    </div>
+                    <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                        <div class="ficha__producto__precio__normal text-left">
+                            ¢ 60.920
+                        </div>
+                        <div class="ficha__producto__precio__oferta text-bold text-left">
+                            ¢ 20.990
+                        </div>
+                    </div>
+                    <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                        <div class="col pl-0 pr-0">
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
+                                    <a href="#" class="mas d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
+                                    </a>
+                                    <a href="#" class="menos d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 pl-0 pr-0 flex-grow-1">
+                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
+                                Agrégalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="ficha__producto d-inline-block">
+                <div class="row flex-row justify-content-center ml-0 mr-0">
+                    <figure class="ficha__producto__imagen d-block mx-auto text-center">
+                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/CR/CR_2000847852018849106_mqgmrsfyah.png" alt="" />
+                    </figure>
+                    <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                            Lbel
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold">
+                            Máscara Multi-Extense + Essential Loción...
+                        </div>
+                    </div>
+                    <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                        <div class="ficha__producto__precio__normal text-left">
+                            ¢ 60.920
+                        </div>
+                        <div class="ficha__producto__precio__oferta text-bold text-left">
+                            ¢ 20.990
+                        </div>
+                    </div>
+                    <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                        <div class="col pl-0 pr-0">
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
+                                    <a href="#" class="mas d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
+                                    </a>
+                                    <a href="#" class="menos d-block js-no-popup">
+                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 pl-0 pr-0 flex-grow-1">
+                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
+                                Agrégalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
         </section>
     </section>
 </section>
