@@ -179,7 +179,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Esika/revistaDigital.css",
                "~/Content/Css/Site/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Site/Esika/buscador-filtros.css",
-               "~/Content/Css/Site/ProductoListado/CajaProducto.css"
+               "~/Content/Css/Site/ProductoListado/CajaProducto.css",
+               "~/Content/Css/Site/Esika/campania-navidenia.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
@@ -207,7 +208,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Lbel/revistaDigital.css",
                "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css",
-               "~/Content/Css/Site/Lbel/buscador-filtros.css"
+               "~/Content/Css/Site/Lbel/buscador-filtros.css",
+               "~/Content/Css/Site/Lbel/campania-navidenia.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Lbel-Contenedor").Include(

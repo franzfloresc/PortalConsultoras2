@@ -1369,6 +1369,7 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
     <Content Include="Content\Css\Site\Esika\buscador-filtros.css" />
+    <Content Include="Content\Css\Site\Esika\campania-navidenia.css" />
     <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
     <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
@@ -1392,6 +1393,7 @@
     <Content Include="Content\Css\Site\ion.rangeSlider\normalize.css" />
     <Content Include="Content\Css\Site\Landing\producto.landing.css" />
     <Content Include="Content\Css\Site\Lbel\buscador-filtros.css" />
+    <Content Include="Content\Css\Site\Lbel\campania-navidenia.css" />
     <Content Include="Content\Css\Site\Lbel\mi-perfil.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
@@ -1538,11 +1540,16 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\Esika\fondo-navidenio.png" />
+    <Content Include="Content\Images\Esika\logo_marca_pais_desktop_blanco.svg" />
     <Content Include="Content\Images\flecha_icono.svg" />
+    <Content Include="Content\Images\icono-carrito-compra-blanco.svg" />
     <Content Include="Content\Images\icono-elige-tu-opcion.svg" />
     <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\Esika\flecha_next.svg" />
     <Content Include="Content\Images\Esika\flecha_prev.svg" />
+    <Content Include="Content\Images\icono-notificaciones-blanco.svg" />
+    <Content Include="Content\Images\icono-tutorial-blanco.svg" />
     <Content Include="Content\Images\icono_avatar.svg" />
     <Content Include="Content\Images\Esika\icono_camara.svg" />
     <Content Include="Content\Images\Esika\icono_cambiar_dato.svg" />
@@ -1563,6 +1570,7 @@
     <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
     <Content Include="Content\Images\imagen_prod_no_disponible.svg" />
+    <Content Include="Content\Images\Lbel\copo-nieve.png" />
     <Content Include="Content\Images\Lbel\icono_cambiar_dato.svg" />
     <Content Include="Content\Images\Lbel\icono_candado.svg" />
     <Content Include="Content\Images\Lbel\icono_envelope.svg" />
