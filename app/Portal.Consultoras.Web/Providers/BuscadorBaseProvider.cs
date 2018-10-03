@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using System;
@@ -30,6 +29,33 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return personalizacion;
+        }
+
+        //Llamadas Post genérica
+        public async Task<T> PostAsync<T>(string url, object data) where T : class, new()
+        {
+            var myContent = JsonConvert.SerializeObject(data);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
+                    var result = client.PostAsync(url, byteContent).Result;
+                    if (!result.IsSuccessStatusCode) return new T();
+                    var jsonString = await result.Content.ReadAsStringAsync();
+
+                    return JsonConvert.DeserializeObject<T>(jsonString);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new T();
+                throw;
+            }
         }
 
         public async Task<List<BuscadorYFiltrosModel>> ObtenerBuscadorDesdeApi(string path)

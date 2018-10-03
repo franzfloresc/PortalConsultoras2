@@ -22,13 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BuscadorYFiltrosModel> ListaProductosModel;
             try
             {
-                var buscadorModel = new BuscadorModel
-                {
-                    TextoBusqueda = model.TextoBusqueda,
-                    CantidadProductos = 20
-                };
-
-                var resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(buscadorModel);
+                var resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(model);
 
                 ListaProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, SessionManager.GetDetallesPedido(), userData, revistaDigital, false);
             }

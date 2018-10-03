@@ -267,10 +267,22 @@ var BuscadorModule = (function(){
 
                 delay(function () {
 
+                    var model = {
+                        textoBusqueda: valBusqueda,
+                        Paginacion: {
+                            NumeroPagina: 0,
+                            Cantidad: TotalResultadosBuscador
+                        },
+                        Orden: {
+                            Campo: 'orden',
+                            Tipo: 'asc'
+                        }
+                    }
+
                     xhr = $.ajax({
                         type: "POST",
                         url: baseUrl + "Buscador/BusquedaProductos",
-                        data: JSON.stringify({TextoBusqueda: valBusqueda}),
+                        data: JSON.stringify(model),
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         async: true,
@@ -282,14 +294,14 @@ var BuscadorModule = (function(){
 
                     var successBusqueda = function (r) {
 
-                        $.each(r, function (index, item) {
+                        $.each(r.productos, function (index, item) {
                             item.posicion = index + 1;
                             if (item.Descripcion.length > TotalCaracteresEnListaBuscador) {
                                 item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + "...";
                             }
                         });
 
-                        var lista = r;
+                        var lista = r.productos;
 
                         if (lista.length <= 0) {
                             //_funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));

@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Portal.Consultoras.Web.SessionManager;
+using System;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class BuscadorYFiltrosProvider : BaseProvider
+    public class BuscadorYFiltrosProvider : BuscadorBaseProvider
     {
         protected ISessionManager _sessionManager;
 
@@ -25,23 +26,31 @@ namespace Portal.Consultoras.Web.Providers
                 usuario.CampaniaID,
                 usuario.CodigoConsultora);
 
-            return ""; // await ObtenerPersonalizaciones(pathPersonalziacion); ;
+            return await ObtenerPersonalizaciones(pathPersonalziacion); ;
         }
 
-        public async Task<List<BuscadorYFiltrosModel>> GetBuscador(BuscadorModel buscadorModel)
+        public async Task<BuscadorYFiltrosModel> GetBuscador(BuscadorModel buscadorModel)
         {
-            var revistaDigital = _sessionManager.GetRevistaDigital();
-            var userData = _sessionManager.GetUserData();
+            var lista = new BuscadorYFiltrosModel();
+            try
+            {
+                var revistaDigital = _sessionManager.GetRevistaDigital();
+                var userData = _sessionManager.GetUserData();
+                var baseAddress = WebConfig.RutaServiceBuscadorAPI;
+                var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
+                            userData.CodigoISO,
+                            userData.CampaniaID
+                    );
 
-            var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
-                        userData.CodigoISO,
-                        userData.CampaniaID
-                );
+                var parametros = getJsonPostBuscador(userData, buscadorModel, revistaDigital);
+                lista = await PostAsync<BuscadorYFiltrosModel>(pathBuscador, parametros);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
 
-            var parametros = getJsonPostBuscador(userData, buscadorModel, revistaDigital);
-            var resultados = PostAsync<BuscadorYFiltrosModel>(pathBuscador, parametros);
-
-            return resultados;
+            return lista;
         }
 
         private dynamic getJsonPostBuscador(UsuarioModel usuarioModel, BuscadorModel buscadorModel, RevistaDigitalModel revistaDigital)
@@ -76,14 +85,14 @@ namespace Portal.Consultoras.Web.Providers
             };
         }
 
-        public async Task<List<BuscadorYFiltrosModel>> ValidacionProductoAgregado(List<BuscadorYFiltrosModel> resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital, bool IsMobile)
+        public async Task<BuscadorYFiltrosModel> ValidacionProductoAgregado(BuscadorYFiltrosModel resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital, bool IsMobile)
         {
             var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
-            var resultBuscador = new List<BuscadorYFiltrosModel>();
+            var resultBuscador = new BuscadorYFiltrosModel();
 
-
-            if (!resultado.Any()) return resultBuscador;
-            foreach (var item in resultado)
+            if (!resultado.productos.Any()) return resultBuscador;
+            resultBuscador.total = resultado.total; 
+            foreach (var item in resultado.productos)
             {
                 var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
                 var labelAgregado = "";
@@ -93,7 +102,7 @@ namespace Portal.Consultoras.Web.Providers
                     labelAgregado = "Agregado";
                 }
 
-                /*resultBuscador.Add(new BuscadorYFiltrosModel
+                resultBuscador.productos.Add(new Productos
                 {
                     CUV = item.CUV.Trim(),
                     SAP = item.SAP.Trim(),
@@ -117,7 +126,8 @@ namespace Portal.Consultoras.Web.Providers
                     TipoPersonalizacion = item.TipoPersonalizacion,
                     URLBsucador = item.URLBsucador,
                     EstrategiaID = item.EstrategiaID
-                });*/
+
+                });
             }
 
             return resultBuscador;

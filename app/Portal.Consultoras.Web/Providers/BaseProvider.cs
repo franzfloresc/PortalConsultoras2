@@ -18,7 +18,6 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BaseProvider
     {
-        static readonly HttpClient Client = new HttpClient();
         protected ConfiguracionManagerProvider _configuracionManager;
 
         public BaseProvider() : this(new ConfiguracionManagerProvider())
@@ -98,7 +97,7 @@ namespace Portal.Consultoras.Web.Providers
                 fecha = diasFaltantes > 0
                     ? " CIERRA EL " + fechaInicioCampania.Day + " " + Util.NombreMes(fechaInicioCampania.Month).ToUpper()
                     : " CIERRA HOY";
-                
+
                 return fecha + " - " + hrCierrePortal.Replace(".", "");
             }
             else
@@ -111,33 +110,6 @@ namespace Portal.Consultoras.Web.Providers
                 return fecha + " - " + time.ToString("hh:mm tt", CultureInfo.InvariantCulture).ToLower();
             }
 
-        }
-
-        //Llamadas Post genérica
-        public async Task<T> PostAsync<T>(string url, object data) where T : class, new()
-        {
-            try
-            {
-                string content = JsonConvert.SerializeObject(data);
-                var buffer = Encoding.UTF8.GetBytes(content);
-                var byteContent = new ByteArrayContent(buffer);
-                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                var response = await Client.PostAsync(url, byteContent).ConfigureAwait(false);
-                string result = await response.Content.ReadAsStringAsync();
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    return new T();
-                }
-                return JsonConvert.DeserializeObject<T>(result);
-            }
-            catch (WebException ex)
-            {
-                if (ex.Response != null)
-                {
-                    return new T();
-                }
-                throw;
-            }
         }
 
     }

@@ -15,7 +15,12 @@ namespace Portal.Consultoras.Web.Models
 
         public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
         public int total { get; set; }
-        public IList<Productos> Productos { get; set; }
+        public IList<Productos> productos { get; set; }
+        public IList<Filtros> filtros { get; set; }
+    }
+
+    public class Filtros
+    {
     }
 
     public class Productos
