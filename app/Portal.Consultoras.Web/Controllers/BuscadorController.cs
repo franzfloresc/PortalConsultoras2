@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public async Task<JsonResult> BusquedaProductos(BuscadorModel model)
         {
-            List<BuscadorYFiltrosModel> ListaProductosModel;
+            BuscadorYFiltrosModel ListaProductosModel;
             try
             {
                 var resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(model);
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                ListaProductosModel = new List<BuscadorYFiltrosModel>();
+                ListaProductosModel = new BuscadorYFiltrosModel();
             }
             return Json(ListaProductosModel, JsonRequestBehavior.AllowGet);
         }
