@@ -157,6 +157,7 @@ body > img{
 /* SECCIÓN CONTENIDO */
 
 .layout__content{
+    margin-top:60px;
     padding:20px 15px;
     min-height:calc(100vh - 207px);
     position:relative;
