@@ -283,7 +283,7 @@ function storageIsSuport(storage) {
 }
 
 function LocalStorageLimpiar() {
-
+    debugger
     if (typeof (Storage) !== 'undefined' && storageIsSuport(window.localStorage)) {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
@@ -308,7 +308,10 @@ function LocalStorageLimpiar() {
             localStorage.setItem('ConfigParams', itemChatEConfigParams);
         }
 
-        SetItemLocalStorageSurvicate(itemSurvicateStorage);
+        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {//add
+            localStorage.setItem('SurvicateStorage', itemSurvicateStorage);
+        }
+        //SetItemLocalStorageSurvicate(itemSurvicateStorage);
     }
 
     function SetItemLocalStorageSurvicate(storage) {
