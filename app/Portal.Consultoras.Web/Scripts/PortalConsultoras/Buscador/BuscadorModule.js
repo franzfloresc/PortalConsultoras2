@@ -272,10 +272,10 @@ var BuscadorModule = (function(){
                 delay(function () {
 
                     var model = {
-                        textoBusqueda: valBusqueda,
+                        textoBusqueda: valorBusqueda,
                         Paginacion: {
                             NumeroPagina: 0,
-                            Cantidad: TotalResultadosBuscador
+                            Cantidad: _config.totalResultadosBuscador
                         },
                         Orden: {
                             Campo: 'orden',
@@ -287,9 +287,6 @@ var BuscadorModule = (function(){
                         type: "POST",
                         url: baseUrl + "Buscador/BusquedaProductos",
                         data: JSON.stringify(model),
-                            TextoBusqueda: valorBusqueda,
-                            Paginacion: { Cantidad: _config.totalResultadosBuscador }
-                        }),
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         async: true,
