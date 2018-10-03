@@ -1,5 +1,5 @@
-﻿using System.Web.Mvc;
-using Portal.Consultoras.Web.Models.Buscador;
+﻿using Portal.Consultoras.Web.Models.Buscador;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
