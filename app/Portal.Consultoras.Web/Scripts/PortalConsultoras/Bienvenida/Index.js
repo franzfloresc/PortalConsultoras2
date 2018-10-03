@@ -109,6 +109,11 @@ $(document).ready(function () {
         }
     });
 
+    $('.cerrarTooltip').click(function () {
+        debugger
+        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
+    });
+
     document.onkeydown = function (evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
