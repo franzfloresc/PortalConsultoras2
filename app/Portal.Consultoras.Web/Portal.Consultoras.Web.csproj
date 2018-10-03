@@ -310,6 +310,7 @@
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
     <Compile Include="Models\Buscador\BuscadorModel.cs" />
+    <Compile Include="Models\Buscador\BusquedaProductoOutModel.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />

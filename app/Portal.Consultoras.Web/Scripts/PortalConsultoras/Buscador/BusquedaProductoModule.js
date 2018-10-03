@@ -3,11 +3,19 @@
     var _elementos = {
         body: "body",
         opcionOrdenar: "#dpw-ordenar",
+        spanTotalProductos: "#TotalProductos"
         desplegado: "opcion__ordenamiento__dropdown--desplegado"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
-
+        textoBusqueda: textoBusqueda,
+        totalProductos: 0,
+        totalPaginas: 0,
+        productosPorPagina: 20,
+        numeroPaginaActual: 0,
+        ordenCampo: "orden",
+        ordenTipo: "desc",
+        maxCaracteresDesc: TotalCaracteresEnListaBuscador
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -38,32 +46,38 @@
         },
         ConstruirModeloBusqueda: function() {
             var modelo = {
-                TextoBusqueda: "lab",
+                TextoBusqueda: _config.textoBusqueda,
                 Paginacion: {
-                    Cantidad: 20,
-                    NuemroPagina: 0
+                    Cantidad: _config.productosPorPagina,
+                    NuemroPagina: _config.numeroPaginaActual
                 },
                 Orden: {
-                    Campo: "Orden",
-                    Tipo: "Desc"
+                    Campo: _config.ordenCampo,
+                    Tipo: _config.ordenTipo
                 }
             }
             return modelo;
         },
         CargarProductos: function () {
+
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
-            .done(function(data) {
-                $.each(data, function (index, item) {
+            .done(function (data) {
+                _config.totalProductos = data.total;
+                $(_elementos.spanTotalProductos).html(data.total);
+                $.each(data.productos, function (index, item) {
                     item.posicion = index + 1;
-                    //if (item.Descripcion.length > TotalCaracteresEnListaBuscador) {
-                    //    item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + "...";
-                    //}
-                    console.log(item.toString());
+                    if (item.Descripcion.length > _config.maxCaracteresDesc) {
+                        item.Descripcion = item.Descripcion.substring(0, _config.maxCaracteresDesc) + "...";
+                    }
+                    console.log(item.Descripcion);
                 });
+                
+                // setear handlebar aqui lista data.productos
             }).fail(function(data, error) {
-                    console.error(error.toString());
+                console.error(error.toString());
             });
+            
         }
     };
     var _eventos = {
@@ -76,7 +90,6 @@
         }
     };
 
-
     //Public functions
     function Inicializar() {
         _funciones.InicializarEventos();
@@ -84,7 +97,7 @@
     }
 
     function MostrarProductos() {
-        console.log("Scroll page");
+        console.log("Scroll page" + _config.totalProductos);
     }
 
     return {
