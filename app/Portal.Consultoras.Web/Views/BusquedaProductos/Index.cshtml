@@ -23,7 +23,7 @@
                 <div class="col-6 col-lg-10 col-xl-10 pl-0 pr-0 opcion_ordenamiento text-lg-right text-xl-right">
                     <label class="col-12 col-lg-3 col-xl-3 pl-0 d-inline-block text-center text-lg-right text-xl-right opcion__ordenamiento__label">Ordenar</label>
                     <!-- AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
-                    <div class="col-12 col-lg-67 col-xl-6 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
+                    <div class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
                         <span class="col-11 opcion__ordenamiento__dropdown__seleccionada mostrarEnDesktop">Recomendación</span>
                         <span class="col pl-0 pr-0 opcion__ordenamiento__dropdown__icono mostrarEnDesktop">
                             <img src="@Url.Content("~/Content/Images/ordenar-flecha-icono.svg")" alt="" />
@@ -104,7 +104,7 @@
             <article class="ficha__producto d-inline-block">
                 <div class="row flex-row justify-content-center ml-0 mr-0">
                     <figure class="ficha__producto__imagen d-block mx-auto text-center">
-                        <img src="@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")" alt="" />
+                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/CR/CR_2000907852018841473_egjjosates.png" alt="" />
                     </figure>
                     <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                         <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
@@ -172,24 +172,18 @@
                         </div>
                     </div>
                     <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
-                        <div class="col pl-0 pr-0">
-                            <div class="liquidacion_rango_home js-no-popup">
-                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
-                                <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
-                                    <a href="#" class="mas d-block js-no-popup">
-                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
-                                    </a>
-                                    <a href="#" class="menos d-block js-no-popup">
-                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-7 pl-0 pr-0 flex-grow-1">
-                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
-                                Agrégalo
+                        <!-- BOTÓN ELIGE TU OPCIÓN -->
+                        <div class="col pl-0 pr-0 flex-grow-1">
+                            <a class="row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion ml-0 mr-0 text-uppercase text-center">
+                                <span class="col-2 pl-0 pr-0 icono_elige_tu_opcion d-block">
+                                    <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
+                                </span>
+                                <span class="col-8 pl-0 pr-0 text-bold d-block">
+                                    Elige<br /> tu opción
+                                </span>
                             </a>
                         </div>
+                        <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
                     </div>
                 </div>
             </article>
