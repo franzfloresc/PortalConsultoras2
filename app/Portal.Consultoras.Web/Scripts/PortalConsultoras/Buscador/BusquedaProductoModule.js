@@ -1,9 +1,11 @@
 ﻿var BusquedaProductoModule = (function () {
 
-   var _elementos = {
+    var _elementos = {
        body: "body",
+        opcionOrdenar: "#dpw-ordenar",
        footer: "footer",
        spanTotalProductos: "#TotalProductos"
+        desplegado: "opcion__ordenamiento__dropdown--desplegado"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
@@ -41,7 +43,7 @@
     }
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {
-         
+            $(document).on("click", _elementos.opcionOrdenar, _eventos.Ordenar);
         },
         ConstruirModeloBusqueda: function() {
             var modelo = {
@@ -87,6 +89,14 @@
         
     };
     var _eventos = {
+    	Ordenar: function () {
+            var dpw_ordenar = document.getElementById('dpw-ordenar');
+            dpw_ordenar.classList.toggle(_elementos.desplegado);
+
+            var ul_ordenar = document.getElementById('ul-ordenar');
+            ul_ordenar.classList.toggle('d-none');
+        },
+
         ClickOrdenar: function () {
             _config.ordenCampo = "";
             _config.ordenTipo = "";
@@ -119,7 +129,7 @@
         _funciones.InicializarEventos();
         _funciones.CargarProductos();
     }
-    
+
     function ScrollPagina() {
         if (_funciones.ValidarScroll()) {
           //  _eventos.ScrollPage();
