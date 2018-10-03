@@ -103,7 +103,7 @@
             <article class="ficha__producto d-inline-block">
                 <div class="row flex-row justify-content-center ml-0 mr-0">
                     <figure class="ficha__producto__imagen d-block mx-auto text-center">
-                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/CR/CR_2000907852018841473_egjjosates.png" alt="" />
+                        <img src="@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")" alt="" />
                     </figure>
                     <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                         <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
@@ -123,8 +123,11 @@
                     </div>
                     <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
                         <div class="col pl-0 pr-0">
-                            <div class="liquidacion_rango_home js-no-popup">
-                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                            <!-- CUANDO EL PRODUCTO ESTÉ AGOTADO AGREGAR LA CLASE selector_cant_desactivado -->
+                            <div class="liquidacion_rango_home js-no-popup selector_cant_desactivado">
+                                <!-- CUANDO EL PRODUCTO ESTÉ AGOTADO AGREGAR ATRIBUTO disabled -->
+                                <input type="text" value="1" size="2" disabled maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                <!-- FIN - CUANDO EL PRODUCTO ESTÉ AGOTADO AGREGAR ATRIBUTO disabled -->
                                 <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
                                     <a href="#" class="mas d-block js-no-popup">
                                         <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
@@ -134,11 +137,14 @@
                                     </a>
                                 </div>
                             </div>
+                            <!-- FIN - CUANDO EL PRODUCTO ESTÉ AGOTADO AGREGAR LA CLASE selector_cant_desactivado -->
                         </div>
                         <div class="col-7 pl-0 pr-0 flex-grow-1">
-                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
-                                Agrégalo
+                            <!-- CUANDO EL PRODUCTO ESTE AGOTADO AGREGAR LA CLASE btn_inactivo -->
+                            <a class="boton_Agregalo_home btn_inactivo text-center text-uppercase d-block">
+                                Agotado
                             </a>
+                            <!-- FIN - CUANDO EL PRODUCTO ESTE AGOTADO AGREGAR LA CLASE btn_inactivo -->
                         </div>
                     </div>
                 </div>
