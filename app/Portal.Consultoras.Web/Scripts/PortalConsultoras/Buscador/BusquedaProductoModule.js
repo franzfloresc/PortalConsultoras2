@@ -68,11 +68,11 @@
     };
     var _eventos = {
         Ordenar: function () {
-            var element = document.getElementById('dpw-ordenar');
-            element.classList.toggle(_elementos.desplegado);
+            var dpw_ordenar = document.getElementById('dpw-ordenar');
+            dpw_ordenar.classList.toggle(_elementos.desplegado);
 
-            var element2 = document.getElementById('ul-ordenar');
-            element2.classList.toggle('d-none');
+            var ul_ordenar = document.getElementById('ul-ordenar');
+            ul_ordenar.classList.toggle('d-none');
         }
     };
 
