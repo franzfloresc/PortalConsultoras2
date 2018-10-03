@@ -398,6 +398,15 @@
 
 /* FIN - PÁGINA DE RESULTADOS DESKTOP */
 
+@media screen and (min-width:992px) and (max-width:998px){
+
+    .ficha__producto{
+        margin-left:9px;
+        margin-right:9px;
+    }
+
+}
+
 /* PÁGINA DE RESULTADOS MOBILE */
 
 @media screen and (max-width:991px){
