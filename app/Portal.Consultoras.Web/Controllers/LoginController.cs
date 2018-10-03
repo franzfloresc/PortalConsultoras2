@@ -1274,7 +1274,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntrega(usuario));
                         var linkPaisTask = Task.Run(() => GetLinksPorPais(usuario.PaisID));
                         var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidad(usuario));
-                        var personalizacionesTask = Task.Run(() => GetPersonalizaiones(usuarioModel));                        
+                        var personalizacionesTask = Task.Run(() => GetPersonalizaiones(usuarioModel));
 
                         Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask, personalizacionesTask);
 
@@ -1335,6 +1335,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID, usuarioModel.FechaHoy);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
+                    usuarioModel.ListaOrdenamientoFiltrosBuscador = getListaOrdenamientoFiltrosBuscador(usuarioModel.PaisID);
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -2926,6 +2927,24 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var item in listaDescripciones)
             {
                 result.Add(item.Codigo.ToString(), item.Descripcion.ToString());
+            }
+
+            return result;
+        }
+
+        private Dictionary<string, string> getListaOrdenamientoFiltrosBuscador(int paisId)
+        {
+            var result = new Dictionary<string, string>();
+            var listaDescripciones = new List<BETablaLogicaDatos>();
+
+            using (var tablaLogica = new SACServiceClient())
+            {
+                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.ListaOrdenamientoFiltros).ToList();
+            }
+
+            foreach (var item in listaDescripciones)
+            {
+                result.Add(item.Codigo.ToString(), string.IsNullOrEmpty(item.Valor) ? "" : item.Valor.ToString());
             }
 
             return result;

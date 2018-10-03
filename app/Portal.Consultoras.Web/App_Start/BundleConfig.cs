@@ -172,7 +172,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js"
             ));
-
+            
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/BusquedaProducto").Include(
+                "~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js"
+            ));
+            
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Fuzemodal").Include(
                 "~/Scripts/fuzemodal-1.3/fuzemodal-1.3.css"
             ));
