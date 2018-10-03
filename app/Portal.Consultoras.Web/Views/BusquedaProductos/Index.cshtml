@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@model Portal.Consultoras.Web.Models.Buscador.BusquedaProductoOutModel
 
 @{
     ViewBag.Title = "Index";
@@ -14,7 +15,7 @@
                 Resultados de la búsqueda
             </h1>
             <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados">
-                <span class="busqueda__num__productos__encontrados">4</span>  resultados para: <span class="busqueda__nom__filtro text-bold">Kalos</span>
+                <span id="TotalProductos" class="busqueda__num__productos__encontrados">0</span>  resultados para: <span id="TextoBusqueda" class="busqueda__nom__filtro text-bold">@Model.TextoBusqueda</span>
             </p>
         </section>
         <section class="col-12 col-lg-6 col-xl-6 lista__opciones_ordenamiento">
@@ -411,5 +412,9 @@
     </section>
 </section>
 @section scripts{
+    <script type="text/javascript">
+        var textoBusqueda = '@Model.TextoBusqueda';
+    </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js")"></script>
+
 }
