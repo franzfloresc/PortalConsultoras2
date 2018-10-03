@@ -6,7 +6,6 @@ namespace Portal.Consultoras.Web.Models.Buscador
     public class BuscadorModel
     {
         public string TextoBusqueda { get; set; }
-        public int CantidadProductos { get; set; }
         public Orden Orden { get; set; }
         public Paginacion Paginacion { get; set; }
     }

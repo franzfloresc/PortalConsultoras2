@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Providers
                         userData.CodigoConsultora,
                         userData.CodigoZona,
                         buscadorModel.TextoBusqueda,
-                        buscadorModel.CantidadProductos,
+                        buscadorModel.Paginacion.Cantidad,
                         userData.Lider,
                         suscripcionActiva,
                         revistaDigital.ActivoMdo,
