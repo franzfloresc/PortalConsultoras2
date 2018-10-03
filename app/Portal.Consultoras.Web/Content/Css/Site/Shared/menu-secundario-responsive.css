@@ -78,12 +78,12 @@
     display:none;
     width:310px;
     min-height:214px;
-    max-height:464px;
+    max-height:480px;
     color:#000;
     background-color:#FFF;
     border:1px solid #CCC;
     font-size:13px;
-    padding:17px 19px;
+    padding:19px;
     line-height:initial;
     position:absolute;
     top:53px;
