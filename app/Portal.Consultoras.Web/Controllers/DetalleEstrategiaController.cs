@@ -16,23 +16,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        //public DetalleEstrategiaController(ISessionManager sesionManager) 
-        //    : base(sesionManager)
-        //{
-
-        //}
-
-        //public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager) 
-        //    : base(sesionManager, logManager)
-        //{
-
-        //}
-
-        //public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider)
-        //    : base(sesionManager, logManager, ofertaPersonalizadaProvider)
-        //{
-        //}
-
         public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
             : base(sesionManager, logManager, ofertaPersonalizadaProvider, ofertaViewProvider)
         {
@@ -82,7 +65,6 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     ex
                 }, JsonRequestBehavior.AllowGet);
-                //return ErrorJson("Error al obtener los Componentes: " + ex.Message, true);
             }
 
         }

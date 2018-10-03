@@ -99,12 +99,7 @@ namespace Portal.Consultoras.Web.Providers
                         ? Constantes.OrigenPantallaWeb.MShowRoom
                         : Constantes.OrigenPantallaWeb.DShowRoom;
                     break;
-                //case Constantes.UrlMenuContenedor.OptDetalle:
-                //    var PathOrigen = GetOrigenFromQueryString(Request);
-                //    menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(PathOrigen, revistaDigital, CodigoConsultora, CodigoISO);
-                //    if (menuActivo.Codigo == "")
-                //        menuActivo = SessionManager.GetMenuContenedorActivo();
-                //    break;
+
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
                 case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
@@ -511,7 +506,6 @@ namespace Portal.Consultoras.Web.Providers
             {
                 foreach (var menuContenedor in MenuContenedor)
                 {
-                    //custom Setting 
                     if (menuContenedor.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada)
                     {
                         menuContenedor.DesktopTituloBanner = "DISFRUTA DE TU GUIA DE NEGOCIO ONLINE EN";
