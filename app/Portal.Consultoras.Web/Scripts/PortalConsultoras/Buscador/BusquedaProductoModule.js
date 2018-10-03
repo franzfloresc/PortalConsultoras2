@@ -3,7 +3,7 @@
     var _elementos = {
         body: "body",
         opcionOrdenar: "#dpw-ordenar",
-        spanTotalProductos: "#TotalProductos"
+        spanTotalProductos: "#TotalProductos",
         desplegado: "opcion__ordenamiento__dropdown--desplegado"
     };
     var _config = {
