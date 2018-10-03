@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BuscadorYFiltrosModel> ListaProductosModel;
             try
             {
-               var resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(model);
+                var resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(model);
                 ListaProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, SessionManager.GetDetallesPedido(), userData, revistaDigital, false);
             }
             catch (Exception ex)
