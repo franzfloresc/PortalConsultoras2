@@ -919,7 +919,7 @@ function CerrarSesion() {
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-
+        var itemSBSurvicate= GetItemLocalStorageSurvicate();
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -929,10 +929,22 @@ function CerrarSesion() {
         if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
+        localStorage.setItem('SurvicateStorage', JSON.stringify(itemSBSurvicate));
     }
 
     location.href = baseUrl + 'Login/LogOut';
 }
+
+function GetItemLocalStorageSurvicate() {
+    var surviKeys = {};
+    for (var key in localStorage)
+    {
+        if (key.indexOf('survi::') > -1)
+            surviKeys[key] = localStorage[key];
+    }
+    return surviKeys;
+}
+
 
 function Notificaciones() {
     location.href = baseUrl + 'Notificaciones/Index';
