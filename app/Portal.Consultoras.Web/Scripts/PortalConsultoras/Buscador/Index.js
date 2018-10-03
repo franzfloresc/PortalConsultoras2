@@ -149,7 +149,9 @@ $(document).ready(function () {
                                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                                     AnalyticsPortalModule.MarcaBarraBusqueda();
                                 ContadorBusquedas++;
-                            }
+                            }                           
+                        
+                            
                             $('.spinner').fadeIn(150);
 
                             if (xhr && xhr.readyState != 4) {
@@ -201,6 +203,11 @@ $(document).ready(function () {
                                         }, 400);
 
                                         SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscador');
+                                        $(".lista_resultados_busqueda_productos").one("mouseover", function () {
+                                            var buscar = $("#CampoBuscadorProductos").val();
+                                            AnalyticsPortalModule.MarcaSeleccionarContenidoBusqueda(buscar);
+
+                                        });
                                     }
 
                                 }
@@ -340,7 +347,8 @@ $(document).ready(function () {
                                 CargarResumenCampaniaHeader();
                                 CerrarLoad();
                                 if (!(typeof AnalyticsPortalModule === 'undefined'))
-                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model,OrigenPedidoWeb);
+                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, OrigenPedidoWeb, $("#CampoBuscadorProductos").val());
+                              
                                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
                                 agregado.html("Agregado");
                                 var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);

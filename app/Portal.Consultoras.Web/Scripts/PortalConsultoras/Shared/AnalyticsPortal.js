@@ -333,12 +333,7 @@ var AnalyticsPortalModule = (function () {
                 'category': 'Buscador SB',
                 'action': 'Selección',
                 'label': _texto.notavaliable
-            });
-
-            $("#CampoBuscadorProductos").focusout(function (e) {
-                AnalyticsPortalModule.MarcaSeleccionarContenidoBusqueda(e.target.value  );
-            });
-
+            });           
        
         } catch (e) {
             console.log(_texto.excepcion + e);
@@ -360,83 +355,41 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
+    var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia)
+    {
+        try {
+            var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);       
 
+            var pagina = _constantes.paginas.find(function (element) {
+                return element.CodigoPagina == codigoPagina;
+            });
+
+            var model = {
+                'DescripcionProd': estrategia.DescripcionCompleta,
+                'CUV': estrategia.PrecioVenta,
+                'PrecioUnidad': estrategia.DescripcionMarca,
+                'DescripcionMarca': estrategia.CUV2,
+                'Cantidad': estrategia.Cantidad
+            };
+
+            var valorBuscar = localStorage.getItem('valorBuscador');
+            switch (pagina.Pagina) {
+                case "Buscador": AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, codigoOrigenPedido, valorBuscar); break;
+               
+            }
+
+        } catch (e) {
+
+        }
+    }
     
-    var marcaAnadirCarritoHome = function (event, codigoOrigen, data) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic añadir al carrito.");
-            var palanca = AnalyticsPortalModule.GetSeccionHomeByOrigenPedido(codigoOrigen);
-            var producto = data;
-
-            list = "Home" + " - " + palanca;
-
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
-                    'add': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': producto.DescripcionCompleta,
-                            'price': producto.PrecioVenta,
-                            'brand': producto.DescripcionMarca,
-                            'id': producto.CUV2,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': producto.Cantidad
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
-    var marcaAnadirCarrito = function (event, codigoOrigen, data) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic añadir al carrito.");
-
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
-            var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, codigoOrigen);
-
-
-            var producto = data;
-
-            list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
-
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
-                    'add': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': producto.DescripcionCompleta,
-                            'price': producto.PrecioVenta,
-                            'brand': producto.DescripcionMarca,
-                            'id': producto.CUV2,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': producto.Cantidad
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
+    
     var marcaEligeUnaOpcion = function (url)
     {
         try {
             var esMobile = url.includes("Mobile");
-            var value = esMobile ? $("#CampoBuscadorProductosMobile").val(): $("#CampoBuscadorProductos").val();
+            var value = esMobile ? $("#CampoBuscadorProductosMobile").val() : $("#CampoBuscadorProductos").val();
+            localStorage.setItem('valorBuscador', value);
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Buscador SB',
@@ -452,10 +405,9 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcaAnadirCarritoBuscador = function (model,origenPedidoWebEstrategia)
+    var marcaAnadirCarritoBuscador = function (model, origenPedidoWebEstrategia, campoBuscar)
     {
         try {
-            var campoBuscar = $("#CampoBuscadorProductos").val();
             var desplegable = "Desplegable";
             if ($.isNumeric(campoBuscar) && campoBuscar.length == 5 )
                 desplegable = "Desplegable por CUV";
@@ -475,7 +427,7 @@ var AnalyticsPortalModule = (function () {
                             'brand': model.DescripcionMarca,
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
-                            'quantity': 1
+                            'quantity': mode.Cantidad
 
                         }]
                     }
@@ -513,8 +465,6 @@ var AnalyticsPortalModule = (function () {
         MarcarFichaBreadcrumb: marcarFichaBreadcrumb,
         // Inicio - Analytics Buscador Miguel
         MarcaBarraBusqueda: marcaBarraBusqueda,
-        MarcaAnadirCarritoHome: marcaAnadirCarritoHome,
-        MarcaAnadirCarrito: marcaAnadirCarrito,
         GetCurrencyCodes: getCurrencyCodes,
         GetPalancaBySeccion: getPalancaBySeccion,
         GetPalancaByOrigenPedido: getPalancaByOrigenPedido,
@@ -523,7 +473,8 @@ var AnalyticsPortalModule = (function () {
         MarcaEligeUnaOpcion: marcaEligeUnaOpcion,
         MarcaBarraBusquedaMobile: marcaBarraBusquedaMobile,
         MarcaAnadirCarritoBuscador: marcaAnadirCarritoBuscador,
-        MarcaSeleccionarContenidoBusqueda: marcaSeleccionarContenidoBusqueda
+        MarcaSeleccionarContenidoBusqueda: marcaSeleccionarContenidoBusqueda,
+        MarcaAnadirCarritoGenerico: marcaAnadirCarritoGenerico
         // Fin - Analytics Buscador Miguel
     }
 })();
