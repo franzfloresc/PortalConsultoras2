@@ -8,7 +8,14 @@ debeir el cambio
 1.1.PortalConsultoras2 - Web
 
 Agregar:
-	
+
+
+	<!-- codigo Iso AppCatalogo-->
+    <add key="AppCatalogo_DO" value="CO" />
+    <add key="AppCatalogo_GT" value="CO" />
+    <add key="AppCatalogo_PA" value="CR" />
+    <add key="AppCatalogo_PR" value="CR" />
+    <add key="AppCatalogo_SV" value="CO" />
 	
 Actualizar:
 	
