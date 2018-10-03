@@ -1,12 +1,12 @@
 ﻿var BusquedaProductoModule = (function () {
 
-   var _elementos = {
-        body: "body"
-        
+    var _elementos = {
+        body: "body",
+        textBusqueda: function () { return $('.textoProductoBuscado') },
+        totalProducto: function () { return $('.totalProductosEncontrados') }
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
-        
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -33,13 +33,15 @@
     }
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {
-         
+
         },
-        ConstruirModeloBusqueda: function() {
+        ConstruirModeloBusqueda: function () {
+            var texto = _elementos.textBusqueda().val();
+            //Para el caso de la cantidad de productos se esta poniendo en duro TotalResultadosBuscador, variable declara en el layout
             var modelo = {
-                TextoBusqueda: "lab",
+                TextoBusqueda: texto,
                 Paginacion: {
-                    Cantidad: 20,
+                    Cantidad: TotalResultadosBuscador,
                     NuemroPagina: 0
                 },
                 Orden: {
@@ -52,22 +54,23 @@
         CargarProductos: function () {
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
-            .done(function(data) {
-                $.each(data, function (index, item) {
-                    item.posicion = index + 1;
-                    //if (item.Descripcion.length > TotalCaracteresEnListaBuscador) {
-                    //    item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + "...";
-                    //}
-                    console.log(item.toString());
-                });
-            }).fail(function(data, error) {
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, item) {
+                        item.posicion = index + 1;
+                        //if (item.Descripcion.length > TotalCaracteresEnListaBuscador) {
+                        //    item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + "...";
+                        //}
+                        console.log(item.toString());
+                    });
+                }).fail(function (data, error) {
                     console.error(error.toString());
-            });
+                });
         }
     };
     var _eventos = {
         Ordenar: function () {
-           
+
         }
     };
 
@@ -77,7 +80,7 @@
         _funciones.InicializarEventos();
         _funciones.CargarProductos();
     }
-    
+
     function MostrarProductos() {
         console.log("Scroll page");
     }

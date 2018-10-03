@@ -36,7 +36,6 @@ namespace Portal.Consultoras.Web.Providers
             {
                 var revistaDigital = _sessionManager.GetRevistaDigital();
                 var userData = _sessionManager.GetUserData();
-                var baseAddress = WebConfig.RutaServiceBuscadorAPI;
                 var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
                             userData.CodigoISO,
                             userData.CampaniaID

@@ -1,5 +1,6 @@
 ﻿@using System.Web.Optimization
-
+@using  Portal.Consultoras.Web.Models.Buscador
+@model BuscadorModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
@@ -14,7 +15,7 @@
                 Resultados de la búsqueda
             </h1>
             <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados">
-                <span class="busqueda__num__productos__encontrados">4</span>  resultados para: <span class="busqueda__nom__filtro text-bold">Kalos</span>
+                <span class="busqueda__num__productos__encontrados totalProductosEncontrados">0</span>  resultados para: <span class="busqueda__nom__filtro text-bold textoProductoBuscado">@Model.TextoBusqueda</span>
             </p>
         </section>
         <section class="col-12 col-lg-6 col-xl-6 lista__opciones_ordenamiento">
