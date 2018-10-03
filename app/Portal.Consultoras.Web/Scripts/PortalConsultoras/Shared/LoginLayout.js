@@ -312,8 +312,7 @@ function LocalStorageLimpiar() {
     }
 
     function SetItemLocalStorageSurvicate(storage) {
- 
-        storage = jQuery.parseJSON(storage);
+        storage = (storage == null || storage =="") ? {} : jQuery.parseJSON(storage);
         for (var key in storage) {
             localStorage.setItem(key, storage[key]);
         }
