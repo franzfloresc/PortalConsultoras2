@@ -258,18 +258,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var breadCrumbs = new DetalleEstrategiaBreadCrumbsModel();
             var area = IsMobile() ? "mobile" : string.Empty;
-            //
+            
             breadCrumbs.Inicio.Texto = "Inicio";
             breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Gana +" : "Ofertas Digitales";
             breadCrumbs.Palanca.Texto = GetNombresPalancas().ContainsKey(palanca) ? GetNombresPalancas()[palanca] : string.Empty;
-            //
+            
             try
             {
                 breadCrumbs.Inicio.Url = Url.Action("Index", new { controller = "Bienvenida", area });
-                //
+                
                 var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
                 breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
-                //
+                
                 breadCrumbs.Palanca.Url = "#";
                 if (!string.IsNullOrWhiteSpace(breadCrumbs.Palanca.Texto))
                 {
@@ -306,13 +306,13 @@ namespace Portal.Consultoras.Web.Controllers
                         breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "HerramientasVenta", area });
                     }
                 }
-                //
+                
                 breadCrumbs.Producto.Url = "#";
             }
             catch
             {
             }
-            //
+
             return breadCrumbs;
         }
 
@@ -490,8 +490,6 @@ namespace Portal.Consultoras.Web.Controllers
                     result = Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscadorFicha;
                     break;
             }
-
-            //result = result == 0 ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileDetalle : result;
 
             return result;
         }

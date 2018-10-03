@@ -405,10 +405,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Celular", "msCelular"},
                 {"Correo", "mseMail"}
             };
-
-
-            //string[] arrTotal = { "Total a Pagar:", userData.Simbolo + " #Cargo" };
-
+            
             ExportToExcelMisClientes("MisClientes", lst, dicCabeceras, dic);
             return new EmptyResult();
         }
