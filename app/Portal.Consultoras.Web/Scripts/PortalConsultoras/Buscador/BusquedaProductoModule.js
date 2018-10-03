@@ -4,9 +4,20 @@
         body: "body",
         textBusqueda: function () { return $('.textoProductoBuscado') },
         totalProducto: function () { return $('.totalProductosEncontrados') }
+        opcionOrdenar: "#dpw-ordenar",
+        spanTotalProductos: "#TotalProductos"
+        desplegado: "opcion__ordenamiento__dropdown--desplegado"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
+        textoBusqueda: textoBusqueda,
+        totalProductos: 0,
+        totalPaginas: 0,
+        productosPorPagina: 20,
+        numeroPaginaActual: 0,
+        ordenCampo: "orden",
+        ordenTipo: "desc",
+        maxCaracteresDesc: TotalCaracteresEnListaBuscador
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -33,47 +44,53 @@
     }
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {
-
+            $(document).on("click", _elementos.opcionOrdenar, _eventos.Ordenar);
         },
-        ConstruirModeloBusqueda: function () {
-            var texto = _elementos.textBusqueda().val();
-            //Para el caso de la cantidad de productos se esta poniendo en duro TotalResultadosBuscador, variable declara en el layout
+        ConstruirModeloBusqueda: function() {
             var modelo = {
-                TextoBusqueda: texto,
+                TextoBusqueda: _config.textoBusqueda,
                 Paginacion: {
-                    Cantidad: TotalResultadosBuscador,
-                    NuemroPagina: 0
+                    Cantidad: _config.productosPorPagina,
+                    NuemroPagina: _config.numeroPaginaActual
                 },
                 Orden: {
-                    Campo: "Orden",
-                    Tipo: "Desc"
+                    Campo: _config.ordenCampo,
+                    Tipo: _config.ordenTipo
                 }
             }
             return modelo;
         },
         CargarProductos: function () {
+
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
-                .done(function (data) {
-                    console.log(data);
-                    $.each(data, function (index, item) {
-                        item.posicion = index + 1;
-                        //if (item.Descripcion.length > TotalCaracteresEnListaBuscador) {
-                        //    item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + "...";
-                        //}
-                        console.log(item.toString());
+            .done(function (data) {
+                _config.totalProductos = data.total;
+                $(_elementos.spanTotalProductos).html(data.total);
+                $.each(data.productos, function (index, item) {
+                    item.posicion = index + 1;
+                    if (item.Descripcion.length > _config.maxCaracteresDesc) {
+                        item.Descripcion = item.Descripcion.substring(0, _config.maxCaracteresDesc) + "...";
+                    }
+                    console.log(item.Descripcion);
                     });
+                
+                // setear handlebar aqui lista data.productos
                 }).fail(function (data, error) {
-                    console.error(error.toString());
+                console.error(error.toString());
                 });
+            
         }
     };
     var _eventos = {
         Ordenar: function () {
+            var dpw_ordenar = document.getElementById('dpw-ordenar');
+            dpw_ordenar.classList.toggle(_elementos.desplegado);
 
+            var ul_ordenar = document.getElementById('ul-ordenar');
+            ul_ordenar.classList.toggle('d-none');
         }
     };
-
 
     //Public functions
     function Inicializar() {
@@ -82,7 +99,7 @@
     }
 
     function MostrarProductos() {
-        console.log("Scroll page");
+        console.log("Scroll page" + _config.totalProductos);
     }
 
     return {

@@ -146,11 +146,11 @@
 }
 
 .opcion__ordenamiento__dropdown__lista {
-    display: none;
+    /*display: none;*/
     padding-top: 3px;
     padding-bottom: 5px;
-    top: 45px;
-    right: 16px;
+    top: 44px;
+    right: 11px;
     min-width: 290px;
     height: auto;
     z-index: 3;
@@ -297,7 +297,9 @@
     max-width: 100%;
 }
 
-.boton_Agregalo_home{
+.boton_Agregalo_home,
+.btn_elegir_opcion span:last-child
+{
     font-size:13px;
     letter-spacing:0.5px;
 }
@@ -343,10 +345,67 @@
     left:-1px;
 }
 
+.selector_cant_desactivado{
+    opacity:0.3;
+}
+
+.selector_cant_desactivado .cantidad_mas_home,
+.selector_cant_desactivado .cantidad_menos_home
+{
+    pointer-events:none;
+    cursor:not-allowed!important;
+}
+
+.btn_elegir_opcion{
+    background-color:#FFF;
+    height: 45px;
+    line-height:41px;
+}
+
+.btn_inactivo{
+    border-color:#efefef;
+    background-color:#efefef;
+    line-height:45px;
+    pointer-events:none;
+    cursor:not-allowed!important;
+}
+
+.btn_elegir_opcion,
+.btn_inactivo
+{
+    color:#000!important;
+}
+
+.icono_elige_tu_opcion {
+    margin-right: -7px;
+    width: 6px;
+    height: 23px;
+    position: relative;
+    overflow: hidden;
+}
+
+.icono_elige_tu_opcion img{
+    position: absolute;
+    margin: auto;
+    top: 9px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 79%;
+}
 
 /* FIN - FICHAS DE PRODUCTOS DESKTOP */
 
 /* FIN - PÁGINA DE RESULTADOS DESKTOP */
+
+@media screen and (min-width:992px) and (max-width:998px){
+
+    .ficha__producto{
+        margin-left:9px;
+        margin-right:9px;
+    }
+
+}
 
 /* PÁGINA DE RESULTADOS MOBILE */
 

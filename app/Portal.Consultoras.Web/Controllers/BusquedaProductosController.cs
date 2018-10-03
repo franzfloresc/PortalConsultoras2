@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Web.Models.Buscador;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Models.Buscador;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -7,8 +8,10 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index(string textoBusqueda = "")
         {
-            var model = new BuscadorModel();
-            model.TextoBusqueda = textoBusqueda;
+            var model = new BusquedaProductoOutModel
+            {
+                TextoBusqueda = textoBusqueda
+            };
             return View(model);
         }
         

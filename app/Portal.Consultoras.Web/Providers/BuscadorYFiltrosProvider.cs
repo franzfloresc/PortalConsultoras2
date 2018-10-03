@@ -31,25 +31,15 @@ namespace Portal.Consultoras.Web.Providers
 
         public async Task<BuscadorYFiltrosModel> GetBuscador(BuscadorModel buscadorModel)
         {
-            var lista = new BuscadorYFiltrosModel();
-            try
-            {
-                var revistaDigital = _sessionManager.GetRevistaDigital();
-                var userData = _sessionManager.GetUserData();
-                var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
-                            userData.CodigoISO,
-                            userData.CampaniaID
-                    );
+            var revistaDigital = _sessionManager.GetRevistaDigital();
+            var userData = _sessionManager.GetUserData();
+            var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
+                        userData.CodigoISO,
+                        userData.CampaniaID
+                );
 
-                var parametros = getJsonPostBuscador(userData, buscadorModel, revistaDigital);
-                lista = await PostAsync<BuscadorYFiltrosModel>(pathBuscador, parametros);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-
-            return lista;
+            var parametros = getJsonPostBuscador(userData, buscadorModel, revistaDigital);
+            return await PostAsync<BuscadorYFiltrosModel>(pathBuscador, parametros);
         }
 
         private dynamic getJsonPostBuscador(UsuarioModel usuarioModel, BuscadorModel buscadorModel, RevistaDigitalModel revistaDigital)
