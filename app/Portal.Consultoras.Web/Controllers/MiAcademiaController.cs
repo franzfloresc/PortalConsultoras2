@@ -16,19 +16,18 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            //var flagHome = 0;
             var IdCurso = 0;
             var FlagVideo = 0;
             try
             {
                 IdCurso = SessionManager.GetMiAcademia();
-                FlagVideo = SessionManager.GetMiAcademiaVideo();  //PPC
+                FlagVideo = SessionManager.GetMiAcademiaVideo();
                 SessionManager.SetMiAcademia(0);
-                SessionManager.SetMiAcademiaVideo(0);  //PPC
+                SessionManager.SetMiAcademiaVideo(0); 
 
                 string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
                 string urlLms = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.CursosMarquesina);
-                string UrlCursoMiAcademiaVideo = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.UrlCursoMiAcademiaVideo);   // --- PPC
+                string UrlCursoMiAcademiaVideo = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.UrlCursoMiAcademiaVideo);  
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
@@ -80,13 +79,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (exito)
                 {
-                    if (FlagVideo == 0)  // PPC
+                    if (FlagVideo == 0)
                     {
                         return Redirect(urlLms);
                     }
                     else
                     {
-                        return Redirect(UrlCursoMiAcademiaVideo); // PPC
+                        return Redirect(UrlCursoMiAcademiaVideo); 
                     }
                 }
             }
