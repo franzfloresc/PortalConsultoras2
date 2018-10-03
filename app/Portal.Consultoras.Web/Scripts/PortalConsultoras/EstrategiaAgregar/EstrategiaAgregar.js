@@ -451,13 +451,23 @@ var EstrategiaAgregarModule = (function () {
             }
 
             try {
-                if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-                    rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
-                } else {
-                    if (typeof TagManagerClickAgregarProductoOfertaParaTI !== constantes.undefined()) {
-                        TagManagerClickAgregarProductoOfertaParaTI(estrategia);
-                    }
+                var controllerName = window.controllerName;
+                if (controllerName == "bienvenida") {
+                    //if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+                    //    rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
+                    //} else {
+                    //    if (typeof TagManagerClickAgregarProductoOfertaParaTI !== constantes.undefined()) {
+                    //        TagManagerClickAgregarProductoOfertaParaTI(estrategia);
+                    //    }
+                    //}
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaAnadirCarritoHome(event, origenPedidoWebEstrategia, estrategia);
                 }
+                else {
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaAnadirCarrito(event, origenPedidoWebEstrategia, estrategia);
+                } 
+              
                 TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
             } catch (e) {
                 console.log(e);

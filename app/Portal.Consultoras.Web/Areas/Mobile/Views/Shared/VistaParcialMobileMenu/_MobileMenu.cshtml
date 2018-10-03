@@ -36,7 +36,7 @@
                 @if (mmVbEsMostrarBuscadorYFiltros)
                 {
                     <a role="link" region="Superior" parent="Buscador" title="Buscador"
-                       class="campana_mobile opcion_menu_buscador" href="@Url.Action("Index", "Buscador", new { area = "Mobile" })" style="margin-right: 20px;">
+                       class="campana_mobile opcion_menu_buscador" onclick="AnalyticsPortalModule.MarcaBarraBusquedaMobile('@Url.Action("Index", "Buscador", new { area = "Mobile" })')" href="#" style="margin-right: 20px;">
                         <div role="link" region="Superior" parent="Buscador" title="Buscador" class="icono_busqueda_mobile">
                             <img src="@Url.Content("~/Content/Images/icono_lupa.png")" alt="Buscar" />
                             @*<i class="fa fa-search fa-sm"></i>*@
