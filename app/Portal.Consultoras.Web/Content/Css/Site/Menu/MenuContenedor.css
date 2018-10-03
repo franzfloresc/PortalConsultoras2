@@ -36,6 +36,9 @@
                     vertical-align: middle;
                     margin-top: -3px;
                 }
+                .op-menu-horizontal .subnavegador li a.activado-grande img {
+                    height: 20.20px;
+                }
 
             .op-menu-horizontal .subnavegador li .gana_mas_horizontal {
                 color: #c39934;
