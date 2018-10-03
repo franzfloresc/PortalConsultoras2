@@ -197,5 +197,6 @@ namespace Portal.Consultoras.Web.Models
         
         public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
         public bool BloqueoProductoDigital { get; set; }
+        public bool EsBannerProgNuevas { get; set; }
     }
 }
