@@ -293,6 +293,7 @@
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BuscadorController.cs" />
+    <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />

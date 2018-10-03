@@ -8,15 +8,9 @@ namespace Portal.Consultoras.Web.Models
     [Serializable]
     public class BuscadorYFiltrosModel
     {
-        public BuscadorYFiltrosModel()
-        {
-            ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
-        }
-
-        public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
         public int total { get; set; }
         public IList<Productos> productos { get; set; }
-        public IList<Filtros> filtros { get; set; }
+        //public IList<Filtros> filtros { get; set; }
     }
 
     public class Filtros

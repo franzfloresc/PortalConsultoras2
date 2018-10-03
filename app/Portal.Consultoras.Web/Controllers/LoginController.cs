@@ -1830,7 +1830,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var herramientasVentaModel = new HerramientasVentaModel();
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
-                var buscadorYFiltrosModel = new BuscadorYFiltrosModel();
+                var buscadorYFiltrosModel = new BuscadorYFiltrosConfiguracionModel();
 
                 if (configuracionesPaisModels.Any())
                 {
@@ -2049,7 +2049,7 @@ namespace Portal.Consultoras.Web.Controllers
             return herramientasVentaModel;
         }
 
-        public virtual BuscadorYFiltrosModel ConfiguracionPaisBuscadorYFiltro(BuscadorYFiltrosModel buscadorYFiltrosModel, List<BEConfiguracionPaisDatos> listaDatos)
+        public virtual BuscadorYFiltrosConfiguracionModel ConfiguracionPaisBuscadorYFiltro(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel, List<BEConfiguracionPaisDatos> listaDatos)
         {
             buscadorYFiltrosModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
             return buscadorYFiltrosModel;

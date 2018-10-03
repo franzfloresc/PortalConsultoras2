@@ -64,12 +64,12 @@ namespace Portal.Consultoras.Web.Providers
                 personalizaciones = usuarioModel.PersonalizacionesDummy,
                 configuracion = new
                 {
-                    sociaEmpresaria = usuarioModel.Lider,
-                    suscripcionActiva = suscripcion,
-                    mdo = revistaDigital.ActivoMdo,
-                    rd = revistaDigital.TieneRDC,
-                    rdi = revistaDigital.TieneRDI,
-                    rdr = revistaDigital.TieneRDCR,
+                    sociaEmpresaria = usuarioModel.Lider.ToString(),
+                    suscripcionActiva = suscripcion.ToString(),
+                    mdo = revistaDigital.ActivoMdo.ToString(),
+                    rd = revistaDigital.TieneRDC.ToString(),
+                    rdi = revistaDigital.TieneRDI.ToString(),
+                    rdr = revistaDigital.TieneRDCR.ToString(),
                     diaFacturacion = usuarioModel.DiaFacturacion
                 },
                 paginacion = new
@@ -87,50 +87,31 @@ namespace Portal.Consultoras.Web.Providers
 
         public async Task<BuscadorYFiltrosModel> ValidacionProductoAgregado(BuscadorYFiltrosModel resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital, bool IsMobile)
         {
+            var labelAgregado = "";
             var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
-            var resultBuscador = new BuscadorYFiltrosModel();
+            if (resultado.total == 0) return new BuscadorYFiltrosModel();
 
-            if (!resultado.productos.Any()) return resultBuscador;
-            resultBuscador.total = resultado.total; 
             foreach (var item in resultado.productos)
             {
                 var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
-                var labelAgregado = "";
+                labelAgregado = "";
 
                 if (pedidoAgregado.Any())
                 {
                     labelAgregado = "Agregado";
                 }
 
-                resultBuscador.productos.Add(new Productos
-                {
-                    CUV = item.CUV.Trim(),
-                    SAP = item.SAP.Trim(),
-                    Imagen = item.Imagen,
-                    Descripcion = item.Descripcion,
-                    DescripcionCompleta = item.Descripcion,
-                    Valorizado = item.Valorizado,
-                    Precio = item.Precio,
-                    CodigoEstrategia = item.CodigoEstrategia,
-                    CodigoTipoEstrategia = item.CodigoTipoEstrategia,
-                    TipoEstrategiaId = item.TipoEstrategiaId,
-                    LimiteVenta = item.LimiteVenta,
-                    PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo),
-                    ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo),
-                    DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true),
-                    MarcaId = item.MarcaId,
-                    CampaniaID = userData.CampaniaID,
-                    Agregado = labelAgregado,
-                    Stock = !item.Stock,
-                    OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile),
-                    TipoPersonalizacion = item.TipoPersonalizacion,
-                    URLBsucador = item.URLBsucador,
-                    EstrategiaID = item.EstrategiaID
+                item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
+                item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
+                item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
+                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile);
+                item.Agregado = labelAgregado;
+                item.Stock = !item.Stock;
 
-                });
+                item.DescripcionCompleta = item.Descripcion;
             }
 
-            return resultBuscador;
+            return resultado;
         }
     }
 }

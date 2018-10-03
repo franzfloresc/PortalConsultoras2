@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected GuiaNegocioModel guiaNegocio;
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
-        protected BuscadorYFiltrosModel buscadorYFiltro;
+        protected BuscadorYFiltrosConfiguracionModel buscadorYFiltro;
         protected ILogManager logManager;
         protected string paisesMicroservicioPersonalizacion;
         protected string estrategiaWebApiDisponibilidadTipo;
