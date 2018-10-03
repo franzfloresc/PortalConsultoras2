@@ -18,10 +18,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -46,10 +46,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -74,10 +74,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -102,10 +102,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -130,10 +130,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -158,10 +158,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -186,10 +186,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -214,10 +214,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -242,10 +242,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -270,10 +270,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -298,10 +298,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -326,10 +326,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, encuentra aquí las', valor2 = 'promociones de campaña' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'oferta_digital_logo_normal.png' where Codigo = 'LogoMenuInicioNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gifofertasdigitales.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 

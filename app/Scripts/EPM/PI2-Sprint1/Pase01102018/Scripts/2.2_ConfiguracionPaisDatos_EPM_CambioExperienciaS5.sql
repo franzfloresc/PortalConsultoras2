@@ -6,14 +6,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO
@@ -83,14 +83,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO
@@ -160,14 +160,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO
@@ -237,14 +237,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO
@@ -314,14 +314,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO
@@ -391,14 +391,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO
@@ -468,14 +468,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO
@@ -545,14 +545,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO
@@ -622,14 +622,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO
@@ -699,14 +699,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO
@@ -776,14 +776,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO
@@ -853,14 +853,14 @@ GO
 /* *************************************** */
 GO
 
-UPDATE [dbo].[ConfiguracionPaisDatos]
-SET
-	valor1 = 'gifofertasdigitales.gif'
-FROM [dbo].[ConfiguracionPaisDatos] D
-	JOIN [dbo].[ConfiguracionPais] P
-	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
-	and P.Codigo = 'RDI'
-where D.Codigo = 'LogoMenuOfertas';
+--UPDATE [dbo].[ConfiguracionPaisDatos]
+--SET
+--	valor1 = 'gifofertasdigitales.gif'
+--FROM [dbo].[ConfiguracionPaisDatos] D
+--	JOIN [dbo].[ConfiguracionPais] P
+--	ON D.ConfiguracionPaisID = P.ConfiguracionPaisID
+--	and P.Codigo = 'RDI'
+--where D.Codigo = 'LogoMenuOfertas';
 GO
 /* *************************************** */
 GO

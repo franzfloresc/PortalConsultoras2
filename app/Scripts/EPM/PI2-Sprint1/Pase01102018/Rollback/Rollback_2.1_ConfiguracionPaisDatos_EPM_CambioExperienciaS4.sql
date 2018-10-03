@@ -19,10 +19,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -47,10 +47,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -75,10 +75,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -103,10 +103,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -131,10 +131,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -159,10 +159,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -187,10 +187,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -215,10 +215,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -243,10 +243,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -271,10 +271,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -299,10 +299,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
@@ -327,10 +327,10 @@ GO
 update [dbo].[ConfiguracionPaisDatos] set Valor1='#NOMBRE, TODAS', valor2 = 'TUS OFERTAS EN UN<br/> SOLO LUGAR' where Codigo = 'DPedidoNoInscritaNoActiva'
 GO
 
-update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
-GO
+--update [dbo].[ConfiguracionPaisDatos] set Valor2 = 'inicio-ganamas-mobile_normal.svg' where Codigo = 'LogoMenuInicioNoActiva'
+--GO
 
-update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
+--update [dbo].[ConfiguracionPaisDatos] set valor1 = 'gif-ganamas.gif' where Codigo = 'LogoMenuOfertasNoActiva'
 GO
 
 
