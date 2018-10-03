@@ -283,7 +283,7 @@ function storageIsSuport(storage) {
 }
 
 function LocalStorageLimpiar() {
-    debugger
+    
     if (typeof (Storage) !== 'undefined' && storageIsSuport(window.localStorage)) {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
