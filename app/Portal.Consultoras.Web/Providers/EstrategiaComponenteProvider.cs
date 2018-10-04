@@ -133,6 +133,10 @@ namespace Portal.Consultoras.Web.Providers
             
             listaProducto = GetEstrategiaProducto(_paisId, estrategiaModelo.EstrategiaID);
 
+            var codigoIsoPais = SessionManager.GetUserData().CodigoISO;
+            var codigoIsoAppCatalogo = System.Configuration.ConfigurationManager.AppSettings.Get("AppCatalogo_" + codigoIsoPais);
+            codigoIsoPais = (codigoIsoAppCatalogo == null) ? codigoIsoPais : codigoIsoAppCatalogo;
+
             listaProducto.ForEach(x =>
             {
                 x.NombreComercial = x.NombreComercial ?? string.Empty;
@@ -140,9 +144,7 @@ namespace Portal.Consultoras.Web.Providers
                 x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
-
-                var codigoIsoPais = SessionManager.GetUserData().CodigoISO;
-                var campaniaId = estrategiaModelo.CampaniaID;
+                var campaniaId = estrategiaModelo.CampaniaID;//SessionManager.SessionManager.Instance.GetUserData().CampaniaID;
                 var codigoMarca = string.Empty;
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
