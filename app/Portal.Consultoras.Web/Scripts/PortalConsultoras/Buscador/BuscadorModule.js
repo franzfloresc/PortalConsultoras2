@@ -505,7 +505,7 @@ var BuscadorModule = (function(){
         },
         ClickVerTodos: function() {
             var valorBusqueda = $(_elementos.campoBuscadorProductos).val();
-            var url = _config.urlBusquedaProducto + "?textoBusqueda=" + valorBusqueda;
+            var url = _config.urlBusquedaProducto + "?q=" + valorBusqueda;
             window.location.href = url;
         }
     };
