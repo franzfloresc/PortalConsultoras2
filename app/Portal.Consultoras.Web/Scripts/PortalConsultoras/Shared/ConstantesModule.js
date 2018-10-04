@@ -18,7 +18,8 @@ var ConstantesModule = (function () {
         HerramientasVenta: "Demostradores",
         ProgramaNuevasRegalo: "ProgramaNuevasRegalo",
         ParticipaProgramaNuevas: "ParticipaProgramaNuevas",
-        NotParticipaProgramaNuevas: "NotParticipaProgramaNuevas"
+        NotParticipaProgramaNuevas: "NotParticipaProgramaNuevas",
+        Ganadoras : "Ganadoras"
     }
     
     var _keysLocalStorage = {
@@ -73,6 +74,8 @@ var ConstantesModule = (function () {
         OfertaDelDiaDesktopHomeBanner: "1191",
         OfertaDelDiaDesktopPedidoBanner: "1291",
         OfertaDelDiaDesktopGeneralBanner: "1991",
+        GanadorasDesktop: "7001",
+        GanadorasMobile: "7002"
     }
     
     return {

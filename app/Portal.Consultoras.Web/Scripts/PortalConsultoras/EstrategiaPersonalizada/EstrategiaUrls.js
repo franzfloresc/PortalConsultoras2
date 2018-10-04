@@ -9,9 +9,10 @@ function OnClickFichaDetalle(e) {
     var codigoEstrategia = $.trim(infoCuvItem.CodigoEstrategia);
     var codigoCampania = $.trim(infoCuvItem.CampaniaID);
     var codigoCuv = $.trim(infoCuvItem.CUV2);
-    var UrlDetalle = GetPalanca(codigoEstrategia);
     var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), true);
-
+    
+    var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
+                                            
     if (OrigenPedidoWeb == "" || OrigenPedidoWeb === "undefined" || OrigenPedidoWeb == null)
         OrigenPedidoWeb = "";
 
@@ -38,7 +39,8 @@ function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigo
     return true;
 }
 
-function GetPalanca(codigoEstrategia) {
+function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
+    OrigenPedidoWeb = OrigenPedidoWeb || -1;
 
     var url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
 
@@ -59,7 +61,12 @@ function GetPalanca(codigoEstrategia) {
                 url += ConstantesModule.CodigosPalanca.Lanzamiento + "/";
                 break;
             case ConstantesModule.ConstantesPalanca.OfertasParaMi:
-                url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
+                {
+                    if (OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.GanadorasDesktop || OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.GanadorasMobile)
+                        url += ConstantesModule.CodigosPalanca.Ganadoras + "/";
+                    else
+                        url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
+                }
                 break;
             case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
                 url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
