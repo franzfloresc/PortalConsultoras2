@@ -109,7 +109,6 @@
         },
 
         ClickItemOrdenar: function () {
-            
             $(_elementos.linkItemDropDown).removeClass(_modificador.linkItemDropDown);
             $(this).children().addClass(_modificador.linkItemDropDown);
             var valorOrdenamiento = $(this).data("value");
@@ -128,7 +127,7 @@
                 });
 
         },
-        ScrollPage: function () {
+        ScrollCargarProductos: function () {
             _config.cargandoProductos = true;
             _config.numeroPaginaActual++;
             var modelo = _funciones.ConstruirModeloBusqueda();
@@ -153,7 +152,7 @@
 
     function ScrollPagina() {
         if (_funciones.ValidarScroll()) {
-            _eventos.ScrollPage();
+            _eventos.ScrollCargarProductos();
         }
     }
 
