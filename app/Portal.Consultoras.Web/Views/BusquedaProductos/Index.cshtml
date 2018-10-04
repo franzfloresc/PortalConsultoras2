@@ -63,7 +63,7 @@
                 </div>
             </section>
         }
-        <section class="col-12 pl-0 pr-0 fichas__productos__wrapper" id="FichasProductosBuscador"></section>
+        <section class="col-12 pl-0 pr-0 fichas__productos__wrapper text-center" id="FichasProductosBuscador"></section>
     </section>
 </section>
 @section scripts{
@@ -106,16 +106,11 @@
             <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
                 {{#if_eq CodigoEstrategia '2003'}}
                 <!-- BOTÓN ELIGE TU OPCIÓN -->
-                <div class="col pl-0 pr-0 flex-grow-1">
-                    <a class="row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion ml-0 mr-0 text-uppercase text-center">
-                        <span class="col-2 pl-0 pr-0 icono_elige_tu_opcion d-block">
-                            <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
-                        </span>
-                        <span class="col-8 pl-0 pr-0 text-bold d-block">
+                <a class="row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion ml-0 mr-0 text-uppercase text-center">
+                    <span class="col-12 pl-0 pr-0 text-bold d-block">
                             Elige tu opción
-                        </span>
-                    </a>
-                </div>
+                    </span>
+                </a>
                 <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
                 {{else}}
                 <div class="col pl-0 pr-0">
