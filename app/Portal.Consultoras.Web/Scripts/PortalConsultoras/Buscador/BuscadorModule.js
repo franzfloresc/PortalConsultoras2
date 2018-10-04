@@ -55,7 +55,9 @@ var BuscadorModule = (function(){
         isMobile: window.matchMedia("(max-width:991px)").matches,
         caracteresBuscador: CaracteresBuscador,
         totalResultadosBuscador: TotalResultadosBuscador,
-        urlBusquedaProducto: "/BusquedaProductos"
+        urlBusquedaProducto: "/BusquedaProductos",
+        aplicarLogicaCantidadBotonVerTodos: (AplicarLogicaCantidadBotonVerTodos === 'true')
+
 };
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {
@@ -292,7 +294,7 @@ var BuscadorModule = (function(){
                         async: true,
                         cache: false,
                         success: function (msg) {
-                            console.log(msg);
+
                         }
                     });
 
@@ -302,15 +304,16 @@ var BuscadorModule = (function(){
                             $(".spinner").fadeOut(150);
                             $(".busqueda_sin_resultados").fadeIn(60);
                         } else {
-                            var lista = r.productos;
+
                             $.each(r.productos, function (index, item) {
                                 item.posicion = index + 1;
                                 if (item.Descripcion.length > TotalCaracteresEnListaBuscador) {
                                     item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + "...";
                                 }
-                            });
+                            });                            
 
-                            SetHandlebars("#js-ResultadoBuscador", lista, "#ResultadoBuscador");
+                            SetHandlebars("#js-ResultadoBuscador", r.productos, "#ResultadoBuscador");
+
                             setTimeout(function () {
                                 if ($(".busqueda_sin_resultados").is(":visible")) {
                                     $(".busqueda_sin_resultados").fadeOut(60);
@@ -325,11 +328,15 @@ var BuscadorModule = (function(){
                                         100);
                                 }
                             }, 400);
+
+                            // si está activa la lógica para ocultar BotonVerTodos
+                            if (_config.aplicarLogicaCantidadBotonVerTodos && r.total < _config.totalResultadosBuscador) {
+                                $('.ver_todos_los_resultados_wrapper').hide();
+                            }
                         }
                     };
 
                     xhr.then(successBusqueda, function (e) {
-                        console.log(e);
                     });
 
                 }, 200);

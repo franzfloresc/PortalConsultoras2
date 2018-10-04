@@ -2944,7 +2944,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var item in listaDescripciones)
             {
-                result.Add(item.Codigo.ToString(), string.IsNullOrEmpty(item.Valor) ? "" : item.Valor.ToString());
+                result.Add(item.Descripcion.ToString(), string.IsNullOrEmpty(item.Valor) ? "" : item.Valor.ToString());
             }
 
             return result;

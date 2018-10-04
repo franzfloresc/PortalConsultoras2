@@ -9,7 +9,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model = new BusquedaProductoOutModel
             {
-                TextoBusqueda = textoBusqueda
+                TextoBusqueda = textoBusqueda,
+                ListaOrdenamiento = userData.ListaOrdenamientoFiltrosBuscador
             };
             return View(model);
         }

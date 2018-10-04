@@ -36,28 +36,28 @@
                         <!-- FIN - AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
                     </div>
                     <ul id="ul-ordenar" class="col-9 col-md-10 col-lg-6 col-xl-6 pl-0 pr-0 opcion__ordenamiento__dropdown__lista d-none">
-                        <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                            <!-- CUANDO UNA OPCIÓN ESTÁ SELECCIONADA AGREGAR LA CLASE opcion__ordenamiento__dropdown__link--seleccionada -->
-                            <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada" title="Recomendación">
-                                Recomendación
-                            </a>
-                            <!-- FIN - CUANDO UNA OPCIÓN ESTÁ SELECCIONADA AGREGAR LA CLASE opcion__ordenamiento__dropdown__link--seleccionada -->
-                        </li>
-                        <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                            <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Ganancia">
-                                Ganancia
-                            </a>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                            <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Precio de menor a mayor">
-                                Precio de menor a mayor
-                            </a>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                            <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Precio de mayor a menor">
-                                Precio de mayor a menor
-                            </a>
-                        </li>
+
+
+                        @for (int i = 0; i < Model.ListaOrdenamiento.Count; i++)
+                        {
+                            if (i == 0)
+                            {
+                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
+                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada" title="@Model.ListaOrdenamiento.ToList()[i].Key" data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                        @Model.ListaOrdenamiento.ToList()[i].Key
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
+                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="@Model.ListaOrdenamiento.ToList()[i].Key" data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                        @Model.ListaOrdenamiento.ToList()[i].Key
+                                    </a>
+                                </li>
+                            }
+                        }
+
                     </ul>
                 </div>
             </section>
