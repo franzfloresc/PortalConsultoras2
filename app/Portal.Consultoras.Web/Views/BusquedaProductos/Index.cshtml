@@ -1,9 +1,6 @@
-﻿@using System.Web.Optimization
-@model Portal.Consultoras.Web.Models.Buscador.BusquedaProductoOutModel
+﻿@model Portal.Consultoras.Web.Models.Buscador.BusquedaProductoOutModel
 
 @{
-    /**/
-
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 }
@@ -42,16 +39,20 @@
                         {
                             if (i == 0)
                             {
-                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada" title="@Model.ListaOrdenamiento.ToList()[i].Key" data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block" 
+                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada" 
+                                       title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                         @Model.ListaOrdenamiento.ToList()[i].Key
                                     </a>
                                 </li>
                             }
                             else
                             {
-                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="@Model.ListaOrdenamiento.ToList()[i].Key" data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
+                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link" 
+                                       title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                         @Model.ListaOrdenamiento.ToList()[i].Key
                                     </a>
                                 </li>
@@ -111,7 +112,7 @@
                             <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
                         </span>
                         <span class="col-8 pl-0 pr-0 text-bold d-block">
-                            Elige<br /> tu opción
+                            Elige tu opción
                         </span>
                     </a>
                 </div>
