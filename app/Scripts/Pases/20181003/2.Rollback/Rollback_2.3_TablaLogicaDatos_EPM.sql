@@ -1,4 +1,4 @@
-﻿﻿GO
+﻿GO
 USE BelcorpPeru
 GO
 UPDATE TablaLogicaDatos SET Descripcion = 'Club Gana+' WHERE TablaLogicaDatosID = 14501
