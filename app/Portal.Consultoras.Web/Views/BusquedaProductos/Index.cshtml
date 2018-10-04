@@ -62,7 +62,7 @@
                 </div>
             </section>
         }
-        <section class="col-12 pl-0 pr-0 fichas__productos__wrapper text-center" id="FichasProductosBuscador"></section>
+        <section class="col-12 fichas__productos__wrapper text-center" id="FichasProductosBuscador"></section>
     </section>
 </section>
 @section scripts{
@@ -74,7 +74,7 @@
 
 <script id="js-FichaProductoBuscador" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <article class="ficha__producto d-inline-block" data-item="BuscadorFichasProductos">
+    <article class="ficha__producto" data-item="BuscadorFichasProductos">
         <input type="hidden" class="hdBuscadorFichaJSON" value="{{JSON2string item}}" />
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 ficha__producto__imagen text-center">
@@ -106,13 +106,13 @@
                 {{#if_eq CodigoEstrategia '2003'}}
                 <!-- BOTÓN ELIGE TU OPCIÓN -->
                 <a class="row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion ml-0 mr-0 text-uppercase text-center">
-                    <span class="col-12 pl-0 pr-0 text-bold d-block">
-                        Elige<br /> tu opción
+                    <span class="col-12 pl-0 pr-0 text-bold d-inline-block">
+                        @*Elige tu opción*@
                     </span>
                 </a>
                 <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
                 {{else}}
-                <div class="col pl-0 pr-0">
+                <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
                     <div class="liquidacion_rango_home js-no-popup">
                         <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
                         <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
@@ -125,7 +125,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-7 pl-0 pr-0 flex-grow-1">
+                <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
                     <a class="boton_Agregalo_home text-center text-uppercase d-block">
                         Agrégalo
                     </a>
