@@ -6,7 +6,8 @@
         footer: "footer",
         spanTotalProductos: "#TotalProductos",
         itemDropDown: ".opcion__ordenamiento__dropdown__item",
-        linkItemDropDown: ".opcion__ordenamiento__dropdown__link"
+        linkItemDropDown: ".opcion__ordenamiento__dropdown__link",
+        btnAgregar: ".FichaAgregarProductoBuscador"
        
     };
     var _modificador = {
@@ -51,6 +52,7 @@
         InicializarEventos: function () {
             $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
+            $(document).on("click", _elementos.btnAgregar, _eventos.RegistratProducto);
         },
         ConstruirModeloBusqueda: function () {
             var modelo = {
@@ -136,6 +138,12 @@
                 }).fail(function (data, error) {
                     console.error(error.toString());
                 });
+        },
+        RegistratProducto: function (e) {
+            e.preventDefault();
+            AbrirLoad();
+            var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
+            BuscadorProvider.RegistroProductoBuscador(divPadre);
         }
     };
 
