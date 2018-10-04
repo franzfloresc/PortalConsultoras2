@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@SubTipoOfertaSisID", DbType.Int16, pedidowebdetalle.SubTipoOfertaSisID);
             Context.Database.AddInParameter(command, "@EsSugerido", DbType.Boolean, pedidowebdetalle.EsSugerido);
             Context.Database.AddInParameter(command, "@EsKitNueva", DbType.Boolean, pedidowebdetalle.EsKitNueva);
-            Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int16, pedidowebdetalle.OrigenPedidoWeb);
+            Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int32, pedidowebdetalle.OrigenPedidoWeb);
             Context.Database.AddOutParameter(command, "@PedidoDetalleID", DbType.Int16, 2);
 
             Context.ExecuteNonQuery(command);
@@ -198,7 +198,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoUsuarioModificacion", DbType.String, pedidowebdetalle.CodigoUsuarioModificacion);
             Context.Database.AddInParameter(command, "@EsSugerido", DbType.Boolean, pedidowebdetalle.EsSugerido);
             Context.Database.AddInParameter(command, "@OrdenPedidoWD", DbType.Int32, pedidowebdetalle.OrdenPedidoWD);
-            Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int16, pedidowebdetalle.OrigenPedidoWeb);
+            Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int32, pedidowebdetalle.OrigenPedidoWeb);
             Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, pedidowebdetalle.TipoEstrategiaID);
 
             int result = Context.ExecuteNonQuery(command);

@@ -36,7 +36,11 @@ namespace Portal.Consultoras.BizLogic.Producto
                     item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(listaDescripcionesDic, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, 0, true);
                     item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true);
 
-                    if (isApp) item.OrigenPedidoWeb = Util.ProcesarOrigenPedido(item.OrigenPedidoWeb, true);
+                    if (isApp)
+                    {
+                        item.OrigenPedidoWeb = Util.ProcesarOrigenPedidoApp(item.OrigenPedidoWeb);
+                        item.OrigenPedidoWebFicha = Util.ProcesarOrigenPedidoAppFicha(item.OrigenPedidoWeb);
+                    }
                 });
             }
             catch (Exception ex)
