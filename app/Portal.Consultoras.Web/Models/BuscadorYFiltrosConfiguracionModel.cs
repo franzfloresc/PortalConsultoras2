@@ -6,6 +6,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class BuscadorYFiltrosConfiguracionModel
     {
         public BuscadorYFiltrosConfiguracionModel()
