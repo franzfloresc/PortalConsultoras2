@@ -2,7 +2,7 @@
 
     var _elementos = {
         body: "body",
-        opcionOrdenar: "#dpw-ordenar",
+        opcionOrdenar: "#dpw-ordenar, .opcion__ordenamiento__label",
         footer: "footer",
         spanTotalProductos: "#TotalProductos",
         desplegado: "opcion__ordenamiento__dropdown--desplegado"
