@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private string pasoLog;
         private int misCursos = 0;
-        private int flagMiAcademiaVideo = 0;  //  PPC
+        private int flagMiAcademiaVideo = 0;  
         private string urlSapParametro = "";  //  PPC
 
         private readonly string IP_DEFECTO = "190.187.154.154";
@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (misCursos > 0)
                 {
                     sessionManager.SetMiAcademia(misCursos);
-                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  //PPC
+                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo); 
                     sessionManager.SetMiAcademiaParametro(urlSapParametro);  //PPC
                     
                     return RedirectToAction("Index", "MiAcademia");
@@ -185,12 +185,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     misCursos = Convert.ToInt32(MiId[0]);
                     TempData["MiAcademia"] = misCursos;
-                    // PPC
+                    
                     if (MiCurso[0].ToUpper() == "MIACADEMIAVIDEO")
                     {
                         flagMiAcademiaVideo = 1;
                     }
-                    // PPC
+                    
                     else
                     {
                         TempData["FlagAcademiaVideo"] = 0;
@@ -399,15 +399,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
-
-            //if (usuario != null)
-            //{
-            //    using (var usuarioServiceClient = new UsuarioServiceClient())
-            //    {
-            //        //usuarioServiceClient.actualizano
-            //    }
-            //}
-
+            
             if (usuario == null)
             {
                 if (Request.IsAjaxRequest())
@@ -430,8 +422,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (misCursos > 0)
             {
-                flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);  //PPC
-                sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  //PPC
+                flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);  
+                sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  
 
                 returnUrl = Url.Action("Index", "MiAcademia");
 

@@ -110,20 +110,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BaseController(ISessionManager sessionManager)
         {
-            //userData = new UsuarioModel();
             this.SessionManager = sessionManager;
         }
 
         public BaseController(ISessionManager sessionManager, ILogManager logManager)
         {
-            //userData = new UsuarioModel();
             SessionManager = sessionManager;
             this.logManager = logManager;
         }
 
         public BaseController(ISessionManager sessionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider)
         {
-            //userData = new UsuarioModel();
             SessionManager = sessionManager;
             this.logManager = logManager;
             this._ofertaPersonalizadaProvider = ofertaPersonalizadaProvider;
@@ -131,7 +128,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BaseController(ISessionManager sessionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
         {
-            //userData = new UsuarioModel();
             SessionManager = sessionManager;
             this.logManager = logManager;
             this._ofertaPersonalizadaProvider = ofertaPersonalizadaProvider;
@@ -141,7 +137,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BaseController(ISessionManager sessionManager, ILogManager logManager, EstrategiaComponenteProvider estrategiaComponenteProvider)
         {
-            //userData = new UsuarioModel();
             SessionManager = sessionManager;
             this.logManager = logManager;
             this._estrategiaComponenteProvider = estrategiaComponenteProvider;
@@ -155,15 +150,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //userData = UserData();
                 if (userData == null)
                 {
                     string urlSignOut = ObtenerUrlCerrarSesion();
                     filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
-
-                //revistaDigital = SessionManager.GetRevistaDigital();
+                
                 herramientasVenta = SessionManager.GetHerramientasVenta();
                 guiaNegocio = SessionManager.GetGuiaNegocio();
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
@@ -502,16 +495,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region UserData
-
-        //public UsuarioModel UserData()
-        //{
-        //    var model = SessionManager.GetUserData() ?? new UsuarioModel();
-
-        //    model.MenuNotificaciones = 1;
-
-        //    return model;
-        //}
-        
+                
         public string GetIPCliente()
         {
             var ip = string.Empty;
