@@ -16257,6 +16257,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadas", ReplyAction="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadasResponse")]
         System.Threading.Tasks.Task<int> GetCantidadOfertasPersonalizadasAsync(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenes", ReplyAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenesResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEEstrategia[] GetOfertasPersonalizadasImagenes(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenes", ReplyAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenesResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstrategia[]> GetOfertasPersonalizadasImagenesAsync(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfigurado", ReplyAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfiguradoResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEEstrategia[] GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
         
@@ -17733,6 +17739,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<int> GetCantidadOfertasPersonalizadasAsync(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia) {
             return base.Channel.GetCantidadOfertasPersonalizadasAsync(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEEstrategia[] GetOfertasPersonalizadasImagenes(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia) {
+            return base.Channel.GetOfertasPersonalizadasImagenes(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstrategia[]> GetOfertasPersonalizadasImagenesAsync(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia) {
+            return base.Channel.GetOfertasPersonalizadasImagenesAsync(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEEstrategia[] GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv) {

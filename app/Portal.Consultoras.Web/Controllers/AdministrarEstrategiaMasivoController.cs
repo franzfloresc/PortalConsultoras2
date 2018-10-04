@@ -27,6 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 int cantidadEstrategiasConfiguradas;
                 int cantidadEstrategiasSinConfigurar;
+                int cantidadEstrategiasSinConfigurarImagen = 0;
                 var txtBuildOddIdsEstrategia = new StringBuilder();
                 try
                 {
@@ -50,6 +51,9 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             cantidadEstrategiasConfiguradas = svc.GetCantidadOfertasPersonalizadas(userData.PaisID, campaniaId, 1, codigoEstrategia);
                             cantidadEstrategiasSinConfigurar = svc.GetCantidadOfertasPersonalizadas(userData.PaisID, campaniaId, 2, codigoEstrategia);
+                            // Consultar cuantas imagnes si estan en la nueva tabla
+                            var estrategiasSinConfigurarLista = svc.GetOfertasPersonalizadasImagenes(userData.PaisID, campaniaId, 2, codigoEstrategia);
+                            cantidadEstrategiasSinConfigurarImagen = estrategiasSinConfigurarLista.ToList().Count;
                         }
                     }
                 }
@@ -58,6 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
                     LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     cantidadEstrategiasConfiguradas = 0;
                     cantidadEstrategiasSinConfigurar = 0;
+                    cantidadEstrategiasSinConfigurarImagen = 0;
                 }
 
                 var lst = new List<ComunModel>
@@ -87,6 +92,18 @@ namespace Portal.Consultoras.Web.Controllers
                         mongoIds = txtBuildOddIdsEstrategia.ToString()
                     }
                 };
+
+                if (cantidadEstrategiasSinConfigurarImagen > 0)
+                {
+                    lst.Add(new ComunModel
+                    {
+                        Id = 4,
+                        Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
+                        Valor = cantidadEstrategiasSinConfigurarImagen.ToString(),
+                        ValorOpcional = "3",
+                        mongoIds = ""
+                    });
+                }
 
                 var grid = new BEGrid
                 {

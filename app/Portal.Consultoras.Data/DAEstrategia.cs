@@ -563,6 +563,18 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public IDataReader GetOfertasPersonalizadasImagenes(int campaniaId, int tipoConfigurado, string codigoEstrategia)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasPersonalizadasImagenes"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
+                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, codigoEstrategia);
+                command.CommandTimeout = 0;
+                return Context.ExecuteReader(command);
+            }
+        }
+
         public IDataReader GetOfertasPersonalizadasByTipoConfigurado(int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasPersonalizadasByTipoConfigurado"))

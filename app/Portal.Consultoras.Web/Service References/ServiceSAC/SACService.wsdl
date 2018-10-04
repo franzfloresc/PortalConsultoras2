@@ -320,6 +320,12 @@
   <wsdl:message name="ISACService_GetCantidadOfertasPersonalizadas_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCantidadOfertasPersonalizadasResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_GetOfertasPersonalizadasImagenes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfertasPersonalizadasImagenes" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetOfertasPersonalizadasImagenes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfertasPersonalizadasImagenesResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetOfertasPersonalizadasByTipoConfigurado_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOfertasPersonalizadasByTipoConfigurado" />
   </wsdl:message>
@@ -1577,6 +1583,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadas" message="tns:ISACService_GetCantidadOfertasPersonalizadas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadasResponse" message="tns:ISACService_GetCantidadOfertasPersonalizadas_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetOfertasPersonalizadasImagenes">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenes" message="tns:ISACService_GetOfertasPersonalizadasImagenes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenesResponse" message="tns:ISACService_GetOfertasPersonalizadasImagenes_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetOfertasPersonalizadasByTipoConfigurado">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfigurado" message="tns:ISACService_GetOfertasPersonalizadasByTipoConfigurado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfiguradoResponse" message="tns:ISACService_GetOfertasPersonalizadasByTipoConfigurado_OutputMessage" />
@@ -2708,6 +2718,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCantidadOfertasPersonalizadas">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfertasPersonalizadasImagenes">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4737,6 +4756,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCantidadOfertasPersonalizadas">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfertasPersonalizadasImagenes">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

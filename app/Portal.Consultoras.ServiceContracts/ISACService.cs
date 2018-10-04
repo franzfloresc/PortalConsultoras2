@@ -794,6 +794,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int GetCantidadOfertasPersonalizadas(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
+        
+        [OperationContract]
+        List<BEEstrategia> GetOfertasPersonalizadasImagenes(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
 
         [OperationContract]
         List<BEEstrategia> GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);

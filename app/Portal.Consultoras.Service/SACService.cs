@@ -1558,7 +1558,12 @@ namespace Portal.Consultoras.Service
         {
             return _blAdministrarEstrategia.GetCantidadOfertasPersonalizadas(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
         }
-        
+
+        public List<BEEstrategia> GetOfertasPersonalizadasImagenes(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
+        {
+            return _blAdministrarEstrategia.GetOfertasPersonalizadasImagenes(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
+        }
+
         public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
         {
             return _blAdministrarEstrategia.GetOfertasPersonalizadasByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv);

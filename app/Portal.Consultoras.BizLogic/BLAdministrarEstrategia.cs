@@ -31,6 +31,29 @@ namespace Portal.Consultoras.BizLogic
             int result = daEstrategia.GetCantidadOfertasPersonalizadas(campaniaId, tipoConfigurado, codigoEstrategia);
             return result;
         }
+        
+        public List<BEEstrategia> GetOfertasPersonalizadasImagenes(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
+        {
+            var listaEstrategias = new List<BEEstrategia>();
+            try
+            {
+                var daEstrategia = new DAEstrategia(paisId);
+                using (IDataReader reader = daEstrategia.GetOfertasPersonalizadasImagenes(campaniaId, tipoConfigurado, codigoEstrategia))
+                {
+                    while (reader.Read())
+                    {
+                        listaEstrategias.Add(new BEEstrategia(reader, true));
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                listaEstrategias = new List<BEEstrategia>();
+            }
+            return listaEstrategias;
+        }
 
         public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
         {
