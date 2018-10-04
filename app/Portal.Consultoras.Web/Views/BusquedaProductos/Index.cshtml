@@ -1,6 +1,9 @@
 ﻿@using System.Web.Optimization
+@model Portal.Consultoras.Web.Models.Buscador.BusquedaProductoOutModel
 
 @{
+    /**/
+
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 }
@@ -14,49 +17,53 @@
                 Resultados de la búsqueda
             </h1>
             <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados">
-                <span class="busqueda__num__productos__encontrados">4</span>  resultados para: <span class="busqueda__nom__filtro text-bold">Kalos</span>
+                <span id="TotalProductos" class="busqueda__num__productos__encontrados">0</span>  resultados para: <span id="TextoBusqueda" class="busqueda__nom__filtro text-bold">@Model.TextoBusqueda</span>
             </p>
         </section>
-        <section class="col-12 col-lg-6 col-xl-6 lista__opciones_ordenamiento">
-            <div class="row flex-row justify-content-end ml-0 mr-0">
-                <div class="col-6 col-lg-10 col-xl-10 pl-0 pr-0 opcion_ordenamiento text-lg-right text-xl-right">
-                    <label class="col-12 col-lg-3 col-xl-3 pl-0 d-inline-block text-center text-lg-right text-xl-right opcion__ordenamiento__label">Ordenar</label>
-                    <!-- AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
-                    <div class="col-12 col-lg-67 col-xl-6 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
-                        <span class="col-11 opcion__ordenamiento__dropdown__seleccionada mostrarEnDesktop">Recomendación</span>
-                        <span class="col pl-0 pr-0 opcion__ordenamiento__dropdown__icono mostrarEnDesktop">
-                            <img src="@Url.Content("~/Content/Images/ordenar-flecha-icono.svg")" alt="" />
-                        </span>
+        @if (ViewBag.MostrarOpcionesOrdenamiento)
+        {
+            <section class="col-12 col-lg-6 col-xl-6 lista__opciones_ordenamiento">
+                <div class="row flex-row justify-content-end ml-0 mr-0">
+                    <div class="col-6 col-lg-10 col-xl-10 pl-0 pr-0 opcion_ordenamiento text-lg-right text-xl-right">
+                        <label class="col-12 col-lg-3 col-xl-3 pl-0 d-inline-block text-center text-lg-right text-xl-right opcion__ordenamiento__label">Ordenar</label>
+                        <!-- AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
+                        <div id="dpw-ordenar" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
+                            <span class="col-11 opcion__ordenamiento__dropdown__seleccionada mostrarEnDesktop">Recomendación</span>
+                            <span class="col pl-0 pr-0 opcion__ordenamiento__dropdown__icono mostrarEnDesktop">
+                                <img src="@Url.Content("~/Content/Images/ordenar-flecha-icono.svg")" alt="" />
+                            </span>
+                        </div>
+                        <!-- FIN - AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
                     </div>
-                    <!-- FIN - AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
+                    <ul id="ul-ordenar" class="col-9 col-md-10 col-lg-6 col-xl-6 pl-0 pr-0 opcion__ordenamiento__dropdown__lista d-none">
+
+
+                        @for (int i = 0; i < Model.ListaOrdenamiento.Count; i++)
+                        {
+                            if (i == 0)
+                            {
+                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
+                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada" title="@Model.ListaOrdenamiento.ToList()[i].Key" data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                        @Model.ListaOrdenamiento.ToList()[i].Key
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
+                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="@Model.ListaOrdenamiento.ToList()[i].Key" data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                        @Model.ListaOrdenamiento.ToList()[i].Key
+                                    </a>
+                                </li>
+                            }
+                        }
+
+                    </ul>
                 </div>
-                <ul class="col-9 col-md-10 col-lg-6 col-xl-6 pl-0 pr-0 opcion__ordenamiento__dropdown__lista">
-                    <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                        <!-- CUANDO UNA OPCIÓN ESTÁ SELECCIONADA AGREGAR LA CLASE opcion__ordenamiento__dropdown__link--seleccionada -->
-                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada" title="Recomendación">
-                            Recomendación
-                        </a>
-                        <!-- FIN - CUANDO UNA OPCIÓN ESTÁ SELECCIONADA AGREGAR LA CLASE opcion__ordenamiento__dropdown__link--seleccionada -->
-                    </li>
-                    <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Ganancia">
-                            Ganancia
-                        </a>
-                    </li>
-                    <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Precio de menor a mayor">
-                            Precio de menor a mayor
-                        </a>
-                    </li>
-                    <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="Precio de mayor a menor">
-                            Precio de mayor a menor
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </section>
+            </section>
+        }
         <section class="col-12 pl-0 pr-0 fichas__productos__wrapper">
+            <!-- FICHAS DE PRODUCTO -->
             <article class="ficha__producto d-inline-block">
                 <div class="row flex-row justify-content-center ml-0 mr-0">
                     <figure class="col-12 ficha__producto__imagen text-center">
@@ -123,8 +130,11 @@
                     </div>
                     <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
                         <div class="col pl-0 pr-0">
-                            <div class="liquidacion_rango_home js-no-popup">
-                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                            <!-- CUANDO EL PRODUCTO ESTÉ AGOTADO AGREGAR LA CLASE selector_cant_desactivado -->
+                            <div class="liquidacion_rango_home js-no-popup selector_cant_desactivado">
+                                <!-- CUANDO EL PRODUCTO ESTÉ AGOTADO AGREGAR ATRIBUTO disabled -->
+                                <input type="text" value="1" size="2" disabled maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                <!-- FIN - CUANDO EL PRODUCTO ESTÉ AGOTADO AGREGAR ATRIBUTO disabled -->
                                 <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
                                     <a href="#" class="mas d-block js-no-popup">
                                         <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
@@ -134,11 +144,14 @@
                                     </a>
                                 </div>
                             </div>
+                            <!-- FIN - CUANDO EL PRODUCTO ESTÉ AGOTADO AGREGAR LA CLASE selector_cant_desactivado -->
                         </div>
                         <div class="col-7 pl-0 pr-0 flex-grow-1">
-                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
-                                Agrégalo
+                            <!-- CUANDO EL PRODUCTO ESTE AGOTADO AGREGAR LA CLASE btn_inactivo -->
+                            <a class="boton_Agregalo_home btn_inactivo text-center text-uppercase d-block">
+                                Agotado
                             </a>
+                            <!-- FIN - CUANDO EL PRODUCTO ESTE AGOTADO AGREGAR LA CLASE btn_inactivo -->
                         </div>
                     </div>
                 </div>
@@ -165,24 +178,13 @@
                         </div>
                     </div>
                     <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
-                        <div class="col pl-0 pr-0">
-                            <div class="liquidacion_rango_home js-no-popup">
-                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
-                                <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
-                                    <a href="#" class="mas d-block js-no-popup">
-                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
-                                    </a>
-                                    <a href="#" class="menos d-block js-no-popup">
-                                        <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-7 pl-0 pr-0 flex-grow-1">
-                            <a class="boton_Agregalo_home text-center text-uppercase d-block">
-                                Agrégalo
-                            </a>
-                        </div>
+                        <!-- BOTÓN ELIGE TU OPCIÓN -->
+                        <a class="row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion ml-0 mr-0 text-uppercase text-center">
+                            <span class="col-12 pl-0 pr-0 text-bold d-block">
+                                Elige<br /> tu opción
+                            </span>
+                        </a>
+                        <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
                     </div>
                 </div>
             </article>
@@ -401,9 +403,46 @@
                     </div>
                 </div>
             </article>
+            <article class="ficha__producto d-inline-block">
+                <div class="row flex-row justify-content-center ml-0 mr-0">
+                    <figure class="ficha__producto__imagen d-block mx-auto text-center">
+                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/CR/CR_2000903652018840764_olnrjqsgpf.png" alt="" />
+                    </figure>
+                    <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                            Lbel
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold">
+                            Satin Rouge + Devos Magnetic Seduction +...
+                        </div>
+                    </div>
+                    <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                        <div class="ficha__producto__precio__normal text-left">
+                            ¢ 347.270
+                        </div>
+                        <div class="ficha__producto__precio__oferta text-bold text-left">
+                            ¢ 91.690
+                        </div>
+                    </div>
+                    <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                        <!-- BOTÓN ELIGE TU OPCIÓN -->
+                        <a class="row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion ml-0 mr-0 text-uppercase text-center">
+                            <span class="col-12 pl-0 pr-0 text-bold d-inline-block">
+                                Elige<br /> tu opción
+                            </span>
+                        </a>
+                        <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
+                    </div>
+                </div>
+            </article>
+            <!-- FIN - FICHAS DE PRODUCTO -->
         </section>
     </section>
 </section>
 @section scripts{
+    <script type="text/javascript">
+        var textoBusqueda = '@Model.TextoBusqueda';
+    </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js")"></script>
+
 }

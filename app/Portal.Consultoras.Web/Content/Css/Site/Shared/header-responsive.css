@@ -6,6 +6,11 @@
     background-image:url(/Content/images/cincuenta_anios_belcorp_cabecera.png);
     background-position:left top;
     height:60px;
+    position:fixed;
+    background-color:#FFF;
+    width:100%;
+    top:0;
+    z-index: 2000;
     padding-left:12px;
     padding-right:0;
     -webkit-box-shadow: 0 4px 4px 0 rgba(126,126,126,.5);

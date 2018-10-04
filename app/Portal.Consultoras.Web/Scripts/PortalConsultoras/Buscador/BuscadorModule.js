@@ -70,7 +70,7 @@ var BuscadorModule = (function(){
             $(document).on("click", _elementos.opcionLimpiarBusqueda, _eventos.LimpiarCampoBusqueda);
             $(document).on("click", _elementos.agregarProducto, _eventos.AgregarProducto);
             $(document).on("click", _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
-            $(document).on("click", _elementos.botonVerTodos, _eventos.RedireccionarAFichaDeFotoYDescripcion);
+            $(document).on("click", _elementos.botonVerTodos, _eventos.ClickVerTodos);
         },
         CampoDeBusquedaConCaracteres: function (campoBuscador) {
             if (campoBuscador !== undefined) $(campoBuscador).addClass("campo_buscador_productos_activo");
