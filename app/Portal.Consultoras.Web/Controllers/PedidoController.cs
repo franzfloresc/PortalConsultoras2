@@ -4434,7 +4434,7 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esDuoPerfecto;
                 using (var svc = new ODSServiceClient())
                 {
-                    esDuoPerfecto = svc.EsDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
+                    esDuoPerfecto = svc.EsCuvDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
                 }
 
                 return Json(new {
@@ -4609,7 +4609,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if(WebConfig.Ambiente != "QA") return;
 
-            var listConsultoraRegistro = new List<string> { "006926193", "043862731" };
+            var listConsultoraRegistro = new List<string> { "006926193", "043862731", "011971059", "030320840", "003706273", "009118330", "020466782", "011930654", "011410731", "035515321" };
             if (!listConsultoraRegistro.Contains(userData.CodigoConsultora)) return;
             
             var exTrace =string.Format("ISO:{0};Consultora{1};Cuv:{2}", userData.CodigoISO, userData.CodigoConsultora, cuv);

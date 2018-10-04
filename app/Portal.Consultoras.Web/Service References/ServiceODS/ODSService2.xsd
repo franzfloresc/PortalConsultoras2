@@ -692,7 +692,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="EsDuoPerfecto">
+  <xs:element name="EsCuvDuoPerfecto">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
@@ -703,10 +703,28 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="EsDuoPerfectoResponse">
+  <xs:element name="EsCuvDuoPerfectoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="EsDuoPerfectoResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="EsCuvDuoPerfectoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TieneListaDuoPerfecto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="consecutivoNueva" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
+        <xs:element xmlns:q36="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="lstCuv" nillable="true" type="q36:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TieneListaDuoPerfectoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="TieneListaDuoPerfectoResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -723,7 +741,7 @@
   <xs:element name="ValidarVentaExclusivaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="ValidarVentaExclusivaResult" type="q36:Enumeradores.ValidacionVentaExclusiva" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="ValidarVentaExclusivaResult" type="q37:Enumeradores.ValidacionVentaExclusiva" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

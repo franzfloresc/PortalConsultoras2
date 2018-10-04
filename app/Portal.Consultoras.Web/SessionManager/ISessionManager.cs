@@ -455,5 +455,8 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListaRango(List<List<BEEstadoServicio>> val);
 
         List<List<BEEstadoServicio>> GetListaRango();
+
+        bool GetMostrarBannerNuevas();
+        void SetMostrarBannerNuevas(bool mostrarBannerNuevas);
     }
 }

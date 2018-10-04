@@ -69,7 +69,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     || (revistaDigital.TieneRDC && revistaDigital.ActivoMdo) ?
                     Constantes.TipoEstrategiaCodigo.RevistaDigital : Constantes.TipoEstrategiaCodigo.OfertaParaTi;
 
-                var listModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasHomePedido(IsMobile(), userData.CodigoISO, userData.CampaniaID, codAgrupa);
+                var listModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasHomePedido(IsMobile(), userData, codAgrupa);
 
                 model.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
                 model.Consultora = userData.Sobrenombre;
