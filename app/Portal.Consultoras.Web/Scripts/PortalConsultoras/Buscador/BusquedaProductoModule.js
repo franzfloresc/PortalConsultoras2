@@ -6,8 +6,9 @@
         footer: "footer",
         spanTotalProductos: "#TotalProductos",
         itemDropDown: ".opcion__ordenamiento__dropdown__item",
-        linkItemDropDown: ".opcion__ordenamiento__dropdown__link"
-       
+        linkItemDropDown: ".opcion__ordenamiento__dropdown__link",
+        divContenedorFicha : "#FichasProductosBuscador",
+        scriptHandleBarFicha: "#js-FichaProductoBuscador"
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -22,6 +23,7 @@
         numeroPaginaActual: 0,
         ordenCampo: "orden",
         ordenTipo: "asc",
+        cargandoProductos: false,
         maxCaracteresDesc: TotalCaracteresEnListaBuscador
     };
     var _provider = {
@@ -57,7 +59,7 @@
                 TextoBusqueda: _config.textoBusqueda,
                 Paginacion: {
                     Cantidad: _config.productosPorPagina,
-                    NuemroPagina: _config.numeroPaginaActual
+                    NumeroPagina: _config.numeroPaginaActual
                 },
                 Orden: {
                     Campo: _config.ordenCampo,
@@ -67,14 +69,13 @@
             return modelo;
         },
         CargarProductos: function () {
-
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
                     _config.totalProductos = data.total;
                     $(_elementos.spanTotalProductos).html(data.total);
                     _funciones.ProcesarListaProductos(data.productos);
-
+                    SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
                 }).fail(function (data, error) {
                     console.error(error.toString());
                 });
@@ -85,15 +86,16 @@
                 if (item.Descripcion.length > _config.maxCaracteresDesc) {
                     item.Descripcion = item.Descripcion.substring(0, _config.maxCaracteresDesc) + "...";
                 }
-                console.log(item.Descripcion);
             });
-
-            SetHandlebars("#js-FichaProductoBuscador", productos, "#FichasProductosBuscador");
         },
         ValidarScroll: function () {
-            var footerH = $(window).scrollTop() + $(window).height();
-            footerH += $(_elementos.footer).innerHeight() || 0;
-            return footerH >= $(document).height();
+            if (_config.totalProductos === 0) return false;
+            if (_config.cargandoProductos) return false;
+            if (_config.numeroPaginaActual === Math.ceil(_config.totalProductos / _config.productosPorPagina)) return false;
+            var documentHeight = $(document).height();
+            var footerHeight = $(window).scrollTop() + $(window).height();
+            footerHeight += $(_elementos.footer).innerHeight() || 0;
+            return footerHeight >= documentHeight;
         }
 
     };
@@ -111,7 +113,6 @@
             $(_elementos.linkItemDropDown).removeClass(_modificador.linkItemDropDown);
             $(this).children().addClass(_modificador.linkItemDropDown);
             var valorOrdenamiento = $(this).data("value");
-            console.log("valorOrdenamiento: " + valorOrdenamiento);
             var array = valorOrdenamiento.split("-");
             _config.ordenCampo = array[0].trim();
             _config.ordenTipo = array[1].trim();
@@ -121,19 +122,24 @@
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
                     _funciones.ProcesarListaProductos(data.productos);
+                    SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
                 }).fail(function (data, error) {
                     console.error(error.toString());
                 });
 
         },
         ScrollPage: function () {
-            console.log("Scroll page" + _config.totalProductos);
-            _config.numeroPaginaActual = 0;
+            _config.cargandoProductos = true;
+            _config.numeroPaginaActual++;
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
                     _funciones.ProcesarListaProductos(data.productos);
+                    var htmlDiv = SetHandlebars(_elementos.scriptHandleBarFicha, data.productos);
+                    $(_elementos.divContenedorFicha).append(htmlDiv);
+                    _config.cargandoProductos = false;
                 }).fail(function (data, error) {
+                    _config.cargandoProductos = false;
                     console.error(error.toString());
                 });
         }
@@ -147,7 +153,7 @@
 
     function ScrollPagina() {
         if (_funciones.ValidarScroll()) {
-          // _eventos.ScrollPage();
+            _eventos.ScrollPage();
         }
     }
 
