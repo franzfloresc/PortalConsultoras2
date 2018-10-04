@@ -30,6 +30,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
+        public JsonResult RDObtenerProductosNuevas(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.NuevasObtenerProductos);
+        }
+
+        [HttpPost]
         public JsonResult GNDObtenerProductos(BusquedaProductoModel model)
         {
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos);

@@ -307,6 +307,7 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Controllers\ProgramaNuevasController.cs" />
     <Compile Include="Models\Buscador\BuscadorModel.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
@@ -5318,6 +5319,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHidden.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHiddenSoloDesktop.cshtml" />
     <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
+    <Content Include="Views\ProgramaNuevas\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

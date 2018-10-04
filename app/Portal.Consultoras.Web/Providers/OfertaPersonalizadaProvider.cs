@@ -94,6 +94,10 @@ namespace Portal.Consultoras.Web.Providers
             {
                 palanca = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
             }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.NuevasObtenerProductos)
+            {
+                palanca = Constantes.TipoEstrategiaCodigo.PackNuevas;
+            }
 
             return palanca;
         }
@@ -181,6 +185,10 @@ namespace Portal.Consultoras.Web.Providers
                 listModel1 = listaFinal1;
             }
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos)
+            {
+                listModel1 = listaFinal1;
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.NuevasObtenerProductos)
             {
                 listModel1 = listaFinal1;
             }
@@ -309,7 +317,7 @@ namespace Portal.Consultoras.Web.Providers
             switch (codAgrupacion)
             {
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
-                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
+                    //listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.RevistaDigital, campaniaId));
                     break;
@@ -326,9 +334,12 @@ namespace Portal.Consultoras.Web.Providers
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.LosMasVendidos, campaniaId));
                     break;
                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
-                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
+                    //listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaParaTi, campaniaId));
+                    break;
+                case Constantes.TipoEstrategiaCodigo.PackNuevas:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
                     break;
             }
 

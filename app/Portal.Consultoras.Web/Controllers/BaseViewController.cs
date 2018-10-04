@@ -60,6 +60,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult RDViewLanding(int tipo)
         {
+            var model = GetLandingModel(tipo);
+
+            return PartialView("template-landing", model);
+        }
+
+        protected RevistaDigitalLandingModel GetLandingModel(int tipo)
+        {
             var id = tipo == 1 ? userData.CampaniaID : Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
 
             var model = new RevistaDigitalLandingModel
@@ -79,8 +86,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.PerdioSubTitulo = dato.Valor2;
 
             model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
-
-            return PartialView("template-landing", model);
+            return model;
         }
 
         public ActionResult RDDetalleModel(string cuv, int campaniaId)

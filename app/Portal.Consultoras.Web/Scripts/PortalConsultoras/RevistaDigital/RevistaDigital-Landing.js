@@ -41,7 +41,7 @@ $(document).ready(function () {
         $(this).hide();
     });
 
-    if (isPagina("revistadigital") || isPagina("guianegocio") || isPagina("herramientasventa")) {
+    if (isPagina("revistadigital") || isPagina("guianegocio") || isPagina("herramientasventa") || isPagina("programanuevas")) {
         OfertaCargarProductos(null);
     }
 

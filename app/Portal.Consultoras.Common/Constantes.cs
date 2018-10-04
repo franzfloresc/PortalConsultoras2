@@ -1334,6 +1334,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "HV";
             public const string PagoEnLinea = "PAYONLINE";
             public const string BuscadorYFiltros = "B&F";
+            public const string ProgramaNuevas = "PN";
         }
 
 
@@ -1953,6 +1954,8 @@ namespace Portal.Consultoras.Common
             public const string DetalleShowRoom = "/detalle/especiales";
             public const string DetalleOfertaDelDia = "/detalle/solohoy";
             public const string DetallePackNuevas = "/detalle/packnuevas";
+            public const string ProgramaNuevas = "/programanuevas";
+            public const string ProgramaNuevasIndex = "/programanuevas/index";
         }
 
         public static class TipoVistaEstrategia
@@ -2476,6 +2479,7 @@ namespace Portal.Consultoras.Common
             public const int GNDObtenerProductos = 3;
             public const int HVObtenerProductos = 4;
             public const int OPTObtenerProductos = 5;
+            public const int NuevasObtenerProductos = 6;
         };
 
         #region PagoEnLinea

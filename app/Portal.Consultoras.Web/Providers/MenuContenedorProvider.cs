@@ -161,6 +161,10 @@ namespace Portal.Consultoras.Web.Providers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     menuActivo.MostrarMenuFlotante = false;
                     break;
+                case Constantes.UrlMenuContenedor.ProgramaNuevas:
+                case Constantes.UrlMenuContenedor.ProgramaNuevasIndex:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.ProgramaNuevas;
+                    break;
             }
 
             return menuActivo;
