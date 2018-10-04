@@ -118,8 +118,8 @@
                 <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
                 {{else}}
                 <div class="col pl-0 pr-0">
-                    <div class="liquidacion_rango_home js-no-popup">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                    <div class="liquidacion_rango_home js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup" {{#if Stock}} disabled {{/if}}>
                         <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
                             <a href="#" class="mas d-block js-no-popup">
                                 <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
@@ -131,9 +131,15 @@
                     </div>
                 </div>
                 <div class="col-7 pl-0 pr-0 flex-grow-1">
+                    {{#if Stock}}
+                    <a class="boton_Agregalo_home btn_inactivo text-center text-uppercase d-block">
+                        Agotado
+                    </a>
+                    {{else}}
                     <a class="boton_Agregalo_home text-center text-uppercase d-block">
                         Agrégalo
                     </a>
+                    {{/if}}
                 </div>
                 {{/if_eq}}
             </div>
