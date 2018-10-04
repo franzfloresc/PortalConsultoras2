@@ -7,7 +7,7 @@
         spanTotalProductos: "#TotalProductos",
         itemDropDown: ".opcion__ordenamiento__dropdown__item",
         linkItemDropDown: ".opcion__ordenamiento__dropdown__link",
-        btnAgregar: ".FichaAgregarProductoBuscador"
+        btnAgregar: ".FichaAgregarProductoBuscador",
         divContenedorFicha : "#FichasProductosBuscador",
         scriptHandleBarFicha: "#js-FichaProductoBuscador"
     };
