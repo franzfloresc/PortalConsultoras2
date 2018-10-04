@@ -403,7 +403,7 @@ namespace Portal.Consultoras.BizLogic
             if (lstElectivas.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
 
             var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
-            var limElectivos = (GetNivelesProgramaNuevas(paisID, nivelInput) ?? new BENivelesProgramaNuevas()).UnidadesNivel;
+            var limElectivos = GetLimiteElectivosProgramaNuevas(paisID, nivelInput);
             if (limElectivos <= 0) limElectivos = 1;
 
             var listElecPedido = lstCuvPedido.Where(c => lstElectivas.Any(e => e.CodigoCupon == c)).ToList();
@@ -448,7 +448,7 @@ namespace Portal.Consultoras.BizLogic
             if (electivo == null) return false;
 
             var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
-            var limElectivos = (GetNivelesProgramaNuevas(paisID, nivelInput) ?? new BENivelesProgramaNuevas()).UnidadesNivel;
+            var limElectivos = GetLimiteElectivosProgramaNuevas(paisID, nivelInput);
             if (limElectivos <= 1) return false;
             return true;
         }
@@ -515,11 +515,14 @@ namespace Portal.Consultoras.BizLogic
         {
             return CacheManager<List<BENivelesProgramaNuevas>>.ValidateDataElement(paisID, ECacheItem.NivelesProgramaNuevas, campania, () => GetNivelesProgramaNuevasByCampania(paisID, campania));
         }
-        private BENivelesProgramaNuevas GetNivelesProgramaNuevas(int paisID, BENivelesProgramaNuevas nivel)
+        private int GetLimiteElectivosProgramaNuevas(int paisID, BENivelesProgramaNuevas nivel)
         {
-            return GetNivelesProgramaNuevasByCampaniaCache(paisID, nivel.Campania).FirstOrDefault(n =>
+            var listNiveles = GetNivelesProgramaNuevasByCampaniaCache(paisID, nivel.Campania).Where(n =>
                 n.CodigoPrograma == nivel.CodigoPrograma && NivelNuevaEnRango(Convert.ToInt32(nivel.CodigoNivel), n.CodigoNivel, n.NumeroCampanasVigentes)
-            );
+            ).ToList();
+            if (!listNiveles.Any()) return 1;
+
+            return listNiveles.Max(n => n.UnidadesNivel);
         }
 
         private bool NivelNuevaEnRango(int nivelConsultora, string nivelInicial, int campaniasVigentes)
