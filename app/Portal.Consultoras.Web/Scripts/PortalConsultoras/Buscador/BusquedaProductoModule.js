@@ -2,11 +2,17 @@
 
     var _elementos = {
         body: "body",
-        opcionOrdenar: "#dpw-ordenar",
+        opcionOrdenar: "#dpw-ordenar, .opcion__ordenamiento__label",
         footer: "footer",
         spanTotalProductos: "#TotalProductos",
-        desplegado: "opcion__ordenamiento__dropdown--desplegado"
+        itemDropDown: ".opcion__ordenamiento__dropdown__item",
+        linkItemDropDown: ".opcion__ordenamiento__dropdown__link"
+       
     };
+    var _modificador = {
+        itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
+        linkItemDropDown: "opcion__ordenamiento__dropdown__link--seleccionada"
+    }
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
         textoBusqueda: textoBusqueda,
@@ -43,7 +49,8 @@
     }
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {
-            $(document).on("click", _elementos.opcionOrdenar, _eventos.Ordenar);
+            $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
+            $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
         },
         ConstruirModeloBusqueda: function () {
             var modelo = {
@@ -91,17 +98,23 @@
 
     };
     var _eventos = {
-        Ordenar: function () {
+        DropDownOrdenar: function () {
             var dpw_ordenar = document.getElementById('dpw-ordenar');
-            dpw_ordenar.classList.toggle(_elementos.desplegado);
+            dpw_ordenar.classList.toggle(_modificador.itemDropDowndesplegado);
 
             var ul_ordenar = document.getElementById('ul-ordenar');
             ul_ordenar.classList.toggle('d-none');
         },
 
-        ClickOrdenar: function () {
-            _config.ordenCampo = "";
-            _config.ordenTipo = "";
+        ClickItemOrdenar: function () {
+            
+            $(_elementos.linkItemDropDown).removeClass(_modificador.linkItemDropDown);
+            $(this).children().addClass(_modificador.linkItemDropDown);
+            var valorOrdenamiento = $(this).data("value");
+            console.log("valorOrdenamiento: " + valorOrdenamiento);
+            var array = valorOrdenamiento.split("-");
+            _config.ordenCampo = array[0].trim();
+            _config.ordenTipo = array[1].trim();
             _config.numeroPaginaActual = 0;
 
             var modelo = _funciones.ConstruirModeloBusqueda();
@@ -134,7 +147,7 @@
 
     function ScrollPagina() {
         if (_funciones.ValidarScroll()) {
-            //  _eventos.ScrollPage();
+          // _eventos.ScrollPage();
         }
     }
 
