@@ -5,11 +5,11 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BusquedaProductosController : BaseController
     {
-        public ActionResult Index(string textoBusqueda = "")
+        public ActionResult Index(string q = "")
         {
             var model = new BusquedaProductoOutModel
             {
-                TextoBusqueda = textoBusqueda,
+                TextoBusqueda = q,
                 ListaOrdenamiento = userData.ListaOrdenamientoFiltrosBuscador
             };
             return View(model);
