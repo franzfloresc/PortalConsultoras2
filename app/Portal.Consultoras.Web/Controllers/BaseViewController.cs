@@ -150,6 +150,30 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        #region Las mas Ganadoras
+
+        public ActionResult MasGanadorasViewLanding(int tipo)
+        {
+            var id = tipo == 1 ? userData.CampaniaID : Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
+
+            bool esMobile = IsMobile();
+
+            var model = new RevistaDigitalLandingModel
+            {
+                CampaniaID = id,
+                IsMobile = esMobile,
+                FiltersBySorting = _ofertasViewProvider.GetFiltersBySorting(IsMobile()),
+                FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
+                Success = true,
+                MensajeProductoBloqueado = _ofertasViewProvider.HVMensajeProductoBloqueado(herramientasVenta, esMobile),
+                CantidadFilas = 10
+            };
+
+            return PartialView("template-landing", model);
+        }
+
+        #endregion
+
         #region Herramienta Venta
 
         public ActionResult HVViewLanding(int tipo)

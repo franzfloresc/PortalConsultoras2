@@ -196,6 +196,7 @@
     </Compile>
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\MasGanadorasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiPerfilController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAcademiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PagoEnLineaController.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BuscadorController.cs" />
+    <Compile Include="Controllers\MasGanadorasController.cs" />
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
@@ -5641,6 +5643,7 @@
   <ItemGroup>
     <Folder Include="Annotations\App_Data\" />
     <Folder Include="Areas\Mobile\Views\EstrategiaProductoComentario\" />
+    <Folder Include="Areas\Mobile\Views\MasGanadoras\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\App\" />
@@ -5650,6 +5653,7 @@
     <Folder Include="Views\Campania\" />
     <Folder Include="Views\Cupon\" />
     <Folder Include="Views\EstrategiaProductoComentario\" />
+    <Folder Include="Views\MasGanadoras\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
