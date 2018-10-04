@@ -15,7 +15,7 @@
         productosPorPagina: 20,
         numeroPaginaActual: 0,
         ordenCampo: "orden",
-        ordenTipo: "desc",
+        ordenTipo: "asc",
         maxCaracteresDesc: TotalCaracteresEnListaBuscador
     };
     var _provider = {
@@ -80,7 +80,8 @@
                 }
                 console.log(item.Descripcion);
             });
-            // setear handlebar aqui lista data.productos
+
+            SetHandlebars("#js-FichaProductoBuscador", productos, "#FichasProductosBuscador");
         },
         ValidarScroll: function () {
             var footerH = $(window).scrollTop() + $(window).height();
