@@ -1,9 +1,6 @@
-﻿@using System.Web.Optimization
-@model Portal.Consultoras.Web.Models.Buscador.BusquedaProductoOutModel
+﻿@model Portal.Consultoras.Web.Models.Buscador.BusquedaProductoOutModel
 
 @{
-    /**/
-
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 }
@@ -42,16 +39,20 @@
                         {
                             if (i == 0)
                             {
-                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada" title="@Model.ListaOrdenamiento.ToList()[i].Key" data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
+                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada"
+                                       title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                         @Model.ListaOrdenamiento.ToList()[i].Key
                                     </a>
                                 </li>
                             }
                             else
                             {
-                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block">
-                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link" title="@Model.ListaOrdenamiento.ToList()[i].Key" data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
+                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link"
+                                       title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                         @Model.ListaOrdenamiento.ToList()[i].Key
                                     </a>
                                 </li>
@@ -69,13 +70,14 @@
     <script type="text/javascript">
         var textoBusqueda = '@Model.TextoBusqueda';
     </script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProvider.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js")"></script>
 }
 
 <script id="js-FichaProductoBuscador" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <article class="ficha__producto" data-item="BuscadorFichasProductos">
-        <input type="hidden" class="hdBuscadorFichaJSON" value="{{JSON2string item}}" />
+        <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 ficha__producto__imagen text-center">
                 <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
@@ -112,22 +114,28 @@
                 <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
                 {{else}}
                 <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
-                    <div class="liquidacion_rango_home js-no-popup">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                    <div class="liquidacion_rango_home js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup" {{#if Stock}} disabled {{/if}}>
                         <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
-                            <a href="#" class="mas d-block js-no-popup">
+                            <a class="mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
                                 <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
                             </a>
-                            <a href="#" class="menos d-block js-no-popup">
+                            <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                                 <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
-                    <a class="boton_Agregalo_home text-center text-uppercase d-block">
+                    {{#if Stock}}
+                    <a class="boton_Agregalo_home btn_inactivo text-center text-uppercase d-block">
+                        Agotado
+                    </a>
+                    {{else}}
+                    <a class="boton_Agregalo_home text-center text-uppercase d-block FichaAgregarProductoBuscador">
                         Agrégalo
                     </a>
+                    {{/if}}
                 </div>
                 {{/if_eq}}
             </div>

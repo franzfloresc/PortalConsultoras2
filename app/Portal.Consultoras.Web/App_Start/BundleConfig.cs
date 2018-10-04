@@ -170,6 +170,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
+                "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js"
             ));
             
@@ -315,6 +316,7 @@ namespace Portal.Consultoras.Web
                 //"~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 //"~/Scripts/PortalConsultoras/OfertaLiquidacion/Index.js",
+                "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js"
             ));
 
