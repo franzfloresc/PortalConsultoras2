@@ -50,6 +50,7 @@
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {
             $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
+            $(document).on("click", _elementos.body, _eventos.OcultarDropDownOrdenar);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
         },
         ConstruirModeloBusqueda: function () {
@@ -104,6 +105,11 @@
 
             var ul_ordenar = document.getElementById('ul-ordenar');
             ul_ordenar.classList.toggle('d-none');
+        },
+
+        OcultarDropDownOrdenar: function () {
+            //$("#dpw-ordenar").removeClass("opcion__ordenamiento__dropdown--desplegado");
+            //$("#ul-ordenar").addClass("d-none");
         },
 
         ClickItemOrdenar: function () {
