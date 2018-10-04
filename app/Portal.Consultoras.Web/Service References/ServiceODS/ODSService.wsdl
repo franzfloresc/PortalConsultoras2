@@ -281,11 +281,17 @@
   <wsdl:message name="IODSService_ValidaCuvElectivo_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidaCuvElectivoResponse" />
   </wsdl:message>
-  <wsdl:message name="IODSService_EsDuoPerfecto_InputMessage">
-    <wsdl:part name="parameters" element="tns:EsDuoPerfecto" />
+  <wsdl:message name="IODSService_EsCuvDuoPerfecto_InputMessage">
+    <wsdl:part name="parameters" element="tns:EsCuvDuoPerfecto" />
   </wsdl:message>
-  <wsdl:message name="IODSService_EsDuoPerfecto_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EsDuoPerfectoResponse" />
+  <wsdl:message name="IODSService_EsCuvDuoPerfecto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EsCuvDuoPerfectoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_TieneListaDuoPerfecto_InputMessage">
+    <wsdl:part name="parameters" element="tns:TieneListaDuoPerfecto" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_TieneListaDuoPerfecto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TieneListaDuoPerfectoResponse" />
   </wsdl:message>
   <wsdl:message name="IODSService_ValidarVentaExclusiva_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarVentaExclusiva" />
@@ -458,9 +464,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidaCuvElectivo" message="tns:IODSService_ValidaCuvElectivo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidaCuvElectivoResponse" message="tns:IODSService_ValidaCuvElectivo_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="EsDuoPerfecto">
-      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/EsDuoPerfecto" message="tns:IODSService_EsDuoPerfecto_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/EsDuoPerfectoResponse" message="tns:IODSService_EsDuoPerfecto_OutputMessage" />
+    <wsdl:operation name="EsCuvDuoPerfecto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto" message="tns:IODSService_EsCuvDuoPerfecto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse" message="tns:IODSService_EsCuvDuoPerfecto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TieneListaDuoPerfecto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/TieneListaDuoPerfecto" message="tns:IODSService_TieneListaDuoPerfecto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/TieneListaDuoPerfectoResponse" message="tns:IODSService_TieneListaDuoPerfecto_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidarVentaExclusiva">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarVentaExclusiva" message="tns:IODSService_ValidarVentaExclusiva_InputMessage" />
@@ -838,8 +848,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EsDuoPerfecto">
-      <soap:operation soapAction="http://tempuri.org/IODSService/EsDuoPerfecto" style="document" />
+    <wsdl:operation name="EsCuvDuoPerfecto">
+      <soap:operation soapAction="http://tempuri.org/IODSService/EsCuvDuoPerfecto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TieneListaDuoPerfecto">
+      <soap:operation soapAction="http://tempuri.org/IODSService/TieneListaDuoPerfecto" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1229,8 +1248,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EsDuoPerfecto">
-      <soap:operation soapAction="http://tempuri.org/IODSService/EsDuoPerfecto" style="document" />
+    <wsdl:operation name="EsCuvDuoPerfecto">
+      <soap:operation soapAction="http://tempuri.org/IODSService/EsCuvDuoPerfecto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TieneListaDuoPerfecto">
+      <soap:operation soapAction="http://tempuri.org/IODSService/TieneListaDuoPerfecto" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

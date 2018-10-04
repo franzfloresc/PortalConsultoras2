@@ -4434,7 +4434,7 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esDuoPerfecto;
                 using (var svc = new ODSServiceClient())
                 {
-                    esDuoPerfecto = svc.EsDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
+                    esDuoPerfecto = svc.EsCuvDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
                 }
 
                 return Json(new {
