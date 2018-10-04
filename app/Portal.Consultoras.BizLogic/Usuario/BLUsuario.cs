@@ -599,7 +599,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario.CodigosProgramaNuevas = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[1] : string.Empty;
 
                 usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result.Count == 3 ? (short)revistaDigitalSuscripcionTask.Result[0] : Constantes.GanaMas.PaisSinRD;
-                usuario.UrlBannerGanaMas = revistaDigitalSuscripcionTask.Result.Count == 3 ? (string)revistaDigitalSuscripcionTask.Result[1] : string.Empty;
+                usuario.UrlBannerGanaMas = string.Empty;
                 usuario.TieneGND = revistaDigitalSuscripcionTask.Result.Count == 3 && (bool)revistaDigitalSuscripcionTask.Result[2];
 
                 usuario.CuponEstado = cuponTask.Result.EstadoCupon;
