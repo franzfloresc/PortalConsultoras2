@@ -14,16 +14,21 @@ namespace Portal.Consultoras.Web.Helpers
         /// <returns>Guid or Null</returns>
         public static string GetUniqueKey(this Controller controller)
         {
-            var uniqueKey = controller.Request.Headers[UniqueRoute.IdentifierKey];
-            if (uniqueKey.IsGuid())
-                return uniqueKey;
+            var uniqueKey = string.Empty;
 
-            if (controller.Request.UrlReferrer != null)
+            if (controller.Request != null)
             {
-                var indexOfUnique = controller.Request.UrlReferrer.AbsolutePath.IndexOf("/g/");
-                var uniqueKeyReferrer = indexOfUnique > 0 ? controller.Request.UrlReferrer.AbsolutePath.Substring(indexOfUnique, 39) : string.Empty;
-                if (uniqueKeyReferrer.IsGuid())
-                    return uniqueKeyReferrer;
+                uniqueKey = controller.Request.Headers[UniqueRoute.IdentifierKey];
+                if (uniqueKey.IsGuid())
+                    return uniqueKey;
+
+                if (controller.Request.UrlReferrer != null)
+                {
+                    var indexOfUnique = controller.Request.UrlReferrer.AbsolutePath.IndexOf("/g/");
+                    var uniqueKeyReferrer = indexOfUnique > 0 ? controller.Request.UrlReferrer.AbsolutePath.Substring(indexOfUnique, 39) : string.Empty;
+                    if (uniqueKeyReferrer.IsGuid())
+                        return uniqueKeyReferrer;
+                }
             }
 
             return controller.RouteData.GetUniqueRoute(UniqueRoute.IdentifierKey);
