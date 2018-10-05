@@ -245,7 +245,7 @@ var EstrategiaAgregarModule = (function () {
         var $btnAgregar = $(event.target);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-
+        
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             //if (isMobile()) {
             //    EstrategiaVerDetalleMobile(estrategia);
@@ -280,7 +280,7 @@ var EstrategiaAgregarModule = (function () {
             estrategia.FlagNueva = estrategia.FlagNueva == "1" ? estrategia.FlagNueva : "";
             $(elementosDiv.OfertaTipoNuevo).val(estrategia.FlagNueva);
         }
-
+        
         AbrirLoad();
 
         var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);

@@ -1,17 +1,45 @@
 ﻿
 /* BUSCADOR DE FILTROS PORTAL CONSULTORAS */
 
-.displayBlock{
+.displayBlock,
+.d-block
+{
     display:block;
 }
 
-.displayInlineBlock{
+.displayInlineBlock
+.d-inline-block
+{
     display:inline-block;
     vertical-align:middle;
 }
 
 .text-left{
     text-align:left;
+}
+
+.text-center{
+    text-align:center;
+}
+
+.text-uppercase{
+    text-transform:uppercase;
+}
+
+.ml-0{
+    margin-left:0!important;
+}
+
+.mr-0{
+    margin-right:0!important;
+}
+
+.pl-0{
+    padding-left:0!important;
+}
+
+.pr-0{
+    padding-right:0!important;
 }
 
 .buscador_productos {
@@ -57,12 +85,12 @@
 }
 
 .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
-    width:22.5%;
+    width:21.2%;
     left:9.5px;
 }
 
 .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida {
-    width: 29.8%;
+    width: 28.8%;
     left: 16.8px;
 }
 
@@ -106,7 +134,7 @@
     font-family: 'Lato', sans-serif;
     font-size: 14px;
     color: #000;
-    font-weight: 400;
+    font-weight: 700;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -116,18 +144,22 @@
 
     .campo_buscador_productos::-webkit-input-placeholder {
         color: #808080;
+        font-weight:400;
     }
 
     .campo_buscador_productos:-moz-placeholder {
         color: #808080;
+        font-weight:400;
     }
 
     .campo_buscador_productos::-moz-placeholder {
         color: #808080;
+        font-weight:400;
     }
 
     .campo_buscador_productos:-ms-input-placeholder {
         color: #808080;
+        font-weight:400;
     }
 
     .campo_buscador_productos::-ms-clear{
@@ -229,6 +261,7 @@
 
 .novedad_busqueda_titulo{
     font-weight:900;
+    text-transform:uppercase;
 }
 
 .novedad_busqueda_descripcion{
@@ -320,7 +353,7 @@
     margin-top: 17px;
     width: 98.55%;
     min-height: 65px;
-    max-height: 330px;
+    max-height: 397px;
     overflow: auto;
     position: relative;
     padding-bottom:14px;
@@ -331,8 +364,25 @@
         border-radius: 4px;
     }
 
+.resultado_busqueda_producto,
+.resultado_wrapper_selector_cantidad_y_btn_agregar,
+.btn_elegir_opcion
+{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    flex-direction:row;
+    align-items:center;
+}
+
 .resultado_busqueda_producto{
-    padding: 15px 12px 15px 5px;
+    width:100%;
+    justify-content:space-evenly;
+    text-align:left;
+    padding: 15px 9px 15px 5px;
     border-bottom:1px solid #b0b0b0;
     cursor:pointer;
 }
@@ -347,8 +397,11 @@
     }
 
 .resultado_busqueda_img_prod{
-    margin-left: 7px;
-    width: 125.78px;
+    -ms-flex: 0 0 27%;
+    flex: 0 0 27%;
+    max-width: 27%;
+    /*margin-left: 7px;
+    width: 125.78px; */
     height: 68px;
     position: relative;
     overflow: hidden;
@@ -360,7 +413,7 @@
         height: 100%;
         position: absolute;
         top: 0;
-        left: -11px;
+        left: -10px;
         right: 0;
         bottom: 0;
         margin: auto;
@@ -375,8 +428,12 @@
 }
 
 .resultado_busqueda_descrip_prod{
-    width:168.33px;
-    margin-right:16px;
+    /*width:168.33px;*/
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
+    max-width:137px;
+    /*max-width: 32%;*/
+    margin-right:10px;
 }
 
 .resultado_busqueda_nom_producto{
@@ -387,6 +444,19 @@
     /*text-overflow:ellipsis;
     white-space:nowrap;
     overflow:hidden;*/
+}
+
+.resultado_busqueda_nom_producto,
+.resultado_busqueda_precio_prod,
+.resultado_busqueda_precio_normal,
+.resultado_busqueda_precio_oferta,
+.resultado_busqueda_tipo_oferta_prod,
+.etiqueta_prod_agregado,
+.resultado_busqueda_btn_elegir_opcion_wrapper
+{
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
 }
 
 .resultado_busqueda_precio_normal,
@@ -415,15 +485,34 @@
     text-transform:uppercase;
 }
 
-.resultado_busqueda_cantidad_prod{
-    margin-right:7px;
+.resultado_wrapper_selector_cantidad_y_btn_agregar{
+    justify-content:space-between;
+    flex-grow:0;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    min-width:244.66px;
+    position:relative;
+    padding-right:0;
 }
 
 .resultado_busqueda_cantidad_prod,
 .resultado_busqueda_btn_agregar_wrapper
 {
-    width:122.33px;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
 }
+
+.resultado_busqueda_cantidad_prod{
+    margin-right:7px;
+}
+
+/*.resultado_busqueda_cantidad_prod,
+.resultado_busqueda_btn_agregar_wrapper
+{
+    width:122.33px;
+}*/
 
 .resultado_busqueda_cantidad_prod .cantidad_menos_home,
 .resultado_busqueda_cantidad_prod .cantidad_mas_home
@@ -434,6 +523,18 @@
     text-align: center;
     line-height: 48px;
     border: 1px solid #b0b0b0;
+    position:relative;
+}
+
+.resultado_busqueda_cantidad_prod .cantidad_mas_home img,
+.resultado_busqueda_cantidad_prod .cantidad_menos_home img
+{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .resultado_busqueda_cantidad_prod .cantidad_menos_home{
@@ -467,16 +568,16 @@
 }
 
 .resultado_busqueda_btn_agregar_wrapper .boton_Agregalo_home {
+    width:100%;
     margin-top: 0;
     background-color: #000;
-    color: #FFF;
+    color: #FFF!important;
 }
 
 .resultado_busqueda_btn_agregar_wrapper .boton_Agregalo_home,
 .btn_elegir_opcion,
 .btn_inactivo
 {
-    width:100%;
     height: 45px;
     line-height: 44px;
     font-size: 12px;
@@ -492,11 +593,13 @@
     border: 1px solid #000;
 }
 
-.resultado_busqueda_btn_elegir_opcion_wrapper{
+/*.resultado_busqueda_btn_elegir_opcion_wrapper{
     width:254px;
-}
+}*/
 
 .btn_elegir_opcion{
+    justify-content:center;
+    width:103%;
     background-color:#FFF;
     line-height:41px;
 }
@@ -515,18 +618,17 @@
 }
 
 .etiqueta_prod_agregado{
-    position:absolute;
-    margin:0 auto;
-    left:0;
-    right:0;
-    margin-top:5px;
-    font-size:11px;
-    color:#848484;
+    width:100%;
+    position: absolute;
+    bottom: -19px;
+    margin-top: 5px;
+    font-size: 11px;
+    color: #848484;
 }
 
 .icono_elige_tu_opcion{
-    margin-right: 4px;
-    width: 17px;
+    margin-right: 8px;
+    width: 16px;
     height: 20px;
 }
 
@@ -583,6 +685,10 @@
     line-height: 20px;
 }
 
+.buscador_filtros_mobile{
+    display:none;
+}
+
 @media screen and (max-width:1354px) {
 
     .buscador_productos_con_enlace_menu_socia_empresaria{
@@ -596,11 +702,11 @@
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida{
-        width:21.55%;
+        width:20.2%;
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida {
-        width: 30%;
+        width: 27%;
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria {
@@ -628,11 +734,11 @@
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida{
-        width:18.8%;
+        width:18.2%;
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida {
-        width: 27.6%;
+        width: 26%;
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria {
@@ -665,7 +771,7 @@
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida{
-        width:17.6%;
+        width:17.3%;
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida .campo_buscador_productos{
@@ -673,7 +779,7 @@
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida {
-        width: 26.55%;
+        width: 25.55%;
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria {
@@ -693,7 +799,7 @@
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida{
-        width:12.8%;
+        width:15.5%;
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido {
@@ -702,7 +808,7 @@
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida {
-        width: 25.3%;
+        width: 23.3%;
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria {
@@ -715,11 +821,62 @@
 
 }
 
+@media screen and (max-width:1250px){
+
+    .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida{
+        width: 21.3%;
+    }
+
+}
+
+@media screen and (max-width:1224px) {
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
+        width: 13.8%;
+    }
+
+    .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida {
+        width: 21%;
+    }
+
+}
+
 /* FIN - BUSCADOR DE FILTROS PORTAL CONSULTORAS */
+
+/* CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
+
+    [data-codigo='contenedorofertas'].new_menu a img,
+    .icono_elige_tu_opcion img
+    {
+        max-width:none;
+    }
+
+    .campo_busqueda_fondo_on_focus{
+        height:49px;
+    }
+
+    .resultado_busqueda_descrip_prod{
+        max-width:153px;
+    }
+
+    .icono_elige_tu_opcion {
+        display: inline-block;
+        vertical-align:middle;
+    }
+
+}
+
+/* FIN - CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
 
 /* BUSCADOR DE FILTROS PORTAL CONSULTORAS MOBILE */
 
 @media screen and (max-width:991px){
+
+    .mt-60{
+        margin-top:60px;
+    }
 
     .buscador_filtros_mobile {
         display: flex;
@@ -730,19 +887,20 @@
         background-color: #FFF;
         padding-left: 10px;
         padding-right: 10px;
-        position:relative;
+        position:fixed;
+        top:0;
         border-bottom:1px solid #d8d8d8;
         z-index:6;
     }
 
     .campo_buscador_filtros_mobile {
         width: 100%;
-        height: 59px;
+        height: 32px;
         background: #fff;
         color: #000;
         padding-left: 10px;
         padding-bottom: 2px;
-        line-height: 57px;
+        line-height: 25px;
         font-size: 18px;
         font-weight: 700;
     }
@@ -815,15 +973,12 @@
     }
 
     .resultado_busqueda_producto{
-        padding-top: 15px!important;
-        padding-bottom: 12px!important;
-        border-bottom: 1px solid #b0b0b0!important;
-        cursor: pointer;
-        position: relative;
+        padding-left:10px;
+        padding-right:10px;
     }
 
-    .resultado_busqueda_producto:first-child {
-        padding-top: 0;
+    .resultado_busqueda_producto:first-child{
+        padding-top:15px;
     }
 
     .resultado_busqueda_img_prod,
@@ -833,57 +988,49 @@
     }
 
     .resultado_busqueda_img_prod {
-        width: 20%;
-        max-width: 200px;
-        text-align: center;
-        position: relative;
-        background-color: #FFF;
+        -ms-flex: 0 0 16.666667%;
+        flex: 0 0 16.666667%;
+        max-width: 16.666667%;
+        min-width:56px;
+        max-width:150px;
+        margin-left:10px;
+        margin-right:10px;
+        height:auto;
+        overflow:initial;
     }
 
     .resultado_busqueda_img_prod img {
-        width: 100%;
-        height: 56px;
-        margin: auto;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        object-fit: contain;
+        position:relative;
+        width:100%;
+        max-width:150px;
+        height:auto;
+        left:0;
     }
 
     .resultado_busqueda_descrip_prod{
-        width: 30%;
-        margin-left: 12px;
-        margin-right: 6px;
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%;
+        min-width:96px;
+        max-width:200px;
+        margin-right:10px;
     }
 
     .resultado_wrapper_selector_cantidad_y_btn_agregar {
-        width: 41%;
+        flex-wrap:wrap;
+        flex-grow:1;
+        align-items:flex-start;
+        min-width:145px;
+        /*max-width:250px;
+        padding-right:10px;*/
     }
 
-    .resultado_busqueda_nom_producto {
-        line-height: 18px;
-        margin-bottom:2px;
-    }
-
-    .resultado_busqueda_precio_prod {
-        margin: 0;
-    }
-
-    .resultado_busqueda_precio_normal,
-    .resultado_busqueda_precio_oferta
+    .resultado_busqueda_cantidad_prod,
+    .resultado_busqueda_btn_agregar_wrapper
     {
-        vertical-align: bottom;
-    }
-
-    .resultado_busqueda_precio_normal {
-        text-decoration: line-through;
-        margin-bottom: -1px;
-    }
-
-    .resultado_busqueda_precio_oferta {
-        font-weight: 400;
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 
     .resultado_busqueda_cantidad_prod{
@@ -892,9 +1039,10 @@
     }
 
     .resultado_busqueda_cantidad_prod .cantidad_menos_home,
-    .resultado_busqueda_cantidad_prod .cantidad_mas_home
+    .resultado_busqueda_cantidad_prod .cantidad_mas_home,
+    .resultado_busqueda_cantidad_prod .rango_cantidad_pedido
     {
-        line-height:43px;
+        height:40px;
     }
 
     .vistaResultadosBusquedaMobile,
@@ -905,17 +1053,27 @@
         width:100%;
     }
 
+    .etiqueta_prod_agregado{
+        position: relative;
+        bottom: 0;
+        padding-right:0;
+        text-align:center;
+    }
+
     .btn_elegir_opcion{
-        line-height: initial;
-        padding-top: 11px;
+        width:100%;
+        line-height:initial;
+        padding-left: 4px;
+        padding-right: 4px;
     }
 
     .btn_elegir_opcion span:last-child br {
         display: none;
     }
 
-    .etiqueta_prod_agregado{
-        position:relative;
+    .icono_elige_tu_opcion{
+        margin-right:6px;
+        height:21px;
     }
 
     .spinner{
@@ -937,6 +1095,14 @@
 
 }
 
+@media screen and (max-width:500px){
+
+    .resultado_busqueda_img_prod img{
+        left:-6px;
+    }
+
+}
+
 @media screen and (min-width:359px){
 
     .btn_elegir_opcion span:last-child br {
@@ -945,35 +1111,14 @@
 
 }
 
-@media screen and (max-width:358px){
-
-    .resultado_busqueda_img_prod{
-        width:23%;
-        margin-left:9px;
-    }
-
-    .resultado_busqueda_descrip_prod{
-        width:24%;
-    }
-
-    .resultado_wrapper_selector_cantidad_y_btn_agregar{
-        width: 43.2%;
-    }
-
-}
-
 @media screen and (max-width:351px){
 
-    .resultado_busqueda_descrip_prod{
-        width:27%;
-    }
-
-    .resultado_wrapper_selector_cantidad_y_btn_agregar {
-        width: 39%;
+    .resultado_wrapper_selector_cantidad_y_btn_agregar{
+        min-width:120px;
     }
 
     .btn_elegir_opcion {
-        padding-top:6px;
+        padding-top:2px;
     }
 
     .btn_elegir_opcion span:last-child{

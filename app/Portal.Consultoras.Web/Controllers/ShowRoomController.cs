@@ -45,9 +45,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string query)
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
+                //return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
+                if (url.Length > 1)
+                {
+                    sap = "&" + url[1];
+                    return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "ShowRoom", new { area = "Mobile" });
+                }
+
             }
 
             ViewBag.TerminoMostrar = 1;
@@ -86,9 +98,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!showRoomEventoModel.TieneOfertasAMostrar) return RedirectToAction("Index", "Bienvenida");
 
-                ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
-
-                ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                showRoomEventoModel.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
+                showRoomEventoModel.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 var dato = _ofertasViewProvider.ObtenerPerdioTitulo(userData.CampaniaID, IsMobile());
                 showRoomEventoModel.ProductosPerdio = dato.Estado;
@@ -96,6 +107,7 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
                 showRoomEventoModel.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
                 showRoomEventoModel.TieneCategoria = false;
+                showRoomEventoModel.PerdioLogo = revistaDigital.DLogoComercialActiva;
 
                 return View(showRoomEventoModel);
             }
