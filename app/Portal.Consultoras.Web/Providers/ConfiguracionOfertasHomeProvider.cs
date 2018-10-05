@@ -192,9 +192,9 @@ namespace Portal.Consultoras.Web.Providers
                             break;
                         case Constantes.ConfiguracionPais.MasGanadoras:
                             seccion.UrlObtenerProductos = "Estrategia/HVObtenerProductos";
-                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "HerramientasVenta/Revisar" : "HerramientasVenta/Comprar");
-                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedor;
-                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
+                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras/Index";
+                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarruselFicha;
                             break;
                     }
                     #endregion

@@ -483,6 +483,10 @@ namespace Portal.Consultoras.Web.Providers
                     case Constantes.ConfiguracionPais.HerramientasVenta:
                         confiModel.UrlMenu = "HerramientasVenta/Comprar";
                         break;
+
+                    case Constantes.ConfiguracionPais.MasGanadoras:
+                        confiModel.UrlMenu = "MasGanadoras/Index";
+                        break;
                 }
 
                 config = _configuracionPaisProvider.ActualizarTituloYSubtituloMenu(config);
