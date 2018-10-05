@@ -1505,7 +1505,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(), "LoginController.GetPersonalizaiones");
+                return "";
             }
 
 
