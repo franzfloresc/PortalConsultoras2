@@ -277,6 +277,33 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevasRegalo = "ProgramaNuevasRegalo";
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
+
+            private static Dictionary<string, string> _Palancas;
+            public static Dictionary<string, string> Palancas
+            {
+                get
+                {
+                    return _Palancas ?? (_Palancas = new Dictionary<string, string>
+                    {
+                        {TipoEstrategiaCodigo.OfertaParaTi, NombrePalanca.OfertaParaTi},
+                        {TipoEstrategiaCodigo.PackNuevas, NombrePalanca.PackNuevas},
+                        {TipoEstrategiaCodigo.OfertaWeb, NombrePalanca.OfertaWeb},
+                        {TipoEstrategiaCodigo.Lanzamiento, NombrePalanca.Lanzamiento},
+                        {TipoEstrategiaCodigo.OfertasParaMi, NombrePalanca.OfertasParaMi},
+                        {TipoEstrategiaCodigo.PackAltoDesembolso, NombrePalanca.PackAltoDesembolso},
+                        {TipoEstrategiaCodigo.RevistaDigital, NombrePalanca.RevistaDigital},
+                        {TipoEstrategiaCodigo.LosMasVendidos, NombrePalanca.LosMasVendidos},
+                        {TipoEstrategiaCodigo.IncentivosProgramaNuevas, NombrePalanca.IncentivosProgramaNuevas},
+                        {TipoEstrategiaCodigo.OfertaDelDia, NombrePalanca.OfertaDelDia},
+                        {TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, NombrePalanca.GuiaDeNegocioDigitalizada},
+                        {TipoEstrategiaCodigo.Incentivos, NombrePalanca.Incentivos},
+                        {TipoEstrategiaCodigo.ShowRoom, NombrePalanca.ShowRoom},
+                        {TipoEstrategiaCodigo.HerramientasVenta, NombrePalanca.HerramientasVenta},
+                        {TipoEstrategiaCodigo.NotParticipaProgramaNuevas, NombrePalanca.NotParticipaProgramaNuevas},
+                    });
+                }
+            }
+
         }
         public static class ConstSession
         {
@@ -501,7 +528,7 @@ namespace Portal.Consultoras.Common
 
             public const string RutaImagenesAppCatalogo = "RutaImagenesAppCatalogo";
             public const string RutaImagenesAppCatalogoBulk = "RutaImagenesAppCatalogoBulk";
-            
+
             public const string PaisesEscalaDescuento = "PaisesEscalaDescuento";
 
         }
@@ -814,6 +841,18 @@ namespace Portal.Consultoras.Common
             public const int MasVendidosMobileHomeCarrusel = 2151;
             public const int MasVendidosMobileProductPageFicha = 2611;
             public const int MasVendidosMobileHome = 2123;
+            #endregion
+            
+
+            #region MasGanadoras     
+
+            public const int MasGanadorasDesktopLanding = 1111401;
+            public const int MasGanadorasDesktopLandingFicha = 1111402;
+            public const int MasGanadorasMobileLandingFicha = 2111402;
+            public const int MasGanadorasDesktopContenedorCarrusel = 1081401;
+            public const int MasGanadorasDesktopContenedorCarruselFicha = 1081402;
+            public const int MasGanadorasMobileContenedorCarruselFicha = 2081402;    
+
             #endregion
 
             #region VirtualCoach
@@ -1149,6 +1188,18 @@ namespace Portal.Consultoras.Common
             public const string Nueva = "NUEVA";
         }
 
+        public static class RevistaDigital
+        {
+            public static class Estado
+            {
+                public const string InscritaActiva = "IA";
+                public const string NoInscritaActiva = "NIA";
+                public const string InscritaNoActiva = "INA";
+                public const string NoInscritaNoActiva = "NINA";
+                public const string Intriga = "INTRIGA";
+            }
+        }
+
         public static class MatrizNemotecnicoMensajes
         {
             public const string TooltipInformacionFormatoBusqueda = "Formato de búsqueda de Nemotécnico: &lt;SAP_1&gt;#&lt;Cantidad_1&gt;&amp;&lt;SAP_2&gt;#&lt;Cantidad_2&gt;&amp;...&lt;SAP_N&gt;#&lt;Cantidad_N&gt; , ejemplos: 210080203, 210080203#01, 200083988 210080203, 200083988&210080203, 200083988#02&210080203#01";
@@ -1202,6 +1253,11 @@ namespace Portal.Consultoras.Common
             public const string CambiosDevoluciones = "CAMBIODEVOLUCIONES";
             public const string PedidosFIC = "PEDIDOSFIC";
             public const string DetalleEstrategia = "DETALLEESTRATEGIA";
+            public const string LoNuevoNuevo = "LONUEVONUEVO";
+            public const string OfertasParaTi = "OFERTASPARATI";
+            public const string SoloHoy = "SOLOHOY";
+            public const string HerramientasDeVenta = "HERRAMIENTASDEVENTA";
+            public const string SaberMasInscripcion = "SABERMASINSCRIPCION";
         }
 
         public static class IngresoExternoOrigen
@@ -1484,9 +1540,9 @@ namespace Portal.Consultoras.Common
 
             public static class RDI
             {
-                
-            public const string LogoMenuRevistaDigitaIntrigaNoActivo = "LogoMenuRevistaDigitaIntrigaNoActivo";
-            public const string LogoMenuRevistaDigitaIntrigaActiva = "LogoMenuRevistaDigitaIntrigaActiva";
+
+                public const string LogoMenuRevistaDigitaIntrigaNoActivo = "LogoMenuRevistaDigitaIntrigaNoActivo";
+                public const string LogoMenuRevistaDigitaIntrigaActiva = "LogoMenuRevistaDigitaIntrigaActiva";
 
                 public const string LogoMenuOfertas = "LogoMenuOfertas";
                 public const string DBienvenidaIntriga = "DBienvenidaIntriga";
@@ -2167,6 +2223,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
                 public const string ERROR_PRODUCTO_ESTRATEGIA = "1108";
                 public const string ERROR_PRODUCTO_SUGERIDO = "1109";
+                public const string ERROR_PRODUCTO_SET = "1110";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -2181,6 +2238,10 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_ELIMINAR_SET = "2113";
                 public const string ERROR_ACTUALIZAR_SET = "2114";
                 public const string ERROR_SET_NOENCONTRADO = "2115";
+                public const string ERROR_UNIDAD_SOBREPASA_PERMITIDO = "2116";
+                public const string ERROR_UNIDAD_SINSALDO = "2117";
+                public const string ERROR_UNIDAD_CONSALDO = "2118";
+                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -2223,6 +2284,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
                         {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
                         {Code.ERROR_PRODUCTO_SUGERIDO,"Este producto tiene reemplazos sugeridos." },
+                        {Code.ERROR_PRODUCTO_SET, "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas."},
 
                         {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                         {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
@@ -2232,6 +2294,10 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
                         {Code.ERROR_ACTUALIZAR_SET, "Ocurrió un error al actualizar el set." },
                         {Code.ERROR_SET_NOENCONTRADO, "Set no encontrado."},
+                        {Code.ERROR_UNIDAD_SOBREPASA_PERMITIDO, "Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta ({0}) del producto."},
+                        {Code.ERROR_UNIDAD_SINSALDO, "Las Unidades Permitidas de Venta son solo ({0}), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique." },
+                        {Code.ERROR_UNIDAD_CONSALDO, "Las Unidades Permitidas de Venta son solo ({0}), pero Usted solo puede adicionar ({1}) más, debido a que ya agregó este producto a su pedido, verifique." },
+                        {Code.ERROR_UNIDAD_SOBREPASA_STOCK, "Lamentablemente, la cantidad solicitada sobrepasa el stock actual ({0}) del producto, verifique." },
                         {Code.ERROR_ELIMINAR, "Ocurrió un error al eliminar el detalle de pedido." },
                         {Code.ERROR_ELIMINAR_SET, "Ocurrió un error al eliminar el detalle del set."},
                         {Code.ERROR_ELIMINAR_TODO, "Ocurrió un error al eliminar el pedido." },
@@ -2707,6 +2773,7 @@ namespace Portal.Consultoras.Common
             public const string CaracteresBuscadorMostrar = "CaracteresBuscadorMostrar";
             public const string TotalResultadosBuscador = "TotalResultadosBuscador";
             public const string CantidadInicioSesionNovedadBuscador = "CantidadInicioSesionNovedadBuscador";
+            public const string ConsultoraDummy = "ConsultoraDummy";
         }
 
 
@@ -2714,6 +2781,9 @@ namespace Portal.Consultoras.Common
         {
             //Buscador/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{CodigoZona}/{TextoBusqueda}/{CantidadProductos}/{SociaEmpresaria}/{SuscripcionActiva}/{MDO}/{RD}/{RDI}/{RDR}/{DiaFacturacion}
             public const string UrlBuscador = "Buscador/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}";
+
+            //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}
+            public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}";
         }
 
         public static class ActualizacionDatosValidacion
@@ -2741,6 +2811,9 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CORREO_ACTIVACION_YA_ACTIVADA = "1203";
                 public const string ERROR_CORREO_ACTIVACION_DUPLICADO = "1204";
 
+                public const string ERROR_CELULAR_ACTIVACION = "1301";
+                public const string ERROR_CELULAR_ACTIVACION_LIMITE_INTENTOS = "1302";
+
             }
             public static Dictionary<string, string> Message
             {
@@ -2765,6 +2838,8 @@ namespace Portal.Consultoras.Common
                        {Code.ERROR_CORREO_ACTIVACION_YA_ACTIVADA,"Esta dirección de correo electrónico ya ha sido validada."},
                        {Code.ERROR_CORREO_ACTIVACION_DUPLICADO,"La dirección de correo electrónico ingresada ya pertenece a otra Consultora."},
 
+                       {Code.ERROR_CELULAR_ACTIVACION,"Opción de Validación no Disponible."},
+                       {Code.ERROR_CELULAR_ACTIVACION_LIMITE_INTENTOS,"Superaste el máximo de envios. Podrás volver a intentar en {0}"},
                    });
                 }
             }
@@ -2778,6 +2853,37 @@ namespace Portal.Consultoras.Common
                 public const string ComunicateConNosotrosAlt = "Para resolver el problema comunícate con nosotros al {0}.";
 
                 public const string VerificacionEmailValida = "Empieza a disfrutar de todos los beneficios y ofertas que tenemos para ti.";
+            }
+
+        }
+
+        public static class VerificacionValidacion
+        {
+            public const int TIME_REINTENTO = 24 * 60 * 60;
+
+            private static Dictionary<string, string> _Message;
+            public static class Code
+            {
+                public const string SUCCESS = "0000";
+                public const string ERROR_INTERNO = "9999";
+
+                public const string ERROR_CELULAR_ACTIVACION = "1001";
+                public const string ERROR_CELULAR_ACTIVACION_LIMITE_INTENTOS = "1002";
+
+            }
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                   {
+                       {Code.SUCCESS, "OK"},
+                       {Code.ERROR_INTERNO, string.Empty},
+
+                       {Code.ERROR_CELULAR_ACTIVACION,"Opción de Validación no Disponible."},
+                       {Code.ERROR_CELULAR_ACTIVACION_LIMITE_INTENTOS,"Superaste el máximo de envios. Podrás volver a intentar en {0}"},
+                   });
+                }
             }
 
         }
@@ -2814,7 +2920,6 @@ namespace Portal.Consultoras.Common
             public const int CYZONE = 10;
         }
 
-
         public static class AceptacionContrato
         {
             public const string UrlDescargarContratoCO = "http://somosbelcorpprd.s3.amazonaws.com/Menu/Contrato_Colombia.pdf";
@@ -2822,18 +2927,17 @@ namespace Portal.Consultoras.Common
             public const string AcionesOmitidas = "ActualizarContrasenia";
         }
 
-        public static class RevistaDigital
+        public class CodigoEstrategiaBuscador
         {
-            public static class Estado
-            {
-                public const string InscritaActiva = "IA";
-                public const string NoInscritaActiva = "NIA";
-                public const string InscritaNoActiva = "INA";
-                public const string NoInscritaNoActiva = "NINA";
-                public const string Intriga = "INTRIGA";
-            }
-
-
+            public const string Liquidacion = "LIQ";
+            public const string Catalogo = "CAT";
+            public const string OfertaDelDia = "ODD";
         }
+
+        public static class MetaConsultora
+        {
+            public const string VerificacionCambioClave = "VF_CAMBIO_CLAVE";
+        }
+
     }
 }

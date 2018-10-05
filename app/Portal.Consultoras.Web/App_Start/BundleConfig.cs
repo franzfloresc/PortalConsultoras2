@@ -145,6 +145,20 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/LogError.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/PageResponsive").Include(
+                "~/Scripts/handlebars.js",
+                "~/Scripts/LogError.js",
+                "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
+                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
+                "~/Scripts/PortalConsultoras/Buscador/buscadorLayout.js"
+            ));
+
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Fuzemodal").Include(
                 "~/Scripts/fuzemodal-1.3/fuzemodal-1.3.css"
             ));
@@ -170,9 +184,9 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/flipclock.css",
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/Esika/reset.css",
+               "~/Content/Css/Site/Esika/styleDefault.css",
                "~/Content/Css/Site/Esika/style.css",
                "~/Content/Css/Site/Menu/MenuPrincipal.css",
-               "~/Content/Css/Site/Esika/styleDefault.css",
                "~/Content/Css/ui.jquery/Esika/jquery-ui.css",
                "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Esika/revistaDigital.css",
@@ -210,9 +224,10 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/buscador-filtros.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Lbel-Contenedor").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Lbel-Contenedor").Include(
                 "~/Content/Css/Site/Contenedor/Index.css",
-                "~/Content/Css/Site/Lbel/Contenedor.css"
+                "~/Content/Css/Site/Lbel/Contenedor.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Lbel-Contenedor").Include(
@@ -841,6 +856,17 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
             ));
 
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
+                "~/Content/Css/ui.jquery/jquery-ui.css",
+                "~/Content/Css/Site/Shared/style-responsive.css",
+                "~/Content/Css/Site/Esika/style-esika-responsive.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
+                "~/Content/Css/ui.jquery/jquery-ui.css",
+                "~/Content/Css/Site/Shared/style-responsive.css",
+                "~/Content/Css/Site/Lbel/style-lbel-responsive.css"
+            ));
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
