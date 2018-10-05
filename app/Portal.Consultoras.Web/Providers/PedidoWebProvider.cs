@@ -276,5 +276,16 @@ namespace Portal.Consultoras.Web.Providers
             return descripcion;
         }
 
+        public BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = pedidoServiceClient.InsertPedidoDetalle(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
     }
 }

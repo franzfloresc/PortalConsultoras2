@@ -4203,6 +4203,80 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public JsonResult PedidoAgregarProducto2(PedidoCrudModel model)
+        {
+            try
+            {
+                string mensaje = "", urlRedireccionar = "", CuvSet = string.Empty;
+
+                #region SesiónExpirada
+                if (userData == null)
+                {
+                    mensaje = "Sesión expirada.";
+                    urlRedireccionar = Url.Action("Index", "Login");
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        urlRedireccionar
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                #endregion
+
+                BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+                pedidoDetalle.Producto.EstrategiaID = model.EstrategiaID;
+                pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID.ToString();
+                pedidoDetalle.Producto.CUV = model.CUV;
+                pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
+                pedidoDetalle.PaisID = userData.PaisID;
+                pedidoDetalle.IPUsuario = userData.IPUsuario;
+                pedidoDetalle.OrigenPedidoWeb = model.OrigenPedidoWeb;
+                //pedidoDetalle.Producto.ConfiguracionOfertaID = 0;
+                //pedidoDetalle.Producto.PrecioCatalogo = 0;
+                //pedidoDetalle.Producto.IndicadorMontoMinimo = 0;
+                //pedidoDetalle.EsSugerido = false;
+                //pedidoDetalle.EsKitNueva = false,
+                //pedidoDetalle.Producto.MarcaID = 0;
+                //pedidoDetalle.Producto.Descripcion = "";
+                //pedidoDetalle.Identifier = ""; opcional
+
+                var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+
+                switch (pedidoDetalleResult.CodigoRespuesta)
+                {
+                    case Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO:
+                        mensaje = pedidoDetalleResult.MensajeRespuesta;
+                        break;
+                    case Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE:
+                        mensaje = pedidoDetalleResult.MensajeRespuesta;
+                        break;
+                    case Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA:
+                        mensaje = pedidoDetalleResult.MensajeRespuesta;
+                        break;
+                    case Constantes.PedidoValidacion.Code.SUCCESS:
+                        mensaje = pedidoDetalleResult.MensajeRespuesta;
+                        break;
+                    default:
+                        break;
+                }
+
+                return Json(new {
+                    success = false,
+                    message = mensaje
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrio un error, vuelva ha intentalo."
+                });
+            }
+        }
+
         private JsonResult EstrategiaAgregarProducto(ref string mensaje, ServicePedido.BEEstrategia estrategia, PedidoCrudModel model, bool revisionIndividualStock = true)
         {
             #region Validar Stock Estrategia
@@ -4294,7 +4368,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (pedidoReservado)
                     {
-                        urlRedireccionar = Url.Action("PedidoValidado", "Pedido", new { area = area });
+                        urlRedireccionar = Url.Action("
+                            ", "Pedido", new { area = area });
                     }
                 }
             }
