@@ -17,14 +17,14 @@
 }
 
 .menu__link--pedido{
-    background-image:url(../../../images/lbel/vineta_indicador.png);
+    background-image:url(/Content/images/lbel/vineta_indicador.png);
 }
 
 .pestana__marca__pais{
     width: 29px;
     height: 20px;
     background-color: #FFF;
-    background-image:url(../../../Images/Lbel/pestana_lbel.png);
+    background-image:url(/Content/Images/Lbel/pestana_lbel.png);
     top: -3px;
     left: 9.4%;
     background-size: cover;

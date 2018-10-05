@@ -74,95 +74,78 @@
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js")"></script>
 }
 
-    <script id="js-FichaProductoBuscador" type="text/x-handlebars-template">
+<script id="js-FichaProductoBuscador" type="text/x-handlebars-template">
 
-        {{#each this as |item|}}
-        
-        <article class="ficha__producto" data-item="BuscadorFichasProductos">
-            <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
-            <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
-            <input type="hidden" class="hdBuscadorSAP" value="{{SAP}}" />
-            <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
-            <input type="hidden" class="hdBuscadorCodigoPalanca" value="{{TipoEstrategiaId}}" />
-            <input type="hidden" class="hdBuscadorMarcaId" value="{{MarcaId}}" />
-            <input type="hidden" class="hdBuscadorDescripcion" value="{{Descripcion}}" />
-            <input type="hidden" class="hdBuscadorDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" class="hdBuscadorPrecio" value="{{PrecioString}}" />
-            <input type="hidden" class="hdBuscadorValorizado" value="{{ValorizadoString}}" />
-            <input type="hidden" class="hdBuscadorPosicion" value="{{posicion}}" />
-            <input type="hidden" class="hdBuscadorLimiteVenta" value="{{LimiteVenta}}" />
-            <input type="hidden" class="hdBuscadorCantidadesAgregadas" value="{{CantidadesAgregadas}}" />
-            <input type="hidden" class="hdBuscadorCodigoTipoEstrategia" value="{{CodigoTipoEstrategia}}" />
-            <input type="hidden" class="hdBuscadorCampaniaID" value="{{CampaniaID}}" />
-            <input type="hidden" class="hdBuscadorOrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
-            <input type="hidden" class="hdBuscadorTipoPersonalizacion" value="{{TipoPersonalizacion}}" />
-            <input type="hidden" class="hdBuscadorEstrategiaID" value="{{EstrategiaID}}" />
+    {{#each this as |item|}}
+    <article class="ficha__producto d-inline-block" data-item="BuscadorFichasProductos" data-loaded="{{Loaded}}">
 
-            <div class="row flex-row justify-content-center ml-0 mr-0">
-                <figure class="col-12 ficha__producto__imagen text-center">
-                    <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
-                </figure>
-                <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
-                    <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
-                        {{DescripcionEstrategia}}
-                    </div>
-                    <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold">
-                        {{Descripcion}}
-                    </div>
+        <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
+       
+        <div class="row flex-row justify-content-center ml-0 mr-0">
+            <figure class="col-12 ficha__producto__imagen text-center">
+                <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
+            </figure>
+            <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                    {{DescripcionEstrategia}}
                 </div>
-                <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
-                    {{#if_eq TipoPersonalizacion 'LIQ'}}
-                    <div class="ficha__producto__precio__oferta text-bold text-left">
-                        {{PrecioString}}
-                    </div>
-                    {{else}}
-                    <div class="ficha__producto__precio__normal text-left">
-                        {{ValorizadoString}}
-                    </div>
-                    <div class="ficha__producto__precio__oferta text-bold text-left">
-                        {{PrecioString}}
-                    </div>
-                    {{/if_eq}}
-                </div>
-                <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
-                    {{#if_eq CodigoEstrategia '2003'}}
-                    <div data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
-                        <!-- BOTÓN ELIGE TU OPCIÓN -->
-                        <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion ml-0 mr-0 text-uppercase text-center" href="javascript:;">
-                            <span class="col-12 pl-0 pr-0 text-bold d-inline-block">
-                            </span>
-                        </a>
-                        <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
-                    </div>
-
-                    {{else}}
-                    <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
-                        <div class="liquidacion_rango_home js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup" {{#if Stock}} disabled {{/if}}>
-                            <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
-                                <a class="mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                    <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
-                                </a>
-                                <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                    <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
-                        {{#if Stock}}
-                        <a class="boton_Agregalo_home btn_inactivo text-center text-uppercase d-block">
-                            Agotado
-                        </a>
-                        {{else}}
-                        <a class="boton_Agregalo_home text-center text-uppercase d-block FichaAgregarProductoBuscador">
-                            Agrégalo
-                        </a>
-                        {{/if}}
-                    </div>
-                    {{/if_eq}}
+                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold">
+                    {{Descripcion}}
                 </div>
             </div>
-        </article>
-        {{/each}}
-    </script>
+            <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                {{#if_eq TipoPersonalizacion 'LIQ'}}
+                <div class="ficha__producto__precio__oferta text-bold text-left">
+                    {{PrecioString}}
+                </div>
+                {{else}}
+                <div class="ficha__producto__precio__normal text-left">
+                    {{ValorizadoString}}
+                </div>
+                <div class="ficha__producto__precio__oferta text-bold text-left">
+                    {{PrecioString}}
+                </div>
+                {{/if_eq}}
+            </div>
+            <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                {{#if_eq CodigoEstrategia '2003'}}
+                <div data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
+                    <!-- BOTÓN ELIGE TU OPCIÓN -->
+                    <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion ml-0 mr-0 text-uppercase text-center" href="javascript:;">
+                        <span class="col-12 pl-0 pr-0 text-bold d-inline-block">
+                        </span>
+                    </a>
+                    <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
+                </div>
+
+                {{else}}
+                <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
+                    <div class="liquidacion_rango_home js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup" {{#if Stock}} disabled {{/if}}>
+                        <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
+                            <a class="mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
+                            </a>
+                            <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
+                    {{#if Stock}}
+                    <a class="boton_Agregalo_home btn_inactivo text-center text-uppercase d-block">
+                        Agotado
+                    </a>
+                    {{else}}
+                    <a class="boton_Agregalo_home text-center text-uppercase d-block FichaAgregarProductoBuscador">
+                        Agrégalo
+                    </a>
+                    {{/if}}
+                </div>
+                {{/if_eq}}
+            </div>
+        </div>
+    </article>
+    {{/each}}
+</script>

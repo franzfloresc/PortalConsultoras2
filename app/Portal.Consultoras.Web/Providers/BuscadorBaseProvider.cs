@@ -45,13 +45,13 @@ namespace Portal.Consultoras.Web.Providers
         //Llamadas Post genérica
         public async Task<T> PostAsync<T>(string url, object data) where T : class, new()
         {
-            
+
             var dataJson = JsonConvert.SerializeObject(data);
             var stringContent = new StringContent(dataJson, Encoding.UTF8, contentType);
             var httpResponse = await httpClientBuscador.PostAsync(url, stringContent);
 
             if (httpResponse == null || !httpResponse.IsSuccessStatusCode) return new T();
-            
+
             var httpContent = await httpResponse.Content.ReadAsStringAsync();
             var dataObject = JsonConvert.DeserializeObject<T>(httpContent);
 
@@ -74,24 +74,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
 
-                /*resultados.AddRange(list.Select(item => new BuscadorYFiltrosModel
-                {
-                    CUV = item.CUV,
-                    SAP = item.SAP,
-                    Imagen = item.Imagen,
-                    Descripcion = item.Descripcion,
-                    Valorizado = item.Valorizado,
-                    Precio = item.Precio,
-                    MarcaId = item.MarcaId,
-                    TipoPersonalizacion = item.TipoPersonalizacion,
-                    CodigoEstrategia = item.CodigoEstrategia,
-                    CodigoTipoEstrategia = item.CodigoTipoEstrategia,
-                    TipoEstrategiaId = item.TipoEstrategiaId,
-                    LimiteVenta = item.LimiteVenta,
-                    Stock = item.Stock,
-                    URLBsucador = path,
-                    EstrategiaID = item.EstrategiaID
-                }));*/
+        
             }
 
             return resultados;

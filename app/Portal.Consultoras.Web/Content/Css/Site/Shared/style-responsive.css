@@ -23,7 +23,7 @@ ul{
 }
 
 a, a:hover,a:active{
-    color:#000;
+    color:#000!important;
     text-decoration:none;
 }
 
@@ -154,7 +154,7 @@ body > img{
 }
 
 .layout__header{
-    background-image:url(../../../images/cincuenta_anios_belcorp_cabecera.png);
+    background-image:url(/Content/images/cincuenta_anios_belcorp_cabecera.png);
     background-position:left top;
     height:60px;
     padding-left:12px;
@@ -232,7 +232,7 @@ body > img{
 .header__menu--lateralIzquierdo .menu__item,
 .submenu__item--AsesorBelleza
 {
-    letter-spacing:0.5px;
+    letter-spacing:0.7px;
 }
 
 .menu__item{
@@ -284,7 +284,7 @@ body > img{
 .menu__link--conSubmenu,
 .submenu__item--AsesorBelleza > .submenu__link
 {
-    background-image:url(../../../images/down_arrow.png);
+    background-image:url(/Content/images/down_arrow.png);
     background-position:97% center;
 }
 
@@ -676,6 +676,10 @@ body > img{
     font-weight:400;
 }
 
+.campo_buscador_productos::-ms-clear{
+    display: none;
+}
+
 .campo_busqueda_fondo_on_focus {
     display:none; 
     background-color: #FFF;
@@ -731,7 +735,7 @@ body > img{
     display: none; 
     position: absolute;
     top: 42px;
-    right: -3px;
+    right: -5px;
     width: 621px;
     min-height: 250px;
     padding-bottom: 9px;
@@ -777,7 +781,7 @@ body > img{
     margin-top: 17px;
     width: 98.55%;
     min-height: 65px;
-    max-height: 330px;
+    max-height: 397px;
     overflow: auto;
     position: relative;
     padding-bottom:14px;
@@ -805,7 +809,7 @@ body > img{
 .resultado_busqueda_producto{
     justify-content:space-evenly;
     text-align:left;
-    padding: 15px 19px 15px 5px;
+    padding: 15px 9px 15px 5px;
     border-bottom:1px solid #b0b0b0;
     cursor:pointer;
 }
@@ -820,9 +824,9 @@ body > img{
     }
 
 .resultado_busqueda_img_prod{
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 25%;
+    -ms-flex: 0 0 27%;
+    flex: 0 0 27%;
+    max-width: 27%;
     /*margin-left: 7px;
     width: 125.78px; */
     height: 68px;
@@ -836,7 +840,7 @@ body > img{
         height: 100%;
         position: absolute;
         top: 0;
-        left: -7px;
+        left: -10px;
         right: 0;
         bottom: 0;
         margin: auto;
@@ -851,11 +855,12 @@ body > img{
 }
 
 .resultado_busqueda_descrip_prod{
-    /* width:168.33px; */
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 25%;
-    margin-right:16px;
+    /*width:168.33px;*/
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
+    max-width:137px;
+    /*max-width: 32%;*/
+    margin-right:10px;
 }
 
 .resultado_busqueda_nom_producto{
@@ -1254,6 +1259,31 @@ body > img{
 
 /* FIN - FOOTER*/
 
+/* CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
+
+    [data-codigo='contenedorofertas'].new_menu a img{
+        max-width:none;
+    }
+
+    .campo_busqueda_fondo_on_focus{
+        height:49px;
+    }
+
+    .resultado_busqueda_descrip_prod{
+        max-width:153px;
+    }
+
+    .icono_elige_tu_opcion {
+        display: inline-block;
+        vertical-align:middle;
+    }
+
+}
+
+/* FIN - CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
+
 @media screen and (min-width:1272px) and (max-width:1286px){
 
     .menu__item[data-title="SOCIA EMPRESARIA"] ~ .menu__item, 
@@ -1357,7 +1387,7 @@ body > img{
     } */
 
     .layout__header{
-        background-image:url(../../../images/mobile/cincuenta_anios_belcorp_cabecera_mobile.png);
+        background-image:url(/Content/images/mobile/cincuenta_anios_belcorp_cabecera_mobile.png);
         background-position:-23px top;
         padding-right:12px;
     }
@@ -1712,7 +1742,7 @@ body > img{
         flex-wrap:wrap;
         flex-grow:1;
         align-items:flex-start;
-        min-width:128px;
+        min-width:145px;
         max-width:250px;
         padding-right:10px;
     }
@@ -1747,8 +1777,8 @@ body > img{
     .btn_elegir_opcion{
         width:100%;
         line-height:initial;
-        padding-left: 15px;
-        padding-right: 17px;
+        padding-left: 4px;
+        padding-right: 4px;
     }
 
     .btn_elegir_opcion span:last-child br {
@@ -1756,6 +1786,7 @@ body > img{
     }
 
     .icono_elige_tu_opcion{
+        margin-right:6px;
         height:21px;
     }
 
@@ -1805,14 +1836,14 @@ body > img{
     .footer__item__title{
         padding-top:10px;
         border-bottom:1px solid #9e9e9f;
-        background-image:url(../../../Images/mobile/icono_mas_footer_mobile.png);
+        background-image:url(/Content/Images/mobile/icono_mas_footer_mobile.png);
         background-position:96.5% center;
         background-repeat:no-repeat;
         font-weight:400;
     }
 
     .footer__item__title--desplegado{
-        background-image:url(../../../Images/mobile/icono_menos_footer_mobile.png);
+        background-image:url(/Content/Images/mobile/icono_menos_footer_mobile.png);
     }
 
     .footer__item__content__list{
@@ -1865,6 +1896,14 @@ body > img{
 
     .btn_elegir_opcion span:last-child br {
         display: none;
+    }
+
+}
+
+@media screen and (max-width:351px){
+
+    .resultado_wrapper_selector_cantidad_y_btn_agregar{
+        min-width:120px;
     }
 
 }

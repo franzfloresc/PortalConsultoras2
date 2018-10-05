@@ -85,17 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
                 DateTime? FechaFi = (FechaInicio == "" ? default(DateTime?) : Convert.ToDateTime(FechaFin));
                 lst = usuarioServiceClient.ReporteContratoAceptacion(userData.PaisID, CodigoConsultora, Cedula, fechaIni, FechaFi).ToList();
             }
-
-
-
-            //lst.Update(p => p.NombreCompleto = (p.PrimerNombre ?? "") + " " + (p.SegundoNombre ?? "") + " " + (p.PrimerApellido ?? "") + " " + (p.SegundoApellido ?? ""));
-
-            //lst.Update(p => p.FechaTransaccionFormat = p.FechaTransaccion.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : p.FechaTransaccion.ToString("dd/MM/yyyy"));
-            //lst.Update(p => p.FechaTransaccionHoraFormat = p.FechaTransaccion.ToString("dd/MM/yyyy") == "01/01/0001" ? "" : p.FechaTransaccion.ToString("HH:mm"));
-
-            //lst.Update(p => p.FechaCreacionFormat = p.FechaCreacion.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : p.FechaCreacion.ToString("dd/MM/yyyy"));
-            //lst.Update(p => p.FechaCreacionHoraFormat = p.FechaCreacion.ToString("dd/MM/yyyy") == "01/01/0001" ? "" : p.FechaCreacion.ToString("HH:mm"));
-
+            
             Dictionary<string, string> dic = new Dictionary<string, string>
             {
                 {"Registro", "Registro"},
