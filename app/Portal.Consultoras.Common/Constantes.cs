@@ -844,16 +844,14 @@ namespace Portal.Consultoras.Common
             #endregion
             
 
-            #region MasGanadoras
-     
+            #region MasGanadoras     
 
             public const int MasGanadorasDesktopLanding = 1111401;
             public const int MasGanadorasDesktopLandingFicha = 1111402;
             public const int MasGanadorasMobileLandingFicha = 2111402;
             public const int MasGanadorasDesktopContenedorCarrusel = 1081401;
             public const int MasGanadorasDesktopContenedorCarruselFicha = 1081402;
-            public const int MasGanadorasMobileContenedorCarruselFicha = 2081402;
-    
+            public const int MasGanadorasMobileContenedorCarruselFicha = 2081402;    
 
             #endregion
 
