@@ -42,8 +42,8 @@ namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
 
                 //}
 
-                public DetalleEstrategiaMobileController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider)
-                    : base(sesionManager, logManager, ofertaPersonalizadaProvider)
+                public DetalleEstrategiaMobileController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
+                    : base(sesionManager, logManager, ofertaPersonalizadaProvider,ofertaViewProvider)
                 {
                 }
 
@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
 
             protected override BaseViewController CreateController()
             {
-                return new DetalleEstrategiaMobileController(SessionManager.Object, LogManager.Object, OfertaPersonalizadaProvider.Object);
+                return new DetalleEstrategiaMobileController(SessionManager.Object, LogManager.Object, OfertaPersonalizadaProvider.Object, OfertaViewProvider.Object);
             }
 
             [TestCleanup]
@@ -123,6 +123,30 @@ namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
             public override void Ficha_ConsultoraNoTieneProductoEnSession_RedirectsToOfertas(string nombrePalanca, string configuracionPaisCodigo)
             {
                 base.Ficha_ConsultoraNoTieneProductoEnSession_RedirectsToOfertas(nombrePalanca, configuracionPaisCodigo);
+            }
+
+            [TestMethod]
+            public override void Ficha_PalancaOptYConsultoraNoTieneRevistaDigital_BreadCrumOfertasReturnsOfertasDigitales()
+            {
+                base.Ficha_PalancaOptYConsultoraNoTieneRevistaDigital_BreadCrumOfertasReturnsOfertasDigitales();
+            }
+
+            [TestMethod]
+            public override void Ficha_PalancaOpmYConsultoraNoTieneRevistaDigital_BreadCrumOfertasReturnsOfertasDigitales()
+            {
+                base.Ficha_PalancaOpmYConsultoraNoTieneRevistaDigital_BreadCrumOfertasReturnsOfertasDigitales();
+            }
+
+            [TestMethod]
+            public override void Ficha_PalancaOptYConsultoraTieneRevistaDigital_BreadCrumOfertasReturnsGanaMas()
+            {
+                base.Ficha_PalancaOptYConsultoraTieneRevistaDigital_BreadCrumOfertasReturnsGanaMas();
+            }
+
+            [TestMethod]
+            public override void Ficha_PalancaOpmYConsultoraTieneRevistaDigital_BreadCrumOfertasReturnsGanaMas()
+            {
+                base.Ficha_PalancaOpmYConsultoraTieneRevistaDigital_BreadCrumOfertasReturnsGanaMas();
             }
         }
     }

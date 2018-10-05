@@ -868,14 +868,15 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var i = 0;
-                list.Update(p=>{
+                list.Update(p =>
+                {
                     p.NroRegistro = (i + 1).ToString();
                     p.paisISO = model.CodigoISO;
                     p.TipoProceso = p.OrigenNombre;
                     i++;
 
                 });
-           
+
             }
             catch (Exception ex)
             {
@@ -913,7 +914,7 @@ namespace Portal.Consultoras.Web.Controllers
         private void AjustarModel(FiltroReportePedidoDDWebModel model)
         {
             if (model.RegionID == "" || model.RegionID == "-- Todas --") model.RegionID = null;
-           
+
             if (model.Campania == null) model.EsPrimeraBusqueda = true;
             model.CodigoISO = Util.GetPaisISO(Convert.ToInt32(model.PaisID));
         }
