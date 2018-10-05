@@ -184,9 +184,9 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/flipclock.css",
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/Esika/reset.css",
+               "~/Content/Css/Site/Esika/styleDefault.css",
                "~/Content/Css/Site/Esika/style.css",
                "~/Content/Css/Site/Menu/MenuPrincipal.css",
-               "~/Content/Css/Site/Esika/styleDefault.css",
                "~/Content/Css/ui.jquery/Esika/jquery-ui.css",
                "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Esika/revistaDigital.css",
@@ -224,9 +224,10 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/buscador-filtros.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Lbel-Contenedor").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Lbel-Contenedor").Include(
                 "~/Content/Css/Site/Contenedor/Index.css",
-                "~/Content/Css/Site/Lbel/Contenedor.css"
+                "~/Content/Css/Site/Lbel/Contenedor.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Lbel-Contenedor").Include(

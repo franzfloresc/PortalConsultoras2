@@ -2,6 +2,11 @@
 USE BelcorpPeru
 GO
 UPDATE configuracionpais
+SET desktoptitulomenu = 'EXPLORA|GUÍA DE NEGOCIO'
+WHERE codigo = 'GND'
+
+GO
+UPDATE configuracionpais
 SET desktoptitulomenu = 'Ofertas|Especiales'
 WHERE codigo = 'SR'
 
