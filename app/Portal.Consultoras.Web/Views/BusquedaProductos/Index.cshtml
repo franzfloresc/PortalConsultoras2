@@ -110,9 +110,9 @@
             </div>
             <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
                 {{#if_eq CodigoEstrategia '2003'}}
-                <div data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
+                <div class="col-12 pl-0 pr-0" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
                     <!-- BOTÓN ELIGE TU OPCIÓN -->
-                    <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion btn__elegir__opcion--fichaProducto {{#if Stock}} btn_inactivo {{/if}} ml-0 mr-0 text-uppercase text-center" href="javascript:;">
+                    <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion btn__elegir__opcion--fichaProducto {{#if Stock}} btn_inactivo btn__inactivo--fichaProducto {{/if}} ml-0 mr-0 text-uppercase text-center" href="javascript:;">
                         {{#if Stock}}
                         Agotado
                         {{else}}
@@ -125,7 +125,7 @@
                 </div>
                 {{else}}
                 <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
-                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
+                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup {{#if Stock}} selector_cant_desactivado selector__cant__desactivado--fichaProducto {{/if}}" data-cantidad-contenedor="">
                         <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                             <img class="d-block js-no-popup" src="/Content/Images/menos.svg" alt="">
                         </a>
@@ -137,7 +137,7 @@
                 </div>
                 <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
                     {{#if Stock}}
-                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto btn_inactivo text-center text-uppercase d-block">
+                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto btn_inactivo btn__inactivo--fichaProducto text-center text-uppercase d-block">
                         Agotado
                     </a>
                     {{else}}
