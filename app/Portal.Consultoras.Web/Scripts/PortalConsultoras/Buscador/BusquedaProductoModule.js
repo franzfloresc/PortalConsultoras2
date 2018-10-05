@@ -21,12 +21,12 @@
         textoBusqueda: textoBusqueda,
         totalProductos: 0,
         totalPaginas: 0,
-        productosPorPagina: 20,
+        productosPorPagina: totalProductosPagina,
         numeroPaginaActual: 0,
         ordenCampo: "orden",
         ordenTipo: "asc",
         cargandoProductos: false,
-        maxCaracteresDesc: TotalCaracteresEnListaBuscador
+        maxCaracteresDesc: totalCaracteresDescripcion
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -143,7 +143,6 @@
                 });
             });
         }
-
     };
     var _eventos = {
         DropDownOrdenar: function () {

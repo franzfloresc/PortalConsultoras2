@@ -2764,6 +2764,9 @@ namespace Portal.Consultoras.Common
             public const string MostrarBotonVerTodos = "MostrarBotonVerTodos";
             public const string AplicarLogicaCantidadBotonVerTodos = "AplicarLogicaCantidadBotonVerTodos";
             public const string MostrarOpcionesOrdenamiento = "MostrarOpcionesOrdenamiento";
+            public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
+            public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
+            
         }
 
 
