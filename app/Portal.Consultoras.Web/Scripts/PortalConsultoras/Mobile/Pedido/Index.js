@@ -959,12 +959,12 @@ function MostrarMensaje(tipoMensaje, message) {
             $divMensaje.show();
             break;
         case "mensajeParametrizableCUV":
+        case "mensajeCUVCantidadMaxima":
             $divMensaje.find("#btnCerrarMensaje").show();
             $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
             $divMensaje.find("#divMensaje").html(message);
             $divMensaje.show();
             break;
-        case "mensajeCUVCantidadMaxima":
         case "mensajeCUVShowRoom":
         case "mensajeProgramaNuevas":
             $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
@@ -972,6 +972,11 @@ function MostrarMensaje(tipoMensaje, message) {
             $divMensaje.show();
             break;
     }
+}
+function CerrarMensajeCuv() {
+    $('#divMensajeCUV').hide();
+    $("#btnAgregarProducto").show();
+    $("#btnAgregarProducto").removeAttr("disabled");
 }
 
 function MostrarDetalleGanancia() {
