@@ -74,12 +74,12 @@ var ConstantesModule = (function () {
         OfertaDelDiaDesktopHomeBanner: "1191",
         OfertaDelDiaDesktopPedidoBanner: "1291",
         OfertaDelDiaDesktopGeneralBanner: "1991",
-        MasGanadorasDesktopHomeCarrusel: "3001",
-        MasGanadorasDesktopProductPageFicha: "3002",
-        MasGanadorasDesktopProductPageCarrusel : "3003",
-        MasGanadorasMobileHomeCarrusel : "3004",
-        MasGanadorasMobileProductPageFicha : "3005",
-        MasGanadorasMobileHome : "3005"
+        MasGanadorasDesktopContenedor: "3001",
+        MasGanadorasDesktopContenedorPopup: "3002",
+        MasGanadorasDesktopLanding : "3003",
+        MasGanadorasDesktopLandingPopUp : "3004",
+        MasGanadorasMobileLanding : "3005",
+        MasGanadorasMobileLandingPopup : "3006"
     }
     
     return {
