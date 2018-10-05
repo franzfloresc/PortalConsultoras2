@@ -35,7 +35,6 @@ namespace Portal.Consultoras.Web.Providers
         }
         protected ConfiguracionManagerProvider _configuracionManager;
         protected readonly PedidoWebProvider _pedidoWeb;
-        protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
         protected OfertaBaseProvider _ofertaBaseProvider;
 
         public OfertaPersonalizadaProvider() : this(Web.SessionManager.SessionManager.Instance, 
