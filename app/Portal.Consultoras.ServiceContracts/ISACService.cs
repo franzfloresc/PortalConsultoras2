@@ -1,10 +1,12 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Mobile;
+using Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.Producto;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
-using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -820,5 +822,8 @@ namespace Portal.Consultoras.ServiceContracts
         int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote);
 
         #endregion
+
+        [OperationContract]
+        List<BEBuscadorResponse> ObtenerBuscadorComplemento(int paisID, string codigoUsuario, bool suscripcionActiva, List<BEBuscadorResponse> lst, bool isApp);
     }
 }

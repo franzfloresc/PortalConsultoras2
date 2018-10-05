@@ -60,12 +60,23 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Comprar()
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
 
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
+               // return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
+                if (url.Length > 1)
+                {
+                    sap = "&" + url[1];
+                    return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
+                }
             }
-            
+
             try
             {
                 ViewBag.variableEstrategia = GetVariableEstrategia();
@@ -225,7 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return "";
         }
-        
+
         [HttpPost]
         public JsonResult PopupCerrar()
         {
@@ -471,8 +482,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             //Limpiar session del servidor
             SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada), null);
-            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.HerramientasVenta),null);
-            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.Lanzamiento),null);
+            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.HerramientasVenta), null);
+            SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.Lanzamiento), null);
             SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.LosMasVendidos), null);
             SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaParaTi), null);
             SessionManager.SetBEEstrategia(string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaWeb), null);

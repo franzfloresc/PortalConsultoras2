@@ -224,6 +224,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string BanderaImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceAsesoraOnline.BEBuscadorYFiltrosConfiguracion BuscadorYFiltrosConfiguracionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool CambioClaveField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -339,6 +342,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DestinatariosFeedbackField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DiaFacturacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int DiasAntesField;
@@ -518,6 +524,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private int IndicadorContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IndicadorContratoAceptacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorDuplaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -597,6 +606,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombrePaisField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NovedadBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NroCampaniasField;
@@ -961,6 +973,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.BanderaImagenField, value) != true)) {
                     this.BanderaImagenField = value;
                     this.RaisePropertyChanged("BanderaImagen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceAsesoraOnline.BEBuscadorYFiltrosConfiguracion BuscadorYFiltrosConfiguracion {
+            get {
+                return this.BuscadorYFiltrosConfiguracionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BuscadorYFiltrosConfiguracionField, value) != true)) {
+                    this.BuscadorYFiltrosConfiguracionField = value;
+                    this.RaisePropertyChanged("BuscadorYFiltrosConfiguracion");
                 }
             }
         }
@@ -1468,6 +1493,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.DestinatariosFeedbackField, value) != true)) {
                     this.DestinatariosFeedbackField = value;
                     this.RaisePropertyChanged("DestinatariosFeedback");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DiaFacturacion {
+            get {
+                return this.DiaFacturacionField;
+            }
+            set {
+                if ((this.DiaFacturacionField.Equals(value) != true)) {
+                    this.DiaFacturacionField = value;
+                    this.RaisePropertyChanged("DiaFacturacion");
                 }
             }
         }
@@ -2240,6 +2278,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IndicadorContratoAceptacion {
+            get {
+                return this.IndicadorContratoAceptacionField;
+            }
+            set {
+                if ((this.IndicadorContratoAceptacionField.Equals(value) != true)) {
+                    this.IndicadorContratoAceptacionField = value;
+                    this.RaisePropertyChanged("IndicadorContratoAceptacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int IndicadorDupla {
             get {
                 return this.IndicadorDuplaField;
@@ -2586,6 +2637,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.NombrePaisField, value) != true)) {
                     this.NombrePaisField = value;
                     this.RaisePropertyChanged("NombrePais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NovedadBuscador {
+            get {
+                return this.NovedadBuscadorField;
+            }
+            set {
+                if ((this.NovedadBuscadorField.Equals(value) != true)) {
+                    this.NovedadBuscadorField = value;
+                    this.RaisePropertyChanged("NovedadBuscador");
                 }
             }
         }
@@ -3642,6 +3706,99 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEBuscadorYFiltrosConfiguracion", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEBuscadorYFiltrosConfiguracion : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short CaracteresBuscadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short CaracteresBuscadorMostrarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarBuscadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short TotalResultadosBuscadorField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short CaracteresBuscador {
+            get {
+                return this.CaracteresBuscadorField;
+            }
+            set {
+                if ((this.CaracteresBuscadorField.Equals(value) != true)) {
+                    this.CaracteresBuscadorField = value;
+                    this.RaisePropertyChanged("CaracteresBuscador");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short CaracteresBuscadorMostrar {
+            get {
+                return this.CaracteresBuscadorMostrarField;
+            }
+            set {
+                if ((this.CaracteresBuscadorMostrarField.Equals(value) != true)) {
+                    this.CaracteresBuscadorMostrarField = value;
+                    this.RaisePropertyChanged("CaracteresBuscadorMostrar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarBuscador {
+            get {
+                return this.MostrarBuscadorField;
+            }
+            set {
+                if ((this.MostrarBuscadorField.Equals(value) != true)) {
+                    this.MostrarBuscadorField = value;
+                    this.RaisePropertyChanged("MostrarBuscador");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short TotalResultadosBuscador {
+            get {
+                return this.TotalResultadosBuscadorField;
+            }
+            set {
+                if ((this.TotalResultadosBuscadorField.Equals(value) != true)) {
+                    this.TotalResultadosBuscadorField = value;
+                    this.RaisePropertyChanged("TotalResultadosBuscador");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEGuiaNegocio", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEGuiaNegocio : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -3790,6 +3947,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneRDCRField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneRDIField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -3953,6 +4113,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.TieneRDCRField.Equals(value) != true)) {
                     this.TieneRDCRField = value;
                     this.RaisePropertyChanged("TieneRDCR");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneRDI {
+            get {
+                return this.TieneRDIField;
+            }
+            set {
+                if ((this.TieneRDIField.Equals(value) != true)) {
+                    this.TieneRDIField = value;
+                    this.RaisePropertyChanged("TieneRDI");
                 }
             }
         }
