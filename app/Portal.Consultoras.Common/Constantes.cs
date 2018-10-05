@@ -845,12 +845,16 @@ namespace Portal.Consultoras.Common
             
 
             #region MasGanadoras
-            public const int MasGanadorasDesktopContenedor = 3001;
-            public const int MasGanadorasDesktopContenedorPopup = 3002;
-            public const int MasGanadorasDesktopLanding = 3003;
-            public const int MasGanadorasDesktopLandingPopUp = 3004;
-            public const int MasGanadorasMobileLanding = 3005;
-            public const int MasGanadorasMobileLandingPopup = 3006;
+     
+
+            public const int MasGanadorasDesktopLanding = 1111401;
+            public const int MasGanadorasDesktopLandingFicha = 1111402;
+            public const int MasGanadorasMobileLandingFicha = 2111402;
+            public const int MasGanadorasDesktopContenedorCarrusel = 1081401;
+            public const int MasGanadorasDesktopContenedorCarruselFicha = 1081402;
+            public const int MasGanadorasMobileContenedorCarruselFicha = 2081402;
+    
+
             #endregion
 
             #region VirtualCoach
