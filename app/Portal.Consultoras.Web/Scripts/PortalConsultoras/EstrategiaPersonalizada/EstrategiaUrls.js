@@ -62,12 +62,12 @@ function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
                 break;
             case ConstantesModule.ConstantesPalanca.OfertasParaMi:
                 {
-                    if (OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopHomeCarrusel ||
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopProductPageFicha || 
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopProductPageCarrusel || 
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasMobileHomeCarrusel || 
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasMobileProductPageFicha || 
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasMobileHome )
+                    if (OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopContenedor ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopContenedorPopup || 
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopLanding || 
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopLandingPopUp || 
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasMobileLanding || 
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasMobileLandingPopup )
                         url += ConstantesModule.CodigosPalanca.Ganadoras + "/";
                     else
                         url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
