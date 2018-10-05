@@ -25,7 +25,8 @@ var CONS_CODIGO_SECCION = {
     ODD: "ODD",
     OPT: "OPT",
     DES: "DES-NAV",
-    HV: "HV"
+    HV: "HV",
+    MG: 'MG'
 };
 
 var listaSeccion = {};
@@ -303,7 +304,9 @@ function SeccionMostrarProductos(data) {
             }
         }
 
-    } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV) {
+    }
+    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG)
+    {
         if (data.lista !== undefined && data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
             var cantidadAMostrar = parseInt($("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html());
