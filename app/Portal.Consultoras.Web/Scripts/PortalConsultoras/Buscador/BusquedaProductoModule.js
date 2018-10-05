@@ -81,6 +81,7 @@
                     $(_elementos.spanTotalProductos).html(data.total);
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
+                    _funciones.UpadteFichaProducto();
                 }).fail(function (data, error) {
                     console.error(error.toString());
                 });
@@ -100,14 +101,29 @@
                     item.Descripcion = item.Descripcion.substring(0, _config.maxCaracteresDesc) + "...";
                 }
             });
-
+        },
+        ValidarScroll: function () {
+            if (_config.totalProductos === 0) return false;
+            if (_config.cargandoProductos) return false;
+            if (_config.numeroPaginaActual === Math.ceil(_config.totalProductos / _config.productosPorPagina)) return false;
+            var documentHeight = $(document).height();
+            var footerHeight = $(window).scrollTop() + $(window).height();
+            footerHeight += $(_elementos.footer).innerHeight() || 0;
+            return footerHeight >= documentHeight;
+        },
+        GetSize(url, callback) {
+            var img = new Image();
+            img.src = url;
+            img.onload = function () { callback(this.width, this.height); }
+        },
+        UpadteFichaProducto() {
             $('article[data-loaded=0]').each(function () {
 
                 var fichaProducto = $(this);
                 var imgProducto = fichaProducto.find('img').attr('src');
                 var classRatio = '';
 
-                _funciones.getMeta(imgProducto, function (width, height) {
+                _funciones.GetSize(imgProducto, function (width, height) {
 
                     var aspect_ratio = width / height;
 
@@ -126,22 +142,8 @@
                     fichaProducto.removeClass('ficha__producto').removeClass('ficha__producto--ancha').removeClass('ficha__producto--alta').addClass(classRatio);
                 });
             });
-
-        },
-        ValidarScroll: function () {
-            if (_config.totalProductos === 0) return false;
-            if (_config.cargandoProductos) return false;
-            if (_config.numeroPaginaActual === Math.ceil(_config.totalProductos / _config.productosPorPagina)) return false;
-            var documentHeight = $(document).height();
-            var footerHeight = $(window).scrollTop() + $(window).height();
-            footerHeight += $(_elementos.footer).innerHeight() || 0;
-            return footerHeight >= documentHeight;
-        },
-        getMeta(url, callback) {
-            var img = new Image();
-            img.src = url;
-            img.onload = function () { callback(this.width, this.height); }
         }
+
     };
     var _eventos = {
         DropDownOrdenar: function () {
