@@ -21,12 +21,12 @@
         textoBusqueda: textoBusqueda,
         totalProductos: 0,
         totalPaginas: 0,
-        productosPorPagina: 20,
+        productosPorPagina: totalProductosPagina,
         numeroPaginaActual: 0,
         ordenCampo: "orden",
         ordenTipo: "asc",
         cargandoProductos: false,
-        maxCaracteresDesc: TotalCaracteresEnListaBuscador
+        maxCaracteresDesc: totalCaracteresDescripcion
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -131,7 +131,7 @@
         ValidarScroll: function () {
             if (_config.totalProductos === 0) return false;
             if (_config.cargandoProductos) return false;
-            if (_config.numeroPaginaActual === Math.ceil(_config.totalProductos / _config.productosPorPagina)) return false;
+            if ((_config.numeroPaginaActual - 1) === Math.ceil(_config.totalProductos / _config.productosPorPagina)) return false;
             var documentHeight = $(document).height();
             var footerHeight = $(window).scrollTop() + $(window).height();
             footerHeight += $(_elementos.footer).innerHeight() || 0;

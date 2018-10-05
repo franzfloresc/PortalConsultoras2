@@ -17,7 +17,7 @@
                 <span id="TotalProductos" class="busqueda__num__productos__encontrados">0</span>  resultados para: <span id="TextoBusqueda" class="busqueda__nom__filtro text-bold">@Model.TextoBusqueda</span>
             </p>
         </section>
-        @if (ViewBag.MostrarOpcionesOrdenamiento)
+        @if (Model.MostrarOpcionesOrdenamiento)
         {
             <section class="col-12 col-lg-6 col-xl-6 lista__opciones_ordenamiento">
                 <div class="row flex-row justify-content-end ml-0 mr-0">
@@ -67,9 +67,11 @@
     </section>
 </section>
 @section scripts{
-    <script type="text/javascript">
-        var textoBusqueda = '@Model.TextoBusqueda';
-    </script>
+<script type="text/javascript">
+    var textoBusqueda = '@Model.TextoBusqueda';
+    var totalProductosPagina = '@Model.TotalProductosPagina';
+    var totalCaracteresDescripcion = '@Model.TotalCaracteresDescripcion';
+</script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProvider.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js")"></script>
 }
