@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (configuracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            var campaniaActual =  Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString();
+            var campaniaActual = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString();
             SessionManager.SetPedidoFIC(null);
             ViewBag.ClaseTabla = "tabla2";
             ViewBag.Pais_ISO = userData.CodigoISO;
@@ -45,11 +45,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.PROLDes = "Guarda los productos que haz ingresado";
             ViewBag.ModPedido = "display:none;";
             ViewBag.NombreConsultora = userData.NombreConsultora;
-            ViewBag.PedidoFIC = "C" + (campaniaActual.Length == 6 ? campaniaActual.Substring (4,2) : campaniaActual);
+            ViewBag.PedidoFIC = "C" + (campaniaActual.Length == 6 ? campaniaActual.Substring(4, 2) : campaniaActual);
             ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + Util.NombreMes(userData.FechaFinFIC.Month);
             ViewBag.FinFIc = userData.FechaFinFIC.ToString("dd/MM");
             ViewBag.FechaFinFIC = userData.FechaFinFIC.ToString("dd'/'MM");
-            ViewBag.Campania = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).Substring(4,2);
+            ViewBag.Campania = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).Substring(4, 2);
             var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();
             PedidoFICDetalleMobileModel modelo = new PedidoFICDetalleMobileModel
             {
@@ -115,9 +115,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.DataBarra = GetDataBarra2(true, true);
 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
-            
+
             return View("Index", model);
-            
+
         }
 
         private BEConfiguracionCampania GetConfiguracionCampania(UsuarioModel userDataParam)
@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return configuracionCampania;
         }
-        
+
         private List<BECliente> GetClientesByConsultora(UsuarioModel userDataParam)
         {
             List<BECliente> clientesByConsultora;
@@ -173,7 +173,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (beConfiguracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
-            
+
             var model = new PedidoDetalleMobileModel
             {
                 AutoReservar = autoReservar,
@@ -188,7 +188,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             };
 
             ValidarStatusCampania(beConfiguracionCampania);
-            
+
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
 
             if (!userData.DiaPROL)  // Periodo de venta
@@ -208,9 +208,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.PaisID = userData.PaisID;
 
             var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();
-            
+
             olstPedidoFicDetalle = olstPedidoFicDetalle ?? new List<BEPedidoFICDetalle>();
-            
+
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
             model.EsFacturacion = esFacturacion;
@@ -272,8 +272,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
 
                 var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();
-                olstPedidoFicDetalle = olstPedidoFicDetalle ?? new List<BEPedidoFICDetalle>(); 
-                
+                olstPedidoFicDetalle = olstPedidoFicDetalle ?? new List<BEPedidoFICDetalle>();
+
                 objR.TotalPedido = olstPedidoFicDetalle.Sum(p => p.ImporteTotal);
                 objR.TotalPedidoStr = Util.DecimalToStringFormat(objR.TotalPedido, userData.CodigoISO);
 
@@ -541,7 +541,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
-        
+
         private List<BEPedidoFICDetalle> ObtenerPedidoFICDetalle()
         {
             List<BEPedidoFICDetalle> list;
@@ -1133,7 +1133,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return result;
         }
-        
+
         #endregion
 
         private List<BEEscalaDescuento> GetParametriaOfertaFinal()

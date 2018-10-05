@@ -342,7 +342,7 @@ namespace Portal.Consultoras.Web.Controllers
                     IPUsuario = userData.IPUsuario,
                     CodigoUsuarioCreacion = userData.CodigoUsuario
                 };
-                
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     sv.GetOfertaFICToInsert(obePedidoWeb);
