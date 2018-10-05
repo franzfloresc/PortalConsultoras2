@@ -1341,6 +1341,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "HV";
             public const string PagoEnLinea = "PAYONLINE";
             public const string BuscadorYFiltros = "B&F";
+            public const string MasGanadoras = "MG";
         }
 
 
