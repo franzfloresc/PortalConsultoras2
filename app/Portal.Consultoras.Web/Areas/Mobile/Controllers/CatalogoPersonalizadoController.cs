@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
             }
-            
+
             ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
             if (SessionManager.GetListFiltersFAV() != null)
@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     SessionManager.SetProductosCatalogoPersonalizado(listaProductoModel);
                 }
             }
-            
+
             ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
             ViewBag.EsLebel = userData.EsLebel;
 

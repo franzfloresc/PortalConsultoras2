@@ -137,6 +137,10 @@
     <Compile Include="Pedido\IEscalaDescuentoBusinessLogic.cs" />
     <Compile Include="Pedido\IMensajeMetaConsultoraBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />
+    <Compile Include="Producto\BLBuscador.cs" />
+    <Compile Include="Producto\BLOfertaProducto.cs" />
+    <Compile Include="Producto\IBuscadorBusinessLogic.cs" />
+    <Compile Include="Producto\IOfertaProductoBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConsultorasProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Reserva\BLReserva.cs" />
     <Compile Include="Estrategia\BLEstrategiaProducto.cs" />
@@ -198,7 +202,6 @@
     <Compile Include="BLOferta.cs" />
     <Compile Include="BLOfertaFlexipago.cs" />
     <Compile Include="BLOfertaNueva.cs" />
-    <Compile Include="BLOfertaProducto.cs" />
     <Compile Include="BLOfertaWeb.cs" />
     <Compile Include="BLPais.cs" />
     <Compile Include="BLPaqueteDocumentario.cs" />

@@ -24,5 +24,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle);
         List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
         void InsertOfertaFinalLog(int paisID, int campaniaID, string codigoConsultora, decimal? montoInicial, List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog);
+        BEPedidoDetalleResult InsertProductoBuscador(BEPedidoDetalle pedidoDetalle);
     }
 }

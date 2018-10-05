@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using MvcContrib.TestHelper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.UnitTest.Extensions;
-using Newtonsoft.Json;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.UnitTest.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
             protected override BaseViewController CreateController()
             {
-                return new DetalleEstrategiaController(SessionManager.Object, LogManager.Object, OfertaPersonalizadaProvider.Object);
+                return new DetalleEstrategiaController(SessionManager.Object, LogManager.Object, OfertaPersonalizadaProvider.Object, OfertaViewProvider.Object);
             }
 
             [TestMethod]
@@ -92,6 +92,30 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public override void Ficha_ConsultoraNoTieneProductoEnSession_RedirectsToOfertas(string nombrePalanca, string configuracionPaisCodigo)
             {
                 base.Ficha_ConsultoraNoTieneProductoEnSession_RedirectsToOfertas(nombrePalanca, configuracionPaisCodigo);
+            }
+
+            [TestMethod]
+            public override void Ficha_PalancaOptYConsultoraNoTieneRevistaDigital_BreadCrumOfertasReturnsOfertasDigitales()
+            {
+                base.Ficha_PalancaOptYConsultoraNoTieneRevistaDigital_BreadCrumOfertasReturnsOfertasDigitales();
+            }
+
+            [TestMethod]
+            public override void Ficha_PalancaOpmYConsultoraNoTieneRevistaDigital_BreadCrumOfertasReturnsOfertasDigitales()
+            {
+                base.Ficha_PalancaOpmYConsultoraNoTieneRevistaDigital_BreadCrumOfertasReturnsOfertasDigitales();
+            }
+
+            [TestMethod]
+            public override void Ficha_PalancaOptYConsultoraTieneRevistaDigital_BreadCrumOfertasReturnsGanaMas()
+            {
+                base.Ficha_PalancaOptYConsultoraTieneRevistaDigital_BreadCrumOfertasReturnsGanaMas();
+            }
+
+            [TestMethod]
+            public override void Ficha_PalancaOpmYConsultoraTieneRevistaDigital_BreadCrumOfertasReturnsGanaMas()
+            {
+                base.Ficha_PalancaOpmYConsultoraTieneRevistaDigital_BreadCrumOfertasReturnsGanaMas();
             }
         }
 
@@ -178,7 +202,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 43285))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2003UnComponenteNMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2003UnComponenteNMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
@@ -229,7 +253,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 43512))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteNMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteNMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
@@ -303,7 +327,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 43485))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteMixtoNMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteMixtoNMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
@@ -377,7 +401,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 43510))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2001UnComponenteNMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2001UnComponenteNMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
@@ -451,7 +475,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 28103))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2002MultiComponenteMMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2002MultiComponenteMMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
@@ -485,7 +509,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 mockEstrategiaComponenteProvider
                 .Setup(x => x.GetEstrategiaProducto(Constantes.PaisID.Peru, 37334))
-                .Returns(DataHandlerExtensions.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteMixtoMMData"));
+                .Returns(DataHandler.GetDataTesting<List<BEEstrategiaProducto>>("2003MultiComponenteMixtoMMData"));
 
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 

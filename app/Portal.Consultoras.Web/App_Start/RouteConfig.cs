@@ -49,7 +49,14 @@ namespace Portal.Consultoras.Web
                     Namespaces = new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
                 })));
 
-
+            routes.Add("UniqueRouteAnchor", new UniqueRoute(
+                "g/{guid}/{controller}/{action}#{anchor}",
+                new { controller = "Login", action = "Index", guid = "", anchor = UrlParameter.Optional },
+                new RouteValueDictionary(new
+                {
+                    Area = "Mobile",
+                    Namespaces = new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
+                })));
 
             routes.MapRoute(
                 name: "Default",

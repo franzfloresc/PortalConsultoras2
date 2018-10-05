@@ -27,6 +27,9 @@ namespace Portal.Consultoras.Web.Models
 
         public string DLogoMenuInicioActiva { get; set; }
         public string DLogoMenuInicioNoActiva { get; set; }
+        public string DLogoMenuInicioNoSuscrita { get; set; }
+        public string DLogoMenuInicioNoActivaNoSuscrita { get; set; }
+
         public string MLogoMenuInicioActiva { get; set; }
         public string MLogoMenuInicioNoActiva { get; set; }
 
