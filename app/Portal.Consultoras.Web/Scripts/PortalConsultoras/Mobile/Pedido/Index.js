@@ -177,8 +177,7 @@ $(document).ready(function () {
         numactual = numactual < 1 ? 1 : numactual > 99 ? 99 : numactual;
         $("#txtCantidad").val(numactual);
     });
-    $("#btnAgregarProducto").click(function () {
-        
+    $("#btnAgregarProducto").click(function () {        
         var cantidad = $.trim($("#txtCantidad").val());
         if (cantidad == "" || cantidad[0] == "-") {
             AbrirMensaje("Ingrese una cantidad mayor que cero.");
@@ -839,7 +838,7 @@ function InsertarProducto() {
 
             PedidoOnSuccess();
             if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
-            else if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(response.mensajeAviso, response.tituloMensaje);
+            else if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
 
             $("#hdCuvEnSession").val("");
             ProcesarActualizacionMostrarContenedorCupon();
