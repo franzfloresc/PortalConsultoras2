@@ -36852,10 +36852,6 @@ height:30px;
 .contenedor_tippingPoint {
     cursor: pointer;
     position: relative;
-    -moz-animation: animacionTippingPoint 0.8s infinite ease-out;
-    -o-animation: animacionTippingPoint 0.8s infinite ease-out;
-    -webkit-animation: animacionTippingPoint 0.8s infinite ease-out;
-    animation: animacionTippingPoint 0.8s infinite ease-out;
 }
 
 @keyframes animacionTippingPoint {
@@ -36916,10 +36912,6 @@ height:30px;
 
     .contenedor_tippingPoint:hover .tooltip_regalo_meta_tippingPoint {
         display: block;
-        -moz-animation: mostrarTooltip 0.2s ease;
-        -o-animation: mostrarTooltip 0.2s ease;
-        -webkit-animation: mostrarTooltip 0.2s ease;
-        animation: mostrarTooltip 0.2s ease;
     }
 
     @keyframes mostrarTooltip {
