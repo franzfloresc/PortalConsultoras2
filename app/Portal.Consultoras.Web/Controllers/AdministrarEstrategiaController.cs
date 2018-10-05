@@ -2084,7 +2084,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult UploadFileProductStrategyShowroom(DescripcionMasivoModel model)
         {
-            int cantidadColumnas = 4;
+            int cantidadColumnas = 5;
             int[] numberRecords = null;
             int line = 0;
             try
@@ -2126,6 +2126,11 @@ namespace Portal.Consultoras.Web.Controllers
                         columnObservation = Constantes.ColumnsProductStrategyShowroom.Description;
                         errorColumn = true;
                     }
+                    if (!arrayHeader[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct].ToLower().Equals(Constantes.ColumnsProductStrategyShowroom.BrandProduct))
+                    {
+                        columnObservation = Constantes.ColumnsProductStrategyShowroom.BrandProduct;
+                        errorColumn = true;
+                    }
                     if (errorColumn)
                     {
                         throw new ArgumentException(string.Format("Verificar los títulos de las columnas del archivo. <br /> Referencia: La observación se encontró en la columna '{0}'", columnObservation));
@@ -2150,13 +2155,19 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 throw new ArgumentException(string.Format("El valor del campo 'posición' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
+                            if (!int.TryParse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct], out evalResult))
+                            {
+                                throw new ArgumentException(string.Format("El valor del campo 'Marca de producto' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
+                            }
                             line++;
                             strategyEntityList.Add(new ServicePedido.BEEstrategiaProducto
                             {
                                 CUV = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.CUV].ToString().TrimEnd(),
                                 NombreProducto = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd(),
                                 Descripcion1 = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Description].ToString().TrimEnd(),
-                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order])
+                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order]),
+                                IdMarca = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct])
+                                
                             });
                         }
                     }
@@ -2173,7 +2184,8 @@ namespace Portal.Consultoras.Web.Controllers
                                  new XElement("CUV", strategy.CUV),
                                  new XElement("NombreProducto", strategy.NombreProducto),
                                  new XElement("Descripcion1", strategy.Descripcion1),
-                                 new XElement("Orden", strategy.Orden)
+                                 new XElement("Orden", strategy.Orden),
+                                 new XElement("IdMarca", strategy.IdMarca)
                                ));
                     using (var service = new PedidoServiceClient())
                     {
