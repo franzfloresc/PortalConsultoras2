@@ -35,11 +35,16 @@ body > img{
 
 /* ESTILOS MODIFICADORES JQUERY UI */
 
+.ui-widget-overlay{
+    z-index:2000!important;
+}
+
 .ui-dialog.ui-widget-content {
     width: auto !important;
     background: #FFFFFF !important;
     color: #555 !important;
     border-radius:0;
+    z-index:2001!important;
 }
 
 .ui-dialog .ui-dialog-titlebar {
