@@ -1851,7 +1851,7 @@ function ValidDeleteElectivoNuevas(cuv, enRangoProgNuevas, fnDelete) {
             }
 
             if (!response.esDuoPerfecto) fnDelete(false);
-            else messageConfirmacion('Titulo', response.message, function () { fnDelete(true); });
+            else messageConfirmacionDuoPerfecto(response.message, function () { fnDelete(true); });
         })
         .fail(function() { alert_msg(mensajeSinConexionGenerico); });
 }

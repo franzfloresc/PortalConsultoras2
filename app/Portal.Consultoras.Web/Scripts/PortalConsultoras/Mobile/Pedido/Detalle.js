@@ -470,7 +470,7 @@ function ValidDeleteElectivoNuevas(obj, fnDelete) {
             }
 
             if (!response.esDuoPerfecto) fnDelete(false);
-            else messageConfirmacion(response.message, function () { fnDelete(true); });
+            else messageConfirmacionDuoPerfecto(response.message, function () { fnDelete(true); });
         })
         .fail(function () { messageInfoError(mensajeSinConexionGenerico); });
 }

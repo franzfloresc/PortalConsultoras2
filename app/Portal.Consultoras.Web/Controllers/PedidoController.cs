@@ -4279,7 +4279,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ClienteID_ = model.ClienteID_,
                 TipoEstrategiaImagen = model.TipoEstrategiaImagen,
                 EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
-                EnRangoProgramaNuevas = model.FlagNueva == "1"
+                EnRangoProgramaNuevas = model.EnRangoProgramaNuevas || model.FlagNueva == "1"
             };
 
             return AgregarProductoZE(modelo);
