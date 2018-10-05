@@ -92,7 +92,7 @@
                 // Solo para pruebas de maquetacion, borrar cuando no sea necesario
                 if (item.SAP == '200072538') {
                     item.Imagen = 'https://dummyimage.com/1100x500/4880cf/ffffff.jpg&text=imagen+ancha';
-                }                    
+                }
 
                 item.Loaded = 0;
 
@@ -124,7 +124,7 @@
                     }
 
                     fichaProducto.removeClass('ficha__producto').removeClass('ficha__producto--ancha').removeClass('ficha__producto--alta').addClass(classRatio);
-                });                
+                });
             });
 
         },
@@ -199,18 +199,21 @@
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
+            
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
-            var codigoEstrategia = $(divPadre).find('.hdBuscadorCodigoTipoEstrategia').val();
-            var codigoCampania = $(divPadre).find('.hdBuscadorCampaniaID').val();
-            var codigoCuv = $(divPadre).find('.hdBuscadorCUV').val();
-            var OrigenPedidoWeb = $(divPadre).find('.hdBuscadorOrigenPedidoWeb').val();
+            var model = JSON.parse($(divPadre).find(".hdBuscadorJSON").val());
+
+            var codigoEstrategia = model.CodigoTipoEstrategia;
+            var codigoCampania = model.CampaniaID;
+            var codigoCuv = model.CUV;
+            var origenPedidoWeb = model.OrigenPedidoWeb;
 
             var codigo = ['030', '005', '001', '007', '008', '009', '010', '011'];
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);
                 if (UrlDetalle == "") return false;
-                UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
+                UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
                 //console.log(UrlDetalle);
                 window.location = UrlDetalle;
                 return true;
