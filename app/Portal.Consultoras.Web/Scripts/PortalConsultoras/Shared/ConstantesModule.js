@@ -74,8 +74,12 @@ var ConstantesModule = (function () {
         OfertaDelDiaDesktopHomeBanner: "1191",
         OfertaDelDiaDesktopPedidoBanner: "1291",
         OfertaDelDiaDesktopGeneralBanner: "1991",
-        GanadorasDesktop: "7001",
-        GanadorasMobile: "7002"
+        MasGanadorasDesktopHomeCarrusel: "3001",
+        MasGanadorasDesktopProductPageFicha: "3002",
+        MasGanadorasDesktopProductPageCarrusel : "3003",
+        MasGanadorasMobileHomeCarrusel : "3004",
+        MasGanadorasMobileProductPageFicha : "3005",
+        MasGanadorasMobileHome : "3005"
     }
     
     return {
