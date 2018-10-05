@@ -317,7 +317,7 @@ namespace Portal.Consultoras.Web.Providers
             switch (codAgrupacion)
             {
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
-                    //listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.RevistaDigital, campaniaId));
                     break;
@@ -473,6 +473,7 @@ namespace Portal.Consultoras.Web.Providers
                     {
                         var espaciosNuevas = esBannerProgNuevas ? 1 : (cantMax - espaciosRevista);
                         if (listaPackNueva.Count > espaciosNuevas) listaPackNueva.RemoveRange(espaciosNuevas, listaPackNueva.Count - espaciosNuevas);
+                        if (esBannerProgNuevas) listaPackNueva.ForEach(pn => pn.ImagenURL = ConfigCdn.GetUrlFileCdn("Matriz/PE/", "FLYER_small.png"));
                     }
 
                     listModel = new List<ServiceOferta.BEEstrategia>();
