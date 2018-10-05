@@ -32,9 +32,12 @@
             }
 
                 .op-menu-horizontal .subnavegador li a img {
-                    width: 70px;
+                    /*width: 70px;*/
                     vertical-align: middle;
                     margin-top: -3px;
+                }
+                .op-menu-horizontal .subnavegador li a.activado-grande img {
+                    height: 20.20px;
                 }
 
             .op-menu-horizontal .subnavegador li .gana_mas_horizontal {
@@ -42,7 +45,7 @@
             }
 
             .gana_mas_horizontal.default-dorado img{
-                width: 60px !important;
+                height: 13px !important;
             }
 
             .op-menu-horizontal .subnavegador li .activado-dorado {

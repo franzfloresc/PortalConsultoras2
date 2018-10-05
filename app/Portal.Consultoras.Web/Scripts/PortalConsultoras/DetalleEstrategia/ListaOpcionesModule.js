@@ -314,7 +314,7 @@ var ListaOpcionesModule = (function () {
         //
         //Google Analytics (EPM-1442)
         var estrategia = fichaModule.GetEstrategia();
-        if (typeof event !== "undefined") {
+        if (typeof event !== "undefined" && event !== null) {
             AnalyticsPortalModule.MarcarAumentardisminuirOpcionProducto("Disminuir", estrategia, nombreComponente);
 
             return false;

@@ -122,8 +122,13 @@
 
                         if (ViewBag.EsSuscrita)
                         {
-                            claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activado-dorado" : "default-dorado ";
+                            claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activado-dorado" : "default-dorado";
                         }
+                        else
+                        {
+                            claseActivo = claseActivo + " activado-grande";
+                        }
+
                         <li data-campania="@menuhijo.CampaniaId" 
                             data-activo="1"
                             data-codigo="@menuhijo.Codigo"

@@ -46,9 +46,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
+
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+                //return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+                if (url.Length > 1 && url[1].Contains("sap"))
+                {
+                    sap = "&" + url[1];
+                    return RedirectToAction("Index", "Pedido", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+                }
             }
 
             var model = new PedidoSb2Model();
@@ -355,7 +367,21 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (Request.Browser.IsMobileDevice)
                 {
-                    return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
+                    string sap = "";
+                    var url = (Request.Url.Query).Split('?');
+
+                    //return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
+
+                    if (url.Length > 1 && url[1].Contains("sap"))
+                    {
+                        sap = "&" + url[1].Remove(0, 22);
+                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param, sap }));
+                    }
+                    else
+                    {
+                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
+                    }
+
                 }
 
                 var cuv = param.Substring(0, 5);
@@ -1654,7 +1680,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 var userModel = userData;
-                var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
+                var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 5, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
                 var siExiste = productos.Any(p => p.CUV == model.CUV);
                 BloqueoProductosCatalogo(ref productos);
                 BloqueoProductosDigitales(ref productos);
@@ -1712,7 +1738,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoProducto = producto.CodigoProducto,
                     LimiteVenta = estrategia.LimiteVenta,
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
-                    TieneRDC = tieneRdc
+                    TieneRDC = tieneRdc,
+                    EstrategiaID = producto.EstrategiaID
                 });
             }
             catch (Exception ex)
@@ -1765,16 +1792,21 @@ namespace Portal.Consultoras.Web.Controllers
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
 
+            beProductos = beProductos
+                    .Where(prod =>
+                         !(prod.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    )
+                    .ToList();
+
             if (revistaDigital.BloqueoProductoDigital)
             {
                 beProductos = beProductos
                     .Where(prod =>
                         !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                           || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                         )
-                    )
-                    .ToList();
+                        .ToList();
             }
 
             if (guiaNegocio.BloqueoProductoDigital)
@@ -1802,6 +1834,13 @@ namespace Portal.Consultoras.Web.Controllers
                         .Where(prod => !dato.Valor1.Contains(prod.CUV))
                         .ToList();
                 }
+            }
+
+            if (configEstrategiaSR.BloqueoProductoDigital)
+            {
+                beProductos = beProductos
+                    .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.ShowRoom)
+                    .ToList();
             }
         }
 
