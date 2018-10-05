@@ -3792,6 +3792,13 @@ namespace Portal.Consultoras.Common
             }
             return tipoPersonalizacion;
         }
+
+        public static string ProcesarOrigenPedido(string origenActual, bool isApp)
+        {
+            if (!isApp) return origenActual;
+            var nuevoOrigen = origenActual.Remove(0, 1).Insert(0, "4");
+            return nuevoOrigen;
+        }
     }
 
     public static class DataRecord

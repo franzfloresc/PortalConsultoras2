@@ -3,7 +3,9 @@ using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Infraestructure;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -15,9 +17,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class BaseMobileController : BaseController
     {
-        public BaseMobileController():base()
+        public BaseMobileController() : base()
         {
-                
+
+        }
+
+        public BaseMobileController(ISessionManager sessionManager, ILogManager logManager) 
+            : base(sessionManager, logManager)
+        {
+
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -71,7 +79,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
 
                     ViewBag.MostrarShowRoomProductos = showRoomBannerLateral.MostrarShowRoomProductos;
-                    
+
                     ViewBag.MostrarOfertaDelDia = _ofertaDelDiaProvider.MostrarOfertaDelDia(userData);
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
@@ -103,7 +111,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
-        
+
         private void CargarValoresGenerales(UsuarioModel userData)
         {
             if (SessionManager.GetUserData() != null)
@@ -231,7 +239,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         
         private void MostrarBannerApp()
         {
-            if ( SessionManager.GetOcultarBannerApp() != null)
+            if (SessionManager.GetOcultarBannerApp() != null)
             {
                 SessionManager.SetBannerApp(null);
                 return;

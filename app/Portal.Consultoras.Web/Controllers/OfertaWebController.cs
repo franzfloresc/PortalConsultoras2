@@ -325,7 +325,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lst = sv.GetImagenesByCodigoSAP(paisID, codigoSAP).ToList();
-            }            
+            }
 
             if (lst != null && lst.Count > 0)
             {
