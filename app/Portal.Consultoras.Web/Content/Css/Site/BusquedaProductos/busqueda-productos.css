@@ -617,7 +617,7 @@
 
     .fichas__productos__wrapper{
         padding:20px 10px;
-        grid-template-columns:repeat(auto-fill, minmax(20%), 1fr));
+        max-width:none;
     }
 
     .liquidacion_rango_home{
@@ -639,10 +639,6 @@
 @media screen and (max-width:767px){
 
     /* FICHAS DE PRODUCTOS MOBILE */
-
-    .fichas__productos__wrapper{
-        grid-template-columns:repeat(auto-fill, minmax(35%, 1fr));
-    }
 
     .ficha__producto{
         -moz-box-shadow: 2px 4px 3px -3px #d8d8d8;
@@ -717,7 +713,7 @@
     /* FICHAS DE PRODUCTOS MOBILE */
   
     .fichas__productos__wrapper{
-        grid-template-columns:repeat(auto-fill, minmax(45%, 1fr));
+        grid-template-columns:repeat(auto-fill, minmax(145px, 1fr));
         grid-gap:10px;
     }
 
