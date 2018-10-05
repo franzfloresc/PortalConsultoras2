@@ -80,22 +80,60 @@
                 });
         },
         ProcesarListaProductos: function (productos) {
+
             $.each(productos, function (index, item) {
-                item.posicion = index + 1;
+
+                // Solo para pruebas de maquetacion, borrar cuando no sea necesario
+                if (item.SAP == '200072538') {
+                    item.Imagen = 'https://dummyimage.com/1100x500/4880cf/ffffff.jpg&text=imagen+ancha';
+                }                    
+
+                item.Loaded = 0;
+
                 if (item.Descripcion.length > _config.maxCaracteresDesc) {
                     item.Descripcion = item.Descripcion.substring(0, _config.maxCaracteresDesc) + "...";
                 }
-                console.log(item.Descripcion);
             });
 
             SetHandlebars("#js-FichaProductoBuscador", productos, "#FichasProductosBuscador");
+
+            $('article[data-loaded=0]').each(function () {
+
+                var fichaProducto = $(this);
+                var imgProducto = fichaProducto.find('img').attr('src');
+                var classRatio = '';
+
+                _funciones.getMeta(imgProducto, function (width, height) {
+
+                    var aspect_ratio = width / height;
+
+                    switch (true) {
+                        case aspect_ratio == 1:
+                            classRatio = 'ficha__producto';
+                            break;
+                        case aspect_ratio > 1:
+                            classRatio = 'ficha__producto--ancha';
+                            break;
+                        case aspect_ratio < 1:
+                            classRatio = 'ficha__producto--alta';
+                            break;
+                    }
+
+                    fichaProducto.removeClass('ficha__producto').removeClass('ficha__producto--ancha').removeClass('ficha__producto--alta').addClass(classRatio);
+                });                
+            });
+
         },
         ValidarScroll: function () {
             var footerH = $(window).scrollTop() + $(window).height();
             footerH += $(_elementos.footer).innerHeight() || 0;
             return footerH >= $(document).height();
+        },
+        getMeta(url, callback) {
+            var img = new Image();
+            img.src = url;
+            img.onload = function () { callback(this.width, this.height); }
         }
-
     };
     var _eventos = {
         DropDownOrdenar: function () {
