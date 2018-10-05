@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.ProgramaNuevas:
-                            seccion.UrlLandig = "/ProgramaNuevas";
+                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "ProgramaNuevas";
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:
