@@ -8,8 +8,9 @@
         itemDropDown: ".opcion__ordenamiento__dropdown__item",
         linkItemDropDown: ".opcion__ordenamiento__dropdown__link",
         btnAgregar: ".FichaAgregarProductoBuscador",
-        divContenedorFicha : "#FichasProductosBuscador",
-        scriptHandleBarFicha: "#js-FichaProductoBuscador"
+        divContenedorFicha: "#FichasProductosBuscador",
+        scriptHandleBarFicha: "#js-FichaProductoBuscador",
+        redireccionarFicha: '.redireccionarFicha'
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -56,6 +57,7 @@
             $(document).on("click", _elementos.body, _eventos.OcultarDropDownOrdenar);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
             $(document).on("click", _elementos.btnAgregar, _eventos.RegistrarProducto);
+            $(document).on('click', _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
         },
         ConstruirModeloBusqueda: function () {
             var modelo = {
@@ -155,6 +157,25 @@
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
             BuscadorProvider.RegistroProductoBuscador(divPadre);
+        },
+        RedireccionarAFichaDeFotoYDescripcion: function (e) {
+            e.preventDefault();
+            var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
+            var codigoEstrategia = $(divPadre).find('.hdBuscadorCodigoTipoEstrategia').val();
+            var codigoCampania = $(divPadre).find('.hdBuscadorCampaniaID').val();
+            var codigoCuv = $(divPadre).find('.hdBuscadorCUV').val();
+            var OrigenPedidoWeb = $(divPadre).find('.hdBuscadorOrigenPedidoWeb').val();
+
+            var codigo = ['030', '005', '001', '007', '008', '009', '010', '011'];
+
+            if (codigo.indexOf(codigoEstrategia) >= 0) {
+                var UrlDetalle = GetPalanca(codigoEstrategia);
+                if (UrlDetalle == "") return false;
+                UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
+                //console.log(UrlDetalle);
+                window.location = UrlDetalle;
+                return true;
+            }
         }
     };
 
