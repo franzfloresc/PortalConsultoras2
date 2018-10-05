@@ -544,6 +544,7 @@
     margin: auto;
     padding-left: 3%;
     padding-right: 3%;
+    margin-top: 82px;
 }
 
 @media (max-width: 1100px) {

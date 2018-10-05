@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 bool tieneOfertasPlan20 = true;
 
-                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);   
+                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
@@ -208,7 +208,7 @@ namespace Portal.Consultoras.Web.Controllers
                 svClient.UpdateCuponConsultoraEnvioCorreo(userData.PaisID, cuponBe);
             }
         }
-        
+
         private void ValidarPopupDelGestorPopups()
         {
             if (!IsMobile())

@@ -38,7 +38,7 @@
                     </div><div class="club_btn">
                         <div class="centrar_vertical club_btn_dorado">
                             <div class="centrar_cont_club club_btn_dorado">
-                                <div class="activar_boton_blanco_no_animado" 
+                                <div class="activar_boton_blanco_no_animado"
                                      style="cursor: pointer;"
                                      onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel,'@Constantes.ConfiguracionPais.RevistaDigital')">
                                     <a href="javascript:;">VER MÁS OFERTAS</a>
@@ -54,21 +54,23 @@
                     @if (revistaDigital.EsActiva)
                     {
 
-                            <hr class="clear" />
-                            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 20px;"
-                                    data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel"
-                                    data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiFicha"></div>
-                            <hr class="clear" />
-                            <div class="clearfix"></div>
+                        <hr class="clear" />
+                        <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 20px;"
+                             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel"
+                             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiFicha"></div>
+                        <hr class="clear" />
+                        <div class="clearfix"></div>
                     }
                     else
                     {
-                            @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-                                                new ViewDataDictionary {
-                            { "Source", 3 },
-                            { "NombreConsultora", revistaDigital.NombreConsultora },
-                            { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
-                            { "NombrePalanca", revistaDigital.NombreComercialNoActiva}});
+                        @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
+                            new ViewDataDictionary
+                            {
+                                { "Source", 3 },
+                                { "NombreConsultora", revistaDigital.NombreConsultora },
+                                { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
+                                { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
+                            });
                     }
 
                 </div>
@@ -92,7 +94,7 @@
                     </div><div class="clubtxt">
                         <div class="centrar_vertical">
                             <div class="centrar_cont_club">
-                                <p>@Html.Raw(configuracionPaisDatosModel.Valor1)</p> 
+                                <p>@Html.Raw(configuracionPaisDatosModel.Valor1)</p>
                             </div>
                         </div>
                     </div><div class="club_btn">
@@ -100,8 +102,8 @@
                             <div class="centrar_cont_club">
                                 <div class="activar_boton_esika_no_animado bg_activar_boton_no_animado"
                                      style="cursor: pointer;"
-                                     onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel)" >
-                                    <a href="javascript:;">VER MÁS OFERTAS</a>
+                                     onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel)">
+                                    <a href="javascript:;">VER MÁS</a>
                                 </div>
                             </div>
                         </div>
@@ -114,20 +116,22 @@
 
                         <hr class="clear" />
                         <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 20px;"
-                                data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel"
-                                data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiFicha"></div>
+                             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel"
+                             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiFicha"></div>
                         <hr class="clear" />
                         <div class="clearfix"></div>
                     }
                     else
                     {
                         @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-                                         new ViewDataDictionary {
-                        { "Source", 3 },
-                        { "NombreConsultora", revistaDigital.NombreConsultora },
-                        { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
-                        { "NombrePalanca", revistaDigital.NombreComercialNoActiva}});
-                   }
+                            new ViewDataDictionary
+                            {
+                                { "Source", 3 },
+                                { "NombreConsultora", revistaDigital.NombreConsultora },
+                                { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
+                                { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
+                            });
+                    }
 
                 </div>
             </div>
@@ -136,41 +140,79 @@
 }
 else if (revistaDigital.TieneRDI)
 {
-    <div class="home_block_rd home_rd" style="position:relative; z-index:1">
-        <div class="hblock"></div>
-        <div class="content_belcorp" style="background-color: black;">
-            <div class="rd_logo">
-                <img src="@urlLogo" alt="" class="large">
+    @*<div class="home_block_rd home_rd" style="position:relative; z-index:1">
+            <div class="hblock"></div>
+            <div class="content_belcorp" style="background-color: black;">
+                <div class="rd_logo">
+                    <img src="@urlLogo" alt="" class="large">
+                </div>
+                <div class="hblock_text">
+                    <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                    <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                </div>
+                <div class="btn_diagonal">
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel, '@Constantes.ConfiguracionPais.OfertasParaTi')">
+                        VER TODAS MIS OFERTAS
+                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" alt="">
+                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" alt="">
+                    </a>
+                </div>
             </div>
-            <div class="hblock_text">
-                <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+        </div>
+        <hr class="clear" />*@
+
+    <div class="contenedor_ganamas">
+        <div class="sb_contenedor_ganamas_bg">
+
+        </div>
+        <div class="sb_contenedor_ganamas">
+            <div class="head_gana_mas" style="margin-bottom: 0px;">
+                <div class="club_logo">
+                    <div class="centrar_vertical">
+                        <div class="centrar_cont_club logo_no_suscrita">
+                        </div>
+                    </div>
+                </div><div class="clubtxt">
+                    <div class="centrar_vertical">
+                        <div class="centrar_cont_club">
+                            <p>@Html.Raw(configuracionPaisDatosModel.Valor1)</p>
+                        </div>
+                    </div>
+                </div><div class="club_btn">
+                    <div class="centrar_vertical">
+                        <div class="centrar_cont_club">
+                            <div class="activar_boton_esika_no_animado bg_activar_boton_no_animado"
+                                 style="cursor: pointer;"
+                                 onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel)">
+                                <a href="javascript:;">VER MÁS</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
             </div>
-            <div class="btn_diagonal">
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel, '@Constantes.ConfiguracionPais.OfertasParaTi')">
-                    VER TODAS MIS OFERTAS
-                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" alt="">
-                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" alt="">
-                </a>
+            <div class="contenido_gana_mas">
+                @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
+                    new ViewDataDictionary
+                    {
+                        { "Source", 2 },
+                        { "NombreConsultora", revistaDigital.NombreConsultora },
+                        { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
+                        { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
+                    });
+
             </div>
         </div>
     </div>
-    <hr class="clear" />
-    @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-    new ViewDataDictionary {
-        { "Source", 2 },
-        { "NombreConsultora", revistaDigital.NombreConsultora },
-        { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
-        { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
-    });
 }
 else
 {
     @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-    new ViewDataDictionary {
-        { "Source", 1 },
-        { "NombreConsultora", revistaDigital.NombreConsultora },
-        { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
-        { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
-    });
+        new ViewDataDictionary
+        {
+            { "Source", 1 },
+            { "NombreConsultora", revistaDigital.NombreConsultora },
+            { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel },
+            { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
+        });
 }
