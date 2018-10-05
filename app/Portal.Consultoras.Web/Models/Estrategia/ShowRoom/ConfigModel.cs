@@ -21,5 +21,6 @@ namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
         public List<ShowRoomNivelModel> ListaNivel { get; set; }
         public List<ShowRoomPersonalizacionModel> ListaPersonalizacionConsultora { get; set; }
         public List<ShowRoomCategoriaModel> ListaCategoria { get; set; }
+        public bool BloqueoProductoDigital { get; set; }
     }
 }
