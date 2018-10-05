@@ -24,13 +24,26 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Comprar()
         {
-            try
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
+
+            if (EsDispositivoMovil())
             {
-                if (EsDispositivoMovil())
+               // return RedirectToAction("Comprar", "HerramientasVenta", new { area = "Mobile" });
+                if (url.Length > 1)
+                {
+                    sap = "&" + url[1];
+                    return RedirectToAction("Comprar", "HerramientasVenta", new { area = "Mobile", sap });
+                }
+                else
                 {
                     return RedirectToAction("Comprar", "HerramientasVenta", new { area = "Mobile" });
                 }
+            }
 
+
+            try
+            {
                 return HVViewLanding(1);
             }
             catch (Exception ex)

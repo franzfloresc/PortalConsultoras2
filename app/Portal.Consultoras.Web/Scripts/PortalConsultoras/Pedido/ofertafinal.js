@@ -763,14 +763,6 @@ function ActualizarValoresPopupOfertaFinal(data, popup) {
         }
         else $("#spnTituloOfertaFinal span").html("¡AHORA TU <b>GANANCIA ESTIMADA ES " + variablesPortal.SimboloMoneda + " " + data.DataBarra.MontoGananciaStr + "!</b>");
 
-        if (esUpselling && oUpselling != null) {
-            if (oUpselling.Meta == null) {
-                upSellingMontoMetaPromise = GetUpSellingMontoMetaPromise();
-                resolvePromiseUpSellingMontoMeta(upSellingMontoMetaPromise, data.total, 2);
-            }
-            else GanoOfertaFinalRegalo(data.total);
-        }
-
         if (tipoOrigen == "1") $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
     }
     else {

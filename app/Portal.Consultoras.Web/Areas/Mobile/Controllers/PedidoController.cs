@@ -165,17 +165,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult virtualCoach(string param = "")
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
             try
             {
                 string cuv = param.Substring(0, 5);
                 string campanaId = param.Substring(5, 6);
                 int campana = Convert.ToInt32(campanaId);
+
+
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param = param }));
+            //return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param = param }));
+            if (url.Length > 1 && url[1].Contains("sap"))
+            {
+                 sap = "&" + url[1].Remove(0, 26);
+                return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param = param, sap }));
+            }
+            else
+            {
+                return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param = param }));
+            }
+
         }
 
         public ActionResult Detalle(bool autoReservar = false)
