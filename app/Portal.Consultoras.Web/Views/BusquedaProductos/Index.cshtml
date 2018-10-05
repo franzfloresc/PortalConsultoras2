@@ -85,7 +85,7 @@
        
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 ficha__producto__imagen text-center">
-                <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
+                <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/oferta-sin-imagen.svg")'" />
             </figure>
             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
@@ -95,7 +95,7 @@
                     {{Descripcion}}
                 </div>
             </div>
-            <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+            <div class="row flex-column flex-md-row flex-lg-row flex-xl-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
                 {{#if_eq TipoPersonalizacion 'LIQ'}}
                 <div class="ficha__producto__precio__oferta text-bold text-left">
                     {{PrecioString}}
@@ -111,41 +111,41 @@
             </div>
             <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
                 {{#if_eq CodigoEstrategia '2003'}}
-                <div data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
+                <div class="col-12 pl-0 pr-0" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
                     <!-- BOTÓN ELIGE TU OPCIÓN -->
-                    <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion ml-0 mr-0 text-uppercase text-center" href="javascript:;">
+                    <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion btn__elegir__opcion--fichaProducto {{#if Stock}} btn_inactivo btn__inactivo--fichaProducto {{/if}} ml-0 mr-0 text-uppercase text-center" href="javascript:;">
                         <span class="col-12 pl-0 pr-0 text-bold d-inline-block">
                         </span>
                     </a>
                     <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
                 </div>
-
                 {{else}}
                 <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
-                    <div class="liquidacion_rango_home js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup" {{#if Stock}} disabled {{/if}}>
-                        <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
-                            <a class="mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
-                            </a>
-                            <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
-                            </a>
-                        </div>
+                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup {{#if Stock}} selector_cant_desactivado selector__cant__desactivado--fichaProducto {{/if}}" data-cantidad-contenedor="">
+                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                            <img class="d-block js-no-popup" src="/Content/Images/menos.svg" alt="">
+                        </a>
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup" {{#if Stock}} disabled {{/if}}>
+                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                            <img class="d-block js-no-popup" src="/Content/Images/mas.svg" alt="">
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
                     {{#if Stock}}
-                    <a class="boton_Agregalo_home btn_inactivo text-center text-uppercase d-block">
+                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto btn_inactivo btn__inactivo--fichaProducto text-center text-uppercase d-block">
                         Agotado
                     </a>
                     {{else}}
-                    <a class="boton_Agregalo_home text-center text-uppercase d-block FichaAgregarProductoBuscador">
+                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto text-center text-uppercase d-block FichaAgregarProductoBuscador">
                         Agrégalo
                     </a>
                     {{/if}}
                 </div>
                 {{/if_eq}}
+                <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center">
+                    <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                </div>
             </div>
         </div>
     </article>
