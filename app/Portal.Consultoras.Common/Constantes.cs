@@ -816,6 +816,15 @@ namespace Portal.Consultoras.Common
             public const int MasVendidosMobileHome = 2123;
             #endregion
 
+            #region MasGanadoras
+            public const int MasGanadorasDesktopHomeCarrusel = 3001;
+            public const int MasGanadorasDesktopProductPageFicha = 3002;
+            public const int MasGanadorasDesktopProductPageCarrusel = 3003;
+            public const int MasGanadorasMobileHomeCarrusel = 3004;
+            public const int MasGanadorasMobileProductPageFicha = 3005;
+            public const int MasGanadorasMobileHome = 3006;
+            #endregion
+
             #region VirtualCoach
             public const int VirtualCoachDesktopPedido = 1231;
             public const int VirtualCoachMobilePedido = 2231;
