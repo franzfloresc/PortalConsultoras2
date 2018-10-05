@@ -440,8 +440,24 @@
     position: absolute;
     bottom: -19px;
     margin-top: 5px;
-    font-size: 11px;
-    color: #848484;
+}
+
+.etiqueta_prod_agregado span{
+    font-size:9px;
+    color:#808080;
+}
+
+.etiqueta_prod_agregado span:before{
+    display:inline-block;
+    width: 7.3px;
+    height: 8.8px;
+    content:"";
+    position: relative;
+    top: 1px;
+    margin-right:5px;
+    background-image:url(/Content/Images/check-agregado-icono.svg);
+    background-repeat:no-repeat;
+    background-position:center;
 }
 
 .icono_elige_tu_opcion{
