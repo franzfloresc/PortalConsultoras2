@@ -2,14 +2,8 @@
 @using Portal.Consultoras.Web.Models
 @model PartialSectionBpt
 @{
-    ConfiguracionPaisDatosModel configuracionPaisDatosModel = Model.ConfiguracionPaisDatos;
-    RevistaDigitalModel revistaDigital = Model.RevistaDigital;
-
-    var urlLogo = revistaDigital.MLogoComercialNoActiva;
-    if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
-    {
-        urlLogo = revistaDigital.MLogoComercialActiva;
-    }
+    var configuracionPaisDatosModel = Model.ConfiguracionPaisDatos;
+    var revistaDigital = Model.RevistaDigital;
 }
 
 @if (revistaDigital.TieneRDC)
@@ -18,7 +12,7 @@
     {
         <div class="wrapper_resumen_mobile_clubganamas">
             <div class="zonadecolor dorado">
-                <img src="~/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" class="logo-club-etiqueta" />
+                <img src="~/Content/Images/etiqueta-club-ganamas-blanco-independiente2.svg" class="logo-club-etiqueta" />
                 <span style="color:white">
                     <p class="primero">@Html.Raw(configuracionPaisDatosModel.Valor1)</p>
                     <p class="segundo">@Html.Raw(configuracionPaisDatosModel.Valor2)</p>
@@ -48,7 +42,7 @@
                             { "NombreConsultora", revistaDigital.NombreConsultora },
                             { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
                             { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
-                        });
+                        })
                 }
 
             </div>
@@ -91,7 +85,7 @@
                             { "NombreConsultora", revistaDigital.NombreConsultora },
                             { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
                             { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
-                        });
+                        })
                 }
             </div>
         </div>
@@ -101,34 +95,8 @@
 }
 else if (revistaDigital.TieneRDI)
 {
-    @*<div class="wrapper_resumen_mobile">
-            <div class="banner_pedido_rd">
-                <div class="cabecera_pedido_rd">
-                    <div class="rd_logo">
-                        <img src="@urlLogo" alt="" class="small">
-                    </div>
-                    <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                </div>
-                <div class="banner_pedido_masofertas">
-                    <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-                    <div class="btn_red">
-                        <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.OfertasParaTi')">
-                            VER TODAS MIS OFERTAS
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr class="clear" />
-        @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml", new ViewDataDictionary
-        {
-            { "Source", 2 },
-            { "NombreConsultora", revistaDigital.NombreConsultora },
-            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
-            { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
-        });*@
 
-    <div class="wrapper_resumen_mobile_clubganamas">
+   <div class="wrapper_resumen_mobile_clubganamas">
         <div class="zonadecolor">
             <div class="logo-club-etiqueta logo_no_suscrita">
             </div>
@@ -148,7 +116,7 @@ else if (revistaDigital.TieneRDI)
                     { "NombreConsultora", revistaDigital.NombreConsultora },
                     { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
                     { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
-                });
+                })
         </div>
     </div>
 }
@@ -161,5 +129,5 @@ else
             { "NombreConsultora", revistaDigital.NombreConsultora },
             { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
             { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
-        });
+        })
 }
