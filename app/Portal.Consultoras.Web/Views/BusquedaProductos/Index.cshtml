@@ -85,7 +85,7 @@
        
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 ficha__producto__imagen text-center">
-                <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
+                <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/oferta-sin-imagen.svg")'" />
             </figure>
             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
@@ -95,7 +95,7 @@
                     {{Descripcion}}
                 </div>
             </div>
-            <div class="row flex-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+            <div class="row flex-column flex-md-row flex-lg-row flex-xl-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
                 {{#if_eq TipoPersonalizacion 'LIQ'}}
                 <div class="ficha__producto__precio__oferta text-bold text-left">
                     {{PrecioString}}
@@ -113,7 +113,7 @@
                 {{#if_eq CodigoEstrategia '2003'}}
                 <div data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
                     <!-- BOTÓN ELIGE TU OPCIÓN -->
-                    <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion ml-0 mr-0 text-uppercase text-center" href="javascript:;">
+                    <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion btn__elegir__opcion--fichaProducto {{#if Stock}} btn_inactivo {{/if}} ml-0 mr-0 text-uppercase text-center" href="javascript:;">
                         <span class="col-12 pl-0 pr-0 text-bold d-inline-block">
                         </span>
                     </a>
@@ -137,7 +137,7 @@
                         Agotado
                     </a>
                     {{else}}
-                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto text-center text-uppercase d-block FichaAgregarProductoBuscado">
+                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto text-center text-uppercase d-block FichaAgregarProductoBuscador">
                         Agrégalo
                     </a>
                     {{/if}}
