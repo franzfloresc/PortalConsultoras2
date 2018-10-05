@@ -113,6 +113,7 @@
       <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Identifier" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
       <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OrigenPedidoWeb" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
@@ -120,6 +121,7 @@
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
       <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Producto" nillable="true" type="q3:BEProducto" />
       <xs:element minOccurs="0" name="SetID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoPersonalizacion" nillable="true" type="xs:string" />
       <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Usuario" nillable="true" type="q4:BEUsuario" />
     </xs:sequence>
   </xs:complexType>

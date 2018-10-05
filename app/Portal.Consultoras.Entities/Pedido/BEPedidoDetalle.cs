@@ -43,5 +43,9 @@ namespace Portal.Consultoras.Entities.Pedido
         public decimal ImporteTotal { get; set; }
         [DataMember]
         public bool EsSugerido { get; set; }
+        [DataMember]
+        public int LimiteVenta { get; set; }
+        [DataMember]
+        public string TipoPersonalizacion { get; set; }
     }
 }
