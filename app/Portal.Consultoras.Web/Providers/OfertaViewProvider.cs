@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var model = new MensajeProductoBloqueadoModel();
 
-            if (!revistaDigital.TieneRDC) return model;
+            if (revistaDigital == null || !revistaDigital.TieneRDC) return model;
 
             model.IsMobile = esMObile;
 
