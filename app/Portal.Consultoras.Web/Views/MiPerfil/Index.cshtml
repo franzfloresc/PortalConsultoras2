@@ -106,11 +106,11 @@ else
                 <span class="enlace_texto text-bold">Cambiar</span>
             </a>
         </fieldset>
-        <div class="tooltip_info_revision_correo" style="display:none;">
+        <div class="tooltip_info_revision_correo toolTipCorreo" style="display:none;">
             <div class="icono_info_alerta"></div>
             <div class="tooltip_texto">
                 <p>
-                    Revisa tu correo <span class="text-bold" id="EmailNuevo">@Model.EMail</span><br />para cambiar de cuenta.
+                    Revisa tu correo <span class="text-bold" id="EmailNuevo"></span><br />para cambiar de cuenta.
                 </p>
                 <a id="hrefNocambiarCorreo" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
                     Ya no quiero cambiar mi correo
@@ -127,6 +127,17 @@ else
                 <span class="enlace_texto text-bold">Cambiar</span>
             </a>
         </fieldset>
+        <div class="tooltip_info_revision_correo toolTipCelular" style="display:none;">
+            <div class="icono_info_alerta"></div>
+            <div class="tooltip_texto">
+                <p>
+                    Revisa tu celular <span class="text-bold" id="CelularNuevo"></span><br />para cambiar de cuenta.
+                </p>
+                <a id="hrefNocambiarCorreo" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
+                    Ya no quiero cambiar mi correo
+                </a>
+            </div>
+        </div>
         <fieldset class="grupo_form_cambio_datos text-uppercase">
             <div class="w-82">
                 <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />

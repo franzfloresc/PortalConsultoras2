@@ -301,6 +301,12 @@
   <wsdl:message name="IUsuarioService_GetActualizacionEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetActualizacionEmailResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetActualizacionEmailySms_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActualizacionEmailySms" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetActualizacionEmailySms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActualizacionEmailySmsResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_CancelarAtualizacionEmail_InputMessage">
     <wsdl:part name="parameters" element="tns:CancelarAtualizacionEmail" />
   </wsdl:message>
@@ -1017,6 +1023,10 @@
     <wsdl:operation name="GetActualizacionEmail">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizacionEmail" message="tns:IUsuarioService_GetActualizacionEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizacionEmailResponse" message="tns:IUsuarioService_GetActualizacionEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActualizacionEmailySms">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizacionEmailySms" message="tns:IUsuarioService_GetActualizacionEmailySms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetActualizacionEmailySmsResponse" message="tns:IUsuarioService_GetActualizacionEmailySms_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="CancelarAtualizacionEmail">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CancelarAtualizacionEmail" message="tns:IUsuarioService_CancelarAtualizacionEmail_InputMessage" />
@@ -1770,6 +1780,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetActualizacionEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizacionEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActualizacionEmailySms">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizacionEmailySms" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2980,6 +2999,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetActualizacionEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizacionEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActualizacionEmailySms">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetActualizacionEmailySms" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

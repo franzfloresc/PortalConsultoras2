@@ -401,6 +401,7 @@
     <Compile Include="ShowRoom\BEShowRoomPersonalizacionNivel.cs" />
     <Compile Include="ShowRoom\BEShowRoomTipoOferta.cs" />
     <Compile Include="BEUsuarioConfiguracion.cs" />
+    <Compile Include="Usuario\BEUsuarioPerfil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">

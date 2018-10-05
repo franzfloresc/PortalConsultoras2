@@ -401,6 +401,9 @@ namespace Portal.Consultoras.ServiceContracts
         string GetActualizacionEmail(int paisID, string codigoUsuario);
 
         [OperationContract]
+        BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario);
+
+        [OperationContract]
         string CancelarAtualizacionEmail(int paisID, string codigoUsuario);
 
         [OperationContract]
@@ -409,7 +412,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
         
-         [OperationContract]
+        [OperationContract]
         string ActualizarNovedadBuscador(int paisID, string codigoUsuario);
 
         #region ActualizacionDatos

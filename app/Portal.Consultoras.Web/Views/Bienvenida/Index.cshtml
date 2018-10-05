@@ -50,7 +50,7 @@
                     </div>
                     <div class="icono_info_alerta"></div>
                     <div class="tooltip_texto">
-                        <p>
+                        <p id="mensajeToolTip">
                             Ingresa y actualiza tu correo y/o celular para poder contactarnos contigo.
                         </p>
                     </div>
@@ -2136,7 +2136,6 @@ DEUDA TECNICA
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
         var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
         var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';
-        var TieneToolTipPerfil = '@Model.TieneToolTipPerfil';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Bienvenida")
 

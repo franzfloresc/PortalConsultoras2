@@ -894,6 +894,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetActualizacionEmail(paisID, codigoUsuario);
         }
 
+        public BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetActualizacionEmailySms(paisID, codigoUsuario);
+        }
+
         public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();

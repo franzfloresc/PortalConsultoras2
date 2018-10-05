@@ -159,13 +159,13 @@ $(document).ready(function () {
 
     $('#hrefTerminosMD').click(function () { EnlaceTerminosCondiciones(); });
 
-    //ConsultarActualizaEmail();
-    if (TieneToolTipPerfil != '0') {
-        if (data.split('|')[0] == '1') {
-            document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
-            document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
-        }
-    }
+    ConsultarActualizaEmail();
+    //if (TieneToolTipPerfil != '0') {
+    //    if (data.split('|')[0] == '1') {
+    //        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+    //        document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
+    //    }
+    //}
     CancelarAtualizacionEmail();
 });
 
@@ -490,28 +490,39 @@ function SubirImagen(url, image) {
     });
 }
 
-//function ConsultarActualizaEmail() {
-//    var elementA = document.getElementById('hrefNocambiarCorreo');
-//    if (elementA) {
-//        $.ajax({
-//            type: 'POST',
-//            url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
-//            dataType: 'Text',
-//            contentType: 'application/json; charset=utf-8',
-//            success: function (data) {
-//                if (checkTimeout(data)) {
-//                    if (data.split('|')[0] == '1') {
-//                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
-//                        document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
-//                    }
-//                }
-//            },
-//            error: function (data, error) {
-//                alert(error);
-//            }
-//        });
-//    }
-//}
+function ConsultarActualizaEmail() {
+    var elementA = document.getElementById('hrefNocambiarCorreo');
+    var item = {
+        pagina: "2"
+    }
+
+    if (elementA) {
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'Bienvenida/ObtenerActualizacionEmailSms',
+            dataType: 'Text',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data != "") {
+                        if (data.split('|')[1] != ""){
+                            document.getElementsByClassName('toolTipCorreo')[0].style.display = 'block';
+                            document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
+                        }
+                        if (data.split('|')[0] != "") {
+                            document.getElementsByClassName('toolTipCelular')[0].style.display = 'block';
+                            document.getElementById('CelularNuevo').innerHTML = data.split('|')[0];
+                        }
+                    }
+                }
+            },
+            error: function (data, error) {
+                alert(error);
+            }
+        });
+    }
+}
 
 function CancelarAtualizacionEmail() {
     var elementA = document.getElementById('hrefNocambiarCorreo');

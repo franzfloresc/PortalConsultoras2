@@ -1261,5 +1261,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return ((BuscadorYFiltrosModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosModel();
         }
+
+        BEMensajeToolTip ISessionManager.GetMensajesToolTip()
+        {
+            return (BEMensajeToolTip)HttpContext.Current.Session["MensajeToolTip"];
+        }
+
+        void ISessionManager.SetMensajesToolTip(BEMensajeToolTip pedidoWeb)
+        {
+            HttpContext.Current.Session["MensajeToolTip"] = pedidoWeb;
+        }
     }
 }

@@ -906,6 +906,14 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
             return Context.ExecuteScalar(command).ToString();
         }
+
+        public IDataReader GetActualizacionEmailySms(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetActualizarEmailySms");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, codigoUsuario);
+            return Context.ExecuteReader(command);
+        }
+
         public string CancelarAtualizacionEmail(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("CancelarAtualizacionEmail");

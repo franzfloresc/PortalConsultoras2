@@ -212,7 +212,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
-                model.TieneToolTipPerfil = ObtenerActualizacionEmail();
 
                 #region Camino al Exito
 
@@ -305,8 +304,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int ObtenerTipoPopUpMostrar(BienvenidaHomeModel model)
         {
-            var resultPopupEmail = ObtenerActualizacionEmail();
-            var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
+            var resultPopupEmail = ObtenerActualizacionEmailSms();
+            //var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
 
             if (model.ShowPopupMisDatos)
                 return Constantes.TipoPopUp.Ninguno;
@@ -327,7 +326,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                         tipoPopUpMostrar = 0;
 
-                    if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+                    if (resultPopupEmail == "" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
                     if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
@@ -500,8 +499,8 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         break;
                     case Constantes.TipoPopUp.ActualizarCorreo:
-                        var result = ObtenerActualizacionEmail();
-                        if (result.Split('|')[0] == "1")
+                        string result = ObtenerActualizacionEmailSms();
+                        if (result != "")
                         {
                             tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
                         }
@@ -2391,16 +2390,33 @@ namespace Portal.Consultoras.Web.Controllers
             return partial;
         }
 
-        public string ObtenerActualizacionEmail()
+        public string ObtenerActualizacionEmailSms(string pagina = "1")
         {
             try
             {
-                using (var svClient = new UsuarioServiceClient())
-                {
-                    var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoUsuario);
-                    return result;
-                }
+                BEMensajeToolTip obj = new BEMensajeToolTip();
+                string mensaje = string.Empty;
 
+                obj = SessionManager.GetMensajesToolTip();
+                if (obj == null)
+                {
+                    using (var sv = new UsuarioServiceClient())
+                        obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);
+                    SessionManager.SetMensajesToolTip(obj);
+                }                
+
+                if (obj == null) return "";
+                if (obj.oDatosPerfil == null) return "";
+                if (obj.oDatosPerfil[0].DatoNuevo == "1") return obj.MensajeAmbos;
+
+                string nuevocelular =  obj.MensajeCelular != "" ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+                string nuevoemail = obj.MensajeEmail != "" ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+
+                if (nuevocelular != "" && nuevoemail != "") return pagina == "1" ? obj.MensajeAmbos : nuevocelular + "|" + nuevoemail;
+                if (nuevocelular != "" && nuevoemail == "") return pagina == "1" ? obj.MensajeCelular : nuevocelular + "|";
+                if (nuevocelular == "" && nuevoemail != "") return pagina == "1" ? obj.MensajeEmail : "|" + nuevoemail;
+
+                return "";
             }
             catch (Exception ex)
             {
