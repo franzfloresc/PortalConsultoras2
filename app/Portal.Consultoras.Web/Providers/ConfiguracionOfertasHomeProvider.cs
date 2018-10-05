@@ -150,6 +150,10 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
                             seccion.UrlObtenerProductos = "";
                             break;
+                        case Constantes.ConfiguracionPais.ProgramaNuevas:
+                            seccion.UrlLandig = "/ProgramaNuevas";
+                            seccion.UrlObtenerProductos = "";
+                            break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:
                             seccion.UrlObtenerProductos = "Estrategia/ConsultarEstrategiasOPT";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedor;
