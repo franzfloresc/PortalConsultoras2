@@ -91,7 +91,12 @@
             $.each(productos, function (index, item) {
 
                 // Solo para pruebas de maquetacion, borrar cuando no sea necesario
-                if (item.SAP == '200072538') {
+                if (item.CUV == '06238' ||
+                    item.CUV == '17245' ||
+                    item.CUV == '18096' ||
+                    item.CUV == '17241' ||
+                    item.CUV == '17252' )
+                {
                     item.Imagen = 'https://dummyimage.com/1100x500/4880cf/ffffff.jpg&text=imagen+ancha';
                 }
 
@@ -117,6 +122,7 @@
             img.onload = function () { callback(this.width, this.height); }
         },
         UpadteFichaProducto() {
+
             $('article[data-loaded=0]').each(function () {
 
                 var fichaProducto = $(this);
@@ -128,9 +134,6 @@
                     var aspect_ratio = width / height;
 
                     switch (true) {
-                        case aspect_ratio == 1:
-                            classRatio = 'ficha__producto';
-                            break;
                         case aspect_ratio > 1:
                             classRatio = 'ficha__producto--ancha';
                             break;
@@ -139,7 +142,8 @@
                             break;
                     }
 
-                    fichaProducto.removeClass('ficha__producto').removeClass('ficha__producto--ancha').removeClass('ficha__producto--alta').addClass(classRatio);
+                    fichaProducto.addClass(classRatio);
+                    fichaProducto.attr('data-loaded', 1);
                 });
             });
         }
@@ -186,6 +190,7 @@
                     _funciones.ProcesarListaProductos(data.productos);
                     var htmlDiv = SetHandlebars(_elementos.scriptHandleBarFicha, data.productos);
                     $(_elementos.divContenedorFicha).append(htmlDiv);
+                    _funciones.UpadteFichaProducto();
                     _config.cargandoProductos = false;
                 }).fail(function (data, error) {
                     _config.cargandoProductos = false;
