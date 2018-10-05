@@ -119,33 +119,33 @@
                     </a>
                     <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
                 </div>
-
                 {{else}}
                 <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
-                    <div class="liquidacion_rango_home js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido d-inline-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup" {{#if Stock}} disabled {{/if}}>
-                        <div class="liquidacion_rango_right_pedido d-inline-block text-center js-no-popup">
-                            <a class="mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                <img class="d-block js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
-                            </a>
-                            <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                <img class="d-block js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
-                            </a>
-                        </div>
+                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">
+                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                            <img class="d-block js-no-popup" src="/Content/Images/menos.svg" alt="">
+                        </a>
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup" {{#if Stock}} disabled {{/if}}>
+                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                            <img class="d-block js-no-popup" src="/Content/Images/mas.svg" alt="">
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
                     {{#if Stock}}
-                    <a class="boton_Agregalo_home btn_inactivo text-center text-uppercase d-block">
+                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto btn_inactivo text-center text-uppercase d-block">
                         Agotado
                     </a>
                     {{else}}
-                    <a class="boton_Agregalo_home text-center text-uppercase d-block FichaAgregarProductoBuscador">
+                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto text-center text-uppercase d-block FichaAgregarProductoBuscado">
                         Agrégalo
                     </a>
                     {{/if}}
                 </div>
                 {{/if_eq}}
+                <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center">
+                    <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                </div>
             </div>
         </div>
     </article>
