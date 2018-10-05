@@ -1,0 +1,32 @@
+﻿@*@using Portal.Consultoras.Web.Models
+@{
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+    var camapaniaEfectiva = "C" + revistaDigital.CampaniaActiva;
+}*@
+
+<div class="contenedor_MasGanadoras_carrusel">
+    <div class="row">
+        <div class="col-xs-6">
+            <h3 class="titulo_MasGanadoras">LAS MÁS<br /> GANADORAS</h3>
+        </div>
+        <div class="col-xs-6 text-right">
+            <a class="boton_MasGanadoras" href="#">VER MÁS</a>
+        </div>
+    </div>
+
+    <article class="item_producto_contenedor">
+        <div class="producto_img">
+            <img src="https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_2000846022018947210_ipgoospzso_small.png" alt="Alternate Text" />
+        </div>
+        <div class="producto_contenido">
+            <h6 class="marca_item">Esika</h6>
+            <p class="nombre_producto_item">Kalos Sport Sport</p>
+            <span class="precio_normal_item">S/. 81.90</span>
+            <span class="precio_oferta_item">S/. 49.90</span>
+
+            <div class="elige_tono_item">
+                <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
+            </div>
+        </div>
+    </article>
+</div>
