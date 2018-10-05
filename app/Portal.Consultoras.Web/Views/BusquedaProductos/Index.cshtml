@@ -67,11 +67,11 @@
     </section>
 </section>
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
     var textoBusqueda = '@Model.TextoBusqueda';
     var totalProductosPagina = '@Model.TotalProductosPagina';
     var totalCaracteresDescripcion = '@Model.TotalCaracteresDescripcion';
-</script>
+    </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js")"></script>
 }
 
@@ -81,7 +81,7 @@
     <article class="ficha__producto d-inline-block" data-item="BuscadorFichasProductos" data-loaded="{{Loaded}}">
 
         <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
-       
+
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 ficha__producto__imagen text-center">
                 <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/oferta-sin-imagen.svg")'" />
@@ -113,8 +113,13 @@
                 <div data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
                     <!-- BOTÓN ELIGE TU OPCIÓN -->
                     <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion btn__elegir__opcion--fichaProducto {{#if Stock}} btn_inactivo {{/if}} ml-0 mr-0 text-uppercase text-center" href="javascript:;">
+                        {{#if Stock}}
+                        Agotado
+                        {{else}}
                         <span class="col-12 pl-0 pr-0 text-bold d-inline-block">
                         </span>
+                        {{/if}}
+
                     </a>
                     <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
                 </div>
@@ -142,8 +147,11 @@
                     {{/if}}
                 </div>
                 {{/if_eq}}
+
                 <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center">
-                    <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                    {{#if_eq Agregado 'Agregado'}}
+                    <span class="text-uppercase text-bold d-inline-block">{{Agregado}}</span>
+                    {{/if_eq}}
                 </div>
             </div>
         </div>

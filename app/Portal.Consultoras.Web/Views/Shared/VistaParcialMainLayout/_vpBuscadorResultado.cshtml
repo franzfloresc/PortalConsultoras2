@@ -72,7 +72,9 @@
                 </a>
                 {{/if}}
                 <div class="etiqueta_prod_agregado text-uppercase text-bold pl-0 etiqueta_buscador_producto">
-                    {{Agregado}}
+                    {{#if_eq Agregado 'Agregado'}}
+                    <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                    {{/if_eq}}
                 </div>
             </div>
             {{/if_eq}}

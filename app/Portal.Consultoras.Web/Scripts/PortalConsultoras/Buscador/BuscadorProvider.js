@@ -201,7 +201,7 @@
                     }
                     CerrarLoad();
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
-                    agregado.html("Agregado");
+                    agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
                     var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
                     $(divPadre).find(".hdBuscadorCantidadesAgregadas").val(totalAgregado);
                     return true;
