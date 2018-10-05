@@ -90,13 +90,13 @@ namespace Portal.Consultoras.Web.Providers
                     labelAgregado = "Agregado";
                 }
 
+                item.CampaniaID = userData.CampaniaID;
                 item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
                 item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile);
                 item.Agregado = labelAgregado;
                 item.Stock = !item.Stock;
-
                 item.DescripcionCompleta = item.Descripcion;
             }
 

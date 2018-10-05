@@ -33,7 +33,11 @@ namespace Portal.Consultoras.Web.Infraestructure
 
         public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values)
         {
-            return !_isGuidRoute ? null : base.GetVirtualPath(requestContext, values);
+            var virtualPathData = base.GetVirtualPath(requestContext, values);
+
+            virtualPathData.VirtualPath = virtualPathData.VirtualPath.Replace("%23", "#");
+
+            return !_isGuidRoute ? null : virtualPathData;
         }
     }
 }

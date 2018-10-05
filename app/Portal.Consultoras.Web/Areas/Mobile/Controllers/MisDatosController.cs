@@ -163,8 +163,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
                 }
 
-                if (model != null)
-                    ActualizarDatosLogDynamoDB(model, "MI NEGOCIO|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+                ActualizarDatosLogDynamoDB(model, "MI NEGOCIO|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
 
                 var lst = resultado.Split('|');
 
