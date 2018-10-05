@@ -1257,7 +1257,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
             ViewBag.HabilitarChatEmtelco = _chatEmtelcoProvider.HabilitarChatEmtelco(userData.PaisID, esMobile);
-
+            
             ViewBag.MostrarBuscadorYFiltros = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBuscador).ToBool();
             ViewBag.CaracteresBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
             ViewBag.TotalListadorBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador); 
@@ -1266,7 +1266,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.NovedadBuscador = userData.NovedadBuscador;
             ViewBag.MostrarBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).ToBool();
             ViewBag.AplicarLogicaCantidadBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos).ToBool();
-            ViewBag.MostrarOpcionesOrdenamiento = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento).ToBool();
         }
 
         #endregion
@@ -1298,6 +1297,10 @@ namespace Portal.Consultoras.Web.Controllers
                     return 0;
                 case Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento:
                     return 0;
+                case Constantes.TipoConfiguracionBuscador.TotalProductosPaginaResultado:
+                    return 20;
+                case Constantes.TipoConfiguracionBuscador.TotalCaracteresDescPaginaResultado:
+                    return 40;
                 default:
                     return 0;
             }
