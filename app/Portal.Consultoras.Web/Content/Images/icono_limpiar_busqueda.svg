@@ -1,16 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
-    <title>ícono/cerrar-negro</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.278180804">
-        <g id="APPCONS3101_SPRINT34_buscadorC" transform="translate(-320.000000, -21.000000)" fill="#000000">
-            <g id="HEADER" transform="translate(0.000000, 1.000000)">
-                <g id="ícono/cerrar-negro" transform="translate(320.000000, 20.000000)">
-                    <path d="M8.70833333,8.70833333 L8.70833333,-2.375 L10.2916667,-2.375 L10.2916667,8.70833333 L21.375,8.70833333 L21.375,10.2916667 L10.2916667,10.2916667 L10.2916667,21.375 L8.70833333,21.375 L8.70833333,10.2916667 L-2.375,10.2916667 L-2.375,8.70833333 L8.70833333,8.70833333 Z" id="cerrar-ícono" transform="translate(9.500000, 9.500000) rotate(45.000000) translate(-9.500000, -9.500000) "></path>
-                </g>
-            </g>
-        </g>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 19 19" style="enable-background:new 0 0 19 19;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#808080;}
+</style>
+<title>ícono/cerrar-negro</title>
+<desc>Created with Sketch.</desc>
+<g id="Page-1">
+	<g id="APPCONS3101_SPRINT34_buscadorC" transform="translate(-320.000000, -21.000000)">
+		<g id="HEADER" transform="translate(0.000000, 1.000000)">
+			<g id="ícono_x2F_cerrar-negro" transform="translate(320.000000, 20.000000)">
+				<path id="cerrar-ícono" class="st0" d="M9.5,8.4l7.8-7.8l1.1,1.1l-7.8,7.8l7.8,7.8l-1.1,1.1l-7.8-7.8l-7.8,7.8l-1.1-1.1
+					l7.8-7.8L0.5,1.7l1.1-1.1L9.5,8.4z"/>
+			</g>
+		</g>
+	</g>
+</g>
 </svg>
