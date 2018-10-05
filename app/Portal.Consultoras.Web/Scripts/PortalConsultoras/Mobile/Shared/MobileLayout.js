@@ -839,6 +839,15 @@ function messageConfirmacion(message, fnAceptar) {
     }
 }
 
+function messageConfirmacionDuoPerfecto(message, fnAceptar) {
+    $('#mensajeInformacionConfDuoPerfecto').html(message);
+    $('#popupInformacionConfDuoPerfecto').show();
+    if ($.isFunction(fnAceptar)) {
+        $('#popupInformacionConfDuoPerfecto .aceptar-mobile').off('click');
+        $('#popupInformacionConfDuoPerfecto .aceptar-mobile').on('click', fnAceptar);
+    }
+}
+
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
     noMostrarEfecto = noMostrarEfecto || false;
     var montoWebAcumulado = "";
