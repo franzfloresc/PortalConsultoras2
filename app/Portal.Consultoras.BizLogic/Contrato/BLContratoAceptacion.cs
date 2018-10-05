@@ -46,7 +46,9 @@ namespace Portal.Consultoras.BizLogic
                         FechaAceptacion = reader[4].ToString(),
                         Origen = reader[5].ToString(),
                         DireccionIP = reader[6].ToString(),
-                        InformacionSOMobile = reader[7].ToString()
+                        InformacionSOMobile = reader[7].ToString(),
+                        IMEI = reader[8].ToString(),
+                        DeviceID= reader[9].ToString()
                     });
                 }
 
