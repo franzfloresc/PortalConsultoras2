@@ -178,13 +178,23 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        using (var ps = new SACServiceClient())
+                        if(tipoConfigurado == 3)
                         {
-                            lst =
-                                ps.GetOfertasPersonalizadasByTipoConfigurado(userData.PaisID, campaniaId,
-                                                                             tipoConfigurado, estrategiaCodigo, 1, -1)
-                                  .ToList();
+                            using (var svc = new SACServiceClient())
+                            {
+                                lst = svc.GetOfertasPersonalizadasImagenes(userData.PaisID, campaniaId, 2, estrategiaCodigo).ToList();
+                            }
                         }
+                        else
+                        {
+                            using (var ps = new SACServiceClient())
+                            {
+                                lst =
+                                    ps.GetOfertasPersonalizadasByTipoConfigurado(userData.PaisID, campaniaId,
+                                                                                 tipoConfigurado, estrategiaCodigo, 1, -1)
+                                      .ToList();
+                            }
+                        }                       
                     }
                 }
                 catch (Exception ex)
