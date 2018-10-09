@@ -134,6 +134,7 @@
     <div id="loadingScreen"></div>
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajes.cshtml")
 
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
@@ -145,7 +146,7 @@
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
 
-    
+
     <script type='text/javascript'>
         (function () {
             var proto = document.location.protocol || 'http:';
@@ -195,7 +196,7 @@
     @Scripts.Render("~/Bundle/Js/Desktop/JQuery3Js")
 
     @Scripts.Render("~/Bundle/Js/Mixto/PageResponsive")
-        
+
 
     @RenderSection("scripts", required: false)
 
