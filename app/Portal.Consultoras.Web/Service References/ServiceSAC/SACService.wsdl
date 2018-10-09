@@ -368,12 +368,6 @@
   <wsdl:message name="ISACService_EstrategiaTemporalActualizarSetDetalle_OutputMessage">
     <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarSetDetalleResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_EstrategiaTemporalActualizarSetImagen_InputMessage">
-    <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarSetImagen" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_EstrategiaTemporalActualizarSetImagen_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarSetImagenResponse" />
-  </wsdl:message>
   <wsdl:message name="ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_InputMessage">
     <wsdl:part name="parameters" element="tns:EstrategiaTemporalInsertarEstrategiaMasivo" />
   </wsdl:message>
@@ -1621,10 +1615,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle" message="tns:ISACService_EstrategiaTemporalActualizarSetDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalleResponse" message="tns:ISACService_EstrategiaTemporalActualizarSetDetalle_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="EstrategiaTemporalActualizarSetImagen">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagen" message="tns:ISACService_EstrategiaTemporalActualizarSetImagen_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagenResponse" message="tns:ISACService_EstrategiaTemporalActualizarSetImagen_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" message="tns:ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivoResponse" message="tns:ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_OutputMessage" />
@@ -2800,15 +2790,6 @@
     </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalActualizarSetDetalle">
       <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EstrategiaTemporalActualizarSetImagen">
-      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagen" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4847,15 +4828,6 @@
     </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalActualizarSetDetalle">
       <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EstrategiaTemporalActualizarSetImagen">
-      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagen" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
