@@ -41,7 +41,7 @@ function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigo
 
 function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
     OrigenPedidoWeb = OrigenPedidoWeb || -1;
-
+    debugger;
     var url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
 
     if (codigoEstrategia != null && typeof codigoEstrategia !== "undefined")
@@ -62,12 +62,12 @@ function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
                 break;
             case ConstantesModule.ConstantesPalanca.OfertasParaMi:
                 {
-                    if (OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopContenedor ||
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopContenedorPopup || 
+                    if (OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarrusel ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarruselFicha || 
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasMobileContenedorCarruselFicha || 
                         OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopLanding || 
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopLandingPopUp || 
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasMobileLanding || 
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasMobileLandingPopup )
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasDesktopLandingFicha || 
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MasGanadorasMobileLandingFicha )
                         url += ConstantesModule.CodigosPalanca.Ganadoras + "/";
                     else
                         url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
