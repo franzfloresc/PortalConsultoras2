@@ -90,16 +90,6 @@
 
             $.each(productos, function (index, item) {
 
-                // Solo para pruebas de maquetacion, borrar cuando no sea necesario
-                if (item.CUV == '06238' ||
-                    item.CUV == '17245' ||
-                    item.CUV == '18096' ||
-                    item.CUV == '17241' ||
-                    item.CUV == '17252' )
-                {
-                    item.Imagen = 'https://dummyimage.com/1100x500/4880cf/ffffff.jpg&text=imagen+ancha';
-                }
-
                 item.Loaded = 0;
 
                 if (item.Descripcion.length > _config.maxCaracteresDesc) {
