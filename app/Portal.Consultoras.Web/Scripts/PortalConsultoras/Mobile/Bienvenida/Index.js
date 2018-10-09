@@ -113,11 +113,21 @@ $(document).ready(function () {
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
     if ($.inArray(IsoPais, arrayPaisNoBannerLiq) == -1) bannerFunc.showExpoOferta();
     ConsultarEmailPendiente();
+    RegistrarInicioSession();
 });
 
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
+
+function RegistrarInicioSession() {
+    if (primeraVezSession == 1) {
+        dataLayer.push({
+            'event': 'writeCookie',
+            'consultora': userData.codigoConsultora
+        });
+    }
+}
 
 function CrearPopShow() {
 
