@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 palanca = Constantes.TipoEstrategiaCodigo.HerramientasVenta;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
                 palanca = Constantes.TipoEstrategiaCodigo.Lanzamiento;
             }
@@ -118,7 +118,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 retorno = model.CampaniaID;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
                 retorno = model.CampaniaID;
             }
@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 listModel1 = listaFinal1;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
                 listModel1 = listaFinal1;
             }
@@ -209,7 +209,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 retorno = 2;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
                 retorno = TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
             }
@@ -257,7 +257,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 return true;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
                 if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
                 {

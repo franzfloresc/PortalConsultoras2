@@ -42,9 +42,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
-        public JsonResult RDObtenerProductosLan(BusquedaProductoModel model)
+        public JsonResult LANObtenerProductos(BusquedaProductoModel model)
         {
-            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan);
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos);
         }
 
         [HttpPost]
