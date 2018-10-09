@@ -770,6 +770,7 @@
 
     .ficha__producto--delgada .btn__elegir__opcion--fichaProducto{
         margin-top:50px;
+        line-height:normal;
     }
 
     .btn__elegir__opcion--fichaProducto span:before{
@@ -842,10 +843,6 @@
 
     .ficha__producto__imagen img {
         object-fit:contain;
-    }
-
-    .ficha__producto__descrip__nom{
-        min-height:32px;
     }
 
     /* FIN - FICHAS DE PRODUCTOS MOBILE */
