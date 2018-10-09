@@ -36,6 +36,22 @@
 
 /* HEADER MOBILE */
 
+@media screen and (max-width: 991px) and (-ms-high-contrast: none), (max-width: 991px) and (-ms-high-contrast: active) {
+
+    .header__marca__pais{
+        flex-grow:1;
+    }
+
+    .header__marca__pais picture{
+        display:none!important;
+    }
+
+    .header__marca__pais img{
+        margin-top:-5px;
+    }
+
+}
+
 @media screen and (max-width:991px){
 
     /* .layout__header{
