@@ -78,7 +78,7 @@
 <script id="js-FichaProductoBuscador" type="text/x-handlebars-template">
 
     {{#each this as |item|}}
-    <article class="ficha__producto" data-item="BuscadorFichasProductos" data-loaded="{{Loaded}}">
+    <article class="ficha__producto ficha__producto--delgada" data-item="BuscadorFichasProductos" data-loaded="{{Loaded}}">
 
         <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
 
@@ -94,9 +94,9 @@
                     {{Descripcion}}
                 </div>
             </div>
-            <div class="row flex-column flex-md-row flex-lg-row flex-xl-row align-items-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+            <div class="row flex-row align-items-end ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
                 {{#if_eq TipoPersonalizacion 'LIQ'}}
-                <div class="ficha__producto__precio__oferta text-bold text-left">
+                <div class="ficha__producto__precio__oferta ficha__producto__precio__oferta--liquidacion text-bold text-left">
                     {{PrecioString}}
                 </div>
                 {{else}}
@@ -147,12 +147,11 @@
                     {{/if}}
                 </div>
                 {{/if_eq}}
-
-                <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center">
-                    {{#if_eq Agregado 'Agregado'}}
-                    <span class="text-uppercase text-bold d-inline-block">{{Agregado}}</span>
-                    {{/if_eq}}
-                </div>
+            </div>
+            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center">
+                {{#if_eq Agregado 'Agregado'}}
+                <span class="text-uppercase text-bold d-inline-block">{{Agregado}}</span>
+                {{/if_eq}}
             </div>
         </div>
     </article>

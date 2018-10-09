@@ -66,14 +66,50 @@
 
 /* HEADER MOBILE */
 
+@media screen and (max-width: 991px) and (-ms-high-contrast: none), (max-width: 991px) and (-ms-high-contrast: active) {
+
+    .header__marca__pais{
+        background-image:url(/Content/Images/esika/logo_marca_pais_mobile.svg);
+        background-repeat:no-repeat;
+        background-size:73px;
+        background-position:53% center;
+    }
+
+}
+
 @media screen and (max-width:991px){
 
     .header__marca__pais{
         width:136px;
+        background-position:59% center;
     }
 
     .header__marca__pais picture {
         margin-top: 3px;
+    }
+
+}
+
+@media screen and (max-width:480px) {
+
+    .header__marca__pais{
+        background-position:67% center;
+    }
+
+}
+
+@media screen and (max-width:370px) {
+
+    .header__marca__pais{
+        background-position:79% center;
+    }
+
+}
+
+@media screen and (max-width:350px) {
+
+    .header__marca__pais{
+        background-position:89% center;
     }
 
 }

@@ -169,6 +169,10 @@ body > img{
     z-index:2;
 }
 
+.layout__container{
+    max-width:none;
+}
+
 /* FIN - SECCIÓN CONTENIDO */
 
 /* CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */

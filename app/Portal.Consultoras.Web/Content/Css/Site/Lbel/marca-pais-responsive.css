@@ -56,14 +56,53 @@
 
 /* HEADER MOBILE */
 
+@media screen and (max-width: 991px) and (-ms-high-contrast: none), (max-width: 991px) and (-ms-high-contrast: active) {
+
+    .header__marca__pais{
+        background-image:url(/Content/Images/lbel/logo_marca_pais.svg);
+        background-repeat:no-repeat;
+        background-position:right 8px;
+    }
+
+}
+
 @media screen and (max-width:991px){
     
     .header__marca__pais{
         width:148px;
+        background-position:59% center;
+    }
+
+    .header__marca__pais picture {
+        margin-top: 9px;
     }
 
     .header__marca__pais img{
         height:55%;
+    }
+
+}
+
+@media screen and (max-width:480px) {
+
+    .header__marca__pais{
+        background-position:67% center;
+    }
+
+}
+
+@media screen and (max-width:370px) {
+
+    .header__marca__pais{
+        background-position:80% center;
+    }
+
+}
+
+@media screen and (max-width:350px) {
+
+    .header__marca__pais{
+        background-position:89% center;
     }
 
 }
