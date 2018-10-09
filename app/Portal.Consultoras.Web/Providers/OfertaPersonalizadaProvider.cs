@@ -110,6 +110,10 @@ namespace Portal.Consultoras.Web.Providers
             {
                 retorno = model.CampaniaID;
             }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
+            {
+                retorno = model.CampaniaID;
+            }
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
             {
                 retorno = 0;
@@ -138,7 +142,8 @@ namespace Portal.Consultoras.Web.Providers
             if (listaFinal1 == null || !listaFinal1.Any())
                 return listModel1;
 
-            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
+            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos || 
+                tipo == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
             {
                 var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
 
@@ -354,7 +359,7 @@ namespace Portal.Consultoras.Web.Providers
                     break;
                 case Constantes.TipoEstrategiaCodigo.MasGanadoras:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, 
-                        Constantes.TipoEstrategiaCodigo.RevistaDigital, 
+                        Constantes.TipoEstrategiaCodigo.MasGanadoras, 
                         campaniaId,
                         false,
                         Constantes.MasGanadoras.ObtenerOpmSoloForzadas));
