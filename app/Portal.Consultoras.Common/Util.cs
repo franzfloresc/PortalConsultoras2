@@ -3793,10 +3793,17 @@ namespace Portal.Consultoras.Common
             return tipoPersonalizacion;
         }
 
-        public static string ProcesarOrigenPedido(string origenActual, bool isApp)
+        public static string ProcesarOrigenPedidoApp(string origenActual)
         {
-            if (!isApp) return origenActual;
+            if (string.IsNullOrEmpty(origenActual)) return origenActual;
             var nuevoOrigen = origenActual.Remove(0, 1).Insert(0, "4");
+            return nuevoOrigen;
+        }
+
+        public static string ProcesarOrigenPedidoAppFicha(string origenActual)
+        {
+            if (string.IsNullOrEmpty(origenActual)) return origenActual;
+            var nuevoOrigen = origenActual.Remove(origenActual.Length - 1, 1).Insert(origenActual.Length - 1, "2");
             return nuevoOrigen;
         }
     }

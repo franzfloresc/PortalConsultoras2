@@ -903,8 +903,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //if(!string.IsNullOrEmpty(mensaje)) PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
 
                 //Insertar pedido
-                pedidoDetalle.OrigenPedidoWeb = usuario.RevistaDigital.TieneRevistaDigital() ?
-                    Constantes.OrigenPedidoWeb.RevistaDigitalAppPedidoSeccion : Constantes.OrigenPedidoWeb.OfertasParaTiAppPedido;
+                //pedidoDetalle.OrigenPedidoWeb = usuario.RevistaDigital.TieneRevistaDigital() ?
+                //    Constantes.OrigenPedidoWeb.RevistaDigitalAppPedidoSeccion : Constantes.OrigenPedidoWeb.OfertasParaTiAppPedido;
                 var codeResult = PedidoInsertar(usuario, pedidoDetalle, lstDetalle, false);
                 if (codeResult != Constantes.PedidoValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 

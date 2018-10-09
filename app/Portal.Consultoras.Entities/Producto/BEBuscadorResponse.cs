@@ -19,5 +19,6 @@ namespace Portal.Consultoras.Entities.Producto
         public string DescripcionEstrategia { get; set; }
         public string OrigenPedidoWeb { get; set; }
         public int EstrategiaID { get; set; }
+        public string OrigenPedidoWebFicha { get; set; }
     }
 }
