@@ -53,6 +53,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos);
         }
 
+        [HttpPost]
+        public JsonResult ConsultarEstrategiasMG(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos);
+        }
+
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string tipoOrigenEstrategia = "")
         {
