@@ -12,7 +12,7 @@
 .wrapper_header_campania_navidenia{
     width:100%!important;
     min-width:1024px!important;
-    max-width:1366px!important;
+    max-width:100%!important;
 }
 
 .wrapper_campania_navidenia_y_logo{
@@ -22,31 +22,38 @@
 }
 
 .wrapper_campania_navidenia_y_logo,
-.logo_marca_pais_fondo,
-.logo_esika a,
-.logo_marca_pais_fondo:before
+.logo_marca_pais_fondo_navidenio,
+.logo_esika a
 {
     height:61px;
 }
 
-.logo_esika,
-.logo_esika a
+.wrapper_campania_navidenia_y_logo .logo_esika,
+.wrapper_campania_navidenia_y_logo .logo_esika a
 {
     position:relative;
 }
 
-.logo_esika a{
+.wrapper_campania_navidenia_y_logo .logo_esika a{
     left:-15px;
 }
 
-.logo_marca_pais_fondo {
+.wrapper_campania_navidenia_y_logo .logo_esika{
+    width:108px;
+}
+
+.logo_marca_pais_fondo_navidenio {
     position: absolute;
     margin: auto 0;
-    width: 216px;
+    width: 100%;
+    height:61px;
     top: 0;
     bottom: 0;
-    right: 0;
-    background-color: #e81c36;
+    left: -85%;
+    background: -moz-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+    background: -webkit-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+    background: linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E81C36', endColorstr='#720313',GradientType=0 );
     overflow: hidden;
     -moz-transform: skew(-13deg);
     -ms-transform: skew(-13deg);
@@ -55,7 +62,7 @@
     transform: skew(-13deg);
 }
 
-    .logo_marca_pais_fondo:before{
+    /*.logo_marca_pais_fondo_navidenio:before{
         display:block;
         content:"";
         position:absolute;
@@ -64,14 +71,9 @@
         top:0;
         left:0;
         z-index:4;
-        background: rgba(0,0,0,0.2);
-        background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0.2) 0%, rgba(0,0,0,1) 100%);
-        background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.2) 0%,rgba(0,0,0,1) 100%);
-        background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%,rgba(0,0,0,1) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 );
     }
 
-    /*.logo_marca_pais_fondo img{
+    .logo_marca_pais_fondo_navidenio img{
         position: absolute;
         top: 0;
         right: -14px;
