@@ -498,6 +498,7 @@
     <Compile Include="Models\Estrategia\WaEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
+    <Compile Include="Models\MasGanadorasModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
     <Compile Include="Models\Ofertas\IndexViewModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoDetalleModel.cs" />
@@ -913,6 +914,8 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="SessionManager\ISessionManager.cs" />
+    <Compile Include="SessionManager\MasGanadoras\IMasGanadoras.cs" />
+    <Compile Include="SessionManager\MasGanadoras\MasGanadoras.cs" />
     <Compile Include="SessionManager\OfertaDelDia\IOfertaDelDia.cs" />
     <Compile Include="SessionManager\OfertaDelDia\OfertaDelDia.cs" />
     <Compile Include="SessionManager\ShowRoom\IShowRoom.cs" />

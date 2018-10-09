@@ -239,6 +239,7 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "030";
             public const string HerramientasVenta = "011";
             public const string NotParticipaProgramaNuevas = "0";
+            public const string MasGanadoras = "201"; // No tiene referecia con BD, es un grupo de estrategias
         }
 
         public static class TipoPersonalizacion
@@ -2552,10 +2553,11 @@ namespace Portal.Consultoras.Common
         public static class TipoConsultaOfertaPersonalizadas
         {
             public const int RDObtenerProductos = 1;
-            public const int RDObtenerProductosLan = 2;
+            public const int LANObtenerProductos = 2;
             public const int GNDObtenerProductos = 3;
             public const int HVObtenerProductos = 4;
             public const int OPTObtenerProductos = 5;
+            public const int MGObtenerProductos = 6;
         };
 
         #region PagoEnLinea
@@ -2937,6 +2939,13 @@ namespace Portal.Consultoras.Common
         public static class MetaConsultora
         {
             public const string VerificacionCambioClave = "VF_CAMBIO_CLAVE";
+        }
+
+        public static class MasGanadoras
+        {
+            public const int ObtenerOpmTodo = 0;
+            public const int ObtenerOpmSinForzadas = 1;
+            public const int ObtenerOpmSoloForzadas = 2;
         }
 
     }

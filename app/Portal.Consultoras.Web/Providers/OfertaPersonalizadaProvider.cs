@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 palanca = Constantes.TipoEstrategiaCodigo.HerramientasVenta;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
                 palanca = Constantes.TipoEstrategiaCodigo.Lanzamiento;
             }
@@ -93,6 +93,11 @@ namespace Portal.Consultoras.Web.Providers
             {
                 palanca = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
             }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
+            {
+                palanca = Constantes.TipoEstrategiaCodigo.MasGanadoras;
+            }
+
 
             return palanca;
         }
@@ -113,7 +118,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 retorno = model.CampaniaID;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
                 retorno = model.CampaniaID;
             }
@@ -175,7 +180,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 listModel1 = listaFinal1;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
                 listModel1 = listaFinal1;
             }
@@ -204,7 +209,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 retorno = 2;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
                 retorno = TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
             }
@@ -252,7 +257,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 return true;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
                 if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
                 {
@@ -263,7 +268,10 @@ namespace Portal.Consultoras.Web.Providers
             {
                 return true;
             }
-
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
+            {
+                return _sessionManager.MasGanadoras.GetModel().TieneMG;
+            }
             return true;
         }
 
@@ -310,7 +318,22 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
-                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.RevistaDigital, campaniaId));
+                    if (_sessionManager.MasGanadoras.GetModel().TieneMG)
+                    {
+                        listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile,
+                            Constantes.TipoEstrategiaCodigo.RevistaDigital,
+                            campaniaId,
+                            false,
+                            Constantes.MasGanadoras.ObtenerOpmSinForzadas));
+                    }
+                    else
+                    {
+                        listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile,
+                            Constantes.TipoEstrategiaCodigo.RevistaDigital,
+                            campaniaId,
+                            false,
+                            Constantes.MasGanadoras.ObtenerOpmTodo));
+                    }
                     break;
                 case Constantes.TipoEstrategiaCodigo.Lanzamiento:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.Lanzamiento, campaniaId));
@@ -329,12 +352,23 @@ namespace Portal.Consultoras.Web.Providers
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaParaTi, campaniaId));
                     break;
+                case Constantes.TipoEstrategiaCodigo.MasGanadoras:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, 
+                        Constantes.TipoEstrategiaCodigo.RevistaDigital, 
+                        campaniaId,
+                        false,
+                        Constantes.MasGanadoras.ObtenerOpmSoloForzadas));
+                    break;
             }
 
             return listEstrategia;
         }
 
-        protected virtual List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(bool esMobile, string tipo, int campaniaId, bool filtrarNuevasAgregadas = false)
+        protected virtual List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(bool esMobile, 
+            string tipo, 
+            int campaniaId,
+            bool filtrarNuevasAgregadas = false,
+            int materialGanancia =0)
         {
             var userData = SessionManager.GetUserData();
             List<ServiceOferta.BEEstrategia> listEstrategia;
@@ -363,7 +397,8 @@ namespace Portal.Consultoras.Web.Providers
                     FechaInicioFacturacion = userData.FechaFinCampania,
                     ValidarPeriodoFacturacion = true,
                     Simbolo = userData.Simbolo,
-                    CodigoTipoEstrategia = tipo
+                    CodigoTipoEstrategia = tipo,
+                    MaterialGanancia = materialGanancia
                 };
 
                 if (tipo == Constantes.TipoEstrategiaCodigo.LosMasVendidos)
@@ -575,7 +610,7 @@ namespace Portal.Consultoras.Web.Providers
                 var estrategiaPersonalizada = ObtenerEstrategiaPersonalizadaSession(usuarioModel, palanca, cuv, campaniaId, usuarioModel.CodigoConsultora, usuarioModel.EsDiasFacturacion);
                 if (estrategiaPersonalizada == null || !estrategiaPersonalizada.CUV2.Equals(cuv))
                     return null;
-                estrategiaPersonalizada.Hermanos = new List<EstrategiaComponenteModel>();
+                estrategiaPersonalizada.Hermanos = estrategiaPersonalizada.Hermanos ?? new List<EstrategiaComponenteModel>();
                 estrategiaPersonalizada.TextoLibre = Util.Trim(estrategiaPersonalizada.TextoLibre);
                 estrategiaPersonalizada.CodigoVariante = Util.Trim(estrategiaPersonalizada.CodigoVariante);
                 return estrategiaPersonalizada;

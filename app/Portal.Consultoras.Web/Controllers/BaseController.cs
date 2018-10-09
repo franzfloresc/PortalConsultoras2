@@ -72,6 +72,13 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly MenuProvider _menuProvider;
         protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         protected readonly ComunicadoProvider _comunicadoProvider;
+        protected MasGanadorasModel MasGanadoras
+        {
+            get
+            {
+                return SessionManager.MasGanadoras.GetModel();
+            }
+        }
 
         protected ISessionManager SessionManager
         {

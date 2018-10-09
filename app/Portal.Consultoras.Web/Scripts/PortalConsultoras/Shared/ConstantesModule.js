@@ -63,9 +63,9 @@ var ConstantesModule = (function () {
     }
 
     var _urlObtenerEstrategia = {
-        OfertaParaTi: "/Estrategia/ConsultarEstrategiasOPT",
+        OfertaParaTi: "/Estrategia/OPTObtenerProductos",
         OfertasParaMi: "/Estrategia/RDObtenerProductos",
-        Lanzamiento: "/Estrategia/RDObtenerProductosLan",
+        Lanzamiento: "/Estrategia/LANObtenerProductos",
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
         HerrameintasVenta: "/Estrategia/HVObtenerProductos"
     }
@@ -74,12 +74,13 @@ var ConstantesModule = (function () {
         OfertaDelDiaDesktopHomeBanner: "1191",
         OfertaDelDiaDesktopPedidoBanner: "1291",
         OfertaDelDiaDesktopGeneralBanner: "1991",
-        MasGanadorasDesktopContenedor: "3001",
-        MasGanadorasDesktopContenedorPopup: "3002",
-        MasGanadorasDesktopLanding : "3003",
-        MasGanadorasDesktopLandingPopUp : "3004",
-        MasGanadorasMobileLanding : "3005",
-        MasGanadorasMobileLandingPopup : "3006"
+
+        MasGanadorasDesktopContenedorCarrusel: "1081401",
+        MasGanadorasDesktopContenedorCarruselFicha: "1081402",
+        MasGanadorasMobileContenedorCarruselFicha: "2081402",
+        MasGanadorasDesktopLanding: "1111401",
+        MasGanadorasDesktopLandingFicha: "1111402",
+        MasGanadorasMobileLandingFicha: "2111402"
     }
     
     return {
