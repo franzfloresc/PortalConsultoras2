@@ -34,9 +34,8 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Mobile" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ISACService_GetReporteAfiliados_InputMessage">
@@ -369,17 +368,17 @@
   <wsdl:message name="ISACService_EstrategiaTemporalActualizarSetDetalle_OutputMessage">
     <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarSetDetalleResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalActualizarSetImagen_InputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarSetImagen" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalActualizarSetImagen_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarSetImagenResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_InputMessage">
     <wsdl:part name="parameters" element="tns:EstrategiaTemporalInsertarEstrategiaMasivo" />
   </wsdl:message>
   <wsdl:message name="ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_OutputMessage">
     <wsdl:part name="parameters" element="tns:EstrategiaTemporalInsertarEstrategiaMasivoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ObtenerBuscadorComplemento_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerBuscadorComplemento" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ObtenerBuscadorComplemento_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerBuscadorComplementoResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_SelectBelcorpNoticias_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectBelcorpNoticias" />
@@ -1622,13 +1621,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle" message="tns:ISACService_EstrategiaTemporalActualizarSetDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalleResponse" message="tns:ISACService_EstrategiaTemporalActualizarSetDetalle_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalActualizarSetImagen">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagen" message="tns:ISACService_EstrategiaTemporalActualizarSetImagen_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagenResponse" message="tns:ISACService_EstrategiaTemporalActualizarSetImagen_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" message="tns:ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivoResponse" message="tns:ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerBuscadorComplemento">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" message="tns:ISACService_ObtenerBuscadorComplemento_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerBuscadorComplementoResponse" message="tns:ISACService_ObtenerBuscadorComplemento_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SelectBelcorpNoticias">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticias" message="tns:ISACService_SelectBelcorpNoticias_InputMessage" />
@@ -2808,8 +2807,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" style="document" />
+    <wsdl:operation name="EstrategiaTemporalActualizarSetImagen">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagen" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2817,8 +2816,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerBuscadorComplemento">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" style="document" />
+    <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4855,8 +4854,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" style="document" />
+    <wsdl:operation name="EstrategiaTemporalActualizarSetImagen">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagen" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4864,8 +4863,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerBuscadorComplemento">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerBuscadorComplemento" style="document" />
+    <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

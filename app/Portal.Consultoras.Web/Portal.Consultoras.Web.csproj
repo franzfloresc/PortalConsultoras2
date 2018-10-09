@@ -4649,9 +4649,6 @@
     <None Include="Service References\ServiceSAC\SACService6.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceSAC\SACService62.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">
       <SubType>Designer</SubType>
     </None>
