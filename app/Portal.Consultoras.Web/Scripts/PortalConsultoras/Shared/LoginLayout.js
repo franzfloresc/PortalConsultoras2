@@ -283,13 +283,13 @@ function storageIsSuport(storage) {
 }
 
 function LocalStorageLimpiar() {
-
+    
     if (typeof (Storage) !== 'undefined' && storageIsSuport(window.localStorage)) {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
         var itemChatEConnected = localStorage.getItem('connected');//add
         var itemChatEConfigParams = localStorage.getItem('ConfigParams');//add
-
+        var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');//add
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -306,6 +306,18 @@ function LocalStorageLimpiar() {
 
         if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {//add
             localStorage.setItem('ConfigParams', itemChatEConfigParams);
+        }
+
+        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {//add
+            localStorage.setItem('SurvicateStorage', itemSurvicateStorage);
+        }
+        //SetItemLocalStorageSurvicate(itemSurvicateStorage);
+    }
+
+    function SetItemLocalStorageSurvicate(storage) {
+        storage = (storage == null || storage =="") ? {} : jQuery.parseJSON(storage);
+        for (var key in storage) {
+            localStorage.setItem(key, storage[key]);
         }
     }
 };

@@ -1,0 +1,6372 @@
+﻿USE BelcorpPeru
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
+USE BelcorpMexico
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
+USE BelcorpColombia
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
+USE BelcorpSalvador
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
+USE BelcorpPuertoRico
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
+USE BelcorpPanama
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
+USE BelcorpGuatemala
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
+USE BelcorpEcuador
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
+USE BelcorpDominicana
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
+USE BelcorpCostaRica
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
+USE BelcorpChile
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
+USE BelcorpBolivia
+GO
+
+IF (OBJECT_ID ( 'dbo.ObtenerConcursosXConsultora', 'P' ) IS NULL)
+	EXEC('CREATE PROCEDURE dbo.ObtenerConcursosXConsultora AS SET NOCOUNT ON;')
+GO
+ALTER PROCEDURE dbo.ObtenerConcursosXConsultora
+@CODIGOCAMPANIA VARCHAR(6),
+@CODIGOCONSULTORA VARCHAR(15),
+@CODIGOREGION VARCHAR(4),
+@CODIGOZONA VARCHAR(4)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @TblTipoConcurso TABLE
+	(
+		TIP_CONC VARCHAR(3)
+
+		PRIMARY KEY(TIP_CONC)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		CAM_INIC INT NOT NULL,
+		CAM_FINA INT NOT NULL,
+		NUM_PEDI_EXIG INT NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX AS ISNULL((NUM_PEDI_VIGE - NUM_PEDI_EXIG),0)
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		COD_REGI VARCHAR(8) NOT NULL,
+		COD_ZONA VARCHAR(8) NOT NULL,
+		COD_SECC VARCHAR(8) NOT NULL,
+		COD_TERR VARCHAR(12) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp3 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp4 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp5 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		NUM_PEDI_VIGE INT NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL,
+
+		PRIMARY KEY(COD_CONC,COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_1 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		NUM_PEDI_NOEX INT NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp6_2 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL
+
+		PRIMARY KEY(COD_CONC, COD_CLIE)
+	)
+
+	DECLARE @TblConcursoConsultoraTemp7 TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		IND_PUN_CONF INT NOT NULL,
+		IND_PUN_ALCA INT NOT NULL
+	)
+
+	DECLARE @TblConcursoFinal TABLE
+	(
+		COD_CONC VARCHAR(6) NOT NULL,
+		COD_CLIE VARCHAR(15) NOT NULL,
+		COD_CAMP INT NOT NULL,
+		TIP_CONC VARCHAR(3) NOT NULL,
+		
+		PRIMARY KEY(COD_CONC)
+	)
+
+	DECLARE @CampaniaID INT
+
+	SET @CampaniaID = CAST(@CODIGOCAMPANIA AS INT)
+
+	--1. Validar si para la campaña en la que se encuentra la consultora 
+	--existe algún concurso vigente del tipo RxP (X) o Constancia (K). Si existe, pasar al punto 2.
+	INSERT INTO @TBLTipoConcurso (TIP_CONC) VALUES ('X'),('K')
+
+	INSERT INTO @TblConcursoConsultoraTemp1
+	(
+		COD_CONC, 
+		COD_CLIE,
+		TIP_CONC,
+		COD_CAMP,
+		CAM_INIC,
+		CAM_FINA,
+		NUM_PEDI_EXIG,
+		NUM_PEDI_VIGE
+	)
+	SELECT 
+		IPC.COD_CONC, 
+		@CODIGOCONSULTORA,
+		IPC.TIP_CONC, 
+		@CampaniaID,
+		CAST(ISNULL(IPC.CAM_INIC, '0') AS INT),
+		CAST(ISNULL(IPC.CAM_FINA, '0') AS INT),
+		CASE WHEN IPC.IND_CONS = '1' THEN ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1  
+									ELSE ISNULL(IPC.NUM_PEDI_EXIG,0) END,
+		ABS(dbo.RestaCampanias(IPC.CAM_INIC, IPC.CAM_FINA)) + 1 
+	FROM ods.IncentivosParametriaConcurso IPC (NOLOCK)
+	INNER JOIN @TBLTipoConcurso CON
+	ON IPC.TIP_CONC = CON.TIP_CONC
+	WHERE IPC.IND_ACTI = 1 
+	AND @CampaniaID BETWEEN CAST(IPC
+.CAM_INIC AS INT) AND CAST(IPC.CAM_FINA AS INT)
+
+	--2. Validar que la consultora se encuentre "EN COMPETENCIA" o que aún no tenga puntaje acumulado. 
+	--Si existe, pasar al punto 3.
+	INSERT INTO @TblConcursoConsultoraTemp2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		COD_REGI,
+		COD_ZONA,
+		COD_SECC,
+		COD_TERR,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		CON.COD_CONC, 
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		@CODIGOREGION,
+		@CODIGOZONA,
+		SEC.Codigo,
+		TER.Codigo,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp1 CON
+	INNER JOIN ods.Consultora CONS (NOLOCK)
+	ON CONS.Codigo = CON.COD_CLIE
+	INNER JOIN ods.Seccion SEC (NOLOCK)
+	ON SEC.SeccionID = CONS.SeccionID
+	INNER JOIN ods.Territorio TER (NOLOCK)
+	ON TER.TerritorioID = CONS.TerritorioID
+	LEFT JOIN ods.IncentivosConsultoraPuntos ICP (NOLOCK)
+	ON CON.COD_CONC = ICP.COD_CONC
+	AND CON.COD_CLIE = ICP.COD_CLIE
+	WHERE ICP.DES_ESTA = 'EN COMPETENCIA'
+	OR ICP.DES_ESTA IS NULL
+
+	--3. Identificar si es participante por Unidad Geográfica: Región, Zona, Sección, Territorio. 
+	--Si existe, pasar al punto 4.
+	INSERT INTO @TblConcursoConsultoraTemp3
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT DISTINCT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	INNER JOIN ods.IncentivosParticipanteUA UA (NOLOCK)
+	ON CON.COD_CONC = UA.COD_CONC
+	AND CON.COD_REGI = UA.COD_REGI
+	AND CON.COD_ZONA = ISNULL(UA.COD_ZONA, CON.COD_ZONA)
+	AND CON.COD_SECC = ISNULL(CAST(UA.COD_SECC AS VARCHAR(8)), CON.COD_SECC)
+	AND CON.COD_TERR = ISNULL(CAST(UA.COD_TERR AS VARCHAR(12)), CON.COD_TERR)
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+	CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp2 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipanteUA UA (NOLOCK) 
+		WHERE CON.COD_CONC = UA.COD_CONC)
+
+	--4. Identificar si es participante por Estatus/Clasificación. 
+	--Si existe, pasar al punto 5.
+	INSERT INTO @TblConcursoConsultoraTemp4
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,		
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	INNER JOIN ods.IncentivisoParticipantesEstaClas EST (NOLOCK)
+	ON CON.COD_CONC = EST.COD_CONC
+	AND CON.COD_CLIE = EST.COD_CLIE
+
+	UNION ALL
+
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp3 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivisoParticipantesEstaClas EST (NOLOCK) 
+		WHERE CON.COD_CONC = EST.COD_CONC)
+
+	--5. Identificar si es excluida. Si no existe, pasar al punto 6.
+	INSERT INTO @TblConcursoConsultoraTemp5
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC,
+		NUM_PEDI_VIGE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC,
+		CON.NUM_PEDI_VIGE,
+		CON.NUM_PEDI_NOEX
+	FROM @TblConcursoConsultoraTemp4 CON
+	WHERE NOT EXISTS(SELECT 1 FROM ods.IncentivosParticipantesExcluidas EXC (NOLOCK) 
+		WHERE CON.COD_CONC = EXC.COD_CONC 
+		AND CON.COD_CLIE = EXC.COD_CLIE)
+
+	--6. Validar que la cantidad máxima de campañas que puede dejar de pasar pedido 
+	--la consultora en la vigencia sea mayor o igual a la cantidad de campañas en las que no pasó pedido 
+	--(sin contar la campaña actual). Si cumple con esta condición, pasar al punto 7.
+	;WITH CTE_CONCURSO_PEDIDO
+	AS
+	(
+		SELECT
+			CON.COD_CONC,
+			CON.NUM_PEDI_VIGE,
+			CAST(IPC.CAM_INIC AS INT) AS CAM_INIC
+		FROM @TblConcursoConsultoraTemp5 CON
+		INNER JOIN ods.IncentivosParametriaConcurso IPC (NOLOCK)
+		ON CON.COD_CONC = IPC.COD_CONC
+	)
+	,CTE_CONCURSO_PEDIDO_2
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			NUM_PEDI_VIGE, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO
+
+		UNION ALL
+
+		SELECT 
+			COD_CONC,
+			NUM_PEDI_VIGE - 1, 
+			CAM_INIC 
+		FROM CTE_CONCURSO_PEDIDO_2
+		WHERE NUM_PEDI_VIGE > 1
+	)
+	,CTE_CONCURSO_PEDIDO_3 
+	AS
+	(
+		SELECT 
+			COD_CONC, 
+			CAM_INIC + (NUM_PEDI_VIGE - 1) AS COD_CAMP  
+		FROM CTE_CONCURSO_PEDIDO_2 
+	)
+	,CTE_CONCURSO_PEDIDO_4
+	AS
+	(
+		SELECT
+			IPCC.COD_CONC, 
+			IPCC.COD_CLIE,
+			IPCC.COD_CAMP,
+			IPCC.IND_PEDI
+		FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+		INNER JOIN @TblConcursoConsultoraTemp5 CON
+		ON CON.COD_CONC = IPCC.COD_CONC
+	
+	AND CON.COD_CLIE = IPCC.COD_CLIE
+	)
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT 
+		INI.COD_CONC, 
+		@CODIGOCONSULTORA, 
+		COUNT(1)
+	FROM CTE_CONCURSO_PEDIDO_3 INI
+	LEFT JOIN CTE_CONCURSO_PEDIDO_4 IPCC (NOLOCK)
+	ON INI.COD_CONC = IPCC.COD_CONC
+	AND INI.COD_CAMP = IPCC.COD_CAMP
+	WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	AND INI.COD_CAMP < CAST(@CODIGOCAMPANIA AS INT)
+	GROUP BY INI.COD_CONC
+
+	--INSERT INTO @TblConcursoConsultoraTemp6_1
+	--(
+	--	COD_CONC,
+	--	COD_CLIE,
+	--	NUM_PEDI_NOEX
+	--)
+	--SELECT
+	--	IPCC.COD_CONC, 
+	--	IPCC.COD_CLIE,
+	--	COUNT(1)
+	--FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	--INNER JOIN @TblConcursoConsultoraTemp5 CON
+	--ON CON.COD_CONC = IPCC.COD_CONC
+	--AND CON.COD_CLIE = IPCC.COD_CLIE
+	--WHERE ISNULL(IPCC.IND_PEDI,'0') = '0'
+	--AND CAST(IPCC.COD_CAMP AS INT) <> CON.COD_CAMP
+	--GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoConsultoraTemp6_1
+	(
+		COD_CONC,
+		COD_CLIE,
+		NUM_PEDI_NOEX
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		0
+	FROM @TblConcursoConsultoraTemp5 CON
+	WHERE NOT EXISTS (SELECT 1 FROM @TblConcursoConsultoraTemp6_1 TEMP 
+		WHERE CON.COD_CONC = TEMP.COD_CONC 
+		AND CON.COD_CLIE = TEMP.COD_CLIE)
+
+	INSERT INTO @TblConcursoConsultoraTemp6_2
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp5 CON
+	LEFT JOIN @TblConcursoConsultoraTemp6_1 CTE
+	ON CON.COD_CONC = CTE.COD_CONC
+	AND CON.COD_CLIE = CTE.COD_CLIE
+	WHERE CON.NUM_PEDI_NOEX >= ISNULL(CTE.NUM_PEDI_NOEX,CON.NUM_PEDI_VIGE)
+
+	--7. Validar que en caso haya exigencia de puntaje por campaña, 
+	--la consultora haya cumplido con esta exigencia en las campañas que ya pasaron. 
+	--Si cumple con esta condición, la consultora es participante del concurso.
+	INSERT INTO @TblConcursoConsultoraTemp7
+	(
+		COD_CONC,
+		COD_CLIE,
+		IND_PUN_CONF,
+		IND_PUN_ALCA
+	)
+	SELECT
+		IPCC.COD_CONC, 
+		IPCC.COD_CLIE,
+		MAX(CASE WHEN IPC.COD_CONC IS NULL THEN 0 ELSE 1 END),		
+		MAX(CASE WHEN IPC.PUN_MIN <= IPCC.NUM_PUNT THEN 1 ELSE 0 END)
+	FROM ods.IncentivosPuntajeCampanaConsultora IPCC (NOLOCK)
+	INNER JOIN @TblConcursoConsultoraTemp6_2 CONS
+	ON CONS.COD_CONC = IPCC.COD_CONC
+	AND CONS.COD_CLIE = IPCC.COD_CLIE
+	LEFT JOIN ods.IncentivosParametriaCampana IPC (NOLOCK)
+	ON IPC.COD_CONC = IPCC.COD_CONC
+	AND IPC.COD_CAMP = IPCC.COD_CAMP
+	WHERE IPCC.COD_CAMP <> CONS.COD_CAMP
+	GROUP BY IPCC.COD_CONC, IPCC.COD_CLIE
+
+	INSERT INTO @TblConcursoFinal
+	(
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,		
+		TIP_CONC
+	)
+	SELECT
+		CON.COD_CONC,
+		CON.COD_CLIE,
+		CON.COD_CAMP,
+		CON.TIP_CONC
+	FROM @TblConcursoConsultoraTemp6_2 CON
+	LEFT JOIN @TblConcursoConsultoraTemp7 CAL
+	ON CON.COD_CONC = CAL.COD_CONC
+	AND CON.COD_CLIE = CAL.COD_CLIE
+	WHERE (ISNULL(CAL.IND_PUN_CONF,0) = 1 AND ISNULL(CAL.IND_PUN_ALCA,0) = 1)
+	OR ISNULL(CAL.IND_PUN_CONF,0) = 0
+
+	DELETE FROM dbo.IncentivosPuntosConsultora
+	WHERE CodigoConsultora = @CODIGOCONSULTORA
+	AND CampaniaInicio <> @CODIGOCAMPANIA
+
+	DELETE INC
+	FROM dbo.IncentivosPuntosConsultora INC
+	WHERE INC.CodigoConsultora = @CODIGOCONSULTORA
+	AND INC.CampaniaInicio = @CODIGOCAMPANIA
+	AND NOT EXISTS(SELECT 1 FROM @TblConcursoFinal FIN 
+		WHERE FIN.COD_CONC = INC.CodigoConcurso)
+
+	INSERT INTO dbo.IncentivosPuntosConsultora
+	(
+		CodigoConsultora,
+		CodigoConcurso,
+		NivelAlcanzado,
+		NivelSiguiente,
+		PuntosFaltantesSiguienteNivel,
+		PuntosPorVentas,
+		PuntosRetail,
+		PuntajeTotal,
+		PuntajeODS,
+		CampaniaInicio,
+		CampaniaFinal,
+		CampaniaDespachoInicial,
+		CampaniaDespachoFinal,
+		EstadoConsultora,
+		TipoConcurso,
+		FechaVigenteRetail,
+		PuntajeExigido
+	)
+	SELECT 
+		COD_CLIE,
+		COD_CONC,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		COD_CAMP,
+		'EN COMPETENCIA',
+		TIP_CONC,
+		NULL,
+		0
+	FROM @TblConcursoFinal CF
+	WHERE NOT EXISTS(SELECT 1 FROM dbo.IncentivosPuntosConsultora IPC 
+		WHERE IPC.CodigoConcurso = CF.COD_CONC 
+		AND IPC.CodigoConsultora = CF.COD_CLIE 
+		AND IPC.CampaniaInicio = CF.COD_CAMP)
+	
+	SELECT 
+		COD_CONC,
+		COD_CLIE,
+		COD_CAMP,
+		TIP_CONC
+	FROM @TblConcursoFinal
+
+	SET NOCOUNT OFF
+END
+GO
+
