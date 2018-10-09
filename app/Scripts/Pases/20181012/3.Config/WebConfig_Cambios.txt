@@ -1,0 +1,52 @@
+
+Opcional: Poner una indicacion en que parte del archivo web cconfig
+debeir el cambio
+====================================================================
+====================================================================
+====================================================================
+
+1.1.PortalConsultoras2 - Web
+
+Agregar:
+	------ Ini urlSinImagenTiposyTonos
+	------ poner debajo de rutaImagenNotFoundAppCatalogo
+	QAS, PPR, PPRFix
+	<add key="urlSinImagenTiposyTonos" value="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg" />
+
+	PRD
+	<add key="urlSinImagenTiposyTonos" value="https://somosbelcorpprd.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg" />
+	------ Fin urlSinImagenTiposyTonos
+
+
+
+Actualizar:
+	
+	
+Eliminar:
+	
+	
+====================================================================
+====================================================================
+====================================================================
+
+1.2.PortalConsultoras2 - Service
+
+Agregar:
+	
+	
+Actualizar:
+	
+	
+Eliminar:
+	
+	
+
+
+====================================================================
+====================================================================
+====================================================================
+
+2.1.[NombreProyeto]
+.....
+.....
+.....
