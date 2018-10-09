@@ -561,6 +561,14 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         rpta = "Error al cargar tonos.";
                     }
+                    else
+                    {
+                        rptaService = MasivoEstrategiaTemporalSetImagen(entidadMasivo);
+                        if (!rptaService)
+                        {
+                            rpta = "Error al cargar imagen.";
+                        }
+                    }
                 }
                 else
                 {
@@ -608,6 +616,24 @@ namespace Portal.Consultoras.Web.Controllers
                     svc.EstrategiaTemporalActualizarSetDetalle(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
                 }
                 rpta = true;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                rpta = false;
+            }
+            return rpta;
+        }
+
+        private bool MasivoEstrategiaTemporalSetImagen(AdministrarEstrategiaMasivoModel entidadMasivo)
+        {
+            bool rpta = false;
+            try
+            {
+                using (var svc = new SACServiceClient())
+                {
+                    rpta = svc.EstrategiaTemporalActualizarSetImagen(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
+                }
             }
             catch (Exception ex)
             {

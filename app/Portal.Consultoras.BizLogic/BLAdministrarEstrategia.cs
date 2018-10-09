@@ -149,6 +149,20 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        public bool EstrategiaTemporalActualizarSetImagen(int paisId, int nroLote, int pagina)
+        {
+            try
+            {
+                var daEstrategia = new DAEstrategia(paisId);
+                return daEstrategia.EstrategiaTemporalActualizarSetImagen(nroLote, pagina);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                return false;
+            }
+        }
+
         public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)
         {
             try

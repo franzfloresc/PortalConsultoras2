@@ -820,6 +820,9 @@ namespace Portal.Consultoras.ServiceContracts
         bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote, int pagina);
 
         [OperationContract]
+        bool EstrategiaTemporalActualizarSetImagen(int paisID, int nroLote, int pagina);
+
+        [OperationContract]
         int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote);
 
         #endregion

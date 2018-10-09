@@ -1599,6 +1599,11 @@ namespace Portal.Consultoras.Service
             return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetDetalle(paisId, nroLote, pagina);
         }
 
+        public bool EstrategiaTemporalActualizarSetImagen(int paisId, int nroLote, int pagina)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetImagen(paisId, nroLote, pagina);
+        }
+
         public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)
         {
             return _blAdministrarEstrategia.EstrategiaTemporalInsertarEstrategiaMasivo(paisId, nroLote);

@@ -673,6 +673,17 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public bool EstrategiaTemporalActualizarSetImagen(int nroLote, int pagina)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarSetImagen"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
+                Context.ExecuteReader(command);
+                return true;
+            }
+        }
+
         public int EstrategiaTemporalInsertarEstrategiaMasivo(int nroLote)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalInsertarEstrategiaMasivo"))

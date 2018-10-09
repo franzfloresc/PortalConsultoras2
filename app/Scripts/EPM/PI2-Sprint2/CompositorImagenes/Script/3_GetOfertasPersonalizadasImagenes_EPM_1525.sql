@@ -1,4 +1,4 @@
-
+﻿
 GO
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -11,7 +11,7 @@ GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : OBTIENE LA LISTA DE PRODUCTOS SIN IMAGEN CONFIGURADA ******/
-/******PARAMETROS: CAMPA�A, TIPO CONFIGURADO, CODIGO ESTRATEGIA ******/
+/******PARAMETROS: CAMPAÑA, TIPO CONFIGURADO, CODIGO ESTRATEGIA ******/
 
 --EXEC [dbo].[GetOfertasPersonalizadasImagenes] 201814, 2, '007'
 CREATE PROCEDURE [dbo].[GetOfertasPersonalizadasImagenes] (
