@@ -150,6 +150,11 @@
     background-position:0 3px!important;
 }
 
+.boton_ingresa_tu_pedido_navidenio{
+    background-color:#870A1B;
+    border-color:#870A1B;
+}
+
 @media screen and (max-width:1365px){
 
     .wrapper_header_cincuenta_anios_belcorp{
