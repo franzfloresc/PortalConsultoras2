@@ -10,7 +10,8 @@
 
 .icono__actualizarDatos,
 .notificaciones__cantidad,
-.btn__productos__agregados--IngresarPedido
+.btn__productos__agregados--IngresarPedido,
+.ui-button-text-only .ui-button-text
 {
     background-color:#e81c36;
 }
