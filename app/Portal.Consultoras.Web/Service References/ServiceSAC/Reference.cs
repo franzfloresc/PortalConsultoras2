@@ -16307,6 +16307,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalleResponse")]
         System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetDetalleAsync(int paisID, int nroLote, int pagina);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagen", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagenResponse")]
+        bool EstrategiaTemporalActualizarSetImagen(int paisID, int nroLote, int pagina);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagen", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagenResponse")]
+        System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetImagenAsync(int paisID, int nroLote, int pagina);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivoResponse" +
             "")]
         int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote);
@@ -17803,6 +17809,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetDetalleAsync(int paisID, int nroLote, int pagina) {
             return base.Channel.EstrategiaTemporalActualizarSetDetalleAsync(paisID, nroLote, pagina);
+        }
+        
+        public bool EstrategiaTemporalActualizarSetImagen(int paisID, int nroLote, int pagina) {
+            return base.Channel.EstrategiaTemporalActualizarSetImagen(paisID, nroLote, pagina);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetImagenAsync(int paisID, int nroLote, int pagina) {
+            return base.Channel.EstrategiaTemporalActualizarSetImagenAsync(paisID, nroLote, pagina);
         }
         
         public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote) {
