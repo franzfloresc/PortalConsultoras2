@@ -63,6 +63,18 @@
 
 }
 
+@media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+    .header__marca__pais{
+        height:33px;
+    }
+
+    .header__marca__pais img{
+        height:auto!important;
+    }
+
+}
+
 /* FIN - HEADER */
 
 /* HEADER MOBILE */

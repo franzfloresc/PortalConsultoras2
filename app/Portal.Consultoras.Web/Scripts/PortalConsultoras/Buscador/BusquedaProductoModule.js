@@ -109,12 +109,12 @@
             footerHeight += $(_elementos.footer).innerHeight() || 0;
             return footerHeight >= documentHeight;
         },
-        GetSize(url, callback) {
+        GetSize: function (url, callback) {
             var img = new Image();
             img.src = url;
             img.onload = function () { callback(this.width, this.height); }
         },
-        UpadteFichaProducto() {
+        UpadteFichaProducto: function() {
 
             $('article[data-loaded=0]').each(function () {
 
