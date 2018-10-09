@@ -563,6 +563,10 @@
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
 
+    .buscador__productos{
+        flex-basis:0;
+    }
+
     .campo_busqueda_fondo_on_focus{
         height:49px;
     }

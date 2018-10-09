@@ -143,6 +143,100 @@ body > img{
 
 /* FIN - HELPERS CSS*/
 
+/* POPUP VALIDACIÓN AL AGREGAR PRODUCTO CON CANTIDAD CERO*/
+
+.ui-widget-header{
+    background:#FFF;
+    border:0;
+}
+
+#alertDialogMensajes .ui-dialog.ui-widget-content {
+    padding-left:13px;
+    padding-right:13px;    
+}
+
+.ui-dialog .ui-dialog-title {
+    font-family: 'lato';
+    float: left;
+    font-weight: normal !important;
+    margin: 20px 16px .2em 0;
+    color: black !important;
+}
+
+.ui-dialog .ui-dialog-content{
+    padding-bottom: 40px;
+    position: relative;
+    border: 0;
+    padding-left: 50px;
+    padding-right: 50px;
+    background: none;
+    overflow: auto;
+    zoom: 1;
+}
+
+.terminos_title_2{
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-bottom: 20px !important;
+    margin: 0 auto;
+    text-transform: uppercase;
+    font-size: 10pt !Important;
+    font-family: 'lato';
+    color: black;
+    letter-spacing: .5px;
+}
+
+.linea_superior{
+    height: 1px;
+    width: 100%;
+    background: #ccc;
+}
+
+.pop_pedido_mensaje {
+    width: 300px;
+    font-family: 'lato';
+    font-size: 10pt;
+    color: black;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    text-align: left;
+    border-width: 1px 0 0 0;
+    background-image: none;
+    margin-bottom: 40px;
+    background-color:#FFF;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    text-align: center;
+    float:none;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+    cursor: pointer;
+    border: 0;
+    display: block;
+    margin: 0 auto;
+}
+
+.ui-button-text-only .ui-button-text {
+    height: 35px;
+    width: 200px;
+    padding-top: 10px;
+    border: 0;
+    text-transform: uppercase;
+    font-family: 'lato';
+    letter-spacing: 1.5px;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* FIN - POPUP VALIDACIÓN AL AGREGAR PRODUCTO CON CANTIDAD CERO */
+
 .mostrarEnMobile{
     display:none;
 }

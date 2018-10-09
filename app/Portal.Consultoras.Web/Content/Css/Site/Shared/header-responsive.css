@@ -32,6 +32,14 @@
 
 }
 
+@media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+    .submenu__lista--miNegocio{
+        align-content:space-around;
+    }
+
+}
+
 /* FIN - HEADER DESKTOP */
 
 /* HEADER MOBILE */

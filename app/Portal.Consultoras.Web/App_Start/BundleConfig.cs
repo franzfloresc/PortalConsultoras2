@@ -877,6 +877,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
+                "~/Content/Css/Site/bootstrap/bootstrap.css",
                 "~/Content/Css/Site/Shared/general.css",
                 "~/Content/Css/Site/Shared/header-responsive.css",
                 "~/Content/Css/Site/Shared/menu-principal-responsive.css",
@@ -888,6 +889,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
+                "~/Content/Css/Site/bootstrap/bootstrap.css",
                 "~/Content/Css/Site/Shared/general.css",
                 "~/Content/Css/Site/Shared/header-responsive.css",
                 "~/Content/Css/Site/Shared/menu-principal-responsive.css",

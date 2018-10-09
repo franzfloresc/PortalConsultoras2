@@ -74,16 +74,19 @@
             return modelo;
         },
         CargarProductos: function () {
+            _config.cargandoProductos = true;
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
-                    _config.totalProductos = data.total;
                     $(_elementos.spanTotalProductos).html(data.total);
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
                     _funciones.UpadteFichaProducto();
+                    _config.totalProductos = data.total;
+                    _config.cargandoProductos = false;
                 }).fail(function (data, error) {
                     console.error(error.toString());
+                    _config.cargandoProductos = false;
                 });
         },
         ProcesarListaProductos: function (productos) {
@@ -100,18 +103,18 @@
         ValidarScroll: function () {
             if (_config.totalProductos === 0) return false;
             if (_config.cargandoProductos) return false;
-            if ((_config.numeroPaginaActual -1) === Math.ceil(_config.totalProductos / _config.productosPorPagina)) return false;
+            if (_config.numeroPaginaActual >= (Math.ceil(_config.totalProductos / _config.productosPorPagina) - 1)) return false;
             var documentHeight = $(document).height();
             var footerHeight = $(window).scrollTop() + $(window).height();
             footerHeight += $(_elementos.footer).innerHeight() || 0;
             return footerHeight >= documentHeight;
         },
-        GetSize(url, callback) {
+        GetSize: function (url, callback) {
             var img = new Image();
             img.src = url;
             img.onload = function () { callback(this.width, this.height); }
         },
-        UpadteFichaProducto() {
+        UpadteFichaProducto: function() {
 
             $('article[data-loaded=0]').each(function () {
 

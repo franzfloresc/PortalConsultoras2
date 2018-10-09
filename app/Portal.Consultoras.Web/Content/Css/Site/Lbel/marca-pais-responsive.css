@@ -13,7 +13,8 @@
 .icono__actualizarDatos,
 .notificaciones__cantidad,
 .btn__productos__agregados--IngresarPedido,
-.menu__item--campaniaActual
+.menu__item--campaniaActual,
+.ui-button-text-only .ui-button-text 
 {
     background-color:#613C87;
 }
