@@ -63,7 +63,7 @@ var ConstantesModule = (function () {
     }
 
     var _urlObtenerEstrategia = {
-        OfertaParaTi: "/Estrategia/ConsultarEstrategiasOPT",
+        OfertaParaTi: "/Estrategia/OPTObtenerProductos",
         OfertasParaMi: "/Estrategia/RDObtenerProductos",
         Lanzamiento: "/Estrategia/RDObtenerProductosLan",
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",

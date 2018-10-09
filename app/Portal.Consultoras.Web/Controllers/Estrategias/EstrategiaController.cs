@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
-        public JsonResult ConsultarEstrategiasOPT(BusquedaProductoModel model)
+        public JsonResult OPTObtenerProductos(BusquedaProductoModel model)
         {
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos);
         }

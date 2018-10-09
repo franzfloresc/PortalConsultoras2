@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:
-                            seccion.UrlObtenerProductos = "Estrategia/ConsultarEstrategiasOPT";
+                            seccion.UrlObtenerProductos = "Estrategia/OPTObtenerProductos";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedor;
                             seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedorPopup;
                             seccion.VerMas = false;
