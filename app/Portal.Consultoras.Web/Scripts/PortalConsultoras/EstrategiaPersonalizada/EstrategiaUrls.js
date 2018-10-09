@@ -10,9 +10,9 @@ function OnClickFichaDetalle(e) {
     var codigoCampania = $.trim(infoCuvItem.CampaniaID);
     var codigoCuv = $.trim(infoCuvItem.CUV2);
     var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), true);
-    
+
     var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
-                                            
+
     if (OrigenPedidoWeb == "" || OrigenPedidoWeb === "undefined" || OrigenPedidoWeb == null)
         OrigenPedidoWeb = "";
 
@@ -22,7 +22,6 @@ function OnClickFichaDetalle(e) {
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
 
     if (estoyEnLaFicha) {
-        
         AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem);
     }
 
@@ -41,7 +40,7 @@ function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigo
 
 function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
     OrigenPedidoWeb = OrigenPedidoWeb || -1;
-    debugger;
+    //debugger;
     var url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
 
     if (codigoEstrategia != null && typeof codigoEstrategia !== "undefined")

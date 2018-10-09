@@ -1,6 +1,5 @@
 ﻿
 var ConstantesModule = (function () {
-  
     var _codigosPalanca = {
         OfertaParaTi: "OfertaParaTi",
         PackNuevas: "PackNuevas", // Oferta Nueva Esika

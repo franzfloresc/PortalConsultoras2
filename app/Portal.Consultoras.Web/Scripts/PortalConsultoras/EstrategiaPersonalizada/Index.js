@@ -349,7 +349,6 @@ function SeccionMostrarProductos(data) {
         });
     }
 
-    console.log(data.Seccion.TemplateProducto);
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
     if (data.Seccion.TemplateProducto == "#producto-landing-template") {
@@ -461,8 +460,6 @@ function RenderCarruselPrevisuales(divProd) {
 }
 
 function RenderCarruselSimple(divProd, cc) {
-    console.log(divProd);
-    console.log(cc);
     if (typeof divProd == "undefined")
         return false;
 

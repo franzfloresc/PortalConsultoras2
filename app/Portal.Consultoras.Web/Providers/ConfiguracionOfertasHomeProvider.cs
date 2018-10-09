@@ -191,7 +191,7 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
                             break;
                         case Constantes.ConfiguracionPais.MasGanadoras:
-                            seccion.UrlObtenerProductos = "Estrategia/HVObtenerProductos";
+                            seccion.UrlObtenerProductos = "Estrategia/MGObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras/Index";
                             seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarrusel;
                             seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarruselFicha;
