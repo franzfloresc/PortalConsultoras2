@@ -1,10 +1,3 @@
-
-Opcional: Poner una indicacion en que parte del archivo web cconfig
-debeir el cambio
-====================================================================
-====================================================================
-====================================================================
-
 1.1.PortalConsultoras2 - Web
 
 Agregar:
@@ -17,36 +10,8 @@ Agregar:
 	<add key="urlSinImagenTiposyTonos" value="https://somosbelcorpprd.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg" />
 	------ Fin urlSinImagenTiposyTonos
 
-
-
 Actualizar:
-	
-	
-Eliminar:
-	
-	
-====================================================================
-====================================================================
-====================================================================
+	 QAS
+        <!--<add key="RutaServiceBuscadorAPI" value="http://internal-qaielbsbsearch-925070621.us-east-1.elb.amazonaws.com/" />-->
 
-1.2.PortalConsultoras2 - Service
-
-Agregar:
-	
-	
-Actualizar:
-	
-	
-Eliminar:
-	
-	
-
-
-====================================================================
-====================================================================
-====================================================================
-
-2.1.[NombreProyeto]
-.....
-.....
-.....
+        <add key="RutaServiceBuscadorAPI" value="http://10.12.9.138/" />
