@@ -18,16 +18,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var IdCurso = 0;
             var FlagVideo = 0;
+            var parametrosSap = "";
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
             try
             {
                 IdCurso = SessionManager.GetMiAcademia();
                 FlagVideo = SessionManager.GetMiAcademiaVideo();
+                parametrosSap = SessionManager.GetMiAcademiaParametro();  //PPC
                 SessionManager.SetMiAcademia(0);
-                SessionManager.SetMiAcademiaVideo(0); 
+                SessionManager.SetMiAcademiaVideo(0);
 
                 string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
                 string urlLms = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.CursosMarquesina);
-                string UrlCursoMiAcademiaVideo = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.UrlCursoMiAcademiaVideo);  
+                string UrlCursoMiAcademiaVideo = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.UrlCursoMiAcademiaVideo);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
@@ -74,8 +78,20 @@ namespace Portal.Consultoras.Web.Controllers
                 var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
-                urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
-                UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, IdCurso);
+
+                if (parametrosSap.Length > 1 && parametrosSap.Contains("SAP"))
+                {
+                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
+                    urlLms = urlLms + "&" + parametrosSap;
+                    UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, IdCurso);
+                    UrlCursoMiAcademiaVideo = UrlCursoMiAcademiaVideo + "&" + parametrosSap;
+                }
+                else
+                {
+                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
+                    UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, IdCurso);
+                }
+
 
                 if (exito)
                 {
@@ -85,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        return Redirect(UrlCursoMiAcademiaVideo); 
+                        return Redirect(UrlCursoMiAcademiaVideo);
                     }
                 }
             }

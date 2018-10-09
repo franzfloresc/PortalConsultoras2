@@ -606,7 +606,7 @@ var FichaModule = (function (config) {
             if (imgFondo !== "") {
                 $(_seccionesFichaProducto.ContenedoFichaEtiquetas).addClass("contenedor_ficha_etiquetas_Confondo");
             }
-            //setTimeout(_renderImg(), 1000);
+            setTimeout(_renderImg(), 1000);
         }
 
         if (imgFondo !== "") {

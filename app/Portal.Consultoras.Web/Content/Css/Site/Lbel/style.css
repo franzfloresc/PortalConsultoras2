@@ -104,7 +104,7 @@ header {
     }
 
 /*.wrapper_cincuenta_anios_belcorp_y_logo{
-    width:16.5%!important;
+    width:17.5%!important;
 }*/
 
 /*.wrapper_cincuenta_anios_belcorp_y_logo,
@@ -36790,7 +36790,7 @@ height:30px;
     }
 
     .wrapper_cincuenta_anios_belcorp_y_logo{
-        width:17%!important;
+        width:18%!important;
     }
 
     .cincuenta_anios_belcorp + .logo_esika {
@@ -36811,8 +36811,12 @@ height:30px;
 /*@media screen and (min-width:1145px) and (max-width:1212px){
 
     .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika{
-        width: 628px!important;
+        width: 580px!important;
     }
+
+    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika.anchoMenu_sinEnlaceSociaEmpresaria{
+        width:467px!important;
+    }     
 
 }
 

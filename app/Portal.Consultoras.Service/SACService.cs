@@ -1,10 +1,13 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.Estrategia;
 using Portal.Consultoras.BizLogic.Mobile;
+using Portal.Consultoras.BizLogic.Producto;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Mobile;
+using Portal.Consultoras.Entities.Producto;
 using Portal.Consultoras.ServiceContracts;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -50,11 +53,12 @@ namespace Portal.Consultoras.Service
         private readonly BLApp _blApp;
         private readonly BLAdministrarEstrategia _blAdministrarEstrategia;
         private readonly IComunicadoBusinessLogic _comunicadoBusinessLogic;
+        private readonly IBuscadorBusinessLogic _buscadorBusinessLogic;
 
         private readonly BLCategoria _blCategoria;
         private readonly BLCatalogo _bLCatalogo;  
 
-        public SACService() : this(new BLComunicado())
+        public SACService() : this(new BLComunicado(), new BLBuscador())
         {
             BLCronograma = new BLCronograma();
             BLCronogramaAnticipado = new BLCronogramaAnticipado();
@@ -94,9 +98,11 @@ namespace Portal.Consultoras.Service
             _bLCatalogo = new BLCatalogo();
         }
 
-        public SACService(IComunicadoBusinessLogic comunicadoBusinessLogic)
+        public SACService(IComunicadoBusinessLogic comunicadoBusinessLogic,
+                           IBuscadorBusinessLogic buscadorBusinessLogic)
         {
             _comunicadoBusinessLogic = comunicadoBusinessLogic;
+            _buscadorBusinessLogic = buscadorBusinessLogic;
         }
 
         #region Cronograma Anticipado
@@ -1610,5 +1616,9 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
+        public List<BEBuscadorResponse> ObtenerBuscadorComplemento(int paisID, string codigoUsuario, bool suscripcionActiva, List<BEBuscadorResponse> lst, bool isApp)
+        {
+            return _buscadorBusinessLogic.ObtenerBuscadorComplemento(paisID, codigoUsuario, suscripcionActiva, lst, isApp);
+        }
     }
 }
