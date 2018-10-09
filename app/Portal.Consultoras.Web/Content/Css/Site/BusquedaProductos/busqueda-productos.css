@@ -917,7 +917,11 @@
     .fichas__productos__wrapper {
         grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
     }
-    
+
+    .ficha__producto__descrip__nom{
+        min-height:57px;
+    }
+
     .btn__elegir__opcion--fichaProducto{
         padding-left:4px;
         padding-right:4px;
