@@ -127,7 +127,10 @@
                     var aspect_ratio = width / height;
 
                     switch (true) {
-                        case aspect_ratio > 1:
+                        case aspect_ratio == 1:
+                            classRatio = 'ficha__producto--delgada';
+                            break;
+                        case aspect_ratio > 1.3:
                             classRatio = 'ficha__producto--ancha';
                             break;
                         case aspect_ratio < 1:
