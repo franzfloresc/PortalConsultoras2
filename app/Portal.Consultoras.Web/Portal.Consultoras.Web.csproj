@@ -1571,6 +1571,7 @@
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
     <Content Include="Content\Images\imagen_prod_no_disponible.svg" />
     <Content Include="Content\Images\Lbel\copo-nieve.png" />
+    <Content Include="Content\Images\Lbel\copos-nieve.png" />
     <Content Include="Content\Images\Lbel\icono_cambiar_dato.svg" />
     <Content Include="Content\Images\Lbel\icono_candado.svg" />
     <Content Include="Content\Images\Lbel\icono_envelope.svg" />
@@ -1579,6 +1580,7 @@
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
     <Content Include="Content\Images\Lbel\estrellas.png" />
+    <Content Include="Content\Images\Lbel\logo_marca_pais_blanco.svg" />
     <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\1f44d.png" />

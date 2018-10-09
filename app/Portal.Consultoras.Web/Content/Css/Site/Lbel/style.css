@@ -73,10 +73,9 @@ ul, ol {
 header {
     top: 0 !important;
     left: 0 !important;
-    background: white !important;
+    background: white;
     height: auto;
     position: fixed;
-    background: white;
     z-index: 900;
     width: 100% !important;
     box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
@@ -103,11 +102,11 @@ header {
         margin: auto;
     }
 
-.wrapper_cincuenta_anios_belcorp_y_logo{
+.wrapper_campania_navidenia_y_logo{
     width:16.5%!important;
 }
 
-.wrapper_cincuenta_anios_belcorp_y_logo,
+.wrapper_campania_navidenia_y_logo,
 .menu_new_esika,
 .menu_esika_b,
 .logo_esika,
@@ -36728,119 +36727,6 @@ height:30px;
 
 /* FIN - HD-2524 - POPUP OPTIN (VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE) */
 
-/* HD-2513 - 50 AÑOS BELCORP */
-
-.wrapper_header_cincuenta_anios_belcorp{
-    width:100%!important;
-    min-width:1024px!important;
-    max-width:1366px!important;
-}
-
-.cincuenta_anios_belcorp{
-    display:inline-block;
-    vertical-align:middle;
-    position: relative;
-    left: 0;
-    width: 98px;
-    height: 61px;
-    overflow:hidden;
-}
-
-.cincuenta_anios_belcorp img{
-    width: auto;
-    height: 103.28%;
-    position: relative;
-    top: -1px;
-}
-
-.cincuenta_anios_belcorp + .logo_esika{
-    margin-left:12px;
-}
-
-.wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika{
-    width:auto!important;
-}
-
-/*.wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika.anchoMenu_sinEnlaceSociaEmpresaria{
-    width:476px!important;
-}*/
-
-/*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
-    width:360px!important;
-}*/
-
-.color_cincuenta_anios_belcorp{
-    color:#A06219;
-}
-
-.boton_cincuenta_anios_belcorp{
-    background-color:#BA8B47;
-    border:2px solid #BA8B47;
-}
-
-    .boton_cincuenta_anios_belcorp:hover{
-        background-color:#BA8B47;
-        color:#BA8B47;
-    }
-
-@media screen and (max-width:1365px){
-
-    .wrapper_header_cincuenta_anios_belcorp{
-        max-width:none!important;
-    }
-
-    .wrapper_cincuenta_anios_belcorp_y_logo{
-        width:17%!important;
-    }
-
-    .cincuenta_anios_belcorp + .logo_esika {
-        margin-left: 4px;
-        margin-right:0;
-    }
-
-}
-
-/*@media screen and (max-width:1212px){
-
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
-        width:350px!important;
-    }
-
-}*/
-
-@media screen and (min-width:1145px) and (max-width:1212px){
-
-    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika{
-        width: 628px!important;
-    }
-
-}
-
-@media screen and (min-width:1090px) and (max-width:1144px){
-
-    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika {
-        width: 626.7px!important;
-    }
-
-}
-
-@media screen and (min-width:1063px) and (max-width:1089px){
-
-    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika {
-        width: 592px!important;
-    }
-
-}
-
-@media screen and (max-width:1062px){
-
-    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika{
-        width: 553px!important;
-    }
-
-}
-
-/* FIN - HD-2513 - 50 AÑOS BELCORP */
 /* MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
 
 .monto_meta_tippingPoint{

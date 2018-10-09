@@ -1,2 +1,190 @@
-﻿body {
+﻿
+/* HD-2990 - CAMPAÑA NAVIDEÑA */
+
+.fondo_header_campania_navidenia{
+    background: #01362d;
+    background: -moz-linear-gradient(top, #01362d 0%, #016f5f 100%);
+    background: -webkit-linear-gradient(top, #01362d 0%,#016f5f 100%);
+    background: linear-gradient(to bottom, #01362d 0%,#016f5f 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0 );
+    background-image:url(/Content/Images/Lbel/copos-nieve.png);
+    background-repeat:no-repeat;
+    background-position:right center;
 }
+
+.wrapper_header_campania_navidenia{
+    width:100%!important;
+    min-width:1024px!important;
+    max-width:100%!important;
+}
+
+.wrapper_campania_navidenia_y_logo{
+    text-align:right;
+    padding-right:20px;
+    overflow:hidden;
+}
+
+.wrapper_campania_navidenia_y_logo,
+.logo_marca_pais_fondo_navidenio,
+.logo_esika a
+{
+    height:61px;
+}
+
+.wrapper_campania_navidenia_y_logo .logo_esika{
+    margin-top:0;
+}
+
+.wrapper_campania_navidenia_y_logo .logo_esika,
+.wrapper_campania_navidenia_y_logo .logo_esika a
+{
+    position:relative;
+}
+
+.wrapper_campania_navidenia_y_logo .logo_esika a{
+    left:-15px;
+}
+
+.wrapper_campania_navidenia_y_logo .logo_esika{
+    width:125px;
+}
+
+.logo_marca_pais_fondo_navidenio {
+    position: absolute;
+    margin: auto 0;
+    width: 100%;
+    height:61px;
+    top: 0;
+    bottom: 0;
+    left: -85%;
+    overflow: hidden;
+}
+
+.wrapper_campania_navidenia_y_logo + .menu_new_esika{
+    width:auto!important;
+}
+
+.new_menu[data-codigo="contenedorofertas"] a img{
+    display:none;
+}
+
+.new_menu_a{
+    border-bottom:none;
+}
+
+.flecha_menu{
+    border-top: 4px solid #FFF;
+}
+
+.logo_esika a.logo_marca_pais_blanco{
+    background: url(/Content/Images/Lbel/logo_marca_pais_blanco.svg) no-repeat;
+    background-position:center;
+}
+
+.boton_cam{
+    background-color:transparent;
+}
+
+.new_menu_a,
+.boton_cerrar_s a,
+.cart_compras .notificaciones
+{
+    color:#FFF;
+}
+
+.flechita_info{
+    background-color:#FFF;
+}
+
+.campana_svg,
+.cart_compras .notificaciones
+{
+    position:relative;
+    z-index:2002;
+}
+
+.cart_compras .campana_svg,
+.cart_compras:hover .campana_svg
+{
+    background-position:0 4px!important;
+}
+
+.cart_compras .campana_svg{
+    background:url('/Content/Images/icono-carrito-compra-blanco.svg') no-repeat;
+}
+
+.cart_compras:hover .campana_svg{
+    background:url('/Content/Images/Esika/carrito.png') no-repeat;
+}
+
+.cart_compras:hover .notificaciones{
+    color:#000;
+}
+
+.tutoriales_svg{
+    background:url('/Content/Images/icono-tutorial-blanco.svg') no-repeat;
+    background-position:0 3px!important;
+}
+
+.boton_ingresa_tu_pedido_navidenio{
+    background-color:#C8A05E;
+    border-color:#C8A05E;
+}
+
+@media screen and (max-width:1365px){
+
+    .wrapper_header_cincuenta_anios_belcorp{
+        max-width:none!important;
+    }
+
+    .cincuenta_anios_belcorp + .logo_esika {
+        margin-left: 4px;
+    }
+
+}
+
+/*@media screen and (max-width:1212px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+        width:350px!important;
+    }
+
+}*/
+
+@media screen and (min-width:1145px) and (max-width:1212px){
+
+    .wrapper_campania_navidenia_y_logo + .menu_new_esika{
+        width: 628px!important;
+    }
+
+    /*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+        width:350px!important;
+    }*/
+
+}
+
+@media screen and (min-width:1090px) and (max-width:1144px){
+
+    .wrapper_campania_navidenia_y_logo + .menu_new_esika {
+        width: 626.7px!important;
+    }
+
+}
+
+@media screen and (min-width:1063px) and (max-width:1089px){
+
+    .wrapper_campania_navidenia_y_logo + .menu_new_esika {
+        width: 592px!important;
+    }
+
+}
+
+@media screen and (max-width: 1062px) {
+
+    .wrapper_campania_navidenia_y_logo + .menu_new_esika {
+        width: 553px!important;
+    }
+
+}
+
+/* FIN - HD-2990 - CAMPAÑA NAVIDEÑA */
