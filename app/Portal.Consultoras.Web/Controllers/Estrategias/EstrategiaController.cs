@@ -42,15 +42,21 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
-        public JsonResult RDObtenerProductosLan(BusquedaProductoModel model)
+        public JsonResult LANObtenerProductos(BusquedaProductoModel model)
         {
-            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan);
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos);
         }
 
         [HttpPost]
-        public JsonResult ConsultarEstrategiasOPT(BusquedaProductoModel model)
+        public JsonResult OPTObtenerProductos(BusquedaProductoModel model)
         {
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos);
+        }
+
+        [HttpPost]
+        public JsonResult MGObtenerProductos(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos);
         }
 
         [HttpGet]
@@ -159,6 +165,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 var tipo = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPerdio(model, tipoConsulta);
 
                 var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
+
                 var listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaFinal1, listaPedido, userData.CodigoISO, userData.CampaniaID, tipo, userData.esConsultoraLider, userData.Simbolo);
 
                 var cantidadTotal = listModel.Count;
@@ -194,6 +201,10 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             var listaRetorno = new List<EstrategiaPersonalizadaProductoModel>();
             if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
+            {
+                listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
             {
                 listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
             }

@@ -294,6 +294,7 @@ namespace Portal.Consultoras.Data
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                Context.Database.AddInParameter(command, "@FlagMaterialGanancia", DbType.Int32, entidad.MaterialGanancia);
                 return Context.ExecuteReader(command);
             }
         }

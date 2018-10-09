@@ -133,6 +133,12 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                             while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                         }
                         break;
+                    case Constantes.TipoEstrategiaCodigo.MasGanadoras:
+                        using (var reader = daEstrategia.GetEstrategiaRevistaDigital(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+                        break;
                     default:
                         using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
                         {

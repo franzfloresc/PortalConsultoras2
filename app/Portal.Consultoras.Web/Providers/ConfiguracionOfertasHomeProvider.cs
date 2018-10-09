@@ -151,13 +151,13 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:
-                            seccion.UrlObtenerProductos = "Estrategia/ConsultarEstrategiasOPT";
+                            seccion.UrlObtenerProductos = "Estrategia/OPTObtenerProductos";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedor;
                             seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedorPopup;
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.Lanzamiento:
-                            seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductosLan";
+                            seccion.UrlObtenerProductos = "Estrategia/LANObtenerProductos";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedor;
                             seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedorPopup;
                             seccion.VerMas = false;
@@ -191,7 +191,7 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
                             break;
                         case Constantes.ConfiguracionPais.MasGanadoras:
-                            seccion.UrlObtenerProductos = "Estrategia/HVObtenerProductos";
+                            seccion.UrlObtenerProductos = "Estrategia/MGObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras/Index";
                             seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarrusel;
                             seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarruselFicha;

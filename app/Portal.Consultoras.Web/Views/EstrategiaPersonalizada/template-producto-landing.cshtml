@@ -1,159 +1,157 @@
 ﻿@using Portal.Consultoras.Common
 <script id="producto-landing-template" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
-
-    {{#if EsBanner}}
-    <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
-        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div class="content_item_carrusel content_item_carrusel_clubganamas" style="cursor:pointer; ">
-            <img src="/Content/Images/etiqueta-club-ganamas-blanco-independiente2.svg" alt="" class="clubganamas_logo" />
-            <p class="primero">DISFRUTA DE MÁS Y MEJORES OFERTAS</p>
-            <p class="segundo">ÚNETE A GANA+</p>
-            <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
+        {{#if EsBanner}}
+        <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
+            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+            <div class="content_item_carrusel content_item_carrusel_clubganamas" style="cursor:pointer; ">
+                <img src="/Content/Images/etiqueta-club-ganamas-blanco-independiente2.svg" alt="" class="clubganamas_logo" />
+                <p class="primero">DISFRUTA DE MÁS Y MEJORES OFERTAS</p>
+                <p class="segundo">ÚNETE A GANA+</p>
+                <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
+            </div>
         </div>
-    </div>
-    {{else}}
-    {{#if EsLanzamiento}}
-    <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
-        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div class="content_item_carrusel content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off" style="cursor:pointer; ">
-            {{#iff TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
-                <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
-            {{/iff}}
-            {{#iff TipoEstrategiaDetalle.ImgHomeDesktop '!=' ''}}
-                <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="portada" />
-            {{/iff}}
-            <p class="tercero">Conoce {{DescripcionResumen}}</p>
-            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')"
-               class="portada portada_off">VER LANZAMIENTOS</a>
-        </div>
-    </div>
-    {{else}}
-    <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
-        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div data-item-tag="body" class="content_item_carrusel" {{#iff EsSubcampania '==' false}} {{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}} {{/iff}}>
-            <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
-            <div data-item-tag="contenido"
-                 {{#iff EsSubcampania '==' false}}
-                 {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
-                 onclick="javascript:VerPopupExpGanaMas();"
-                 {{else}}
-                 onclick="javascript:OnClickFichaDetalle(event.target);"
-                 {{/iff}}
-                 {{/iff}}>
-                <div class="producto_img_home" data-item-tag="foto">
-                    <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" alt="" />
-                    {{#iff EsSubcampania '==' false}}
-                    {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
-                    <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
+        {{else}}
+            {{#if EsLanzamiento}}
+            <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
+                <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+                <div class="content_item_carrusel content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off" style="cursor:pointer; ">
+                    {{#iff TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
+                        <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
                     {{/iff}}
+                    {{#iff TipoEstrategiaDetalle.ImgHomeDesktop '!=' ''}}
+                        <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="portada" />
                     {{/iff}}
-
-                </div>
-                {{#iff ImagenURL '!=' ''}}
-                <div class="etiqueta_producto" data-item-tag="etiqueta">
-                    <img alt="Etiqueta Producto" data-src="{{ImagenURL}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
-                </div>
-                {{/iff}}
-                <div class="producto_nombre_descripcion" data-item-tag="descripcion">
-                    {{#IsNullOrEmpty DescripcionMarca '!='}}
-                    <h6>{{DescripcionMarca}}</h6>
-                    {{else}}
-                    <h6>&ensp;&nbsp;</h6>
-                    {{/IsNullOrEmpty}}
-
-                    <p class="nombre_producto"><b>{{DescripcionCortada}}</b></p>
-
-                </div>
-
-                {{#iff EsSubcampania '==' true}}
-                <div class="sub_campania_info_adicional" style="min-height: 60px;  max-height: 60px;">
-                    {{#each item.Hermanos as |itemHermano|}}
-                    <label title="{{itemHermano.NombreComercial}}" style="margin-left:20px; cursor:initial">{{itemHermano.Descripcion}}</label><br />
-                    {{/each}}
-                </div>
-                {{/iff}}
-
-                <div class="producto_nombre_descripcion" data-item-tag="precio">
-                    <div>
-                        {{#iff Precio '>' 0}}
-                        <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
-                        {{/iff}}
-                        <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioVenta}}</b></span>
-                    </div>
+                    <p class="tercero">Conoce {{DescripcionResumen}}</p>
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')"
+                       class="portada portada_off">VER LANZAMIENTOS</a>
                 </div>
             </div>
-            <div class="clear"></div>
+            {{else}}
+            <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
+                <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+                <div data-item-tag="body" class="content_item_carrusel" {{#iff EsSubcampania '==' false}} {{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}} {{/iff}}>
+                    <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
+                    <div data-item-tag="contenido"
+                         {{#iff EsSubcampania '==' false}}
+                         {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
+                         onclick="javascript:VerPopupExpGanaMas();"
+                         {{else}}
+                         onclick="javascript:OnClickFichaDetalle(event.target);"
+                         {{/iff}}
+                         {{/iff}}>
+                        <div class="producto_img_home" data-item-tag="foto">
+                            <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" alt="" />
+                            {{#iff EsSubcampania '==' false}}
+                            {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
+                            <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
+                            {{/iff}}
+                            {{/iff}}
 
-            <div class="producto_nombre_descripcion" data-item-tag="agregar">
-                {{#iff TipoAccionAgregar '>' 0}}
-                <div>
-                    {{#iff TipoAccionAgregar '==' '1'}}
-                        <div class="texto_elige_tono"></div>
-                        <div class="clear"></div>
-                        <div class="liquidacion_rango_home">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' disabled="disabled"
-                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                   style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" />
                         </div>
-                        <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                           onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1); ">
-                            AGR&Eacute;GALO
-                        </a>
-                    {{/iff}}
-                    {{#iff TipoAccionAgregar '==' '2'}}
-                        <div class="texto_elige_tono"></div>
-                        <div class="clear"></div>
-                        <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad'
-                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
-                                   {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
-                            <div class="liquidacion_rango_right_pedido js-no-popup">
-                            	<a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
-                                	<img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" />
-                           	 </a>
-                            	<a href="javascript:;" class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
-                                	<img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" />
-                            	</a>
+                        {{#iff ImagenURL '!=' ''}}
+                        <div class="etiqueta_producto" data-item-tag="etiqueta">
+                            <img alt="Etiqueta Producto" data-src="{{ImagenURL}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
+                        </div>
+                        {{/iff}}
+                        <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                            {{#IsNullOrEmpty DescripcionMarca '!='}}
+                            <h6>{{DescripcionMarca}}</h6>
+                            {{else}}
+                            <h6>&ensp;&nbsp;</h6>
+                            {{/IsNullOrEmpty}}
+
+                            <p class="nombre_producto"><b>{{DescripcionCortada}}</b></p>
+
+                        </div>
+
+                        {{#iff EsSubcampania '==' true}}
+                        <div class="sub_campania_info_adicional" style="min-height: 60px;  max-height: 60px;">
+                            {{#each item.Hermanos as |itemHermano|}}
+                            <label title="{{itemHermano.NombreComercial}}" style="margin-left:20px; cursor:initial">{{itemHermano.Descripcion}}</label><br />
+                            {{/each}}
+                        </div>
+                        {{/iff}}
+
+                        <div class="producto_nombre_descripcion" data-item-tag="precio">
+                            <div>
+                                {{#iff Precio '>' 0}}
+                                <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
+                                {{/iff}}
+                                <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioVenta}}</b></span>
                             </div>
                         </div>
-                        <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                           onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
-                            AGR&Eacute;GALO
-                        </a>
-                    {{/iff}}
-                    {{#iff TipoAccionAgregar '==' '3'}}
-                        <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
-                            <div class="texto_elige_tono"></div>
-                            <div class="clear"></div>
-                            <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
-                                <div><img src="/Content/Images/mobile/Esika/click-ico.svg">ELIGE TU OPCIÓN</div>
-                            </a>
-                        </div>
-                    {{/iff}}
-                    {{#iff TipoAccionAgregar '==' '4'}}
-                        <div class="texto_elige_tono"></div>
-                        <div class="clear"></div>
-                        <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
-                           onclick="javascript:VerPopupExpGanaMas(); ">
-                            ¿LO QUIERES?
-                        </a>
-                    {{/iff}}
-                </div>
-                <div class="clear"></div>
-                {{/iff}}
-                <div style="margin: 9px 0;height: 15px;">
-                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                        AGREGADO
-                        <div class="icono"></div>
                     </div>
+                    <div class="clear"></div>
+
+                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                        {{#iff TipoAccionAgregar '>' 0}}
+                        <div>
+                            {{#iff TipoAccionAgregar '==' '1'}}
+                                <div class="texto_elige_tono"></div>
+                                <div class="clear"></div>
+                                <div class="liquidacion_rango_home">
+                                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' disabled="disabled"
+                                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                                           style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" />
+                                </div>
+                                <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
+                                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1); ">
+                                    AGR&Eacute;GALO
+                                </a>
+                            {{/iff}}
+                            {{#iff TipoAccionAgregar '==' '2'}}
+                                <div class="texto_elige_tono"></div>
+                                <div class="clear"></div>
+                                <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad'
+                                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
+                                           {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
+                                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                            	        <a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                                	        <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" />
+                           	         </a>
+                            	        <a href="javascript:;" class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                                	        <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" />
+                            	        </a>
+                                    </div>
+                                </div>
+                                <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
+                                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
+                                    AGR&Eacute;GALO
+                                </a>
+                            {{/iff}}
+                            {{#iff TipoAccionAgregar '==' '3'}}
+                                <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
+                                    <div class="texto_elige_tono"></div>
+                                    <div class="clear"></div>
+                                    <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
+                                        <div><img src="/Content/Images/mobile/Esika/click-ico.svg">ELIGE TU OPCIÓN</div>
+                                    </a>
+                                </div>
+                            {{/iff}}
+                            {{#iff TipoAccionAgregar '==' '4'}}
+                                <div class="texto_elige_tono"></div>
+                                <div class="clear"></div>
+                                <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                                   onclick="javascript:VerPopupExpGanaMas(); ">
+                                    ¿LO QUIERES?
+                                </a>
+                            {{/iff}}
+                        </div>
+                        <div class="clear"></div>
+                        {{/iff}}
+                        <div style="margin: 9px 0;height: 15px;">
+                            <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-
-        </div>
-    </div>
-    {{/if}}
-    {{/if}}
+            {{/if}}
+        {{/if}}
     {{/each}}
-
 </script>

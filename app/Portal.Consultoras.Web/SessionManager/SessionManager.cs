@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager.MasGanadoras;
 using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
@@ -23,6 +24,7 @@ namespace Portal.Consultoras.Web.SessionManager
         //
         private static IShowRoom _showRoom;
         private static IOfertaDelDia _ofertaDelDia;
+        private static IMasGanadoras _masGanadoras;
 
         public SessionManager()
         {
@@ -31,6 +33,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
             if (_ofertaDelDia == null)
                 _ofertaDelDia = new OfertaDelDia.OfertaDelDia();
+
+            if (_masGanadoras == null)
+                _masGanadoras = new MasGanadoras.MasGanadoras();
         }
 
         public static ISessionManager Instance
@@ -162,6 +167,13 @@ namespace Portal.Consultoras.Web.SessionManager
             }
         }
 
+        public IMasGanadoras MasGanadoras
+        {
+            get
+            {
+                return _masGanadoras;
+            }
+        }
 
         BEPedidoWeb ISessionManager.GetPedidoWeb()
         {

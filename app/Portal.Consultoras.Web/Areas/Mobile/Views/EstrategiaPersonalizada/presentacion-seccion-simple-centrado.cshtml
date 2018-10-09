@@ -1,5 +1,4 @@
-﻿
-@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
+﻿@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 
 @{
     var headerClass = "";
@@ -8,7 +7,7 @@
     {
         headerClass += " seccion-titulo-dorado";
     }
-    if (Model.Codigo.ToLower().Equals("opt"))
+    if (Model.Codigo.ToLower().Equals("opt") || Model.Codigo.ToLower().Equals("mg"))
     {
         classOpt = "carrusel-simple-opt";
     }

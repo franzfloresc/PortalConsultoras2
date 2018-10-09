@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager.MasGanadoras;
 using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
@@ -463,5 +464,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListaRango(List<List<BEEstadoServicio>> val);
 
         List<List<BEEstadoServicio>> GetListaRango();
+
+        IMasGanadoras MasGanadoras { get;  }
     }
 }
