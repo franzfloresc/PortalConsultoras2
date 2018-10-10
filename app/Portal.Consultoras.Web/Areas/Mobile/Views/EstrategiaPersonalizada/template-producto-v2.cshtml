@@ -1,0 +1,64 @@
+﻿@using Portal.Consultoras.Common
+
+<script id="template-producto-v2" type="text/x-handlebars-template">
+    {{#each this.lista as |item|}}
+
+    {{#iff TipoItem '==' 1}}
+        <article class="banner_ofertas_masGanadoras">
+            <div class="contenido_ofertas">
+                <p>DESCUBRE <b>20 OFERTAS MÁS</b> DE NAVIDAD</p>
+                <a href="#">VER MÁS +</a>
+            </div>
+        </article>
+    {{else}}
+        <article class="item_producto_contenedor"
+                 data-item="{{EstrategiaID}}"
+                 data-item-cuv="{{CUV2}}"
+                 data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}">
+
+            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+            <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
+
+            <div data-item-tag="verdetalle"
+                 {{#iff EsSubcampania '==' false}}
+                 {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
+                 onclick="javascript:VerPopupExpGanaMas();"
+                 {{else}}
+                 onclick="javascript:OnClickFichaDetalle(this);"
+                 {{/iff}}
+                 {{/iff}}>
+
+                <div class="producto_img">
+                    <img sdata-src="{{ImgSmall FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" alt="" />
+                </div>
+                <div class="producto_contenido">
+                    <h6 class="marca_item">{{DescripcionMarca}}</h6>
+                    <p class="nombre_producto_item">{{DescripcionCortada}}</p>
+                    <span class="precio_normal_item">
+                        {{#iff Precio '>' 0}}
+                        {{SimboloMoneda}} {{PrecioTachado}}
+                        {{else}}
+                        &nbsp;
+                        {{/iff}}
+                    </span>
+                    <span class="precio_oferta_item">{{SimboloMoneda}} {{PrecioVenta}}</span>
+                </div>
+            </div>
+            @if (ViewBag.TieneBotones)
+            {
+            }
+            else
+            {
+                <div data-tipoagregar="{{TipoAccionAgregar}}">
+                {{#iff TipoAccionAgregar '==' '3'}}
+                    <div class="elige_tono_item">
+                        <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
+                    </div>
+                {{/iff}}
+                </div>
+            }
+        </article>
+    {{/iff}}
+
+    {{/each}}
+</script>

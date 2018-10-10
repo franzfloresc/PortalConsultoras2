@@ -48,13 +48,14 @@
     </div>
 }
 
-    <div>
+@*<div>
         <div data-seccion-content="" class="seccion-content-contenedor" style="display:block;">
             @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/presentacion-" + "seccion-carrusel" + ".cshtml")
         </div>
-    </div>
+    </div>*@
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-v2.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 @*@Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")*@
 @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
