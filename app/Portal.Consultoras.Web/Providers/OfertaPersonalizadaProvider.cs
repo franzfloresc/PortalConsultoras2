@@ -142,8 +142,7 @@ namespace Portal.Consultoras.Web.Providers
             if (listaFinal1 == null || !listaFinal1.Any())
                 return listModel1;
 
-            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos || 
-                tipo == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
+            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
             {
                 var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
 
@@ -157,6 +156,10 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     listModel1 = listaFinal1;
                 }
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
+            {
+                listModel1 = listaFinal1;
             }
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
             {
