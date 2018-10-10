@@ -172,11 +172,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var guarda = !_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca);
 
-                if (model.Limite > 0)
-                {
-                    listModel = listModel.Take(model.Limite).ToList();
-                }
-
                 return Json(new
                 {
                     success = true,
