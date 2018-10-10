@@ -79,7 +79,7 @@ function SeccionObtenerSeccion(seccion) {
         TipoPresentacion: $.trim($(seccion).attr("data-tipoPresentacion")),
         TipoEstrategia: $.trim($(seccion).attr("data-tipoEstrategia")),
         CantidadProductos: $.trim($(seccion).attr("data-cantidadProductos"))
-    }
+    };
     return param;
 
 }
@@ -158,7 +158,7 @@ function SeccionCargarProductos(objConsulta) {
         param.Limite = 3;
     }
 
-    if (objConsulta.Codigo == CONS_CODIGO_SECCION.HV) {
+    if (objConsulta.Codigo == CONS_CODIGO_SECCION.HV || objConsulta.Codigo == CONS_CODIGO_SECCION.MG) {
         param.Limite = $("#" + objConsulta.Codigo).attr("data-cantidadProductos");
     }
 
@@ -195,6 +195,7 @@ function SeccionCargarProductos(objConsulta) {
 }
 
 function SeccionMostrarProductos(data) {
+    console.log(data);
     var CarruselCiclico = true;
 
     if (isMobile()) {

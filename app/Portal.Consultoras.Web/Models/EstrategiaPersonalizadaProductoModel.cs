@@ -79,5 +79,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int TipoEstrategiaImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
                                                              // se usa para ShowRoom
+
+        public int TipoObjeto { get; set; }
     }
 }
