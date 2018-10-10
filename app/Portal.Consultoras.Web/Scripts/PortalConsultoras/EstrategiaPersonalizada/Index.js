@@ -389,7 +389,7 @@ function SeccionMostrarProductos(data) {
         RenderCarruselIndividuales(htmlSeccion);
     }
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.carruselIndividualesv2) {
-        RenderCarruselSimple(htmlSeccion, CarruselCiclico);
+        RenderCarruselSimpleV2(htmlSeccion, CarruselCiclico, true);
     }
 }
 
@@ -499,6 +499,36 @@ function RenderCarruselSimple(divProd, cc) {
         speed: 260,
         prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
+    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+        VerificarClick(slick, currentSlide, nextSlide, "normal");
+    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
+    });
+
+    divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
+}
+
+function RenderCarruselSimpleV2(divProd, cc, vw) {
+    if (typeof divProd == "undefined")
+        return false;
+
+    vw = vw || true;
+
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+
+    divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
+    divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
+        lazyLoad: "ondemand",
+        infinite: cc == undefined ? true : cc,
+        vertical: false,
+        slidesToShow: isMobile() ? 1 : 3,
+        slidesToScroll: 1,
+        autoplay: false,
+        variableWidth: vw,
+        speed: 260,
+        arrows: false
+        //prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
+        //nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         VerificarClick(slick, currentSlide, nextSlide, "normal");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
