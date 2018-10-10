@@ -14,15 +14,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
+        private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         protected Providers.TablaLogicaProvider _tablaLogica;
 
         public BienvenidaController()
         {
+            _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _tablaLogica = new Providers.TablaLogicaProvider();
         }
 
@@ -44,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
 
-                model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
+                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.DesktopHome);
                 ViewBag.UrlImgMiAcademia = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
                 ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
@@ -199,8 +202,25 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetActualizarDatosConsultora(true);
                 }
 
+                List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+
+                if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+                {
+                    UsuarioModel usurioModel = new UsuarioModel
+                    {
+                        CodigoISO = userData.CodigoISO,
+                        CampaniaID = userData.CampaniaID
+                    };
+                    listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
+                    listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
+                }
+                else
+                {
+                    listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
+                }
+
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
-                model.ShowRoomBannerUrl = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                model.ShowRoomBannerUrl = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.EMail = userData.EMail;
@@ -2358,48 +2378,6 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioModificacion = cuponBe.UsuarioModificacion,
                 TipoCupon = cuponBe.TipoCupon
             };
-        }
-
-        public virtual PartialSectionBpt GetPartialSectionBptModel(RevistaDigitalModel revistaDigital)
-        {
-            var partial = new PartialSectionBpt();
-
-            try
-            {
-                if (revistaDigital == null)
-                    return partial;
-
-                partial.RevistaDigital = revistaDigital;
-
-                if (revistaDigital.TieneRDC && revistaDigital.EsActiva && revistaDigital.EsSuscrita)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaActiva);
-                }
-                else if (revistaDigital.TieneRDC && revistaDigital.EsActiva && !revistaDigital.EsSuscrita)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaActiva);
-                }
-                else if (revistaDigital.TieneRDC && !revistaDigital.EsActiva && revistaDigital.EsSuscrita)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaNoActiva);
-                }
-                else if (revistaDigital.TieneRDC && !revistaDigital.EsActiva && !revistaDigital.EsSuscrita)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaNoActiva);
-                }
-                else if (revistaDigital.TieneRDI)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO, "LoginController.GetPartialSectionBptModel");
-            }
-
-            partial.ConfiguracionPaisDatos = partial.ConfiguracionPaisDatos ?? new ConfiguracionPaisDatosModel();
-            return partial;
         }
 
         public string ObtenerActualizacionEmail()

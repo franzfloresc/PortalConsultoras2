@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -45,9 +46,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string query)
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
+                //return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
+                if (url.Length > 1)
+                {
+                    sap = "&" + url[1];
+                    return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "ShowRoom", new { area = "Mobile" });
+                }
+
             }
 
             ViewBag.TerminoMostrar = 1;
@@ -85,10 +98,26 @@ namespace Portal.Consultoras.Web.Controllers
                 var showRoomEventoModel = CargarValoresModel();
 
                 if (!showRoomEventoModel.TieneOfertasAMostrar) return RedirectToAction("Index", "Bienvenida");
-                
-                ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
 
-                ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+
+                if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+                {
+                    UsuarioModel usurioModel = new UsuarioModel
+                    {
+                        CodigoISO = userData.CodigoISO,
+                        CampaniaID = userData.CampaniaID
+                    };
+                    listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
+                    listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
+                }
+                else
+                {
+                    listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
+                }
+
+                showRoomEventoModel.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
+                ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 var dato = _ofertasViewProvider.ObtenerPerdioTitulo(userData.CampaniaID, IsMobile());
                 showRoomEventoModel.ProductosPerdio = dato.Estado;
@@ -96,6 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
                 showRoomEventoModel.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
                 showRoomEventoModel.TieneCategoria = false;
+                showRoomEventoModel.PerdioLogo = revistaDigital.DLogoComercialActiva;
 
                 return View(showRoomEventoModel);
             }
@@ -247,12 +277,29 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!ValidarIngresoShowRoom(false))
                 return RedirectToAction("Index", "Bienvenida");
-            
+
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaID = id;
-            
-            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-            ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+
+            List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+
+            if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+            {
+                UsuarioModel usurioModel = new UsuarioModel
+                {
+                    CodigoISO = userData.CodigoISO,
+                    CampaniaID = userData.CampaniaID
+                };
+                listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
+                listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
+            }
+            else
+            {
+                listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
+            }
+
+            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion,Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+            ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion,Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
             return View("DetalleSet", modelo);
         }
@@ -304,9 +351,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.Limite > 0)
                     listaOfertas = listaOfertas.Take(model.Limite).ToList();
-                
+
                 var listaSubCampania = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 2);
-                
+
                 var listaOfertasPerdio = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3);
 
                 return Json(new
@@ -335,7 +382,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return ErrorJson(string.Empty);
 
                 var productosShowRoom = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
-                
+
                 var cantidadTotal = productosShowRoom.Count;
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
@@ -799,7 +846,7 @@ namespace Portal.Consultoras.Web.Controllers
             configEstrategiaSR.BeShowRoomConsultora.CodigoConsultora = userData.CodigoConsultora;
             _showRoomProvider.ShowRoomProgramarAviso(userData.PaisID, configEstrategiaSR.BeShowRoomConsultora);
         }
-        
+
         #endregion
 
     }
