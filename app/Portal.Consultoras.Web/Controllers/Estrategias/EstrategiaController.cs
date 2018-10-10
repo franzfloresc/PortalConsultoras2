@@ -172,11 +172,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var guarda = !_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca);
 
-                if (model.Limite > 0)
-                {
-                    listModel = listModel.Take(model.Limite).ToList();
-                }
-
                 return Json(new
                 {
                     success = true,
@@ -206,10 +201,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             var listaRetorno = new List<EstrategiaPersonalizadaProductoModel>();
             if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
-            {
-                listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
-            }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
             {
                 listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
             }

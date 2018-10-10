@@ -41,7 +41,7 @@ $(document).ready(function () {
         $(this).hide();
     });
 
-    if (isPagina("revistadigital") || isPagina("guianegocio") || isPagina("herramientasventa")) {
+    if (isPagina("revistadigital") || isPagina("guianegocio") || isPagina("herramientasventa") || isPagina("masganadoras")) {
         OfertaCargarProductos(null);
     }
 
@@ -188,7 +188,7 @@ function OfertaObtenerFiltro(filtro, clear) {
 }
 
 function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
-
+    console.log('OfertaCargarProductos', busquedaModel, clear, objSeccion);
     busquedaModel = busquedaModel || Clone(filtroIni);
     objSeccion = objSeccion || {};
     busquedaModel.CampaniaID = busquedaModel.CampaniaID || objSeccion.CampaniaId || campaniaId || campaniaCodigo || 0;
@@ -258,7 +258,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
                 response.listaLan = Clone(response.lista);
                 response.lista = [];
             }
-
+            console.log(1);
             OfertaCargarProductoRespuesta(response, clear, busquedaModel);
 
         },
@@ -272,6 +272,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 }
 
 function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
+    console.log('OfertaCargarProductoRespuesta', response, clear, busquedaModel);
     CerrarLoad();
 
     var divProd = $("[data-listado-campania=" + response.campaniaId + "]");

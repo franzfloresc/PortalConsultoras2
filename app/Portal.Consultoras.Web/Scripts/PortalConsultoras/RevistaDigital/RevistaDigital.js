@@ -234,12 +234,13 @@ function GetArrowNameNext() {
 }
 
 function OfertaArmarEstrategias(response, busquedaModel) {
-
+    console.log('OfertaArmarEstrategias', response, busquedaModel);
     response.CampaniaID = response.CampaniaID || response.campaniaId || 0;
     if (response.CampaniaID <= 0) return false;
 
     var esContenedor = (window.location.pathname.toLowerCase() + "/").indexOf("/ofertas/") >= 0;
     if (esContenedor) {
+        console.log(2);
         OfertaArmarEstrategiasContenedor(response, busquedaModel);
         return false;
     }
@@ -371,13 +372,14 @@ function RDLocalStorageListado(key, valor, codigo) {
 }
 
 function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
+    console.log('OfertaArmarEstrategiasContenedor', responseData, busquedaModel);
     if (busquedaModel.guardaEnLocalStorage === true) {
         RDLocalStorageListado(busquedaModel.VarListaStorage + responseData.CampaniaID, filtroCampania[busquedaModel.VarListaStorage + indCampania]);
     }
 
     var response = Clone(responseData);
 
-    var listaSeccionesRD = ["HV"];
+    var listaSeccionesRD = [busquedaModel.Codigo];
 
     if (busquedaModel.VarListaStorage === "RDLista") {
         listaSeccionesRD = ["RD", "RDR"];
@@ -406,6 +408,7 @@ function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
 }
 
 function OfertaArmarEstrategiasContenedorSeccion(response) {
+    console.log('OfertaArmarEstrategiasContenedorSeccion', response);
     if (response.codigo == "LAN") {
         response.CantidadProductos = response.listaLan.length;
         SeccionMostrarProductos(response);

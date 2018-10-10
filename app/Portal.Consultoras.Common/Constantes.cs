@@ -278,6 +278,7 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevasRegalo = "ProgramaNuevasRegalo";
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
+            public const string MasGanadoras = "Ganadoras";
 
             private static Dictionary<string, string> _Palancas;
             public static Dictionary<string, string> Palancas
@@ -1581,6 +1582,7 @@ namespace Portal.Consultoras.Common
                 public const int OfertaDelDia = 6;
                 public const int DescagablesNavidenos = 7;
                 public const int CarruselIndividuales = 8;
+                public const int CarruselIndividualesV2 = 9;
             }
         }
 
