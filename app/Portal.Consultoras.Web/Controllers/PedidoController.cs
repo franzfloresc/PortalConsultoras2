@@ -314,8 +314,25 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!SessionManager.GetEsShowRoom() && SessionManager.GetEsShowRoom().ToString() == "1")
             {
-                ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
-                ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Desktop");
+                List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+
+                if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+                {
+                    UsuarioModel usurioModel = new UsuarioModel
+                    {
+                        CodigoISO = userData.CodigoISO,
+                        CampaniaID = userData.CampaniaID
+                    };
+                    listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
+                    listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
+                }
+                else
+                {
+                    listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
+                }
+
+                ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, "ImagenFondoOfertaFinalRegalo", "Desktop");
+                ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, "Titulo1OfertaFinalRegalo", "Desktop");
             }
 
             return View("Index", model);

@@ -13,14 +13,14 @@ namespace Portal.Consultoras.Web.Providers
         protected ISessionManager sessionManager;
         protected ConfiguracionPaisProvider _configuracionPais;
         protected GuiaNegocioProvider _guiaNegocio;
-        protected ShowRoomProvider _showRoom;
+        protected ShowRoomProvider _showRoomProvider;
 
         public ConfiguracionOfertasHomeProvider()
         {
             sessionManager = SessionManager.SessionManager.Instance;
             _configuracionPais = new ConfiguracionPaisProvider();
             _guiaNegocio = new GuiaNegocioProvider();
-            _showRoom = new ShowRoomProvider();
+            _showRoomProvider = new ShowRoomProvider();
         }
 
         public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital, bool esMobile)
@@ -267,6 +267,25 @@ namespace Portal.Consultoras.Web.Providers
             if (sessionManager.GetMostrarShowRoomProductosExpiro())
                 return;
 
+            var userData = sessionManager.GetUserData();
+
+            List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+
+            if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+            {
+                UsuarioModel usurioModel = new UsuarioModel
+                {
+                    CodigoISO = userData.CodigoISO,
+                    CampaniaID = userData.CampaniaID
+                };
+                listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
+                listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
+            }
+            else
+            {
+                listaPersonalizacion = sessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
+            }
+
             if (!sessionManager.GetMostrarShowRoomProductos())
             {
 
@@ -276,13 +295,13 @@ namespace Portal.Consultoras.Web.Providers
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =
-                        _showRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 }
                 else
                 {
                     seccion.ImagenFondo =
-                        _showRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
             }
@@ -293,13 +312,13 @@ namespace Portal.Consultoras.Web.Providers
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =
-                        _showRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 }
                 else
                 {
                     seccion.ImagenFondo =
-                        _showRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 

@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -155,8 +156,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
 
             var modelo = ViewDetalleOferta(id);
-            
-            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+
+            List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+
+            if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+            {
+                UsuarioModel usurioModel = new UsuarioModel
+                {
+                    CodigoISO = userData.CodigoISO,
+                    CampaniaID = userData.CampaniaID
+                };
+                listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
+                listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
+            }
+            else
+            {
+                listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
+            }
+
+            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
             return View("DetalleOferta", modelo);
         }
