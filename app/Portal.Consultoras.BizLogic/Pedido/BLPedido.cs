@@ -100,29 +100,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var usuario = productoBuscar.Usuario;
                 var configuracionPaisTask = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital));
                 var codigosRevistasTask = Task.Run(() => _usuarioBusinessLogic.ObtenerCodigoRevistaFisica(usuario.PaisID));
-               Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
+
+                _usuarioBusinessLogic.UpdUsuarioProgramaNuevas(usuario);
+                Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
                 
                 usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
-                var sessionTask = Task.Run(() => _usuarioBusinessLogic.GetSesionUsuario(usuario.PaisID, usuario.CodigoConsultora));
-                Task.WaitAll(sessionTask);
-
-                var session = sessionTask.Result;
-
-                usuario.CodigoPrograma = "-1";
-                usuario.ConsecutivoNueva = -1;
-
-                _usuarioBusinessLogic.UpdUsuarioProgramaNuevas(usuario);
-                //new BLUsuario().UpdUsuarioProgramaNuevas(usuario);
-
-
-                /*usuario.CodigoPrograma = sessionTask.Result.CodigoPrograma;
-                usuario.ConsecutivoNueva = sessionTask.Result.ConsecutivoNueva;*/
-
+                
                 var cuv = Util.Trim(productoBuscar.CodigoDescripcion);
 
                 Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(usuario, cuv);
-
+                
                 if (num.Equals(Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva))
                     return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
                 //Validación producto no existe
