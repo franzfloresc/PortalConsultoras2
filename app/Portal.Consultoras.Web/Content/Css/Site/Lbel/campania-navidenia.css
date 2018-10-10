@@ -15,8 +15,8 @@
     max-width:100%!important;
     background-image:url(/Content/Images/Lbel/copos-nieve.png);
     background-repeat: no-repeat;
-    background-position: -108px -42px;
-    background-size: 13%;
+    background-position: -80px -32px;
+    background-size: 170px;
 }
 
 .wrapper_campania_navidenia_y_logo{
@@ -34,20 +34,14 @@
 
 .wrapper_campania_navidenia_y_logo .logo_esika{
     margin-top:0;
+    width:129px;
+    margin-right:0;
 }
 
 .wrapper_campania_navidenia_y_logo .logo_esika,
 .wrapper_campania_navidenia_y_logo .logo_esika a
 {
     position:relative;
-}
-
-.wrapper_campania_navidenia_y_logo .logo_esika a{
-    left:-15px;
-}
-
-.wrapper_campania_navidenia_y_logo .logo_esika{
-    width:125px;
 }
 
 .logo_marca_pais_fondo_navidenio {
@@ -130,6 +124,25 @@
 .boton_ingresa_tu_pedido_navidenio{
     background-color:#C8A05E;
     border-color:#C8A05E;
+}
+
+    .boton_ingresa_tu_pedido_navidenio:hover{
+        color:#C8A05E;
+    }
+
+.contenedor_ganamas .dorado_club{
+    background: #01362d;
+    background-image: -moz-linear-gradient(top, #01362d 0%, #016f5f 100%)!important;
+    background-image: -webkit-linear-gradient(top, #01362d 0%,#016f5f 100%)!important;
+    background-image: linear-gradient(to bottom, #01362d 0%,#016f5f 100%)!important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0 );
+    transition:none!important;
+}
+
+.sb_contenedor_ganamas .activar_boton_blanco_no_animado{
+    background-color:#C8A05E!important;
+    color:#FFF!important;
+    font-weight:700;
 }
 
 @media screen and (max-width:1365px){
