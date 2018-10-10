@@ -30,7 +30,7 @@
 
 .wrapper_campania_navidenia_y_logo,
 .logo_marca_pais_fondo_navidenio,
-.logo_esika a
+.wrapper_header_campania_navidenia .logo_esika a
 {
     height:61px;
 }
@@ -62,69 +62,69 @@
     width:auto!important;
 }
 
-.new_menu[data-codigo="contenedorofertas"] a img{
+.wrapper_header_campania_navidenia .new_menu[data-codigo="contenedorofertas"] a img{
     display:none;
 }
 
-.new_menu_a{
+.wrapper_header_campania_navidenia .new_menu_a{
     border-bottom:none;
 }
 
-.flecha_menu{
+.wrapper_header_campania_navidenia .flecha_menu{
     border-top: 4px solid #FFF;
 }
 
-.logo_esika a.logo_marca_pais_blanco{
+.wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco{
     background: url(/Content/Images/Lbel/logo_marca_pais_blanco.svg) no-repeat;
     background-position:center;
 }
 
-.boton_cam{
+.wrapper_header_campania_navidenia .boton_cam{
     background-color:transparent;
 }
 
-.new_menu_a,
-.boton_cerrar_s a,
-.cart_compras .notificaciones
+.wrapper_header_campania_navidenia .new_menu_a,
+.wrapper_header_campania_navidenia .boton_cerrar_s a,
+.wrapper_header_campania_navidenia .cart_compras .notificaciones
 {
     color:#FFF;
 }
 
-.flechita_info{
+.wrapper_header_campania_navidenia .flechita_info{
     background-color:#FFF;
 }
 
-.campana_svg,
-.cart_compras .notificaciones
+.wrapper_header_campania_navidenia .campana_svg,
+.wrapper_header_campania_navidenia .cart_compras .notificaciones
 {
     position:relative;
     z-index:2002;
 }
 
-.cart_compras .campana_svg,
-.cart_compras:hover .campana_svg
+.wrapper_header_campania_navidenia .cart_compras .campana_svg,
+.wrapper_header_campania_navidenia .cart_compras:hover .campana_svg
 {
     background-position:0 4px!important;
 }
 
-.cart_compras .campana_svg{
+.wrapper_header_campania_navidenia .cart_compras .campana_svg{
     background:url('/Content/Images/icono-carrito-compra-blanco.svg') no-repeat;
 }
 
-.cart_compras:hover .campana_svg{
+.wrapper_header_campania_navidenia .cart_compras:hover .campana_svg{
     background:url('/Content/Images/Esika/carrito.png') no-repeat;
 }
 
-.cart_compras:hover .notificaciones{
+.wrapper_header_campania_navidenia .cart_compras:hover .notificaciones{
     color:#000;
 }
 
-.tutoriales_svg{
+.wrapper_header_campania_navidenia .tutoriales_svg{
     background:url('/Content/Images/icono-tutorial-blanco.svg') no-repeat;
     background-position:0 3px!important;
 }
 
-.mensaje_svg{
+.wrapper_header_campania_navidenia .mensaje_svg{
     background:url('/Content/Images/icono-notificaciones-blanco.svg') no-repeat;
     background-position:0px 5px!important;
 }
