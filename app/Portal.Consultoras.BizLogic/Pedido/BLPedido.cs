@@ -108,8 +108,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 Task.WaitAll(sessionTask);
 
                 var session = sessionTask.Result;
-                usuario.CodigoPrograma = sessionTask.Result.CodigoPrograma;
-                usuario.ConsecutivoNueva = sessionTask.Result.ConsecutivoNueva;
+
+                usuario.CodigoPrograma = "-1";
+                usuario.ConsecutivoNueva = -1;
+
+                _usuarioBusinessLogic.UpdUsuarioProgramaNuevas(usuario);
+                //new BLUsuario().UpdUsuarioProgramaNuevas(usuario);
+
+
+                /*usuario.CodigoPrograma = sessionTask.Result.CodigoPrograma;
+                usuario.ConsecutivoNueva = sessionTask.Result.ConsecutivoNueva;*/
 
                 var cuv = Util.Trim(productoBuscar.CodigoDescripcion);
 
@@ -1243,14 +1251,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private BEPedidoProducto ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
         {
-            var retorno = new BEPedidoProducto()
+            return new BEPedidoProducto()
             {
                 CodigoRespuesta = codigoRespuesta,
                 MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Message[codigoRespuesta] : mensajeRespuesta,
                 Producto = producto
             };
-
-            return retorno;
         }
 
         private bool BloqueoProductosCatalogo(BERevistaDigital revistaDigital, string codigosRevistaImpresa, Entities.BEProducto producto)

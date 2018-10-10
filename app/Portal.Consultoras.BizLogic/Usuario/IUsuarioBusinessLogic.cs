@@ -97,6 +97,7 @@ namespace Portal.Consultoras.BizLogic
         BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario);
         BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais);
         string ActuaizarNovedadBuscador(int paisId, string codigoUsuario);
+        void UpdUsuarioProgramaNuevas(BEUsuario usuario);
         #region ActualizacionDatos
         BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo);
         BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
