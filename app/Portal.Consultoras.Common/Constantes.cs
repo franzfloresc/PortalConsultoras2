@@ -2264,7 +2264,7 @@ namespace Portal.Consultoras.Common
                     {
                         {Code.SUCCESS, "OK"},
                         {Code.ERROR_INTERNO, string.Empty},
-                        {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."}, //mensaje que se muestra con el api
+                        {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
                         {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
                         {Code.ERROR_PRODUCTO_LIQUIDACION, "Este producto solo está disponible desde la sección de Liquidación Web."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},

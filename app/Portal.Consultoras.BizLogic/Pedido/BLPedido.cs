@@ -910,9 +910,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 };
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 pedidoDetalle.PedidoID = pedidoID;
-                //var mensaje = EstrategiaAgregarProducto(pedidoDetalle, usuario, estrategia, lstDetalle);
-                //if(!string.IsNullOrEmpty(mensaje)) PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
-
                 //Insertar pedido
                 pedidoDetalle.OrigenPedidoWeb = usuario.RevistaDigital.TieneRevistaDigital() ?
                     Constantes.OrigenPedidoWeb.RevistaDigitalAppPedidoSeccion : Constantes.OrigenPedidoWeb.OfertasParaTiAppPedido;
@@ -1246,12 +1243,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private BEPedidoProducto ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
         {
-            /*return new BEPedidoProducto()
-            {
-                CodigoRespuesta = codigoRespuesta,
-                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Message[codigoRespuesta] : mensajeRespuesta,
-                Producto = producto
-            };*/
             var retorno = new BEPedidoProducto()
             {
                 CodigoRespuesta = codigoRespuesta,
@@ -1574,23 +1565,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
             }
             return numero;
-            /* Enumeradores.ValidacionProgramaNuevas numero;
-             var aux = new BLProducto();
-             numero = aux.ValidarBusquedaProgramaNuevas();
-             try
-             {
-
-                 using (BLProducto svc = new BLProducto())
-                 {
-                     numero = svc.ValidarBusquedaProgramaNuevas(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), userData.CodigoPrograma, userData.ConsecutivoNueva, cuv);
-                 }
-             }
-             catch (Exception ex)
-             {
-                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                 numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
-             }
-             return numero;*/
         }
 
         #region Get
