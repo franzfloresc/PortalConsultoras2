@@ -28,6 +28,14 @@
                 </div>
             </div>
             {{else}}
+                {{#iff TipoItem '==' 1}}
+                    <article class="banner_ofertas_masGanadoras">
+                        <div class="contenido_ofertas">
+                            <p>DESCUBRE <b>20 OFERTAS MÁS</b> DE NAVIDAD</p>
+                            <a href="#">VER MÁS +</a>
+                        </div>
+                    </article>
+                {{else}}
             <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
                 <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
                 <div data-item-tag="body" class="content_item_carrusel" {{#iff EsSubcampania '==' false}} {{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}} {{/iff}}>
@@ -151,6 +159,7 @@
 
                 </div>
             </div>
+                {{/iff}}
             {{/if}}
         {{/if}}
     {{/each}}
