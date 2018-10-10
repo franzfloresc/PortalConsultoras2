@@ -6,16 +6,17 @@
     background: -moz-linear-gradient(top, #01362d 0%, #016f5f 100%);
     background: -webkit-linear-gradient(top, #01362d 0%,#016f5f 100%);
     background: linear-gradient(to bottom, #01362d 0%,#016f5f 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0 );
-    background-image:url(/Content/Images/Lbel/copos-nieve.png);
-    background-repeat:no-repeat;
-    background-position:right center;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0);
 }
 
 .wrapper_header_campania_navidenia{
     width:100%!important;
     min-width:1024px!important;
     max-width:100%!important;
+    background-image:url(/Content/Images/Lbel/copos-nieve.png);
+    background-repeat: no-repeat;
+    background-position: -108px -42px;
+    background-size: 13%;
 }
 
 .wrapper_campania_navidenia_y_logo{
