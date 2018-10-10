@@ -7545,6 +7545,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private System.Nullable<System.DateTime> FechaModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IpOrigenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreConsultoraRecomiendaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7662,6 +7665,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.FechaModificacionField.Equals(value) != true)) {
                     this.FechaModificacionField = value;
                     this.RaisePropertyChanged("FechaModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IpOrigen {
+            get {
+                return this.IpOrigenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IpOrigenField, value) != true)) {
+                    this.IpOrigenField = value;
+                    this.RaisePropertyChanged("IpOrigen");
                 }
             }
         }
@@ -9879,6 +9895,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string FuenteIngresoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IpOrigenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> LatitudField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9949,10 +9968,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ZonaGZField;
-
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string IpOrigenField;
-
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -10276,6 +10292,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IpOrigen {
+            get {
+                return this.IpOrigenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IpOrigenField, value) != true)) {
+                    this.IpOrigenField = value;
+                    this.RaisePropertyChanged("IpOrigen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<decimal> Latitud {
             get {
                 return this.LatitudField;
@@ -10586,20 +10615,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 }
             }
         }
-
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string IpOrigen{
-            get{
-                return this.IpOrigenField;
-            }
-            set{
-                if ((object.ReferenceEquals(this.IpOrigenField, value) != true)){
-                    this.IpOrigenField = value;
-                    this.RaisePropertyChanged("IpOrigen");
-                }
-            }
-        }
-
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {

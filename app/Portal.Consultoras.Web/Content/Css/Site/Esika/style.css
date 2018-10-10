@@ -65,17 +65,17 @@ header {
     background: white;
     z-index: 900;
     width: 100% !important;
-    box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
+    /*box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
     -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
-    -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
+    -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);*/
 }
 
-.wrapper_header {
+/*.wrapper_header {
     min-height: 61px;
     margin: 0 auto;
     max-width: 1189px;
     position:relative;
-}
+}*/
 
 .user-profile {
     width: 33px;
@@ -98,19 +98,19 @@ header {
     vertical-align:middle;
 }
 
-.menu_new_esika {
+/*.menu_new_esika {
     width: 62%;
     min-height: 60px;
     position: relative;
-}
+}*/
 
-.menu_esika_b {
+/*.menu_esika_b {
     height: 60px;
     float: right;
     width:auto!important;
     min-width:216px!important;
     max-width: 31%;
-}
+}*/
 
 .campana {
     margin-top: 15px;
@@ -21939,9 +21939,9 @@ body {
         width: 11%;
     }
 
-    .menu_new_esika {
+    /*.menu_new_esika {
         width: 58%;
-    }
+    }*/
 
     .menu_socia_empresaria > .new_menu {
         margin-left: 3.2%;
@@ -36471,7 +36471,7 @@ h1#penmostreo .campana {
 /*SPRINT 19*/
 .content_new_showroom {
     width: 100%;
-    padding-top: 35px;
+    padding-top: 45px;
     padding-left: 10px;
     padding-right: 10px;
 }

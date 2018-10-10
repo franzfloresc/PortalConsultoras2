@@ -293,6 +293,7 @@
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BuscadorController.cs" />
+    <Compile Include="Controllers\BusquedaProductosController.cs" />
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
@@ -496,6 +497,7 @@
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
+    <Compile Include="Models\Ofertas\IndexViewModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoDetalleModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaPasarelaCamposModel.cs" />
@@ -766,6 +768,7 @@
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
     <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
+    <Compile Include="Providers\ConfiguracionPaisDatosProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
@@ -1372,6 +1375,7 @@
     <Content Include="Content\Css\Site\Esika\campania-navidenia.css" />
     <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
     <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
+    <Content Include="Content\Css\Site\Esika\style-esika-responsive.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Esika\verificacion-pin.css" />
@@ -1395,12 +1399,15 @@
     <Content Include="Content\Css\Site\Lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Lbel\campania-navidenia.css" />
     <Content Include="Content\Css\Site\Lbel\mi-perfil.css" />
+    <Content Include="Content\Css\Site\Lbel\style-lbel-responsive.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
     <Content Include="Content\Css\Site\MailConfirmacion\style.css" />
+    <Content Include="Content\Css\Site\Menu\MenuPrincipal.css" />
+    <Content Include="Content\Css\Site\Menu\MenuContenedor.css" />
     <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
@@ -1409,6 +1416,7 @@
     <Content Include="Content\Css\Site\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
+    <Content Include="Content\Css\Site\Shared\style-responsive.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Images\cincuenta_anios_belcorp_cabecera.png" />
     <Content Include="Content\Images\Buscador\product-iphone.png" />
@@ -1540,6 +1548,11 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente2.svg" />
+    <Content Include="Content\Images\down_arrow.png" />
+    <Content Include="Content\Images\Esika\logo_marca_pais_desktop.svg" />
+    <Content Include="Content\Images\Esika\logo_marca_pais_mobile.svg" />
+    <Content Include="Content\Images\Esika\vineta_indicador.png" />
     <Content Include="Content\Images\Esika\fondo-navidenio.png" />
     <Content Include="Content\Images\Esika\logo_marca_pais_desktop_blanco.svg" />
     <Content Include="Content\Images\flecha_icono.svg" />
@@ -1547,7 +1560,10 @@
     <Content Include="Content\Images\icono-elige-tu-opcion.svg" />
     <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\Esika\flecha_next.svg" />
+    <Content Include="Content\Images\icono-menu-mobile.svg" />
     <Content Include="Content\Images\Esika\flecha_prev.svg" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-blanco-independiente2.svg" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente2.png" />
     <Content Include="Content\Images\icono-lupa-blanco.svg" />
     <Content Include="Content\Images\icono-notificaciones-blanco.svg" />
     <Content Include="Content\Images\icono-tutorial-blanco.svg" />
@@ -1564,8 +1580,16 @@
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\icono_avatar_menu.svg" />
     <Content Include="Content\Images\icono_cargar_foto_desde_galeria.svg" />
+    <Content Include="Content\Images\icono_carrito.svg" />
+    <Content Include="Content\Images\icono_catalogos.svg" />
+    <Content Include="Content\Images\icono_cerrar_menu_mobile.png" />
+    <Content Include="Content\Images\icono_comunidad_virtual.svg" />
+    <Content Include="Content\Images\icono_esika_responde.png" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
     <Content Include="Content\Images\icono_lupa.svg" />
+    <Content Include="Content\Images\icono_noticias.svg" />
+    <Content Include="Content\Images\icono_notificaciones.svg" />
+    <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
@@ -1581,6 +1605,15 @@
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
     <Content Include="Content\Images\Lbel\estrellas.png" />
+    <Content Include="Content\Images\logo-club-ganamas-dorado2.svg" />
+    <Content Include="Content\Images\Lbel\logo_marca_pais.svg" />
+    <Content Include="Content\Images\Lbel\vineta_indicador.png" />
+    <Content Include="Content\Images\logo_belcorp_desktop.png" />
+    <Content Include="Content\Images\logo_belcorp_mobile.svg" />
+    <Content Include="Content\Images\logo_facebook.svg" />
+    <Content Include="Content\Images\logo_youtube.svg" />
+    <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
+    <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
     <Content Include="Content\Images\Lbel\logo_marca_pais_blanco.svg" />
     <Content Include="Content\Images\Lbel\RevistaDigital\ofertas-digitales-navidad.svg" />
     <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
@@ -3467,6 +3500,7 @@
     <Content Include="Content\Images\RevistaDigital\bg_popups.png" />
     <Content Include="Content\Images\RevistaDigital\bg_showroom.png" />
     <Content Include="Content\Images\RevistaDigital\blanco-con-espacio.png" />
+    <Content Include="Content\Images\RevistaDigital\blanco-con-espacio2.png" />
     <Content Include="Content\Images\RevistaDigital\cerrar_04_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\bg_ficha_kadia.jpg" />
     <Content Include="Content\Images\RevistaDigital\celular_revista.png" />
@@ -3476,13 +3510,16 @@
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco2.svg" />
     <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-blanco-independiente.png" />
     <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-blanco-independiente.svg" />
+    <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-blanco-independiente2.svg" />
     <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-dorado-independiente.svg" />
+    <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-dorado-independiente2.svg" />
     <Content Include="Content\Images\RevistaDigital\exclamacion_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\fill-1.svg" />
     <Content Include="Content\Images\RevistaDigital\fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_popup.jpg" />
     <Content Include="Content\Images\RevistaDigital\fondo_repeat.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_titulo.png" />
+    <Content Include="Content\Images\RevistaDigital\gana-mas-etiqueta-dorado.png" />
     <Content Include="Content\Images\RevistaDigital\GIF-4.0.gif" />
     <Content Include="Content\Images\RevistaDigital\group.png" />
     <Content Include="Content\Images\RevistaDigital\HOME_NEGRO.svg" />
@@ -3530,6 +3567,11 @@
     <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual-desktop.png" />
     <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual.png" />
     <Content Include="Content\Images\RevistaDigital\nuevo.png" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\gana_mas_no_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\gana_mas_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_esika_no_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_esika_seleccionado.svg" />
+    <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_lbel_seleccionado.svg" />
     <Content Include="Content\Images\Esika\RevistaDigital\ofertas-digitales-navidad.svg" />
     <Content Include="Content\Images\RevistaDigital\offer-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos.svg" />
@@ -3859,6 +3901,7 @@
     <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\PopusJS.js" />
+    <Content Include="Scripts\PortalConsultoras\Buscador\buscadorLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
@@ -3958,6 +4001,7 @@
     <Content Include="Scripts\PortalConsultoras\Shared\ConstantesModule.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\General\RedesSociales.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\MainLayoutResponsive.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MenuContenedor.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\BannerInferior.js" />
@@ -4616,6 +4660,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService62.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">
@@ -5317,6 +5364,11 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpBuscadorResultado.cshtml" />
     <Content Include="Views\ReporteContrato\Index.cshtml" />
+    <Content Include="Views\Shared\_MainLayoutResponsive.cshtml" />
+    <Content Include="Views\Shared\_MenuPrincipalResponsive.cshtml" />
+    <Content Include="Views\Shared\_MenuSecundarioResponsive.cshtml" />
+    <Content Include="Views\BusquedaProductos\Index.cshtml" />
+    <Content Include="Views\Shared\_FooterResponsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\SeleccionarTipos.cshtml" />
     <Content Include="Views\DetalleEstrategia\_ElegirOpciones.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponentesTemplate.cshtml" />
@@ -5811,7 +5863,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>20267</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
