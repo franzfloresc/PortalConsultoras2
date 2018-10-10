@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                 DropDownListCampania = ObtenerCampanias(),
                 DropDownListCampaniaMasiva = CargarCampaniaMasiva()
             };
-            
+
             return Json(model, JsonRequestBehavior.AllowGet);
 
         }

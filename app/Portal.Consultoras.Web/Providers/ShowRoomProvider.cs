@@ -280,6 +280,8 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     _sessionManager.SetEsShowRoom("1");
 
+                    configEstrategiaSR.BloqueoProductoDigital = ObtenerBloquedoProductoDigital(model);
+
                     var fechaHoy = model.FechaHoy;
 
                     if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
@@ -457,20 +459,50 @@ namespace Portal.Consultoras.Web.Providers
                 : model.Valor;
         }
 
-        public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
+        private bool ObtenerBloquedoProductoDigital(UsuarioModel usuarioModel)
         {
-            List<ServiceOferta.BEEstrategia> lEstrategia = new List<ServiceOferta.BEEstrategia>();
-            UsuarioModel userData = _sessionManager.GetUserData();
+            ServiceUsuario.BEConfiguracionPaisDatos entidadConfig;
+            bool result = false;
+            
+            try
+            {
 
-            string path = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasShowRoom, userData.CodigoISO, Constantes.ConfiguracionPais.ShowRoom, userData.CampaniaID, userData.GetCodigoConsultora(), string.Empty, string.Empty);
+                var ConfigPaisSR = _sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.ShowRoom); 
 
-            var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(path, userData.CodigoISO));
+                var entidad = new ServiceUsuario.BEConfiguracionPaisDatos
+                {
+                    PaisID = usuarioModel.PaisID,
+                    CampaniaID = usuarioModel.CampaniaID,
+                    ConfiguracionPaisID = ConfigPaisSR.ConfiguracionPaisID,
+                    ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital,
+                        Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
+                        {
+                            CodigoConsultora = usuarioModel.CodigoConsultora,
+                            CodigoRegion = usuarioModel.CodigorRegion,
+                            CodigoZona = usuarioModel.CodigoZona,
+                            CodigoSeccion = usuarioModel.SeccionAnalytics
+                        }
+                    }
+                };
 
-            Task.WhenAll(taskApi);
+                using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                {
+                    var lst =  sv.GetConfiguracionPaisDatos(entidad);
+                    entidadConfig = lst.FirstOrDefault();
+                }
 
-            var l = taskApi.Result;
+                if (entidadConfig != null) result = entidadConfig.Valor1 == "1"; 
+               
+            }
+            catch (Exception ex )
+            {
+                _logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(),
+                    "ShowRoomProvider.ObtenerBloquedoProductoDigital");
+            }
 
-            return l;
+            return result;
         }
     }
 }

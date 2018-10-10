@@ -24,14 +24,26 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _renderImgProvider = new RenderImgProvider();
         }
-        
+
         #region Visualización de Pedidos Liquidación
 
         public ActionResult OfertasLiquidacion()
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
+
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile" });
+                // return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile" });
+                if (url.Length > 1)
+                {
+                    sap = "&" + url[1];
+                    return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile" });
+                }
             }
 
             if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
@@ -715,8 +727,8 @@ namespace Portal.Consultoras.Web.Controllers
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
-                    
-                    #endregion                    
+
+                    #endregion
 
                     sv.InsOfertaProducto(entidad);
                 }
@@ -1307,6 +1319,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
     }
 }
