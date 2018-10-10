@@ -1410,6 +1410,7 @@
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
     <Content Include="Content\Css\Site\MailConfirmacion\style.css" />
+    <Content Include="Content\Css\Site\MasGanadoras\banner_ofertas_masGanadoras.css" />
     <Content Include="Content\Css\Site\Menu\MenuPrincipal.css" />
     <Content Include="Content\Css\Site\Menu\MenuContenedor.css" />
     <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
