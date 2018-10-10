@@ -236,7 +236,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/RevistaDigital/index.css",
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
-               "~/Content/Css/Mobile/calc.css"
+               "~/Content/Css/Mobile/calc.css",
+               "~/Content/Css/Site/Esika/campania-navidenia.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/lbel-CssSB2Mobile").Include(
@@ -252,7 +253,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/RevistaDigital/index.css",
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
-               "~/Content/Css/Mobile/calc.css"
+               "~/Content/Css/Mobile/calc.css",
+               "~/Content/Css/Site/Lbel/campania-navidenia.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/CssBienvenida").Include(

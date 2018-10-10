@@ -15261,31 +15261,7 @@ a {
 }
 
 /* FIN - HD-2524 - POPUP OPTIN (VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE) */
-/* HD-2513 - 50 AÑOS BELCORP */
 
-.agregarBackgroundCincuentaAniosBelcorp{
-    background-image:url('/Content/Images/Mobile/cincuenta_anios_belcorp_cabecera_mobile.png');
-    background-repeat:no-repeat;
-    background-position:-23px top;
-}
-
-.icono_menuMobile_cincuenta_anios_belcorp img{
-    width: 22px!important;
-    height: 22px;
-    position: relative;
-    left: -5px!important;
-}
-
-.color_cincuenta_anios_belcorp{
-    color:#A06219;
-}
-
-.boton_cincuenta_anios_belcorp input{
-    background:#BA8B47;
-    border:2px solid #BA8B47;
-}
-
-/* FIN - HD-2513 - 50 AÑOS BELCORP */
 /* HD-2430 -  ACEPTAR TYC OBLIGATORIO MOBILE */
 
 .popup_aceptacionTerminosYCondicionesContrato,

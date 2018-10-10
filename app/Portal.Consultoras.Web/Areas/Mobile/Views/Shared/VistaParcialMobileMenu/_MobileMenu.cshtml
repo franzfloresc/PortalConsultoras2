@@ -1,18 +1,18 @@
 ﻿
 @{
     var mmVbEsContenedor = ViewBag.vbEsContenedor == 1 ? true : false;
-    var clase50Anios = mmVbEsContenedor ? "" : "agregarBackgroundCincuentaAniosBelcorp";
-    var icono50Anios = mmVbEsContenedor ? "" : "icono_menuMobile_cincuenta_anios_belcorp";
+    var clase50Anios = mmVbEsContenedor ? "" : "agregarBackgroundNavidenio";
+    var icono50Anios = mmVbEsContenedor ? "" : "icono_menuMobile_campania_navidenia";
     var urlImg50Anios = mmVbEsContenedor ? "~/Content/Images/mobile/Esika/icon_menu.png" : "~/Content/Images/mobile/icono-menu-mobile.svg";
     var mmVbEsMostrarBuscadorYFiltros = ViewBag.vbEsMostrarBuscadorYFiltros;
 }
 
 <div class="container-fluid @clase50Anios" style="padding-top:9px; padding-bottom:9px;">
     <div class="row">
-        <div class="col-xs-4 @icono50Anios">
+        <div class="col-xs-2 @icono50Anios">
             <img src="@Url.Content(urlImg50Anios)" id="ic_menu" class="icon-menu" alt="Menú" />
         </div>
-        <div class="col-xs-3 text-center">
+        <div class="col-xs-5 text-center">
             <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
                class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
         </div>
@@ -38,7 +38,7 @@
                     <a role="link" region="Superior" parent="Buscador" title="Buscador"
                        class="campana_mobile opcion_menu_buscador" href="@Url.Action("Index", "Buscador", new { area = "Mobile" })" style="margin-right: 20px;">
                         <div role="link" region="Superior" parent="Buscador" title="Buscador" class="icono_busqueda_mobile">
-                            <img src="@Url.Content("~/Content/Images/icono_lupa.png")" alt="Buscar" />
+                            <img src="@Url.Content("~/Content/Images/icono-lupa-blanco.svg")" alt="Buscar" />
                             @*<i class="fa fa-search fa-sm"></i>*@
                         </div>
                         <div class="tooltip_informativo_sobre_opcion_busqueda_prod" style="display:none;">

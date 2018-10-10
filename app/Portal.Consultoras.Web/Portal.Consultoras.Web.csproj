@@ -1548,6 +1548,7 @@
     <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\Esika\flecha_next.svg" />
     <Content Include="Content\Images\Esika\flecha_prev.svg" />
+    <Content Include="Content\Images\icono-lupa-blanco.svg" />
     <Content Include="Content\Images\icono-notificaciones-blanco.svg" />
     <Content Include="Content\Images\icono-tutorial-blanco.svg" />
     <Content Include="Content\Images\icono_avatar.svg" />
