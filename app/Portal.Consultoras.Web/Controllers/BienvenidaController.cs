@@ -2384,9 +2384,9 @@ namespace Portal.Consultoras.Web.Controllers
                 string nuevocelular =  obj.MensajeCelular != "" ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS").Select(b => b.DatoNuevo).FirstOrDefault() : "";
                 string nuevoemail = obj.MensajeEmail != "" ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email").Select(b => b.DatoNuevo).FirstOrDefault() : "";
 
-                if (nuevocelular != "" && nuevoemail != "") return pagina == "1" ? obj.MensajeAmbos : nuevocelular + "|" + nuevoemail;
-                if (nuevocelular != "" && nuevoemail == "") return pagina == "1" ? obj.MensajeCelular : nuevocelular + "|";
-                if (nuevocelular == "" && nuevoemail != "") return pagina == "1" ? obj.MensajeEmail : "|" + nuevoemail;
+                if (!string.IsNullOrEmpty(nuevocelular) && !string.IsNullOrEmpty(nuevoemail)) return pagina == "1" ? obj.MensajeAmbos : nuevocelular + "|" + nuevoemail;
+                if (!string.IsNullOrEmpty(nuevocelular) && string.IsNullOrEmpty(nuevoemail)) return pagina == "1" ? obj.MensajeCelular : nuevocelular + "|";
+                if (string.IsNullOrEmpty(nuevocelular) && !string.IsNullOrEmpty(nuevoemail)) return pagina == "1" ? obj.MensajeEmail : "|" + nuevoemail;
 
                 return "";
             }
