@@ -1581,6 +1581,7 @@ namespace Portal.Consultoras.Common
                 public const int OfertaDelDia = 6;
                 public const int DescagablesNavidenos = 7;
                 public const int CarruselIndividuales = 8;
+                public const int CarruselIndividualesV2 = 9;
             }
         }
 

@@ -237,6 +237,10 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.TemplatePresentacion = "seccion-carrusel-individuales";
                             seccion.TemplateProducto = "#lanzamiento-carrusel-individual-template";
                             break;
+                        case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselIndividualesV2:
+                            seccion.TemplatePresentacion = "seccion-carrusel-individuales-v2";
+                            seccion.TemplateProducto = "#template-producto-v2";
+                            break;
                     }
 
                     if (seccion.TemplatePresentacion == "") continue;

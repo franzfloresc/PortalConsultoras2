@@ -35,6 +35,7 @@
     width: -moz-fit-content;
     width: fit-content;
     height: 286px;
+    float: left;
 }
 
 .producto_img{
@@ -96,7 +97,7 @@
     width: 145px;
     text-align: center;
     height: 286px;
-    display: flex;
+    display: flex !important;
     align-items: center;
 }
 

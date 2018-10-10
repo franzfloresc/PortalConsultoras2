@@ -18,8 +18,31 @@ begin
 		not desktoporden in(0,1);
 
 	-- inserta configuracionofertashome
-	insert into dbo.configuracionofertashome(ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,DesktopTitulo,MobileTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBpt,DesktopUsarImagenFondo,MobileUsarImagenFondo) values 
-	(@ConfiguracionPaisPeruID,'201801','2','2','PE_2018511276_bbymyqsrgu.png','herramientas-venta-mobile.jpg','LAS MÁS GANADORAS','LAS MÁS GANADORAS','1','1','007','007','5','5','1','1','HerramientasVenta/Comprar','2','2','0','0');
+	insert into dbo.configuracionofertashome(
+		ConfiguracionPaisID
+		,CampaniaID
+		,DesktopOrden,MobileOrden,DesktopOrdenBpt,MobileOrdenBpt
+		,DesktopImagenFondo,MobileImagenFondo
+		,DesktopTitulo,MobileTitulo
+		,DesktopTipoPresentacion,MobileTipoPresentacion
+		,DesktopTipoEstrategia,MobileTipoEstrategia
+		,DesktopCantidadProductos,MobileCantidadProductos
+		,DesktopActivo,MobileActivo
+		,UrlSeccion
+		,DesktopUsarImagenFondo,MobileUsarImagenFondo
+		) values  (
+		@ConfiguracionPaisPeruID
+		,'201801'
+		,'2','2','2','2'
+		,'PE_2018511276_bbymyqsrgu.png','herramientas-venta-mobile.jpg'
+		,'LAS MÁS GANADORAS','LAS MÁS GANADORAS'
+		,'1','9'
+		,'007','007'
+		,'5','5'
+		,'1','1'
+		,''
+		,'0','0'
+		);
 end;
 
 use [BelcorpChile_BPT];
