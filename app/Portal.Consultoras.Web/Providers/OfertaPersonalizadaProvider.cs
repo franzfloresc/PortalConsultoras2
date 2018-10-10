@@ -1216,6 +1216,8 @@ namespace Portal.Consultoras.Web.Providers
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.OfertaDelDia); break;
                 case Constantes.NombrePalanca.OfertaParaTi:
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.OfertasParaTi); break;
+                case Constantes.NombrePalanca.MasGanadoras:
+                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.MasGanadoras); break;
                 default:
                     tienePalanca = false; break;
             }
