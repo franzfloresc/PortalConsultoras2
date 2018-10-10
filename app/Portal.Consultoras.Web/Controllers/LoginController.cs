@@ -484,10 +484,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
-                if (string.IsNullOrEmpty(usuario.EMail) || !usuario.EMailActivo)
-                {
-                    sessionManager.SetPrimeraVezSession(0);
-                }
+                sessionManager.SetPrimeraVezSession(0);
+
                 if (Request.IsAjaxRequest())
                 {
                     var urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");

@@ -575,7 +575,7 @@ namespace Portal.Consultoras.Web.Providers
                 var estrategiaPersonalizada = ObtenerEstrategiaPersonalizadaSession(usuarioModel, palanca, cuv, campaniaId, usuarioModel.CodigoConsultora, usuarioModel.EsDiasFacturacion);
                 if (estrategiaPersonalizada == null || !estrategiaPersonalizada.CUV2.Equals(cuv))
                     return null;
-                estrategiaPersonalizada.Hermanos = new List<EstrategiaComponenteModel>();
+                estrategiaPersonalizada.Hermanos = estrategiaPersonalizada.Hermanos ?? new List<EstrategiaComponenteModel>();
                 estrategiaPersonalizada.TextoLibre = Util.Trim(estrategiaPersonalizada.TextoLibre);
                 estrategiaPersonalizada.CodigoVariante = Util.Trim(estrategiaPersonalizada.CodigoVariante);
                 return estrategiaPersonalizada;
@@ -689,7 +689,8 @@ namespace Portal.Consultoras.Web.Providers
                     Digitable = item.Digitable,
                     Cantidad = item.Cantidad,
                     FactorCuadre = item.FactorCuadre,
-                    IdMarca = item.IdMarca
+                    IdMarca = item.IdMarca,
+                    DescripcionMarca = item.NombreMarca
                 };
                 listaTonos.Add(tono);
             }

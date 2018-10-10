@@ -141,9 +141,34 @@
     border: none;
 }
 
-.aplicar_seleccion .disabled {
-    background-color: #d8d8d8 !important;
+    .aplicar_seleccion .disabled {
+        background-color: rgba(216, 216, 216, 0.5) !important;
+        cursor: auto;
+        color: rgba(128, 128, 128, 0.5);
+        border: 1px solid rgba(128, 128, 128, 0.5);
+    }
+
+.seleccion_btn .disabled {
+    background-color: rgba(216, 216, 216, 0.5) !important;
     cursor: auto;
+    color: rgba(128, 128, 128, 0.5);
+    pointer-events: none;
+    border-color: rgba(128, 128, 128, 0.5) !important;
+    border-radius: 5px;
+}
+
+.contenedor_rangos.disabled .txt_cantidad_pedido {
+    border-color: rgba(128, 128, 128, 0.5);
+    color: rgba(128, 128, 128, 0.5);
+}
+
+.contenedor_rangos.disabled div .dibujar_linea::after, .contenedor_rangos.disabled div .dibujar_linea::before {
+    border-color: rgba(128, 128, 128, 0.5);
+    color: rgba(128, 128, 128, 0.5);
+}
+
+.seleccion_btn .dibujar_menos {
+    margin-top: 17.5px;
 }
 
 .seleccion_btn .active {
