@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var menuActivo = CreateMenuContenedorActivo(userData.CampaniaID);
             menuActivo = UpdateCampaniaIdFromQueryString(menuActivo, Request);
-            menuActivo = UpdateCodigoCampaniaIdOrigenByContenedorPath(menuActivo, contenedorPath, revistaDigital, userData.CampaniaID, userData.NroCampanias, Request, userData.CodigoConsultora, userData.CodigoISO, sessionManager, esMobile);
+            menuActivo = UpdateCodigoCampaniaIdOrigenByContenedorPath(menuActivo, contenedorPath, revistaDigital, userData.CampaniaID, userData.NroCampanias, Request, userData.CodigoConsultora, userData.CodigoISO, userData.LimElectivosProgNuevas, esMobile);
             menuActivo = UpdateConfiguracionPais(menuActivo, userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
 
             if (revistaDigital.TieneRDC || herramientasVenta.TieneHV)
@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Providers
             return menuActivo;
         }
 
-        public MenuContenedorModel UpdateCodigoCampaniaIdOrigenByContenedorPath(MenuContenedorModel menuActivo, string contenedorPath, RevistaDigitalModel revistaDigital, int CampaniaID, int NroCampanias, HttpRequestBase Request, string CodigoConsultora, string CodigoISO, ISessionManager sessionManager, bool esMobile)
+        public MenuContenedorModel UpdateCodigoCampaniaIdOrigenByContenedorPath(MenuContenedorModel menuActivo, string contenedorPath, RevistaDigitalModel revistaDigital, int CampaniaID, int NroCampanias, HttpRequestBase Request, string CodigoConsultora, string CodigoISO, int limiteElectivos, bool esMobile)
         {
             menuActivo.MostrarMenuFlotante = true;
             switch (contenedorPath)
@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Web.Providers
                     break;
                 case Constantes.UrlMenuContenedor.ProgramaNuevas:
                 case Constantes.UrlMenuContenedor.ProgramaNuevasIndex:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.ProgramaNuevas;
+                    menuActivo.Codigo =  limiteElectivos > 1 ? Constantes.ConfiguracionPais.DuoPerfecto : Constantes.ConfiguracionPais.ProgramaNuevas;
                     break;
             }
 
@@ -334,7 +334,7 @@ namespace Portal.Consultoras.Web.Providers
             menuContenedor = new List<ConfiguracionPaisModel>();
             configuracionesPais = configuracionesPais.Where(c => c.TienePerfil).ToList();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var paisCarpeta = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO) ? "Esika" : "Lbel";
+            var esDuoPerfecto = userData.LimElectivosProgNuevas > 1;
             foreach (var confiModel in configuracionesPais)
             {
                 var config = confiModel;
@@ -486,6 +486,12 @@ namespace Portal.Consultoras.Web.Providers
                         break;
                     case Constantes.ConfiguracionPais.HerramientasVenta:
                         confiModel.UrlMenu = "HerramientasVenta/Comprar";
+                        break;
+                    case Constantes.ConfiguracionPais.ProgramaNuevas:
+                        if (esDuoPerfecto) continue;
+                        break;
+                    case Constantes.ConfiguracionPais.DuoPerfecto:
+                        if (!esDuoPerfecto) continue;
                         break;
                 }
 

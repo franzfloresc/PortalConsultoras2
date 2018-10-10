@@ -1385,6 +1385,7 @@ namespace Portal.Consultoras.Common
             public const string PagoEnLinea = "PAYONLINE";
             public const string BuscadorYFiltros = "B&F";
             public const string ProgramaNuevas = "PN";
+            public const string DuoPerfecto = "DP";
         }
 
 

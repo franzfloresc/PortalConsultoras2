@@ -71,6 +71,7 @@ namespace Portal.Consultoras.Web.Providers
                 seccionesContenedor = GetSeccionesContenedorByCampania(seccionesContenedor);
 
                 var isMobile = esMobile;
+                var esDuoPerfecto = userData.LimElectivosProgNuevas > 1;
                 foreach (var beConfiguracionOfertasHome in seccionesContenedor)
                 {
                     var entConf = beConfiguracionOfertasHome;
@@ -151,7 +152,11 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.ProgramaNuevas:
-                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "ProgramaNuevas";
+                            if (esDuoPerfecto) continue;
+                            seccion.UrlObtenerProductos = "";
+                            break;
+                        case Constantes.ConfiguracionPais.DuoPerfecto:
+                            if (!esDuoPerfecto) continue;
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:
