@@ -289,6 +289,12 @@
   <wsdl:message name="IUsuarioService_GetVerificacionAutenticidad_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetVerificacionAutenticidadResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_EnviarSmsVerificacionAutenticidad_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSmsVerificacionAutenticidad" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EnviarSmsVerificacionAutenticidad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSmsVerificacionAutenticidadResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetConsultoraParticipaEnPrograma_InputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultoraParticipaEnPrograma" />
   </wsdl:message>
@@ -1015,6 +1021,10 @@
     <wsdl:operation name="GetVerificacionAutenticidad">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad" message="tns:IUsuarioService_GetVerificacionAutenticidad_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse" message="tns:IUsuarioService_GetVerificacionAutenticidad_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarSmsVerificacionAutenticidad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsVerificacionAutenticidad" message="tns:IUsuarioService_EnviarSmsVerificacionAutenticidad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsVerificacionAutenticidadResponse" message="tns:IUsuarioService_EnviarSmsVerificacionAutenticidad_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetConsultoraParticipaEnPrograma">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma" message="tns:IUsuarioService_GetConsultoraParticipaEnPrograma_InputMessage" />
@@ -1762,6 +1772,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetVerificacionAutenticidad">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarSmsVerificacionAutenticidad">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsVerificacionAutenticidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2981,6 +3000,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetVerificacionAutenticidad">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarSmsVerificacionAutenticidad">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsVerificacionAutenticidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

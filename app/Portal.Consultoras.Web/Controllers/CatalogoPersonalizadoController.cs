@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-            
+
             ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
             if (SessionManager.GetListFiltersFAV() != null)
@@ -629,7 +629,7 @@ namespace Portal.Consultoras.Web.Controllers
                         data = productoModel
                     });
                 }
-                
+
                 List<ServiceODS.BEProducto> listaHermanos;
                 using (ODSServiceClient svc = new ODSServiceClient())
                 {
@@ -682,7 +682,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     productoModel.EsMaquillaje = false;
                 }
-                
+
                 return Json(new
                 {
                     success = true,

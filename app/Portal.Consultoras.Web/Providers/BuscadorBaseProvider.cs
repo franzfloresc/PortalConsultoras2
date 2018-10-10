@@ -2,22 +2,33 @@
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Buscador;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorBaseProvider
     {
-        public async Task<List<BuscadorYFiltrosModel>> ObtenerBuscadorDesdeApi(string path)
+    
+    	private static readonly HttpClient httpClientBuscador = new HttpClient();
+
+        static BuscadorBaseProvider()
         {
-            var resultados = new List<BuscadorYFiltrosModel>();
+            if (!string.IsNullOrEmpty(WebConfig.RutaServiceBuscadorAPI))
+            {
+                httpClientBuscador.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
+                httpClientBuscador.DefaultRequestHeaders.Accept.Clear();
+                httpClientBuscador.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+        }
+
+        public async Task<string> ObtenerPersonalizaciones(string path)
+        {
+            var personalizacion = "";
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
@@ -26,48 +37,46 @@ namespace Portal.Consultoras.Web.Providers
 
                 var httpResponse = await httpClient.GetAsync(path);
 
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    var jsonString = await httpResponse.Content.ReadAsStringAsync();
-
-                    var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
-
-                    foreach (var item in list)
-                    {
-                        try
-                        {
-                            BuscadorYFiltrosModel buscador = new BuscadorYFiltrosModel
-                            {
-                                CUV = item.CUV,
-                                SAP = item.SAP,
-                                Imagen = item.Imagen,
-                                Descripcion = item.Descripcion,
-                                Valorizado = item.Valorizado,
-                                Precio = item.Precio,
-                                MarcaId = item.MarcaId,
-                                TipoPersonalizacion = item.TipoPersonalizacion,
-                                CodigoEstrategia = item.CodigoEstrategia,
-                                CodigoTipoEstrategia = item.CodigoTipoEstrategia,
-                                TipoEstrategiaId = item.TipoEstrategiaId,
-                                LimiteVenta = item.LimiteVenta,
-                                Stock = item.Stock,
-                                URLBsucador = path,
-                                EstrategiaID = item.EstrategiaID
-                            };
-
-                            resultados.Add(buscador);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw ex;
-                        }
-                    }
-                }
+                if (!httpResponse.IsSuccessStatusCode) return personalizacion;
+                var jsonString = await httpResponse.Content.ReadAsStringAsync();
+                personalizacion = JsonConvert.DeserializeObject<string>(jsonString);
             }
-          
-            return resultados;
+
+            return personalizacion;
         }
 
+        public async Task<List<BuscadorYFiltrosModel>> ObtenerBuscadorDesdeApi(string path)
+        {
+            var resultados = new List<BuscadorYFiltrosModel>();
+
+            var httpResponse = await httpClientBuscador.GetAsync(path);
+
+            if (!httpResponse.IsSuccessStatusCode) return resultados;
+            var jsonString = await httpResponse.Content.ReadAsStringAsync();
+
+            var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
+
+            resultados.AddRange(list.Select(item => new BuscadorYFiltrosModel
+            {
+                CUV = item.CUV,
+                SAP = item.SAP,
+                Imagen = item.Imagen,
+                Descripcion = item.Descripcion,
+                Valorizado = item.Valorizado,
+                Precio = item.Precio,
+                MarcaId = item.MarcaId,
+                TipoPersonalizacion = item.TipoPersonalizacion,
+                CodigoEstrategia = item.CodigoEstrategia,
+                CodigoTipoEstrategia = item.CodigoTipoEstrategia,
+                TipoEstrategiaId = item.TipoEstrategiaId,
+                LimiteVenta = item.LimiteVenta,
+                Stock = item.Stock,
+                URLBsucador = path,
+                EstrategiaID = item.EstrategiaID
+            }));
+
+            return resultados;
+        }
      
     }
 }
