@@ -74,6 +74,8 @@
             return modelo;
         },
         CargarProductos: function () {
+            AbrirLoad();
+
             _config.cargandoProductos = true;
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
@@ -84,17 +86,15 @@
                     _funciones.UpadteFichaProducto();
                     _config.totalProductos = data.total;
                     _config.cargandoProductos = false;
+                    CerrarLoad();
                 }).fail(function (data, error) {
                     console.error(error.toString());
                     _config.cargandoProductos = false;
+                    CerrarLoad();
                 });
         },
         ProcesarListaProductos: function (productos) {
-
             $.each(productos, function (index, item) {
-
-                item.Loaded = 0;
-
                 if (item.Descripcion.length > _config.maxCaracteresDesc) {
                     item.Descripcion = item.Descripcion.substring(0, _config.maxCaracteresDesc) + "...";
                 }
@@ -114,34 +114,46 @@
             img.src = url;
             img.onload = function () { callback(this.width, this.height); }
         },
-        UpadteFichaProducto: function() {
+        UpadteFichaProducto: function () {
 
-            $('article[data-loaded=0]').each(function () {
+            $('.lazy').Lazy({
+                scrollDirection: 'vertical',
+                effect: 'fadeIn',
+                effectTime: 100,
+                threshold: 0,
+                afterLoad: function (element) {
 
-                var fichaProducto = $(this);
-                var imgProducto = fichaProducto.find('img').attr('src');
-                var classRatio = '';
+                    var imgProducto = element.attr('src');
+                    var fichaProducto = element.closest('article');
 
-                _funciones.GetSize(imgProducto, function (width, height) {
+                    console.log(imgProducto);
 
-                    var aspect_ratio = width / height;
+                    _funciones.GetSize(imgProducto, function (width, height) {
 
-                    switch (true) {
-                        case aspect_ratio == 1:
-                            classRatio = 'ficha__producto--delgada';
-                            break;
-                        case aspect_ratio > 1.3:
-                            classRatio = 'ficha__producto--ancha';
-                            break;
-                        case aspect_ratio < 1:
-                            classRatio = 'ficha__producto--alta';
-                            break;
-                    }
+                        var aspect_ratio = width / height;
 
-                    fichaProducto.addClass(classRatio);
-                    fichaProducto.attr('data-loaded', 1);
-                });
+                        switch (true) {
+                            case aspect_ratio == 1:
+                                classRatio = 'ficha__producto--delgada';
+                                break;
+                            case aspect_ratio > 1.3:
+                                classRatio = 'ficha__producto--ancha';
+                                break;
+                            case aspect_ratio < 1:
+                                classRatio = 'ficha__producto--alta';
+                                break;
+                        }
+
+                        fichaProducto.addClass(classRatio);
+                    });
+                },
+                onError: function (element) {
+                    element.attr('src', element.data('src-error'));
+                    fichaProducto.addClass('ficha__producto--delgada');
+                }
             });
+
+           
         }
     };
     var _eventos = {
@@ -241,7 +253,7 @@
     };
 })();
 
-$(document).ready(function () {
+$(document).ready(function () { 
 
     BusquedaProductoModule.Inicializar();
 
