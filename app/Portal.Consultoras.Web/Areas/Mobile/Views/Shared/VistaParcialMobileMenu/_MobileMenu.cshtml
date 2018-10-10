@@ -1,16 +1,16 @@
 ﻿
 @{
     var mmVbEsContenedor = ViewBag.vbEsContenedor == 1 ? true : false;
-    var clase50Anios = mmVbEsContenedor ? "" : "agregarBackgroundNavidenio";
-    var icono50Anios = mmVbEsContenedor ? "" : "icono_menuMobile_campania_navidenia";
+    var clase50Anios = mmVbEsContenedor ? "" : "agregarBackgroundCincuentaAniosBelcorp";
+    var icono50Anios = mmVbEsContenedor ? "" : "icono_menuMobile_cincuenta_anios_belcorp";
     var urlImg50Anios = mmVbEsContenedor ? "~/Content/Images/mobile/Esika/icon_menu.png" : "~/Content/Images/mobile/icono-menu-mobile.svg";
     var mmVbEsMostrarBuscadorYFiltros = ViewBag.vbEsMostrarBuscadorYFiltros;
 }
 
-<div class="container-fluid @clase50Anios" style="padding-top:9px; padding-bottom:9px;">
+<div class="container-fluid agregarBackgroundNavidenio" style="padding-top:9px; padding-bottom:9px;">
     <div class="row">
-        <div class="col-xs-2 @icono50Anios">
-            <img src="@Url.Content(urlImg50Anios)" id="ic_menu" class="icon-menu" alt="Menú" />
+        <div class="col-xs-2 icono_menuMobile_campania_navidenia">
+            <img src="@Url.Content("~/Content/Images/mobile/icono-menu-mobile.svg")" id="ic_menu" class="icon-menu" alt="Menú" />
         </div>
         <div class="col-xs-5 text-center">
             <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
