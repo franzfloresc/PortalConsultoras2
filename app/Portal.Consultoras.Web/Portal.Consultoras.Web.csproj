@@ -1365,8 +1365,10 @@
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
     <Content Include="Content\Css\Mobile\Ficha\SeleccionarTipo.css" />
+    <Content Include="Content\Css\Mobile\LasMasGanadoras\banner_ofertas_masGanadoras.css" />
     <Content Include="Content\Css\Mobile\LasMasGanadoras\presentacion-seccion-carrusel.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
+    <Content Include="Content\Css\Mobile\ProductoListado\CajaProductoV2.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
@@ -1609,7 +1611,6 @@
     <Content Include="Content\Images\logo_belcorp_mobile.svg" />
     <Content Include="Content\Images\logo_facebook.svg" />
     <Content Include="Content\Images\logo_youtube.svg" />
-    <Content Include="Content\Images\mobile\banner_ganadoras_mobile.jpg" />
     <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
     <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
     <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />

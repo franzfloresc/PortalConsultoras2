@@ -533,7 +533,9 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Mobile/Contenedor/carrusel.individual.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css",
-                "~/Content/Css/Mobile/LasMasGanadoras/presentacion-seccion-carrusel.css"
+                "~/Content/Css/Mobile/LasMasGanadoras/presentacion-seccion-carrusel.css",
+                "~/Content/Css/Mobile/LasMasGanadoras/banner_ofertas_masGanadoras.css",
+                "~/Content/Css/Mobile/ProductoListado/CajaProductoV2.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Pedido").Include(
