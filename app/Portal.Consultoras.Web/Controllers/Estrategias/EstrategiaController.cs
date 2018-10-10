@@ -204,10 +204,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
-            {
-                listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
-            }
             return listaRetorno;
         }
 

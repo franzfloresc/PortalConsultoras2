@@ -5,13 +5,19 @@
     //var camapaniaEfectiva = "C" + revistaDigital.CampaniaActiva;
 }
 
-<div class="contenedor_MasGanadoras_carrusel" data-plantilla="carrusel-individuales-v2">
+<div class="contenedor_MasGanadoras_carrusel" 
+     style="background: url(@Model.ImagenFondo)"
+     data-plantilla="carrusel-individuales-v2">
     <div class="row">
         <div class="col-xs-6">
-            <h3 class="titulo_MasGanadoras">@Model.Titulo LAS MÁS<br /> GANADORAS</h3>
+            <h3 class="titulo_MasGanadoras">@Model.Titulo</h3>
         </div>
         <div class="col-xs-6 text-right">
-            <a class="boton_MasGanadoras" href="#">VER MÁS</a>
+            <a class="boton_MasGanadoras" 
+               href="javascript:;"
+               onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.Titulo');" >
+            VER MÁS
+            </a>
         </div>
     </div>
     <div class="carousel-mas-ganadoras"

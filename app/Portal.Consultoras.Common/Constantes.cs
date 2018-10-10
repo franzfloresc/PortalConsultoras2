@@ -278,6 +278,7 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevasRegalo = "ProgramaNuevasRegalo";
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
+            public const string MasGanadoras = "Ganadoras";
 
             private static Dictionary<string, string> _Palancas;
             public static Dictionary<string, string> Palancas
@@ -2015,7 +2016,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaIndex = "/herramientasventa/index";
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
-
+            public const string MasGanadorasIndex = "/masganadoras/index";
             // Url Ficha
             public const string DetalleHerramientasVenta = "/detalle/demostradores";
             public const string DetalleLanzamiento = "/detalle/lonuevonuevo";

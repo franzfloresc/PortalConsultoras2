@@ -155,6 +155,9 @@ namespace Portal.Consultoras.Web.Providers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     menuActivo.MostrarMenuFlotante = false;
                     break;
+                case Constantes.UrlMenuContenedor.MasGanadorasIndex:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.MasGanadoras;
+                    break;
             }
 
             return menuActivo;

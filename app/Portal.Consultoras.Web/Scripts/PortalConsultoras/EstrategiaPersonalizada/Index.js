@@ -351,10 +351,11 @@ function SeccionMostrarProductos(data) {
 
         if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
             CarruselCiclico = false;
-            data.lista.push({
-                TipoItem: 1,
-                Cantidad: 10
-            });
+            if (data.cantidadTotal > 5) {
+                data.lista.push({
+                    TipoObjeto: 1
+                });
+            }
         }
     }
 
@@ -364,7 +365,7 @@ function SeccionMostrarProductos(data) {
         $.each(data.lista, function (i, item) {
             item.EsBanner = false;
             item.EsLanzamiento = false;
-            item.TipoItem = item.TipoItem || 0;
+            item.TipoObjeto = item.TipoObjeto || 0;
         });
     }
 
