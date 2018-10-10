@@ -100,9 +100,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var usuario = productoBuscar.Usuario;
                 var configuracionPaisTask = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital));
                 var codigosRevistasTask = Task.Run(() => _usuarioBusinessLogic.ObtenerCodigoRevistaFisica(usuario.PaisID));
-
-                _usuarioBusinessLogic.UpdUsuarioProgramaNuevas(usuario);
-                Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
+                var upUsuarioProgramaNuevaTask = Task.Run(() => _usuarioBusinessLogic.UpdUsuarioProgramaNuevas(usuario));
+                
+                Task.WaitAll(configuracionPaisTask, codigosRevistasTask, upUsuarioProgramaNuevaTask);
                 
                 usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
