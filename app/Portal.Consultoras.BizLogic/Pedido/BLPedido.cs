@@ -100,12 +100,23 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var usuario = productoBuscar.Usuario;
                 var configuracionPaisTask = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital));
                 var codigosRevistasTask = Task.Run(() => _usuarioBusinessLogic.ObtenerCodigoRevistaFisica(usuario.PaisID));
-
-                Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
-
+               Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
+                
                 usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
+                var sessionTask = Task.Run(() => _usuarioBusinessLogic.GetSesionUsuario(usuario.PaisID, usuario.CodigoConsultora));
+                Task.WaitAll(sessionTask);
 
+                var session = sessionTask.Result;
+                usuario.CodigoPrograma = sessionTask.Result.CodigoPrograma;
+                usuario.ConsecutivoNueva = sessionTask.Result.ConsecutivoNueva;
+
+                var cuv = Util.Trim(productoBuscar.CodigoDescripcion);
+
+                Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(usuario, cuv);
+
+                if (num.Equals(Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva))
+                    return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
                 //Validación producto no existe
                 var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
                                     productoBuscar.PaisID,
@@ -1235,12 +1246,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private BEPedidoProducto ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
         {
-            return new BEPedidoProducto()
+            /*return new BEPedidoProducto()
+            {
+                CodigoRespuesta = codigoRespuesta,
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Message[codigoRespuesta] : mensajeRespuesta,
+                Producto = producto
+            };*/
+            var retorno = new BEPedidoProducto()
             {
                 CodigoRespuesta = codigoRespuesta,
                 MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Message[codigoRespuesta] : mensajeRespuesta,
                 Producto = producto
             };
+
+            return retorno;
         }
 
         private bool BloqueoProductosCatalogo(BERevistaDigital revistaDigital, string codigosRevistaImpresa, Entities.BEProducto producto)
@@ -1541,6 +1560,38 @@ namespace Portal.Consultoras.BizLogic.Pedido
             PedidoInsertar(usuario, pedidoDetalle, lstDetalle, true);
         }
         #endregion  
+
+       private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(BEUsuario usuario,string cuv)
+        {
+            Enumeradores.ValidacionProgramaNuevas numero;
+            try
+            {
+                BLProducto svc = new BLProducto();
+                numero = svc.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
+            }
+            catch (Exception ex)
+            {
+                numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            }
+            return numero;
+            /* Enumeradores.ValidacionProgramaNuevas numero;
+             var aux = new BLProducto();
+             numero = aux.ValidarBusquedaProgramaNuevas();
+             try
+             {
+
+                 using (BLProducto svc = new BLProducto())
+                 {
+                     numero = svc.ValidarBusquedaProgramaNuevas(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), userData.CodigoPrograma, userData.ConsecutivoNueva, cuv);
+                 }
+             }
+             catch (Exception ex)
+             {
+                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                 numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+             }
+             return numero;*/
+        }
 
         #region Get
         private List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(BEPedidoBuscar pedidoDetalle, out int pedidoID)
