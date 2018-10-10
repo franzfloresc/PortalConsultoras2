@@ -25,7 +25,7 @@
                         <label class="col-12 col-lg-3 col-xl-3 pl-0 d-inline-block text-center text-lg-right text-xl-right opcion__ordenamiento__label">Ordenar</label>
                         <!-- AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
                         <div id="dpw-ordenar" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
-                            <span class="col-11 opcion__ordenamiento__dropdown__seleccionada mostrarEnDesktop">Recomendación</span>
+                            <span class="col-11 opcion__ordenamiento__dropdown__seleccionada mostrarEnDesktop ul-seleccionado">Recomendación</span>
                             <span class="col pl-0 pr-0 opcion__ordenamiento__dropdown__icono mostrarEnDesktop">
                                 <img src="@Url.Content("~/Content/Images/ordenar-flecha-icono.svg")" alt="" />
                             </span>
@@ -40,7 +40,7 @@
                             if (i == 0)
                             {
                                 <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
-                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value" title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                     <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada"
                                        title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                         @Model.ListaOrdenamiento.ToList()[i].Key
@@ -50,7 +50,7 @@
                             else
                             {
                                 <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
-                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value">
+                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value" title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                     <a class="col-12 d-block opcion__ordenamiento__dropdown__link"
                                        title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                         @Model.ListaOrdenamiento.ToList()[i].Key

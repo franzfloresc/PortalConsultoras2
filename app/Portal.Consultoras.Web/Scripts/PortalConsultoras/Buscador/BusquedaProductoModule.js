@@ -56,7 +56,7 @@
         InicializarEventos: function () {
             $(document).on("click", _elementos.body, _eventos.DropDownCerrar);
             $(document).on("keyup", _elementos.body, _eventos.DropDownCerrar);
-            $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);            
+            $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
             $(document).on("click", _elementos.btnAgregar, _eventos.RegistrarProducto);
             $(document).on('click', _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
@@ -117,7 +117,7 @@
             img.src = url;
             img.onload = function () { callback(this.width, this.height); }
         },
-        UpadteFichaProducto: function() {
+        UpadteFichaProducto: function () {
 
             $('article[data-loaded=0]').each(function () {
 
@@ -192,6 +192,8 @@
             _config.ordenTipo = array[1].trim();
             _config.numeroPaginaActual = 0;
 
+            var textoOrdenamiento = $(this).attr('title');
+            
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
@@ -201,6 +203,8 @@
                     console.error(error.toString());
                 });
 
+            $('.ul-seleccionado').html(textoOrdenamiento);
+            
         },
         ScrollCargarProductos: function () {
             _config.cargandoProductos = true;
