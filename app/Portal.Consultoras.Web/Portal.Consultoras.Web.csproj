@@ -1582,6 +1582,7 @@
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
     <Content Include="Content\Images\Lbel\estrellas.png" />
     <Content Include="Content\Images\Lbel\logo_marca_pais_blanco.svg" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\ofertas-digitales-navidad.svg" />
     <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\1f44d.png" />
@@ -3529,6 +3530,7 @@
     <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual-desktop.png" />
     <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual.png" />
     <Content Include="Content\Images\RevistaDigital\nuevo.png" />
+    <Content Include="Content\Images\Esika\RevistaDigital\ofertas-digitales-navidad.svg" />
     <Content Include="Content\Images\RevistaDigital\offer-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_BLANCO.svg" />

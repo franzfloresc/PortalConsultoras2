@@ -232,6 +232,7 @@
 
 .novedad_busqueda_titulo{
     font-weight:900;
+    text-transform:uppercase;
 }
 
 .novedad_busqueda_descripcion{
