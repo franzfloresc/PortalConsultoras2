@@ -202,8 +202,25 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetActualizarDatosConsultora(true);
                 }
 
+                List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+
+                if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+                {
+                    UsuarioModel usurioModel = new UsuarioModel
+                    {
+                        CodigoISO = userData.CodigoISO,
+                        CampaniaID = userData.CampaniaID
+                    };
+                    listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
+                    listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
+                }
+                else
+                {
+                    listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
+                }
+
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
-                model.ShowRoomBannerUrl = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                model.ShowRoomBannerUrl = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.EMail = userData.EMail;

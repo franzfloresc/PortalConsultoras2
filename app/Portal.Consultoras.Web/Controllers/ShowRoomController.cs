@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -98,8 +99,25 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!showRoomEventoModel.TieneOfertasAMostrar) return RedirectToAction("Index", "Bienvenida");
 
+                List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+
+                if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+                {
+                    UsuarioModel usurioModel = new UsuarioModel
+                    {
+                        CodigoISO = userData.CodigoISO,
+                        CampaniaID = userData.CampaniaID
+                    };
+                    listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
+                    listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
+                }
+                else
+                {
+                    listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
+                }
+
                 showRoomEventoModel.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
-                showRoomEventoModel.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 var dato = _ofertasViewProvider.ObtenerPerdioTitulo(userData.CampaniaID, IsMobile());
                 showRoomEventoModel.ProductosPerdio = dato.Estado;
@@ -263,8 +281,25 @@ namespace Portal.Consultoras.Web.Controllers
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaID = id;
 
-            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-            ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+            List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+
+            if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+            {
+                UsuarioModel usurioModel = new UsuarioModel
+                {
+                    CodigoISO = userData.CodigoISO,
+                    CampaniaID = userData.CampaniaID
+                };
+                listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
+                listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
+            }
+            else
+            {
+                listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
+            }
+
+            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion,Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+            ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion,Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
             return View("DetalleSet", modelo);
         }

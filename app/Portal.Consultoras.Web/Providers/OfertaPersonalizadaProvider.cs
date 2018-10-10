@@ -609,13 +609,11 @@ namespace Portal.Consultoras.Web.Providers
 
             if (_ofertaBaseProvider.UsarMsPersonalizacion(usuarioModel.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
             {
-                var l = new ShowRoomProvider().GetShowRoomOfertasConsultora();
-
-                return l;
+                List<ServiceOferta.BEEstrategia> listaProducto = new ShowRoomProvider().GetShowRoomOfertasConsultora();
+                return listaProducto;
             }
             else
             {
-
                 using (var osc = new OfertaServiceClient())
                 {
                     var listaProducto = osc.GetEstrategiasPedido(entidad).ToList();
