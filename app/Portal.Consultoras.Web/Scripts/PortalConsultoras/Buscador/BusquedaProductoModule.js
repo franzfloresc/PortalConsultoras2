@@ -56,8 +56,7 @@
         InicializarEventos: function () {
             $(document).on("click", _elementos.body, _eventos.DropDownCerrar);
             $(document).on("keyup", _elementos.body, _eventos.DropDownCerrar);
-            $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
-            $(document).on("click", _elementos.body, _eventos.OcultarDropDownOrdenar);
+            $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);            
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
             $(document).on("click", _elementos.btnAgregar, _eventos.RegistrarProducto);
             $(document).on('click', _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
