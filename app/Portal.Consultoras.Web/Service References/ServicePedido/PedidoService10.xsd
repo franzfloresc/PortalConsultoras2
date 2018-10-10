@@ -871,10 +871,12 @@
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
       <xs:element minOccurs="0" name="ProgramaNuevoActivado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="QuitoCantBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="SetID" type="xs:int" />
       <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Stock" type="xs:int" />
       <xs:element minOccurs="0" name="SubTipoOfertaSisID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoAdm" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoEstrategiaCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="TipoObservacion" type="xs:int" />

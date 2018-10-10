@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Providers
             return pedidoWeb;
         }
 
-        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(int esOpt)
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(int esOpt, bool noSession = false)
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             var userData = sessionManager.GetUserData();
@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 detallesPedidoWeb = sessionManager.GetDetallesPedido();
 
-                if (detallesPedidoWeb == null)
+                if (detallesPedidoWeb == null || noSession)
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {

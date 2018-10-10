@@ -4263,14 +4263,16 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+                pedidoDetalle.Producto = new ServicePedido.BEProducto();
                 pedidoDetalle.Producto.EstrategiaID = model.EstrategiaID;
                 pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID.ToString();
-                pedidoDetalle.Producto.CUV = model.CUV;
+                pedidoDetalle.Producto.CUV = model.CuvTonos.Trim();
                 pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
                 pedidoDetalle.PaisID = userData.PaisID;
                 pedidoDetalle.IPUsuario = userData.IPUsuario;
                 pedidoDetalle.OrigenPedidoWeb = model.OrigenPedidoWeb;
+                pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
                 //pedidoDetalle.Producto.ConfiguracionOfertaID = 0;
                 //pedidoDetalle.Producto.PrecioCatalogo = 0;
                 //pedidoDetalle.Producto.IndicadorMontoMinimo = 0;
@@ -4296,14 +4298,35 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.PedidoValidacion.Code.SUCCESS:
                         mensaje = pedidoDetalleResult.MensajeRespuesta;
                         break;
+                    case Constantes.PedidoValidacion.Code.ERROR_KIT_INICIO:
+                        mensaje = pedidoDetalleResult.MensajeRespuesta;
+                        break;
                     default:
+                        mensaje = "Ocurrió un error al ejecutar la operación.";
                         break;
                 }
 
-                return Json(new {
-                    success = false,
-                    message = mensaje
-                }, JsonRequestBehavior.AllowGet);
+                if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                {
+                    ObtenerPedidoWebSetDetalleAgrupado(true);
+                    return Json(new
+                    {
+                        success = true,
+                        message = mensaje,
+                        errorInsertarProducto = "0",
+                        DataBarra = GetDataBarra(),
+                        cantidadTotalProductos = ObtenerPedidoWebDetalle(true).Sum(dp => dp.Cantidad)
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        errorInsertarProducto = "1"
+                    }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {
@@ -4407,8 +4430,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (pedidoReservado)
                     {
-                        urlRedireccionar = Url.Action("
-                            ", "Pedido", new { area = area });
+                        urlRedireccionar = Url.Action("PedidoValidado", "Pedido", new { area = area });
                     }
                 }
             }
