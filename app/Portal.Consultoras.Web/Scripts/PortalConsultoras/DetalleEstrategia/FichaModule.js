@@ -364,7 +364,7 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function () {
         var estrategia;
-
+        
         if (_config.tieneSession === "True") {
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         }
@@ -574,6 +574,7 @@ var FichaModule = (function (config) {
     };
 
     var _construirSeccionEstrategia = function () {
+        
         //var estrategia = _getEstrategia();
         _estrategia = _getEstrategia();
         var estrategia = _estrategia;

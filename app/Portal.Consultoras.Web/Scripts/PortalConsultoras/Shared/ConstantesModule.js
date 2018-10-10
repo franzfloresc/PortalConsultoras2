@@ -25,7 +25,8 @@ var ConstantesModule = (function () {
         GuiaDeNegocio: "GNDLista",
         HerramientasVenta: "HVLista",
         Lanzamiento: "LANLista",
-        RevistaDigital: "RDLista"
+        RevistaDigital: "RDLista",
+        Ganadoras: "MGLista"
     }
     
     var _codigoVariedad = {

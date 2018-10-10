@@ -18,6 +18,9 @@
                 return _keyLocalStorage.Lanzamiento + campania;
             case _codigoPalanca.HerramientasVenta:
                 return _keyLocalStorage.HerramientasVenta + campania;
+            case _codigoPalanca.Ganadoras:
+                return _keyLocalStorage.Ganadoras + campania;
+
             default:
                 return null;
         }
