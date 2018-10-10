@@ -19,6 +19,7 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class OfertaPersonalizadaProvider
     {
+        private readonly int espaciosCarrusel = 8;
         private ISessionManager _sessionManager;
         public virtual ISessionManager SessionManager
         {
@@ -309,7 +310,11 @@ namespace Portal.Consultoras.Web.Providers
 
         #region Cargar ofertas Por tipo
 
-        public List<ServiceOferta.BEEstrategia> ConsultarEstrategias(bool esMobile, int campaniaId, string codAgrupacion, bool filtrarNuevasAgregadas = false)
+        public List<ServiceOferta.BEEstrategia> ConsultarEstrategias(bool esMobile, int campaniaId, string codAgrupacion)
+        {
+            return ConsultarEstrategias(esMobile, campaniaId, codAgrupacion, false, false);
+        }
+        public List<ServiceOferta.BEEstrategia> ConsultarEstrategias(bool esMobile, int campaniaId, string codAgrupacion, bool mostrarNuevas, bool filtrarNuevasAgregadas)
         {
             codAgrupacion = Util.Trim(codAgrupacion);
             var listEstrategia = new List<ServiceOferta.BEEstrategia>();
@@ -317,7 +322,7 @@ namespace Portal.Consultoras.Web.Providers
             switch (codAgrupacion)
             {
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
-                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
+                    if(mostrarNuevas) listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.RevistaDigital, campaniaId));
                     break;
@@ -334,7 +339,7 @@ namespace Portal.Consultoras.Web.Providers
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.LosMasVendidos, campaniaId));
                     break;
                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
-                    //listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
+                    if (mostrarNuevas) listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaParaTi, campaniaId));
                     break;
@@ -433,17 +438,19 @@ namespace Portal.Consultoras.Web.Providers
 
         #region Metodos consumo Ofertas por tipo
 
-        public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(bool esMobile, UsuarioModel user, string codAgrupacion = "")
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(bool esMobile, UsuarioModel user, string codAgrupacion)
         {
             List<ServiceOferta.BEEstrategia> listModel;
             if (SessionManager.GetBEEstrategia(Constantes.ConstSession.ListaEstrategia) != null)
+            {
                 listModel = SessionManager.GetBEEstrategia(Constantes.ConstSession.ListaEstrategia);
+            }                
             else
             {
                 bool esBannerProgNuevas = TieneDuoPerfectoConfigurado(esMobile, user);
                 SessionManager.SetMostrarBannerNuevas(esBannerProgNuevas);
 
-                listModel = ConsultarEstrategias(esMobile, 0, codAgrupacion, !esBannerProgNuevas);
+                listModel = ConsultarEstrategias(esMobile, 0, codAgrupacion, true, !esBannerProgNuevas);
                 if (!listModel.Any())
                 {
                     SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, listModel);
@@ -464,7 +471,7 @@ namespace Portal.Consultoras.Web.Providers
                     }
                     var listaPackNueva = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
 
-                    var cantMax = 8;
+                    var cantMax = espaciosCarrusel + 1;
                     var cantPack = listaPackNueva.Any() ? 1 : 0;
                     var espaciosRevista = Math.Min(cantMax - cantPack, listaRevista.Count);
 
@@ -473,7 +480,6 @@ namespace Portal.Consultoras.Web.Providers
                     {
                         var espaciosNuevas = esBannerProgNuevas ? 1 : (cantMax - espaciosRevista);
                         if (listaPackNueva.Count > espaciosNuevas) listaPackNueva.RemoveRange(espaciosNuevas, listaPackNueva.Count - espaciosNuevas);
-                        if (esBannerProgNuevas) listaPackNueva.ForEach(pn => pn.ImagenURL = ConfigCdn.GetUrlFileCdn("Matriz/PE/", "FLYER_small.png"));
                     }
 
                     listModel = new List<ServiceOferta.BEEstrategia>();
@@ -485,13 +491,31 @@ namespace Portal.Consultoras.Web.Providers
                 
                 SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, listModel);
             }
+            return ConsultarEstrategiasFormatoEstrategiaToModel1(listModel, user.CodigoISO, user.CampaniaID);
+        }
 
-            var listaProductoModel = ConsultarEstrategiasFormatoEstrategiaToModel1(listModel, user.CodigoISO, user.CampaniaID);
+        public List<EstrategiaPedidoModel> ValidBannerNuevas(bool esMobile, UsuarioModel user, List<EstrategiaPedidoModel> listEstrategia, bool bloquerBannerNuevas)
+        {
             if (SessionManager.GetMostrarBannerNuevas())
             {
-                listaProductoModel.ForEach(p => p.EsBannerProgNuevas = (p.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas));
+                if (bloquerBannerNuevas) listEstrategia = listEstrategia.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+                else
+                {
+                    var listaPackNueva = listEstrategia.Where(p => p.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+                    if (listaPackNueva.Any())
+                    {
+                        var carpetaPais = Globals.UrlMatriz + "/" + user.CodigoISO;
+                        foreach (var packNueva in listaPackNueva)
+                        {
+                            packNueva.EsBannerProgNuevas = true;
+                            packNueva.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, "FLYER_small.png");
+                        }
+                    }
+                }
             }
-            return listaProductoModel;
+
+            if (listEstrategia.Count > espaciosCarrusel) listEstrategia.RemoveRange(espaciosCarrusel - 1, listEstrategia.Count - espaciosCarrusel);
+            return listEstrategia;
         }
 
         public bool TieneDuoPerfectoConfigurado(bool esMobile, UsuarioModel user)
@@ -514,7 +538,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(bool esMobile, string codigoIso, int campaniaIdConsultora, int campaniaId, string codAgrupacion)
         {
-            var listaProducto = ConsultarEstrategias(esMobile, campaniaId, codAgrupacion, false);
+            var listaProducto = ConsultarEstrategias(esMobile, campaniaId, codAgrupacion, false, false);
             List<EstrategiaPedidoModel> listaProductoModel = ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, codigoIso, campaniaIdConsultora);
             return listaProductoModel;
         }
