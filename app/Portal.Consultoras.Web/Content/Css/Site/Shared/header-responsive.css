@@ -32,15 +32,7 @@
 
 }
 
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-
-    .header__marca__pais{
-        height:33px;
-    }
-
-    .header__marca__pais img{
-        height:auto!important;
-    }
+@media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 
     .submenu__lista--miNegocio{
         align-content:space-around;

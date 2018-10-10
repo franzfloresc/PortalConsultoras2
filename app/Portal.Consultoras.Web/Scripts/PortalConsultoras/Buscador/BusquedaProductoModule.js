@@ -113,12 +113,12 @@
             footerHeight += $(_elementos.footer).innerHeight() || 0;
             return footerHeight >= documentHeight;
         },
-        GetSize(url, callback) {
+        GetSize: function (url, callback) {
             var img = new Image();
             img.src = url;
             img.onload = function () { callback(this.width, this.height); }
         },
-        UpadteFichaProducto() {
+        UpadteFichaProducto: function() {
 
             $('article[data-loaded=0]').each(function () {
 
@@ -131,7 +131,10 @@
                     var aspect_ratio = width / height;
 
                     switch (true) {
-                        case aspect_ratio > 1:
+                        case aspect_ratio == 1:
+                            classRatio = 'ficha__producto--delgada';
+                            break;
+                        case aspect_ratio > 1.3:
                             classRatio = 'ficha__producto--ancha';
                             break;
                         case aspect_ratio < 1:

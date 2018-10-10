@@ -63,6 +63,18 @@
 
 }
 
+@media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+    .header__marca__pais{
+        height:33px;
+    }
+
+    .header__marca__pais img{
+        height:auto!important;
+    }
+
+}
+
 /* FIN - HEADER */
 
 /* HEADER MOBILE */
@@ -73,7 +85,6 @@
         background-image:url(/Content/Images/esika/logo_marca_pais_mobile.svg);
         background-repeat:no-repeat;
         background-size:73px;
-        background-position:53% center;
     }
 
 }

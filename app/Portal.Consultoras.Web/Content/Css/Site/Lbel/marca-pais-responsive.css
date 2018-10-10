@@ -60,9 +60,9 @@
 @media screen and (max-width: 991px) and (-ms-high-contrast: none), (max-width: 991px) and (-ms-high-contrast: active) {
 
     .header__marca__pais{
-        background-image:url(/Content/Images/lbel/logo_marca_pais.svg);
+        background-image:url(/Content/Images/Lbel/logo_marca_pais.svg);
         background-repeat:no-repeat;
-        background-position:right 8px;
+        height:33px;
     }
 
 }
