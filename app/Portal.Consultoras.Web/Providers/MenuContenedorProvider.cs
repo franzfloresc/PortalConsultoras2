@@ -492,6 +492,11 @@ namespace Portal.Consultoras.Web.Providers
                         break;
 
                     case Constantes.ConfiguracionPais.MasGanadoras:
+                        if (!(revistaDigital.TieneRDC && revistaDigital.EsActiva))
+                        {
+                            continue;
+                        }
+
                         confiModel.UrlMenu = "MasGanadoras/Index";
                         break;
                 }
