@@ -196,6 +196,8 @@
         },
 
         ClickItemOrdenar: function () {
+            AbrirLoad();
+
             $(_elementos.linkItemDropDown).removeClass(_modificador.linkItemDropDown);
             $(this).children().addClass(_modificador.linkItemDropDown);
             var valorOrdenamiento = $(this).data("value");
@@ -211,8 +213,11 @@
                 .done(function (data) {
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
+                    _funciones.UpadteFichaProducto();
+                    CerrarLoad();
                 }).fail(function (data, error) {
                     console.error(error.toString());
+                    CerrarLoad();
                 });
 
             $('.ul-seleccionado').html(textoOrdenamiento);
