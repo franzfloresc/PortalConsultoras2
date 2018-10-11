@@ -578,7 +578,7 @@ var FichaModule = (function (config) {
         //var estrategia = _getEstrategia();
         _estrategia = _getEstrategia();
         var estrategia = _estrategia;
-
+        
         if (estrategia == null) {
             window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
             return false;
@@ -644,8 +644,7 @@ var FichaModule = (function (config) {
     {
         return _estrategia;
     }
-    function Inicializar() {
-
+    function Inicializar() { 
         _localStorageModule = LocalStorageModule();
         _construirSeccionEstrategia();
         _ocultarSecciones();
