@@ -40,7 +40,7 @@ function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigo
 
 function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
     OrigenPedidoWeb = OrigenPedidoWeb || -1;
-    //debugger;
+    
     var url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
 
     if (codigoEstrategia != null && typeof codigoEstrategia !== "undefined")

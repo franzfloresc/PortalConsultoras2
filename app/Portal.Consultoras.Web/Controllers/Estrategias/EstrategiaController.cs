@@ -16,9 +16,13 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
     public class EstrategiaController : BaseController
     {
         protected OfertaBaseProvider _ofertaBaseProvider;
+        protected SessionManager.ISessionManager sessionManager;
+        private const int minCantMG = 5;
+
         public EstrategiaController()
         {
             _ofertaBaseProvider = new OfertaBaseProvider();
+            sessionManager = new SessionManager.SessionManager();
         }
 
         #region Metodos Por Palanca
@@ -171,6 +175,14 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 var cantidadTotal = listModel.Count;
 
                 var guarda = !_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca);
+
+                if(tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
+                if(cantidadTotal <= minCantMG)
+                {
+                    var sessionMg = sessionManager.MasGanadoras.GetModel();
+                    sessionMg.TieneLanding = false;
+                    sessionManager.MasGanadoras.SetModel(sessionMg);
+                }
 
                 return Json(new
                 {
