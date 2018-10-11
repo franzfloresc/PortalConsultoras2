@@ -492,7 +492,7 @@ namespace Portal.Consultoras.Web.Providers
                         break;
 
                     case Constantes.ConfiguracionPais.MasGanadoras:
-                        if (!(revistaDigital.TieneRDC && revistaDigital.EsActiva))
+                        if (!revistaDigital.EsActiva)
                         {
                             continue;
                         }

@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var sessionMg = SessionManager.MasGanadoras.GetModel();
-            if (sessionMg.TieneLanding)
+            if (sessionMg.TieneLanding && revistaDigital.EsActiva)
                 return MasGanadorasViewLanding();
             else
                 return RedirectToAction("Index", "Ofertas");

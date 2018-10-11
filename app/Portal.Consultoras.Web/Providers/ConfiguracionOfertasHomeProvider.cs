@@ -191,7 +191,7 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
                             break;
                         case Constantes.ConfiguracionPais.MasGanadoras:
-                            if (!(revistaDigital.TieneRDC && revistaDigital.EsActiva))
+                            if (!revistaDigital.EsActiva)
                             {
                                 continue;
                             }

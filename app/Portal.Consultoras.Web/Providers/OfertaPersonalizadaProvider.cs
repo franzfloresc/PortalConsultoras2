@@ -278,7 +278,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
             {
-                return _sessionManager.MasGanadoras.GetModel().TieneMG;
+                return _sessionManager.MasGanadoras.GetModel().TieneMG && revistaDigital.EsActiva;
             }
             return true;
         }
