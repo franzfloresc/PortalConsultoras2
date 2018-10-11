@@ -694,12 +694,9 @@ function AgregarProductoListado() {
     
     var Cantidad = $("#txtCantidad").val();
     var param = ({
-        MarcaID: 0,
         CUV: CUV,
         PrecioUnidad: $("#hdfPrecioUnidad").val(),
-        Descripcion: 0,
         Cantidad: Cantidad,
-        IndicadorMontoMinimo: 0,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
         enRangoProgNuevas: cuvEsProgNuevas
     });

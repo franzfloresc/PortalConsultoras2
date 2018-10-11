@@ -757,12 +757,9 @@ function ValidarStockEstrategia() {
     var pprecio = $("#txtPrecioR").val();
 
     var param = {
-        MarcaID: 0,
         CUV: CUV,
         PrecioUnidad: pprecio,
-        Descripcion: 0,
         Cantidad: cantidadSol,
-        IndicadorMontoMinimo: 0,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
         enRangoProgNuevas: cuvEsProgNuevas
     };
@@ -1000,12 +997,9 @@ function AgregarProductoListado() {
 
     var cantidadSol = $("#txtCantidad").val();
     var param = {
-        MarcaID: 0,
         CUV: CUV,
         PrecioUnidad: 0,
-        Descripcion: 0,
         Cantidad: cantidadSol,
-        IndicadorMontoMinimo: 0,
         TipoOferta: 0,
         enRangoProgNuevas: cuvEsProgNuevas
     };
@@ -3020,12 +3014,9 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             }
 
             var param = ({
-                MarcaID: 0,
                 CUV: CUV,
                 PrecioUnidad: PrecioUnidad,
-                Descripcion: 0,
                 Cantidad: CantidadSoli,
-                IndicadorMontoMinimo: 0,
                 TipoOferta: TipoOfertaSisID || 0,
                 enRangoProgNuevas: enRangoProgNuevas
             });

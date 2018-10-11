@@ -215,12 +215,9 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
         if (obj.TipoOfertaSisID) CantidadSoli = (Cantidad - cantidadAnterior);
 
         var param = ({
-            MarcaID: 0,
             CUV: obj.CUV,
             PrecioUnidad: obj.PrecioUnidad,
-            Descripcion: 0,
             Cantidad: CantidadSoli,
-            IndicadorMontoMinimo: 0,
             TipoOferta: obj.TipoOfertaSisID || 0,
             enRangoProgNuevas: obj.EnRangoProgNuevas
         });

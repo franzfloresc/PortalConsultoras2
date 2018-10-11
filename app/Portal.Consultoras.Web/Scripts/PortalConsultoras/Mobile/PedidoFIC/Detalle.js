@@ -170,13 +170,11 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
         }
 
         var param = ({
-            MarcaID: 0,
             CUV: CUV,
             PrecioUnidad: PrecioUnidad,
-            Descripcion: 0,
             Cantidad: CantidadSoli,
-            IndicadorMontoMinimo: 0,
-            TipoOferta: TipoOfertaSisID || 0
+            TipoOferta: TipoOfertaSisID || 0,
+            enRangoProgNuevas: false
         });
         ShowLoading();
 

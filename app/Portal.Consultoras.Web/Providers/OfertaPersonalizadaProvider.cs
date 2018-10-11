@@ -627,7 +627,7 @@ namespace Portal.Consultoras.Web.Providers
                 var estrategiaPersonalizada = ObtenerEstrategiaPersonalizadaSession(usuarioModel, palanca, cuv, campaniaId, usuarioModel.CodigoConsultora, usuarioModel.EsDiasFacturacion);
                 if (estrategiaPersonalizada == null || !estrategiaPersonalizada.CUV2.Equals(cuv))
                     return null;
-                estrategiaPersonalizada.Hermanos = new List<EstrategiaComponenteModel>();
+                estrategiaPersonalizada.Hermanos = estrategiaPersonalizada.Hermanos ?? new List<EstrategiaComponenteModel>();
                 estrategiaPersonalizada.TextoLibre = Util.Trim(estrategiaPersonalizada.TextoLibre);
                 estrategiaPersonalizada.CodigoVariante = Util.Trim(estrategiaPersonalizada.CodigoVariante);
                 return estrategiaPersonalizada;

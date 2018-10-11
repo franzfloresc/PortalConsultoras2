@@ -553,13 +553,8 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var objValidad = InsertarMensajeValidarDatos(model.ClienteID);
+                if(objValidad == null && !esKitNuevaAuto) objValidad = InsertarValidarKitInicio(model.CUV);
                 if (objValidad != null) return objValidad;
-
-                if (!esKitNuevaAuto)
-                {
-                    objValidad = InsertarValidarKitInicio(model.CUV);
-                    if (objValidad != null) return objValidad;
-                }
 
                 #region Administrador Pedido
                 var obePedidoWebDetalle = new BEPedidoWebDetalle
@@ -592,45 +587,40 @@ namespace Portal.Consultoras.Web.Controllers
                 bool errorServer;
                 string tipo;
                 bool modificoBackOrder;
-                var olstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "I", out errorServer, out tipo, out modificoBackOrder);
+                var lstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "I", out errorServer, out tipo, out modificoBackOrder);
 
                 #endregion
 
-                var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                var total = lstPedidoWebDetalle.Sum(p => p.ImporteTotal);
                 var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
-                var listaCliente = ListarClienteSegunPedido(model.ClienteID_, olstPedidoWebDetalle);
+                var listaCliente = ListarClienteSegunPedido(model.ClienteID_, lstPedidoWebDetalle);
 
                 #region PedidoWebDetalleModel
                 var pedidoWebDetalleModel = Mapper.Map<BEPedidoWebDetalle, PedidoWebDetalleModel>(obePedidoWebDetalle);
                 pedidoWebDetalleModel.Simbolo = userData.Simbolo;
                 pedidoWebDetalleModel.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;
                 pedidoWebDetalleModel.ClienteID_ = model.ClienteID_;
-                pedidoWebDetalleModel.CodigoIso = userData.CodigoISO;
-
-                var bePedidoWebDetalle = olstPedidoWebDetalle.FirstOrDefault(p => p.CUV == model.CUV);
-                if (bePedidoWebDetalle != null)
-                {
-                    pedidoWebDetalleModel.IndicadorOfertaCUV = bePedidoWebDetalle.IndicadorOfertaCUV;
-                    pedidoWebDetalleModel.DescripcionLarga = !string.IsNullOrEmpty(bePedidoWebDetalle.DescripcionLarga)
-                        ? bePedidoWebDetalle.DescripcionLarga : "";
-                    pedidoWebDetalleModel.DescripcionOferta = !string.IsNullOrEmpty(bePedidoWebDetalle.DescripcionOferta)
-                        ? bePedidoWebDetalle.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";
-                    pedidoWebDetalleModel.TipoPedido = !string.IsNullOrEmpty(bePedidoWebDetalle.TipoPedido)
-                        ? bePedidoWebDetalle.TipoPedido : "";
-                    pedidoWebDetalleModel.TipoEstrategiaID = bePedidoWebDetalle.TipoEstrategiaID;
-                    pedidoWebDetalleModel.TipoEstrategiaCodigo = bePedidoWebDetalle.TipoEstrategiaCodigo;
-                    pedidoWebDetalleModel.Mensaje = bePedidoWebDetalle.Mensaje;
-                    pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
-                }
+                pedidoWebDetalleModel.CodigoIso = userData.CodigoISO;                
+                UpdatePedidoDetalleModelFromPedidoActual(pedidoWebDetalleModel, lstPedidoWebDetalle);
                 #endregion
+
+                var errorInsertarProducto = "1";
+                var dataBarra = new BarraConsultoraModel();
+                var message = "";
+
+                if (!errorServer)
+                {
+                    errorInsertarProducto = "0";
+                    dataBarra = GetDataBarra();
+                    message = "OK";
+                }
+                else message = tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.";
 
                 return new
                 {
                     success = !errorServer,
-                    message = !errorServer ? "OK"
-                        : tipo.Length > 1 ? tipo
-                        : "Ocurrió un error al ejecutar la operación.",
+                    message,
                     mensajeAviso,
                     tituloMensaje = esMensajeDuoPerfecto ? Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper() : "",
                     data = pedidoWebDetalleModel,
@@ -638,10 +628,10 @@ namespace Portal.Consultoras.Web.Controllers
                     total,
                     formatoTotal,
                     listaCliente,
-                    errorInsertarProducto = !errorServer ? "0" : "1",
+                    errorInsertarProducto,
                     tipo,
                     modificoBackOrder,
-                    DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                    DataBarra = dataBarra,
                     cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad)
                 };
             }
@@ -660,6 +650,24 @@ namespace Portal.Consultoras.Web.Controllers
                     tipo = ""
                 };
             }
+        }
+
+        private void UpdatePedidoDetalleModelFromPedidoActual(PedidoWebDetalleModel pedidoWebDetalleModel, List<BEPedidoWebDetalle> listPedidoDetalle)
+        {
+            var pedidoWebDetalle = listPedidoDetalle.FirstOrDefault(p => p.CUV == pedidoWebDetalleModel.CUV);
+            if (pedidoWebDetalle == null) return;
+
+            pedidoWebDetalleModel.IndicadorOfertaCUV = pedidoWebDetalle.IndicadorOfertaCUV;
+            pedidoWebDetalleModel.DescripcionLarga = !string.IsNullOrEmpty(pedidoWebDetalle.DescripcionLarga)
+                ? pedidoWebDetalle.DescripcionLarga : "";
+            pedidoWebDetalleModel.DescripcionOferta = !string.IsNullOrEmpty(pedidoWebDetalle.DescripcionOferta)
+                ? pedidoWebDetalle.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";
+            pedidoWebDetalleModel.TipoPedido = !string.IsNullOrEmpty(pedidoWebDetalle.TipoPedido)
+                ? pedidoWebDetalle.TipoPedido : "";
+            pedidoWebDetalleModel.TipoEstrategiaID = pedidoWebDetalle.TipoEstrategiaID;
+            pedidoWebDetalleModel.TipoEstrategiaCodigo = pedidoWebDetalle.TipoEstrategiaCodigo;
+            pedidoWebDetalleModel.Mensaje = pedidoWebDetalle.Mensaje;
+            pedidoWebDetalleModel.TipoObservacion = pedidoWebDetalle.TipoObservacion;
         }
 
         private object InsertarMensajeValidarDatos(string clienteIdStr)
@@ -1472,7 +1480,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Zona de Estrategias
         [HttpPost]
-        public JsonResult ValidarStockEstrategia(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta, bool enRangoProgNuevas = false)
+        public JsonResult ValidarStockEstrategia(string CUV, string PrecioUnidad, string Cantidad, string TipoOferta, bool enRangoProgNuevas)
         {
             string mensajeMontoMax = "", mensaje = "";
             bool validoMontoMax = false, valido = false;
