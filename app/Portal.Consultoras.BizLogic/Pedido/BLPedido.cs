@@ -100,11 +100,25 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var usuario = productoBuscar.Usuario;
                 var configuracionPaisTask = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital));
                 var codigosRevistasTask = Task.Run(() => _usuarioBusinessLogic.ObtenerCodigoRevistaFisica(usuario.PaisID));
-
-                Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
-
+                if (Constantes.Inicializacion.EnteroInicial == usuario.ConsecutivoNueva)
+                {
+                    var upUsuarioProgramaNuevaTask = Task.Run(() => _usuarioBusinessLogic.UpdUsuarioProgramaNuevas(usuario));
+                    Task.WaitAll(configuracionPaisTask, codigosRevistasTask, upUsuarioProgramaNuevaTask);
+                }
+                else
+                {
+                    Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
+                }
+                
                 usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
+                
+                var cuv = Util.Trim(productoBuscar.CodigoDescripcion);
+
+                Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(usuario, cuv);
+                
+                if (num.Equals(Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva))
+                    return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
 
                 //Validación producto no existe
                 var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
@@ -899,9 +913,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 };
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 pedidoDetalle.PedidoID = pedidoID;
-                //var mensaje = EstrategiaAgregarProducto(pedidoDetalle, usuario, estrategia, lstDetalle);
-                //if(!string.IsNullOrEmpty(mensaje)) PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
-
                 //Insertar pedido
                 //pedidoDetalle.OrigenPedidoWeb = usuario.RevistaDigital.TieneRevistaDigital() ?
                 //    Constantes.OrigenPedidoWeb.RevistaDigitalAppPedidoSeccion : Constantes.OrigenPedidoWeb.OfertasParaTiAppPedido;
@@ -1541,6 +1552,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
             PedidoInsertar(usuario, pedidoDetalle, lstDetalle, true);
         }
         #endregion  
+
+       private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(BEUsuario usuario,string cuv)
+        {
+            Enumeradores.ValidacionProgramaNuevas numero;
+            try
+            {
+                numero = _productoBusinessLogic.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);                
+            }
+            catch (Exception)
+            {
+                numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            }
+            return numero;
+        }
 
         #region Get
         private List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(BEPedidoBuscar pedidoDetalle, out int pedidoID)

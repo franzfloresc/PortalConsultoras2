@@ -253,6 +253,11 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "HV";
         }
 
+        public static class Inicializacion
+        {
+            public const int EnteroInicial =  -1;
+        }
+
         public static class EstadoRespuestaServicio
         {
             public const string Success = "OK";
@@ -2210,6 +2215,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_ESTRATEGIA = "1108";
                 public const string ERROR_PRODUCTO_SUGERIDO = "1109";
                 public const string ERROR_PRODUCTO_SET = "1110";
+                public const string ERROR_PRODUCTO_NONUEVA = "1111";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -2271,6 +2277,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
                         {Code.ERROR_PRODUCTO_SUGERIDO,"Este producto tiene reemplazos sugeridos." },
                         {Code.ERROR_PRODUCTO_SET, "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas."},
+                        {Code.ERROR_PRODUCTO_NONUEVA,"El código solicitado es exclusivo para quienes participan del Programa de Nuevas." },
 
                         {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                         {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
