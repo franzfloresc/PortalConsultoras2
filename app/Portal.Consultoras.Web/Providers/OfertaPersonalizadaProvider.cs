@@ -326,13 +326,13 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
-                    if (_sessionManager.MasGanadoras.GetModel().TieneMG)
+                    if (_sessionManager.MasGanadoras.GetModel().TieneMG && revistaDigital.EsActiva)
                     {
                         listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile,
                             Constantes.TipoEstrategiaCodigo.RevistaDigital,
                             campaniaId,
                             false,
-                            Constantes.MasGanadoras.ObtenerOpmSinForzadas));
+                            Constantes.MasGanadoras.ObtenerOpmSinForzadasMG1));
                     }
                     else
                     {
@@ -365,7 +365,7 @@ namespace Portal.Consultoras.Web.Providers
                         Constantes.TipoEstrategiaCodigo.MasGanadoras, 
                         campaniaId,
                         false,
-                        Constantes.MasGanadoras.ObtenerOpmSoloForzadas));
+                        Constantes.MasGanadoras.ObtenerOpmSoloForzadasMG1));
                     break;
             }
 

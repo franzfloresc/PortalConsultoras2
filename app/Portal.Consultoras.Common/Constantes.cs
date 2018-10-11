@@ -2968,8 +2968,8 @@ namespace Portal.Consultoras.Common
         public static class MasGanadoras
         {
             public const int ObtenerOpmTodo = 0;
-            public const int ObtenerOpmSinForzadas = 1;
-            public const int ObtenerOpmSoloForzadas = 2;
+            public const int ObtenerOpmSinForzadasMG1 = 1;
+            public const int ObtenerOpmSoloForzadasMG1 = 2;
         }
 
     }
