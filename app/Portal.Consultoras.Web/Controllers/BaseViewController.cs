@@ -327,7 +327,9 @@ namespace Portal.Consultoras.Web.Controllers
                     if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
                     if (palanca == Constantes.NombrePalanca.MasGanadoras)
-                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "MasGanadoras", area });
+                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "MasGanadoras", area }) + 
+                            (SessionManager.MasGanadoras.GetModel().TieneLanding ? "" :  "#" + Constantes.ConfiguracionPais.MasGanadoras);
+
                     if (palanca == Constantes.NombrePalanca.HerramientasVenta)
                     {
                         var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
