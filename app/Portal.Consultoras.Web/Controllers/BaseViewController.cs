@@ -326,6 +326,8 @@ namespace Portal.Consultoras.Web.Controllers
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#ODD";
                     if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
+                    if (palanca == Constantes.NombrePalanca.MasGanadoras)
+                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "MasGanadoras", area });
                     if (palanca == Constantes.NombrePalanca.HerramientasVenta)
                     {
                         var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
@@ -354,6 +356,7 @@ namespace Portal.Consultoras.Web.Controllers
             NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "¡Solo Hoy!");
             NombrePalancas.Add(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio");
             NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
+            NombrePalancas.Add(Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras");
 
             NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, "Ofertas Para ti");
             return NombrePalancas;
