@@ -100,11 +100,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var usuario = productoBuscar.Usuario;
                 var configuracionPaisTask = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital));
                 var codigosRevistasTask = Task.Run(() => _usuarioBusinessLogic.ObtenerCodigoRevistaFisica(usuario.PaisID));
-                var upUsuarioProgramaNuevaTask = Task.Run(() => _usuarioBusinessLogic.UpdUsuarioProgramaNuevas(usuario));
+                if (Constantes.Inicializacion.EnteroInicial == usuario.ConsecutivoNueva)
+                {
+                    var upUsuarioProgramaNuevaTask = Task.Run(() => _usuarioBusinessLogic.UpdUsuarioProgramaNuevas(usuario));
+                    Task.WaitAll(configuracionPaisTask, codigosRevistasTask, upUsuarioProgramaNuevaTask);
+                }
+                else
+                    Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
                 
-                Task.WaitAll(configuracionPaisTask, codigosRevistasTask, upUsuarioProgramaNuevaTask);
-                
-                usuario = configuracionPaisTask.Result;
+               usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
                 
                 var cuv = Util.Trim(productoBuscar.CodigoDescripcion);
@@ -1551,8 +1555,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             Enumeradores.ValidacionProgramaNuevas numero;
             try
             {
-                BLProducto svc = new BLProducto();
-                numero = svc.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
+               // BLProducto svc = new BLProducto();
+                numero = _productoBusinessLogic.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);//svc.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
             }
             catch (Exception ex)
             {

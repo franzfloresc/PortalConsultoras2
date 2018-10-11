@@ -253,6 +253,11 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "HV";
         }
 
+        public static class Inicializacion
+        {
+            public const int EnteroInicial =  -1;
+        }
+
         public static class EstadoRespuestaServicio
         {
             public const string Success = "OK";
