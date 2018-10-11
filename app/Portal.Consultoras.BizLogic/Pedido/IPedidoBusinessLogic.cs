@@ -13,7 +13,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoWeb Get(BEUsuario usuario);
         bool InsertKitInicio(BEUsuario usuario);
         BEPedidoDetalleResult Update(BEPedidoDetalle pedidoDetalle);
-        BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario);
+        BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario, int campaniaID, string region, string zona);
         Task<BEPedidoDetalleResult> Delete(BEPedidoDetalle pedidoDetalle);
         Task<BEPedidoReservaResult> Reserva(BEUsuario usuario);
         BEPedidoDetalleResult ModificarReserva(BEUsuario usuario, BEPedidoWeb pedido = null);
@@ -24,5 +24,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle);
         List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
         void InsertOfertaFinalLog(int paisID, int campaniaID, string codigoConsultora, decimal? montoInicial, List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog);
+        BEPedidoDetalleResult InsertProductoBuscador(BEPedidoDetalle pedidoDetalle);
     }
 }

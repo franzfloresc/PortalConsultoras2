@@ -57,23 +57,24 @@
     <div class="contenedor_producto">
         <div class="content_320 ingresoPedidom">
             <div id="divProductoMantenedor" style="display: none;">
-                <div style="display: none;">
-                    <input type="hidden" id="hdfCUV" />
-                    <input type="hidden" id="hdTipoOfertaSisID" />
-                    <input type="hidden" id="hdConfiguracionOfertaID" />
-                    <input type="hidden" id="hdfDescripcionCategoria" />
-                    <input type="hidden" id="hdfDescripcionEstrategia" />
-                    <input type="hidden" id="hdfDescripcionMarca" />
-                    <input type="hidden" id="hdfIndicadorMontoMinimo" />
-                    <input type="hidden" id="hdfMarcaID" />
-                    <input type="hidden" id="hdfPrecioUnidad" />
-                    <input type="hidden" id="hdfDescripcionProd" />
-                    <input type="hidden" id="hdCuvRecomendado" />
-                    <input type="hidden" id="hdTipoEstrategiaID" />
-                    <input type="hidden" id="hdCuvEnSession" value="@Session["CUVProductoDesctacado"]" />
-                    <input type="hidden" id="hdfValorFlagNueva" />
-                    <input type="hidden" id="hdLimiteVenta" />
-                </div>
+				<div style="display: none;">
+					<input type="hidden" id="hdfCUV" />
+					<input type="hidden" id="hdTipoOfertaSisID" />
+					<input type="hidden" id="hdConfiguracionOfertaID" />
+					<input type="hidden" id="hdfDescripcionCategoria" />
+					<input type="hidden" id="hdfDescripcionEstrategia" />
+					<input type="hidden" id="hdfDescripcionMarca" />
+					<input type="hidden" id="hdfIndicadorMontoMinimo" />
+					<input type="hidden" id="hdfMarcaID" />
+					<input type="hidden" id="hdfPrecioUnidad" />
+					<input type="hidden" id="hdfDescripcionProd" />
+					<input type="hidden" id="hdCuvRecomendado" />
+					<input type="hidden" id="hdTipoEstrategiaID" />
+					<input type="hidden" id="hdCuvEnSession" value="@Session["CUVProductoDesctacado"]" />
+					<input type="hidden" id="hdfValorFlagNueva" />
+					<input type="hidden" id="hdLimiteVenta" />
+					
+				</div>
                 <div id="divProductoObservaciones"></div>
                 <div id="divProductoInformacion">
                     <div class="nombreProducto" id="divNombreProducto"></div>
@@ -100,91 +101,93 @@
             </div>
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido montosIngresoPedido">
-                    <div class="textos_resumen">
-                        <span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
-                        <span id="lblTotalResumen">
+					<div class="textos_resumen">
+						<span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
+						<span id="lblTotalResumen">
 
-                            <div class="info_validado">
-                                <img src="/Content/Images/Esika/info-copy.png" />
-                                <div class="tooltip_validado_importe">
-                                    <div class="left_reservado">
-                                        <div class="datos_Reservado">
-                                            <span>Total sin Dscto. </span>
-                                            <span>Dscto por niveles</span>
-                                        </div>
-                                    </div>
-                                    <div class="right_reservado">
-                                        <div class="datos_Reservado">
-                                            <span data-pedidototal="">@Model.Simbolo @Model.DescripcionTotal</span>
-                                            <span data-montodescuento="">@Model.Simbolo @Model.DescuentoStr</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+							<div class="info_validado">
+								<img src="/Content/Images/Esika/info-copy.png" />
+								<div class="tooltip_validado_importe">
+									<div class="left_reservado">
+										<div class="datos_Reservado">
+											<span>Total sin Dscto. </span>
+											<span>Dscto por niveles</span>
+										</div>
+									</div>
+									<div class="right_reservado">
+										<div class="datos_Reservado">
+											<span data-pedidototal="">@Model.Simbolo @Model.DescripcionTotal</span>
+											<span data-montodescuento="">@Model.Simbolo @Model.DescuentoStr</span>
+										</div>
+									</div>
+								</div>
+							</div>
 
 
-                            MONTO TOTAL :
-                        </span>
-                        @{
-                            string cabezaEscala = null, pieEscala = null;
-                            string lbl1Ganancia = null, lbl2Ganancia = null;
+							MONTO TOTAL :
+						</span>
+						@{
+							string cabezaEscala = null, pieEscala = null;
+							string lbl1Ganancia = null, lbl2Ganancia = null;
 
-                            if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico)
-                            {
-                                cabezaEscala = "Ganancia estimada total";
-                                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                                lbl1Ganancia = "Mis descuentos";
-                                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                            }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Mexico || Model.CodigoIso == Constantes.CodigosISOPais.Panama)
-                            {
-                                cabezaEscala = "Ganancia estimada total";
-                                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-                                lbl1Ganancia = "Mis descuentos";
-                                lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
-                            }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
-                            {
-                                cabezaEscala = "Comisión y ahorro total";
-                                pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                                lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
-                                lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
-                            }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
-                            {
-                                cabezaEscala = "Oportunidad de ahorro total";
-                                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                lbl1Ganancia = "Por tus compras de productos de catalogo";
-                                lbl2Ganancia = "Por tus comprar de productos de revista";
-                            }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia)
-                            {
-                                cabezaEscala = "Ganancia total";
-                                pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                                lbl1Ganancia = "Mis descuentos";
-                                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                            }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica)
-                            {
-                                cabezaEscala = "Oportunidad de ahorro total";
-                                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                lbl1Ganancia = "Mis descuentos";
-                                lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
-                            }
+							if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
+										Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
+										Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
+										Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
+										Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
+										Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
+										Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico)
+							{
+								cabezaEscala = "Ganancia estimada total";
+								pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+								lbl1Ganancia = "Mis descuentos";
+								lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+							}
+							else if (Model.CodigoIso == Constantes.CodigosISOPais.Mexico || Model.CodigoIso == Constantes.CodigosISOPais.Panama)
+							{
+								cabezaEscala = "Ganancia estimada total";
+								pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+								lbl1Ganancia = "Mis descuentos";
+								lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+							}
+							else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
+							{
+								cabezaEscala = "Comisión y ahorro total";
+								pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+								lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+								lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+							}
+							else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
+							{
+								cabezaEscala = "Oportunidad de ahorro total";
+								pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+								lbl1Ganancia = "Por tus compras de productos de catalogo";
+								lbl2Ganancia = "Por tus comprar de productos de revista";
+							}
+							else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia)
+							{
+								cabezaEscala = "Ganancia total";
+								pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+								lbl1Ganancia = "Mis descuentos";
+								lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+							}
+							else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica)
+							{
+								cabezaEscala = "Oportunidad de ahorro total";
+								pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+								lbl1Ganancia = "Mis descuentos";
+								lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+							}
 
-                        }
-                        <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
-                        <input type="hidden" id="hdePieEscala" value="@pieEscala" />
-                        <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
-                        <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
-                        <span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
-                    </div>
+						}
+						<input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+						<input type="hidden" id="hdePieEscala" value="@pieEscala" />
+						<input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+						<input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
+						<input type="hidden" id="hdfEsBusquedaSR" />
+						<input type="hidden" id="hdfEstrategiaId" value="0" />
+						<span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
+					</div>
 
                     <div class="montos_resumen">
                         <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;UNIDADES</span>
@@ -415,7 +418,8 @@
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
-        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
+		var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
+		var urlPedidoAgregarProducto = '@Url.Action("PedidoAgregarProducto","Pedido", new { area = ""})';
         var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
         var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Estrategia", new { area = "" })';
         var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';

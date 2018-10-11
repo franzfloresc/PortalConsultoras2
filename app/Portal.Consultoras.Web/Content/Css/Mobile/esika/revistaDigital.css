@@ -57,7 +57,11 @@
 /* FIN POP UP ACTUALIZA DATOS */
 .logo_no_suscrita {
     background: url(/Content/Images/Esika/RevistaDigital/logo_esika_diagonal.png) !important;
-    background-size: cover !important;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat !important;
+    width: 100% !important;
+    height: 90px !important;
+    background-size: 147px !important;
+    background-position: center !important;
+    position: relative !important;
 }
 
