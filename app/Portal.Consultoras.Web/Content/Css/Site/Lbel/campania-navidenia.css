@@ -307,13 +307,15 @@
         margin-left: 0;
     }
 
-    .agregarBackgroundNavidenio .col-xs-5{
-        padding-left:0;
+    .agregarBackgroundNavidenio .col-xs-5:first-child{
+        padding-left:23px;
     }
 
     .agregarBackgroundNavidenio .col-xs-5:last-child{
         position: relative;
-        top: -2px;
+        top: -3px;
+        margin-left:3%;
+        padding-right:0;
     }
 
     .agregarBackgroundNavidenio .icono_busqueda_mobile{
@@ -355,6 +357,7 @@
         background: linear-gradient(to bottom, #01362d 0%,#016f5f 100%)!important;
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0 );
         transition:none!important;
+        height:247px!important;
     }
 
     .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor .logo_no_suscrita,
