@@ -106,9 +106,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     Task.WaitAll(configuracionPaisTask, codigosRevistasTask, upUsuarioProgramaNuevaTask);
                 }
                 else
+                {
                     Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
+                }
                 
-               usuario = configuracionPaisTask.Result;
+                usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
                 
                 var cuv = Util.Trim(productoBuscar.CodigoDescripcion);
