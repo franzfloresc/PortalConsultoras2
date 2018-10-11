@@ -302,11 +302,13 @@ namespace Portal.Consultoras.Web.Controllers
                     breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area });
                     if (palanca == Constantes.NombrePalanca.ShowRoom)
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
+
                     if (palanca == Constantes.NombrePalanca.Lanzamiento)
                     {
                         var actionPalanca = productoPerteneceACampaniaActual ? "Index" : "Revisar";
-                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#LAN";
+                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.Lanzamiento;
                     }
+
                     if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
                         palanca == Constantes.NombrePalanca.OfertasParaMi ||
                         palanca == Constantes.NombrePalanca.RevistaDigital ||
@@ -319,22 +321,26 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#OPT";
+                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.OfertasParaTi;
                         }
                     }
                     if (palanca == Constantes.NombrePalanca.OfertaDelDia)
-                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#ODD";
+                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.OfertaDelDia;
+
                     if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
-                    if (palanca == Constantes.NombrePalanca.MasGanadoras)
-                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "MasGanadoras", area }) + 
-                            (SessionManager.MasGanadoras.GetModel().TieneLanding ? "" :  "#" + Constantes.ConfiguracionPais.MasGanadoras);
-
+                    
                     if (palanca == Constantes.NombrePalanca.HerramientasVenta)
                     {
                         var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
                         breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "HerramientasVenta", area });
                     }
+
+                    if (palanca == Constantes.NombrePalanca.MasGanadoras)
+                        breadCrumbs.Palanca.Url =
+                            SessionManager.MasGanadoras.GetModel().TieneLanding
+                            ? Url.Action("Index", new { controller = "MasGanadoras", area })
+                            : ("#" + Constantes.ConfiguracionPais.MasGanadoras);
                 }
                 
                 breadCrumbs.Producto.Url = "#";
