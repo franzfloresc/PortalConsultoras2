@@ -191,10 +191,20 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
                             break;
                         case Constantes.ConfiguracionPais.MasGanadoras:
+                            if (
+                                revistaDigital.TieneRDI 
+                                || !revistaDigital.TieneRDC 
+                                || (revistaDigital.TieneRDC && !revistaDigital.EsActiva)
+                            )
+                            {
+                                continue;
+                            }
+
                             seccion.UrlObtenerProductos = "Estrategia/MGObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras/Index";
                             seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarrusel;
                             seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarruselFicha;
+                            seccion.VerMas = SessionManager.MasGanadoras.GetModel().TieneLanding;
                             break;
                     }
                     #endregion

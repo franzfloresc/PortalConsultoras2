@@ -1,15 +1,13 @@
-using System;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceAsesoraOnline;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.LogManager;
-using Portal.Consultoras.Common;
 using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceAsesoraOnline;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -31,10 +29,12 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
         protected ConfiguracionManagerProvider _configuracionManager;
+        private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatos;
         private readonly ILogManager logManager = LogManager.LogManager.Instance;
 
         public RevistaDigitalProvider() : this(SessionManager.SessionManager.Instance, new ConfiguracionManagerProvider())
         {
+            _configuracionPaisDatos = new ConfiguracionPaisDatosProvider();
         }
 
         public RevistaDigitalProvider(ISessionManager sessionManager, ConfiguracionManagerProvider configuracionManager)
@@ -81,17 +81,19 @@ namespace Portal.Consultoras.Web.Providers
 
         public string GetValorDato(string codigo, bool esMobile, int valor = 1)
         {
-            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-            var valorDato = "";
-            switch (valor)
-            {
-                case 0: valorDato = esMobile ? dato.Valor2 : dato.Valor1; break;
-                case 1: valorDato = dato.Valor1; break;
-                case 2: valorDato = dato.Valor2; break;
-                case 3: valorDato = dato.Valor3; break;
-                default: valorDato = dato.Valor1; break;
-            }
-            return Util.Trim(valorDato);
+            //var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+            //var valorDato = "";
+            //switch (valor)
+            //{
+            //    case 0: valorDato = esMobile ? dato.Valor2 : dato.Valor1; break;
+            //    case 1: valorDato = dato.Valor1; break;
+            //    case 2: valorDato = dato.Valor2; break;
+            //    case 3: valorDato = dato.Valor3; break;
+            //    default: valorDato = dato.Valor1; break;
+            //}
+            //return Util.Trim(valorDato);
+
+            return _configuracionPaisDatos.GetValorDato(revistaDigital.ConfiguracionPaisDatos, codigo, esMobile, valor);
         }
 
         public bool CancelarSuscripcion(string origen, string pais)

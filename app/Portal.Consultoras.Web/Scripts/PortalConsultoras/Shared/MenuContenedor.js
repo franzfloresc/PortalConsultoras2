@@ -283,6 +283,7 @@ var menuModule = (function () {
         }
     }
     function sectionClick(url, titulo) {
+        titulo = titulo || "";
         if (typeof rdAnalyticsModule !== "undefined") {
             rdAnalyticsModule.ContendorSection(titulo);
         }

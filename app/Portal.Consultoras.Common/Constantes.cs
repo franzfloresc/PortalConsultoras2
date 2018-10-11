@@ -254,6 +254,19 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "HV";
         }
 
+        public static class TipoAccionAgregar
+        {
+            public const int SinBoton = 0;
+            public const int AgregaloPackNuevas = 1;
+            public const int AgregaloNormal = 2;
+            public const int EligeOpcion = 3;
+            public const int LoQuieres = 4;
+            public const int LoQuieresInactivo = 5;
+
+            public const int BannerCarruselMg = 11;
+
+        }
+
         public static class EstadoRespuestaServicio
         {
             public const string Success = "OK";
@@ -845,7 +858,7 @@ namespace Portal.Consultoras.Common
             public const int MasVendidosMobileProductPageFicha = 2611;
             public const int MasVendidosMobileHome = 2123;
             #endregion
-            
+
 
             #region MasGanadoras     
 
@@ -854,7 +867,7 @@ namespace Portal.Consultoras.Common
             public const int MasGanadorasMobileLandingFicha = 2111402;
             public const int MasGanadorasDesktopContenedorCarrusel = 1081401;
             public const int MasGanadorasDesktopContenedorCarruselFicha = 1081402;
-            public const int MasGanadorasMobileContenedorCarruselFicha = 2081402;    
+            public const int MasGanadorasMobileContenedorCarruselFicha = 2081402;
 
             #endregion
 
@@ -1566,6 +1579,14 @@ namespace Portal.Consultoras.Common
                 #region Revista Digital Popup Bloqueado
                 public const string DPopupBloqueado = "DPopupBloqueado";
                 public const string MPopupBloqueado = "MPopupBloqueado";
+                #endregion
+            }
+
+            public static class MG
+            {
+                #region Banner Carrusel - Caja Producto
+                public const string BannerCarruselTitulo = "BannerCarruselTitulo";
+                public const string BannerCarruselTextoEnlace = "BannerCarruselTextoEnlace";
                 #endregion
             }
 

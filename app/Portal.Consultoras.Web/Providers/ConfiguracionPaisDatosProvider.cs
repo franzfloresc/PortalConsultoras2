@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
@@ -195,5 +196,38 @@ namespace Portal.Consultoras.Web.Providers
                         : Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaNoActiva;
             }
         }
+        
+        public string GetValorDato(IList<ConfiguracionPaisDatosModel> configuracionesPaisDatos, string codigo, bool esMobile, int valor = 1)
+        {
+            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+            var valorDato = "";
+            switch (valor)
+            {
+                case 0: valorDato = esMobile ? dato.Valor2 : dato.Valor1; break;
+                case 1: valorDato = dato.Valor1; break;
+                case 2: valorDato = dato.Valor2; break;
+                case 3: valorDato = dato.Valor3; break;
+                default: valorDato = dato.Valor1; break;
+            }
+            return Util.Trim(valorDato);
+        }
+
+        #region Objeto Diferente a las cajas de producto
+
+        public EstrategiaPersonalizadaProductoModel GetBannerCajaProducto(int tipoConsulta, bool esMobile)
+        {
+            var modelo = new EstrategiaPersonalizadaProductoModel();
+            if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
+            {
+                var sessionPalanca = sessionManager.MasGanadoras.GetModel();
+                modelo.DescripcionCompleta = GetValorDato(sessionPalanca.ConfiguracionPaisDatos, Constantes.ConfiguracionPaisDatos.MG.BannerCarruselTitulo, esMobile);
+                modelo.DescripcionDetalle = GetValorDato(sessionPalanca.ConfiguracionPaisDatos, Constantes.ConfiguracionPaisDatos.MG.BannerCarruselTextoEnlace, esMobile);
+                modelo.DescripcionMarca = esMobile ? "/Mobile/MasGanadoras/Index" : "/MasGanadoras/Index";
+                modelo.TipoAccionAgregar = Constantes.TipoAccionAgregar.BannerCarruselMg;
+            }
+            return modelo;
+        }
+
+        #endregion
     }
 }

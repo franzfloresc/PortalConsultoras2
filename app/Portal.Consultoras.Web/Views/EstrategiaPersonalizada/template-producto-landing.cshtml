@@ -28,7 +28,7 @@
                 </div>
             </div>
             {{else}}
-                {{#iff TipoObjeto '==' 1}}
+                {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.BannerCarruselMg'}}
                     <article class="banner_ofertas_masGanadoras">
                         <div class="contenido_ofertas">
                             <p>DESCUBRE <b>OFERTAS MÁS</b> DE NAVIDAD</p>
@@ -41,11 +41,16 @@
                 {{else}}
             <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
                 <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-                <div data-item-tag="body" class="content_item_carrusel" {{#iff EsSubcampania '==' false}} {{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}} {{/iff}}>
+                <div data-item-tag="body" class="content_item_carrusel" 
+                     {{#iff EsSubcampania '==' false}} 
+                        {{#iff TipoAccionAgregar '!=' '@Constantes.TipoAccionAgregar.LoQuieres'}} 
+                            style="cursor:pointer;" 
+                        {{/iff}} 
+                     {{/iff}}>
                     <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
                     <div data-item-tag="contenido"
                          {{#iff EsSubcampania '==' false}}
-                         {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
+                         {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.LoQuieres,@Constantes.TipoAccionAgregar.LoQuieresInactivo]'}}
                          onclick="javascript:VerPopupExpGanaMas();"
                          {{else}}
                          onclick="javascript:OnClickFichaDetalle(event.target);"
@@ -54,7 +59,7 @@
                         <div class="producto_img_home" data-item-tag="foto">
                             <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" alt="" />
                             {{#iff EsSubcampania '==' false}}
-                            {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
+                            {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.AgregaloPackNuevas,@Constantes.TipoAccionAgregar.AgregaloNormal,@Constantes.TipoAccionAgregar.EligeOpcion]'}}
                             <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                             {{/iff}}
                             {{/iff}}
@@ -96,9 +101,9 @@
                     <div class="clear"></div>
 
                     <div class="producto_nombre_descripcion" data-item-tag="agregar">
-                        {{#iff TipoAccionAgregar '>' 0}}
+                        {{#iff TipoAccionAgregar '>' @Constantes.TipoAccionAgregar.SinBoton}}
                         <div>
-                            {{#iff TipoAccionAgregar '==' '1'}}
+                            {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloPackNuevas'}}
                                 <div class="texto_elige_tono"></div>
                                 <div class="clear"></div>
                                 <div class="liquidacion_rango_home">
@@ -111,7 +116,7 @@
                                     AGR&Eacute;GALO
                                 </a>
                             {{/iff}}
-                            {{#iff TipoAccionAgregar '==' '2'}}
+                            {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloNormal'}}
                                 <div class="texto_elige_tono"></div>
                                 <div class="clear"></div>
                                 <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
@@ -132,7 +137,7 @@
                                     AGR&Eacute;GALO
                                 </a>
                             {{/iff}}
-                            {{#iff TipoAccionAgregar '==' '3'}}
+                            {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
                                 <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
                                     <div class="texto_elige_tono"></div>
                                     <div class="clear"></div>
@@ -141,7 +146,7 @@
                                     </a>
                                 </div>
                             {{/iff}}
-                            {{#iff TipoAccionAgregar '==' '4'}}
+                            {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.LoQuieres'}}
                                 <div class="texto_elige_tono"></div>
                                 <div class="clear"></div>
                                 <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"

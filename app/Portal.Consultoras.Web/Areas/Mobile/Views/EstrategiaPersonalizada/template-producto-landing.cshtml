@@ -41,7 +41,7 @@
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="verdetalle"
                  {{#iff EsSubcampania '==' false}}
-                 {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
+                 {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.LoQuieres,@Constantes.TipoAccionAgregar.LoQuieresInactivo]'}}
                  onclick="javascript:VerPopupExpGanaMas();"
                  {{else}}
                  onclick="javascript:OnClickFichaDetalle(this);"
@@ -60,13 +60,17 @@
                 <div class="producto_nombre_descripcion">
                     <div>
                         {{#IsNullOrEmpty DescripcionMarca '!='}}
-                        <h6 {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionMarca}}</h6>
+                        <h6 {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.LoQuieres'}} style="color:gray;" {{/iff}}>
+                            {{DescripcionMarca}}
+                        </h6>
                         {{else}}
                         <h6>&ensp;&nbsp;</h6>
                         {{/IsNullOrEmpty}}
                         
                         <p class="nombre_producto" style=" {{#iff EsSubcampania '==' 'false'}}cursor: pointer;{{/iff}} height: 36px;">
-                            <b class="text_descrition_prd_bpt" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionCortada}}</b>
+                            <b class="text_descrition_prd_bpt" {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.LoQuieres'}} style="color:gray;" {{/iff}}>
+                            {{DescripcionCortada}}
+                            </b>
                         </p>
                         
                         {{#iff EsSubcampania '==' true}}
@@ -76,7 +80,7 @@
                             {{/each}}
                         </div>
                         {{/iff}}
-                        <div class="producto_precio" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>
+                        <div class="producto_precio" {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.LoQuieres'}} style="color:gray;" {{/iff}}>
                             {{#iff Precio '>' 0}}
                             <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
                             {{else}}
@@ -91,7 +95,7 @@
             @if (ViewBag.TieneBotones)
             {
                 <div>
-                    {{#iff TipoAccionAgregar '==' '1'}}
+                    {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloPackNuevas'}}
                     <div class="texto_elige_tono">&nbsp;</div>
                     <div class="producto_nombre_descripcion">
                         <div class="liquidacion_rango_home">
@@ -107,7 +111,7 @@
                         </a>
                     </div>
                     {{/iff}}
-                    {{#iff TipoAccionAgregar '==' '2'}}
+                    {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloNormal'}}
                     <div class="texto_elige_tono">&nbsp;</div>
                     <div class="producto_nombre_descripcion">
                         <div class="liquidacion_rango_home" data-cantidad-contenedor="">
@@ -124,7 +128,7 @@
                         </a>
                     </div>
                     {{/iff}}
-                    {{#iff TipoAccionAgregar '==' '3'}}
+                    {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
                     <div class="texto_elige_tono">&nbsp;</div>
                     <div class="clear"></div>
                     <div class="texto_elige_tono" style="height: 55px;padding-top: 16px;">@*¡AHORA ELIGE TU OPCIÓN!*@</div>
@@ -148,14 +152,14 @@
             {
                 <div data-tipoagregar="{{TipoAccionAgregar}}">
                     
-                    @*{{#iff TipoAccionAgregar '==' '2'}}
+                    @*{{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloNormal'}}
 
                     <a class="btn_agregalo">
                         <div>Agregalo</div>
                     </a>
                     {{/iff}}*@
 
-                    {{#iff TipoAccionAgregar '==' '3'}}
+                    {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
                     @*<a class="btn_elige_tono">
                         <div> <img src="/Content/Images/mobile/Esika/click-ico.svg" /> + Opciones</div>
                     </a>*@

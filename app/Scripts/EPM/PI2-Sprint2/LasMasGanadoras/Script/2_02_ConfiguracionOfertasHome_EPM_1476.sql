@@ -13,11 +13,11 @@ begin
 	where 
 		not desktoporden in(0,1);
 		
-	declare @ConfiguracionPaisPeruID int;
+	declare @ConfiguracionPaisID int;
 	
-	set @ConfiguracionPaisPeruID = (select top 1 ConfiguracionPaisID from dbo.configuracionpais where codigo = 'MG');
+	set @ConfiguracionPaisID = (select top 1 ConfiguracionPaisID from dbo.configuracionpais where codigo = 'MG');
 	
-	delete from configuracionofertashome where ConfiguracionPaisID = @ConfiguracionPaisPeruID
+	delete from configuracionofertashome where ConfiguracionPaisID = @ConfiguracionPaisID
 
 	-- inserta configuracionofertashome
 	insert into dbo.configuracionofertashome(
@@ -33,7 +33,7 @@ begin
 		,UrlSeccion
 		,DesktopUsarImagenFondo,MobileUsarImagenFondo
 		) values  (
-		@ConfiguracionPaisPeruID
+		@ConfiguracionPaisID
 		,'201801'
 		,'2','2','2','2'
 		,'','banner_ganadoras_mobile.jpg'

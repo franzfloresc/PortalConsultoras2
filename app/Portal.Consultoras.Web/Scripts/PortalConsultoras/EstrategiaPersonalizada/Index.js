@@ -1,7 +1,8 @@
 ﻿var sElementos = {
     seccion: "[data-seccion]",
     load: "[data-seccion-load]",
-    listadoProductos: "[data-seccion-productos]"
+    listadoProductos: "[data-seccion-productos]",
+    verMas: "[data-seccion-vermas]"
 };
 
 var listaLAN = listaLAN || "LANLista";
@@ -337,8 +338,22 @@ function SeccionMostrarProductos(data) {
         if (data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
             var cantidadAMostrar = parseInt($("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html());
-            if (data.cantidadTotal < cantidadAMostrar) {
+            if (data.cantidadTotal <= cantidadAMostrar) {
                 $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadTotal);
+                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
+                    $("#" + data.Seccion.Codigo).find(sElementos.verMas).remove();
+                }
+            }
+            else {
+                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
+                    CarruselCiclico = false;
+                    console.log('objBannerCajaProducto', data);
+                    
+                    if (data.objBannerCajaProducto != undefined) {
+                        data.lista.push(data.objBannerCajaProducto);
+                    }
+                    
+                }
             }
             $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
             $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
@@ -347,15 +362,6 @@ function SeccionMostrarProductos(data) {
         {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
             UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
-        }
-
-        if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
-            CarruselCiclico = false;
-            if (data.cantidadTotal > 5) {
-                data.lista.push({
-                    TipoObjeto: 1
-                });
-            }
         }
     }
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -9,9 +6,13 @@ namespace Portal.Consultoras.Web.Models
     {
         public MasGanadorasModel()
         {
-            this.TieneLanding = true;
+            TieneLanding = true;
+            ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
         }
-        public bool TieneMG{ get; set; }
+
+        public bool TieneMG { get; set; }
         public bool TieneLanding { get; set; }
+        public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
+
     }
 }

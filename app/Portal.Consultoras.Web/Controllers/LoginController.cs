@@ -1941,6 +1941,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 break;
                             case Constantes.ConfiguracionPais.MasGanadoras:
                                 masGanadorasModel.TieneMG = c.Estado;
+                                masGanadorasModel = ConfiguracionPaisDatosMasGanadoras(masGanadorasModel, configuracionPaisDatos);
                                 break;
                         }
 
@@ -2339,6 +2340,15 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #endregion
+
+        public virtual MasGanadorasModel ConfiguracionPaisDatosMasGanadoras(MasGanadorasModel model, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            model.ConfiguracionPaisDatos =
+                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
+                    new List<ConfiguracionPaisDatosModel>();
+
+            return model;
+        }
 
         protected virtual bool EsUsuarioAutenticado()
         {

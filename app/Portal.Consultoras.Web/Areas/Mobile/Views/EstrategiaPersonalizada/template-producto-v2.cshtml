@@ -3,13 +3,13 @@
 <script id="template-producto-v2" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
 
-    {{#iff TipoObjeto '==' 1}}
+    {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.BannerCarruselMg'}}
         <article class="banner_ofertas_masGanadoras">
             <div class="contenido_ofertas">
-                <p>DESCUBRE <b>OFERTAS MÁS</b> DE NAVIDAD</p>
+                <p>{{DescripcionCompleta}}</p>
                 <a href="javascript:"
-                   onclick="javascript: menuModule.sectionClick('/Mobile/MasGanadoras/Index', 'LAS MÁS GANADORAS');">
-                VER MÁS +
+                   onclick="javascript: menuModule.sectionClick('{{DescripcionMarca}}');">
+                    {{DescripcionDetalle}}
                 </a>
             </div>
         </article>
@@ -23,13 +23,7 @@
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
 
             <div data-item-tag="verdetalle"
-                 {{#iff EsSubcampania '==' false}}
-                 {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
-                 onclick="javascript:VerPopupExpGanaMas();"
-                 {{else}}
-                 onclick="javascript:OnClickFichaDetalle(this);"
-                 {{/iff}}
-                 {{/iff}}>
+                 onclick="javascript:OnClickFichaDetalle(this);">
 
                 <div class="producto_img">
                     <img sdata-src="{{ImgSmall FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" alt="" />
@@ -55,7 +49,7 @@
             else
             {
                 <div data-tipoagregar="{{TipoAccionAgregar}}">
-                {{#iff TipoAccionAgregar '==' '3'}}
+                {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
                     <div class="elige_tono_item">
                         <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
                     </div>

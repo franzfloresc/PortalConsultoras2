@@ -668,23 +668,28 @@ namespace Portal.Consultoras.Web.Providers
 
         public int TipoAccionAgregar(int tieneVariedad, string codigoTipoEstrategia, bool esConsultoraLider = false, bool bloqueado = false, string codigoTipos = "")
         {
-            var tipo = tieneVariedad == 0 ? codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
+            var tipo = tieneVariedad == 0 
+                ? codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackNuevas 
+                    ? Constantes.TipoAccionAgregar.AgregaloPackNuevas 
+                    : Constantes.TipoAccionAgregar.AgregaloNormal
+                : Constantes.TipoAccionAgregar.EligeOpcion;
+
             if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
             {
-                tipo = esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() ? 0 : tipo;
+                tipo = esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() ? Constantes.TipoAccionAgregar.SinBoton : tipo;
             }
             else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
             {
-                tipo = codigoTipos == Constantes.TipoEstrategiaSet.CompuestaVariable ? 3 : 2;
-                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
-                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
+                tipo = codigoTipos == Constantes.TipoEstrategiaSet.CompuestaVariable ? Constantes.TipoAccionAgregar.EligeOpcion : Constantes.TipoAccionAgregar.AgregaloNormal;
+                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieres : tipo;
+                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieresInactivo : tipo;
             }
             else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
                 || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
                 || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
             {
-                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
-                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
+                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieres : tipo;
+                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieresInactivo : tipo;
             }
             return tipo;
         }
