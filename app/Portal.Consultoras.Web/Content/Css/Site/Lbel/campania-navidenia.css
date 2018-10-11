@@ -172,15 +172,6 @@
     transition:none!important;
 }
 
-/*.seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .dorado{
-    background: #01362d;
-    background: -moz-linear-gradient(top, #01362d 0%, #016f5f 100%)!important;
-    background: -webkit-linear-gradient(top, #01362d 0%,#016f5f 100%)!important;
-    background: linear-gradient(to bottom, #01362d 0%,#016f5f 100%)!important;
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0 );
-    transition:none!important;
-}*/
-
 .seccion_club_gana_mas_fondo_navidenio .clubtxt p{
     color:#FFF!important;
 }
@@ -292,8 +283,13 @@
         background-size: 164px;
     }
 
-    .icono_menuMobile_campania_navidenia img{
+    .icono_menuMobile_campania_navidenia,
+    .icono_menuMobile_campania_navidenia img
+    {
         width: 20px!important;
+    }
+
+    .icono_menuMobile_campania_navidenia img{
         height: 19px;
         position: relative;
         left: 0!important;
@@ -306,7 +302,7 @@
         width: 100%;
         height: 40px;
         position: relative;
-        left: -15px;
+        left: 3px;
         margin-top: 0;
         margin-left: 0;
     }
@@ -341,6 +337,46 @@
 
     .agregarBackgroundNavidenio .num-menu-shop{
         margin-top:17px!important;
+    }
+
+    .boton_ingresa_tu_pedido_navidenio,
+    .boton_ingresa_tu_pedido_navidenio input
+    {
+        background-color:#B38B4A;
+        border-color:#B38B4A;
+        color:#FFF!important;
+    }
+
+    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor{
+        background: #01362d;
+        background: -moz-linear-gradient(top, #01362d 0%, #016f5f 100%)!important;
+        background: -webkit-linear-gradient(top, #01362d 0%,#016f5f 100%)!important;
+        background: linear-gradient(to bottom, #01362d 0%,#016f5f 100%)!important;
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0 );
+        transition:none!important;
+    }
+
+    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor .logo_no_suscrita{
+        background-image: url(/Content/Images/Lbel/RevistaDigital/gana-mas-navidad-lbel.svg)!important;
+        background-repeat: no-repeat!important;
+        background-size: 89px!important;
+        background-position: 28px center!important;
+        height:80px!important;
+    }
+
+    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .boton-ver-mas{
+        background-color:#C8A05E!important;
+        border-color:#C8A05E!important;
+        color:#FFF!important;
+        font-weight:700;
+    }
+
+    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor img{
+        display:none;
+        margin-left: 23px;
+        height: 46px;
+        margin-top: 6px;
+        margin-bottom: 17px;
     }
 
     .color_cincuenta_anios_belcorp{
