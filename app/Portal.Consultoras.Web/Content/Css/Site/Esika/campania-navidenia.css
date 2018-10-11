@@ -221,6 +221,13 @@
     background-position: left center!important;
 }
 
+.seccion_club_gana_mas_fondo_navidenio .club_logo .centrar_cont_club{
+    background:url(/Content/Images/Esika/RevistaDigital/gana-mas-navidad-esika.svg)!important;
+    background-repeat: no-repeat!important;
+    background-position: 0 -12px!important;
+    background-size: 153px!important;
+}
+
 .seccion_club_gana_mas_fondo_navidenio .activar_boton_blanco_no_animado,
 .seccion_club_gana_mas_fondo_navidenio .bg_activar_boton_no_animado
 {

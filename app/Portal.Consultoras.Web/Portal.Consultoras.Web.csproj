@@ -1548,6 +1548,8 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\Esika\RevistaDigital\club-gana-mas.gif" />
+    <Content Include="Content\Images\Esika\RevistaDigital\gana-mas-navidad-esika.svg" />
     <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente2.svg" />
     <Content Include="Content\Images\down_arrow.png" />
     <Content Include="Content\Images\Esika\logo_marca_pais_desktop.svg" />
@@ -1605,6 +1607,8 @@
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
     <Content Include="Content\Images\Lbel\estrellas.png" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\club-gana-mas.gif" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\gana-mas-navidad-lbel.svg" />
     <Content Include="Content\Images\logo-club-ganamas-dorado2.svg" />
     <Content Include="Content\Images\Lbel\logo_marca_pais.svg" />
     <Content Include="Content\Images\Lbel\vineta_indicador.png" />
