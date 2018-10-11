@@ -395,7 +395,7 @@
     }
 
     .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor .logo_no_suscrita,
-    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor .dorado:before
+    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor.dorado:before
     {
         height:80px!important;
         background-repeat: no-repeat!important;
@@ -409,7 +409,7 @@
         margin-bottom: 13px;
     }
 
-    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor .dorado:before{
+    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor.dorado:before{
         display:block;
         width:120px;
         content:"";
