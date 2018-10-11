@@ -119,6 +119,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 
                 if (num.Equals(Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva))
                     return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
+
                 //Validación producto no existe
                 var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
                                     productoBuscar.PaisID,
@@ -1557,10 +1558,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             Enumeradores.ValidacionProgramaNuevas numero;
             try
             {
-               // BLProducto svc = new BLProducto();
-                numero = _productoBusinessLogic.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);//svc.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
+                numero = _productoBusinessLogic.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);                
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
             }
