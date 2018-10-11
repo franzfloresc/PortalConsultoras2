@@ -336,18 +336,20 @@
         background-size: 73px;
         height: 40px;
         position: relative;
-        left: -3px;
+        left: 5px;
         margin-top: 0;
         margin-left: 0;
     }
 
-    .agregarBackgroundNavidenio .col-xs-5{
-        padding-left:0;
+    .agregarBackgroundNavidenio .col-xs-5:first-child{
+        padding-left:23px;
     }
 
     .agregarBackgroundNavidenio .col-xs-5:last-child{
         position: relative;
         top: -3px;
+        margin-left:3%;
+        padding-right:0;
     }
 
     .agregarBackgroundNavidenio .icono_busqueda_mobile{
