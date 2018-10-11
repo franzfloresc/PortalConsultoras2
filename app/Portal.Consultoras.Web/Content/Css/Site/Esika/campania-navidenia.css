@@ -16,12 +16,12 @@
     background: -webkit-linear-gradient(top, #01362d 0%,#016f5f 100%);
     background: linear-gradient(to bottom, #01362d 0%,#016f5f 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0 );
-    width:100%!important;
-    min-width:1024px!important;
-    max-width:100%!important;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+    width:100%!important;
+    min-width:1024px!important;
+    max-width:100%!important;
 }
 
 .wrapper_campania_navidenia_y_logo{
