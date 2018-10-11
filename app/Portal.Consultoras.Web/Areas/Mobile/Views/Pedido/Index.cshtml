@@ -22,7 +22,7 @@
             INGRESAR PEDIDO C@(Model.CampaniaNro)
         </div>
     }
-    @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
+   
     <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
     <input type="hidden" id="hdfTotal" value="@Model.Total" />
     <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
@@ -42,7 +42,7 @@
             </form>
         </div>
     </div>
-
+    @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
     <div class="franja_inferior_banner_pedido"></div>
 
     <div style="display:none;" class="mensaje_ingreso_cuvs" id="divMensajeCUV">

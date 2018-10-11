@@ -379,7 +379,8 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
-                ActualizarGanancia(data.DataBarra);
+              //  ActualizarGanancia(data.DataBarra);
+                MostrarBarra(data);  
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();
             } else {
@@ -511,13 +512,13 @@ var EstrategiaAgregarModule = (function () {
                 }
             }
 
-            
+              
             return false;
 
         }).fail(function (data, error) {
             CerrarLoad();
         });
-
+        
         return false;
     };
 

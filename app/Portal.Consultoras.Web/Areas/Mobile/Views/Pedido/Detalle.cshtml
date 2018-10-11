@@ -899,6 +899,11 @@
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
+
+        //OG
+        var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.DataBarra))');
+        var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
+        document.getElementsByClassName('descuento_pedido')[0].style.display = 'None';
     </script>
     @Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
 
