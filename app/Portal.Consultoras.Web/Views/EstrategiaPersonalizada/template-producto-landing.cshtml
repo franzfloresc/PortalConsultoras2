@@ -31,10 +31,10 @@
                 {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.BannerCarruselMg'}}
                     <article class="banner_ofertas_masGanadoras">
                         <div class="contenido_ofertas">
-                            <p>DESCUBRE <b>OFERTAS MÁS</b> DE NAVIDAD</p>
+                            <p>{{DescripcionCompleta}}</p>
                             <a href="javascript:"
-                               onclick="javascript: menuModule.sectionClick('/MasGanadoras/Index', 'LAS MÁS GANADORAS');">
-                            VER MÁS +
+                               onclick="javascript: menuModule.sectionClick('{{DescripcionMarca}}');">
+                                {{DescripcionDetalle}}
                             </a>
                         </div>
                     </article>

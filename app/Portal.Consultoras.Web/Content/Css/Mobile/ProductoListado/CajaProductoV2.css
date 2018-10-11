@@ -31,10 +31,11 @@
 
 .nombre_producto_item {
     font-weight: bold;
-    width: 129px;
+    width: 127px;
     height: 37px;
     padding-bottom: 4px;
     margin: 0;
+    overflow: hidden;
 }
 
 .precio_normal_item {
