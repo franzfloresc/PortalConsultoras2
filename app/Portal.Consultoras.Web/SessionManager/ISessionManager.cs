@@ -149,6 +149,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetTieneHvX1();
 
+        void SetTieneMg(bool tiene);
+
+        bool GetTieneMg();
+
         void SetUserData(UsuarioModel usuario);
 
         UsuarioModel GetUserData();

@@ -416,6 +416,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneHvX1] ?? false);
         }
 
+        public void SetTieneMg(bool tiene)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneMg] = tiene;
+        }
+
+        public bool GetTieneMg()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneMg] ?? false);
+        }
+
         void ISessionManager.SetUserData(UsuarioModel usuario)
         {
             HttpContext.Current.Session["UserData"] = usuario;
