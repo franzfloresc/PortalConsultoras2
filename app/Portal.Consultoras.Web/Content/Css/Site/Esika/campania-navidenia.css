@@ -11,11 +11,11 @@
 }
 
 .wrapper_header_campania_navidenia{
-    background: #01362d;
-    background: -moz-linear-gradient(to bottom, #022f27 0%,#015f4f 90%);
-    background: -webkit-linear-gradient(to bottom, #022f27 0%,#015f4f 90%);
-    background: linear-gradient(to bottom, #022f27 0%,#015f4f 90%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#022f27', endColorstr='#015f4f',GradientType=0 );
+    background: #015f4f;
+    background: -moz-linear-gradient(to bottom, #011d18 0%,#015f4f 74%);
+    background: -webkit-linear-gradient(to bottom, #011d18 0%,#015f4f 74%);
+    background: linear-gradient(to bottom, #011d18 0%,#015f4f 74%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#011d18', endColorstr='#015f4f',GradientType=0 );
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -72,33 +72,11 @@
     transform: skew(-13deg);
 }
 
-    /*.logo_marca_pais_fondo_navidenio:before{
-        display:block;
-        content:"";
-        position:absolute;
-        width:100%;
-        opacity:0.27;
-        top:0;
-        left:0;
-        z-index:4;
-    }
-
-    .logo_marca_pais_fondo_navidenio img{
-        position: absolute;
-        top: 0;
-        right: -14px;
-        -moz-transform: skew(13deg);
-        -ms-transform: skew(13deg);
-        -o-transform: skew(13deg);
-        -webkit-transform: skew(13deg);
-        transform: skew(13deg);
-    }*/
-
 .wrapper_campania_navidenia_y_logo + .menu_new_esika{
     width:auto!important;
 }
 
-.wrapper_header_campania_navidenia .new_menu[data-codigo="contenedorofertas"]{
+/*.wrapper_header_campania_navidenia .new_menu[data-codigo="contenedorofertas"]{
     height:61px;
     margin-top:0!important;
 }
@@ -109,14 +87,14 @@
 }
 
 .wrapper_header_campania_navidenia .new_menu[data-codigo="contenedorofertas"] a img{
-    /*display:none;*/
+    display:none;
     width: 100%;
     height: auto;
     margin: auto 0!important;
     position: absolute;
     top: -4px;
     bottom: 0;
-}
+}*/
 
 .wrapper_header_campania_navidenia .new_menu_a{
     border-bottom:none;
@@ -375,6 +353,15 @@
     .agregarBackgroundNavidenio .num-menu-shop{
         margin-top:17px!important;
     }
+
+    /*.menu_mobile_belcorp[data-codigo="contenedorofertas"]{
+        height:77px;
+    }
+
+    .menu_mobile_belcorp[data-codigo="contenedorofertas"] img{
+        width:auto;
+        height:100%;
+    }*/
 
     .boton_ingresa_tu_pedido_navidenio,
     .boton_ingresa_tu_pedido_navidenio input
