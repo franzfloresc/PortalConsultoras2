@@ -170,5 +170,11 @@ namespace Portal.Consultoras.Data.PagoEnLinea
                 return (int)Context.ExecuteScalar(command);
             }
         }
+
+        public string ObtenerPagoEnLineaURLPaginasBancos()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ObtenerPagoEnLineaURLPaginasBancos");
+            return Context.ExecuteScalar(command).ToString();
+        }
     }
 }
