@@ -1372,6 +1372,7 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
     <Content Include="Content\Css\Site\Esika\buscador-filtros.css" />
+    <Content Include="Content\Css\Site\Esika\campania-navidenia.css" />
     <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
     <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
     <Content Include="Content\Css\Site\Esika\style-esika-responsive.css" />
@@ -1396,6 +1397,7 @@
     <Content Include="Content\Css\Site\ion.rangeSlider\normalize.css" />
     <Content Include="Content\Css\Site\Landing\producto.landing.css" />
     <Content Include="Content\Css\Site\Lbel\buscador-filtros.css" />
+    <Content Include="Content\Css\Site\Lbel\campania-navidenia.css" />
     <Content Include="Content\Css\Site\Lbel\mi-perfil.css" />
     <Content Include="Content\Css\Site\Lbel\style-lbel-responsive.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
@@ -1552,12 +1554,19 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\Esika\RevistaDigital\gana-mas-navidad-esika.svg" />
+    <Content Include="Content\Images\Esika\RevistaDigital\gif-club-ganamas2.gif" />
+    <Content Include="Content\Images\Esika\RevistaDigital\gif-ganamas.gif" />
+    <Content Include="Content\Images\Esika\RevistaDigital\menuOfertas_20181001_1121.jpg" />
     <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente2.svg" />
     <Content Include="Content\Images\down_arrow.png" />
     <Content Include="Content\Images\Esika\logo_marca_pais_desktop.svg" />
     <Content Include="Content\Images\Esika\logo_marca_pais_mobile.svg" />
     <Content Include="Content\Images\Esika\vineta_indicador.png" />
+    <Content Include="Content\Images\Esika\fondo-navidenio.png" />
+    <Content Include="Content\Images\Esika\logo_marca_pais_desktop_blanco.svg" />
     <Content Include="Content\Images\flecha_icono.svg" />
+    <Content Include="Content\Images\icono-carrito-compra-blanco.svg" />
     <Content Include="Content\Images\icono-elige-tu-opcion.svg" />
     <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\Esika\flecha_next.svg" />
@@ -1566,6 +1575,9 @@
     <Content Include="Content\Images\icono_alerta.svg" />
     <Content Include="Content\Images\etiqueta-club-ganamas-blanco-independiente2.svg" />
     <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente2.png" />
+    <Content Include="Content\Images\icono-lupa-blanco.svg" />
+    <Content Include="Content\Images\icono-notificaciones-blanco.svg" />
+    <Content Include="Content\Images\icono-tutorial-blanco.svg" />
     <Content Include="Content\Images\icono_avatar.svg" />
     <Content Include="Content\Images\Esika\icono_camara.svg" />
     <Content Include="Content\Images\Esika\icono_cambiar_dato.svg" />
@@ -1595,6 +1607,8 @@
     <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
     <Content Include="Content\Images\imagen_prod_no_disponible.svg" />
+    <Content Include="Content\Images\Lbel\copo-nieve.png" />
+    <Content Include="Content\Images\Lbel\copos-nieve.png" />
     <Content Include="Content\Images\Lbel\icono_cambiar_dato.svg" />
     <Content Include="Content\Images\Lbel\icono_candado.svg" />
     <Content Include="Content\Images\Lbel\icono_envelope.svg" />
@@ -1603,6 +1617,10 @@
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
     <Content Include="Content\Images\Lbel\estrellas.png" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\gana-mas-navidad-lbel.svg" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\gif-club-ganamas2.gif" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\gif-ganamas.gif" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\menuOfertas_20181001_1121.jpg" />
     <Content Include="Content\Images\logo-club-ganamas-dorado2.svg" />
     <Content Include="Content\Images\Lbel\logo_marca_pais.svg" />
     <Content Include="Content\Images\Lbel\vineta_indicador.png" />
@@ -1612,6 +1630,8 @@
     <Content Include="Content\Images\logo_youtube.svg" />
     <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
     <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
+    <Content Include="Content\Images\Lbel\logo_marca_pais_blanco.svg" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\ofertas-digitales-navidad-lbel.svg" />
     <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\1f44d.png" />
@@ -3569,6 +3589,7 @@
     <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_esika_no_seleccionado.svg" />
     <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_esika_seleccionado.svg" />
     <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_lbel_seleccionado.svg" />
+    <Content Include="Content\Images\Esika\RevistaDigital\ofertas-digitales-navidad-esika.svg" />
     <Content Include="Content\Images\RevistaDigital\offer-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_BLANCO.svg" />
