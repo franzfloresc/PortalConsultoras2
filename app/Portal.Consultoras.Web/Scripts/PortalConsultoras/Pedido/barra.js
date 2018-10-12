@@ -580,6 +580,7 @@ function MostrarBarra(datax, destino) {
         tipoMensaje = "MontoMinimo";
     }
 
+    tipoMensaje += belcorp.barra.settings.isMobile ? 'Mobile' : '';
     listaMensajeMeta = listaMensajeMeta || new Array();
     var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
     objMsg.Titulo = $.trim(objMsg.Titulo);
