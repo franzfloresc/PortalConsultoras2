@@ -1008,40 +1008,59 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID)
             };
 
-
             // validar si existe en MatrizComercialImagen
-
-            // si no existe
+            using (var sv = new PedidoServiceClient())
+            {
+                if (pagina == 1)
+                {
+                    GetImagenesByEstrategiaMatrizComercialImagenIsOk(estrategia, pagina, -1 , nombreImagen);
+                }
+                             
+                lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, 10).ToList();
+            }
+            
+            return GetImagesCommonResult(lst, paisID);
+        }
+        
+        private void GetImagenesByEstrategiaMatrizComercialImagenIsOk(ServicePedido.BEEstrategia estrategia, int pagina, int total, string nombreImagen)
+        {
+            List<BEMatrizComercialImagen> lst;
 
             using (var sv = new PedidoServiceClient())
             {
                 lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, -1).ToList();
             }
-            var entidadImagen = lst[0];
-            var entity = new BEMatrizComercialImagen
+
+            bool foto = false;
+
+            foreach (var item in lst)
             {
-                IdMatrizComercial = entidadImagen.IdMatrizComercial,
-                PaisID = userData.PaisID,
-                UsuarioRegistro = userData.CodigoConsultora,
-                UsuarioModificacion = userData.CodigoConsultora,
-                NemoTecnico = null, // NemoTecnico apagado
-                DescripcionComercial = null  // NemoTecnico apagado
-            };
-            
-            entity.Foto = nombreImagen;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                entity.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
+                foto = lst.Any(x => item.Foto == nombreImagen);
+                if (foto == true)
+                    break;
             }
-
-            //fin no existe
-
-            using (var sv = new PedidoServiceClient())
+                
+            if(foto == false)
             {
-                lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, 10).ToList();
-            }
+                var entidadImagen = lst[0];
 
-            return GetImagesCommonResult(lst, paisID);
+                var entity = new BEMatrizComercialImagen
+                {
+                    IdMatrizComercial = entidadImagen.IdMatrizComercial,
+                    PaisID = userData.PaisID,
+                    UsuarioRegistro = userData.CodigoConsultora,
+                    UsuarioModificacion = userData.CodigoConsultora,
+                    NemoTecnico = null, // NemoTecnico apagado
+                    DescripcionComercial = null  // NemoTecnico apagado
+                };
+
+                entity.Foto = nombreImagen;
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    entity.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
+                }
+            }
         }
 
         private JsonResult GetImagesCommonResult(List<BEMatrizComercialImagen> lst, int paisID)
