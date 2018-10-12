@@ -12,17 +12,17 @@ namespace Portal.Consultoras.Web.Providers
     {
         public async Task<string> GetPersonalizacion(UsuarioModel usuario)
         {
-            var pathPersonalziacion = string.Format(Constantes.RutaBuscadorService.UrlPersonalizacion, 
+            var pathPersonalziacion = string.Format(Constantes.RutaBuscadorService.UrlPersonalizacion,
                 usuario.CodigoISO,
                 usuario.CampaniaID,
                 usuario.CodigoConsultora);
-            
+
             return await ObtenerPersonalizaciones(pathPersonalziacion); ;
         }
 
         public async Task<List<BuscadorYFiltrosModel>> GetBuscador(BuscadorModel buscadorModel)
         {
-            
+
             var suscripcionActiva = (buscadorModel.revistaDigital.EsSuscrita && buscadorModel.revistaDigital.EsActiva);
 
             var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
@@ -45,13 +45,13 @@ namespace Portal.Consultoras.Web.Providers
             {
                 pathBuscador = pathBuscador + '/' + buscadorModel.userData.PersonalizacionesDummy;
             }
-           
+
             return await ObtenerBuscadorDesdeApi(pathBuscador);
         }
 
         public async Task<List<BuscadorYFiltrosModel>> ValidacionProductoAgregado(List<BuscadorYFiltrosModel> resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital, bool IsMobile)
         {
-            var suscripcionActiva =revistaDigital.EsSuscrita && revistaDigital.EsActiva;
+            var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
             var resultBuscador = new List<BuscadorYFiltrosModel>();
 
 
