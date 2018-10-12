@@ -2914,6 +2914,11 @@ namespace Portal.Consultoras.Common
             public const string AcionesOmitidas = "ActualizarContrasenia";
         }
 
+        public class PlantillaExcel
+        {
+            public const string UrlExcelMatrizCampania = "http://somosbelcorpprd.s3.amazonaws.com/Matriz/PLANTILLA_MASIVO_MATRIZ.xlsx";
+        }
+        
         public class CodigoEstrategiaBuscador
         {
             public const string Liquidacion = "LIQ";
