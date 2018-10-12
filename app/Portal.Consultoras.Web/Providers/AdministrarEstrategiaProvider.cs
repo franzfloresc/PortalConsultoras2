@@ -605,7 +605,8 @@ namespace Portal.Consultoras.Web.Providers
                 CUV = x.CUV,
                 NombreProducto = x.NombreProducto,
                 Descripcion = x.Descripcion1,
-                Orden = x.Orden
+                Orden = x.Orden,
+                IdMarca = x.IdMarca
             }));
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
