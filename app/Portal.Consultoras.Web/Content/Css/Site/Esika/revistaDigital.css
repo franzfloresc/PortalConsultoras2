@@ -98,7 +98,21 @@
 .bg_activar_boton_no_animado {
     border: 1px solid #000;
     border-radius: 4px;
+    transition: .3s;
+    cursor: pointer;
 }
+
+.bg_activar_boton_no_animado:hover {
+    background-color: #000;
+}
+
+    .bg_activar_boton_no_animado:hover {
+        background-color: #000;
+    }
+
+    .bg_activar_boton_no_animado:hover a {
+        color: #fff;
+    }
 
 .activar_boton_lbel_no_animado {
     background-color: #e81c36 !important;
