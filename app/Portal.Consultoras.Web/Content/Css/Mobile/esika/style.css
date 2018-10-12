@@ -15453,3 +15453,22 @@ a {
     border-color: #e81c36 !important;
     color: #e81c36;
 }
+
+/* MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
+
+#popupInformacionConfDuoPerfecto .terminos_title_2{
+    font-weight:900!important;
+}
+
+#popupInformacionConfDuoPerfecto a:last-child{
+    background-color:#e81c36!important;
+    width: 140px!important;
+}
+
+#popupInformacionConfDuoPerfecto a:first-child{
+    background-color: transparent!important;
+    color: #000!important;
+    text-decoration: underline!important;
+}
+
+/* FIN - MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
