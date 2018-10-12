@@ -533,7 +533,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             object data = CrearDataLog(campaniaId, ObtenerConstanteConfPais(tipo), esMObile);
             var urlApi = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
-            string tokenApiSomosBelcorp = sessionManager.GetJwtApiSomosBelcorp();
+            string tokenApiSomosBelcorp = SessionManager.GetJwtApiSomosBelcorp();
 
             if (string.IsNullOrEmpty(tokenApiSomosBelcorp)) return;
             if (string.IsNullOrEmpty(urlApi)) return;
