@@ -510,7 +510,9 @@ var AnalyticsPortalModule = (function () {
             switch (seccion) {
                 case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(seccion, data, limit); break;
                 case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break;
-
+                 // Inicio Analytics Ofertas  
+                case _codigoSeccion.LAN: AnalyticsPortalModule.MarcaPromotionViewBanner(seccion, data); break;
+                // Fin Analytics Ofertas Miguel
             }
         } catch (e) {
 
@@ -931,19 +933,68 @@ var AnalyticsPortalModule = (function () {
 
                     if (_constantes.isTest)
                         alert("Marcación clic flecha banner.");
-                    var origenPedidoWeb = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
+                    var codigoOrigenPedido = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
+                    var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenPedido);
+
+
                     var tipoFlecha = $(data).data("direccionflecha");
                     dataLayer.push({
                         'event': _evento.virtualEvent,
-                        'category': _constantes.contenedor,
-                        'action': _constantes.palanca + ' - Flechas de banner',
+                        'category': "Contenedor - Home",
+                        'action': palanca + ' - Flechas de banner',
                         'label': tipoFlecha
                     });
 
                 } catch (e) {
                     console.log(_texto.excepcion + e);
                 }
+    }
+
+        /*
+        * 1.2.2. Promotion View
+        * Nombre Archivo Desktop: Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js
+        * Linea de Código Desktop: 256
+     */
+        var marcaPromotionViewBanner = function (codigoSeccion, data) {
+            try {
+                if (_constantes.isTest)
+                    alert("Marcación promotion view.");
+                var promotions = AnalyticsPortalModule.AutoMapper(codigoSeccion, data);
+                if (promotions.length == 0)
+                    return false;
+                dataLayer.push({
+                    'event': _evento.promotionView,
+                    'ecommerce': {
+                        'promoView': {
+                            'promotions': promotions
+                        }
+                    }
+                });
+            } catch (e) {
+                console.log(_texto.excepcion + e);
             }
+
+    }
+
+    var autoMapper = function (codigoSeccion, data) {
+        var collection = [];
+        if (codigoSeccion == _codigoSeccion.LAN) {
+            var element = $("[data-seccion=" + codigoSeccion + "]");
+            var codigo = element.data("origenpedidoweb");
+            $.each(data.lista, function (index) {
+                var item = data.lista[index];
+                var element = {
+                    'id': item.CUV2,
+                    'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo) + " - " + item.DescripcionCompleta + " - " + "Ver producto",
+                    'position': fnObtenerContenedor(),
+                    'creative': "Banner"
+                };
+                collection.push(element);
+            });
+        }
+
+        return collection;
+    };
      // Fin Analytics Ofertas Miguel
 
     return {
@@ -990,7 +1041,9 @@ var AnalyticsPortalModule = (function () {
         MarcaAnadirCarritoHomeBanner: marcaAnadirCarritoHomeBanner,
         // Fin Analytics Home 1 Miguel
          // Inicio Analytics Ofertas  
-        MarcaClicFlechaBanner: marcaClicFlechaBanner
+        MarcaClicFlechaBanner: marcaClicFlechaBanner,
+        MarcaPromotionViewBanner: marcaPromotionViewBanner,
+        AutoMapper: autoMapper
          // Fin Analytics Ofertas Miguel
     }
 })();
