@@ -128,8 +128,18 @@
 }
 
 .aplicar_seleccion .disabled{
-    background-color: #d8d8d8 !important;
+    background-color: rgba(216, 216, 216, 0.5) !important;
     cursor: auto;
+    color: rgba(128, 128, 128, 0.5);
+    border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.seleccion_btn .disabled {
+    background-color: rgba(216, 216, 216, 0.5);
+    pointer-events: none;
+    border-color: rgba(128, 128, 128, 0.5) !important;
+    color: rgba(128, 128, 128, 0.5);
+    border-radius: 5px;
 }
 
 .seleccion_btn .active{
@@ -190,7 +200,18 @@
     height: 8px;
 }
 
-.header_fixed{
+.content_cantidad_ficha_producto .cantidad_menos_home span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.content_cantidad_ficha_producto .cantidad_mas_home span {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: normal
+}
+
+.header_fixed {
     position: fixed;
     width: 100%;
     top: 0px;
@@ -225,23 +246,45 @@
 
 .seleccion_btn .cantidad_mas_home {
     height: 36px;
-    line-height: 33px;
-    border: 1px solid #000;
+    line-height: 36px;
 }
 
 .seleccion_btn .rango_cantidad_pedido {
     width: 36%;
     height: 36px;
     line-height: 48px;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border-top: none;
+    border-bottom: none;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.seleccion_btn .cantidad_mas_home, .seleccion_btn .cantidad_menos_home {
+    border: none;
+}
+
+    .seleccion_btn .cantidad_mas_home span, .seleccion_btn .cantidad_menos_home span {
+        border: none;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+.disabled .cantidad_menos_home span, .disabled .cantidad_mas_home span {
+    color: rgba(128, 128, 128, 0.5);
+}
+
+.disabled .rango_cantidad_pedido {
+    border-color: rgba(128, 128, 128, 0.5);
+}
+
+.seleccion_btn .content_cantidad_ficha_producto {
+    border: 1px solid #000;
 }
 
 .seleccion_btn .cantidad_menos_home {
     width: 32%;
     height: 36px;
-    line-height: 33px;
-    border: 1px solid #000;
+    line-height: 35px;
 }
 
 .seleccion_header h3 span{
@@ -258,7 +301,11 @@
     line-height: 13px;
 }
 
-
+.contenedor_rangos_desactivado {
+    background: #e5e5e5;
+    color: #b9b9b9;
+    opacity: 0.5;
+}
 
 
 

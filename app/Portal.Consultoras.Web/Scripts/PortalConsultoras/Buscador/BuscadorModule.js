@@ -102,7 +102,7 @@ var BuscadorModule = (function(){
                 }, 100);
                 $(".campo_busqueda_fondo_on_focus").delay(50);
                 $(".campo_busqueda_fondo_on_focus").fadeOut(100);
-                $(element).removeClass("campo_buscador_productos_activo");
+                $(_elementos.campoBuscadorProductos).removeClass("campo_buscador_productos_activo");
                 $(".opcion_limpiar_campo_busqueda_productos").fadeOut(100);
                 $(".enlace_busqueda_productos").delay(50);
                 $(".enlace_busqueda_productos").fadeIn(100);
