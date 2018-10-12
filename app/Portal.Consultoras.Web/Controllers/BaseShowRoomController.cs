@@ -28,8 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected void ActionExecutingMobile()
         {
             if (SessionManager.GetUserData() == null) return;
-
-            //var userData = UserData();
+            
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
 
             try

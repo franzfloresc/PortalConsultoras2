@@ -35,3 +35,9 @@
 		text-align: center;
 		width: 138px;
 	}
+
+
+.op-menu-horizontal .subnavegador li .activado {
+    border-bottom: 2px solid #67388c;
+    color: #67388c;
+}

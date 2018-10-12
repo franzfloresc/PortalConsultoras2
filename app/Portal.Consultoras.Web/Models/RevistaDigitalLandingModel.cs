@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Web.Models
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
         public int CantidadFilas { get; set; }
         public bool ProductosPerdio { get; set; }
+        public string PerdioLogo { get; set; }
         public string PerdioTitulo { get; set; }
         public string PerdioSubTitulo { get; set; }
         public bool MostrarFiltros { get; set; }

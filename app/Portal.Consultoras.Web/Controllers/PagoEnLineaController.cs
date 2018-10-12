@@ -28,9 +28,20 @@ namespace Portal.Consultoras.Web.Controllers
         // GET: PagoEnLinea
         public ActionResult Index()
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
+                //return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
+                if (url.Length > 1)
+                {
+                    sap = "&" + url[1];
+                    return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
+                }
             }
 
             if (!userData.TienePagoEnLinea)
@@ -74,7 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pago.MetodoPagoSeleccionado = selected;
                 SessionManager.SetDatosPagoVisa(pago);
             }
-            
+
             if (pago.MetodoPagoSeleccionado == null)
             {
                 return RedirectToAction("Index");
@@ -125,7 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
                     };
 
                     var success = await provider.Pay(info, pago);
-                    if (!success) 
+                    if (!success)
                         return View("PagoRechazado", pago);
 
                     ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcionMx);
@@ -597,7 +608,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void CargarListsPasarela()
         {
-            Func<string, SelectListItem> fnSelect = m => new SelectListItem {Value = m, Text = m};
+            Func<string, SelectListItem> fnSelect = m => new SelectListItem { Value = m, Text = m };
             ViewBag.MonthList = _pagoEnLineaProvider.ObtenerMeses().Select(fnSelect);
             ViewBag.YearList = _pagoEnLineaProvider.ObtenerAnios().Select(fnSelect);
         }
