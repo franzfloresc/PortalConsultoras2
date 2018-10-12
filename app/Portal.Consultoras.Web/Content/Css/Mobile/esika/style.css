@@ -12811,11 +12811,14 @@ a {
     font-family: 'Lato';
     font-size: 11px;
     font-weight: 700;
-    color: #e81c36;
     text-align: center;
     margin-bottom: 5px;
     margin-left: 10px;
     margin-right: 10px;
+    padding-top: 3px;
+}
+.texto_elige_tono img {
+    padding-right: 3px;
 }
 
 .saludo_paginacion {

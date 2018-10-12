@@ -416,6 +416,7 @@ namespace Portal.Consultoras.Common
             public const string UrlPoliticasCDR = "UrlPoliticasCDR";
             public const string UrlLogDynamo = "UrlLogDynamo";
             public const string rutaImagenNotFoundAppCatalogo = "rutaImagenNotFoundAppCatalogo";
+            public const string urlSinImagenTiposyTonos = "urlSinImagenTiposyTonos";
             public const string URL_LIDER = "URL_LIDER";
             public const string oferta_final_regalo_url_s3 = "oferta_final_regalo_url_s3";
             public const string GIF_MENU_DEFAULT_OFERTAS = "GIF_MENU_DEFAULT_OFERTAS";
