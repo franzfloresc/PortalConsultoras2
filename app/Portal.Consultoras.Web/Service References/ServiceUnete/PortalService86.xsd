@@ -289,6 +289,7 @@
       <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaModificacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IpOrigen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreConsultoraRecomienda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />

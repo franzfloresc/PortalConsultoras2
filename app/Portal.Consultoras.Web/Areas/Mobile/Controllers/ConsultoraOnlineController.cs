@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class ConsultoraOnlineController : BaseMobileController
     {
         #region Variables
-        
+
         private const int refrescoGetCantidadPedidos = 30;
         MisPedidosModel objMisPedidos;
         readonly bool isEsika = false;
@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Informacion()
         {
-            
+
             var strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
@@ -227,7 +227,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Afiliar()
         {
-            
+
             try
             {
                 SessionManager.SetkeyFechaGetCantidadPedidos(null);
@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult EnviaCorreo()
         {
-            
+
             var strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return Json(new
@@ -383,7 +383,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             SessionManager.SetkeyFechaGetCantidadPedidos(null);
             SessionManager.SetkeyCantidadGetCantidadPedidos(null);
-            
+
             var model = new MisPedidosModel();
 
             using (var sv = new UsuarioServiceClient())
@@ -461,7 +461,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             string message;
             var success = true;
-            
+
             try
             {
                 using (var sc = new SACServiceClient())
@@ -504,7 +504,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var mensaje = string.Empty;
             try
             {
-                
+
 
                 if (SessionManager.GetkeyFechaGetCantidadPedidos() != null && SessionManager.GetkeyCantidadGetCantidadPedidos() != null)
                 {
@@ -549,7 +549,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private ClienteContactaConsultoraModel DatoUsuario()
         {
-            
+
 
             var consultoraAfiliar = new ClienteContactaConsultoraModel { NombreConsultora = userData.PrimerNombre };
 
@@ -790,7 +790,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
 
             return mensaje.ToString();
-        }  
+        }
 
         #endregion
 

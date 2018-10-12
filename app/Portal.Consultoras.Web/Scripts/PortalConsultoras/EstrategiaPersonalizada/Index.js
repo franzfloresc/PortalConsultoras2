@@ -117,6 +117,7 @@ function SeccionCargarProductos(objConsulta) {
 
     //var paisHabilitado = variableEstrategia.PaisHabilitado.includes(IsoPais);
     var paisHabilitado = typeof variableEstrategia.PaisHabilitado == "string" && variableEstrategia.PaisHabilitado.indexOf(IsoPais) > -1
+
     var guardaEnLS = true;
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.RDR

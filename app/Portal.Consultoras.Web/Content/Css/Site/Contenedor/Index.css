@@ -34,7 +34,7 @@
         letter-spacing: 1px;
     }
 
-    .bc_menu_estrategia .op_menu-horizontal ul {
+    /*.bc_menu_estrategia .op_menu-horizontal ul {
         padding: 0;
         margin: 0;
         list-style: none;
@@ -90,33 +90,7 @@
 
                     .bc_menu_estrategia .op_menu-horizontal ul li a img.hover {
                         display: none;
-                    }
-
-@media (max-width: 1100px) {
-    .bc_menu_estrategia .logo {
-        width: 13%;
-    }
-}
-
-@media (max-width: 950px) {
-    .bc_menu_estrategia .logo {
-        width: 15%;
-    }
-
-    .bc_menu_estrategia .texto-info p {
-        font-size: 10px;
-    }
-
-    .bc_menu_estrategia .texto-info span {
-        font-size: 9px;
-    }
-}
-
-@media (max-width: 850px) {
-    .bc_menu_estrategia .logo {
-        width: 17%;
-    }
-}
+                    }*/
 
 .bc_plantilla-banner {
     width: 100%;
@@ -181,6 +155,10 @@
     display: table;
 }
 
+img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/CR/logo-ganamas-blanco.png"] {
+    display: none;
+}
+
     .contenedor_cabecera_2018 .sb_contenedor_cabecera_2018 {
         width: 100%;
         height: 70%;
@@ -205,6 +183,11 @@
         position: relative;
     }
 
+
+img[src="https://d1y60eoca8fkyl.cloudfront.net/RevistaDigital/PE/logo-ganamas-rojo.png"] {
+    display: none;
+}
+
 .centrar-horizontal {
     width: 100%;
     height: 70px;
@@ -226,7 +209,7 @@
     color: #333 !important;
 }*/
 
-.op-menu-vertical {
+/*.op-menu-vertical {
     width: 145px;
     position: -webkit-sticky;
     position: absolute;
@@ -329,12 +312,58 @@
                     letter-spacing: .1px;
                     text-transform: uppercase;
                     font-family: 'Lato';
+                }*/
+
+
+/*.op-menu-horizonta-fixed {
+    position: fixed;
+    width: 100%;
+    background-color: #fff;
+    z-index: 5;
+    box-shadow: 1px 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.op-menu-horizontal {
+    text-align: center;
+    height: 52px;
+}
+
+    .op-menu-horizontal .subnavegador {
+        width: auto;
+    }
+
+        .op-menu-horizontal .subnavegador li {
+            display: inline-block;
+            padding: 0px 20px;
+        }
+
+            .op-menu-horizontal .subnavegador li a {
+                text-transform: uppercase;
+                font-size: 11px;
+                font-weight: bold;
+                letter-spacing: 0.5px;
+                color: #000;
+                padding: 20px 0px 13px 0px;
+                line-height: normal;
+                height: 52px;
+            }
+
+                .op-menu-horizontal .subnavegador li a img {
+                    width: 60px;
+                    margin-bottom: -2px;
                 }
 
+            .op-menu-horizontal .subnavegador li .gana_mas_horizontal {
+                color: #c39934;
+            }*/
+
+.logo_ofertas_digitales {
+    width: 65px !important;
+    margin-bottom: -5px !important;
+}
 /*.negrita-p {
     font-weight: bolder;
 }*/
-
 .contenedorMenu {
     height: 66px;
     width: 138px;
@@ -637,9 +666,9 @@
         padding-bottom: 15px;
     }
 
-.bc_plantilla_estrategia_personalizada {
+/*.bc_plantilla_estrategia_personalizada {
     padding-left: 138px;
-}
+}*/
 .contenido_zona_dorada_contenedor_desktop .xblock-cont-uno {
     float: left;
     width: 80%;
@@ -722,12 +751,12 @@
 
 .fixed_head {
     position: fixed;
-    top: 61px;
+    top: 113px;
     width: 100%;
     margin: auto;
     z-index: 9;
     right: 0;
-    padding-left: 142px;
+    /*padding-left: 142px;*/
     max-width: initial;
 }
 
@@ -742,3 +771,57 @@
 #divOfertaProductosPerdio{
     text-align: center;
 }
+
+@media (max-width: 1100px) {
+    .bc_menu_estrategia .logo {
+        width: 13%;
+    }
+}
+
+@media (max-width: 950px) {
+    /*.op-menu-horizontal .subnavegador li {
+        padding: 0px 15px;
+    }*/
+
+    .bc_menu_estrategia .logo {
+        width: 15%;
+    }
+
+    .bc_menu_estrategia .texto-info p {
+        font-size: 10px;
+    }
+
+    .bc_menu_estrategia .texto-info span {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 850px) {
+    /*.op-menu-horizontal .subnavegador li {
+        padding: 0px 10px;
+    }*/
+
+    .bc_menu_estrategia .logo {
+        width: 17%;
+    }
+}
+
+/*.op-menu-horizontal .subnavegador li .activado-dorado {
+    border-bottom: 3px solid #c39934;
+    color: #c39934;
+}*/
+.ocultar {
+    display: none
+}
+
+/*.seccion-content-contenedor {
+    padding-top: 52px;
+}*/
+
+#RDListado{
+    margin-top: 35px;
+}
+
+
+
+

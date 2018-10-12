@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Moq.Protected;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.UnitTest.Extensions;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
 {
@@ -19,6 +16,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         {
             protected BaseViewController Controller;
             protected Mock<OfertaPersonalizadaProvider> OfertaPersonalizadaProvider;
+            protected Mock<OfertaViewProvider> OfertaViewProvider;
             protected const int CampaniaIdActual = 201801;
 
             public override void Test_Initialize()
@@ -26,6 +24,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 
                 base.Test_Initialize();
                 OfertaPersonalizadaProvider = GetOfertaPersonalizadaProvider();
+                OfertaViewProvider = GetOfertaViewProvider();
                 Controller = CreateController();
                 ConfigureUserDataWithCampaniaActual(CampaniaIdActual);
             }
@@ -38,6 +37,16 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 };
                 OfertaPersonalizadaProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
                 return OfertaPersonalizadaProvider;
+            }
+
+            protected virtual Mock<OfertaViewProvider> GetOfertaViewProvider()
+            {
+                OfertaViewProvider = new Mock<OfertaViewProvider>
+                {
+                    CallBase = true
+                };
+                OfertaViewProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
+                return OfertaViewProvider;
             }
 
             public override void Test_Cleanup()
@@ -63,7 +72,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
             protected virtual BaseViewController CreateController()
             {
-                return new BaseViewController(SessionManager.Object, LogManager.Object, OfertaPersonalizadaProvider.Object);
+                return new BaseViewController(SessionManager.Object, LogManager.Object, OfertaPersonalizadaProvider.Object, OfertaViewProvider.Object);
             }
 
             protected virtual string ControllerNaneExpected()
@@ -143,23 +152,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 VerifyDoNotCallLogManager();
             }
 
-            private void SetupPalancaInSession(string configuracionPaisCodigo)
-            {
-                if (!string.IsNullOrEmpty(configuracionPaisCodigo))
-                {
-                    SessionManager
-                        .Setup(x => x.GetConfiguracionesPaisModel())
-                        .Returns(
-                            new List<ConfiguracionPaisModel>
-                            {
-                                new ConfiguracionPaisModel
-                                {
-                                    Codigo = configuracionPaisCodigo
-                                }
-                            });
-                }
-            }
-
             private void SetupProviderToReturnNull()
             {
                 OfertaPersonalizadaProvider.Setup(x => x.ObtenerEstrategiaPersonalizada(
@@ -167,6 +159,66 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                                     It.IsAny<string>(),
                                     It.IsAny<string>(),
                                     It.IsAny<int>())).Returns((EstrategiaPersonalizadaProductoModel)null);
+            }
+
+            public virtual void Ficha_PalancaOptYConsultoraNoTieneRevistaDigital_BreadCrumOfertasReturnsOfertasDigitales()
+            {
+                // Arrange
+                var cuv = "31456";
+                SetupPalancaInSession(Constantes.ConfiguracionPais.OfertasParaTi);
+                SetupRevistaDigitalInSession(false, false);
+
+                // Act
+                var result = (ViewResult)Controller.Ficha(Constantes.NombrePalanca.OfertaParaTi, CampaniaIdActual, cuv, "");
+
+                // Assert
+                var breadCrumbOfertas = ((DetalleEstrategiaFichaModel)result.Model).BreadCrumbs.Ofertas.Texto;
+                Assert.AreEqual("Ofertas Digitales", breadCrumbOfertas);
+            }
+
+            public virtual void Ficha_PalancaOpmYConsultoraNoTieneRevistaDigital_BreadCrumOfertasReturnsOfertasDigitales()
+            {
+                // Arrange
+                var cuv = "31456";
+                SetupPalancaInSession(Constantes.ConfiguracionPais.RevistaDigital);
+                SetupRevistaDigitalInSession(false, false);
+
+                // Act
+                var result = (ViewResult)Controller.Ficha(Constantes.NombrePalanca.OfertasParaMi, CampaniaIdActual, cuv, "");
+
+                // Assert
+                var breadCrumbOfertas = ((DetalleEstrategiaFichaModel)result.Model).BreadCrumbs.Ofertas.Texto;
+                Assert.AreEqual("Ofertas Digitales", breadCrumbOfertas);
+            }
+
+            public virtual void Ficha_PalancaOptYConsultoraTieneRevistaDigital_BreadCrumOfertasReturnsGanaMas()
+            {
+                // Arrange
+                var cuv = "31456";
+                SetupPalancaInSession(Constantes.ConfiguracionPais.RevistaDigital);
+                SetupRevistaDigitalInSession(true, true);
+
+                // Act
+                var result = (ViewResult)Controller.Ficha(Constantes.NombrePalanca.OfertaParaTi, CampaniaIdActual, cuv, "");
+
+                // Assert
+                var breadCrumbOfertas = ((DetalleEstrategiaFichaModel)result.Model).BreadCrumbs.Ofertas.Texto;
+                Assert.AreEqual("Gana +", breadCrumbOfertas);
+            }
+
+            public virtual void Ficha_PalancaOpmYConsultoraTieneRevistaDigital_BreadCrumOfertasReturnsGanaMas()
+            {
+                // Arrange
+                var cuv = "31456";
+                SetupPalancaInSession(Constantes.ConfiguracionPais.RevistaDigital);
+                SetupRevistaDigitalInSession(true, true);
+
+                // Act
+                var result = (ViewResult)Controller.Ficha(Constantes.NombrePalanca.OfertasParaMi, CampaniaIdActual, cuv, "");
+
+                // Assert
+                var breadCrumbOfertas = ((DetalleEstrategiaFichaModel)result.Model).BreadCrumbs.Ofertas.Texto;
+                Assert.AreEqual("Gana +", breadCrumbOfertas);
             }
         }
     }

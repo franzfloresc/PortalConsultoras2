@@ -615,7 +615,12 @@ function alert_msg(message, titulo, funcion) {
         });
     }
     $('#alertDialogMensajes').dialog('open');
+    $('body,html').css('overflow', 'hidden');
 }
+
+$('#alertDialogMensajes').on('dialogclose', function (event) {
+    $('body,html').css('overflow', 'scroll');
+});
 
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
@@ -919,7 +924,7 @@ function CerrarSesion() {
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-
+        var itemSBSurvicate= GetItemLocalStorageSurvicate();
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -929,10 +934,22 @@ function CerrarSesion() {
         if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
+        localStorage.setItem('SurvicateStorage', JSON.stringify(itemSBSurvicate));
     }
 
     location.href = baseUrl + 'Login/LogOut';
 }
+
+function GetItemLocalStorageSurvicate() {
+    var surviKeys = {};
+    for (var key in localStorage)
+    {
+        if (key.indexOf('survi::') > -1)
+            surviKeys[key] = localStorage[key];
+    }
+    return surviKeys;
+}
+
 
 function Notificaciones() {
     location.href = baseUrl + 'Notificaciones/Index';

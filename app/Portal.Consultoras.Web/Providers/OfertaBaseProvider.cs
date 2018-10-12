@@ -71,7 +71,6 @@ namespace Portal.Consultoras.Web.Providers
                             TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
                             TipoEstrategiaImagenMostrar = 6,
                         };
-
                         estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
                         if (estrategia.Precio2 > 0)
                         {
@@ -88,7 +87,8 @@ namespace Portal.Consultoras.Web.Providers
                                     Digitable = Convert.ToBoolean(componente.indicadorDigitable) ? 1 : 0,
                                     Cantidad = componente.cantidad,
                                     FactorCuadre = componente.factorCuadre,
-                                    IdMarca = componente.marcaId
+                                    IdMarca = componente.marcaId,
+                                    NombreMarca = componente.nombreMarca
                                 };
 
                                 compoponentes.Add(estrategiaTono);
@@ -162,8 +162,9 @@ namespace Portal.Consultoras.Web.Providers
             return nombreOferta;
         }
 
-        public bool UsarMsPersonalizacion(string pais, string tipoEstrategia)
+        public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault=false)
         {
+            if (dbDefault) return false;
             bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
             bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return paisHabilitado && tipoEstrategiaHabilitado;
