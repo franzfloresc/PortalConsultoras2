@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var lst = Consulta == "1" ? _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID) : new List<BETipoEstrategia>();
                 lst = lst ?? new List<BETipoEstrategia>();
 
-                if (lst != null && lst.Count > 0)
+                if (lst.Count > 0)
                 {
                     string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     lst.Update(x => x.ImagenEstrategia = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenEstrategia));

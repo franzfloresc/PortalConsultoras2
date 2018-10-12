@@ -1,0 +1,382 @@
+﻿
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models;
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Areas.Mobile.Helpers
+@using Portal.Consultoras.Web.Helpers
+
+@{
+    ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
+    if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
+
+    bool esIngresoUnico = ViewContext.EsIngresoUnico();
+    string urlProgramaNuevas = "";
+    var items = (List<MenuMobileModel>)ViewBag.MenuMobile;
+    var itemsMenu = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("menu")).ToList();
+    var urlDomain = Util.GetUrlHost(Request);
+    var tipoUsuario = ViewBag.TipoUsuario;
+
+    var permisoList = (List<Portal.Consultoras.Web.Models.PermisoModel>)ViewBag.Permiso;
+    permisoList = permisoList != null
+        ? permisoList.Where(x => x.Posicion.ToLower().Equals("header") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
+        : new List<Portal.Consultoras.Web.Models.PermisoModel>();
+
+    if (permisoList.Count > 0)
+    {
+        var listaMenu2 = new Portal.Consultoras.Web.Models.PermisoModel();
+        listaMenu2.SubMenus = permisoList;
+
+        permisoList = listaMenu2.SubMenus ?? new List<Portal.Consultoras.Web.Models.PermisoModel>();
+
+
+        var programasBelcorpMenu = (List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>)ViewBag.ProgramaBelcorpMenu;
+        programasBelcorpMenu = programasBelcorpMenu ?? new List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>();
+        foreach (var item in programasBelcorpMenu)
+        {
+            if (item.Descripcion.ToLower().Trim() == "programa nuevas")
+            {
+                urlProgramaNuevas = item.Url;
+            }
+        }
+
+        var claseSociaEmpresaria = (ViewBag.Lider == 1 && ViewBag.PortalLideres) ? "menu_socia_empresaria" : "";
+
+    }
+}
+
+<!-- MENÚ PRINCIPAL MOBILE -->
+<nav class="header__menu header__menu--lateralIzquierdo header__menu--lateralMobile mostrarEnMobile">
+    <div class="icono__cerrar row flex-column align-items-end ml-0 mr-0">
+        <img src="@Url.Content("~/Content/Images/icono_cerrar_menu_mobile.png")" alt="Cerrar">
+    </div>
+    <div class="consultora__saludo row flex-column justify-content-center align-items-center ml-0 mr-0 mb-30">
+        <div class="consultora__datos consultora__datos--menu">
+            @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
+            {
+                <div class="consultora__imagen w-100">
+                    @if (ViewBag.FotoPerfilAncha)
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="Foto Consultora" style="width:auto; height:100%" />
+                    }
+                    else
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="Foto Consultora" style="width:100%; height:auto" />
+                    }
+
+                </div>
+                <div class="icono__actualizarDatos text-center">
+                    <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})">
+                        <img src="@Url.Content("~/Content/Images/mobile/icono_editar_foto_perfil.svg")" alt="Actualizar datos">
+                    </a>
+                </div>
+            }
+
+
+        </div>
+        <div class="consultora__saludo consultora__saludo--menu">
+            ¡Hola @ViewBag.NombreConsultora!
+        </div>
+    </div>
+    <ul class="menu__lista row flex-column flex-lg-row flex-xl-row justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center ml-0 mr-0 mb-0 pl-0">
+        <li class="menu__item" data-title="Ingresa tu pedido">
+            <a class="menu__link menu__link--pedido d-block text-uppercase" title="Ingresa tu pedido">
+                Ingresa <span class="text-bold">tu pedido</span>
+            </a>
+        </li>
+
+        @foreach (var item in itemsMenu)
+        {
+            if (item.SubMenu.Count == 0)
+            {
+                if (item.Descripcion != "¿Necesitas ayuda?")
+                {
+                    <li class="menu__item" data-title="@item.Descripcion">
+                        <a class="menu__link d-block"
+                           title="@item.Descripcion"
+                           href="@item.UrlItem"
+                           id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()">
+                            @if (item.UrlImagen != "")
+                            {
+                                <img src="@item.UrlImagen" alt="@item.Descripcion" />
+                            }
+                            else
+                            {
+                                @item.Descripcion
+                            }
+                        </a>
+                    </li>
+                }
+            }
+            else
+            {
+                <li class="menu__item" data-title="@item.Descripcion">
+                    <a class="menu__link d-block menu__link--conSubmenu menu__link--conSubmenuMobile"
+                       parent="@item.Descripcion" title="@item.Descripcion"
+                       data-toggle="collapse" data-parent="#accordion"
+                       href="#SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">
+                        @item.Descripcion
+                    </a>
+                    <ul id="SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()" class="submenu__lista submenu__lista--miNegocio row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
+                        @foreach (var subItem in item.SubMenu)
+                        {
+                            <li class="submenu__item">
+                                <a class="submenu__link d-block"
+                                   parent="@subItem.MenuPadreDescripcion"
+                                   title="@subItem.Descripcion"
+                                   href="@subItem.UrlItem"
+                                   target="@subItem.PageTarget"
+                                   id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()">
+                                    @subItem.Descripcion
+                                    @if (tipoUsuario == 2 && subItem.Descripcion.ToLower().Trim() == "app de catálogos")
+                                    {
+                                        <div class="notificaciones_menu_mobile2 d-inline-block text-bold">¡Afiliate!</div>
+                                    }
+                                    else if (ViewBag.TipoMenuConsultoraOnline == 1)
+                                    {
+                                        if (subItem.MenuMobileID == ViewBag.MenuHijoIDConsultoraOnline)
+                                        {
+                                            <div class="notificaciones_menu_mobile2 d-inline-block text-bold">¡Afiliate!</div>
+                                        }
+                                    }
+                                    else if (ViewBag.TipoMenuConsultoraOnline == 2)
+                                    {
+                                        if (subItem.MenuPadreID == ViewBag.MenuPadreIDConsultoraOnline && subItem.Descripcion.ToLower().Trim() == "pedidos pendientes")
+                                        {
+                                            if (ViewBag.CantPedidosPendientes > 0)
+                                            {
+                                                <span class="notificaciones__cantidad notificaciones__cantidad--pedidosPendientes d-block">@ViewBag.CantPedidosPendientes</span>
+                                            }
+                                        }
+                                    }
+                                </a>
+                            </li>
+                        }
+
+
+                    </ul>
+                </li>
+            }
+
+            if (item.Descripcion == "¿Necesitas ayuda?")
+            {
+                <li class="menu__item" data-title="@item.Descripcion">
+                    <a class="menu__link d-block"
+                       parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
+                       target="@item.PageTarget"
+                       href="@item.UrlItem"
+                       id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo">
+                        @item.Descripcion
+                    </a>
+                </li>
+            }
+        }
+
+
+    </ul>
+    <a href="@Url.Action("LogOut", "Login", new { area = "" })" class="menu__link menu__link--cerrar-sesion text-underline d-block" title="Cerrar Sesión">
+        Cerrar sesión
+    </a>
+</nav>
+<!-- FIN - MENÚ PRINCIPAL MOBILE -->
+
+<!-- MENÚ PRINCIPAL DESKTOP -->
+
+<nav class="header__menu header__menu--lateralIzquierdo mostrarEnDesktop">
+    <ul class="menu__lista row flex-column flex-lg-row flex-xl-row justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center ml-0 mr-0 mb-0 pl-0">
+
+        @foreach (var menuPadre in permisoList)
+        {
+            if (menuPadre.SubMenus.Count > 0)
+            {
+                <li class="menu__item menu__item--miNegocio" data-title="@menuPadre.Descripcion">
+                    <a class="menu__link d-block menu__link--conSubmenu" title="@menuPadre.Descripcion">
+                        @menuPadre.Descripcion
+                    </a>
+                    <ul class="submenu__lista submenu__lista--miNegocio row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
+                        <div class="pestana__marca__pais"></div>
+                        @{
+                            var margin = "";
+                            var contador = 0;
+                            var contadorRe = 0;
+                            var totolSubMenu = menuPadre.SubMenus.Count() + 1;
+                            var cantPorFilaHijo = 6;
+                            var divHtmlF = "";
+                            var addImgen = false;
+                            var subMenu2 = false;
+                            var subMenuModel = new Portal.Consultoras.Web.Models.PermisoModel();
+
+                            foreach (var menuHijo in menuPadre.SubMenus)
+                            {
+                                if (menuHijo.SubMenus.Count > 0)
+                                {
+                                    //var nieto = menuHijo.SubMenus[0];
+                                    //if (nieto.SubMenus.Any())
+                                    //{
+                                    //    subMenuModel = menuHijo;
+                                    //    subMenu2 = true;
+                                    //    break;
+                                    //}
+
+                                @*<li class="submenu__item">
+                        <a class="submenu__link d-block" title="@menuHijo.Descripcion">
+                            @menuHijo.Descripcion
+                        </a>
+
+                    </li>*@
+                                }
+                                else
+                                {
+                                    addImgen = true;
+
+
+                                    if (contadorRe == 0)
+                                    {
+                                        contadorRe++;
+                                        <li class="submenu__item submenu__item--IngresaTuPedido" data-title="INGRESA TU PEDIDO">
+                                            <a href="javascript:;" class="submenu__link menu__link--pedido d-block text-uppercase"
+                                               onclick="RedirectMenu('Index', 'Pedido', 0, 'Pedido')"
+                                               target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Ingreso Pedido" id="lnk-pri-ingreso-pedidos">
+                                                Ingresa <span class="text-bold">tu pedido</span>
+                                            </a>
+                                        </li>
+                                    }
+
+                                    <li class="submenu__item">
+                                        @if (menuHijo.UrlItem == "")
+                                        {
+                                            <a href="javascript:;" class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="javascript:;" class="submenu__link d-block" onclick="@menuHijo.OnClickFunt"
+                                               target="@menuHijo.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+                                    </li>
+
+
+
+
+                                }
+                            }
+
+                            var nieto = menuPadre.SubMenus.ToList().Where(x => x.Descripcion == "MI ASESOR DE BELLEZA").FirstOrDefault();
+
+                            if (nieto.Descripcion != "")
+                            {
+                                <li class="submenu__item submenu__item--AsesorBelleza">
+                                    <a class="submenu__link d-block" title="@nieto.Descripcion">
+                                        @nieto.Descripcion
+                                    </a>
+                                    <div class="submenu__lista submenu__lista--miAsesorBelleza row flex-row justify-content-start ml-0 mr-0">
+                                        <div class="pestana__marca__pais"></div>
+                                        @foreach (var q in nieto.SubMenus)
+                                        {
+                                            <div class="sub__menu__asesorBelleza">
+                                                <h4>@q.Descripcion</h4>
+                                                <ul class="row flex-column ml-0 mr-0">
+                                                    @foreach (var w in q.SubMenus)
+                                                    {
+                                                        <li class="submenu__item" data-title="Esika Trend">
+                                                            @if (w.UrlItem == "")
+                                                            {
+                                                                <a href="javascript:;" class="submenu__link d-block">
+                                                                    @w.Descripcion
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="javascript:;" class="submenu__link d-block" onclick="@w.OnClickFunt"
+                                                                   target="@w.PageTarget" role="menu" region="Principal" parent="@w.Descripcion" title="@w.Descripcion" id="lnk-pri-@w.DescripcionFormateada">
+                                                                    @w.Descripcion
+                                                                </a>
+                                                            }
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+
+
+                                    </div>
+                                </li>
+                            }
+
+                            if (addImgen)
+                            {
+                                var opcion = "CATÁLOGOS Y REVISTAS";
+                                var tooltip = "Mis Catálogos y Revistas";
+                                opcion = !ViewBag.TituloCatalogo ? "CATÁLOGOS" : opcion;
+                                tooltip = !ViewBag.TituloCatalogo ? "Mis Catálogos" : tooltip;
+
+                                <li class="submenu__item submenu__item--Catalogos">
+                                    <a href="javascript:;" class="submenu__link d-block" onclick="RedirectMenu('Index', 'MisCatalogosRevistas', 0, 'MisCatalogosRevistas')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="@tooltip" id="lnk-pri-miscatalogosrevistas">
+                                        <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_01.png" class="w-100" alt="Catálogos">
+                                        <div class="submenu__item__title w-100">@opcion</div>
+                                    </a>
+                                </li>
+
+
+                                if (ViewBag.SegmentoConsultoraMenu == 1)
+                                {
+                                    <li class="submenu__item submenu__item--Catalogos">
+                                        <a href="@urlProgramaNuevas" class="submenu__link d-block" title="Catálogos">
+                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_02.png" class="w-100" alt="Catálogos">
+                                            <div class="submenu__item__title w-100">PROGRAMA NUEVAS</div>
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="submenu__item submenu__item--Incentivos">
+                                        <a href="javascript:;" class="submenu__link d-block" title="Incentivos" onclick="RedirectMenu('Index', 'Incentivos', 0, 'Incentivos')">
+                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_03.png" class="w-100" alt="Incentivos">
+                                            <div class="submenu__item__title w-100">Incentivos</div>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li class="menu__item" data-title="@menuPadre.Descripcion">
+                    @if (menuPadre.UrlItem == "")
+                    {
+                        <a href="javascript:;" class="menu__link d-block" title="@menuPadre.Descripcion">
+                            @menuPadre.Descripcion
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="javascript:;" class="menu__link d-block"
+                           onclick="@menuPadre.OnClickFunt"
+                           target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                            @if (menuPadre.UrlImagen != "")
+                            {
+                                <img src="@menuPadre.UrlImagen" alt="@menuPadre.Descripcion" style="margin-top: -5px;" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" />
+                            }
+                            else
+                            {
+                                @menuPadre.Descripcion
+                            }
+                        </a>
+                    }
+                </li>
+            }
+        }
+    </ul>
+
+
+
+
+
+    <a class="menu__link menu__link--cerrar-sesion text-underline mostrarEnMobile" title="Cerrar Sesión">
+        Cerrar sesión
+    </a>
+</nav>

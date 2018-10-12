@@ -1188,6 +1188,8 @@ namespace Portal.Consultoras.ServiceContracts
         void InsertOfertaFinalLog(int paisID, int campaniaID, string codigoConsultora, decimal? montoInicial, List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog);
         [OperationContract]
         List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
+        [OperationContract]
+        BEPedidoDetalleResult InsertProductoBuscador(BEPedidoDetalle pedidoDetalle);
         #endregion
 
         #region Pago en Linea

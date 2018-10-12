@@ -518,7 +518,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lst = sv.GetImagenesByCodigoSAP(paisID, codigoSAP).ToList();
-            }            
+            }
 
             if (lst != null && lst.Count > 0)
             {
@@ -634,7 +634,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string iso = Util.GetPaisISO(PaisID);
-                
+
                 var carpetaPais = Globals.UrlMatriz + "/" + iso;
                 lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
                 lst.Update(x => x.ISOPais = iso);

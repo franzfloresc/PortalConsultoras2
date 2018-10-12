@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
-        
+
         public ActionResult MetodoPago()
         {
             var model = SessionManager.GetDatosPagoVisa();
@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 pago.MetodoPagoSeleccionado = selected;
                 SessionManager.SetDatosPagoVisa(pago);
             }
-            
+
             if (pago.MetodoPagoSeleccionado == null)
             {
                 return RedirectToAction("Index");
@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     };
 
                     var success = await provider.Pay(info, pago);
-                    if (!success) 
+                    if (!success)
                         return View("PagoRechazado", pago);
 
                     ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcionMx);
@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private void CargarListsPasarela()
         {
-            Func<string, SelectListItem> fnSelect = m => new SelectListItem {Value = m, Text = m};
+            Func<string, SelectListItem> fnSelect = m => new SelectListItem { Value = m, Text = m };
             ViewBag.MonthList = _pagoEnLineaProvider.ObtenerMeses().Select(fnSelect);
             ViewBag.YearList = _pagoEnLineaProvider.ObtenerAnios().Select(fnSelect);
         }

@@ -506,9 +506,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Descuento", userData.Simbolo + " #Descuento"},
                 {"Importe a Pagar", userData.Simbolo + " #ImportePagar"}
             };
-
-            //string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
-
+            
             ExportToExcelMultipleFacturado("PedidosWebExcel", lst, dicCabeceras, dicDetalles, vTotalParcial, vFlete, vTotalFacturado);
             return new EmptyResult();
         }

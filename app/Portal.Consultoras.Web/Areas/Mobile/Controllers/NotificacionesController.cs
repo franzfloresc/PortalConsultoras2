@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public JsonResult RechazarSolicitud(long SolicitudId, int NumIteracion, string CodigoUbigeo, string Campania, int MarcaId)
         {
-            
+
             using (var service = new SACServiceClient())
             {
                 var tablalogicaDatos = service.GetTablaLogicaDatos(userData.PaisID, 56);
@@ -227,7 +227,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Origen = TipoOrigen;
             model.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && model.ListaNotificacionesDetallePedido != null &&
                 model.ListaNotificacionesDetallePedido.Any(item => string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOferta == 1);
-            
+
             var notificacion = ObtenerNotificaciones().FirstOrDefault(p => p.ProcesoId == ProcesoId);
             if (notificacion != null)
             {
@@ -247,13 +247,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             else model.Total = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
             model.DecimalToString = _notificacionProvider.CreateConverterDecimalToString(userData.PaisID);
-            
+
             return View("ListadoObservaciones", model);
         }
 
         public ActionResult ListarObservacionesStock(long ProcesoId)
         {
-            
+
             var notificaciones = ObtenerNotificaciones();
             var notificacion = notificaciones.FirstOrDefault(p => p.ProcesoId == ProcesoId);
             List<BENotificacionesDetallePedido> lstObservacionesPedido = new List<BENotificacionesDetallePedido>();
@@ -298,7 +298,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult DetalleSolicitudClienteCatalogo(long SolicitudId)
         {
-            
+
             var model = new NotificacionesModel();
 
             var notificaciones = ObtenerNotificaciones();
@@ -417,7 +417,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private List<BENotificaciones> ObtenerNotificaciones()
         {
-            
+
             List<BENotificaciones> list;
             using (var sv = new UsuarioServiceClient())
             {
