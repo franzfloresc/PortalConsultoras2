@@ -401,6 +401,8 @@ function SeccionMostrarProductos(data) {
 }
 
 function RenderCarruselIndividuales(divProd) {
+ 
+
     if (typeof divProd == "undefined")
         return false;
 
@@ -419,8 +421,10 @@ function RenderCarruselIndividuales(divProd) {
         prevArrow: '<a class="arrow-prev"><img src="' + baseUrl + 'Content/Images/sliders/previous_ofertas.svg")" alt="" /></a>',
         nextArrow: '<a class="arrow-next"><img src="' + baseUrl + 'Content/Images/sliders/next_ofertas.svg")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+  
         VerificarClick(slick, currentSlide, nextSlide, "previsuales");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+ 
         EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").removeClass("Acortar2Renglones3puntos");
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").addClass("Acortar2Renglones3puntos");
@@ -489,9 +493,12 @@ function RenderCarruselPrevisuales(divProd) {
 }
 
 function RenderCarruselSimple(divProd, cc) {
+
+     
     if (typeof divProd == "undefined")
         return false;
 
+   
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
 
     divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
@@ -504,17 +511,58 @@ function RenderCarruselSimple(divProd, cc) {
         autoplay: false,
         variableWidth: !isMobile(),
         speed: 260,
-        prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
-        nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
+        prevArrow: '<a  class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
+        nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+       
+ 
+     
         VerificarClick(slick, currentSlide, nextSlide, "normal");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+       
+       
         EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
+        ShowOrHide_Arrows(event, slick, currentSlide);
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
+    
+    if (!cc)
+    {
+        $('.prevArrow').hide();
+    }
+      
 }
 
+
+function ShowOrHide_Arrows(event, slick, currentSlide) {
+
+    var objPrevArrow = $(event.target).find('.prevArrow')[0];
+    var objNextArrow = $(event.target).find('.nextArrow')[0];
+    var objVisorSlick = $(event.target).find('.slick-list')[0];
+    var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
+
+    if (currentSlide == 0) {
+        $(objPrevArrow).hide();
+
+    }
+    else {
+
+        if (slick.slideCount > 1 && objVisorSlick && lastSlick) {
+            var anchoCarrusel = $(objVisorSlick).offset().left + $(objVisorSlick).width();
+            var positionUltimoSlick = $(lastSlick).offset().left + $(lastSlick).width();
+
+            if (positionUltimoSlick < anchoCarrusel) {
+                $(objNextArrow).hide();
+            }
+            else {
+                $(objNextArrow).show();
+            }
+        }
+        $(objPrevArrow).show();
+    }
+
+}
 function RenderCarruselSimpleV2(divProd, cc, vw) {
     if (typeof divProd == "undefined")
         return false;
@@ -537,6 +585,7 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
         //prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         //nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+        
         VerificarClick(slick, currentSlide, nextSlide, "normal");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
         EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
