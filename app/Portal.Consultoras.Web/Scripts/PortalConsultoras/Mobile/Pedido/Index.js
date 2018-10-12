@@ -459,45 +459,46 @@ function BuscarByCUV(cuv) {
     });
 }
 function ObservacionesProducto(item) {
-    $("#hdfValorFlagNueva").val(item.FlagNueva);
-    if (item.FlagNueva == 1) {
-        $("#txtCantidad").attr("disabled", "disabled");
-    }
 
-    if (item.TipoOfertaSisID == "1707") {
-        if (sesionEsShowRoom) {
-            MostrarMensaje("mensajeCUVShowRoom", "Producto disponible sólo desde la sección de Pre-venta Digital.");
-        } else {
-            MostrarMensaje("mensajeCUVShowRoom", "Esta promoción no se encuentra disponible.");
-        }
+	$("#hdfEsBusquedaSR").val(false);
+	$("#hdfEstrategiaId").val(0);
+	if (item.EstrategiaID > 0) {
+		$("#hdfEsBusquedaSR").val(true);
+		$("#hdfEstrategiaId").val(item.EstrategiaID);
+		
+	}
 
-        $("#divProductoInformacion").hide();
-        return false;
-    }
-    if (item.TieneSugerido != 0) {
-        ObtenerProductosSugeridos(item.CUV);
-        return false;
-    }
-    if (item.TieneStock === true) {
-        if (item.EsExpoOferta == true) MostrarMensaje("mensajeEsExpoOferta");
-        if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-            if (!item.TieneRDC) MostrarMensaje("mensajeCUVOfertaEspecial");
-        }
-        if (!IsNullOrEmpty(item.MensajeCUV)) {
-            mensajeParametrizableCuv = item.MensajeCUV;
-            MostrarMensaje("mensajeParametrizableCUV", mensajeParametrizableCuv);
-        }
+	$("#hdfValorFlagNueva").val(item.FlagNueva);
+	if (item.FlagNueva == 1) {
+		$("#txtCantidad").attr("disabled", "disabled");
+	}
 
-        var tipoOferta = $("#hdTipoOfertaSisID").val();
-        if (tipoOferta == ofertaLiquidacion) {
-            MostrarMensaje("mensajeCUVLiquidacion");
-            return false;
-        }
-    }
-    else {
-        MostrarMensaje("mensajeCUVAgotado");
-        return false;
-    }
+	if (item.TipoOfertaSisID != "1707") {
+		if (item.TieneSugerido != 0) {
+			ObtenerProductosSugeridos(item.CUV);
+			return false;
+		}
+		if (item.TieneStock === true) {
+			if (item.EsExpoOferta == true) MostrarMensaje("mensajeEsExpoOferta");
+			if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
+				if (!item.TieneRDC) MostrarMensaje("mensajeCUVOfertaEspecial");
+			}
+			if (!IsNullOrEmpty(item.MensajeCUV)) {
+				mensajeParametrizableCuv = item.MensajeCUV;
+				MostrarMensaje("mensajeParametrizableCUV", mensajeParametrizableCuv);
+			}
+
+			var tipoOferta = $("#hdTipoOfertaSisID").val();
+			if (tipoOferta == ofertaLiquidacion) {
+				MostrarMensaje("mensajeCUVLiquidacion");
+				return false;
+			}
+		}
+		else {
+			MostrarMensaje("mensajeCUVAgotado");
+			return false;
+		}
+	}
 
     $("#hdfCUV").val(item.CUV);
     $("#hdfDescripcionCategoria").val(item.DescripcionCategoria);
@@ -773,7 +774,13 @@ function InsertarProducto() {
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             TipoEstrategiaImagen: 2
         };
-    }
+	}
+
+	var flag = $("#hdfEsBusquedaSR").val();
+	if (flag == "true") {
+		urlInsertar = urlPedidoAgregarProducto;
+		model.EstrategiaID = $("#hdfEstrategiaId").val();
+	}
 
     jQuery.ajax({
         type: 'POST',

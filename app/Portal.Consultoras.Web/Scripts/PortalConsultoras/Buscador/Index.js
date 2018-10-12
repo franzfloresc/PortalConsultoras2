@@ -11,6 +11,7 @@ var delay = (function () {
 
 // teclas especiales
 var keys = [
+    { name: 'tab', val: 9 },
     { name: 'shift', val: 16 },
     { name: 'ctrl', val: 17 },
     { name: 'alt', val: 18 },
@@ -123,13 +124,11 @@ $(document).ready(function () {
                     }
 
                     // validar teclas especiales
-                    //var key = keys.find(key => key.val === event.which);
-                    var key = keys.find(function (key) {
-                        return key.val === event.which
+                    var key = false;
+                    $.each(keys, function (i, value) {
+                       if (value.val === event.which) key = true;
                     });
-                    if (typeof key != 'undefined') {
-                        return false;
-                    }
+                    if (key) return false;
 
                     $('#ResultadoBuscador').html('');
                     var valBusqueda = $(this).val();
@@ -163,7 +162,6 @@ $(document).ready(function () {
                                 async: true,
                                 cache: false,
                                 success: function (msg) {
-                                    console.log(msg);
                                 }
                             });
 
@@ -184,11 +182,6 @@ $(document).ready(function () {
                                     $('.spinner').fadeOut(150);
                                     $('.busqueda_sin_resultados').fadeIn(60);
                                 } else {
-                                    console.log('============ URL BUSCADOR ==========');
-                                    console.log(lista[0].URLBsucador);
-                                    console.log('============ URL BUSCADOR ==========');
-
-
                                     setTimeout(function () {
                                         if ($('.busqueda_sin_resultados').is(':visible')) {
                                             $('.busqueda_sin_resultados').fadeOut(60);
@@ -208,7 +201,6 @@ $(document).ready(function () {
                             }
 
                             xhr.then(successBusqueda, function (e) {
-                                console.log(e);
                             });
 
                         }, 200);
@@ -365,7 +357,6 @@ $(document).ready(function () {
                         var UrlDetalle = GetPalanca(codigoEstrategia);
                         if (UrlDetalle == "") return false;
                         UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-                        //console.log(UrlDetalle);
                         window.location = UrlDetalle;
                         return true;
                     }

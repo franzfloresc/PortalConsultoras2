@@ -328,6 +328,7 @@
       <xs:element minOccurs="0" name="FechaCreacionCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaEnvio" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IpOrigen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="LugarHijo" nillable="true" type="xs:string" />

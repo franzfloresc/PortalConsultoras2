@@ -16,20 +16,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        //public DetalleEstrategiaController(ISessionManager sesionManager) 
-        //    : base(sesionManager)
-        //{
-
-        //}
-
-        //public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager) 
-        //    : base(sesionManager, logManager)
-        //{
-
-        //}
-
-        public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider)
-            : base(sesionManager, logManager, ofertaPersonalizadaProvider)
+        public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
+            : base(sesionManager, logManager, ofertaPersonalizadaProvider, ofertaViewProvider)
         {
         }
 
@@ -62,6 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
+                    success = true,
                     esMultimarca,
                     componentes,
                     mensaje
@@ -70,7 +59,12 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson("Error al obtener los Componentes: " + ex.Message, true);
+
+                return Json(new
+                {
+                    success = false,
+                    ex
+                }, JsonRequestBehavior.AllowGet);
             }
 
         }

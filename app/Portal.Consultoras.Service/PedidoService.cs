@@ -888,6 +888,8 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
+        #region Escala Descuento / zona
+
         public BEPedidoWeb GetPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID)
         {
             return BLPedidoWeb.GetPedidoWebByCampaniaConsultora(paisID, campaniaID, consultoraID);
@@ -898,15 +900,22 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetResumenPedidoWebByCampaniaConsultora(paisID, campaniaID, consultoraID);
         }
 
-        public List<BEEscalaDescuento> GetEscalaDescuento(int PaisID)
+        public List<BEEscalaDescuento> GetEscalaDescuento(int PaisID, int campaniaID, string region, string zona)
         {
-            return BLEscalaDescuento.GetEscalaDescuento(PaisID);
+            return BLEscalaDescuento.GetEscalaDescuento(PaisID, campaniaID, region, zona);
         }
 
         public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo)
         {
             return BLEscalaDescuento.GetParametriaOfertaFinal(paisID, algoritmo);
         }
+
+        public List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona)
+        {
+            return BLEscalaDescuento.ListarEscalaDescuentoZona(paisID, campaniaID, region, zona);
+        }
+
+        #endregion
 
         #region Pedidos DD
 
@@ -2290,9 +2299,9 @@ namespace Portal.Consultoras.Service
             return _pedidoBusinessLogic.Update(pedidoDetalle);
         }
 
-        public BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario)
+        public BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario, int campaniaID, string region, string zona)
         {
-            return _pedidoBusinessLogic.GetConfiguracion(paisID, codigoUsuario);
+            return _pedidoBusinessLogic.GetConfiguracion(paisID, codigoUsuario,  campaniaID,  region,  zona);
         }
 
         public async Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle)
@@ -2344,6 +2353,10 @@ namespace Portal.Consultoras.Service
             return _pedidoBusinessLogic.AceptarBackOrderPedidoDetalle(pedidoDetalle);
         }
 
+        public BEPedidoDetalleResult InsertProductoBuscador(BEPedidoDetalle pedidoDetalle)
+        {
+            return _pedidoBusinessLogic.InsertProductoBuscador(pedidoDetalle);
+        }
         #endregion
 
         public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)

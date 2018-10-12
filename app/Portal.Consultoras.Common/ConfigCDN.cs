@@ -4,8 +4,8 @@ namespace Portal.Consultoras.Common
 {
     public static class ConfigCdn
     {
-        public static string URL_S3 = ConfigurationManager.AppSettings["URL_S3"];
-        public static string RutaCdn = ConfigurationManager.AppSettings["RutaCDN"];
+        public static string URL_S3 = ConfigurationManager.AppSettings["URL_S3"] ?? string.Empty;
+        public static string RutaCdn = ConfigurationManager.AppSettings["RutaCDN"] ?? string.Empty;
         private static readonly string rutaRevistaDigital = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.CarpetaRevistaDigital] ?? string.Empty;
 
         public static string GetUrlFileCdn(string carpetaPais, string fileName)

@@ -397,7 +397,7 @@ function CargarTodosCorreo() {
 function SeleccionarCatalogo() {
     
     var flagMarca;
-    var Marcas = MarcaCatalogo.split('&');
+    var Marcas = $.trim(MarcaCatalogo).split('&');
     var campania = $("#hdCampaniaActual").val();
     var Marca = '#';
 

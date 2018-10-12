@@ -130,7 +130,5 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         ResponseType<List<BEMovimientoDetalle>> MovimientoDetalleActualizar(int paisId, List<BEMovimientoDetalle> movimientoDetalle);
 
-        [OperationContract]
-        IList<BEEscalaDescuentoZona> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
     }
 }
