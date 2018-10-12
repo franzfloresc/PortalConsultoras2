@@ -1901,10 +1901,12 @@ function get_local_storage(key) {
 }
 
 function limpiar_local_storage() {
+
+    
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-
+        var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');//add
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -1914,9 +1916,15 @@ function limpiar_local_storage() {
         if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
+        SetItemLocalStorageSurvicate(itemSurvicateStorage);
     }
 }
-
+function SetItemLocalStorageSurvicate(storage) {
+    storage = (storage == null || storage == "") ? {} : jQuery.parseJSON(storage);
+    for (var key in storage) {
+        localStorage.setItem(key, storage[key]);
+    }
+}
 function _validartieneMasVendidos() {
     if (tieneMasVendidos === 0 || tieneMasVendidos === 1) {
         set_local_storage(tieneMasVendidos, "tieneMasVendidos");
