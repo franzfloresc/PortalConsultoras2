@@ -1958,7 +1958,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
 
             if (!string.IsNullOrEmpty(codigoConcursosProl))
-                _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), codigoConcursosProl, puntajes, puntajesExigidos);
+                _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcursoTran(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), codigoConcursosProl, puntajes, puntajesExigidos);
         }
 
         private string ConfigurarUrlServiceProl(string codigoISO)
@@ -2757,7 +2757,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             if (!(mensajeMMax == string.Empty || resultado))
             {
-                PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GUARDAR_MONTO_MAX, mensajeMMax);
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GUARDAR_MONTO_MAX, mensajeMMax);
             }
 
             //Preparar Pedido Detalle
@@ -2785,7 +2785,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //string message = String.Empty;
 
                 var result = InsertarValidarKitInicio(usuario, pedidoDetalle);
-                if (!result) PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_KIT_INICIO, "Kit de Inicio");
+                if (!result) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_KIT_INICIO, "Kit de Inicio");
 
                 var pedidoWebDetalle = new BEPedidoWebDetalle
                 {
@@ -2830,7 +2830,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             foreach (var pedidowebdetalle in tempPedidowebdetallesGroup)
             {
                 var message = ValidarStockEstrategia(usuario, pedidowebdetalle, lstDetalle);
-                if (!String.IsNullOrEmpty(message)) PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, message);
+                if (!String.IsNullOrEmpty(message)) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, message);
             }
 
             var strCuvs = string.Empty;
@@ -2848,7 +2848,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, strCuvs, out mensajeObs, out listCuvEliminar);
             mensajeObs = !string.IsNullOrEmpty(mensajeObs) ? mensajeObs : "Ocurrió un error al ejecutar la operación.";
 
-            if (!transactionExitosa) PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
+            if (!transactionExitosa) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
 
             var response = PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
             response.listCuvEliminar = listCuvEliminar;

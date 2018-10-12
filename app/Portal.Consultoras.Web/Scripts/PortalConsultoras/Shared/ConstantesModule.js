@@ -54,6 +54,16 @@ var ConstantesModule = (function () {
         NotParticipaProgramaNuevas: "0"
     }
 
+    var _configuracionOferta = {
+        Web: 1701,
+        Liquidacion: 1702,
+        CrossSelling: 1703,
+        Nueva: 1704,
+        Flexipago: 1705,
+        Accesorizate: 1706,
+        ShowRoom: 1707,
+    }
+
     var _tipoEstrategia = {
         rd: "rd",
         hv: "hv",
@@ -82,7 +92,8 @@ var ConstantesModule = (function () {
         ConstantesPalanca: _constantesPalanca,
         TipoEstrategia: _tipoEstrategia,
         UrlObtenerEstrategia: _urlObtenerEstrategia,
-        OrigenPedidoWeb: _origenPedidoWeb
+        OrigenPedidoWeb: _origenPedidoWeb,
+        ConfiguracionOferta: _configuracionOferta
     }
     
 })();

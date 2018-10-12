@@ -70,6 +70,12 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        public void ActualizarInsertarPuntosConcursoTran(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso, string PuntosExigidosConcurso)
+        {
+            DAConcurso DAConcurso = new DAConcurso(PaisID);
+            DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso, PuntosExigidosConcurso);
+        }
+
         /// <summary>
         /// Obtener el puntaje del concurso que participa la consultora.
         /// </summary>

@@ -312,7 +312,9 @@ function RegistroLiquidacion(model, cantidad, producto) {
         PrecioUnidad: model.Precio,
         CUV: model.CUV,
         ConfiguracionOfertaID: 3,
-        OrigenPedidoWeb: model.OrigenPedidoWeb
+        OrigenPedidoWeb: model.OrigenPedidoWeb,
+        TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
+        LimiteVenta: model.UnidadesPermitidas
     };
 
     $.ajaxSetup({
@@ -355,7 +357,7 @@ function RegistroLiquidacion(model, cantidad, producto) {
 
                     jQuery.ajax({
                         type: 'POST',
-                        url: baseUrl + 'OfertaLiquidacion/InsertOfertaWebPortal',
+                        url: baseUrl + 'Pedido/PedidoAgregarProductoTransaction',
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify(Item),
