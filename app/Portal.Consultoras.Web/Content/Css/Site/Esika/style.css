@@ -9208,17 +9208,21 @@ ul.tabs {
     height: auto;
 }
 
-.disabled {
-    background: #F3F3F3 !important;
+/*.disabled {
+    background: #d8d8d8 !important;
+    color: #fff;
+    border-color: #fff !important;
 }
 
     .disabled select {
         background: #F5F5F5 !important;
     }
 
-    .disabled input {
-        background: #F5F5F5 !important;
-    }
+    .disabled .txt_cantidad_pedido, .disabled .txt_menos, .disabled .txt_mas {
+        background: #d8d8d8 !important;
+        color: #fff;
+        border-color: #fff !important;
+    }*/
 
 .div-3 .selectA select {
     float: left;
@@ -37239,3 +37243,22 @@ h1#penmostreo .campana {
     color: #ffffff;
 }
 /* FIN STYLE OF AUTOCOMPLETE */
+
+/* MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
+
+#divMensajeConfDuoPerfecto .terminos_title_2{
+    font-weight:900!important;
+}
+
+#divMensajeConfDuoPerfecto .btnMensajeAceptar{
+    background-color:#e81c36!important;
+}
+
+#divMensajeConfDuoPerfecto .btnMensajeCancelar{
+    background-color: transparent!important;
+    color: #000!important;
+    text-transform: initial!important;
+    text-decoration: underline!important;
+}
+
+/* FIN - MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */

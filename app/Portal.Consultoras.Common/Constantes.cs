@@ -411,6 +411,7 @@ namespace Portal.Consultoras.Common
             public const string UrlPoliticasCDR = "UrlPoliticasCDR";
             public const string UrlLogDynamo = "UrlLogDynamo";
             public const string rutaImagenNotFoundAppCatalogo = "rutaImagenNotFoundAppCatalogo";
+            public const string urlSinImagenTiposyTonos = "urlSinImagenTiposyTonos";
             public const string URL_LIDER = "URL_LIDER";
             public const string oferta_final_regalo_url_s3 = "oferta_final_regalo_url_s3";
             public const string GIF_MENU_DEFAULT_OFERTAS = "GIF_MENU_DEFAULT_OFERTAS";
@@ -2098,7 +2099,7 @@ namespace Portal.Consultoras.Common
                 public const string ExcedeLimiteUnidades = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña";
                 public const string Electivo_PromocionNombre = "Dúo Perfecto";
                 public const string Electivo_NoAgregarPorLimite = "Ya no puedes añadir otro producto, tu {0} está completo.";
-                public const string Electivo_CompletasteLimite = "¡Completaste tu {0}!";
+                public const string Electivo_CompletasteLimite = "👏 ¡Completaste tu {0}!";
                 public const string Electivo_TeFaltaPocoLimite = "¡Agregaste 1 producto, te falta {0} para completar tu {1}!";
                 public const string DuoPerfecto_ConfirmaEliminar = "Si eliminas este producto te quedarás sin tu {0}";
             }

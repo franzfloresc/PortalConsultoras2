@@ -741,7 +741,8 @@ namespace Portal.Consultoras.Web.Providers
                     Digitable = item.Digitable,
                     Cantidad = item.Cantidad,
                     FactorCuadre = item.FactorCuadre,
-                    IdMarca = item.IdMarca
+                    IdMarca = item.IdMarca,
+                    DescripcionMarca = item.NombreMarca
                 };
                 listaTonos.Add(tono);
             }

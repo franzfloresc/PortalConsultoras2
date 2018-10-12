@@ -12811,11 +12811,14 @@ a {
     font-family: 'Lato';
     font-size: 11px;
     font-weight: 700;
-    color: #e81c36;
     text-align: center;
     margin-bottom: 5px;
     margin-left: 10px;
     margin-right: 10px;
+    padding-top: 3px;
+}
+.texto_elige_tono img {
+    padding-right: 3px;
 }
 
 .saludo_paginacion {
@@ -15450,3 +15453,22 @@ a {
     border-color: #e81c36 !important;
     color: #e81c36;
 }
+
+/* MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
+
+#popupInformacionConfDuoPerfecto .terminos_title_2{
+    font-weight:900!important;
+}
+
+#popupInformacionConfDuoPerfecto a:last-child{
+    background-color:#e81c36!important;
+    width: 140px!important;
+}
+
+#popupInformacionConfDuoPerfecto a:first-child{
+    background-color: transparent!important;
+    color: #000!important;
+    text-decoration: underline!important;
+}
+
+/* FIN - MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
