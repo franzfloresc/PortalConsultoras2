@@ -141,14 +141,7 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
             BEPedidoWebDetalle bePedidoWebDetalle = null;
-            //TransactionOptions oTransactionOptions =
-            //    new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
 
-            //try
-            //{
-            //    using (TransactionScope oTransactionScope =
-            //        new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
-            //    {
             if (pedidowebdetalle.PedidoID == 0)
             {
                 BEPedidoWeb obePedidoWeb = new BEPedidoWeb
@@ -164,9 +157,6 @@ namespace Portal.Consultoras.BizLogic
 
             bePedidoWebDetalle = daPedidoWebDetalle.InsPedidoWebDetalle(pedidowebdetalle);
             bePedidoWebDetalle.PedidoID = pedidowebdetalle.PedidoID;
-            //daPedidoWeb.UpdPedidoWebTotales(pedidowebdetalle.CampaniaID, pedidowebdetalle.PedidoID,
-            //    pedidowebdetalle.Clientes, pedidowebdetalle.ImporteTotalPedido,
-            //    pedidowebdetalle.CodigoUsuarioModificacion);
 
             if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
                 new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockAgregar(pedidowebdetalle.CampaniaID,
@@ -201,14 +191,6 @@ namespace Portal.Consultoras.BizLogic
                         Util.GetPaisISO(pedidowebdetalle.PaisID));
                 }
             }
-
-            //        oTransactionScope.Complete();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.SaveLog(ex, pedidowebdetalle.ConsultoraID, pedidowebdetalle.PaisID);
-            //}
 
             return bePedidoWebDetalle;
         }
@@ -359,14 +341,7 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
 
-            //TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
-
-            //try
-            //{
-            //    using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
-            //    {
             daPedidoWebDetalle.UpdPedidoWebDetalle(pedidowebdetalle);
-            //daPedidoWeb.UpdPedidoWebTotales(pedidowebdetalle.CampaniaID, pedidowebdetalle.PedidoID, pedidowebdetalle.Clientes, pedidowebdetalle.ImporteTotalPedido, pedidowebdetalle.CodigoUsuarioModificacion);
 
             switch (pedidowebdetalle.TipoOfertaSisID)
             {
@@ -392,15 +367,6 @@ namespace Portal.Consultoras.BizLogic
                     LogManager.SaveLog(ex, pedidowebdetalle.CodigoUsuarioModificacion, Util.GetPaisISO(pedidowebdetalle.PaisID));
                 }
             }
-
-            //        oTransactionScope.Complete();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.SaveLog(ex, pedidowebdetalle.CodigoUsuarioModificacion, Util.GetPaisISO(pedidowebdetalle.PaisID));
-            //    throw;
-            //}
         }
 
         public void UpdPedidoWebTotalesTran(BEUsuario usuario, int PedidoID, int Clientes, decimal ImporteTotalPedido)
@@ -522,12 +488,6 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
             BEPedidoWebDetalle detalleTemp = new BEPedidoWebDetalle { Cantidad = 0 };
 
-            //TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
-
-            //try
-            //{
-            //    using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
-            //    {
             if (pedidowebdetalle.PedidoDetalleID != 0)
             {
                 using (var reader = daPedidoWebDetalle.GetPedidoWebDetalleByPK(pedidowebdetalle.CampaniaID, pedidowebdetalle.PedidoID, pedidowebdetalle.PedidoDetalleID))
@@ -564,15 +524,6 @@ namespace Portal.Consultoras.BizLogic
                     LogManager.SaveLog(ex, pedidowebdetalle.CodigoUsuarioModificacion, Util.GetPaisISO(pedidowebdetalle.PaisID));
                 }
             }
-
-            //        oTransactionScope.Complete();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.SaveLog(ex, pedidowebdetalle.CodigoUsuarioModificacion, Util.GetPaisISO(pedidowebdetalle.PaisID));
-            //    throw;
-            //}
         }
 
         public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros,

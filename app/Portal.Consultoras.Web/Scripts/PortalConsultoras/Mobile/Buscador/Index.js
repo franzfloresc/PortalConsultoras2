@@ -206,9 +206,9 @@ $(document).ready(function () {
 
                         var urlInsertar = '';
                         if (model.TipoPersonalizacion == 'CAT') {
-                            urlInsertar = baseUrl + 'Pedido/PedidoInsertarBuscador';
+                            urlInsertar = baseUrl + 'Pedido/PedidoAgregarProductoTransaction';
                         } else {
-                            urlInsertar = baseUrl + 'Pedido/PedidoAgregarProducto';
+                            urlInsertar = baseUrl + 'Pedido/PedidoAgregarProductoTransaction';
                         }
 
                         var model = {

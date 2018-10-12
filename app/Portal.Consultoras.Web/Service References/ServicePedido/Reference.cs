@@ -13789,6 +13789,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEUsuario UsuarioField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool esVirtualCoachField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEEstrategia estrategiaField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -14033,6 +14039,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool esVirtualCoach {
+            get {
+                return this.esVirtualCoachField;
+            }
+            set {
+                if ((this.esVirtualCoachField.Equals(value) != true)) {
+                    this.esVirtualCoachField = value;
+                    this.RaisePropertyChanged("esVirtualCoach");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEEstrategia estrategia {
+            get {
+                return this.estrategiaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.estrategiaField, value) != true)) {
+                    this.estrategiaField = value;
+                    this.RaisePropertyChanged("estrategia");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -14057,6 +14089,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeRespuestaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string[] listCuvEliminarField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -14090,6 +14125,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.MensajeRespuestaField, value) != true)) {
                     this.MensajeRespuestaField = value;
                     this.RaisePropertyChanged("MensajeRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] listCuvEliminar {
+            get {
+                return this.listCuvEliminarField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.listCuvEliminarField, value) != true)) {
+                    this.listCuvEliminarField = value;
+                    this.RaisePropertyChanged("listCuvEliminar");
                 }
             }
         }

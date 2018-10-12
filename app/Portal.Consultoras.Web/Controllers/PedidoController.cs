@@ -4242,11 +4242,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult PedidoAgregarProducto2(PedidoCrudModel model)
+        public JsonResult PedidoAgregarProductoTransaction(PedidoCrudModel model)
         {
             try
             {
                 string mensaje = "", urlRedireccionar = "", CuvSet = string.Empty;
+                BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+                pedidoDetalle.Producto = new ServicePedido.BEProducto();
+                model.CuvTonos = Util.Trim(model.CuvTonos);
 
                 #region SesiónExpirada
                 if (userData == null)
@@ -4262,60 +4265,115 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
-                pedidoDetalle.Producto = new ServicePedido.BEProducto();
+                #region VirtualCoach
+                if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido ||
+                    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachMobilePedido)
+                {
+                    var ficha = SessionManager.GetFichaProductoTemporal();
+                    if (ficha == null)
+                    {
+                        mensaje = "Estrategia no encontrada.";
+                        return Json(new
+                        {
+                            success = false,
+                            message = mensaje
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    var descripcion = ficha.FlagNueva == 1 ? ficha.DescripcionCortada : ficha.DescripcionCompleta;
+                    if (string.IsNullOrEmpty(model.CuvTonos)) model.CuvTonos = ficha.CUV2;
+
+                    var tonos = model.CuvTonos.Split('|');
+                    string cuvTonos = "";
+                    foreach (var tono in tonos)
+                    {
+                        var listSp = tono.Split(';');
+                        var cuv = listSp.Length > 0 ? listSp[0] : ficha.CUV2;
+                        string descTono = "";
+                        if (ficha.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                        {
+                            var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s => s.Cuv == listSp[0])).SingleOrDefault();
+                            if (brother != null)
+                            {
+                                descTono = brother.Select(m => m.DescripcionComercial).SingleOrDefault();
+                            }
+                        }
+
+                        cuvTonos = cuvTonos + (cuvTonos == "" ? "" : "|") + cuv;
+                        cuvTonos = cuvTonos + ";" + ficha.MarcaID;
+                        cuvTonos = cuvTonos + ";" + ficha.Precio2;
+                        if (!string.IsNullOrEmpty(descTono))
+                        {
+                            cuvTonos = cuvTonos + ";" + descTono;
+                        }
+                    }
+
+                    model.TipoEstrategiaID = ficha.TipoEstrategiaID;
+                    model.IndicadorMontoMinimo = ficha.IndicadorMontoMinimo.ToString();
+                    model.TipoEstrategiaImagen = ficha.TipoEstrategiaImagenMostrar;
+                    model.FlagNueva = ficha.FlagNueva.ToString();
+                    model.CuvTonos = cuvTonos;
+
+                    pedidoDetalle.esVirtualCoach = true;
+                    pedidoDetalle.estrategia = new ServicePedido.BEEstrategia();
+                    pedidoDetalle.estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
+                    pedidoDetalle.estrategia.LimiteVenta = ficha.LimiteVenta;
+                    pedidoDetalle.estrategia.DescripcionCUV2 = descripcion;
+                    pedidoDetalle.estrategia.FlagNueva = 0;
+                    pedidoDetalle.estrategia.Precio2 = ficha.Precio2;
+                    pedidoDetalle.estrategia.TipoEstrategiaID = ficha.TipoEstrategiaID;
+                    pedidoDetalle.estrategia.IndicadorMontoMinimo = ficha.IndicadorMontoMinimo;
+                    pedidoDetalle.estrategia.CUV2 = ficha.CUV2;
+                }
+                #endregion
+
+                #region OfertaFinal
+                if (model.EstrategiaID <= 0 && !pedidoDetalle.esVirtualCoach)
+                {
+                    pedidoDetalle.estrategia = new ServicePedido.BEEstrategia();
+                    pedidoDetalle.estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
+                    pedidoDetalle.estrategia.LimiteVenta = model.LimiteVenta == 0 ? 99 : model.LimiteVenta;
+                    pedidoDetalle.estrategia.DescripcionCUV2 = Util.Trim(model.DescripcionProd);
+                    pedidoDetalle.estrategia.FlagNueva = 0;
+                    pedidoDetalle.estrategia.Precio2 = model.PrecioUnidad;
+                    pedidoDetalle.estrategia.TipoEstrategiaID = model.TipoEstrategiaID;
+                    pedidoDetalle.estrategia.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
+                    pedidoDetalle.estrategia.CUV2 = model.CUV;
+                    pedidoDetalle.estrategia.MarcaID = model.MarcaID;
+                }
+                #endregion
+
                 pedidoDetalle.Producto.EstrategiaID = model.EstrategiaID;
                 pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID.ToString();
-                pedidoDetalle.Producto.CUV = model.CuvTonos.Trim();
+                pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
+                pedidoDetalle.Producto.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
+                pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
+                pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
+                pedidoDetalle.Producto.FlagNueva = model.FlagNueva == "" ? "0" : model.FlagNueva;
                 pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
                 pedidoDetalle.PaisID = userData.PaisID;
-                pedidoDetalle.IPUsuario = userData.IPUsuario;
-                pedidoDetalle.OrigenPedidoWeb = model.OrigenPedidoWeb;
+                pedidoDetalle.IPUsuario = GetIPCliente();
+                pedidoDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(model.OrigenPedidoWeb);
                 pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
-                //pedidoDetalle.Producto.ConfiguracionOfertaID = 0;
-                //pedidoDetalle.Producto.PrecioCatalogo = 0;
-                //pedidoDetalle.Producto.IndicadorMontoMinimo = 0;
-                //pedidoDetalle.EsSugerido = false;
-                //pedidoDetalle.EsKitNueva = false,
-                //pedidoDetalle.Producto.MarcaID = 0;
-                //pedidoDetalle.Producto.Descripcion = "";
-                //pedidoDetalle.Identifier = ""; opcional
+                pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
-                switch (pedidoDetalleResult.CodigoRespuesta)
-                {
-                    case Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO:
-                        mensaje = pedidoDetalleResult.MensajeRespuesta;
-                        break;
-                    case Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE:
-                        mensaje = pedidoDetalleResult.MensajeRespuesta;
-                        break;
-                    case Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA:
-                        mensaje = pedidoDetalleResult.MensajeRespuesta;
-                        break;
-                    case Constantes.PedidoValidacion.Code.SUCCESS:
-                        mensaje = pedidoDetalleResult.MensajeRespuesta;
-                        break;
-                    case Constantes.PedidoValidacion.Code.ERROR_KIT_INICIO:
-                        mensaje = pedidoDetalleResult.MensajeRespuesta;
-                        break;
-                    default:
-                        mensaje = "Ocurrió un error al ejecutar la operación.";
-                        break;
-                }
-
                 if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
                 {
-                    ObtenerPedidoWebSetDetalleAgrupado(true);
+                    SessionManager.SetPedidoWeb(null);
+                    SessionManager.SetDetallesPedido(null);
+                    SessionManager.SetDetallesPedidoSetAgrupado(null);
+                    ObtenerPedidoWeb();
                     return Json(new
                     {
                         success = true,
-                        message = mensaje,
+                        message = pedidoDetalleResult.MensajeRespuesta,
                         errorInsertarProducto = "0",
                         DataBarra = GetDataBarra(),
-                        cantidadTotalProductos = ObtenerPedidoWebDetalle(true).Sum(dp => dp.Cantidad)
+                        cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad),
+                        listCuvEliminar = pedidoDetalleResult.listCuvEliminar.ToList()
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -4323,7 +4381,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = mensaje,
+                        message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
                         errorInsertarProducto = "1"
                     }, JsonRequestBehavior.AllowGet);
                 }
@@ -4334,7 +4392,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrio un error, vuelva ha intentalo."
+                    message = "Ocurrió un error, vuelva ha intentarlo."
                 });
             }
         }
