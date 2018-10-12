@@ -1358,7 +1358,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
-                    usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID, usuarioModel.FechaHoy);
+                    usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
                 }
 
@@ -2937,7 +2937,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Mostrar;
         }
 
-        private int GetDiaFacturacion(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID, DateTime FechaHoy)
+        private int GetDiaFacturacion(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID)
         {
             int diaFacturacion = 0;
             BEConfiguracionCampania configuracionCampania;

@@ -289,7 +289,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 var lista = getListaNuevasDescripciones(userData.PaisID);
                 var pedidoValidado = getPedidoValidado(userData);
-                var suscritaActiva = (usuario.RevistaDigital.EsSuscrita == true && usuario.RevistaDigital.EsActiva == true);
+                var suscritaActiva = (usuario.RevistaDigital.EsSuscrita && usuario.RevistaDigital.EsActiva);
 
                 if (pedido == null) return pedido;
 

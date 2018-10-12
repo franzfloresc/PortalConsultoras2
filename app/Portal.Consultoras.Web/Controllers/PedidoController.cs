@@ -1109,7 +1109,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool ValidarEsAgregado(BEPedidoWebDetalle pedidoAgrupado)
         {
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
-            return listaPedidoWebDetalleAgrupado.Where(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId).Count() > 0 ? true : false;
+            return listaPedidoWebDetalleAgrupado.Count(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId) > 0 ? true : false;
         }
 
         private string GetObservacionesProlPorCuv(string cuv)
@@ -1794,7 +1794,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             beProductos = beProductos
                     .Where(prod =>
-                         !(prod.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                         (prod.CodigoEstrategia != Constantes.TipoEstrategiaSet.CompuestaVariable)
                     )
                     .ToList();
 

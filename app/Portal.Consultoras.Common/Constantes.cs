@@ -2490,7 +2490,7 @@ namespace Portal.Consultoras.Common
             public const int Origen = 2;
         }
 
-        public class EnviarSMS
+        public static class EnviarSMS
         {
             public static class CredencialesProvedoresSMS
             {
@@ -2764,7 +2764,7 @@ namespace Portal.Consultoras.Common
         }
 
 
-        public class RutaBuscadorService
+        public static class RutaBuscadorService
         {
             //Buscador/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{CodigoZona}/{TextoBusqueda}/{CantidadProductos}/{SociaEmpresaria}/{SuscripcionActiva}/{MDO}/{RD}/{RDI}/{RDR}/{DiaFacturacion}
             public const string UrlBuscador = "Buscador/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}";
@@ -2883,7 +2883,7 @@ namespace Portal.Consultoras.Common
             public const string AppRedirectFormatAlt = "APP {0} Conmigo aquí";
         }
 
-        public class NuevoCatalogoProducto
+        public static class NuevoCatalogoProducto
         {
             public const string CLUBGANA = "CLUBGANA+";
             public const string SOLOHOY = "SOLOHOY";
@@ -2900,7 +2900,7 @@ namespace Portal.Consultoras.Common
             public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
         }
 
-        public class CodigosCatalogos
+        public static class CodigosCatalogos
         {
             public const int ESIKA = 13;
             public const int LBEL = 9;
@@ -2914,7 +2914,7 @@ namespace Portal.Consultoras.Common
             public const string AcionesOmitidas = "ActualizarContrasenia";
         }
 
-        public class CodigoEstrategiaBuscador
+        public static class CodigoEstrategiaBuscador
         {
             public const string Liquidacion = "LIQ";
             public const string Catalogo = "CAT";

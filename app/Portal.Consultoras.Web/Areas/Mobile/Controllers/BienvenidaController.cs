@@ -22,7 +22,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             _tablaLogica = new Providers.TablaLogicaProvider();
         }
 
-
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(int verSeccion = 0)
         {
@@ -133,7 +132,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (LogicaCaminoExisto.Any())
                 {
                     var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
-                    bool caminiExitoActive = (CaminoExistoFirst != null && CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
+                    bool caminiExitoActive = (CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
                     if (caminiExitoActive)
                     {
                         var accesoCaminoExito = this.ObjectCaminoExito();
@@ -567,5 +566,4 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
     }
-
 }

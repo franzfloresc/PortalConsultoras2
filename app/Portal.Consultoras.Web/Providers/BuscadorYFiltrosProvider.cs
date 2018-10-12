@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Providers
                 usuario.CampaniaID,
                 usuario.CodigoConsultora);
             
-            return await ObtenerPersonalizaciones(pathPersonalziacion); ;
+            return await ObtenerPersonalizaciones(pathPersonalziacion);
         }
 
         public async Task<List<BuscadorYFiltrosModel>> GetBuscador(BuscadorModel buscadorModel)

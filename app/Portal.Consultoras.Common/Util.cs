@@ -3550,7 +3550,7 @@ namespace Portal.Consultoras.Common
 
             if (!lista.Any()) return result;
 
-            if (string.IsNullOrEmpty(tipoEstrategiaCodigo) && buscador == false)
+            if (string.IsNullOrEmpty(tipoEstrategiaCodigo) && !buscador)
             {
                 switch (codigoCatalago)
                 {

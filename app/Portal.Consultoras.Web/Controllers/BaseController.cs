@@ -1360,7 +1360,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                result = Request.Browser.IsMobileDevice; ;
+                result = Request.Browser.IsMobileDevice;
             }
             catch
             {
