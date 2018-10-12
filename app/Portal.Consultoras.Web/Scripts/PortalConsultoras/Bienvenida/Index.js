@@ -464,12 +464,21 @@ $(document).ready(function () {
 
     LayoutMenu();
     ConsultarEmailPendiente();
+    RegistrarInicioSession();
 });
-
 
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
+
+function RegistrarInicioSession() {
+    if (viewBagPrimeraVezSession == '0') {
+        dataLayer.push({
+            'event': 'writeCookie',
+            'consultora': viewBagCodigoConsultora
+        });
+    }
+}
 
 function limitarMaximo(e, contenido, caracteres, id) {
     var unicode = e.keyCode ? e.keyCode : e.charCode;
