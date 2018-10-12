@@ -1,6 +1,5 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -8,17 +7,21 @@ using System;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class BienvenidaController : BaseMobileController
     {
-        protected Providers.TablaLogicaProvider _tablaLogica;
-
+        private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        protected TablaLogicaProvider _tablaLogica;
         public BienvenidaController()
         {
-            _tablaLogica = new Providers.TablaLogicaProvider();
+            _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
+            _tablaLogica = new TablaLogicaProvider();
         }
+
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(int verSeccion = 0)
@@ -96,13 +99,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 ViewBag.NombreConsultora = model.NombreConsultora;
 
-                model.PartialSectionBpt = GetPartialSectionBptModel();
+                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.MobileHome);
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
                 ViewBag.UrlImagenFAVMobile = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
 
                 model.CambioClave = userData.CambioClave;
 
-                if (SessionManager.GetIngresoPortalConsultoras()== null)
+                if (SessionManager.GetIngresoPortalConsultoras() == null)
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     SessionManager.SetIngresoPortalConsultoras(true);
@@ -298,7 +301,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return tipoPopUpMostrar;
         }
-        
+
         private BECuponConsultora ObtenerCuponDesdeServicio()
         {
             BECuponConsultora cuponResult;
@@ -443,49 +446,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
-        private PartialSectionBpt GetPartialSectionBptModel()
-        {
-            var partial = new PartialSectionBpt();
-            try
-            {
-                partial.RevistaDigital = revistaDigital;
-
-                if (revistaDigital.TieneRDC)
-                {
-                    if (revistaDigital.EsActiva)
-                    {
-                        if (revistaDigital.EsSuscrita)
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MBienvenidaInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                        else
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MBienvenidaNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                    }
-                    else
-                    {
-                        if (revistaDigital.EsSuscrita)
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MBienvenidaInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                        else
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MBienvenidaNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                    }
-                }
-                else if (revistaDigital.TieneRDI)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MBienvenidaIntriga) ?? new ConfiguracionPaisDatosModel();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-            return partial;
-        }
+        
 
         public JsonResult AceptarContrato(bool checkAceptar, string origenAceptacion)
         {
@@ -503,7 +464,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                   svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, origenAceptacion, null, null, null, null);
+                    svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, origenAceptacion, null, null, null, null);
                 }
 
                 userData.IndicadorContrato = 1;
@@ -582,7 +543,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return "";
             }
         }
-        
+
         [HttpGet]
         public JsonResult OcultarBannerApp()
         {

@@ -1,5 +1,7 @@
-﻿using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Web.LogManager;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Web.Mvc;
 
@@ -9,9 +11,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         protected ConfiguracionOfertasHomeProvider _confiOfertasHomeProvider;
 
-        public OfertasController()
+        public OfertasController() : this(new ConfiguracionOfertasHomeProvider())
         {
-            _confiOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
+        }
+
+        public OfertasController(ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider) : base()
+        {
+            _confiOfertasHomeProvider = configuracionOfertasHomeProvider;
+        }
+
+        public OfertasController(
+            ISessionManager sessionManager,
+            ILogManager logManager,
+            ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider,
+            OfertaViewProvider ofertaViewProvider
+            )
+            : base(sessionManager, logManager)
+        {
+            _confiOfertasHomeProvider = configuracionOfertasHomeProvider;
+            _ofertasViewProvider = ofertaViewProvider;
         }
 
         public ActionResult Index()
@@ -29,10 +47,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "Mobile.OfertasController.Index");
             }
 
-            return RedirectToAction("Index", "Bienvenida");
+            return RedirectToAction("Index", "Bienvenida",new { area = "Mobile"});
         }
 
         public ActionResult Revisar()

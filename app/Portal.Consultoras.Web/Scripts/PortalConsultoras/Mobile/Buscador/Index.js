@@ -78,12 +78,11 @@ $(document).ready(function () {
 
                     // validar teclas especiales
                     //var key = keys.find(key => key.val === event.which);
-                    var key = keys.find(function (key) {
-                        return key.val === event.which
+                    var key = false;
+                    $.each(keys, function (i, value) {
+                        if (value.val === event.which) key = true;
                     });
-                    if (typeof key != 'undefined') {
-                        return false;
-                    }
+                    if (key) return false;
 
                     $('#ResultadoBuscadorMobile').html('');
                     var valBusqueda = $(this).val();
@@ -101,7 +100,7 @@ $(document).ready(function () {
 
                             xhr = $.ajax({
                                 type: 'POST',
-                                url: baseUrl + "Mobile/Buscador/BusquedaProductos",
+                                url: baseUrl + "Buscador/BusquedaProductos",
                                 data: JSON.stringify({ busqueda: valBusqueda, totalResultados: TotalResultadosBuscador }),
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
@@ -176,13 +175,6 @@ $(document).ready(function () {
                     if (model.TipoPersonalizacion == 'LIQ') {
                         RegistroLiquidacion(model, cantidad, agregado);
                     } else {                       
-                        var urlInsertar = '';
-                        if (model.TipoPersonalizacion == 'CAT') {
-                            urlInsertar = baseUrl + 'Pedido/PedidoInsertarBuscador';
-                        } else {
-                            urlInsertar = baseUrl + 'Pedido/PedidoAgregarProducto';
-                        }
-
                         var cuv = model.CUV;
                         var tipoOfertaSisID = 0;
                         var configuracionOfertaID = 0;

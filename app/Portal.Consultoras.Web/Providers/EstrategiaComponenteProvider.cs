@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -39,13 +40,8 @@ namespace Portal.Consultoras.Web.Providers
             private set { _sessionManager = value; }
         }
 
-        //public virtual void setConfiguracionManagerProvider(ConfiguracionManagerProvider ConfiguracionManagerProvider)
-        //{
-        //    _configuracionManagerProvider = ConfiguracionManagerProvider;
-        //}
-
         public EstrategiaComponenteProvider() : this(
-            Web.SessionManager.SessionManager.Instance, 
+            Web.SessionManager.SessionManager.Instance,
             new OfertaBaseProvider(),
             new ConfiguracionManagerProvider())
         {
@@ -68,6 +64,7 @@ namespace Portal.Consultoras.Web.Providers
             mensaje = "";
 
             var userData = SessionManager.GetUserData();
+            var listaEstrategiaComponente = new List<EstrategiaComponenteModel>();
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
                 mensaje += "SiMongo|";
@@ -88,13 +85,12 @@ namespace Portal.Consultoras.Web.Providers
 
                 mensaje += "GetAppProductoBySap = " + listaProductos.Count + "|";
 
-                var listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
+                listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
                 mensaje += "GetEstrategiaDetalleCompuestaMs = " + listaEstrategiaComponente.Count + "|";
-                //estrategiaModelo.CodigoVariante = "";
-                //var listaComponentesPorOrdenar = GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
-                listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
-                mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
-                return listaEstrategiaComponente;
+
+                //listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
+                //mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
+                //return listaEstrategiaComponente;
 
             }
             else
@@ -107,44 +103,18 @@ namespace Portal.Consultoras.Web.Providers
 
                 mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
 
-                var listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos, codigoTipoEstrategia);
+                listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos, codigoTipoEstrategia);
                 mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
-                //var listaComponentesPorOrdenar = GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
-                var listaComponentesPorOrdenar = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
-                mensaje += "OrdenarComponentesPorMarca = " + listaComponentesPorOrdenar.Count + "|";
-                return listaComponentesPorOrdenar;
+
+                //var listaComponentesPorOrdenar = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
+                //mensaje += "OrdenarComponentesPorMarca = " + listaComponentesPorOrdenar.Count + "|";
+                //return listaComponentesPorOrdenar;
             }
-
+            
+            listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
+            mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
+            return listaEstrategiaComponente;
         }
-
-        //public List<BEEstrategiaProducto> GetEstrategiaProductosList(EstrategiaPersonalizadaProductoModel estrategiaModelo, out string codigoSap)
-        //{
-        //    codigoSap = "";
-        //    const string separador = "|";
-        //    var txtBuil = new StringBuilder();
-        //    txtBuil.Append(separador);
-
-        //    var listaProducto = new List<BEEstrategiaProducto>();
-        //    if (!string.IsNullOrEmpty(estrategiaModelo.CodigoVariante))
-        //    {
-
-        //        var estrategiaX = new BEEstrategia { PaisID = _paisId, EstrategiaID = estrategiaModelo.EstrategiaID };
-        //        using (var svc = new PedidoServiceClient())
-        //        {
-        //            listaProducto = svc.GetEstrategiaProducto(estrategiaX).ToList();
-        //        }
-
-        //        foreach (var item in listaProducto)
-        //        {
-        //            item.SAP = Util.Trim(item.SAP);
-        //            if (item.SAP != "" && !txtBuil.ToString().Contains(separador + item.SAP + separador))
-        //                txtBuil.Append(item.SAP + separador);
-        //        }
-        //    }
-
-
-        //    return listaProducto;
-        //}
 
         public virtual List<BEEstrategiaProducto> GetEstrategiaProducto(int PaisID, int EstrategiaID)
         {
@@ -165,9 +135,11 @@ namespace Portal.Consultoras.Web.Providers
 
             if (string.IsNullOrEmpty(estrategiaModelo.CodigoVariante)) return listaProducto;
 
-            //var parameters = new BEEstrategia { PaisID = _paisId, EstrategiaID = estrategiaModelo.EstrategiaID };
-
             listaProducto = GetEstrategiaProducto(_paisId, estrategiaModelo.EstrategiaID);
+
+            var codigoIsoPais = SessionManager.GetUserData().CodigoISO;
+            var codigoIsoAppCatalogo = System.Configuration.ConfigurationManager.AppSettings.Get("AppCatalogo_" + codigoIsoPais);
+            codigoIsoPais = (codigoIsoAppCatalogo == null) ? codigoIsoPais : codigoIsoAppCatalogo;
 
             listaProducto.ForEach(x =>
             {
@@ -175,17 +147,13 @@ namespace Portal.Consultoras.Web.Providers
                 x.NombreBulk = String.IsNullOrEmpty(x.NombreBulk) ? x.NombreComercial : x.NombreBulk;
                 x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
-                if (string.IsNullOrWhiteSpace(x.ImagenProducto) && string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
-                //var codigoIsoPais = Web.SessionManager.SessionManager.Instance.GetUserData().CodigoISO;
-                var codigoIsoPais = SessionManager.GetUserData().CodigoISO;
-                var campaniaId = estrategiaModelo.CampaniaID;//SessionManager.SessionManager.Instance.GetUserData().CampaniaID;
+                if (string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
+                var campaniaId = estrategiaModelo.CampaniaID;
                 var codigoMarca = string.Empty;
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
                 if (x.IdMarca == Constantes.Marca.Cyzone) codigoMarca = "C";
-                x.ImagenBulk = string.IsNullOrWhiteSpace(x.ImagenBulk) ?
-                    string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenProducto) :
-                    string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenBulk);
+                x.ImagenBulk = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenBulk);
             });
 
             return listaProducto;
@@ -260,6 +228,7 @@ namespace Portal.Consultoras.Web.Providers
                     componenteModel.Imagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + _paisISO, beEstrategiaProducto.ImagenProducto);
                 }
 
+                componenteModel.NombreBulk = Util.Trim(componenteModel.NombreBulk);
                 componenteModel.DescripcionMarca = beEstrategiaProducto.NombreMarca;
                 componenteModel.IdMarca = beEstrategiaProducto.IdMarca;
                 componenteModel.Orden = beEstrategiaProducto.Orden;
@@ -287,7 +256,6 @@ namespace Portal.Consultoras.Web.Providers
             var listaEstrategiaComponenteProductos = new List<EstrategiaComponenteModel>();
             listaBeEstrategiaProductos = listaBeEstrategiaProductos.OrderBy(p => p.Grupo).ToList();
 
-            //var idPk = 0;
             foreach (var beEstrategiaProducto in listaBeEstrategiaProductos)
             {
                 var componenteModel = new EstrategiaComponenteModel { };
@@ -295,7 +263,7 @@ namespace Portal.Consultoras.Web.Providers
                 componenteModel.NombreComercial = GetNombreComercial(componenteModel, beEstrategiaProducto, codigoTipoEstrategia, false);
 
                 componenteModel.Descripcion = beEstrategiaProducto.Descripcion;
-                componenteModel.NombreBulk = beEstrategiaProducto.NombreBulk;
+                componenteModel.NombreBulk = Util.Trim(beEstrategiaProducto.NombreBulk);
                 componenteModel.ImagenBulk = beEstrategiaProducto.ImagenBulk;
                 componenteModel.DescripcionMarca = beEstrategiaProducto.NombreMarca;
                 componenteModel.IdMarca = beEstrategiaProducto.IdMarca;
@@ -309,7 +277,6 @@ namespace Portal.Consultoras.Web.Providers
                 componenteModel.FactorCuadre = beEstrategiaProducto.FactorCuadre > 0 ? beEstrategiaProducto.FactorCuadre : 1;
 
                 listaEstrategiaComponenteProductos.Add(componenteModel);
-                //idPk = componenteModel.Id;
             }
 
             listaEstrategiaComponenteProductos = EstrategiaComponenteLimpieza(estrategiaModelo.CodigoVariante, listaEstrategiaComponenteProductos);
@@ -319,6 +286,8 @@ namespace Portal.Consultoras.Web.Providers
 
         private List<EstrategiaComponenteModel> EstrategiaComponenteLimpieza(string codigoVariante, List<EstrategiaComponenteModel> listaEstrategiaComponenteProductos)
         {
+            listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.Where(c => c.NombreBulk != "").ToList();
+
             switch (codigoVariante)
             {
                 case Constantes.TipoEstrategiaSet.CompuestaFija:
@@ -366,7 +335,51 @@ namespace Portal.Consultoras.Web.Providers
                     break;
             }
 
+            listaEstrategiaComponenteProductos = EstrategiaComponenteImagenNoDisponible(listaEstrategiaComponenteProductos);
+
             return listaEstrategiaComponenteProductos;
+        }
+
+        private List<EstrategiaComponenteModel> EstrategiaComponenteImagenNoDisponible(List<EstrategiaComponenteModel> listaEstrategiaComponenteProductos)
+        {
+
+            foreach (var componente in listaEstrategiaComponenteProductos)
+            {
+                if (componente.Hermanos != null && componente.Hermanos.Any())
+                {
+                    foreach (var item in componente.Hermanos)
+                    {
+                        if (String.IsNullOrEmpty(item.ImagenBulk))
+                        {
+                            item.ImagenBulk = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
+                        }
+                        else if (!ExisteS3Imgage(item.ImagenBulk))
+                        {
+                            item.ImagenBulk = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
+                        }
+                    }
+                }
+            }
+
+            return listaEstrategiaComponenteProductos;
+        }
+
+        private bool ExisteS3Imgage(string ImageUrl)
+        {
+            bool existe = false;
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ImageUrl);
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    existe = response.StatusCode == HttpStatusCode.OK;
+                }
+            }
+            catch
+            {
+            }
+
+            return existe;
         }
 
         private string GetNombreComercial(EstrategiaComponenteModel componenteModel, BEEstrategiaProducto beEstrategiaProducto, string codigoTipoEstrategia, bool esMs)
@@ -437,25 +450,6 @@ namespace Portal.Consultoras.Web.Providers
             return NombreComercialCompleto.Trim();
         }
 
-        //private List<EstrategiaComponenteModel> GetEstrategiaDetalleFactorCuadre(List<EstrategiaComponenteModel> listaHermanos)
-        //{
-        //    var listaHermanosCuadre = new List<EstrategiaComponenteModel>();
-
-        //    listaHermanos = listaHermanos ?? new List<EstrategiaComponenteModel>();
-        //    foreach (var hermano in listaHermanos)
-        //    {
-        //        listaHermanosCuadre.Add((EstrategiaComponenteModel)hermano.Clone());
-
-        //        if (hermano.FactorCuadre <= 1) continue;
-        //        for (var i = 0; i < hermano.FactorCuadre - 1; i++)
-        //        {
-        //            listaHermanosCuadre.Add((EstrategiaComponenteModel)hermano.Clone());
-        //        }
-        //    }
-
-        //    return listaHermanosCuadre;
-        //}
-
         private List<EstrategiaComponenteModel> OrdenarComponentesPorMarca(List<EstrategiaComponenteModel> listaComponentesPorOrdenar, out bool esMultimarca)
         {
             esMultimarca = false;
@@ -468,7 +462,7 @@ namespace Portal.Consultoras.Web.Providers
             var listaComponentesCyzone = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Cyzone);
             var listaComponentesEzika = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Esika);
             var listaComponentesLbel = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.LBel);
-            var listaComponentesSinMarca = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>() 
+            var listaComponentesSinMarca = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>()
                 : listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Cyzone && x.IdMarca == Constantes.Marca.Esika && x.IdMarca != Constantes.Marca.LBel);
 
             int contador = 0;

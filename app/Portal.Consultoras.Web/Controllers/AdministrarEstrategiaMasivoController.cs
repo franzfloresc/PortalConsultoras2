@@ -597,8 +597,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int lote = 0;
-                //string idsEstrategiaok = string.Empty;
-                //string idsEstrategiaerror = string.Empty;
                 var txtBuildIdsEstrategiaOk = new StringBuilder();
                 var txtBuildIdsEstrategiaError = new StringBuilder();
 

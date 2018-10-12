@@ -25,13 +25,25 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _cdrProvider = new CdrProvider();
             _notificacionProvider = new NotificacionProvider();
-        }
+        } 
 
         public ActionResult Index()
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
+                //return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
+
+                if (url.Length > 1)
+                {
+                    sap = "&" + url[1];
+                    return RedirectToAction("Index", "Notificaciones", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
+                }
             }
 
             SessionManager.SetfechaGetNotificacionesSinLeer(null);
@@ -362,7 +374,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 logsGprValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();
             }
-            
+
             _notificacionProvider.CargarMensajesNotificacionesGPR(model, logsGprValidacion, userData.CodigoISO, userData.Simbolo, userData.MontoMinimo, userData.MontoMaximo);
             model.NombreConsultora = string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre;
             model.Total = model.SubTotal + model.Descuento;
