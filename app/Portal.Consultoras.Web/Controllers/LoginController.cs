@@ -484,10 +484,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
-                if (string.IsNullOrEmpty(usuario.EMail) || !usuario.EMailActivo)
-                {
-                    sessionManager.SetPrimeraVezSession(0);
-                }
+                sessionManager.SetPrimeraVezSession(0);
+
                 if (Request.IsAjaxRequest())
                 {
                     var urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
@@ -2947,7 +2945,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 configuracionCampania = sv.GetEstadoPedido(PaisID, CampaniaID, ConsultoraID, ZonaID, RegionID);
             }
-            if (configuracionCampania != null) diaFacturacion = (configuracionCampania.FechaInicioFacturacion - DateTime.Now).Days;
+            if (configuracionCampania != null) diaFacturacion = (DateTime.Now.Date - configuracionCampania.FechaInicioFacturacion).Days;
 
             return diaFacturacion;
         }

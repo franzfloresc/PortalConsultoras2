@@ -830,6 +830,7 @@ body {
     padding: 13px 15px 13px 14px !important;
     height: auto;
     margin: 0;
+    line-height: normal;
 }
 
 .texto_sin_tono .tono_seleccionado {
