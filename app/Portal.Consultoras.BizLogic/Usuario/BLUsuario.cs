@@ -1793,6 +1793,10 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
                 }
+                else if (usuario.PaisID == Constantes.PaisID.Colombia ) {
+                    this.UpdateDatos(usuario, CorreoAnterior);
+                    resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
+                }
             }
             catch (Exception ex)
             {
