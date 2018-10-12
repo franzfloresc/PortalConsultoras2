@@ -264,13 +264,32 @@ function AbrirFooter(Marca, Url) {
     return false;
 }
 
+/**
+ * Problema de seguridad como: 
+ * Uncaught SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
+ * @param storage {Storage}
+ * return true|false {Bolean}
+ * uso: storageIsSuport(window.localStorage)
+ */
+function storageIsSuport(storage) {
+    try {
+        var key = "__some_random_value__";
+        storage.setItem(key, key);
+        storage.removeItem(key);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
 function LocalStorageLimpiar() {
-    if (typeof (Storage) !== 'undefined') {
+    
+    if (typeof (Storage) !== 'undefined' && storageIsSuport(window.localStorage)) {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
         var itemChatEConnected = localStorage.getItem('connected');//add
         var itemChatEConfigParams = localStorage.getItem('ConfigParams');//add
-
+        var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');//add
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -287,6 +306,18 @@ function LocalStorageLimpiar() {
 
         if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {//add
             localStorage.setItem('ConfigParams', itemChatEConfigParams);
+        }
+
+        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {//add
+            localStorage.setItem('SurvicateStorage', itemSurvicateStorage);
+        }
+        //SetItemLocalStorageSurvicate(itemSurvicateStorage);
+    }
+
+    function SetItemLocalStorageSurvicate(storage) {
+        storage = (storage == null || storage =="") ? {} : jQuery.parseJSON(storage);
+        for (var key in storage) {
+            localStorage.setItem(key, storage[key]);
         }
     }
 };

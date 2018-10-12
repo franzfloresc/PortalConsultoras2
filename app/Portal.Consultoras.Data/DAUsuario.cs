@@ -3,7 +3,6 @@ using Portal.Consultoras.Entities.OpcionesVerificacion;
 using System;
 using System.Data;
 using System.Data.Common;
-using Portal.Consultoras.Entities.OpcionesVerificacion;
 
 namespace Portal.Consultoras.Data
 {
@@ -838,13 +837,14 @@ namespace Portal.Consultoras.Data
             return (Context.ExecuteReader(command));
         }
 
-        public bool VerificarIgualdadCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado)
+        public bool VerificarIgualdadCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado, bool soloValidar)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetVerificarCodigo");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
             Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoIngresado);
             Context.Database.AddInParameter(command, "@IdEstadoActividad", DbType.Int32, oUsu.IdEstadoActividad);
+            Context.Database.AddInParameter(command, "@SoloValidar", DbType.Boolean, soloValidar); 
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
         #endregion
@@ -863,6 +863,26 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
+        public IDataReader GetCodigoGenerado(int OrigenID, string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCodigoGenerado");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, OrigenID);
+
+            return (Context.ExecuteReader(command));
+        }
+
+        public void UpdCodigoGenerado(int OrigenID, string CodigoUsuario, int CantidadEnvios, bool OpcionDesabilitado)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCodigoGenerado");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, OrigenID);
+            Context.Database.AddInParameter(command, "@CantidadEnvios", DbType.Int32, CantidadEnvios);
+            Context.Database.AddInParameter(command, "@OpcionDesabilitado", DbType.Boolean, OpcionDesabilitado);
+
+            Context.ExecuteNonQuery(command);
+        }
+
         #endregion
         #region Verificacion Autenticidad
         public IDataReader GetUsuarioVerificacionAutenticidad(int paisID, string CodigoUsuario)
@@ -872,6 +892,13 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, paisID);
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader GetUsuarioVerificacionCambioClave(string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioVerificacionCambioClave");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            return Context.ExecuteReader(command);
+        }        
 
         public bool ValidarCodigoIngresado(BEUsuarioDatos oUsu, string tipoEnvio, string codigoSms)
         {
@@ -913,6 +940,15 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
             return Context.ExecuteScalar(command).ToString();
         }
+
+        public IDataReader GetDireccionConsultora(string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerDireccionConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader ListaProductos(int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("TraerCuvsParaPruebas");
@@ -924,6 +960,23 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, codigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, codigoZona);
             return Context.ExecuteReader(command);
+        }
+
+        public string ActualizarNovedadBuscador(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ActualizaNovedadBuscador");
+            Context.Database.AddInParameter(command, "@usuario", DbType.String, codigoUsuario);
+            return Context.ExecuteNonQuery(command).ToString();
+        }
+
+        public void InsMetaConsultora(string codigoUsuario, string codigoMeta, string valorMeta)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsMetaConsultora");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@CodigoMeta", DbType.AnsiString, codigoMeta);
+            Context.Database.AddInParameter(command, "@ValorMeta", DbType.AnsiString, valorMeta);
+            
+            Context.ExecuteNonQuery(command);
         }
     }
 }

@@ -14,7 +14,6 @@ var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 var dataBarra = dataBarra || {};
-var AceptoContrato = false;
 
 //youtube
 var tag = null;
@@ -66,8 +65,7 @@ $(document).ready(function () {
 
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
-        if (VerContrato == 1 && !AceptoContrato)
-            PopupMostrar('popupAceptacionContrato');
+        if (ObtenerEstadoContrato()) PopupMostrar('popupAceptacionContrato');
     });
 
     $(".ver_video_introductorio").click(function () {
@@ -116,7 +114,7 @@ $(document).ready(function () {
         if (evt.keyCode == 27) {
             if ($('#popup_tutorial_home').is(':visible')) {
                 cerrar_popup_tutorial();
-                if (VerContrato == 1 && !AceptoContrato)
+                if (ObtenerEstadoContrato())
                     PopupMostrar('popupAceptacionContrato');
             }
             if ($('#videoIntroductorio').is(':visible')) {
@@ -466,12 +464,21 @@ $(document).ready(function () {
 
     LayoutMenu();
     ConsultarEmailPendiente();
+    RegistrarInicioSession();
 });
-
 
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
+
+function RegistrarInicioSession() {
+    if (viewBagPrimeraVezSession == '0') {
+        dataLayer.push({
+            'event': 'writeCookie',
+            'consultora': viewBagCodigoConsultora
+        });
+    }
+}
 
 function limitarMaximo(e, contenido, caracteres, id) {
     var unicode = e.keyCode ? e.keyCode : e.charCode;
@@ -717,11 +724,10 @@ function CargarCarouselLiquidaciones() {
     });
 }
 function ArmarCarouselLiquidaciones(data) {
+    
     data = EstructurarDataCarouselLiquidaciones(data.lista);
     arrayLiquidaciones = data;
-
     var htmlDiv = SetHandlebars("#liquidacion-template", data);
-
     if ($.trim(htmlDiv).length > 0) {
         htmlDiv += [
             '<div>',
@@ -743,10 +749,9 @@ function ArmarCarouselLiquidaciones(data) {
             '</div>'
         ].join("\n");
     }
-
     $('#divCarruselLiquidaciones').empty().html(htmlDiv);
 
-    EstablecerLazyCarrusel($('#divCarruselLiquidaciones'));
+    EstablecerLazyCarrusel('#divCarruselLiquidaciones');
 
     $('#divCarruselLiquidaciones').slick({
         lazyLoad: 'ondemand',
@@ -761,9 +766,15 @@ function ArmarCarouselLiquidaciones(data) {
     }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
         var accion = nextSlide > currentSlide ? 'next' : 'prev';
+        console.log('======================');
+        console.log('aquí entro');
+        console.log('======================');
         var itemsLength = $('#divCarruselLiquidaciones').find('.slick-slide').length;
         var indexActive = $($('#divCarruselLiquidaciones').find('.slick-active')).attr('data-slick-index');
         var posicionEstrategia, recomendado, arrayEstrategia;
+        console.log('======================');
+        console.log('aquí entro');
+        console.log('======================');
         if (accion == 'prev') {
             if (Number(indexActive) - 1 == 0) {
                 $('.js-slick-prev-liq').hide();
@@ -852,7 +863,10 @@ function ArmarCarouselLiquidaciones(data) {
                 });
             }
         }
+    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        EstablecerLazyCarruselAfterChange('#divCarruselLiquidaciones');
     });
+
     TagManagerCarruselLiquidacionesInicio(data);
 
     $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
@@ -946,7 +960,7 @@ function AgregarProductoLiquidacion(contenedor) {
                     return false;
                 }
                 else {
-                    console.log('Bienvenida - index.js - AgregarProductoLiquidacion - ajax ante ActualizarGanancia', 'OfertaLiquidacion/InsertOfertaWebPortal');
+
                     jQuery.ajax({
                         type: 'POST',
                         url: baseUrl + 'OfertaLiquidacion/InsertOfertaWebPortal',
@@ -966,7 +980,7 @@ function AgregarProductoLiquidacion(contenedor) {
                                 return false;
                             }
                             MostrarBarra(data, '1');
-                            console.log('Bienvenida - index.js - AgregarProductoLiquidacion - ante ActualizarGanancia', data.DataBarra);
+
                             ActualizarGanancia(data.DataBarra);
                             CargarResumenCampaniaHeader(true);
                             TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
@@ -1252,7 +1266,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
     };
     var categoriacad = "";
     var variantcad = "";
-    console.log('Bienvenida - index.js - InsertarPedidoCuvBanner - ante ActualizarGanancia', 'Pedido/InsertarPedidoCuvBanner');
+
     waitingDialog({});
     jQuery.ajax({
         type: 'POST',
@@ -1275,7 +1289,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
             }
 
             MostrarBarra(result, '1');
-            console.log('Bienvenida - index.js - InsertarPedidoCuvBanner - ante ActualizarGanancia', result.DataBarra);
+
             ActualizarGanancia(result.DataBarra);
 
             CargarResumenCampaniaHeader(true);
@@ -2102,7 +2116,6 @@ function AbrirAceptacionContrato() {
 }
 
 function AceptarContrato() {
-   
     var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: "" };
     waitingDialog({});
 
@@ -2118,7 +2131,6 @@ function AceptarContrato() {
                     alert(data.message);
                     if (data.extra != "nocorreo") return;
                 }
-                AceptoContrato = true;
                 PopupCerrar('popupAceptacionContrato');
             }
         },
@@ -2135,7 +2147,7 @@ function DownloadAttachPDF() {
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";
     var requestedFile = urlContratoCOpdf;
-    iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
+    iframe_.setAttribute("src", baseUrl + 'WebPages/Download.aspx?file=' + requestedFile);
 
     if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
         iframe_.onreadystatechange = function () {
@@ -3150,7 +3162,8 @@ function MostrarPopupInicial() {
     }
 
     switch (TipoPopUpMostrar) {
-        case 0:
+        case popupAceptacionContrato:
+            if (ObtenerEstadoContrato()) PopupMostrar('popupAceptacionContrato');
             break;
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -3161,9 +3174,6 @@ function MostrarPopupInicial() {
             $('#fechaHasta').text(mensajeFechaDA);
             $('#fechaLuego').text(mensajeFechaDA);
             PopupMostrar('popupDemandaAnticipada');
-            break;
-        case popupAceptacionContrato:
-            PopupMostrar('popupAceptacionContrato');
             break;
         case popupShowRoom:
             CrearPopShow();
@@ -3265,4 +3275,27 @@ function ConsultarEmailPendiente() {
             alert(error);
         }
     });
+}
+
+function ObtenerEstadoContrato() {
+    var re = false;
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ObtenerEstadoContrato',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        cache: false,
+        async: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success)
+                    if (data.estado) re = true;
+            }
+        },
+        error: function (data, error) {
+            alert(error);
+        }
+    });
+
+    return re;
 }

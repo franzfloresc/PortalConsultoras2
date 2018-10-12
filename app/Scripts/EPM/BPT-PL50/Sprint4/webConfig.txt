@@ -1,0 +1,11 @@
+Proyecto: PortalConsultoras2
+
+Capa WEB
+=========
+
+    <!--Ini -  Ruta magenes App Catalogo-->
+    <add key="RutaImagenesAppCatalogo" value="https://s3-sa-east-1.amazonaws.com/appcatalogo/{0}/{1}/{2}/productos/{3} "/>
+    <add key="RutaImagenesAppCatalogoBulk" value="https://s3-sa-east-1.amazonaws.com/appcatalogo/{0}/{1}/{2}/productos/bulk/{3} "/>
+    <!--Fin -  Ruta magenes App Catalogo-->
+
+Fin Proyecto PortalConsultoras2

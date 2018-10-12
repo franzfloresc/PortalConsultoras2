@@ -62,6 +62,17 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string UsuarioModificacion { get; set; }
 
+        [DataMember]
+        public string NombreComercial { get; set; }
+        [DataMember]
+        public string Descripcion { get; set; }
+        [DataMember]
+        public string Volumen { get; set; }
+        [DataMember]
+        public string ImagenBulk { get; set; }
+        [DataMember]
+        public string NombreBulk { get; set; }
+
 
         public BEEstrategiaProducto(IDataRecord row)
         {
@@ -88,6 +99,11 @@ namespace Portal.Consultoras.Entities
             Activo = row.ToInt16("Activo");
             Digitable = row.ToInt16("Digitable");
             NombreMarca = DataRecord.GetColumn<string>(row, "NombreMarca");
+            NombreComercial = DataRecord.GetColumn<string>(row, "NombreComercial");
+            Descripcion = DataRecord.GetColumn<string>(row, "Descripcion");
+            ImagenBulk = DataRecord.GetColumn<string>(row, "ImagenBulk");
+            NombreBulk = DataRecord.GetColumn<string>(row, "NombreBulk");
+            Volumen = DataRecord.GetColumn<string>(row, "Volumen");
         }
     }
 }

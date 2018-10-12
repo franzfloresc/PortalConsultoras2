@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BELogActualizacionFacturacion> lst;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    UsuarioModel usuarioModel = sessionManager.GetUserData();
+                    UsuarioModel usuarioModel = SessionManager.GetUserData();
 
                     DateTime fechaFinFacturacion = Convert.ToDateTime(FechaFacturacion).AddDays(usuarioModel.DiasDuracionCronograma - 1);
 

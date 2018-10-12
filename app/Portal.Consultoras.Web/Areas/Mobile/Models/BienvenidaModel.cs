@@ -8,6 +8,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         {
             RevistaDigital = new RevistaDigitalModel();
             PartialSectionBpt = new PartialSectionBpt();
+            TieneCaminoExito = false;
+            urlCaminoExito = default(string);
         }
         public string Saludo { get; set; }
         public string NombreConsultora { get; set; }
@@ -61,5 +63,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool TienePagoEnLinea { get; set; }
         public int CambioClave { get; set; }
         public bool MostrarPagoEnLinea { get; set; }
+        public bool TieneCaminoExito { get; set; }
+        public string urlCaminoExito { get; set; }
+
     }
 }

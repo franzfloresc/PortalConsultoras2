@@ -1,0 +1,21 @@
+﻿
+<section id="elegir-opciones-modal" class="modal fade modal_selecionar_tipo contenedor_seleccion" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="" role="document">
+        <div class="header_fixed">
+            <div class="seleccion_header" id="titulo-opciones-seleccionadas"></div>
+            <div class="contenedor_selecionados" id="contenedor-opciones-seleccionadas" style="display:none;">
+                <div class="selecionados_carrosel" id="opciones-seleccionadas">
+                </div>
+            </div>
+        </div>
+        <div class="seleccion_main" id="lista-opciones">
+        </div>
+        <div class="aplicar_seleccion" id="contenedor-aplicar-opciones">
+            <button id="btn-aplicar-seleccion" class="disabled" onclick="javascript: ResumenOpcionesModule.AplicarOpciones();">APLICAR SELECCIÓN</button>
+        </div>
+    </div>
+</section>
+
+@Html.Partial("ListaOpcionesTemplate")
+@Html.Partial("OpcionesSeleccionadasTemplate")
+@Html.Partial("TituloOpcionesSeleccionadasTemplate")

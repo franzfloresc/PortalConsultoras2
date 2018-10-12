@@ -7,84 +7,84 @@
     top: 6px;
 }
 
-    .desplegablegnd .gndcontenido {
-        display: table-cell;
-        vertical-align: middle;
-    }
+.desplegablegnd .gndcontenido {
+    display: table-cell;
+    vertical-align: middle;
+}
 
-        .desplegablegnd .gndcontenido .gnd {
-            background: white;
-            box-shadow: 0px 1px 20px 1px #000021;
-        }
+.desplegablegnd .gndcontenido .gnd {
+    background: white;
+    box-shadow: 0px 1px 20px 1px #000021;
+}
 
-            .desplegablegnd .gndcontenido .gnd span.gndcerrar {
-                background: black;
-                writing-mode: vertical-lr;
-                transform: rotate(180deg);
-                display: block;
-                cursor: pointer;
-                text-align: center;
-                color: white;
-                font-size: 11px;
-                height: 235px;
-                letter-spacing: 2px;
-                padding: 10px 5px;
-                float: left;
-            }
+.desplegablegnd .gndcontenido .gnd span.gndcerrar {
+    background: black;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    font-size: 11px;
+    height: 235px;
+    letter-spacing: 2px;
+    padding: 10px 5px;
+    float: left;
+}
 
-            .desplegablegnd .gndcontenido .gnd .gndbloque {
-                height: 235px;
-                background: white;
-                float: left;
-                width: 120px;
-                border: 1px solid #00001f;
-                border-left: 0;
-            }
+.desplegablegnd .gndcontenido .gnd .gndbloque {
+    height: 235px;
+    background: white;
+    float: left;
+    width: 120px;
+    border: 1px solid #00001f;
+    border-left: 0;
+}
 
-            .desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd {
-                writing-mode: horizontal-tb;
-                transform: rotate(90deg);
-                display: inline-block;
-                margin-top: 10px;
-                width: 12px;
-                height: 12px;
-            }
+.desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd {
+    writing-mode: horizontal-tb;
+    transform: rotate(90deg);
+    display: inline-block;
+    margin-top: 10px;
+    width: 12px;
+    height: 12px;
+}
 
-            .desplegablegnd .gndcontenido .gnd .gndbloque img {
-                width: 100%;
-                display: block;
-                margin: auto;
-                padding: 15px 10px 5px;
-                overflow: hidden;
-                height: 110px;
-            }
+.desplegablegnd .gndcontenido .gnd .gndbloque img {
+    width: 100%;
+    display: block;
+    margin: auto;
+    padding: 15px 10px 5px;
+    overflow: hidden;
+    height: 110px;
+}
 
-            .desplegablegnd .gndcontenido .gnd .gndbloque p {
-                display: block;
-                text-align: center;
-                padding: 10px 5px 5px 10px;
-                font-size: 11px;
-                margin-bottom: 5px;
-                letter-spacing: .5px;
-            }
+.desplegablegnd .gndcontenido .gnd .gndbloque p {
+    display: block;
+    text-align: center;
+    padding: 10px 5px 5px 10px;
+    font-size: 11px;
+    margin-bottom: 5px;
+    letter-spacing: .5px;
+}
 
-            .desplegablegnd .gndcontenido .gnd .gndbloque a {
-                color: black;
-                text-align: center;
-                display: block;
-                border: 1px solid black;
-                padding: 5px 10px;
-                width: 80%;
-                margin: auto;
-                font-size: 9px;
-                margin-bottom: 15px;
-                transition: .3s;
-                letter-spacing: 1px;
-            }
+.desplegablegnd .gndcontenido .gnd .gndbloque a {
+    color: black;
+    text-align: center;
+    display: block;
+    border: 1px solid black;
+    padding: 5px 10px;
+    width: 80%;
+    margin: auto;
+    font-size: 9px;
+    margin-bottom: 15px;
+    transition: .3s;
+    letter-spacing: 1px;
+}
 
-                .desplegablegnd .gndcontenido .gnd .gndbloque a:hover {
-                    background: black;
-                    color: white;
-                    text-decoration: none;
-                }
+.desplegablegnd .gndcontenido .gnd .gndbloque a:hover {
+    background: black;
+    color: white;
+    text-decoration: none;
+}
 /* FIN DEPEGABLE */

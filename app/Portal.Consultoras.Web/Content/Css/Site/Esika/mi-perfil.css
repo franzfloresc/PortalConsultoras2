@@ -248,7 +248,7 @@ input:focus{
     position:absolute;
     top:0;
     right:0;
-    background-image:url("../../../Images/Esika/icono_camara.svg");
+    background-image:url("/Content/Images/Esika/icono_camara.svg");
     z-index:2;
 }
 
@@ -276,7 +276,7 @@ input:focus{
 .icono_cambio_password{
     width:13px;
     height:16px;
-    background-image:url("../../../Images/Esika/icono_candado.svg");
+    background-image:url("/Content/Images/Esika/icono_candado.svg");
     background-size:100%;
     margin-right:7px;
 }
@@ -379,7 +379,7 @@ input:focus{
 .icono_cambiar_dato{
     width:16px;
     height:16px;
-    background-image:url("../../../Images/Esika/icono_cambiar_dato.svg");
+    background-image:url("/Content/Images/Esika/icono_cambiar_dato.svg");
     margin-right:5px;
 }
 
@@ -396,7 +396,7 @@ input:focus{
 .icono_agregar_num_adicional{
     width:15px;
     height:15px;
-    background-image:url("../../../Images/Esika/icono_plus.svg");
+    background-image:url("/Content/Images/Esika/icono_plus.svg");
     margin-right:3px;
     position:relative;
     top:2px;
@@ -405,7 +405,7 @@ input:focus{
 .icono_eliminar_numero_adicional{
     width:13px;
     height:15px;
-    background-image:url("../../../Images/icono_eliminar.svg");
+    background-image:url("/Content/Images/icono_eliminar.svg");
     margin-right:3px;
     position:relative;
     top:2px;
@@ -502,7 +502,7 @@ input:focus{
 .icono_info_alerta{
     width: 20px;
     height: 20px;
-    background-image: url(../../../Images/Esika/icono_info_alerta.svg);
+    background-image: url(/Content/Images/Esika/icono_info_alerta.svg);
     margin-right: 5px;
 }
 
@@ -600,7 +600,7 @@ input:focus{
     right: 8px;
     cursor:pointer;
     z-index:3;
-    background-image:url("../../../Images/icono_ver_password.svg");
+    background-image:url("/Content/Images/icono_ver_password.svg");
     background-position:center 0;
     background-repeat:no-repeat;
     overflow:hidden;
@@ -637,7 +637,7 @@ input:focus{
     width:50px;
     height:50px;
     margin-bottom:15px;
-    background-image:url("../../../Images/Esika/icono_check_esika.svg");
+    background-image:url("/Content/Images/Esika/icono_check_esika.svg");
     background-size:100%;
 }
 
@@ -645,7 +645,7 @@ input:focus{
     width:50px;
     height:50px;
     margin-bottom:15px;
-    background-image:url("../../../Images/Esika/icono_exclamacion_esika.svg");
+    background-image:url("/Content/Images/Esika/icono_exclamacion_esika.svg");
     background-size:100%;
 }
 
@@ -730,13 +730,13 @@ input:focus{
 .icono_correo_sobre{
     width:78px;
     height:46px;
-    background-image:url('../../../Images/Esika/icono_envelope.svg');
+    background-image:url('/Content/Images/Esika/icono_envelope.svg');
 }
 
 .icono_mensaje_sms{
     width:71px;
     height:50px;
-    background-image:url('../../../Images/Esika/icono_sms.svg');
+    background-image:url('/Content/Images/Esika/icono_sms.svg');
 }
 
 .envio_instrucciones_info{
@@ -831,13 +831,13 @@ input:focus{
 
 .validacion_erronea{
     border-color:#e81c36;
-    background-image:url("../../../Images/icono_validacion_codigo_sms_erroneo.svg");
+    background-image:url("/Content/Images/icono_validacion_codigo_sms_erroneo.svg");
     background-position-x:4px;
 }
 
 .validacion_exitosa{
     border-color:#66A231;
-    background-image:url("../../../Images/icono_validacion_codigo_sms_correcto.svg");
+    background-image:url("/Content/Images/icono_validacion_codigo_sms_correcto.svg");
 }
 
 .opciones_foto_perfil{

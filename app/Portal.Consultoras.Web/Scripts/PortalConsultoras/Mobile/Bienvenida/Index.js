@@ -27,6 +27,7 @@ $(document).ready(function () {
         UpdateUsuarioTutorialMobile();
         $('#tutorialesMobile').hide();
         $('.btn_agregarPedido').show();
+        MostrarPopupAceptacionContratoGet();
     });
     $("#tutorialFooterMobile").click(function () {
         VerTutorialMobile();
@@ -112,11 +113,21 @@ $(document).ready(function () {
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
     if ($.inArray(IsoPais, arrayPaisNoBannerLiq) == -1) bannerFunc.showExpoOferta();
     ConsultarEmailPendiente();
+    RegistrarInicioSession();
 });
 
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
+
+function RegistrarInicioSession() {
+    if (primeraVezSession == 1) {
+        dataLayer.push({
+            'event': 'writeCookie',
+            'consultora': userData.codigoConsultora
+        });
+    }
+}
 
 function CrearPopShow() {
 
@@ -762,7 +773,6 @@ var bannerFunc = (function () {
             }
 
             if (!dataResult.success) {
-                console.log('No se pudo cargar la configuración de Banners.');
                 return false;
             }
 
@@ -849,7 +859,7 @@ function DownloadAttachPDF() {
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";
     var requestedFile = urlContratoCOpdf;
-    iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
+    iframe_.setAttribute("src", baseUrl + 'WebPages/Download.aspx?file=' + requestedFile);
 
     if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
         iframe_.onreadystatechange = function () {

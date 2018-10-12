@@ -123,5 +123,6 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
 
         public string DeviceSessionId { get; set; }
         public string TipoPago { get; set; }
+        public string NumeroReferencia { get; set; }
     }
 }

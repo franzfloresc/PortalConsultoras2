@@ -299,7 +299,7 @@ namespace Portal.Consultoras.Web.Controllers
                 IEnumerable<BEPedidoWeb> items = lst;
 
                 #region Sort Section
-                if(sidx == "CodZona")
+                if (sidx == "CodZona")
                 {
                     items = (sord == "asc") ? lst.OrderBy(x => x.CodigoZona) : lst.OrderByDescending(x => x.CodigoZona);
                 }
@@ -659,7 +659,7 @@ namespace Portal.Consultoras.Web.Controllers
             lista[19] = vTotalPedidos; lista[20] = vPorFacturar; lista[21] = userData.BanderaImagen;
             lista[22] = userData.NombrePais;
 
-            Session["PaisID"] = userData.PaisID;
+            SessionManager.SetPaisID(userData.PaisID);
 
             Util.ExportToPdfWebPages(this, "PedidosPDF.pdf", "ConsultaPedidoImp", Util.EncriptarQueryString(lista));
             return View();

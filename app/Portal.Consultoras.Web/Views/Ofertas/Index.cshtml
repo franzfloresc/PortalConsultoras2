@@ -1,20 +1,17 @@
 ﻿@using Portal.Consultoras.Web.Models
-@model EstrategiaPersonalizadaModel
+@using System.Web.Optimization
+@model Portal.Consultoras.Web.Models.Ofertas.IndexViewModel
 
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertas")
-    <link href="@Url.Content("~/Content/Css/Site/Contenedor/OfertaDelDia.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/Ficha/Carrusel.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/Ficha/RedesSociales.css")" rel="stylesheet" />
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ofertas")
 }
 
 <div class="bc_estrategia_contenido" id="seccion-estrategia-contenido">
 
-    @foreach (var seccion in Model.ListaSeccion)
+    @foreach (var seccion in Model.EstrategiaPersonalizada.ListaSeccion)
     {
         <div data-seccion="@seccion.Codigo"
              data-campania="@seccion.CampaniaID"
@@ -55,22 +52,22 @@
 <div class="bc_clearfix"></div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-@Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")
+@*@Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")*@
 
 
 
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
+@*
+    DEUDA TECNICA
+    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
 
-
-
-@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
-@if (Model.MensajeProductoBloqueado2 != null)
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.EstrategiaPersonalizada.MensajeProductoBloqueado)
+@if (Model.EstrategiaPersonalizada.MensajeProductoBloqueado2 != null)
 {
-    @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado2)
+    @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.EstrategiaPersonalizada.MensajeProductoBloqueado2)
 }
 
 <div class="flecha_scroll">
@@ -91,7 +88,7 @@
     var TipoOrigenPantallaODD = 111;
     var tipoOrigenEstrategia = 107;
     var OrigenDesktopODD = 3;
-    var variableEstrategia = @Html.Raw(Json.Encode(ViewBag.variableEstrategia)) || {};
-</script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Ofertas")
+    var variableEstrategia = @Html.Raw(Json.Encode(Model.VariablesEstrategia)) || {};
+    </script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/Ofertas")
 }

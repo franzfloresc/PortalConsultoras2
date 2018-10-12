@@ -504,7 +504,7 @@ div.accountInfo {
 }
 
 .textbox {
-    background: #FFFFFF url('../images/search.png') no-repeat 4px 4px;
+    background: #FFFFFF url('/Content/images/search.png') no-repeat 4px 4px;
     padding: 4px 4px 4px 22px;
     border: 1px solid #CCCCCC;
     width: 60px;
@@ -638,7 +638,7 @@ div.accountInfo {
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: white url('../../images/webtracking/regresar.png') no-repeat -1px 0;
+    background: white url('/Content/Images/webtracking/regresar.png') no-repeat -1px 0;
     color: black;
     border: 0;
     cursor: pointer;

@@ -98,12 +98,12 @@
 }
 
 .slick-prev {
-    background: url('../../../Images/Esika/img-prev.png') no-repeat;
+    background: url('/Content/Images/Esika/img-prev.png') no-repeat;
     left: -42px;
 }
 
 .slick-next {
-    background: url('../../../Images/Esika/img-next.png') no-repeat;
+    background: url('/Content/Images/Esika/img-next.png') no-repeat;
     right: -42px;
 }
 

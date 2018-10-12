@@ -1,0 +1,19 @@
+﻿
+
+@if (ViewBag.PaisesConTrackingJetlore == "1")
+{
+    <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
+}
+
+<script type="text/javascript">
+    var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+    if (esPaisTrackingJetlore == "1") {
+        var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+
+        JL.tracking({
+            cid: trackingJetloreAccessToken,
+            user_id: '@ViewBag.CodigoConsultoraDL',
+            feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
+        });
+    }
+</script>

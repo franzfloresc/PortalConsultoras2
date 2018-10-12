@@ -1,21 +1,21 @@
 ﻿.carrusel {
-    padding: 30px 0 10px 0px;
+    padding: 10px 0 10px 0;
 }
 
-    .carrusel p {
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.38;
-        letter-spacing: 2.5px;
-        text-align: center;
-        color: #000000;
-        margin-bottom: 30px;
-    }
+.carrusel p {
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.38;
+    letter-spacing: 2.5px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 30px;
+}
 
-    .carrusel .set_encuentras_producto .slick-slide {
-        padding: 0 44px !important;
-    }
+.carrusel .set_encuentras_producto .slick-slide {
+    padding: 0 44px !important;
+}
 
 .carrusel_fechaprev_mobile {
     margin-left: 0%;

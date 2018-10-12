@@ -727,7 +727,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 }
             }
 
-            window.OfertaDelDia.CargarODDEscritorio();
+            OfertaDelDiaModule.CargarODDEscritorio();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {

@@ -25,17 +25,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!userData.TienePagoEnLinea)
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
-            sessionManager.SetDatosPagoVisa(null);
+            SessionManager.SetDatosPagoVisa(null);
 
             var model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea();
             ViewBag.PagoEnLineaGastosLabel = userData.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.GastosLabelMx : Constantes.PagoEnLineaMensajes.GastosLabelPe;
 
             return View(model);
         }
-        
+
         public ActionResult MetodoPago()
         {
-            var model = sessionManager.GetDatosPagoVisa();
+            var model = SessionManager.GetDatosPagoVisa();
 
             if (model == null)
                 return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
@@ -48,14 +48,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public ActionResult PasarelaPago(string cardType, int medio = 0)
         {
-            if (!userData.TienePagoEnLinea || userData.MontoDeuda <= 0)
-                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+            var pago = SessionManager.GetDatosPagoVisa();
+            if (pago == null || pago.ListaMetodoPago == null) return RedirectToAction("Index");
+            if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
-            var pago = sessionManager.GetDatosPagoVisa();
-            if (pago.ListaMetodoPago == null)
-            {
-                return RedirectToAction("Index");
-            }
             if (!string.IsNullOrEmpty(cardType))
             {
                 var selected = _pagoEnLineaProvider.ObtenerMetodoPagoSelecccionado(pago, cardType, medio);
@@ -65,9 +61,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     return RedirectToAction("Index");
                 }
                 pago.MetodoPagoSeleccionado = selected;
-                sessionManager.SetDatosPagoVisa(pago);
+                SessionManager.SetDatosPagoVisa(pago);
             }
-            
+
             if (pago.MetodoPagoSeleccionado == null)
             {
                 return RedirectToAction("Index");
@@ -76,6 +72,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             SetDeviceSessionId(pago);
             ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerCamposRequeridos();
             ViewBag.UrlIconMedioPago = _pagoEnLineaProvider.GetUrlIconMedioPago(pago);
+            ViewBag.PagoMontoTotal = pago.Simbolo + " " + pago.MontoDeudaConGastosString;
             CargarListsPasarela();
             var model = new PaymentInfo
             {
@@ -90,11 +87,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> PasarelaPago(PaymentInfo info)
         {
-            if (!userData.TienePagoEnLinea || userData.MontoDeuda <= 0)
-                return RedirectToAction("Index", "Bienvenida");
+            var pago = SessionManager.GetDatosPagoVisa();
+            if (pago == null || pago.ListaMetodoPago == null) return RedirectToAction("Index");
+            if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
             var requiredFields = _pagoEnLineaProvider.ObtenerCamposRequeridos();
-            var pago = sessionManager.GetDatosPagoVisa();
 
             if (ModelState.IsValid)
             {
@@ -117,14 +114,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     };
 
                     var success = await provider.Pay(info, pago);
-                    if (!success) 
+                    if (!success)
                         return View("PagoRechazado", pago);
 
                     ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcionMx);
                     ViewBag.PaisId = userData.PaisID;
 
-                    return View("PagoExitoso", pago);
+                    var view = View("PagoExitoso", pago);
+                    SessionManager.SetDatosPagoVisa(null);
 
+                    return view;
                 }
 
                 foreach (var error in validator.Errors)
@@ -136,6 +135,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             SetDeviceSessionId(pago);
             ViewBag.PagoLineaCampos = requiredFields;
             ViewBag.UrlIconMedioPago = _pagoEnLineaProvider.GetUrlIconMedioPago(pago);
+            ViewBag.PagoMontoTotal = pago.Simbolo + " " + pago.MontoDeudaConGastosString;
             CargarListsPasarela();
 
             return View(info);
@@ -143,21 +143,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult PagoVisa()
         {
-            var model = sessionManager.GetDatosPagoVisa();
+            var model = SessionManager.GetDatosPagoVisa();
 
             if (model == null)
                 return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
 
             model.PagoVisaModel = _pagoEnLineaProvider.ObtenerValoresPagoVisa(model);
 
-            sessionManager.SetDatosPagoVisa(model);
+            SessionManager.SetDatosPagoVisa(model);
 
             return View(model);
         }
 
         public ActionResult PagoVisaResultado()
         {
-            var model = sessionManager.GetDatosPagoVisa();
+            var model = SessionManager.GetDatosPagoVisa();
 
             if (model == null)
                 return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private void CargarListsPasarela()
         {
-            Func<string, SelectListItem> fnSelect = m => new SelectListItem {Value = m, Text = m};
+            Func<string, SelectListItem> fnSelect = m => new SelectListItem { Value = m, Text = m };
             ViewBag.MonthList = _pagoEnLineaProvider.ObtenerMeses().Select(fnSelect);
             ViewBag.YearList = _pagoEnLineaProvider.ObtenerAnios().Select(fnSelect);
         }
@@ -201,7 +201,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 SessionId = Session.SessionID
             };
             pago.DeviceSessionId = provider.GetDeviceSessionId();
-            sessionManager.SetDatosPagoVisa(pago);
+            SessionManager.SetDatosPagoVisa(pago);
             ViewBag.DeviceSessionId = pago.DeviceSessionId;
         }
     }

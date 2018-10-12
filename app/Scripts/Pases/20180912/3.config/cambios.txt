@@ -1,0 +1,17 @@
+1.PortalConsultoras2 - Web
+Add:
+    <add key="PayuMerchantId" value="508029" />
+    <add key="PayuApiLogin" value="pRRXKOl8ikMmt9u" />
+    <add key="PayuApiKey" value="4Vj8eK4rloUd272L48hsrarnUA" />
+    <add key="PayuAccountId" value="512324" />
+    <add key="PayuEndpoint" value="https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi " />
+    <add key="PayuTest" value="1" />
+    <add key="URLCaminoExisto" value="http://showroombelcorp.com/crecimiento/page/landing/" />
+
+2.ProcesoAutomaticoWinServ
+Add:
+    <add key="SIC_URLService" value="https://sipo.belcorp.biz/ServicioSIPCorp/Service1.svc"/>
+    <add key="IEL_Endpoint" value="https://ielapiqas.belcorp.biz/api/IELSPayment/"/>
+    <add key="IEL_Username" value="usr_payupagosqas"/>
+    <add key="IEL_Password" value="P@ssw1d2019"/>
+    <add key="IEL_PaisesNoSeguros" value="PE"/>

@@ -28,7 +28,6 @@
       <ReferencedAssembly AssemblyName="System.EnterpriseServices" />
       <ReferencedAssembly AssemblyName="System.IdentityModel.Services" />
       <ReferencedAssembly AssemblyName="System.Net.Http" />
-      <ReferencedAssembly AssemblyName="System.Net.Http.Formatting" />
       <ReferencedAssembly AssemblyName="System.Net.Http.WebRequest" />
       <ReferencedAssembly AssemblyName="System.Runtime.Serialization" />
       <ReferencedAssembly AssemblyName="System.ServiceModel" />
@@ -39,8 +38,6 @@
       <ReferencedAssembly AssemblyName="System.Web.Entity" />
       <ReferencedAssembly AssemblyName="System.Web.Extensions" />
       <ReferencedAssembly AssemblyName="System.Web.Helpers" />
-      <ReferencedAssembly AssemblyName="System.Web.Http" />
-      <ReferencedAssembly AssemblyName="System.Web.Http.WebHost" />
       <ReferencedAssembly AssemblyName="System.Web.Mvc" />
       <ReferencedAssembly AssemblyName="System.Web.Razor" />
       <ReferencedAssembly AssemblyName="System.Web.Routing" />

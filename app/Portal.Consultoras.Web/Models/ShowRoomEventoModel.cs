@@ -6,6 +6,7 @@ namespace Portal.Consultoras.Web.Models
     [Serializable]
     public class ShowRoomEventoModel
     {
+        public string _id { get; set; }
         public int EventoID { get; set; }
         public int CampaniaID { get; set; }
         public string Nombre { get; set; }
@@ -52,13 +53,17 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneOfertasAMostrar { get; set; }
         public string BannerImagenVenta { get; set; }
 
+        public bool CloseBannerCompraPorCompra { get; set; }
+        public string IconoLLuvia { get; set; }
         //filtros para la busqueda
         public List<ShowRoomCategoriaModel> ListaCategoria { get; set; }
         public List<TablaLogicaDatosModel> FiltersBySorting { get; set; }
         public decimal PrecioMinFiltro { get; set; }
         public decimal PrecioMaxFiltro { get; set; }
-
+        
+        // perdio
         public bool ProductosPerdio { get; set; }
+        public string PerdioLogo { get; set; }
         public string PerdioTitulo { get; set; }
         public string PerdioSubTitulo { get; set; }
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }

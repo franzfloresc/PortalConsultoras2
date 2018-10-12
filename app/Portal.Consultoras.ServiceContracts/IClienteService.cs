@@ -129,5 +129,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         ResponseType<List<BEMovimientoDetalle>> MovimientoDetalleActualizar(int paisId, List<BEMovimientoDetalle> movimientoDetalle);
+
     }
 }

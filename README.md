@@ -1,4 +1,7 @@
-# Portal Consultoras SB2.
+# Portal Consultoras SB2
 
-HU => EPM-1431 - Oferta web esta solicitando condición (factor de cuadre)
+PI2-EPM-Sprint1-Tipos
+- Mejorar experiencia sobre la funcionalidad de eleccion de tipos
+
+HU => EPM 1439, 1440
 

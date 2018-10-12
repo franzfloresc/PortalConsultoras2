@@ -309,7 +309,7 @@ namespace Portal.Consultoras.Entities
             IvaTotal = row.ToDouble("IvaTotal");
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
-
+            NovedadBuscador = row.ToInt32("NovedadBuscador");
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -560,6 +560,7 @@ namespace Portal.Consultoras.Entities
             get { return miTipoUsuario; }
             set { miTipoUsuario = value; }
         }
+        [Column("CambioClave")]
         [DataMember]
         public bool CambioClave
         {
@@ -794,6 +795,7 @@ namespace Portal.Consultoras.Entities
         public string ImagenURLOfertaFIC { get; set; }
 
         [DataMember]
+        [Column("Lider")]
         public int Lider { get; set; }
 
         [Column("ConsultoraAsociada")]
@@ -1216,6 +1218,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public double PromedioVenta { get; set; }
         [DataMember]
+        public int NovedadBuscador { get; set; }
+        [DataMember]
         public bool CambioCorreoPendiente { get; set; }
         [DataMember]
         public string CorreoPendiente { get; set; }
@@ -1225,6 +1229,10 @@ namespace Portal.Consultoras.Entities
         public bool PuedeActualizarCelular { get; set; }
         [DataMember]
         public int IndicadorContratoAceptacion { get; set; }
+        [DataMember]
+        public BEBuscadorYFiltrosConfiguracion BuscadorYFiltrosConfiguracion { get; set; }
+        [DataMember]
+        public int DiaFacturacion { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {

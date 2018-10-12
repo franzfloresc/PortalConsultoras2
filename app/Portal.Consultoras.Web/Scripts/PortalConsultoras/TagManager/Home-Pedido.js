@@ -55,29 +55,29 @@ function TagManagerCarruselInicio(arrayItems) {
     }
 }
 
-function TagManagerClickAgregarProducto() {
-    pagina = isHome() ? "Home" : "Pedido";
-    dataLayer.push({
-        'event': 'addToCart',
-        'ecommerce': {
-            'add': {
-                'actionField': { 'list': 'Ofertas para ti – ' + pagina },
-                'products': [
-                    {
-                        'name': $("#txtCantidadZE").attr("est-descripcion"),
-                        'price': $("#txtCantidadZE").attr("est-precio2"),
-                        'brand': $("#txtCantidadZE").attr("est-descripcionMarca"),
-                        'id': $("#txtCantidadZE").attr("est-cuv2"),
-                        'category': 'NO DISPONIBLE',
-                        'variant': $("#txtCantidadZE").attr("est-descripcionEstrategia") == "" ? 'Estándar' : $("#txtCantidadZE").attr("est-descripcionEstrategia"),
-                        'quantity': parseInt($("#txtCantidadZE").val()),
-                        'position': parseInt($("#txtCantidadZE").attr("est-posicion"))
-                    }
-                ]
-            }
-        }
-    });
-}
+//function TagManagerClickAgregarProducto() {
+//    pagina = isHome() ? "Home" : "Pedido";
+//    dataLayer.push({
+//        'event': 'addToCart',
+//        'ecommerce': {
+//            'add': {
+//                'actionField': { 'list': 'Ofertas para ti – ' + pagina },
+//                'products': [
+//                    {
+//                        'name': $("#txtCantidadZE").attr("est-descripcion"),
+//                        'price': $("#txtCantidadZE").attr("est-precio2"),
+//                        'brand': $("#txtCantidadZE").attr("est-descripcionMarca"),
+//                        'id': $("#txtCantidadZE").attr("est-cuv2"),
+//                        'category': 'NO DISPONIBLE',
+//                        'variant': $("#txtCantidadZE").attr("est-descripcionEstrategia") == "" ? 'Estándar' : $("#txtCantidadZE").attr("est-descripcionEstrategia"),
+//                        'quantity': parseInt($("#txtCantidadZE").val()),
+//                        'position': parseInt($("#txtCantidadZE").attr("est-posicion"))
+//                    }
+//                ]
+//            }
+//        }
+//    });
+//}
 
 function TagManagerClickAgregarProductoOfertaParaTI(item) {
     dataLayer.push({
@@ -103,71 +103,72 @@ function TagManagerClickAgregarProductoOfertaParaTI(item) {
     });
 }
 
-function TagManagerCarruselPrevia() {
-    pagina = isHome() ? "Home" : "Pedido";
-    var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
-    var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
-    var recomendado = arrayOfertasParaTi[posicionEstrategia];
-    var arrayEstrategia = new Array();
+//function TagManagerCarruselPrevia() {
+//    pagina = isHome() ? "Home" : "Pedido";
+//    var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
+//    var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
+//    var recomendado = arrayOfertasParaTi[posicionEstrategia];
+//    var arrayEstrategia = new Array();
 
-    var impresionRecomendado = {
-        'name': recomendado.DescripcionCompleta,
-        'id': recomendado.CUV2,
-        'price': $.trim(recomendado.Precio2),
-        'brand': recomendado.DescripcionMarca,
-        'category': 'NO DISPONIBLE',
-        'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti – ' + pagina,
-        'position': recomendado.Posicion
-    };
+//    var impresionRecomendado = {
+//        'name': recomendado.DescripcionCompleta,
+//        'id': recomendado.CUV2,
+//        'price': $.trim(recomendado.Precio2),
+//        'brand': recomendado.DescripcionMarca,
+//        'category': 'NO DISPONIBLE',
+//        'variant': recomendado.DescripcionEstrategia,
+//        'list': 'Ofertas para ti – ' + pagina,
+//        'position': recomendado.Posicion
+//    };
 
-    arrayEstrategia.push(impresionRecomendado);
+//    arrayEstrategia.push(impresionRecomendado);
 
-    dataLayer.push({
-        'event': 'productImpression',
-        'ecommerce': {
-            'impressions': arrayEstrategia
-        }
-    });
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': pagina,
-        'action': 'Ofertas para ti',
-        'label': 'Ver anterior'
-    });
+//    dataLayer.push({
+//        'event': 'productImpression',
+//        'ecommerce': {
+//            'impressions': arrayEstrategia
+//        }
+//    });
+//    dataLayer.push({
+//        'event': 'virtualEvent',
+//        'category': pagina,
+//        'action': 'Ofertas para ti',
+//        'label': 'Ver anterior'
+//    });
 
-}
+//}
 
-function TagManagerCarruselSiguiente() {
-    var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
-    var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
-    var recomendado = arrayOfertasParaTi[posicionEstrategia];
-    var arrayEstrategia = new Array();
-    pagina = isHome() ? "Home" : "Pedido";
-    var impresionRecomendado = {
-        'name': recomendado.DescripcionCompleta,
-        'id': recomendado.CUV2,
-        'price': $.trim(recomendado.Precio2),
-        'brand': recomendado.DescripcionMarca,
-        'category': 'NO DISPONIBLE',
-        'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti – ' + pagina,
-        'position': recomendado.Posicion
-    };
+//function TagManagerCarruselSiguiente() {
+//    var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
+//    var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+//    var recomendado = arrayOfertasParaTi[posicionEstrategia];
+//    var arrayEstrategia = new Array();
+//    pagina = isHome() ? "Home" : "Pedido";
+//    var impresionRecomendado = {
+//        'name': recomendado.DescripcionCompleta,
+//        'id': recomendado.CUV2,
+//        'price': $.trim(recomendado.Precio2),
+//        'brand': recomendado.DescripcionMarca,
+//        'category': 'NO DISPONIBLE',
+//        'variant': recomendado.DescripcionEstrategia,
+//        'list': 'Ofertas para ti – ' + pagina,
+//        'position': recomendado.Posicion
+//    };
 
-    arrayEstrategia.push(impresionRecomendado);
+//    arrayEstrategia.push(impresionRecomendado);
 
-    dataLayer.push({
-        'event': 'productImpression',
-        'ecommerce': {
-            'impressions': arrayEstrategia
-        }
-    });
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': pagina,
-        'action': 'Ofertas para ti',
-        'label': 'Ver siguiente'
-    });
+//    dataLayer.push({
+//        'event': 'productImpression',
+//        'ecommerce': {
+//            'impressions': arrayEstrategia
+//        }
+//    });
+//    dataLayer.push({
+//        'event': 'virtualEvent',
+//        'category': pagina,
+//        'action': 'Ofertas para ti',
+//        'label': 'Ver siguiente'
+//    });
 
-}
+//}
+
