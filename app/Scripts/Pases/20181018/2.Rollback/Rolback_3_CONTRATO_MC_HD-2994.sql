@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 IF EXISTS ( select * from sysobjects where name='df_contrato_deviceID')

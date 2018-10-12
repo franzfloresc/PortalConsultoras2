@@ -1,4 +1,4 @@
-USE BelcorpBolivia
+﻿USE BelcorpBolivia
 GO
 ALTER PROCEDURE dbo.GetNivelesProgramaNuevasByCampania
 	@Campania varchar(6)
