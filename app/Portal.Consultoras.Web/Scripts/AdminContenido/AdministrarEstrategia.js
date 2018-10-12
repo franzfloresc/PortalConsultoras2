@@ -572,6 +572,7 @@
     };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
+        console.log('_obtenerImagenes');
         var params = {
             paisID: data.paisID,
             estragiaId: data.EstrategiaID,

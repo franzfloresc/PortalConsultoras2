@@ -996,7 +996,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         public JsonResult GetImagesBySapCode(int paisID, string estragiaId, string cuv2, string CampaniaID,
-            string TipoEstrategiaID, int pagina)
+            string TipoEstrategiaID, int pagina, string nombreImagen)
         {
             List<BEMatrizComercialImagen> lst;
             var estrategia = new ServicePedido.BEEstrategia
@@ -1007,6 +1007,34 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = Convert.ToInt32(CampaniaID),
                 TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID)
             };
+
+
+            // validar si existe en MatrizComercialImagen
+
+            // si no existe
+
+            using (var sv = new PedidoServiceClient())
+            {
+                lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, -1).ToList();
+            }
+            var entidadImagen = lst[0];
+            var entity = new BEMatrizComercialImagen
+            {
+                IdMatrizComercial = entidadImagen.IdMatrizComercial,
+                PaisID = userData.PaisID,
+                UsuarioRegistro = userData.CodigoConsultora,
+                UsuarioModificacion = userData.CodigoConsultora,
+                NemoTecnico = null, // NemoTecnico apagado
+                DescripcionComercial = null  // NemoTecnico apagado
+            };
+            
+            entity.Foto = nombreImagen;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                entity.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
+            }
+
+            //fin no existe
 
             using (var sv = new PedidoServiceClient())
             {
