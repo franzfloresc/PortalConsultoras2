@@ -639,8 +639,8 @@ namespace Portal.Consultoras.Web.Controllers
                     message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias.",
                     NroLote = nroLote,
                     NroLoteRetorno = lote,
-                    mongoIdsOK = txtBuildIdsEstrategiaOk,
-                    mongoIdsERROR = txtBuildIdsEstrategiaError
+                    mongoIdsOK = txtBuildIdsEstrategiaOk.ToString(),
+                    mongoIdsERROR = txtBuildIdsEstrategiaError.ToString()
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
