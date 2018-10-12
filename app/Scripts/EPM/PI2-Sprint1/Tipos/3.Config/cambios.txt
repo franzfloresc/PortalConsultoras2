@@ -1,0 +1,7 @@
+1.PortalConsultoras2 - Web
+Add:
+	<add key="urlSinImagenTiposyTonos" value="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg" />
+	
+Update:
+	
+Delete:
