@@ -933,9 +933,10 @@ namespace Portal.Consultoras.Web.Controllers
                     Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) :
                     Util.Trim(HttpContext.Request.FilePath);
 
-                url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
+                urlReferrer = (urlReferrer).Replace("#", "/").ToLower() + "/";
+                url = (url).Replace("#", "/").ToLower() + "/";
 
-                result = url.Contains("/mobile/") || url.Contains("/g/");
+                result = url.Contains("/mobile/") || url.Contains("/g/") || urlReferrer.Contains("/mobile/") || urlReferrer.Contains("/g/");
 
                 if (result)
                     return result;
