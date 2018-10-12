@@ -6,33 +6,42 @@ using Portal.Consultoras.Common;
 
 using System.Data;
 using System.Linq;
+using System;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLEscalaDescuento : IEscalaDescuentoBusinessLogic
     {
-        public List<BEEscalaDescuento> GetEscalaDescuento(int paisID)
+        public List<BEEscalaDescuento> GetEscalaDescuento(int paisID, int campaniaID, string region, string zona)
         {
-            var lstEscalaDescuento = (List<BEEscalaDescuento>)CacheManager<BEEscalaDescuento>.GetData(paisID, ECacheItem.EscalaDescuento);
-
-            if (lstEscalaDescuento == null || lstEscalaDescuento.Count == 0)
+            List<BEEscalaDescuento> lista = default(List<BEEscalaDescuento>);
+            var da = new DAEscalaDescuento(paisID);
+            try
             {
-                if (!new BLPais().EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
+                lista = this.ListarEscalaDescuentoZona(paisID, campaniaID, region, zona);
+                if (lista.Count == 0)
                 {
-                    using (var reader = new DAEscalaDescuento(paisID).GetEscalaDescuento())
+                    if (!new BLPais().EsPaisHana(paisID))
                     {
-                        lstEscalaDescuento = reader.MapToCollection<BEEscalaDescuento>();
+                        using (IDataReader reader = da.GetEscalaDescuento())
+                        {
+                            while (reader.Read())
+                            {
+                                lista.Add(new BEEscalaDescuento(reader));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        lista = new DAHEscalaDescuento().GetEscalaDescuento(paisID);
                     }
                 }
-                else
-                {
-                    lstEscalaDescuento = new DAHEscalaDescuento().GetEscalaDescuento(paisID);
-                }
-
-                CacheManager<BEEscalaDescuento>.AddData(paisID, ECacheItem.EscalaDescuento, lstEscalaDescuento);
             }
-
-            return lstEscalaDescuento;
+            catch (Exception ex)
+            {
+                lista = new List<BEEscalaDescuento>();
+            }
+            return lista;
         }
 
         public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo)
@@ -66,5 +75,27 @@ namespace Portal.Consultoras.BizLogic
 
             return lstParametriaOfertaFinal;
         }
+
+        public List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona)
+        {
+            List<BEEscalaDescuento> lista = new List<BEEscalaDescuento>();
+            try
+            {
+                var da = new DAEscalaDescuento(paisID);
+                using (IDataReader reader = da.ListarEscalaDescuentoZona(campaniaID, region, zona))
+                {
+                    while (reader.Read())
+                    {
+                        lista.Add(new BEEscalaDescuento(reader));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                lista = new List<BEEscalaDescuento>();
+            }
+            return lista;
+        }
+
     }
 }

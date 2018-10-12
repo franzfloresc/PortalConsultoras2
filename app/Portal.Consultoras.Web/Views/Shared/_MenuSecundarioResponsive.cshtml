@@ -1,0 +1,130 @@
+﻿@using Portal.Consultoras.Common
+@{
+    string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
+    controllerAction = controllerAction.ToLower();
+    
+}
+
+
+<nav class="header__menu header__menu--lateralDerecho flex-lg-grow-1 flex-xl-grow-1 align-self-end text-right">
+    <ul class="menu__lista row flex-row flex-nowrap justify-content-between justify-content-lg-end justify-content-xl-end align-items-center ml-0 mr-0 mb-0 pl-0">
+        <li class="menu__item menu__item--lateralDerechoIcono mostrarEnMobile" data-title="Buscar Producto">
+            <a href="javascript:;" class="menu__link d-block" title="Buscar Productos" onclick="Buscador();">
+                <img src="@Url.Content("~/Content/Images/icono_lupa.svg")" alt="Buscar productos">
+            </a>
+        </li>
+        <li class="row flex-row flex-nowrap align-items-center ml-0 mr-0 menu__item menu__item--lateralDerechoIcono @(controllerAction == "bienvenidaindex" ? "oculto" : "")" data-title="Notificaciones">
+            <a href="javascript:;" onclick="Notificaciones();" class="menu__link d-inline-block" title="Notificaciones">
+                <img src="@Url.Content("~/Content/Images/icono_notificaciones.svg")" alt="Notificaciones">
+            </a>
+            <span class="js-notificaciones notificaciones__cantidad notificaciones__cantidad--iconoNotificaciones d-inline-block">
+                0
+            </span>
+        </li>
+        
+        <li class="campana cart_compras row flex-row flex-nowrap align-items-center ml-0 mr-0 menu__item menu__item--lateralDerechoIcono menu__item--carrito" data-title="Pedido">
+
+            <a id="pUrlProductosPedido" class="menu__link menu__link--carrito d-inline-block" title="Pedido">
+                <img src="@Url.Content("~/Content/Images/icono_carrito.svg")" alt="Pedido">
+            </a>
+            <span id="pCantidadProductosPedido" class="num__cantidad__prod d-inline-block">0</span>
+            <!-- MOSTRAR ÚLTIMOS PRODUCTOS AGREGADOS -->
+            <div class="row flex-row align-content-start productos__agregados ml-0 mr-0 text-left">
+                <!-- SI HAY PRODUCTOS AGREGADOS SE MUESTRA ESTE BLOQUE -->
+                <div id="carrito_items">
+                </div>
+                <!-- FIN - SI HAY PRODUCTOS AGREGADOS SE MUESTRA ESTE BLOQUE -->
+                <!-- SI NO HAY PRODUCTOS AGREGADOS SE MUESTRA ESTE BLOQUE -->
+                <div id="SinProductos">
+                    <div class="col-12 productos__agregados__info pl-0 pr-0">
+                        <div class="row flex-row justify-content-center ml-0 mr-0">
+                            <p class="col-10 pl-0 pr-0 sin__productos__agregados__mensaje text-center">
+                                Todavía no has agregado ningún producto a tu pedido.
+                            </p>
+                            <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="col-12 btn__productos__agregados btn__productos__agregados--IngresarPedido d-block text-uppercase text-center text-bold">
+                                Ingresa tu pedido
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN - SI NO HAY PRODUCTOS AGREGADOS SE MUESTRA ESTE BLOQUE -->
+            </div>
+            <!-- FIN - MOSTRAR ÚLTIMOS PRODUCTOS AGREGADOS -->
+        </li>
+        <li class="menu__item menu__item--lateralDerechoIcono mostrarEnDesktop" style="display:none;" data-title="Tutorial">
+            <a class="menu__link d-block" title="Tutorial">
+                <img src="@Url.Content("~/Content/Images/icono_salvavidas.svg")" alt="Tutorial">
+            </a>
+        </li>
+        <li class="menu__item menu__item--campaniaActual mostrarEnDesktop text-center text-uppercase">
+            Estás en
+            <span class="d-block">
+                @if (ViewBag.CampaniaCodigo == null || ViewBag.CampaniaCodigo.ToString().Length < 6)
+                {
+                    @:-
+                }
+                else
+                {
+                    @:C-@(Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))
+                }
+            </span>
+        </li>
+        <li class="menu__item mostrarEnDesktop text-center">
+            <a href="javascript:;" onclick="CerrarSesion();" class="menu__link menu__link--cerrar-sesion-desktop d-block" title="Cerrar Sesión">
+                Cerrar Sesión
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<script id="resumenCampania-template" type="text/x-handlebars-template">
+    <div>
+        <div class="col-12 productos__agregados__cantidad pl-0 pr-0">
+            He agregado <span class="text-bold">{{cantidadProductos}}</span> unidades
+        </div>
+        <div class="col-12 productos__agregados__titulo pl-0 pr-0">
+            <h2 class="text-bold">Últimos agregados :</h2>
+        </div>
+
+        <div class="row flex-row productos__agregados__info ml-0 mr-0">
+            {{#each this.ultimosTresPedidos}}
+            <div class="col-12 producto__agregado pl-0 pr-0">
+                <div class="col-12 pl-0 pr-0 productos__agregados__marca text-bold">
+                    {{DescripcionLarga}}
+                </div>
+                <div class="col-12 pl-0 pr-0">
+                    <div class="col-8 productos__agregados__descrip_prod text-bold pl-0 pr-0">
+                        {{Split DescripcionProd '|' 0}}
+                    </div>
+                </div>
+                <div class="col-12 pl-0 pr-0">
+                    <div class="row flex-row ml-0 mr-0 col-12 pl-0 pr-0">
+                        <span class="col-2 productos__agregados__cant_prod pl-0 pr-0">
+                            x{{Cantidad}}
+                        </span>
+                        <span class="col-10 productos__agregados__precio text-right pl-0 pr-0">
+                            {{SimboloMoneda}} {{ImporteTotal}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            <div class="col-12 productos__agregados__precio__total pl-0 pr-0">
+                <div class="row flex-row justify-content-between align-items-center ml-0 mr-0">
+                    <span class="col-1 pl-0 pr-0">
+                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Info Copy">
+                    </span>
+                    <span class="col productos__agregados__pedido__total__texto pl-0 pr-0 text-uppercase text-bold">
+                        Pedido Total
+                    </span>
+                    <span class="col productos__agregados__pedido__total__monto pl-0 pr-0 align-self-center text-bold text-right">
+                        {{SimboloMoneda}} {{montoWebConDescuentoStr}}
+                    </span>
+                </div>
+            </div>
+            <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="col-12 btn__productos__agregados btn__productos__agregados--verMiPedido d-block text-uppercase text-center text-bold">
+                Ver todo mi pedido
+            </a>
+        </div>
+    </div>
+</script>

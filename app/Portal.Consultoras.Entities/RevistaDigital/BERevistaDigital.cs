@@ -16,6 +16,7 @@ namespace Portal.Consultoras.Entities
         public bool EsActiva { get; set; }
         public bool TieneRDCR { get; set; }
         public bool EsSuscrita { get; set; }
+        public bool TieneRDI { get; set; }
 
         public BERevistaDigitalSuscripcion SuscripcionModel { get; set; }
         public BERevistaDigitalSuscripcion SuscripcionEfectiva { get; set; }

@@ -25,7 +25,8 @@
 }
 
 <div class="buscador_filtros_mobile">
-    <a href="@Url.Action("Index","Bienvenida",new { Area = "Mobile" })" class="enlace_regresar_filtros" title="Buscar">
+    @*<a href="@Url.Action("Index","Bienvenida",new { Area = "Mobile" })" class="enlace_regresar_filtros" title="Buscar">*@
+    <a href="javascript: history.go(-1)" class="enlace_regresar_filtros" title="Buscar">
         <img src="@Url.Content("~/Content/Images/flecha_icono.svg")" alt="Buscar" />
     </a>
     <input type="search" value="" id="CampoBuscadorProductosMobile" class="campo_buscador_filtros_mobile" placeholder="Busca ofertas" />
@@ -38,7 +39,7 @@
     @*<i class="fa fa-chevron-left"></i>*@
 </div>
 
-<div class="section-container p-t-30 p-b-30">
+<div class="section-container mt-60">
     <!-- LISTA DE RESULTADOS DE BÚSQUEDA MOBILE -->
     <div class="container vistaResultadosBusquedaMobile displayBlock">
         <div class="spinner">
@@ -51,7 +52,7 @@
                 </div>
                 <div class="mensaje_busqueda_sin_resultados displayBlock">
                     <p class="displayBlock text-bold">
-                        Ups… no tenemos ofertas con este nombre.
+                        Ups… no tenemos ofertas<br />con este nombre.
                     </p>
                     <p class="displayBlock">
                         Vuelve a intentar.
