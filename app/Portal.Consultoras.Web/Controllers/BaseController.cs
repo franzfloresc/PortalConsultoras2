@@ -389,34 +389,23 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
 
-        protected string ValidarMontoMaximo(decimal montoCuv, int cantidad, out bool resul)
+        protected string ValidarMontoMaximo(decimal montoCuv, int cantidad, out bool result)
         {
             var mensaje = "";
-            resul = false;
+            result = false;
             try
             {
-                if (!userData.TieneValidacionMontoMaximo)
-                    return mensaje;
-
-                if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00))
-                    return mensaje;
-
-
+                if (!userData.TieneValidacionMontoMaximo) return mensaje;
+                if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00)) return mensaje;
+                
                 var listaProducto = ObtenerPedidoWebDetalle();
-
                 var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
-                var dTotalPedido = Convert.ToDecimal(totalPedido);
+                if (totalPedido > userData.MontoMaximo && cantidad < 0) result = true;
+
                 decimal descuentoProl = 0;
+                if (listaProducto.Any()) descuentoProl = listaProducto[0].DescuentoProl;
 
-                if (dTotalPedido > userData.MontoMaximo && cantidad < 0)
-                {
-                    resul = true;
-                }
-
-                if (listaProducto.Any())
-                    descuentoProl = listaProducto[0].DescuentoProl;
-
-                var montoActual = (montoCuv * cantidad) + (dTotalPedido - descuentoProl);
+                var montoActual = (montoCuv * cantidad) + (totalPedido - descuentoProl);
                 if (montoActual > userData.MontoMaximo)
                 {
                     var strmen = (userData.EsDiasFacturacion) ? "VALIDADO" : "GUARDADO";
@@ -560,40 +549,40 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas()
         {
-            if (SessionManager.ConfiguracionProgramaNuevas != null) return SessionManager.ConfiguracionProgramaNuevas;
+            if (SessionManager.GetConfiguracionProgramaNuevas() != null) return SessionManager.GetConfiguracionProgramaNuevas();
             try
             {
-                var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                var consultoraNuevas = Mapper.Map<ServicePedido.BEConsultoraProgramaNuevas>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    SessionManager.ConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(usuario) ?? new BEConfiguracionProgramaNuevas();
+                    SessionManager.SetConfiguracionProgramaNuevas(sv.GetConfiguracionProgramaNuevas(consultoraNuevas) ?? new BEConfiguracionProgramaNuevas());
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                SessionManager.ConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
+                SessionManager.SetConfiguracionProgramaNuevas(new BEConfiguracionProgramaNuevas());
             }
-            return SessionManager.ConfiguracionProgramaNuevas;
+            return SessionManager.GetConfiguracionProgramaNuevas();
         }
 
         protected string GetCuvKitNuevas()
         {
-            if (SessionManager.CuvKitNuevas != null) return SessionManager.CuvKitNuevas;
+            if (SessionManager.GetCuvKitNuevas() != null) return SessionManager.GetCuvKitNuevas();
             try
             {
-                var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                var consultoraNuevas = Mapper.Map<BEConsultoraProgramaNuevas>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    SessionManager.CuvKitNuevas = sv.GetCuvKitNuevas(usuario, GetConfiguracionProgramaNuevas()) ?? "";
+                    SessionManager.SetCuvKitNuevas(sv.GetCuvKitNuevas(consultoraNuevas, GetConfiguracionProgramaNuevas()) ?? "");
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                SessionManager.CuvKitNuevas = "";
+                SessionManager.SetCuvKitNuevas("");
             }
-            return SessionManager.CuvKitNuevas;
+            return SessionManager.GetCuvKitNuevas();
         }
 
         private BarraTippingPoint GetTippingPoint(string TippingPointStr, string codigoPrograma)
@@ -602,21 +591,28 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEActivarPremioNuevas beActive;
-                ServicePedido.BEEstrategia estrategia;
+                ServicePedido.BEEstrategia estrategia = null;
 
                 using (var sv = new PedidoServiceClient())
                 {
                     beActive = sv.GetActivarPremioNuevas(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
-                    if (beActive == null || !beActive.ActiveTooltip) return new BarraTippingPoint();
+                    if (beActive == null || !beActive.Active) return new BarraTippingPoint();
 
-                    estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
+                    if(beActive.ActiveTooltip) estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);                    
                 }
-                if (estrategia == null) return new BarraTippingPoint();
-
+                
                 var tippingPoint = Mapper.Map<BarraTippingPoint>(beActive);
-                tippingPoint = Mapper.Map(estrategia, tippingPoint);
-                tippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
                 tippingPoint.TippingPointMontoStr = TippingPointStr;
+                if (tippingPoint.ActiveTooltip)
+                {
+                    if (estrategia != null)
+                    {
+                        tippingPoint = Mapper.Map(estrategia, tippingPoint);
+                        tippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                    }
+                    else tippingPoint.ActiveTooltip = false;
+                }
+
                 return tippingPoint;
             }
             catch (Exception ex)
