@@ -132,26 +132,47 @@ var ListaOpcionesModule = (function () {
         }
     };
 
-    var _renderListaOpciones = function() {
+    var _renderListaOpciones = function () {
         
         if (_componente.HermanosSeleccionados.length === 0) {
             moverListaOpcionesOcultarSeleccionados();
         } else {
             moverListaOpcionesMostrarSeleccionados();
         }
-        //
-        $(_elements.listaOpciones.id).html("");
-        SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
-        //
+
         if (_componente.HermanosSeleccionados.length === _componente.FactorCuadre) {
+
+            //$("#elegir-opciones-modal").find(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
+            //$("#elegir-opciones-modal").find(".seleccion_btn").find("button").addClass("btn_desactivado_general");
+
+            _bloquearEleccion();
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)
                 .addClass(_elements.btnAplicarSeleccion.activeClass);
         } else {
+            _desbloquearEleccion();
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.activeClass)
                 .addClass(_elements.btnAplicarSeleccion.disabledClass);
         }
+
+        //
+        $(_elements.listaOpciones.id).html("");
+        SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
+        //
+        
+    };
+
+    var _bloquearEleccion = function () {
+        $.each(_componente.Hermanos, function (index, hermano) {
+            hermano.EleccionBloqueada = true;
+        });
+    };
+
+    var _desbloquearEleccion = function () {
+        $.each(_componente.Hermanos, function (index, hermano) {
+            hermano.EleccionBloqueada = false;
+        });
     };
 
     var ListarOpciones = function (componente) {
@@ -215,9 +236,11 @@ var ListaOpcionesModule = (function () {
         return false;
     };
 
-    var _eliminarOpcionDeComponenteModel = function (cuv) {
+    var _eliminarOpcionDeComponenteModel = function (cuv, _indice) {
         var hermanoSeleccionadoIndex;
-        $.each(_componente.HermanosSeleccionados, function (index1, hermano) {
+        var HermanosSeleccionadosClone = jQuery.extend(true, [], _componente.HermanosSeleccionados);
+        HermanosSeleccionadosClone = HermanosSeleccionadosClone.reverse();
+        $.each(HermanosSeleccionadosClone, function (index1, hermano) {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 hermanoSeleccionadoIndex = index1;
@@ -231,24 +254,33 @@ var ListaOpcionesModule = (function () {
             }
         });
 
+        if (_indice !== "") {
+            hermanoSeleccionadoIndex = _indice;
+        } else {
+            hermanoSeleccionadoIndex = _componente.HermanosSeleccionados.length - hermanoSeleccionadoIndex - 1;
+        }
+
+
         if (typeof hermanoSeleccionadoIndex !== "undefined") {
             _componente.HermanosSeleccionados.splice(hermanoSeleccionadoIndex, 1);
             _actualizarCantidadFaltantes();
         }
     };
 
-    var EliminarOpcion = function (cuv, event) {
+    var EliminarOpcion = function (cuv, event, indice) {
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
+
+        var _indice = (typeof indice !== "undefined") ? indice : "";
         //
         if (_componente.esCampaniaSiguiente) {
             return false;
         }
         //
-        if (typeof event !== "undefined") EstrategiaAgregarModule.DisminuirCantidad(event);
+        if (typeof event !== "undefined" && event !== null) EstrategiaAgregarModule.DisminuirCantidad(event);
         //
-        _eliminarOpcionDeComponenteModel(cuv);
+        _eliminarOpcionDeComponenteModel(cuv, _indice);
         //
         _renderListaOpciones();
         //

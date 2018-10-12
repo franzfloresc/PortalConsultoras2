@@ -1,5 +1,7 @@
-# Portal Consultoras 2
+# Portal Consultoras SB2
 
-PPR FIX
+PI2-EPM-Sprint1-Tipos
+- Mejorar experiencia sobre la funcionalidad de eleccion de tipos
 
-2018-09-21
+HU => EPM 1439, 1440
+

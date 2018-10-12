@@ -1,0 +1,238 @@
+﻿@using System.Web.Optimization
+@using Portal.Consultoras.Common
+
+@{
+    var origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopBuscador;
+}
+
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Portal de consultoras" />
+    <meta name="author" content="Belcorp" />
+    <title>Belcorp | Portal Consultoras</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Bundle/Css/Mixto/EsikaPageResponsive")
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Bundle/Css/Mixto/LebelPageResponsive")
+    }
+
+    <script type="text/javascript">
+        var variablesPortal = @Html.Raw(Json.Encode(ViewBag.variableBase)) || {};
+        var baseUrl = "@Url.Content("~")";
+        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))' == "True";
+        var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+        var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
+        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
+        var gTipoUsuario = '@ViewBag.TipoUsuario';
+        var IsoPais = '@ViewBag.CodigoISODL';
+
+        //Postulante
+        var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
+
+        //GPR
+        var estaRechazado = '@ViewBag.IndicadorGPRSB';
+        var cerrarRechazado = '@ViewBag.CerrarRechazado';
+        var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
+
+        //ODD
+        var MostrarODD = '@ViewBag.MostrarODD';
+        var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
+        // New Chat
+        var emt_client_type = '@ViewBag.TipoUsuario';
+        var emt_country = '@ViewBag.CodigoISODL';
+        var emt_email_address = '@ViewBag.CorreoC';
+        var emt_first_name = '@ViewBag.NombreC';
+        var emt_id = '@ViewBag.CodigoUsuario';
+        var emt_type = '0';
+        var emt_device = ' ';
+        var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
+        // New Chat -->
+        var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
+        var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
+
+        window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
+        window.patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
+
+        var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
+            'campana': '@ViewBag.CampaniaCodigo',
+            'region': '@ViewBag.RegionAnalytics',
+            'zona': '@ViewBag.ZonaAnalytics',
+            'seccion': '@ViewBag.SeccionAnalytics',
+            'pais': '@ViewBag.PaisAnalytics',
+            'codigoConsultora': '@ViewBag.CodigoConsultoraDL'
+        };
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var controllerName = '@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower()';
+
+        var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
+
+        // Seteando Controlador y Accion
+        @{
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            var ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            var acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        }
+        window.controllerName = '@ctrl.ToLower()';
+        window.actionName     = '@acti.ToLower()';
+    </script>
+</head>
+<body>
+    <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
+        <header class="layout__header row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
+            <div class="header__icono__menu mostrarEnMobile pl-0 pr-0">
+                <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
+            </div>
+            <div class="header__marca__pais text-right">
+                @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+                {
+                    <picture class="d-block w-100">
+                        <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
+                        <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
+                        <img src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
+                    </picture>
+                }
+                else
+                {
+                    <picture class="d-block w-100">
+                        <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                        <img src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                    </picture>
+                }
+
+
+            </div>
+            @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
+            @if (ViewBag.MostrarBuscadorYFiltros)
+            {
+                <section class="buscador__productos buscador_productos flex-grow-1">
+                    <div class="campo_busqueda_fondo_on_focus">
+                        <div class="franja__blanca"></div>
+                    </div>
+                    <div class="row flex-row flex-nowrap justify-content-start align-items-center ml-0 mr-0 campo__buscador__wrapper">
+                        <a class="enlace_regresar_filtros" title="Regresar">
+                            <img src="@Url.Content("~/Content/Images/flecha_icono.svg")" alt="Regresar">
+                        </a>
+                        <input type="text" id="CampoBuscadorProductos" class="col-12 pl-0 d-block campo_buscador_productos" placeholder="Busca ofertas">
+                        <a class="enlace_busqueda_productos" title="Buscar">
+                            <img src="@Url.Content("~/Content/Images/icono_lupa.svg")" alt="Buscar">
+                        </a>
+                        <a class="opcion_limpiar_campo_busqueda_productos" title="Cerrar">
+                            <img src="@Url.Content("~/Content/Images/icono_limpiar_busqueda.svg")" alt="Cerrar">
+                        </a>
+                    </div>
+                    <div class="row flex-row justify-content-start align-items-start ml-0 mr-0 lista_resultados_busqueda_productos">
+                        <div class="col-12 pl-0 pr-0 spinner">
+                            <img src="@Url.Content("~/Content/Images/loading_spinner.gif")" alt="Cargando">
+                        </div>
+                        <div class="col-12 pl-0 pr-0 busqueda_sin_resultados text-center">
+                            <div class="row flex-row justify-content-center ml-0 mr-0">
+                                <div class="col-12 pl-0 pr-0 icono_busqueda_sin_resultados">
+                                    <img src="@Url.Content("/Content/Images/icono_sin_resultados_busqueda.svg")" alt="Sin resultados de búsqueda" />
+                                </div>
+                                <div class="col-12 pl-0 pr-0 mensaje_busqueda_sin_resultados">
+                                    <p class="d-block text-bold">
+                                        Ups… no tenemos ofertas con este nombre.
+                                    </p>
+                                    <p class="d-block">
+                                        Vuelve a intentar.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="resultados_wrapper" id="ResultadoBuscador">
+                        </div>
+                    </div>
+                </section>
+            }
+            @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
+        </header>
+
+        @RenderBody()
+
+        @Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
+    </div>
+
+    <div id="loadingScreen"></div>
+
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
+
+    <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
+    <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
+    <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
+    <input type="hidden" id="hdFlagOfertaWeb" value="0" />
+    <input type="hidden" id="hdFlagOfertaLiquidacion" value="0" />
+    <input type="hidden" id="hdFlagValidacion" value="0" />
+    <input type="hidden" id="hdFlagValidacionReserva" value="0" />
+    <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
+    <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
+
+    @Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
+
+    @Scripts.Render("~/Bundle/Js/Mixto/PageResponsive")
+
+    <script type="text/javascript">
+        var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
+        @*var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';*@
+        var viewBagRol = '@ViewBag.Rol';
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var campaniaCodigo = '@ViewBag.CampaniaCodigo';
+        var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
+        var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
+        var sesionEsShowRoom = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom().ToString().ToLower()' === 'true';
+        var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
+        var ViewBagEsMobile = '@ViewBag.EsMobile';
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
+        var gTipoUsuario = '@ViewBag.TipoUsuario';
+        var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
+        var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
+        var MensajePedidoDesktop = '@ViewBag.MensajePedidoDesktop';
+        var clock;
+        var TipoOrigenPantallaODD = 1;
+        var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
+        var codigoAnclaOdd = '@Constantes.ConfiguracionPais.OfertaDelDia';
+        var OrigenDesktopODD = 0;
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+        var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
+        var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
+        var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;
+        var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
+        var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
+        var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
+    </script>
+    <script type='text/javascript'>
+        (function () {
+            var proto = document.location.protocol || 'http:';
+            var trme = document.createElement('script');
+            trme.type = 'text/javascript';
+            trme.async = true;
+            trme.src = proto + '//trackme-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/trackme/js/tm.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(trme, s);
+        })();
+
+        function Buscador() {
+            location.href = baseUrl + 'Mobile/Buscador';
+        }
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

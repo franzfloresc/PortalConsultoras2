@@ -386,12 +386,14 @@ namespace Portal.Consultoras.ServiceContracts
         BERespuestaSMS ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
 
         [OperationContract]
-        bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado);
+        bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado, bool soloValidar);
         #endregion
 
         #region Pin Autenticidad
         [OperationContract]
-        BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario);
+        BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb);
+        [OperationContract]
+        BERespuestaSMS EnviarSmsVerificacionAutenticidad(int paisID, BEUsuarioDatos oUsu);
         #endregion
 
         [OperationContract]
