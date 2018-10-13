@@ -14,7 +14,6 @@ using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,7 +42,6 @@ namespace Portal.Consultoras.Service
         private readonly BLProductoSugerido BLProductoSugerido;
         private readonly IConfiguracionProgramaNuevasBusinessLogic BLConfiguracionProgramaNuevas;
         private readonly BLEscalaDescuento BLEscalaDescuento;
-        private readonly BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private readonly BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private readonly BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
         private readonly BLCupon BLCupon;
@@ -53,7 +51,6 @@ namespace Portal.Consultoras.Service
         private readonly BLFichaProducto blFichaProducto;
         private readonly BLPagoEnLinea BLPagoEnLinea;
         private readonly BLActivarPremioNuevas _ActivarPremioNuevas;
-
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
@@ -80,7 +77,6 @@ namespace Portal.Consultoras.Service
             BLProductoSugerido = new BLProductoSugerido();
             BLConfiguracionProgramaNuevas = new BLConfiguracionProgramaNuevas();
             BLEscalaDescuento = new BLEscalaDescuento();
-            BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
             BLCupon = new BLCupon();

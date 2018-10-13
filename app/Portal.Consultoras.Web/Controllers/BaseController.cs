@@ -603,11 +603,14 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 var tippingPoint = Mapper.Map<BarraTippingPoint>(beActive);
                 tippingPoint.TippingPointMontoStr = TippingPointStr;
-                tippingPoint.ActiveTooltip = estrategia != null;
                 if (tippingPoint.ActiveTooltip)
                 {
-                    tippingPoint = Mapper.Map(estrategia, tippingPoint);
-                    tippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                    if (estrategia != null)
+                    {
+                        tippingPoint = Mapper.Map(estrategia, tippingPoint);
+                        tippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                    }
+                    else tippingPoint.ActiveTooltip = false;
                 }
 
                 return tippingPoint;
