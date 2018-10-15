@@ -70,7 +70,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public void ActualizarInsertarPuntosConcursoTran(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso, string PuntosExigidosConcurso)
+        public void ActualizarInsertarPuntosConcursoTransaction(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso, string PuntosExigidosConcurso)
         {
             DAConcurso DAConcurso = new DAConcurso(PaisID);
             DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso, PuntosExigidosConcurso);

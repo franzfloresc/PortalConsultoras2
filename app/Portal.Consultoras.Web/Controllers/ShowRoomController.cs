@@ -241,17 +241,17 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
-        {
-            return InsertarPedidoWebPortal(model, 1);
-        }
+        //[HttpPost]
+        //public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
+        //{
+        //    return InsertarPedidoWebPortal(model, 1);
+        //}
 
-        [HttpPost]
-        public JsonResult InsertOfertaWebPortalCpc(PedidoDetalleModel model)
-        {
-            return InsertarPedidoWebPortal(model, 2);
-        }
+        //[HttpPost]
+        //public JsonResult InsertOfertaWebPortalCpc(PedidoDetalleModel model)
+        //{
+        //    return InsertarPedidoWebPortal(model, 2);
+        //}
 
         #region Comprar desde Pagina de Oferta
 

@@ -196,7 +196,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     pedidoDetalle.ClienteID = 0;
                     pedidoDetalle.ClienteDescripcion = string.Empty;
-                    return PedidoAgregarProductoTran(pedidoDetalle);
+                    return PedidoAgregarProductoTransaction(pedidoDetalle);
                 }
 
                 //Informacion de usuario
@@ -1539,7 +1539,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     {
                         foreach (var item in packNuevas)
                         {
-                            _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleTran(item);
+                            _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleTransaction(item);
                         }
                     }
                 }
@@ -1667,13 +1667,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         switch (obePedidoWebDetalle.TipoAdm)
                         {
                             case Constantes.PedidoAccion.INSERT:
-                                obePedidoWebDetalle.PedidoID = _pedidoWebDetalleBusinessLogic.InsPedidoWebDetalleTran(obePedidoWebDetalle).PedidoID;
+                                obePedidoWebDetalle.PedidoID = _pedidoWebDetalleBusinessLogic.InsPedidoWebDetalleTransaction(obePedidoWebDetalle).PedidoID;
                                 break;
                             case Constantes.PedidoAccion.UPDATE:
-                                _pedidoWebDetalleBusinessLogic.UpdPedidoWebDetalleTran(obePedidoWebDetalle);
+                                _pedidoWebDetalleBusinessLogic.UpdPedidoWebDetalleTransaction(obePedidoWebDetalle);
                                 break;
                             case Constantes.PedidoAccion.DELETE:
-                                _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleTran(obePedidoWebDetalle);
+                                _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleTransaction(obePedidoWebDetalle);
                                 break;
                         }
 
@@ -1682,7 +1682,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     }
 
-                    _pedidoWebDetalleBusinessLogic.UpdPedidoWebTotalesTran(usuario, pedidoWebDetalles[0].PedidoID, totalClientes, totalImporte);
+                    _pedidoWebDetalleBusinessLogic.UpdPedidoWebTotalesTransaction(usuario, pedidoWebDetalles[0].PedidoID, totalClientes, totalImporte);
 
                     if (!pedidoDetalle.esVirtualCoach)
                     {
@@ -1693,7 +1693,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         else
                             formatoPedidoWebSet = cuvlist;
 
-                        _pedidoWebDetalleBusinessLogic.InsertPedidoWebSetTran(usuario.PaisID, usuario.CampaniaID, pedidoWebDetalles[0].PedidoID, estrategia.Cantidad, estrategia.CUV2
+                        _pedidoWebDetalleBusinessLogic.InsertPedidoWebSetTransaction(usuario.PaisID, usuario.CampaniaID, pedidoWebDetalles[0].PedidoID, estrategia.Cantidad, estrategia.CUV2
                                 , usuario.ConsultoraID, string.Empty, formatoPedidoWebSet, estrategia.EstrategiaID, usuario.Nombre, usuario.CodigoPrograma, usuario.ConsecutivoNueva);
                     }
 
@@ -1958,7 +1958,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
 
             if (!string.IsNullOrEmpty(codigoConcursosProl))
-                _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcursoTran(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), codigoConcursosProl, puntajes, puntajesExigidos);
+                _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcursoTransaction(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), codigoConcursosProl, puntajes, puntajesExigidos);
         }
 
         private string ConfigurarUrlServiceProl(string codigoISO)
@@ -2668,7 +2668,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
         }
 
-        private BEPedidoDetalleResult PedidoAgregarProductoTran(BEPedidoDetalle pedidoDetalle)
+        private BEPedidoDetalleResult PedidoAgregarProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
             var pedidoID = 0;
 
@@ -2777,12 +2777,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var MarcaID = (listSp.Length > 1 && !string.IsNullOrEmpty(listSp[1])) ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                 var Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
                 var descTono = listSp.Length > 3 ? listSp[3] : pedidoDetalle.Producto.Descripcion;
-
-                //var mensaje = EstrategiaAgregarProducto(pedidoDetalle, usuario, estrategia, lstDetalle);
-                //if (!string.IsNullOrEmpty(mensaje)) PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
-
-                //Validar si el tono tiene Stock 
-                //string message = String.Empty;
 
                 var result = InsertarValidarKitInicio(usuario, pedidoDetalle);
                 if (!result) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_KIT_INICIO, "Kit de Inicio");

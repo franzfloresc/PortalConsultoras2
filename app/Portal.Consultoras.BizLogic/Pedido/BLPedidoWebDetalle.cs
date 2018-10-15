@@ -136,7 +136,7 @@ namespace Portal.Consultoras.BizLogic
 
             return bePedidoWebDetalle;
         }
-        public BEPedidoWebDetalle InsPedidoWebDetalleTran(BEPedidoWebDetalle pedidowebdetalle)
+        public BEPedidoWebDetalle InsPedidoWebDetalleTransaction(BEPedidoWebDetalle pedidowebdetalle)
         {
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
@@ -336,7 +336,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public void UpdPedidoWebDetalleTran(BEPedidoWebDetalle pedidowebdetalle)
+        public void UpdPedidoWebDetalleTransaction(BEPedidoWebDetalle pedidowebdetalle)
         {
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
@@ -369,7 +369,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public void UpdPedidoWebTotalesTran(BEUsuario usuario, int PedidoID, int Clientes, decimal ImporteTotalPedido)
+        public void UpdPedidoWebTotalesTransaction(BEUsuario usuario, int PedidoID, int Clientes, decimal ImporteTotalPedido)
         {
             var daPedidoWeb = new DAPedidoWeb(usuario.PaisID);
             daPedidoWeb.UpdPedidoWebTotales(usuario.CampaniaID, PedidoID,
@@ -482,7 +482,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public void DelPedidoWebDetalleTran(BEPedidoWebDetalle pedidowebdetalle)
+        public void DelPedidoWebDetalleTransaction(BEPedidoWebDetalle pedidowebdetalle)
         {
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
@@ -864,19 +864,11 @@ namespace Portal.Consultoras.BizLogic
 
         }
 
-        public bool InsertPedidoWebSetTran(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario,
+        public bool InsertPedidoWebSetTransaction(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario,
             string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido)
         {
             var daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
-
-            //TransactionOptions oTransactionOptions =
-            //    new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
-
-            //try
-            //{
             var result = false;
-            //    using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
-            //    {
             result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
 
             var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
@@ -896,15 +888,7 @@ namespace Portal.Consultoras.BizLogic
 
             daPedidoWebDetalle.UpdateImporteTotalPedidoWeb(Campaniaid, ConsultoraId, importeTotal);
 
-            //        oTransactionScope.Complete();
-            //    }
-
             return result;
-            //}
-            //catch (Exception ex)
-            //{
-            //    return false;
-            //}
         }
 
         public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
