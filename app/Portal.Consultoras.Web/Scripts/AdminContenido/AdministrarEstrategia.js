@@ -348,20 +348,24 @@
         };
 
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
-            //console.log(data);
+
             var TipoEstrategiaCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+
             if (TipoEstrategiaCodigo == _config.tipoEstrategiaIncentivosProgramaNuevas)
                 $("#divPrecioValorizado").html("Ganancia");
             else
                 $("#divPrecioValorizado").html("Precio Valorizado");
+
             $("#_id").val(_editData.mongoIdVal);
+
             showDialog("DialogAdministracionEstrategia");
             _ActualizarFlagIndividual(data);
+
             _editData.IdMatrizComercial = data.IdMatrizComercial;
             _editData.CUV2 = data.CUV2;
-
             _crearFileUploadAdd(_editData);
 
+            _editData.NombreImagen = data.ImagenURL;
             _obtenerImagenes(_editData, 1, true).done(function () {
                 showDialog("matriz-comercial-dialog");
                 closeWaitingDialog();
@@ -580,7 +584,7 @@
     };
     
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-        console.log('_obtenerImagenes');
+
         var imagen = $("#imgSeleccionada").attr('src');
         var ultimoSlash = imagen.lastIndexOf("/");
         var nombreImagen = imagen.substring(ultimoSlash + 1);
@@ -591,9 +595,9 @@
             CampaniaID: data.CampaniaID,
             TipoEstrategiaID: data.TipoEstrategiaID,
             pagina: pagina,
-            nombreImagen: nombreImagen
+            nombreImagen: data.NombreImagen
         };
-
+        
         return $.post(_config.getImagesBySapCodeAction, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     }
 
