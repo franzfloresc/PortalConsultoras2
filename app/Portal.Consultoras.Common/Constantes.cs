@@ -1978,7 +1978,6 @@ namespace Portal.Consultoras.Common
             public const string SwInicio = "/showroom";
             public const string SwInicioIndex = "/showroom/index";
             public const string SwIntriga = "/showroom/intriga";
-            public const string SwDetalle = "/showroom/detalleoferta";
             public const string SwPersonalizado = "/showroom/personalizado";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
