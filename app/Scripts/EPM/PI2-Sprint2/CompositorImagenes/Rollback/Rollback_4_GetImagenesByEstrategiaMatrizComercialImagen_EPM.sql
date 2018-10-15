@@ -1,4 +1,4 @@
-USE [BelcorpPeru_BPT]
+﻿USE [BelcorpPeru_BPT]
 GO
 /****** Object:  StoredProcedure [dbo].[GetImagenesByEstrategiaMatrizComercialImagen]    Script Date: 12/10/2018 11:30:03 ******/
 SET ANSI_NULLS ON

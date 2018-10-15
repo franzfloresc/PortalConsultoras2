@@ -1,4 +1,4 @@
-﻿
+﻿USE [BelcorpPeru_BPT]
 GO
 IF EXISTS (
 	SELECT * FROM sys.objects 
@@ -23,7 +23,7 @@ AS
 BEGIN
 	SET NOCOUNT OFF
 
-	DECLARE @resultado int = 0
+	--DECLARE @resultado int = 0
 	DECLARE @tabla_resultado table (CampaniaID int, CUV2 varchar(100), DescripcionCUV2 varchar(800))
 	DECLARE @tablaCuvsOPT table (CampaniaID int, CUV varchar(100), DescripcionCUV varchar(800))
 
@@ -49,12 +49,12 @@ BEGIN
 		and AnioCampanaVenta = @CampaniaIDChar
 	END
 	
-	IF @TipoConfigurado=0
-	BEGIN
-		SET @resultado = (SELECT count(0) from @tablaCuvsOPT)
-	END
-	ELSE
-	BEGIN
+	--IF @TipoConfigurado=0
+	--BEGIN
+	--	SET @resultado = (SELECT count(0) from @tablaCuvsOPT)
+	--END
+	--ELSE
+	--BEGIN
 		DECLARE @TipoEstrategiaId INT
 		SET @TipoEstrategiaId = dbo.fnGetTipoEstrategiaId(@CodigoEstrategia)
 			
@@ -85,9 +85,9 @@ BEGIN
 				t.CampaniaID = @CampaniaID
 				and e.CUV2 is null			
 		END
-	END
+	--END
 
-	SELECT  *
+	SELECT  t.CampaniaID, t.CUV2, t.DescripcionCUV2
 	FROM @tabla_resultado t
 	LEFT JOIN [dbo].[EstrategiaImagen] ei
 	ON t.campaniaID = ei.campaniaID AND t.cuv2 = ei.cuv

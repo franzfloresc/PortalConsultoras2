@@ -1021,9 +1021,15 @@ namespace Portal.Consultoras.Web.Controllers
             
             return GetImagesCommonResult(lst, paisID);
         }
-        
+
         private void GetImagenesByEstrategiaMatrizComercialImagenIsOk(ServicePedido.BEEstrategia estrategia, int pagina, int total, string nombreImagen)
         {
+            nombreImagen = Util.Trim(nombreImagen);
+            if (nombreImagen == "")
+            {
+                return;
+            }
+
             List<BEMatrizComercialImagen> lst;
 
             using (var sv = new PedidoServiceClient())
@@ -1035,31 +1041,34 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var item in lst)
             {
-                foto = lst.Any(x => item.Foto == nombreImagen);
-                if (foto == true)
+                if (lst.Any(x => item.Foto.ToLower() == nombreImagen.ToLower()))
+                {
+                    foto = true;
                     break;
-            }
-                
-            if(foto == false)
-            {
-                var entidadImagen = lst[0];
-
-                var entity = new BEMatrizComercialImagen
-                {
-                    IdMatrizComercial = entidadImagen.IdMatrizComercial,
-                    PaisID = userData.PaisID,
-                    UsuarioRegistro = userData.CodigoConsultora,
-                    UsuarioModificacion = userData.CodigoConsultora,
-                    NemoTecnico = null, // NemoTecnico apagado
-                    DescripcionComercial = null  // NemoTecnico apagado
-                };
-
-                entity.Foto = nombreImagen;
-
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    entity.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
                 }
+            }
+
+            if (foto)
+            {
+                return;
+            }
+
+            var entidadImagen = lst[0];
+
+            var entity = new BEMatrizComercialImagen
+            {
+                IdMatrizComercial = entidadImagen.IdMatrizComercial,
+                PaisID = userData.PaisID,
+                UsuarioRegistro = userData.CodigoConsultora,
+                UsuarioModificacion = userData.CodigoConsultora,
+                NemoTecnico = null, // NemoTecnico apagado
+                DescripcionComercial = null,  // NemoTecnico apagado,
+                Foto = nombreImagen
+            };
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                entity.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
             }
         }
 

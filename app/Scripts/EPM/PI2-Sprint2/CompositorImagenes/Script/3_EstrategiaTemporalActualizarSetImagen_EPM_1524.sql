@@ -1,9 +1,6 @@
 ﻿USE [BelcorpPeru_BPT]
 GO
-/****** Object:  StoredProcedure [dbo].[EstrategiaTemporalActualizarSetImagen]    Script Date: 9/10/2018 15:10:08 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+
 GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
