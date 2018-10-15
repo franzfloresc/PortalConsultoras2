@@ -89,6 +89,10 @@
     background-position:center 12px;
 }
 
+.wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco:hover{
+    opacity:1!important;
+}
+
 .wrapper_header_campania_navidenia .boton_cam{
     background-color:transparent;
 }
