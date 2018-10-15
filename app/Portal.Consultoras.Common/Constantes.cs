@@ -1687,6 +1687,7 @@ namespace Portal.Consultoras.Common
 
             public const short EscalaDescuentoDestokp = 72;
             public const short EscalaDescuentoMobile = 73;
+            public const short ListaOrdenamientoFiltros = 147;
         }
 
         public struct MensajesCDRExpress
@@ -2762,13 +2763,19 @@ namespace Portal.Consultoras.Common
             public const string TotalResultadosBuscador = "TotalResultadosBuscador";
             public const string CantidadInicioSesionNovedadBuscador = "CantidadInicioSesionNovedadBuscador";
             public const string ConsultoraDummy = "ConsultoraDummy";
+            public const string MostrarBotonVerTodos = "MostrarBotonVerTodos";
+            public const string AplicarLogicaCantidadBotonVerTodos = "AplicarLogicaCantidadBotonVerTodos";
+            public const string MostrarOpcionesOrdenamiento = "MostrarOpcionesOrdenamiento";
+            public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
+            public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
+            
         }
 
 
         public class RutaBuscadorService
         {
             //Buscador/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{CodigoZona}/{TextoBusqueda}/{CantidadProductos}/{SociaEmpresaria}/{SuscripcionActiva}/{MDO}/{RD}/{RDI}/{RDR}/{DiaFacturacion}
-            public const string UrlBuscador = "Buscador/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}";
+            public const string UrlBuscador = "Buscador/{0}/{1}";
 
             //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}
             public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}";

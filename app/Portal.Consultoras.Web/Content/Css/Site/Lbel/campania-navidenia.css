@@ -69,26 +69,6 @@
     width:auto!important;
 }
 
-/*.wrapper_header_campania_navidenia .new_menu[data-codigo="contenedorofertas"]{
-    height:61px;
-    margin-top:0!important;
-}
-
-.wrapper_header_campania_navidenia .new_menu[data-codigo="contenedorofertas"] a{
-    height:100%;
-    position:relative;
-}
-
-.wrapper_header_campania_navidenia .new_menu[data-codigo="contenedorofertas"] a img{
-    display:none;
-    width: 100%;
-    height: auto;
-    margin: auto 0!important;
-    position: absolute;
-    top: -4px;
-    bottom: 0;
-}*/
-
 .wrapper_header_campania_navidenia .new_menu_a{
     border-bottom:none;
 }
@@ -100,6 +80,10 @@
 .wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco{
     background: url(/Content/Images/Lbel/logo_marca_pais_blanco.svg) no-repeat;
     background-position:center;
+}
+
+.wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco:hover{
+    opacity:1!important;
 }
 
 .wrapper_header_campania_navidenia .boton_cam{
@@ -161,47 +145,6 @@
         color:#C8A05E;
     }
 
-.seccion_club_gana_mas_fondo_navidenio .dorado_club,
-.seccion_club_gana_mas_fondo_navidenio .contenedor_ganamas .sb_contenedor_ganamas_bg
-{
-    background: #01362d;
-    background-image: -moz-linear-gradient(top, #01362d 0%, #016f5f 100%)!important;
-    background-image: -webkit-linear-gradient(top, #01362d 0%,#016f5f 100%)!important;
-    background-image: linear-gradient(to bottom, #01362d 0%,#016f5f 100%)!important;
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0 );
-    transition:none!important;
-}
-
-.seccion_club_gana_mas_fondo_navidenio .clubtxt p{
-    color:#FFF!important;
-}
-
-.seccion_club_gana_mas_fondo_navidenio .logo_no_suscrita{
-    background:url(/Content/Images/Esika/RevistaDigital/ofertas-digitales-navidad-lbel.svg)!important;
-    background-size: 147px!important;
-    background-repeat: no-repeat!important;
-    background-position: left center!important;
-}
-
-.seccion_club_gana_mas_fondo_navidenio .club_logo .centrar_cont_club{
-    background:url(/Content/Images/Esika/RevistaDigital/gana-mas-navidad-esika.svg)!important;
-    background-repeat: no-repeat!important;
-    background-position: 0 -12px!important;
-    background-size: 153px!important;
-}
-
-.seccion_club_gana_mas_fondo_navidenio .activar_boton_blanco_no_animado,
-.seccion_club_gana_mas_fondo_navidenio .bg_activar_boton_no_animado
-{
-    background-color:#C8A05E!important;
-    color:#FFF!important;
-    font-weight:700;
-}
-
-.seccion_club_gana_mas_fondo_navidenio .head_gana_mas{
-    margin-top:20px!important;
-}
-
 @media screen and (max-width:1365px){
 
     .wrapper_header_campania_navidenia{
@@ -214,30 +157,18 @@
 
 }
 
-/*@media screen and (max-width:1212px){
-
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
-        width:350px!important;
-    }
-
-}*/
-
 @media screen and (min-width:1145px) and (max-width:1212px){
 
     .wrapper_campania_navidenia_y_logo + .menu_new_esika{
-        width: 628px!important;
+        max-width: 628px!important;
     }
-
-    /*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
-        width:350px!important;
-    }*/
 
 }
 
 @media screen and (min-width:1090px) and (max-width:1144px){
 
     .wrapper_campania_navidenia_y_logo + .menu_new_esika {
-        width: 626.7px!important;
+        max-width: 626.7px!important;
     }
 
 }
@@ -245,7 +176,7 @@
 @media screen and (min-width:1063px) and (max-width:1089px){
 
     .wrapper_campania_navidenia_y_logo + .menu_new_esika {
-        width: 592px!important;
+        max-width: 592px!important;
     }
 
 }
@@ -253,7 +184,7 @@
 @media screen and (max-width: 1062px) {
 
     .wrapper_campania_navidenia_y_logo + .menu_new_esika {
-        width: 553px!important;
+        max-width: 553px!important;
     }
 
 }
@@ -295,6 +226,13 @@
         left: 0!important;
     }
 
+    .agregarBackgroundNavidenio .contenedor_circulos{
+        position: absolute;
+        z-index: 500;
+        left:75%;
+        top: 9px;
+    }
+
     .agregarBackgroundNavidenio .logo_mobile{
         background: url(/Content/Images/Lbel/logo_marca_pais_blanco.svg) no-repeat;
         background-position: left 12.7px;
@@ -307,8 +245,8 @@
         margin-left: 0;
     }
 
-    .agregarBackgroundNavidenio .col-xs-5:first-child{
-        padding-left:23px;
+    .agregarBackgroundNavidenio .icono_menuMobile_campania_navidenia + .col-xs-5{
+        padding-left:4px;
     }
 
     .agregarBackgroundNavidenio .col-xs-5:last-child{
@@ -332,8 +270,7 @@
     }
 
     .agregarBackgroundNavidenio .campana_mobile .icon-shop-belcorp:before,
-    .agregarBackgroundNavidenio .num-menu-shop,
-    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor .margin_top
+    .agregarBackgroundNavidenio .num-menu-shop
     {
         color:#FFF!important;
     }
@@ -342,71 +279,12 @@
         margin-top:17px!important;
     }
 
-    /*.menu_mobile_belcorp[data-codigo="contenedorofertas"]{
-        height:77px;
-    }
-
-    .menu_mobile_belcorp[data-codigo="contenedorofertas"] img{
-        width:auto;
-        height:100%;
-    }*/
-
     .boton_ingresa_tu_pedido_navidenio,
     .boton_ingresa_tu_pedido_navidenio input
     {
         background-color:#B38B4A;
         border-color:#B38B4A;
         color:#FFF!important;
-    }
-
-    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor{
-        background: #01362d;
-        background: -moz-linear-gradient(top, #01362d 0%, #016f5f 100%)!important;
-        background: -webkit-linear-gradient(top, #01362d 0%,#016f5f 100%)!important;
-        background: linear-gradient(to bottom, #01362d 0%,#016f5f 100%)!important;
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0 );
-        transition:none!important;
-        height:247px!important;
-    }
-
-    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor .logo_no_suscrita,
-    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor.dorado:before
-    {
-        height:80px!important;
-        background-repeat: no-repeat!important;
-    }
-
-    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor .logo_no_suscrita{
-        background-image: url(/Content/Images/Lbel/RevistaDigital/ofertas-digitales-navidad-lbel.svg)!important;
-        background-size: 152px!important;
-        background-position: center 27px!important;
-        left: -12px;
-        margin-bottom: 13px;
-    }
-
-    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor.dorado:before{
-        display:block;
-        width:120px;
-        content:"";
-        background-image: url(/Content/Images/Lbel/RevistaDigital/gana-mas-navidad-lbel.svg)!important;
-        background-size: 89px!important;
-        background-position: 28px 10px!important;
-    }
-
-    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor .boton-ver-mas{
-        background-color:#C8A05E!important;
-        border-color:#C8A05E!important;
-        color:#FFF!important;
-        font-weight:700;
-        border-radius:0;
-    }
-
-    .seccion_club_gana_mas_fondo_navidenio .wrapper_resumen_mobile_clubganamas .zonadecolor img{
-        display:none;
-        margin-left: 23px;
-        height: 46px;
-        margin-top: 6px;
-        margin-bottom: 17px;
     }
 
     .color_cincuenta_anios_belcorp{
