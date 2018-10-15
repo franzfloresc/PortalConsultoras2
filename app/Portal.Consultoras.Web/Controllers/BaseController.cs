@@ -919,10 +919,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual bool IsMobile()
         {
+            if (HttpContext.Request.Url == null)
+                throw new ArgumentNullException("IsMobile: Url es nulo.");
+
             var result = false;
             try
             {
-                var url = HttpContext.Request.Url != null ? HttpContext.Request.Url.AbsolutePath : null;
+                var url = HttpContext.Request.Url.AbsolutePath;
 
                 var urlReferrer = HttpContext.Request.UrlReferrer != null ?
                     Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) :

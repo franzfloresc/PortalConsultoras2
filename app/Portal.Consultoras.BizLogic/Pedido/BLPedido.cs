@@ -2373,7 +2373,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             usuario.RevistaDigital = taskRevistaDigital.Result.RevistaDigital;
 
             //Configuracion pais - ValidacionMontoMaximo
-            usuario.TieneValidacionMontoMaximo = usuario.TieneValidacionMontoMaximo;
+            usuario.TieneValidacionMontoMaximo = taskValidacionMontoMaximo.Result.TieneValidacionMontoMaximo;
 
             //Validacion reserva u horario restringido
             var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID,
