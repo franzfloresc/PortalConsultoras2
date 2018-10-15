@@ -235,6 +235,13 @@
         left: 0!important;
     }
 
+    .agregarBackgroundNavidenio .contenedor_circulos{
+        position: absolute;
+        z-index: 500;
+        left:75%;
+        top: 9px;
+    }
+
     .agregarBackgroundNavidenio .logo_mobile{
         background: url(/Content/Images/Esika/logo_marca_pais_desktop_blanco.svg) no-repeat;
         background-position: left 6px;
