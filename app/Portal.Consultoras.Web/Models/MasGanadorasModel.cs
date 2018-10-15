@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class MasGanadorasModel
     {
         public MasGanadorasModel()
