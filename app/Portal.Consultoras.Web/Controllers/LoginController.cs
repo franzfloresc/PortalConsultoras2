@@ -2227,7 +2227,7 @@ namespace Portal.Consultoras.Web.Controllers
             var rds = new ServicePedido.BERevistaDigitalSuscripcion
             {
                 PaisID = usuarioModel.PaisID,
-                CodigoConsultora = usuarioModel.CodigoConsultora
+                CodigoConsultora = usuarioModel.GetCodigoConsultora()
             };
 
             using (var pedidoServiceClient = new PedidoServiceClient())
