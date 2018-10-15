@@ -630,21 +630,18 @@ namespace Portal.Consultoras.Web.SessionManager
             return Convert.ToBoolean(HttpContext.Current.Session["PedidoValidado"]);
         }
         
-        BEConfiguracionProgramaNuevas ISessionManager.ConfiguracionProgramaNuevas
+        BEConfiguracionProgramaNuevas ISessionManager.GetConfiguracionProgramaNuevas()
         {
-            get { return (BEConfiguracionProgramaNuevas)HttpContext.Current.Session["ConfiguracionProgramaNuevas"]; }
-            set { HttpContext.Current.Session["ConfiguracionProgramaNuevas"] = value; }
+            return (BEConfiguracionProgramaNuevas)HttpContext.Current.Session["ConfiguracionProgramaNuevas"];
         }
-        bool ISessionManager.ProcesoKitNuevas
+        void ISessionManager.SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas configuracion)
         {
-            get { return (bool)(HttpContext.Current.Session["ProcesoKitNuevas"] ?? false); }
-            set { HttpContext.Current.Session["ProcesoKitNuevas"] = value; }
+           HttpContext.Current.Session["ConfiguracionProgramaNuevas"] = configuracion;
         }
-        string ISessionManager.CuvKitNuevas
-        {
-            get { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
-            set { HttpContext.Current.Session["CuvKitNuevas"] = value; }
-        }
+        bool ISessionManager.GetProcesoKitNuevas() { return (bool)(HttpContext.Current.Session["ProcesoKitNuevas"] ?? false); }
+        void ISessionManager.SetProcesoKitNuevas(bool proceso) { HttpContext.Current.Session["ProcesoKitNuevas"] = proceso; }
+        string ISessionManager.GetCuvKitNuevas() { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
+        void ISessionManager.SetCuvKitNuevas(string cuvKit) { HttpContext.Current.Session["CuvKitNuevas"] = cuvKit; }
 
         // -----------------------------------
 
@@ -1181,30 +1178,6 @@ namespace Portal.Consultoras.Web.SessionManager
             var val = HttpContext.Current.Session["CDRExpressMensajes"];
 
             return (List<BETablaLogicaDatos>)val;
-        }
-
-        void ISessionManager.SetCuvEsProgramaNuevas(bool val)
-        {
-            HttpContext.Current.Session["CuvEsProgramaNuevas"] = val;
-        }
-
-        bool ISessionManager.GetCuvEsProgramaNuevas()
-        {
-            var val = HttpContext.Current.Session["CuvEsProgramaNuevas"];
-            if (val == null) { return false; }
-            return (bool)val;
-        }
-
-        void ISessionManager.SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas val)
-        {
-            HttpContext.Current.Session["ConfiguracionProgramaNuevas"] = val;
-        }
-
-        BEConfiguracionProgramaNuevas ISessionManager.GetConfiguracionProgramaNuevas()
-        {
-            var val = HttpContext.Current.Session["ConfiguracionProgramaNuevas"];
-
-            return (BEConfiguracionProgramaNuevas)val;
         }
 
         void ISessionManager.SetOcultarBannerTop(bool val)

@@ -300,7 +300,7 @@
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
             @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
             {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index","PagoEnLinea")">
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("MetodoPago","PagoEnLinea")">
                     <div class="texto_btn_pago_en_linea">
                         <span>PAGA EN LÍNEA</span>
                         @*<span>con Crédito Visa</span>*@
@@ -351,7 +351,7 @@
     Html.RenderPartial("MasVendidos");
 }
 
-<div id="divListaEstrategias" style="display: none; padding-top: 22px;">
+<div id="divListaEstrategias" class="seccion_club_gana_mas_fondo_navidenio" style="display: none; padding-top: 22px;">
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
 
@@ -684,7 +684,7 @@
         </div>
     </div>
 </div>
-<div class="btn_agregarPedido boton_cincuenta_anios_belcorp">
+<div class="btn_agregarPedido boton_ingresa_tu_pedido_navidenio">
     <form>
         <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
     </form>

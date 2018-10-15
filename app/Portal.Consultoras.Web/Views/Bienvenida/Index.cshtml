@@ -133,7 +133,7 @@
             </div>
         </div>
         <div class="pedido_resumen_home">
-            <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar boton_cincuenta_anios_belcorp" href="@Url.Action("Index", "Pedido")">INGRESA TU PEDIDO</a>
+            <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar boton_ingresa_tu_pedido_navidenio" href="@Url.Action("Index", "Pedido")">INGRESA TU PEDIDO</a>
         </div>
         <div class="socia_negocio_home">
             <div class="notificaciones_resumen">
@@ -203,7 +203,7 @@
             if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
             {
                 <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
-                    href="@Url.Action("Index","PagoEnLinea")" class="btn_paga_online btn_100_paga"
+                    href="@Url.Action("MetodoPago","PagoEnLinea")" class="btn_paga_online btn_100_paga"
                     style="margin-top: 12px;">PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
                 marginTopFacturaE = "margin-top: 10px";
             }
@@ -304,7 +304,7 @@
 {
     Html.RenderPartial("MasVendidos");
 }
-<div id="divListaEstrategias" class="fondo_gris" style="display:none;">
+<div id="divListaEstrategias" class="fondo_gris seccion_club_gana_mas_fondo_navidenio" style="display:none;">
     @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
 <div class="fondo_gris content_belcorp" id="divRevistaDigital"></div>
@@ -720,7 +720,7 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Celular</label>
-                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelular')" />
+                        <input type="text" name="celular"  value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelular')" />
                     </div>
                     <div>
                         <label>Otro teléfono</label>
@@ -1278,7 +1278,7 @@ DEUDA TECNICA
                 </a>
                 {{else}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" />
+                    <input type="text" value="1" size="2" maxlength="2"  data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" />
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                         <a class="menos"  onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>

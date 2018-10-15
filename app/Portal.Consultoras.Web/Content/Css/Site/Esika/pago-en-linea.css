@@ -44,6 +44,10 @@
     margin-bottom:16px;
 }
 
+.pt-0{
+    padding-top:0!important;
+}
+
 .pt-12{
     padding-top:12px!important;
 }
@@ -216,7 +220,7 @@
 
 .cantidad_pasos_proceso_pago{
     margin:0 auto;
-    max-width:218px;
+    max-width:132px;
     position:relative;
     margin-bottom:36px;
 }
@@ -315,6 +319,20 @@
     padding-bottom:16px;
 }
 
+.info_importante_tarjeta_credito_habilitada{
+    font-size:12.5px;
+    letter-spacing:0.3px;
+}
+
+.info_importante_tarjeta_credito_habilitada span:first-child{
+    margin-right:5px;
+    height:20px;
+}
+
+.info_importante_tarjeta_credito_habilitada span:last-child{
+    color:#e81c36;
+}
+
 .metodo_pago_seleccionado{
     position:relative;
     border:1px solid #D2D2D2;
@@ -356,6 +374,7 @@
 .info_pago_seguro_con_tarjetas{
     margin:0 auto;
     max-width:405px;
+    text-align:center;
 }
 
 .icono_marca_tarjeta{
@@ -557,6 +576,14 @@
     -o-transform:rotate(-180deg);
     -webkit-transform: rotate(-180deg);
     transform:rotate(-180deg);
+}
+
+.girar90n {
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
 }
 
 .pagoTotal .icono_flecha_despliegue{
@@ -1430,6 +1457,66 @@
     background-size:26px;
     margin-right:7px;
 }
+
+/*  HD-2960 - NUEVO MÉTODO DE PAGO */
+
+.texto_informativo_lista_bancos{
+    border-top:1px solid #b5b5b5;
+    padding-top:15px;
+    padding-bottom:15px;
+    font-size:13px;
+    color:#000;
+    margin-bottom:0;
+}
+
+.texto_informativo_lista_bancos,
+.listado_bancos,
+.enlace_banco
+{
+    display:block;
+}
+
+.banco_nombre{
+    display:inline-block;
+    vertical-align:top;
+    width:22%;
+    height:45px;
+    margin-right:10px;
+    margin-bottom:10px;
+    border:1px solid #b5b5b5;
+    border-radius:5px;
+}
+
+.banco_nombre:nth-child(4n){
+    margin-right:0;
+}
+
+.enlace_banco {
+    position: relative;
+    height: 100%;
+    opacity:1;
+    -moz-transition: box-shadow 0.3s ease;
+    -o-transition: box-shadow 0.3s ease;
+    -webkit-transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+    .enlace_banco:hover {
+        -moz-box-shadow: 0 2px 11px -3px rgba(0,0,0,.7);
+        -webkit-box-shadow: 0 2px 11px -3px rgba(0,0,0,.7);
+        box-shadow: 0 2px 11px -3px rgba(0,0,0,.7);
+    }
+
+    .enlace_banco img{
+        position:absolute;
+        margin:auto;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+    }
+
+/*  FIN - HD-2960 - NUEVO MÉTODO DE PAGO */
 
 /* MODIFICACIONES DE DISEÑO JQUERY DATEPICKER */
 
