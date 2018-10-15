@@ -1,7 +1,5 @@
 # Portal Consultoras SB2
 
-PI2-EPM-Sprint1-Tipos
-- Mejorar experiencia sobre la funcionalidad de eleccion de tipos
+PI2-EPM-1557
 
-HU => EPM 1439, 1440
-
+Cambiar prioridad en descripción de componentes de Showroom Ficha
