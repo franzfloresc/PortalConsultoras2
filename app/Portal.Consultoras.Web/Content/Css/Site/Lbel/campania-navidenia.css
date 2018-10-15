@@ -234,8 +234,8 @@
         margin-left: 0;
     }
 
-    .agregarBackgroundNavidenio .col-xs-5:first-child{
-        padding-left:23px;
+    .agregarBackgroundNavidenio .icono_menuMobile_campania_navidenia + .col-xs-5{
+        padding-left:4px;
     }
 
     .agregarBackgroundNavidenio .col-xs-5:last-child{
