@@ -1,4 +1,4 @@
-use [BelcorpPeru_BPT];
+﻿use [BelcorpPeru_BPT];
 go
 
 begin
