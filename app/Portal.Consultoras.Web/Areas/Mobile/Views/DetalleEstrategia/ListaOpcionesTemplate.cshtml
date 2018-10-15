@@ -3,7 +3,7 @@
     {{#IsNullOrEmpty componente.NombreBulk '!='}}
     <ul class="selecion_item list-inline">
         <li class="seleccion_img"><img src="{{componente.ImagenBulk}}" alt=""></li>
-        <li class="seleccion_title">{{#Substr 35  componente.NombreBulk}}{{/Substr}}</li>
+        <li class="seleccion_title">{{#Substr 35 componente.NombreBulk}}{{/Substr}}</li>
         {{#iff this.FactorCuadre '==' '1'}}
         {{#iff componente.cantidadSeleccionada '==' '0'}}
         <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
