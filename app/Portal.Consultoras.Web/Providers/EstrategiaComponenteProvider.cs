@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Providers
             get { return _sessionManager; }
             private set { _sessionManager = value; }
         }
-        
+
         public EstrategiaComponenteProvider() : this(
             Web.SessionManager.SessionManager.Instance,
             new OfertaBaseProvider(),
@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
         }
-        
+
         public virtual List<BEEstrategiaProducto> GetEstrategiaProducto(int PaisID, int EstrategiaID)
         {
             List<BEEstrategiaProducto> listaProducto;
@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Web.Providers
             var listaProducto = new List<BEEstrategiaProducto>();
 
             if (string.IsNullOrEmpty(estrategiaModelo.CodigoVariante)) return listaProducto;
-            
+
             listaProducto = GetEstrategiaProducto(_paisId, estrategiaModelo.EstrategiaID);
 
             var codigoIsoPais = SessionManager.GetUserData().CodigoISO;
@@ -250,7 +250,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var listaEstrategiaComponenteProductos = new List<EstrategiaComponenteModel>();
             listaBeEstrategiaProductos = listaBeEstrategiaProductos.OrderBy(p => p.Grupo).ToList();
-            
+
             foreach (var beEstrategiaProducto in listaBeEstrategiaProductos)
             {
                 var componenteModel = new EstrategiaComponenteModel { };
@@ -338,14 +338,15 @@ namespace Portal.Consultoras.Web.Providers
 
             foreach (var componente in listaEstrategiaComponenteProductos)
             {
-                if(componente.Hermanos != null && componente.Hermanos.Any())
+                if (componente.Hermanos != null && componente.Hermanos.Any())
                 {
                     foreach (var item in componente.Hermanos)
                     {
                         if (String.IsNullOrEmpty(item.ImagenBulk))
                         {
                             item.ImagenBulk = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
-                        }else if (!ExisteS3Imgage(item.ImagenBulk))
+                        }
+                        else if (!ExisteS3Imgage(item.ImagenBulk))
                         {
                             item.ImagenBulk = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
                         }
@@ -441,7 +442,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return NombreComercialCompleto.Trim();
         }
-        
+
         private List<EstrategiaComponenteModel> OrdenarComponentesPorMarca(List<EstrategiaComponenteModel> listaComponentesPorOrdenar, out bool esMultimarca)
         {
             esMultimarca = false;
@@ -454,7 +455,7 @@ namespace Portal.Consultoras.Web.Providers
             var listaComponentesCyzone = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Cyzone);
             var listaComponentesEzika = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Esika);
             var listaComponentesLbel = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.LBel);
-            var listaComponentesSinMarca = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>() 
+            var listaComponentesOtraMarca = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>()
                 : listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Cyzone && x.IdMarca == Constantes.Marca.Esika && x.IdMarca != Constantes.Marca.LBel);
 
             int contador = 0;
@@ -496,18 +497,12 @@ namespace Portal.Consultoras.Web.Providers
                         listaComponentesOrdenados.AddRange(listaComponentesCyzone);
                 }
             }
-
-            if (listaComponentesOrdenados.Any())
-            {
-                listaComponentesOrdenados.AddRange(listaComponentesSinMarca);
-            }
-            else
-            {
-                listaComponentesOrdenados = listaComponentesPorOrdenar;
-            }
+            
+            listaComponentesOrdenados.AddRange(listaComponentesOtraMarca);
 
             return listaComponentesOrdenados;
         }
+
         private bool SoyPaisEsika(string _paisISO)
         {
             var paisesEsika = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika);
