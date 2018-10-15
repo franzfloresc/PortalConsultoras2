@@ -462,7 +462,7 @@ namespace Portal.Consultoras.Web.Providers
             var listaComponentesCyzone = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Cyzone);
             var listaComponentesEzika = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Esika);
             var listaComponentesLbel = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.LBel);
-            var listaComponentesSinMarca = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>()
+            var listaComponentesOtraMarca = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>()
                 : listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Cyzone && x.IdMarca == Constantes.Marca.Esika && x.IdMarca != Constantes.Marca.LBel);
 
             int contador = 0;
@@ -504,18 +504,12 @@ namespace Portal.Consultoras.Web.Providers
                         listaComponentesOrdenados.AddRange(listaComponentesCyzone);
                 }
             }
-
-            if (listaComponentesOrdenados.Any())
-            {
-                listaComponentesOrdenados.AddRange(listaComponentesSinMarca);
-            }
-            else
-            {
-                listaComponentesOrdenados = listaComponentesPorOrdenar;
-            }
+            
+            listaComponentesOrdenados.AddRange(listaComponentesOtraMarca);
 
             return listaComponentesOrdenados;
         }
+
         private bool SoyPaisEsika(string _paisISO)
         {
             var paisesEsika = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika);
