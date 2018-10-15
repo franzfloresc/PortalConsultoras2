@@ -154,6 +154,10 @@
         color:#870A1B;
     }
 
+.franja_negra{
+    top:-2px;
+}
+
 @media screen and (max-width:1365px){
 
     .wrapper_header_campania_navidenia{
