@@ -432,6 +432,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         public BEPedidoDetalleResult Update(BEPedidoDetalle pedidoDetalle)
         {
             var mensaje = string.Empty;
+
             try
             {
                 //Informacion de usuario y palancas
@@ -468,21 +469,31 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     pedidoDetalle.PedidoDetalleID = pedidoExiste == null ? (short)0 : pedidoExiste.PedidoDetalleID;
 
                     var detallePedido = _pedidoWebDetalleBusinessLogic.GetPedidoWebSetDetalle(pedidoDetalle.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
-                    detallePedido.Where(p => p.SetId == pedidoDetalle.SetID).ToList().ForEach(p => p.Cantidad = pedidoDetalle.Cantidad * p.FactorRepeticion);
+                    //detallePedido.Where(p => p.SetId == pedidoDetalle.SetID).ToList().ForEach(p => p.Cantidad = pedidoDetalle.Cantidad * p.FactorRepeticion);
+                    var xsets = detallePedido.Where(x => x.SetId != pedidoDetalle.SetID);
+                    var ncant = pedidoDetalle.Cantidad;
 
                     var set = _pedidoWebSetBusinessLogic.Obtener(pedidoDetalle.PaisID, pedidoDetalle.SetID);
                     foreach (var detalleSet in set.Detalles)
                     {
+                        var ocant = 0;
+                        if (xsets.Any())
+                        {
+                            var xset = xsets.Where(x => x.CuvProducto == detalleSet.CuvProducto);
+                            ocant = xset.Any() ? xset.Sum(x => x.Cantidad) : 0;
+                        }
 
                         var oBePedidoWebSetDetalle = new BEPedidoDetalle
                         {
                             PaisID = pedidoDetalle.PaisID,
                             PedidoID = pedidoDetalle.PedidoID,
                             PedidoDetalleID = Convert.ToInt16(detalleSet.PedidoDetalleId),
-                            Cantidad = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
+                            Cantidad = (ncant * detalleSet.FactorRepeticion) + ocant,
+                            //Cantidad = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
                             ClienteID = string.IsNullOrEmpty(usuario.Nombre) ? (short)0 : Convert.ToInt16(pedidoDetalle.ClienteID),
                             ClienteDescripcion = pedidoDetalle.ClienteDescripcion,
-                            ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * detalleSet.FactorRepeticion * detalleSet.PrecioUnidad,
+                            ImporteTotal = ((ncant * detalleSet.FactorRepeticion) + ocant) * detalleSet.PrecioUnidad,
+                            //ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * detalleSet.FactorRepeticion * detalleSet.PrecioUnidad,
                             Producto = new BEProducto()
                             {
                                 PrecioCatalogo = set.PrecioUnidad,
@@ -1276,6 +1287,19 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return true;
         }
 
+        private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(BEUsuario usuario, string cuv)
+        {
+            Enumeradores.ValidacionProgramaNuevas numero;
+            try
+            {
+                numero = _productoBusinessLogic.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
+            }
+            catch (Exception)
+            {
+                numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            }
+            return numero;
+        }
         #endregion
 
         #region Insert
@@ -1552,20 +1576,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             PedidoInsertar(usuario, pedidoDetalle, lstDetalle, true);
         }
         #endregion  
-
-       private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(BEUsuario usuario,string cuv)
-        {
-            Enumeradores.ValidacionProgramaNuevas numero;
-            try
-            {
-                numero = _productoBusinessLogic.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);                
-            }
-            catch (Exception)
-            {
-                numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
-            }
-            return numero;
-        }
 
         #region Get
         private List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(BEPedidoBuscar pedidoDetalle, out int pedidoID)
