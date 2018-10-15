@@ -1974,7 +1974,6 @@ namespace Portal.Consultoras.Common
             public const string RdComprar = "/revistadigital/comprar";
             public const string RdRevisar = "/revistadigital/revisar";
             public const string RdInformacion = "/revistadigital/informacion";
-            public const string LanDetalle = "/lanzamientos/detalle";
             public const string SwInicio = "/showroom";
             public const string SwInicioIndex = "/showroom/index";
             public const string SwIntriga = "/showroom/intriga";
