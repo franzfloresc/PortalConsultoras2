@@ -720,6 +720,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoEnvio" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

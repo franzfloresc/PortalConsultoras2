@@ -406,7 +406,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario);
 
         [OperationContract]
-        string CancelarAtualizacionEmail(int paisID, string codigoUsuario);
+        string CancelarAtualizacionEmail(int paisID, string codigoUsuario, string tipoEnvio);
 
         [OperationContract]
         BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario);

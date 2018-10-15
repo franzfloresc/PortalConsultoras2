@@ -942,10 +942,11 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public string CancelarAtualizacionEmail(string codigoUsuario)
+        public string CancelarAtualizacionEmail(string codigoUsuario, string tipoEnvio)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("CancelarAtualizacionEmail");
             Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.String, tipoEnvio);
             return Context.ExecuteScalar(command).ToString();
         }
 

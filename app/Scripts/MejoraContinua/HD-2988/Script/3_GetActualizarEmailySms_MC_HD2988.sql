@@ -13,10 +13,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End
@@ -37,10 +37,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End
@@ -61,10 +61,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End
@@ -85,10 +85,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End
@@ -109,10 +109,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End
@@ -133,10 +133,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End
@@ -157,10 +157,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End
@@ -181,10 +181,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End
@@ -205,10 +205,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End
@@ -229,10 +229,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End
@@ -253,10 +253,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End
@@ -277,10 +277,10 @@ Create Procedure GetActualizarEmailySms
 as
 Begin
 	if not exists (select * from ValidacionDatos where CodigoUsuario = @CodigoUsuario)
-		select '1' as TipoEnvio, '' as DatoNuevo
+		select '1' as TipoEnvio, '' as DatoNuevo, '' as Estado
 	Else
 	Begin
-		select TipoEnvio, DatoNuevo from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') and Estado = 'P'
+		select TipoEnvio, DatoNuevo, Estado from ValidacionDatos where CodigoUsuario = @CodigoUsuario and TipoEnvio in ('Email','SMS') --and Estado = 'P'
 		order by FechaCreacion
 	End 	
 End

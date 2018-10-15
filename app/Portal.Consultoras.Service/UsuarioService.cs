@@ -907,10 +907,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetActualizacionEmailySms(paisID, codigoUsuario);
         }
 
-        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
+        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario, string tipoEnvio)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.CancelarAtualizacionEmail(paisID, codigoUsuario);
+            return BLUsuario.CancelarAtualizacionEmail(paisID, codigoUsuario, tipoEnvio);
         }
 
         public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)

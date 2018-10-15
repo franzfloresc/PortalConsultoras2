@@ -2379,14 +2379,23 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (obj == null) return "";
                 if (obj.oDatosPerfil == null) return "";
-                if (obj.oDatosPerfil[0].DatoNuevo == "1") return obj.MensajeAmbos;
+                if (obj.oDatosPerfil[0].TipoEnvio == "1") return obj.MensajeAmbos;
 
-                string nuevocelular =  obj.MensajeCelular != "" ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS").Select(b => b.DatoNuevo).FirstOrDefault() : "";
-                string nuevoemail = obj.MensajeEmail != "" ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+                string pendiente = string.Empty;
 
-                if (!string.IsNullOrEmpty(nuevocelular) && !string.IsNullOrEmpty(nuevoemail)) return pagina == "1" ? obj.MensajeAmbos : nuevocelular + "|" + nuevoemail;
-                if (!string.IsNullOrEmpty(nuevocelular) && string.IsNullOrEmpty(nuevoemail)) return pagina == "1" ? obj.MensajeCelular : nuevocelular + "|";
-                if (string.IsNullOrEmpty(nuevocelular) && !string.IsNullOrEmpty(nuevoemail)) return pagina == "1" ? obj.MensajeEmail : "|" + nuevoemail;
+                string nuevocelular = !string.IsNullOrEmpty(obj.MensajeCelular) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+                string nuevoemail = !string.IsNullOrEmpty(obj.MensajeEmail) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+                nuevocelular = nuevocelular == null ? "" : nuevocelular;
+                nuevoemail = nuevoemail == null ? "" : nuevoemail;
+
+                if (nuevocelular == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "SMS" && a.Estado == "A")) pendiente = "c";
+                if (nuevoemail == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "Email" && a.Estado == "A")) pendiente = "e";
+
+                if (nuevocelular != "" && nuevoemail != "" && obj.MensajeCelular != "" && obj.MensajeEmail != "") return pagina == "1" ? obj.MensajeAmbos : nuevocelular + "|" + nuevoemail;
+                if (nuevocelular != "" && nuevoemail == "" && pendiente == "e" && obj.MensajeCelular != "") return pagina == "1" ? obj.MensajeAmbos : nuevocelular + "|";
+                if (nuevocelular != "" && nuevoemail == "" && obj.MensajeCelular != "") return pagina == "1" ? obj.MensajeCelular : nuevocelular + "|";
+                if (nuevocelular == "" && nuevoemail != "" && pendiente == "c" && obj.MensajeEmail != "") return pagina == "1" ? obj.MensajeAmbos : "|" + nuevoemail;
+                if (nuevocelular == "" && nuevoemail != "" && obj.MensajeEmail != "") return pagina == "1" ? obj.MensajeEmail : "|" + nuevoemail;
 
                 return "";
             }

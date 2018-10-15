@@ -18,6 +18,7 @@
   <xs:complexType name="BEUsuarioPerfil">
     <xs:sequence>
       <xs:element minOccurs="0" name="DatoNuevo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoEnvio" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

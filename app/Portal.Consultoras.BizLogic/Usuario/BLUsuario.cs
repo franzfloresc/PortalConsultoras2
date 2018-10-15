@@ -3491,31 +3491,10 @@ namespace Portal.Consultoras.BizLogic
             oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
 
             return oMensaje;
-
-            //var DAUsuario = new DAUsuario(paisID);
-            //var oFiltro = new List<BEUsuarioPerfil>();
-            //var oMensaje = new BEUsuarioPerfil;
-            //using (IDataReader reader = DAUsuario.GetActualizacionEmailySms(codigoUsuario))
-            //{
-            //    while (reader.Read())
-            //        oFiltro.Add(new BEUsuarioPerfil(reader));
-            //}
-
-            //if (oFiltro.Count == 0) return null;
-            //string nuevodatosms = string.Empty;
-            //string nuevodatoemail = string.Empty;
-            //var tablaLogica = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.MensajesToolTipPerfil);
-            //if (oFiltro[0].TipoEnvio == "1") return tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
-            //nuevodatosms = oFiltro.Where(a => a.TipoEnvio == "SMS").Select(b => b.DatoNuevo).FirstOrDefault();
-            //nuevodatoemail = oFiltro.Where(a => a.TipoEnvio == "Email").Select(b => b.DatoNuevo).FirstOrDefault();
-            //if (nuevodatosms != "" && nuevodatoemail == "") return tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault() + "|" + nuevodatosms;
-            //if (nuevodatosms == "" && nuevodatoemail != "") return tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault() + "|" + nuevodatoemail;
-            //return tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault() + "|" + nuevodatosms + "|" + nuevodatoemail;
-            //return oFiltro;
         }
-        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
+        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario, string tipoEnvio)
         {
-            return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
+            return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario, tipoEnvio);
         }
 
         public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)

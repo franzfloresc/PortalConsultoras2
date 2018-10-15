@@ -12,6 +12,8 @@ namespace Portal.Consultoras.Entities.Usuario
         public string TipoEnvio { get; set; }
         [DataMember]
         public string DatoNuevo { get; set; }
+        [DataMember]
+        public string Estado { get; set; }
 
         public BEUsuarioPerfil()
         { }
@@ -20,6 +22,7 @@ namespace Portal.Consultoras.Entities.Usuario
         {
             TipoEnvio = row.ToString("TipoEnvio");
             DatoNuevo = row.ToString("DatoNuevo");
+            Estado = row.ToString("Estado");
         }
     }
 
