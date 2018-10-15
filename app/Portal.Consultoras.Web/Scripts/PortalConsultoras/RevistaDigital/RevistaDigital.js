@@ -379,7 +379,7 @@ function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
 
     var response = Clone(responseData);
 
-    var listaSeccionesRD = [busquedaModel.Codigo];
+    var listaSeccionesRD = [busquedaModel.Palanca];
 
     if (busquedaModel.VarListaStorage === "RDLista") {
         listaSeccionesRD = ["RD", "RDR"];
