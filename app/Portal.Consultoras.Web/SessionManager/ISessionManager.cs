@@ -240,13 +240,15 @@ namespace Portal.Consultoras.Web.SessionManager
 
         IOfertaDelDia OfertaDelDia { get; }
 
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas();
+        BEConfiguracionProgramaNuevas GetConfiguracionProgNuevas();
         void SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas configuracion);
         bool GetProcesoKitNuevas();
         void SetProcesoKitNuevas(bool proceso);
         string GetCuvKitNuevas();
         void SetCuvKitNuevas(string cuvKit);
-        
+        int GetLimElectivosProgNuevas();
+        void SetLimElectivosProgNuevas(int limElectivos);
+
         void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosModel GetBuscadorYFiltros();

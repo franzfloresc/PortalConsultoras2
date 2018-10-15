@@ -2082,7 +2082,8 @@ namespace Portal.Consultoras.Common
             public static class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string FlagActivar = "ProgramaNuevas";
+                public const string FlagProgNuevas = "ProgramaNuevas";
+                public const string FlagBannerDuoPerfecto = "BannerDuoPerfecto";
             }
 
             public static class Rango

@@ -710,7 +710,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="TieneListaDuoPerfecto">
+  <xs:element name="TieneListaEstrategiaDuoPerfecto">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
@@ -721,10 +721,27 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="TieneListaDuoPerfectoResponse">
+  <xs:element name="TieneListaEstrategiaDuoPerfectoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="TieneListaDuoPerfectoResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="TieneListaEstrategiaDuoPerfectoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLimElectivosProgNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="consecutivoNueva" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLimElectivosProgNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetLimElectivosProgNuevasResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

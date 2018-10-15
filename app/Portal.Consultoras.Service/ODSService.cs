@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Service
     public class ODSService : IODSService
     {
         private readonly IProductoBusinessLogic BLProducto;
+        private readonly IProgramaNuevasBusinessLogic BLProgramaNuevas;
         private readonly BLMensajeCUV BLMensajeCUV;
         private readonly BLConsultora BLConsultora;
         private readonly BLTipoMeta BLTipoMeta;
@@ -19,6 +20,7 @@ namespace Portal.Consultoras.Service
         public ODSService()
         {
             BLProducto = new BLProducto();
+            BLProgramaNuevas = new BLProgramaNuevas();
             BLMensajeCUV = new BLMensajeCUV();
             BLConsultora = new BLConsultora();
             BLTipoMeta = new BLTipoMeta();
@@ -260,27 +262,32 @@ namespace Portal.Consultoras.Service
         #region Programa Nuevas Activo
         public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv)
         {
-            return BLProducto.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
+            return BLProgramaNuevas.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
         }
 
         public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada)
         {
-            return BLProducto.ValidarCantidadMaximaProgramaNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma, cantidadEnPedido, cuvIngresado, cantidadIngresada);
+            return BLProgramaNuevas.ValidarCantidadMaximaProgramaNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma, cantidadEnPedido, cuvIngresado, cantidadIngresada);
         }
 
         public BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
         {
-            return BLProducto.ValidaCuvElectivo(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
+            return BLProgramaNuevas.ValidaCuvElectivo(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
         }
 
         public bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
         {
-            return BLProducto.EsCuvDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+            return BLProgramaNuevas.EsCuvDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
         }
 
-        public bool TieneListaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv)
+        public bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv)
         {
-            return BLProducto.TieneListaDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+            return BLProgramaNuevas.TieneListaEstrategiaDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        }
+
+        public int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma)
+        {
+            return BLProgramaNuevas.GetLimElectivosProgNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma);
         }
         #endregion
 

@@ -3799,6 +3799,30 @@ namespace Portal.Consultoras.Common
             var nuevoOrigen = origenActual.Remove(0, 1).Insert(0, "4");
             return nuevoOrigen;
         }
+
+        public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc, Action<Exception> fnExcep, T defaultValue)
+        {
+            if (!fnIsNull(fnGet())) return fnGet();
+
+            try { fnSet(fnCalc()); }
+            catch (Exception ex)
+            {
+                fnSet(defaultValue);
+                fnExcep(ex);
+            }
+
+            return fnGet();
+        }
+
+        public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc)
+        {
+            T value = fnGet();
+            if (!fnIsNull(value)) return value;
+
+            value = fnCalc();
+            fnSet(value);
+            return value;
+        }
     }
 
     public static class DataRecord

@@ -3711,11 +3711,17 @@ namespace Portal.Consultoras.Web.ServiceODS {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse")]
         System.Threading.Tasks.Task<bool> EsCuvDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaDuoPerfectoResponse")]
-        bool TieneListaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse")]
+        bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaDuoPerfectoResponse")]
-        System.Threading.Tasks.Task<bool> TieneListaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse")]
+        System.Threading.Tasks.Task<bool> TieneListaEstrategiaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevas", ReplyAction="http://tempuri.org/IODSService/GetLimElectivosProgNuevasResponse")]
+        int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevas", ReplyAction="http://tempuri.org/IODSService/GetLimElectivosProgNuevasResponse")]
+        System.Threading.Tasks.Task<int> GetLimElectivosProgNuevasAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarVentaExclusiva", ReplyAction="http://tempuri.org/IODSService/ValidarVentaExclusivaResponse")]
         Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv);
@@ -4087,12 +4093,20 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.EsCuvDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
         }
         
-        public bool TieneListaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
-            return base.Channel.TieneListaDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        public bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
+            return base.Channel.TieneListaEstrategiaDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
         }
         
-        public System.Threading.Tasks.Task<bool> TieneListaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
-            return base.Channel.TieneListaDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        public System.Threading.Tasks.Task<bool> TieneListaEstrategiaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
+            return base.Channel.TieneListaEstrategiaDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        }
+        
+        public int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma) {
+            return base.Channel.GetLimElectivosProgNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetLimElectivosProgNuevasAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma) {
+            return base.Channel.GetLimElectivosProgNuevasAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma);
         }
         
         public Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv) {

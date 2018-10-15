@@ -169,7 +169,10 @@ namespace Portal.Consultoras.ServiceContracts
         bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
 
         [OperationContract]
-        bool TieneListaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv);
+        bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv);
+
+        [OperationContract]
+        int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
         #endregion
 
         #region ValidarVentaExclusiva

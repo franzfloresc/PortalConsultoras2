@@ -287,11 +287,17 @@
   <wsdl:message name="IODSService_EsCuvDuoPerfecto_OutputMessage">
     <wsdl:part name="parameters" element="tns:EsCuvDuoPerfectoResponse" />
   </wsdl:message>
-  <wsdl:message name="IODSService_TieneListaDuoPerfecto_InputMessage">
-    <wsdl:part name="parameters" element="tns:TieneListaDuoPerfecto" />
+  <wsdl:message name="IODSService_TieneListaEstrategiaDuoPerfecto_InputMessage">
+    <wsdl:part name="parameters" element="tns:TieneListaEstrategiaDuoPerfecto" />
   </wsdl:message>
-  <wsdl:message name="IODSService_TieneListaDuoPerfecto_OutputMessage">
-    <wsdl:part name="parameters" element="tns:TieneListaDuoPerfectoResponse" />
+  <wsdl:message name="IODSService_TieneListaEstrategiaDuoPerfecto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TieneListaEstrategiaDuoPerfectoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetLimElectivosProgNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLimElectivosProgNuevas" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetLimElectivosProgNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLimElectivosProgNuevasResponse" />
   </wsdl:message>
   <wsdl:message name="IODSService_ValidarVentaExclusiva_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarVentaExclusiva" />
@@ -468,9 +474,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto" message="tns:IODSService_EsCuvDuoPerfecto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse" message="tns:IODSService_EsCuvDuoPerfecto_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="TieneListaDuoPerfecto">
-      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/TieneListaDuoPerfecto" message="tns:IODSService_TieneListaDuoPerfecto_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/TieneListaDuoPerfectoResponse" message="tns:IODSService_TieneListaDuoPerfecto_OutputMessage" />
+    <wsdl:operation name="TieneListaEstrategiaDuoPerfecto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto" message="tns:IODSService_TieneListaEstrategiaDuoPerfecto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse" message="tns:IODSService_TieneListaEstrategiaDuoPerfecto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLimElectivosProgNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevas" message="tns:IODSService_GetLimElectivosProgNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevasResponse" message="tns:IODSService_GetLimElectivosProgNuevas_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidarVentaExclusiva">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarVentaExclusiva" message="tns:IODSService_ValidarVentaExclusiva_InputMessage" />
@@ -857,8 +867,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="TieneListaDuoPerfecto">
-      <soap:operation soapAction="http://tempuri.org/IODSService/TieneListaDuoPerfecto" style="document" />
+    <wsdl:operation name="TieneListaEstrategiaDuoPerfecto">
+      <soap:operation soapAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLimElectivosProgNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetLimElectivosProgNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1257,8 +1276,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="TieneListaDuoPerfecto">
-      <soap:operation soapAction="http://tempuri.org/IODSService/TieneListaDuoPerfecto" style="document" />
+    <wsdl:operation name="TieneListaEstrategiaDuoPerfecto">
+      <soap:operation soapAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLimElectivosProgNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetLimElectivosProgNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -107,7 +107,7 @@ namespace Portal.Consultoras.Web.Controllers
             _menuProvider = new MenuProvider(_configuracionManagerProvider, _eventoFestivoProvider);
             _chatEmtelcoProvider = new ChatEmtelcoProvider();
             _comunicadoProvider = new ComunicadoProvider();
-            _programaNuevasProvider = new ProgramaNuevasProvider();
+            _programaNuevasProvider = new ProgramaNuevasProvider(SessionManager);
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -119,13 +119,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             SessionManager = sessionManager;
             this.logManager = logManager;
-        }
-
-        public BaseController(ISessionManager sessionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider)
-        {
-            SessionManager = sessionManager;
-            this.logManager = logManager;
-            this._ofertaPersonalizadaProvider = ofertaPersonalizadaProvider;
         }
 
         public BaseController(ISessionManager sessionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
@@ -574,7 +567,7 @@ namespace Portal.Consultoras.Web.Controllers
                 objR.TippingPoint = 0;
                 if (userData.MontoMaximo > 0)
                 {
-                    var tippingPoint = _programaNuevasProvider.GetConfiguracionProgramaNuevas();
+                    var tippingPoint = _programaNuevasProvider.GetConfiguracion();
                     if (tippingPoint.IndExigVent == "1")
                     {
                         objR.TippingPoint = tippingPoint.MontoVentaExigido;

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
@@ -10,58 +11,77 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class ProgramaNuevasProvider
     {
-        public virtual ISessionManager SessionManager { get; private set; }
-        private ConfiguracionManagerProvider _configuracionManager;
+        private readonly ISessionManager sessionManager;
+        private readonly ConfiguracionManagerProvider configuracionManager;
+        private readonly UsuarioModel userData;
 
-        private UsuarioModel userData
+        public ProgramaNuevasProvider(ISessionManager _sessionManager)
         {
-            get
-            {
-                return SessionManager.GetUserData() ?? new UsuarioModel();
-            }
+            sessionManager = _sessionManager;
+            configuracionManager = new ConfiguracionManagerProvider();
+            userData = sessionManager.GetUserData() ?? new UsuarioModel();
         }
 
-        public ProgramaNuevasProvider()
+        public BEConfiguracionProgramaNuevas GetConfiguracion()
         {
-            _configuracionManager = new ConfiguracionManagerProvider();
+            return Util.GetOrCalcValue(sessionManager.GetConfiguracionProgNuevas, sessionManager.SetConfiguracionProgramaNuevas, (s) => s == null, CalcConfiguracion);
+        }
+        public string GetCuvKit()
+        {
+            return Util.GetOrCalcValue(sessionManager.GetCuvKitNuevas, sessionManager.SetCuvKitNuevas, (s) => s == null, CalcCuvKit);
+        }
+        public int GetLimElectivos()
+        {
+            return Util.GetOrCalcValue(sessionManager.GetLimElectivosProgNuevas, sessionManager.SetLimElectivosProgNuevas, (i) => i == 0, CalcLimElectivos);
         }
 
-        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas()
+        public BEConfiguracionProgramaNuevas CalcConfiguracion()
         {
-            if (SessionManager.GetConfiguracionProgramaNuevas() != null) return SessionManager.GetConfiguracionProgramaNuevas();
             try
             {
                 var consultoraNuevas = Mapper.Map<BEConsultoraProgramaNuevas>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    SessionManager.SetConfiguracionProgramaNuevas(sv.GetConfiguracionProgramaNuevas(consultoraNuevas) ?? new BEConfiguracionProgramaNuevas());
+                    return sv.GetConfiguracionProgramaNuevas(consultoraNuevas) ?? new BEConfiguracionProgramaNuevas();
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                SessionManager.SetConfiguracionProgramaNuevas(new BEConfiguracionProgramaNuevas());
+                return new BEConfiguracionProgramaNuevas();
             }
-            return SessionManager.GetConfiguracionProgramaNuevas();
         }
-
-        public string GetCuvKitNuevas()
+        private string CalcCuvKit()
         {
-            if (SessionManager.GetCuvKitNuevas() != null) return SessionManager.GetCuvKitNuevas();
             try
             {
                 var consultoraNuevas = Mapper.Map<BEConsultoraProgramaNuevas>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    SessionManager.SetCuvKitNuevas(sv.GetCuvKitNuevas(consultoraNuevas, GetConfiguracionProgramaNuevas()) ?? "");
+                    return sv.GetCuvKitNuevas(consultoraNuevas, GetConfiguracion()) ?? "";
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                SessionManager.SetCuvKitNuevas("");
+                return "";
             }
-            return SessionManager.GetCuvKitNuevas();
+        }
+        private int CalcLimElectivos()
+        {
+            try
+            {
+                var consultoraNuevas = Mapper.Map<BEConsultoraProgramaNuevas>(userData);
+                using (var sv = new ODSServiceClient())
+                {
+                    return sv.GetLimElectivosProgNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return 1;
+            }
         }
 
         public BarraTippingPoint GetTippingPoint(string TippingPointStr, string codigoPrograma)
@@ -103,7 +123,7 @@ namespace Portal.Consultoras.Web.Providers
 
         private string GetUrlTippingPoint(string noImagen)
         {
-            string urlExtension = string.Format("{0}/{1}", _configuracionManager.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
+            string urlExtension = string.Format("{0}/{1}", configuracionManager.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
             string url = ConfigCdn.GetUrlFileCdn(urlExtension, noImagen ?? "");
             return url;
         }

@@ -526,7 +526,7 @@ namespace Portal.Consultoras.Web.Providers
                     .Select(e => e.CUV2).ToArray();
                 using (var sv = new ODSServiceClient())
                 {
-                    return sv.TieneListaDuoPerfecto(user.PaisID, user.CampaniaID, user.ConsecutivoNueva, user.CodigoPrograma, listCuvNuevas);
+                    return sv.TieneListaEstrategiaDuoPerfecto(user.PaisID, user.CampaniaID, user.ConsecutivoNueva, user.CodigoPrograma, listCuvNuevas);
                 }
             }
             catch (Exception ex)
