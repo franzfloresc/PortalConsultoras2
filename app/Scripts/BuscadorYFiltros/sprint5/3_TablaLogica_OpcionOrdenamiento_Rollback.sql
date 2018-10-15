@@ -4,6 +4,8 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
+		
 END
 
 GO
@@ -12,6 +14,7 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
 END
 
 GO
@@ -20,6 +23,7 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
 END
 
 GO
@@ -28,6 +32,7 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
 END
 
 GO
@@ -36,6 +41,7 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
 END
 
 GO
@@ -44,6 +50,7 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
 END
 
 GO
@@ -52,6 +59,7 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
 END
 
 GO
@@ -60,6 +68,7 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
 END
 
 GO
@@ -68,6 +77,7 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
 END
 
 GO
@@ -76,6 +86,7 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
 END
 
 GO
@@ -84,6 +95,7 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
 END
 
 GO
@@ -92,6 +104,7 @@ GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	DELETE FROM TablaLogica WHERE TablaLogicaID = 147
+	DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 147
 END
 
 GO

@@ -5,6 +5,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
@@ -14,6 +20,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
@@ -23,6 +35,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
@@ -32,6 +50,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
@@ -41,6 +65,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
@@ -50,6 +80,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
@@ -59,6 +95,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
@@ -68,6 +110,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
@@ -77,6 +125,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
@@ -86,6 +140,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
@@ -95,6 +155,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
@@ -104,6 +170,12 @@ IF NOT EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
 BEGIN
 	INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (147, 'B&F Opciones de ordenamiento')
+	
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14514,147,'RECOMENDACION','Recomendación','ORDEN-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14515,147,'GANANCIA','Ganancia','GANANCIA-DESC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14516,147,'PRECIOMENORMAYOR','Precio de menor a mayor','PRECIO-ASC')
+	INSERT INTO TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion,Valor) VALUES(14517,147,'PRECIOMAYORMENOR','Precio de mayor a menor','PRECIO-DESC')
+	
 END
 
 GO
