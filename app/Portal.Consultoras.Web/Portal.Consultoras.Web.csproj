@@ -293,6 +293,7 @@
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BuscadorController.cs" />
+    <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
     <Compile Include="Models\Buscador\BuscadorModel.cs" />
+    <Compile Include="Models\Buscador\BusquedaProductoOutModel.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
@@ -1370,12 +1372,14 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
+    <Content Include="Content\Css\Site\bootstrap\bootstrap.css" />
+    <Content Include="Content\Css\Site\BusquedaProductos\busqueda-productos.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
     <Content Include="Content\Css\Site\Esika\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Esika\campania-navidenia.css" />
     <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
     <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
-    <Content Include="Content\Css\Site\Esika\style-esika-responsive.css" />
+    <Content Include="Content\Css\Site\Esika\marca-pais-responsive.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Esika\verificacion-pin.css" />
@@ -1399,7 +1403,7 @@
     <Content Include="Content\Css\Site\Lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Lbel\campania-navidenia.css" />
     <Content Include="Content\Css\Site\Lbel\mi-perfil.css" />
-    <Content Include="Content\Css\Site\Lbel\style-lbel-responsive.css" />
+    <Content Include="Content\Css\Site\Lbel\marca-pais-responsive.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
@@ -1416,10 +1420,17 @@
     <Content Include="Content\Css\Site\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
-    <Content Include="Content\Css\Site\Shared\style-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\buscador-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\footer-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\header-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\menu-principal-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\menu-secundario-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\general.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Images\banco_bbva.png" />
     <Content Include="Content\Images\banco_bcp.png" />
+    <Content Include="Content\Images\check-agregado-icono.svg" />
+    <Content Include="Content\Images\check-icono.svg" />
     <Content Include="Content\Images\banco_de_la_nacion.png" />
     <Content Include="Content\Images\banco_interbank.png" />
     <Content Include="Content\Images\banco_pichincha.png" />
@@ -1628,6 +1639,8 @@
     <Content Include="Content\Images\logo_belcorp_mobile.svg" />
     <Content Include="Content\Images\logo_facebook.svg" />
     <Content Include="Content\Images\logo_youtube.svg" />
+    <Content Include="Content\Images\mas.svg" />
+    <Content Include="Content\Images\menos.svg" />
     <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
     <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
     <Content Include="Content\Images\Lbel\logo_marca_pais_blanco.svg" />
@@ -3414,6 +3427,7 @@
     <Content Include="Content\Images\no_email.png" />
     <Content Include="Content\Images\no_image.gif" />
     <Content Include="Content\Images\nuevo-producto.png" />
+    <Content Include="Content\Images\oferta-sin-imagen.svg" />
     <Content Include="Content\Images\oferta-ultimo-minuto.png" />
     <Content Include="Content\Images\oferta.png" />
     <Content Include="Content\Images\offer-suscription-icon.svg" />
@@ -3421,6 +3435,8 @@
     <Content Include="Content\Images\ojito.png" />
     <Content Include="Content\Images\ojos.svg" />
     <Content Include="Content\Images\ojos_negro.svg" />
+    <Content Include="Content\Images\ordenar-flecha-icono.svg" />
+    <Content Include="Content\Images\ordenar-icono.svg" />
     <Content Include="Content\Images\paquete_doc.png" />
     <Content Include="Content\Images\paquete_documentario.svg" />
     <Content Include="Content\Images\paypal_error.png" />
@@ -3877,6 +3893,7 @@
     <Content Include="Scripts\jquery-labelauty.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Scripts\jquery-migrate-3.0.0.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.custom-scrollbar.js" />
@@ -3919,8 +3936,9 @@
     <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\PopusJS.js" />
-    <Content Include="Scripts\PortalConsultoras\Buscador\buscadorLayout.js" />
-    <Content Include="Scripts\PortalConsultoras\Buscador\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorModule.js" />
+    <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />
+    <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
@@ -4391,6 +4409,7 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpAlertaPedidosOnline.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpLoadingMobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5401,6 +5420,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHidden.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHiddenSoloDesktop.cshtml" />
     <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
+    <Content Include="Views\Shared\_BuscadorResponsive.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

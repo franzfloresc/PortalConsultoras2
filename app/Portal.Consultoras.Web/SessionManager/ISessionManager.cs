@@ -247,9 +247,9 @@ namespace Portal.Consultoras.Web.SessionManager
         string GetCuvKitNuevas();
         void SetCuvKitNuevas(string cuvKit);
         
-        void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel);
+        void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
-        BuscadorYFiltrosModel GetBuscadorYFiltros();
+        BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros();
         
         void SetOcultarBannerApp(dynamic val);
 
