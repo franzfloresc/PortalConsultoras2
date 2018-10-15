@@ -282,11 +282,13 @@ var menuModule = (function () {
             });
         }
     }
-    function sectionClick(url, titulo) {
-        if (typeof rdAnalyticsModule !== "undefined") {
-            rdAnalyticsModule.ContendorSection(titulo);
-        }
-        window.location.href = url;
+    function sectionClick(url, titulo, origenPedido) {
+        //if (typeof rdAnalyticsModule !== "undefined") {
+        //    rdAnalyticsModule.ContendorSection(titulo);
+        //}
+        if (typeof AnalyticsPortalModule !== "undefined")
+            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, origenPedido);
+        //window.location.href = url;
     }
     function tabResize() {
 

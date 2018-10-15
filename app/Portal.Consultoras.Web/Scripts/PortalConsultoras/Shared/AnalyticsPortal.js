@@ -15,8 +15,11 @@ var AnalyticsPortalModule = (function () {
         socialEvent: "socialEvent",
         addToCart: "addToCart",
         //Inicio Analytics Home 1
-        promotionView:"promotionView"
+        promotionView:"promotionView",
         //Fin Analytics Home 1
+        //Inicio Analytics Ofertas
+        promotionClick: "promotionClick"
+        //Fin Analytics Ofertas
     };
 
     var _texto = {
@@ -67,7 +70,8 @@ var AnalyticsPortalModule = (function () {
         codigoPais: !(typeof userData === 'undefined') ? userData.pais : "",
         // Fin - Analytics Buscador Miguel
          // Ini - Analytics Ofertas
-        contenedorHome: "Contenedor - Home"
+        contenedorHome: "Contenedor - Home",
+        campania: "Campaña ",
           // Fin - Analytics Ofertas
     };
 
@@ -364,12 +368,18 @@ var AnalyticsPortalModule = (function () {
                 'DescripcionMarca': estrategia.CUV2,
                 'Cantidad': estrategia.Cantidad
             };
+            var _pagina = pagina.Pagina;
+            if (pagina.Pagina.includes("Landing"))
+                _pagina = "Landing";
 
             var valorBuscar = localStorage.getItem('valorBuscador');
-            switch (pagina.Pagina) {
+            switch (_pagina) {
                 case "Buscador": AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, codigoOrigenPedido, valorBuscar); break;
                 case "Home": seccion.Seccion == "Banner Superior" ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia) : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia); break;
-
+                // Inicio Analytics Oferta Miguel
+                case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
+                case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
+                 // Fin Analytics Oferta Miguel
             }
 
         } catch (e) {
@@ -517,12 +527,21 @@ var AnalyticsPortalModule = (function () {
         try {
 
             seccion = seccion.replace("Lista", "");
+             // Inicio Analytics Ofertas 
+            var esLanding = typeof listaSeccion === 'undefined' ? false : true;
+            // Fin Analytics Ofertas Miguel
 
             switch (seccion) {
                 case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(seccion, data, limit); break;
                 case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break;
                  // Inicio Analytics Ofertas  
                 case _codigoSeccion.LAN: AnalyticsPortalModule.MarcaPromotionViewBanner(seccion, data); break;
+                case _codigoSeccion.HV: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
+                case _codigoSeccion.RD: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
+                case _codigoSeccion.ODD: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
+                case _codigoSeccion.CART: AnalyticsPortalModule.MarcaProductImpressionCart(seccion, data); break;
+                case _codigoSeccion.SR: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
+
                 // Fin Analytics Ofertas Miguel
             }
         } catch (e) {
@@ -606,14 +625,21 @@ var AnalyticsPortalModule = (function () {
     var marcaGenericaClic = function (element,codigoOrigenPedido) {
         var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
 
-        var page = _constantes.paginas.find(function (element) {
+        var pagina = _constantes.paginas.find(function (element) {
             return element.CodigoPagina == codigoPagina;
         });
-        try {
-            switch (page.Pagina) {
 
-                case "Home": AnalyticsPortalModule.MarcaDetalleProductoBienvenida(element,codigoOrigenPedido);
-              
+        var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenPedido);
+        var _pagina = pagina.Pagina;
+        if (pagina.Pagina.includes("Landing"))
+            _pagina = "Landing";
+        try {
+            switch (_pagina) {
+
+                case "Home": AnalyticsPortalModule.MarcaDetalleProductoBienvenida(element, codigoOrigenPedido);
+                case "Contenedor": palanca == "Lanzamientos" ? AnalyticsPortalModule.MarcaClicBanner(element) : AnalyticsPortalModule.MarcaDetalleProducto(element);
+                case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(data); break;
+                case "Landing": AnalyticsPortalModule.MarcaDetalleProducto(element);
             }
 
 
@@ -1022,7 +1048,7 @@ var AnalyticsPortalModule = (function () {
         {
             case "ofertas": contenedor = esRevisar ? _texto.contenedorRevisar : _constantes.contenedorHome; break;
             case "pedido": contenedor = _texto.contenedorRevisar; break;
-            default: break;
+            default: contenedor = _texto.contenedor; break;
         }
 
         //if (estoyEnLaFicha) {
@@ -1083,6 +1109,478 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
+
+    /*
+*1.3. Secciones de contenedor
+*1.3.1. Ver más ofertas
+* Nombre Archivo Desktop: Scripts\PortalConsultoras\Shared\MenuContenedor.js
+* Linea de Código Desktop: 284
+*/
+    var marcaClicVerMasOfertas = function (url, origenPedido) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación Ver más ofertas.");
+
+            var esRevisar = window.actionName == "revisar" ? true : false;
+            var nombreBoton = "Ver más Ofertas";
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': fnObtenerContenedor(),
+                'action': esRevisar ? 'Click Botón' + ' - ' + palanca : 'Click Botón' + ' - ' + nombreBoton,
+                'label': esRevisar ? nombreBoton : palanca,
+                'eventCallback': function () {
+                    document.location = url;
+                }
+            });
+
+        } catch (e) {
+            document.location = url;
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    /*
+* 1.3.2. Product Impression
+* Nombre Archivo Desktop: Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js
+* Linea de Código Desktop: 261,262,263
+*/
+    var marcaProductImpression = function (codigoSeccion, data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación product impression.");
+
+            var element = $("[data-seccion=" + codigoSeccion + "]");
+            var codigo = element.data("origenpedidoweb");
+            var lista = data.lista;
+            var campania = lista[0];
+
+            var cantidadMostrar = listaSeccion[codigoSeccion + "-" + campania.CampaniaID] == undefined ? lista.length : listaSeccion[codigoSeccion + "-" + campania.CampaniaID].CantidadProductos;
+            var contenedor = fnObtenerContenedor();
+
+
+            var palanca = codigoSeccion == "ODD" ? AnalyticsPortalModule.GetPalancaBySeccion(codigoSeccion) : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo);
+            var impressions = [];
+            $.each(lista, function (index) {
+                if (index == cantidadMostrar)
+                    return false;
+                var item = lista[index];
+                var impression = {
+                    'id': item.CUV2,
+                    'name': item.DescripcionCompleta,
+                    'price': item.PrecioVenta,
+                    'brand': item.DescripcionMarca,
+                    'category': _texto.notavaliable,
+                    'variant': _texto.estandar,
+                    'list': contenedor + " - " + palanca + " - " + _constantes.campania + campania.CampaniaID,
+                    'position': index + 1
+                };
+
+                impressions.push(impression);
+
+            });
+
+
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'impressions': impressions
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    var marcaProductImpressionLanding = function (codigoSeccion, data) {
+        try {     
+
+            if (_constantes.isTest)
+                alert("Marcación product impression.");
+
+            var codigo = $("#RDListado").data("origenpedidoweb");
+            var lista = data.lista;
+            var campania = lista[0];
+
+            var cantidadMostrar = lista.length;
+            var contenedor = _texto.contenedor;
+
+
+            var palanca = codigoSeccion == "ODD" || codigoSeccion == "SR" ? AnalyticsPortalModule.GetPalancaBySeccion(codigoSeccion) : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo);
+            var impressions = [];
+            $.each(lista, function (index) {
+                if (index == cantidadMostrar)
+                    return false;
+                var item = lista[index];
+                var impression = {
+                    'id': item.CUV2,
+                    'name': item.DescripcionCompleta,
+                    'price': item.PrecioVenta,
+                    'brand': item.DescripcionMarca,
+                    'category': _texto.notavaliable,
+                    'variant': _texto.estandar,
+                    'list': contenedor + " - " + palanca + " - " + _constantes.campania + campania.CampaniaID,
+                    'position': index + 1
+                };
+
+                impressions.push(impression);
+
+            });
+
+
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'impressions': impressions
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    /*
+* 2.1.7.2. Visualizar productos
+* Nombre Archivo Desktop: 
+* Linea de Código Desktop: 
+*/
+    var marcaProductImpressionCart = function (codigoSeccion, data) {
+        try {
+
+            if (!_constantes.esCarrito)
+                return;
+            if (_constantes.isTest)
+                alert("Marcación product impression cart.");
+            var lista = data.lista;
+            var campania = lista[0];
+            var impressions = [];
+            $.each(lista, function (index) {
+                if (index == 4)
+                    return false;
+                var item = lista[index];
+                var impression = {
+                    'id': item.CUV2,
+                    'name': item.DescripcionCompleta,
+                    'price': item.PrecioVenta,
+                    'brand': item.DescripcionMarca,
+                    'category': _texto.notavaliable,
+                    'variant': _texto.estandar,
+                    'list': "Carrito de compras – Club Gana+",
+                    'position': index + 1
+                };
+                impressions.push(impression);
+            });
+
+
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'impressions': impressions
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    /* 
+    *  1.3.3. Añadir al carrito
+    * Nombre Archivo Desktop: Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregar.js
+    * Linea de Código Desktop: 309
+ */
+    var marcaAnadirCarrito = function (event, codigoOrigen, data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic añadir al carrito.");
+
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
+            var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, codigoOrigen);
+
+
+            var producto = data;
+
+            list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
+
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'add': {
+                        'actionField': { 'list': list },
+                        'products': [{
+                            'name': producto.DescripcionCompleta,
+                            'price': producto.PrecioVenta,
+                            'brand': producto.DescripcionMarca,
+                            'id': producto.CUV2,
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'quantity': producto.Cantidad
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    /*
+    *   1.3.4. Detalles de producto
+    * Nombre Archivo Desktop: Scripts\PortalConsultoras\EstrategiaPersonalizada\EstrategiaUrls.js
+    * Linea de Código Desktop: 3
+ */
+    var marcaDetalleProducto = function (data) {
+        try {
+
+
+            var esLanding = typeof listaSeccion === 'undefined' ? true : false;
+             esLanding ? AnalyticsPortalModule.MarcaDetalleProductoPrincipalLanding(data) : AnalyticsPortalModule.MarcaDetalleProductoPrincipal(data);
+           
+
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    var marcaDetalleProductoPrincipal = function (data) {
+        try {
+
+            if (_constantes.isTest)
+                alert("Marcación clic detalle producto.");
+
+            var contenedor = fnObtenerContenedor();
+            var codigoSeccion = $(data).closest("div:has(.seccion-content-contenedor)").data("seccion");
+            var codigoorigen = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
+            var palanca = codigoSeccion == "ODD" ? AnalyticsPortalModule.GetPalancaBySeccion(codigoSeccion) : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoorigen);
+            var text = $(data).data("item-tag");
+            var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
+            var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
+            var list = contenedor + " - " + palanca + " - " + _constantes.campania + item.CampaniaID;
+
+
+            dataLayer.push({
+                'event': _evento.productClick,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'click': {
+                        'actionField': { 'list': list },
+                        'products': [{
+                            'name': item.DescripcionCompleta,
+                            'id': item.CUV2,
+                            'price': item.PrecioVenta,
+                            'brand': item.DescripcionMarca,
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'position': 1
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    var marcaDetalleProductoPrincipalLanding = function (data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic detalle producto.");
+
+            var contenedor = fnObtenerContenedor();
+            var codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoSeccion);
+            var text = $(data).data("item-tag");
+            var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
+            var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
+            var list = contenedor + " - " + palanca + " - " + _constantes.campania + item.CampaniaID;
+
+            dataLayer.push({
+                'event': _evento.productClick,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'click': {
+                        'actionField': { 'list': list },
+                        'products': [{
+                            'name': item.DescripcionCompleta,
+                            'id': item.CUV2,
+                            'price': item.PrecioVenta,
+                            'brand': item.DescripcionMarca,
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'position': 1
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+
+    var marcaDetalleProductoCarrito = function (data) {
+        try {
+
+            var item = $(data).parents(":eq(2)").find("div [data-estrategia]").data("estrategia");
+
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Carrito de compras – Club Gana+',
+                'action': 'Ver detalles de producto',
+                'label': item.DescripcionCompleta + " - " + item.DescripcionMarca
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    /*
+     * 1.4. Catálogos de ofertas (visualizar todos los productos de una palanca)
+     * 1.4.1. Visualización de producto
+     * Nombre Archivo Desktop:  Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js
+     * Linea de Código Desktop: 265
+  */
+    var marcaVisualizacionProducto = function (data) {
+        try {
+            if (_constantes.isTest)
+                alert("marcación visualización de producto.");
+
+            var impressions = [];
+            $.each(data.lista, function (index) {
+                var item = data.lista[index];
+                var impression = { "name": item.DescripcionCompleta, "id": item.CUV2, "price": item.PrecioVenta, "brand": item.DescripcionMarca, "category": _constantes.notavaliable, "variant": _constantes.estandar, "list": _texto.contenedor, "position": index + 1 };
+                impressions.push(impression);
+            });
+
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'impressions': impressions
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    /*
+    * 1.4.4. Filtros
+    * Nombre Archivo Desktop:  /Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js
+    * Linea de Código Desktop: 31
+    */
+    var marcaManagerFiltros = function (data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación filtros");
+            if (data.selectedIndex == -1)
+                return;
+            var filtro = data.options[data.selectedIndex].text;
+            var tipoFiltro = $(data).data("filtro-campo");
+            var textoFiltro = tipoFiltro == "precio" ? "Ordenar por precio" : "Filtrar por marca";
+            var codigoOrigenWeb = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb")
+            var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(null,codigoOrigenWeb);
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenWeb);
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': contenedor + " - " + palanca,
+                'action': 'Filtro contenedor',
+                'label': textoFiltro + " - " + filtro
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    var marcaCompartirRedesSociales = function (tipo,url)
+    {
+        try {
+            dataLayer.push({
+                'event': 'socialEvent',
+                'network': tipo == "FB" ? 'Facebook' : "Whatsapp",
+                'action': 'Compartir',
+                'target': url == "" ? undefined : url
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    /*
+     * 1.5.2. Visualizar detalle de producto
+     * Nombre Archivo Desktop: Scripts\PortalConsultoras\DetalleEstrategia\FichaModule.js
+     * Linea de Código Desktop: 177
+  */
+    var marcaVisualizarDetalleProducto = function (data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic visualizar detalle producto.");
+
+            var products = [];
+
+            var item = data;
+            var product = {
+                "id": item.CUV2,
+                "name": item.DescripcionCompleta,
+                "price": item.PrecioVenta,
+                "brand": item.DescripcionMarca,
+                "category": _texto.notavaliable,
+                "variant": _texto.estandar
+            };
+            products.push(product);
+
+
+            dataLayer.push({
+                'event': _evento.productDetails,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'detail': {
+                        'products': products
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    /*
+     * 1.5.4. Visualizar lista de otros productos
+     * Nombre Archivo Desktop: Scripts\PortalConsultoras\DetalleEstrategia\CarruselModule.js
+     * Linea de Código Desktop: 177
+  */
+    var marcaVisualizarOtrosProductos = function (data) {
+        try {
+
+            var contenedor = "Contenedor - Detalle de Producto - Ver más Sets - ";
+            var impressions = [];
+            $.each(data, function (index) {
+                var item = data[index];
+                var impression = { "id": item.CUV2, "name": item.DescripcionCompleta, "price": item.PrecioVenta, "brand": item.DescripcionMarca, "category": _texto.notavaliable, "variant": _texto.estandar, "list": contenedor + _constantes.campania + item.CampaniaID, "position": item.Posicion };
+                impressions.push(impression);
+            });
+
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'impressions': impressions
+                }
+            });
+        } catch (e) {
+
+        }
+    }
+
      // Fin Analytics Ofertas Miguel
 
     return {
@@ -1132,7 +1630,21 @@ var AnalyticsPortalModule = (function () {
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
         MarcaPromotionViewBanner: marcaPromotionViewBanner,
         AutoMapper: autoMapper,
-        MarcaClicBanner:marcaClicBanner
+        MarcaClicBanner: marcaClicBanner,
+        MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
+        MarcaProductImpression: marcaProductImpression,
+        MarcaProductImpressionLanding: marcaProductImpressionLanding,
+        MarcaProductImpressionCart: marcaProductImpressionCart,
+        MarcaAnadirCarrito: marcaAnadirCarrito,
+        MarcaDetalleProducto: marcaDetalleProducto,
+        MarcaDetalleProductoPrincipal: marcaDetalleProductoPrincipal,
+        MarcaDetalleProductoPrincipalLanding: marcaDetalleProductoPrincipalLanding,
+        MarcaDetalleProductoCarrito: marcaDetalleProductoCarrito,
+        MarcaVisualizacionProducto: marcaVisualizacionProducto,
+        MarcaManagerFiltros: marcaManagerFiltros,
+        MarcaCompartirRedesSociales: marcaCompartirRedesSociales,
+        MarcaVisualizarDetalleProducto: marcaVisualizarDetalleProducto,
+        MarcaVisualizarOtrosProductos: marcaVisualizarOtrosProductos
          // Fin Analytics Ofertas Miguel
     }
 })();

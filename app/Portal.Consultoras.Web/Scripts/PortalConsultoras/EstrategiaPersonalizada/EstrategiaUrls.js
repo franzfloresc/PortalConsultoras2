@@ -20,10 +20,13 @@ function OnClickFichaDetalle(e) {
 
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
 
-    if (estoyEnLaFicha) {
+    //if (estoyEnLaFicha) {
         
-        AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem);
-    }
+    //    AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem);
+    //}
+
+    if (!(typeof AnalyticsPortalModule === 'undefined'))
+        AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb);
 
     window.location = UrlDetalle;
 

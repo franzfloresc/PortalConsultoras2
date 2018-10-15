@@ -171,6 +171,8 @@
                 if (response) {
                     if (response.success) {
                         data.lista = response.data;
+                        if (!(typeof AnalyticsPortalModule === 'undefined'))
+                            AnalyticsPortalModule.MarcaVisualizarOtrosProductos(response.data);
                     }
                 }
 
@@ -310,10 +312,10 @@
             }
         }
 
-        if (cuvsAnalytics.length > 0) {
-            cuvsAnalytics = JSON.stringify(cuvsAnalytics);
-            AnalyticsPortalModule.MarImpresionSetProductos(cuvsAnalytics);
-        }
+        //if (cuvsAnalytics.length > 0) {
+        //    cuvsAnalytics = JSON.stringify(cuvsAnalytics);
+        //    AnalyticsPortalModule.MarImpresionSetProductos(cuvsAnalytics);
+        //}
     }
 
     function Inicializar() {

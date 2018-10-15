@@ -30,6 +30,8 @@ $(document).ready(function () {
 
     $("select[data-filtro-tipo]").change(function (event) {
         OfertaObtenerProductos(this, true);
+        if (!(typeof AnalyticsPortalModule === 'undefined'))
+            AnalyticsPortalModule.MarcaManagerFiltros(this);
     });
 
     $("a[data-filtro-tipo]").click(function (event) {
@@ -274,7 +276,8 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 
 function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
     CerrarLoad();
-
+    if (!(typeof AnalyticsPortalModule === 'undefined') && typeof listaSeccion === 'undefined')
+        AnalyticsPortalModule.MarcaGenericaLista(busquedaModel.VarListaStorage, response);
     var divProd = $("[data-listado-campania=" + response.campaniaId + "]");
     if (divProd.length > 0) {
         divProd.find("#divOfertaProductosLoad").hide();
