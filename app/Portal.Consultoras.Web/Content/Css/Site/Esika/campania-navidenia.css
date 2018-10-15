@@ -138,8 +138,10 @@
     background-position:0 3px!important;
 }
 
-.wrapper_header_campania_navidenia .mensaje_svg{
-    background:url('/Content/Images/icono-notificaciones-blanco.svg') no-repeat;
+.wrapper_header_campania_navidenia .mensaje_svg,
+.wrapper_header_campania_navidenia .campana:hover .mensaje_svg
+{
+    background:url('/Content/Images/icono-notificaciones-blanco.svg') no-repeat!important;
     background-position:0px 5px!important;
 }
 
