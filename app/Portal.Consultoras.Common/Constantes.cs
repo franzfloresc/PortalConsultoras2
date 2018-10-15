@@ -676,32 +676,25 @@ namespace Portal.Consultoras.Common
             public const int ShowRoomDesktopLandingCompra = 1521;
             public const int ShowRoomDesktopLandingCompraTactica = 1522;
             public const int ShowRoomDesktopProductPage = 1531;
-            //public const int ShowRoomDesktopProductPageCarrusel = 1532;
-            //public const int ShowRoomDesktopProductPageTactica = 1533;
             public const int ShowRoomDesktopHome = 1541;
             public const int ShowRoomDesktopSubCampania = 1524;
             public const int ShowRoomDesktopContenedor = 1871;
 
             public const int ShowRoomMobileLandingIntriga = 2511;
             public const int ShowRoomMobileLandingCompra = 2521;
-            //public const int ShowRoomMobileLandingCompraTactica = 2522;   // revisar
             public const int ShowRoomMobileProductPage = 2531;
             //public const int ShowRoomMobileProductPageCarrusel = 2532;
             //public const int ShowRoomMobileProductPageTactica = 2533;
             public const int ShowRoomMobileSubCampania = 2524;
             public const int ShowRoomMobileContenedor = 2871;
-            //public const int MobileShowRoom = 2571;
 
             #endregion
 
             #region OfertaDelDia 
             // no tulizan estas variables, todos estos estan en la logica en ofertaDelDia.js
             public const int OfertaDelDiaDesktopHomeBanner = 1191;
-            //public const int DesktopOfertaDelDiaHomeDisplay = 1192;
             public const int OfertaDelDiaDesktopPedidoBanner = 1291;
-            //public const int DesktopOfertaDelDiaPedidoDisplay = 1292;
             public const int OfertaDelDiaDesktopGeneralBanner = 1991;
-            //public const int DesktopOfertaDelDiaGeneralDisplay = 1992;
             public const int OfertaDelDiaDesktopContenedor = 1891;
             public const int OfertaDelDiaDesktopFicha = 1491;
 
@@ -917,12 +910,7 @@ namespace Portal.Consultoras.Common
             public const int CyzoneMobileBuscador = 24;
             public const int LiquidacionDesktopBuscador = 1464;
             public const int LiquidacionMobileBuscador = 2464;
-
-
-            //public const string Liquidacion = "1464";
-            //public const string LiquidacionMobile = "2464";
-
-
+            
             #endregion
         }
 
@@ -1992,7 +1980,6 @@ namespace Portal.Consultoras.Common
             public const string SwIntriga = "/showroom/intriga";
             public const string SwDetalle = "/showroom/detalleoferta";
             public const string SwPersonalizado = "/showroom/personalizado";
-            //public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
             public const string GuiaDeNegocio = "/guianegocio";
@@ -2451,13 +2438,6 @@ namespace Portal.Consultoras.Common
             {
                 public const string ErrorPais = "No se ha encontrado el País.";
                 public const string ErrorValor = "No se ha encontrado el valor ingresado.";
-                //public const string CorreoNoIdentificado = "Correo electrónico no identificado.";
-                //public const string ErrorEnviarCorreo = "Error al realizar el envío del correo, inténtelo mas tarde.";
-                //public const string ErrorEnviarSms = "Error al realizar el envío del mensaje de texto, inténtelo mas tarde.";
-                //public const string ExcedeCantidad = "Ha excedido la cantidad de envios.";
-                //public const string OrigenEnvioDesconocido = "Origen de envío desconocido.";
-                //public const string EnvioCorreoExitoso = "Te hemos enviado un enlace a tu correo, para restaurar tu clave.";
-                //public const string EnvioSmsExitoso = "Mensaje de texto enviado correctamente";
             }
         }
         #endregion

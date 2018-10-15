@@ -35,7 +35,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (EsDispositivoMovil())
             {
-               // return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca = marca });
                 if (url.Length > 1 && url[1].Contains("sap"))
                 {                    
                     sap = "&" + url[1].Remove(0, 12);

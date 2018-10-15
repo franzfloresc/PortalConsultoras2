@@ -87,11 +87,6 @@ namespace Portal.Consultoras.Web.Providers
 
                 listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
                 mensaje += "GetEstrategiaDetalleCompuestaMs = " + listaEstrategiaComponente.Count + "|";
-
-                //listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
-                //mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
-                //return listaEstrategiaComponente;
-
             }
             else
             {
@@ -105,12 +100,8 @@ namespace Portal.Consultoras.Web.Providers
 
                 listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos, codigoTipoEstrategia);
                 mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
-
-                //var listaComponentesPorOrdenar = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
-                //mensaje += "OrdenarComponentesPorMarca = " + listaComponentesPorOrdenar.Count + "|";
-                //return listaComponentesPorOrdenar;
             }
-            
+
             listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
             mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
             return listaEstrategiaComponente;
