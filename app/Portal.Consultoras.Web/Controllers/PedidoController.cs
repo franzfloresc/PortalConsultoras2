@@ -699,9 +699,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private object InsertarValidarKitInicio(string cuv)
         {
-            if (GetConfiguracionProgramaNuevas().IndProgObli != "1") return null;
+            if (_programaNuevasProvider.GetConfiguracionProgramaNuevas().IndProgObli != "1") return null;
 
-            string cuvKitNuevas = GetCuvKitNuevas();
+            string cuvKitNuevas = _programaNuevasProvider.GetCuvKitNuevas();
             if (string.IsNullOrEmpty(cuvKitNuevas)) return null;
             if (cuvKitNuevas != cuv) return null;
 
@@ -3486,9 +3486,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (userData.EsConsultoraOficina) return;
             if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
-            if (GetConfiguracionProgramaNuevas().IndProgObli != "1") return;
+            if (_programaNuevasProvider.GetConfiguracionProgramaNuevas().IndProgObli != "1") return;
 
-            string cuvKitNuevas = GetCuvKitNuevas();
+            string cuvKitNuevas = _programaNuevasProvider.GetCuvKitNuevas();
             if (string.IsNullOrEmpty(cuvKitNuevas)) return;
             if (ObtenerPedidoWebDetalle().Any(d => d.CUV == cuvKitNuevas && d.PedidoDetalleID > 0)) return;
 

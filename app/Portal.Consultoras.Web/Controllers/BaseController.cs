@@ -72,6 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly MenuProvider _menuProvider;
         protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         protected readonly ComunicadoProvider _comunicadoProvider;
+        protected readonly ProgramaNuevasProvider _programaNuevasProvider;
 
         protected ISessionManager SessionManager
         {
@@ -106,6 +107,7 @@ namespace Portal.Consultoras.Web.Controllers
             _menuProvider = new MenuProvider(_configuracionManagerProvider, _eventoFestivoProvider);
             _chatEmtelcoProvider = new ChatEmtelcoProvider();
             _comunicadoProvider = new ComunicadoProvider();
+            _programaNuevasProvider = new ProgramaNuevasProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -547,99 +549,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion  
 
-        protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas()
-        {
-            if (SessionManager.GetConfiguracionProgramaNuevas() != null) return SessionManager.GetConfiguracionProgramaNuevas();
-            try
-            {
-                var consultoraNuevas = Mapper.Map<ServicePedido.BEConsultoraProgramaNuevas>(userData);
-                using (var sv = new PedidoServiceClient())
-                {
-                    SessionManager.SetConfiguracionProgramaNuevas(sv.GetConfiguracionProgramaNuevas(consultoraNuevas) ?? new BEConfiguracionProgramaNuevas());
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                SessionManager.SetConfiguracionProgramaNuevas(new BEConfiguracionProgramaNuevas());
-            }
-            return SessionManager.GetConfiguracionProgramaNuevas();
-        }
-
-        protected string GetCuvKitNuevas()
-        {
-            if (SessionManager.GetCuvKitNuevas() != null) return SessionManager.GetCuvKitNuevas();
-            try
-            {
-                var consultoraNuevas = Mapper.Map<BEConsultoraProgramaNuevas>(userData);
-                using (var sv = new PedidoServiceClient())
-                {
-                    SessionManager.SetCuvKitNuevas(sv.GetCuvKitNuevas(consultoraNuevas, GetConfiguracionProgramaNuevas()) ?? "");
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                SessionManager.SetCuvKitNuevas("");
-            }
-            return SessionManager.GetCuvKitNuevas();
-        }
-
-        private BarraTippingPoint GetTippingPoint(string TippingPointStr, string codigoPrograma)
-        {
-            string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
-            try
-            {
-                BEActivarPremioNuevas beActive;
-                ServicePedido.BEEstrategia estrategia = null;
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    beActive = sv.GetActivarPremioNuevas(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
-                    if (beActive == null || !beActive.Active) return new BarraTippingPoint();
-
-                    if(beActive.ActiveTooltip) estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
-                }
-                
-                var tippingPoint = Mapper.Map<BarraTippingPoint>(beActive);
-                tippingPoint.TippingPointMontoStr = TippingPointStr;
-                if (tippingPoint.ActiveTooltip)
-                {
-                    if (estrategia != null)
-                    {
-                        tippingPoint = Mapper.Map(estrategia, tippingPoint);
-                        tippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
-                    }
-                    else tippingPoint.ActiveTooltip = false;
-                }
-
-                return tippingPoint;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new BarraTippingPoint();
-            }
-        }
-
-        private string getUrlTippingPoint(string noImagen)
-        {
-            /*
-              string url = string.Format
-                        ("{0}/{1}/{2}/{3}/{4}/{5}",
-                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_S3),
-                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME),
-                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ROOT_DIRECTORY),
-                            _configuracionManagerProvider.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""),
-                            userData.CodigoISO ?? "",
-                            noImagen ?? ""
-                         );
-             */
-            string urlExtension = string.Format("{0}/{1}", _configuracionManagerProvider.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
-            string url = ConfigCdn.GetUrlFileCdn(urlExtension, noImagen ?? "");
-            return url;
-        }
-
         public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false, bool Agrupado = false)
         {
             var objR = new BarraConsultoraModel
@@ -665,12 +574,12 @@ namespace Portal.Consultoras.Web.Controllers
                 objR.TippingPoint = 0;
                 if (userData.MontoMaximo > 0)
                 {
-                    var tippingPoint = GetConfiguracionProgramaNuevas();
+                    var tippingPoint = _programaNuevasProvider.GetConfiguracionProgramaNuevas();
                     if (tippingPoint.IndExigVent == "1")
                     {
                         objR.TippingPoint = tippingPoint.MontoVentaExigido;
                         objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
-                        if (objR.TippingPoint > 0) objR.TippingPointBarra = GetTippingPoint(objR.TippingPointStr, tippingPoint.CodigoPrograma);
+                        if (objR.TippingPoint > 0) objR.TippingPointBarra = _programaNuevasProvider.GetTippingPoint(objR.TippingPointStr, tippingPoint.CodigoPrograma);
                     }
                 }
 
