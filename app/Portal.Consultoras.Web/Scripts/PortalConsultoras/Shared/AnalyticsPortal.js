@@ -30,6 +30,14 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Buscador Miguel
         notavaliable: "(not avaliable)",
         // Fin - Analytics Buscador Miguel
+        // Ini - Analytics Ofertas (Miguel)
+        eligetuopcion: "eligetuopcion",
+        verdetalle: "verdetalle",
+        contenedor: "Contenedor",
+        contenedorDetalle: "Contenedor - Detalle de Producto",
+        contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
+        contenedorRevisar: "Contenedor - Revisar"
+        // Fin - Analytics Ofertas (Miguel)
     };
 
     // Inicio - Analytics Home 1 (Miguel)
@@ -56,8 +64,11 @@ var AnalyticsPortalModule = (function () {
         origenpedidoWebHome: [{ "Codigo": "010306", "Descripcion": "Banner Header" }, { "Codigo": "010601", "Descripcion": "Liquidaciones Web" }, { "Codigo": "010001", "Descripcion": "Club GANA+" }],
         paginas: [{ "CodigoPagina": "00", "Pagina": "Landing Herramientas de Venta" }, { "CodigoPagina": "01", "Pagina": "Home" }, { "CodigoPagina": "02", "Pagina": "Pedido" }, { "CodigoPagina": "03", "Pagina": "Landing Liquidación" }, { "CodigoPagina": "04", "Pagina": "Buscador" }, { "CodigoPagina": "05", "Pagina": "Landing Showroom" }, { "CodigoPagina": "06", "Pagina": "Landing GND" }, { "CodigoPagina": "07", "Pagina": "Landing Ofertas Para Ti" }, { "CodigoPagina": "08", "Pagina": "Contenedor" }, { "CodigoPagina": "09", "Pagina": "Otras" }, { "CodigoPagina": "10", "Pagina": "Landing Buscador" }],
         secciones: [{ "CodigoSeccion": "01", "Seccion": "Carrusel" }, { "CodigoSeccion": "02", "Seccion": "Ficha" }, { "CodigoSeccion": "03", "Seccion": "Banner" }, { "CodigoSeccion": "04", "Seccion": "Desplegable Buscador" }, { "CodigoSeccion": "05", "Seccion": "Carrusel Ver Más" }, { "CodigoSeccion": "06", "Seccion": "Banner Superior" }, { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }],
-        codigoPais: !(typeof userData === 'undefined') ? userData.pais : ""
+        codigoPais: !(typeof userData === 'undefined') ? userData.pais : "",
         // Fin - Analytics Buscador Miguel
+         // Ini - Analytics Ofertas
+        contenedorHome: "Contenedor - Home"
+          // Fin - Analytics Ofertas
     };
 
     var marcarVerFichaProducto = function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
@@ -995,6 +1006,83 @@ var AnalyticsPortalModule = (function () {
 
         return collection;
     };
+
+    function fnObtenerContenedor(event) {
+
+        var estoyEnLaFicha = typeof fichaModule !== "undefined";
+        var esLanding = typeof listaSeccion === 'undefined' ? true : false;
+        //var esOfertas = window.controllerName == "ofertas" ? true : false;
+        //var esOfertas = window.controllerName == "ofertas" ? true : false;
+        var esRevisar = window.actionName == "revisar" ? true : false;
+        var contenedor = "";
+
+
+
+        switch (window.controllerName)
+        {
+            case "ofertas": contenedor = esRevisar ? _texto.contenedorRevisar : _constantes.contenedorHome; break;
+            case "pedido": contenedor = _texto.contenedorRevisar; break;
+            default: break;
+        }
+
+        //if (estoyEnLaFicha) {
+        //    var elementCarrusel = $(event.target).closest("div:has(*[data-item-tag])");
+        //    var esCarrusel = elementCarrusel.hasClass("content_item_carrusel");
+
+        //    if (esCarrusel)
+        //        contenedor = _texto.contenedorDetalleSets;
+        //    else
+        //        contenedor = _texto.contenedorDetalle;
+
+        //}
+        //else if (_constantes.esCarrito)
+        //    contenedor = $("#hdfichaContenedor").val();
+        //else if (esOfertas) {
+        //    if (esRevisar)
+        //        contenedor = _texto.contenedorRevisar;
+        //    else
+        //        contenedor = _constantes.contenedor;
+        //}
+        //else {
+        //    if (esRevisar)
+        //        contenedor = _texto.contenedorRevisar;
+        //    else
+        //        contenedor = _texto.contenedor;
+        //}
+
+        return contenedor;
+    }
+
+    /*
+* 1.2.3. Clic en Banner
+* Nombre Archivo Desktop: Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml
+* Linea de Código Desktop: 56
+*/
+    var marcaClicBanner = function (data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic banner.");
+            var estrategia = $(data).closest("div:has(*[data-estrategia])").children("[data-estrategia]").data("estrategia");
+            var codigoOrigenWeb = $(data).closest("div:has(.seccion-content-contenedor)").data("origenpedidoweb");
+            dataLayer.push({
+                'event': _evento.promotionClick,
+                'ecommerce': {
+                    'promoClick': {
+                        'promotions': [
+                            {
+                                'id': estrategia.CUV2,
+                                'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenWeb) + " - " + estrategia.DescripcionCompleta + " - " + "Ver producto",
+                                'position': _constantes.contenedor,
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
      // Fin Analytics Ofertas Miguel
 
     return {
@@ -1040,10 +1128,11 @@ var AnalyticsPortalModule = (function () {
         MarcaAnadirCarritoLiquidacion: marcaAnadirCarritoLiquidacion,
         MarcaAnadirCarritoHomeBanner: marcaAnadirCarritoHomeBanner,
         // Fin Analytics Home 1 Miguel
-         // Inicio Analytics Ofertas  
+        // Inicio Analytics Ofertas  
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
         MarcaPromotionViewBanner: marcaPromotionViewBanner,
-        AutoMapper: autoMapper
+        AutoMapper: autoMapper,
+        MarcaClicBanner:marcaClicBanner
          // Fin Analytics Ofertas Miguel
     }
 })();
