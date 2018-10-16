@@ -557,7 +557,6 @@ function RenderCarruselSimple(divProd, cc) {
       
 }
 
-
 function ShowOrHide_Arrows(event, slick, currentSlide) {
 
     var objPrevArrow = $(event.target).find('.prevArrow')[0];
@@ -586,6 +585,7 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
     }
 
 }
+
 function RenderCarruselSimpleV2(divProd, cc, vw) {
     if (typeof divProd == "undefined")
         return false;
@@ -599,7 +599,7 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
         lazyLoad: "ondemand",
         infinite: cc == undefined ? true : cc,
         vertical: false,
-        slidesToShow: isMobile() ? 1 : 3,
+        slidesToShow: isMobile() ? 2 : 3,
         slidesToScroll: 1,
         autoplay: false,
         variableWidth: vw,
