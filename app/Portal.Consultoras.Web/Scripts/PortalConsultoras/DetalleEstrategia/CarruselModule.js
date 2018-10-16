@@ -213,11 +213,12 @@
     var _initArraysCarrusel = function () {
         var containerItemsSlick = $(".slick-slide");
         $(containerItemsSlick).each(function (index, element) {
-            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia") || {};
-            setCarruselMarcacionAnalytics.push([infoCuvItem.CUV2, 0]);
-            setCarruselCuv.push(infoCuvItem);
-        });
-
+            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
+            if ("undefined" !== typeof infoCuvItem) {
+                setCarruselMarcacionAnalytics.push([infoCuvItem.CUV2, 0]);
+                setCarruselCuv.push(infoCuvItem);
+            }
+        });        
     }
     var _initSlideArrowCarrusel = function () {  ///cuando el usuario hace clic sobre las flechas del carrusel.
 
@@ -239,17 +240,18 @@
     function _agregaNewCuvActivo() {
         var containterSlickActive = $(".slick-active");
         $(containterSlickActive).each(function (index, element) {
-            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia") || {};
-
-            if (verificaNuevoCUVParaAnalytic(infoCuvItem))
+            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
+            if ("undefined" !== typeof infoCuvItem && verificaNuevoCUVParaAnalytic(infoCuvItem))
                 setCarruselMarcacionAnalytics.push([infoCuvItem.CUV2, 0]);
         });
     }
     function marcaCuvsActivos() {
         var containterSlickActive = $(".slick-active");
         $(containterSlickActive).each(function (index, element) {
-            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia") || {};
-            preparaCUVAnalytic(infoCuvItem);
+            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
+            if ("undefined" !== typeof infoCuvItem) {
+                preparaCUVAnalytic(infoCuvItem);
+            }
         });
     }
 
