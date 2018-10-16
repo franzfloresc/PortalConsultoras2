@@ -131,8 +131,10 @@
     background-position:0 3px!important;
 }
 
-.wrapper_header_campania_navidenia .mensaje_svg{
-    background:url('/Content/Images/icono-notificaciones-blanco.svg') no-repeat;
+.wrapper_header_campania_navidenia .mensaje_svg,
+.wrapper_header_campania_navidenia .campana:hover .mensaje_svg
+{
+    background:url('/Content/Images/icono-notificaciones-blanco.svg') no-repeat!important;
     background-position:0px 5px!important;
 }
 
@@ -144,6 +146,10 @@
     .boton_ingresa_tu_pedido_navidenio:hover{
         color:#C8A05E;
     }
+
+.franja_negra{
+    top:-2px;
+}
 
 @media screen and (max-width:1365px){
 
@@ -289,6 +295,13 @@
 
     .color_cincuenta_anios_belcorp{
         color:#A06219;
+    }
+
+    .menu_mobile_belcorp[data-codigo="contenedorofertas"]{
+        background: #01362d;
+        background: -moz-linear-gradient(top,#01362d 0%,#016f5f 100%);
+        background: -webkit-linear-gradient(top,#01362d 0%,#016f5f 100%);
+        background: linear-gradient(to bottom,#00342a 20%,#016758 91%);
     }
 
 }

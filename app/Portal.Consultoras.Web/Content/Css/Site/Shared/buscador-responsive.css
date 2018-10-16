@@ -167,7 +167,7 @@
     max-height: 397px;
     overflow: auto;
     position: relative;
-    padding-bottom:14px;
+    padding-bottom:0;
 }
 
     .resultados_wrapper::-webkit-scrollbar-track {
@@ -534,11 +534,13 @@
     background-color: #FFF;
     position: sticky;
     bottom: -14px;
-    height: 54px;
+    height: 75px;
     z-index: 3;
 }
 
 .enlace_ver_todos_los_resultados {
+    position:relative;
+    bottom:17px;
     width: 280px;
     height: 45px;
     line-height: 44px;

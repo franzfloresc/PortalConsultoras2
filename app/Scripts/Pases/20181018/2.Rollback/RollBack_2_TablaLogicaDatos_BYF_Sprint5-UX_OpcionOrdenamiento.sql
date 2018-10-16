@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE BelcorpPeru
 GO
 IF EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID = 147)
