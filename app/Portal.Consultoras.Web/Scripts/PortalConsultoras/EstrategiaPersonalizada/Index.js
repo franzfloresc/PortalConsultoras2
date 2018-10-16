@@ -142,7 +142,7 @@ function SeccionCargarProductos(objConsulta) {
     }
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.HV) {
-        console.log('SeccionCargarProductos - HV' + objConsulta.Codigo, objConsulta);
+        //console.log('SeccionCargarProductos - HV' + objConsulta.Codigo, objConsulta);
         if (!varContenedor.CargoHv) {
             varContenedor.CargoHv = true;
             OfertaCargarProductos({
@@ -156,7 +156,7 @@ function SeccionCargarProductos(objConsulta) {
     }
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.MG) {
-        console.log('SeccionCargarProductos - MG -' + objConsulta.Codigo, objConsulta);
+        //console.log('SeccionCargarProductos - MG -' + objConsulta.Codigo, objConsulta);
         if (!varContenedor.CargoMg) {
             varContenedor.CargoMg = true;
             OfertaCargarProductos({
@@ -228,7 +228,7 @@ function SeccionCargarProductos(objConsulta) {
 }
 
 function SeccionMostrarProductos(data) {
-    console.log('SeccionMostrarProductos', data.Seccion.Codigo, data);
+    //console.log('SeccionMostrarProductos', data.Seccion.Codigo, data);
     var CarruselCiclico = true;
 
     if (isMobile()) {
@@ -356,7 +356,7 @@ function SeccionMostrarProductos(data) {
     }
     else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG)
     {
-        console.log('SeccionMostrarProductos -if ' + data.Seccion.Codigo);
+        //console.log('SeccionMostrarProductos -if ' + data.Seccion.Codigo);
         if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
             CarruselCiclico = false;
         }
@@ -418,7 +418,7 @@ function SeccionMostrarProductos(data) {
     }
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.carruselIndividualesv2) {
 
-        console.log('objBannerCajaProducto - data.Seccion.TipoPresentacion ', CONS_TIPO_PRESENTACION.carruselIndividualesv2, CarruselCiclico);
+        //console.log('objBannerCajaProducto - data.Seccion.TipoPresentacion ', CONS_TIPO_PRESENTACION.carruselIndividualesv2, CarruselCiclico);
         RenderCarruselSimpleV2(htmlSeccion, CarruselCiclico, true);
     }
 }
@@ -592,6 +592,11 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
 
     vw = vw || true;
 
+    //$('[data-item=46349] .producto_img img').load(function () {
+    //    console.log('me cargo puto!!!');
+    //});
+
+
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
 
     divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
@@ -661,4 +666,3 @@ function VerificarClick(slick, currentSlide, nextSlide, source) {
         }
     }
 }
-

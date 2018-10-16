@@ -83,7 +83,7 @@
     }
 
     var _fnGrillaEstrategias1 = function () {
-        console.log('_fnGrillaEstrategias1 Inicio', new Date());
+        //console.log('_fnGrillaEstrategias1 Inicio', new Date());
         $("#listCargaMasiva1").jqGrid("GridUnload");
         jQuery("#listCargaMasiva1").jqGrid({
             url: _config.urlConsultarOfertasPersonalizadas,
