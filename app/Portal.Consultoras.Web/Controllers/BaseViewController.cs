@@ -347,6 +347,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch
             {
+                // Excepcion
             }
 
             return breadCrumbs;

@@ -357,6 +357,10 @@ function SeccionMostrarProductos(data) {
     else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG)
     {
         console.log('SeccionMostrarProductos -if ' + data.Seccion.Codigo);
+        if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
+            CarruselCiclico = false;
+        }
+
         if (data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
             var cantidadAMostrar = parseInt($("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html());
@@ -368,13 +372,9 @@ function SeccionMostrarProductos(data) {
             }
             else {
                 if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
-                    CarruselCiclico = false;
-                    //console.log('objBannerCajaProducto', data);
-                    
                     if (data.objBannerCajaProducto != undefined) {
                         data.lista.push(data.objBannerCajaProducto);
                     }
-                    
                 }
             }
             $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
@@ -393,7 +393,6 @@ function SeccionMostrarProductos(data) {
         $.each(data.lista, function (i, item) {
             item.EsBanner = false;
             item.EsLanzamiento = false;
-            item.TipoObjeto = item.TipoObjeto || 0;
         });
     }
 
@@ -418,6 +417,8 @@ function SeccionMostrarProductos(data) {
         RenderCarruselIndividuales(htmlSeccion);
     }
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.carruselIndividualesv2) {
+
+        console.log('objBannerCajaProducto - data.Seccion.TipoPresentacion ', CONS_TIPO_PRESENTACION.carruselIndividualesv2, CarruselCiclico);
         RenderCarruselSimpleV2(htmlSeccion, CarruselCiclico, true);
     }
 }
@@ -556,7 +557,6 @@ function RenderCarruselSimple(divProd, cc) {
       
 }
 
-
 function ShowOrHide_Arrows(event, slick, currentSlide) {
 
     var objPrevArrow = $(event.target).find('.prevArrow')[0];
@@ -585,6 +585,7 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
     }
 
 }
+
 function RenderCarruselSimpleV2(divProd, cc, vw) {
     if (typeof divProd == "undefined")
         return false;
@@ -598,7 +599,7 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
         lazyLoad: "ondemand",
         infinite: cc == undefined ? true : cc,
         vertical: false,
-        slidesToShow: isMobile() ? 1 : 3,
+        slidesToShow: isMobile() ? 2 : 3,
         slidesToScroll: 1,
         autoplay: false,
         variableWidth: vw,
