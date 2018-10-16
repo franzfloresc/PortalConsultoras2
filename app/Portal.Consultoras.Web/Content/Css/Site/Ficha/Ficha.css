@@ -1,5 +1,4 @@
 ﻿/* Desktop */
-
 body {
     background: #fff;
 }
@@ -1164,5 +1163,30 @@ ul.breadcumbs li a::before {
     width: 86%;
 }
 
+/** Mensaje de Producto no Disponible **/
+.msj_nodisponible {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 80px 0 210px 0;
+}
+    .msj_nodisponible img {
+        margin: 0 0 20px;
+    }
+    .msj_nodisponible strong {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        line-height: 24px;
+        text-transform: none;
+        margin: 0 0 15px 0;
+    }
+    .msj_nodisponible p {
+        font-size: 16px;
+        margin: 0 0 15px 0;
+    }
 
 
+  

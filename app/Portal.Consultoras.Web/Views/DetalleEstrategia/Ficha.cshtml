@@ -11,7 +11,7 @@
         @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Esika")
     }
     else
-    {
+    {   
         @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Lbel")
     }
 }
@@ -31,6 +31,19 @@
 
             </div>
         </div>
+        
+        <div class="msj_nodisponible" id="msj_nodisponible">
+
+            <img src="https://s3.amazonaws.com/somosbelcorp/Virtual_Coach/Pruebas/bolso-triste.png" alt="Alternate Text" />
+            <strong class="title_msj">                Ups… la oferta ya no está disponible            </strong>
+            <p>Conoce las ofertas de esta campaña</p>
+      
+            <div>
+                <a href="https://www.somosbelcorp.com/Ofertas" class="btn_send">IR A OFERTAS</a>
+            </div>
+
+        </div>
+        
         <script id="detalle_ficha_template" type="text/x-handlebars-template">
             <div id="dvSeccionIzquierdo" class="ficha_producto">
                 <div id="dvSeccionFoto">
