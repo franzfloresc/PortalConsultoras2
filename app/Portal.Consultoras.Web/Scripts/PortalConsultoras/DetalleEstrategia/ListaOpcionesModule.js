@@ -346,7 +346,8 @@ var ListaOpcionesModule = (function () {
         return _componente;
     };
 
-    var CloseElegirOpcionesModal = function () {
+    var CloseElegirOpcionesModal = function (callFromSeleccionarPaletaOpcion) {
+        var _callFromSeleccionarPaletaOpcion = callFromSeleccionarPaletaOpcion || false;
         _componente.HermanosSeleccionados = [];
         if (_componente.resumenAplicados.length == 0) {
             $.each(_componente.Hermanos, function (index, item) {
@@ -362,13 +363,16 @@ var ListaOpcionesModule = (function () {
             $(".modal-fondo").hide();
             $("body").removeClass("modal_activado");
         }
-        
-        var estrategia = fichaModule.GetEstrategia();
-        if (_componente.FactorCuadre === 1) {
-            AnalyticsPortalModule.MarcarCerrarPopupEligeUnaOpcion(estrategia);
-        } else {
-            AnalyticsPortalModule.MarcarPopupCerrarEligeXOpciones(estrategia);
+        if (!_callFromSeleccionarPaletaOpcion) {
+            
+            var estrategia = fichaModule.GetEstrategia();
+            if (_componente.FactorCuadre === 1) {
+                AnalyticsPortalModule.MarcarCerrarPopupEligeUnaOpcion(estrategia);
+            } else {
+                AnalyticsPortalModule.MarcarPopupCerrarEligeXOpciones(estrategia);
+            }
         }
+        
         
         
     }
