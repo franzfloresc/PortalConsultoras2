@@ -131,12 +131,8 @@ namespace Portal.Consultoras.Web.Providers
                             shippingAddress = new
                             {
                                 street1 = address.Direccion,
-                                //-street2 = "8 int 103",
                                 city = address.Ciudad,
-                                //-state = "Jalisco", // obligatorio brasil
-                                country = Constantes.PagoEnLineaPayuGenerales.Country,
-                                //-postalCode = "000000", // obligatorio brasil
-                                //-phone = "7563126" // obligatorio brasil
+                                country = Constantes.PagoEnLineaPayuGenerales.Country
                             }
                         }
                     },
@@ -151,12 +147,8 @@ namespace Portal.Consultoras.Web.Providers
                         billingAddress = new
                         {
                             street1 = address.Direccion,
-                            //-street2 = "calle 5 de Mayo",
                             city = address.Ciudad,
-                            //-state = "Nuevo Leon",
-                            country = Constantes.PagoEnLineaPayuGenerales.Country,
-                            //-postalCode = "000000", //MX 
-                            //-phone = "7563126"
+                            country = Constantes.PagoEnLineaPayuGenerales.Country
                         }
                     },
                     creditCard = card,
@@ -225,7 +217,6 @@ namespace Portal.Consultoras.Web.Providers
 
         private async Task CompleteTransaction(PagoEnLineaModel model)
         {
-            //model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;
             model.NombreConsultora = (string.IsNullOrEmpty(User.Sobrenombre) ? User.NombreConsultora : User.Sobrenombre);
             model.PrimerApellido = User.PrimerApellido;
             model.FechaVencimiento = User.FechaLimPago;
@@ -275,38 +266,19 @@ namespace Portal.Consultoras.Web.Providers
             bePagoEnLinea.CodigoError = isAproved ? "0" : respuesta.errorCode;
             bePagoEnLinea.MensajeError = respuesta.paymentNetworkResponseErrorMessage;
             bePagoEnLinea.IdGuidTransaccion = respuesta.transactionId;
-            //bePagoEnLinea.IdGuidExternoTransaccion = "";
             bePagoEnLinea.MerchantId = config.MerchantId;
-            //bePagoEnLinea.IdTokenUsuario = "";
-            //bePagoEnLinea.AliasNameTarjeta = "";
 
             bePagoEnLinea.FechaTransaccion = GetDateCreation(respuesta.operationDate);
 
-            //bePagoEnLinea.ResultadoValidacionCVV2 = "";
-            //bePagoEnLinea.CsiMensaje = "";
             bePagoEnLinea.IdUnicoTransaccion = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroReferencia;
-            //bePagoEnLinea.Etiqueta = "";
-            //bePagoEnLinea.RespuestaSistemAntifraude = "";
-            //bePagoEnLinea.CsiPorcentajeDescuento = 0;
-            //bePagoEnLinea.NumeroCuota = "";
-            //bePagoEnLinea.TokenTarjetaGuardada = "";
-            //bePagoEnLinea.CsiImporteComercio = 0;
-            //bePagoEnLinea.CsiCodigoPrograma = "";
-            //bePagoEnLinea.DescripcionIndicadorComercioElectronico = "";
-            //bePagoEnLinea.IndicadorComercioElectronico = "";
             bePagoEnLinea.DescripcionCodigoAccion = pago.DescripcionCodigoAccion;
-            //bePagoEnLinea.NombreBancoEmisor = "";
-            //bePagoEnLinea.ImporteCuota = 0;
-            //bePagoEnLinea.CsiTipoCobro = "";
             bePagoEnLinea.NumeroReferencia = pago.NumeroReferencia;
             bePagoEnLinea.Respuesta = respuesta.state;
             bePagoEnLinea.NumeroOrdenTienda = pago.NumeroOperacion;
             bePagoEnLinea.CodigoAccion = "000";
             bePagoEnLinea.ImporteAutorizado = isAproved ? pago.MontoDeudaConGastos : 0;
             bePagoEnLinea.CodigoAutorizacion = respuesta.authorizationCode ?? "";
-            //bePagoEnLinea.CodigoTienda = "";
             bePagoEnLinea.NumeroTarjeta = pago.TarjetaEnmascarada;
-            //bePagoEnLinea.OrigenTarjeta = "";
             bePagoEnLinea.UsuarioCreacion = usuario.CodigoUsuario;
 
             bePagoEnLinea.MontoPago = pago.MontoDeuda;

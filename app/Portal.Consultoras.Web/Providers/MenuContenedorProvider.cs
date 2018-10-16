@@ -83,15 +83,8 @@ namespace Portal.Consultoras.Web.Providers
                         ? Constantes.OrigenPantallaWeb.MRevistaDigitalInfo
                         : Constantes.OrigenPantallaWeb.DRevistaDigitalInfo;
                     break;
-                case Constantes.UrlMenuContenedor.LanDetalle:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
-                    menuActivo.OrigenPantalla = esMobile
-                        ? Constantes.OrigenPantallaWeb.MRevistaDigitalDetalle
-                        : Constantes.OrigenPantallaWeb.DRevistaDigitalDetalle;
-                    break;
                 case Constantes.UrlMenuContenedor.SwInicio:
                 case Constantes.UrlMenuContenedor.SwIntriga:
-                case Constantes.UrlMenuContenedor.SwDetalle:
                 case Constantes.UrlMenuContenedor.SwInicioIndex:
                 case Constantes.UrlMenuContenedor.SwPersonalizado:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
@@ -353,11 +346,9 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (revistaDigital.TieneRDI)
                 {
-                    //config.DesktopFondoBanner = revistaDigital.BannerOfertasNoActivaNoSuscrita;
                     config.DesktopFondoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.BannerOfertasNoActivaNoSuscrita);
                     config.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
                     config.MobileFondoBanner = string.Empty;
-                    //config.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
                     config.MobileLogoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.MLogoComercialFondoNoActiva);
                 }
                 if (revistaDigital.TieneRevistaDigital())

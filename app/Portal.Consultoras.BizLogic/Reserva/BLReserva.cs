@@ -214,7 +214,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 if (input.EnviarCorreo && resultado.EnviarCorreo)
                 {
                     var listaDetalleAgrupado = GetPedidoWebDetalleReserva(input, true);
-                    //try { EnviarCorreoReservaProl(input, listDetalle); }
+
                     try { EnviarCorreoReservaProl(input, listaDetalleAgrupado); }
                     catch (Exception ex) { LogManager.SaveLog(ex, input.CodigoUsuario, input.PaisISO); }                    
                 }
