@@ -9072,6 +9072,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private short CaracteresBuscadorMostrarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IndicadorConsultoraDummyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool MostrarBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9109,6 +9112,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CaracteresBuscadorMostrarField.Equals(value) != true)) {
                     this.CaracteresBuscadorMostrarField = value;
                     this.RaisePropertyChanged("CaracteresBuscadorMostrar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IndicadorConsultoraDummy {
+            get {
+                return this.IndicadorConsultoraDummyField;
+            }
+            set {
+                if ((this.IndicadorConsultoraDummyField.Equals(value) != true)) {
+                    this.IndicadorConsultoraDummyField = value;
+                    this.RaisePropertyChanged("IndicadorConsultoraDummy");
                 }
             }
         }
@@ -12413,6 +12429,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CampaniaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaAppField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12548,6 +12567,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CampaniaField.Equals(value) != true)) {
                     this.CampaniaField = value;
                     this.RaisePropertyChanged("Campania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaApp {
+            get {
+                return this.CampaniaAppField;
+            }
+            set {
+                if ((this.CampaniaAppField.Equals(value) != true)) {
+                    this.CampaniaAppField = value;
+                    this.RaisePropertyChanged("CampaniaApp");
                 }
             }
         }
