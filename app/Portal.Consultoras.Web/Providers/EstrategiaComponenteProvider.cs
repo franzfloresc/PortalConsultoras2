@@ -153,7 +153,7 @@ namespace Portal.Consultoras.Web.Providers
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
                 if (x.IdMarca == Constantes.Marca.Cyzone) codigoMarca = "C";
-                x.ImagenBulk = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenBulk);
+                x.ImagenBulk = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, x.CampaniaApp, codigoMarca, x.ImagenBulk);
             });
 
             return listaProducto;
@@ -395,13 +395,13 @@ namespace Portal.Consultoras.Web.Providers
             componenteModel.NombreBulk = beEstrategiaProducto.NombreBulk == "" ? componenteModel.NombreBulk : beEstrategiaProducto.NombreBulk;
             componenteModel.Volumen = beEstrategiaProducto.Volumen == "" ? componenteModel.Volumen : beEstrategiaProducto.Volumen;
 
-            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
-            {
-                componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto == "" ?
-                    beEstrategiaProducto.NombreComercial : beEstrategiaProducto.NombreProducto;
-            }
-            else
-            {
+            //if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
+            //{
+            //    componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto == "" ?
+            //        beEstrategiaProducto.NombreComercial : beEstrategiaProducto.NombreProducto;
+            //}
+            //else
+            //{
                 if (esMs)
                 {
                     if (componenteModel.NombreComercial == "")
@@ -414,7 +414,7 @@ namespace Portal.Consultoras.Web.Providers
                     componenteModel.NombreComercial = beEstrategiaProducto.NombreComercial == "" ?
                         beEstrategiaProducto.NombreProducto : beEstrategiaProducto.NombreComercial;
                 }
-            }
+            //}
 
             if (componenteModel.NombreBulk != "" && !(" " + componenteModel.NombreComercial.ToLower() + " ").Contains(" " + componenteModel.NombreBulk.ToLower() + " "))
             {
