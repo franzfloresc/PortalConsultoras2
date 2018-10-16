@@ -639,7 +639,6 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
         $.each(response.listaOfertas, function (index, value) {
             value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
             value.Posicion = index + 1;
-            value.UrlDetalle = urlDetalleShowRoom + '/' + value.EstrategiaID;
         });
 
         //SetHandlebars("#template-showroom", response.listaOfertas, '#divProductosShowRoom');
@@ -698,7 +697,6 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
         $.each(response.listaOfertas, function (index, value) {
             value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
             value.Posicion = index + 1;
-            value.UrlDetalle = urlDetalleShowRoom + '/' + value.EstrategiaID;
         });
 
         var objData = {};
