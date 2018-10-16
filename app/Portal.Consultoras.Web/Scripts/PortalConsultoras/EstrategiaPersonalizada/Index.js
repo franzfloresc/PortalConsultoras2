@@ -116,8 +116,10 @@ function SeccionCargarProductos(objConsulta) {
         return false;
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId] = objConsulta;
-
-    var paisHabilitado = variableEstrategia.PaisHabilitado.includes(IsoPais);
+    
+                      
+    //var paisHabilitado = variableEstrategia.PaisHabilitado.includes(IsoPais);
+    var paisHabilitado = variableEstrategia.PaisHabilitado.indexOf(IsoPais) > -1 ? true : false;
     var guardaEnLS = true;
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.RDR
