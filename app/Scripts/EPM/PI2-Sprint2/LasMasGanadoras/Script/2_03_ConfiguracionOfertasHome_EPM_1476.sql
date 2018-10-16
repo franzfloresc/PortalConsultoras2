@@ -2,16 +2,6 @@
 go
 
 begin
-	-- actualiza configuracionofertashome
-	update 
-		dbo.configuracionofertashome 
-	set 
-		 desktoporden		= desktoporden		+ 1
-		,mobileorden		= mobileorden		+ 1
-		,desktopordenbpt	= desktopordenbpt	+ 1
-		,mobileordenbpt		= mobileordenbpt	+ 1
-	where 
-		not desktoporden in(0,1);
 		
 	declare @ConfiguracionPaisPeruID int;
 	
@@ -38,7 +28,7 @@ begin
 		,'2','2','2','2'
 		,'banner_ganadoras_desktop.jpg','banner_ganadoras_mobile.jpg'
 		,'LAS MÁS GANADORAS','LAS MÁS GANADORAS'
-		,'1','9'
+		,'9','9'
 		,'007','007'
 		,'5','5'
 		,'1','1'
@@ -52,16 +42,6 @@ use [BelcorpChile_BPT];
 go
 
 begin
-	-- actualiza configuracionofertashome
-	update 
-		dbo.configuracionofertashome 
-	set 
-		 desktoporden		= desktoporden		+ 1
-		,mobileorden		= mobileorden		+ 1
-		,desktopordenbpt	= desktopordenbpt	+ 1
-		,mobileordenbpt		= mobileordenbpt	+ 1
-	where 
-		not desktoporden in(0,1);
 		
 	declare @ConfiguracionPaisChileID int;
 	
@@ -88,7 +68,7 @@ begin
 		,'2','2','2','2'
 		,'banner_ganadoras_desktop.jpg','banner_ganadoras_mobile.jpg'
 		,'LAS MÁS GANADORAS','LAS MÁS GANADORAS'
-		,'1','9'
+		,'9','9'
 		,'007','007'
 		,'5','5'
 		,'1','1'
@@ -102,16 +82,6 @@ use [BelcorpCostaRica_BPT];
 go
 
 begin
-	-- actualiza configuracionofertashome
-	update 
-		dbo.configuracionofertashome 
-	set 
-		 desktoporden		= desktoporden		+ 1
-		,mobileorden		= mobileorden		+ 1
-		,desktopordenbpt	= desktopordenbpt	+ 1
-		,mobileordenbpt		= mobileordenbpt	+ 1
-	where 
-		not desktoporden in(0,1);
 		
 	declare @ConfiguracionPaisCostaRicaID int;
 	
@@ -138,7 +108,7 @@ begin
 		,'2','2','2','2'
 		,'banner_ganadoras_desktop.jpg','banner_ganadoras_mobile.jpg'
 		,'LAS MÁS GANADORAS','LAS MÁS GANADORAS'
-		,'1','9'
+		,'9','9'
 		,'007','007'
 		,'5','5'
 		,'1','1'
