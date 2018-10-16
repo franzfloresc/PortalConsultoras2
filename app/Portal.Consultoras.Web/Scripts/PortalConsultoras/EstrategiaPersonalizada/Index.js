@@ -375,7 +375,6 @@ function SeccionMostrarProductos(data) {
         });
     }
 
-    console.log(divListadoProductos);
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
     if (data.Seccion.TemplateProducto == "#producto-landing-template") {
