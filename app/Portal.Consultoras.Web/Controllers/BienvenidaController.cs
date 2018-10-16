@@ -2377,32 +2377,51 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetMensajesToolTip(obj);
                 }                
 
-                if (obj == null) return "";
-                if (obj.oDatosPerfil == null) return "";
-                if (obj.oDatosPerfil[0].TipoEnvio == "1") return obj.MensajeAmbos;
+                if (obj == null) return pagina == "1" ? "" : "|";
+                if (obj.oDatosPerfil == null) return pagina == "1" ? "" : "|";
 
                 string pendiente = string.Empty;
+                string tieneMensajes = string.Empty;
 
-                string nuevocelular = !string.IsNullOrEmpty(obj.MensajeCelular) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
-                string nuevoemail = !string.IsNullOrEmpty(obj.MensajeEmail) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
-                nuevocelular = nuevocelular == null ? "" : nuevocelular;
-                nuevoemail = nuevoemail == null ? "" : nuevoemail;
+                if (!string.IsNullOrEmpty(obj.MensajeCelular)) tieneMensajes = "1"; //1 => SMS; 2 => Email; 3 => Ambos
+                if (!string.IsNullOrEmpty(obj.MensajeEmail)) tieneMensajes = tieneMensajes == "1" ? "3" : "2";
 
-                if (nuevocelular == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "SMS" && a.Estado == "A")) pendiente = "c";
-                if (nuevoemail == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "Email" && a.Estado == "A")) pendiente = "e";
+                string nuevoDatoCelular = !string.IsNullOrEmpty(obj.MensajeCelular) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+                string nuevoDatoEmail = !string.IsNullOrEmpty(obj.MensajeEmail) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+                nuevoDatoCelular = nuevoDatoCelular == null ? "" : nuevoDatoCelular;
+                nuevoDatoEmail = nuevoDatoEmail == null ? "" : nuevoDatoEmail;
 
-                if (nuevocelular != "" && nuevoemail != "" && obj.MensajeCelular != "" && obj.MensajeEmail != "") return pagina == "1" ? obj.MensajeAmbos : nuevocelular + "|" + nuevoemail;
-                if (nuevocelular != "" && nuevoemail == "" && pendiente == "e" && obj.MensajeCelular != "") return pagina == "1" ? obj.MensajeAmbos : nuevocelular + "|";
-                if (nuevocelular != "" && nuevoemail == "" && obj.MensajeCelular != "") return pagina == "1" ? obj.MensajeCelular : nuevocelular + "|";
-                if (nuevocelular == "" && nuevoemail != "" && pendiente == "c" && obj.MensajeEmail != "") return pagina == "1" ? obj.MensajeAmbos : "|" + nuevoemail;
-                if (nuevocelular == "" && nuevoemail != "" && obj.MensajeEmail != "") return pagina == "1" ? obj.MensajeEmail : "|" + nuevoemail;
+                switch (tieneMensajes)
+                {
+                    case "1":
+                        if (nuevoDatoCelular == "") return "|";
+                        return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
+                    case "2":
+                        if (nuevoDatoEmail == "") return "|";
+                        return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
+                    case "3":
+                        {
+                            if (obj.oDatosPerfil[0].TipoEnvio == "1") return pagina == "1" ? obj.MensajeAmbos : "|";
+                            if (nuevoDatoCelular == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "SMS" && a.Estado == "A")) pendiente = "c";
+                            if (nuevoDatoEmail == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "Email" && a.Estado == "A")) pendiente = "e";
 
-                return "";
+                            bool menSms = pendiente == "c" ? true : false;
+                            if (!menSms) menSms = nuevoDatoCelular != "" ? true : false;
+                            bool menEmail = pendiente == "e" ? true : false;
+                            if (!menEmail) menEmail = nuevoDatoEmail != "" ? true : false;
+
+                            if (menSms && !menEmail) return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
+                            if (!menSms && menEmail) return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
+                            if (menSms && menEmail) return pagina == "1" ? obj.MensajeAmbos : nuevoDatoCelular + "|" + nuevoDatoEmail;
+                            return pagina == "1" ? "" : "|";
+                        }
+                }
+                return pagina == "1" ? "" : "|";
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return "";
+                return pagina == "1" ? "" : "|";
             }
         }
 
