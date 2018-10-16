@@ -2394,10 +2394,10 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (tieneMensajes)
                 {
                     case "1":
-                        if (nuevoDatoCelular == "") return "|";
+                        if (nuevoDatoCelular == "") return pagina == "1" ? "" : "|";
                         return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
                     case "2":
-                        if (nuevoDatoEmail == "") return "|";
+                        if (nuevoDatoEmail == "") return pagina == "1" ? "" : "|";
                         return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
                     case "3":
                         {
