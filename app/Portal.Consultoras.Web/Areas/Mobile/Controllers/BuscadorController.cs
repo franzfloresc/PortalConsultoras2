@@ -10,7 +10,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class BuscadorController : BaseMobileController
     {
-        private readonly BuscadorYFiltrosProvider BuscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
         // GET: Mobile/Buscador
         public ActionResult Index()
         {

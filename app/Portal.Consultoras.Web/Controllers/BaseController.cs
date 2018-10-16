@@ -633,17 +633,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string getUrlTippingPoint(string noImagen)
         {
-            /*
-              string url = string.Format
-                        ("{0}/{1}/{2}/{3}/{4}/{5}",
-                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_S3),
-                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME),
-                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ROOT_DIRECTORY),
-                            _configuracionManagerProvider.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""),
-                            userData.CodigoISO ?? "",
-                            noImagen ?? ""
-                         );
-             */
             string urlExtension = string.Format("{0}/{1}", _configuracionManagerProvider.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
             string url = ConfigCdn.GetUrlFileCdn(urlExtension, noImagen ?? "");
             return url;
@@ -927,16 +916,19 @@ namespace Portal.Consultoras.Web.Controllers
             var result = false;
             try
             {
-                var url = HttpContext.Request.Url != null ? HttpContext.Request.Url.AbsolutePath : null;
+                var url = HttpContext.Request.Url != null 
+                    ? HttpContext.Request.Url.AbsolutePath 
+                    : null;
 
-                var urlReferrer = HttpContext.Request.UrlReferrer != null ?
-                    Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) :
-                    Util.Trim(HttpContext.Request.FilePath);
+                var urlReferrer = HttpContext.Request.UrlReferrer != null 
+                    ? Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) 
+                    : Util.Trim(HttpContext.Request.FilePath);
 
-                urlReferrer = (urlReferrer).Replace("#", "/").ToLower() + "/";
                 url = (url).Replace("#", "/").ToLower() + "/";
+                urlReferrer = (urlReferrer).Replace("#", "/").ToLower() + "/";
 
-                result = url.Contains("/mobile/") || url.Contains("/g/") || urlReferrer.Contains("/mobile/") || urlReferrer.Contains("/g/");
+                result = url.Contains("/mobile/") || url.Contains("/g/") 
+                    || urlReferrer.Contains("/mobile/") || urlReferrer.Contains("/g/");
 
                 if (result)
                     return result;
@@ -1366,7 +1358,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                result = Request.Browser.IsMobileDevice; ;
+                result = Request.Browser.IsMobileDevice;
             }
             catch
             {
