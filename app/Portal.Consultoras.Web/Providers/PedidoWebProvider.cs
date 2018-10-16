@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Providers
             var userData = sessionManager.GetUserData();
             var pedidoValidado = sessionManager.GetPedidoValidado();
             var revistaDigital = sessionManager.GetRevistaDigital();
-            var suscripcionActiva = (revistaDigital.EsSuscrita == true && revistaDigital.EsActiva == true);
+            var suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
 
             try
             {
@@ -126,7 +126,7 @@ namespace Portal.Consultoras.Web.Providers
             var userData = sessionManager.GetUserData();
             var pedidoValidado = sessionManager.GetPedidoValidado();
             var revistaDigital = sessionManager.GetRevistaDigital();
-            var suscripcionActiva = (revistaDigital.EsSuscrita == true && revistaDigital.EsActiva == true);
+            var suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
 
             try
             {

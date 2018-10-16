@@ -599,7 +599,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario.CodigosProgramaNuevas = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[1] : string.Empty;
 
                 usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result.Count == 3 ? (short)revistaDigitalSuscripcionTask.Result[0] : Constantes.GanaMas.PaisSinRD;
-                usuario.UrlBannerGanaMas = revistaDigitalSuscripcionTask.Result.Count == 3 ? (string)revistaDigitalSuscripcionTask.Result[1] : string.Empty;
+                usuario.UrlBannerGanaMas = string.Empty;
                 usuario.TieneGND = revistaDigitalSuscripcionTask.Result.Count == 3 && (bool)revistaDigitalSuscripcionTask.Result[2];
 
                 usuario.CuponEstado = cuponTask.Result.EstadoCupon;
@@ -616,7 +616,7 @@ namespace Portal.Consultoras.BizLogic
                 if (actualizaDatosTask.Result != null)
                 {
                     var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
-                    usuario.PuedeActualizar = (item != null ? item.Valor == "1" : false);
+                    usuario.PuedeActualizar = (item != null && item.Valor == "1");
                 }
                 if (actualizaDatosConfigTask.Result != null)
                 {
@@ -1864,7 +1864,7 @@ namespace Portal.Consultoras.BizLogic
         {
 
             var actualizaDatosPais = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(usuario.PaisID, Constantes.TablaLogica.ActualizaDatosEnabled).FirstOrDefault();
-            usuario.PuedeActualizar = (actualizaDatosPais != null ? actualizaDatosPais.Valor == "1" : false);
+            usuario.PuedeActualizar = (actualizaDatosPais != null && actualizaDatosPais.Valor == "1");
             if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
 
             var actualizaDatosConfigTask = GetOpcionesVerificacion(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
@@ -2871,7 +2871,7 @@ namespace Portal.Consultoras.BizLogic
                         CampaniaID = oUsu.campaniaID,
                         NroCelular = oUsu.Celular,
                         Mensaje = oCredencial.Mensaje,
-                        CodigoIso = oUsu.CodigoIso,
+                        CodigoIso =  oUsu.CodigoIso,
                         EsMobile = oUsu.EsMobile,
                         RequestUrl = oCredencial.RequestUrl,
                         RecursoApi = oCredencial.RecursoApi
@@ -3422,29 +3422,33 @@ namespace Portal.Consultoras.BizLogic
         {
             var buscadorYFiltrosConfiguracion = new BEBuscadorYFiltrosConfiguracion();
             short valor1 = 0;
-            var mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBuscador).FirstOrDefault();
-            if (mostrarBuscador != null)
-            {
-                buscadorYFiltrosConfiguracion.MostrarBuscador = mostrarBuscador.Valor1 == "1";
-            }
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscador).FirstOrDefault();
+
+            var mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBuscador);
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBuscador = mostrarBuscador.Valor1 == "1";
+
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscador = valor1;
             }
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar).FirstOrDefault();
+
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscadorMostrar = valor1;
             }
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador).FirstOrDefault();
+
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.TotalResultadosBuscador = valor1;
             }
+
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy);
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 == "1";
 
             return buscadorYFiltrosConfiguracion;
         }

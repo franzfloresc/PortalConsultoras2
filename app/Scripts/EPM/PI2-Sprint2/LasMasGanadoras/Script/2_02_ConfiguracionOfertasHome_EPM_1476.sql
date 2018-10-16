@@ -36,7 +36,7 @@ begin
 		@ConfiguracionPaisPeruID
 		,'201801'
 		,'2','2','2','2'
-		,'','banner_ganadoras_mobile.jpg'
+		,'banner_ganadoras_desktop.jpg','banner_ganadoras_mobile.jpg'
 		,'LAS MÁS GANADORAS','LAS MÁS GANADORAS'
 		,'1','9'
 		,'007','007'
@@ -86,7 +86,7 @@ begin
 		@ConfiguracionPaisChileID
 		,'201801'
 		,'2','2','2','2'
-		,'','banner_ganadoras_mobile.jpg'
+		,'banner_ganadoras_desktop.jpg','banner_ganadoras_mobile.jpg'
 		,'LAS MÁS GANADORAS','LAS MÁS GANADORAS'
 		,'1','9'
 		,'007','007'
@@ -136,7 +136,7 @@ begin
 		@ConfiguracionPaisCostaRicaID
 		,'201801'
 		,'2','2','2','2'
-		,'','banner_ganadoras_mobile.jpg'
+		,'banner_ganadoras_desktop.jpg','banner_ganadoras_mobile.jpg'
 		,'LAS MÁS GANADORAS','LAS MÁS GANADORAS'
 		,'1','9'
 		,'007','007'

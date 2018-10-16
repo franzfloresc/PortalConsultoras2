@@ -158,10 +158,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
 
                 var esMobile = IsMobile();
-                //if(tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
-                //{
-                //    esMobile = model.IsMobile;
-                //}
+
                 var palanca = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPalanca(model, tipoConsulta);
 
                 var campania = _ofertaPersonalizadaProvider.ConsultarOfertasCampania(model, tipoConsulta);

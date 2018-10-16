@@ -433,11 +433,7 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
-        //public static bool EnviarMail(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML)
-        //{
-        //    return Util.EnviarMail(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null, false);
-        //}
-
+        
         public static bool EnviarMail3(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string strFile, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))
@@ -3550,7 +3546,7 @@ namespace Portal.Consultoras.Common
 
             if (!lista.Any()) return result;
 
-            if (string.IsNullOrEmpty(tipoEstrategiaCodigo) && buscador == false)
+            if (string.IsNullOrEmpty(tipoEstrategiaCodigo) && !buscador)
             {
                 switch (codigoCatalago)
                 {
