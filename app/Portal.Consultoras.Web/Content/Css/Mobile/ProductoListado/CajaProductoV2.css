@@ -62,3 +62,7 @@
     .elige_tono_item img {
         padding-right: 3px;
     }
+
+    .cursor_pointer{
+        cursor:pointer;
+    }
