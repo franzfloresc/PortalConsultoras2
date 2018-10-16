@@ -1180,6 +1180,10 @@
         z-index:10;
     }
 
+    .enlace_ver_todos_los_resultados{
+        bottom:0;
+    }
+
 }
 
 @media screen and (max-width:500px){
