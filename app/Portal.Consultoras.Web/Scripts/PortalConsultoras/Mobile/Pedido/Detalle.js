@@ -763,7 +763,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
     ShowLoading();
     PROL = PROL || "0";
-
+    var total = detalleObj.ImporteTotal;
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoUpdate,
@@ -782,6 +782,8 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             }
 
             MostrarBarra(data);
+            showPopupPremio(data.DataBarra);
+
 
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
@@ -804,6 +806,48 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             CloseLoading();
         }
     });
+}
+
+function showPopupPremio(barra, prevTotal) {
+    if (!barra) {
+        return;
+    }
+
+    var tippingPoint = barra.TippingPoint || 0;
+
+    if (tippingPoint > 0) {
+        var superaRegalo = tippingPoint <= dataBarra.TotalPedido && tippingPoint > prevTotal;
+        if (superaRegalo) {
+            alert('alcanzo regalo');
+            // show popup regalo
+        }
+    } else {
+        checkEscalaSiguientePopup(data.DataBarra, prevTotal);
+    }
+}
+
+function checkEscalaSiguientePopup(dataBarra, prevTotal) {
+    if (!dataBarra || !dataBarra.ListaEscalaDescuento) return false;
+
+    var total = dataBarra.TotalPedido;
+    var len = dataBarra.ListaEscalaDescuento.length;
+
+    for (var i = 0; i < len; i++) {
+        var escala = dataBarra.ListaEscalaDescuento[i];
+        if (total >= escala.MontoDesde && total < escala.MontoHasta) {
+            if (escala.MontoDesde > prevTotal) {
+                var content = '¡FELICIDADES!  LLEGASTE AL #porcentaje% Dscto.';
+                content = content.replace('#porcentaje', escala.PorDescuento);
+
+                alert(content);
+                // show popup
+                return true;
+                
+            }
+        }
+    }
+
+    return false;
 }
 
 function TagManagerClickEliminarProducto(descripcionProd, cuv, precioUnidad, descripcionMarca, descripcionOferta, cantidad) {
