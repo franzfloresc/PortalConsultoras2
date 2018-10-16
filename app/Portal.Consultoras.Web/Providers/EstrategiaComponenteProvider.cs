@@ -286,7 +286,7 @@ namespace Portal.Consultoras.Web.Providers
 
         private List<EstrategiaComponenteModel> EstrategiaComponenteLimpieza(string codigoVariante, List<EstrategiaComponenteModel> listaEstrategiaComponenteProductos)
         {
-            listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.Where(c => c.NombreBulk != "").ToList();
+            //listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.Where(c => c.NombreBulk != "").ToList();
 
             switch (codigoVariante)
             {
@@ -320,7 +320,7 @@ namespace Portal.Consultoras.Web.Providers
                             }
                             if (existe) continue;
 
-                            hermano.Hermanos = listaEstrategiaComponenteProductos.Where(p => p.Grupo == hermano.Grupo).OrderBy(p => p.Orden).ToList();
+                            hermano.Hermanos = listaEstrategiaComponenteProductos.Where(p => p.Grupo == hermano.Grupo && p.NombreBulk != "").OrderBy(p => p.Orden).ToList();
                         }
 
                         if (hermano.Hermanos.Any())
