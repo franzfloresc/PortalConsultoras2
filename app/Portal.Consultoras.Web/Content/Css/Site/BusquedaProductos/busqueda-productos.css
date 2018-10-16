@@ -1,7 +1,8 @@
 ﻿
 /* PÁGINA DE RESULTADOS DESKTOP */
 
-.layout__content__wrapper{
+.layout__content__fichaProductos{
+    padding-top:9px;
     max-width:970px;
 }
 
@@ -506,6 +507,74 @@
 
 }
 
+/*  FILTROS DESKTOP */
+
+.layout__content__filtros{
+    width:30%;
+    /*position:sticky;
+    top:81px;*/
+    max-width:270px;
+    min-height:400px;
+    padding:25px 30px;
+    background-color:#FFF;
+    font-size:13px;
+}
+
+.filtros__subtitulo{
+    margin-bottom:16px;
+    padding-bottom:5px;
+    border-bottom:1px solid #d8d8d8;
+}
+
+.filtros__subtitulo,
+.filtro__tipo__titulo
+{
+    font-weight:bold;
+    letter-spacing:0.5px;
+}
+
+.filtros__lista{
+    margin-bottom:24px;
+}
+
+.filtro__tipo{
+    padding-top:13px;
+    padding-bottom:13px;
+    border-bottom:1px solid #d8d8d8;
+}
+
+.filtro__tipo:first-child{
+    border-top:none;
+}
+
+.filtro__tipo:last-child{
+    border-bottom:none;
+}
+
+.filtro__tipo__titulo{
+    min-height: 36px;
+    line-height: 36px;
+}
+
+.filtro__item{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.filtro__item__descrip{
+    padding-left:10px;
+    padding-right:10px;
+    line-height:18px;
+}
+
+.filtro__item__link,
+.filtro__item__form_fields
+{
+    height:100%;
+}
+
+/* FIN - FILTROS DESKTOP */
+
 /* PÁGINA DE RESULTADOS MOBILE */
 
 @media screen and (max-width: 991px) and (-ms-high-contrast: none), (max-width: 991px) and (-ms-high-contrast: active) {
@@ -544,7 +613,7 @@
         padding-right:0;
     }
 
-    .layout__content__wrapper{
+    .layout__content__fichaProductos{
         max-width:none;
     }
 
