@@ -31,7 +31,7 @@
                 <div class="clear"></div>
                 <div class="producto_contenido">
                     <h6 class="marca_item">{{DescripcionMarca}}</h6>
-                    <p class="nombre_producto_item">{{DescripcionCortada}}</p>
+                    <p class="nombre_producto_item">{{Substr 34 DescripcionCompleta}}</p>
                     <span class="precio_normal_item">
                         {{#iff Precio '>' 0}}
                         {{SimboloMoneda}} {{PrecioTachado}}
