@@ -366,6 +366,11 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
 
+            if (componenteModel.NombreComercial == null)
+            {
+                componenteModel.NombreComercial = string.Empty;
+            }
+
             if (componenteModel.NombreBulk != "" && !(" " + componenteModel.NombreComercial.ToLower() + " ").Contains(" " + componenteModel.NombreBulk.ToLower() + " "))
             {
                 componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.NombreBulk);

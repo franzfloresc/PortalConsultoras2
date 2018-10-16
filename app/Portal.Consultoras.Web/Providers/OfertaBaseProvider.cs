@@ -90,7 +90,10 @@ namespace Portal.Consultoras.Web.Providers
                                     Digitable = Convert.ToBoolean(componente.indicadorDigitable) ? 1 : 0,
                                     Cantidad = componente.cantidad,
                                     FactorCuadre = componente.factorCuadre,
-                                    IdMarca = componente.marcaId
+                                    IdMarca = componente.marcaId,
+                                    NombreComercial = componente.nombreComercial,
+                                    Volumen = componente.volumen,
+                                    NombreBulk = componente.nombreBulk
                                 };
 
                                 compoponentes.Add(estrategiaTono);
@@ -115,14 +118,9 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (listaCuvPrecio0.Any())
                 {
-                    try
-                    {
-                        string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
-                        Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
-                    }
-                    catch(Exception ex) { throw ex; }
+                    string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
+                    Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
                 }
-                
             }
             return estrategias;
         }

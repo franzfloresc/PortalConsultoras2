@@ -373,7 +373,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipo))
                 {
-                    string pathRevistaDigital = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerRevistaDigital,
+                    string pathRevistaDigital = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
                         userData.CodigoISO,
                         Constantes.ConfiguracionPais.RevistaDigital,
                         campaniaId,
@@ -381,7 +381,6 @@ namespace Portal.Consultoras.Web.Providers
                         userData.CodigorRegion,
                         userData.ZonaID);
 
-                    //var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital, userData.CodigoISO));
                     var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital, userData.CodigoISO));
                     Task.WhenAll(taskApi);
                     listEstrategia = taskApi.Result;
