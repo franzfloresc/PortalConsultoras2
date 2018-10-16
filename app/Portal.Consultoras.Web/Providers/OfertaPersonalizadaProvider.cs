@@ -663,10 +663,9 @@ namespace Portal.Consultoras.Web.Providers
 
             listaProductoModel.Update(
                 x => {
-                    if (listaProducto.Where(c => c.CUV2 == x.CUV2 && c.CampaniaID == x.CampaniaID).FirstOrDefault().EstrategiaProducto != null)
+                    if (listaProducto.FirstOrDefault(c => c.CUV2 == x.CUV2 && c.CampaniaID == x.CampaniaID).EstrategiaProducto != null)
                         x.Hermanos = ObtenerListaTonos(
-                            listaProducto.Where(c => c.CUV2 == x.CUV2 && c.CampaniaID == x.CampaniaID)
-                            .FirstOrDefault().EstrategiaProducto.ToList());
+                            listaProducto.FirstOrDefault(c => c.CUV2 == x.CUV2 && c.CampaniaID == x.CampaniaID).EstrategiaProducto.ToList());
                 });
             var listaPedido = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado(0);
             var listaEstrategiaPedidoModel = ConsultarEstrategiasFormatoModelo1(listaProductoModel, listaPedido, codigoISO, campaniaID);

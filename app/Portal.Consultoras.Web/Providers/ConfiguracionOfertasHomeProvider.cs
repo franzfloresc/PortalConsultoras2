@@ -75,9 +75,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     var entConf = beConfiguracionOfertasHome;
                     entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
-
-                    //string titulo = "", subTitulo = "";
-
+                    
                     #region Pre Validacion
 
                     if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais)) continue;
@@ -86,14 +84,6 @@ namespace Portal.Consultoras.Web.Providers
                         || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                         || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
                     {
-                        //if (!RDObtenerTitulosSeccion(ref titulo, ref subTitulo, entConf.ConfiguracionPais.Codigo, userData.Sobrenombre))
-                        //    continue;
-
-                        //entConf.DesktopTitulo = titulo;
-                        //entConf.DesktopSubTitulo = subTitulo;
-
-                        //entConf.MobileTitulo = titulo;
-                        //entConf.MobileSubTitulo = subTitulo;
 
                         if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
                             && !revistaDigital.TieneRDC) continue;
@@ -203,10 +193,6 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.TemplatePresentacion = "seccion-simple-centrado";
                             seccion.TemplateProducto = "#producto-landing-template";
                             break;
-                        //case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselPrevisuales:
-                        //    seccion.TemplatePresentacion = "seccion-carrusel-previsuales";
-                        //    seccion.TemplateProducto = "#lanzamiento-carrusel-template";
-                        //    break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
                             seccion.TemplatePresentacion = "seccion-simple-centrado";
                             seccion.TemplateProducto = "#producto-landing-template";
@@ -362,30 +348,6 @@ namespace Portal.Consultoras.Web.Providers
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
         }
-
-        //private bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo, string sobreNombre)
-        //{
-        //    var revistaDigital = SessionManager.GetRevistaDigital();
-        //    if (codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC) return false;
-
-        //    titulo = revistaDigital.TieneRDC
-        //        ? (revistaDigital.EsActiva || revistaDigital.EsSuscrita)
-        //            ? "OFERTAS CLUB GANA+"
-        //            : "OFERTAS GANA+"
-        //        : "";
-
-        //    subtitulo = sobreNombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
-
-        //    if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)
-        //    {
-        //        if (revistaDigital.TieneRDC) return false;
-
-        //        titulo = "MÁS OFERTAS PARA TI " + sobreNombre.ToUpper();
-        //        subtitulo = "EXCLUSIVAS SÓLO POR WEB";
-        //    }
-
-        //    return true;
-        //}
 
     }
 }

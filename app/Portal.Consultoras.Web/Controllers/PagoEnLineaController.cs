@@ -32,7 +32,6 @@ namespace Portal.Consultoras.Web.Controllers
             var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                //return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
                 if (url.Length > 1)
                 {
                     sap = "&" + url[1];

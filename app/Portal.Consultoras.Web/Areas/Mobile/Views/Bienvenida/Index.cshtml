@@ -303,7 +303,6 @@
                 <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index","PagoEnLinea")">
                     <div class="texto_btn_pago_en_linea">
                         <span>PAGA EN LÍNEA</span>
-                        @*<span>con Crédito Visa</span>*@
                     </div>
                 </a>
                 <p class="info_lugares_de_pago">
@@ -824,17 +823,11 @@
                     <span class="w-100 text-bold" id="spnEmail"></span>
                 </p>
                 <p class="w-100 envio_instrucciones_info">
-                    @*<span class="w-100">¿Aún no recibes nuestro correo?</span>*@
                     <a href="@Url.Action("Index", "MiPerfil", new { area = "Mobile" })" title="Ir A Mis Datos" class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
                         Ir a mis datos
                     </a>
                 </p>
-                @*<p class="w-100 cambiar_correo_info">
-                        <span>¿Este no es tu correo?</span>
-                        <a href="#" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
-                    </p>*@
             </div>
-            @*<a href="#" class="enlace_no_cambiar_correo" title="Ya no deseo actualizar mi correo">Ya no deseo actualizar mi correo</a>*@
         </div>
     </div>
 </div>
