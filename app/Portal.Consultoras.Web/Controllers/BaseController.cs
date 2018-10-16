@@ -908,21 +908,22 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual bool IsMobile()
         {
-            if (HttpContext.Request.Url == null)
-                throw new ArgumentNullException("IsMobile: Url es nulo.");
-
             var result = false;
             try
             {
-                var url = HttpContext.Request.Url.AbsolutePath;
+                var url = HttpContext.Request.Url != null 
+                    ? HttpContext.Request.Url.AbsolutePath 
+                    : null;
 
-                var urlReferrer = HttpContext.Request.UrlReferrer != null ?
-                    Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) :
-                    Util.Trim(HttpContext.Request.FilePath);
+                var urlReferrer = HttpContext.Request.UrlReferrer != null 
+                    ? Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) 
+                    : Util.Trim(HttpContext.Request.FilePath);
 
-                url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
+                url = (url).Replace("#", "/").ToLower() + "/";
+                urlReferrer = (urlReferrer).Replace("#", "/").ToLower() + "/";
 
-                result = url.Contains("/mobile/") || url.Contains("/g/");
+                result = url.Contains("/mobile/") || url.Contains("/g/") 
+                    || urlReferrer.Contains("/mobile/") || urlReferrer.Contains("/g/");
 
                 if (result)
                     return result;
