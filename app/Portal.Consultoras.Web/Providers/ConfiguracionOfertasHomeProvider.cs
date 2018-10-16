@@ -187,7 +187,7 @@ namespace Portal.Consultoras.Web.Providers
                             }
 
                             seccion.UrlObtenerProductos = "Estrategia/MGObtenerProductos";
-                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras/Index";
+                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MasGanadorasMobileContenedorCarruselFicha : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarrusel;
                             seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MasGanadorasMobileContenedorCarruselFicha : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarruselFicha;
                             seccion.VerMas = SessionManager.MasGanadoras.GetModel().TieneLanding;

@@ -492,7 +492,7 @@ namespace Portal.Consultoras.Web.Providers
                         }
 
                         confiModel.UrlMenu = sessionManager.MasGanadoras.GetModel().TieneLanding 
-                                            ? "MasGanadoras/Index" : "#";
+                                            ? "MasGanadoras" : "#";
                         break;
                 }
 

@@ -222,7 +222,7 @@ namespace Portal.Consultoras.Web.Providers
                 var sessionPalanca = sessionManager.MasGanadoras.GetModel();
                 modelo.DescripcionCompleta = GetValorDato(sessionPalanca.ConfiguracionPaisDatos, Constantes.ConfiguracionPaisDatos.MG.BannerCarruselTitulo, esMobile);
                 modelo.DescripcionDetalle = GetValorDato(sessionPalanca.ConfiguracionPaisDatos, Constantes.ConfiguracionPaisDatos.MG.BannerCarruselTextoEnlace, esMobile);
-                modelo.DescripcionMarca = esMobile ? "/Mobile/MasGanadoras/Index" : "/MasGanadoras/Index";
+                modelo.DescripcionMarca = esMobile ? "/Mobile/MasGanadoras" : "/MasGanadoras";
                 modelo.TipoAccionAgregar = Constantes.TipoAccionAgregar.BannerCarruselMg;
             }
             return modelo;
