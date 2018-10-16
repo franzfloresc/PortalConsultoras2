@@ -25,7 +25,17 @@ namespace Portal.Consultoras.Web.Annotations
         }
 
         //To avoid multiple rules with same name
-        public static Dictionary<string, int> CountPerField = null;
+        private static Dictionary<string, int> _countPerField = null;
+        public static Dictionary<string, int> CountPerField
+        {
+            get {
+                return _countPerField;
+            }
+            set
+            {
+                _countPerField = value;
+            }
+        }
 
         public ExpressionRequiredIfAttribute(string otherProperty, object otherPropertyValue)
             : base("'{0}' is required because '{1}' has a value {3}'{2}'.")
@@ -81,14 +91,14 @@ namespace Portal.Consultoras.Web.Annotations
             string key = metadata.ContainerType.FullName + "." + metadata.GetDisplayName();
 
             int count = 0;
-            CountPerField = CountPerField ?? new Dictionary<string, int>();
+            _countPerField = _countPerField ?? new Dictionary<string, int>();
 
-            if (CountPerField.ContainsKey(key))
+            if (_countPerField.ContainsKey(key))
             {
-                count = ++CountPerField[key];
+                count = ++_countPerField[key];
             }
             else
-                CountPerField.Add(key, count);
+                _countPerField.Add(key, count);
 
             var rule = new ModelClientValidationRule();
             string tmp = count == 0 ? "" : char.ConvertFromUtf32(96 + count);
