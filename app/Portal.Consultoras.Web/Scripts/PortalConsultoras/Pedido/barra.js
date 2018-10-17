@@ -617,3 +617,44 @@ function MostrarBarra(datax, destino) {
     return true;
 }
 
+function showPopupNivelSuperado(barra, prevTotal) {
+    if (!barra) {
+        return;
+    }
+
+    var tippingPoint = barra.TippingPoint || 0;
+
+    if (tippingPoint > 0) {
+        var superaRegalo = tippingPoint <= dataBarra.TotalPedido && tippingPoint > prevTotal;
+        if (superaRegalo) {
+            alert('alcanzo regalo');
+            // show popup regalo
+        }
+    } else {
+        showPopupEscalaSiguiente(data.DataBarra, prevTotal);
+    }
+}
+
+function showPopupEscalaSiguiente(dataBarra, prevTotal) {
+    if (!dataBarra || !dataBarra.ListaEscalaDescuento) return false;
+
+    var total = dataBarra.TotalPedido;
+    var len = dataBarra.ListaEscalaDescuento.length;
+
+    for (var i = 0; i < len; i++) {
+        var escala = dataBarra.ListaEscalaDescuento[i];
+        if (total >= escala.MontoDesde && total < escala.MontoHasta) {
+            if (escala.MontoDesde > prevTotal) {
+                var content = '¡FELICIDADES!  LLEGASTE AL #porcentaje% Dscto.';
+                content = content.replace('#porcentaje', escala.PorDescuento);
+
+                alert(content);
+                // show popup
+                return true;
+                
+            }
+        }
+    }
+
+    return false;
+}

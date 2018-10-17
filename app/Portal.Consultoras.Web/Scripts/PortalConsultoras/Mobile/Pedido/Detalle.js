@@ -782,7 +782,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             }
 
             MostrarBarra(data);
-            showPopupPremio(data.DataBarra);
+            showPopupNivelSuperado(data.DataBarra);
 
 
             if (PROL == "0") {
@@ -806,48 +806,6 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             CloseLoading();
         }
     });
-}
-
-function showPopupPremio(barra, prevTotal) {
-    if (!barra) {
-        return;
-    }
-
-    var tippingPoint = barra.TippingPoint || 0;
-
-    if (tippingPoint > 0) {
-        var superaRegalo = tippingPoint <= dataBarra.TotalPedido && tippingPoint > prevTotal;
-        if (superaRegalo) {
-            alert('alcanzo regalo');
-            // show popup regalo
-        }
-    } else {
-        checkEscalaSiguientePopup(data.DataBarra, prevTotal);
-    }
-}
-
-function checkEscalaSiguientePopup(dataBarra, prevTotal) {
-    if (!dataBarra || !dataBarra.ListaEscalaDescuento) return false;
-
-    var total = dataBarra.TotalPedido;
-    var len = dataBarra.ListaEscalaDescuento.length;
-
-    for (var i = 0; i < len; i++) {
-        var escala = dataBarra.ListaEscalaDescuento[i];
-        if (total >= escala.MontoDesde && total < escala.MontoHasta) {
-            if (escala.MontoDesde > prevTotal) {
-                var content = '¡FELICIDADES!  LLEGASTE AL #porcentaje% Dscto.';
-                content = content.replace('#porcentaje', escala.PorDescuento);
-
-                alert(content);
-                // show popup
-                return true;
-                
-            }
-        }
-    }
-
-    return false;
 }
 
 function TagManagerClickEliminarProducto(descripcionProd, cuv, precioUnidad, descripcionMarca, descripcionOferta, cantidad) {
@@ -1221,6 +1179,7 @@ function InsertarProducto(model, asyncX, urlMobile) {
             setTimeout(function () { }, 2000);
 
             MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra);
 
             TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
             dataLayer.push({
