@@ -547,15 +547,11 @@ function RenderCarruselSimple(divProd, cc) {
        
        
         EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
-        ShowOrHide_Arrows(event, slick, currentSlide);
+
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
-    
-    if (!cc)
-    {
-        $('.prevArrow').hide();
-    }
+   
       
 }
 
@@ -615,14 +611,24 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
         arrows: !esMobile,
         prevArrow: '<a  class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
-    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-        
+    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {        
         VerificarClick(slick, currentSlide, nextSlide, "normal");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        
+        if (!cc) {
+            ShowOrHide_Arrows(event, slick, currentSlide);
+        }
+    
+
         EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
+
+    
+    if (!cc) {
+        $('.prevArrow').hide();
+    }
 }
 
 function GetArrowNamePrev() {
