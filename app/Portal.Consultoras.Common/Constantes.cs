@@ -2034,6 +2034,7 @@ namespace Portal.Consultoras.Common
             public const string DetalleShowRoom = "/detalle/especiales";
             public const string DetalleOfertaDelDia = "/detalle/solohoy";
             public const string DetallePackNuevas = "/detalle/packnuevas";
+            public const string DetalleMasGanadoras = "/detalle/ganadoras";
         }
 
         public static class TipoVistaEstrategia

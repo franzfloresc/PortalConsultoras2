@@ -394,7 +394,7 @@
 .wrapper_resumen_mobile_clubganamas {
     margin-top: 10px;
     margin-bottom: 10px;
-    height: 600px;
+    height: auto;
 }
 
     .wrapper_resumen_mobile_clubganamas .zonadecolor {

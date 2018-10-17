@@ -30,7 +30,7 @@
 .caja-borde {
     border: 1px solid #e7e1e1;
     border-radius: 4px;
-    -webkit-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, .31);
-    -moz-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, .31);
-    box-shadow: 0 15px 13px -8px rgba(0, 0, 0, .31);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
