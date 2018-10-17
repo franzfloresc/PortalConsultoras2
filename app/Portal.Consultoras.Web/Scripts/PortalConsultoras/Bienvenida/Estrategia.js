@@ -312,7 +312,8 @@ function ArmarCarouselEstrategias(data) {
         var cantProCarrusel = 4;
         var esVariableWidth = true;
 
-        $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel");
+        //$("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel caja-borde");
+
         $("#divListaEstrategias").show();
 
         EstablecerLazyCarrusel("#divListadoEstrategia");
@@ -895,10 +896,11 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             HidePopupEstrategiasEspeciales();
                         }
 
-                        ActualizarLocalStorageAgregado("rd", param.CUV, true);
-                        ActualizarLocalStorageAgregado("gn", param.CUV, true);
-                        ActualizarLocalStorageAgregado("hv", param.CUV, true);
-                        ActualizarLocalStorageAgregado("lan", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("rd", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("gn", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("hv", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("lan", param.CUV, true);
+                        ActualizarLocalStoragePalancas(param.CUV, true);
 
                         ProcesarActualizacionMostrarContenedorCupon();
                     },

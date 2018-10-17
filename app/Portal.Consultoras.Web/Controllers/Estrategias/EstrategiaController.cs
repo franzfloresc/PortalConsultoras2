@@ -175,6 +175,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaFinal1, listaPedido, userData.CodigoISO, userData.CampaniaID, tipo, userData.esConsultoraLider, userData.Simbolo);
 
+                listModel = _ofertaPersonalizadaProvider.SetCodigoPalancaMostrar(listModel, palanca);
+
                 var cantidadTotal = listModel.Count;
 
                 var guarda = !_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca);

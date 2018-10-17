@@ -1,8 +1,6 @@
 ﻿.item_producto_contenedor {
     padding: 15px 8px;
     background: #fff;
-    border: 1px solid #ebebeb;
-    border-radius: 4px;
     width: -moz-fit-content;
     width: fit-content;
     height: 282px;
@@ -68,3 +66,9 @@
     .cursor_pointer{
         cursor:pointer;
     }
+
+.caja-borde {
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    box-shadow: none;
+}

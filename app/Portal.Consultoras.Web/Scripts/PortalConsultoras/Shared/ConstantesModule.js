@@ -41,6 +41,7 @@ var ConstantesModule = (function () {
         OfertaWeb: "003",
         Lanzamiento: "005",
         OfertasParaMi: "007",
+        MasGanadoras: "007",
         PackAltoDesembolso: "008",
         RevistaDigital: "101",
         LosMasVendidos: "020",
@@ -56,10 +57,11 @@ var ConstantesModule = (function () {
     }
 
     var _tipoEstrategia = {
-        rd: "rd",
-        hv: "hv",
-        gn: "gn",
-        lan: "lan"
+        RD: "RD",
+        HV: "HV",
+        GND: "GN",
+        LAN: "LAN",
+        MG: "MG"
     }
 
     var _urlObtenerEstrategia = {

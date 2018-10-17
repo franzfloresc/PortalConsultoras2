@@ -845,6 +845,38 @@ namespace Portal.Consultoras.Web.Providers
             return listaProductoModel;
         }
 
+        public List<EstrategiaPersonalizadaProductoModel> SetCodigoPalancaMostrar(List<EstrategiaPersonalizadaProductoModel> listaProducto, string palanca)
+        {
+            if (!listaProducto.Any())
+                return listaProducto;
+
+            listaProducto.ForEach(x =>
+            {
+                if (palanca == Constantes.TipoEstrategiaCodigo.RevistaDigital)
+                {
+                    x.CodigoPalanca = Constantes.ConfiguracionPais.RevistaDigital;
+                }
+                else if (palanca == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+                {
+                    x.CodigoPalanca = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
+                }
+                else if (palanca == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+                {
+                    x.CodigoPalanca = Constantes.ConfiguracionPais.Lanzamiento;
+                }
+                else if (palanca == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
+                {
+                    x.CodigoPalanca = Constantes.ConfiguracionPais.HerramientasVenta;
+                }
+                else if (palanca == Constantes.TipoEstrategiaCodigo.MasGanadoras)
+                {
+                    x.CodigoPalanca = Constantes.ConfiguracionPais.MasGanadoras;
+                }
+            });
+
+            return listaProducto;
+        }
+
         public List<EstrategiaPersonalizadaProductoModel> FormatearModelo1ToPersonalizado(List<EstrategiaPedidoModel> listaProductoModel, List<BEPedidoWebDetalle> listaPedido, string codigoISO, int campaniaID, int tipo, bool esConsultoraLider, string simbolo)
         {
             var listaRetorno = new List<EstrategiaPersonalizadaProductoModel>();

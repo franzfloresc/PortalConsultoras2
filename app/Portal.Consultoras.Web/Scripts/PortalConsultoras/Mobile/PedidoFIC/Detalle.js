@@ -450,10 +450,11 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                 cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue Eliminado.');
 
-                ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
-                ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
-                ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
-                ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
+                //ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
+                //ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
+                //ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
+                //ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
+                ActualizarLocalStoragePalancas(data.data.CUV, false);
             },
             error: function (data, error) {
                 CloseLoading();
@@ -581,10 +582,11 @@ function PedidoDetalleEliminarTodo() {
             });
             messageDelete("Se eliminaron todos productos del pedido.");
 
-            ActualizarLocalStorageAgregado("rd", "todo", false);
-            ActualizarLocalStorageAgregado("gn", "todo", false);
-            ActualizarLocalStorageAgregado("hv", "todo", false);
-            ActualizarLocalStorageAgregado("lan", "todo", false);
+            //ActualizarLocalStorageAgregado("rd", "todo", false);
+            //ActualizarLocalStorageAgregado("gn", "todo", false);
+            //ActualizarLocalStorageAgregado("hv", "todo", false);
+            //ActualizarLocalStorageAgregado("lan", "todo", false);
+            ActualizarLocalStoragePalancas("todo", false);
 
             location.reload();
 

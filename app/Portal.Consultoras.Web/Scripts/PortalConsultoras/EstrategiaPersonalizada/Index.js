@@ -2,7 +2,8 @@
     seccion: "[data-seccion]",
     load: "[data-seccion-load]",
     listadoProductos: "[data-seccion-productos]",
-    verMas: "[data-seccion-vermas]"
+    verMas: "[data-seccion-vermas]",
+    contadorProductos: "[data-productos-info]"
 };
 
 var listaLAN = listaLAN || "LANLista";
@@ -368,6 +369,7 @@ function SeccionMostrarProductos(data) {
                 $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadTotal);
                 if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
                     $("#" + data.Seccion.Codigo).find(sElementos.verMas).remove();
+                    $("#" + data.Seccion.Codigo).find(sElementos.contadorProductos).remove();
                 }
             }
             else {

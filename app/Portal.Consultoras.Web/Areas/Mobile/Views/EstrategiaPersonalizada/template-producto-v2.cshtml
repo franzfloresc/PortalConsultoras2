@@ -4,7 +4,7 @@
     {{#each this.lista as |item|}}
 
     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.BannerCarruselMg'}}
-        <article class="banner_ofertas_masGanadoras">
+        <article class="banner_ofertas_masGanadoras caja-borde">
             <div class="contenido_ofertas">
                 <p>{{DescripcionCompleta}}</p>
                 <a href="javascript:"
@@ -14,7 +14,7 @@
             </div>
         </article>
     {{else}}
-        <article class="item_producto_contenedor"
+        <article class="item_producto_contenedor caja-borde"
                  data-item="{{EstrategiaID}}"
                  data-item-cuv="{{CUV2}}"
                  data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}"
