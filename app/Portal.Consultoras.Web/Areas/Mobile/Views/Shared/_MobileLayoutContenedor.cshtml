@@ -59,69 +59,15 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTrackingJetlore.cshtml")
-    @*@if (ViewBag.PaisesConTrackingJetlore == "1")
-    {
-        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
-
-        <script type="text/javascript">
-            var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
-
-            JL.tracking({
-                cid: trackingJetloreAccessToken,
-                user_id: '@ViewBag.CodigoConsultoraDL',
-                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
-            });
-        </script>
-    }*@
-
+    
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpInputHidden.cshtml")
-    @*<input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
-    <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
-    <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
-    <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
-    <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />*@
 
     @if (!esIngresoUnico)
     {
         @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenuLateral.cshtml")
-        @*<div class="menu">
-            <div class="content_close">
-                <div class="icon-close">
-                    <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
-                </div>
-            </div>
-            <div class="foto_menu">
-                @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
-                {
-                    <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" title="Actualizar datos" class="subir_foto_mobile subir_foto_mobile_menu default-background"></a>
-                    <div class="foto_usuaria_mobile">
-                        @if (ViewBag.FotoPerfilAncha)
-                        {
-                            <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:auto; height:100%" />
-                        }
-                        else
-                        {
-                            <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
-                        }
-                    </div>
-                }
-            </div>
-            <br />
-            <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
-            @Html.Partial("_MobileMenuLateral")
-            <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
-        </div>*@
     }
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpAlertaPedidosOnline.cshtml")
-    @*<div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
-        <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
-            <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
-            <span id="spanNumeroPedidoOnline1" class="alert-number"></span>
-            <div class="alert-text upper center-min">TIENES <span id="spanNumeroPedidoOnline2">0</span> NUEVOS PEDIDOS DE CONSULTORA ONLINE</div>
-        </a>
-        <span class="alert-close"><i class="icon-close-belcorp"></i></span>
-    </div>*@
 
     <header id="new-header">
         @if (ViewBag.mostrarBannerPostulante == true && !esIngresoUnico)
@@ -204,24 +150,6 @@
     }
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
-    @*<div class="content-spinner2" id="loading-spin">
-        <div class="busy-loader">
-            <div class="w-ball-wrapper ball-1">
-                <div class="w-ball"></div>
-            </div>
-            <div class="w-ball-wrapper ball-2">
-                <div class="w-ball"></div>
-            </div>
-            <div class="w-ball-wrapper ball-3">
-                <div class="w-ball"> </div>
-            </div> <div class="w-ball-wrapper ball-4">
-                <div class="w-ball"> </div>
-            </div>
-            <div class="w-ball-wrapper ball-5">
-                <div class="w-ball"> </div>
-            </div>
-        </div>
-    </div>*@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
