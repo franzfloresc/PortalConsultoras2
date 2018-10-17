@@ -3274,7 +3274,6 @@ function ConsultarEmailPendiente() {
         success: function (data) {
             if (checkTimeout(data)) { 
                 if (data != '') {
-                    //document.getElementById('spnEmail').innerHTML = data.split('|')[0]; 
                     document.getElementById('mensajeToolTip').innerHTML = data;
                     document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
                 }

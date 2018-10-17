@@ -2369,13 +2369,8 @@ namespace Portal.Consultoras.Web.Controllers
                 BEMensajeToolTip obj = new BEMensajeToolTip();
                 string mensaje = string.Empty;
 
-                obj = SessionManager.GetMensajesToolTip();
-                if (obj == null)
-                {
-                    using (var sv = new UsuarioServiceClient())
-                        obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);
-                    SessionManager.SetMensajesToolTip(obj);
-                }                
+                using (var sv = new UsuarioServiceClient())
+                    obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);                             
 
                 if (obj == null) return pagina == "1" ? "" : "|";
                 if (obj.oDatosPerfil == null) return pagina == "1" ? "" : "|";
