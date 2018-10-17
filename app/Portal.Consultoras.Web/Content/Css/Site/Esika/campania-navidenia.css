@@ -297,12 +297,15 @@
         margin-top:17px!important;
     }
 
+    .nuevaAlturaBanner {
+        background-position: 79% center!important;
+    }
+
     .boton_ingresa_tu_pedido_navidenio,
-    .boton_ingresa_tu_pedido_navidenio input
-    {
-        background-color:#870A1B;
-        border-color:#870A1B;
-        color:#FFF!important;
+    .boton_ingresa_tu_pedido_navidenio input {
+        background-color: #870A1B;
+        border-color: #870A1B;
+        color: #FFF !important;
     }
 
     .color_cincuenta_anios_belcorp{
