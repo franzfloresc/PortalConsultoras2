@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Web.Models
         //public string CodigoIsoConsultora { get; set; }
         //public bool TieneRevistaDigital { get; set; }
         public DetalleEstrategiaBreadCrumbsModel BreadCrumbs { get; set; }
+        public bool EsVC { get; set; }
     }
 
     // Cuando se implemente se puede fusionar en una sola entidad con campos genericos

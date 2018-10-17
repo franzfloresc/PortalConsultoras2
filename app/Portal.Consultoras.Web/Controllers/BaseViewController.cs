@@ -182,12 +182,22 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
+            string sap = "";   // PPC
+            var url = (Request.Url.Query).Split('?');   // PPC
+
+
             try
             {
-                if( _ofertaPersonalizadaProvider == null) throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
+                if ( _ofertaPersonalizadaProvider == null) throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
 
                 if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
-                    return RedirectToAction("Index", "Ofertas",new { area = IsMobile() ? "Mobile" : "" });
+                {
+                    if (url.Length > 1 && url[1].Contains("VC"))  // PPC
+                    {
+                        SessionManager.SetUrlVc(1);
+                    }
+                    return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+                }
 
                 palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
 
@@ -198,9 +208,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
+
+                    if (url.Length > 1 && url[1].Contains("SAP") && estrategiaPresonalizada == null)  // PPC
+                    {
+                        SessionManager.SetUrlVc(1);
+                    }
+
                     if (estrategiaPresonalizada == null)
                         return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-
+                    
                     if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
                     if (palanca == Constantes.NombrePalanca.PackNuevas)

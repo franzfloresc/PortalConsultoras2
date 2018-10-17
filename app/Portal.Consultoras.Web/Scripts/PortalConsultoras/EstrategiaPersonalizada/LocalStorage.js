@@ -6,7 +6,8 @@
 
     var _urlObtenerEstrategia = ConstantesModule.UrlObtenerEstrategia;
     
-    var _obtenerKey = function(palanca, campania) {
+    var _obtenerKey = function (palanca, campania) {
+        
         switch (palanca) {
             case _codigoPalanca.RevistaDigital:
             case _codigoPalanca.OfertaParaTi:
@@ -22,7 +23,7 @@
                 return null;
         }
     }
-    var _obtenerKeyName = function(codigoPalanaca, campania) {
+    var _obtenerKeyName = function (codigoPalanaca, campania) {        
         switch (codigoPalanaca) {
             case _constantesPalanca.RevistaDigital:
             case _constantesPalanca.OfertaParaTi:
@@ -78,7 +79,7 @@
         else return null;
     }
     
-    var _obtenerUrlEstrategia = function(palanca) {
+    var _obtenerUrlEstrategia = function (palanca) {        
         switch (palanca) {
             case _codigoPalanca.RevistaDigital:
             case _codigoPalanca.OfertasParaMi:
@@ -111,7 +112,7 @@
         return localStorageItem;
     }
     
-    var _cargarEstrategias = function (campania, palanca, nombreKey) {
+    var _cargarEstrategias = function (campania, palanca, nombreKey) {        
         var localStorageItem = _crearBaseEstrategiaItem(campania);
         var param = {
             CampaniaID: campania,
@@ -145,8 +146,7 @@
     }
     
     var ObtenerEstrategia = function(cuv, campania, palanca) {
-        try {
-            
+        try {            
             var nombreKey = _obtenerKey(palanca, campania);
 
             if (IsNullOrEmpty(nombreKey)) // throw "Palanca no tiene asignado key local storage.";

@@ -28,6 +28,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
+            if (EsDispositivoMovil() && url.Length > 1 && url[1].Contains("sap") && url[1].Contains("VC"))
+            {
+                    sap = "&" + url[1].Substring(3);
+                    return RedirectToAction("Ficha", "DetalleEstrategia", new { area = "Mobile", palanca, campaniaId, cuv, origen, sap });
+            }
             return base.Ficha(palanca, campaniaId, cuv, origen);
         }
 

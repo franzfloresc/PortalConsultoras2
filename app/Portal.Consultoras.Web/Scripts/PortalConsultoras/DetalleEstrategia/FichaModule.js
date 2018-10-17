@@ -28,8 +28,7 @@ var FichaModule = (function (config) {
     var _localStorageModule;
     var _primeraMarca = "";
     var _ultimaMarca = "";
-    var _esMultimarca = false;
-
+    var _esMultimarca = false;    
     var _config = {
         palanca: config.palanca || "",
         //origen: config.origen || "",
@@ -138,6 +137,7 @@ var FichaModule = (function (config) {
     };
 
     var _ocultarTabs = function () {
+        
         var estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
         $(_seccionesFichaProducto.ContenidoProducto).hide();
@@ -362,8 +362,7 @@ var FichaModule = (function (config) {
     };
 
     var _getEstrategia = function () {
-        var estrategia;
-
+        var estrategia;        
         if (_config.tieneSession === "True") {
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         }
