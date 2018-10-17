@@ -59,7 +59,8 @@ var ConstantesModule = (function () {
         rd: "rd",
         hv: "hv",
         gn: "gn",
-        lan: "lan"
+        lan: "lan",
+        mg: "mg"
     }
 
     var _urlObtenerEstrategia = {
