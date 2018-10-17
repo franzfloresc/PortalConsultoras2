@@ -538,13 +538,9 @@ function RenderCarruselSimple(divProd, cc) {
         speed: 260,
         prevArrow: '<a  class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
-    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-       
- 
-     
+    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {     
         VerificarClick(slick, currentSlide, nextSlide, "normal");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-       
        
         EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
 
@@ -570,12 +566,33 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 
         if (slick.slideCount > 1 && objVisorSlick && lastSlick) {
             var anchoCarrusel = $(objVisorSlick).offset().left + $(objVisorSlick).width();
-            var positionUltimoSlick = $(lastSlick).offset().left + $(lastSlick).width();
+            var positionUltimoSlick = $(lastSlick).offset().left + $(lastSlick).width(); 
 
-            if (positionUltimoSlick < anchoCarrusel) {
+            if (positionUltimoSlick < anchoCarrusel) {    
                 $(objNextArrow).hide();
             }
             else {
+
+                if ((positionUltimoSlick > anchoCarrusel) && $(lastSlick).offset().left < anchoCarrusel) {
+
+                    setTimeout(function () { 
+
+                        var strWidth = $(lastSlick).css('width').replace('px','');
+                        var paso = anchoCarrusel - $(lastSlick).offset().left;
+                        var avanzar =   parseFloat( strWidth) - paso;
+                        var efectoValor = $(event.target).find('.slick-track').css('transform');
+
+                        efectoValor = efectoValor.replace('matrix(1, 0, 0, 1,','');
+                        efectoValor = efectoValor.replace(', 0)', '');
+                        efectoValor = efectoValor.trim();
+                        efectoValor = parseFloat(efectoValor)
+                        var nuevoValor = efectoValor - avanzar;
+
+                        $(event.target).find('.slick-track').css('transform', 'translate3d(' + nuevoValor + 'px, 0px, 0px)');
+                        $(objNextArrow).hide();
+                    }, 100);                   
+                }
+
                 $(objNextArrow).show();
             }
         }
@@ -614,12 +631,10 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {        
         VerificarClick(slick, currentSlide, nextSlide, "normal");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-        
-        if (!cc) {
-            ShowOrHide_Arrows(event, slick, currentSlide);
-        }
-    
 
+        if (!cc && !isMobile()) {
+            ShowOrHide_Arrows(event, slick, currentSlide);
+        }    
         EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
     });
 
