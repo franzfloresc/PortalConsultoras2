@@ -256,6 +256,14 @@ function GetProductoStorage(cuv, campania, nombreKey) {
     return new Object();
 }
 
+function ActualizarLocalStoragePalancas(cuv, valor) {
+    ActualizarLocalStorageAgregado("rd", cuv, true);
+    ActualizarLocalStorageAgregado("gn", cuv, true);
+    ActualizarLocalStorageAgregado("hv", cuv, true);
+    ActualizarLocalStorageAgregado("lan", cuv, true);
+    ActualizarLocalStorageAgregado("mg", cuv, true);
+}
+
 function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
     var ok = false;
     try {
@@ -279,6 +287,9 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         }
         else if (tipo == "lan") {
             var lista = "LANLista";
+        }
+        else if (tipo == "mg") {
+            var lista = "MGLista";
         }
 
         $.each(listaCuv, function (ind, cuvItem) {

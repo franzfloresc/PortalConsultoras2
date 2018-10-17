@@ -895,10 +895,11 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             HidePopupEstrategiasEspeciales();
                         }
 
-                        ActualizarLocalStorageAgregado("rd", param.CUV, true);
-                        ActualizarLocalStorageAgregado("gn", param.CUV, true);
-                        ActualizarLocalStorageAgregado("hv", param.CUV, true);
-                        ActualizarLocalStorageAgregado("lan", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("rd", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("gn", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("hv", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("lan", param.CUV, true);
+                        ActualizarLocalStoragePalancas(param.CUV, true);
 
                         ProcesarActualizacionMostrarContenedorCupon();
                     },

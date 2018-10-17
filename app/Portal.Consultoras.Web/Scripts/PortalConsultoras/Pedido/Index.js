@@ -1931,7 +1931,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             //ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
             //ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
             //ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
-       
+            ActualizarLocalStoragePalancas(data.data.CUV, false);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -2295,10 +2295,11 @@ function EliminarPedido() {
             MostrarBarra(data);
             CerrarSplash();
 
-            ActualizarLocalStorageAgregado("rd", "todo", false);
-            ActualizarLocalStorageAgregado("gn", "todo", false);
-            ActualizarLocalStorageAgregado("hv", "todo", false);
-            ActualizarLocalStorageAgregado("lan", "todo", false);
+            //ActualizarLocalStorageAgregado("rd", "todo", false);
+            //ActualizarLocalStorageAgregado("gn", "todo", false);
+            //ActualizarLocalStorageAgregado("hv", "todo", false);
+            //ActualizarLocalStorageAgregado("lan", "todo", false);
+            ActualizarLocalStoragePalancas("todo", false);
 
             location.href = baseUrl + "Pedido/Index";
         },
