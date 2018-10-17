@@ -396,6 +396,5 @@ namespace Portal.Consultoras.Web.Models
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
         public string PersonalizacionesDummy { get; set; }
-        public int LimElectivosProgNuevas { get; set; }
     }
 }
