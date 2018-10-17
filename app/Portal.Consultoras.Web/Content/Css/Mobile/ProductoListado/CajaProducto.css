@@ -46,3 +46,7 @@
 .contenedor_carrusel_home .content_item_carrusel_clubganamas_off a.portada, .btn_agregar_ficha_producto {
     border-radius: 4px;
 }
+
+.caja-borde {
+    border-radius: 4px;
+}

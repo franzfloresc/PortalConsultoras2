@@ -20622,10 +20622,10 @@ label.checkpop.c_on {
     min-height: 330px;
     margin-bottom: 15px;
     background: white;
-    border: 1px solid #e7e1e1;
+    /*border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, .31);
     -moz-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, .31);
-    box-shadow: 0 15px 13px -8px rgba(0, 0, 0, .31);
+    box-shadow: 0 15px 13px -8px rgba(0, 0, 0, .31);*/
 }
 
 .content_item_carrusel_width_ODD {
