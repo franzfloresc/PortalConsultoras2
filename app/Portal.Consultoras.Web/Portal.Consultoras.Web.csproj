@@ -218,7 +218,6 @@
     <Compile Include="Areas\Mobile\Controllers\EstadoCuentaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MenuController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NotificacionesController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertaLiquidacionController.cs" />
     <Compile Include="Areas\Mobile\Controllers\FichaProductoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DescargarAppController.cs" />
@@ -4264,7 +4263,6 @@
     <Content Include="Areas\Mobile\Views\FichaProducto\ProductoNotFound.cshtml" />
     <Content Include="Areas\Mobile\Views\SeguimientoPedido\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBannerTop.cshtml" />
-    <Content Include="Areas\Mobile\Views\OfertaDelDia\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBanner.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueMensajesPostulante.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueMensajesPedido.cshtml" />

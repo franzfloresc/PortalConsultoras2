@@ -176,7 +176,6 @@
         var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
-        var urlOfertaDelDiaMobile = '@Url.Action("Index", "OfertaDelDia", new { area = "Mobile" })';
 
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
@@ -272,7 +271,6 @@
         @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/OfertaDelDia")
         <script type="text/javascript">
             $(document).ready(function () {
-                //window.OfertaDelDia.CargarODD();
                 OfertaDelDiaModule.Inicializar();
             });
         </script>
