@@ -93,7 +93,18 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 };
 
-                if (cantidadEstrategiasSinConfigurarImagen > 0)
+                if (cantidadEstrategiasSinConfigurarImagen == 0)
+                {
+                    lst.Add(new ComunModel
+                    {
+                        Id = 4,
+                        Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
+                        Valor = "0",
+                        ValorOpcional = "3",
+                        mongoIds = ""
+                    });
+                }
+                else//(cantidadEstrategiasSinConfigurarImagen > 0)
                 {
                     lst.Add(new ComunModel
                     {
