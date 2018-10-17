@@ -272,7 +272,7 @@
     background-color: #ebebeb !important;
     border: none !important;
     min-height: 372px;
-    padding: 98px 42px 33px 42px;
+    padding: 100px 42px 33px 42px;
     width: 240px;
     margin: auto;
     float: none;
@@ -301,7 +301,7 @@
         line-height: normal;
         letter-spacing: 0.8px;
         text-align: center;
-        margin-bottom: 10px;
+        margin-bottom: 23px;
     }
     .revistadigital-landing .content_item_carrusel_prog_nuevas .container_text p.boton {
         font-size: 13px;
