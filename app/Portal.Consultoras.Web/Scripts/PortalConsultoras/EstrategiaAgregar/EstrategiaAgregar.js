@@ -325,7 +325,7 @@ var EstrategiaAgregarModule = (function () {
             // ClienteID_:
         };
 
-        EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
+        EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function (data) {
             if (!checkTimeout(data)) {
                 CerrarLoad();
                 return false;
@@ -478,7 +478,8 @@ var EstrategiaAgregarModule = (function () {
             }
 
             var localStorageModule = new LocalStorageModule();
-            localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, true);
+            //localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, true);
+            localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
 
             if (belcorp.estrategia.applyChanges){
