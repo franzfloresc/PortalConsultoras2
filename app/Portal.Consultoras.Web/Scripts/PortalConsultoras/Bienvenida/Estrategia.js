@@ -312,7 +312,8 @@ function ArmarCarouselEstrategias(data) {
         var cantProCarrusel = 4;
         var esVariableWidth = true;
 
-        $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel");
+        //$("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel caja-borde");
+
         $("#divListaEstrategias").show();
 
         EstablecerLazyCarrusel("#divListadoEstrategia");

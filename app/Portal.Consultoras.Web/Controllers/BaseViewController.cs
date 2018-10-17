@@ -340,7 +340,7 @@ namespace Portal.Consultoras.Web.Controllers
                         breadCrumbs.Palanca.Url =
                             SessionManager.MasGanadoras.GetModel().TieneLanding
                             ? Url.Action("Index", new { controller = "MasGanadoras", area })
-                            : ("#" + Constantes.ConfiguracionPais.MasGanadoras);
+                            : (Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.MasGanadoras);
                 }
                 
                 breadCrumbs.Producto.Url = "#";
