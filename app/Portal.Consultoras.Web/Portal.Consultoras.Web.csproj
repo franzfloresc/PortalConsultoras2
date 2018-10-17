@@ -737,6 +737,7 @@
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
     <Compile Include="Models\ValidacionStockModel.cs" />
     <Compile Include="Models\ValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\ValidaPopUpPaisModel.cs" />
     <Compile Include="Models\VericaAutenticidadModel.cs" />
     <Compile Include="Models\ZonaModel.cs" />
     <Compile Include="Pdto.aspx.cs">
@@ -763,6 +764,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Providers\AdministrarEstrategiaProvider.cs" />
+    <Compile Include="Providers\BienvenidaProvider.cs" />
     <Compile Include="Providers\BuscadorBaseProvider.cs" />
     <Compile Include="Providers\BuscadorYFiltrosProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
