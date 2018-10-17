@@ -1,12 +1,13 @@
 ﻿
 .banner_ofertas_masGanadoras {
-    background-color: #bda068;
+    background-color: #c39934;
     padding: 39px;
     width: 258px;
     height: 372px;
     display: flex !important;
     align-items: center;
     margin: 0px 8px;
+    text-align : center;
 }
 
 .contenido_ofertas p {

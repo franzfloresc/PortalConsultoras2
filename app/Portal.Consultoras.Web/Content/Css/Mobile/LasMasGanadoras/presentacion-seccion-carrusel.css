@@ -7,7 +7,7 @@
 
 .titulo_MasGanadoras {
     font-size: 18px;
-    color: #bda068;
+    color: #000;
     text-transform: uppercase;
     font-weight: 900;
     line-height: normal;
@@ -16,7 +16,7 @@
 }
 
 .boton_MasGanadoras {
-    background-color: #bda068;
+    background-color: #c39934;
     font-weight: bold;
     color: #fff;
     line-height: normal;
