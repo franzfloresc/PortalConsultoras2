@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -6,9 +7,6 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Portal.Consultoras.Web.LogManager;
-using System.Web.Script.Serialization;
-using System.Diagnostics;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -19,6 +17,7 @@ namespace Portal.Consultoras.Web.Providers
         public virtual ConfiguracionPaisProvider ConfiguracionPais { get; private set; }
         public virtual GuiaNegocioProvider GuiaNegocio { get; private set; }
         public virtual ShowRoomProvider ShowRoom { get; private set; }
+        public virtual ProgramaNuevasProvider ProgramaNuevasProvider { get; private set; }
 
         private UsuarioModel userData
         {
@@ -41,7 +40,8 @@ namespace Portal.Consultoras.Web.Providers
                     Web.LogManager.LogManager.Instance,
                    new ConfiguracionPaisProvider(),
                    new GuiaNegocioProvider(),
-                   new ShowRoomProvider())
+                   new ShowRoomProvider(),
+                   new ProgramaNuevasProvider(Web.SessionManager.SessionManager.Instance))
         {
         }
 
@@ -49,13 +49,15 @@ namespace Portal.Consultoras.Web.Providers
             ILogManager logManager,
             ConfiguracionPaisProvider configuracionPaisProvider,
             GuiaNegocioProvider guiaNegocio,
-            ShowRoomProvider showRoom)
+            ShowRoomProvider showRoom,
+            ProgramaNuevasProvider programaNuevasProvider)
         {
             SessionManager = sessionManager;
             LogManager = logManager;
             ConfiguracionPais = configuracionPaisProvider;
             GuiaNegocio = guiaNegocio;
             ShowRoom = showRoom;
+            ProgramaNuevasProvider = programaNuevasProvider;
         }
 
         public virtual List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital, bool esMobile)
@@ -71,7 +73,7 @@ namespace Portal.Consultoras.Web.Providers
                 seccionesContenedor = GetSeccionesContenedorByCampania(seccionesContenedor);
 
                 var isMobile = esMobile;
-                var esDuoPerfecto = userData.LimElectivosProgNuevas > 1;
+                var esDuoPerfecto = ProgramaNuevasProvider.GetLimElectivos() > 1;
                 foreach (var beConfiguracionOfertasHome in seccionesContenedor)
                 {
                     var entConf = beConfiguracionOfertasHome;

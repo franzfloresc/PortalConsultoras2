@@ -336,7 +336,7 @@ namespace Portal.Consultoras.Web.Controllers
             NombrePalancas.Add(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio");
             NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
 
-            NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, userData.LimElectivosProgNuevas > 1 ? "Dúo Perfecto": "Programa Nuevas");
+            NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.GetLimElectivos() > 1 ? "Dúo Perfecto": "Programa Nuevas");
             return NombrePalancas;
         }
 

@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Providers
             return Util.GetOrCalcValue(sessionManager.GetLimElectivosProgNuevas, sessionManager.SetLimElectivosProgNuevas, (i) => i == 0, CalcLimElectivos);
         }
 
-        public BEConfiguracionProgramaNuevas CalcConfiguracion()
+        private BEConfiguracionProgramaNuevas CalcConfiguracion()
         {
             try
             {

@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
             public Mock<ConfiguracionPaisProvider> ConfiguracionPaisProvider { get; private set; }
             public Mock<GuiaNegocioProvider> GuiaNegocioProvider { get; private set; }
             public Mock<ShowRoomProvider> ShowRoomProvider { get; private set; }
+            public Mock<ProgramaNuevasProvider> ProgramaNuevasProvider { get; private set; }
 
             class ConfiguracionOfertasHomeProviderStub : ConfiguracionOfertasHomeProvider
             {
@@ -36,12 +37,14 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
                         ILogManager logManager,
                         ConfiguracionPaisProvider configuracionPaisProvider,
                         GuiaNegocioProvider guiaNegocio,
-                        ShowRoomProvider showRoom) 
+                        ShowRoomProvider showRoom,
+                        ProgramaNuevasProvider programaNuevasProvider) 
                     : base(sessionManager,
                         logManager,
                         configuracionPaisProvider,
                         guiaNegocio,
-                        showRoom)
+                        showRoom,
+                        programaNuevasProvider)
                 {
 
                 }
@@ -65,12 +68,13 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
             private ConfiguracionOfertasHomeProvider CreateProvider()
             {
                 return new ConfiguracionOfertasHomeProviderStub(
-                       SessionManager.Object,
-                       LogManager.Object,
-                       ConfiguracionPaisProvider.Object,
-                       GuiaNegocioProvider.Object,
-                       ShowRoomProvider.Object
-                       );
+                    SessionManager.Object,
+                    LogManager.Object,
+                    ConfiguracionPaisProvider.Object,
+                    GuiaNegocioProvider.Object,
+                    ShowRoomProvider.Object,
+                    ProgramaNuevasProvider.Object
+                );
             }
 
             [TestCleanup]
