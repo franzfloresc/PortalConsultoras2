@@ -582,6 +582,8 @@
         border-radius: 4px;
         background-color:#FFF;
         margin-right: 10px;
+        background-position:center center;
+        cursor:pointer;
         transition: all .3s ease;
         -moz-transition: all .3s ease;
         -o-transition: all .3s ease;
@@ -591,6 +593,8 @@
 
     .filtro__item__form_fields input[type='checkbox']:checked + .filtro__item__descrip .filtro__item__checkbox {
         background-color: #808080;
+        background-image:url(/Content/Images/checkbox-filtros.svg);
+        background-repeat:no-repeat;
     }
 
 .filtro__item__descrip{
