@@ -394,18 +394,18 @@ namespace Portal.Consultoras.Web.Providers
             //}
             //else
             //{
-                if (esMs)
+            if (esMs)
+            {
+                if (componenteModel.NombreComercial == "")
                 {
-                    if (componenteModel.NombreComercial == "")
-                    {
-                        componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto;
-                    }
+                    componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto;
                 }
-                else
-                {
-                    componenteModel.NombreComercial = beEstrategiaProducto.NombreComercial == "" ?
-                        beEstrategiaProducto.NombreProducto : beEstrategiaProducto.NombreComercial;
-                }
+            }
+            else
+            {
+                componenteModel.NombreComercial = beEstrategiaProducto.NombreComercial == "" ?
+                    beEstrategiaProducto.NombreProducto : beEstrategiaProducto.NombreComercial;
+            }
             //}
 
             if (componenteModel.NombreBulk != "" && !(" " + componenteModel.NombreComercial.ToLower() + " ").Contains(" " + componenteModel.NombreBulk.ToLower() + " "))
@@ -455,7 +455,10 @@ namespace Portal.Consultoras.Web.Providers
             var listaComponentesEzika = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Esika);
             var listaComponentesLbel = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.LBel);
             var listaComponentesOtraMarca = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>()
-                : listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Cyzone && x.IdMarca == Constantes.Marca.Esika && x.IdMarca != Constantes.Marca.LBel);
+                : listaComponentesPorOrdenar.Where(x =>
+                    x.IdMarca != Constantes.Marca.Cyzone &&
+                    x.IdMarca != Constantes.Marca.Esika &&
+                    x.IdMarca != Constantes.Marca.LBel);
 
             int contador = 0;
             contador += listaComponentesCyzone.Any() ? 1 : 0;
@@ -496,7 +499,7 @@ namespace Portal.Consultoras.Web.Providers
                         listaComponentesOrdenados.AddRange(listaComponentesCyzone);
                 }
             }
-            
+
             listaComponentesOrdenados.AddRange(listaComponentesOtraMarca);
 
             return listaComponentesOrdenados;
