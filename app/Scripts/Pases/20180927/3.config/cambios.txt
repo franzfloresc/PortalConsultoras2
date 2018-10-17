@@ -1,0 +1,22 @@
+1.PortalConsultoras2 - Web
+Add:
+    <!--  COSTA RICA  -->
+    <add key="RevistaPiloto_Grupos_CR201815" value="ESCrdr1,ESCrdr2" />
+    <add key="RevistaPiloto_Zonas_CR201815_ESCrdr1" value="0823, 0826" />
+    <add key="RevistaPiloto_Zonas_CR201815_ESCrdr2" value="0803,0830" />    
+
+    <add key="RevistaPiloto_Grupos_CR201816" value="ESCrdr1,ESCrdr2" />
+    <add key="RevistaPiloto_Zonas_CR201816_ESCrdr1" value="0823, 0826" />
+    <add key="RevistaPiloto_Zonas_CR201816_ESCrdr2" value="0803,0830" /> 
+
+    <add key="RevistaPiloto_Grupos_CR201817" value="ESCrdr1,ESCrdr2" />
+    <add key="RevistaPiloto_Zonas_CR201817_ESCrdr1" value="0823, 0826" />
+    <add key="RevistaPiloto_Zonas_CR201817_ESCrdr2" value="0803,0830" />
+    
+    <add key="RevistaPiloto_Grupos_CR201818" value="ESCrdr1,ESCrdr2" />
+    <add key="RevistaPiloto_Zonas_CR201818_ESCrdr1" value="0823, 0826" />
+    <add key="RevistaPiloto_Zonas_CR201818_ESCrdr2" value="0803,0830" />
+	
+Agregar lo siguiente debajo de la key: UrlMicroservicioPersonalizacionConfig
+<add key="UrlMicroservicioPersonalizacionSync" value="http://internal-elbwcf-sbmicroserviciosprd-435783028.us-east-1.elb.amazonaws.com:5001/"/>
+	

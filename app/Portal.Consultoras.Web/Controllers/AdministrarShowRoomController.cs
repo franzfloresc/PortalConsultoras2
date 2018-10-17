@@ -30,9 +30,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //ServicePedido.BEShowRoomEvento showRoomEvento;
-                //var listaShowRoomEvento = new List<ServicePedido.BEShowRoomEvento>();
-
                 ShowRoomEventoModelo showRoomEvento;
                 var listaShowRoomEvento = new List<ShowRoomEventoModelo>();
 

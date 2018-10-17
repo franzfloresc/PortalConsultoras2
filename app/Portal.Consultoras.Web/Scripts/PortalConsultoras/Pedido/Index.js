@@ -796,6 +796,15 @@ function ValidarStockEstrategia() {
 }
 
 function InsertarProducto(form) {
+
+	var flag = $("#hdfEsBusquedaSR").val();
+
+	if (flag == "true")
+	{
+		form.url = baseUrl + "Pedido/PedidoAgregarProducto";
+		form.data.EstrategiaID = $("#hdfEstrategiaId").val();
+	}
+
     $.ajax({
         url: form.url,
         type: form.type,
@@ -1554,51 +1563,47 @@ function CambiarCliente(elem) {
 
 function ObservacionesProducto(item) {
     
-    if (item.TipoOfertaSisID == "1707") {
+	$("#hdfEsBusquedaSR").val(false);
+	$("#hdfEstrategiaId").val(0);
+	if (item.EstrategiaID > 0)
+	{
+		$("#hdfEsBusquedaSR").val(true);
+		$("#hdfEstrategiaId").val(item.EstrategiaID);
+		$("#btnAgregar").removeAttr("disabled");
+	}
+	if (item.TipoOfertaSisID != "1707") {
+		if (item.TieneStock == true) {
+			if (item.TieneSugerido != 0) {
+				$("#divObservaciones").html("");
 
-        $("#divObservaciones").html("");
+				$("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Lo sentimos, este producto está agotado.</div></div>");
 
-        if (sesionEsShowRoom) {
-            $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Este producto sólo se puede agregar desde la sección de Pre-venta Digital.</div></div>");
-        } else {
-            $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Esta promoción no se encuentra disponible.</div></div>");
-        }
+				$("#btnAgregar").attr("disabled", "disabled");
+				ObtenerProductosSugeridos(item.CUV);
+			} else {
+				$("#divObservaciones").html("");
+				if (item.EsExpoOferta == true) {
+					$("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
+				}
+				if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
+					if (!item.TieneRDC)
+						$("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");
+				}
+				if (!IsNullOrEmpty(item.MensajeCUV)) AbrirMensaje(item.MensajeCUV, "IMPORTANTE");
 
-        $("#btnAgregar").attr("disabled", "disabled");
+				$("#btnAgregar").removeAttr("disabled");
+			}
+		} else {
 
-    } else {
-        if (item.TieneStock == true) {
-            if (item.TieneSugerido != 0) {
-                $("#divObservaciones").html("");
-
-                $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Lo sentimos, este producto está agotado.</div></div>");
-
-                $("#btnAgregar").attr("disabled", "disabled");
-                ObtenerProductosSugeridos(item.CUV);
-            } else {
-                $("#divObservaciones").html("");
-                if (item.EsExpoOferta == true) {
-                    $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
-                }
-                if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-                    if (!item.TieneRDC)
-                        $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");
-                }
-                if (!IsNullOrEmpty(item.MensajeCUV)) AbrirMensaje(item.MensajeCUV, "IMPORTANTE");
-
-                $("#btnAgregar").removeAttr("disabled");
-            }
-        } else {
-            
-            $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
-            $("#btnAgregar").attr("disabled", "disabled");
-            if (item.TieneSugerido != 0)
-                ObtenerProductosSugeridos(item.CUV);
-            else {
-                IngresoFAD(item);
-            }
-        }
-    }
+			$("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
+			$("#btnAgregar").attr("disabled", "disabled");
+			if (item.TieneSugerido != 0)
+				ObtenerProductosSugeridos(item.CUV);
+			else {
+				IngresoFAD(item);
+			}
+		}
+	}
 
     $("#txtCUV").val(item.CUV);
     $("#hdfCUV").val(item.CUV);

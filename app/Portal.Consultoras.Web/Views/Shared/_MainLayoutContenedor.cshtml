@@ -31,7 +31,7 @@
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Site-Lbel-CssSB2")
-        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Lbel-Contenedor")
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Site-Lbel-Contenedor")
     }
     <link href="@Url.Content("~/Content/Css/Site/calc.css")" rel="stylesheet" type="text/css" />
 
@@ -197,6 +197,7 @@
             <div class="clear"></div>
         </div>
         <div class="clear"></div>*@
+        @Html.Partial("~/Views/Shared/VistaParcialMenu/_MenuContenedorOferta.cshtml")
     </header>
 
     <div class="fondo_oscuro"></div>
@@ -209,8 +210,7 @@
         string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
         controllerAction = controllerAction.ToLower();
     }
-    <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
-        @Html.Partial("~/Views/Shared/VistaParcialMenu/_MenuContenedorOferta.cshtml")
+    <div id="contentmain" class="content" data-content="" style="margin-top: 113px;">
         <div data-layout-body="" class="data-layaout-body">
             @if (!(controllerAction == "bienvenidaindex"
                     || controllerAction == "showroomindex"

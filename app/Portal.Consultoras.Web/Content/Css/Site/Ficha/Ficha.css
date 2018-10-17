@@ -105,7 +105,7 @@ body {
 
 .contenedor_izquierdo {
     float: left;
-    width: 65%;
+    width: 60%;
 }
 
 .nombre_marca {
@@ -126,7 +126,7 @@ body {
 .contenedor_derecho {
     float: right;
     text-align: right;
-    width: 35%;
+    width: 40%;
 }
 
 .precio_valorizado {
@@ -260,6 +260,13 @@ body {
     width: 88%;
 }
 
+.text_referencial_tipos {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    padding-top: 3px;
+}
+
 .dibujar_linea::before, .dibujar_linea::after {
     content: '';
     border-bottom: solid 2px #000;
@@ -307,16 +314,20 @@ body {
 .dibujar_mas, .dibujar_menos {
     margin: auto;
     position: relative;
-    width: 9px;
+    width: 7px;
 }
 
-.dibujar_mas::after {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-}
+    .dibujar_menos{
+        top: -1px;
+    }
+
+    .dibujar_mas::after {
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
 
 .txt_cantidad_pedido {
     background: none;
@@ -325,7 +336,7 @@ body {
     border-right: solid 1px #b0b0b0;
     color: #000;
     font-family: 'lato';
-    font-size: 15px;
+    font-size: 11px;
     font-weight: 700;
     height: 43px;
     left: 30%;

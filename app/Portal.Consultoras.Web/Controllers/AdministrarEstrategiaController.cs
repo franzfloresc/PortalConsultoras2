@@ -13,12 +13,14 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
@@ -30,6 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         protected RenderImgProvider _renderImgProvider;
         protected OfertaBaseProvider _ofertaBaseProvider;
+        protected string _dbdefault = "dbdefault";
 
         public AdministrarEstrategiaController()
         {
@@ -210,6 +213,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+
                 if (ModelState.IsValid)
                 {
                     List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
@@ -226,7 +231,7 @@ namespace Portal.Consultoras.Web.Controllers
                             Imagen = Imagen
                         };
 
-                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, TipoEstrategiaCodigo))
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, TipoEstrategiaCodigo, dbdefault))
                         {
                             entidad.CodigoTipoEstrategia = TipoEstrategiaCodigo;
                             lst.AddRange(administrarEstrategiaProvider.Listar(entidad.CampaniaID.ToString(),
@@ -554,8 +559,9 @@ namespace Portal.Consultoras.Web.Controllers
                 string wsprecio = "";
                 int idMatrizComercial = 0;
                 ServicePedido.BEEstrategia beEstrategia = null;
+                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo))
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
                 {
                     var objEstrategia = administrarEstrategiaProvider.ObtenerEstrategiaCuv(CUV2,
                                                                 CampaniaID, tipoEstrategiaCodigo,
@@ -749,9 +755,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
                 var mensajeErrorImagenResize = " Antes de Crear la Imagenes Renderizadas";
                 var nroPedido = Util.Trim(model.NumeroPedido);
-
                 if (nroPedido.Contains(",")) model.NumeroPedido = "0";
 
                 var entidad = Mapper.Map<RegistrarEstrategiaModel, ServicePedido.BEEstrategia>(model);
@@ -825,7 +831,7 @@ namespace Portal.Consultoras.Web.Controllers
                             entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
                         }
 
-                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia))
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia, dbdefault))
                         {
                             if (entidad.EstrategiaID != 0)
                             {
@@ -922,6 +928,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
                 List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
                 var entidad = new ServicePedido.BEEstrategia
                 {
@@ -934,7 +941,7 @@ namespace Portal.Consultoras.Web.Controllers
                      UsuarioRegistro = userData.CodigoConsultora
                 };
 
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo))
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
                 {
                     lst.AddRange(administrarEstrategiaProvider.FiltrarEstrategia(mongoIdVal, userData.CodigoISO).ToList());
                 }
@@ -1076,6 +1083,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
                 var entidad = new ServicePedido.BEEstrategia
                 {
                     PaisID = userData.PaisID,
@@ -1083,7 +1091,7 @@ namespace Portal.Consultoras.Web.Controllers
                     UsuarioModificacion = userData.CodigoUsuario
                 };
 
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo))
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
                 {
                     administrarEstrategiaProvider.DesactivarEstrategia(idMongoVal, userData.UsuarioNombre, userData.CodigoISO);
                 }
@@ -1130,13 +1138,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
                 var entidad = new ServicePedido.BEEstrategia
                 {
                     PaisID = userData.PaisID,
                     EstrategiaID = Convert.ToInt32(EstrategiaID)
                 };
 
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo))
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
                 {
                     administrarEstrategiaProvider.EliminarEstrategia(entidad.EstrategiaID, _id);
                 }
@@ -1187,7 +1196,9 @@ namespace Portal.Consultoras.Web.Controllers
                 int resultado = 0;
                 EstrategiasActivas = EstrategiasActivas ?? "";
                 EstrategiasDesactivas = EstrategiasDesactivas ?? "";
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCod))
+                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCod, dbdefault))
                 {
                     List<string> estrategiasActivasList = new List<string>();
                     List<string> estrategiasInactivasList = new List<string>();
@@ -1834,6 +1845,7 @@ namespace Portal.Consultoras.Web.Controllers
                     throw new ArgumentException("El archivo no tiene la extensión correcta.");
 
                 var sd = new StreamReader(model.Documento.InputStream, Encoding.Default);
+                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
                 var readLine = sd.ReadLine();
                 if (readLine != null)
@@ -1874,7 +1886,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEDescripcionEstrategia> beDescripcionEstrategias;
                 List<DescripcionEstrategiaModel> descripcionEstrategiaModels;
 
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo))
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo, dbdefault))
                 {
                     descripcionEstrategiaModels = administrarEstrategiaProvider.UploadCsv(fileContent, userData.CodigoISO, model.TipoEstrategiaCodigo, model.CampaniaId);
                 }
@@ -1938,10 +1950,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<ServicePedido.BEEstrategia> strategyEntityList = new List<ServicePedido.BEEstrategia>();
                 StreamReader streamReader = new StreamReader(model.Documento.InputStream, Encoding.Default);
+                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+
                 string readLine = streamReader.ReadLine();
                 if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");
                 if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extensión correcta.");
                 if (model.Documento.ContentLength > 4 * 1024 * 1024) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
+
                 if (readLine != null)
                 {
                     string[] arrayHeader = readLine.Split('|');
@@ -2032,7 +2047,7 @@ namespace Portal.Consultoras.Web.Controllers
                             PaisID = Util.GetPaisID(userData.CodigoISO)
                         };
 
-                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo))
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo, dbdefault))
                         {
                             numberRecords = new int[2];
                             var result = administrarEstrategiaProvider.UploadFileSetStrategyShowroom(estrategia, strategyEntityList, model.TipoEstrategiaCodigo);
@@ -2076,6 +2091,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var strategyEntityList = new List<ServicePedido.BEEstrategiaProducto>();
                 StreamReader streamReader = new StreamReader(model.Documento.InputStream, Encoding.Default);
+                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+
                 string readLine = streamReader.ReadLine();
                 if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");
                 if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extensión correcta.");
@@ -2170,7 +2187,7 @@ namespace Portal.Consultoras.Web.Controllers
                             PaisID = Util.GetPaisID(userData.CodigoISO)
                         };
 
-                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo))
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo, dbdefault))
                         {
                             numberRecords = new int[2];
 

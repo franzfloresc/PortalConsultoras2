@@ -213,7 +213,7 @@
     var _initArraysCarrusel = function () {
         var containerItemsSlick = $(".slick-slide");
         $(containerItemsSlick).each(function (index, element) {
-            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
+            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia") || {};
             setCarruselMarcacionAnalytics.push([infoCuvItem.CUV2, 0]);
             setCarruselCuv.push(infoCuvItem);
         });
@@ -239,7 +239,7 @@
     function _agregaNewCuvActivo() {
         var containterSlickActive = $(".slick-active");
         $(containterSlickActive).each(function (index, element) {
-            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
+            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia") || {};
 
             if (verificaNuevoCUVParaAnalytic(infoCuvItem))
                 setCarruselMarcacionAnalytics.push([infoCuvItem.CUV2, 0]);
@@ -248,19 +248,21 @@
     function marcaCuvsActivos() {
         var containterSlickActive = $(".slick-active");
         $(containterSlickActive).each(function (index, element) {
-            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
+            var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia") || {};
             preparaCUVAnalytic(infoCuvItem);
         });
     }
 
     //Marca como registrado
     function preparaCUVAnalytic(infoCuvItem) {
+        infoCuvItem = infoCuvItem || {};
         for (var i = 0; i < setCarruselMarcacionAnalytics.length; i++) {
             if (setCarruselMarcacionAnalytics[i][0] == infoCuvItem.CUV2 && setCarruselMarcacionAnalytics[i][1] == 0)
                 setCarruselMarcacionAnalytics[i][1] = 1;
         }
     }
     function verificaNuevoCUVParaAnalytic(infoCuvItem) {
+        infoCuvItem = infoCuvItem || {};
         for (var i = 0; i < setCarruselMarcacionAnalytics.length; i++) {
             if (setCarruselMarcacionAnalytics[i][0] == infoCuvItem.CUV2 && setCarruselMarcacionAnalytics[i][1] == 2)
                 return false

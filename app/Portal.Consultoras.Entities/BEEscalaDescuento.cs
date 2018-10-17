@@ -19,6 +19,8 @@ namespace Portal.Consultoras.Entities
         public int PorDescuento { get; set; }
         [DataMember]
         public bool Seleccionado { get; set; }
+        [DataMember]
+        public string Algoritmo { get; set; }
 
         #region Para la tabla OfertaFinalParametria
 
@@ -30,19 +32,50 @@ namespace Portal.Consultoras.Entities
 
         #endregion
 
-        public string Algoritmo { get; set; }
+        #region Escala Descuento Zona
 
-        public BEEscalaDescuento() { }
+        [DataMember]
+        public string CampaniaId { get; set; }
+        [DataMember]
+        public string CodRegion { get; set; }
+        [DataMember]
+        public string CodZona { get; set; }
+        [DataMember]
+        public DateTime? FechaCarga { get; set; }
+        [DataMember]
+        public string NameDocumento { get; set; }
+      
+        #endregion
 
-        [Obsolete("Use MapUtil.MapToCollection")]
+
+        public BEEscalaDescuento()
+        {
+            CampaniaId = default(string);
+            CodRegion = default(string);
+            CodZona = default(string);
+            MontoHasta = default(decimal);
+            PorDescuento = default(Int32);
+            FechaCarga = default(DateTime);
+            NameDocumento = default(string);
+        }
+
         public BEEscalaDescuento(IDataRecord row)
         {
-            MontoDesde = row.ToDecimal("MontoDesde");
-            MontoHasta = row.ToDecimal("MontoHasta");
-            PorDescuento = row.ToInt32("PorDescuento");
-            TipoParametriaOfertaFinal = row.ToString("TipoParametriaOfertaFinal");
-            PrecioMinimo = row.ToDecimal("PrecioMinimo");
-            Algoritmo = row.ToString("Algoritmo");
+            CampaniaId = DataRecord.GetColumn<string>(row, "CampaniaId");
+            CodRegion = DataRecord.GetColumn<string>(row, "CodRegion");
+            CodZona = DataRecord.GetColumn<string>(row, "CodZona");
+            FechaCarga = DataRecord.GetColumn<DateTime>(row, "FechaCarga");
+            MontoDesde = DataRecord.GetColumn<decimal>(row, "MontoDesde");
+            MontoHasta = DataRecord.GetColumn<decimal>(row, "MontoHasta");
+            PorDescuento = DataRecord.GetColumn<int>(row, "PorDescuento");
+
+            TipoParametriaOfertaFinal = DataRecord.GetColumn<string>(row, "TipoParametriaOfertaFinal");
+            PrecioMinimo = DataRecord.GetColumn<decimal>(row, "PrecioMinimo");
+            Algoritmo = DataRecord.GetColumn<string>(row, "Algoritmo");
+            Seleccionado = DataRecord.GetColumn<bool>(row, "Seleccionado");
+
+            if (!string.IsNullOrEmpty(CodRegion) || !string.IsNullOrEmpty(CodZona))
+                NameDocumento = string.Format("{0}_{1}", CodRegion, CodZona);
         }
     }
 }

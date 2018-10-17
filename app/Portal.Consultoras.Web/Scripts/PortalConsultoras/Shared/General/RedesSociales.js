@@ -131,7 +131,7 @@
     var CompartirRedesSocialesAnalytics = function (tipoRedes, ruta, nombre) {
 
         try {
-            if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+            if (typeof origenPedidoWebEstrategia != "undefined" && origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
                 rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
             } else {
 

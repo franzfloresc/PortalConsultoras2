@@ -33,6 +33,7 @@
     <MetadataFile FileName="SACService9.xsd" MetadataType="Schema" ID="07b2cee9-585a-4946-ae4a-6759e1b5af58" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd7" />
     <MetadataFile FileName="SACService5.xsd" MetadataType="Schema" ID="37ca6998-6e34-4e1e-a199-61d875cf68dd" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd6" />
     <MetadataFile FileName="SACService8.xsd" MetadataType="Schema" ID="85b853da-c05e-444c-a838-d9e3d6a91fb0" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd8" />
+    <MetadataFile FileName="SACService62.xsd" MetadataType="Schema" ID="9d3b31ea-cdf2-4b1a-ae91-f2e6b38bc7ca" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd9" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
