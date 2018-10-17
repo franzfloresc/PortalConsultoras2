@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         public ConfiguracionOfertasHomeProvider()
-            : this (Web.SessionManager.SessionManager.Instance,
+            : this(Web.SessionManager.SessionManager.Instance,
                     Web.LogManager.LogManager.Instance,
                    new ConfiguracionPaisProvider(),
                    new GuiaNegocioProvider(),
@@ -75,7 +75,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     var entConf = beConfiguracionOfertasHome;
                     entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
-                    
+
                     #region Pre Validacion
 
                     if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais)) continue;
@@ -230,8 +230,8 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.TemplateProducto = "#lanzamiento-carrusel-individual-template";
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselIndividualesV2:
-                            seccion.TemplatePresentacion = "seccion-carrusel-individuales-v2";
-                            seccion.TemplateProducto = "#template-producto-v2";
+                            seccion.TemplatePresentacion = isMobile ? "seccion-carrusel-individuales-v2" : "seccion-simple-centrado";
+                            seccion.TemplateProducto = isMobile ? "#template-producto-v2" : "#producto-landing-template";
                             break;
                     }
 
@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Providers
 
         protected virtual List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
         {
-            var  configuracionesOfertasHomes = new List<BEConfiguracionOfertasHome>();
+            var configuracionesOfertasHomes = new List<BEConfiguracionOfertasHome>();
 
             try
             {

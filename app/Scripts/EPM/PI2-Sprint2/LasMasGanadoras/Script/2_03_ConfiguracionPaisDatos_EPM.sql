@@ -1,5 +1,11 @@
-use [BelcorpPeru_BPT]
+Ôªøuse [BelcorpPeru_BPT]
 go
+
+--use [BelcorpChile_BPT]
+--go
+
+--use [BelcorpCostaRica_BPT]
+--go
 
 begin
 
@@ -23,8 +29,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTitulo'
 		, 0
-		,'DESCUBRE OFERTAS M¡S DE NAVIDAD'
-		,'DESCUBRE OFERTAS M¡S DE NAVIDAD'
+		,'DESCUBRE M√ÅS OFERTAS DE NAVIDAD'
+		,'DESCUBRE M√ÅS OFERTAS DE NAVIDAD'
 		,null
 		,'Texto para el banner del carrusel'
 		,1
@@ -46,10 +52,10 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER M¡S +'
-		,'VER M¡S +'
+		,'VER M√ÅS +'
+		,'VER M√ÅS +'
 		,null
-		,'Texto para el boton'
+		,'Texto para el bot√≥n'
 		,1
 		,'BannerCarrusel'
 		);

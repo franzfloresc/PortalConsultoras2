@@ -142,7 +142,7 @@ function SeccionCargarProductos(objConsulta) {
     }
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.HV) {
-        console.log('SeccionCargarProductos - HV' + objConsulta.Codigo, objConsulta);
+        //console.log('SeccionCargarProductos - HV' + objConsulta.Codigo, objConsulta);
         if (!varContenedor.CargoHv) {
             varContenedor.CargoHv = true;
             OfertaCargarProductos({
@@ -156,7 +156,7 @@ function SeccionCargarProductos(objConsulta) {
     }
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.MG) {
-        console.log('SeccionCargarProductos - MG -' + objConsulta.Codigo, objConsulta);
+        //console.log('SeccionCargarProductos - MG -' + objConsulta.Codigo, objConsulta);
         if (!varContenedor.CargoMg) {
             varContenedor.CargoMg = true;
             OfertaCargarProductos({
@@ -228,7 +228,7 @@ function SeccionCargarProductos(objConsulta) {
 }
 
 function SeccionMostrarProductos(data) {
-    console.log('SeccionMostrarProductos', data.Seccion.Codigo, data);
+    //console.log('SeccionMostrarProductos', data.Seccion.Codigo, data);
     var CarruselCiclico = true;
 
     if (isMobile()) {
@@ -356,7 +356,7 @@ function SeccionMostrarProductos(data) {
     }
     else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG)
     {
-        console.log('SeccionMostrarProductos -if ' + data.Seccion.Codigo);
+        //console.log('SeccionMostrarProductos -if ' + data.Seccion.Codigo);
         if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
             CarruselCiclico = false;
         }
@@ -418,7 +418,7 @@ function SeccionMostrarProductos(data) {
     }
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.carruselIndividualesv2) {
 
-        console.log('objBannerCajaProducto - data.Seccion.TipoPresentacion ', CONS_TIPO_PRESENTACION.carruselIndividualesv2, CarruselCiclico);
+        //console.log('RenderCarruselSimpleV2 - data.Seccion.TipoPresentacion ', CONS_TIPO_PRESENTACION.carruselIndividualesv2, CarruselCiclico);
         RenderCarruselSimpleV2(htmlSeccion, CarruselCiclico, true);
     }
 }
@@ -591,22 +591,28 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
         return false;
 
     vw = vw || true;
+    //console.log(divProd.find(sElementos.listadoProductos));
+    divProd.find(sElementos.listadoProductos).attr("class", "contenedor_carrusel");
+    //$('[data-item=46349] .producto_img img').load(function () {
+    //    console.log('me cargo puto!!!');
+    //});
+
 
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
-
+    var esMobile = isMobile();
     divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
     divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
         lazyLoad: "ondemand",
         infinite: cc == undefined ? true : cc,
         vertical: false,
-        slidesToShow: isMobile() ? 2 : 3,
+        slidesToShow: esMobile ? 2 : 3,
         slidesToScroll: 1,
         autoplay: false,
         variableWidth: vw,
         speed: 260,
-        arrows: false
-        //prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
-        //nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
+        arrows: !esMobile,
+        prevArrow: '<a  class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
+        nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         
         VerificarClick(slick, currentSlide, nextSlide, "normal");
@@ -661,4 +667,3 @@ function VerificarClick(slick, currentSlide, nextSlide, source) {
         }
     }
 }
-

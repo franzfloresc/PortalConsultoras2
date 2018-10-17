@@ -29,9 +29,11 @@
     margin: 0;
 }
 
+.producto_contenido {
+    width: 127px;
+}
 .nombre_producto_item {
     font-weight: bold;
-    width: 127px;
     height: 37px;
     padding-bottom: 4px;
     margin: 0;
