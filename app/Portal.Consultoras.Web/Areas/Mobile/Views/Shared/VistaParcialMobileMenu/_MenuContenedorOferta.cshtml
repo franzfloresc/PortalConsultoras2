@@ -7,80 +7,19 @@
     var menuActivo = (MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new MenuContenedorModel();
     menuActivo.ConfiguracionPais = menuActivo.ConfiguracionPais ?? new ConfiguracionPaisModel();
     menuActivo.ConfiguracionPais.MobileFondoBanner = Util.Trim(menuActivo.ConfiguracionPais.MobileFondoBanner);
-    var estiloFondoBanner = menuActivo.ConfiguracionPais.MobileFondoBanner != "" ? "style=background:url(" + menuActivo.ConfiguracionPais.MobileFondoBanner + ");" : "";
-
-    var classMenuX = menuActivo.CampaniaId == menuActivo.CampaniaX0 ? "desplegable activo" : "desplegable";
-    var classMenuX1 = menuActivo.CampaniaId == menuActivo.CampaniaX1 ? "desplegable activo" : "desplegable";
-    var classMenuInfo = menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion ? "desplegable activo" : "desplegable";
 }
 
 <div id="seccion-menu-mobile">
     <div id="seccion-fixed-menu" class="agregarPosicionRelativa" style="z-index: 10; width: 100%;">
-        @*<div id="seccion-banner-mobile" class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
-                @if (!ViewBag.TieneRevistaDigital)
-                {
-                    if (Util.Trim(menuActivo.ConfiguracionPais.MobileLogoBanner) != "")
-                    {
-                        <div class="bc_mobile-logo" style="display: none;">
-                            <img src="@menuActivo.ConfiguracionPais.MobileLogoBanner" alt="" />
-                        </div>
-                    }
-                    if (Util.Trim(menuActivo.ConfiguracionPais.MobileTituloBanner) != "" || Util.Trim(menuActivo.ConfiguracionPais.MobileSubTituloBanner) != "")
-                    {
-                        <div class="bc_mobile-texto" style="display: none;">
-                            <div class="mobile-txt">
-                                @if (Util.Trim(menuActivo.ConfiguracionPais.MobileTituloBanner) != "")
-                                {
-                                    <p>@menuActivo.ConfiguracionPais.MobileTituloBanner</p>
-                                }
-                                @if (Util.Trim(menuActivo.ConfiguracionPais.MobileSubTituloBanner) != "")
-                                {
-                                    <span>@menuActivo.ConfiguracionPais.MobileSubTituloBanner</span>
-                                }
-                            </div>
-                        </div>
-                    }
-                    <div class="clear"></div>
-                }
-                @if (menuActivo.CampaniaX0 > 0)
-                {
-                    <div class="bc_para_ti-menu op_menu-horizontal" data-layout-menu1="">
-                        <ul>
-                            <li data-campania="@menuActivo.CampaniaX0" data-codigo="1"
-                                onclick="menuModule.tabClick(this, '@Url.Action("Index", "Ofertas", new {area = "Mobile"})', '@menuActivo.NombreOrigenPantalla')">
-                                <a class="@classMenuX">
-                                    <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default">
-                                    <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="hover" style="display: none;">
-                                    <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="click-menu" style="display: none;">
-                                    <span>C-@menuActivo.CampaniaX0ConFormato</span>
-                                </a>
-                            </li>
-                            @if (!ViewBag.TieneRDI)
-                            {
-                                <li data-campania="@menuActivo.CampaniaX1" data-codigo="2"
-                                    onclick="menuModule.tabClick(this, '@Url.Action("Revisar", "Ofertas", new { area = "Mobile" })', '@menuActivo.NombreOrigenPantalla')">
-                                    <a class="@classMenuX1">
-                                        <img src="@Url.Content("~/Content/Images/ojito.png")" alt="" class="default">
-                                        <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="hover" style="display: none;">
-                                        <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="click-menu" style="display: none;">
-                                        <span>V-@menuActivo.CampaniaX1ConFormato</span>
-                                    </a>
-                                </li>
-                            }
-                            <li data-campania="0" data-codigo="3" onclick="menuModule.tabClick(this, '@Url.Action("Informacion", "RevistaDigital", new {area = "Mobile"})', '@menuActivo.NombreOrigenPantalla')">
-                                <a class="@classMenuInfo">
-                                    <span>SABER MÁS</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                }
-            </div>*@
         @if (menuList.Any())
         {
             <div data-layout-menu2="" class="slick-slider-fixed-mobile">
                 <div class="bc_para_ti-menu-opciones">
-                    <ul class="subnavegador" style="width: 100%; height: 45px; background: #fff;" data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()" data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
+                    <ul class="subnavegador" 
+                        style="width: 100%; height: 45px; background: #fff;" 
+                        data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()" 
+                        data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
+
                         @foreach (var menuhijo in menuList)
                         {
                             var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activado" : string.Empty;
@@ -88,33 +27,51 @@
                             {
                                 claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activado-dorado" : "default-dorado";
                             }
-                            <li data-campania="@menuhijo.CampaniaId" data-activo="1"
+                            <li data-campania="@menuhijo.CampaniaId" 
+                                data-activo="1"
                                 data-codigo="@menuhijo.Codigo"
                                 data-es-ancla="@menuhijo.EsAncla"
                                 onclick="menuModule.menuClick(this, '@menuhijo.UrlMenuMobile')">
 
-                                <a href="javascript:;" class="@claseActivo" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu">
+                                <a href="javascript:;" 
+                                   class="@claseActivo" 
+                                   role="menu" 
+                                   region="Lateral" 
+                                   parent="Contenedor - @menuActivo.NombreOrigenPantalla" 
+                                   title="@menuhijo.DesktopSubTituloMenu">
+
                                     @if (!string.IsNullOrEmpty(menuhijo.DesktopLogoMenu))
                                     {
-
-                                        @*<span class="opcion_home_vistaOfertas">
-                                                <img src="@menuhijo.MobileLogoMenu" alt="Inicio" class="icono-submenu-tabs icono-logo-submenu-tabs" style="display: inline !important" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" />
-                                            </span>*@
-
                                         if (menuhijo.Codigo == menuActivo.Codigo)
                                         {
+                                            <img src="@menuhijo.DesktopLogoMenu" 
+                                                 alt="Inicio" 
+                                                 class="imgSeleccionado icono-submenu-tabs icono-logo-submenu-tabs" 
+                                                 style="display: inline !important" 
+                                                 role="menu" 
+                                                 region="Lateral" 
+                                                 parent="Contenedor - @menuActivo.NombreOrigenPantalla" 
+                                                 title="@menuhijo.DesktopSubTituloMenu" />
 
-                                            <img src="@menuhijo.DesktopLogoMenu" alt="Inicio" class="imgSeleccionado icono-submenu-tabs icono-logo-submenu-tabs" style="display: inline !important" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" />
-                                            <img src="@menuhijo.DesktopLogoMenuNoActivo" alt="Inicio" class="imgNoSeleccionado ocultar icono-submenu-tabs icono-logo-submenu-tabs" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" />
-
+                                            <img src="@menuhijo.DesktopLogoMenuNoActivo" 
+                                                 alt="Inicio" 
+                                                 class="imgNoSeleccionado ocultar icono-submenu-tabs icono-logo-submenu-tabs" 
+                                                 role="menu" 
+                                                 region="Lateral" 
+                                                 parent="Contenedor - @menuActivo.NombreOrigenPantalla" 
+                                                 title="@menuhijo.DesktopSubTituloMenu" />
                                         }
                                         else
                                         {
-                                            <img src="@menuhijo.DesktopLogoMenuNoActivo" alt="Inicio" class="icono-submenu-tabs icono-logo-submenu-tabs" style="display: inline !important" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" />
-
+                                            <img src="@menuhijo.DesktopLogoMenuNoActivo" 
+                                                 alt="Inicio" 
+                                                 class="icono-submenu-tabs icono-logo-submenu-tabs" 
+                                                 style="display: inline !important" 
+                                                 role="menu" 
+                                                 region="Lateral" 
+                                                 parent="Contenedor - @menuActivo.NombreOrigenPantalla" 
+                                                 title="@menuhijo.DesktopSubTituloMenu" />
                                         }
-
-
 
                                     }
                                     else
