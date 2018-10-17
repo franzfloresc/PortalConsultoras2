@@ -8,16 +8,6 @@ begin
 
 		set @ConfiguracionPaisPeruID = (select ConfiguracionPaisID from dbo.configuracionpais where codigo = 'MG');
 		
-		update 
-			dbo.configuracionofertashome 
-		set 
-			 desktoporden		= desktoporden		- 1
-			,mobileorden		= mobileorden		- 1
-			,desktopordenbpt	= desktopordenbpt	- 1
-			,mobileordenbpt		= mobileordenbpt	- 1
-		where 
-			not desktoporden in(0,1);
-
 		delete from dbo.configuracionofertashome where ConfiguracionPaisID = @ConfiguracionPaisPeruID;
 	end;
 end;
@@ -32,16 +22,6 @@ begin
 
 		set @ConfiguracionPaisChileID = (select ConfiguracionPaisID from dbo.configuracionpais where codigo = 'MG');
 		
-		update 
-			dbo.configuracionofertashome 
-		set 
-			 desktoporden		= desktoporden		- 1
-			,mobileorden		= mobileorden		- 1
-			,desktopordenbpt	= desktopordenbpt	- 1
-			,mobileordenbpt		= mobileordenbpt	- 1
-		where 
-			not desktoporden in(0,1);
-
 		delete from dbo.configuracionofertashome where ConfiguracionPaisID = @ConfiguracionPaisChileID;
 	end;
 end;
@@ -56,16 +36,6 @@ begin
 
 		set @ConfiguracionPaisCostaRicaID = (select ConfiguracionPaisID from dbo.configuracionpais where codigo = 'MG');
 		
-		update 
-			dbo.configuracionofertashome 
-		set 
-			 desktoporden		= desktoporden		- 1
-			,mobileorden		= mobileorden		- 1
-			,desktopordenbpt	= desktopordenbpt	- 1
-			,mobileordenbpt		= mobileordenbpt	- 1
-		where 
-			not desktoporden in(0,1);
-
 		delete from dbo.configuracionofertashome where ConfiguracionPaisID = @ConfiguracionPaisCostaRicaID;
 	end;
 end;
