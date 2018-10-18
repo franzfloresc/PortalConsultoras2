@@ -1,8 +1,10 @@
 var fallingObjects = new Array();
 var listaIconoLluvia = listaIconoLluvia || null;
+var iconoLluvia = iconoLluvia || null;
 var esMobile = esMobile || false;
 var vfallSpeed = vfallSpeed || 15;
 var vnumObjects = vnumObjects || 100;
+var noIniciarLluvia = noIniciarLluvia || false;
 
 var closeImagenRain = 0;    //si es 0 se mostrara,
 var timeCloseRain = timeCloseRain || 30000;   //tiempo de visualización del efecto
@@ -16,37 +18,55 @@ var numObjects = vnumObjects,
 var heightIcon = esMobile ? 7 : 15;
 var widthIcon = esMobile ? 7 : 15;
 
-if (listaIconoLluvia != null) {
-    var par = 0;
-    $.each(listaIconoLluvia, function (index, value) {
-        newObject(value, heightIcon, widthIcon);
-    });
-}
-else {
-    if (esShowRoom) {
-        newObject(iconoLluvia, 22, 22);
-        newObject(iconoLluvia, 35, 35);
-    }
-    else {
-        newObject(iconoLluvia, heightIcon, widthIcon);
-        newObject(iconoLluvia, heightIcon, widthIcon);
-    }
-}
-
 var objects = new Array(),
-	winOffset = 0,
-	winHeightSR, winWidthSR, togvis, moz = (document.getElementById && !document.all) ? 1 : 0;
-winSize();
-for (i = 0; i < numObjects; i++) {
-    fallObject(i, parseInt(Math.random() * fallingObjects.length), 1);
+    timer,
+    winOffset = 0,
+    winHeightSR, winWidthSR, togvis, moz = (document.getElementById && !document.all) ? 1 : 0;
+
+function mostrarLluvia() {
+    closeImagenRain = 0;
+    if (listaIconoLluvia != null) {
+        var par = 0;
+        $.each(listaIconoLluvia, function (index, value) {
+            newObject(value, heightIcon, widthIcon);
+        });
+    }
+    else if (iconoLluvia != null) {
+        if (esShowRoom) {
+            newObject(iconoLluvia, 22, 22);
+            newObject(iconoLluvia, 35, 35);
+        } else {
+            newObject(iconoLluvia, heightIcon, widthIcon);
+            newObject(iconoLluvia, heightIcon, widthIcon);
+        }
+    } else {
+        return;
+    }
+
+    winSize();
+    for (i = 0; i < numObjects; i++) {
+        fallObject(i, parseInt(Math.random() * fallingObjects.length), 1);
+    }
+
+    fall();
+
+    timer = setTimeout(function () {
+        hideImages();
+    }, timeCloseRain);
+
 }
 
-fall();
+function ocultarLluvia() {
+    if (timer) {
+        clearTimeout(timer);
+    }
+    hideImages();
+}
 
-setTimeout(function () {
+function hideImages() {
     closeImagenRain = 1;
     $("img[id^='fO']").hide();
-}, timeCloseRain);
+}
 
 function newObject(url, height, width) {
     fallingObjects[fallingObjects.length] = new Array(url, height, width);
@@ -90,4 +110,8 @@ function fall() {
         setTimeout("fall()", 15);
         $("img[id^='fO']").show();
     }
+}
+
+if (!noIniciarLluvia) {
+    mostrarLluvia();
 }

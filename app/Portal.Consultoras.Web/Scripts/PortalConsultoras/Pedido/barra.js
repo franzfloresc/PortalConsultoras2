@@ -626,6 +626,7 @@ function showPopupNivelSuperado(barra, prevTotal) {
     if (tippingPoint > 0) {
         var superaRegalo = tippingPoint <= dataBarra.TotalPedido && tippingPoint > prevTotal;
         if (superaRegalo) {
+            mostrarLluvia();
             alert('alcanzo regalo');
             // show popup regalo
         }
@@ -633,23 +634,6 @@ function showPopupNivelSuperado(barra, prevTotal) {
         showPopupEscalaSiguiente(data.DataBarra, prevTotal);
     }
 }
-
-function showPopupSuperadotippingPoint(barra, prevTotal) {
-    if (!barra) {
-        return;
-    }
-
-    var tippingPoint = barra.TippingPoint || 0;
-
-    if (tippingPoint > 0) {
-        var superaRegalo = tippingPoint <= dataBarra.TotalPedido && tippingPoint > prevTotal;
-        if (superaRegalo) {
-            alert('alcanzo regalo tippingPoint');
-            // show popup regalo
-        }
-    } 
-}
-
 
 function showPopupEscalaSiguiente(dataBarra, prevTotal) {
     if (!dataBarra || !dataBarra.ListaEscalaDescuento) return false;
@@ -664,6 +648,7 @@ function showPopupEscalaSiguiente(dataBarra, prevTotal) {
                 var content = '¡FELICIDADES!  LLEGASTE AL #porcentaje% Dscto.';
                 content = content.replace('#porcentaje', escala.PorDescuento);
 
+                mostrarLluvia();
                 alert(content);
                 // show popup
                 return true;
