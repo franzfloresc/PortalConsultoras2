@@ -306,7 +306,7 @@ namespace Portal.Consultoras.Web.Providers
                             var existe = false;
                             foreach (var itemR in listaComponentes)
                             {
-                                existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv);
+                                existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv || h.Grupo == hermano.Grupo);
                                 if (existe) break;
                             }
                             if (existe) continue;

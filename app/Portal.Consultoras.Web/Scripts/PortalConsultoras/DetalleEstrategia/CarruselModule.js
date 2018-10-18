@@ -220,22 +220,17 @@
             }
         });        
     }
-    var _initSlideArrowCarrusel = function () {  ///cuando el usuario hace clic sobre las flechas del carrusel.
+    var _initSlideArrowCarrusel = function () {  //cuando el usuario hace clic sobre las flechas del carrusel.
 
         var containerItemsSlick = $(".slick-arrow");
         $(containerItemsSlick).click(function (e) {
             EstablecerAccionLazyImagen(_elementos.divCarruselProducto + " " + _elementos.dataLazy);
-            //_initArraysCarrusel();
             _agregaNewCuvActivo();
             setCarruselMarcacionAnalytics = multiDimensionalUnico(setCarruselMarcacionAnalytics);
             marcaCuvsActivos();
             _marcarSwipeCarrusel();
         });
-        //quita duplicados
-        //setCarruselMarcacionAnalytics = multiDimensionalUnico(setCarruselMarcacionAnalytics);
-        //marcaCuvsActivos();
-        //Hace la marcación a analytics
-        //_marcarSwipeCarrusel();
+
     }
     function _agregaNewCuvActivo() {
         var containterSlickActive = $(".slick-active");
