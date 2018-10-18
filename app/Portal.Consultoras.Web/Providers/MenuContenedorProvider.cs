@@ -148,6 +148,9 @@ namespace Portal.Consultoras.Web.Providers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     menuActivo.MostrarMenuFlotante = false;
                     break;
+                case Constantes.UrlMenuContenedor.DetalleMasGanadoras:
+                    menuActivo.MostrarMenuFlotante = false;
+                    break;
                 case Constantes.UrlMenuContenedor.MasGanadorasIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.MasGanadoras;
                     break;
@@ -328,12 +331,22 @@ namespace Portal.Consultoras.Web.Providers
             var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
 
             if (menuContenedor.Any() || !configuracionesPais.Any())
+            {
+                foreach (var item in menuContenedor)
+                {
+                    if (item.Codigo == Constantes.ConfiguracionPais.MasGanadoras)
+                    {
+                        item.UrlMenu = sessionManager.MasGanadoras.GetModel().TieneLanding ? "MasGanadoras" : "#";
+                    }
+                }
                 return menuContenedor;
+            }
 
             menuContenedor = new List<ConfiguracionPaisModel>();
             configuracionesPais = configuracionesPais.Where(c => c.TienePerfil).ToList();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var paisCarpeta = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO) ? "Esika" : "Lbel";
+
             foreach (var confiModel in configuracionesPais)
             {
                 var config = confiModel;

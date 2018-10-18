@@ -229,7 +229,7 @@ $(document).ready(function () {
     CargarCarouselLiquidaciones();
     CargarMisCursos();
     CargarBanners();
-    //CargarCatalogoPersonalizado();
+
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
@@ -1475,7 +1475,7 @@ function CargarMisDatos() {
         error: function (data, error) { }
     });
 }
-///
+
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
@@ -1490,7 +1490,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     }
 };
-///
+
 function CambiarContrasenia() {
     var oldPassword = $("#txtContraseniaAnterior").val();
     var newPassword01 = $("#txtNuevaContrasenia01").val();
@@ -1555,12 +1555,6 @@ function CambiarContrasenia() {
                             $(".campos_actualizarDatos").delay(200);
                             $(".campos_actualizarDatos").fadeIn(200);
                             alert("Se cambió satisfactoriamente la contraseña.");
-                            //var reqRedirect = getUrlParameter('verCambioClave');
-                            //if (reqRedirect != null) {
-                            //    setTimeout(function () { CerrarSesion(); }, 2000);
-                            //} else {
-                            //    setTimeout(function () { CerrarSesion(); }, 2000);
-                            //}
                         }
                         return false;
                     }

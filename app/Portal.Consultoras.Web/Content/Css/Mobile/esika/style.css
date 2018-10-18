@@ -2694,11 +2694,11 @@ table > thead > tr > th {
         font-size: 25px;
     }
 
-@media (max-width: 359px) {
+/*@media (max-width: 359px) {
     .slick-slide {
         padding: 10px !important;
     }
-}
+}*/
 
 .slick-list {
     margin: 10px;
@@ -4199,11 +4199,11 @@ table > thead > tr > th {
         width: 100%;
     }*/
 
-@media (max-width: 359px) {
+/*@media (max-width: 359px) {
     .slick-slide {
         padding: 0 !important;
     }
-}
+}*/
 
 .producto_agotado {
     position: absolute;
