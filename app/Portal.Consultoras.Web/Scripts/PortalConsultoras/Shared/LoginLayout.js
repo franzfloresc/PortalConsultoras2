@@ -255,13 +255,6 @@ function AbrirFooter(Marca, Url) {
     return false;
 }
 
-/**
- * Problema de seguridad como: 
- * Uncaught SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
- * @param storage {Storage}
- * return true|false {Bolean}
- * uso: storageIsSuport(window.localStorage)
- */
 function storageIsSuport(storage) {
     try {
         var key = "__some_random_value__";

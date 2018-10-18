@@ -450,9 +450,7 @@ function PresentarNovedadBuscador(_val, _valid) {
 
         var getStorage = localStorage.getItem('novedadBuscador');
         getStorage = getStorage == null ? 0 : getStorage;
-        /*console.log('NovedadBuscadorVisitasUsuario', NovedadBuscadorVisitasUsuario);
-        console.log('CantidadVecesInicioSesionNovedad', CantidadVecesInicioSesionNovedad);
-        console.log('getStorage', getStorage);*/
+
         if (getStorage == 0) {
             console.log('entro1', true);
             if (CantidadVecesInicioSesionNovedad > 0) {

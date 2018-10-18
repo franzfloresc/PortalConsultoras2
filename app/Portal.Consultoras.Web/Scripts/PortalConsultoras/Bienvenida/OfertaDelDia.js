@@ -394,11 +394,7 @@ var OfertaDelDiaModule = function () {
             $("body").off("click", contenedorOfertas + " [data-odd-accion]");
             $("body").on("click", contenedorOfertas + " [data-odd-accion]", function (e) {
                 var accion = $(this).attr("data-odd-accion").toUpperCase();
-                /*if (accion == CONS_TIPO_ACCION.VEROFERTA) {
-                    var urlOfertas = "/Ofertas" + (codigoAnclaOdd == "" ? "" : "#" + codigoAnclaOdd);
-                    document.location.href = urlOfertas;
-                }
-                else*/ if (accion == CONS_TIPO_ACCION.VERDETALLE) {
+                if (accion == CONS_TIPO_ACCION.VERDETALLE) {
                     $(contenedorOfertas + " #imgSoloHoy").hide();
                     $(contenedorOfertas + ' [data-odd-accion="regresar"]').show();
                     $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').hide();
