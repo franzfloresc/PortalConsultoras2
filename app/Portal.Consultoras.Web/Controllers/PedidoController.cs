@@ -1609,26 +1609,18 @@ namespace Portal.Consultoras.Web.Controllers
             var productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, CRITERIO_BUSQUEDA_PRODUCTO_CANT, criterio);
 
             var siExiste = productos.Any(p => p.CUV == term);
-
             BloqueoProductosCatalogo(ref productos);
-
             BloqueoProductosDigitales(ref productos);
 
             if (!productos.Any())
             {
-                if (siExiste)
-                {
-                    productosModel.Add(GetProductoDigital());
-                }
-                else
-                {
-                    productosModel.Add(GetProductoNoExiste());
-                }
+                if (siExiste) productosModel.Add(GetProductoDigital());
+                else productosModel.Add(GetProductoNoExiste());
+
                 return productosModel;
             }
 
             productos = productos.Take(CANTIDAD_FILAS_AUTOCOMPLETADO).ToList();
-
             var cuv = productos.First().CUV.Trim();
             var mensajeByCuv = GetMensajeByCUV(userModel, cuv);
             var tieneRdc = ValidarTieneRDoRDR();
