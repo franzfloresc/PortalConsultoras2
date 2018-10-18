@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 bool tieneOfertasPlan20 = true;
 
-                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);   
+                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Controllers
             userData.EMail = entidad.EMail;
             userData.Celular = entidad.Celular;
             userData.EMailActivo = correoNuevo == correoAnterior && userData.EMailActivo;
-            sessionManager.SetUserData(userData);
+            SessionManager.SetUserData(userData);
         }
 
         private void ActivacionCupon()
@@ -208,16 +208,16 @@ namespace Portal.Consultoras.Web.Controllers
                 svClient.UpdateCuponConsultoraEnvioCorreo(userData.PaisID, cuponBe);
             }
         }
-        
+
         private void ValidarPopupDelGestorPopups()
         {
             if (!IsMobile())
             {
-                int tipoPopup = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
+                int tipoPopup = Convert.ToInt32(SessionManager.GetTipoPopUpMostrar());
 
                 if (tipoPopup == Constantes.TipoPopUp.Cupon)
                 {
-                    sessionManager.SetTipoPopUpMostrar(0);
+                    SessionManager.SetTipoPopUpMostrar(0);
                 }
             }
         }
@@ -265,7 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ActualizarDatos(entidad, entidad.EMail);
 
                 userData.Celular = entidad.Celular;
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
             }
         }
 
@@ -274,7 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                sessionManager.SetTipoPopUpMostrar(Constantes.TipoPopUp.Ninguno);
+                SessionManager.SetTipoPopUpMostrar(Constantes.TipoPopUp.Ninguno);
 
                 return Json(new
                 {

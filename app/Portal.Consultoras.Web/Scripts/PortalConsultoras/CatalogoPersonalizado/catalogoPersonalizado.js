@@ -549,7 +549,7 @@ function AgregarProducto(item, otraFunct) {
 
     DialogLoadingAbrir();
     tieneMicroefecto = true;
-    console.log('CatalogoPersonalizado.js - AgregarProducto - ajax ante CargarCantidadProductosPedidos', 'Pedido/PedidoInsertar', item);
+
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/PedidoInsertar',
@@ -568,7 +568,7 @@ function AgregarProducto(item, otraFunct) {
                     }
 
                     if (tipoOrigen == '2') {
-                        console.log('CatalogoPersonalizado.js - AgregarProducto - ante CargarCantidadProductosPedidos');
+
                         CargarCantidadProductosPedidos();
                     }
                     else {
@@ -862,7 +862,7 @@ function AgregarProductoOfertaRevista(btn) {
 }
 
 function agregarProductoAlCarrito(o) {
-    console.log('CatalogoPersonalizado.js - agregarProductoAlCarrito', o);
+
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent().parent();
     var imagenProducto = $('.imagen_producto', contenedorItem);

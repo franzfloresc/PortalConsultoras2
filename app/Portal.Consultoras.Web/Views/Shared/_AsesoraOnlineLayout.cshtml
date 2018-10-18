@@ -17,21 +17,21 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Site-Esika-CssSB2")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Site-Lbel-CssSB2")
     }
-    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/AsesoraOnline")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-AsesoraOnline")
     <link href="@Url.Content("~/Content/Css/Site/calc.css")" rel="stylesheet" type="text/css" />
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
      var baseUrl = "@Url.Content("~")";
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
 
     @RenderSection("styles", required: false)
     <script type="text/javascript" src="https://ok383.infusionsoft.com/app/webTracking/getTrackingCode"></script>

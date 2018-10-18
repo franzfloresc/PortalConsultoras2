@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult GetJsonProgramasBelcorp()
         {
-            if (sessionManager.GetUserData() != null)
+            if (SessionManager.GetUserData() != null)
             {
                 IList<BEServicioCampania> lstTemp1;
 

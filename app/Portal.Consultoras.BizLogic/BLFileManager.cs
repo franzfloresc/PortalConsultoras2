@@ -5,7 +5,7 @@ using System.Net;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLFileManager
+    public static class BLFileManager
     {
         public static void CompressFile(string fileName, string zipFileName, string inZipFileName)
         {

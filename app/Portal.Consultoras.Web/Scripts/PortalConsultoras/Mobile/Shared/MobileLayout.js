@@ -1,10 +1,32 @@
-﻿$(function () {
+﻿$(document).on('click', function () {
+    $('.tooltip_informativo_sobre_opcion_busqueda_prod').fadeOut(100);
+});
+
+$(window).on("scroll", function () {
+    $('.tooltip_informativo_sobre_opcion_busqueda_prod').fadeOut(100);
+});
+
+$(function () {
+
+    var urlValidaIsHome = $.trim(location.pathname).toLowerCase();
+
+    if (CantidadVecesInicioSesionNovedad > 0) {
+        if (NovedadBuscadorVisitasUsuario >= 0 && NovedadBuscadorVisitasUsuario < CantidadVecesInicioSesionNovedad) {
+            if (urlValidaIsHome == '/mobile' || urlValidaIsHome == '/mobile/bienvenida') {
+                var getStorage = localStorage.getItem('novedadBuscador');
+                getStorage = getStorage == null ? 0 : getStorage;
+                if (getStorage == 0) {
+                    $('.tooltip_informativo_sobre_opcion_busqueda_prod').show();
+                    localStorage.setItem('novedadBuscador', 1);
+                }
+            }
+        }
+    }
 
     LayoutHeader();
     if (typeof menuModule !== "undefined") {
         menuModule.Resize();
     }
-
 
     OcultarChatEmtelco();
 
@@ -32,7 +54,6 @@
         $(this).parent(".alert-top").slideUp();
     });
 
-    console.log('MobileLayout.js -  - ante CargarCantidadProductosPedidos');
     CargarCantidadProductosPedidos(true);
     CargarCantidadNotificacionesSinLeer();
 
@@ -348,7 +369,7 @@ function OcultarChatEmtelco() {
         // Ocultando todo el panel de chat y container de boton
         var $CMXDhelp = $(".CMXD-help")
             , $parent = $CMXDhelp.parents(".CMXD-btn-help")
-        ;
+            ;
 
         // ocultando hijo y padre
         $CMXDhelp.hide();
@@ -821,9 +842,7 @@ function messageConfirmacion(message, fnAceptar) {
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
     noMostrarEfecto = noMostrarEfecto || false;
     var montoWebAcumulado = "";
-
-    console.log('MobileLayout.js - ajax ante num-menu-shop', urlGetCantidadProductos, { soloCantidad: true });
-
+    
     jQuery.ajax({
         type: 'POST',
         url: urlGetCantidadProductos,
@@ -846,7 +865,6 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
                         montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
                 }
 
-                console.log('MobileLayout.js - CargarCantidadProductosPedidos', data);
                 $(".num-menu-shop").html(data.cantidadProductos);
                 $(".js-span-pedidoingresado").html(montoWebAcumulado);
                 if (!noMostrarEfecto) {
@@ -1119,12 +1137,11 @@ function ValidarKitNuevas(fnSuccess) {
             if (!data.success) messageInfo('Ocurrió un error al intentar cargar el Kit de Nuevas.');
             else if ($.isFunction(fnSuccess)) fnSuccess();
         },
-        error: function() { messageInfo('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
+        error: function () { messageInfo('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
     });
 }
 
-function PopUpPrivacidadDatos()
-{
+function PopUpPrivacidadDatos() {
     $("#box-pop-up").show();
     $("#pop-up-body").customScrollbar();
 }

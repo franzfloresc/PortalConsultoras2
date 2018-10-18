@@ -102,7 +102,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void GetUserData_WhenPaidIdIsZero_ThrowArgumentException()
             {
                 // Arrange
-                var controller = new LoginController(logManager.Object,sessionManager.Object);
+                var controller = new LoginController(LogManager.Object,SessionManager.Object);
 
                 // Act
                 var result = controller.GetUserData(0, string.Empty, 0).Result;
@@ -115,7 +115,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void GetUserData_WhenCodigoUsuarioIsEmpty_ThrowArgumentException()
             {
                 // Arrange
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
 
                 // Act
                 var result = controller.GetUserData(1, string.Empty, 0).Result;
@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void GetUserData_WhenConfiguracionPaisHasGnd_UserModelTieneGndReturnsTrue()
             {
                 // Arrange
-                var controller = new LoginControllerStub(logManager.Object, sessionManager.Object);
+                var controller = new LoginControllerStub(LogManager.Object, SessionManager.Object);
 
                 // Act
        
@@ -176,12 +176,12 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisUsuario_UsuarioEsNulo_RetornaNulo()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 UsuarioModel usuario = null;
 
                 var result = controller.ConfiguracionPaisUsuario(usuario).Result;
 
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message.Contains("No puede ser nulo")),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
@@ -193,7 +193,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisUsuario_UsuarioEsPostulante_RetornaUsuarioYSeEscribeEnLog()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var usuario = new UsuarioModel
                 {
                     TipoUsuario = Constantes.TipoUsuario.Postulante
@@ -201,7 +201,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 var result = controller.ConfiguracionPaisUsuario(usuario);
 
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message.Contains("No se asigna configuracion pais para los Postulantes")),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
@@ -248,7 +248,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisUsuario_EstaActivoRevistaDigitalYRevistaDigitalIntriga_EscribeEnLog()
             {
-                var controller = new LoginControllerStub(logManager.Object,sessionManager.Object);
+                var controller = new LoginControllerStub(LogManager.Object,SessionManager.Object);
                 var usuario = new UsuarioModel
                 {
                     TipoUsuario = Constantes.TipoUsuario.Consultora,
@@ -258,7 +258,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 var result = controller.ConfiguracionPaisUsuario(usuario).Result;
 
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message.Contains("No puede estar activo configuracion pais RD y RDI a la vez.")),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
@@ -303,7 +303,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisUsuario_TieneRevistaDigitalIntriga_ActualizaRevistaDigitalModel()
             {
-                var controller = new LoginControllerStub02(logManager.Object, sessionManager.Object);
+                var controller = new LoginControllerStub02(LogManager.Object, SessionManager.Object);
                 var usuario = new UsuarioModel
                 {
                     TipoUsuario = Constantes.TipoUsuario.Consultora,
@@ -314,7 +314,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var result = controller.ConfiguracionPaisUsuario(usuario).Result;
 
                 Assert.IsNotNull(result);
-                sessionManager.Verify(x => x.SetRevistaDigital(It.Is<RevistaDigitalModel>(rd => rd.TieneRDI == true && rd.TieneRDC == false)));
+                SessionManager.Verify(x => x.SetRevistaDigital(It.Is<RevistaDigitalModel>(rd => rd.TieneRDI == true && rd.TieneRDC == false)));
             }
         }
 
@@ -324,11 +324,11 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_RevistaDigitalEsNulo_EscribeEnLog()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
 
                 var result = controller.ConfiguracionPaisDatosRevistaDigital(null, null, null);
 
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
@@ -339,7 +339,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosEsNulo_RetornaRevistaDigital()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 RevistaDigitalModel revistaDigitalModel = new RevistaDigitalModel();
 
                 var result = controller.ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, null, null);
@@ -351,7 +351,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_PaisIsoEsNulo_RetornaRevistaDigital()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>();
 
@@ -364,7 +364,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBloquearDiasAntesFacturar_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -384,7 +384,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneCantidadCampaniaEfectiva_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -404,7 +404,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneNombreComercialActiva_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -424,7 +424,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneNombreComercialNoActiva_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -444,7 +444,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialActiva_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -466,7 +466,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialNoActiva_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -488,7 +488,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoMenuInicioActiva_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -510,7 +510,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoMenuInicioNoActiva_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -532,7 +532,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialFondoActiva_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -554,7 +554,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialFondoNoActiva_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -576,7 +576,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoMenuOfertasActiva_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -596,7 +596,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoMenuOfertasNoActiva_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -616,7 +616,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBloquearPedidoRevistaImp_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -636,7 +636,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBloquearSugerenciaProducto_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -656,7 +656,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSubscripcionAutomaticaAVirtualCoach_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -676,7 +676,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBloqueoProductoDigital_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -696,7 +696,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBannerOfertasNoActivaNoSuscrita_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -717,7 +717,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBannerOfertasNoActivaSuscrita_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -738,7 +738,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBannerOfertasActivaNoSuscrita_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -759,7 +759,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBannerOfertasActivaSuscrita_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -780,7 +780,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSEExperienciaClub_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -801,7 +801,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSESuscritaNoActivaCancelarSuscripcion_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -822,7 +822,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSESuscritaActivaCancelarSuscripcion_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -847,11 +847,11 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigitalIntriga_RevistaDigitalEsNulo_EscribeEnLog()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
 
                 var result = controller.ConfiguracionPaisDatosRevistaDigitalIntriga(null, null, null);
 
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
@@ -862,11 +862,11 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigitalIntriga_ListaDatosEsNulo_EscribeEnLog()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
 
                 var result = controller.ConfiguracionPaisDatosRevistaDigitalIntriga(new RevistaDigitalModel(), null, null);
 
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
@@ -877,13 +877,13 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigitalIntriga_PaisIsoEsNulo_EscribeEnLog()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>();
 
                 var result = controller.ConfiguracionPaisDatosRevistaDigitalIntriga(rdModel, listaDatos, null);
 
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
@@ -894,7 +894,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigitalIntriga_ListaDatosTieneLogoMenuOfertas_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -916,7 +916,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigitalIntriga_ListaDatosTieneLogoComercial_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -939,7 +939,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigitalIntriga_ListaDatosTieneLogoComercialFondo_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -962,7 +962,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigitalIntriga_ListaDatosTieneNombreComercial_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -983,7 +983,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigitalIntriga_ListaDatosTieneBloqueoProductoDigitalActivo_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -1004,7 +1004,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigitalIntriga_ListaDatosNoTieneBloqueoProductoDigital_SeActualizaRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
                 var listaDatos = new List<BEConfiguracionPaisDatos>
                 {
@@ -1025,7 +1025,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [ExpectedExceptionWithMessage(typeof(ArgumentNullException), "No puede ser nulo.\r\nParameter name: revistaDigital")]
             public void FormatTextConfiguracionPaisDatosModel_RevistaDigitalEsNulo_LanzaException()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var revistaModel = (RevistaDigitalModel)null;
 
                 controller.FormatTextConfiguracionPaisDatosModel(revistaModel,string.Empty);
@@ -1035,7 +1035,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [ExpectedExceptionWithMessage(typeof(ArgumentNullException), "No puede ser nulo o vacío.\r\nParameter name: nombreConsultora")]
             public void FormatTextConfiguracionPaisDatosModel_NombreConsultoraEsNulo_LanzaException()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var revistaModel = new RevistaDigitalModel();
 
                 controller.FormatTextConfiguracionPaisDatosModel(revistaModel, string.Empty);
@@ -1044,7 +1044,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void FormatTextConfiguracionPaisDatosModel_RevistaDigitalModelNoTieneConfiguracionDatos_ReturnRevistaDigitalModel()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var revistaModel = new RevistaDigitalModel {
                     ConfiguracionPaisDatos=null
                 };
@@ -1057,7 +1057,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void FormatTextConfiguracionPaisDatosModel_RevistaDigitalModelTieneConfiguracionDatos_ReturnRevistaDigitalModelTextosFormateados()
             {
-                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var revistaModel = new RevistaDigitalModel
                 {
                     NombreConsultora="Consultora de Prueba" ,                   

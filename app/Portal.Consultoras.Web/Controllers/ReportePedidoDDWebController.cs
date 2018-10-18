@@ -772,7 +772,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string[] lista = new string[21];
 
-            sessionManager.SetPaisID(userData.PaisID);
+            SessionManager.SetPaisID(userData.PaisID);
 
             lista[0] = vPaisISO; lista[1] = vCampaniaCod; lista[2] = vConsultoraCod; lista[3] = vConsultoraNombre;
             lista[4] = vUsuarioNombre; lista[5] = vOrigen; lista[6] = vValidado; lista[7] = vSaldo;
@@ -868,14 +868,15 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var i = 0;
-                list.Update(p=>{
+                list.Update(p =>
+                {
                     p.NroRegistro = (i + 1).ToString();
                     p.paisISO = model.CodigoISO;
                     p.TipoProceso = p.OrigenNombre;
                     i++;
 
                 });
-           
+
             }
             catch (Exception ex)
             {
@@ -889,9 +890,9 @@ namespace Portal.Consultoras.Web.Controllers
         private List<BEPedidoDDWeb> GetPedidoWebDDDetalle(FiltroReportePedidoDDWebModel model)
         {
             AjustarModel(model);
-            if (sessionManager.GetPedidoWebDDDetalleConf() == model.UniqueId) return sessionManager.GetPedidoWebDDDetalle();
+            if (SessionManager.GetPedidoWebDDDetalleConf() == model.UniqueId) return SessionManager.GetPedidoWebDDDetalle();
 
-            sessionManager.SetPedidoWebDDDetalleConf(model.UniqueId);
+            SessionManager.SetPedidoWebDDDetalleConf(model.UniqueId);
             List<BEPedidoDDWeb> list;
             try
             {
@@ -906,14 +907,14 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 list = new List<BEPedidoDDWeb>();
             }
-            sessionManager.SetPedidoWebDDDetalle(list);
+            SessionManager.SetPedidoWebDDDetalle(list);
             return list;
         }
 
         private void AjustarModel(FiltroReportePedidoDDWebModel model)
         {
             if (model.RegionID == "" || model.RegionID == "-- Todas --") model.RegionID = null;
-           
+
             if (model.Campania == null) model.EsPrimeraBusqueda = true;
             model.CodigoISO = Util.GetPaisISO(Convert.ToInt32(model.PaisID));
         }

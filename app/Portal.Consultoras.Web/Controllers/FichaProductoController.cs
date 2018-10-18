@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public FichaProductoController()
         {
-            _vcFichaProductoProvider = new VCFichaProductoProvider(userData.PaisID, userData.CodigoISO);
+            _vcFichaProductoProvider = new VCFichaProductoProvider();
         }
 
         [HttpGet]
@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var lst = _vcFichaProductoProvider.ConsultarFichaProductoPorCuv(listaPedido, cuv, campanaId);
                     var producto = _vcFichaProductoProvider.FichaProductoFormatearModelo(lst, listaPedido).SingleOrDefault();
                     producto = _vcFichaProductoProvider.FichaProductoHermanos(producto, listaPedido, userData.CampaniaID);
-                    sessionManager.SetFichaProductoTemporal(producto);
+                    SessionManager.SetFichaProductoTemporal(producto);
                     return Json(producto, JsonRequestBehavior.AllowGet);
                 }
             }

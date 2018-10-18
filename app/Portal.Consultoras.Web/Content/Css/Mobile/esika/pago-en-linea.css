@@ -3,11 +3,11 @@
 
 @font-face {
   font-family: 'somos-belcorp-iconos';
-  src:  url('../../Site/fonts/icomoon/somos-belcorp-iconos.eot?3epbkp');
-  src:  url('../../Site/fonts/icomoon/somos-belcorp-iconos.eot?3epbkp#iefix') format('embedded-opentype'),
-    url('../../Site/fonts/icomoon/somos-belcorp-iconos.ttf?3epbkp') format('truetype'),
-    url('../../Site/fonts/icomoon/somos-belcorp-iconos.woff?3epbkp') format('woff'),
-    url('../../Site/fonts/icomoon/somos-belcorp-iconos.svg?3epbkp#somos-belcorp-iconos') format('svg');
+  src:  url('/Content/Css/Site/fonts/icomoon/somos-belcorp-iconos.eot?3epbkp');
+  src:  url('/Content/Css/Site/fonts/icomoon/somos-belcorp-iconos.eot?3epbkp#iefix') format('embedded-opentype'),
+    url('/Content/Css/Site/fonts/icomoon/somos-belcorp-iconos.ttf?3epbkp') format('truetype'),
+    url('/Content/Css/Site/fonts/icomoon/somos-belcorp-iconos.woff?3epbkp') format('woff'),
+    url('/Content/Css/Site/fonts/icomoon/somos-belcorp-iconos.svg?3epbkp#somos-belcorp-iconos') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -252,7 +252,7 @@
     position: absolute;
     top: 33%;
     left: 6.45%;
-    background: url(../../../Images/flecha_volver_mobile_blanca.svg) no-repeat center center;
+    background: url(/Content/Images/flecha_volver_mobile_blanca.svg) no-repeat center center;
 }
 
 .proceso_de_pago_en_linea,
@@ -777,7 +777,7 @@
     height: 16px;
     border: 1px solid #b5b5b5;
     background: #FFF;
-    background-image:url(../../../Images/Esika/icono-pago-desactivado.svg);
+    background-image:url(/Content/Images/Esika/icono-pago-desactivado.svg);
     background-repeat:no-repeat;
     background-position:center 1.2px;
     border-radius: 100%;
@@ -795,7 +795,7 @@
 .barra_activacion.activado .control_activacion span{
     border: 1px solid #e81c36;
     color: #e81c36;
-    background-image:url(../../../Images/Esika/icono-pago.svg);
+    background-image:url(/Content/Images/Esika/icono-pago.svg);
 }
 
 .descripcion_opcion_activacion{
@@ -1220,7 +1220,7 @@
 
 .campo_num_tarjeta_credito_o_debito{
     padding-right: 46px;
-    background-image: url(../../../Images/logo-mastercard.svg);
+    background-image: url(/Content/Images/logo-mastercard.svg);
     background-position: 96% center;
     background-size:26px;
 }
@@ -1229,7 +1229,7 @@
     padding-left: 8px;
     padding-right: 23px;
     -webkit-appearance: none;
-    background-image: url(../../../Images/flecha-despliegue.svg);
+    background-image: url(/Content/Images/flecha-despliegue.svg);
     background-size: 14px;
 }
 
@@ -1325,7 +1325,7 @@
 .icono_validacion_incorrecta{
     width:26px;
     height:30px;
-    background-image:url(../../../Images/Esika/icono_fecha_no_valida.svg);
+    background-image:url(/Content/Images/Esika/icono_fecha_no_valida.svg);
     background-position:center;
     background-size:26px;
     margin-right:7px;

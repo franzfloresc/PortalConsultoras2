@@ -15,16 +15,26 @@ namespace Portal.Consultoras.Web.Providers
         private readonly EstrategiaComponenteProvider _estrategiaComponente;
         private readonly OfertaPersonalizadaProvider _ofertaPersonalizada;
         protected ISessionManager sessionManager;
-        private readonly int _paisId;
-        private readonly string _paisISO;
-
-        public VCFichaProductoProvider(int paisId, string paisIso)
+        private int _paisId
         {
-            _estrategiaComponente = new EstrategiaComponenteProvider(paisId, paisIso);
+            get
+            {
+                return sessionManager.GetUserData().PaisID;
+            }
+        }
+        private string _paisISO
+        {
+            get
+            {
+                return sessionManager.GetUserData().CodigoISO;
+            }
+        }
+
+        public VCFichaProductoProvider()
+        {
+            _estrategiaComponente = new EstrategiaComponenteProvider();
             _ofertaPersonalizada = new OfertaPersonalizadaProvider();
             sessionManager = SessionManager.SessionManager.Instance;
-            _paisId = paisId;
-            _paisISO = paisIso;
         }
 
         public List<FichaProductoModel> ConsultarFichaProductoPorCuv(List<BEPedidoWebDetalle> listaPedido, string cuv = "", int campanaId = 0)

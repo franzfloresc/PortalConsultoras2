@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
 
-                sessionManager.SetPedidosFacturados(model);
+                SessionManager.SetPedidosFacturados(model);
             }
             catch (FaultException ex)
             {
@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new PedidoWebMobilModel();
             try
             {
-                var pedidosFacturados = sessionManager.GetPedidosFacturados();
+                var pedidosFacturados = SessionManager.GetPedidosFacturados();
                 if (pedidosFacturados == null) return PartialView("Detalle", model);
 
                 var pedidoWebMobile = pedidosFacturados.ListaPedidoCliente.FirstOrDefault(p => p.CampaniaID == campaniaID && p.PedidoId == pedidoId);

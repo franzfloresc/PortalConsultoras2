@@ -289,6 +289,12 @@
   <wsdl:message name="IUsuarioService_GetVerificacionAutenticidad_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetVerificacionAutenticidadResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_EnviarSmsVerificacionAutenticidad_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSmsVerificacionAutenticidad" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EnviarSmsVerificacionAutenticidad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSmsVerificacionAutenticidadResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetConsultoraParticipaEnPrograma_InputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultoraParticipaEnPrograma" />
   </wsdl:message>
@@ -318,6 +324,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_listaProductos_OutputMessage">
     <wsdl:part name="parameters" element="tns:listaProductosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarNovedadBuscador_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarNovedadBuscador" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarNovedadBuscador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarNovedadBuscadorResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_EnviarSmsCodigo_InputMessage">
     <wsdl:part name="parameters" element="tns:EnviarSmsCodigo" />
@@ -1004,6 +1016,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad" message="tns:IUsuarioService_GetVerificacionAutenticidad_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse" message="tns:IUsuarioService_GetVerificacionAutenticidad_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EnviarSmsVerificacionAutenticidad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsVerificacionAutenticidad" message="tns:IUsuarioService_EnviarSmsVerificacionAutenticidad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsVerificacionAutenticidadResponse" message="tns:IUsuarioService_EnviarSmsVerificacionAutenticidad_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultoraParticipaEnPrograma">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma" message="tns:IUsuarioService_GetConsultoraParticipaEnPrograma_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnProgramaResponse" message="tns:IUsuarioService_GetConsultoraParticipaEnPrograma_OutputMessage" />
@@ -1023,6 +1039,10 @@
     <wsdl:operation name="listaProductos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/listaProductos" message="tns:IUsuarioService_listaProductos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/listaProductosResponse" message="tns:IUsuarioService_listaProductos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarNovedadBuscador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscador" message="tns:IUsuarioService_ActualizarNovedadBuscador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscadorResponse" message="tns:IUsuarioService_ActualizarNovedadBuscador_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EnviarSmsCodigo">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" message="tns:IUsuarioService_EnviarSmsCodigo_InputMessage" />
@@ -1749,6 +1769,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EnviarSmsVerificacionAutenticidad">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsVerificacionAutenticidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultoraParticipaEnPrograma">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma" style="document" />
       <wsdl:input>
@@ -1787,6 +1816,15 @@
     </wsdl:operation>
     <wsdl:operation name="listaProductos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/listaProductos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarNovedadBuscador">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscador" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2950,6 +2988,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EnviarSmsVerificacionAutenticidad">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsVerificacionAutenticidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultoraParticipaEnPrograma">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma" style="document" />
       <wsdl:input>
@@ -2988,6 +3035,15 @@
     </wsdl:operation>
     <wsdl:operation name="listaProductos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/listaProductos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarNovedadBuscador">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscador" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

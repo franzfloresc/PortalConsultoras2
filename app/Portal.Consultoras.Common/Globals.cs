@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace Portal.Consultoras.Common
 {
-    public class Globals
+    public static class Globals
     {
         #region Variables miembro
         private static string _rutaImagenesRevista;
@@ -14,6 +14,7 @@ namespace Portal.Consultoras.Common
         private static int _sizeLimitImageRevista;
         private static string _urlMatriz;
         private static string _rutaCdn;
+        private static string _rutaBuscadorAPI;
         #endregion
 
         #region Propiedades
@@ -30,7 +31,7 @@ namespace Portal.Consultoras.Common
             {
                 if (string.IsNullOrEmpty(_urlMatriz))
                 {
-                    _urlMatriz = ConfigurationManager.AppSettings["Matriz"];
+                    _urlMatriz = ConfigurationManager.AppSettings["Matriz"] ?? string.Empty;
                 }
 
                 return _urlMatriz;
@@ -171,6 +172,19 @@ namespace Portal.Consultoras.Common
                 return _rutaCdn;
             }
             set { _rutaCdn = value; }
+        }
+
+        public static string RutaServiceBuscadorAPI
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_rutaBuscadorAPI))
+                {
+                    return ConfigurationManager.AppSettings["RutaServiceBuscadorAPI"] ?? String.Empty;
+                }
+                return _rutaBuscadorAPI;
+            }
+            set { _rutaBuscadorAPI = value; }
         }
 
         #endregion

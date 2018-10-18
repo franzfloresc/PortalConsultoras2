@@ -14,11 +14,15 @@ namespace Portal.Consultoras.Web.Providers
     {
         protected ConfiguracionManagerProvider _configuracionManager;
 
-        public BaseProvider()
+        public BaseProvider() : this(new ConfiguracionManagerProvider())
         {
-            _configuracionManager = new ConfiguracionManagerProvider();
         }
-        
+
+        public BaseProvider(ConfiguracionManagerProvider configuracionManagerProvider)
+        {
+            _configuracionManager = configuracionManagerProvider;
+        }
+
         public string GetFormatDecimalPais(string isoPais)
         {
             var listaPaises = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.KeyPaisFormatDecimal);

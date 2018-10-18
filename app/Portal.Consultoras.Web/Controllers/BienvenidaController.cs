@@ -14,14 +14,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
+        private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        protected Providers.TablaLogicaProvider _tablaLogica;
+
         public BienvenidaController()
         {
-
+            _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
+            _tablaLogica = new Providers.TablaLogicaProvider();
         }
 
         public BienvenidaController(ILogManager logManager)
@@ -42,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
 
-                model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
+                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.DesktopHome);
                 ViewBag.UrlImgMiAcademia = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
                 ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
@@ -138,10 +143,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var urlChile = Util.EncriptarQueryString(parametro);
                 model.UrlChileEncriptada = urlChile;
 
-                if (sessionManager.GetPrimeraVezSession() != null && (int)sessionManager.GetPrimeraVezSession() == 0)
+                if (SessionManager.GetPrimeraVezSession() != null && (int)SessionManager.GetPrimeraVezSession() == 0)
                 {
                     model.PrimeraVezSession = 0;
-                    sessionManager.SetPrimeraVezSession(null);
+                    SessionManager.SetPrimeraVezSession(null);
                 }
                 else
                 {
@@ -191,10 +196,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                if (!sessionManager.GetActualizarDatosConsultora())
+                if (!SessionManager.GetActualizarDatosConsultora())
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
-                    sessionManager.SetActualizarDatosConsultora(true);
+                    SessionManager.SetActualizarDatosConsultora(true);
                 }
 
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
@@ -211,13 +216,22 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
-                model.MostrarPagoEnLinea = (userData.MontoDeuda <= 0 ? false : true);
-                
+                model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
+
                 #region Camino al Exito
 
-                var CaminoExito = this.ObjectCaminoExito();
-                model.TieneCaminoExito = CaminoExito.Item1;
-                model.urlCaminoExito = CaminoExito.Item2 ?? "";
+                var LogicaCaminoExisto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
+                if (LogicaCaminoExisto.Any())
+                {
+                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoDestokp) ?? new TablaLogicaDatosModel();
+                    bool caminiExitoActive = (CaminoExistoFirst != null && CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
+                    if (caminiExitoActive)
+                    {
+                        var accesoCaminoExito = this.ObjectCaminoExito();
+                        model.TieneCaminoExito = accesoCaminoExito.Item1;
+                        model.urlCaminoExito = accesoCaminoExito.Item2 ?? "";
+                    }
+                }
 
                 #endregion
 
@@ -249,12 +263,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (sessionManager.GetTipoPopUpMostrar() != -1)
+                if (SessionManager.GetTipoPopUpMostrar() != -1)
                 {
-                    var tipoPopup = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
+                    var tipoPopup = Convert.ToInt32(SessionManager.GetTipoPopUpMostrar());
                     if (tipoPopup == Constantes.TipoPopUp.AsesoraOnline)
                     {
-                        sessionManager.SetTipoPopUpMostrar(Constantes.TipoPopUp.Ninguno);
+                        SessionManager.SetTipoPopUpMostrar(Constantes.TipoPopUp.Ninguno);
                     }
                 }
 
@@ -273,7 +287,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.PopupBienvenidaCerrado = true;
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
             }
             catch (FaultException ex)
             {
@@ -317,9 +331,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var tipoPopUpMostrar = 0;
-            if (sessionManager.GetTipoPopUpMostrar() != -1)
+            if (SessionManager.GetTipoPopUpMostrar() != -1)
             {
-                tipoPopUpMostrar = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
+                tipoPopUpMostrar = Convert.ToInt32(SessionManager.GetTipoPopUpMostrar());
 
                 if (tipoPopUpMostrar != Constantes.TipoPopUp.VideoIntroductorio)
                 {
@@ -340,7 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (listaPopUps.Any())
             {
                 tipoPopUpMostrar = BuscarTipoPopupEnLista(model, listaPopUps);
-                sessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
+                SessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
             }
             return tipoPopUpMostrar;
         }
@@ -730,7 +744,7 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
 
-            sessionManager.SetUserData(userData);
+            SessionManager.SetUserData(userData);
         }
 
         public JsonResult AceptarContrato(bool checkAceptar, string origenAceptacion, string AppVersion)
@@ -789,8 +803,8 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
                 }
-                
-                sessionManager.SetAceptoContrato(true);
+
+                SessionManager.SetAceptoContrato(true);
 
                 return Json(new
                 {
@@ -982,7 +996,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                     }
 
-                    sessionManager.SetUserData(userData);
+                    SessionManager.SetUserData(userData);
                 }
             }
             catch (FaultException ex)
@@ -1690,13 +1704,13 @@ namespace Portal.Consultoras.Web.Controllers
                 return 1;
 
             int validacion;
-            if (sessionManager.GetSuenioNavidad() == -1)
+            if (SessionManager.GetSuenioNavidad() == -1)
             {
                 using (var svc = new PedidoServiceClient())
                 {
                     validacion = svc.ValidarSuenioNavidad(entidad);
                 }
-                sessionManager.SetSuenioNavidad(validacion);
+                SessionManager.SetSuenioNavidad(validacion);
             }
             else
             {
@@ -1828,8 +1842,8 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
-                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+                var mostrarShowRoomProductos = SessionManager.GetMostrarShowRoomProductos();
+                var mostrarShowRoomProductosExpiro = SessionManager.GetMostrarShowRoomProductosExpiro();
 
                 mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
                 mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
@@ -1940,7 +1954,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult CerrarMensajeEstadoPedido()
         {
             userData.CerrarRechazado = 1;
-            sessionManager.SetUserData(userData);
+            SessionManager.SetUserData(userData);
             return Json(userData.CerrarRechazado);
         }
 
@@ -1950,7 +1964,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.CerrarBannerPostulante = 1;
-                sessionManager.SetUserData(userData);
+                SessionManager.SetUserData(userData);
                 return Json(new
                 {
                     success = true
@@ -2186,7 +2200,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (tipo == "sr")
                 {
-                    sessionManager.SetUserData(userData);
+                    SessionManager.SetUserData(userData);
                     controlador = "ShowRoom";
                     accion = AccionControlador("sr", true);
                 }
@@ -2217,7 +2231,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     case "sr":
                         controlador = "ShowRoom";
-                        var esVenta = (sessionManager.GetMostrarShowRoomProductos());
+                        var esVenta = (SessionManager.GetMostrarShowRoomProductos());
                         accion = esVenta ? "Index" : "Intriga";
                         break;
                 }
@@ -2346,48 +2360,6 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioModificacion = cuponBe.UsuarioModificacion,
                 TipoCupon = cuponBe.TipoCupon
             };
-        }
-
-        public virtual PartialSectionBpt GetPartialSectionBptModel(RevistaDigitalModel revistaDigital)
-        {
-            var partial = new PartialSectionBpt();
-
-            try
-            {
-                if (revistaDigital == null)
-                    return partial;
-
-                partial.RevistaDigital = revistaDigital;
-
-                if (revistaDigital.TieneRDC && revistaDigital.EsActiva && revistaDigital.EsSuscrita)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaActiva);
-                }
-                else if (revistaDigital.TieneRDC && revistaDigital.EsActiva && !revistaDigital.EsSuscrita)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaActiva);
-                }
-                else if (revistaDigital.TieneRDC && !revistaDigital.EsActiva && revistaDigital.EsSuscrita)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaNoActiva);
-                }
-                else if (revistaDigital.TieneRDC && !revistaDigital.EsActiva && !revistaDigital.EsSuscrita)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaNoActiva);
-                }
-                else if (revistaDigital.TieneRDI)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO, "LoginController.GetPartialSectionBptModel");
-            }
-
-            partial.ConfiguracionPaisDatos = partial.ConfiguracionPaisDatos ?? new ConfiguracionPaisDatosModel();
-            return partial;
         }
 
         public string ObtenerActualizacionEmail()

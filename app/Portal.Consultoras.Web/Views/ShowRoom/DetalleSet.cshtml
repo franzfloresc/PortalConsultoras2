@@ -1,4 +1,4 @@
-﻿@using Portal.Consultoras.Common
+﻿@*@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
 
 @{
@@ -72,7 +72,7 @@
                 <hr class="clear">
             </div>
             <div class="content_detalle_set detailItem" style="@styleWidth">
-                <div data-campos="" style="display: none;" @*data-estrategiaJson="@Json.Encode(Model)"*@>
+                <div data-campos="" style="display: none;" @*data-estrategiaJson="@Json.Encode(Model)"
                     <input type="hidden" class="hdOfertaShowRoomID" value="@Model.EstrategiaID" />
                     <input type="hidden" class="valorCuv" value="@Model.CUV" />
                     <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
@@ -240,7 +240,7 @@
                                 }
                             }
                         </div>
-                    }*@
+                    }
             }
         </div>
         <hr class="clear" />
@@ -253,7 +253,7 @@
     <div class="content_belcorp" style="width: 85%">
         <div class="titulo_carrusel_showroom"><b>VER MÁS SETS </b>EXCLUSIVOS PARA TI</div>
         <div class="responsive" style="margin-left: 10em;">
-            @*@{ var posicionx = 1; }
+            @{ var posicionx = 1; }
                 @foreach (var oferta in Model.ListaOfertaShowRoom)
                 {
                     var descripcion = oferta.Descripcion;
@@ -302,7 +302,7 @@
                     {
                         posicionx++;
                     }
-                }*@
+                }
         </div>
     </div>
 </div>
@@ -392,7 +392,7 @@
                     <div class="legal_footer_compra">@Model.TextoDescripcionLegalCpc</div>
                 </div>
             </div>
-        }*@
+        }
 }
 
 @section scripts{
@@ -413,5 +413,5 @@
 
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
-}
+}*@
 

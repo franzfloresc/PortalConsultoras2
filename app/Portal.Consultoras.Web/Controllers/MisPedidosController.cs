@@ -226,9 +226,9 @@ namespace Portal.Consultoras.Web.Controllers
                 BarraConsultoraModel dataBarra = new BarraConsultoraModel();
                 try
                 {
-                    sessionManager.SetObservacionesProl(null);
-                    sessionManager.SetDetallesPedido(null);
-                    sessionManager.SetDetallesPedidoSetAgrupado(null);
+                    SessionManager.SetObservacionesProl(null);
+                    SessionManager.SetDetallesPedido(null);
+                    SessionManager.SetDetallesPedidoSetAgrupado(null);
                     UpdPedidoWebMontosPROL();
                     dataBarra = GetDataBarra();
                 }
@@ -506,9 +506,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Descuento", userData.Simbolo + " #Descuento"},
                 {"Importe a Pagar", userData.Simbolo + " #ImportePagar"}
             };
-
-            //string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
-
+            
             ExportToExcelMultipleFacturado("PedidosWebExcel", lst, dicCabeceras, dicDetalles, vTotalParcial, vFlete, vTotalFacturado);
             return new EmptyResult();
         }
@@ -768,10 +766,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
 
-            var listx = sessionManager.GetMisPedidosDetallePorCampania();
-            string campSes = sessionManager.GetMisPedidosDetallePorCampaniaCampania();
-            string estadoCombo = sessionManager.GetMisPedidosDetallePorCampaniaEstado();
-            int pedidoIdSesion = sessionManager.GetMisPedidosDetallePorCampaniaPedidoId();
+            var listx = SessionManager.GetMisPedidosDetallePorCampania();
+            string campSes = SessionManager.GetMisPedidosDetallePorCampaniaCampania();
+            string estadoCombo = SessionManager.GetMisPedidosDetallePorCampaniaEstado();
+            int pedidoIdSesion = SessionManager.GetMisPedidosDetallePorCampaniaPedidoId();
 
             if (!(listx == null || campSes == null || campSes != campaniaId || estadoCombo == null || estadoCombo != estado || pedidoIdSesion != pedidoId))
             {
@@ -844,10 +842,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
             }
 
-            sessionManager.SetMisPedidosDetallePorCampania(lst);
-            sessionManager.SetMisPedidosDetallePorCampaniaCampania(campaniaId);
-            sessionManager.SetMisPedidosDetallePorCampaniaEstado(estado);
-            sessionManager.SetMisPedidosDetallePorCampaniaPedidoId(pedidoId);
+            SessionManager.SetMisPedidosDetallePorCampania(lst);
+            SessionManager.SetMisPedidosDetallePorCampaniaCampania(campaniaId);
+            SessionManager.SetMisPedidosDetallePorCampaniaEstado(estado);
+            SessionManager.SetMisPedidosDetallePorCampaniaPedidoId(pedidoId);
 
             return lst;
         }

@@ -101,11 +101,13 @@ body {
     margin-bottom: 18px;
 }
 
-.content_detalle_showroom {
+/*
+    DEUDA TECNICA
+    .content_detalle_showroom {
     width: 100%;
     margin-top: 14px;
     overflow: hidden;
-}
+}*/
 
 .nombre_set_individual {
     font-size: 14px;
@@ -798,12 +800,12 @@ body {
 }
 
 .check_icono_mobile {
-    background: url('../../Images/Esika/icono_check_esika.svg') no-repeat;
+    background: url('/Content/Images/Esika/icono_check_esika.svg') no-repeat;
     background-size: cover;
 }
 
 .exclamacion_icono_mobile {
-    background: url('../../Images/Esika/icono_exclamacion_esika.png') no-repeat;
+    background: url('/Content/Images/Esika/icono_exclamacion_esika.png') no-repeat;
     background-size: cover;
 }
 

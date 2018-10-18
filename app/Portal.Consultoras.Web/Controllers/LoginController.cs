@@ -13,6 +13,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.Providers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -33,7 +34,9 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private string pasoLog;
         private int misCursos = 0;
-        private int flagMiAcademiaVideo = 0;  //  PPC
+        private int flagMiAcademiaVideo = 0;  
+        private string urlSapParametro = "";  //  PPC
+
         private readonly string IP_DEFECTO = "190.187.154.154";
         private readonly string ISO_DEFECTO = Constantes.CodigosISOPais.Peru;
         private readonly int USUARIO_VALIDO = 3;
@@ -73,7 +76,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (misCursos > 0)
                 {
                     sessionManager.SetMiAcademia(misCursos);
-                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  //PPC
+                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo); 
+                    sessionManager.SetMiAcademiaParametro(urlSapParametro);  //PPC
+                    
                     return RedirectToAction("Index", "MiAcademia");
                 }
 
@@ -123,7 +128,7 @@ namespace Portal.Consultoras.Web.Controllers
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
                 model.ListPaisAnalytics = GetLoginAnalyticsModel();
-      
+
             }
             catch (FaultException ex)
             {
@@ -152,29 +157,46 @@ namespace Portal.Consultoras.Web.Controllers
         {
             TempData["MiAcademia"] = 0;
             TempData["FlagAcademiaVideo"] = 0;
+            TempData["SapParametros"] = "";
             var url = (Request.Url.OriginalString).Split('?');
             if (url.Length > 1)
             {
                 var MiCurso = url[1].Split('=');
                 var MiId = MiCurso[1].Split('&');
+
+                var url9 = url[1].ToUpper();
+                //var param="";
+                if (url9.Contains("MIACADEMIAVIDEO") && url9.Contains("SAP"))
+                {
+                    urlSapParametro = url9.Remove(0, 21);
+                    TempData["SapParametros"] = url9.Remove(0, 21);
+
+                }
+                else
+                if (url9.Contains("MIACADEMIA") && url9.Contains("SAP"))
+                {
+                    urlSapParametro = url9.Remove(0, 15);
+                    TempData["SapParametros"] = url9.Remove(0, 15);
+                }
+
                 TempData["FlagAcademiaVideo"] = 1;
-                // if (Util.IsNumeric(MiCurso[1]))
+
                 if (Util.IsNumeric(MiId[0]))
-                   {
+                {
                     misCursos = Convert.ToInt32(MiId[0]);
                     TempData["MiAcademia"] = misCursos;
-                    // PPC
+                    
                     if (MiCurso[0].ToUpper() == "MIACADEMIAVIDEO")
                     {
                         flagMiAcademiaVideo = 1;
                     }
-                    // PPC
+                    
                     else
                     {
                         TempData["FlagAcademiaVideo"] = 0;
                         flagMiAcademiaVideo = 0;
                     }
-                    
+
 
                 }
             }
@@ -377,23 +399,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
-
-            misCursos = Convert.ToInt32(TempData["MiAcademia"]);
-            sessionManager.SetMiAcademia(misCursos);
-
-            if (misCursos > 0)
-            {
-                flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);  //PPC
-                sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  //PPC
-                
-                returnUrl = Url.Action("Index", "MiAcademia");
-
-                if (usuario.RolID != Constantes.Rol.Consultora)
-                {
-                    returnUrl = "";
-                }
-            }
-
+            
             if (usuario == null)
             {
                 if (Request.IsAjaxRequest())
@@ -408,6 +414,22 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var url = GetUrlUsuarioDesconocido();
                     return Redirect(url);
+                }
+            }
+
+            misCursos = Convert.ToInt32(TempData["MiAcademia"]);
+            sessionManager.SetMiAcademia(misCursos);
+
+            if (misCursos > 0)
+            {
+                flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);  
+                sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  
+
+                returnUrl = Url.Action("Index", "MiAcademia");
+
+                if (usuario.RolID != Constantes.Rol.Consultora)
+                {
+                    returnUrl = "";
                 }
             }
 
@@ -462,10 +484,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
-                if (string.IsNullOrEmpty(usuario.EMail) || !usuario.EMailActivo)
-                {
-                    sessionManager.SetPrimeraVezSession(0);
-                }
+                sessionManager.SetPrimeraVezSession(0);
+
                 if (Request.IsAjaxRequest())
                 {
                     var urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
@@ -801,13 +821,27 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
                     case Constantes.IngresoExternoPagina.DetalleEstrategia:
+                        if (string.IsNullOrEmpty(model.NombrePalanca)) {
+                            model.NombrePalanca = Constantes.NombrePalanca.Palancas.Keys.Contains(model.PalancaID) ?
+                                Constantes.NombrePalanca.Palancas[model.PalancaID] : model.PalancaID;
+                        }
+                        model.OrigenPedido = model.OrigenPedido ?? Constantes.IngresoExternoOrigen.App;
                         return RedirectToUniqueRoute("DetalleEstrategia", "Ficha", new
                         {
                             palanca = model.NombrePalanca,
                             campaniaId = model.Campania,
                             cuv = model.CUV,
-                            origen = Constantes.IngresoExternoOrigen.App
+                            origen = model.OrigenPedido
                         });
+                    case Constantes.IngresoExternoPagina.LoNuevoNuevo:
+                        return RedirectToUniqueRoute("Ofertas", "Index", null, "LAN");
+                    case Constantes.IngresoExternoPagina.OfertasParaTi:
+                        return RedirectToUniqueRoute("RevistaDigital", "Comprar");
+                    case Constantes.IngresoExternoPagina.SoloHoy:
+                        return RedirectToUniqueRoute("Ofertas", "Index", null, "ODD");
+                    case Constantes.IngresoExternoPagina.HerramientasDeVenta:
+                        return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
+                        //case Constantes.IngresoExternoPagina.SaberMasInscripcion:
                 }
             }
             catch (Exception ex)
@@ -910,7 +944,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Exists = res
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
         private JsonResult SuccessJson(string message, bool allowGet = false)
         {
             return Json(new { success = allowGet, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
@@ -952,6 +986,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     #region
                     usuarioModel = new UsuarioModel();
+                    usuarioModel.NovedadBuscador = usuario.NovedadBuscador;
                     usuarioModel.CompraVDirectaCer = usuario.CompraVDirecta;
                     usuarioModel.IVACompraVDirectaCer = usuario.IVACompraVDirecta;
                     usuarioModel.RetailCer = usuario.Retail;
@@ -1264,11 +1299,13 @@ namespace Portal.Consultoras.Web.Controllers
                         var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntrega(usuario));
                         var linkPaisTask = Task.Run(() => GetLinksPorPais(usuario.PaisID));
                         var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidad(usuario));
+                        var personalizacionesTask = Task.Run(() => GetPersonalizaiones(usuarioModel));                        
 
-                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
+                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask, personalizacionesTask);
 
                         usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
                         usuarioModel.TieneNotificaciones = notificacionTask.Result;
+                        usuarioModel.PersonalizacionesDummy = personalizacionesTask.Result;
 
                         var fechaPromesa = fechaPromesaTask.Result;
                         if (!string.IsNullOrEmpty(fechaPromesa))
@@ -1298,6 +1335,11 @@ namespace Portal.Consultoras.Web.Controllers
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
 
+                    using (var usuarioCliente = new UsuarioServiceClient())
+                    {
+                        var insert = usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
+                    }
+
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
                     usuarioModel.MensajeChat = await GetMessageChat(usuarioModel.PaisID);
 
@@ -1316,6 +1358,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
+                    usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID, usuarioModel.FechaHoy);
+                    usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -1444,6 +1488,25 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return result != null;
+        }
+
+        private async Task<string> GetPersonalizaiones(UsuarioModel usuarioModel)
+        {
+            if (usuarioModel.IndicadorConsultoraDummy == 0) return "";
+            var resultado = "";
+
+            try
+            {
+                BuscadorYFiltrosProvider personalizacion = new BuscadorYFiltrosProvider();
+                resultado = await personalizacion.GetPersonalizacion(usuarioModel);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            return resultado;
         }
 
         private async Task<ServiceUsuario.BEUsuario> ActualizarDatosHana(UsuarioModel model)
@@ -1792,7 +1855,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 var buscadorYFiltrosModel = new BuscadorYFiltrosModel();
-
+                
                 if (configuracionesPaisModels.Any())
                 {
                     var configuracionPaisDatosAll = await GetConfiguracionPaisDatos(usuarioModel);
@@ -1825,6 +1888,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalIntriga(revistaDigitalModel, configuracionPaisDatos, usuarioModel.CodigoISO);
                                 revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                                 revistaDigitalModel.TieneRDI = true;
+                                revistaDigitalModel.BannerOfertasNoActivaNoSuscrita = c.DesktopFondoBanner;
+                                revistaDigitalModel.MLogoComercialFondoNoActiva = c.MobileLogoBanner;
                                 break;
                             case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
                                 usuarioModel.TieneValidacionMontoMaximo = c.Estado;
@@ -1862,7 +1927,13 @@ namespace Portal.Consultoras.Web.Controllers
                                 herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel, configuracionPaisDatos);
                                 break;
                             case Constantes.ConfiguracionPais.BuscadorYFiltros:
+                                usuarioModel.IndicadorConsultoraDummy = 0;
                                 buscadorYFiltrosModel = ConfiguracionPaisBuscadorYFiltro(buscadorYFiltrosModel, configuracionPaisDatos);
+                                var listaDummy = configuracionPaisDatos.Where(n => n.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).ToList();
+                                if (listaDummy.Any())
+                                {
+                                    usuarioModel.IndicadorConsultoraDummy = listaDummy[0].Valor1.ToInt();
+                                }
                                 break;
                         }
 
@@ -1956,8 +2027,10 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigitalModel.MLogoComercialNoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva, codigoIso);
 
                 revistaDigitalModel.DLogoMenuInicioActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva, codigoIso);
+                revistaDigitalModel.DLogoMenuInicioNoSuscrita = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoSuscrita, codigoIso);
                 revistaDigitalModel.MLogoMenuInicioActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva, codigoIso);
 
+                revistaDigitalModel.DLogoMenuInicioNoActivaNoSuscrita = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActivaNoSuscrita, codigoIso);
                 revistaDigitalModel.DLogoMenuInicioNoActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva, codigoIso);
                 revistaDigitalModel.MLogoMenuInicioNoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva, codigoIso);
 
@@ -2041,6 +2114,11 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigital.MLogoComercialNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor2);
                 }
 
+
+                 
+                revistaDigital.DLogoMenuInicioActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaActiva, paisIso);
+                 revistaDigital.DLogoMenuInicioNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaNoActivo, paisIso);
+                
                 confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercialFondo);
                 if (confPaisDatoTmp != null)
@@ -2107,7 +2185,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
             revistaDigitalModel.EsActiva = revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
-            
+
             revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
             #endregion
@@ -2605,13 +2683,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData)
+        private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData = null, string anchor = null)
         {
             var route = new RouteValueDictionary(new
             {
                 Controller = controller,
                 Action = action,
-                guid = this.GetUniqueKey()
+                guid = this.GetUniqueKey(),
+                anchor = anchor
             });
 
             if (routeData != null)
@@ -2620,7 +2699,9 @@ namespace Portal.Consultoras.Web.Controllers
                 routeDataAditional.ForEach(item => { route.Add(item.Key, item.Value); });
             }
 
-            return RedirectToRoute("UniqueRoute", route);
+            var routeName = string.IsNullOrEmpty(anchor) ? "UniqueRoute" : "UniqueRouteAnchor";
+
+            return RedirectToRoute(routeName, route);
         }
 
         #region OLVIDE CONTRASEÑA
@@ -2752,7 +2833,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, oUsu, Codigoingresado);
+                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, oUsu, Codigoingresado, false);
                 }
 
                 if (iguales)
@@ -2805,7 +2886,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEUsuarioDatos oVerificacion;
                 using (var sv = new UsuarioServiceClient())
                 {
-                    oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario);
+                    oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario, true);
                 }
 
                 if (oVerificacion == null) return false;
@@ -2855,5 +2936,37 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Mostrar;
         }
+
+        private int GetDiaFacturacion(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID, DateTime FechaHoy)
+        {
+            int diaFacturacion = 0;
+            BEConfiguracionCampania configuracionCampania;
+            using (var sv = new PedidoServiceClient())
+            {
+                configuracionCampania = sv.GetEstadoPedido(PaisID, CampaniaID, ConsultoraID, ZonaID, RegionID);
+            }
+            if (configuracionCampania != null) diaFacturacion = (DateTime.Now.Date - configuracionCampania.FechaInicioFacturacion).Days;
+
+            return diaFacturacion;
+        }
+
+        private Dictionary<string, string> getNuevasDescripcionesBuscador(int paisId)
+        {
+            var result = new Dictionary<string, string>();
+            var listaDescripciones = new List<BETablaLogicaDatos>();
+
+            using (var tablaLogica = new SACServiceClient())
+            {
+                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.NuevaDescripcionProductos).ToList();
+            }
+
+            foreach (var item in listaDescripciones)
+            {
+                result.Add(item.Codigo.ToString(), item.Descripcion.ToString());
+            }
+
+            return result;
+        }
+
     }
 }

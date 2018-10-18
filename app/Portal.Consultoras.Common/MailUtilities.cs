@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Portal.Consultoras.Common
 {
-    public class MailUtilities
+    public static class MailUtilities
     {
         /// <summary>
         /// Método para enviar correo a través del API de Mandrill, https://mandrillapp.com/api/docs/messages.html

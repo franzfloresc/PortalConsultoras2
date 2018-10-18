@@ -44,5 +44,7 @@
 
         public string FlagNueva { get; set; }
 
+        public int LimiteVenta { get; set; }
+
     }
 }

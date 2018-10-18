@@ -1,0 +1,92 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+@using Portal.Consultoras.Web.Models.Layout
+
+@{
+    var menuList = (List<ConfiguracionPaisModel>)ViewBag.MenuContenedor ?? new List<ConfiguracionPaisModel>();
+    var menuActivo = (MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new MenuContenedorModel();
+    menuActivo.ConfiguracionPais = menuActivo.ConfiguracionPais ?? new ConfiguracionPaisModel();
+    menuActivo.ConfiguracionPais.MobileFondoBanner = Util.Trim(menuActivo.ConfiguracionPais.MobileFondoBanner);
+}
+
+<div id="seccion-menu-mobile">
+    <div id="seccion-fixed-menu" class="agregarPosicionRelativa" style="z-index: 10; width: 100%;">
+        @if (menuList.Any())
+        {
+            <div data-layout-menu2="" class="slick-slider-fixed-mobile">
+                <div class="bc_para_ti-menu-opciones">
+                    <ul class="subnavegador" 
+                        style="width: 100%; height: 45px; background: #fff;" 
+                        data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()" 
+                        data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
+
+                        @foreach (var menuhijo in menuList)
+                        {
+                            var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activado" : string.Empty;
+                            if (ViewBag.EsSuscrita)
+                            {
+                                claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activado-dorado" : "default-dorado";
+                            }
+                            <li data-campania="@menuhijo.CampaniaId" 
+                                data-activo="1"
+                                data-codigo="@menuhijo.Codigo"
+                                data-es-ancla="@menuhijo.EsAncla"
+                                onclick="menuModule.menuClick(this, '@menuhijo.UrlMenuMobile')">
+
+                                <a href="javascript:;" 
+                                   class="@claseActivo" 
+                                   role="menu" 
+                                   region="Lateral" 
+                                   parent="Contenedor - @menuActivo.NombreOrigenPantalla" 
+                                   title="@menuhijo.DesktopSubTituloMenu">
+
+                                    @if (!string.IsNullOrEmpty(menuhijo.DesktopLogoMenu))
+                                    {
+                                        if (menuhijo.Codigo == menuActivo.Codigo)
+                                        {
+                                            <img src="@menuhijo.DesktopLogoMenu" 
+                                                 alt="Inicio" 
+                                                 class="imgSeleccionado icono-submenu-tabs icono-logo-submenu-tabs" 
+                                                 style="display: inline !important" 
+                                                 role="menu" 
+                                                 region="Lateral" 
+                                                 parent="Contenedor - @menuActivo.NombreOrigenPantalla" 
+                                                 title="@menuhijo.DesktopSubTituloMenu" />
+
+                                            <img src="@menuhijo.DesktopLogoMenuNoActivo" 
+                                                 alt="Inicio" 
+                                                 class="imgNoSeleccionado ocultar icono-submenu-tabs icono-logo-submenu-tabs" 
+                                                 role="menu" 
+                                                 region="Lateral" 
+                                                 parent="Contenedor - @menuActivo.NombreOrigenPantalla" 
+                                                 title="@menuhijo.DesktopSubTituloMenu" />
+                                        }
+                                        else
+                                        {
+                                            <img src="@menuhijo.DesktopLogoMenuNoActivo" 
+                                                 alt="Inicio" 
+                                                 class="icono-submenu-tabs icono-logo-submenu-tabs" 
+                                                 style="display: inline !important" 
+                                                 role="menu" 
+                                                 region="Lateral" 
+                                                 parent="Contenedor - @menuActivo.NombreOrigenPantalla" 
+                                                 title="@menuhijo.DesktopSubTituloMenu" />
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <p>@menuhijo.MobileTituloMenu</p>
+                                    }
+                                </a>
+
+
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>

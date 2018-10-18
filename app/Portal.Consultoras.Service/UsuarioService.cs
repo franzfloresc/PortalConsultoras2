@@ -866,20 +866,27 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ProcesaEnvioSms(paisID, oUsu, CantidadEnvios);
         }
 
-        public bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado)
+        public bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado, bool soloValidar)
         {
             var BLUsuario = new BLUsuario();
-            return (BLUsuario.VerificarIgualdadCodigoIngresado(paisID, oUsu, codigoIngresado));
+            return (BLUsuario.VerificarIgualdadCodigoIngresado(paisID, oUsu, codigoIngresado, soloValidar));
         }
 
         #endregion
 
         #region Verificacion de Autenticidad
-        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario)
+        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.GetVerificacionAutenticidad(paisID, CodigoUsuario);
+            return BLUsuario.GetVerificacionAutenticidad(paisID, CodigoUsuario, verificacionWeb); 
         }
+
+        public BERespuestaSMS EnviarSmsVerificacionAutenticidad(int paisID, BEUsuarioDatos oUsu)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.EnviarSmsVerificacionAutenticidad(paisID, oUsu);
+        }
+
         #endregion
 
         public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID)
@@ -910,6 +917,13 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.listaProductos(paisID,CampaniaID, filas, CodigoDescripcion, regionId, zonaId, codigoRegion, codigoZona);
         }
+        
+         public string ActualizarNovedadBuscador(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActuaizarNovedadBuscador(paisID, codigoUsuario);
+        }
+
 
         #region ActualizacionDatos
         public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo)

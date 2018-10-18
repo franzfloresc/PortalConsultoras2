@@ -9,10 +9,16 @@ namespace Portal.Consultoras.Web.Providers
     {
         protected readonly TablaLogicaProvider _tablaLogicaProvider;
 
-        public ChatEmtelcoProvider()
+        public ChatEmtelcoProvider() : this(new TablaLogicaProvider())
         {
-            _tablaLogicaProvider = new TablaLogicaProvider();
         }
+
+        public ChatEmtelcoProvider(TablaLogicaProvider tablaLogicaProvider)
+        {
+            _tablaLogicaProvider = tablaLogicaProvider;
+        }
+
+
 
         public bool HabilitarChatEmtelco(int paisId, bool esMobile)
         {

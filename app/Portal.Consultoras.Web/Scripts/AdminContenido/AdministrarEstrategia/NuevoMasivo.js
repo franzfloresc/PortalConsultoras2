@@ -157,7 +157,7 @@
         waitingDialog();
         console.log('ejecutando de _fnGrillaEstrategias2 - inicio', new Date());
         $("#listCargaMasiva2").jqGrid("GridUnload");
-        console.log(_config.urlEstrategiaTemporalConsultar);
+        console.log(_config.urlEstrategiaTemporalConsultar, _variables.NroLote);
         jQuery("#listCargaMasiva2").jqGrid({
             url: _config.urlEstrategiaTemporalConsultar,
             hidegrid: false,
@@ -478,7 +478,6 @@
             }
         },
         clickAceptarMasivo1: function () {
-            console.log('clickAceptarMasivo1 Inicio', new Date());
             var params = {
                 CampaniaId: parseInt($("#ddlCampania").val()),
                 TipoConfigurado: 2,
@@ -489,6 +488,7 @@
                 Pagina: _variables.Pagina,
                 CantidadCuv: _variables.CantidadCuv
             };
+            console.log('clickAceptarMasivo1 Inicio', params, new Date());
 
             waitingDialog();
 
@@ -536,7 +536,6 @@
         },
         clickAceptarMasivo2: function () {
 
-            console.log('inicio de clickAceptarMasivo2', new Date());
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
@@ -545,6 +544,7 @@
                 codigoEstrategia:$("#ddlTipoEstrategia").find(":selected").data("codigo"),
                 estrategiaMIds: $('#precargadosdiv').text()
             };
+            console.log('inicio de clickAceptarMasivo2', params, new Date());
             
             waitingDialog();
 
@@ -594,11 +594,11 @@
         },
         clickCancelarMasivo2: function () {
 
-            console.log('ejecutando clickCancelarMasivo2 - inicio'); 
             var params = {
                 nroLote: _variables.NroLote
             };
 
+            console.log('ejecutando clickCancelarMasivo2 - inicio', params);
             jQuery.ajax({
                 type: "POST",
                 url: _config.urlEstrategiaTemporalCancelar,

@@ -9,12 +9,22 @@ namespace Portal.Consultoras.Web.Providers
     public class EventoFestivoProvider
     {
         protected ISessionManager sessionManager;
-        protected UsuarioModel userData;
 
-        public EventoFestivoProvider()
+        protected UsuarioModel userData
         {
-            sessionManager = SessionManager.SessionManager.Instance;
-            userData = sessionManager.GetUserData();
+            get
+            {
+                return sessionManager.GetUserData();
+            }
+        }
+
+        public EventoFestivoProvider():this(SessionManager.SessionManager.Instance)
+        {
+        }
+
+        public EventoFestivoProvider(ISessionManager sessionManager)
+        {
+            this.sessionManager = sessionManager;
         }
 
         public string EventoFestivoPersonalizacionSegunNombre(string nombre, string valorBase = "")

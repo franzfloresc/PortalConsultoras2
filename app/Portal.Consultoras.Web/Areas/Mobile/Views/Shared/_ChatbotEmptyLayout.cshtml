@@ -17,12 +17,12 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/esika-CssSB2Mobile")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/Lbel/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/lbel-CssSB2Mobile")
     }
     <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
@@ -50,7 +50,9 @@
             <br />
         </div>
     </section>
-    <div class="content-spinner2" id="loading-spin">
+
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
+    @*<div class="content-spinner2" id="loading-spin">
         <div class="busy-loader">
             <div class="w-ball-wrapper ball-1">
                 <div class="w-ball"></div>
@@ -67,8 +69,8 @@
                 <div class="w-ball"> </div>
             </div>
         </div>
-    </div>
-    @Scripts.Render("~/Scripts/MobileLayout")
+    </div>*@
+    @Scripts.Render("~/Bundle/Js/Mobile/MobileLayout")
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
@@ -275,7 +277,7 @@
     @RenderSection("scripts", required: false)
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
-        @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
         <script>
             var pixelAnalytics = Analytics();
             pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');

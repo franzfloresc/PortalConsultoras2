@@ -1487,9 +1487,11 @@ function MostrarPopupPin(data) {
     var strNuevas = "1,2";
     var strReactivadas = "6,7,8";
 
-    if (strNuevas.includes(data.IdEstadoActividad))
+    //if (strNuevas.includes(data.IdEstadoActividad))
+    if (typeof strNuevas == "string" && strNuevas.indexOf(data.IdEstadoActividad) > -1)
         $("#menAutenticacionNueva").show();
-    else if (strReactivadas.includes(data.IdEstadoActividad))
+    //else if (strReactivadas.includes(data.IdEstadoActividad))
+    else if (typeof strReactivadas == "string" && strReactivadas.indexOf(data.IdEstadoActividad) > -1)
         $("#menAutenticacionReactivada").show();
 
     var e_correo = "";

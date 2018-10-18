@@ -584,6 +584,21 @@ namespace Portal.Consultoras.Web.SessionManager
                 return 0;
         }
 
+        public void SetMiAcademiaParametro(string value)
+        {
+            HttpContext.Current.Session["SapParametros"] = value;
+        }
+
+        public string GetMiAcademiaParametro()
+        {
+            if (HttpContext.Current.Session["SapParametros"] != null)
+
+                return (string)HttpContext.Current.Session["SapParametros"];
+            else
+                return "";
+        }
+
+
         void ISessionManager.setBEUsuarioModel(List<ServiceUsuario.BEUsuario> model)
         {
             HttpContext.Current.Session["BEUsuarioModel"] = model;
@@ -880,8 +895,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         string ISessionManager.GetTokenPedidoAutentico()
         {
-            var val = HttpContext.Current.Session["TokenPedidoAutentico"];
-            if (val == null) { return ""; }
+            var val = HttpContext.Current.Session["TokenPedidoAutentico"];            
             return (string)val;
         }
 
@@ -1085,7 +1099,6 @@ namespace Portal.Consultoras.Web.SessionManager
         string ISessionManager.GetZonaCodigoEliminar()
         {
             var val = HttpContext.Current.Session["ZonaCodigoEliminar"];
-            if (val == null) { return ""; }
             return (string)val;
         }
 
@@ -1132,7 +1145,6 @@ namespace Portal.Consultoras.Web.SessionManager
         string ISessionManager.GetMisPedidosDetallePorCampaniaCampania()
         {
             var val = HttpContext.Current.Session["MisPedidosDetallePorCampaniaCampania"];
-            if (val == null) { return ""; }
             return (string)val;
         }
 
@@ -1144,7 +1156,6 @@ namespace Portal.Consultoras.Web.SessionManager
         string ISessionManager.GetMisPedidosDetallePorCampaniaEstado()
         {
             var val = HttpContext.Current.Session["MisPedidosDetallePorCampaniaEstado"];
-            if (val == null) { return ""; }
             return (string)val;
         }
 

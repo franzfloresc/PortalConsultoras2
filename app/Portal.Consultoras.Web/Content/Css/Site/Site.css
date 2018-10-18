@@ -7,7 +7,7 @@
 }
 
 .loadingScreen-mensaje {
-    background: url('../../Images/Loading.gif') no-repeat 0 0;
+    background: url('/Content/Images/Loading.gif') no-repeat 0 0;
     padding-left: 25px;
     margin-top: 10px;
     font-size: 10pt;
@@ -89,7 +89,7 @@
 
 .qq-upload-spinner {
     display: inline-block;
-    background: url('../Images/UploadLoading.gif');
+    background: url('/Content/Images/UploadLoading.gif');
     width: 15px;
     height: 15px;
     vertical-align: text-bottom;

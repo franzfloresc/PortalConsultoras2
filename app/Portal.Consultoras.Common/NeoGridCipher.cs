@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Portal.Consultoras.Common
 {
-    public class NeoGridCipher
+    public static class NeoGridCipher
     {
         private static String NEOGRID_KEY = "SB2zJUVlmvGDErd0";
         private static String NEOGRID_PRODUCTION_SERVER = "https://factura.neogrid.com/facturaportal/public/portal/";

@@ -19,12 +19,19 @@ namespace Portal.Consultoras.Web.Providers
         protected readonly ConfiguracionManagerProvider _configuracionManager;
         protected readonly EventoFestivoProvider _eventoFestivo;
 
-        public MenuProvider(ConfiguracionManagerProvider configuracionManagerProvider, EventoFestivoProvider eventoFestivo)
+        public MenuProvider(ConfiguracionManagerProvider configuracionManagerProvider, 
+            EventoFestivoProvider eventoFestivo) : this(SessionManager.SessionManager.Instance)
         {
-            sessionManager = SessionManager.SessionManager.Instance;
             _configuracionManager = configuracionManagerProvider;
             _eventoFestivo = eventoFestivo;
         }
+
+        public MenuProvider(ISessionManager sessionManager)
+        {
+            this.sessionManager = sessionManager;
+        }
+
+
 
         public List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
         {
@@ -104,7 +111,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (permiso.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
-                    if (revistaDigital.TieneRevistaDigital())
+                    if (revistaDigital.TieneRevistaDigital() || revistaDigital.TieneRDI)
                     {
                         userSession.ClaseLogoSB = "negro";
                         sessionManager.SetUserData(userSession);

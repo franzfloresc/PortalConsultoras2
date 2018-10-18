@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index", "MisReclamos", new { area = "Mobile" });
 
             _cdrProvider.CargarInformacion(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-            model.ListaCampania = sessionManager.GetCDRCampanias();
+            model.ListaCampania = SessionManager.GetCDRCampanias();
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index", "MisReclamos", new { area = "Mobile" });
 
             if (pedidoId != 0)
@@ -128,7 +128,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CantidadAprobados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Aceptado);
             model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Observado);
 
-            sessionManager.SetListaCDRDetalle(model);
+            SessionManager.SetListaCDRDetalle(model);
             return RedirectToAction("Detalle", "MisReclamos", new { area = "Mobile" });
         }
 
@@ -164,13 +164,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CantidadAprobados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Aceptado);
             model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Observado);
 
-            sessionManager.SetListaCDRDetalle(model);
+            SessionManager.SetListaCDRDetalle(model);
             return RedirectToAction("Detalle", "MisReclamos", new { area = "Mobile" });
         }
 
         public ActionResult Detalle()
         {
-            var objCdr = sessionManager.GetListaCDRDetalle();
+            var objCdr = SessionManager.GetListaCDRDetalle();
 
             if (objCdr != null)
             {
@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     PedidoID = objCdr.PedidoID
                 };
 
-                sessionManager.SetCDRWebDetalle(null);
+                SessionManager.SetCDRWebDetalle(null);
                 objCdr.ListaDetalle = _cdrProvider.CargarDetalle(obj, userData.PaisID, userData.CodigoISO);
 
                 ViewBag.Origen = objCdr.OrigenCDRDetalle;
@@ -204,7 +204,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 if (model.OrigenCDRDetalle == "1")
                 {
-                    sessionManager.SetListaCDRDetalle(model);
+                    SessionManager.SetListaCDRDetalle(model);
                 }
                 return Json(new
                 {
