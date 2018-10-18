@@ -235,22 +235,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                         clearTimeout(timeoutHandle);
                     }
                 });
-
-                //$('#DialogoMensajeBannerShowRoom').on('hide', function () {
-                //    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                //        document.getElementById('survicate-box').style.display = 'block';
-                //        cancel = 1;
-                //        ValidacionEncuesta();
-                //        clearTimeout(timeoutHandle);
-                //    } else {
-                //        cancel = 1;
-                //        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                //        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                //        EmpezarSlider();
-                //        clearTimeout(timeoutHandle);
-                //    }
-                //});
-
+                
                 break;
             case 6://ActualizarDatos 
                 if (cancel == 0) {
@@ -404,7 +389,6 @@ function ValidacionEncuesta() {
             EmpezarSlider();
             contValEncuesta = contValEncuesta + 1;
             clearTimeout(timeoutEncuesta);
-            //clearTimeout(timeoutHandle);
             cancel = 1;
         }
     }
@@ -445,10 +429,6 @@ function EmpezarSlider() {
             var image = firstImage.get(0);
             if (image != null) {
                 if (typeof jQuery().flexslider !== "undefined" && image.complete) {
-                    //if (countEslaider == 0) {
-                    //    $('.flexslider').flexslider("pause");
-                    //    countEslaider++;
-                    //}
                     if (countFlexlider == 0) {
                         countFlexlider++;
                         clearInterval(timeoutSlider);
