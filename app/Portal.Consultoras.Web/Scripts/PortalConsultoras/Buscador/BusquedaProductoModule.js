@@ -152,6 +152,7 @@
                 },
                 onError: function (element) {
                     element.attr('src', element.data('src-error'));
+                    var fichaProducto = element.closest('article');
                     fichaProducto.addClass('ficha__producto--delgada');
                 }
             });
