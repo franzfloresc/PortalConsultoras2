@@ -83,14 +83,14 @@ function MostrarBarra(datax, destino) {
             valorStr: data.MontoMinimoStr
         });
 
-        if (tp > 0 && dataBarra.TippingPointBarra.Active) {
+        //if (tp > 0 && dataBarra.TippingPointBarra.Active) { OG
             listaLimite.push({
                 nombre: "",
                 tipoMensaje: 'TippingPoint',
                 valor: data.TippingPoint,
                 valorStr: data.TippingPointStr
             });
-        }
+       // }
         
         listaLimite.push({
             nombre: textoPunto.replace("{titulo}", "L. crédito").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMaximoStr),
@@ -620,8 +620,7 @@ function MostrarBarra(datax, destino) {
 function showPopupNivelSuperado(barra, prevTotal) {
     if (!barra) {
         return;
-    }
-
+    }    
     var tippingPoint = barra.TippingPoint || 0;
 
     if (tippingPoint > 0) {
@@ -634,6 +633,23 @@ function showPopupNivelSuperado(barra, prevTotal) {
         showPopupEscalaSiguiente(data.DataBarra, prevTotal);
     }
 }
+
+function showPopupSuperadotippingPoint(barra, prevTotal) {
+    if (!barra) {
+        return;
+    }
+
+    var tippingPoint = barra.TippingPoint || 0;
+
+    if (tippingPoint > 0) {
+        var superaRegalo = tippingPoint <= dataBarra.TotalPedido && tippingPoint > prevTotal;
+        if (superaRegalo) {
+            alert('alcanzo regalo tippingPoint');
+            // show popup regalo
+        }
+    } 
+}
+
 
 function showPopupEscalaSiguiente(dataBarra, prevTotal) {
     if (!dataBarra || !dataBarra.ListaEscalaDescuento) return false;

@@ -379,10 +379,13 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
-              //  ActualizarGanancia(data.DataBarra);
-                MostrarBarra(data);  
+              //ActualizarGanancia(data.DataBarra);
+                var prevTotal = $("[data-pedidocondescuento]").html() * 1;
+                MostrarBarra(data);  //OG
                 CargarCantidadProductosPedidos(true);
-                microefectoPedidoGuardado();
+                microefectoPedidoGuardado();                   
+                showPopupNivelSuperado(data.DataBarra, prevTotal);
+
             } else {
                 CargarResumenCampaniaHeader(true);
             }
@@ -424,6 +427,7 @@ var EstrategiaAgregarModule = (function () {
 
                 CargarDetallePedido();
                 MostrarBarra(data);
+
             } else if (tipoOrigenEstrategiaAux == 2 ||
                 tipoOrigenEstrategiaAux == 21 ||
                 tipoOrigenEstrategiaAux == 27 ||
