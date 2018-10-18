@@ -564,14 +564,17 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 
         if (slick.slideCount > 1 && objVisorSlick && lastSlick) {
             var anchoCarrusel = $(objVisorSlick).offset().left + $(objVisorSlick).width();
-            var positionUltimoSlick = $(lastSlick).offset().left + $(lastSlick).width(); 
+            var positionUltimoSlick = $(lastSlick).offset().left + $(lastSlick).width();
+            var paddindLeftUltimo = $(lastSlick).css('padding-left');
+            paddindLeftUltimo = paddindLeftUltimo ? paddindLeftUltimo.replace('px', '') : 0;
+            paddindLeftUltimo = parseFloat(paddindLeftUltimo);
 
-            if (positionUltimoSlick < anchoCarrusel) {    
+            if (positionUltimoSlick < anchoCarrusel) {                
                 $(objNextArrow).hide();
             }
             else {
 
-                if ((positionUltimoSlick > anchoCarrusel) && $(lastSlick).offset().left < anchoCarrusel) {
+                if ((positionUltimoSlick > anchoCarrusel) && ($(lastSlick).offset().left + paddindLeftUltimo) < anchoCarrusel) {
 
                     setTimeout(function () { 
 
@@ -587,6 +590,7 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
                         var nuevoValor = efectoValor - avanzar;
 
                         $(event.target).find('.slick-track').css('transform', 'translate3d(' + nuevoValor + 'px, 0px, 0px)');
+                        
                         $(objNextArrow).hide();
                     }, 100);                   
                 }
