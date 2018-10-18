@@ -264,6 +264,10 @@ namespace Portal.Consultoras.Service
         {
             return BLProgramaNuevas.ValidarBusquedaCuv(paisID, campaniaID, codigoPrograma, consecutivoNueva, cuv);
         }
+        public Dictionary<string, Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasList(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, List<string> listCuv)
+        {
+            return BLProgramaNuevas.ValidarBusquedaListCuv(paisID, campaniaID, codigoPrograma, consecutivoNueva, listCuv);
+        }
 
         public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada)
         {
