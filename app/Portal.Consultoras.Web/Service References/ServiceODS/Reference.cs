@@ -3370,6 +3370,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string[] ListCuvEliminarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumElectivosEnPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Common.Enumeradores.ValidarCuponesElectivos ResultadoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -3404,6 +3407,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.ListCuvEliminarField, value) != true)) {
                     this.ListCuvEliminarField = value;
                     this.RaisePropertyChanged("ListCuvEliminar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumElectivosEnPedido {
+            get {
+                return this.NumElectivosEnPedidoField;
+            }
+            set {
+                if ((this.NumElectivosEnPedidoField.Equals(value) != true)) {
+                    this.NumElectivosEnPedidoField = value;
+                    this.RaisePropertyChanged("NumElectivosEnPedido");
                 }
             }
         }
@@ -3688,6 +3704,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidaCuvElectivo", ReplyAction="http://tempuri.org/IODSService/ValidaCuvElectivoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarElectivos> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/EsDuoPerfectoResponse")]
+        bool EsDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/EsDuoPerfectoResponse")]
+        System.Threading.Tasks.Task<bool> EsDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarVentaExclusiva", ReplyAction="http://tempuri.org/IODSService/ValidarVentaExclusivaResponse")]
         Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv);
@@ -4049,6 +4071,14 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarElectivos> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido) {
             return base.Channel.ValidaCuvElectivoAsync(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
+        }
+        
+        public bool EsDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
+            return base.Channel.EsDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EsDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
+            return base.Channel.EsDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
         }
         
         public Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv) {

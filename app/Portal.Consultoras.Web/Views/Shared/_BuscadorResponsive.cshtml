@@ -1,0 +1,39 @@
+﻿<section class="buscador__productos buscador_productos flex-grow-1">
+    <div class="campo_busqueda_fondo_on_focus">
+        <div class="franja__blanca"></div>
+    </div>
+    <div class="row flex-row flex-nowrap justify-content-start align-items-center ml-0 mr-0 campo__buscador__wrapper">
+        <a class="enlace_regresar_filtros" title="Regresar">
+            <img src="@Url.Content("~/Content/Images/flecha_icono.svg")" alt="Regresar">
+        </a>
+        <input type="text" id="CampoBuscadorProductos" class="col-12 pl-0 d-block campo_buscador_productos" placeholder="Busca ofertas">
+        <a class="enlace_busqueda_productos" title="Buscar">
+            <img src="@Url.Content("~/Content/Images/icono_lupa.svg")" alt="Buscar">
+        </a>
+        <a class="opcion_limpiar_campo_busqueda_productos" title="Cerrar">
+            <img src="@Url.Content("~/Content/Images/icono_limpiar_busqueda.svg")" alt="Cerrar">
+        </a>
+    </div>
+    <div class="row flex-row justify-content-start align-items-start ml-0 mr-0 lista_resultados_busqueda_productos">
+        <div class="col-12 pl-0 pr-0 spinner">
+            <img src="@Url.Content("~/Content/Images/loading_spinner.gif")" alt="Cargando">
+        </div>
+        <div class="col-12 pl-0 pr-0 busqueda_sin_resultados text-center">
+            <div class="row flex-row justify-content-center ml-0 mr-0">
+                <div class="col-12 pl-0 pr-0 icono_busqueda_sin_resultados">
+                    <img src="@Url.Content("/Content/Images/icono_sin_resultados_busqueda.svg")" alt="Sin resultados de búsqueda" />
+                </div>
+                <div class="col-12 pl-0 pr-0 mensaje_busqueda_sin_resultados">
+                    <p class="d-block text-bold">
+                        Ups… no tenemos ofertas con este nombre.
+                    </p>
+                    <p class="d-block">
+                        Vuelve a intentar.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="resultados_wrapper" id="ResultadoBuscador">
+        </div>
+    </div>
+</section>

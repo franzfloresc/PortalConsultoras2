@@ -72,7 +72,8 @@ namespace Portal.Consultoras.Entities
         public string ImagenBulk { get; set; }
         [DataMember]
         public string NombreBulk { get; set; }
-
+        [DataMember]
+        public int CampaniaApp { get; set; }
 
         public BEEstrategiaProducto(IDataRecord row)
         {
@@ -104,6 +105,7 @@ namespace Portal.Consultoras.Entities
             ImagenBulk = DataRecord.GetColumn<string>(row, "ImagenBulk");
             NombreBulk = DataRecord.GetColumn<string>(row, "NombreBulk");
             Volumen = DataRecord.GetColumn<string>(row, "Volumen");
+            CampaniaApp = DataRecord.GetColumn<int>(row, "CampaniaApp");
         }
     }
 }
