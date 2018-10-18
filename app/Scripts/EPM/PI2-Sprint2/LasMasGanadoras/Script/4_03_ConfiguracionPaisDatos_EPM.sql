@@ -29,8 +29,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTitulo'
 		, 0
-		,'TENEMOS MÁS OPCIONES PARA TÍ'
-		,'TENEMOS MÁS OPCIONES PARA TÍ'
+		,'TENEMOS MÁS&nbsp;OPCIONES PARA TÍ'
+		,'TENEMOS MÁS&nbsp;OPCIONES PARA TÍ'
 		,null
 		,'Texto para el banner del carrusel'
 		,1
