@@ -12,32 +12,47 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLProgramaNuevas : IProgramaNuevasBusinessLogic
     {
-        public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaCuv(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv)
+        public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaCuv(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv)
         {
-            if (!IsFlagProgramaNuevasOn(paisID)) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
-            if (!EstaEnRangoCuv(paisID, Convert.ToInt32(cuv))) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
-            List<BEProductoProgramaNuevas> lstProdcutos = GetProductosByCampaniaCache(paisID, campaniaID);
-            if (lstProdcutos == null || lstProdcutos.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
-            if (!lstProdcutos.Any(x => x.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
-            if (codigoPrograma == "") return Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva;
-            lstProdcutos = FiltrarProductosByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
-            if (!lstProdcutos.Any(a => a.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma;
-            return Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas;
+            //if (!IsFlagProgramaNuevasOn(paisID)) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            //if (!EstaEnRangoCuv(paisID, Convert.ToInt32(cuv))) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            //List<BEProductoProgramaNuevas> lstProdcutos = GetProductosByCampaniaCache(paisID, campaniaID);
+            //if (lstProdcutos == null || lstProdcutos.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
+            //if (!lstProdcutos.Any(x => x.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
+            //if (codigoPrograma == "") return Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva;
+            //lstProdcutos = FiltrarProductosByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
+            //if (!lstProdcutos.Any(a => a.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma;
+            //return Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas;
+
+            return ValidarBusquedaListCuv(paisID, campaniaID, codigoPrograma, consecutivoNueva, new List<string> { cuv }).First().Value;
         }
 
-        public Dictionary<string, Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaListCuv(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, List<string> listCuv)
+        public Dictionary<string, Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaListCuv(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, List<string> listCuv)
         {
             var dicValidacionCuv = listCuv.Distinct().ToDictionary(c => c, c => Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo);
-
             if (!IsFlagProgramaNuevasOn(paisID)) return dicValidacionCuv;
-            if (!EstaEnRangoCuv(paisID, Convert.ToInt32(cuv))) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
-            List<BEProductoProgramaNuevas> lstProdcutos = GetProductosByCampaniaCache(paisID, campaniaID);
-            if (lstProdcutos == null || lstProdcutos.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
-            if (!lstProdcutos.Any(x => x.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
-            if (codigoPrograma == "") return Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva;
-            lstProdcutos = FiltrarProductosByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
-            if (!lstProdcutos.Any(a => a.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma;
-            return Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas;
+
+            var fnEnRango = GetFnEnRangoCuv(paisID);
+            var listCuvEnRango = dicValidacionCuv.Where(vc => fnEnRango(Convert.ToInt32(vc.Key))).ToList();
+            if (listCuvEnRango.Count == 0) return dicValidacionCuv;
+
+            var listCuvActualNuevas = GetProductosByCampaniaCache(paisID, campaniaID);
+            listCuvEnRango.ForEach(cv => dicValidacionCuv[cv.Key] = Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste);
+            if (listCuvActualNuevas == null || listCuvActualNuevas.Count == 0) return dicValidacionCuv;
+
+            var listCuvNuevas = listCuvEnRango.Where(vc => listCuvActualNuevas.Any(p => p.CodigoCupon == vc.Key)).ToList();
+            if (codigoPrograma == "")
+            {
+                listCuvNuevas.ForEach(cv => dicValidacionCuv[cv.Key] = Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva);
+                return dicValidacionCuv;
+            }
+
+            var listCuvPerteneceActualNuevas = FiltrarProductosByNivelyCodigoPrograma(listCuvActualNuevas, consecutivoNueva, codigoPrograma);
+            var listCuvPerteneceNuevas = listCuvEnRango.Where(vc => listCuvPerteneceActualNuevas.Any(p => p.CodigoCupon == vc.Key)).ToList();
+            listCuvNuevas.ForEach(cv => dicValidacionCuv[cv.Key] = Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma);
+            listCuvPerteneceNuevas.ForEach(cv => dicValidacionCuv[cv.Key] = Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas);
+
+            return dicValidacionCuv;
         }
 
         public int ValidarCantidadMaxima(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada)
