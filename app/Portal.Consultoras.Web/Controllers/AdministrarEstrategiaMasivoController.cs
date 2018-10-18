@@ -645,18 +645,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             bool rpta = false;
             try
-            {
-                // validar 
-                // if == 1
+            { 
+                int validarEstrategiaImagen = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
 
-                using (var svc = new SACServiceClient())
+                if (validarEstrategiaImagen == 1)
                 {
-                    rpta = svc.EstrategiaTemporalActualizarSetImagen(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
+                    using (var svc = new SACServiceClient())
+                    {
+                        rpta = svc.EstrategiaTemporalActualizarSetImagen(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
+                    }
                 }
-
-                //else 
-                //  return true;
-
+                else
+                {
+                    rpta = true;
+                }
             }
             catch (Exception ex)
             {
