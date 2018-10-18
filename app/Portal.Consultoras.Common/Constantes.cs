@@ -2760,6 +2760,7 @@ namespace Portal.Consultoras.Common
             public const string Parametros = "03";
             public const string PaisesConfigurables = "CO;CR;GT;MX";
         }
+
         public static class TipoConfiguracionBuscador
         {
             public const string MostrarBuscador = "MostrarBuscador";
@@ -2768,8 +2769,9 @@ namespace Portal.Consultoras.Common
             public const string TotalResultadosBuscador = "TotalResultadosBuscador";
             public const string CantidadInicioSesionNovedadBuscador = "CantidadInicioSesionNovedadBuscador";
             public const string ConsultoraDummy = "ConsultoraDummy";
+            public const string MostrarBotonVerTodos = "MostrarBotonVerTodos";
+            public const string AplicarLogicaCantidadBotonVerTodos = "AplicarLogicaCantidadBotonVerTodos";
         }
-
 
         public class RutaBuscadorService
         {
