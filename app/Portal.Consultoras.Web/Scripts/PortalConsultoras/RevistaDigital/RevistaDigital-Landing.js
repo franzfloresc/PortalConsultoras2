@@ -219,6 +219,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     divProd.find('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:100px;padding: 15px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
     divProd.find("#divOfertaProductosLoad").show();
 
+    //debugger;
     if (filtroCampania[codPalancaCampania] != undefined) {
         if (filtroCampania[codPalancaCampania].response != undefined) {
             if (filtroCampania[codPalancaCampania].response.Completo == 1) {
@@ -240,7 +241,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     }
 
     busquedaModel = busquedaModel || new Object();
-    
+
     $.ajaxSetup({
         cache: false
     });
@@ -258,9 +259,8 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
                 response.listaLan = Clone(response.lista);
                 response.lista = [];
             }
-            //console.log(1);
-            OfertaCargarProductoRespuesta(response, clear, busquedaModel);
 
+            OfertaCargarProductoRespuesta(response, clear, busquedaModel);
         },
         error: function (response, error) {
             divProd.find("#divOfertaProductosLoad").hide();

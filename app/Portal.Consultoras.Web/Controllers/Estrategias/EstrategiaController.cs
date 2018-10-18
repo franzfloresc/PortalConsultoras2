@@ -16,12 +16,14 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
     public class EstrategiaController : BaseController
     {
         protected OfertaBaseProvider _ofertaBaseProvider;
+        protected ConfiguracionOfertasHomeProvider _configuracionOfertasHomeProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
         public EstrategiaController()
         {
             _ofertaBaseProvider = new OfertaBaseProvider();
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
+            _configuracionOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
         }
 
         #region Metodos Por Palanca
@@ -262,20 +264,27 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         private void ActualizarSession(int tipoConsulta, bool esMobile, int cantidadTotal)
         {
-            if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
+            try
             {
-                var sessionMg = SessionManager.MasGanadoras.GetModel();
-                if (sessionMg.TieneLanding)
+                if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
                 {
-                    var seccionesContenedor = SessionManager.GetSeccionesContenedor(userData.CampaniaID);
-                    var entConf = seccionesContenedor.FirstOrDefault(s => s.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.MasGanadoras) ?? new ServiceSAC.BEConfiguracionOfertasHome();
-                    var cantidad = esMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos;
-                    if (cantidadTotal <= cantidad)
+                    var sessionMg = SessionManager.MasGanadoras.GetModel();
+                    if (sessionMg.TieneLanding)
                     {
-                        sessionMg.TieneLanding = false;
-                        SessionManager.MasGanadoras.SetModel(sessionMg);
+                        var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
+                        var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.MasGanadoras) ?? new ConfiguracionSeccionHomeModel();
+                        var cantidad = entConf.CantidadProductos;
+                        if (cantidadTotal <= cantidad)
+                        {
+                            sessionMg.TieneLanding = false;
+                            SessionManager.MasGanadoras.SetModel(sessionMg);
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, tipoConsulta.ToString());
             }
         }
 
