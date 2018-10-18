@@ -75,7 +75,9 @@
     }
 
     .header__marca__pais picture {
-        margin-top: 9px;
+        margin-top: 0;
+        position: relative;
+        left: -3px;
     }
 
     .header__marca__pais img{

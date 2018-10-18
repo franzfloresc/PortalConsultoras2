@@ -2,7 +2,12 @@
 
     var _elementos = {
         body: "body",
+        layoutContent: '.layout__content',
         opcionOrdenar: "#dpw-ordenar, .opcion__ordenamiento__label",
+        opcionFiltrar: "#opcionFiltrar",
+        opcionCerrarFiltrosMobile: '#cerrarFiltros',
+        backgroundAlMostrarFiltrosMobile: '.background__filtros__mobile',
+        seccionFiltros: '.layout__content__filtros',
         footer: "footer",
         spanTotalProductos: "#TotalProductos",
         itemDropDown: ".opcion__ordenamiento__dropdown__item",
@@ -60,6 +65,8 @@
             $(document).on("click", _elementos.body, _eventos.DropDownCerrar);
             $(document).on("keyup", _elementos.body, _eventos.DropDownCerrar);
             $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
+            $(document).on("click", _elementos.opcionFiltrar, _eventos.MostrarFiltrosMobile);
+            $(document).on("click", _elementos.opcionCerrarFiltrosMobile, _eventos.CerrarFiltrosMobile);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
             $(document).on("click", _elementos.btnAgregar, _eventos.RegistrarProducto);
             $(document).on('click', _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
@@ -231,6 +238,31 @@
             $('.ul-seleccionado').html(textoOrdenamiento);
             
         },
+
+        MostrarFiltrosMobile: function(e){
+            e.preventDefault();
+            $(_elementos.body).css({'overflow-y':'hidden'});
+            $(_elementos.layoutContent).css({ 'z-index': '2000' });
+            $(_elementos.backgroundAlMostrarFiltrosMobile).fadeIn(100);
+            $(_elementos.seccionFiltros).fadeIn(80);
+            $(_elementos.seccionFiltros).animate({
+                left : 0 + '%'
+            }, 150);
+        },
+
+        CerrarFiltrosMobile: function(e){
+            e.preventDefault();
+            $(_elementos.body).css({ 'overflow-y': '' });
+            $(_elementos.seccionFiltros).animate({
+                left: -100 + '%'
+            }, 150);
+            $(_elementos.backgroundAlMostrarFiltrosMobile).delay(100);
+            $(_elementos.backgroundAlMostrarFiltrosMobile).fadeOut(100);
+            setTimeout(function () {
+                $(_elementos.layoutContent).css({ 'z-index': '2' });
+            }, 400);
+        },
+
         ScrollCargarProductos: function () {
             _config.cargandoProductos = true;
             _config.numeroPaginaActual++;

@@ -1425,6 +1425,7 @@
     <Content Include="Content\Css\Site\Shared\menu-secundario-responsive.css" />
     <Content Include="Content\Css\Site\Shared\general.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
+    <Content Include="Content\Images\cerrar-filtros.svg" />
     <Content Include="Content\Images\check-agregado-icono.svg" />
     <Content Include="Content\Images\check-icono.svg" />
     <Content Include="Content\Images\checkbox-filtros.svg" />
@@ -1563,6 +1564,7 @@
     <Content Include="Content\Images\Esika\logo_marca_pais_desktop.svg" />
     <Content Include="Content\Images\Esika\logo_marca_pais_mobile.svg" />
     <Content Include="Content\Images\Esika\vineta_indicador.png" />
+    <Content Include="Content\Images\filtrar-icono.svg" />
     <Content Include="Content\Images\flecha_icono.svg" />
     <Content Include="Content\Images\icono-elige-tu-opcion.svg" />
     <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
