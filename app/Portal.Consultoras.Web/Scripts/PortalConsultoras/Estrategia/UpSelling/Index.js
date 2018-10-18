@@ -271,11 +271,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
         return rowData;
     }
 
-    /**
-     * Region ViewModel
-     * @param {} data : UpSelling JS Object
-     * @returns {} 
-     */
     function UpSellingModel(data) {
         var selfm = this;
         selfm.UpSellingId = ko.observable(data.UpSellingId).extend({

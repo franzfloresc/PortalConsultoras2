@@ -130,12 +130,6 @@
         var localStorageItem = {}
         localStorageItem.CampaniaID = campania;
         localStorageItem.IsLoad = false;
-        //localStorageItem.CantMostrados = 15;
-        //localStorageItem.CantTotal = 0;
-        //localStorageItem.Completo = 0;
-        //localStorageItem.ListaFiltro = [];
-        //localStorageItem.Ordenamiento = { Tipo: "" };
-        //localStorageItem.Palanca = "";
         localStorageItem.UrlCargarProductos = "";
         localStorageItem.VarListaStorage = "";
         return localStorageItem;
@@ -179,7 +173,7 @@
             
             var nombreKey = _obtenerKey(palanca, campania);
 
-            if (IsNullOrEmpty(nombreKey)) // throw "Palanca no tiene asignado key local storage.";
+            if (IsNullOrEmpty(nombreKey))
                 return null;
 
             if (!_existeItem(nombreKey)) _cargarEstrategias(campania, palanca, nombreKey);
@@ -347,7 +341,6 @@ function ActualizaCuvAgregado(cuv, valor, lista, indCampania) {
                         item.IsAgregado = valor;
                     }
 
-                    //ok = true;
                     if (cuv != "todo") {
                         return false;
                     }

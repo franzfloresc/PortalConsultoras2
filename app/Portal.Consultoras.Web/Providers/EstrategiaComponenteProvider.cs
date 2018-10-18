@@ -277,7 +277,7 @@ namespace Portal.Consultoras.Web.Providers
 
         private List<EstrategiaComponenteModel> EstrategiaComponenteLimpieza(string codigoVariante, List<EstrategiaComponenteModel> listaEstrategiaComponenteProductos)
         {
-            listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.Where(c => c.NombreBulk != "").ToList();
+            //listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.Where(c => c.NombreBulk != "").ToList();
 
             switch (codigoVariante)
             {
@@ -306,12 +306,12 @@ namespace Portal.Consultoras.Web.Providers
                             var existe = false;
                             foreach (var itemR in listaComponentes)
                             {
-                                existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv);
+                                existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv || h.Grupo == hermano.Grupo);
                                 if (existe) break;
                             }
                             if (existe) continue;
 
-                            hermano.Hermanos = listaEstrategiaComponenteProductos.Where(p => p.Grupo == hermano.Grupo).OrderBy(p => p.Orden).ToList();
+                            hermano.Hermanos = listaEstrategiaComponenteProductos.Where(p => p.Grupo == hermano.Grupo && p.NombreBulk != "").OrderBy(p => p.Orden).ToList();
                         }
 
                         if (hermano.Hermanos.Any())
@@ -394,18 +394,18 @@ namespace Portal.Consultoras.Web.Providers
             //}
             //else
             //{
-                if (esMs)
+            if (esMs)
+            {
+                if (componenteModel.NombreComercial == "")
                 {
-                    if (componenteModel.NombreComercial == "")
-                    {
-                        componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto;
-                    }
+                    componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto;
                 }
-                else
-                {
-                    componenteModel.NombreComercial = beEstrategiaProducto.NombreComercial == "" ?
-                        beEstrategiaProducto.NombreProducto : beEstrategiaProducto.NombreComercial;
-                }
+            }
+            else
+            {
+                componenteModel.NombreComercial = beEstrategiaProducto.NombreComercial == "" ?
+                    beEstrategiaProducto.NombreProducto : beEstrategiaProducto.NombreComercial;
+            }
             //}
 
             if (componenteModel.NombreBulk != "" && !(" " + componenteModel.NombreComercial.ToLower() + " ").Contains(" " + componenteModel.NombreBulk.ToLower() + " "))
@@ -455,7 +455,10 @@ namespace Portal.Consultoras.Web.Providers
             var listaComponentesEzika = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Esika);
             var listaComponentesLbel = listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.LBel);
             var listaComponentesOtraMarca = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>()
-                : listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Cyzone && x.IdMarca == Constantes.Marca.Esika && x.IdMarca != Constantes.Marca.LBel);
+                : listaComponentesPorOrdenar.Where(x =>
+                    x.IdMarca != Constantes.Marca.Cyzone &&
+                    x.IdMarca != Constantes.Marca.Esika &&
+                    x.IdMarca != Constantes.Marca.LBel);
 
             int contador = 0;
             contador += listaComponentesCyzone.Any() ? 1 : 0;
