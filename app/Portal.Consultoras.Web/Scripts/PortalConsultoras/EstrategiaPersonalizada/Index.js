@@ -196,6 +196,7 @@ function SeccionCargarProductos(objConsulta) {
 }
 
 function SeccionMostrarProductos(data) {
+    
     if (isMobile()) {
         if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV) {
             if (data.cantidadTotal == 0) {
@@ -212,6 +213,19 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
+    //Marcación Analytics
+    if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
+        if (varContenedor.CargoLan) {
+            $.each(data.listaLan, function (key, value) {
+                if (value.TipoEstrategiaDetalle.FlagIndividual) {
+                    var dateItem = new Array(value);
+                    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem);
+                    return false;
+                }
+            });
+        }
+        //get the first
+    }
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
     if (divListadoProductos.length !== 1) {
         if (data.Seccion !== undefined &&
@@ -439,7 +453,7 @@ function RenderCarruselPrevisuales(divProd) {
 function RenderCarruselSimple(divProd) {
     if (typeof divProd == "undefined")
         return false;
-
+    
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
 
     divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");

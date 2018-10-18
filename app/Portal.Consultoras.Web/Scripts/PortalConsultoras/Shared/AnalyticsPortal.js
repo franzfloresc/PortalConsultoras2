@@ -996,7 +996,7 @@ var AnalyticsPortalModule = (function () {
             try {
                 if (_constantes.isTest)
                     alert("Marcación promotion view.");
-                var promotions = AnalyticsPortalModule.AutoMapper(codigoSeccion, data);
+                var promotions = AnalyticsPortalModule.AutoMapperV2(codigoSeccion, data);
                 if (promotions.length == 0)
                     return false;
                 dataLayer.push({
@@ -1020,6 +1020,27 @@ var AnalyticsPortalModule = (function () {
             var codigo = element.data("origenpedidoweb");
             $.each(data.lista, function (index) {
                 var item = data.lista[index];
+                var element = {
+                    'id': item.CUV2,
+                    'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo) + " - " + item.DescripcionCompleta + " - " + "Ver producto",
+                    'position': fnObtenerContenedor(),
+                    'creative': "Banner"
+                };
+                collection.push(element);
+            });
+        }
+
+        return collection;
+    };
+
+    //Add by JNIZAMA
+    var autoMapperV2 = function (codigoSeccion, data) {
+        var collection = [];
+        if (codigoSeccion == _codigoSeccion.LAN) {
+            var element = $("[data-seccion=" + codigoSeccion + "]");
+            var codigo = element.data("origenpedidoweb");
+            $.each(data, function (index) {
+                var item = data[index];
                 var element = {
                     'id': item.CUV2,
                     'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo) + " - " + item.DescripcionCompleta + " - " + "Ver producto",
@@ -1098,7 +1119,7 @@ var AnalyticsPortalModule = (function () {
                             {
                                 'id': estrategia.CUV2,
                                 'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenWeb) + " - " + estrategia.DescripcionCompleta + " - " + "Ver producto",
-                                'position': _constantes.contenedor,
+                                'position': _constantes.contenedor || _constantes.contenedorHome,
                                 'creative': 'Banner'
                             }]
                     }
@@ -1630,6 +1651,7 @@ var AnalyticsPortalModule = (function () {
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
         MarcaPromotionViewBanner: marcaPromotionViewBanner,
         AutoMapper: autoMapper,
+        AutoMapperV2: autoMapperV2,
         MarcaClicBanner: marcaClicBanner,
         MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
         MarcaProductImpression: marcaProductImpression,
