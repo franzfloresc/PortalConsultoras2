@@ -55,11 +55,12 @@ BEGIN
 
 	DECLARE  @OfertasPersonalizadas TABLE
 	(
-		Orden				INT,
-		CUV					CHAR(6),
-		TipoPersonalizacion	CHAR(3),
-		FlagRevista			INT,
-		AnioCampanaVenta	INT
+		Orden					INT,
+		CUV						CHAR(6),
+		TipoPersonalizacion		CHAR(3),
+		FlagRevista				INT,
+		AnioCampanaVenta		INT,
+		TipoEstrategiaId		INT
 	)
 	--
 	IF @FlagMaterialGanancia = @ObtenerOpmTodo OR @FlagMaterialGanancia = @ObtenerOpmSinForzadas
@@ -127,10 +128,11 @@ BEGIN
 		, E.Ganancia
 		, OP.FlagRevista
 		, OP.Orden
-	FROM dbo.Estrategia E with(nolock)
+	FROM  dbo.Estrategia E with(nolock)
 		INNER JOIN @OfertasPersonalizadas op
 			ON E.CampaniaID = op.AnioCampanaVenta
 			AND E.CUV2 = op.CUV
+			AND OP.TipoEstrategiaId = E.TipoEstrategiaId
 		INNER JOIN ods.ProductoComercial PC with(nolock)
 			ON PC.CUV = E.CUV2
 			AND PC.AnoCampania = E.CampaniaID

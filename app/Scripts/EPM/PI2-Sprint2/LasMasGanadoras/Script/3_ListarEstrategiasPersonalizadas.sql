@@ -6,6 +6,7 @@ GO
 
 --USE BelcorpCostaRica_BPT
 --GO
+
 PRINT DB_NAME()
 
 IF EXISTS (	SELECT 1
@@ -49,7 +50,9 @@ BEGIN
 	OP.Cuv,
 	OP.TipoPersonalizacion,
 	OP.FlagRevista,
-	AnioCampanaVenta = CONVERT(INT,op.AnioCampanaVenta)
+	AnioCampanaVenta = CONVERT(INT,op.AnioCampanaVenta),
+	--CodigoTipoEstrategia = dbo.fnGetCodigoTipoEstrategia(OP.TipoPersonalizacion),
+	TipoEstrategiaId = dbo.fnGetTipoEstrategiaId(dbo.fnGetCodigoTipoEstrategia(OP.TipoPersonalizacion))
 	FROM @TipoPersonalizacion TP
 		JOIN ods.OfertasPersonalizadas op WITH(NOLOCK) 
 			ON op.TipoPersonalizacion = TP.TipoPersonalizacion
