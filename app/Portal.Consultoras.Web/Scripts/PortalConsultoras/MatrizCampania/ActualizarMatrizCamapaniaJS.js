@@ -27,8 +27,6 @@
         e.target.value = '';
     }
     document.getElementById('btnProcesarMasivo').onclick = function () {
-        //nroEnvio = 1;
-        //GrabarMatrizBloque();
         GrabarMatrizCampaniaMasivo();
     }
     document.getElementById('ddlCampaniaM').onchange = function () {
@@ -36,22 +34,8 @@
     }
     document.getElementById('btnExcel').onclick = function () {
         exportar();
-        //document.getElementById('tbInValidos').innerHTML = '<table id="testTable" summary="Code page support in different versions of MS Windows." rules="groups" frame="hsides" border="2"><caption>CODE-PAGE SUPPORT IN MICROSOFT WINDOWS</caption><colgroup align="center"></colgroup><colgroup align="left"></colgroup><colgroup span="2" align="center"></colgroup><colgroup span="3" align="center"></colgroup><thead valign="top"><tr><th>Code-Page<br>ID</th><th>Name</th><th>ACP</th><th>OEMCP</th><th>Windows<br>NT 3.1</th><th>Windows<br>NT 3.51</th><th>Windows<br>95</th></tr></thead><tbody><tr><td>1200</td><td style="background-color: #00f; color: #fff">Unicode (BMP of ISO/IEC-10646)</td><td></td><td></td><td>X</td><td>X</td><td>*</td></tr><tr><td>1250</td><td style="font-weight: bold">Windows 3.1 Eastern European</td><td>X</td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>1251</td><td>Windows 3.1 Cyrillic</td><td>X</td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>1252</td><td>Windows 3.1 US (ANSI)</td><td>X</td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>1253</td><td>Windows 3.1 Greek</td><td>X</td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>1254</td><td>Windows 3.1 Turkish</td><td>X</td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>1255</td><td>Hebrew</td><td>X</td><td></td><td></td><td></td><td>X</td></tr><tr><td>1256</td><td>Arabic</td><td>X</td><td></td><td></td><td></td><td>X</td></tr><tr><td>1257</td><td>Baltic</td><td>X</td><td></td><td></td><td></td><td>X</td></tr><tr><td>1361</td><td>Korean (Johab)</td><td>X</td><td></td><td></td><td>**</td><td>X</td></tr></tbody><tbody><tr><td>437</td><td>MS-DOS United States</td><td></td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>708</td><td>Arabic (ASMO 708)</td><td></td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>709</td><td>Arabic (ASMO 449+, BCON V4)</td><td></td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>710</td><td>Arabic (Transparent Arabic)</td><td></td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>720</td><td>Arabic (Transparent ASMO)</td><td></td><td>X</td><td></td><td></td><td>X</td></tr></tbody></table>';
-
-        //document.getElementById('tablaCuvsInValidos').innerHTML ='<table id="testTable" rules="groups" frame="hsides" border="1"><thead valign="top"><tr><th>Code-Page</th><th>Name</th><th>ACP</th><th>OEMCP</th><th>Windows</th><th>Windows</th><th>Windows</th></tr></thead><tbody><tr><td>1200</td><td style="background-color: #00f; color: #fff">Unicode (BMP of ISO/IEC-10646)</td><td></td><td></td><td>X</td><td>X</td><td>*</td></tr><tr><td>1250</td><td style="font-weight: bold">Windows 3.1 Eastern European</td><td>X</td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>1251</td><td>Windows 3.1 Cyrillic</td><td>X</td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>1252</td><td>Windows 3.1 US (ANSI)</td><td>X</td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>1253</td><td>Windows 3.1 Greek</td><td>X</td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>1254</td><td>Windows 3.1 Turkish</td><td>X</td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>1255</td><td>Hebrew</td><td>X</td><td></td><td></td><td></td><td>X</td></tr><tr><td>1256</td><td>Arabic</td><td>X</td><td></td><td></td><td></td><td>X</td></tr><tr><td>1257</td><td>Baltic</td><td>X</td><td></td><td></td><td></td><td>X</td></tr><tr><td>1361</td><td>Korean (Johab)</td><td>X</td><td></td><td></td><td>**</td><td>X</td></tr></tbody><tbody><tr><td>437</td><td>MS-DOS United States</td><td></td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>708</td><td>Arabic (ASMO 708)</td><td></td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>709</td><td>Arabic (ASMO 449+, BCON V4)</td><td></td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>710</td><td>Arabic (Transparent Arabic)</td><td></td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>720</td><td>Arabic (Transparent ASMO)</td><td></td><td>X</td><td></td><td></td><td>X</td></tr></tbody></table>'
-       //tableToExcel('tablaCuvsInValidos', 'Articulos Invalidos');
-
     };
     document.getElementById('btnValidar').onclick = function () { ValidarInvalidos(); };
-
-    //document.getElementById('imgValidar').onclick = function () {
-    //    var file = document.getElementById("uplArchivo");
-    //    if (document.getElementById('ddlCampaniaM').value != '0' && (file.value != null && file.value != "")) {
-    //        ValidarExcel();
-    //    }
-    //    else
-    //        alert('seleccione Campania y archivo a subir');
-    //};
 }
 
 function GrabarMatrizCampania() {
@@ -80,12 +64,6 @@ function GrabarMatrizCampania() {
             PrecioProducto: document.getElementById('txtPrecioNuevo').value.trim(),
             FactorRepeticion: document.getElementById('txtFactorRepeticionNuevo').value.trim() 
         };
-        //if (_settings.habilitarRegalo) {
-        //    item.RegaloDescripcion = $(_elements.txtRegaloDescripcion).val();
-        //    var imagen = $(_elements.imgSeleccionada).attr('src');
-        //    if (imagen != '' && imagen.indexOf('prod_grilla_vacio.png') == -1)
-        //        item.RegaloImagenUrl = imagen.substr(imagen.lastIndexOf("/") + 1);
-        //}
 
         var url = "MatrizCampania/InsertarProductoDescripcion";
         var urlBase = window.sessionStorage.getItem("urlBase");
@@ -275,8 +253,6 @@ function ObtenerDescripcion(CodVenta, IDCampania, paisID) {
                 return false;
             }
             if (data.lstProducto.length > 0) {
-                //$(_elements.hdnSap).val(data.lstProducto[0].SAP);
-                //$(_elements.hdnIdMatrizComercial).val(data.lstProducto[0].IdMatrizComercial);
                 document.getElementById('txtDescripcion').value=data.lstProducto[0].Descripcion;
                 document.getElementById('txtPrecio').value=data.lstProducto[0].PrecioProducto;
                 document.getElementById('txtFactorRepeticion').value=data.lstProducto[0].FactorRepeticion;
@@ -285,12 +261,6 @@ function ObtenerDescripcion(CodVenta, IDCampania, paisID) {
                 document.getElementById('txtDescripcionNueva').value = data.lstProducto[1].Descripcion;
                 document.getElementById('txtPrecioNuevo').value = data.lstProducto[1].PrecioProducto;
                 document.getElementById('txtFactorRepeticionNuevo').value = data.lstProducto[1].FactorRepeticion;
-                //if (_settings.habilitarRegalo) {
-                //    $(_elements.txtRegaloDescripcion).val(data.lstProducto[1].RegaloDescripcion);
-                //    if ($.trim(data.lstProducto[1].RegaloImagenUrl) != '') {
-                //        $(_elements.imgSeleccionada).attr("src", data.lstProducto[1].RegaloImagenUrl);
-                //    }
-                //}
 
             }
 
@@ -525,7 +495,7 @@ function ValidarExcel() {
                             contValidos++;
                             regValidos += "<tr style='background-color: white;'>";
                             for (var j = 0; j < 4; j++) {
-                                //if (colum[j].trim().length <= 0) continue;
+
                                 regValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
                                 if (j == 2) {
                                     if (isNaN(colum[j]) || colum[j].trim().length == 0) {
@@ -579,9 +549,9 @@ function ValidarExcel() {
                                 for (var j = 0; j < 4; j++) {
                                     cuv = colum[0];
                                     descrip = colum[1];
-                                    //if (colum[j].trim().length <= 0 )continue;
+
                                     regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
-                                    //regInValidos += colum[j];
+
                                     if (j == 2) {
                                         if (isNaN(colum[j]) || colum[j].trim().length == 0) {
                                             regInValidos += colum[j];
@@ -633,7 +603,6 @@ function ValidarExcel() {
                                     document.getElementById('divregistrosValidos').style.display = 'None';
                                     document.getElementById('divProcesarMasivo').style.display = 'None';
                                     document.getElementById('spanValido').innerHTML = contValidos.toString();
-                                    //document.getElementById('divTotalRegistrosValidos').style.display = 'None';
                                 }
 
                            
@@ -757,7 +726,7 @@ function ValidarInvalidos() {
                                         cuv = colum[0];
                                         descrip = colum[1];
                                         regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
-                                        //regInValidos += colum[j];
+
                                         if (j == 2) {
                                        
                                             if (isNaN(colum[j]) || colum[j].trim().length == 0) {
@@ -774,7 +743,7 @@ function ValidarInvalidos() {
                                     regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
                                    
                                     for (var p = 0; p < list.length; p++) {
-                                        //if (cuv == list[p].split('¦')[0] && descrip == list[p].split('¦')[1]) Obs += list[p].split('¦')[2];
+
                                         if (cuv == list[p].split('¦')[0]) {
                                             if (descrip == list[p].split('¦')[1] && colum[2] == list[p].split('¦')[2] && colum[3] == list[p].split('¦')[3]) {
                                                 Obs += list[p].split('¦')[4];
@@ -786,7 +755,7 @@ function ValidarInvalidos() {
 
                                     if (listCuvInval[0].trim().length > 0) {
                                         for (var k = 0; k < listCuvInval.length; k++) {
-                                            if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";//&& descrip == list[p].split('¦')[1]
+                                            if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
                                         }
                                     }
 
@@ -867,9 +836,9 @@ function ValidarInvalidos() {
                             for (var j = 0; j < 4; j++) {
                                 cuv = colum[0];
                                 descrip = colum[1];
-                                //if (colum[j].trim().length <= 0) continue;
+
                                 regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
-                                //regInValidos += colum[j];
+
                                 if (j == 2) {
                                     if (isNaN(colum[j]) || colum[j].trim().length == 0) {
                                         regInValidos += colum[j];
@@ -886,7 +855,7 @@ function ValidarInvalidos() {
 
 
                             for (var p = 0; p < list.length; p++) {
-                                //if (cuv == list[p].split('¦')[0] && descrip == list[p].split('¦')[1]) Obs += list[p].split('¦')[2];
+
                                 if (cuv == list[p].split('¦')[0]) {
                                     if (descrip == list[p].split('¦')[1] && colum[2] == list[p].split('¦')[2] && colum[3] == list[p].split('¦')[3]) {
                                         Obs += list[p].split('¦')[4];
@@ -918,7 +887,7 @@ function ValidarInvalidos() {
 
 
                     }
-                    //document.getElementById('tbValidos').innerHTML = regValidos;
+
                 }
 
                 closeWaitingDialog();
@@ -1027,13 +996,13 @@ function grabarBloque() {
 function mostrarGrabar(rpta) {
     if (rpta == "") {
         regEnviados += nroRegEnv;
-        //document.getElementById("spnMensaje").innerHTML = "Envio Nro: " + nroEnvio + " - Duración Envio: " + tiempo + " msg - Reg Grabados: " + regEnviados;
+
         nroEnvio++;
         if (nroEnvio <= totalEnv) {
             grabarBloque();
         }
         else {
-            //document.getElementById("spnMensaje").innerHTML = "Total Envios: " + totalEnv + " - Duración Total: " + tiempoTotal + " msg - Reg Grabados: " + nRegistros;
+
         }
     }
     else alert(rpta);

@@ -20,7 +20,6 @@ $(document).ready(function () {
         },
             me.Funciones = {
                 InicializarEventos: function () {
-                    //$(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
                     $(document).on('click', '.opcionPagoMobile', me.Eventos.MostrarDetalleTipoPago);
                     $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
                     $(document).on('click', 'button[data-metodopago]', me.Eventos.ContinuarPasarelaPago);
@@ -28,7 +27,6 @@ $(document).ready(function () {
                     $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
                 },
                 InicializarAcciones: function () {
-                    //me.globals.barraActivacion.toggleClass('activado');
                     var boton = $("button[type='submit']")[0];
 
                     if (boton) {
@@ -37,13 +35,6 @@ $(document).ready(function () {
                         $(boton).addClass("w-100");
                         $(boton).addClass("text-uppercase");
                         $(boton).addClass("text-bold");
-                        //$(boton).css("width", "100%");
-                        //$(boton).css("font-family", "Lato");
-                        //$(boton).css("border-radius", "0%");
-                        //$(boton).css("letter-spacing", "0.5px");
-
-                        //if (tipoOrigenPantalla == 1)
-                        //    $(boton).css("max-width", "308px");
 
                         $(boton).html("PAGA CON VISA");
                     }
@@ -119,7 +110,6 @@ $(document).ready(function () {
                         window.location.href = urlPasarelaPago + "?cardType=" + cardType + "&medio=" + medioPago;
                     }
 
-                    //alert("123");
                 }
             },
             me.Inicializar = function () {

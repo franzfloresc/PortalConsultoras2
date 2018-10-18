@@ -218,7 +218,6 @@
     <Compile Include="Areas\Mobile\Controllers\EstadoCuentaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MenuController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NotificacionesController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertaLiquidacionController.cs" />
     <Compile Include="Areas\Mobile\Controllers\FichaProductoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DescargarAppController.cs" />
@@ -4264,7 +4263,6 @@
     <Content Include="Areas\Mobile\Views\FichaProducto\ProductoNotFound.cshtml" />
     <Content Include="Areas\Mobile\Views\SeguimientoPedido\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBannerTop.cshtml" />
-    <Content Include="Areas\Mobile\Views\OfertaDelDia\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBanner.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueMensajesPostulante.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueMensajesPedido.cshtml" />
@@ -5234,14 +5232,12 @@
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <Content Include="Views\Shared\VistaParcialMenu\_Menu2.cshtml" />
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\Unete\ReporteFunnel.cshtml" />
     <Content Include="Views\Unete\_DevolverSolicitud.cshtml" />
     <Content Include="Views\Shared\MatrizComercial\_divVistaPrevia.cshtml" />
     <Content Include="Views\Shared\MatrizComercial\_matrizComercialItemTemplate.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo8.cshtml" />
     <Content Include="Views\Unete\_MotivoRechazo.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalanca.cshtml" />
@@ -5415,7 +5411,6 @@
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
-    <Content Include="Views\ShowRoom\DetalleSet.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\WsGestionWeb.wsdl" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete1.xsd">
       <SubType>Designer</SubType>
