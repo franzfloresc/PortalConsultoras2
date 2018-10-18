@@ -10,8 +10,11 @@
         btnAgregar: ".FichaAgregarProductoBuscador",
         divContenedorFicha: "#FichasProductosBuscador",
         scriptHandleBarFicha: "#js-FichaProductoBuscador",
+        scriptHandleBarFiltros: '#js-fichaFiltros',
         redireccionarFicha: '.redireccionarFicha',
-        dataToggle: '[data-toggle]'
+        dataToggle: '[data-toggle]',
+        filtrosCategorias: '#filtrosCategorias',
+        filtrosMarcas: '#filtrosMarcas'
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -86,6 +89,10 @@
                     $(_elementos.spanTotalProductos).html(data.total);
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
+                    // Filtros categorias
+                    if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.categorias, _elementos.filtrosCategorias);
+                    // Filtros Marcas
+                    if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.marcas, _elementos.filtrosMarcas);
                     _funciones.UpadteFichaProducto();
                     _config.totalProductos = data.total;
                     _config.cargandoProductos = false;
