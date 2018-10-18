@@ -9,9 +9,19 @@
 
 <section class="row flex-row ml-0 mr-0 layout__content">
     <!-- SECCIÓN FILTROS -->
+    <div class="col-12 pl-0 pr-0 background__filtros__mobile"></div>
     <section class="row flex-row justify-content-center align-items-stretch ml-0 mr-0 layout__content__filtros">
         <div class="col-12 pl-0 pr-0 filtros__wrapper">
-            <div class="col-12 pl-0 pr-0 filtros__subtitulo">
+            <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtros_subtitulo mostrarEnMobile">
+                <div class="col-9 col-lg-12 col-xl-12 pl-0 pr-0">
+                    <h3 class="col-12 pl-0 pr-0 text-bold text-uppercase">Filtra tus ofertas</h3>
+                    <div class="col-12 pl-0 pr-0 text-bold">14 resultados</div>
+                </div>
+                <a id="cerrarFiltros" class="d-inline-block filtros__enlace__cerrar mostrarEnMobile">
+                    <img src="@Url.Content("~/Content/Images/cerrar-filtros.svg")" alt="" />
+                </a>
+            </div>
+            <div class="col-12 pl-0 pr-0 filtros__subtitulo mostrarEnDesktop">
                 Filtrar por:
             </div>
             <ul class="row flex-row ml-0 mr-0 filtros__lista">
@@ -277,30 +287,39 @@
         </section>
         @if (Model.MostrarOpcionesOrdenamiento)
         {
-            <section class="col-12 col-lg-6 col-xl-6 lista__opciones_ordenamiento">
-                <div class="row flex-row justify-content-end ml-0 mr-0">
-                    <div class="col-6 col-lg-11 col-xl-11 pl-0 pr-0 opcion_ordenamiento text-lg-right text-xl-right">
-                        <label class="col-12 col-lg-3 col-xl-3 pl-0 d-inline-block text-center text-lg-right text-xl-right opcion__ordenamiento__label">Ordenar</label>
-                        <!-- AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
-                        <div id="dpw-ordenar" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
-                            <span class="col-11 opcion__ordenamiento__dropdown__seleccionada mostrarEnDesktop ul-seleccionado">Recomendación</span>
-                            <span class="col pl-0 pr-0 opcion__ordenamiento__dropdown__icono mostrarEnDesktop">
-                                <img src="@Url.Content("~/Content/Images/ordenar-flecha-icono.svg")" alt="" />
-                            </span>
+            <section class="col-12 col-lg-6 col-xl-6 lista__opciones__ordenamiento__y__filtrar">
+                <div class="row flex-row justify-content-between justify-content-lg-end justify-content-xl-end ml-0 mr-0">
+                    <div class="row flex-row align-items-center ml-0 mr-0 col-6 col-lg-11 col-xl-11 pl-0 pr-0 lista__opcion__wrapper lista__opcion__wrapper--filtrar mostrarEnMobile">
+                        <div id="opcionFiltrar" class="col-12 pl-0 pr-0 opcion__filtrar">
+                            <a class="col-12 col-lg-4 col-xl-4 pl-0 d-inline-block text-center opcion__filtrar__link" title="Filtrar">
+                                Filtrar
+                            </a>
                         </div>
-                        <!-- FIN - AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
+                    </div>
+                    <div class="row flex-row align-items-center ml-0 mr-0 col-12 col-lg-11 col-xl-11 pl-0 pr-0 lista__opcion__wrapper lista__opcion__wrapper--ordenar">
+                        <div class="col-12 pl-0 pr-0 opcion__ordenamiento text-lg-right text-xl-right">
+                            <label class="col-12 col-lg-4 col-xl-4 pl-0 d-inline-block text-center text-lg-right text-xl-right opcion__ordenamiento__label">
+                                Ordenar
+                            </label>
+                            <!-- AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
+                            <div id="dpw-ordenar" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
+                                <span class="col-11 opcion__ordenamiento__dropdown__seleccionada mostrarEnDesktop ul-seleccionado">Recomendación</span>
+                                <span class="col pl-0 pr-0 opcion__ordenamiento__dropdown__icono mostrarEnDesktop">
+                                    <img src="@Url.Content("~/Content/Images/ordenar-flecha-icono.svg")" alt="" />
+                                </span>
+                            </div>
+                            <!-- FIN - AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
+                        </div>
                     </div>
                     <ul id="ul-ordenar" class="col-9 col-md-10 col-lg-6 col-xl-6 pl-0 pr-0 opcion__ordenamiento__dropdown__lista d-none">
-
-
                         @for (int i = 0; i < Model.ListaOrdenamiento.Count; i++)
                         {
                             if (i == 0)
                             {
                                 <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
-                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value" title="@Model.ListaOrdenamiento.ToList()[i].Key">
+                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value " title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                     <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada"
-                                       title="@Model.ListaOrdenamiento.ToList()[i].Key">
+                                        title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                         @Model.ListaOrdenamiento.ToList()[i].Key
                                     </a>
                                 </li>
@@ -308,15 +327,14 @@
                             else
                             {
                                 <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
-                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value" title="@Model.ListaOrdenamiento.ToList()[i].Key">
+                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value " title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                     <a class="col-12 d-block opcion__ordenamiento__dropdown__link"
-                                       title="@Model.ListaOrdenamiento.ToList()[i].Key">
+                                        title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                         @Model.ListaOrdenamiento.ToList()[i].Key
                                     </a>
                                 </li>
                             }
                         }
-
                     </ul>
                 </div>
             </section>

@@ -95,10 +95,10 @@
 <body>
     <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
         <header class="layout__header row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
-            <div class="header__icono__menu mostrarEnMobile pl-0 pr-0">
+            <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
                 <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
-            </div>
-            <div class="header__marca__pais text-right">
+            </section>
+            <section class="header__marca__pais text-right">
                 @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
                 {
                     <picture class="d-block w-100">
@@ -116,12 +116,14 @@
                 }
 
 
-            </div>
+            </section>
             @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
-            @if (ViewBag.MostrarBuscadorYFiltros)
-            {
-                @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
-            }
+            <section class="row flex-row justify-content-center align-items-center flex-grow-1 header__buscador__productos">
+                @if (ViewBag.MostrarBuscadorYFiltros)
+                {
+                    @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
+                }
+            </section>
             @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
         </header>
 

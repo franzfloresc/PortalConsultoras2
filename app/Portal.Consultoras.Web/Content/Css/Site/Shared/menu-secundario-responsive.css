@@ -3,6 +3,7 @@
 
 .header__menu--lateralDerecho{
     flex-basis:0;
+    max-width:248px;
     position:relative;
 }
 
@@ -226,6 +227,7 @@
 
     .header__menu--lateralDerecho{
         min-width:90px;
+        max-width:none;
     }
 
     .notificaciones_menu_mobile2{
