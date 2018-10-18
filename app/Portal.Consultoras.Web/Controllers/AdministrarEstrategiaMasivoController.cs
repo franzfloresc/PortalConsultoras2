@@ -93,27 +93,32 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 };
 
-                if (cantidadEstrategiasSinConfigurarImagen == 0)
+                int validarEstrategiaImagen = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
+
+                if (validarEstrategiaImagen == 1)
                 {
-                    lst.Add(new ComunModel
+                    if (cantidadEstrategiasSinConfigurarImagen == 0)
                     {
-                        Id = 4,
-                        Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
-                        Valor = "0",
-                        ValorOpcional = "3",
-                        mongoIds = ""
-                    });
-                }
-                else//(cantidadEstrategiasSinConfigurarImagen > 0)
-                {
-                    lst.Add(new ComunModel
+                        lst.Add(new ComunModel
+                        {
+                            Id = 4,
+                            Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
+                            Valor = "0",
+                            ValorOpcional = "3",
+                            mongoIds = ""
+                        });
+                    }
+                    else//(cantidadEstrategiasSinConfigurarImagen > 0)
                     {
-                        Id = 4,
-                        Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
-                        Valor = cantidadEstrategiasSinConfigurarImagen.ToString(),
-                        ValorOpcional = "3",
-                        mongoIds = ""
-                    });
+                        lst.Add(new ComunModel
+                        {
+                            Id = 4,
+                            Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
+                            Valor = cantidadEstrategiasSinConfigurarImagen.ToString(),
+                            ValorOpcional = "3",
+                            mongoIds = ""
+                        });
+                    }
                 }
 
                 var grid = new BEGrid
@@ -641,10 +646,17 @@ namespace Portal.Consultoras.Web.Controllers
             bool rpta = false;
             try
             {
+                // validar 
+                // if == 1
+
                 using (var svc = new SACServiceClient())
                 {
                     rpta = svc.EstrategiaTemporalActualizarSetImagen(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
                 }
+
+                //else 
+                //  return true;
+
             }
             catch (Exception ex)
             {
