@@ -509,7 +509,7 @@ namespace Portal.Consultoras.Web.Providers
                         foreach (var packNueva in listaPackNueva)
                         {
                             packNueva.EsBannerProgNuevas = true;
-                            packNueva.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, esMobile ? "Imagen_mobile" : "FLYER_small.png");
+                            packNueva.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, nombreArchivo);
                         }
                     }
                 }
