@@ -1616,7 +1616,9 @@
     <Content Include="Content\Images\logo_belcorp_mobile.svg" />
     <Content Include="Content\Images\logo_facebook.svg" />
     <Content Include="Content\Images\logo_youtube.svg" />
+    <Content Include="Content\Images\mas-desplegable-icono.svg" />
     <Content Include="Content\Images\mas.svg" />
+    <Content Include="Content\Images\menos-desplegable-icono.svg" />
     <Content Include="Content\Images\menos.svg" />
     <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
     <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
