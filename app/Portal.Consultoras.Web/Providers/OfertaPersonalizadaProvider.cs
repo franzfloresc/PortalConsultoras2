@@ -505,6 +505,7 @@ namespace Portal.Consultoras.Web.Providers
                     if (listaPackNueva.Any())
                     {
                         var carpetaPais = Globals.UrlMatriz + "/" + user.CodigoISO;
+                        var nombreArchivo = string.Format("{0}-{1}-ca.jpg", user.CodigoISO, esMobile ? "Mobile" : "Desktop"); 
                         foreach (var packNueva in listaPackNueva)
                         {
                             packNueva.EsBannerProgNuevas = true;
