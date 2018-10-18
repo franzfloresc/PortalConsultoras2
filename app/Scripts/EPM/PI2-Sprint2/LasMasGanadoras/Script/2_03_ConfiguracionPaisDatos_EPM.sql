@@ -29,8 +29,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTitulo'
 		, 0
-		,'DESCUBRE MÁS OFERTAS DE NAVIDAD'
-		,'DESCUBRE MÁS OFERTAS DE NAVIDAD'
+		,'TENEMOS MÁS OPCIONES PARA TÍ'
+		,'TENEMOS MÁS OPCIONES PARA TÍ'
 		,null
 		,'Texto para el banner del carrusel'
 		,1
