@@ -1927,10 +1927,6 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
             }
             
-            //ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
-            //ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
-            //ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
-            //ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
             ActualizarLocalStoragePalancas(data.data.CUV, false);
         },
         error: function (data, error) {
@@ -3348,8 +3344,6 @@ function AjaxError(data) {
 }
 
 function HidePopupEstrategiasEspeciales() {
-    //$("#popupDetalleCarousel_lanzamiento").hide(); //DEUDA TECNICA
-    //$("#popupDetalleCarousel_packNuevas").hide();  //DEUDA TECNICA
 }
 
 function MostrarDetalleGanancia() {

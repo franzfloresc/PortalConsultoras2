@@ -214,8 +214,7 @@ function ArmarCarouselEstrategias(data) {
         $("#divListaEstrategias").show();
         $("#divContenedorListaEstrategia").hide();
         $(".contenido_gana_mas").hide();
-        //if (revistaDigital) {
-        //    if (revistaDigital.TieneRDC) {
+
                 if (isMobile()) {
                     $(".wrapper_resumen_mobile_clubganamas .zonadecolor, .wrapper_resumen_mobile_clubganamas").css({ "height": "200px" });
                 } else {
@@ -223,8 +222,6 @@ function ArmarCarouselEstrategias(data) {
                     $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
                     $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
                 }
-        //    }
-        //}
         
         return false;
     }
@@ -644,7 +641,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                     divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
                 }
 
-                //$(".contenedor_popup_detalleCarousel").hide(); DEUDA TECNICA
                 $("#divMensajeBloqueada").show();
             }
         }
@@ -921,7 +917,6 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 }
 
 function HidePopupEstrategiasEspeciales() {
-    //$("#popupDetalleCarousel_packNuevas").hide(); DEUDA TECNICA (BORRAR ESTA FUNCIÓN DESPUES)
 }
 
 function CerrarLoad() {

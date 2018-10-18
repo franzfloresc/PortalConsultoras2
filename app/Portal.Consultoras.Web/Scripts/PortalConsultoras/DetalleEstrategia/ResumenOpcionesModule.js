@@ -108,7 +108,6 @@ var ResumenOpcionesModule = (function () {
 
         _verificarActivarBtn(codigoVariante);
 
-        //Analytics (EPM-1442)
         if (callCloseElegirOpcionesModal) {
             var estrategia = fichaModule.GetEstrategia();
             var nombreConcat = "";
