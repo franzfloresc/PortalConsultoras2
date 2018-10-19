@@ -195,10 +195,14 @@ var AnalyticsPortalModule = (function () {
 
     
 
-    var marcarClicSetProductos = function (infoItem) {
-
-        var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+    var marcarClicSetProductos = function (infoItem, event, origenPedidoWebEstrategia, estoyEnLaFicha) {
         
+       // var $btnAgregar = $(event.target);
+       // var origenPedidoWebEstrategia = EstrategiaAgregarModule.GetOrigenPedidoWeb($btnAgregar);
+        var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+        var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, origenPedidoWebEstrategia, estoyEnLaFicha);
+        
+
         try {
             dataLayer.push({
                 'event': _evento.productClick,
@@ -206,8 +210,8 @@ var AnalyticsPortalModule = (function () {
                     'currencyCode': tipoMoneda,
                     'click': {
                         'actionField': {
-                            'list': infoItem.DescripcionCompleta + ' – Set productos'
-                        },
+                            'list': contenedor + " - Campaña "+  $('#hdCampaniaCodigo').val()
+        },
                         'products': [{
                             'name':     infoItem.DescripcionCompleta,
                             'id':       infoItem.CUV2,
@@ -306,7 +310,7 @@ var AnalyticsPortalModule = (function () {
             }
         };
 
-    var getContenedorByOrigenPedido = function (event, codigoOrigenPedido) {
+    var getContenedorByOrigenPedido = function (event, codigoOrigenPedido, estoyEnLaFicha) {
             try {
                 var contenedor = "";
                 var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
@@ -324,9 +328,12 @@ var AnalyticsPortalModule = (function () {
                 var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
                 var esCarrusel = false;
                 if (!(event == null)) {
-                    var elementCarrusel = $(event.target).closest("div:has(*[data-item-tag])");
-                    var esCarrusel = elementCarrusel.hasClass("content_item_carrusel");
+                    var elementCarrusel = $(event.target || event).parents("[data-item]");
+                    esCarrusel = elementCarrusel.hasClass("slick-slide");
                 }
+                if (estoyEnLaFicha !== "undefined")
+                    esFicha = estoyEnLaFicha;
+
                 var contenedorFicha = esCarrusel ? _texto.contenedorDetalleSets : _texto.contenedorDetalle;
                 switch (pagina.Pagina) {
                     case "Home": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
