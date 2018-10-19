@@ -145,10 +145,11 @@
 }
 
 .opcion__ordenamiento__dropdown--desplegado:after{
+    display:block;
     content:"";
     width:100%;
     height: 11px;
-    bottom: -5px;
+    bottom: -2px;
     z-index: 4;
 }
 
@@ -663,6 +664,10 @@
         top:0!important;
     }
 
+    .opcion__ordenamiento__dropdown--desplegado:after{
+        bottom:-9px!important;
+    }
+
     .ficha__producto--delgada{
         width: calc(28% - 20px)!important;
     }
@@ -942,8 +947,8 @@
     .opcion__ordenamiento__dropdown--desplegado:after{
         width:100%;
         right:0;
-        bottom: -7px;
-        height:10px;
+        bottom: -9px;
+        height:11px;
     }
 
     .lista__opcion__wrapper--filtrar + .lista__opcion__wrapper--ordenar .opcion__ordenamiento__dropdown--desplegado:before,
