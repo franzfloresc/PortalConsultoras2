@@ -1,0 +1,86 @@
+﻿
+/* HEADER DESKTOP */
+
+.layout__header{
+    background-repeat:no-repeat;
+    background-image:url(/Content/images/cincuenta_anios_belcorp_cabecera.png);
+    background-position:left top;
+    height:60px;
+    position:fixed;
+    background-color:#FFF;
+    width:100%;
+    top:0;
+    z-index: 2000;
+    padding-left:12px;
+    padding-right:0;
+    -webkit-box-shadow: 0 4px 4px 0 rgba(126,126,126,.5);
+    -moz-box-shadow: 0 4px 4px 0 rgba(126,126,126,.5);
+    -ms-box-shadow: 0 4px 4px 0 rgba(126,126,126,.5);
+    -o-box-shadow: 0 4px 4px 0 rgba(126,126,126,.5);
+    box-shadow:0 4px 4px 0 rgba(126,126,126,.5);
+}
+
+.header__marca__pais {
+    width: 185px;
+}
+
+@media screen and (max-width:1270px){
+
+    .header__marca__pais {
+        width: 163px;
+    }
+
+}
+
+@media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+    .submenu__lista--miNegocio{
+        align-content:space-around;
+    }
+
+}
+
+/* FIN - HEADER DESKTOP */
+
+/* HEADER MOBILE */
+
+@media screen and (max-width: 991px) and (-ms-high-contrast: none), (max-width: 991px) and (-ms-high-contrast: active) {
+
+    .header__marca__pais{
+        flex-grow:1;
+    }
+
+    .header__marca__pais picture{
+        display:none!important;
+    }
+
+    .header__marca__pais img{
+        margin-top:-5px;
+    }
+
+}
+
+@media screen and (max-width:991px){
+
+    /* .layout__header{
+        background-image:none!important;
+        box-shadow:none;
+    }
+    
+    .header__marca__pais{
+        display:none;
+    } */
+
+    .layout__header{
+        background-image:url(/Content/images/mobile/cincuenta_anios_belcorp_cabecera_mobile.png);
+        background-position:-23px top;
+        padding-right:12px;
+    }
+
+    .header__marca__pais picture{
+        height:28px;
+    }
+
+}
+
+/* FIN - HEADER MOBILE */

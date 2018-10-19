@@ -191,7 +191,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Registro', 'Código Consultora', 'Nombre Consultora', 'Acepto Contrato', 'Fecha Aceptación', 'Origen', 'DirecciónIP', 'InformaciónSOMobile'],
+            colNames: ['Registro', 'Código Consultora', 'Nombre Consultora', 'Acepto Contrato', 'Fecha Aceptación', 'Origen', 'DirecciónIP', 'InformaciónSOMobile', 'IMEI','DeviceID'],
             colModel: [
                 { name: 'Registro', index: 'Registro', width: 10, editable: true, resizable: false },
                 { name: 'CodigoConsultora', index: 'CodigoConsultora', width: 15, editable: true, resizable: false },
@@ -200,7 +200,9 @@
                 { name: 'FechaAceptacion', index: 'FechaAceptacion', width: 30, editable: true, resizable: false, align: 'center' },
                 { name: 'Origen', index: 'Origen', width: 15, editable: true, resizable: false, align: 'center' },
                 { name: 'DireccionIP', index: 'DireccionIP', width: 15, editable: true, resizable: false, align: 'center' },
-                { name: 'InformacionSOMobile', index: 'InformacionSOMobile', width: 50, editable: true, resizable: false, align: 'center' }
+                { name: 'InformacionSOMobile', index: 'InformacionSOMobile', width: 50, editable: true, resizable: false, align: 'center' },
+                 { name: 'IMEI', index: 'IMEI', width: 50, editable: true, resizable: false, align: 'center' },
+                { name: 'DeviceID', index: 'DeviceID', width: 50, editable: true, resizable: false, align: 'center' }
             ],
             jsonReader:
             {

@@ -20,6 +20,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.Usuario;
 
 namespace Portal.Consultoras.BizLogic
@@ -803,15 +804,24 @@ namespace Portal.Consultoras.BizLogic
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario);
+                var consultoraNuevas = new BEConsultoraProgramaNuevas
+                {
+                    PaisID = usuario.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    CodigoConsultora = usuario.CodigoConsultora,
+                    EsConsultoraNueva = usuario.EsConsultoraNueva,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva,
+                    CodigoPrograma = usuario.CodigoPrograma
+                };
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(consultoraNuevas, usuario.CodigorRegion, usuario.CodigoZona);
 
                 if (result.Any())
                 {
-                    var concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
-                    lstConcursos.Add(string.Join("|", concursos.Select(c => c.CodigoConcurso)));
+                    var listConcursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
+                    lstConcursos.Add(string.Join("|", listConcursos.Select(c => c.CodigoConcurso)));
 
-                    var programaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
-                    lstConcursos.Add(string.Join("|", programaNuevas.Select(c => c.CodigoConcurso)));
+                    var listProgramaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
+                    lstConcursos.Add(string.Join("|", listProgramaNuevas.Select(c => c.CodigoConcurso)));
                 }
             }
             catch (Exception ex)
