@@ -883,7 +883,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     message = "Se grabó con éxito la estrategia. " + mensajeErrorImagenResize,
                     extra = "",
-                    mensajeError = error
+                    msjError = error
                 });
             }
             catch (FaultException ex)
@@ -894,7 +894,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = "",
+                    msjError = error
                 });
             }
             catch (Exception ex)
@@ -905,7 +906,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = "",
+                    msjError = error
                 });
             }
         }
