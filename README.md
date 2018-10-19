@@ -1,5 +1,5 @@
 # Portal Consultoras SB2
 
-PI2-EPM-1557
+SOPORTEC-1219
 
-Cambiar prioridad en descripción de componentes de Showroom Ficha
+- Mostrar Imagen de fondo en la ficha
