@@ -5,7 +5,7 @@ var esMobile = esMobile || false;
 var vfallSpeed = vfallSpeed || 15;
 var vnumObjects = vnumObjects || 100;
 var noIniciarLluvia = noIniciarLluvia || false;
-
+var containerId = containerId || 'body';
 var closeImagenRain = 0;    //si es 0 se mostrara,
 var timeCloseRain = timeCloseRain || 30000;   //tiempo de visualización del efecto
 var esShowRoom = esShowRoom || false;
@@ -84,7 +84,7 @@ function winOfy() {
 function fallObject(num, vari, nu) {
     objects[num] = new Array(parseInt(Math.random() * (winWidthSR - waft)), -30, (parseInt(Math.random() * waft)) * ((Math.random() > 0.5) ? 1 : -1), 0.02 + Math.random() / 20, 0, 1 + parseInt(Math.random() * fallSpeed), vari, fallingObjects[vari][1], fallingObjects[vari][2]);
     if (nu == 1) {
-        $('body').append('<img id="fO' + i + '" style="position:absolute; z-index:999999;" src="' + fallingObjects[vari][0] + '" width="' + fallingObjects[vari][1] + '">');
+        $(containerId).append('<img id="fO' + i + '" style="position:absolute; z-index:999999;" src="' + fallingObjects[vari][0] + '" width="' + fallingObjects[vari][1] + '">');
     }
 }
 

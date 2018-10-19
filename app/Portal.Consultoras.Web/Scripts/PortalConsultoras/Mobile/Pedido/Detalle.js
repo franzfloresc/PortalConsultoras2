@@ -763,7 +763,6 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
     ShowLoading();
     PROL = PROL || "0";
-    var total = detalleObj.ImporteTotal;
     var prevTotal =  $("[data-pedidocondescuento]").html()*1;
     jQuery.ajax({
         type: 'POST',

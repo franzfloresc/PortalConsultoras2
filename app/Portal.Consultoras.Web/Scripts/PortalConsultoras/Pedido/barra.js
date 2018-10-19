@@ -28,7 +28,7 @@ function MostrarBarra(datax, destino) {
         if (dataBarra.redondeo == undefined) {
             $.each(listaEscalaDescuento, function (i, item) {
                 if (IsDecimalExist(item.MontoHasta)) {
-                    listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta)
+                    listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta);
                 } else {
                     listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta) + 1;
                 }
@@ -631,7 +631,7 @@ function showPopupNivelSuperado(barra, prevTotal) {
             // show popup regalo
         }
     } else {
-        showPopupEscalaSiguiente(data.DataBarra, prevTotal);
+        showPopupEscalaSiguiente(barra, prevTotal);
     }
 }
 
@@ -645,11 +645,16 @@ function showPopupEscalaSiguiente(dataBarra, prevTotal) {
         var escala = dataBarra.ListaEscalaDescuento[i];
         if (total >= escala.MontoDesde && total < escala.MontoHasta) {
             if (escala.MontoDesde > prevTotal) {
-                var content = '¡FELICIDADES!  LLEGASTE AL #porcentaje% Dscto.';
+                //var objMsg = listaMensajeMeta.Find("TipoMensaje", 'EscalaDescuentoSuperado')[0] || new Object();
+                //var content = '¡FELICIDADES!  LLEGASTE AL #porcentaje% Dscto.';
+                //var content = objMsg.Mensaje;
+                var content = '¡FELICIDADES!  LLEGASTE AL|#porcentaje% Dscto.';
                 content = content.replace('#porcentaje', escala.PorDescuento);
-
+                var lines = content.split('|');
+                var popupId = '#popupPremio';
+                loadMessage($(popupId), lines);
+                AbrirPopup(popupId);
                 mostrarLluvia();
-                alert(content);
                 // show popup
                 return true;
                 
@@ -658,4 +663,15 @@ function showPopupEscalaSiguiente(dataBarra, prevTotal) {
     }
 
     return false;
+}
+
+function loadMessage(container, lines) {
+    var total = lines.length;
+    var prefix = '.line';
+    for (var i = 0; i < total; i++) {
+        var element = container.find(prefix + (i + 1));
+        if (!element) continue;
+
+        element.html(lines[i]);
+    }
 }

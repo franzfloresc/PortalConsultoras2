@@ -390,6 +390,7 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+@{ Html.RenderPartial("_PopupPremio");}
 
 @section scripts
 {
@@ -469,8 +470,14 @@
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DataBarra))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido", new { area = "" })';
-        var iconoLluvia = '@Url.Content("~/Content/Images/confetti-rombo.svg")';
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/confetti-rombo.svg")',
+            '@Url.Content("~/Content/Images/confetti-estrella.svg")',
+            '@Url.Content("~/Content/Images/confetti-circulo.svg")',
+            '@Url.Content("~/Content/Images/confetti-ondas.svg")'
+        ];
         var noIniciarLluvia = true;
+        var containerId = '#popupPremio';
     </script>
 
     @if (mobileConfiguracion.EsAppMobile)
