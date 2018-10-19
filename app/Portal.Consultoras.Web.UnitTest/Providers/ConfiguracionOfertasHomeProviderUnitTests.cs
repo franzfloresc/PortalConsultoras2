@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
             public Mock<ConfiguracionPaisProvider> ConfiguracionPaisProvider { get; private set; }
             public Mock<GuiaNegocioProvider> GuiaNegocioProvider { get; private set; }
             public Mock<ShowRoomProvider> ShowRoomProvider { get; private set; }
+            public Mock<OfertaPersonalizadaProvider> OfertaPersonalizadaProvider { get; private set; }
             public Mock<ProgramaNuevasProvider> ProgramaNuevasProvider { get; private set; }
 
             class ConfiguracionOfertasHomeProviderStub : ConfiguracionOfertasHomeProvider
@@ -38,12 +39,14 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
                         ConfiguracionPaisProvider configuracionPaisProvider,
                         GuiaNegocioProvider guiaNegocio,
                         ShowRoomProvider showRoom,
+                        OfertaPersonalizadaProvider ofertaPersonalizadaProvider,
                         ProgramaNuevasProvider programaNuevasProvider) 
                     : base(sessionManager,
                         logManager,
                         configuracionPaisProvider,
                         guiaNegocio,
                         showRoom,
+                        ofertaPersonalizadaProvider,
                         programaNuevasProvider)
                 {
 
@@ -73,6 +76,7 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
                     ConfiguracionPaisProvider.Object,
                     GuiaNegocioProvider.Object,
                     ShowRoomProvider.Object,
+                    OfertaPersonalizadaProvider.Object,
                     ProgramaNuevasProvider.Object
                 );
             }
