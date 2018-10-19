@@ -52,17 +52,6 @@
 <div class="bc_clearfix"></div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-@*@Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")*@
-
-
-
-@*
-    DEUDA TECNICA
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
-
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
-    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.EstrategiaPersonalizada.MensajeProductoBloqueado)
 @if (Model.EstrategiaPersonalizada.MensajeProductoBloqueado2 != null)
@@ -81,7 +70,6 @@
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
     var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
-    //var urlOfertaDetalleProductoLan = '@Url.Action("Detalle", "Lanzamientos")';
     var urlOfertaDetalleProductoLan = '@Url.Action("Ficha", "DetalleEstrategia")';
     var isScroll = false;
     var tipoOrigenPantalla = 1;

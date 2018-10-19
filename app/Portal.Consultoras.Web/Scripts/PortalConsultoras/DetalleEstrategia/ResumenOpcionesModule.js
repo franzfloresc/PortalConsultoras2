@@ -64,6 +64,7 @@ var ResumenOpcionesModule = (function () {
 
     var AplicarOpciones = function (callFromSeleccionarPaletaOpcion) {
         
+        
         var callCloseElegirOpcionesModal = callFromSeleccionarPaletaOpcion ? !callFromSeleccionarPaletaOpcion : true;
         _componente = ListaOpcionesModule.GetComponente() || _componente;
         if (!(_componente.FactorCuadre === _componente.HermanosSeleccionados.length)) {
@@ -86,7 +87,7 @@ var ResumenOpcionesModule = (function () {
         $(resumenOpcionesContenedor).show();
 
         if (callCloseElegirOpcionesModal) {
-            ListaOpcionesModule.CloseElegirOpcionesModal();
+            ListaOpcionesModule.CloseElegirOpcionesModal(callCloseElegirOpcionesModal);
         }
 
         SetHandlebars(_elements.resumenOpciones.template, _componente, resumenOpcionesContenedor);
@@ -116,11 +117,12 @@ var ResumenOpcionesModule = (function () {
             } else {
                 $.each(_componente.resumenAplicados, function (index, opcion) {
                     if (opcion.cantidadSeleccionada > 0) {
-                        nombreConcat += " " + opcion.NombreBulk + " |";
+                        nombreConcat += " " + estrategia.DescripcionCompleta +" " + opcion.NombreBulk + " |";
                     }
                 });
 
                 nombreConcat = Left(nombreConcat, nombreConcat.length - 1).trim();
+                
                 AnalyticsPortalModule.MarcarPopupBotonAplicarSeleccionVariasOpciones(nombreConcat);
             }
         }

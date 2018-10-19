@@ -179,7 +179,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            //return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param = param }));
+
             if (url.Length > 1 && url[1].Contains("sap"))
             {
                  sap = "&" + url[1].Remove(0, 26);

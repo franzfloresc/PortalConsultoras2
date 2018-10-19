@@ -19,5 +19,10 @@ namespace Portal.Consultoras.Web.Models.DetalleEstrategia
             return this.Texto == breadcrumb.Texto &&
                 this.Url == breadcrumb.Url;
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
