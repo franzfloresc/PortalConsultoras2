@@ -394,7 +394,7 @@
         padding-top:0;
     }
 
-    .resultado_busqueda_producto:nth-last-child(-n+2){
+    .resultado_busqueda_producto:last-child{
         padding-bottom:12px;
         border-bottom:none;
     }
