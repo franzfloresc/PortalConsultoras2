@@ -754,6 +754,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model,
             string _id, string _flagRecoProduc, string _flagRecoPerfil)
         {
+            string error = "";
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
@@ -785,12 +786,16 @@ namespace Portal.Consultoras.Web.Controllers
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
+                    error += "| region codigo_estrategia y variedad";
                     respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidad);
+                    error += "| region codigo_estrategia y variedad fin - respuestaServiceCdr = " + respuestaServiceCdr;
 
                     if (respuestaServiceCdr.Any())
                     {
+                        error += "| respuestaServiceCdr.Any - TieneVariedad";
                         entidad.CodigoEstrategia = respuestaServiceCdr[0].codigo_estrategia;
                         entidad.TieneVariedad = TieneVariedad(entidad.CodigoEstrategia, entidad.CUV1);
+                        error += "| respuestaServiceCdr.Any - TieneVariedad fin = " + entidad.TieneVariedad;
                     }
                 }
 
@@ -811,15 +816,21 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
                                 if (entidad.EstrategiaID != 0)
+                                {
+                                    error += "| if entidad.EstrategiaID != 0";
                                     estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
-
+                                    error += "| if entidad.EstrategiaID != 0 fin - estrategiaDetalle = " + estrategiaDetalle;
+                                }
+                                error += "| VerficarArchivos";
                                 entidad = VerficarArchivos(entidad, estrategiaDetalle);
+                                error += "| VerficarArchivos = " + entidad;
                             }
                         }
 
                         #region Imagen Resize  
-
+                        error += "| mensajeErrorImagenResize";
                         mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
+                        error += "| mensajeErrorImagenResize = " + mensajeErrorImagenResize;
 
                         #endregion
 
@@ -829,28 +840,38 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
+                            error += "| ImagenMiniaturaURL";
                             entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
+                            error += "| ImagenMiniaturaURL fin = " + entidad.ImagenMiniaturaURL;
                         }
 
                         if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia, dbdefault))
                         {
                             if (entidad.EstrategiaID != 0)
                             {
+                                error += "| EditarEstrategia";
                                 administrarEstrategiaProvider.EditarEstrategia(entidad, _id, userData.CodigoISO, _flagRecoProduc, _flagRecoPerfil);
+                                error += "| EditarEstrategia fin";
                             }
                             else
                             {
+                                error += "| RegistrarEstrategia";
                                 administrarEstrategiaProvider.RegistrarEstrategia(entidad, userData.CodigoISO);
+                                error += "| RegistrarEstrategia fin";
                             }
                         }
                         else
                         {
+                            error += "| InsertarEstrategia";
                             entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
+                            error += "| InsertarEstrategia Fin = " + entidad.EstrategiaID;
                         }
                     }
                 }
 
+                error += "| EstrategiaProductoInsertar";
                 EstrategiaProductoInsertar(respuestaServiceCdr, entidad);
+                error += "| EstrategiaProductoInsertar fin";
 
                 if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
                     !string.IsNullOrEmpty(model.PrecioAnt) &&
@@ -861,12 +882,14 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "Se grabó con éxito la estrategia. " + mensajeErrorImagenResize,
-                    extra = ""
+                    extra = "",
+                    mensajeError = error
                 });
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| FaultException = " + ex.Message;
                 return Json(new
                 {
                     success = false,
@@ -877,6 +900,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| Exception = " + ex.Message;
                 return Json(new
                 {
                     success = false,
@@ -1020,7 +1044,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 // validar si existe en MatrizComercialImagen
                 using (var sv = new PedidoServiceClient())
-                { 
+                {
                     lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, 10).ToList();
                     error += "| GetImagenesByEstrategiaMatrizComercialImagen = " + lst.Count;
                 }
@@ -1440,6 +1464,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+
                 return Json(new
                 {
                     success = false,
