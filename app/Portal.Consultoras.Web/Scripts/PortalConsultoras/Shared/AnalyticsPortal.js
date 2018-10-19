@@ -196,7 +196,7 @@ var AnalyticsPortalModule = (function () {
     
 
     var marcarClicSetProductos = function (infoItem, event, origenPedidoWebEstrategia, estoyEnLaFicha) {
-        
+         
        // var $btnAgregar = $(event.target);
        // var origenPedidoWebEstrategia = EstrategiaAgregarModule.GetOrigenPedidoWeb($btnAgregar);
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
@@ -331,8 +331,9 @@ var AnalyticsPortalModule = (function () {
                     var elementCarrusel = $(event.target || event).parents("[data-item]");
                     esCarrusel = elementCarrusel.hasClass("slick-slide");
                 }
-                if (estoyEnLaFicha !== "undefined")
-                    esFicha = estoyEnLaFicha;
+                //if (estoyEnLaFicha !== "undefined")
+                if (typeof window.fichaModule !== "undefined")
+                    esFicha = true;
 
                 var contenedorFicha = esCarrusel ? _texto.contenedorDetalleSets : _texto.contenedorDetalle;
                 switch (pagina.Pagina) {
@@ -1329,11 +1330,19 @@ var AnalyticsPortalModule = (function () {
 
             var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
             var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, codigoOrigen);
-
+            var esCarrusel = false;
+            if (!(event == null)) {
+                var elementCarrusel = $(event.target || event).parents("[data-item]");
+                esCarrusel = elementCarrusel.hasClass("slick-slide");
+            }
 
             var producto = data;
-
-            list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
+            var list = "";
+            //Si es carrusel de la ficha
+            if (esCarrusel)
+                list = contenedor + " - " + _constantes.campania + producto.CampaniaID;
+            else
+               list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
 
             dataLayer.push({
                 'event': _evento.addToCart,

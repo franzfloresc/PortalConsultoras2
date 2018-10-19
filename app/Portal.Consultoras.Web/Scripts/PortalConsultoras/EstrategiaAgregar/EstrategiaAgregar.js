@@ -449,7 +449,7 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
             }
-
+            
             try {
                 //if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
                 //    rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
