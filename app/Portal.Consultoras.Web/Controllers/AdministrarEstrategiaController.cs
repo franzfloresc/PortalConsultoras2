@@ -842,6 +842,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             error += "| ImagenMiniaturaURL vacia";
                             entidad.ImagenMiniaturaURL = entidad.ImagenURL;
+                            error += "| ImagenMiniaturaURL vacia - fin = " + entidad.ImagenMiniaturaURL;
                         }
                         else
                         {
