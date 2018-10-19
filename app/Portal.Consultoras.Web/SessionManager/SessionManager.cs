@@ -1242,14 +1242,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<List<BEEstadoServicio>>)val;
         }
 
-        public void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel)
+        public void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel)
         {
             HttpContext.Current.Session["BuscadorYFiltros"] = buscadorYFiltrosModel;
         }
 
-        public BuscadorYFiltrosModel GetBuscadorYFiltros()
+        public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros()
         {
-            return ((BuscadorYFiltrosModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosModel();
+            return ((BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosConfiguracionModel();
         }
         
         bool ISessionManager.GetMostrarBannerNuevas() { return (bool)(HttpContext.Current.Session["MostrarBannerNuevas"] ?? false); }

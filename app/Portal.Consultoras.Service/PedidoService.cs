@@ -2213,6 +2213,11 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerNumeroOrden(paisId);
         }
 
+        public string ObtenerPagoEnLineaURLPaginasBancos(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaURLPaginasBancos(paisId);
+        }
+
         #endregion
 
 
