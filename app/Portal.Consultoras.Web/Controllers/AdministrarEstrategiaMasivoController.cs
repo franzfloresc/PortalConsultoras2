@@ -453,20 +453,24 @@ namespace Portal.Consultoras.Web.Controllers
         #region EstrategiaTemporal Insert
         public JsonResult EstrategiaTemporalInsert(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
+            string mensajePaso = "Inicio";
             try
             {
                 entidadMasivo.CantidadCuv = TablaLogicaObtenerCantidadCuvPagina(entidadMasivo);
+                mensajePaso += "|TablaLogicaObtenerCantidadCuvPagina = " + entidadMasivo.CantidadCuv;
                 if (entidadMasivo.CantidadCuv <= 0)
                 {
                     return Json(new
                     {
                         success = false,
-                        message = "falta configurar una cantidad de Estrategias para Insertar"
+                        message = "falta configurar una cantidad de Estrategias para Insertar",
+                        mensajePaso
                     }, JsonRequestBehavior.AllowGet);
                 }
 
                 entidadMasivo.Pagina = Math.Max(entidadMasivo.Pagina, 1);
                 var cantTotalPagina = (entidadMasivo.CantTotal / entidadMasivo.CantidadCuv) + (entidadMasivo.CantTotal % entidadMasivo.CantidadCuv == 0 ? 0 : 1);
+                mensajePaso += "|cantTotalPagina < entidadMasivo.Pagina = " + (cantTotalPagina < entidadMasivo.Pagina).ToString();
                 if (cantTotalPagina < entidadMasivo.Pagina)
                 {
                     return Json(new
@@ -476,11 +480,14 @@ namespace Portal.Consultoras.Web.Controllers
                         continuaPaso = true,
                         entidadMasivo.Pagina,
                         entidadMasivo.NroLote,
-                        entidadMasivo.CantidadCuv
+                        entidadMasivo.CantidadCuv,
+                        mensajePaso
                     }, JsonRequestBehavior.AllowGet);
                 }
 
                 var nroLoteAux = MasivoEstrategiaTemporalInsertar(entidadMasivo);
+
+                mensajePaso += "|MasivoEstrategiaTemporalInsertar = " + nroLoteAux;
 
                 if (nroLoteAux <= 0)
                 {
@@ -490,13 +497,15 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "No existen Estrategias para Insertar",
                         entidadMasivo.Pagina,
                         entidadMasivo.NroLote,
-                        entidadMasivo.CantidadCuv
+                        entidadMasivo.CantidadCuv,
+                        mensajePaso
                     }, JsonRequestBehavior.AllowGet);
                 }
 
                 entidadMasivo.NroLote = nroLoteAux;
 
-                var mensajeComplemento = MasivoEstrategiaTemporalExecComplemento(entidadMasivo);
+                var mensajeComplemento = MasivoEstrategiaTemporalExecComplemento(entidadMasivo, ref mensajePaso);
+                mensajePaso += "|MasivoEstrategiaTemporalExecComplemento = " + mensajeComplemento;
 
                 return Json(new
                 {
@@ -505,26 +514,31 @@ namespace Portal.Consultoras.Web.Controllers
                     messageComplemento = mensajeComplemento,
                     entidadMasivo.Pagina,
                     entidadMasivo.NroLote,
-                    entidadMasivo.CantidadCuv
+                    entidadMasivo.CantidadCuv,
+                    mensajePaso
                 }, JsonRequestBehavior.AllowGet);
 
             }
             catch (TimeoutException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                mensajePaso += "|EstrategiaTemporalInsert TimeoutException = " + ex.Message;
                 return Json(new
                 {
                     success = false,
-                    message = "Tiempo agotado de espera durante la extracion de los productos."
+                    message = "Tiempo agotado de espera durante la extracion de los productos.",
+                    mensajePaso
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                mensajePaso += "|EstrategiaTemporalInsert Exception = " + ex.Message;
                 return Json(new
                 {
                     success = false,
-                    message = "No se encontraron productos en ods.productocomercial."
+                    message = "No se encontraron productos en ods.productocomercial.",
+                    mensajePaso
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -562,17 +576,22 @@ namespace Portal.Consultoras.Web.Controllers
             return lote;
         }
 
-        private string MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo)
+        private string MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo, ref string mensajePaso)
         {
             // este proceso esta en MasivoEstrategiaTemporalInsertar, puede salir timed out
             // se divide el proceso para evitar timed out
             string rpta = "";
             try
             {
+                mensajePaso = Util.Trim(mensajePaso);
                 bool rptaService = MasivoEstrategiaTemporalPrecio(entidadMasivo);
+                mensajePaso += "|MasivoEstrategiaTemporalPrecio = " + rptaService;
+
                 if (rptaService)
                 {
                     rptaService = MasivoEstrategiaTemporalSetDetalle(entidadMasivo);
+                    mensajePaso += "|MasivoEstrategiaTemporalSetDetalle = " + rptaService;
+
                     if (!rptaService)
                     {
                         rpta = "Error al cargar tonos.";
@@ -580,6 +599,8 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         rptaService = MasivoEstrategiaTemporalSetImagen(entidadMasivo);
+                        mensajePaso += "|MasivoEstrategiaTemporalSetImagen = " + rptaService;
+
                         if (!rptaService)
                         {
                             rpta = "Error al cargar imagen.";
@@ -594,7 +615,9 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                mensajePaso += "|MasivoEstrategiaTemporalExecComplemento Exception = " + ex.Message;
             }
+
             return rpta;
         }
 
