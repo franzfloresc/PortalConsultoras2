@@ -510,11 +510,11 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
             }
-
+            if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
             
             return false;
-
-        }).fail(function (data, error) {
+        })
+        .fail(function (data, error) {
             CerrarLoad();
         });
 
