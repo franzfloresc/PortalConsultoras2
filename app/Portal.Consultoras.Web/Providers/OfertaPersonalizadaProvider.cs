@@ -351,7 +351,7 @@ namespace Portal.Consultoras.Web.Providers
             return listEstrategia;
         }
 
-        protected virtual List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(bool esMobile, string tipo, int campaniaId, bool filtrarNuevasAgregadas = false)
+        public List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(bool esMobile, string tipo, int campaniaId, bool filtrarNuevasAgregadas = false)
         {
             var userData = SessionManager.GetUserData();
             List<ServiceOferta.BEEstrategia> listEstrategia;
@@ -363,10 +363,9 @@ namespace Portal.Consultoras.Web.Providers
                 filtrarNuevasAgregadas = tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && filtrarNuevasAgregadas;
 
                 listEstrategia = SessionManager.GetBEEstrategia(varSession);
-                if (listEstrategia != null && campaniaId == userData.CampaniaID && listEstrategia.Any())
+                if (listEstrategia != null && campaniaId == userData.CampaniaID)
                 {                   
-                    if (filtrarNuevasAgregadas) 
-                        listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
+                    if (filtrarNuevasAgregadas && listEstrategia.Any()) listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
                     return listEstrategia;
                 }
 
@@ -417,8 +416,7 @@ namespace Portal.Consultoras.Web.Providers
                     {
                         SessionManager.SetBEEstrategia(varSession, listEstrategia);
                     }
-                    if (filtrarNuevasAgregadas && listEstrategia.Any()) 
-                        listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
+                    if (filtrarNuevasAgregadas && listEstrategia.Any()) listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
                 }
 
                 if (!listEstrategia.Any() && SessionManager.GetFlagLogCargaOfertas() &&
