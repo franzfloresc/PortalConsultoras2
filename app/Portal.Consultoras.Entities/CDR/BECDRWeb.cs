@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Entities.CDR
             FechaRegistro = row.ToDateTime("FechaRegistro");
             Estado = row.ToInt32("Estado");
             FechaCulminado = row.ToDateTime("FechaCulminado");
-            FechaAtencion = row.ToDateTime("FechaAtencion");
+            FechaAtencion = row.IsDBNull(row.GetOrdinal("FechaAtencion")) ? FechaAtencion : row.ToDateTime("FechaAtencion");
             Importe = row.ToDecimal("Importe");
             CantidadDetalle = row.ToInt32("CantidadDetalle");
             ConsultoraSaldo = row.ToDecimal("ConsultoraSaldo");
