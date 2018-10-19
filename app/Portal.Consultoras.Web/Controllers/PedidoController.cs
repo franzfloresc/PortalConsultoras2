@@ -1271,69 +1271,82 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var strCuv = CUV;
                 int outVal;
-                var obePedidoWebDetalle = new BEPedidoWebDetalle
-                {
-                    IPUsuario = userData.IPUsuario,
-                    CampaniaID = userData.CampaniaID,
-                    ConsultoraID = userData.ConsultoraID,
-                    PaisID = userData.PaisID,
-                    TipoOfertaSisID = 1700,
-                    ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
-                    ClienteID = (short)0,
-                    PedidoID = userData.PedidoID,
-                    OfertaWeb = false,
-                    IndicadorMontoMinimo = Convert.ToInt32(producto.IndicadorMontoMinimo.ToString().Trim()),
-                    SubTipoOfertaSisID = Convert.ToInt32(0),
-                    MarcaID = Convert.ToByte(producto.MarcaID),
-                    Cantidad = CantCUVpedido,
-                    PrecioUnidad = producto.PrecioCatalogo,
-                    CUV = producto.CUV.Trim(),
-                    DescripcionProd = producto.Descripcion.Trim(),
-                    Nombre = userData.NombreConsultora,
-                    DescripcionLarga = producto.DescripcionMarca,
-                    DescripcionEstrategia = producto.DescripcionEstrategia,
-                    Categoria = producto.DescripcionCategoria,
-                    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome,
-                    TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0
-                };
 
-                obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
+                var pedidoCrudModel = new PedidoCrudModel();
+                pedidoCrudModel.MarcaID = producto.MarcaID;
+                pedidoCrudModel.Cantidad = CantCUVpedido.ToString();
+                pedidoCrudModel.PrecioUnidad = producto.PrecioCatalogo;
+                pedidoCrudModel.CUV = producto.CUV;
+                pedidoCrudModel.ConfiguracionOfertaID = producto.ConfiguracionOfertaID;
+                pedidoCrudModel.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome;
+                pedidoCrudModel.TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0;
 
-                IList<BEPedidoWebService> olstCuvMarquesina;
-                using (var sv = new PedidoServiceClient())
-                {
-                    olstCuvMarquesina = sv.GetPedidoCuvMarquesina(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, strCuv);
-                }
 
-                string accion;
+                return PedidoAgregarProductoTransaction(pedidoCrudModel);
 
-                if (olstCuvMarquesina.Count == 0 || olstCuvMarquesina[0].CUV == "")
-                {
-                    accion = "I";
-                }
-                else
-                {
-                    obePedidoWebDetalle.PedidoID = olstCuvMarquesina[0].PedidoWebID;
-                    obePedidoWebDetalle.PedidoDetalleID = Convert.ToInt16(olstCuvMarquesina[0].PedidoWebDetalleID);
-                    obePedidoWebDetalle.Cantidad = obePedidoWebDetalle.Cantidad + olstCuvMarquesina[0].Cantidad;
-                    accion = "U";
-                }
+                //var obePedidoWebDetalle = new BEPedidoWebDetalle
+                //{
+                //    IPUsuario = userData.IPUsuario,
+                //    CampaniaID = userData.CampaniaID,
+                //    ConsultoraID = userData.ConsultoraID,
+                //    PaisID = userData.PaisID,
+                //    TipoOfertaSisID = 1700,
+                //    ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
+                //    ClienteID = (short)0,
+                //    PedidoID = userData.PedidoID,
+                //    OfertaWeb = false,
+                //    IndicadorMontoMinimo = Convert.ToInt32(producto.IndicadorMontoMinimo.ToString().Trim()),
+                //    SubTipoOfertaSisID = Convert.ToInt32(0),
+                //    MarcaID = Convert.ToByte(producto.MarcaID),
+                //    Cantidad = CantCUVpedido,
+                //    PrecioUnidad = producto.PrecioCatalogo,
+                //    CUV = producto.CUV.Trim(),
+                //    DescripcionProd = producto.Descripcion.Trim(),
+                //    Nombre = userData.NombreConsultora,
+                //    DescripcionLarga = producto.DescripcionMarca,
+                //    DescripcionEstrategia = producto.DescripcionEstrategia,
+                //    Categoria = producto.DescripcionCategoria,
+                //    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome,
+                //    TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0
+                //};
 
-                bool errorServer;
-                string tipo;
-                bool modificoBackOrder;
-                AdministradorPedido(obePedidoWebDetalle, accion, out errorServer, out tipo, out modificoBackOrder);
+                //obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
 
-                return Json(new
-                {
-                    success = !errorServer,
-                    message = !errorServer
-                        ? ("Has agregado " + Convert.ToString(CantCUVpedido) + " unidad(es) del producto a tu pedido.")
-                        : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.",
-                    oPedidoDetalle = obePedidoWebDetalle,
-                    DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
-                    tipo
-                }, JsonRequestBehavior.AllowGet);
+                //IList<BEPedidoWebService> olstCuvMarquesina;
+                //using (var sv = new PedidoServiceClient())
+                //{
+                //    olstCuvMarquesina = sv.GetPedidoCuvMarquesina(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, strCuv);
+                //}
+
+                //string accion;
+
+                //if (olstCuvMarquesina.Count == 0 || olstCuvMarquesina[0].CUV == "")
+                //{
+                //    accion = "I";
+                //}
+                //else
+                //{
+                //    obePedidoWebDetalle.PedidoID = olstCuvMarquesina[0].PedidoWebID;
+                //    obePedidoWebDetalle.PedidoDetalleID = Convert.ToInt16(olstCuvMarquesina[0].PedidoWebDetalleID);
+                //    obePedidoWebDetalle.Cantidad = obePedidoWebDetalle.Cantidad + olstCuvMarquesina[0].Cantidad;
+                //    accion = "U";
+                //}
+
+                //bool errorServer;
+                //string tipo;
+                //bool modificoBackOrder;
+                //AdministradorPedido(obePedidoWebDetalle, accion, out errorServer, out tipo, out modificoBackOrder);
+
+                //return Json(new
+                //{
+                //    success = !errorServer,
+                //    message = !errorServer
+                //        ? ("Has agregado " + Convert.ToString(CantCUVpedido) + " unidad(es) del producto a tu pedido.")
+                //        : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.",
+                //    oPedidoDetalle = obePedidoWebDetalle,
+                //    DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                //    tipo
+                //}, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
