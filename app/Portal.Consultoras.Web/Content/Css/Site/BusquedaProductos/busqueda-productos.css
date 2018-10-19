@@ -547,8 +547,12 @@
     margin-bottom:24px;
 }
 
+.filtros__lista:last-of-type{
+    margin-bottom:15px;
+}
+
 .filtro__tipo{
-    padding-top: 9px;
+    padding-top: 7px;
     padding-bottom: 18px;
     border-bottom: 1px solid #d8d8d8;
 }
@@ -577,11 +581,13 @@
 .filtro__tipo__titulo__icono__despliegue{
     background-image:url(/Content/Images/mas-desplegable-icono.svg);
     height: 10px;
+    margin-top:1px;
 }
 
 .filtro__tipo__titulo--mostrarContenido .filtro__tipo__titulo__icono__despliegue{
     background-image:url(/Content/Images/menos-desplegable-icono.svg);
     background-size:11px;
+    margin-top:0;
 }
 
 .filtro__item{
@@ -745,6 +751,38 @@
 
     .filtro__tipo__titulo--mostrarContenido .filtro__tipo__titulo__icono__despliegue{
         background-size:10px;
+    }
+
+    .filtro__tipo:last-child{
+        border-bottom:1px solid #d8d8d8;
+    }
+
+    .filtro__btn__mobile__wrapper{
+        padding-left: 20px;
+        padding-right: 16px;
+        margin-bottom: 2px;
+    }
+
+    .filtro__btn__mobile__wrapper div:first-child{
+        padding-right:4px;
+    }
+
+    .filtro__btn{
+        height:44px;
+        border-radius:4px;
+        border:1px solid #000;
+        font-weight:bold;
+        letter-spacing:1px;
+    }
+
+    .filtro__btn--limpiar{
+        background-color:#FFF;
+        color:#000;
+    }
+
+    .filtro__btn--aplicar{
+        background-color:#000;
+        color:#FFF;
     }
 
     /* FIN - FILTROS MOBILE */
