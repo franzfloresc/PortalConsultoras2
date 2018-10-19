@@ -173,13 +173,18 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         {
             return new DAPagoEnLinea(paisId).ObtenerNumeroOrden();
         }
+        
+        public string ObtenerPagoEnLineaURLPaginasBancos(int paisId)
+        {
+            return new DAPagoEnLinea(paisId).ObtenerPagoEnLineaURLPaginasBancos();
+        }        
 
         public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId) {
             var result = new BEPagoEnLinea();
 
             var listaMetodoPagoTask = Task.Run(() => result.ListaMetodoPago = ObtenerPagoEnLineaMedioPagoDetalle(paisId));
             var listaMedioPagoTask = Task.Run(() => result.ListaMedioPago = ObtenerPagoEnLineaMedioPago(paisId));
-            var listaTipoPagoTask = Task.Run(() => result.ListaTipoPago = ObtenerPagoEnLineaTipoPago(paisId));
+            var listaTipoPagoTask = Task.Run(() => result.ListaTipoPago = ObtenerPagoEnLineaTipoPago(paisId));        
             var listaConfiguracionTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.ValoresPagoEnLinea) ?? new List<BETablaLogicaDatos>());
 
             Task.WaitAll(listaMetodoPagoTask, listaMedioPagoTask, listaTipoPagoTask, listaConfiguracionTask);

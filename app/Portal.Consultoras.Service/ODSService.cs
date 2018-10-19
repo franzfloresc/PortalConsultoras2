@@ -272,6 +272,11 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.ValidaCuvElectivo(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
         }
+
+        public bool EsDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
+        {
+            return BLProducto.EsDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+        }
         #endregion
 
         #region VentaExclusiva

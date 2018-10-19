@@ -112,6 +112,7 @@
     <Compile Include="Pedido\BEDescargaPedidoCliente.cs" />
     <Compile Include="Pedido\BEPedidoBarra.cs" />
     <Compile Include="Pedido\BEPedidoBuscar.cs" />
+    <Compile Include="ProgramaNuevas\BEConsultoraProgramaNuevas.cs" />
     <Compile Include="ReservaProl\BEPedidoWebDetalleExplotado.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Estrategia\BEEstrategiaMasiva.cs" />
@@ -239,7 +240,6 @@
     <Compile Include="BEConsultoraEstadoSAC.cs" />
     <Compile Include="BEConsultoraFicticia.cs" />
     <Compile Include="BEConsultoraSolicitudCliente.cs" />
-    <Compile Include="BEConsultorasProgramaNuevas.cs" />
     <Compile Include="BEConsultoraTop.cs">
       <SubType>Code</SubType>
     </Compile>
