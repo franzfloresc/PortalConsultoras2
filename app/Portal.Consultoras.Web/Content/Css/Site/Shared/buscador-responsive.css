@@ -546,6 +546,8 @@
 }
 
 .enlace_ver_todos_los_resultados {
+    position:relative;
+    bottom:17px;
     width: 280px;
     height: 45px;
     line-height: 44px;
@@ -807,6 +809,10 @@
         left:0;
         bottom:0;
         z-index:10;
+    }
+
+    .enlace_ver_todos_los_resultados{
+        bottom:0;
     }
 
 }

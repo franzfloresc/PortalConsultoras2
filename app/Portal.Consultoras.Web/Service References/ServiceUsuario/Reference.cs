@@ -9404,10 +9404,16 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string CodigoConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DeviceIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DireccionIPField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FechaAceptacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IMEIField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string InformacionSOMobileField;
@@ -9458,6 +9464,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DeviceID {
+            get {
+                return this.DeviceIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DeviceIDField, value) != true)) {
+                    this.DeviceIDField = value;
+                    this.RaisePropertyChanged("DeviceID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string DireccionIP {
             get {
                 return this.DireccionIPField;
@@ -9479,6 +9498,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.FechaAceptacionField, value) != true)) {
                     this.FechaAceptacionField = value;
                     this.RaisePropertyChanged("FechaAceptacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IMEI {
+            get {
+                return this.IMEIField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IMEIField, value) != true)) {
+                    this.IMEIField = value;
+                    this.RaisePropertyChanged("IMEI");
                 }
             }
         }
