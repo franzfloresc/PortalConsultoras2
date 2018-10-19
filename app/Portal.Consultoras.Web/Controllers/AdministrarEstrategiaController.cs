@@ -69,7 +69,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };
-                 
+
             }
             catch (Exception ex)
             {
@@ -540,7 +540,7 @@ namespace Portal.Consultoras.Web.Controllers
                     "text/html");
             }
         }
-        
+
         [HttpPost]
         public JsonResult GetOfertaByCUV(string CampaniaID, string CUV2,
             string TipoEstrategiaID, string CUV1, string flag,
@@ -642,21 +642,21 @@ namespace Portal.Consultoras.Web.Controllers
                     idMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString("F2");
                 }
-                    return Json(new
-                    {
-                        success = true,
-                        message = mensaje,
-                        descripcion,
-                        precio,
-                        wsprecio,
-                        codigoSAP = codigoSap,
-                        enMatrizComercial,
-                        idMatrizComercial,
-                        ganancia = ganancia.ToString("F2"),
-                        extra = "",
-                        niveles,
-                        beEstrategia
-                    }, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    descripcion,
+                    precio,
+                    wsprecio,
+                    codigoSAP = codigoSap,
+                    enMatrizComercial,
+                    idMatrizComercial,
+                    ganancia = ganancia.ToString("F2"),
+                    extra = "",
+                    niveles,
+                    beEstrategia
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -751,8 +751,8 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model, 
-            string _id,string _flagRecoProduc,string _flagRecoPerfil)
+        public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model,
+            string _id, string _flagRecoProduc, string _flagRecoPerfil)
         {
             try
             {
@@ -938,8 +938,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = Convert.ToInt32(CampaniaID),
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
                     CUV2 = cuv2,
-                     AgregarEnMatriz=true,
-                     UsuarioRegistro = userData.CodigoConsultora
+                    AgregarEnMatriz = true,
+                    UsuarioRegistro = userData.CodigoConsultora
                 };
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
@@ -998,28 +998,60 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult GetImagesBySapCode(int paisID, string estragiaId, string cuv2, string CampaniaID,
             string TipoEstrategiaID, int pagina, string nombreImagen)
         {
-            List<BEMatrizComercialImagen> lst;
-            var estrategia = new ServicePedido.BEEstrategia
+            string error = "";
+            string rpta = "";
+            try
             {
-                PaisID = paisID,
-                EstrategiaID = Convert.ToInt32(estragiaId),
-                CUV2 = cuv2,
-                CampaniaID = Convert.ToInt32(CampaniaID),
-                TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID)
-            };
+                List<BEMatrizComercialImagen> lst;
+                var estrategia = new ServicePedido.BEEstrategia
+                {
+                    PaisID = paisID,
+                    EstrategiaID = Convert.ToInt32(estragiaId),
+                    CUV2 = cuv2,
+                    CampaniaID = Convert.ToInt32(CampaniaID),
+                    TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID)
+                };
 
-            // validar si existe en MatrizComercialImagen
-            using (var sv = new PedidoServiceClient())
-            {
                 if (pagina == 1)
                 {
-                    GetImagenesByEstrategiaMatrizComercialImagenIsOk(estrategia, pagina, -1 , nombreImagen);
+                    error += "| primera pagina";
+                    GetImagenesByEstrategiaMatrizComercialImagenIsOk(estrategia, pagina, -1, nombreImagen);
+                    error += "| primera pagina fin";
                 }
-                             
-                lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, 10).ToList();
+
+                // validar si existe en MatrizComercialImagen
+                using (var sv = new PedidoServiceClient())
+                { 
+                    lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, 10).ToList();
+                    error += "| GetImagenesByEstrategiaMatrizComercialImagen = " + lst.Count;
+                }
+
+                return GetImagesCommonResult(lst, paisID, error);
             }
-            
-            return GetImagesCommonResult(lst, paisID);
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| FaultException = " + ex.Message;
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = "",
+                    msjError = error
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| Exception = " + ex.Message;
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = "",
+                    msjError = error
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         private void GetImagenesByEstrategiaMatrizComercialImagenIsOk(ServicePedido.BEEstrategia estrategia, int pagina, int total, string nombreImagen)
@@ -1072,12 +1104,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private JsonResult GetImagesCommonResult(List<BEMatrizComercialImagen> lst, int paisID)
+        private JsonResult GetImagesCommonResult(List<BEMatrizComercialImagen> lst, int paisID, string error)
         {
             var totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
+            error += "| GetImagesCommonResult - totalRegistros = " + totalRegistros;
             var data = MapImages(lst, paisID);
+            error += "| GetImagesCommonResult - MapImages = " + data.Count;
 
-            return Json(new { imagenes = data, totalRegistros = totalRegistros });
+            return Json(new { imagenes = data, totalRegistros = totalRegistros, msjError = error });
         }
 
         private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisID)
@@ -1118,7 +1152,7 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
             if (lst.Count > 0)
-            {                
+            {
                 lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
                 lst.Update(x => x.Simbolo = userData.Simbolo);
             }
@@ -1425,7 +1459,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         public static byte[] ReadFully(Stream input)
         {
             var buffer = new byte[16 * 1024];
@@ -1950,10 +1984,10 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     using (var svc = new SACServiceClient())
-                	{
-                    beDescripcionEstrategias = svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(),
-                        model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray()).ToList();
-                	}
+                    {
+                        beDescripcionEstrategias = svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(),
+                            model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray()).ToList();
+                    }
                     descripcionEstrategiaModels =
                         Mapper.Map<List<BEDescripcionEstrategia>, List<DescripcionEstrategiaModel>>(
                             beDescripcionEstrategias);
@@ -2224,7 +2258,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 Descripcion1 = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Description].ToString().TrimEnd(),
                                 Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order]),
                                 IdMarca = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct])
-                                
+
                             });
                         }
                     }
