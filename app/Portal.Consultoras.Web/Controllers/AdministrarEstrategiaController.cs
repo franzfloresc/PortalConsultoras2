@@ -999,7 +999,6 @@ namespace Portal.Consultoras.Web.Controllers
             string TipoEstrategiaID, int pagina, string nombreImagen)
         {
             string error = "";
-            string rpta = "";
             try
             {
                 List<BEMatrizComercialImagen> lst;
