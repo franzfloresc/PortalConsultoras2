@@ -253,6 +253,11 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "HV";
         }
 
+        public static class Inicializacion
+        {
+            public const int EnteroInicial =  -1;
+        }
+
         public static class EstadoRespuestaServicio
         {
             public const string Success = "OK";
@@ -645,7 +650,7 @@ namespace Portal.Consultoras.Common
             public const int OfertasParaTiMobileHome = 2121;
             public const int OfertasParaTiMobileHomePopUp = 2122;
             public const int OfertasParaTiMobilePedido = 2221;
-            public const int OfertasParaTiAppPedido = 4221;
+            //public const int OfertasParaTiAppPedido = 4221;
             public const int OfertasParaTiMobilePedidoPopUp = 2222;
             public const int OfertasParaTiMobileContenedor = 2821;
             public const int OfertasParaTiMobileContenedorPopup = 2822;
@@ -721,7 +726,7 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
-            public const int RevistaDigitalAppPedidoSeccion = 4201;
+            //public const int RevistaDigitalAppPedidoSeccion = 4201;
 
             public const int RevistaDigitalDesktopLanding = 1711;
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
@@ -2213,6 +2218,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_ESTRATEGIA = "1108";
                 public const string ERROR_PRODUCTO_SUGERIDO = "1109";
                 public const string ERROR_PRODUCTO_SET = "1110";
+                public const string ERROR_PRODUCTO_NONUEVA = "1111";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -2274,6 +2280,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
                         {Code.ERROR_PRODUCTO_SUGERIDO,"Este producto tiene reemplazos sugeridos." },
                         {Code.ERROR_PRODUCTO_SET, "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas."},
+                        {Code.ERROR_PRODUCTO_NONUEVA,"El código solicitado es exclusivo para quienes participan del Programa de Nuevas." },
 
                         {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                         {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
@@ -2755,6 +2762,7 @@ namespace Portal.Consultoras.Common
             public const string Parametros = "03";
             public const string PaisesConfigurables = "CO;CR;GT;MX";
         }
+
         public static class TipoConfiguracionBuscador
         {
             public const string MostrarBuscador = "MostrarBuscador";
@@ -2768,9 +2776,7 @@ namespace Portal.Consultoras.Common
             public const string MostrarOpcionesOrdenamiento = "MostrarOpcionesOrdenamiento";
             public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
             public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
-            
         }
-
 
         public class RutaBuscadorService
         {

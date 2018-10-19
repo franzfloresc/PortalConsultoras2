@@ -336,8 +336,14 @@
             string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
         }
         window.controllerName = '@ctrl.ToLower()';
-        window.actionName     = '@acti.ToLower()';
+        window.actionName = '@acti.ToLower()';
     </script>
+    @if (esIngresoUnico)
+    {
+        <script>
+            var esAppMobile = true;
+        </script>
+    }
 
     @if (ViewBag.TieneOfertaDelDia == true)
     {

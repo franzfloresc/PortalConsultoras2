@@ -1803,6 +1803,10 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
                 }
+                else if (usuario.PaisID == Constantes.PaisID.Colombia ) {
+                    this.UpdateDatos(usuario, CorreoAnterior);
+                    resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
+                }
             }
             catch (Exception ex)
             {
@@ -3457,8 +3461,11 @@ namespace Portal.Consultoras.BizLogic
                 buscadorYFiltrosConfiguracion.TotalResultadosBuscador = valor1;
             }
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).FirstOrDefault();
-            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 == "1";
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).FirstOrDefault();
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
+
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos).FirstOrDefault();
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.AplicarLogicaCantidadBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
 
             return buscadorYFiltrosConfiguracion;
         }

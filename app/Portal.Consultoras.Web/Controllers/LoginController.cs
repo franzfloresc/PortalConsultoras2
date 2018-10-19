@@ -841,7 +841,6 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("Ofertas", "Index", null, "ODD");
                     case Constantes.IngresoExternoPagina.HerramientasDeVenta:
                         return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
-                        //case Constantes.IngresoExternoPagina.SaberMasInscripcion:
                 }
             }
             catch (Exception ex)
