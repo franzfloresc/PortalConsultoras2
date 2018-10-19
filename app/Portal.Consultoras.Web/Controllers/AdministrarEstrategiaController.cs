@@ -802,6 +802,8 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 var numeroPedidosAsociados = model.NumeroPedido.Split(',').Select(int.Parse).ToList();
+                error += "| NumeroPedido.Split = " + numeroPedidosAsociados.Count;
+
                 var estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
 
                 foreach (var item in numeroPedidosAsociados)
@@ -812,8 +814,10 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (entidad.CodigoTipoEstrategia != null)
                         {
+                            error += "| if CodigoTipoEstrategia != null";
                             if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                             {
+                                error += "| if CodigoTipoEstrategia Equals Lan";
                                 estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
                                 if (entidad.EstrategiaID != 0)
                                 {
@@ -830,12 +834,13 @@ namespace Portal.Consultoras.Web.Controllers
                         #region Imagen Resize  
                         error += "| mensajeErrorImagenResize";
                         mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
-                        error += "| mensajeErrorImagenResize = " + mensajeErrorImagenResize;
+                        error += "| mensajeErrorImagenResize fin = " + mensajeErrorImagenResize;
 
                         #endregion
 
                         if (entidad.ImagenMiniaturaURL == string.Empty || entidad.ImagenMiniaturaURL == "prod_grilla_vacio.png")
                         {
+                            error += "| ImagenMiniaturaURL vacia";
                             entidad.ImagenMiniaturaURL = entidad.ImagenURL;
                         }
                         else
@@ -876,7 +881,11 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
                     !string.IsNullOrEmpty(model.PrecioAnt) &&
                     model.Precio2 != model.PrecioAnt)
+                {
+                    error += "| UpdateCacheListaOfertaFinal";
                     UpdateCacheListaOfertaFinal(model.CampaniaID);
+                    error += "| UpdateCacheListaOfertaFinal fin";
+                }
 
                 return Json(new
                 {
