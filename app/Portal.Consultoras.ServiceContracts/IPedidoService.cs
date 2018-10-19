@@ -1228,6 +1228,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ObtenerPagoEnLineaNumeroOrden(int paisId);
+
+        [OperationContract]
+        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId);
         #endregion
 
         [OperationContract]

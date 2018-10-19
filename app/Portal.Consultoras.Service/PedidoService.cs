@@ -2220,6 +2220,10 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerNumeroOrden(paisId);
         }
 
+        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId) {
+            return BLPagoEnLinea.ObtenerPagoEnLineaConfiguracion(paisId);
+        }
+
         #endregion
 
 

@@ -1,12 +1,27 @@
-﻿using Portal.Consultoras.Data.PagoEnLinea;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data.PagoEnLinea;
+using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic.PagoEnlinea
 {
     public class BLPagoEnLinea
     {
+        private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+
+        public BLPagoEnLinea() : this(new BLTablaLogicaDatos())  {
+
+        }
+
+        public BLPagoEnLinea(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        {
+            _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+        }
+
         public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
         {
             var dataAccess = new DAPagoEnLinea(paisId);
@@ -157,6 +172,26 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         public int ObtenerNumeroOrden(int paisId)
         {
             return new DAPagoEnLinea(paisId).ObtenerNumeroOrden();
+        }
+
+        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId) {
+            var result = new BEPagoEnLinea();
+
+            var listaMetodoPagoTask = Task.Run(() => result.ListaMetodoPago = ObtenerPagoEnLineaMedioPagoDetalle(paisId));
+            var listaMedioPagoTask = Task.Run(() => result.ListaMedioPago = ObtenerPagoEnLineaMedioPago(paisId));
+            var listaTipoPagoTask = Task.Run(() => result.ListaTipoPago = ObtenerPagoEnLineaTipoPago(paisId));
+            var listaConfiguracionTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.ValoresPagoEnLinea) ?? new List<BETablaLogicaDatos>());
+
+            Task.WaitAll(listaMetodoPagoTask, listaMedioPagoTask, listaTipoPagoTask, listaConfiguracionTask);
+
+            var listaConfiguracion = listaConfiguracionTask.Result ?? new List<BETablaLogicaDatos>();
+            var porcentajeGastosAdministrativosString = listaConfiguracion .Where(d => d.TablaLogicaDatosID == Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos).Select(d => Util.Trim(d.Codigo)).SingleOrDefault();
+
+            decimal porcentajeGastosAdministrativos;
+            result.PorcentajeGastosAdministrativos = decimal.TryParse(porcentajeGastosAdministrativosString, out porcentajeGastosAdministrativos) ? porcentajeGastosAdministrativos : 0;
+            result.PagoEnLineaGastosLabel = paisId == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.GastosLabelMx : Constantes.PagoEnLineaMensajes.GastosLabelPe;
+
+            return result;
         }
     }
 }
