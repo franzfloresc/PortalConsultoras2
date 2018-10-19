@@ -611,7 +611,7 @@ namespace Portal.Consultoras.Web.Controllers
                         lote = estado["CUVOK"].Count;
                         foreach (var item in estado["CUVOK"])
                         {
-                            if (txtBuildIdsEstrategiaOk.ToString() != "")
+                            if (txtBuildIdsEstrategiaOk.ToString() != "") 
                                 txtBuildIdsEstrategiaOk.Append(",");
                             txtBuildIdsEstrategiaOk.Append(item);
                         }
