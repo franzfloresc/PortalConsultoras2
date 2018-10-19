@@ -564,6 +564,7 @@
 .filtro__tipo__titulo{
     min-height: 42px;
     line-height: 42px;
+    cursor:pointer;
 }
 
 .filtro__tipo__titulo__icono__despliegue,
@@ -739,7 +740,7 @@
     .filtro__tipo__items
     {
         padding-left:20px!important;
-        padding-right:20px!important;
+        padding-right:14px!important;
     }
 
     .filtro__tipo__titulo--mostrarContenido .filtro__tipo__titulo__icono__despliegue{

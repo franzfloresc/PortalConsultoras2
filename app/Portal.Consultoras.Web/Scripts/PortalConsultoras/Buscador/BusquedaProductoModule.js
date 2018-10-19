@@ -8,6 +8,7 @@
         opcionCerrarFiltrosMobile: '#cerrarFiltros',
         backgroundAlMostrarFiltrosMobile: '.background__filtros__mobile',
         seccionFiltros: '.layout__content__filtros',
+        filtroTipoTitulo: '.filtro__tipo__titulo',
         footer: "footer",
         spanTotalProductos: "#TotalProductos",
         itemDropDown: ".opcion__ordenamiento__dropdown__item",
@@ -64,6 +65,7 @@
             $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
             $(document).on("click", _elementos.opcionFiltrar, _eventos.MostrarFiltrosMobile);
             $(document).on("click", _elementos.opcionCerrarFiltrosMobile, _eventos.CerrarFiltrosMobile);
+            $(document).on("click", _elementos.filtroTipoTitulo, _eventos.MostrarOcultarContenidoTipoFiltro);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
             $(document).on("click", _elementos.btnAgregar, _eventos.RegistrarProducto);
             $(document).on('click', _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
@@ -254,6 +256,24 @@
             setTimeout(function () {
                 $(_elementos.layoutContent).css({ 'z-index': '2' });
             }, 400);
+        },
+
+        MostrarOcultarContenidoTipoFiltro: function (e) {
+            var filtroTipo = $(this).parent();
+            var contenidoTipoFiltro = $(this).next();
+
+            if (contenidoTipoFiltro.css('display') == 'none') {
+                filtroTipo.animate({
+                    'padding-bottom': 18 + 'px'
+                }, 100);
+            } else {
+                filtroTipo.animate({
+                    'padding-bottom': 9 + 'px'
+                }, 100);
+            }
+
+            $(this).toggleClass('filtro__tipo__titulo--mostrarContenido');
+            contenidoTipoFiltro.slideToggle(250);
         },
 
         ScrollCargarProductos: function () {
