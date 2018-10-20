@@ -2284,11 +2284,11 @@
             success: function (data) {
                 $("#listCargaDescMasiva").jqGrid("GridUnload");
                 var mensaje = "";
-                if (data.listActualizado == 0 && data.listInsertado == 0) {
+                if (data.listActualizado == 0) {
                     mensaje = 'No se realizó ninguna actualización ni inserción (Verificar que los CUVs existan en la tabla "ods.OfertasPersonalizadas").';
                 }
                 else {
-                    mensaje = "El procedimiento culmino con éxito, <br /> - Se actualizaron " + data.listActualizado + " Set(s) <br /> - Se insertaron " + data.listInsertado + " Set(s)";
+                    mensaje = "El procedimiento culmino con éxito, <br /> - Se actualizaron " + data.listActualizado + " Set(s)";
                 }
                 closeWaitingDialog();
                 $("#estadoCargaMasiva").css("color", "black");
