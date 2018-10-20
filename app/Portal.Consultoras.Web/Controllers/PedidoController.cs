@@ -4334,7 +4334,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                #region OfertaFinal
+                #region OfertaFinal/LiquidacionWeb
                 if (model.EstrategiaID <= 0 && !pedidoDetalle.esVirtualCoach)
                 {
                     pedidoDetalle.estrategia = new ServicePedido.BEEstrategia();
@@ -4379,6 +4379,7 @@ namespace Portal.Consultoras.Web.Controllers
                         message = pedidoDetalleResult.MensajeRespuesta,
                         errorInsertarProducto = "0",
                         DataBarra = GetDataBarra(),
+                        data = pedidoDetalleResult.pedidoWebDetalle,
                         cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad),
                         listCuvEliminar = pedidoDetalleResult.listCuvEliminar.ToList()
                     }, JsonRequestBehavior.AllowGet);

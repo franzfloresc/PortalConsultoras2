@@ -12,5 +12,7 @@ namespace Portal.Consultoras.Entities.Pedido
         public string MensajeRespuesta { get; set; }
         [DataMember]
         public List<string> listCuvEliminar { get; set; }
+        [DataMember]
+        public BEPedidoWebDetalle pedidoWebDetalle { get; set; }
     }
 }

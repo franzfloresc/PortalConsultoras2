@@ -370,7 +370,8 @@ function RegistroLiquidacion(model, cantidad, producto) {
         ConfiguracionOfertaID: 3,
         OrigenPedidoWeb: model.OrigenPedidoWeb,
         TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
-        LimiteVenta: model.UnidadesPermitidas
+        LimiteVenta: model.UnidadesPermitidas,
+        DescripcionProd: model.DescripcionCompleta
     };
 
     $.ajaxSetup({
