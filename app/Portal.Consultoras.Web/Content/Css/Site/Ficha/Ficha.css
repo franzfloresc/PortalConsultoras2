@@ -1165,12 +1165,12 @@ ul.breadcumbs li a::before {
 
 /** Mensaje de Producto no Disponible **/
 .msj_nodisponible {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 80px 0 210px 0;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin: 160px 0 170px 0 !important;
 }
     .msj_nodisponible img {
         margin: 0 0 20px;
