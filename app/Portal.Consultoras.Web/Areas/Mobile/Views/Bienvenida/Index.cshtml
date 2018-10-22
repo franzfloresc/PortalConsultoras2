@@ -130,7 +130,7 @@
             else if (Model.RevistaDigital.TieneRDC && Model.RevistaDigital.EsSuscrita && !Model.RevistaDigital.EsActiva)
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel, '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
+                    ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
                 </div>
             }
             else if (Model.RevistaDigital.TieneRDC && Model.RevistaDigital.EsSuscrita && Model.RevistaDigital.EsActiva)
@@ -141,7 +141,7 @@
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
                     <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                        ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel, '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
+                        ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
                     </div>
                 }
                 else
@@ -300,7 +300,7 @@
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
             @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
             {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index","PagoEnLinea")">
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("MetodoPago","PagoEnLinea")">
                     <div class="texto_btn_pago_en_linea">
                         <span>PAGA EN LÍNEA</span>
                         @*<span>con Crédito Visa</span>*@
@@ -684,7 +684,7 @@
         </div>
     </div>
 </div>
-<div class="btn_agregarPedido boton_cincuenta_anios_belcorp">
+<div class="btn_agregarPedido boton_ingresa_tu_pedido_navidenio">
     <form>
         <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
     </form>
