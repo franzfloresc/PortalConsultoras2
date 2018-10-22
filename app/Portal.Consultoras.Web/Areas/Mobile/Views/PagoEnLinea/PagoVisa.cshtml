@@ -12,13 +12,13 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
 
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")?v=1">
 
     }
     else
     {
 
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/pago-en-linea.css")">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/pago-en-linea.css")?v=1">
 
     }
 

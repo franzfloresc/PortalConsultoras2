@@ -99,7 +99,7 @@ $(document).ready(function () {
 
                             xhr = $.ajax({
                                 type: 'POST',
-                                url: baseUrl + "Buscador/BusquedaProductos",
+                                url: baseUrl + "Mobile/Buscador/BusquedaProductos",
                                 data: JSON.stringify({ busqueda: valBusqueda, totalResultados: TotalResultadosBuscador }),
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
