@@ -90,7 +90,7 @@ namespace Portal.Consultoras.Web.Providers
                                     Cantidad = componente.cantidad,
                                     FactorCuadre = componente.factorCuadre,
                                     IdMarca = componente.marcaId,
-                                    NombreMarca = componente.nombreMarca
+                                    NombreMarca = componente.nombreMarca,
                                     NombreComercial = componente.nombreComercial,
                                     Volumen = componente.volumen,
                                     NombreBulk = componente.nombreBulk
