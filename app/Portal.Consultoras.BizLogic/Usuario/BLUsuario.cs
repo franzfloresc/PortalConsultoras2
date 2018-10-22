@@ -20,6 +20,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.Usuario;
 
 namespace Portal.Consultoras.BizLogic
@@ -599,7 +600,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario.CodigosProgramaNuevas = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[1] : string.Empty;
 
                 usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result.Count == 3 ? (short)revistaDigitalSuscripcionTask.Result[0] : Constantes.GanaMas.PaisSinRD;
-                usuario.UrlBannerGanaMas = revistaDigitalSuscripcionTask.Result.Count == 3 ? (string)revistaDigitalSuscripcionTask.Result[1] : string.Empty;
+                usuario.UrlBannerGanaMas = string.Empty;
                 usuario.TieneGND = revistaDigitalSuscripcionTask.Result.Count == 3 && (bool)revistaDigitalSuscripcionTask.Result[2];
 
                 usuario.CuponEstado = cuponTask.Result.EstadoCupon;
@@ -803,15 +804,24 @@ namespace Portal.Consultoras.BizLogic
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario);
+                var consultoraNuevas = new BEConsultoraProgramaNuevas
+                {
+                    PaisID = usuario.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    CodigoConsultora = usuario.CodigoConsultora,
+                    EsConsultoraNueva = usuario.EsConsultoraNueva,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva,
+                    CodigoPrograma = usuario.CodigoPrograma
+                };
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(consultoraNuevas, usuario.CodigorRegion, usuario.CodigoZona);
 
                 if (result.Any())
                 {
-                    var concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
-                    lstConcursos.Add(string.Join("|", concursos.Select(c => c.CodigoConcurso)));
+                    var listConcursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
+                    lstConcursos.Add(string.Join("|", listConcursos.Select(c => c.CodigoConcurso)));
 
-                    var programaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
-                    lstConcursos.Add(string.Join("|", programaNuevas.Select(c => c.CodigoConcurso)));
+                    var listProgramaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
+                    lstConcursos.Add(string.Join("|", listProgramaNuevas.Select(c => c.CodigoConcurso)));
                 }
             }
             catch (Exception ex)
@@ -2871,7 +2881,7 @@ namespace Portal.Consultoras.BizLogic
                         CampaniaID = oUsu.campaniaID,
                         NroCelular = oUsu.Celular,
                         Mensaje = oCredencial.Mensaje,
-                        CodigoIso = oUsu.CodigoIso,
+                        CodigoIso =  oUsu.CodigoIso,
                         EsMobile = oUsu.EsMobile,
                         RequestUrl = oCredencial.RequestUrl,
                         RecursoApi = oCredencial.RecursoApi
@@ -3422,29 +3432,33 @@ namespace Portal.Consultoras.BizLogic
         {
             var buscadorYFiltrosConfiguracion = new BEBuscadorYFiltrosConfiguracion();
             short valor1 = 0;
+
             var mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBuscador).FirstOrDefault();
-            if (mostrarBuscador != null)
-            {
-                buscadorYFiltrosConfiguracion.MostrarBuscador = mostrarBuscador.Valor1 == "1";
-            }
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBuscador = mostrarBuscador.Valor1 == "1";
+
             mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscador).FirstOrDefault();
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscador = valor1;
             }
+
             mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar).FirstOrDefault();
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscadorMostrar = valor1;
             }
+
             mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador).FirstOrDefault();
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.TotalResultadosBuscador = valor1;
             }
+
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).FirstOrDefault();
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 == "1";
 
             return buscadorYFiltrosConfiguracion;
         }

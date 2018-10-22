@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -570,6 +571,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+        private List<BEPopupPais> ObtenerListaPopupsDesdeServicio()
+        {
+            var listaPopUps = new List<BEPopupPais>();
+            try
+            {
+                using (var sac = new SACServiceClient())
+                {
+                    listaPopUps = sac.ObtenerOrdenPopUpMostrar(userData.PaisID).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return listaPopUps;
+        }
+
     }
 
 }

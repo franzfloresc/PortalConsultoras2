@@ -692,6 +692,24 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="EsDuoPerfecto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="consecutivoNueva" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EsDuoPerfectoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EsDuoPerfectoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ValidarVentaExclusiva">
     <xs:complexType>
       <xs:sequence>
