@@ -1,0 +1,324 @@
+﻿
+/* HD-2990 - CAMPAÑA NAVIDEÑA */
+
+.wrapper_campania_navidenia_y_logo,
+.menu_new_esika,
+.menu_esika_b,
+.logo_esika,
+.nav_principal {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.wrapper_header_campania_navidenia{
+    background: #015f4f;
+    background: -moz-linear-gradient(to bottom, #011d18 0%,#015f4f 74%);
+    background: -webkit-linear-gradient(to bottom, #011d18 0%,#015f4f 74%);
+    background: linear-gradient(to bottom, #011d18 0%,#015f4f 74%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#011d18', endColorstr='#015f4f',GradientType=0 );
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    width:100%!important;
+    min-width:1024px!important;
+    max-width:100%!important;
+}
+
+.wrapper_campania_navidenia_y_logo{
+    width:16.5%!important;
+    text-align:right;
+    padding-right:20px;
+    overflow:hidden;
+}
+
+.wrapper_campania_navidenia_y_logo,
+.logo_marca_pais_fondo_navidenio,
+.wrapper_header_campania_navidenia .logo_esika a
+{
+    height:61px;
+}
+
+.wrapper_campania_navidenia_y_logo .logo_esika,
+.wrapper_campania_navidenia_y_logo .logo_esika a
+{
+    position:relative;
+}
+
+.wrapper_campania_navidenia_y_logo .logo_esika a{
+    left:-15px;
+}
+
+.wrapper_campania_navidenia_y_logo .logo_esika{
+    width:108px;
+}
+
+.logo_marca_pais_fondo_navidenio {
+    position: absolute;
+    margin: auto 0;
+    width: 100%;
+    height:61px;
+    top: 0;
+    bottom: 0;
+    left: -85%;
+    background: -moz-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+    background: -webkit-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+    background: linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E81C36', endColorstr='#720313',GradientType=0 );
+    overflow: hidden;
+    -moz-transform: skew(-13deg);
+    -ms-transform: skew(-13deg);
+    -o-transform: skew(-13deg);
+    -webkit-transform: skew(-13deg);
+    transform: skew(-13deg);
+}
+
+.wrapper_campania_navidenia_y_logo + .menu_new_esika{
+    width:auto!important;
+}
+
+.wrapper_header_campania_navidenia .new_menu_a{
+    border-bottom:none;
+}
+
+.wrapper_header_campania_navidenia .flecha_menu{
+    border-top: 4px solid #FFF;
+}
+
+.wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco{
+    background: url(/Content/Images/Esika/logo_marca_pais_desktop_blanco.svg) no-repeat;
+    background-position:center 12px;
+}
+
+.wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco:hover{
+    opacity:1!important;
+}
+
+.wrapper_header_campania_navidenia .boton_cam{
+    background-color:transparent;
+}
+
+.wrapper_header_campania_navidenia .new_menu_a,
+.wrapper_header_campania_navidenia .boton_cerrar_s a,
+.wrapper_header_campania_navidenia .cart_compras .notificaciones
+{
+    color:#FFF;
+}
+
+.wrapper_header_campania_navidenia .flechita_info{
+    background-color:#FFF;
+}
+
+.wrapper_header_campania_navidenia .campana_svg,
+.wrapper_header_campania_navidenia .cart_compras .notificaciones
+{
+    position:relative;
+    z-index:2002;
+}
+
+.wrapper_header_campania_navidenia .cart_compras .campana_svg,
+.wrapper_header_campania_navidenia .cart_compras:hover .campana_svg
+{
+    background-position:0 4px!important;
+}
+
+.wrapper_header_campania_navidenia .cart_compras .campana_svg{
+    background:url('/Content/Images/icono-carrito-compra-blanco.svg') no-repeat;
+}
+
+.wrapper_header_campania_navidenia .cart_compras:hover .campana_svg{
+    background:url('/Content/Images/Esika/carrito.png') no-repeat;
+}
+
+.wrapper_header_campania_navidenia .cart_compras:hover .notificaciones{
+    color:#000;
+}
+
+.wrapper_header_campania_navidenia .tutoriales_svg{
+    background:url('/Content/Images/icono-tutorial-blanco.svg') no-repeat;
+    background-position:0 3px!important;
+}
+
+.wrapper_header_campania_navidenia .mensaje_svg,
+.wrapper_header_campania_navidenia .campana:hover .mensaje_svg
+{
+    background:url('/Content/Images/icono-notificaciones-blanco.svg') no-repeat!important;
+    background-position:0px 5px!important;
+}
+
+.boton_ingresa_tu_pedido_navidenio{
+    background-color:#870A1B;
+    border-color:#870A1B;
+}
+
+    .boton_ingresa_tu_pedido_navidenio:hover{
+        color:#870A1B;
+    }
+
+.franja_negra{
+    top:-2px;
+}
+
+@media screen and (max-width:1365px){
+
+    .wrapper_header_campania_navidenia{
+        max-width:none!important;
+    }
+
+    .wrapper_campania_navidenia_y_logo .logo_esika {
+        margin-left: 4px;
+    }
+
+}
+
+@media screen and (min-width:1145px) and (max-width:1212px){
+
+    .wrapper_campania_navidenia_y_logo + .menu_new_esika{
+        max-width: 628px!important;
+    }
+
+}
+
+@media screen and (min-width:1090px) and (max-width:1144px){
+
+    .wrapper_campania_navidenia_y_logo + .menu_new_esika {
+        max-width: 626.7px!important;
+    }
+
+}
+
+@media screen and (min-width:1063px) and (max-width:1089px){
+
+    .wrapper_campania_navidenia_y_logo + .menu_new_esika {
+        max-width: 592px!important;
+    }
+
+}
+
+@media screen and (max-width: 1062px) {
+
+    .wrapper_campania_navidenia_y_logo + .menu_new_esika {
+        max-width: 553px!important;
+    }
+
+}
+
+@media screen and (max-width:991px){
+
+    .agregarBackgroundNavidenio{
+        position:relative;
+        background: #01362d;
+        background: -moz-linear-gradient(top, #01362d 0%, #016f5f 100%);
+        background: -webkit-linear-gradient(top, #01362d 0%,#016f5f 100%);
+        background: linear-gradient(to bottom, #01362d 0%,#016f5f 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0 );
+    }
+
+    .agregarBackgroundNavidenio:before{
+        display:block;
+        content:"";
+        position:absolute;
+        top:0;
+        left:-10px;
+        width:154px;
+        height:60px;
+        background: -moz-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+        background: -webkit-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+        background: linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E81C36', endColorstr='#720313',GradientType=0 );
+        overflow: hidden;
+        -moz-transform: skew(-13deg);
+        -ms-transform: skew(-13deg);
+        -o-transform: skew(-13deg);
+        -webkit-transform: skew(-13deg);
+        transform: skew(-13deg);
+    }
+
+    .icono_menuMobile_campania_navidenia,
+    .icono_menuMobile_campania_navidenia img
+    {
+        width: 20px!important;
+    }
+
+    .icono_menuMobile_campania_navidenia img{
+        height: 19px;
+        position: relative;
+        left: 0!important;
+    }
+
+    .agregarBackgroundNavidenio .contenedor_circulos{
+        position: absolute;
+        z-index: 500;
+        left:75%;
+        top: 9px;
+    }
+
+    .agregarBackgroundNavidenio .logo_mobile{
+        background: url(/Content/Images/Esika/logo_marca_pais_desktop_blanco.svg) no-repeat;
+        background-position: left 6px;
+        background-size: 73px;
+        height: 40px;
+        position: relative;
+        left: 5px;
+        margin-top: 0;
+        margin-left: 0;
+    }
+
+    .agregarBackgroundNavidenio .icono_menuMobile_campania_navidenia + .col-xs-5{
+        padding-left:17px;
+    }
+
+    .agregarBackgroundNavidenio .col-xs-5:last-child{
+        position: relative;
+        top: -3px;
+        margin-left:3%;
+        padding-right:0;
+    }
+
+    .agregarBackgroundNavidenio .icono_busqueda_mobile{
+        opacity:1;
+        margin-right:8px;
+    }
+
+    .agregarBackgroundNavidenio .campana_svg_mobile{
+        background: url(/Content/Images/icono-notificaciones-blanco.svg) no-repeat;
+        background-position: center -2px;
+        width: 20px;
+        height: 19px;
+        margin-right: 14px;
+    }
+
+    .agregarBackgroundNavidenio .campana_mobile .icon-shop-belcorp:before,
+    .agregarBackgroundNavidenio .num-menu-shop
+    {
+        color:#FFF!important;
+    }
+
+    .agregarBackgroundNavidenio .num-menu-shop{
+        margin-top:17px!important;
+    }
+
+    .nuevaAlturaBanner {
+        background-position: 79% center!important;
+    }
+
+    .boton_ingresa_tu_pedido_navidenio,
+    .boton_ingresa_tu_pedido_navidenio input {
+        background-color: #870A1B;
+        border-color: #870A1B;
+        color: #FFF !important;
+    }
+
+    .color_cincuenta_anios_belcorp{
+        color:#A06219;
+    }
+
+    .menu_mobile_belcorp[data-codigo="contenedorofertas"]{
+        background: #01362d;
+        background: -moz-linear-gradient(top,#01362d 0%,#016f5f 100%);
+        background: -webkit-linear-gradient(top,#01362d 0%,#016f5f 100%);
+        background: linear-gradient(to bottom,#00342a 20%,#016758 91%);
+    }
+
+}
+
+/* FIN - HD-2990 - CAMPAÑA NAVIDEÑA */

@@ -1,23 +1,25 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Buscador;
-using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceUsuario;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using Portal.Consultoras.Web.Models.Buscador;
 using System.Web.Mvc;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class BusquedaProductosController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Index(string q = "")
         {
-            return View();
+            var model = new BusquedaProductoOutModel
+            {
+                TextoBusqueda = q,
+                ListaOrdenamiento = userData.ListaOrdenamientoFiltrosBuscador,
+                TotalProductosPagina = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalProductosPaginaResultado),
+                TotalCaracteresDescripcion = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalCaracteresDescPaginaResultado),
+                MostrarOpcionesOrdenamiento = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento).ToBool()
+            };
+            return View(model);
         }
+        
+        
     }
+    
 }
