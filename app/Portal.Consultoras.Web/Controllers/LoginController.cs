@@ -1805,10 +1805,10 @@ namespace Portal.Consultoras.Web.Controllers
             var lst = new List<BEIncentivoConcurso>();
             try
             {
-                var usuario = Mapper.Map<ServicePedido.BEUsuario>(usuarioModel);
+                var consultoraNuevas = Mapper.Map<ServicePedido.BEConsultoraProgramaNuevas>(usuarioModel);
                 using (var sv = new PedidoServiceClient())
                 {
-                    var result = await sv.ObtenerConcursosXConsultoraAsync(usuario);
+                    var result = await sv.ObtenerConcursosXConsultoraAsync(consultoraNuevas, usuarioModel.CodigorRegion, usuarioModel.CodigoZona);
                     lst = result.ToList();
                 }
             }
@@ -2227,7 +2227,7 @@ namespace Portal.Consultoras.Web.Controllers
             var rds = new ServicePedido.BERevistaDigitalSuscripcion
             {
                 PaisID = usuarioModel.PaisID,
-                CodigoConsultora = usuarioModel.CodigoConsultora
+                CodigoConsultora = usuarioModel.GetCodigoConsultora()
             };
 
             using (var pedidoServiceClient = new PedidoServiceClient())

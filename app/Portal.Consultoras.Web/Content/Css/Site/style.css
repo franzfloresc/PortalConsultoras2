@@ -13027,5 +13027,17 @@ label.checkpop {
     display: inline-block !important;
 }
 
+#downxlxs {
+    float: right;
+    padding: 9px;
+    margin-right: 350px;
+}
+
+#downxlxs a {
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 /**/
 

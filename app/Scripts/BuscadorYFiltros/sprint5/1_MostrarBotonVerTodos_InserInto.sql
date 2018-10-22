@@ -6,7 +6,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')
@@ -23,7 +23,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')
@@ -40,7 +40,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')
@@ -57,7 +57,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')
@@ -74,7 +74,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')
@@ -91,7 +91,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')
@@ -108,7 +108,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')
@@ -125,7 +125,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')
@@ -142,7 +142,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')
@@ -159,7 +159,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')
@@ -176,7 +176,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')
@@ -193,7 +193,7 @@ DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codig
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'MostrarBotonVerTodos')
 BEGIN
    INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-   VALUES (@id, 'MostrarBotonVerTodos', 0, 1, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
+   VALUES (@id, 'MostrarBotonVerTodos', 0, 0, NULL, NULL, 'Define si se debe mostrar el botón VerTodos', 1, NULL)
 END
 
 IF NOT EXISTS (SELECT 1 FROM ConfiguracionPaisDatos WHERE codigo = 'AplicarLogicaCantidadBotonVerTodos')

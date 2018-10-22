@@ -166,6 +166,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
@@ -210,7 +211,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Esika/revistaDigital.css",
                "~/Content/Css/Site/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Site/Esika/buscador-filtros.css",
-               "~/Content/Css/Site/ProductoListado/CajaProducto.css"
+               "~/Content/Css/Site/ProductoListado/CajaProducto.css",
+               "~/Content/Css/Site/Esika/campania-navidenia.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
@@ -239,7 +241,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Lbel/revistaDigital.css",
                "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css",
-               "~/Content/Css/Site/Lbel/buscador-filtros.css"
+               "~/Content/Css/Site/Lbel/buscador-filtros.css",
+               "~/Content/Css/Site/Lbel/campania-navidenia.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Lbel-Contenedor").Include(
@@ -268,7 +271,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/RevistaDigital/index.css",
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
-               "~/Content/Css/Mobile/calc.css"
+               "~/Content/Css/Mobile/calc.css",
+               "~/Content/Css/Site/Esika/campania-navidenia.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/lbel-CssSB2Mobile").Include(
@@ -285,7 +289,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/RevistaDigital/index.css",
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
-               "~/Content/Css/Mobile/calc.css"
+               "~/Content/Css/Mobile/calc.css",
+               "~/Content/Css/Site/Lbel/campania-navidenia.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/CssBienvenida").Include(
@@ -318,6 +323,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/slick.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js"
             ));

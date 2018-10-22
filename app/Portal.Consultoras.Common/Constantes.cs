@@ -1323,6 +1323,7 @@ namespace Portal.Consultoras.Common
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
             public const string RecuperarContrasenia = "Error en la respuesta del servicio de Recuperar Contraseña.";
+            public const string SinConexion = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_LoginChatbot = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_CatalogoRevistaIssu = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_Reserva = "Necesita tener conexion a internet para poder reservar.";
@@ -1353,7 +1354,6 @@ namespace Portal.Consultoras.Common
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
-            public const string AgregarProgNuevas_MaxElectivos = "No puedes agregar este producto a tu pedido por haber alcanzado el límite de {0} cuvs del programa nuevas.";
         }
 
         public static class MensajesExito
@@ -2064,7 +2064,7 @@ namespace Portal.Consultoras.Common
                 "Están agregados en tu pedido bajo la descripción RECUPC16.Puedes mantenerlos para recibirlos con tu caja de C17 o borrarlos de tu pedido si ya no los necesitas.";
         }
 
-        public static class ProgramaNuevas
+        public static class ProgNuevas
         {
             public const string CarpetaBanner = "AppConsultora/{0}/ProgramaNuevas/{1}";
             public const string ArchivoBannerCupones = "Cupon{0}_{1}.jpg";
@@ -2089,15 +2089,16 @@ namespace Portal.Consultoras.Common
                 public const string cuvFinal = "cuvFinal";
             }
 
-            public static class MensajeValidacionBusqueda
+            public static class Mensaje
             {
                 public const string ConsultoraNoNueva = "El código solicitado es exclusivo para quienes participan del Programa de Nuevas.";
                 public const string CuvNoPerteneceASuPrograma = "El codigo ingresado es incorrecto. Revise el folleto del Programa de Nuevas y solicite el que le corresponde.";
-            }
-
-            public static class MensajeValidacionCantidadMaxima
-            {
-                public const string ExcedeCantidad = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
+                public const string ExcedeLimiteUnidades = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña";
+                public const string Electivo_PromocionNombre = "Dúo Perfecto";
+                public const string Electivo_NoAgregarPorLimite = "Ya no puedes añadir otro producto, tu {0} está completo.";
+                public const string Electivo_CompletasteLimite = "¡Completaste tu {0}!";
+                public const string Electivo_TeFaltaPocoLimite = "¡Agregaste 1 producto, te falta {0} para completar tu {1}!";
+                public const string DuoPerfecto_ConfirmaEliminar = "Si eliminas este producto te quedarás sin tu {0}";
             }
         }
 
@@ -2921,6 +2922,11 @@ namespace Portal.Consultoras.Common
             public const string AcionesOmitidas = "ActualizarContrasenia";
         }
 
+        public class PlantillaExcel
+        {
+            public const string UrlExcelMatrizCampania = "http://somosbelcorpprd.s3.amazonaws.com/Matriz/PLANTILLA_MASIVO_MATRIZ.xlsx";
+        }
+        
         public class CodigoEstrategiaBuscador
         {
             public const string Liquidacion = "LIQ";

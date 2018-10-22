@@ -145,10 +145,11 @@
 }
 
 .opcion__ordenamiento__dropdown--desplegado:after{
+    display:block;
     content:"";
     width:100%;
     height: 11px;
-    bottom: -5px;
+    bottom: -2px;
     z-index: 4;
 }
 
@@ -336,6 +337,7 @@
     left:0;
     right:0;
     width:8px;
+    height:8px;
 }
 
 .ficha__producto__rango__cantidad input{
@@ -491,6 +493,10 @@
         padding-right:10px;
     }
 
+    .opcion__ordenamiento__dropdown__lista{
+        right:11px;
+    }
+
     .fichas__productos__wrapper{
         display:flex;
         flex-direction:row;
@@ -509,6 +515,11 @@
     .ficha__producto--ancha{
         width:calc(50% - 20px)!important;
         min-width:460px;
+    }
+
+    .ficha__producto__rango__cantidad input{
+        position:relative;
+        left:-11px;
     }
 
 }
@@ -537,7 +548,7 @@
 }
 
 .filtros__subtitulo,
-.filtro__tipo__titulo
+.filtro__tipo__titulo div:first-child
 {
     font-weight:bold;
     letter-spacing:0.5px;
@@ -547,10 +558,14 @@
     margin-bottom:24px;
 }
 
+.filtros__lista:last-of-type{
+    margin-bottom:15px;
+}
+
 .filtro__tipo{
-    padding-top:13px;
-    padding-bottom:15px;
-    border-bottom:1px solid #d8d8d8;
+    padding-top: 7px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #d8d8d8;
 }
 
 .filtro__tipo:first-child{
@@ -562,8 +577,29 @@
 }
 
 .filtro__tipo__titulo{
-    min-height: 36px;
-    line-height: 36px;
+    min-height: 42px;
+    line-height: 42px;
+    cursor:pointer;
+}
+
+.filtro__tipo__titulo__icono__despliegue,
+.filtro__tipo__titulo--mostrarContenido .filtro__tipo__titulo__icono__despliegue
+{
+    background-repeat:no-repeat;
+    background-position:center;
+}
+
+.filtro__tipo__titulo__icono__despliegue{
+    background-image:url(/Content/Images/mas-desplegable-icono.svg);
+    width:17.5px;
+    height: 10px;
+    margin-top:1px;
+}
+
+.filtro__tipo__titulo--mostrarContenido .filtro__tipo__titulo__icono__despliegue{
+    background-image:url(/Content/Images/menos-desplegable-icono.svg);
+    background-size:11px;
+    margin-top:0;
 }
 
 .filtro__item{
@@ -626,6 +662,10 @@
 
     .opcion__ordenamiento__label{
         top:0!important;
+    }
+
+    .opcion__ordenamiento__dropdown--desplegado:after{
+        bottom:-9px!important;
     }
 
     .ficha__producto--delgada{
@@ -722,7 +762,43 @@
     .filtro__tipo__items
     {
         padding-left:20px!important;
-        padding-right:20px!important;
+        padding-right:14px!important;
+    }
+
+    .filtro__tipo__titulo--mostrarContenido .filtro__tipo__titulo__icono__despliegue{
+        background-size:10px;
+    }
+
+    .filtro__tipo:last-child{
+        border-bottom:1px solid #d8d8d8;
+    }
+
+    .filtro__btn__mobile__wrapper{
+        padding-left: 20px;
+        padding-right: 16px;
+        margin-bottom: 2px;
+    }
+
+    .filtro__btn__mobile__wrapper div:first-child{
+        padding-right:4px;
+    }
+
+    .filtro__btn{
+        height:44px;
+        border-radius:4px;
+        border:1px solid #000;
+        font-weight:bold;
+        letter-spacing:1px;
+    }
+
+    .filtro__btn--limpiar{
+        background-color:#FFF;
+        color:#000;
+    }
+
+    .filtro__btn--aplicar{
+        background-color:#000;
+        color:#FFF;
     }
 
     /* FIN - FILTROS MOBILE */
@@ -754,6 +830,7 @@
         padding-bottom:2px;
         padding-left:10px;
         padding-right:10px;
+        padding-bottom:3px;
         background-color:#f5f5f5;
     }
 
@@ -810,6 +887,7 @@
 
     .opcion__filtrar__link{
         z-index:3;
+        cursor:pointer;
     }
 
     .opcion__ordenamiento__label:before,
@@ -869,8 +947,8 @@
     .opcion__ordenamiento__dropdown--desplegado:after{
         width:100%;
         right:0;
-        bottom: -7px;
-        height:10px;
+        bottom: -9px;
+        height:11px;
     }
 
     .lista__opcion__wrapper--filtrar + .lista__opcion__wrapper--ordenar .opcion__ordenamiento__dropdown--desplegado:before,
@@ -931,10 +1009,13 @@
     /* FICHAS DE PRODUCTOS MOBILE */
 
     .lista__opciones__ordenamiento__y__filtrar{
-        padding-bottom:5px!important;
+        padding-top:7px!important;
+        padding-bottom:8px!important;
     }
 
-    .opcion__ordenamiento__label{
+    .opcion__ordenamiento__label,
+    .opcion__filtrar__link
+    {
         top:0!important;
     }
 

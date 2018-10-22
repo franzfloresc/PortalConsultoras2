@@ -82,7 +82,7 @@
 .menu__item[data-title="OFERTAS"],
 .menu__item--ofertas
 {
-    width:144px;
+    width:142px;
     padding-left:7px;
     overflow:hidden;
 }
@@ -244,7 +244,7 @@
     .menu__item[data-title="SOCIA EMPRESARIA"] ~ .menu__item, 
     .menu__item--sociaEmpresaria ~ .menu__item
     {
-        min-width:107px;
+        min-width:105px;
     }
 
 }
@@ -274,7 +274,7 @@
     .menu__item[data-title="OFERTAS"],
     .menu__item--ofertas
     {
-        width:125px;
+        width:120px;
     }
 
     .menu__item[data-title="OFERTAS"] img,
