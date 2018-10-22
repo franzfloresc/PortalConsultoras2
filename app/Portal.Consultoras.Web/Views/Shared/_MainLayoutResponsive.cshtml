@@ -1,9 +1,9 @@
 ﻿@using System.Web.Optimization
 @using Portal.Consultoras.Common
 
-@{
+@*@{
     var origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopBuscador;
-}
+}*@
 
 <!DOCTYPE html>
 <html lang="es" class="no-js">
@@ -211,7 +211,7 @@
         var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
-        var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;
+        @*var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;*@
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
