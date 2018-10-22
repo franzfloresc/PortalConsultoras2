@@ -32,230 +32,28 @@
                             <div class="col-10 pl-0 pr-0">Categorías</div>
                             <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
                         </div>
-                    <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosCategorias">                        
+                        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosCategorias"></ul>
                     </li>
                     <li class="col-12 pl-0 pr-0 filtro__tipo">
-                    <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
-                        <div class="col-10 pl-0 pr-0">Marcas</div>
-                        <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
-                    </div>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroMarcaEsika" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroMarcaEsika">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Ésika</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroMarcaLbel" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroMarcaLbel">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">L'bel</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroMarcaCyzone" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroMarcaCyzone">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Cyzone</span>
-                                </label>
-                            </div>
-                        </li>
+                        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+                            <div class="col-10 pl-0 pr-0">Marcas</div>
+                            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+                        </div>
+                        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosMarcas"></ul>
                     </li>
-                <li class="col-12 pl-0 pr-0 filtro__tipo">
-                    <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
-                        <div class="col-10 pl-0 pr-0">Precios</div>
-                        <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+                </ul>
+                <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 mostrarEnMobile filtro__btn__mobile__wrapper">
+                    <div class="col-6 pl-0">
+                        <button class="col-12 pl-0 pr-0 text-uppercase filtro__btn filtro__btn--limpiar">
+                            Limpiar
+                        </button>
                     </div>
-                    <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosPrecios">
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroPrimeraOpcionPrecio" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroPrimeraOpcionPrecio">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Menos de S/ 50</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroSegundaOpcionPrecio" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroSegundaOpcionPrecio">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">De S/ 50 a S/ 100</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroTerceraOpcionPrecio" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroTerceraOpcionPrecio">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">De S/ 100 a S/ 200</span>
-                                </label>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="col-12 pl-0 pr-0 filtro__tipo">
-                    <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
-                        <div class="col-10 pl-0 pr-0">Género</div>
-                        <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+                    <div class="col-6 pl-0 pr-0">
+                        <button class="col-12 pl-0 pr-0 text-uppercase filtro__btn filtro__btn--aplicar">
+                            Aplicar
+                        </button>
                     </div>
-                    <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosGenero">
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroParaElla" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroParaElla">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Para ella</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroParaEl" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroParaEl">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Para él</span>
-                                </label>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="col-12 pl-0 pr-0 filtro__tipo">
-                    <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
-                        <div class="col-10 pl-0 pr-0">Cantidad</div>
-                        <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
-                    </div>
-                    <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosCantidad">
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroCantidadUnitarias" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCantidadUnitarias">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Unitarias</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroCantidadPacks" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCantidadPacks">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Packs</span>
-                                </label>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="col-12 pl-0 pr-0 filtro__tipo">
-                    <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
-                        <div class="col-10 pl-0 pr-0">Secciones</div>
-                        <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
-                    </div>
-                    <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosSecciones">
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroOfertasEspeciales" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroOfertasEspeciales">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Ofertas Especiales</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroLosMasVendidos" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroLosMasVendidos">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Los más vendidos</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroLoNuevo" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroLoNuevo">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Lo Nuevo ¡Nuevo!</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroOfertasParaTi" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroOfertasParaTi">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Ofertas para ti</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroSoloHoy" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroSoloHoy">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">¡Sólo Hoy!</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroGuiaNegocioDigital" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroGuiaNegocioDigital">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Guía de Negocio Digital</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroCatalogo" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCatalogo">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Catálogo</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroDemostradoresHerramientasVenta" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroDemostradoresHerramientasVenta">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Demostradores y<br />Herramientas de venta</span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="col-12 pl-0 pr-0 filtro__item">
-                            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                                <input id="filtroLiquidaciones" type="checkbox" class="filtro__item__checkbox" />
-                                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroLiquidaciones">
-                                    <span class="d-inline-block filtro__item__checkbox"></span>
-                                    <span class="d-inline-block">Expofertas /<br />Liquidaciones</span>
-                                </label>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 mostrarEnMobile filtro__btn__mobile__wrapper">
-                <div class="col-6 pl-0">
-                    <button class="col-12 pl-0 pr-0 text-uppercase filtro__btn filtro__btn--limpiar">
-                        Limpiar
-                    </button>
                 </div>
-                <div class="col-6 pl-0 pr-0">
-                    <button class="col-12 pl-0 pr-0 text-uppercase filtro__btn filtro__btn--aplicar">
-                        Aplicar
-                    </button>
-                </div>
-            </div>
             </div>
         </section>
     }
@@ -338,19 +136,19 @@
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js")"></script>
 }
 
-<script id="js-fichaFiltros" type="text/x-handlebars-template">
-    {{#each this}}
-    <li class="col-12 pl-0 pr-0 filtro__item">
-        <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-            <input id="filtroCategoriaFragancia" type="checkbox" class="filtro__item__checkbox" /> <!--checked-->
-            <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCategoriaFragancia">
-                <span class="d-inline-block filtro__item__checkbox"></span>
-                <span class="d-inline-block">{{this}}</span>
-            </label>
-        </div>
-    </li>
-    {{/each}}
-</script>
+    <script id="js-fichaFiltros" type="text/x-handlebars-template">
+        {{#each this}}
+        <li class="col-12 pl-0 pr-0 filtro__item">
+            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                <input id="filtroCategoriaFragancia" type="checkbox" class="filtro__item__checkbox" /> <!--checked-->
+                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCategoriaFragancia">
+                    <span class="d-inline-block filtro__item__checkbox"></span>
+                    <span class="d-inline-block">{{this}}</span>
+                </label>
+            </div>
+        </li>
+        {{/each}}
+    </script>
 
 <script id="js-FichaProductoBuscador" type="text/x-handlebars-template">
 
@@ -435,3 +233,181 @@
     {{/each}}
 </script>
 
+@*
+
+    <li class="col-12 pl-0 pr-0 filtro__tipo">
+        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+            <div class="col-10 pl-0 pr-0">Precios</div>
+            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+        </div>
+        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosPrecios">
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroPrimeraOpcionPrecio" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroPrimeraOpcionPrecio">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Menos de S/ 50</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroSegundaOpcionPrecio" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroSegundaOpcionPrecio">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">De S/ 50 a S/ 100</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroTerceraOpcionPrecio" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroTerceraOpcionPrecio">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">De S/ 100 a S/ 200</span>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="col-12 pl-0 pr-0 filtro__tipo">
+        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+            <div class="col-10 pl-0 pr-0">Género</div>
+            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+        </div>
+        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosGenero">
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroParaElla" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroParaElla">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Para ella</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroParaEl" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroParaEl">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Para él</span>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="col-12 pl-0 pr-0 filtro__tipo">
+        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+            <div class="col-10 pl-0 pr-0">Cantidad</div>
+            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+        </div>
+        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosCantidad">
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroCantidadUnitarias" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCantidadUnitarias">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Unitarias</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroCantidadPacks" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCantidadPacks">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Packs</span>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="col-12 pl-0 pr-0 filtro__tipo">
+        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+            <div class="col-10 pl-0 pr-0">Secciones</div>
+            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+        </div>
+        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosSecciones">
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroOfertasEspeciales" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroOfertasEspeciales">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Ofertas Especiales</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroLosMasVendidos" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroLosMasVendidos">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Los más vendidos</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroLoNuevo" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroLoNuevo">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Lo Nuevo ¡Nuevo!</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroOfertasParaTi" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroOfertasParaTi">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Ofertas para ti</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroSoloHoy" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroSoloHoy">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">¡Sólo Hoy!</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroGuiaNegocioDigital" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroGuiaNegocioDigital">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Guía de Negocio Digital</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroCatalogo" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCatalogo">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Catálogo</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroDemostradoresHerramientasVenta" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroDemostradoresHerramientasVenta">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Demostradores y<br />Herramientas de venta</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroLiquidaciones" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroLiquidaciones">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Expofertas /<br />Liquidaciones</span>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </li>*@
