@@ -494,7 +494,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
                     usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
                     usuario.AceptacionConsultoraDA = configuracionConsultora.AceptacionConsultoraDA;
-                    usuario.DiaFacturacion = (usuario.FechaInicioFacturacion - DateTime.Now).Days;
+                    usuario.DiaFacturacion = (DateTime.Now.Date - usuario.FechaInicioFacturacion).Days;
                 }
 
                 if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -3460,6 +3460,9 @@ namespace Portal.Consultoras.BizLogic
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.TotalResultadosBuscador = valor1;
             }
+
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).FirstOrDefault();
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 == "1";
 
             mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).FirstOrDefault();
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
