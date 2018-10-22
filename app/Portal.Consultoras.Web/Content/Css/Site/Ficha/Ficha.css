@@ -1165,5 +1165,10 @@ ul.breadcumbs li a::before {
     width: 86%;
 }
 
-
+.imagen_fondo_detalle {
+    height: 315px;
+    width: 100%;
+    display: block;
+    position: absolute;
+}
 
