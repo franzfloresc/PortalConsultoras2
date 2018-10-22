@@ -28418,25 +28418,49 @@ a#cierreMotivoRechazo img {
         z-index: 9;
     }
 
+#slide1_images .img_slide1A {
+    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika1A.jpg') no-repeat center top;
+    z-index: 9;
+}
+
     #slide1_images .img_slide2 {
         background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika2.jpg') no-repeat center top;
         z-index: 8;
     }
+
+#slide1_images .img_slide2A {
+    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika2A.jpg') no-repeat center top;
+    z-index: 8;
+}
 
     #slide1_images .img_slide3 {
         background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika3.jpg') no-repeat center top;
         z-index: 7;
     }
 
+#slide1_images .img_slide3A {
+    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika3A.jpg') no-repeat center top;
+    z-index: 7;
+}
     #slide1_images .img_slide4 {
         background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika4.jpg') no-repeat center top;
         z-index: 6;
     }
 
+#slide1_images .img_slide4A {
+    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika4A.jpg') no-repeat center top;
+    z-index: 6;
+}
+
     #slide1_images .img_slide5 {
         background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika5.jpg') no-repeat center top;
         z-index: 5;
     }
+
+#slide1_images .img_slide5A {
+    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika5A.jpg') no-repeat center top;
+    z-index: 5;
+}
 
 .texto_pedidos_pendientes.tips {
     margin: 0;
@@ -28622,6 +28646,11 @@ div.motivoRechazo textarea {
 
 #slide1_images .img_slide6 {
     background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika6.jpg') no-repeat center top;
+    z-index: 4;
+}
+
+#slide1_images .img_slide6A {
+    background: url('/Content/Images/Esika/tutorialHome/tutorial-home-esika6A.jpg') no-repeat center top;
     z-index: 4;
 }
 
