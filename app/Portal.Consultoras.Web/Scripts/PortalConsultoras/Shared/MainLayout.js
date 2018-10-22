@@ -630,7 +630,7 @@ function alert_msg_com(message) {
 function AbrirModalRegistroComunidad() {
 
     if (gTipoUsuario == '2') {
-        URL = getUrlComunidad();
+        URL = 'http://comunidad.somosbelcorp.com/';
         window.open(URL, '_blank');
         return false;
     }
@@ -645,6 +645,15 @@ function AbrirModalRegistroComunidad() {
     SendPushMiComunidad();
 
     return false;
+}
+
+function OpenUrl(url, newPage) {
+    if (newPage) {
+        window.open(url, '_blank');
+        return;
+    }
+
+    window.location.href = url;
 }
 
 function getUrlComunidad() {

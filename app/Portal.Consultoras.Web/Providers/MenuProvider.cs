@@ -148,9 +148,9 @@ namespace Portal.Consultoras.Web.Providers
                         permiso.ClaseMenu = "";
                         permiso.ClaseMenuItem = "";
                         var urlSplit = permiso.UrlItem.Split('/');
-                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + ", '" + permiso.Descripcion + "')";
+                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva) + ", '" + permiso.Descripcion + "')";
                         
-                        if (description == "TU VOZ ONLINE" || description == "MI COMUNIDAD")
+                        if (description == "MI COMUNIDAD")
                         {
                             if (!userSession.EsUsuarioComunidad)
                             {
@@ -158,8 +158,13 @@ namespace Portal.Consultoras.Web.Providers
                             }
                             else
                             {
-                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva) + " , '" + permiso.Descripcion + "')";
                             }
+                        }
+
+                        if (description == "TU VOZ ONLINE")
+                        {
+                            permiso.OnClickFunt = "OpenUrl('" + permiso.UrlItem + "'," + Convert.ToInt32(permiso.PaginaNueva) + ")";
                         }
 
                         if (description == "SOCIA EMPRESARIA")
@@ -167,7 +172,7 @@ namespace Portal.Consultoras.Web.Providers
                             permiso.ClaseMenu = "menu_socia_empresaria";
                             if (userSession.Lider == 1 && userSession.PortalLideres)
                             {
-                                permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+                                permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva) + " , '" + permiso.Descripcion + "')";
                             }
                         }
 
