@@ -295,6 +295,7 @@
     <Compile Include="Controllers\BuscadorController.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
+    <Compile Include="Controllers\ComunController.cs" />
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
@@ -311,6 +312,7 @@
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
     <Compile Include="Models\Buscador\BuscadorModel.cs" />
     <Compile Include="Models\Buscador\BusquedaProductoOutModel.cs" />
+    <Compile Include="CustomFilters\ValidateAjaxModelAttribute.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
@@ -328,6 +330,7 @@
     <Compile Include="Infraestructure\Validator\Phone\NotSamePhoneValidator.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosModel.cs" />
+    <Compile Include="Models\Common\InLogUsabilidadModel.cs" />
     <Compile Include="Models\DetalleEstrategia\BreadCrumbModel.cs" />
     <Compile Include="Models\DetalleEstrategia\DetalleEstrategiaBreadCrumbsModel.cs" />
     <Compile Include="Models\EstrategiaComponenteModel.cs" />
@@ -5737,6 +5740,7 @@
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Buscador\" />
     <Folder Include="Views\Campania\" />
+    <Folder Include="Views\Comun\" />
     <Folder Include="Views\Cupon\" />
     <Folder Include="Views\EstrategiaProductoComentario\" />
   </ItemGroup>

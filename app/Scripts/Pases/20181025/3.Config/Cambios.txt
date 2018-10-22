@@ -1,3 +1,10 @@
+1.0 PortalConsultoras2
+
+Agregar:
+
+	<add key="JwtUsuario" value="userPortalSomosBelcorp" />
+	<add key="JwtPassword" value="Belcorp2018" />
+
 1.1.WSConsultoras
 
 Agregar:

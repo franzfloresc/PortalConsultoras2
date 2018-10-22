@@ -1249,5 +1249,14 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return ((BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosConfiguracionModel();
         }
+        public void SetJwtApiSomosBelcorp(string token)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] = token;
+        }
+         string ISessionManager.GetJwtApiSomosBelcorp()
+        {
+            return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ;
+        }
+        
     }
 }

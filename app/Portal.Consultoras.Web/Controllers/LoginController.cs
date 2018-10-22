@@ -71,6 +71,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             MisCursos();
 
+          
+
             if (EsUsuarioAutenticado())
             {
                 if (misCursos > 0)
@@ -1325,6 +1327,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                         usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
 
+                       
+
                         #endregion
                     }
 
@@ -1333,7 +1337,10 @@ namespace Portal.Consultoras.Web.Controllers
                         var lstFiltersFAV = await CargarFiltersFAV(usuarioModel);
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
+                    usuarioModel.JwtToken = await Common.JwtAutentication.getWebTokenAsync(JwtContext.Instance);
 
+
+                   
                     using (var usuarioCliente = new UsuarioServiceClient())
                     {
                         var insert = usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
@@ -1354,6 +1361,10 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpmX1(true);
                     sessionManager.SetTieneHv(true);
                     sessionManager.SetTieneHvX1(true);
+                    sessionManager.SetJwtApiSomosBelcorp(usuarioModel.JwtToken);
+
+
+
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;

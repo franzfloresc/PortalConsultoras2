@@ -10,6 +10,7 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
@@ -49,6 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected ConfigModel configEstrategiaSR;
         protected BuscadorYFiltrosConfiguracionModel buscadorYFiltro;
         protected ILogManager logManager;
+       
         protected string paisesMicroservicioPersonalizacion;
         protected string estrategiaWebApiDisponibilidadTipo;
         protected readonly TipoEstrategiaProvider _tipoEstrategiaProvider;
@@ -823,7 +825,32 @@ namespace Portal.Consultoras.Web.Controllers
             bool esMobile = EsDispositivoMovil();
             _logDynamoProvider.RegistrarLogDynamoDB(userData, aplicacion, rol, pantallaOpcion, opcionAccion, ipCliente, esMobile);
         }
-
+        protected void RegistrarLogDynamoDB(InLogUsabilidadModel Log)
+        {
+            var dataString = string.Empty;
+            try
+            {
+                Log.Fecha = "";
+                Log.Pais = userData.CodigoISO;
+                Log.Region = userData.CodigorRegion;
+                Log.Zona = userData.CodigoZona;
+                Log.Seccion = userData.SeccionAnalytics;
+                Log.Rol = Constantes.LogDynamoDB.RolConsultora;
+                Log.Campania = userData.CampaniaID.ToString();
+                Log.Usuario = userData.CodigoUsuario;
+                Log.DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB";
+                Log.DispositivoID = GetIPCliente();
+                Log.Version = "2.0";
+                Log.JwtToken = userData.JwtToken;
+                Log.CodigoConsultora = userData.CodigoConsultora;
+                Log.CodigoISO = userData.CodigoISO;
+               _logDynamoProvider.RegistrarLogDynamoDB(Log);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+            }
+        }
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
             bool esMobile = EsDispositivoMovil();
@@ -849,6 +876,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected void RegistrarLogGestionSacUnete(string solicitudId, string pantalla, string accion)
         {
             _logDynamoProvider.RegistrarLogGestionSacUnete(userData, solicitudId, pantalla, accion);
+
         }
 
         public void RegistrarLogDynamoCambioClave(string accion, string consultora, string v_valoractual, string v_valoranterior, string Ruta, string Seccion)
