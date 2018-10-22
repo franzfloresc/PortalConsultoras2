@@ -3,21 +3,23 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLConfiguracionProgramaNuevas : IConfiguracionProgramaNuevasBusinessLogic
     {
-        public BEConfiguracionProgramaNuevas Get(BEUsuario usuario)
+        public BEConfiguracionProgramaNuevas Get(BEConsultoraProgramaNuevas consultoraNuevas)
         {
             var configuracion = new BEConfiguracionProgramaNuevas()
             {
-                Campania = usuario.CampaniaID.ToString(),
-                CodigoConsultora = usuario.CodigoConsultora
+                Campania = consultoraNuevas.CampaniaID.ToString(),
+                CampaniaIngreso = (consultoraNuevas.CampaniaID - consultoraNuevas.ConsecutivoNueva).ToString(),
+                CodigoConsultora = consultoraNuevas.CodigoConsultora
             };
             
-            using (var reader = new DAConfiguracionProgramaNuevas(usuario.PaisID).Get(configuracion))
+            using (var reader = new DAConfiguracionProgramaNuevas(consultoraNuevas.PaisID).Get(configuracion))
             {
                 configuracion = reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
             }
@@ -25,24 +27,27 @@ namespace Portal.Consultoras.BizLogic
             return configuracion ?? new BEConfiguracionProgramaNuevas();
         }
 
-        public string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas)
+        public string GetCuvKitNuevas(BEConsultoraProgramaNuevas consultoraNuevas, BEConfiguracionProgramaNuevas confProgNuevas)
         {
-            if (usuario.EsConsultoraNueva) return confProgNuevas.CUVKit;
-            if (new List<int> { 1, 2 }.Contains(usuario.ConsecutivoNueva) && WebConfig.PaisesFraccionKitNuevas.Contains(usuario.CodigoISO))
+            if (consultoraNuevas.EsConsultoraNueva) return confProgNuevas.CUVKit;
+
+            var codigoISO = Common.Util.GetPaisISO(consultoraNuevas.PaisID);
+            if (new List<int> { 1, 2 }.Contains(consultoraNuevas.ConsecutivoNueva) && WebConfig.PaisesFraccionKitNuevas.Contains(codigoISO))
             {
-                confProgNuevas.Campania = usuario.CampaniaID.ToString();
-                confProgNuevas.CodigoNivel = GetCodigoNivel(usuario);
-                return new DAConfiguracionProgramaNuevas(usuario.PaisID).GetCuvPremioKitNuevas(confProgNuevas);
+                confProgNuevas.Campania = consultoraNuevas.CampaniaID.ToString();
+                confProgNuevas.CodigoNivel = GetCodigoNivel(consultoraNuevas);
+                return new DAConfiguracionProgramaNuevas(consultoraNuevas.PaisID).GetCuvPremioKitNuevas(confProgNuevas);
             }
+
             return "";
         }
 
-        public BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas)
+        public BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEConsultoraProgramaNuevas consultoraNuevas, BEConfiguracionProgramaNuevas confProgNuevas)
         {
-            confProgNuevas.Campania = usuario.CampaniaID.ToString();
-            confProgNuevas.CodigoNivel = GetCodigoNivel(usuario);
+            confProgNuevas.Campania = consultoraNuevas.CampaniaID.ToString();
+            confProgNuevas.CodigoNivel = GetCodigoNivel(consultoraNuevas);
 
-            using (var reader = new DAConfiguracionProgramaNuevas(usuario.PaisID).GetRegaloProgramaNuevas(confProgNuevas))
+            using (var reader = new DAConfiguracionProgramaNuevas(consultoraNuevas.PaisID).GetRegaloProgramaNuevas(confProgNuevas))
             {
                 return reader.MapToObject<BEConsultoraRegaloProgramaNuevas>(true);
             }
@@ -50,21 +55,21 @@ namespace Portal.Consultoras.BizLogic
 
         public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva)
         {
-            var usuario = new BEUsuario { PaisID = paisID, CampaniaID = campaniaId, CodigoConsultora = codigoConsultora, ConsecutivoNueva = consecutivoNueva };
-            var configuracion = Get(usuario);
+            var consultoraNuevas = new BEConsultoraProgramaNuevas { PaisID = paisID, CampaniaID = campaniaId, CodigoConsultora = codigoConsultora, ConsecutivoNueva = consecutivoNueva };
+            var configuracion = Get(consultoraNuevas);
             if (configuracion.IndExigVent != "1") return null;
 
-            var regalo = GetRegaloProgramaNuevas(usuario, configuracion);
+            var regalo = GetRegaloProgramaNuevas(consultoraNuevas, configuracion);
             if (regalo == null) return null;
 
-            regalo.CodigoNivel = GetCodigoNivel(usuario);
+            regalo.CodigoNivel = GetCodigoNivel(consultoraNuevas);
             regalo.TippingPoint = configuracion.MontoVentaExigido;
             return regalo;
         }
 
-        public string GetCodigoNivel(BEUsuario usuario)
+        public string GetCodigoNivel(BEConsultoraProgramaNuevas consultoraNuevas)
         {
-            return "0" + (usuario.ConsecutivoNueva + 1);
+            return "0" + (consultoraNuevas.ConsecutivoNueva + 1);
         }
 
         #region ConfiguracionApp

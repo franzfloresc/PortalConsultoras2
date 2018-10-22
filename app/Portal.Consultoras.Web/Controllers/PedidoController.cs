@@ -523,29 +523,38 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult PedidoInsertar(PedidoCrudModel model, bool esEstrategia = false)
         {
-            var mensajeOsb = "";
-            var listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, out mensajeOsb);
-            if (mensajeOsb != "") return ErrorJson(mensajeOsb, true);
+            var mensajeError = "";
+            var mensajeAviso = "";
+            var listCuvEliminar = new List<string>();
 
-            mensajeOsb = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
-            if (mensajeOsb != "") return ErrorJson(mensajeOsb, true);
+            if (model.EnRangoProgramaNuevas)
+            {
+                CrearLogProgNuevas("DuoPerfecto: PedidoInsertar", model.CUV);
+
+                listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, out mensajeError, out mensajeAviso);
+                if (mensajeError != "")
+                {
+                    return Json(
+                        new { success = false, message = mensajeError, tituloMensaje = Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper() },
+                        JsonRequestBehavior.AllowGet
+                    );
+                }
+
+                mensajeError = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
+                if (mensajeError != "") return ErrorJson(mensajeError, true);
+            }
 
             if (esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
-            return Json(PedidoInsertarGenerico(model, false, listCuvEliminar));
+            return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso, !string.IsNullOrEmpty(mensajeAviso)));
         }
 
-        private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null)
+        private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "", bool esMensajeDuoPerfecto = false)
         {
             try
             {
                 var objValidad = InsertarMensajeValidarDatos(model.ClienteID);
+                if(objValidad == null && !esKitNuevaAuto) objValidad = InsertarValidarKitInicio(model.CUV);
                 if (objValidad != null) return objValidad;
-
-                if (!esKitNuevaAuto)
-                {
-                    objValidad = InsertarValidarKitInicio(model.CUV);
-                    if (objValidad != null) return objValidad;
-                }
 
                 #region Administrador Pedido
                 var obePedidoWebDetalle = new BEPedidoWebDetalle
@@ -578,54 +587,51 @@ namespace Portal.Consultoras.Web.Controllers
                 bool errorServer;
                 string tipo;
                 bool modificoBackOrder;
-                var olstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "I", out errorServer, out tipo, out modificoBackOrder);
+                var lstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "I", out errorServer, out tipo, out modificoBackOrder);
 
                 #endregion
 
-                var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                var total = lstPedidoWebDetalle.Sum(p => p.ImporteTotal);
                 var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
-                var listaCliente = ListarClienteSegunPedido(model.ClienteID_, olstPedidoWebDetalle);
+                var listaCliente = ListarClienteSegunPedido(model.ClienteID_, lstPedidoWebDetalle);
 
                 #region PedidoWebDetalleModel
                 var pedidoWebDetalleModel = Mapper.Map<BEPedidoWebDetalle, PedidoWebDetalleModel>(obePedidoWebDetalle);
                 pedidoWebDetalleModel.Simbolo = userData.Simbolo;
                 pedidoWebDetalleModel.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;
                 pedidoWebDetalleModel.ClienteID_ = model.ClienteID_;
-                pedidoWebDetalleModel.CodigoIso = userData.CodigoISO;
-
-                var bePedidoWebDetalle = olstPedidoWebDetalle.FirstOrDefault(p => p.CUV == model.CUV);
-                if (bePedidoWebDetalle != null)
-                {
-                    pedidoWebDetalleModel.IndicadorOfertaCUV = bePedidoWebDetalle.IndicadorOfertaCUV;
-                    pedidoWebDetalleModel.DescripcionLarga = !string.IsNullOrEmpty(bePedidoWebDetalle.DescripcionLarga)
-                        ? bePedidoWebDetalle.DescripcionLarga : "";
-                    pedidoWebDetalleModel.DescripcionOferta = !string.IsNullOrEmpty(bePedidoWebDetalle.DescripcionOferta)
-                        ? bePedidoWebDetalle.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";
-                    pedidoWebDetalleModel.TipoPedido = !string.IsNullOrEmpty(bePedidoWebDetalle.TipoPedido)
-                        ? bePedidoWebDetalle.TipoPedido : "";
-                    pedidoWebDetalleModel.TipoEstrategiaID = bePedidoWebDetalle.TipoEstrategiaID;
-                    pedidoWebDetalleModel.TipoEstrategiaCodigo = bePedidoWebDetalle.TipoEstrategiaCodigo;
-                    pedidoWebDetalleModel.Mensaje = bePedidoWebDetalle.Mensaje;
-                    pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
-                }
+                pedidoWebDetalleModel.CodigoIso = userData.CodigoISO;                
+                UpdatePedidoDetalleModelFromPedidoActual(pedidoWebDetalleModel, lstPedidoWebDetalle);
                 #endregion
+
+                var errorInsertarProducto = "1";
+                var dataBarra = new BarraConsultoraModel();
+                var message = "";
+
+                if (!errorServer)
+                {
+                    errorInsertarProducto = "0";
+                    dataBarra = GetDataBarra();
+                    message = "OK";
+                }
+                else message = tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.";
 
                 return new
                 {
                     success = !errorServer,
-                    message = !errorServer ? "OK"
-                        : tipo.Length > 1 ? tipo
-                        : "Ocurrió un error al ejecutar la operación.",
+                    message,
+                    mensajeAviso,
+                    tituloMensaje = esMensajeDuoPerfecto ? Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper() : "",
                     data = pedidoWebDetalleModel,
                     listCuvEliminar,
                     total,
                     formatoTotal,
                     listaCliente,
-                    errorInsertarProducto = !errorServer ? "0" : "1",
+                    errorInsertarProducto,
                     tipo,
                     modificoBackOrder,
-                    DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                    DataBarra = dataBarra,
                     cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad)
                 };
             }
@@ -644,6 +650,24 @@ namespace Portal.Consultoras.Web.Controllers
                     tipo = ""
                 };
             }
+        }
+
+        private void UpdatePedidoDetalleModelFromPedidoActual(PedidoWebDetalleModel pedidoWebDetalleModel, List<BEPedidoWebDetalle> listPedidoDetalle)
+        {
+            var pedidoWebDetalle = listPedidoDetalle.FirstOrDefault(p => p.CUV == pedidoWebDetalleModel.CUV);
+            if (pedidoWebDetalle == null) return;
+
+            pedidoWebDetalleModel.IndicadorOfertaCUV = pedidoWebDetalle.IndicadorOfertaCUV;
+            pedidoWebDetalleModel.DescripcionLarga = !string.IsNullOrEmpty(pedidoWebDetalle.DescripcionLarga)
+                ? pedidoWebDetalle.DescripcionLarga : "";
+            pedidoWebDetalleModel.DescripcionOferta = !string.IsNullOrEmpty(pedidoWebDetalle.DescripcionOferta)
+                ? pedidoWebDetalle.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";
+            pedidoWebDetalleModel.TipoPedido = !string.IsNullOrEmpty(pedidoWebDetalle.TipoPedido)
+                ? pedidoWebDetalle.TipoPedido : "";
+            pedidoWebDetalleModel.TipoEstrategiaID = pedidoWebDetalle.TipoEstrategiaID;
+            pedidoWebDetalleModel.TipoEstrategiaCodigo = pedidoWebDetalle.TipoEstrategiaCodigo;
+            pedidoWebDetalleModel.Mensaje = pedidoWebDetalle.Mensaje;
+            pedidoWebDetalleModel.TipoObservacion = pedidoWebDetalle.TipoObservacion;
         }
 
         private object InsertarMensajeValidarDatos(string clienteIdStr)
@@ -1464,32 +1488,31 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        #region Zona de Estretegias
+        #region Zona de Estrategias
         [HttpPost]
-        public JsonResult ValidarStockEstrategia(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta)
+        public JsonResult ValidarStockEstrategia(string CUV, string PrecioUnidad, string Cantidad, string TipoOferta, bool enRangoProgNuevas)
         {
-            var mensaje = "";
-            var resul = false;
+            string mensajeMontoMax = "", mensaje = "";
+            bool validoMontoMax = false, valido = false;
+
             try
             {
-                int outVal;
-                var entidad = new ServicePedido.BEEstrategia
-                {
-                    PaisID = userData.PaisID,
-                    CUV2 = CUV,
-                    CampaniaID = userData.CampaniaID,
-                    ConsultoraID = userData.ConsultoraID.ToString(),
-                    Cantidad = int.TryParse(Cantidad, out outVal) ? int.Parse(Cantidad) : 0,
-                    FlagCantidad = int.TryParse(TipoOferta, out outVal) ? int.Parse(TipoOferta) : 0
-                };
+                var intCantidad = Cantidad.ToInt32Secure();
+                mensajeMontoMax = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), intCantidad, out validoMontoMax);
+                valido = mensajeMontoMax == "" || validoMontoMax;
 
-                mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad, out resul);
-
-                if (mensaje == "" || resul)
+                if (valido)
                 {
-                    mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
-                    if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(entidad.CUV2, entidad.Cantidad, entidad.FlagCantidad);
+                    if (enRangoProgNuevas)
+                    {
+                        CrearLogProgNuevas("DuoPerfecto: ValidarStockEstrategia", CUV);
+                        mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
+                    }
+                    if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
+                    valido = mensaje == "";
                 }
+
+                if (valido) mensaje = mensajeMontoMax;
             }
             catch (FaultException ex)
             {
@@ -1500,11 +1523,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
-            return Json(new
-            {
-                result = mensaje == "" || resul,
-                message = mensaje
-            }, JsonRequestBehavior.AllowGet);
+            return Json(new { result = valido, message = mensaje }, JsonRequestBehavior.AllowGet);
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -1647,28 +1666,29 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model.CUV = Util.Trim(model.CUV);
+
                 #region ValidarProgramaNuevas
+                var esProgNuevas = false;
                 Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(model.CUV);
-                SessionManager.SetCuvEsProgramaNuevas(false);
                 switch (num)
                 {
                     case Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste:
                         productosModel.Add(GetProductoNoExiste());
                         return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva:
-                        productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.ConsultoraNoNueva));
+                        productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgNuevas.Mensaje.ConsultoraNoNueva));
                         return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma:
-                        productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.CuvNoPerteneceASuPrograma));
+                        productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgNuevas.Mensaje.CuvNoPerteneceASuPrograma));
                         return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas:
-                        SessionManager.SetCuvEsProgramaNuevas(true);
+                        esProgNuevas = true;
                         break;
                 }
                 #endregion
 
                 #region Venta exclusiva
-                if (!Convert.ToBoolean(SessionManager.GetCuvEsProgramaNuevas()))
+                if (!esProgNuevas)
                 {
                     Enumeradores.ValidacionVentaExclusiva numExclu = ValidarVentaExclusiva(model.CUV);
                     if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
@@ -1739,7 +1759,8 @@ namespace Portal.Consultoras.Web.Controllers
                     LimiteVenta = estrategia.LimiteVenta,
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
                     TieneRDC = tieneRdc,
-                    EstrategiaID = producto.EstrategiaID
+                    EstrategiaID = producto.EstrategiaID,
+                    EsProgNuevas = esProgNuevas
                 });
             }
             catch (Exception ex)
@@ -3452,9 +3473,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (SessionManager.ProcesoKitNuevas) return true;
+                if (SessionManager.GetProcesoKitNuevas()) return true;
                 AgregarKitNuevas();
-                SessionManager.ProcesoKitNuevas = true;
+                SessionManager.SetProcesoKitNuevas(true);
                 return true;
             }
             catch (Exception ex)
@@ -4250,38 +4271,18 @@ namespace Portal.Consultoras.Web.Controllers
             #region Validar Stock Estrategia
             var ofertas = estrategia.DescripcionCUV2.Split('|');
             var descripcion = ofertas[0];
-            if (estrategia.FlagNueva == 1)
-            {
-                estrategia.Cantidad = estrategia.LimiteVenta;
-            }
-            else
-            {
-                descripcion = estrategia.DescripcionCUV2;
-            }
+
+            if (estrategia.FlagNueva == 1) estrategia.Cantidad = estrategia.LimiteVenta;
+            else descripcion = estrategia.DescripcionCUV2;
 
             var resul = false;
             mensaje = ValidarMontoMaximo(estrategia.Precio2, estrategia.Cantidad, out resul);
-            if (mensaje.Length > 1)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = mensaje
-                });
-            }
+            if (mensaje.Length > 1) return ErrorJson(mensaje);
 
             if (revisionIndividualStock)
             {
                 mensaje = ValidarStockEstrategiaMensaje(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
-
-                if (mensaje != "")
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje
-                    });
-                }
+                if (mensaje != "") return ErrorJson(mensaje);
             }
             #endregion
 
@@ -4298,7 +4299,8 @@ namespace Portal.Consultoras.Web.Controllers
                 IndicadorMontoMinimo = estrategia.IndicadorMontoMinimo.ToString(),
                 ClienteID_ = model.ClienteID_,
                 TipoEstrategiaImagen = model.TipoEstrategiaImagen,
-                EsOfertaIndependiente = estrategia.EsOfertaIndependiente
+                EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
+                EnRangoProgramaNuevas = model.EnRangoProgramaNuevas || model.FlagNueva == "1"
             };
 
             return AgregarProductoZE(modelo);
@@ -4486,6 +4488,32 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        [HttpPost]
+        public JsonResult EsPedidoDetalleDuoPerfecto(string cuv)
+        {
+            try
+            {
+                bool esDuoPerfecto;
+                using (var svc = new ODSServiceClient())
+                {
+                    esDuoPerfecto = svc.EsDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
+                }
+
+                return Json(new {
+                    success = true,
+                    esDuoPerfecto = esDuoPerfecto,
+                    message = esDuoPerfecto ?
+                        string.Format(Constantes.ProgNuevas.Mensaje.DuoPerfecto_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre) :
+                        ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.ErrorGenerico);
+            }
+        }
+
         
 
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
@@ -4508,22 +4536,22 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string ValidarCantidadEnProgramaNuevas(string cuvingresado, int cantidadIngresada)
         {
-            if (!Convert.ToBoolean(SessionManager.GetCuvEsProgramaNuevas())) return "";
-
-            int cantidadPedido = ObtnerCantidadCuvPedidoWeb(cuvingresado);
+            int cantidadPedido = GetCantidadCuvPedidoWeb(cuvingresado);
             int valor = 0;
             using (var svc = new ODSServiceClient())
             {
                 valor = svc.ValidarCantidadMaximaProgramaNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cantidadPedido, cuvingresado, cantidadIngresada);
             }
-            if (valor != 0) return Constantes.ProgramaNuevas.MensajeValidacionCantidadMaxima.ExcedeCantidad.Replace("#n#", valor.ToString());
+            if (valor != 0) return string.Format(Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades, valor);
 
             return "";
         }
 
-        private List<string> ValidarAgregarEnProgramaNuevas(string cuvingresado, out string mensajeObs)
+        private List<string> ValidarAgregarEnProgramaNuevas(string cuvingresado, out string mensajeError, out string mensajeAviso)
         {
-            mensajeObs = "";
+            mensajeError = "";
+            mensajeAviso = "";
+
             try
             {
                 var listCuv = ObtenerPedidoWebDetalle().Select(x => x.CUV).ToArray();
@@ -4533,26 +4561,42 @@ namespace Portal.Consultoras.Web.Controllers
                     respElectivos = svc.ValidaCuvElectivo(userData.PaisID, userData.CampaniaID, cuvingresado, userData.ConsecutivoNueva, userData.CodigoPrograma, listCuv);
                 }
 
-                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.ReemplazarCupon)
+                switch (respElectivos.Resultado)
                 {
-                    EliminarDetallePackNueva(respElectivos.ListCuvEliminar.ToList());
-                    return respElectivos.ListCuvEliminar.ToList();
+                    case Enumeradores.ValidarCuponesElectivos.AgregarYMostrarMensaje:
+                        mensajeAviso = CrearAvisoCuponElectivo(respElectivos);
+                        return new List<string>();
+                    case Enumeradores.ValidarCuponesElectivos.Reemplazar:
+                        EliminarDetallePackNueva(respElectivos.ListCuvEliminar.ToList());
+                        return respElectivos.ListCuvEliminar.ToList();
+                    case Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite:
+                        mensajeError = string.Format(Constantes.ProgNuevas.Mensaje.Electivo_NoAgregarPorLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre);
+                        return new List<string>();
+                    default:
+                        return new List<string>();
                 }
-                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite)
-                {
-                    mensajeObs = string.Format(Constantes.MensajesError.AgregarProgNuevas_MaxElectivos, respElectivos.LimNumElectivos);
-                }
-                return new List<string>();
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-                mensajeObs = Constantes.MensajesError.ValidarAgregarProgNuevas;
+                mensajeError = Constantes.MensajesError.ValidarAgregarProgNuevas;
                 return new List<string>();
             }
         }
 
-        private int ObtnerCantidadCuvPedidoWeb(string cuvIngresado)
+        private string CrearAvisoCuponElectivo(BERespValidarElectivos respElectivos)
+        {
+            var promocionNombre = Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre;
+            if (respElectivos.LimNumElectivos == respElectivos.NumElectivosEnPedido)
+            {
+                return string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, promocionNombre);
+            }
+
+            var numFaltantes = respElectivos.LimNumElectivos - respElectivos.NumElectivosEnPedido;
+            return string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, numFaltantes, promocionNombre);
+        }
+
+        private int GetCantidadCuvPedidoWeb(string cuvIngresado)
         {
             List<BEPedidoWebDetalle> lstPedidoDetalle = ObtenerPedidoWebDetalle();
             return lstPedidoDetalle.Where(a => a.CUV == cuvIngresado).Sum(b => b.Cantidad);
@@ -4577,6 +4621,17 @@ namespace Portal.Consultoras.Web.Controllers
         private bool ValidarTieneRDoRDR()
         {
             return (revistaDigital.TieneRDC && revistaDigital.EsActiva) || revistaDigital.TieneRDCR;
+        }
+
+        private void CrearLogProgNuevas(string message, string cuv)
+        {
+            if(WebConfig.Ambiente != "QA") return;
+
+            var listConsultoraRegistro = new List<string> { "006926193", "043862731", "011971059", "030320840", "003706273", "009118330", "020466782", "011930654", "011410731", "035515321" };
+            if (!listConsultoraRegistro.Contains(userData.CodigoConsultora)) return;
+            
+            var exTrace =string.Format("ISO:{0};Consultora{1};Cuv:{2}", userData.CodigoISO, userData.CodigoConsultora, cuv);
+            LogManager.LogManager.LogErrorWebServicesBus(new CustomTraceException(message, exTrace), userData.CodigoConsultora, userData.CodigoISO);
         }
     }
 }
