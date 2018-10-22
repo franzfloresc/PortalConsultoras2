@@ -2768,13 +2768,13 @@ namespace Portal.Consultoras.Common
             public const string MostrarOpcionesOrdenamiento = "MostrarOpcionesOrdenamiento";
             public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
             public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
-            
+            public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
         }
 
 
         public class RutaBuscadorService
         {
-            //Buscador/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{CodigoZona}/{TextoBusqueda}/{CantidadProductos}/{SociaEmpresaria}/{SuscripcionActiva}/{MDO}/{RD}/{RDI}/{RDR}/{DiaFacturacion}
+            //Buscador/{CodigoISO}/{CampaniaID}
             public const string UrlBuscador = "Buscador/{0}/{1}";
 
             //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}

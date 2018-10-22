@@ -9,39 +9,40 @@
 
 <section class="row flex-row ml-0 mr-0 layout__content">
     <!-- SECCIÓN FILTROS -->
-    <div class="col-12 pl-0 pr-0 background__filtros__mobile"></div>
-    <section class="row flex-row justify-content-center align-items-stretch ml-0 mr-0 layout__content__filtros">
-        <div class="col-12 pl-0 pr-0 filtros__wrapper">
-            <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtros_subtitulo mostrarEnMobile">
-                <div class="col-9 col-lg-12 col-xl-12 pl-0 pr-0">
-                    <h3 class="col-12 pl-0 pr-0 text-bold text-uppercase">Filtra tus ofertas</h3>
-                    <div class="col-12 pl-0 pr-0 text-bold">14 resultados</div>
-                </div>
-                <a id="cerrarFiltros" class="d-inline-block filtros__enlace__cerrar mostrarEnMobile">
-                    <img src="@Url.Content("~/Content/Images/cerrar-filtros.svg")" alt="" />
-                </a>
-            </div>
-            <div class="col-12 pl-0 pr-0 filtros__subtitulo mostrarEnDesktop">
-                Filtrar por:
-            </div>
-            <ul class="row flex-row ml-0 mr-0 filtros__lista">
-                <li class="col-12 pl-0 pr-0 filtro__tipo">
-                    <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
-                        <div class="col-10 pl-0 pr-0">Categorías</div>
-                        <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+    @if (ViewBag.FlagFiltrosBuscador)
+    {
+        <div class="col-12 pl-0 pr-0 background__filtros__mobile"></div>
+        <section class="row flex-row justify-content-center align-items-stretch ml-0 mr-0 layout__content__filtros">
+            <div class="col-12 pl-0 pr-0 filtros__wrapper">
+                <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtros_subtitulo mostrarEnMobile">
+                    <div class="col-9 col-lg-12 col-xl-12 pl-0 pr-0">
+                        <h3 class="col-12 pl-0 pr-0 text-bold text-uppercase">Filtra tus ofertas</h3>
+                        <div class="col-12 pl-0 pr-0 text-bold">14 resultados</div>
                     </div>
-<ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosCategorias">                        
-                    </ul>
-                </li>
-                <li class="col-12 pl-0 pr-0 filtro__tipo">
-                    <div class="col-12 pl-0 pr-0 filtro__tipo__titulo">Marcas</div>
-                    <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosMarcas">
-                    </ul>
-                </li>
+                    <a id="cerrarFiltros" class="d-inline-block filtros__enlace__cerrar mostrarEnMobile">
+                        <img src="@Url.Content("~/Content/Images/cerrar-filtros.svg")" alt="" />
+                    </a>
+                </div>
+                <div class="col-12 pl-0 pr-0 filtros__subtitulo mostrarEnDesktop">
+                    Filtrar por:
+                </div>
+                <ul class="row flex-row ml-0 mr-0 filtros__lista">
+                    <li class="col-12 pl-0 pr-0 filtro__tipo">
+                        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+                            <div class="col-10 pl-0 pr-0">Categorías</div>
+                            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+                        </div>
+                        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosCategorias"></ul>
+                    </li>
+                    <li class="col-12 pl-0 pr-0 filtro__tipo">
+                        <div class="col-12 pl-0 pr-0 filtro__tipo__titulo">Marcas</div>
+                        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosMarcas"></ul>
+                    </li>
 
-            </ul>
-        </div>
-    </section>
+                </ul>
+            </div>
+        </section>
+    }
     <!-- FIN - SECCIÓN DE FILTROS -->
     <!-- SECCIÓN FICHA DE PRODUCTOS -->
     <section class="row flex-row justify-content-lg-between justify-content-xl-between align-self-start ml-0 mr-0 mx-auto layout__content__fichaProductos">
@@ -87,7 +88,7 @@
                                 <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
                                     data-value=" @Model.ListaOrdenamiento.ToList()[i].Value " title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                     <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada"
-                                        title="@Model.ListaOrdenamiento.ToList()[i].Key">
+                                       title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                         @Model.ListaOrdenamiento.ToList()[i].Key
                                     </a>
                                 </li>
@@ -97,15 +98,14 @@
                                 <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
                                     data-value=" @Model.ListaOrdenamiento.ToList()[i].Value " title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                     <a class="col-12 d-block opcion__ordenamiento__dropdown__link"
-                                        title="@Model.ListaOrdenamiento.ToList()[i].Key">
+                                       title="@Model.ListaOrdenamiento.ToList()[i].Key">
                                         @Model.ListaOrdenamiento.ToList()[i].Key
                                     </a>
                                 </li>
                             }
                         }
                     </ul>
-                        <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
-                    </div>
+                    <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
                 </div>
             </section>
         }
@@ -392,16 +392,16 @@
             </li>
         </ul>
     </li>*@
-            <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 mostrarEnMobile filtro__btn__mobile__wrapper">
-                <div class="col-6 pl-0">
-                    <button class="col-12 pl-0 pr-0 text-uppercase filtro__btn filtro__btn--limpiar">
-                        Limpiar
-                    </button>
-                </div>
-                <div class="col-6 pl-0 pr-0">
-                    <button class="col-12 pl-0 pr-0 text-uppercase filtro__btn filtro__btn--aplicar">
-                        Aplicar
-                    </button>
-                </div>
-            </div>
-                    @*<div class="col-12 col-lg-11 col-xl-11 pl-0 pr-0 opcion_ordenamiento text-lg-right text-xl-right">*@
+<div class="row flex-row justify-content-between align-items-center ml-0 mr-0 mostrarEnMobile filtro__btn__mobile__wrapper">
+    <div class="col-6 pl-0">
+        <button class="col-12 pl-0 pr-0 text-uppercase filtro__btn filtro__btn--limpiar">
+            Limpiar
+        </button>
+    </div>
+    <div class="col-6 pl-0 pr-0">
+        <button class="col-12 pl-0 pr-0 text-uppercase filtro__btn filtro__btn--aplicar">
+            Aplicar
+        </button>
+    </div>
+</div>
+@*<div class="col-12 col-lg-11 col-xl-11 pl-0 pr-0 opcion_ordenamiento text-lg-right text-xl-right">*@
