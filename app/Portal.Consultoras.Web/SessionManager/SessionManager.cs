@@ -642,6 +642,8 @@ namespace Portal.Consultoras.Web.SessionManager
         void ISessionManager.SetProcesoKitNuevas(bool proceso) { HttpContext.Current.Session["ProcesoKitNuevas"] = proceso; }
         string ISessionManager.GetCuvKitNuevas() { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
         void ISessionManager.SetCuvKitNuevas(string cuvKit) { HttpContext.Current.Session["CuvKitNuevas"] = cuvKit; }
+        string ISessionManager.GetMensajeKitNuevas() { return (string)HttpContext.Current.Session["MensajeKitNuevas"]; }
+        void ISessionManager.SetMensajeKitNuevas(string mensajeKit) { HttpContext.Current.Session["MensajeKitNuevas"] = mensajeKit; }
         int ISessionManager.GetLimElectivosProgNuevas() { return (int)(HttpContext.Current.Session["GetLimElectivosProgNuevas"] ?? 0); }
         void ISessionManager.SetLimElectivosProgNuevas(int limElectivos) { HttpContext.Current.Session["GetLimElectivosProgNuevas"] = limElectivos; }
 

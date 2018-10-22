@@ -148,5 +148,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string Celular { get; set; }
 
         public bool MostrarPopupPrecargados { get; set; }
+
+        public string MensajeKitNuevas { get; set; }
     }
 }

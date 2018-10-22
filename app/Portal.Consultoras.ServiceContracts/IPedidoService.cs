@@ -904,6 +904,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string GetCuvKitNuevas(BEConsultoraProgramaNuevas consultoraNuevas, BEConfiguracionProgramaNuevas confProgNuevas);
 
+        [OperationContract]
+        string GetMensajeKitNuevas(string codigoISO, bool esConsultoraNueva, int consecutivoNueva);
+
         #endregion
 
         [OperationContract]
