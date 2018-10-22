@@ -585,6 +585,10 @@ namespace Portal.Consultoras.Common
             public const string MHerramientaVenta = "2J0";
         }
 
+        /// <summary>
+        /// Los cambios replicarlos en
+        /// RevistaDigital-DataLayer.js + ConstantesModule.js
+        /// </summary>
         public static class OrigenPedidoWeb
         {
             public static class Campos
@@ -953,12 +957,12 @@ namespace Portal.Consultoras.Common
             public const int DesktopContenedorLanzamientosCarruselVerMas = 1080205;
             public const int MobileContenedorLanzamientosFicha = 2080202; // Esta en duro en rdAnalyticsModule
             public const int AppConsultoraContenedorLanzamientosFicha = 4080202;
-            public const int DesktopHomeOfertaDelDiaBannerSuperior = 1010306;
+            public const int DesktopHomeOfertaDelDiaBannerSuperior = 1010306; // Esta en duro en ConstantesModule
             public const int DesktopContenedorOfertaDelDiaCarrusel = 1080301;
             public const int DesktopContenedorOfertaDelDiaFicha = 1080302;
             public const int DesktopContenedorOfertaDelDiaCarruselVerMas = 1080305;
-            public const int DesktopOtrasOfertaDelDiaBannerSuperior = 1090306;
-            public const int DesktopPedidoOfertaDelDiaBannerSuperior = 1020306;
+            public const int DesktopOtrasOfertaDelDiaBannerSuperior = 1090306; // Esta en duro en ConstantesModule
+            public const int DesktopPedidoOfertaDelDiaBannerSuperior = 1020306; // Esta en duro en ConstantesModule
             public const int MobileHomeOfertaDelDiaCarrusel = 2010301;
             public const int MobileHomeOfertaDelDiaFicha = 2010302;
             public const int MobileOtrasOfertaDelDiaFicha = 2090302;
