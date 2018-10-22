@@ -1146,6 +1146,14 @@
 
 }
 
+@media screen and (min-width:406px) and (max-width:767px){
+
+    .opcion__ordenamiento__dropdown__lista{
+        max-width:95.3%;
+    }
+
+}
+
 @media screen and (min-width:700px) and (max-width:767px){
 
     .ficha__producto--ancha .ficha__producto__rango__cantidad,
@@ -1167,6 +1175,7 @@
     }
 
 }
+
 @media screen and (max-width: 480px) and (-ms-high-contrast: none), (max-width: 480px) and (-ms-high-contrast: active) {
 
     .ficha__producto--delgada{
@@ -1285,6 +1294,14 @@
     }
 
     /* FIN - FICHAS DE PRODUCTOS MOBILE */
+
+}
+
+@media screen and (min-width:331px) and (max-width:415px){
+
+    .opcion__ordenamiento__dropdown__lista{
+        max-width:94.4%;
+    }
 
 }
 
