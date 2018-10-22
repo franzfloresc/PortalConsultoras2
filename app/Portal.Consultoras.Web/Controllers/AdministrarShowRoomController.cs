@@ -927,6 +927,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
+                    model.ImagenProducto = entidad.ImagenProducto;
                     administrarEstrategiaProvider.UpdateOfertaShowRoomDetalleNew(model);
                 }
                 else
