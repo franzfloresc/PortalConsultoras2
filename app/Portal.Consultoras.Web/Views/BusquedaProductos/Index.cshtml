@@ -391,10 +391,10 @@
         <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
 
         <div class="row flex-row justify-content-center ml-0 mr-0">
-            <figure class="col-12 ficha__producto__imagen text-center">
+            <figure class="col-12 ficha__producto__imagen text-center redireccionarFicha">
                 <img data-src="{{Imagen}}" data-src-error="@Url.Content("~/Content/Images/oferta-sin-imagen.svg")" class="lazy" />
             </figure>
-            <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+            <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left redireccionarFicha">
                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
                     {{DescripcionEstrategia}}
                 </div>
