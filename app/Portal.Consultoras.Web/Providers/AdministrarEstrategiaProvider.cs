@@ -292,16 +292,10 @@ namespace Portal.Consultoras.Web.Providers
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
 
-            if (!string.IsNullOrEmpty(content))
+            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
-                var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
-                if (respuesta != null)
-                {
-                    if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                    {
-                        throw new Exception(respuesta.Message);
-                    }
-                }
+                throw new Exception(respuesta.Message);
             }
         }
 
