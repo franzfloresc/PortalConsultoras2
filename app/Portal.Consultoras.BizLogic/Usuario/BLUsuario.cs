@@ -3494,9 +3494,28 @@ namespace Portal.Consultoras.BizLogic
         {
             return new DAUsuario(paisID).GetActualizacionEmail(codigoUsuario);
         }
-        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
+        public BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario)
         {
-            return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
+            var DAUsuario = new DAUsuario(paisID);
+            var oMensaje = new BEMensajeToolTip();
+            var datosPerfil = new List<BEUsuarioPerfil>();
+            using (IDataReader reader = DAUsuario.GetActualizacionEmailySms(codigoUsuario))
+            {
+                while (reader.Read())
+                    datosPerfil.Add(new BEUsuarioPerfil(reader));
+            }
+
+            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.MensajesToolTipPerfil);
+            oMensaje.oDatosPerfil = datosPerfil;
+            oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
+
+            return oMensaje;
+        }
+        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario, string tipoEnvio)
+        {
+            return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario, tipoEnvio);
         }
 
         public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)

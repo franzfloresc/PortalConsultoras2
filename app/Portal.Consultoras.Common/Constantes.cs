@@ -170,6 +170,10 @@ namespace Portal.Consultoras.Common
             public const int CantidadCuvMasivo_NuevoMasivo = 13701;
             public const int ActualizaDatosEnabled = 14301;
 
+            public const int MensajeActualizarEmailSms = 1001;
+            public const int MensajeActualizarSms = 1002;
+            public const int MensajeActualizarEmail = 1003;
+
             public static class PersonalizacionOdd
             {
                 public static readonly int ColorFondoBanner = 9301;
@@ -1689,7 +1693,7 @@ namespace Portal.Consultoras.Common
             public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
             public const short NuevaDescripcionProductos = 145;
-
+            public const short MensajesToolTipPerfil = 10;
             public const short EscalaDescuentoDestokp = 72;
             public const short EscalaDescuentoMobile = 73;
             public const short ListaOrdenamientoFiltros = 147;
