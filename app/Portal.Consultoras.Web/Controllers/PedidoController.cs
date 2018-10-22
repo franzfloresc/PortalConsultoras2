@@ -4372,6 +4372,12 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetPedidoWeb(null);
                     SessionManager.SetDetallesPedido(null);
                     SessionManager.SetDetallesPedidoSetAgrupado(null);
+
+                    var pedidoWebDetalle = ObtenerPedidoWebDetalle();
+                    var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
+                    var Total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
+                    var FormatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
+
                     ObtenerPedidoWeb();
                     return Json(new
                     {
@@ -4380,7 +4386,9 @@ namespace Portal.Consultoras.Web.Controllers
                         errorInsertarProducto = "0",
                         DataBarra = GetDataBarra(),
                         data = pedidoDetalleResult.pedidoWebDetalle,
-                        cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad),
+                        cantidadTotalProductos = CantidadTotalProductos,
+                        total = Total,
+                        formatoTotal = FormatoTotal,
                         listCuvEliminar = pedidoDetalleResult.listCuvEliminar.ToList()
                     }, JsonRequestBehavior.AllowGet);
                 }
