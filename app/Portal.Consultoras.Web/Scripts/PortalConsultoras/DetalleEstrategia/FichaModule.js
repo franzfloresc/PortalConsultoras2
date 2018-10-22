@@ -566,6 +566,7 @@ var FichaModule = (function (config) {
             SetHandlebars("#template-fichadetallevideo", estrategia, "#contenedor-tab-video");
 
             if (youtubeModule) {
+                
                 youtubeModule.Inicializar();
             }
         }
