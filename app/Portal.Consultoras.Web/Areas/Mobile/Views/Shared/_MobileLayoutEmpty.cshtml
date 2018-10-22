@@ -59,20 +59,6 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTrackingJetlore.cshtml")
-    @*@if (ViewBag.PaisesConTrackingJetlore == "1")
-    {
-        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
-
-        <script type="text/javascript">
-            var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
-
-            JL.tracking({
-                cid: trackingJetloreAccessToken,
-                user_id: '@ViewBag.CodigoConsultoraDL',
-                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
-            });
-        </script>
-    }*@
 
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
 
@@ -87,24 +73,6 @@
     </section>
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
-    @*<div class="content-spinner2" id="loading-spin">
-        <div class="busy-loader">
-            <div class="w-ball-wrapper ball-1">
-                <div class="w-ball"></div>
-            </div>
-            <div class="w-ball-wrapper ball-2">
-                <div class="w-ball"></div>
-            </div>
-            <div class="w-ball-wrapper ball-3">
-                <div class="w-ball"> </div>
-            </div> <div class="w-ball-wrapper ball-4">
-                <div class="w-ball"> </div>
-            </div>
-            <div class="w-ball-wrapper ball-5">
-                <div class="w-ball"> </div>
-            </div>
-        </div>
-    </div>*@
 
     <div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
@@ -283,6 +251,7 @@
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
+        var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
     </script>
 
     <script type="text/javascript">

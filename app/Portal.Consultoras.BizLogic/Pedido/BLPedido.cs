@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Data.ServicePROL;
 using Portal.Consultoras.Data.ServicePROLConsultas;
@@ -329,7 +330,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Programa nuevas
                 if (usuario.MontoMaximoPedido > 0)
                 {
-                    var tippingPoint = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
+                    var consultoraNuevas = new BEConsultoraProgramaNuevas { PaisID = usuario.PaisID, CampaniaID = usuario.CampaniaID, CodigoConsultora = usuario.CodigoConsultora };
+                    var tippingPoint = _configuracionProgramaNuevasBusinessLogic.Get(consultoraNuevas);
                     if (tippingPoint.IndExigVent == "1") pedido.TippingPoint = tippingPoint.MontoVentaExigido;
                 }
             }
@@ -347,11 +349,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (usuario.EsConsultoraOficina) return false;
                 if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
 
-                var confProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
+                usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
+                var consultoraNuevas = new BEConsultoraProgramaNuevas { PaisID = usuario.PaisID, CampaniaID = usuario.CampaniaID, CodigoConsultora = usuario.CodigoConsultora,
+                                                            EsConsultoraNueva = usuario.EsConsultoraNueva, ConsecutivoNueva = usuario.ConsecutivoNueva };
+                var confProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(consultoraNuevas);
                 if (confProgNuevas.IndProgObli != "1") return false;
 
-                usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
-                string cuvKitNuevas = _configuracionProgramaNuevasBusinessLogic.GetCuvKitNuevas(usuario, confProgNuevas);
+                string cuvKitNuevas = _configuracionProgramaNuevasBusinessLogic.GetCuvKitNuevas(consultoraNuevas, confProgNuevas);
                 if (string.IsNullOrEmpty(cuvKitNuevas)) return false;
 
                 //Obtener Detalle
@@ -1426,10 +1430,19 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private bool InsertarValidarKitInicio(BEUsuario usuario, BEPedidoDetalle pedidoDetalle)
         {
-            var configProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
+            var consultoraNuevas = new BEConsultoraProgramaNuevas
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                CodigoConsultora = usuario.CodigoConsultora,
+                EsConsultoraNueva = usuario.EsConsultoraNueva,
+                ConsecutivoNueva = usuario.ConsecutivoNueva
+            };
+
+            var configProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(consultoraNuevas);
             if (configProgNuevas.IndProgObli != "1") return true;
 
-            var cuvKitNuevas = _configuracionProgramaNuevasBusinessLogic.GetCuvKitNuevas(usuario, configProgNuevas);
+            var cuvKitNuevas = _configuracionProgramaNuevasBusinessLogic.GetCuvKitNuevas(consultoraNuevas, configProgNuevas);
             if (string.IsNullOrEmpty(cuvKitNuevas)) return true;
             if (cuvKitNuevas != pedidoDetalle.Producto.CUV) return true;
 
@@ -1528,7 +1541,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var lstCuvPedido = lstDetalle.Select(x => x.CUV).ToList();
                 var respElectivos = _productoBusinessLogic.
                     ValidaCuvElectivo(usuario.PaisID, usuario.CampaniaID, obePedidoWebDetalle.CUV, usuario.ConsecutivoNueva, usuario.CodigoPrograma, lstCuvPedido);
-                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.ReemplazarCupon)
+                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.AgregarYMostrarMensaje)
                 {
                     listCuvEliminar = respElectivos.ListCuvEliminar.ToList();
                     var packNuevas = lstDetalle.Where(x => respElectivos.ListCuvEliminar.Contains(x.CUV)).ToList();
@@ -1540,7 +1553,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         }
                     }
                 }
-                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite)
+                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite)
                 {
                     mensajeObs = string.Format(Constantes.MensajesError.AgregarProgNuevas_MaxElectivos, respElectivos.LimNumElectivos);
                     return false;
@@ -1553,7 +1566,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (valor != 0)
                 {
-                    mensajeObs = Constantes.ProgramaNuevas.MensajeValidacionCantidadMaxima.ExcedeCantidad.Replace("#n#", valor.ToString());
+                    mensajeObs = Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades.Replace("#n#", valor.ToString());
                     return false;
                 }
             }

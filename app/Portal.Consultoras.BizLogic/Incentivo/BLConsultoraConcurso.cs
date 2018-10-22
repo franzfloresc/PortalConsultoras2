@@ -2,6 +2,7 @@
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Incentivo;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,30 +23,30 @@ namespace Portal.Consultoras.BizLogic
         /// <summary>
         /// Concursos donde la consultora participa.
         /// </summary>
-        /// <param name="usuario"></param>
+        /// <param name="consultoraNuevas"></param>
         /// <returns></returns>
-        public IList<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEUsuario usuario)
+        public IList<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEConsultoraProgramaNuevas consultoraNuevas, string codigoRegion, string codigoZona)
         {
             List<BEIncentivoConcurso> Concursos = new List<BEIncentivoConcurso>();
 
-            var DAConcurso = new DAConcurso(usuario.PaisID);
-            using (IDataReader reader = DAConcurso.ObtenerConcursosXConsultora(usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigorRegion, usuario.CodigoZona))
+            var DAConcurso = new DAConcurso(consultoraNuevas.PaisID);
+            using (IDataReader reader = DAConcurso.ObtenerConcursosXConsultora(consultoraNuevas.CampaniaID.ToString(), consultoraNuevas.CodigoConsultora, codigoRegion, codigoZona))
             {
                 Concursos.AddRange(reader.MapToCollection<BEIncentivoConcurso>());
             }
 
-            DAConcurso.DelProgramaNuevasXConsultora(usuario.CodigoConsultora);
-            if (!string.IsNullOrEmpty(usuario.CodigoPrograma))
+            DAConcurso.DelProgramaNuevasXConsultora(consultoraNuevas.CodigoConsultora);
+            if (!string.IsNullOrEmpty(consultoraNuevas.CodigoPrograma))
             {
                 var incentivoNuevas = new BEIncentivoConcurso
                 {
-                    CampaniaID = usuario.CampaniaID,
-                    CodigoConcurso = usuario.CodigoPrograma,
-                    CodigoNivelProgramaNuevas = iBlConfiguracionProgramaNuevas.GetCodigoNivel(usuario),
+                    CampaniaID = consultoraNuevas.CampaniaID,
+                    CodigoConcurso = consultoraNuevas.CodigoPrograma,                    
+                    CodigoNivelProgramaNuevas = iBlConfiguracionProgramaNuevas.GetCodigoNivel(consultoraNuevas),
                     TipoConcurso = Incentivos.CalculoProgramaNuevas
                 };
                 Concursos.Add(incentivoNuevas);
-                DAConcurso.InsProgramaNuevasXConsultora(usuario.CodigoConsultora, incentivoNuevas);
+                DAConcurso.InsProgramaNuevasXConsultora(consultoraNuevas.CodigoConsultora, incentivoNuevas);
             }
 
             return Concursos;

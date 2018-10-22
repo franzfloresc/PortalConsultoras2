@@ -115,7 +115,6 @@ function SeccionCargarProductos(objConsulta) {
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId] = objConsulta;
 
-    //var paisHabilitado = variableEstrategia.PaisHabilitado.includes(IsoPais);
     var paisHabilitado = typeof variableEstrategia.PaisHabilitado == "string" && variableEstrategia.PaisHabilitado.indexOf(IsoPais) > -1
 
     var guardaEnLS = true;
@@ -124,7 +123,7 @@ function SeccionCargarProductos(objConsulta) {
         || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
-            //var tipoEstrategiaHabilitado = variableEstrategia.TipoEstrategiaHabilitado.includes("101");
+
             var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf('101') > -1
             if (paisHabilitado && tipoEstrategiaHabilitado) {
                 guardaEnLS = false;
@@ -299,7 +298,6 @@ function SeccionMostrarProductos(data) {
 
             } else {
                 $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
-                //UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
             }
         }
 

@@ -103,7 +103,7 @@ $(document).ready(function () {
                     'min-height': '95px',
                     'height': 'auto'
                 }, 100);
-                //$('.lista_resultados_busqueda_productos').removeClass('animarAlturaListaResultadosBusqueda');
+
                 $('.campo_busqueda_fondo_on_focus').delay(50);
                 $('.campo_busqueda_fondo_on_focus').fadeOut(100);
                 $(element).removeClass('campo_buscador_productos_activo');
@@ -177,8 +177,6 @@ $(document).ready(function () {
                                 var lista = r;
 
                                 if (lista.length <= 0) {
-                                    //me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
-                                    //$('#ResultadoBuscador').fadeOut(150);
                                     $('.spinner').fadeOut(150);
                                     $('.busqueda_sin_resultados').fadeIn(60);
                                 } else {
@@ -192,7 +190,7 @@ $(document).ready(function () {
                                         $('.lista_resultados_busqueda_productos').animate({
                                             'min-height': $('#ResultadoBuscador').height() + 43
                                         }, 100);
-                                        //$('.lista_resultados_busqueda_productos').addClass('animarAlturaListaResultadosBusqueda');
+
                                     }, 400);
 
                                     SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscador');

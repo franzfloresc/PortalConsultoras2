@@ -71,7 +71,6 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 detallesPedidoWeb = sessionManager.GetDetallesPedido();
-
                 if (detallesPedidoWeb == null || noSession)
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
@@ -97,6 +96,7 @@ namespace Portal.Consultoras.Web.Providers
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
                     item.DescripcionOferta = ObtenerDescripcionOferta(item, pedidoValidado, suscripcionActiva, userData.NuevasDescripcionesBuscador);
                 }
+
                 var observacionesProl = sessionManager.GetObservacionesProl();
                 if (observacionesProl != null && detallesPedidoWeb.Count > 0)
                 {
@@ -104,9 +104,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 userData.PedidoID = detallesPedidoWeb.Count > 0 ? detallesPedidoWeb[0].PedidoID : 0;
-
                 sessionManager.SetUserData(userData);
-
                 sessionManager.SetDetallesPedido(detallesPedidoWeb);
             }
             catch (Exception ex)

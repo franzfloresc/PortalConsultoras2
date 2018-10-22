@@ -124,12 +124,6 @@ function DesvalidarPedido() {
             if (!checkTimeout(data)) return;
             if (!data.success) return;
 
-            //dataLayer.push({
-            //    'event': 'virtualEvent',
-            //    'category': 'Ecommerce',
-            //    'action': 'Modificar Pedido',
-            //    'label': '(not available)'
-            //});
             success = true;
         }
     });
@@ -725,7 +719,6 @@ function ActualizarValoresPopupOfertaFinal(data, popup) {
                     $('#spnTituloOfertaFinal span').html(msg1);
 
                     if (tipoOrigen == 1) {
-                        //$('#spnTituloOfertaFinal').css('max-width', '700px');
                         $('#spnTituloOfertaFinal').css('margin', '0 auto');
 
                         $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + variablesPortal.SimboloMoneda + ' ' + data.DataBarra.MontoGananciaStr);

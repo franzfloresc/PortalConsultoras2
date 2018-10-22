@@ -325,6 +325,9 @@ namespace Portal.Consultoras.Entities
         public int TipoOfertaSisID { get; set; }
         [DataMember]
         public string TipoPedido { get; set; }
+        
+        [DataMember]
+        public bool EnRangoProgNuevas { get; set; }
         [DataMember]
         public string TipoAdm { get; set; }
         [DataMember]
