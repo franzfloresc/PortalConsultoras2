@@ -519,23 +519,21 @@ namespace Portal.Consultoras.Data
         
         public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaMasiva"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.usp_UpdateEstrategiaMasiva"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML.ToString());
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
-                Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, entidad.UsuarioCreacion);
                 Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entidad.UsuarioModificacion);
                 Context.Database.AddOutParameter(command, "@RetornoActualizacion", DbType.Int32, 1000);
-                Context.Database.AddOutParameter(command, "@RetornoInsercion", DbType.Int32, 1000);
                 Context.ExecuteNonQuery(command);
-                List<int> result = new List<int>() { Convert.ToInt32(command.Parameters["@RetornoActualizacion"].Value), Convert.ToInt32(command.Parameters["@RetornoInsercion"].Value) };
+                List<int> result = new List<int>() { Convert.ToInt32(command.Parameters["@RetornoActualizacion"].Value)};
                 return result;
             }
         }
         public List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarProductoShowroomMasiva"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.usp_UpdateEstrategiaProductoMasiva"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML.ToString());
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
