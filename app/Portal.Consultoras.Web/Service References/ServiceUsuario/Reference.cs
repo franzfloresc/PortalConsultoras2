@@ -5027,6 +5027,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private short CaracteresBuscadorMostrarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IndicadorConsultoraDummyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool MostrarBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5064,6 +5067,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.CaracteresBuscadorMostrarField.Equals(value) != true)) {
                     this.CaracteresBuscadorMostrarField = value;
                     this.RaisePropertyChanged("CaracteresBuscadorMostrar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IndicadorConsultoraDummy {
+            get {
+                return this.IndicadorConsultoraDummyField;
+            }
+            set {
+                if ((this.IndicadorConsultoraDummyField.Equals(value) != true)) {
+                    this.IndicadorConsultoraDummyField = value;
+                    this.RaisePropertyChanged("IndicadorConsultoraDummy");
                 }
             }
         }
