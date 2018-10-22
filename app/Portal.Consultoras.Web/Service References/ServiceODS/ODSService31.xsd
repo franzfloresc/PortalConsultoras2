@@ -15,27 +15,10 @@
   <xs:element name="Enumeradores.ValidacionProgramaNuevas" nillable="true" type="tns:Enumeradores.ValidacionProgramaNuevas" />
   <xs:simpleType name="Enumeradores.ValidarCuponesElectivos">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="AgregarCupon">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ReemplazarCupon">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NoAgregarCuponExcedioLimite">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
+      <xs:enumeration value="Agregar" />
+      <xs:enumeration value="AgregarYMostrarMensaje" />
+      <xs:enumeration value="Reemplazar" />
+      <xs:enumeration value="NoAgregarExcedioLimite" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enumeradores.ValidarCuponesElectivos" nillable="true" type="tns:Enumeradores.ValidarCuponesElectivos" />

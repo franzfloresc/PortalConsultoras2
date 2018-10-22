@@ -745,7 +745,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     });
 }
 
-
 function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     AbrirLoad();
     var marcaID = datosEst.MarcaID;
@@ -795,7 +794,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         ClienteID_: "-1",
         TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
         Descripcion: descripcion,
-        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val()
+        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
+        enRangoProgNuevas: datosEst.FlagNueva == "1"
     };
 
     jQuery.ajax({
@@ -811,8 +811,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                     AbrirMensajeEstrategia(datos.message);
                 }
                 CerrarLoad();
-            } else {
-
+            }
+            else {
                 jQuery.ajax({
                     type: "POST",
                     url: baseUrl + "Pedido/AgregarProductoZE",
@@ -827,7 +827,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         }
 
                         if (data.success != true) {
-                            messageInfoError(data.message);
+                            if (!IsNullOrEmpty(data.tituloMensaje)) AbrirMensaje(data.message, data.tituloMensaje);
+                            else messageInfoError(data.message);
                             CerrarLoad();
                             return false;
                         }
@@ -837,27 +838,20 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         if (divAgregado != null) {
                             $(divAgregado).show();
                         }
-
                         if (tipoOrigenEstrategia == 1) {
                             MostrarBarra(data, "1");
-
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias();
-                          
-
                             CargarResumenCampaniaHeader(true);
                         }
                         else if (tipoOrigenEstrategia == 11) {
-
                             $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
-
                             cierreCarouselEstrategias();
                             CargarCarouselEstrategias();
                             CargarResumenCampaniaHeader();
                             HideDialog("divVistaPrevia");
 
                             tieneMicroefecto = true;
-
                             CargarDetallePedido();
                             MostrarBarra(data);
                         }
@@ -874,12 +868,10 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                                 }
                             }
                             else if (tipoOrigenEstrategia != 272) {
-                                CargarCarouselEstrategias();
-
-                           
+                                CargarCarouselEstrategias();                           
                             }
                         }
-
+                        
                         // falta agregar este metodo en para las revista digital
                         try {
                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
@@ -891,6 +883,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             CerrarPopup("#popupDetalleCarousel_lanzamiento");
                             HidePopupEstrategiasEspeciales();
                         }
+                        if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
 
                         //ActualizarLocalStorageAgregado("rd", param.CUV, true);
                         //ActualizarLocalStorageAgregado("gn", param.CUV, true);

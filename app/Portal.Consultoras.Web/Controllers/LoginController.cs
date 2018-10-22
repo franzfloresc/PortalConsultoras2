@@ -1298,7 +1298,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntrega(usuario));
                         var linkPaisTask = Task.Run(() => GetLinksPorPais(usuario.PaisID));
                         var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidad(usuario));
-                        var personalizacionesTask = Task.Run(() => GetPersonalizaiones(usuarioModel));                        
+                        var personalizacionesTask = Task.Run(() => GetPersonalizaiones(usuarioModel));
 
                         Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask, personalizacionesTask);
 
@@ -1360,6 +1360,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
+                    usuarioModel.ListaOrdenamientoFiltrosBuscador = getListaOrdenamientoFiltrosBuscador(usuarioModel.PaisID);
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -1502,7 +1503,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(), "LoginController.GetPersonalizaiones");
+                return "";
             }
 
 
@@ -1803,10 +1805,10 @@ namespace Portal.Consultoras.Web.Controllers
             var lst = new List<BEIncentivoConcurso>();
             try
             {
-                var usuario = Mapper.Map<ServicePedido.BEUsuario>(usuarioModel);
+                var consultoraNuevas = Mapper.Map<ServicePedido.BEConsultoraProgramaNuevas>(usuarioModel);
                 using (var sv = new PedidoServiceClient())
                 {
-                    var result = await sv.ObtenerConcursosXConsultoraAsync(usuario);
+                    var result = await sv.ObtenerConcursosXConsultoraAsync(consultoraNuevas, usuarioModel.CodigorRegion, usuarioModel.CodigoZona);
                     lst = result.ToList();
                 }
             }
@@ -1854,7 +1856,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var herramientasVentaModel = new HerramientasVentaModel();
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
-                var buscadorYFiltrosModel = new BuscadorYFiltrosModel();
+                var buscadorYFiltrosModel = new BuscadorYFiltrosConfiguracionModel();
                 var masGanadorasModel = new MasGanadorasModel();
                 
                 if (configuracionesPaisModels.Any())
@@ -2083,7 +2085,7 @@ namespace Portal.Consultoras.Web.Controllers
             return herramientasVentaModel;
         }
 
-        public virtual BuscadorYFiltrosModel ConfiguracionPaisBuscadorYFiltro(BuscadorYFiltrosModel buscadorYFiltrosModel, List<BEConfiguracionPaisDatos> listaDatos)
+        public virtual BuscadorYFiltrosConfiguracionModel ConfiguracionPaisBuscadorYFiltro(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel, List<BEConfiguracionPaisDatos> listaDatos)
         {
             buscadorYFiltrosModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
             return buscadorYFiltrosModel;
@@ -2231,7 +2233,7 @@ namespace Portal.Consultoras.Web.Controllers
             var rds = new ServicePedido.BERevistaDigitalSuscripcion
             {
                 PaisID = usuarioModel.PaisID,
-                CodigoConsultora = usuarioModel.CodigoConsultora
+                CodigoConsultora = usuarioModel.GetCodigoConsultora()
             };
 
             using (var pedidoServiceClient = new PedidoServiceClient())
@@ -2978,6 +2980,24 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var item in listaDescripciones)
             {
                 result.Add(item.Codigo.ToString(), item.Descripcion.ToString());
+            }
+
+            return result;
+        }
+
+        private Dictionary<string, string> getListaOrdenamientoFiltrosBuscador(int paisId)
+        {
+            var result = new Dictionary<string, string>();
+            var listaDescripciones = new List<BETablaLogicaDatos>();
+
+            using (var tablaLogica = new SACServiceClient())
+            {
+                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.ListaOrdenamientoFiltros).ToList();
+            }
+
+            foreach (var item in listaDescripciones)
+            {
+                result.Add(item.Descripcion.ToString(), string.IsNullOrEmpty(item.Valor) ? "" : item.Valor.ToString());
             }
 
             return result;

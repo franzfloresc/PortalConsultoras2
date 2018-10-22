@@ -244,13 +244,17 @@ namespace Portal.Consultoras.Web.SessionManager
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
 
         IOfertaDelDia OfertaDelDia { get; }
-        BEConfiguracionProgramaNuevas ConfiguracionProgramaNuevas { get; set; }
-        bool ProcesoKitNuevas { get; set; }
-        string CuvKitNuevas { get; set; }
-        
-        void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel);
 
-        BuscadorYFiltrosModel GetBuscadorYFiltros();
+        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas();
+        void SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas configuracion);
+        bool GetProcesoKitNuevas();
+        void SetProcesoKitNuevas(bool proceso);
+        string GetCuvKitNuevas();
+        void SetCuvKitNuevas(string cuvKit);
+        
+        void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
+
+        BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros();
         
         void SetOcultarBannerApp(dynamic val);
 
@@ -440,14 +444,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetCDRExpressMensajes(List<BETablaLogicaDatos> val);
 
         List<BETablaLogicaDatos> GetCDRExpressMensajes();
-
-        void SetCuvEsProgramaNuevas(bool val);
-
-        bool GetCuvEsProgramaNuevas();
-
-        void SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas val);
-
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas();
 
         void SetOcultarBannerTop(bool val);
 
