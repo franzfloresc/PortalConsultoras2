@@ -62,6 +62,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult RDViewLanding(int tipo)
         {
+            var model = GetLandingModel(tipo);
+
+            return PartialView("template-landing", model);
+        }
+
+        protected RevistaDigitalLandingModel GetLandingModel(int tipo)
+        {
             var id = tipo == 1 ? userData.CampaniaID : Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
 
             var model = new RevistaDigitalLandingModel
@@ -83,8 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.PerdioLogo = revistaDigital.DLogoComercialActiva;
 
             model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
-
-            return PartialView("template-landing", model);
+            return model;
         }
 
         public ActionResult RDDetalleModel(string cuv, int campaniaId)
@@ -258,10 +264,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var breadCrumbs = new DetalleEstrategiaBreadCrumbsModel();
             var area = IsMobile() ? "mobile" : string.Empty;
-            
+            var nombresPalancas = GetNombresPalancas();
             breadCrumbs.Inicio.Texto = "Inicio";
             breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Gana +" : "Ofertas Digitales";
-            breadCrumbs.Palanca.Texto = GetNombresPalancas().ContainsKey(palanca) ? GetNombresPalancas()[palanca] : string.Empty;
+            breadCrumbs.Palanca.Texto = nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
             
             try
             {
@@ -283,8 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
                         palanca == Constantes.NombrePalanca.OfertasParaMi ||
-                        palanca == Constantes.NombrePalanca.RevistaDigital ||
-                        palanca == Constantes.NombrePalanca.PackNuevas)
+                        palanca == Constantes.NombrePalanca.RevistaDigital)
                     {
                         if (tieneRevistaDigital)
                         {
@@ -296,6 +301,8 @@ namespace Portal.Consultoras.Web.Controllers
                             breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#OPT";
                         }
                     }
+                    if (palanca == Constantes.NombrePalanca.PackNuevas)
+                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ProgramaNuevas", area });
                     if (palanca == Constantes.NombrePalanca.OfertaDelDia)
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#ODD";
                     if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
@@ -329,7 +336,7 @@ namespace Portal.Consultoras.Web.Controllers
             NombrePalancas.Add(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio");
             NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
 
-            NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, "Ofertas Para ti");
+            NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.GetLimElectivos() > 1 ? "Dúo Perfecto": "Programa Nuevas");
             return NombrePalancas;
         }
 

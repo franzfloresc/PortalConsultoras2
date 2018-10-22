@@ -240,13 +240,15 @@ namespace Portal.Consultoras.Web.SessionManager
 
         IOfertaDelDia OfertaDelDia { get; }
 
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas();
+        BEConfiguracionProgramaNuevas GetConfiguracionProgNuevas();
         void SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas configuracion);
         bool GetProcesoKitNuevas();
         void SetProcesoKitNuevas(bool proceso);
         string GetCuvKitNuevas();
         void SetCuvKitNuevas(string cuvKit);
-        
+        int GetLimElectivosProgNuevas();
+        void SetLimElectivosProgNuevas(int limElectivos);
+
         void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros();
@@ -459,8 +461,12 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListaRango(List<List<BEEstadoServicio>> val);
 
         List<List<BEEstadoServicio>> GetListaRango();
+
+        bool GetMostrarBannerNuevas();
+
+        void SetMostrarBannerNuevas(bool mostrarBannerNuevas);
         
-        void   SetJwtApiSomosBelcorp(string token);
+        void SetJwtApiSomosBelcorp(string token);
         
         string GetJwtApiSomosBelcorp();
     }

@@ -699,9 +699,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private object InsertarValidarKitInicio(string cuv)
         {
-            if (GetConfiguracionProgramaNuevas().IndProgObli != "1") return null;
+            if (_programaNuevasProvider.GetConfiguracion().IndProgObli != "1") return null;
 
-            string cuvKitNuevas = GetCuvKitNuevas();
+            string cuvKitNuevas = _programaNuevasProvider.GetCuvKit();
             if (string.IsNullOrEmpty(cuvKitNuevas)) return null;
             if (cuvKitNuevas != cuv) return null;
 
@@ -3486,9 +3486,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (userData.EsConsultoraOficina) return;
             if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
-            if (GetConfiguracionProgramaNuevas().IndProgObli != "1") return;
+            if (_programaNuevasProvider.GetConfiguracion().IndProgObli != "1") return;
 
-            string cuvKitNuevas = GetCuvKitNuevas();
+            string cuvKitNuevas = _programaNuevasProvider.GetCuvKit();
             if (string.IsNullOrEmpty(cuvKitNuevas)) return;
             if (ObtenerPedidoWebDetalle().Any(d => d.CUV == cuvKitNuevas && d.PedidoDetalleID > 0)) return;
 
@@ -4493,7 +4493,7 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esDuoPerfecto;
                 using (var svc = new ODSServiceClient())
                 {
-                    esDuoPerfecto = svc.EsDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
+                    esDuoPerfecto = svc.EsCuvDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
                 }
 
                 return Json(new {
@@ -4511,7 +4511,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        
 
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
         {

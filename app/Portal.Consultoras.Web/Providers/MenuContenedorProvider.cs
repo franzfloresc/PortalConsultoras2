@@ -11,15 +11,15 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class MenuContenedorProvider
     {
-        public MenuContenedorModel GetMenuActivo(UsuarioModel userData, RevistaDigitalModel revistaDigital, HerramientasVentaModel herramientasVenta, HttpRequestBase Request, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, bool esMobile)
+        public MenuContenedorModel GetMenuActivo(UsuarioModel userData, RevistaDigitalModel revistaDigital, HerramientasVentaModel herramientasVenta, HttpRequestBase Request, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, OfertaPersonalizadaProvider _ofertaPersonalizadaProvider, ProgramaNuevasProvider _programaNuevasProvider, bool esMobile)
         {
             var Path = Request.Path;
             var contenedorPath = GetContenedorRequestPath(Path);
 
             var menuActivo = CreateMenuContenedorActivo(userData.CampaniaID);
             menuActivo = UpdateCampaniaIdFromQueryString(menuActivo, Request);
-            menuActivo = UpdateCodigoCampaniaIdOrigenByContenedorPath(menuActivo, contenedorPath, revistaDigital, userData.CampaniaID, userData.NroCampanias, Request, userData.CodigoConsultora, userData.CodigoISO, sessionManager, esMobile);
-            menuActivo = UpdateConfiguracionPais(menuActivo, userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
+            menuActivo = UpdateCodigoCampaniaIdOrigenByContenedorPath(menuActivo, contenedorPath, revistaDigital, userData.CampaniaID, userData.NroCampanias, Request, userData.CodigoConsultora, userData.CodigoISO, _programaNuevasProvider.GetLimElectivos(), esMobile);
+            menuActivo = UpdateConfiguracionPais(menuActivo, userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
 
             if (revistaDigital.TieneRDC || herramientasVenta.TieneHV)
             {
@@ -36,14 +36,14 @@ namespace Portal.Consultoras.Web.Providers
             return menuActivo;
         }
 
-        public MenuContenedorModel UpdateConfiguracionPais(MenuContenedorModel menuActivo, UsuarioModel userData, RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, bool esMobile)
+        public MenuContenedorModel UpdateConfiguracionPais(MenuContenedorModel menuActivo, UsuarioModel userData, RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, OfertaPersonalizadaProvider _ofertaPersonalizadaProvider, ProgramaNuevasProvider _programaNuevasProvider, bool esMobile)
         {
-            var menuContenedor = BuildMenuContenedor(userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
+            var menuContenedor = BuildMenuContenedor(userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
             menuActivo.ConfiguracionPais = GetConfiguracionPaisBy(menuContenedor, menuActivo, revistaDigital, userData.CampaniaID);
             return menuActivo;
         }
 
-        public MenuContenedorModel UpdateCodigoCampaniaIdOrigenByContenedorPath(MenuContenedorModel menuActivo, string contenedorPath, RevistaDigitalModel revistaDigital, int CampaniaID, int NroCampanias, HttpRequestBase Request, string CodigoConsultora, string CodigoISO, ISessionManager sessionManager, bool esMobile)
+        public MenuContenedorModel UpdateCodigoCampaniaIdOrigenByContenedorPath(MenuContenedorModel menuActivo, string contenedorPath, RevistaDigitalModel revistaDigital, int CampaniaID, int NroCampanias, HttpRequestBase Request, string CodigoConsultora, string CodigoISO, int limiteElectivos, bool esMobile)
         {
             menuActivo.MostrarMenuFlotante = true;
             switch (contenedorPath)
@@ -154,6 +154,10 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.UrlMenuContenedor.DetalleHerramientasVenta:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     menuActivo.MostrarMenuFlotante = false;
+                    break;
+                case Constantes.UrlMenuContenedor.ProgramaNuevas:
+                case Constantes.UrlMenuContenedor.ProgramaNuevasIndex:
+                    menuActivo.Codigo =  limiteElectivos > 1 ? Constantes.ConfiguracionPais.DuoPerfecto : Constantes.ConfiguracionPais.ProgramaNuevas;
                     break;
             }
 
@@ -281,9 +285,9 @@ namespace Portal.Consultoras.Web.Providers
             return codigo;
         }
 
-        public List<ConfiguracionPaisModel> GetMenuContenedorByMenuActivoCampania(int campaniaIdMenuActivo, int campaniaIdUsuario, UsuarioModel userData, RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, bool esMobile)
+        public List<ConfiguracionPaisModel> GetMenuContenedorByMenuActivoCampania(int campaniaIdMenuActivo, int campaniaIdUsuario, UsuarioModel userData, RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, OfertaPersonalizadaProvider _ofertaPersonalizadaProvider, ProgramaNuevasProvider _programaNuevasProvider, bool esMobile)
         {
-            var menuContenedor = BuildMenuContenedor(userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
+            var menuContenedor = BuildMenuContenedor(userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
 
             menuContenedor = menuContenedor.Where(e => e.CampaniaId == campaniaIdMenuActivo).ToList();
 
@@ -319,7 +323,7 @@ namespace Portal.Consultoras.Web.Providers
             return menuContenedor;
         }
 
-        public List<ConfiguracionPaisModel> BuildMenuContenedor(UsuarioModel userData, RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, bool esMobile)
+        public List<ConfiguracionPaisModel> BuildMenuContenedor(UsuarioModel userData, RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, OfertaPersonalizadaProvider _ofertaPersonalizadaProvider, ProgramaNuevasProvider _programaNuevasProvider, bool esMobile)
         {
             var menuContenedor = sessionManager.GetMenuContenedor();
             var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
@@ -330,7 +334,9 @@ namespace Portal.Consultoras.Web.Providers
             menuContenedor = new List<ConfiguracionPaisModel>();
             configuracionesPais = configuracionesPais.Where(c => c.TienePerfil).ToList();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var paisCarpeta = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO) ? "Esika" : "Lbel";
+            var esDuoPerfecto = _programaNuevasProvider.GetLimElectivos() > 1;
+            List<ServiceOferta.BEEstrategia> listProgNuevas = null;
+
             foreach (var confiModel in configuracionesPais)
             {
                 var config = confiModel;
@@ -482,6 +488,20 @@ namespace Portal.Consultoras.Web.Providers
                         break;
                     case Constantes.ConfiguracionPais.HerramientasVenta:
                         confiModel.UrlMenu = "HerramientasVenta/Comprar";
+                        break;
+                    case Constantes.ConfiguracionPais.ProgramaNuevas:
+                        if (esDuoPerfecto) continue;
+
+                        listProgNuevas = listProgNuevas ?? _ofertaPersonalizadaProvider.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
+                        if (!listProgNuevas.Any()) continue;
+
+                        break;
+                    case Constantes.ConfiguracionPais.DuoPerfecto:
+                        if (!esDuoPerfecto) continue;
+
+                        listProgNuevas = listProgNuevas ?? _ofertaPersonalizadaProvider.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
+                        if (!listProgNuevas.Any()) continue;
+
                         break;
                 }
 

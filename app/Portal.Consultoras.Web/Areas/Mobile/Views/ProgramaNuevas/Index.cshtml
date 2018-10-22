@@ -1,0 +1,124 @@
+﻿
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+
+@model Portal.Consultoras.Web.Models.RevistaDigitalLandingModel
+@{
+    ViewBag.Title = "CLUB GANA+";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
+    var nameTagScrollTo = "divTopFiltros" + @Model.CampaniaID;
+    var idBorrar = "borrar" + Model.CampaniaID;
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+}
+
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/RevistaDigital-Landing")
+    <style>
+        .slct-box-filtro-mobile {
+            height: 40px;
+            color: black;
+            font-family: 'Lato';
+            padding-left: 7px;
+            font-size: 12px;
+            border: 1px solid rgba(0, 0, 0, .21);
+            float: left;
+        }
+
+        #btn_init {
+            display: none !important;
+        }
+
+        #btn_open {
+            display: none !important;
+        }
+    </style>
+}
+
+<div data-listado-campania="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding">
+
+    <div data-listado-content="" style="display: none;">
+        <div>
+            @if (Model.MostrarFiltros)
+            {
+                <div class="subtitulo_landing" style="display: none;">OFERTAS CLUB GANA+</div>
+                <hr class="clear" />
+                <div class="wrapper_resumen_mobile" id="@nameTagScrollTo">
+                    <div id="orderby-filter" style="display: block;overflow:hidden;">
+                        <div id="content-orderby" style="margin: 15px 0; text-align: center;">
+                            <div id="divFiltros">
+                                <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="marca" style="width:40%; margin-left: 0;">
+                                    @foreach (var item in Model.FiltersByBrand)
+                                    {
+                                        <option value="@item.Codigo">@item.Descripcion</option>
+                                    }
+                                </select>
+                                <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="width: 57.5%;
+    margin-right: 0;
+    margin-left: 2.5%;">
+                                    @foreach (var item1 in Model.FiltersBySorting)
+                                    {
+                                        <option value="@item1.Codigo">@item1.Descripcion</option>
+                                    }
+                                </select>
+                                <div style="clear:both;"></div>
+                            </div>
+                        </div>
+                        <hr class="clear">
+                        <div id="summary-filters">
+                            <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
+                                <span id="result-number">Mostrando <span id="spnCantidadFiltro"></span> de <span id="spnCantidadTotal"></span></span>
+                            </div>
+
+                            <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar">Borrar Filtros</a>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <hr class="clear" />
+        <div>
+            <hr class="clear" />
+            <div class="wrapper_resumen_mobile ">
+                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
+                     data-content-item="@Model.CampaniaID"
+                     class="ofertaProductoslanding flex-container"
+                     style="display: inline-flex; flex-wrap:wrap; justify-content:center;margin-top: 14px;"></div>
+
+                <hr class="clear" />
+            </div>
+        </div>
+
+    </div>
+    <hr class="clear" />
+    <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>
+    <hr class="clear" />
+</div>
+<hr class="clear" />
+
+@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"></div>
+
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
+
+@section scripts{
+<script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+        var tipoOrigenPantalla = 1;
+        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductosNuevas", "Estrategia", new { area = ""})';
+        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
+        var tipoOrigenEstrategia = 27;
+        var CantidadFilas = @Model.CantidadFilas;
+        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
+        var tieneMasVendidos = 0;
+        var campaniaId = @Model.CampaniaID;
+        var variableEstrategia = @Html.Raw(Json.Encode(ViewBag.variableEstrategia)) || {};
+        var lsListaRD = 'PNLista';
+</script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/RevistaDigital-Landing")
+}

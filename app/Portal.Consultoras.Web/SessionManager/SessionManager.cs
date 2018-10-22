@@ -630,7 +630,7 @@ namespace Portal.Consultoras.Web.SessionManager
             return Convert.ToBoolean(HttpContext.Current.Session["PedidoValidado"]);
         }
         
-        BEConfiguracionProgramaNuevas ISessionManager.GetConfiguracionProgramaNuevas()
+        BEConfiguracionProgramaNuevas ISessionManager.GetConfiguracionProgNuevas()
         {
             return (BEConfiguracionProgramaNuevas)HttpContext.Current.Session["ConfiguracionProgramaNuevas"];
         }
@@ -642,6 +642,8 @@ namespace Portal.Consultoras.Web.SessionManager
         void ISessionManager.SetProcesoKitNuevas(bool proceso) { HttpContext.Current.Session["ProcesoKitNuevas"] = proceso; }
         string ISessionManager.GetCuvKitNuevas() { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
         void ISessionManager.SetCuvKitNuevas(string cuvKit) { HttpContext.Current.Session["CuvKitNuevas"] = cuvKit; }
+        int ISessionManager.GetLimElectivosProgNuevas() { return (int)(HttpContext.Current.Session["GetLimElectivosProgNuevas"] ?? 0); }
+        void ISessionManager.SetLimElectivosProgNuevas(int limElectivos) { HttpContext.Current.Session["GetLimElectivosProgNuevas"] = limElectivos; }
 
         // -----------------------------------
 
@@ -1249,6 +1251,9 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return ((BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosConfiguracionModel();
         }
+        
+        bool ISessionManager.GetMostrarBannerNuevas() { return (bool)(HttpContext.Current.Session["MostrarBannerNuevas"] ?? false); }
+        void ISessionManager.SetMostrarBannerNuevas(bool mostrarBannerNuevas) { HttpContext.Current.Session["MostrarBannerNuevas"] = mostrarBannerNuevas; }
         public void SetJwtApiSomosBelcorp(string token)
         {
             HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] = token;
