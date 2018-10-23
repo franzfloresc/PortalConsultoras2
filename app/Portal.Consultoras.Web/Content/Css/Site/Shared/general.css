@@ -265,7 +265,7 @@ body > img{
 
 .layout__container{
     width:100%;
-    min-width:1024px;
+    min-width:992px;
     max-width:1366px;
     position:relative;
 }
@@ -303,6 +303,7 @@ body > img{
     }
 
     .layout__container{
+        min-width:0;
         max-width:none;
     }
 

@@ -22,6 +22,19 @@
     height:21px;
 }
 
+@media screen and (min-width:992px) and (max-width:1204px){
+
+    .layout__header--navidenio .layout__container:before{
+        background-position: -66px -31px;
+        background-size: 134px;
+    }
+
+    .layout__header--navidenio .header__marca__pais img {
+        height: 19px;
+    }
+
+}
+
 @media screen and (max-width:991px){
 
     .layout__header--navidenio .layout__container{
@@ -133,6 +146,14 @@
 
     .header__marca__pais picture {
         height: auto;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1204px){
+
+    .header__marca__pais {
+        width: 155px;
     }
 
 }

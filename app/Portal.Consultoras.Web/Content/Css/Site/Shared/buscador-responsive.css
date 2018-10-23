@@ -562,6 +562,31 @@
 
 /* FIN - BUSCADOR PRODUCTOS DESKTOP */
 
+@media screen and (min-width:992px) and (max-width:1204px){
+
+    .buscador__productos{
+        margin-left:4px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1150px){
+
+    .buscador__productos {
+        margin-left: 0;
+        flex-basis:0;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1065px){
+
+    .buscador__productos{
+        margin-left:-15px;
+    }
+
+}
+
 /* CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){

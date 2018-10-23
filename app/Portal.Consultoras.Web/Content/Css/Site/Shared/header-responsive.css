@@ -33,6 +33,14 @@
 
 }
 
+@media screen and (min-width:992px) and (max-width:1065px){
+
+    .layout__header{
+        padding-left:0;
+    }
+
+}
+
 @media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 
     .submenu__lista--miNegocio{

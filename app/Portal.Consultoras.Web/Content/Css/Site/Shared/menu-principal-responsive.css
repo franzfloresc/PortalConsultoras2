@@ -305,6 +305,42 @@
 
 }
 
+@media screen and (min-width:1066px) and (max-width:1204px){
+
+    .submenu__lista--miNegocio{
+        left:-174px;
+    }
+
+    .pestana__marca__pais{
+        left:22.8%!important;
+    }
+
+}
+
+@media screen and (min-width:1066px) and (max-width:1199px){
+
+    .submenu__lista--miNegocio{
+        left:-172px;
+    }
+
+    .pestana__marca__pais{
+        left:21.8%!important;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1065px){
+
+    .submenu__lista--miNegocio{
+        left:-238px;
+    }
+
+    .pestana__marca__pais{
+        left:28.8%!important;
+    }
+
+}
+
 @media screen and (min-width:992px) and (max-width:1199px){
 
     .menu__link,
