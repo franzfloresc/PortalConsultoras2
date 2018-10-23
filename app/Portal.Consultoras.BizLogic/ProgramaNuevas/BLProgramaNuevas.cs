@@ -138,7 +138,7 @@ namespace Portal.Consultoras.BizLogic
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
             var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgNuevas.EncenderValidacion.TablaLogicaID);
             if (lstTabla.Count == 0) return false;
-            if (lstTabla.Where(a => a.Codigo == Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas).Select(b => b.Valor).FirstOrDefault() == "1") return true;
+            if (lstTabla.Where(a => a.Codigo == codigo).Select(b => b.Valor).FirstOrDefault() == "1") return true;
             return false;
         }
 
