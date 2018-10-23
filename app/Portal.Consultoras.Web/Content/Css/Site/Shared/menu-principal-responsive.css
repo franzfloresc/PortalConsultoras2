@@ -112,11 +112,31 @@
     border-top:none;
 }
 
-.menu__link--conSubmenu,
-.submenu__item--AsesorBelleza > .submenu__link
+.menu__link--conSubmenu:after,
+.submenu__item--AsesorBelleza > .submenu__link:after
 {
-    background-image:url(/Content/images/down_arrow.png);
-    background-position:97% center;
+    display: block;
+    position: absolute;
+    margin: auto 0;
+    width: 10px;
+    height: 6px;
+    top: 3px;
+    bottom: 0;
+    content: "";
+    border-top: 6px solid #000;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 4px solid transparent;
+    /*background-image:url(/Content/images/down_arrow.png);
+    background-position:97% center;*/
+}
+
+.menu__link--conSubmenu:after{
+    right:3px;
+}
+
+.submenu__item--AsesorBelleza > .submenu__link:after{
+    right:9px;
 }
 
 .menu__link--sinAfiliacionAppCatalogo{

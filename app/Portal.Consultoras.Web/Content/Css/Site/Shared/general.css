@@ -264,7 +264,10 @@ body > img{
 }
 
 .layout__container{
-    max-width:none;
+    width:100%;
+    min-width:1024px;
+    max-width:1366px;
+    position:relative;
 }
 
 /* FIN - SECCIÓN CONTENIDO */
@@ -297,6 +300,10 @@ body > img{
 
     .row.mostrarEnDesktop{
         display:none;
+    }
+
+    .layout__container{
+        max-width:none;
     }
 
 }

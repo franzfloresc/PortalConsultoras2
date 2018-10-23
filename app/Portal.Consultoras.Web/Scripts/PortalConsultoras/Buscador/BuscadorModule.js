@@ -227,7 +227,7 @@ var BuscadorModule = (function () {
                                 $("#ResultadoBuscador").fadeIn(100);
                                 if (!_config.isMobile) {
                                     $(".lista_resultados_busqueda_productos").animate({
-                                        'min-height': $("#ResultadoBuscador").height() + 43
+                                        'min-height': $("#ResultadoBuscador").height() + 35
                                     },
                                         100);
                                 }

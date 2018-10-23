@@ -1421,6 +1421,7 @@
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Shared\buscador-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\campania-navidenia-responsive.css" />
     <Content Include="Content\Css\Site\Shared\footer-responsive.css" />
     <Content Include="Content\Css\Site\Shared\header-responsive.css" />
     <Content Include="Content\Css\Site\Shared\menu-principal-responsive.css" />
@@ -1609,9 +1610,11 @@
     <Content Include="Content\Images\icono_comunidad_virtual.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
+    <Content Include="Content\Images\icono_lupa_blanco.svg" />
     <Content Include="Content\Images\icono_lupa.svg" />
     <Content Include="Content\Images\icono_noticias.svg" />
     <Content Include="Content\Images\icono_notificaciones.svg" />
+    <Content Include="Content\Images\icono_notificaciones_blanco.svg" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />

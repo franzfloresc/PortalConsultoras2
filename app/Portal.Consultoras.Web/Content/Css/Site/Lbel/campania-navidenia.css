@@ -24,6 +24,12 @@
     max-width:100%!important;
 }
 
+.wrapper_header_componentes{
+    margin:0 auto;
+    width:100%;
+    max-width:1366px;
+}
+
 .wrapper_campania_navidenia_y_logo{
     width:16.5%!important;
     text-align:right;
@@ -35,8 +41,7 @@
     background-size: 170px;
 }
 
-.wrapper_campania_navidenia_y_logo,
-.logo_marca_pais_fondo_navidenio,
+.wrapper_campania_navidenia_y_logo
 .wrapper_header_campania_navidenia .logo_esika a
 {
     height:61px;
@@ -52,17 +57,6 @@
 .wrapper_campania_navidenia_y_logo .logo_esika a
 {
     position:relative;
-}
-
-.logo_marca_pais_fondo_navidenio {
-    position: absolute;
-    margin: auto 0;
-    width: 100%;
-    height:61px;
-    top: 0;
-    bottom: 0;
-    left: -85%;
-    overflow: hidden;
 }
 
 .wrapper_campania_navidenia_y_logo + .menu_new_esika{
@@ -303,8 +297,8 @@
 
     .menu_mobile_belcorp[data-codigo="contenedorofertas"]{
         background: #01362d;
-        background: -moz-linear-gradient(top,#01362d 0%,#016f5f 100%);
-        background: -webkit-linear-gradient(top,#01362d 0%,#016f5f 100%);
+        background: -moz-linear-gradient(top,#01362d 0%,#016f5f 91%);
+        background: -webkit-linear-gradient(top,#01362d 0%,#016f5f 91%);
         background: linear-gradient(to bottom,#00342a 20%,#016758 91%);
     }
 

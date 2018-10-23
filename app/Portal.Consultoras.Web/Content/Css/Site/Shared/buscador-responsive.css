@@ -117,7 +117,7 @@
 .lista_resultados_busqueda_productos{
     display: none; 
     position: absolute;
-    top: 42px;
+    top: 41px;
     right: -3px;
     width: 621px;
     min-height: 250px;
@@ -164,7 +164,7 @@
     margin-top: 17px;
     width: 98.55%;
     min-height: 65px;
-    max-height: 397px;
+    max-height: 384px;
     overflow: auto;
     position: relative;
     padding-bottom:0;
@@ -201,7 +201,7 @@
         padding-top:0;
     }
 
-    .resultado_busqueda_producto:last-child{
+    div[data-item="ProductoBuscador"]:last-child{
         padding-bottom:0;
         border-bottom:none!important;
     }
@@ -532,6 +532,7 @@
     width: 100%;
     align-items: flex-end;
     background-color: #FFF;
+    position:-webkit-sticky;
     position: sticky;
     bottom: -14px;
     height: 75px;
