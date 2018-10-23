@@ -63,6 +63,16 @@
     background-color:transparent;
 }
 
+@media screen and (min-width:992px) and (max-width:1270px){
+
+    .layout__header--navidenio .header__marca__pais:before,
+    .layout__header--navidenio .header__marca__pais:after
+    {
+        top: -16px;
+    }
+
+}
+
 @media screen and (max-width:991px){
 
     .layout__header--navidenio .layout__container{
@@ -175,6 +185,34 @@
 
     .header__marca__pais picture{
         height:27px;
+    }
+
+}
+
+@media screen and (min-width:1207px) and (max-width:1212px){
+
+    .menu__item[data-title="OFERTAS"],
+    .menu__item--ofertas
+    {
+        margin-left: -5px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1206px){
+
+    .header__marca__pais{
+        width:106px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1065px){
+
+    .menu__item[data-title="OFERTAS"] img,
+    .menu__link--ofertas img
+    {
+        width: 134.36px;
     }
 
 }

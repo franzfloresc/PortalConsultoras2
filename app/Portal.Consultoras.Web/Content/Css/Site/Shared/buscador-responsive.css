@@ -11,7 +11,7 @@
     border:1px solid #d8d8d8;
     height:38px;
     margin-left: 19px;
-    margin-right: 8px;
+    margin-right: 3px;
     padding: 0 10px 0 12px;
     position:relative;
 }
@@ -562,18 +562,10 @@
 
 /* FIN - BUSCADOR PRODUCTOS DESKTOP */
 
-@media screen and (min-width:992px) and (max-width:1204px){
-
-    .buscador__productos{
-        margin-left:4px;
-    }
-
-}
-
 @media screen and (min-width:992px) and (max-width:1150px){
 
     .buscador__productos {
-        margin-left: 0;
+        margin-left: 11px;
         flex-basis:0;
     }
 
