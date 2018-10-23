@@ -2085,6 +2085,7 @@ namespace Portal.Consultoras.Common
                 public const short TablaLogicaID = 7;
                 public const string FlagProgNuevas = "ProgramaNuevas";
                 public const string FlagBannerDuoPerfecto = "BannerDuoPerfecto";
+                public const string FlagEtiquetasDetalle = "BannerDuoPerfecto";
             }
 
             public static class Rango

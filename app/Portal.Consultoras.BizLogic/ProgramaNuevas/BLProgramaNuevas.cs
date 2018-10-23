@@ -74,13 +74,40 @@ namespace Portal.Consultoras.BizLogic
             return resp;
         }
 
-        public void UpdateFlagCupones(int paisID, List<BEPedidoWebDetalle> listPedidoDetalle)
+        public void UpdFlagCuponesAndDescOferta(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<BEPedidoWebDetalle> listPedidoDetalle)
         {
             if (listPedidoDetalle == null || listPedidoDetalle.Count == 0) return;
             if (!IsFlagProgramaNuevasOn(paisID)) return;
+            if (!IsFlagEtiquetasDetalleOn(paisID)) return;
+            if (codigoPrograma == "") return;
 
             var fnEnRango = GetFnEnRangoCuvProgramaNuevas(paisID);
-            listPedidoDetalle.ForEach(d => d.EnRangoProgNuevas = fnEnRango(Convert.ToInt32(d.CUV)));
+            var listDetalleEnRango = listPedidoDetalle.Where(d => fnEnRango(Convert.ToInt32(d.CUV))).ToList();
+            if (listDetalleEnRango.Count == 0) return;
+            var listCuvNuevas = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
+            var listCuvPerteneceNuevas = FiltrarProductosNuevasByNivelyCodigoPrograma(listCuvNuevas, consecutivoNueva, codigoPrograma);
+            if (listCuvPerteneceNuevas.Count == 0) return;
+
+            var listDetallePerteneceNuevas = listDetalleEnRango.Where(d => listCuvPerteneceNuevas.Any(p => p.CodigoCupon == d.CUV)).ToList();
+            foreach (var detalle in listDetallePerteneceNuevas)
+            {
+                detalle.EsCuponNuevas = true;
+                detalle.DescripcionOferta = "PACK DE NUEVAS";
+            }
+
+            var listCuvElectivas = listCuvPerteneceNuevas.Where(a => !a.IndicadorCuponIndependiente).ToList();
+            if (listCuvElectivas.Count == 0) return;
+
+            var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
+            var limElectivos = GetLimiteElectivosProgramaNuevas(paisID, nivelInput);
+            if (limElectivos <= 1) return;
+
+            var listDetalleElectivos = listDetallePerteneceNuevas.Where(d => listCuvElectivas.Any(c =>c.CodigoCupon == d.CUV)).ToList();
+            foreach (var detalle in listDetalleEnRango)
+            {
+                detalle.EsElecMultipleNuevas = true;
+                detalle.DescripcionOferta = "DÚO PERFECTO";
+            }
         }
 
         public bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
@@ -148,6 +175,15 @@ namespace Portal.Consultoras.BizLogic
             var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgNuevas.EncenderValidacion.TablaLogicaID);
             if (lstTabla.Count == 0) return false;
             if (lstTabla.Where(a => a.Codigo == Constantes.ProgNuevas.EncenderValidacion.FlagBannerDuoPerfecto).Select(b => b.Valor).FirstOrDefault() == "1") return true;
+            return false;
+        }
+        
+        private bool IsFlagEtiquetasDetalleOn(int paisID)
+        {
+            var blTablaLogicaDatos = new BLTablaLogicaDatos();
+            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgNuevas.EncenderValidacion.TablaLogicaID);
+            if (lstTabla.Count == 0) return false;
+            if (lstTabla.Where(a => a.Codigo == Constantes.ProgNuevas.EncenderValidacion.FlagEtiquetasDetalle).Select(b => b.Valor).FirstOrDefault() == "1") return true;
             return false;
         }
 
