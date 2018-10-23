@@ -2774,11 +2774,11 @@ namespace Portal.Consultoras.Common
 
         public class RutaBuscadorService
         {
-            //Buscador/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{CodigoZona}/{TextoBusqueda}/{CantidadProductos}/{SociaEmpresaria}/{SuscripcionActiva}/{MDO}/{RD}/{RDI}/{RDR}/{DiaFacturacion}
-            public const string UrlBuscador = "Buscador/{0}/{1}";
+            //Buscador/{CodigoISO}/{CampaniaID}/{Origen}
+            public const string UrlBuscador = "Buscador/{0}/{1}/{2}";
 
-            //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}
-            public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}";
+            //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{Origen}
+            public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}/{3}";
         }
 
         public static class ActualizacionDatosValidacion

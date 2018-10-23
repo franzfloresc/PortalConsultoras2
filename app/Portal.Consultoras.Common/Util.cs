@@ -3799,6 +3799,21 @@ namespace Portal.Consultoras.Common
             var nuevoOrigen = origenActual.Remove(0, 1).Insert(0, "4");
             return nuevoOrigen;
         }
+
+        public static bool EsDispositivoMovil()
+        {
+            var result = false;
+
+            try
+            {
+                result = HttpContext.Current.Request.Browser.IsMobileDevice;
+            }
+            catch
+            {
+            }
+
+            return result;
+        }
     }
 
     public static class DataRecord

@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class BuscadorController : BaseController
     {
         private readonly BuscadorYFiltrosProvider BuscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
-        // GET: Buscador
+        
         public ActionResult Index()
         {
             return View();
