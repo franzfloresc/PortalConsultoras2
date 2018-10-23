@@ -1,9 +1,8 @@
-﻿
+﻿@using Portal.Consultoras.Web.CustomHelpers
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
 @using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Areas.Mobile.Helpers
-@using Portal.Consultoras.Web.Helpers
+
 
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
@@ -178,7 +177,6 @@
     </a>
 </nav>
 <!-- FIN - MENÚ PRINCIPAL MOBILE -->
-
 <!-- MENÚ PRINCIPAL DESKTOP -->
 
 <nav class="header__menu header__menu--lateralIzquierdo mostrarEnDesktop">
@@ -217,12 +215,12 @@
                                     //    break;
                                     //}
 
-                                @*<li class="submenu__item">
-                        <a class="submenu__link d-block" title="@menuHijo.Descripcion">
-                            @menuHijo.Descripcion
-                        </a>
+                                    @*<li class="submenu__item">
+                                            <a class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                                @menuHijo.Descripcion
+                                            </a>
 
-                    </li>*@
+                                        </li>*@
                                 }
                                 else
                                 {

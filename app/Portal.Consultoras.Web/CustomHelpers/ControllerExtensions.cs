@@ -3,7 +3,7 @@ using Portal.Consultoras.Web.Infraestructure;
 using System;
 using System.Web.Mvc;
 
-namespace Portal.Consultoras.Web.Helpers
+namespace Portal.Consultoras.Web.CustomHelpers
 {
     public static class ControllerExtensions
     {

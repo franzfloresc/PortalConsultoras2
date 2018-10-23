@@ -1,10 +1,10 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @model PedidoDetalleMobileModel
 @{
-    var layout =  ViewContext.MobileLayout();
+    var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
@@ -27,76 +27,76 @@
 
         }
         <hr class="clear" />
-            <div class="left_reservado">
-                <div class="agregados_reservado">Unidades agregadas</div>
-                <div class="monto_reservado_mobile">MONTO TOTAL</div>
-                @{                                                              
-                    string cabezaEscala=null, pieEscala=null;
-                    string lbl1Ganancia = null, lbl2Ganancia = null;
-                    if (Model.CodigoISO == Constantes.CodigosISOPais.Peru ||
-                                Model.CodigoISO == Constantes.CodigosISOPais.Colombia ||
-                                Model.CodigoISO == Constantes.CodigosISOPais.Ecuador ||
-                                Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
-                                Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
-                                Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
-                                Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
-                    {
-                        cabezaEscala = "Ganancia estimada total";
-                        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                        lbl1Ganancia = "Mis descuentos";
-                        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                    }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
-                    {
-                        cabezaEscala = "Ganancia estimada total";
-                        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-                        lbl1Ganancia = "Mis descuentos";
-                        lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
-                    }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
-                    {
-                        cabezaEscala = "Comisión y ahorro total";
-                        pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                        lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
-                        lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
-                    }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
-                    {
-                        cabezaEscala = "Oportunidad de ahorro total";
-                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                        lbl1Ganancia = "Por tus compras de productos de catalogo";
-                        lbl2Ganancia = "Por tus comprar de productos de revista";
-                    }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)
-                    {
-                        cabezaEscala = "Ganancia total";
-                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                        lbl1Ganancia = "Mis descuentos";
-                        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                    }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica)
-                    {
-                        cabezaEscala = "Oportunidad de ahorro total";
-                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                        lbl1Ganancia = "Mis descuentos";
-                        lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
-                    }                                                                                                
+        <div class="left_reservado">
+            <div class="agregados_reservado">Unidades agregadas</div>
+            <div class="monto_reservado_mobile">MONTO TOTAL</div>
+            @{
+                string cabezaEscala = null, pieEscala = null;
+                string lbl1Ganancia = null, lbl2Ganancia = null;
+                if (Model.CodigoISO == Constantes.CodigosISOPais.Peru ||
+                            Model.CodigoISO == Constantes.CodigosISOPais.Colombia ||
+                            Model.CodigoISO == Constantes.CodigosISOPais.Ecuador ||
+                            Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
+                            Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
+                            Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
+                            Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
+                {
+                    cabezaEscala = "Ganancia estimada total";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                    lbl1Ganancia = "Mis descuentos";
+                    lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
                 }
+                else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
+                {
+                    cabezaEscala = "Ganancia estimada total";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                    lbl1Ganancia = "Mis descuentos";
+                    lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+                }
+                else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
+                {
+                    cabezaEscala = "Comisión y ahorro total";
+                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                    lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+                    lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+                }
+                else if (Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                {
+                    cabezaEscala = "Oportunidad de ahorro total";
+                    pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                    lbl1Ganancia = "Por tus compras de productos de catalogo";
+                    lbl2Ganancia = "Por tus comprar de productos de revista";
+                }
+                else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)
+                {
+                    cabezaEscala = "Ganancia total";
+                    pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                    lbl1Ganancia = "Mis descuentos";
+                    lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                }
+                else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica)
+                {
+                    cabezaEscala = "Oportunidad de ahorro total";
+                    pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                    lbl1Ganancia = "Mis descuentos";
+                    lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+                }
+            }
 
-                <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
-                <input type="hidden" id="hdePieEscala" value="@pieEscala" />
-                <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
-                <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
+            <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+            <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+            <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+            <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
 
-                <div class="ganancia_reservado">
-                    @(cabezaEscala.ToUpper().Trim())
-                </div>
+            <div class="ganancia_reservado">
+                @(cabezaEscala.ToUpper().Trim())
             </div>
-            <div class="right_reservado">
-                <div class="agregados_reservado">@Model.CantidadProductos</div>
-                <div class="monto_reservado_mobile">@Model.Simbolo @Model.DescripcionTotal</div>
-                <div class="ganancia_reservado">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
-            </div>
+        </div>
+        <div class="right_reservado">
+            <div class="agregados_reservado">@Model.CantidadProductos</div>
+            <div class="monto_reservado_mobile">@Model.Simbolo @Model.DescripcionTotal</div>
+            <div class="ganancia_reservado">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
+        </div>
         <hr class="clear" />
 
 
@@ -156,11 +156,11 @@
                             </div>
                         }
                         @*<hr class="clear" /><br />
-                        <div class="notificacion_productoAgotado">
-                            <small>
-                                @Html.Raw(item.ObservacionPROL);
-                            </small>
-                        </div>*@
+                            <div class="notificacion_productoAgotado">
+                                <small>
+                                    @Html.Raw(item.ObservacionPROL);
+                                </small>
+                            </div>*@
                     }
                 </div>
             }
@@ -225,7 +225,7 @@
             <div id="modal-prol-contenido">
                 <div id="modal-prol-botonesAceptarCancelar">
                     <a href="javascript:;" class="btn_borde_black" data-dismiss="modal">CANCELAR</a>
-                   
+
                     <a href="javascript:;" class="btn_belcorp" data-dismiss="modal" onclick="ConfirmarModificarPedido();">CONTINUAR</a>
                 </div>
             </div>

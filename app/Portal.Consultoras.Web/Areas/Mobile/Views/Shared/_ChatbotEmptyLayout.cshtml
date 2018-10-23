@@ -1,5 +1,5 @@
 ﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 <!DOCTYPE html>
 <html lang="es-PE">
 <head>
@@ -53,23 +53,23 @@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
     @*<div class="content-spinner2" id="loading-spin">
-        <div class="busy-loader">
-            <div class="w-ball-wrapper ball-1">
-                <div class="w-ball"></div>
+            <div class="busy-loader">
+                <div class="w-ball-wrapper ball-1">
+                    <div class="w-ball"></div>
+                </div>
+                <div class="w-ball-wrapper ball-2">
+                    <div class="w-ball"></div>
+                </div>
+                <div class="w-ball-wrapper ball-3">
+                    <div class="w-ball"> </div>
+                </div> <div class="w-ball-wrapper ball-4">
+                    <div class="w-ball"> </div>
+                </div>
+                <div class="w-ball-wrapper ball-5">
+                    <div class="w-ball"> </div>
+                </div>
             </div>
-            <div class="w-ball-wrapper ball-2">
-                <div class="w-ball"></div>
-            </div>
-            <div class="w-ball-wrapper ball-3">
-                <div class="w-ball"> </div>
-            </div> <div class="w-ball-wrapper ball-4">
-                <div class="w-ball"> </div>
-            </div>
-            <div class="w-ball-wrapper ball-5">
-                <div class="w-ball"> </div>
-            </div>
-        </div>
-    </div>*@
+        </div>*@
     @Scripts.Render("~/Bundle/Js/Mobile/MobileLayout")
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
@@ -215,7 +215,7 @@
 
             if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-            for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+            for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
                 resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
             if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));

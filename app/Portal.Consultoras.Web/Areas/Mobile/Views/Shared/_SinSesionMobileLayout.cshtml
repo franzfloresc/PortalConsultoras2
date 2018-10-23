@@ -1,8 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
-@using Portal.Consultoras.Web.Areas.Mobile.Helpers
 @using Newtonsoft.Json;
-
+@using Portal.Consultoras.Web.CustomHelpers
 @{
     Layout = null;
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
@@ -51,23 +50,23 @@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenuLateral.cshtml")
     @*<div class="menu">
-        <div class="content_close">
-            <div class="icon-close">
-                <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
-            </div>
-        </div>
-        <div class="foto_menu" style="display:none">
-            <div class="content_foto">
-                <div class="foto_usuaria_mobile">
-                    <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
+            <div class="content_close">
+                <div class="icon-close">
+                    <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
                 </div>
             </div>
-        </div>
-        <br />
-        <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
-        @Html.Partial("_MobileMenuLateral")
-        <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
-    </div>*@
+            <div class="foto_menu" style="display:none">
+                <div class="content_foto">
+                    <div class="foto_usuaria_mobile">
+                        <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
+            @Html.Partial("_MobileMenuLateral")
+            <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
+        </div>*@
 
     <section style="min-height: 380px;">
         <div id="content" data-content="" style="margin-top: 5px;">
@@ -236,8 +235,8 @@
             var totalItem = cantCat * cantCam;
 
             $("#divCatalogo").children()
-                             .not('.previous_carrusel_catalogo, .next_carrusel_catalogo, .previous_carrusel_catalogo *, .next_carrusel_catalogo *')
-                             .remove();
+                .not('.previous_carrusel_catalogo, .next_carrusel_catalogo, .previous_carrusel_catalogo *, .next_carrusel_catalogo *')
+                .remove();
 
             for (var i = 0; i < totalItem; i++) {
                 var nro = "";
@@ -339,9 +338,9 @@
 
             for (var i = 0; i < cantCat; i++) {
                 var tagCat = i == 0 && data.estadoLbel != 1 ? tagLbel
-                : i == 1 && data.estadoCyzone != 1 ? tagCyzone
-                : i == 2 && data.estadoEsika != 1 ? tagEsika
-                : "";
+                    : i == 1 && data.estadoCyzone != 1 ? tagCyzone
+                        : i == 2 && data.estadoEsika != 1 ? tagEsika
+                            : "";
 
                 if (tagCat == "") {
                     cont++;
@@ -350,8 +349,8 @@
 
                 var estado = i == 0 && data.estadoLbel != 1 ? "1"
                     : i == 1 && data.estadoCyzone != 1 ? "1"
-                    : i == 2 && data.estadoEsika != 1 ? "1"
-                    : "0";
+                        : i == 2 && data.estadoEsika != 1 ? "1"
+                            : "0";
 
                 defered[tagCat] = jQuery.Deferred();
 
@@ -455,11 +454,11 @@
         function renderItemCliente(event, ui) {
             var htmlTag = ''
                 + '<a>'
-                        + '<div class="content_datos_c">'
-                            + '<div class="nombre_compartir">{nombre}</div>'
-                            + '<div class="correo_compartir">{email}</div>'
-                        + '</div>'
-            + '</a>';
+                + '<div class="content_datos_c">'
+                + '<div class="nombre_compartir">{nombre}</div>'
+                + '<div class="correo_compartir">{email}</div>'
+                + '</div>'
+                + '</a>';
             $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
                 var htmlTagAdd = htmlTag.replace('{nombre}', item.nombre);
                 htmlTagAdd = htmlTagAdd.replace('{email}', item.email);
@@ -562,7 +561,7 @@
 
             $('#campaniaRevista').val(rCampSelect);
 
-            if(rCampSelectI == "0")
+            if (rCampSelectI == "0")
                 $(".previous_revistas_mobile img").hide();
         }
 
@@ -584,6 +583,6 @@
     </script>
 
     @RenderSection("scripts", required: false)
-    @{Html.PlaceScripts();}
+
 </body>
 </html>

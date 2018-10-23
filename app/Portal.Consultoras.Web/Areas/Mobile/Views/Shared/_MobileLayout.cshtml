@@ -1,8 +1,7 @@
-﻿
+﻿@using Portal.Consultoras.Web.CustomHelpers
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
-@using Portal.Consultoras.Web.Areas.Mobile.Helpers
-@using Portal.Consultoras.Web.Helpers
+
 
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
@@ -161,11 +160,11 @@
             <div class="banner_app"><div>X</div></div>
         }
 
-    
+
         @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenu.cshtml", new ViewDataDictionary {
-            { "vbEsContenedor", 0 },
-            { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
-        })
+        { "vbEsContenedor", 0 },
+        { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
+    })
 
 
     </header>
@@ -564,7 +563,7 @@
         }
     </script>
     @RenderSection("scripts", required: false)
-    @{Html.PlaceScripts();}
+
 
     @{
         // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.

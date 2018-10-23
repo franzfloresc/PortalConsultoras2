@@ -1,6 +1,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using System;
