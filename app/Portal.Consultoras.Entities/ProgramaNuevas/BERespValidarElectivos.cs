@@ -13,6 +13,8 @@ namespace Portal.Consultoras.Entities.ProgramaNuevas
         public List<string> ListCuvEliminar { get; set; }
         [DataMember]
         public int LimNumElectivos { get; set; }
+        [DataMember]
+        public int NumElectivosEnPedido { get; set; }
 
         public BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos resultado, List<string> listCuvEliminar)
         {

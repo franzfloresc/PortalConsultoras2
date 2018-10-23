@@ -1180,18 +1180,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BETablaLogicaDatos>)val;
         }
 
-        void ISessionManager.SetCuvEsProgramaNuevas(bool val)
-        {
-            HttpContext.Current.Session["CuvEsProgramaNuevas"] = val;
-        }
-
-        bool ISessionManager.GetCuvEsProgramaNuevas()
-        {
-            var val = HttpContext.Current.Session["CuvEsProgramaNuevas"];
-            if (val == null) { return false; }
-            return (bool)val;
-        }
-
         void ISessionManager.SetOcultarBannerTop(bool val)
         {
             HttpContext.Current.Session["OcultarBannerTop"] = val;
@@ -1252,14 +1240,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<List<BEEstadoServicio>>)val;
         }
 
-        public void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel)
+        public void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel)
         {
             HttpContext.Current.Session["BuscadorYFiltros"] = buscadorYFiltrosModel;
         }
 
-        public BuscadorYFiltrosModel GetBuscadorYFiltros()
+        public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros()
         {
-            return ((BuscadorYFiltrosModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosModel();
+            return ((BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosConfiguracionModel();
         }
     }
 }
