@@ -273,7 +273,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     {
                         var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
                         var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.MasGanadoras) ?? new ConfiguracionSeccionHomeModel();
-                        var cantidad = entConf.CantidadProductos;
+                        var cantidad = entConf.CantidadMostrar;
                         if (cantidadTotal <= cantidad)
                         {
                             sessionMg.TieneLanding = false;
