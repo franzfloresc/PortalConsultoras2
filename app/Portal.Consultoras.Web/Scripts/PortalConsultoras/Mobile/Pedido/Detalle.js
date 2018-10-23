@@ -763,7 +763,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
     ShowLoading();
     PROL = PROL || "0";
-    var prevTotal =  $("[data-pedidocondescuento]").html()*1;
+    var prevTotal =  $("[data-pedidocondescuento]").html().replace(',', '')*1;
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoUpdate,
@@ -1153,7 +1153,7 @@ function InsertarProducto(model, asyncX, urlMobile) {
     var retorno = new Object();
 
     urlPedidoInsert = (!urlMobile ? urlPedidoInsert : baseUrl + "Pedido/" + urlMobile);
-
+    var prevTotal = $("[data-pedidocondescuento]").html().replace(',', '') * 1;
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoInsert,
@@ -1179,7 +1179,7 @@ function InsertarProducto(model, asyncX, urlMobile) {
             setTimeout(function () { }, 2000);
 
             MostrarBarra(data);
-            showPopupNivelSuperado(data.DataBarra);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
 
             TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
             dataLayer.push({

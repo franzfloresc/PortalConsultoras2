@@ -626,8 +626,10 @@ function showPopupNivelSuperado(barra, prevTotal) {
     if (tippingPoint > 0) {
         var superaRegalo = tippingPoint <= dataBarra.TotalPedido && tippingPoint > prevTotal;
         if (superaRegalo) {
+            var popupId = '#popupPremio';
+            loadMessage($(popupId), ['¡FELICIDADES!', 'LLEGASTE A TU REGALO']);
+            AbrirPopup(popupId);
             mostrarLluvia();
-            alert('alcanzo regalo');
             // show popup regalo
         }
     } else {
@@ -645,9 +647,6 @@ function showPopupEscalaSiguiente(dataBarra, prevTotal) {
         var escala = dataBarra.ListaEscalaDescuento[i];
         if (total >= escala.MontoDesde && total < escala.MontoHasta) {
             if (escala.MontoDesde > prevTotal) {
-                //var objMsg = listaMensajeMeta.Find("TipoMensaje", 'EscalaDescuentoSuperado')[0] || new Object();
-                //var content = '¡FELICIDADES!  LLEGASTE AL #porcentaje% Dscto.';
-                //var content = objMsg.Mensaje;
                 var content = '¡FELICIDADES!  LLEGASTE AL|#porcentaje% Dscto.';
                 content = content.replace('#porcentaje', escala.PorDescuento);
                 var lines = content.split('|');
@@ -655,7 +654,7 @@ function showPopupEscalaSiguiente(dataBarra, prevTotal) {
                 loadMessage($(popupId), lines);
                 AbrirPopup(popupId);
                 mostrarLluvia();
-                // show popup
+
                 return true;
                 
             }
