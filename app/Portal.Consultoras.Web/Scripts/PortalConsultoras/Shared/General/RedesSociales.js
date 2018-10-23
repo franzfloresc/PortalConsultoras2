@@ -205,9 +205,7 @@
             }
         }
 
-        
-
-
+       
         $('#CompartirCorreo').show();
         $('#CompartirCorreoMobile').show();
 
