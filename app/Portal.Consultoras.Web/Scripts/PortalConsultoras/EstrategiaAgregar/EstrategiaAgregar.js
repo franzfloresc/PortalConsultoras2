@@ -62,9 +62,6 @@ var EstrategiaAgregarModule = (function () {
 
     var elementosPopPup = {
         popupClose: "#popup-close"
-        //popupDetalleCarouselLanzamiento: "#popupDetalleCarousel_lanzamiento", DEUDA TECNICA
-        //popupDetalleCarouselPackNuevas: "#popupDetalleCarousel_packNuevas",  DEUDA TECNICA
-        //contenedorPopupDetalleCarousel: "#contenedor_popup_detalleCarousel"  DEUDA TECNICA
     };
     
     var _elementos = {
@@ -76,15 +73,18 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
-        var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
-        var ShowRoomMobileSubCampania = 2524;
-        var estrategia = {};
-        if (origenPedidoWebEstrategia == ShowRoomMobileSubCampania) {
-            estrategia = $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-                        .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia") || {};
-        } else {
-            estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia") || {};
-        }
+        //var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
+        //var ShowRoomMobileSubCampania = 2524;
+        //var estrategia = {};
+        //if (origenPedidoWebEstrategia == ShowRoomMobileSubCampania) {
+        //    estrategia = $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+        //                .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia") || {};
+        //} else {
+        var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
+                || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                        .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia")
+                || {};
+        //}
         return estrategia;
     };
 
@@ -166,10 +166,6 @@ var EstrategiaAgregarModule = (function () {
         return {
             getDivMsgProductoBloqueado: function () {
                 $divMsgProductoBloqueado = $(elementosDiv.divMensajeBloqueada);
-                //if (estrategiaTmp.CodigoEstrategia === ConstantesModule.ConstantesPalanca.HerramientasVenta) {
-                //    $divMsgProductoBloqueado = $(elementosDiv.divHVMensajeBloqueada);
-                //    $divMsgProductoBloqueado.find(".cerrar_fichaProducto").data(elementosPopPup.popupClose.substring(1), elementosDiv.divHVMensajeBloqueada.substring(1));
-                //}
 
                 return this;
             },
@@ -196,9 +192,7 @@ var EstrategiaAgregarModule = (function () {
                 dataItemHtml.find(dataProperties.dataItemTagContenido).removeAttr("onclick");
                 dataItemHtml.find(dataProperties.dataItemTagContenido).css("position", "initial");
                 dataItemHtml.find(dataProperties.dataItemTagContenido).attr("class", "");
-                //
-                //$(elementosPopPup.contenedorPopupDetalleCarousel.replace("#", ".")).hide();
-                //
+
                 return this;
             },
             build: function () {
@@ -225,7 +219,7 @@ var EstrategiaAgregarModule = (function () {
 
             var name = $.trim(estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada);
             rdAnalyticsModule.AgregarProductoDeshabilitado(
-                origenPedidoWebEstrategia,
+                estrategia.OrigenPedidoWebEstrategia,
                 estrategia.CampaniaID,
                 name,
                 isPopup);
@@ -243,14 +237,13 @@ var EstrategiaAgregarModule = (function () {
         _config.CampaniaCodigo = $(elementosDiv.hdCampaniaCodigo).val() || _config.CampaniaCodigo;
 
         var $btnAgregar = $(event.target);
+        console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
+        console.log(origenPedidoWebEstrategia);
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-        
+        console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
-            //if (isMobile()) {
-            //    EstrategiaVerDetalleMobile(estrategia);
-            //    return true;
-            //}
+            estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
             sendAnalyticAgregarProductoDeshabilitado(estrategia, popup);
             return false;
@@ -322,7 +315,6 @@ var EstrategiaAgregarModule = (function () {
             OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
             FlagNueva: $.trim(estrategia.FlagNueva)
-            // ClienteID_:
         };
 
         EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
@@ -338,8 +330,6 @@ var EstrategiaAgregarModule = (function () {
             }
 
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
-
-            //AbrirLoad();
 
             if (divAgregado != null) {
                 if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
@@ -419,8 +409,6 @@ var EstrategiaAgregarModule = (function () {
                 }
                 HideDialog(elementosDiv.divVistaPrevia.substring(1));
 
-                //tieneMicroefecto = true;
-
                 CargarDetallePedido();
                 MostrarBarra(data);
             } else if (tipoOrigenEstrategiaAux == 2 ||
@@ -465,7 +453,6 @@ var EstrategiaAgregarModule = (function () {
             if (data.listCuvEliminar != null) {
                 $.each(data.listCuvEliminar, function (i, cuv) {
                     //Se debe integrar en un solo metodo
-                    //localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, false);
 	
                     itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
 
@@ -533,8 +520,9 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var adicionarCantidad = function (e) {
+       
         e.stopPropagation();
-        //
+        
         var $this = $(e.target);
         if (selectorCantidadEstaBloquedo($this)) return false;
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
@@ -546,9 +534,11 @@ var EstrategiaAgregarModule = (function () {
         return false;
     };
 
+    
     var disminuirCantidad = function (e) {
+        
         e.stopPropagation();
-        //
+        
         var $this = $(e.target);
         if (selectorCantidadEstaBloquedo($this)) return false;
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
@@ -562,27 +552,16 @@ var EstrategiaAgregarModule = (function () {
 
     var deshabilitarBoton = function () {
         $(_elementos.btnAgregar.id).addClass(_elementos.btnAgregar.classDesactivado);
-        //$(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        //$(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        //$("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        //$("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
-        //$("#idcontenedor_rangos").addClass("contenedor_rangos_desactivado");
     };
     
     var habilitarBoton = function() {
         $(_elementos.btnAgregar.id).removeClass(_elementos.btnAgregar.classDesactivado);
-        //$(".cantidad_mas_home").attr("data-bloqueada", "");
-        //$(".cantidad_menos_home").attr("data-bloqueada", "");
-        //$("#imgFichaProduMas").attr("data-bloqueada", "");
-        //$("#imgFichaProduMenos").attr("data-bloqueada", "");
-        //$("#idcontenedor_rangos").removeClass("contenedor_rangos_desactivado");
     }
 
     var _ValidarSeleccionTono = function (objInput, esFicha) {
         var attrClass = $.trim($(objInput).attr("class"));
         if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
 
-            //var $SelectTonos = $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']");
             var $SelectTonos = $(objInput).parents("[data-item]").find("[data-opciones-seleccionadas='0']").find("[data-tono-change='1']");
             var $SeleccionTonoToolTip = $("[data-selecciontono='tooltip']");
 

@@ -48,7 +48,6 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenURL { get; set; }
         public bool IsAgregado { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }
-        //public string PrecioNiveles { get; set; }
         public List<string> ListaPrecioNiveles { get; set; }
 
         public int MarcaID { get; set; }
@@ -79,5 +78,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int TipoEstrategiaImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
                                                              // se usa para ShowRoom
+
+        public bool EsBannerProgNuevas { get; set; } // Se usa para mostrar carrusel en el carrusel de Ofertas
     }
 }

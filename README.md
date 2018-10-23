@@ -1,5 +1,5 @@
 # Portal Consultoras SB2
 
-PI2-EPM-1557
+PI2-EPM-Sprint1-Pase22102018 
 
-Cambiar prioridad en descripción de componentes de Showroom Ficha
+- Sprint 1 + OrigenPedidoWeb + Script ETL

@@ -652,8 +652,6 @@ $('#SubmitButton').click();
 }
 
 function AsignarHojaEstilos() {
-    //var objEstiloEsika = $('#cssStyle>link');
-    //var objEstiloLbel = $('#cssStyleLbel>link')
 
     // Segun el nuevo cambio dentro del _LoginLayout.cshtml
     // solo habra un objeto <link src="current/src/style" /> el src cambiara dinamicamente con JS
@@ -1132,12 +1130,6 @@ function RecuperarContrasenia() {
 
                     case 6:
                         {
-                            //if (indicadorPin == 1) {
-                            //    var tituloPopup = "VERIFICACIÓN DE <b>AUTENTICIDAD</b>"
-                            //    $("#tituloPopup").empty();
-                            //    $("#tituloPopup").append(tituloPopup);
-                            //}
-
                             $(".menPrioridad3").show();
                             $("#spnNombreConsultora").empty();
                             $("#spnNombreConsultora").append("<b>" + primerNombre + "</b>, ");
@@ -1487,10 +1479,9 @@ function MostrarPopupPin(data) {
     var strNuevas = "1,2";
     var strReactivadas = "6,7,8";
 
-    //if (strNuevas.includes(data.IdEstadoActividad))
     if (typeof strNuevas == "string" && strNuevas.indexOf(data.IdEstadoActividad) > -1)
         $("#menAutenticacionNueva").show();
-    //else if (strReactivadas.includes(data.IdEstadoActividad))
+
     else if (typeof strReactivadas == "string" && strReactivadas.indexOf(data.IdEstadoActividad) > -1)
         $("#menAutenticacionReactivada").show();
 

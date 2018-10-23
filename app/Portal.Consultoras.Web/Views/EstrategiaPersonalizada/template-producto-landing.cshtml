@@ -28,6 +28,21 @@
         </div>
     </div>
     {{else}}
+    {{#if EsBannerProgNuevas}}
+    <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+        <a href="@Url.Action("Index", "ProgramaNuevas")">
+            <div class="content_item_carrusel content_item_carrusel_prog_nuevas" style="cursor:pointer;">
+                <img src="{{ImagenURL}}" alt="" class="clubganamas_logo" />
+                <div class="container_text">
+                    <p class="primero">ELIGE DOS PRODUCTOS</p>
+                    <p class="segundo">Y ARMA TU DÚO PERFECTO</p>
+                    <p class="boton">ELEGIR AHORA</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    {{else}}
     <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div data-item-tag="body" class="content_item_carrusel" {{#iff EsSubcampania '==' false}} {{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}} {{/iff}}>
@@ -151,6 +166,7 @@
 
         </div>
     </div>
+    {{/if}}
     {{/if}}
     {{/if}}
     {{/each}}

@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -6,9 +7,6 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Portal.Consultoras.Web.LogManager;
-using System.Web.Script.Serialization;
-using System.Diagnostics;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -19,6 +17,8 @@ namespace Portal.Consultoras.Web.Providers
         public virtual ConfiguracionPaisProvider ConfiguracionPais { get; private set; }
         public virtual GuiaNegocioProvider GuiaNegocio { get; private set; }
         public virtual ShowRoomProvider ShowRoom { get; private set; }
+        public virtual OfertaPersonalizadaProvider OfertaPersonalizada { get; private set; }
+        public virtual ProgramaNuevasProvider ProgramaNuevas { get; private set; }
 
         private UsuarioModel userData
         {
@@ -41,21 +41,27 @@ namespace Portal.Consultoras.Web.Providers
                     Web.LogManager.LogManager.Instance,
                    new ConfiguracionPaisProvider(),
                    new GuiaNegocioProvider(),
-                   new ShowRoomProvider())
+                   new ShowRoomProvider(),
+                   new OfertaPersonalizadaProvider(),
+                   new ProgramaNuevasProvider(Web.SessionManager.SessionManager.Instance))
         {
         }
 
         public ConfiguracionOfertasHomeProvider(ISessionManager sessionManager,
             ILogManager logManager,
-            ConfiguracionPaisProvider configuracionPaisProvider,
+            ConfiguracionPaisProvider configuracionPais,
             GuiaNegocioProvider guiaNegocio,
-            ShowRoomProvider showRoom)
+            ShowRoomProvider showRoom,
+            OfertaPersonalizadaProvider ofertaPersonalizada,
+            ProgramaNuevasProvider programaNuevasProvider)
         {
             SessionManager = sessionManager;
             LogManager = logManager;
-            ConfiguracionPais = configuracionPaisProvider;
+            ConfiguracionPais = configuracionPais;
             GuiaNegocio = guiaNegocio;
             ShowRoom = showRoom;
+            OfertaPersonalizada = ofertaPersonalizada;
+            ProgramaNuevas = programaNuevasProvider;
         }
 
         public virtual List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital, bool esMobile)
@@ -69,15 +75,15 @@ namespace Portal.Consultoras.Web.Providers
 
                 var seccionesContenedor = GetSeccionesContenedor();
                 seccionesContenedor = GetSeccionesContenedorByCampania(seccionesContenedor);
-
                 var isMobile = esMobile;
+                var esDuoPerfecto = ProgramaNuevas.GetLimElectivos() > 1;
+                List<ServiceOferta.BEEstrategia> listProgNuevas = null;
+
                 foreach (var beConfiguracionOfertasHome in seccionesContenedor)
                 {
                     var entConf = beConfiguracionOfertasHome;
                     entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
-
-                    //string titulo = "", subTitulo = "";
-
+                    
                     #region Pre Validacion
 
                     if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais)) continue;
@@ -86,14 +92,6 @@ namespace Portal.Consultoras.Web.Providers
                         || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                         || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
                     {
-                        //if (!RDObtenerTitulosSeccion(ref titulo, ref subTitulo, entConf.ConfiguracionPais.Codigo, userData.Sobrenombre))
-                        //    continue;
-
-                        //entConf.DesktopTitulo = titulo;
-                        //entConf.DesktopSubTitulo = subTitulo;
-
-                        //entConf.MobileTitulo = titulo;
-                        //entConf.MobileSubTitulo = subTitulo;
 
                         if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
                             && !revistaDigital.TieneRDC) continue;
@@ -150,36 +148,54 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
                             seccion.UrlObtenerProductos = "";
                             break;
+                        case Constantes.ConfiguracionPais.ProgramaNuevas:
+                            if (esDuoPerfecto) continue;
+
+                            listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
+                            if (!listProgNuevas.Any()) continue;
+
+                            seccion.UrlObtenerProductos = "";
+                            break;
+                        case Constantes.ConfiguracionPais.DuoPerfecto:
+                            if (!esDuoPerfecto) continue;
+
+                            listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
+                            if (!listProgNuevas.Any()) continue;
+
+                            seccion.UrlObtenerProductos = "";
+                            break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:
-                            seccion.UrlObtenerProductos = "Estrategia/ConsultarEstrategiasOPT";
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedor;
-                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedorPopup;
+                            seccion.UrlObtenerProductos = "Estrategia/ConsultarEstrategiasOPT"; 
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.Lanzamiento:
                             seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductosLan";
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedor;
-                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedorPopup;
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosFicha : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosFicha;
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                         case Constantes.ConfiguracionPais.RevistaDigital:
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "RevistaDigital/Revisar" : "RevistaDigital/Comprar");
                             seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
-                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
-                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
+                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                             break;
                         case Constantes.ConfiguracionPais.ShowRoom:
                             ConfiguracionSeccionShowRoom(ref seccion, isMobile);
                             if (seccion.UrlLandig == "")
                                 continue;
 
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.ShowRoomMobileContenedor : Constantes.OrigenPedidoWeb.ShowRoomDesktopContenedor;
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
                             var estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                             if (!estrategiaODD.TieneOfertaDelDia)
                                 continue;
+                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaFicha;
 
                             SessionManager.OfertaDelDia.Estrategia.ConfiguracionContenedor = seccion;
 
@@ -187,8 +203,8 @@ namespace Portal.Consultoras.Web.Providers
                         case Constantes.ConfiguracionPais.HerramientasVenta:
                             seccion.UrlObtenerProductos = "Estrategia/HVObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "HerramientasVenta/Revisar" : "HerramientasVenta/Comprar");
-                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedor;
-                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
+                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
                             break;
                     }
                     #endregion
@@ -203,10 +219,6 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.TemplatePresentacion = "seccion-simple-centrado";
                             seccion.TemplateProducto = "#producto-landing-template";
                             break;
-                        //case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselPrevisuales:
-                        //    seccion.TemplatePresentacion = "seccion-carrusel-previsuales";
-                        //    seccion.TemplateProducto = "#lanzamiento-carrusel-template";
-                        //    break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
                             seccion.TemplatePresentacion = "seccion-simple-centrado";
                             seccion.TemplateProducto = "#producto-landing-template";
@@ -362,30 +374,6 @@ namespace Portal.Consultoras.Web.Providers
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
         }
-
-        //private bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo, string sobreNombre)
-        //{
-        //    var revistaDigital = SessionManager.GetRevistaDigital();
-        //    if (codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC) return false;
-
-        //    titulo = revistaDigital.TieneRDC
-        //        ? (revistaDigital.EsActiva || revistaDigital.EsSuscrita)
-        //            ? "OFERTAS CLUB GANA+"
-        //            : "OFERTAS GANA+"
-        //        : "";
-
-        //    subtitulo = sobreNombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
-
-        //    if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)
-        //    {
-        //        if (revistaDigital.TieneRDC) return false;
-
-        //        titulo = "MÁS OFERTAS PARA TI " + sobreNombre.ToUpper();
-        //        subtitulo = "EXCLUSIVAS SÓLO POR WEB";
-        //    }
-
-        //    return true;
-        //}
 
     }
 }

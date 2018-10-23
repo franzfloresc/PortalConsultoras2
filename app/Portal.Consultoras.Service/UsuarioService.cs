@@ -901,10 +901,16 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetActualizacionEmail(paisID, codigoUsuario);
         }
 
-        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
+        public BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.CancelarAtualizacionEmail(paisID, codigoUsuario);
+            return BLUsuario.GetActualizacionEmailySms(paisID, codigoUsuario);
+        }
+
+        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario, string tipoEnvio)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.CancelarAtualizacionEmail(paisID, codigoUsuario, tipoEnvio);
         }
 
         public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)

@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
         private string pasoLog;
         private int misCursos = 0;
         private int flagMiAcademiaVideo = 0;  
-        private string urlSapParametro = "";  //  PPC
+        private string urlSapParametro = "";
 
         private readonly string IP_DEFECTO = "190.187.154.154";
         private readonly string ISO_DEFECTO = Constantes.CodigosISOPais.Peru;
@@ -71,13 +71,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             MisCursos();
 
+          
+
             if (EsUsuarioAutenticado())
             {
                 if (misCursos > 0)
                 {
                     sessionManager.SetMiAcademia(misCursos);
                     sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo); 
-                    sessionManager.SetMiAcademiaParametro(urlSapParametro);  //PPC
+                    sessionManager.SetMiAcademiaParametro(urlSapParametro);
                     
                     return RedirectToAction("Index", "MiAcademia");
                 }
@@ -165,7 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var MiId = MiCurso[1].Split('&');
 
                 var url9 = url[1].ToUpper();
-                //var param="";
+
                 if (url9.Contains("MIACADEMIAVIDEO") && url9.Contains("SAP"))
                 {
                     urlSapParametro = url9.Remove(0, 21);
@@ -841,7 +843,6 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("Ofertas", "Index", null, "ODD");
                     case Constantes.IngresoExternoPagina.HerramientasDeVenta:
                         return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
-                        //case Constantes.IngresoExternoPagina.SaberMasInscripcion:
                 }
             }
             catch (Exception ex)
@@ -1326,6 +1327,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                         usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
 
+                       
+
                         #endregion
                     }
 
@@ -1334,7 +1337,10 @@ namespace Portal.Consultoras.Web.Controllers
                         var lstFiltersFAV = await CargarFiltersFAV(usuarioModel);
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
+                    usuarioModel.JwtToken = await Common.JwtAutentication.getWebTokenAsync(JwtContext.Instance);
 
+
+                   
                     using (var usuarioCliente = new UsuarioServiceClient())
                     {
                         var insert = usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
@@ -1355,10 +1361,14 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpmX1(true);
                     sessionManager.SetTieneHv(true);
                     sessionManager.SetTieneHvX1(true);
+                    sessionManager.SetJwtApiSomosBelcorp(usuarioModel.JwtToken);
+
+
+
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
-                    usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID, usuarioModel.FechaHoy);
+                    usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
                     usuarioModel.ListaOrdenamientoFiltrosBuscador = getListaOrdenamientoFiltrosBuscador(usuarioModel.PaisID);
                 }
@@ -2939,7 +2949,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Mostrar;
         }
 
-        private int GetDiaFacturacion(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID, DateTime FechaHoy)
+        private int GetDiaFacturacion(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID)
         {
             int diaFacturacion = 0;
             BEConfiguracionCampania configuracionCampania;
