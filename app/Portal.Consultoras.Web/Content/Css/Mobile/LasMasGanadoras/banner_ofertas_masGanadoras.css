@@ -15,11 +15,10 @@
 .contenido_ofertas p {
     color: #fff;
     font-size: 16px;
-    padding: 0px 5px;
 }
 
 .contenido_ofertas a {
-    width: 100%;
+    width: 85%;
     color: #fff;
     padding: 13px 0px;
     font-weight: bold;
@@ -27,4 +26,5 @@
     line-height: normal;
     border: 1px solid #fff;
     border-radius: 4px;
+    margin: 0 auto;
 }
