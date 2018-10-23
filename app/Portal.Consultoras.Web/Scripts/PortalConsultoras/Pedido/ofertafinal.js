@@ -22,6 +22,11 @@ $(document).ready(function () {
         var divPadre = $(this).parents("[data-item='ofertaFinal']").eq(0);
         var objCantidad = $(this).parent().find('[data-input="cantidad"]');
 
+        if (tipoOrigen == "1")
+            DesktopPedidoOfertaFinal = $(this).data("origenpedidoweb") == undefined ? DesktopPedidoOfertaFinal : $(this).data("origenpedidoweb");
+        else
+            MobilePedidoOfertaFinal = $(this).data("origenpedidoweb") == undefined ? MobilePedidoOfertaFinal : $(this).data("origenpedidoweb");
+
         ValidarAgregarOfertaFinal($(divPadre), objCantidad, null);
     });
 
@@ -30,6 +35,11 @@ $(document).ready(function () {
         var divPadre = $("#divCarruselOfertaFinal").find("[data-popup-id=" + prodId + "]").eq(0);
         var objCantidad = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-input='cantidad']");
         var fnFinal = function () { $("#contenedor_popup_ofertaFinalVerDetalle").hide(); };
+
+        if (tipoOrigen == "1")
+            DesktopPedidoOfertaFinal = $(this).data("origenpedidoweb") == undefined ? DesktopPedidoOfertaFinal : $(this).data("origenpedidoweb");
+        else
+            MobilePedidoOfertaFinal = $(this).data("origenpedidoweb") == undefined ? MobilePedidoOfertaFinal : $(this).data("origenpedidoweb");
 
         ValidarAgregarOfertaFinal($(divPadre), objCantidad, fnFinal);
     });
