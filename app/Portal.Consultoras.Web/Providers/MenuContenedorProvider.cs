@@ -150,7 +150,7 @@ namespace Portal.Consultoras.Web.Providers
                     break;
                 case Constantes.UrlMenuContenedor.ProgramaNuevas:
                 case Constantes.UrlMenuContenedor.ProgramaNuevasIndex:
-                    menuActivo.Codigo =  limiteElectivos > 1 ? Constantes.ConfiguracionPais.DuoPerfecto : Constantes.ConfiguracionPais.ProgramaNuevas;
+                    menuActivo.Codigo =  limiteElectivos > 1 ? Constantes.ConfiguracionPais.ElecMultiple : Constantes.ConfiguracionPais.ProgramaNuevas;
                     break;
             }
 
@@ -326,7 +326,7 @@ namespace Portal.Consultoras.Web.Providers
             menuContenedor = new List<ConfiguracionPaisModel>();
             configuracionesPais = configuracionesPais.Where(c => c.TienePerfil).ToList();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var esDuoPerfecto = _programaNuevasProvider.GetLimElectivos() > 1;
+            var esElecMultiple = _programaNuevasProvider.GetLimElectivos() > 1;
             List<ServiceOferta.BEEstrategia> listProgNuevas = null;
 
             foreach (var confiModel in configuracionesPais)
@@ -480,14 +480,14 @@ namespace Portal.Consultoras.Web.Providers
                         confiModel.UrlMenu = "HerramientasVenta/Comprar";
                         break;
                     case Constantes.ConfiguracionPais.ProgramaNuevas:
-                        if (esDuoPerfecto) continue;
+                        if (esElecMultiple) continue;
 
                         listProgNuevas = listProgNuevas ?? _ofertaPersonalizadaProvider.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
                         if (!listProgNuevas.Any()) continue;
 
                         break;
-                    case Constantes.ConfiguracionPais.DuoPerfecto:
-                        if (!esDuoPerfecto) continue;
+                    case Constantes.ConfiguracionPais.ElecMultiple:
+                        if (!esElecMultiple) continue;
 
                         listProgNuevas = listProgNuevas ?? _ofertaPersonalizadaProvider.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
                         if (!listProgNuevas.Any()) continue;

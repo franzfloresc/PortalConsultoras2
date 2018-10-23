@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Providers
                 var seccionesContenedor = GetSeccionesContenedor();
                 seccionesContenedor = GetSeccionesContenedorByCampania(seccionesContenedor);
                 var isMobile = esMobile;
-                var esDuoPerfecto = ProgramaNuevas.GetLimElectivos() > 1;
+                var esElecMultiple = ProgramaNuevas.GetLimElectivos() > 1;
                 List<ServiceOferta.BEEstrategia> listProgNuevas = null;
 
                 foreach (var beConfiguracionOfertasHome in seccionesContenedor)
@@ -149,15 +149,15 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.ProgramaNuevas:
-                            if (esDuoPerfecto) continue;
+                            if (esElecMultiple) continue;
 
                             listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
                             if (!listProgNuevas.Any()) continue;
 
                             seccion.UrlObtenerProductos = "";
                             break;
-                        case Constantes.ConfiguracionPais.DuoPerfecto:
-                            if (!esDuoPerfecto) continue;
+                        case Constantes.ConfiguracionPais.ElecMultiple:
+                            if (!esElecMultiple) continue;
 
                             listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
                             if (!listProgNuevas.Any()) continue;
