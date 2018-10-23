@@ -3470,6 +3470,9 @@ namespace Portal.Consultoras.BizLogic
             mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos).FirstOrDefault();
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.AplicarLogicaCantidadBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
 
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento).FirstOrDefault();
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarOpcionesOrdenamiento = mostrarBuscador.Valor1 == "1";
+
             return buscadorYFiltrosConfiguracion;
         }
         #endregion
