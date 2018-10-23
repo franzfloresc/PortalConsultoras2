@@ -26,6 +26,7 @@ using System.Web.UI.WebControls;
 using System.Xml.Linq;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaController : BaseController
@@ -1631,17 +1632,17 @@ namespace Portal.Consultoras.Web.Controllers
                 var nombreArchivo = Request["qqfile"];
                 new UploadHelper().UploadFile(Request, nombreArchivo);
 
-                var carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, userData.CodigoISO,
+                var carpetaPais = string.Format(Constantes.ProgNuevas.CarpetaBanner, userData.CodigoISO,
                     Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
 
                 var newfilename = string.Empty;
                 switch (tipoBanner)
                 {
-                    case Constantes.ProgramaNuevas.TipoBanner.BannerCupon:
-                        newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, codigoPrograma, FileManager.RandomString());
+                    case Constantes.ProgNuevas.TipoBanner.BannerCupon:
+                        newfilename = string.Format(Constantes.ProgNuevas.ArchivoBannerCupones, codigoPrograma, FileManager.RandomString());
                         break;
-                    case Constantes.ProgramaNuevas.TipoBanner.BannerPremio:
-                        newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, codigoPrograma, FileManager.RandomString());
+                    case Constantes.ProgNuevas.TipoBanner.BannerPremio:
+                        newfilename = string.Format(Constantes.ProgNuevas.ArchivoBannerPremios, codigoPrograma, FileManager.RandomString());
                         break;
                 }
 
@@ -1653,8 +1654,8 @@ namespace Portal.Consultoras.Web.Controllers
                         PaisID = userData.PaisID,
                         CodigoPrograma = codigoPrograma,
                         CodigoNivel = codigoNivel,
-                        ArchivoBannerCupon = (tipoBanner == Constantes.ProgramaNuevas.TipoBanner.BannerCupon ? newfilename : null),
-                        ArchivoBannerPremio = (tipoBanner == Constantes.ProgramaNuevas.TipoBanner.BannerPremio ? newfilename : null),
+                        ArchivoBannerCupon = (tipoBanner == Constantes.ProgNuevas.TipoBanner.BannerCupon ? newfilename : null),
+                        ArchivoBannerPremio = (tipoBanner == Constantes.ProgNuevas.TipoBanner.BannerPremio ? newfilename : null),
                     };
 
                     using (var sv = new PedidoServiceClient())
@@ -1688,7 +1689,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string filenameCupon = string.Empty;
                 string filenamePremio = string.Empty;
-                string carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, userData.CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
+                string carpetaPais = string.Format(Constantes.ProgNuevas.CarpetaBanner, userData.CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
 
                 var entidad = new BEConfiguracionProgramaNuevasApp()
                 {
@@ -2084,7 +2085,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult UploadFileProductStrategyShowroom(DescripcionMasivoModel model)
         {
-            int cantidadColumnas = 4;
+            int cantidadColumnas = 5;
             int[] numberRecords = null;
             int line = 0;
             try
@@ -2126,6 +2127,11 @@ namespace Portal.Consultoras.Web.Controllers
                         columnObservation = Constantes.ColumnsProductStrategyShowroom.Description;
                         errorColumn = true;
                     }
+                    if (!arrayHeader[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct].ToLower().Equals(Constantes.ColumnsProductStrategyShowroom.BrandProduct))
+                    {
+                        columnObservation = Constantes.ColumnsProductStrategyShowroom.BrandProduct;
+                        errorColumn = true;
+                    }
                     if (errorColumn)
                     {
                         throw new ArgumentException(string.Format("Verificar los títulos de las columnas del archivo. <br /> Referencia: La observación se encontró en la columna '{0}'", columnObservation));
@@ -2150,13 +2156,19 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 throw new ArgumentException(string.Format("El valor del campo 'posición' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
+                            if (!int.TryParse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct], out evalResult))
+                            {
+                                throw new ArgumentException(string.Format("El valor del campo 'Marca de producto' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
+                            }
                             line++;
                             strategyEntityList.Add(new ServicePedido.BEEstrategiaProducto
                             {
                                 CUV = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.CUV].ToString().TrimEnd(),
                                 NombreProducto = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd(),
                                 Descripcion1 = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Description].ToString().TrimEnd(),
-                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order])
+                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order]),
+                                IdMarca = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct])
+                                
                             });
                         }
                     }
@@ -2173,7 +2185,8 @@ namespace Portal.Consultoras.Web.Controllers
                                  new XElement("CUV", strategy.CUV),
                                  new XElement("NombreProducto", strategy.NombreProducto),
                                  new XElement("Descripcion1", strategy.Descripcion1),
-                                 new XElement("Orden", strategy.Orden)
+                                 new XElement("Orden", strategy.Orden),
+                                 new XElement("IdMarca", strategy.IdMarca)
                                ));
                     using (var service = new PedidoServiceClient())
                     {

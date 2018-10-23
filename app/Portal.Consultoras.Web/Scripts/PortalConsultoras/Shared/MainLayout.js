@@ -219,6 +219,19 @@ $(document).ready(function () {
         }
     });
 
+    $('#divMensajeConfDuoPerfecto').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 500,
+        draggable: true,
+        title: "",
+        close: function (event, ui) {
+            $(this).dialog('close');
+        }
+    });
+
     $(".ValidaAlfanumericoCom").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
@@ -948,7 +961,7 @@ function CerrarSesion() {
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-
+        var itemSBSurvicate= GetItemLocalStorageSurvicate();
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -958,10 +971,22 @@ function CerrarSesion() {
         if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
+        localStorage.setItem('SurvicateStorage', JSON.stringify(itemSBSurvicate));
     }
 
     location.href = baseUrl + 'Login/LogOut';
 }
+
+function GetItemLocalStorageSurvicate() {
+    var surviKeys = {};
+    for (var key in localStorage)
+    {
+        if (key.indexOf('survi::') > -1)
+            surviKeys[key] = localStorage[key];
+    }
+    return surviKeys;
+}
+
 
 function Notificaciones() {
     location.href = baseUrl + 'Notificaciones/Index';
@@ -1119,6 +1144,18 @@ function messageConfirmacion(title, message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+}
+
+function messageConfirmacionDuoPerfecto(message, fnAceptar) {
+    message = $.trim(message);
+    if (message == "") return false;
+
+    $('#divMensajeConfDuoPerfecto .divTexto p').html(message);
+    $('#divMensajeConfDuoPerfecto').dialog('open');
+    if ($.isFunction(fnAceptar)) {
+        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').off('click');
+        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').on('click', fnAceptar);
     }
 }
 

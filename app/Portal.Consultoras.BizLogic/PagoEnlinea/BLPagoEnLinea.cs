@@ -158,5 +158,12 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         {
             return new DAPagoEnLinea(paisId).ObtenerNumeroOrden();
         }
+
+        public string ObtenerPagoEnLineaURLPaginasBancos(int paisId)
+        {
+            return new DAPagoEnLinea(paisId).ObtenerPagoEnLineaURLPaginasBancos();
+        }
+
+
     }
 }
