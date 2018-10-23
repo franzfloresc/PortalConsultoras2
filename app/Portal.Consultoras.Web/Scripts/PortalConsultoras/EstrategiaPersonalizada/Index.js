@@ -558,6 +558,7 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 
     if (currentSlide == 0) {
         $(objPrevArrow).hide();
+        $(objNextArrow).show();
 
     }
     else {
@@ -567,8 +568,8 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
             var positionUltimoSlick = $(lastSlick).offset().left + $(lastSlick).width();
             var paddindLeftUltimo = $(lastSlick).css('padding-left');
             paddindLeftUltimo = paddindLeftUltimo ? paddindLeftUltimo.replace('px', '') : 0;
-            paddindLeftUltimo = parseFloat(paddindLeftUltimo);
-
+            paddindLeftUltimo = parseFloat(paddindLeftUltimo); 
+             
             if (positionUltimoSlick < anchoCarrusel) {                
                 $(objNextArrow).hide();
             }
