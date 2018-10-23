@@ -1580,6 +1580,12 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_TemplateMensaje");
         }
 
+        public ActionResult MessageBox(string msj)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("MessageBox", "&msj=" + msj);
+            return PartialView("_TemplateMensaje");
+        }
+
         public ActionResult ConfirmarPosicion(int id, decimal latitud,
             decimal longitud, string direccionCorrecta, string direccionCadena, string region, string comuna,
             string codregion, string codzona, string codseccion, string codterritorio, string direccion)
