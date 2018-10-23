@@ -239,6 +239,7 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "030";
             public const string HerramientasVenta = "011";
             public const string NotParticipaProgramaNuevas = "0";
+            public const string MasGanadoras = "201"; // No tiene referecia con BD, es un grupo de estrategias
         }
 
         public static class TipoPersonalizacion
@@ -251,6 +252,19 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "GND";
             public const string ShowRoom = "SR";
             public const string HerramientasVenta = "HV";
+        }
+
+        public static class TipoAccionAgregar
+        {
+            public const int SinBoton = 0;
+            public const int AgregaloPackNuevas = 1;
+            public const int AgregaloNormal = 2;
+            public const int EligeOpcion = 3;
+            public const int LoQuieres = 4;
+            public const int LoQuieresInactivo = 5;
+
+            public const int BannerCarruselMg = 11;
+
         }
 
         public static class EstadoRespuestaServicio
@@ -277,6 +291,7 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevasRegalo = "ProgramaNuevasRegalo";
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
+            public const string MasGanadoras = "Ganadoras";
 
             private static Dictionary<string, string> _Palancas;
             public static Dictionary<string, string> Palancas
@@ -371,6 +386,7 @@ namespace Portal.Consultoras.Common
             public const string TieneOpmX1 = "TieneOpmX1";
             public const string TieneHv = "TieneHv";
             public const string TieneHvX1 = "TieneHvX1";
+            public const string TieneMg = "TieneMg";
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
@@ -834,6 +850,18 @@ namespace Portal.Consultoras.Common
             public const int MasVendidosMobileHomeCarrusel = 2151;
             public const int MasVendidosMobileProductPageFicha = 2611;
             public const int MasVendidosMobileHome = 2123;
+            #endregion
+
+
+            #region MasGanadoras     
+
+            public const int MasGanadorasDesktopLanding = 1111401;
+            public const int MasGanadorasDesktopLandingFicha = 1111402;
+            public const int MasGanadorasMobileLandingFicha = 2111402;
+            public const int MasGanadorasDesktopContenedorCarrusel = 1081401;
+            public const int MasGanadorasDesktopContenedorCarruselFicha = 1081402;
+            public const int MasGanadorasMobileContenedorCarruselFicha = 2081402;
+
             #endregion
 
             #region VirtualCoach
@@ -1373,6 +1401,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "HV";
             public const string PagoEnLinea = "PAYONLINE";
             public const string BuscadorYFiltros = "B&F";
+            public const string MasGanadoras = "MG";
         }
 
 
@@ -1541,6 +1570,14 @@ namespace Portal.Consultoras.Common
                 #endregion
             }
 
+            public static class MG
+            {
+                #region Banner Carrusel - Caja Producto
+                public const string BannerCarruselTitulo = "BannerCarruselTitulo";
+                public const string BannerCarruselTextoEnlace = "BannerCarruselTextoEnlace";
+                #endregion
+            }
+
         }
 
         public static class ConfiguracionSeccion
@@ -1555,6 +1592,7 @@ namespace Portal.Consultoras.Common
                 public const int OfertaDelDia = 6;
                 public const int DescagablesNavidenos = 7;
                 public const int CarruselIndividuales = 8;
+                public const int CarruselIndividualesV2 = 9;
             }
         }
 
@@ -1986,7 +2024,8 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaIndex = "/herramientasventa/index";
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
-
+            public const string MasGanadorasIndex = "/masganadoras/index";
+            public const string MasGanadoras = "/masganadoras";
             // Url Ficha
             public const string DetalleHerramientasVenta = "/detalle/demostradores";
             public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
@@ -1996,6 +2035,7 @@ namespace Portal.Consultoras.Common
             public const string DetalleShowRoom = "/detalle/especiales";
             public const string DetalleOfertaDelDia = "/detalle/solohoy";
             public const string DetallePackNuevas = "/detalle/packnuevas";
+            public const string DetalleMasGanadoras = "/detalle/ganadoras";
         }
 
         public static class TipoVistaEstrategia
@@ -2519,10 +2559,11 @@ namespace Portal.Consultoras.Common
         public static class TipoConsultaOfertaPersonalizadas
         {
             public const int RDObtenerProductos = 1;
-            public const int RDObtenerProductosLan = 2;
+            public const int LANObtenerProductos = 2;
             public const int GNDObtenerProductos = 3;
             public const int HVObtenerProductos = 4;
             public const int OPTObtenerProductos = 5;
+            public const int MGObtenerProductos = 6;
         };
 
         #region PagoEnLinea
@@ -2692,8 +2733,8 @@ namespace Portal.Consultoras.Common
             //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
             public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
 
-            ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}
-            public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}";
+            ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}/{materialGanancia}
+            public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}";
 
             //api/Componente/{pais}/{codigoCampania}/{cuv}
             public const string UrlObtenerComponente = "api/Componente/{0}/{1}/{2}";
@@ -2915,6 +2956,13 @@ namespace Portal.Consultoras.Common
         public static class MetaConsultora
         {
             public const string VerificacionCambioClave = "VF_CAMBIO_CLAVE";
+        }
+
+        public static class MasGanadoras
+        {
+            public const int ObtenerOpmTodo = 0;
+            public const int ObtenerOpmSinForzadasMG1 = 1;
+            public const int ObtenerOpmSoloForzadasMG1 = 2;
         }
 
     }

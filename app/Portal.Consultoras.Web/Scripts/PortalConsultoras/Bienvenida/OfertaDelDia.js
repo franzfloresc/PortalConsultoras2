@@ -153,7 +153,7 @@ var OfertaDelDiaModule = function () {
         return listaOfertasConClases;
     };
 
-    var RenderOfertaDelDia = function(data, contenedorOfertas) {
+    var RenderOfertaDelDia = function (data, contenedorOfertas) {
         $(contenedorOfertas).hide();
 
         data.ListaOferta = data.ListaOferta || [];

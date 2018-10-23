@@ -148,6 +148,15 @@ namespace Portal.Consultoras.Web.Providers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     menuActivo.MostrarMenuFlotante = false;
                     break;
+                case Constantes.UrlMenuContenedor.DetalleMasGanadoras:
+                    menuActivo.MostrarMenuFlotante = false;
+                    break;
+                case Constantes.UrlMenuContenedor.MasGanadorasIndex:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.MasGanadoras;
+                    break;
+                case Constantes.UrlMenuContenedor.MasGanadoras:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.MasGanadoras;
+                    break;
             }
 
             return menuActivo;
@@ -308,6 +317,10 @@ namespace Portal.Consultoras.Web.Providers
             {
                 menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.HerramientasVenta).ToList();
             }
+            if (campaniaIdMenuActivo == campaniaIdUsuario && !sessionManager.GetTieneMg())
+            {
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.MasGanadoras).ToList();
+            }
 
             return menuContenedor;
         }
@@ -318,12 +331,22 @@ namespace Portal.Consultoras.Web.Providers
             var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
 
             if (menuContenedor.Any() || !configuracionesPais.Any())
+            {
+                foreach (var item in menuContenedor)
+                {
+                    if (item.Codigo == Constantes.ConfiguracionPais.MasGanadoras)
+                    {
+                        item.UrlMenu = sessionManager.MasGanadoras.GetModel().TieneLanding ? "MasGanadoras" : "#";
+                    }
+                }
                 return menuContenedor;
+            }
 
             menuContenedor = new List<ConfiguracionPaisModel>();
             configuracionesPais = configuracionesPais.Where(c => c.TienePerfil).ToList();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var paisCarpeta = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO) ? "Esika" : "Lbel";
+
             foreach (var confiModel in configuracionesPais)
             {
                 var config = confiModel;
@@ -474,6 +497,16 @@ namespace Portal.Consultoras.Web.Providers
                     case Constantes.ConfiguracionPais.HerramientasVenta:
                         confiModel.UrlMenu = "HerramientasVenta/Comprar";
                         break;
+
+                    case Constantes.ConfiguracionPais.MasGanadoras:
+                        if (!revistaDigital.EsActiva)
+                        {
+                            continue;
+                        }
+
+                        confiModel.UrlMenu = sessionManager.MasGanadoras.GetModel().TieneLanding 
+                                            ? "MasGanadoras" : "#";
+                        break;
                 }
 
                 config = _configuracionPaisProvider.ActualizarTituloYSubtituloMenu(config);
@@ -491,6 +524,7 @@ namespace Portal.Consultoras.Web.Providers
             menuContenedor.Add(new ConfiguracionPaisModel() { DesktopTituloMenu="SABER MÁS", Codigo = "INFO", CampaniaId=userData.CampaniaID ,UrlMenu= "RevistaDigital/Informacion" , MobileTituloMenu =  "SABER MÁS" });
             return menuContenedor;
         }
+
         private void SetMenuContenedorNoSuscrita(List<ConfiguracionPaisModel> MenuContenedor, bool EsSuscrita)
         {
             if (EsSuscrita)
@@ -509,6 +543,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             
         }
+
         public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> menuContenedor, int CampaniaID, int NroCampanias)
         {
             var menuContenedorBloqueado = new List<ConfiguracionPaisModel>();

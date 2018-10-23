@@ -1354,6 +1354,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpmX1(true);
                     sessionManager.SetTieneHv(true);
                     sessionManager.SetTieneHvX1(true);
+                    sessionManager.SetTieneMg(true);
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
@@ -1856,6 +1857,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 var buscadorYFiltrosModel = new BuscadorYFiltrosConfiguracionModel();
+                var masGanadorasModel = new MasGanadorasModel();
                 
                 if (configuracionesPaisModels.Any())
                 {
@@ -1936,6 +1938,10 @@ namespace Portal.Consultoras.Web.Controllers
                                     usuarioModel.IndicadorConsultoraDummy = listaDummy[0].Valor1.ToInt();
                                 }
                                 break;
+                            case Constantes.ConfiguracionPais.MasGanadoras:
+                                masGanadorasModel.TieneMG = c.Estado;
+                                masGanadorasModel = ConfiguracionPaisDatosMasGanadoras(masGanadorasModel, configuracionPaisDatos);
+                                break;
                         }
 
                         listaConfiPaisModel.Add(c);
@@ -1953,6 +1959,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                     sessionManager.SetHerramientasVenta(herramientasVentaModel);
                     sessionManager.SetBuscadorYFiltros(buscadorYFiltrosModel);
+                    sessionManager.MasGanadoras.SetModel(masGanadorasModel);
                 }
 
                 usuarioModel.CodigosRevistaImpresa = await ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
@@ -2332,6 +2339,15 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #endregion
+
+        public virtual MasGanadorasModel ConfiguracionPaisDatosMasGanadoras(MasGanadorasModel model, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            model.ConfiguracionPaisDatos =
+                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
+                    new List<ConfiguracionPaisDatosModel>();
+
+            return model;
+        }
 
         protected virtual bool EsUsuarioAutenticado()
         {

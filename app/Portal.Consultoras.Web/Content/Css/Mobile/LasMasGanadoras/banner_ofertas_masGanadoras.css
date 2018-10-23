@@ -1,0 +1,28 @@
+﻿
+.banner_ofertas_masGanadoras {
+    background-color: #c39934;
+    border-radius: 4px;
+    padding: 20px;
+    width: 145px;
+    height: 286px;
+    text-align: center;
+    display: flex !important;
+    align-items: center;
+}
+
+.contenido_ofertas p {
+    color: #fff;
+    font-size: 16px;
+    padding: 0px 5px;
+}
+
+.contenido_ofertas a {
+    width: 100%;
+    color: #fff;
+    padding: 13px 0px;
+    font-weight: bold;
+    display: block;
+    line-height: normal;
+    border: 1px solid #fff;
+    border-radius: 4px;
+}
