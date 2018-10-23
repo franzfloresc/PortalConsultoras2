@@ -217,9 +217,9 @@ namespace Portal.Consultoras.Web.Controllers
             return _pedidoWebProvider.ObtenerPedidoWeb(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
         }
 
-        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(bool noSession = false)
         {
-            return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
+            return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt(), noSession);
         }
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
