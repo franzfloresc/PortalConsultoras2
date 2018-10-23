@@ -921,15 +921,49 @@ function AgregarProductoLiquidacion(contenedor) {
         imagenProducto: $(contenedor).find("#ImagenProducto").val(),
         Posicion: $(contenedor).find("#Posicion").val(),
         OrigenPedidoWeb: DesktopHomeLiquidacion,
-        TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion
     };
     $.ajaxSetup({
         cache: false
     });
 
+    $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: item.CUV, Cantidad: item.Cantidad, PrecioUnidad: item.PrecioUnidad }, function (data) {
+        if (data.message.length > 0) {
+            AbrirMensajeEstrategia(data.message);
+            closeWaitingDialog();
+            return false;
+        }
+        if (parseInt(data.Saldo) < parseInt(item.Cantidad)) {
+            var Saldo = data.Saldo;
+            var UnidadesPermitidas = data.UnidadesPermitidas;
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: item.CUV }, function (data) {
+                if (Saldo == UnidadesPermitidas)
+                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                else {
+                    if (Saldo == "0")
+                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                    else
+                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                }
+                HidePopupTonosTallas();
+                closeWaitingDialog();
+                return false;
+            });
+        } else {
+            $.ajaxSetup({
+                cache: false
+            });
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: item.CUV }, function (data) {
+                if (parseInt(data.Stock) < parseInt(item.Cantidad)) {
+                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
+                    HidePopupTonosTallas();
+                    closeWaitingDialog();
+                    return false;
+                }
+                else {
+
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'Pedido/PedidoAgregarProductoTransaction',
+                        url: baseUrl + 'OfertaLiquidacion/InsertOfertaWebPortal',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -964,83 +998,10 @@ function AgregarProductoLiquidacion(contenedor) {
             }
         }
     });
-
-    //$.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: item.CUV, Cantidad: item.Cantidad, PrecioUnidad: item.PrecioUnidad }, function (data) {
-    //    if (data.message.length > 0) {
-    //        AbrirMensajeEstrategia(data.message);
-    //        closeWaitingDialog();
-    //        return false;
-    //    }
-    //    if (parseInt(data.Saldo) < parseInt(item.Cantidad)) {
-    //        var Saldo = data.Saldo;
-    //        var UnidadesPermitidas = data.UnidadesPermitidas;
-    //        $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: item.CUV }, function (data) {
-    //            if (Saldo == UnidadesPermitidas)
-    //                AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
-    //            else {
-    //                if (Saldo == "0")
-    //                    AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
-    //                else
-    //                    AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
-    //            }
-    //            HidePopupTonosTallas();
-    //            closeWaitingDialog();
-    //            return false;
-    //        });
-    //    } else {
-    //        $.ajaxSetup({
-    //            cache: false
-    //        });
-    //        $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerStockActualProducto', { CUV: item.CUV }, function (data) {
-    //            if (parseInt(data.Stock) < parseInt(item.Cantidad)) {
-    //                AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
-    //                HidePopupTonosTallas();
-    //                closeWaitingDialog();
-    //                return false;
-    //            }
-    //            else {
-
-    //                jQuery.ajax({
-    //                    type: 'POST',
-    //                    url: baseUrl + 'OfertaLiquidacion/InsertOfertaWebPortal',
-    //                    dataType: 'json',
-    //                    contentType: 'application/json; charset=utf-8',
-    //                    data: JSON.stringify(item),
-    //                    async: true,
-    //                    success: function (data) {
-    //                        if (!checkTimeout(data)) {
-    //                            closeWaitingDialog();
-    //                            return false;
-    //                        }
-
-    //                        if (data.success != true) {
-    //                            messageInfoError(data.message);
-    //                            closeWaitingDialog();
-    //                            return false;
-    //                        }
-    //                        MostrarBarra(data, '1');
-
-    //                        ActualizarGanancia(data.DataBarra);
-    //                        CargarResumenCampaniaHeader(true);
-    //                        TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
-    //                        TagManagerClickAgregarProductoLiquidacion(item);
-
-    //                        closeWaitingDialog();
-    //                        HidePopupTonosTallas();
-
-    //                        ProcesarActualizacionMostrarContenedorCupon();
-    //                    },
-    //                    error: function (data, error) {
-    //                        if (checkTimeout(data)) {
-    //                            closeWaitingDialog();
-    //                            HidePopupTonosTallas();
-    //                        }
-    //                    }
-    //                });
-    //            }
-    //        });
-    //    }
-    //});
+                }
+            });
+        }
+    });
 }
 
 function ProcesarActualizacionMostrarContenedorCupon() {
@@ -1333,15 +1294,15 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
 
             CargarResumenCampaniaHeader(true);
 
-            if (result.data.DescripcionEstrategia == null || result.data.DescripcionEstrategia == "") {
+            if (result.oPedidoDetalle.DescripcionEstrategia == null || result.oPedidoDetalle.DescripcionEstrategia == "") {
                 variantcad = "Estándar";
             } else {
-                variantcad = result.data.DescripcionEstrategia;
+                variantcad = result.oPedidoDetalle.DescripcionEstrategia;
             }
-            if (result.data.Categoria == null || result.data.Categoria == "") {
+            if (result.oPedidoDetalle.Categoria == null || result.oPedidoDetalle.Categoria == "") {
                 categoriacad = "Sin Categoría";
             } else {
-                categoriacad = result.data.Categoria;
+                categoriacad = result.oPedidoDetalle.Categoria;
             }
 
             TrackingJetloreAdd(CantCUVpedido, $("#hdCampaniaCodigo").val(), CUVpedido);
@@ -1353,9 +1314,9 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
                         'actionField': { 'list': 'Banner marquesina' },
                         'products': [
                             {
-                                'name': result.data.DescripcionProd,
-                                'price': $.trim(result.data.PrecioUnidad),
-                                'brand': result.data.DescripcionLarga,
+                                'name': result.oPedidoDetalle.DescripcionProd,
+                                'price': $.trim(result.oPedidoDetalle.PrecioUnidad),
+                                'brand': result.oPedidoDetalle.DescripcionLarga,
                                 'id': CUVpedido,
                                 'category': categoriacad,
                                 'variant': variantcad,

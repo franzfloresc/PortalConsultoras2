@@ -485,37 +485,37 @@ namespace Portal.Consultoras.Web.Controllers
         #region CRUD
 
 
-        //[HttpPost]
-        //public JsonResult PedidoInsertarOF(PedidoCrudModel model)
-        //{
-        //    try
-        //    {
-        //        var respuesta = PedidoInsertar(model);
+        [HttpPost]
+        public JsonResult PedidoInsertarOF(PedidoCrudModel model)
+        {
+            try
+            {
+                var respuesta = PedidoInsertar(model);
 
-        //        if (respuesta.Data.ToString().Contains("success = True"))
-        //        {
-        //            PedidoAgregarProductoAgrupado(model.Cantidad.ToInt(), model.CUV, model.CUV, 0);
-        //        }
+                if (respuesta.Data.ToString().Contains("success = True"))
+                {
+                    PedidoAgregarProductoAgrupado(model.Cantidad.ToInt(), model.CUV, model.CUV, 0);
+                }
 
-        //        return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
+                return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            data = "",
-        //            total = "",
-        //            formatoTotal = "",
-        //            listaCliente = "",
-        //            errorInsertarProducto = "0",
-        //            tipo = ""
-        //        });
-        //    }
-        //}
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = "",
+                    total = "",
+                    formatoTotal = "",
+                    listaCliente = "",
+                    errorInsertarProducto = "0",
+                    tipo = ""
+                });
+            }
+        }
 
         [HttpPost]
         public JsonResult PedidoInsertar(PedidoCrudModel model, bool esEstrategia = false)
@@ -1289,82 +1289,69 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var strCuv = CUV;
                 int outVal;
+                var obePedidoWebDetalle = new BEPedidoWebDetalle
+                {
+                    IPUsuario = userData.IPUsuario,
+                    CampaniaID = userData.CampaniaID,
+                    ConsultoraID = userData.ConsultoraID,
+                    PaisID = userData.PaisID,
+                    TipoOfertaSisID = 1700,
+                    ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
+                    ClienteID = (short)0,
+                    PedidoID = userData.PedidoID,
+                    OfertaWeb = false,
+                    IndicadorMontoMinimo = Convert.ToInt32(producto.IndicadorMontoMinimo.ToString().Trim()),
+                    SubTipoOfertaSisID = Convert.ToInt32(0),
+                    MarcaID = Convert.ToByte(producto.MarcaID),
+                    Cantidad = CantCUVpedido,
+                    PrecioUnidad = producto.PrecioCatalogo,
+                    CUV = producto.CUV.Trim(),
+                    DescripcionProd = producto.Descripcion.Trim(),
+                    Nombre = userData.NombreConsultora,
+                    DescripcionLarga = producto.DescripcionMarca,
+                    DescripcionEstrategia = producto.DescripcionEstrategia,
+                    Categoria = producto.DescripcionCategoria,
+                    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome,
+                    TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0
+                };
 
-                var pedidoCrudModel = new PedidoCrudModel();
-                pedidoCrudModel.MarcaID = producto.MarcaID;
-                pedidoCrudModel.Cantidad = CantCUVpedido.ToString();
-                pedidoCrudModel.PrecioUnidad = producto.PrecioCatalogo;
-                pedidoCrudModel.CUV = producto.CUV;
-                pedidoCrudModel.ConfiguracionOfertaID = producto.ConfiguracionOfertaID;
-                pedidoCrudModel.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome;
-                pedidoCrudModel.TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0;
+                obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
 
+                IList<BEPedidoWebService> olstCuvMarquesina;
+                using (var sv = new PedidoServiceClient())
+                {
+                    olstCuvMarquesina = sv.GetPedidoCuvMarquesina(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, strCuv);
+                }
 
-                return PedidoAgregarProductoTransaction(pedidoCrudModel);
+                string accion;
 
-                //var obePedidoWebDetalle = new BEPedidoWebDetalle
-                //{
-                //    IPUsuario = userData.IPUsuario,
-                //    CampaniaID = userData.CampaniaID,
-                //    ConsultoraID = userData.ConsultoraID,
-                //    PaisID = userData.PaisID,
-                //    TipoOfertaSisID = 1700,
-                //    ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
-                //    ClienteID = (short)0,
-                //    PedidoID = userData.PedidoID,
-                //    OfertaWeb = false,
-                //    IndicadorMontoMinimo = Convert.ToInt32(producto.IndicadorMontoMinimo.ToString().Trim()),
-                //    SubTipoOfertaSisID = Convert.ToInt32(0),
-                //    MarcaID = Convert.ToByte(producto.MarcaID),
-                //    Cantidad = CantCUVpedido,
-                //    PrecioUnidad = producto.PrecioCatalogo,
-                //    CUV = producto.CUV.Trim(),
-                //    DescripcionProd = producto.Descripcion.Trim(),
-                //    Nombre = userData.NombreConsultora,
-                //    DescripcionLarga = producto.DescripcionMarca,
-                //    DescripcionEstrategia = producto.DescripcionEstrategia,
-                //    Categoria = producto.DescripcionCategoria,
-                //    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome,
-                //    TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0
-                //};
+                if (olstCuvMarquesina.Count == 0 || olstCuvMarquesina[0].CUV == "")
+                {
+                    accion = "I";
+                }
+                else
+                {
+                    obePedidoWebDetalle.PedidoID = olstCuvMarquesina[0].PedidoWebID;
+                    obePedidoWebDetalle.PedidoDetalleID = Convert.ToInt16(olstCuvMarquesina[0].PedidoWebDetalleID);
+                    obePedidoWebDetalle.Cantidad = obePedidoWebDetalle.Cantidad + olstCuvMarquesina[0].Cantidad;
+                    accion = "U";
+                }
 
-                //obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
+                bool errorServer;
+                string tipo;
+                bool modificoBackOrder;
+                AdministradorPedido(obePedidoWebDetalle, accion, out errorServer, out tipo, out modificoBackOrder);
 
-                //IList<BEPedidoWebService> olstCuvMarquesina;
-                //using (var sv = new PedidoServiceClient())
-                //{
-                //    olstCuvMarquesina = sv.GetPedidoCuvMarquesina(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, strCuv);
-                //}
-
-                //string accion;
-
-                //if (olstCuvMarquesina.Count == 0 || olstCuvMarquesina[0].CUV == "")
-                //{
-                //    accion = "I";
-                //}
-                //else
-                //{
-                //    obePedidoWebDetalle.PedidoID = olstCuvMarquesina[0].PedidoWebID;
-                //    obePedidoWebDetalle.PedidoDetalleID = Convert.ToInt16(olstCuvMarquesina[0].PedidoWebDetalleID);
-                //    obePedidoWebDetalle.Cantidad = obePedidoWebDetalle.Cantidad + olstCuvMarquesina[0].Cantidad;
-                //    accion = "U";
-                //}
-
-                //bool errorServer;
-                //string tipo;
-                //bool modificoBackOrder;
-                //AdministradorPedido(obePedidoWebDetalle, accion, out errorServer, out tipo, out modificoBackOrder);
-
-                //return Json(new
-                //{
-                //    success = !errorServer,
-                //    message = !errorServer
-                //        ? ("Has agregado " + Convert.ToString(CantCUVpedido) + " unidad(es) del producto a tu pedido.")
-                //        : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.",
-                //    oPedidoDetalle = obePedidoWebDetalle,
-                //    DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
-                //    tipo
-                //}, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    success = !errorServer,
+                    message = !errorServer
+                        ? ("Has agregado " + Convert.ToString(CantCUVpedido) + " unidad(es) del producto a tu pedido.")
+                        : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.",
+                    oPedidoDetalle = obePedidoWebDetalle,
+                    DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                    tipo
+                }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -4061,223 +4048,82 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         // para salvar el día
-        //public JsonResult PedidoInsertarBuscador(PedidoCrudModel model)
-        //{
-        //    string mensaje = "", urlRedireccionar = "";
+        public JsonResult PedidoInsertarBuscador(PedidoCrudModel model)
+        {
+            string mensaje = "", urlRedireccionar = "";
 
-        //    #region SesiónExpirada
-        //    if (userData == null)
-        //    {
-        //        mensaje = "Sesión expirada.";
-        //        urlRedireccionar = Url.Action("Index", "Login");
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = mensaje,
-        //            urlRedireccionar
-        //        }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    #endregion
+            #region SesiónExpirada
+            if (userData == null)
+            {
+                mensaje = "Sesión expirada.";
+                urlRedireccionar = Url.Action("Index", "Login");
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    urlRedireccionar
+                }, JsonRequestBehavior.AllowGet);
+            }
+            #endregion
 
-        //    #region ReservadoOEnHorarioRestringido
-        //    var horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
-        //    if (horario)
-        //    {
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = mensaje,
-        //            urlRedireccionar
-        //        }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    #endregion
+            #region ReservadoOEnHorarioRestringido
+            var horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
+            if (horario)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    urlRedireccionar
+                }, JsonRequestBehavior.AllowGet);
+            }
+            #endregion
 
-        //    #region UnidadesPermitidas
-        //    List<BEPedidoWebDetalle> sesionPedidos = SessionManager.GetDetallesPedido();
-        //    var pedidoAgregado = sesionPedidos.Where(x => x.CUV == model.CUV).ToList();
-        //    int cantidadesAgregadas = 0;
-        //    if (model.LimiteVenta > 0)
-        //    {
-        //        if (pedidoAgregado.Any())
-        //        {
-        //            cantidadesAgregadas = pedidoAgregado[0].Cantidad;
-        //        }
+            #region UnidadesPermitidas
+            List<BEPedidoWebDetalle> sesionPedidos = SessionManager.GetDetallesPedido();
+            var pedidoAgregado = sesionPedidos.Where(x => x.CUV == model.CUV).ToList();
+            int cantidadesAgregadas = 0;
+            if (model.LimiteVenta > 0)
+            {
+                if (pedidoAgregado.Any())
+                {
+                    cantidadesAgregadas = pedidoAgregado[0].Cantidad;
+                }
 
-        //        cantidadesAgregadas += model.Cantidad.ToInt();
+                cantidadesAgregadas += model.Cantidad.ToInt();
 
-        //        if (cantidadesAgregadas > model.LimiteVenta)
-        //        {
-        //            mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + model.LimiteVenta + " ).";
-        //            return Json(new
-        //            {
-        //                success = false,
-        //                message = mensaje
-        //            }, JsonRequestBehavior.AllowGet);
-        //        }
-        //    }
-        //    #endregion
+                if (cantidadesAgregadas > model.LimiteVenta)
+                {
+                    mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + model.LimiteVenta + " ).";
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            #endregion
             
-        //    mensaje = ValidarStockEstrategiaMensaje(model.CUV, model.Cantidad.ToInt(), model.TipoEstrategiaID);
+            mensaje = ValidarStockEstrategiaMensaje(model.CUV, model.Cantidad.ToInt(), model.TipoEstrategiaID);
 
-        //    if (mensaje != "")
-        //    {
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = mensaje
-        //        });
-        //    }
+            if (mensaje != "")
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje
+                });
+            }
 
-        //    return PedidoInsertar(model, true);
-        //}
+            return PedidoInsertar(model, true);
+        }
 
         #region Nuevo AgregarProducto
-        //public JsonResult PedidoAgregarProducto(PedidoCrudModel model)
-        //{
-        //    try
-        //    {
-        //        string mensaje = "", urlRedireccionar = "", CuvSet = string.Empty;
-
-        //        #region SesiónExpirada
-        //        if (userData == null)
-        //        {
-        //            mensaje = "Sesión expirada.";
-        //            urlRedireccionar = Url.Action("Index", "Login");
-        //            return Json(new
-        //            {
-        //                success = false,
-        //                message = mensaje,
-        //                urlRedireccionar
-        //            }, JsonRequestBehavior.AllowGet);
-        //        }
-        //        #endregion
-
-        //        #region ReservadoOEnHorarioRestringido
-        //        var horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
-        //        if (horario)
-        //        {
-        //            return Json(new
-        //            {
-        //                success = false,
-        //                message = mensaje,
-        //                urlRedireccionar
-        //            }, JsonRequestBehavior.AllowGet);
-        //        }
-        //        #endregion
-
-        //        #region FiltrarEstrategiaPedido
-        //        model.FlagNueva = Util.Trim(model.FlagNueva);
-        //        int indFlagNueva;
-        //        Int32.TryParse(model.FlagNueva == "" ? "0" : model.FlagNueva, out indFlagNueva);
-        //        var estrategia = FiltrarEstrategiaPedido(model.EstrategiaID.ToString(), indFlagNueva);
-        //        CuvSet = estrategia.CUV2;
-        //        #endregion
-
-        //        #region VirtualCoach 
-        //        if (estrategia.EstrategiaID <= 0)
-        //        {
-        //            var ficha = SessionManager.GetFichaProductoTemporal();
-        //            if (ficha == null)
-        //            {
-        //                mensaje = "Estrategia no encontrada.";
-        //                return Json(new
-        //                {
-        //                    success = false,
-        //                    message = mensaje
-        //                }, JsonRequestBehavior.AllowGet);
-        //            }
-
-        //            return AgregarProductoVC(model.CuvTonos, model.Cantidad, model.OrigenPedidoWeb.ToString(), model.ClienteID_);
-        //        }
-        //        #endregion
-
-        //        #region UnidadesPermitidas
-        //        estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
-        //        var PedidosAgregados = ObtenerPedidoWebSetDetalleAgrupado();
-
-        //        if (PedidosAgregados.Any(x => x.CUV == estrategia.CUV2))
-        //        {
-        //            int CantidadActual = PedidosAgregados.Where(x => x.CUV == estrategia.CUV2).Sum(x => x.Cantidad);
-
-        //            if (CantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
-        //            {
-        //                mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
-        //                return Json(new
-        //                {
-        //                    success = false,
-        //                    message = mensaje
-        //                }, JsonRequestBehavior.AllowGet);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (estrategia.Cantidad > estrategia.LimiteVenta)
-        //            {
-        //                mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
-        //                return Json(new
-        //                {
-        //                    success = false,
-        //                    message = mensaje
-        //                }, JsonRequestBehavior.AllowGet);
-        //            }
-        //        }
-        //        #endregion
-
-        //        var listCuvTonos = Util.Trim(model.CuvTonos);
-        //        if (listCuvTonos == "")
-        //        {
-        //            listCuvTonos = estrategia.CUV2;
-        //        }
-        //        var tonos = listCuvTonos.Split('|');
-        //        var respuesta = new JsonResult();
-        //        List<string> ListaCuvsTemporal = new List<string>();
-
-        //        foreach (var tono in tonos)
-        //        {
-        //            var listSp = tono.Split(';');
-        //            estrategia.CUV2 = listSp.Length > 0 ? listSp[0] : estrategia.CUV2;
-        //            estrategia.MarcaID = (listSp.Length > 1 && !string.IsNullOrEmpty(listSp[1])) ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
-        //            estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
-
-        //            respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model, false);
-        //            ListaCuvsTemporal.Add(listSp.Length > 0 ? listSp[0] : estrategia.CUV2);
-        //        }
-
-        //        if (respuesta.Data.ToString().Contains("success = True"))
-        //        {
-        //            string strCuvs = string.Empty;
-        //            if (ListaCuvsTemporal.Any())
-        //            {
-        //                ListaCuvsTemporal.OrderByDescending(x => x).Distinct().Each(x =>
-        //                {
-        //                    strCuvs = strCuvs + string.Format("{0}:{1},", x, ListaCuvsTemporal.Count(a => a == x));
-        //                });
-        //            }
-
-        //            PedidoAgregarProductoAgrupado(model.Cantidad.ToInt(), CuvSet, strCuvs, estrategia.EstrategiaID);
-        //        }
-
-        //        return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = "Ocurrio un error, vuelva ha intentalo."
-        //        });
-        //    }
-        //}
-
-        public JsonResult PedidoAgregarProductoTransaction(PedidoCrudModel model)
+        public JsonResult PedidoAgregarProducto(PedidoCrudModel model)
         {
             try
             {
                 string mensaje = "", urlRedireccionar = "", CuvSet = string.Empty;
-                BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
-                pedidoDetalle.Producto = new ServicePedido.BEProducto();
-                model.CuvTonos = Util.Trim(model.CuvTonos);
 
                 #region SesiónExpirada
                 if (userData == null)
@@ -4293,9 +4139,29 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                #region ReservadoOEnHorarioRestringido
+                var horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
+                if (horario)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        urlRedireccionar
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                #endregion
+
+                #region FiltrarEstrategiaPedido
+                model.FlagNueva = Util.Trim(model.FlagNueva);
+                int indFlagNueva;
+                Int32.TryParse(model.FlagNueva == "" ? "0" : model.FlagNueva, out indFlagNueva);
+                var estrategia = FiltrarEstrategiaPedido(model.EstrategiaID.ToString(), indFlagNueva);
+                CuvSet = estrategia.CUV2;
+                #endregion
+
                 #region VirtualCoach
-                if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido ||
-                    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachMobilePedido)
+                if (estrategia.EstrategiaID <= 0)
                 {
                     var ficha = SessionManager.GetFichaProductoTemporal();
                     if (ficha == null)
@@ -4308,120 +4174,77 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                     }
 
-                    var descripcion = ficha.FlagNueva == 1 ? ficha.DescripcionCortada : ficha.DescripcionCompleta;
-                    if (string.IsNullOrEmpty(model.CuvTonos)) model.CuvTonos = ficha.CUV2;
+                    return AgregarProductoVC(model.CuvTonos, model.Cantidad, model.OrigenPedidoWeb.ToString(), model.ClienteID_);
+                }
+                #endregion
 
-                    var tonos = model.CuvTonos.Split('|');
-                    string cuvTonos = "";
-                    foreach (var tono in tonos)
+                #region UnidadesPermitidas
+                estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
+                var PedidosAgregados = ObtenerPedidoWebSetDetalleAgrupado();
+
+                if (PedidosAgregados.Any(x => x.CUV == estrategia.CUV2))
                     {
-                        var listSp = tono.Split(';');
-                        var cuv = listSp.Length > 0 ? listSp[0] : ficha.CUV2;
-                        string descTono = "";
-                        if (ficha.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    int CantidadActual = PedidosAgregados.Where(x => x.CUV == estrategia.CUV2).Sum(x => x.Cantidad);
+
+                    if (CantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
                         {
-                            var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s => s.Cuv == listSp[0])).SingleOrDefault();
-                            if (brother != null)
+                        mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
+                        return Json(new
                             {
-                                descTono = brother.Select(m => m.DescripcionComercial).SingleOrDefault();
+                            success = false,
+                            message = mensaje
+                        }, JsonRequestBehavior.AllowGet);
                             }
                         }
-
-                        cuvTonos = cuvTonos + (cuvTonos == "" ? "" : "|") + cuv;
-                        cuvTonos = cuvTonos + ";" + ficha.MarcaID;
-                        cuvTonos = cuvTonos + ";" + ficha.Precio2;
-                        if (!string.IsNullOrEmpty(descTono))
-                        {
-                            cuvTonos = cuvTonos + ";" + descTono;
-                        }
-                    }
-
-                    model.TipoEstrategiaID = ficha.TipoEstrategiaID;
-                    model.IndicadorMontoMinimo = ficha.IndicadorMontoMinimo.ToString();
-                    model.TipoEstrategiaImagen = ficha.TipoEstrategiaImagenMostrar;
-                    model.FlagNueva = ficha.FlagNueva.ToString();
-                    model.CuvTonos = cuvTonos;
-
-                    pedidoDetalle.esVirtualCoach = true;
-                    pedidoDetalle.estrategia = new ServicePedido.BEEstrategia();
-                    pedidoDetalle.estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
-                    pedidoDetalle.estrategia.LimiteVenta = ficha.LimiteVenta;
-                    pedidoDetalle.estrategia.DescripcionCUV2 = descripcion;
-                    pedidoDetalle.estrategia.FlagNueva = 0;
-                    pedidoDetalle.estrategia.Precio2 = ficha.Precio2;
-                    pedidoDetalle.estrategia.TipoEstrategiaID = ficha.TipoEstrategiaID;
-                    pedidoDetalle.estrategia.IndicadorMontoMinimo = ficha.IndicadorMontoMinimo;
-                    pedidoDetalle.estrategia.CUV2 = ficha.CUV2;
-                }
-                #endregion
-
-                #region OfertaFinal/LiquidacionWeb
-                if (model.EstrategiaID <= 0 && !pedidoDetalle.esVirtualCoach)
-                {
-                    pedidoDetalle.estrategia = new ServicePedido.BEEstrategia();
-                    pedidoDetalle.estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
-                    pedidoDetalle.estrategia.LimiteVenta = model.LimiteVenta == 0 ? 99 : model.LimiteVenta;
-                    pedidoDetalle.estrategia.DescripcionCUV2 = Util.Trim(model.DescripcionProd);
-                    pedidoDetalle.estrategia.FlagNueva = 0;
-                    pedidoDetalle.estrategia.Precio2 = model.PrecioUnidad;
-                    pedidoDetalle.estrategia.TipoEstrategiaID = model.TipoEstrategiaID;
-                    pedidoDetalle.estrategia.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
-                    pedidoDetalle.estrategia.CUV2 = model.CUV;
-                    pedidoDetalle.estrategia.MarcaID = model.MarcaID;
-                }
-                #endregion
-
-                pedidoDetalle.Producto.EstrategiaID = model.EstrategiaID;
-                pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID.ToString();
-                pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
-                pedidoDetalle.Producto.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
-                pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
-                pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
-                pedidoDetalle.Producto.FlagNueva = model.FlagNueva == "" ? "0" : model.FlagNueva;
-                pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
-                pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
-                pedidoDetalle.PaisID = userData.PaisID;
-                pedidoDetalle.IPUsuario = GetIPCliente();
-                pedidoDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(model.OrigenPedidoWeb);
-                pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
-                pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
-
-                var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
-
-                if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
-                {
-                    SessionManager.SetPedidoWeb(null);
-                    SessionManager.SetDetallesPedido(null);
-                    SessionManager.SetDetallesPedidoSetAgrupado(null);
-
-                    var pedidoWebDetalle = ObtenerPedidoWebDetalle();
-                    var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
-                    var Total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
-                    var FormatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
-
-                    ObtenerPedidoWeb();
-                    return Json(new
-                    {
-                        success = true,
-                        message = pedidoDetalleResult.MensajeRespuesta,
-                        errorInsertarProducto = "0",
-                        DataBarra = GetDataBarra(),
-                        data = pedidoDetalleResult.pedidoWebDetalle,
-                        cantidadTotalProductos = CantidadTotalProductos,
-                        total = Total,
-                        formatoTotal = FormatoTotal,
-                        listCuvEliminar = pedidoDetalleResult.listCuvEliminar.ToList()
-                    }, JsonRequestBehavior.AllowGet);
-                }
                 else
-                {
-                    return Json(new
+                        {
+                    if (estrategia.Cantidad > estrategia.LimiteVenta)
                     {
-                        success = false,
-                        message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
-                        errorInsertarProducto = "1"
-                    }, JsonRequestBehavior.AllowGet);
+                        mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
+                        return Json(new
+                        {
+                            success = false,
+                            message = mensaje
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
+                #endregion
+
+                var listCuvTonos = Util.Trim(model.CuvTonos);
+                if (listCuvTonos == "")
+                {
+                    listCuvTonos = estrategia.CUV2;
+                }
+                var tonos = listCuvTonos.Split('|');
+                var respuesta = new JsonResult();
+                List<string> ListaCuvsTemporal = new List<string>();
+
+                foreach (var tono in tonos)
+                {
+                    var listSp = tono.Split(';');
+                    estrategia.CUV2 = listSp.Length > 0 ? listSp[0] : estrategia.CUV2;
+                    estrategia.MarcaID = (listSp.Length > 1 && !string.IsNullOrEmpty(listSp[1])) ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
+                    estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
+
+                    respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model, false);
+                    ListaCuvsTemporal.Add(listSp.Length > 0 ? listSp[0] : estrategia.CUV2);
+                }
+
+                if (respuesta.Data.ToString().Contains("success = True"))
+                    {
+                    string strCuvs = string.Empty;
+                    if (ListaCuvsTemporal.Any())
+                {
+                        ListaCuvsTemporal.OrderByDescending(x => x).Distinct().Each(x =>
+                    {
+                            strCuvs = strCuvs + string.Format("{0}:{1},", x, ListaCuvsTemporal.Count(a => a == x));
+                        });
+                }
+
+                    PedidoAgregarProductoAgrupado(model.Cantidad.ToInt(), CuvSet, strCuvs, estrategia.EstrategiaID);
+                }
+
+                return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -4429,121 +4252,121 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error, vuelva ha intentarlo."
+                    message = "Ocurrio un error, vuelva ha intentalo."
                 });
             }
         }
 
-        //private JsonResult EstrategiaAgregarProducto(ref string mensaje, ServicePedido.BEEstrategia estrategia, PedidoCrudModel model, bool revisionIndividualStock = true)
-        //{
-        //    #region Validar Stock Estrategia
-        //    var ofertas = estrategia.DescripcionCUV2.Split('|');
-        //    var descripcion = ofertas[0];
+        private JsonResult EstrategiaAgregarProducto(ref string mensaje, ServicePedido.BEEstrategia estrategia, PedidoCrudModel model, bool revisionIndividualStock = true)
+        {
+            #region Validar Stock Estrategia
+            var ofertas = estrategia.DescripcionCUV2.Split('|');
+            var descripcion = ofertas[0];
 
-        //    if (estrategia.FlagNueva == 1) estrategia.Cantidad = estrategia.LimiteVenta;
-        //    else descripcion = estrategia.DescripcionCUV2;
+            if (estrategia.FlagNueva == 1) estrategia.Cantidad = estrategia.LimiteVenta;
+            else descripcion = estrategia.DescripcionCUV2;
 
-        //    var resul = false;
-        //    mensaje = ValidarMontoMaximo(estrategia.Precio2, estrategia.Cantidad, out resul);
-        //    if (mensaje.Length > 1) return ErrorJson(mensaje);
+            var resul = false;
+            mensaje = ValidarMontoMaximo(estrategia.Precio2, estrategia.Cantidad, out resul);
+            if (mensaje.Length > 1) return ErrorJson(mensaje);
 
-        //    if (revisionIndividualStock)
-        //    {
-        //        mensaje = ValidarStockEstrategiaMensaje(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
-        //        if (mensaje != "") return ErrorJson(mensaje);
-        //    }
-        //    #endregion
+            if (revisionIndividualStock)
+            {
+                mensaje = ValidarStockEstrategiaMensaje(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
+                if (mensaje != "") return ErrorJson(mensaje);
+            }
+            #endregion
 
-        //    #region Agregar Producto ZE
-        //    var modelo = new PedidoCrudModel
-        //    {
-        //        CUV = estrategia.CUV2,
-        //        Cantidad = estrategia.Cantidad.ToString(),
-        //        PrecioUnidad = estrategia.Precio2,
-        //        TipoEstrategiaID = estrategia.TipoEstrategiaID,
-        //        OrigenPedidoWeb = model.OrigenPedidoWeb,
-        //        MarcaID = estrategia.MarcaID,
-        //        DescripcionProd = descripcion,
-        //        IndicadorMontoMinimo = estrategia.IndicadorMontoMinimo.ToString(),
-        //        ClienteID_ = model.ClienteID_,
-        //        TipoEstrategiaImagen = model.TipoEstrategiaImagen,
-        //        EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
-        //        EnRangoProgramaNuevas = model.EnRangoProgramaNuevas || model.FlagNueva == "1"
-        //    };
+            #region Agregar Producto ZE
+            var modelo = new PedidoCrudModel
+            {
+                CUV = estrategia.CUV2,
+                Cantidad = estrategia.Cantidad.ToString(),
+                PrecioUnidad = estrategia.Precio2,
+                TipoEstrategiaID = estrategia.TipoEstrategiaID,
+                OrigenPedidoWeb = model.OrigenPedidoWeb,
+                MarcaID = estrategia.MarcaID,
+                DescripcionProd = descripcion,
+                IndicadorMontoMinimo = estrategia.IndicadorMontoMinimo.ToString(),
+                ClienteID_ = model.ClienteID_,
+                TipoEstrategiaImagen = model.TipoEstrategiaImagen,
+                EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
+                EnRangoProgramaNuevas = model.EnRangoProgramaNuevas || model.FlagNueva == "1"
+            };
 
-        //    return AgregarProductoZE(modelo);
-        //    #endregion
+            return AgregarProductoZE(modelo);
+            #endregion
 
-        //}
+        }
 
-        //private bool ReservadoOEnHorarioRestringido(ref string mensaje, ref string urlRedireccionar, bool mostrarAlerta = true)
-        //{
-        //    var estado = false;
-        //    try
-        //    {
-        //        mensaje = "";
-        //        var area = Request.Browser.IsMobileDevice ? "Mobile" : "";
+        private bool ReservadoOEnHorarioRestringido(ref string mensaje, ref string urlRedireccionar, bool mostrarAlerta = true)
+        {
+            var estado = false;
+            try
+            {
+                mensaje = "";
+                var area = Request.Browser.IsMobileDevice ? "Mobile" : "";
 
-        //        if (userData == null)
-        //        {
-        //            mensaje = "Sesión expirada.";
-        //            urlRedireccionar = Url.Action("Index", "Login");
-        //            return true;
-        //        }
+                if (userData == null)
+                {
+                    mensaje = "Sesión expirada.";
+                    urlRedireccionar = Url.Action("Index", "Login");
+                    return true;
+                }
 
-        //        BEValidacionModificacionPedido result;
-        //        using (var sv = new PedidoServiceClient())
-        //        {
-        //            result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
-        //        }
+                BEValidacionModificacionPedido result;
+                using (var sv = new PedidoServiceClient())
+                {
+                    result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
+                }
 
-        //        estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
-        //        var pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+                estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                var pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
 
-        //        if (estado)
-        //        {
-        //            mensaje = mostrarAlerta ? Util.Trim(result.Mensaje) : "";
+                if (estado)
+                {
+                    mensaje = mostrarAlerta ? Util.Trim(result.Mensaje) : "";
 
-        //            if (pedidoReservado)
-        //            {
-        //                urlRedireccionar = Url.Action("PedidoValidado", "Pedido", new { area = area });
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        if (userData != null)
-        //            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        mensaje = "Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.";
-        //    }
+                    if (pedidoReservado)
+                    {
+                        urlRedireccionar = Url.Action("PedidoValidado", "Pedido", new { area = area });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (userData != null)
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                mensaje = "Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.";
+            }
 
-        //    return estado;
-        //}
+            return estado;
+        }
 
-        //private ServicePedido.BEEstrategia FiltrarEstrategiaPedido(string estrategiaId, int flagNueva = 0)
-        //{
-        //    List<ServicePedido.BEEstrategia> lst;
+        private ServicePedido.BEEstrategia FiltrarEstrategiaPedido(string estrategiaId, int flagNueva = 0)
+        {
+            List<ServicePedido.BEEstrategia> lst;
 
-        //    var entidad = new ServicePedido.BEEstrategia
-        //    {
-        //        PaisID = userData.PaisID,
-        //        EstrategiaID = Convert.ToInt32(estrategiaId),
-        //        FlagNueva = flagNueva
-        //    };
+            var entidad = new ServicePedido.BEEstrategia
+            {
+                PaisID = userData.PaisID,
+                EstrategiaID = Convert.ToInt32(estrategiaId),
+                FlagNueva = flagNueva
+            };
 
-        //    using (var sv = new PedidoServiceClient())
-        //    {
-        //        lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
-        //    }
+            using (var sv = new PedidoServiceClient())
+            {
+                lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
+            }
 
-        //    var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-        //    var estrategia = lst.Count > 0 ? lst[0] : new ServicePedido.BEEstrategia();
-        //    estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, estrategia.ImagenURL);
-        //    estrategia.Simbolo = userData.Simbolo;
+            var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            var estrategia = lst.Count > 0 ? lst[0] : new ServicePedido.BEEstrategia();
+            estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, estrategia.ImagenURL);
+            estrategia.Simbolo = userData.Simbolo;
 
-        //    return estrategia;
+            return estrategia;
 
-        //}
+        }
 
         private string ValidarStockEstrategiaMensaje(string cuv, int cantidad, int tipoOferta)
         {
@@ -4581,78 +4404,78 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        //private JsonResult AgregarProductoVC(string listaCuvTonos, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")
-        //{
-        //    try
-        //    {
-        //        FichaProductoDetalleModel ficha = SessionManager.GetFichaProductoTemporal();
-        //        if (ficha == null) return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
+        private JsonResult AgregarProductoVC(string listaCuvTonos, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")
+        {
+            try
+            {
+                FichaProductoDetalleModel ficha = SessionManager.GetFichaProductoTemporal();
+                if (ficha == null) return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
 
-        //        var numero = Convert.ToInt32(Cantidad);
-        //        if (numero > ficha.LimiteVenta) return ErrorJson("La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).", true);
+                var numero = Convert.ToInt32(Cantidad);
+                if (numero > ficha.LimiteVenta) return ErrorJson("La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).", true);
 
-        //        var descripcion = ficha.FlagNueva == 1 ? ficha.DescripcionCortada : ficha.DescripcionCompleta;
-        //        listaCuvTonos = Util.Trim(listaCuvTonos);
-        //        if (string.IsNullOrEmpty(listaCuvTonos)) listaCuvTonos = ficha.CUV2;
-        //        var tonos = listaCuvTonos.Split('|');
+                var descripcion = ficha.FlagNueva == 1 ? ficha.DescripcionCortada : ficha.DescripcionCompleta;
+                listaCuvTonos = Util.Trim(listaCuvTonos);
+                if (string.IsNullOrEmpty(listaCuvTonos)) listaCuvTonos = ficha.CUV2;
+                var tonos = listaCuvTonos.Split('|');
 
-        //        var respuesta = new JsonResult();
-        //        foreach (var tono in tonos)
-        //        {
-        //            var listSp = tono.Split(';');
-        //            ficha.CUV2 = listSp.Length > 0 ? listSp[0] : ficha.CUV2;
-        //            if (ficha.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
-        //            {
-        //                var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s => s.Cuv == listSp[0])).SingleOrDefault();
-        //                if (brother != null)
-        //                {
-        //                    descripcion = brother.Select(m => m.DescripcionComercial).SingleOrDefault();
-        //                }
-        //            }
+                var respuesta = new JsonResult();
+                foreach (var tono in tonos)
+                {
+                    var listSp = tono.Split(';');
+                    ficha.CUV2 = listSp.Length > 0 ? listSp[0] : ficha.CUV2;
+                    if (ficha.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    {
+                        var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s => s.Cuv == listSp[0])).SingleOrDefault();
+                        if (brother != null)
+                        {
+                            descripcion = brother.Select(m => m.DescripcionComercial).SingleOrDefault();
+                        }
+                    }
 
-        //            int outVal;
-        //            var modelo = new PedidoCrudModel
-        //            {
-        //                CUV = ficha.CUV2,
-        //                Cantidad = Cantidad,
-        //                PrecioUnidad = ficha.Precio2,
-        //                TipoEstrategiaID = ficha.TipoEstrategiaID,
-        //                OrigenPedidoWeb = Int32.TryParse(OrigenPedidoWeb, out outVal) ? Int32.Parse(OrigenPedidoWeb) : 0,
-        //                MarcaID = ficha.MarcaID,
-        //                DescripcionProd = descripcion,
-        //                TipoOfertaSisID = Int32.TryParse(ficha.CodigoEstrategia, out outVal) ? Int32.Parse(ficha.CodigoEstrategia) : 0,
-        //                IndicadorMontoMinimo = ficha.IndicadorMontoMinimo.ToString(),
-        //                ClienteID_ = ClienteID_,
-        //                TipoEstrategiaImagen = ficha.TipoEstrategiaImagenMostrar
-        //            };
-        //            respuesta = AgregarProductoZE(modelo);
-        //        }
-        //        return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-        //        return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
-        //    }
-        //}
+                    int outVal;
+                    var modelo = new PedidoCrudModel
+                    {
+                        CUV = ficha.CUV2,
+                        Cantidad = Cantidad,
+                        PrecioUnidad = ficha.Precio2,
+                        TipoEstrategiaID = ficha.TipoEstrategiaID,
+                        OrigenPedidoWeb = Int32.TryParse(OrigenPedidoWeb, out outVal) ? Int32.Parse(OrigenPedidoWeb) : 0,
+                        MarcaID = ficha.MarcaID,
+                        DescripcionProd = descripcion,
+                        TipoOfertaSisID = Int32.TryParse(ficha.CodigoEstrategia, out outVal) ? Int32.Parse(ficha.CodigoEstrategia) : 0,
+                        IndicadorMontoMinimo = ficha.IndicadorMontoMinimo.ToString(),
+                        ClienteID_ = ClienteID_,
+                        TipoEstrategiaImagen = ficha.TipoEstrategiaImagenMostrar
+                    };
+                    respuesta = AgregarProductoZE(modelo);
+                }
+                return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
+            }
+        }
 
-        //private void PedidoAgregarProductoAgrupado(int cantidad, string cuv, string cuvlist, int estrategiaId)
-        //{
-        //    var formatoPedidoWebSet = string.Empty;
+        private void PedidoAgregarProductoAgrupado(int cantidad, string cuv, string cuvlist, int estrategiaId)
+        {
+            var formatoPedidoWebSet = string.Empty;
 
-        //    if (cuvlist.IndexOf(":") < 0)
-        //        formatoPedidoWebSet = string.Format("{0}:1", cuvlist);
-        //    else
-        //        formatoPedidoWebSet = cuvlist;
+            if (cuvlist.IndexOf(":") < 0)
+                formatoPedidoWebSet = string.Format("{0}:1", cuvlist);
+            else
+                formatoPedidoWebSet = cuvlist;
 
-        //    using (var pedidoServiceClient = new PedidoServiceClient())
-        //    {
-        //        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
-        //            , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
-        //    }
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
+                    , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
+            }
 
-        //    ObtenerPedidoWebSetDetalleAgrupado(true);
-        //}
+            ObtenerPedidoWebSetDetalleAgrupado(true);
+        }
 
         #endregion
 

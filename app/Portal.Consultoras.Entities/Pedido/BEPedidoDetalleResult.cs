@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Pedido
 {
@@ -10,9 +9,5 @@ namespace Portal.Consultoras.Entities.Pedido
         public string CodigoRespuesta { get; set; }
         [DataMember]
         public string MensajeRespuesta { get; set; }
-        [DataMember]
-        public List<string> listCuvEliminar { get; set; }
-        [DataMember]
-        public BEPedidoWebDetalle pedidoWebDetalle { get; set; }
     }
 }

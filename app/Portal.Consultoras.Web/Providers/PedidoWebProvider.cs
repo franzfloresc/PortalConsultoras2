@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Providers
             return pedidoWeb;
         }
 
-        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(int esOpt, bool noSession = false)
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(int esOpt)
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             var userData = sessionManager.GetUserData();
@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 detallesPedidoWeb = sessionManager.GetDetallesPedido();
-                if (detallesPedidoWeb == null || noSession)
+                if (detallesPedidoWeb == null)
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
@@ -272,17 +272,6 @@ namespace Portal.Consultoras.Web.Providers
                 item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID, item.CodigoCatalago, item.DescripcionOferta);
 
             return descripcion;
-        }
-
-        public BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle)
-        {
-            BEPedidoDetalleResult pedidoDetalleResult;
-            using (var pedidoServiceClient = new PedidoServiceClient())
-            {
-                pedidoDetalleResult = pedidoServiceClient.InsertPedidoDetalle(pedidoDetalle);
-            }
-
-            return pedidoDetalleResult;
         }
 
     }
