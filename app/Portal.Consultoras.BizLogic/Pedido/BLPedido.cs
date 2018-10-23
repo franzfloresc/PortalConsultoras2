@@ -35,6 +35,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         private readonly IOfertaProductoBusinessLogic _ofertaProductoBusinessLogic;
+        private readonly IProgramaNuevasBusinessLogic _programaNuevasBusinessLogic;
 
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
@@ -51,7 +52,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLEstrategiaProducto(),
                                     new BLPedidoWebSet(),
                                     new BLTablaLogicaDatos(),
-                                    new BLOfertaProducto())
+                                    new BLOfertaProducto(),
+                                    new BLProgramaNuevas())
         { }
 
         public BLPedido(IProductoBusinessLogic productoBusinessLogic,
@@ -69,7 +71,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IEstrategiaProductoBusinessLogic estrategiaProductoBusinessLogic,
                             IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic,
                             ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
-                            IOfertaProductoBusinessLogic ofertaProductoBusinessLogic)
+                            IOfertaProductoBusinessLogic ofertaProductoBusinessLogic,
+                            IProgramaNuevasBusinessLogic programaNuevasBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -87,6 +90,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _pedidoWebSetBusinessLogic = pedidoWebSetBusinessLogic;
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _ofertaProductoBusinessLogic = ofertaProductoBusinessLogic;
+            _programaNuevasBusinessLogic = programaNuevasBusinessLogic;
         }
 
         #region Publicos
@@ -1296,7 +1300,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             Enumeradores.ValidacionProgramaNuevas numero;
             try
             {
-                numero = _productoBusinessLogic.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
+                numero = _programaNuevasBusinessLogic.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
             }
             catch (Exception)
             {
