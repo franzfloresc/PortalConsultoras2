@@ -17,7 +17,8 @@ namespace Portal.Consultoras.Web.Providers
         public virtual ConfiguracionPaisProvider ConfiguracionPais { get; private set; }
         public virtual GuiaNegocioProvider GuiaNegocio { get; private set; }
         public virtual ShowRoomProvider ShowRoom { get; private set; }
-        public virtual ProgramaNuevasProvider ProgramaNuevasProvider { get; private set; }
+        public virtual OfertaPersonalizadaProvider OfertaPersonalizada { get; private set; }
+        public virtual ProgramaNuevasProvider ProgramaNuevas { get; private set; }
 
         private UsuarioModel userData
         {
@@ -41,23 +42,26 @@ namespace Portal.Consultoras.Web.Providers
                    new ConfiguracionPaisProvider(),
                    new GuiaNegocioProvider(),
                    new ShowRoomProvider(),
+                   new OfertaPersonalizadaProvider(),
                    new ProgramaNuevasProvider(Web.SessionManager.SessionManager.Instance))
         {
         }
 
         public ConfiguracionOfertasHomeProvider(ISessionManager sessionManager,
             ILogManager logManager,
-            ConfiguracionPaisProvider configuracionPaisProvider,
+            ConfiguracionPaisProvider configuracionPais,
             GuiaNegocioProvider guiaNegocio,
             ShowRoomProvider showRoom,
+            OfertaPersonalizadaProvider ofertaPersonalizada,
             ProgramaNuevasProvider programaNuevasProvider)
         {
             SessionManager = sessionManager;
             LogManager = logManager;
-            ConfiguracionPais = configuracionPaisProvider;
+            ConfiguracionPais = configuracionPais;
             GuiaNegocio = guiaNegocio;
             ShowRoom = showRoom;
-            ProgramaNuevasProvider = programaNuevasProvider;
+            OfertaPersonalizada = ofertaPersonalizada;
+            ProgramaNuevas = programaNuevasProvider;
         }
 
         public virtual List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital, bool esMobile)
@@ -71,9 +75,10 @@ namespace Portal.Consultoras.Web.Providers
 
                 var seccionesContenedor = GetSeccionesContenedor();
                 seccionesContenedor = GetSeccionesContenedorByCampania(seccionesContenedor);
-
                 var isMobile = esMobile;
-                var esDuoPerfecto = ProgramaNuevasProvider.GetLimElectivos() > 1;
+                var esElecMultiple = ProgramaNuevas.GetLimElectivos() > 1;
+                List<ServiceOferta.BEEstrategia> listProgNuevas = null;
+
                 foreach (var beConfiguracionOfertasHome in seccionesContenedor)
                 {
                     var entConf = beConfiguracionOfertasHome;
@@ -154,11 +159,19 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.ProgramaNuevas:
-                            if (esDuoPerfecto) continue;
+                            if (esElecMultiple) continue;
+
+                            listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
+                            if (!listProgNuevas.Any()) continue;
+
                             seccion.UrlObtenerProductos = "";
                             break;
-                        case Constantes.ConfiguracionPais.DuoPerfecto:
-                            if (!esDuoPerfecto) continue;
+                        case Constantes.ConfiguracionPais.ElecMultiple:
+                            if (!esElecMultiple) continue;
+
+                            listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
+                            if (!listProgNuevas.Any()) continue;
+
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:

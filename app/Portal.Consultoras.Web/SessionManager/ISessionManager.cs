@@ -249,9 +249,9 @@ namespace Portal.Consultoras.Web.SessionManager
         int GetLimElectivosProgNuevas();
         void SetLimElectivosProgNuevas(int limElectivos);
 
-        void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel);
+        void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
-        BuscadorYFiltrosModel GetBuscadorYFiltros();
+        BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros();
         
         void SetOcultarBannerApp(dynamic val);
 

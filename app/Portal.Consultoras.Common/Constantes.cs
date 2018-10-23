@@ -1386,7 +1386,7 @@ namespace Portal.Consultoras.Common
             public const string PagoEnLinea = "PAYONLINE";
             public const string BuscadorYFiltros = "B&F";
             public const string ProgramaNuevas = "PN";
-            public const string DuoPerfecto = "DP";
+            public const string ElecMultiple = "DP";
         }
 
 
@@ -1689,6 +1689,7 @@ namespace Portal.Consultoras.Common
 
             public const short EscalaDescuentoDestokp = 72;
             public const short EscalaDescuentoMobile = 73;
+            public const short ListaOrdenamientoFiltros = 147;
         }
 
         public struct MensajesCDRExpress
@@ -2083,7 +2084,7 @@ namespace Portal.Consultoras.Common
             {
                 public const short TablaLogicaID = 7;
                 public const string FlagProgNuevas = "ProgramaNuevas";
-                public const string FlagBannerDuoPerfecto = "BannerDuoPerfecto";
+                public const string FlagBannerElecMultiple = "BannerElecMultiple";
             }
 
             public static class Rango
@@ -2102,7 +2103,7 @@ namespace Portal.Consultoras.Common
                 public const string Electivo_NoAgregarPorLimite = "Ya no puedes añadir otro producto, tu {0} está completo.";
                 public const string Electivo_CompletasteLimite = "¡Completaste tu {0}!";
                 public const string Electivo_TeFaltaPocoLimite = "¡Agregaste 1 producto, te falta {0} para completar tu {1}!";
-                public const string DuoPerfecto_ConfirmaEliminar = "Si eliminas este producto te quedarás sin tu {0}";
+                public const string ElecMultiple_ConfirmaEliminar = "Si eliminas este producto te quedarás sin tu {0}";
             }
         }
 
@@ -2768,13 +2769,19 @@ namespace Portal.Consultoras.Common
             public const string TotalResultadosBuscador = "TotalResultadosBuscador";
             public const string CantidadInicioSesionNovedadBuscador = "CantidadInicioSesionNovedadBuscador";
             public const string ConsultoraDummy = "ConsultoraDummy";
+            public const string MostrarBotonVerTodos = "MostrarBotonVerTodos";
+            public const string AplicarLogicaCantidadBotonVerTodos = "AplicarLogicaCantidadBotonVerTodos";
+            public const string MostrarOpcionesOrdenamiento = "MostrarOpcionesOrdenamiento";
+            public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
+            public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
+            
         }
 
 
         public class RutaBuscadorService
         {
             //Buscador/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{CodigoZona}/{TextoBusqueda}/{CantidadProductos}/{SociaEmpresaria}/{SuscripcionActiva}/{MDO}/{RD}/{RDI}/{RDR}/{DiaFacturacion}
-            public const string UrlBuscador = "Buscador/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}";
+            public const string UrlBuscador = "Buscador/{0}/{1}";
 
             //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}
             public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}";
@@ -2921,6 +2928,11 @@ namespace Portal.Consultoras.Common
             public const string AcionesOmitidas = "ActualizarContrasenia";
         }
 
+        public class PlantillaExcel
+        {
+            public const string UrlExcelMatrizCampania = "http://somosbelcorpprd.s3.amazonaws.com/Matriz/PLANTILLA_MASIVO_MATRIZ.xlsx";
+        }
+        
         public class CodigoEstrategiaBuscador
         {
             public const string Liquidacion = "LIQ";
