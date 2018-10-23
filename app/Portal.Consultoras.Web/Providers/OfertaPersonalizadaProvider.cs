@@ -445,7 +445,7 @@ namespace Portal.Consultoras.Web.Providers
             }                
             else
             {
-                bool esBannerProgNuevas = TieneDuoPerfectoConfigurado(esMobile, user);
+                bool esBannerProgNuevas = TienElecMultipleConfigurado(esMobile, user);
                 SessionManager.SetMostrarBannerNuevas(esBannerProgNuevas);
 
                 listModel = ConsultarEstrategias(esMobile, 0, codAgrupacion, true, !esBannerProgNuevas);
@@ -517,7 +517,7 @@ namespace Portal.Consultoras.Web.Providers
             return listEstrategia;
         }
 
-        public bool TieneDuoPerfectoConfigurado(bool esMobile, UsuarioModel user)
+        public bool TienElecMultipleConfigurado(bool esMobile, UsuarioModel user)
         {
             try
             {

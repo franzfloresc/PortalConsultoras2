@@ -1386,7 +1386,7 @@ namespace Portal.Consultoras.Common
             public const string PagoEnLinea = "PAYONLINE";
             public const string BuscadorYFiltros = "B&F";
             public const string ProgramaNuevas = "PN";
-            public const string DuoPerfecto = "DP";
+            public const string ElecMultiple = "DP";
         }
 
 
@@ -2084,7 +2084,7 @@ namespace Portal.Consultoras.Common
             {
                 public const short TablaLogicaID = 7;
                 public const string FlagProgNuevas = "ProgramaNuevas";
-                public const string FlagBannerDuoPerfecto = "BannerDuoPerfecto";
+                public const string FlagBannerElecMultiple = "BannerElecMultiple";
                 public const string FlagEtiquetasDetalle = "BannerDuoPerfecto";
             }
 
@@ -2104,7 +2104,7 @@ namespace Portal.Consultoras.Common
                 public const string Electivo_NoAgregarPorLimite = "Ya no puedes añadir otro producto, tu {0} está completo.";
                 public const string Electivo_CompletasteLimite = "¡Completaste tu {0}!";
                 public const string Electivo_TeFaltaPocoLimite = "¡Agregaste 1 producto, te falta {0} para completar tu {1}!";
-                public const string DuoPerfecto_ConfirmaEliminar = "Si eliminas este producto te quedarás sin tu {0}";
+                public const string ElecMultiple_ConfirmaEliminar = "Si eliminas este producto te quedarás sin tu {0}";
             }
         }
 
