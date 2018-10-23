@@ -555,6 +555,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(params),
                 async: true,
+                timeout: 120000, // sets timeout to 2 min
                 success: function (data) {
                     console.log('respuesta ' + _config.urlEstrategiaOfertasPersonalizadasInsert, new Date());
                     console.log(data); 
