@@ -119,7 +119,6 @@
                             }
                         }
                     </ul>
-                    <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
                 </div>
             </section>
         }
@@ -136,19 +135,21 @@
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js")"></script>
 }
 
-    <script id="js-fichaFiltros" type="text/x-handlebars-template">
-        {{#each this}}
-        <li class="col-12 pl-0 pr-0 filtro__item">
-            <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
-                <input id="filtroCategoriaFragancia" type="checkbox" class="filtro__item__checkbox" /> <!--checked-->
-                <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCategoriaFragancia">
-                    <span class="d-inline-block filtro__item__checkbox"></span>
-                    <span class="d-inline-block">{{this}}</span>
-                </label>
-            </div>
-        </li>
-        {{/each}}
-    </script>
+<script id="js-fichaFiltros" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <li class="col-12 pl-0 pr-0 filtro__item" data-item="BuscadorFiltros">
+        <input type="hidden" class="BuscadorFiltroLabel" value="{{label}}" />
+        <input type="hidden" class="BuscadorFiltroID" value="{{id}}" />
+        <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields buscadorFiltrosSeleccionar">
+            <input id="{{id}}" type="checkbox" class="filtro__item__checkbox buscadorFiltrosChecked" {{#if marcado}} checked {{/if}} /> <!--checked-->
+            <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="{{id}}">
+                <span class="d-inline-block filtro__item__checkbox"></span>
+                <span class="d-inline-block">{{label}} ({{count}})</span>
+            </label>
+        </div>
+    </li>
+    {{/each}}
+</script>
 
 <script id="js-FichaProductoBuscador" type="text/x-handlebars-template">
 

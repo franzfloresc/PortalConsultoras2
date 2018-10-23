@@ -22,7 +22,8 @@
         redireccionarFicha: '.redireccionarFicha',
         dataToggle: '[data-toggle]',
         filtrosCategorias: '#filtrosCategorias',
-        filtrosMarcas: '#filtrosMarcas'
+        filtrosMarcas: '#filtrosMarcas',
+        buscadorFiltrosSeleccionar: '.buscadorFiltrosSeleccionar'
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -38,7 +39,9 @@
         ordenCampo: "orden",
         ordenTipo: "asc",
         cargandoProductos: false,
-        maxCaracteresDesc: totalCaracteresDescripcion
+        maxCaracteresDesc: totalCaracteresDescripcion,
+        categoria: '',
+        marca: ''
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -75,6 +78,7 @@
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
             $(document).on("click", _elementos.btnAgregar, _eventos.RegistrarProducto);
             $(document).on('click', _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
+            $(document).on("click", _elementos.buscadorFiltrosSeleccionar, _eventos.FiltrosSelecionados);
 
         },
         ConstruirModeloBusqueda: function () {
@@ -87,6 +91,10 @@
                 Orden: {
                     Campo: _config.ordenCampo,
                     Tipo: _config.ordenTipo
+                },
+                Filtro: {
+                    categoria: _config.categoria,
+                    marca: _config.marca
                 }
             }
             return modelo;
@@ -308,12 +316,14 @@
                     console.error(error.toString());
                 });
         },
+
         RegistrarProducto: function (e) {
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
             BuscadorProvider.RegistroProductoBuscador(divPadre);
         },
+
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
 
@@ -335,6 +345,20 @@
                 window.location = UrlDetalle;
                 return true;
             }
+        },
+
+        FiltrosSelecionados: function (e) {
+            e.preventDefault();
+
+            var divPadre = $(this).parents("[data-item='BuscadorFiltros']").eq(0);
+            //var input = $(divPadre).find(".buscadorFiltrosChecked");
+            var id = $(divPadre).find(".BuscadorFiltroID").val();
+            var texto = $(divPadre).find(".BuscadorFiltroLabel").val();
+
+            if (id.substring(0, 3) == 'cat') _config.categoria = texto;
+            if (id.substring(0, 3) == 'mar') _config.marca = texto;
+
+            _funciones.CargarProductos();
         }
     };
 
