@@ -153,7 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
                     filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
-                
+
                 herramientasVenta = SessionManager.GetHerramientasVenta();
                 guiaNegocio = SessionManager.GetGuiaNegocio();
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
@@ -394,7 +394,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!userData.TieneValidacionMontoMaximo) return mensaje;
                 if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00)) return mensaje;
-                
+
                 var listaProducto = ObtenerPedidoWebDetalle();
                 var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
                 if (totalPedido > userData.MontoMaximo && cantidad < 0) result = true;
@@ -433,7 +433,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData = _menuProvider.GetPermisosByRol(userData, revistaDigital);
             }
-            
+
             ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
 
             return _menuProvider.SepararItemsMenu(userData.Menu);
@@ -481,7 +481,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region UserData
-                
+
         public string GetIPCliente()
         {
             var ip = string.Empty;
@@ -854,10 +854,10 @@ namespace Portal.Consultoras.Web.Controllers
                     ? Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) 
                     : Util.Trim(HttpContext.Request.FilePath);
 
-                url = (url).Replace("#", "/").ToLower() + "/";
-                urlReferrer = (urlReferrer).Replace("#", "/").ToLower() + "/";
+                url = (url ?? "").Replace("#", "/").ToLower() + "/";
+                urlReferrer = (urlReferrer ?? "").Replace("#", "/").ToLower() + "/";
 
-                result = url.Contains("/mobile/") || url.Contains("/g/") 
+                result = url.Contains("/mobile/") || url.Contains("/g/")
                     || urlReferrer.Contains("/mobile/") || urlReferrer.Contains("/g/");
 
                 if (result)
@@ -1188,10 +1188,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
             ViewBag.HabilitarChatEmtelco = _chatEmtelcoProvider.HabilitarChatEmtelco(userData.PaisID, esMobile);
-            
+
             ViewBag.MostrarBuscadorYFiltros = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBuscador).ToBool();
             ViewBag.CaracteresBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
-            ViewBag.TotalListadorBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador); 
+            ViewBag.TotalListadorBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador);
             ViewBag.CaracteresBuscadorMostrar = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar);
             ViewBag.CantidadVecesInicioSesionNovedad = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CantidadInicioSesionNovedadBuscador);
             ViewBag.NovedadBuscador = userData.NovedadBuscador;
