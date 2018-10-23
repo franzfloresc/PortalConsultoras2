@@ -305,6 +305,17 @@
 
 }
 
+@media screen and (min-width:992px) and (max-width:1168px){
+
+    .menu__item[data-title="OFERTAS"],
+    .menu__item--ofertas
+    {
+        width:127px;
+        margin-right:-9px;
+    }
+
+}
+
 @media screen and (min-width:1066px) and (max-width:1204px){
 
     .submenu__lista--miNegocio{
