@@ -1529,10 +1529,33 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return resultado;
         }
 
-        private bool ValidarProgramaNuevas(BEUsuario usuario, BEPedidoWebDetalle obePedidoWebDetalle, List<BEPedidoWebDetalle> lstDetalle, out string mensajeObs, out List<string> listCuvEliminar)
+        private string CrearAvisoCuponElectivo(BERespValidarElectivos respElectivos)
+        {
+            var promocionNombre = Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre;
+            if (respElectivos.LimNumElectivos == respElectivos.NumElectivosEnPedido)
+            {
+                return string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, promocionNombre);
+            }
+
+            var numFaltantes = respElectivos.LimNumElectivos - respElectivos.NumElectivosEnPedido;
+            return string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, numFaltantes, promocionNombre);
+        }
+
+        private void EliminarDetallePackNueva(List<string> listCuv, List<BEPedidoWebDetalle> lstDetalle)
+        {
+            var packNuevas = lstDetalle.Where(x => listCuv.Contains(x.CUV)).ToList();
+            foreach (var item in packNuevas)
+            {
+                _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleTransaction(item);
+            }
+        }
+
+        private bool ValidarProgramaNuevas(BEUsuario usuario, BEPedidoWebDetalle obePedidoWebDetalle, List<BEPedidoWebDetalle> lstDetalle, out string mensajeObs, out List<string> listCuvEliminar, out string TituloMensaje)
         {
             listCuvEliminar = new List<string>();
             mensajeObs = string.Empty;
+            TituloMensaje = "";
+
             var perteneceProgramaNuevas = _productoBusinessLogic.ValidarBusquedaProgramaNuevas
                             (usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, obePedidoWebDetalle.CUV);
             if (perteneceProgramaNuevas.Equals(Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas))
@@ -1541,23 +1564,23 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var lstCuvPedido = lstDetalle.Select(x => x.CUV).ToList();
                 var respElectivos = _productoBusinessLogic.
                     ValidaCuvElectivo(usuario.PaisID, usuario.CampaniaID, obePedidoWebDetalle.CUV, usuario.ConsecutivoNueva, usuario.CodigoPrograma, lstCuvPedido);
-                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.AgregarYMostrarMensaje)
+
+                switch (respElectivos.Resultado)
                 {
-                    listCuvEliminar = respElectivos.ListCuvEliminar.ToList();
-                    var packNuevas = lstDetalle.Where(x => respElectivos.ListCuvEliminar.Contains(x.CUV)).ToList();
-                    if (packNuevas.Any())
-                    {
-                        foreach (var item in packNuevas)
-                        {
-                            _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleTransaction(item);
-                        }
-                    }
+                    case Enumeradores.ValidarCuponesElectivos.AgregarYMostrarMensaje:
+                        mensajeObs = CrearAvisoCuponElectivo(respElectivos);
+                        TituloMensaje = !string.IsNullOrEmpty(mensajeObs)? Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper() : "";
+                        break;
+                    case Enumeradores.ValidarCuponesElectivos.Reemplazar:
+                        EliminarDetallePackNueva(respElectivos.ListCuvEliminar.ToList(), lstDetalle);
+                        listCuvEliminar = respElectivos.ListCuvEliminar.ToList();
+                        break;
+                    case Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite:
+                        mensajeObs = string.Format(Constantes.ProgNuevas.Mensaje.Electivo_NoAgregarPorLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre);
+                        TituloMensaje = Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper();
+                        return false;
                 }
-                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite)
-                {
-                    mensajeObs = string.Format(Constantes.MensajesError.AgregarProgNuevas_MaxElectivos, respElectivos.LimNumElectivos);
-                    return false;
-                }
+
 
                 //ValidarCantidadEnProgramaNuevas                        
                 int cantidadEnPedido = lstDetalle.Where(a => a.CUV == obePedidoWebDetalle.CUV).Sum(b => b.Cantidad);
@@ -1576,11 +1599,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         //AgregarTransactional
         private bool AdministradorPedido(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> pedidoWebDetalles, BEEstrategia estrategia,
-            string cuvlist, out string mensajeObs, out List<string> listCuvEliminar)
+            string cuvlist, out string mensajeObs, out List<string> listCuvEliminar, out string TituloMensaje)
         {
-            var resultado = true;
             listCuvEliminar = new List<string>();
             mensajeObs = "";
+            TituloMensaje = "";
             TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             try
             {
@@ -1610,10 +1633,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         #region ProgramaNuevas
                         if (obePedidoWebDetalle.TipoAdm.Equals(Constantes.PedidoAccion.INSERT))
                         {
-                            var pasoProgramaNueva = ValidarProgramaNuevas(usuario, obePedidoWebDetalle, lstDetalle, out mensajeObs, out listCuvEliminar);
-                            if (!pasoProgramaNueva) return false;
-                            if (listCuvEliminar.Any())
-                                lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+                            if (pedidoDetalle.EnRangoProgramaNuevas)
+                            {
+                                var pasoProgramaNueva = ValidarProgramaNuevas(usuario, obePedidoWebDetalle, lstDetalle, out mensajeObs, out listCuvEliminar, out TituloMensaje);
+                                if (!pasoProgramaNueva) return false;
+                                if (listCuvEliminar.Any())
+                                    lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+                            }
                         }
                         #endregion
 
@@ -1715,9 +1741,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, pedidoWebDetalles[0].CodigoUsuarioModificacion, Util.GetPaisISO(usuario.PaisID));
+                mensajeObs = "Ocurrió un error al ejecutar la operación.";
                 return false;
             }
-            return resultado;
+            return true;
         }
 
         private short ValidarInsercion(List<BEPedidoWebDetalle> pedido, BEPedidoWebDetalle itemPedido, out int cantidad)
@@ -2909,14 +2936,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             var listCuvEliminar = new List<string>();
             string mensajeObs = "";
-            var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, strCuvs, out mensajeObs, out listCuvEliminar);
-            mensajeObs = !string.IsNullOrEmpty(mensajeObs) ? mensajeObs : "Ocurrió un error al ejecutar la operación.";
+            string TituloMensaje = "";
+            var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, strCuvs, out mensajeObs, out listCuvEliminar, out TituloMensaje);
 
-            if (!transactionExitosa) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
-
-            var response = PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
+            var response = PedidoDetalleRespuesta(transactionExitosa ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
             response.listCuvEliminar = listCuvEliminar;
             response.pedidoWebDetalle = pedidowebdetalles[0];
+            response.MensajeAviso = mensajeObs;
+            response.TituloMensaje = TituloMensaje;
 
             return response;
         }

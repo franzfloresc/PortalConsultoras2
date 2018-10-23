@@ -4385,6 +4385,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(model.OrigenPedidoWeb);
                 pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
                 pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+                pedidoDetalle.EnRangoProgramaNuevas = model.EnRangoProgramaNuevas || model.FlagNueva == "1";
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
@@ -4404,6 +4405,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = true,
                         message = pedidoDetalleResult.MensajeRespuesta,
+                        tituloMensaje = pedidoDetalleResult.TituloMensaje,
+                        mensajeAviso = pedidoDetalleResult.MensajeAviso,
                         errorInsertarProducto = "0",
                         DataBarra = GetDataBarra(),
                         data = pedidoDetalleResult.pedidoWebDetalle,
@@ -4419,6 +4422,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = false,
                         message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
+                        tituloMensaje = pedidoDetalleResult.TituloMensaje,
                         errorInsertarProducto = "1"
                     }, JsonRequestBehavior.AllowGet);
                 }

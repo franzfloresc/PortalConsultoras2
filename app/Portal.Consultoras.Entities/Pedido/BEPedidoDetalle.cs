@@ -51,6 +51,8 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public bool esVirtualCoach { get; set; }
         [DataMember]
+        public bool EnRangoProgramaNuevas { get; set; }
+        [DataMember]
         public BEEstrategia estrategia { get; set; }
     }
 }
