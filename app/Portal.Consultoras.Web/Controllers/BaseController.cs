@@ -846,15 +846,19 @@ namespace Portal.Consultoras.Web.Controllers
             var result = false;
             try
             {
-                var url = HttpContext.Request.Url != null ? HttpContext.Request.Url.AbsolutePath : null;
+                var url = HttpContext.Request.Url != null 
+                    ? HttpContext.Request.Url.AbsolutePath 
+                    : null;
 
-                var urlReferrer = HttpContext.Request.UrlReferrer != null ?
-                    Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) :
-                    Util.Trim(HttpContext.Request.FilePath);
+                var urlReferrer = HttpContext.Request.UrlReferrer != null 
+                    ? Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) 
+                    : Util.Trim(HttpContext.Request.FilePath);
 
-                url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
+                url = (url).Replace("#", "/").ToLower() + "/";
+                urlReferrer = (urlReferrer).Replace("#", "/").ToLower() + "/";
 
-                result = url.Contains("/mobile/") || url.Contains("/g/");
+                result = url.Contains("/mobile/") || url.Contains("/g/") 
+                    || urlReferrer.Contains("/mobile/") || urlReferrer.Contains("/g/");
 
                 if (result)
                     return result;
@@ -1290,10 +1294,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                result = Request.Browser.IsMobileDevice; ;
+                result = Request.Browser.IsMobileDevice;
             }
             catch
             {
+                // Excepcion
             }
 
             return result;

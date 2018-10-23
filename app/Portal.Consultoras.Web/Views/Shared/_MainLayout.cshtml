@@ -1,8 +1,8 @@
 ﻿@using Portal.Consultoras.Common
 
-@{
+@*@{
     var origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopBuscador;
-}
+}*@
 
 <!DOCTYPE html>
 <html lang="es" class="no-js">
@@ -107,7 +107,6 @@
 <body>
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
 
-    @*Popup para mexico privacidad de datos*@
     @if (ViewBag.codigoISOMenu == "MX")
     {
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Login2/popup-privacidad-datos.css")">
@@ -117,17 +116,6 @@
     }
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTrackingJetlore.cshtml")
-@*@if (ViewBag.PaisesConTrackingJetlore == "1")
-    {
-        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
-        <script type="text/javascript">
-            JL.tracking({
-                cid: trackingJetloreAccessToken,
-                user_id: '@ViewBag.CodigoConsultoraDL',
-                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
-            });
-        </script>
-    }*@
 
     <script type="text/javascript">
         if (!String.prototype.startsWith) {
@@ -206,16 +194,6 @@
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpInputHiddenSoloDesktop.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpInputHidden.cshtml")
-    @*<input type="hidden" id="hdFlagOfertaWeb" value="0" />
-    <input type="hidden" id="hdFlagOfertaLiquidacion" value="0" />
-    <input type="hidden" id="hdFlagValidacion" value="0" />
-    <input type="hidden" id="hdFlagValidacionReserva" value="0" />
-
-    <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
-    <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
-    <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
-    <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
-    <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />*@
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBannerLateralShowRoom.cshtml")
 
@@ -260,7 +238,7 @@
         var OrigenDesktopODD = 0;
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
-        var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;
+        @*var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;*@
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';

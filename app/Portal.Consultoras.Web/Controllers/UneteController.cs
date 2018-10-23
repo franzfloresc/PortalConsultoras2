@@ -291,8 +291,6 @@ namespace Portal.Consultoras.Web.Controllers
                             bajoOrMedio = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
                             finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
                         }
-                        // Type @const = (CodigoISO == Pais.Ecuador) ? typeof(Enumeradores.TipoNivelesRiesgo): typeof(Constantes.TipoNivelesRiesgo)
-                        // var alto = @const 
 
                         if (CodigoISO == Pais.Bolivia)
                         {

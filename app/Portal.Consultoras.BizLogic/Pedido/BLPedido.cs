@@ -308,7 +308,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 var lista = getListaNuevasDescripciones(userData.PaisID);
                 var pedidoValidado = getPedidoValidado(userData);
-                var suscritaActiva = (usuario.RevistaDigital.EsSuscrita == true && usuario.RevistaDigital.EsActiva == true);
+                var suscritaActiva = (usuario.RevistaDigital.EsSuscrita && usuario.RevistaDigital.EsActiva);
 
                 if (pedido == null) return pedido;
 
@@ -934,7 +934,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 pedidoDetalle.PedidoID = pedidoID;
                 //Insertar pedido
                 //pedidoDetalle.OrigenPedidoWeb = usuario.RevistaDigital.TieneRevistaDigital() ?
-                //    Constantes.OrigenPedidoWeb.RevistaDigitalAppPedidoSeccion : Constantes.OrigenPedidoWeb.OfertasParaTiAppPedido;
+                //    Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertasParaTiCarrusel;
                 var codeResult = PedidoInsertar(usuario, pedidoDetalle, lstDetalle, false);
                 if (codeResult != Constantes.PedidoValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 
@@ -1176,7 +1176,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle)
         {
-            //var mensaje = string.Empty;
             try
             {
                 //Validación de Sets
@@ -2425,7 +2424,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             usuario.RevistaDigital = taskRevistaDigital.Result.RevistaDigital;
 
             //Configuracion pais - ValidacionMontoMaximo
-            usuario.TieneValidacionMontoMaximo = usuario.TieneValidacionMontoMaximo;
+            usuario.TieneValidacionMontoMaximo = taskValidacionMontoMaximo.Result.TieneValidacionMontoMaximo;
 
             //Validacion reserva u horario restringido
             var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID,

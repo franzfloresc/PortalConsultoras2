@@ -7,9 +7,6 @@ $(document).ready(function () {
     vistaMiPerfil = function () {
         var me = this;
 
-        //me.Globals = {
-
-        //},
         me.Funciones = {
             InicializarEventos: function () {
                 $('body').on('blur', '.grupo_form_cambio_datos input', me.Eventos.LabelActivo);

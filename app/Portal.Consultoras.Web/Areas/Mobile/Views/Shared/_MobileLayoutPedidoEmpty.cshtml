@@ -68,24 +68,6 @@
     </section>
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
-    @*<div class="content-spinner2" id="loading-spin">
-        <div class="busy-loader">
-            <div class="w-ball-wrapper ball-1">
-                <div class="w-ball"></div>
-            </div>
-            <div class="w-ball-wrapper ball-2">
-                <div class="w-ball"></div>
-            </div>
-            <div class="w-ball-wrapper ball-3">
-                <div class="w-ball"> </div>
-            </div> <div class="w-ball-wrapper ball-4">
-                <div class="w-ball"> </div>
-            </div>
-            <div class="w-ball-wrapper ball-5">
-                <div class="w-ball"> </div>
-            </div>
-        </div>
-    </div>*@
 
     <div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
@@ -183,8 +165,8 @@
     var cerrarRechazado = '@ViewBag.CerrarRechazado';
     var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
-    var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
-    var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
+    var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel;
+    var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel;
 
     //ODD
     var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';

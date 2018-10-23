@@ -439,20 +439,6 @@ namespace Portal.Consultoras.BizLogic
 
             var daProductoDescripcion = new DAProductoDescripcion(paisID);
 
-            //List<BEProductoDescripcion> lstFinal = new List<BEProductoDescripcion>();
-
-            //foreach (BEProductoDescripcion be in productos)
-            //{
-            //    BEProductoDescripcion item = new BEProductoDescripcion();
-            //    item.CampaniaID = campaniaID;
-            //    item.CUV  = be.CUV;
-            //    item.Descripcion  = be.Descripcion;
-            //    item.PrecioProducto = be.PrecioProducto;
-            //    item.FactorRepeticion = be.FactorRepeticion;
-            //    lstFinal.Add(item);
-            //}
-
-            // daProductoDescripcion.UpdProductoDescripcionMasivo(paisID,campaniaID, lstFinal, codigoUsuario);
             daProductoDescripcion.UpdProductoDescripcionMasivo(paisID, campaniaID, productos, codigoUsuario);
 
         }

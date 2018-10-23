@@ -48,7 +48,6 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenURL { get; set; }
         public bool IsAgregado { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }
-        //public string PrecioNiveles { get; set; }
         public List<string> ListaPrecioNiveles { get; set; }
 
         public int MarcaID { get; set; }

@@ -83,15 +83,8 @@ namespace Portal.Consultoras.Web.Providers
                         ? Constantes.OrigenPantallaWeb.MRevistaDigitalInfo
                         : Constantes.OrigenPantallaWeb.DRevistaDigitalInfo;
                     break;
-                case Constantes.UrlMenuContenedor.LanDetalle:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
-                    menuActivo.OrigenPantalla = esMobile
-                        ? Constantes.OrigenPantallaWeb.MRevistaDigitalDetalle
-                        : Constantes.OrigenPantallaWeb.DRevistaDigitalDetalle;
-                    break;
                 case Constantes.UrlMenuContenedor.SwInicio:
                 case Constantes.UrlMenuContenedor.SwIntriga:
-                case Constantes.UrlMenuContenedor.SwDetalle:
                 case Constantes.UrlMenuContenedor.SwInicioIndex:
                 case Constantes.UrlMenuContenedor.SwPersonalizado:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
@@ -250,40 +243,39 @@ namespace Portal.Consultoras.Web.Providers
             return configuracionPaisMenu;
         }
 
-        public string GetMenuActivoOptCodigoSegunActivo(string pathOrigen, RevistaDigitalModel revistaDigital, string CodigoConsultora, string CodigoISO)
-        {
-            var codigo = "";
-            try
-            {
-                var origrn = int.Parse(pathOrigen);
-                switch (origrn)
-                {
-                    case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
-                        codigo = Constantes.ConfiguracionPais.Lanzamiento;
-                        break;
-                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
-                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoLanzamiento:
-                        codigo = Constantes.ConfiguracionPais.Lanzamiento;
-                        break;
-                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
-                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionMasOfertas:
-                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas:
-                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
-                        codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
-                        break;
-                    case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
-                    case Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido:
-                        codigo = Constantes.ConfiguracionPais.OfertasParaTi;
-                        break;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Common.LogManager.SaveLog(ex, CodigoConsultora, CodigoISO);
-            }
-            return codigo;
-        }
+        //public string GetMenuActivoOptCodigoSegunActivo(string pathOrigen, RevistaDigitalModel revistaDigital, string CodigoConsultora, string CodigoISO)
+        //{
+        //    var codigo = "";
+        //    try
+        //    {
+        //        var origrn = int.Parse(pathOrigen);
+        //        switch (origrn)
+        //        {
+        //            case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
+        //                codigo = Constantes.ConfiguracionPais.Lanzamiento;
+        //                break;
+        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
+        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoLanzamiento:
+        //                codigo = Constantes.ConfiguracionPais.Lanzamiento;
+        //                break;
+        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
+        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionMasOfertas:
+        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas:
+        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
+        //                codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
+        //                break;
+        //            case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
+        //            case Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido:
+        //                codigo = Constantes.ConfiguracionPais.OfertasParaTi;
+        //                break;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Common.LogManager.SaveLog(ex, CodigoConsultora, CodigoISO);
+        //    }
+        //    return codigo;
+        //}
 
         public List<ConfiguracionPaisModel> GetMenuContenedorByMenuActivoCampania(int campaniaIdMenuActivo, int campaniaIdUsuario, UsuarioModel userData, RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, OfertaPersonalizadaProvider _ofertaPersonalizadaProvider, ProgramaNuevasProvider _programaNuevasProvider, bool esMobile)
         {
@@ -349,11 +341,9 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (revistaDigital.TieneRDI)
                 {
-                    //config.DesktopFondoBanner = revistaDigital.BannerOfertasNoActivaNoSuscrita;
                     config.DesktopFondoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.BannerOfertasNoActivaNoSuscrita);
                     config.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
                     config.MobileFondoBanner = string.Empty;
-                    //config.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
                     config.MobileLogoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.MLogoComercialFondoNoActiva);
                 }
                 if (revistaDigital.TieneRevistaDigital())

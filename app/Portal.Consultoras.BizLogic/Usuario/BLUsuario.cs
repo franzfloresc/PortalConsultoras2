@@ -617,7 +617,7 @@ namespace Portal.Consultoras.BizLogic
                 if (actualizaDatosTask.Result != null)
                 {
                     var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
-                    usuario.PuedeActualizar = (item != null ? item.Valor == "1" : false);
+                    usuario.PuedeActualizar = (item != null && item.Valor == "1");
                 }
                 if (actualizaDatosConfigTask.Result != null)
                 {
@@ -1878,7 +1878,7 @@ namespace Portal.Consultoras.BizLogic
         {
 
             var actualizaDatosPais = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(usuario.PaisID, Constantes.TablaLogica.ActualizaDatosEnabled).FirstOrDefault();
-            usuario.PuedeActualizar = (actualizaDatosPais != null ? actualizaDatosPais.Valor == "1" : false);
+            usuario.PuedeActualizar = (actualizaDatosPais != null && actualizaDatosPais.Valor == "1");
             if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
 
             var actualizaDatosConfigTask = GetOpcionesVerificacion(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
@@ -3437,31 +3437,31 @@ namespace Portal.Consultoras.BizLogic
             var buscadorYFiltrosConfiguracion = new BEBuscadorYFiltrosConfiguracion();
             short valor1 = 0;
 
-            var mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBuscador).FirstOrDefault();
+            var mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBuscador);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBuscador = mostrarBuscador.Valor1 == "1";
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscador).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscador = valor1;
             }
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscadorMostrar = valor1;
             }
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.TotalResultadosBuscador = valor1;
             }
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 == "1";
 
             mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).FirstOrDefault();
