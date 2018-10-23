@@ -14,7 +14,7 @@ namespace Portal.Consultoras.BizLogic
     {
         public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv)
         {
-            if (!IsFlagProgramaNuevasOn(paisID)) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas, paisID)) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
             if (!EstaEnRangoCuvProgramaNuevas(paisID, Convert.ToInt32(cuv))) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
             List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
             if (lstProdcutos == null || lstProdcutos.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
@@ -27,7 +27,7 @@ namespace Portal.Consultoras.BizLogic
 
         public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada)
         {
-            if (!IsFlagProgramaNuevasOn(paisID)) return 0;
+            if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas, paisID)) return 0;
             List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
             if (lstProdcutos.Count == 0) return 0;
             lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.BizLogic
 
         public BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
         {
-            if (!IsFlagProgramaNuevasOn(paisID)) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
+            if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas, paisID)) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
             List<BEProductoProgramaNuevas> lstProductos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
             if (lstProductos == null || lstProductos.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
             lstProductos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProductos, consecutivoNueva, codigoPrograma);
@@ -77,7 +77,7 @@ namespace Portal.Consultoras.BizLogic
         public void UpdateFlagCupones(int paisID, List<BEPedidoWebDetalle> listPedidoDetalle)
         {
             if (listPedidoDetalle == null || listPedidoDetalle.Count == 0) return;
-            if (!IsFlagProgramaNuevasOn(paisID)) return;
+            if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas, paisID)) return;
 
             var fnEnRango = GetFnEnRangoCuvProgramaNuevas(paisID);
             listPedidoDetalle.ForEach(d => d.EnRangoProgNuevas = fnEnRango(Convert.ToInt32(d.CUV)));
@@ -85,7 +85,7 @@ namespace Portal.Consultoras.BizLogic
 
         public bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
         {
-            if (!IsFlagProgramaNuevasOn(paisID)) return false;
+            if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas, paisID)) return false;
 
             var lstCuponNuevas = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
             if (lstCuponNuevas == null || lstCuponNuevas.Count == 0) return false;
@@ -105,7 +105,7 @@ namespace Portal.Consultoras.BizLogic
 
         public bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv)
         {
-            if (!IsFlagBannerDuoPerfectoOn(paisID)) return false;
+            if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagBannerElecMultiple, paisID)) return false;
 
             var lstCuponNuevas = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
             if (lstCuponNuevas == null || lstCuponNuevas.Count == 0) return false;
@@ -133,21 +133,12 @@ namespace Portal.Consultoras.BizLogic
 
         #region Metodos de Programa Nuevas
 
-        private bool IsFlagProgramaNuevasOn(int paisID)
+        private bool IsFlagOn(string codigo, int paisID)
         {
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
             var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgNuevas.EncenderValidacion.TablaLogicaID);
             if (lstTabla.Count == 0) return false;
             if (lstTabla.Where(a => a.Codigo == Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas).Select(b => b.Valor).FirstOrDefault() == "1") return true;
-            return false;
-        }
-
-        private bool IsFlagBannerDuoPerfectoOn(int paisID)
-        {
-            var blTablaLogicaDatos = new BLTablaLogicaDatos();
-            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgNuevas.EncenderValidacion.TablaLogicaID);
-            if (lstTabla.Count == 0) return false;
-            if (lstTabla.Where(a => a.Codigo == Constantes.ProgNuevas.EncenderValidacion.FlagBannerDuoPerfecto).Select(b => b.Valor).FirstOrDefault() == "1") return true;
             return false;
         }
 
