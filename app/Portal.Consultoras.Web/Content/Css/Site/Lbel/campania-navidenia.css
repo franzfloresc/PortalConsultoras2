@@ -41,7 +41,7 @@
     background-size: 170px;
 }
 
-.wrapper_campania_navidenia_y_logo
+.wrapper_campania_navidenia_y_logo,
 .wrapper_header_campania_navidenia .logo_esika a
 {
     height:61px;
@@ -74,6 +74,7 @@
 .wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco{
     background: url(/Content/Images/Lbel/logo_marca_pais_blanco.svg) no-repeat;
     background-position:center;
+    background-size:117px;
 }
 
 .wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco:hover{
