@@ -541,7 +541,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Sección", "Seccion"},
                 {"Enviado", "EnviadoGZ"}
             };
-            Util.ExportToExcel("Solicitud Cliente", lst, dic);
+            Util.ExportToExcel("Solicitud Cliente", lst, dic, GetExcelSecureCallback());
             return View();
         }
 

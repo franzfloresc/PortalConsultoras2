@@ -1421,7 +1421,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return null;
             }
 
-            return stream => processor.Secure(stream, user.UsuarioNombre);
+            var password = user.CodigoUsuario.ToLower();
+
+            return stream => processor.Secure(stream, password);
         }
 
     }
