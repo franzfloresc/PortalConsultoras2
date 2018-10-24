@@ -3,12 +3,20 @@ USE BelcorpPeru
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -44,7 +52,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
@@ -52,12 +59,20 @@ USE BelcorpMexico
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -93,7 +108,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
@@ -101,12 +115,20 @@ USE BelcorpColombia
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -142,7 +164,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
@@ -150,12 +171,20 @@ USE BelcorpSalvador
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -191,7 +220,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
@@ -199,12 +227,20 @@ USE BelcorpPuertoRico
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -240,7 +276,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
@@ -248,12 +283,20 @@ USE BelcorpPanama
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -289,7 +332,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
@@ -297,12 +339,20 @@ USE BelcorpGuatemala
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -338,7 +388,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
@@ -346,12 +395,20 @@ USE BelcorpEcuador
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -387,7 +444,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
@@ -395,12 +451,20 @@ USE BelcorpDominicana
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -436,7 +500,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
@@ -444,12 +507,20 @@ USE BelcorpCostaRica
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -485,7 +556,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
@@ -493,12 +563,20 @@ USE BelcorpChile
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -534,7 +612,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
@@ -542,12 +619,20 @@ USE BelcorpBolivia
 GO
 
 GO
+IF EXISTS (
+	SELECT * FROM sys.objects
+	WHERE object_id =
+	OBJECT_ID(N'[dbo].[EstrategiaTemporalActualizarSetImagen]')
+	AND type in (N'P', N'PC')
+)
+	DROP PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+GO
 
 /******CREADO POR: JORGE LEIVA DIAZ ******/
 /******RESULTADO : ACTUALIZA LA IMAGEN DE ESTRATEGIA IMAGEN A ESTRATEGIA TEMPORAL ******/
 /******PARAMETROS: NUMERO LOTE Y PAGINA ******/
 
-ALTER PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
+CREATE PROCEDURE [dbo].[EstrategiaTemporalActualizarSetImagen]
 (
 	@NroLote INT,
 	@Pagina int
@@ -583,7 +668,6 @@ BEGIN
 END
 
 GO
-
 
 
 GO
