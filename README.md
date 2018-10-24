@@ -1,5 +1,5 @@
 # Portal Consultoras SB2
 
-PI2-EPM-Sprint2-Pase22102018
+PI2-EPM-Sprint3_PedidoExpGrilla
 
-Sprint 1 Tipos Analytics + Sprint 1 A/B TEsting + LasMasGanadoras + CompositorImagenes + OrigenPedidoWeb + ETL
+EPM-1604, EPM-1614
