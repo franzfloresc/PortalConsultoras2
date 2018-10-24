@@ -386,7 +386,7 @@ namespace Portal.Consultoras.Web.Providers
             return listEstrategia;
         }
 
-        protected virtual List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(bool esMobile, 
+        public List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(bool esMobile, 
             string tipo, 
             int campaniaId,
             bool filtrarNuevasAgregadas = false,
