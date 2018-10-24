@@ -531,7 +531,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (model.EnRangoProgramaNuevas)
             {
-                CrearLogProgNuevas("DuoPerfecto: PedidoInsertar", model.CUV);
+                CrearLogProgNuevas("ProgNuevas: PedidoInsertar", model.CUV);
 
                 listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, out mensajeError, out mensajeAviso);
                 if (mensajeError != "")
@@ -550,7 +550,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso, !string.IsNullOrEmpty(mensajeAviso)));
         }
 
-        private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "", bool esMensajeDuoPerfecto = false)
+        private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "", bool esMensajeElecMultiple = false)
         {
             try
             {
@@ -624,7 +624,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = !errorServer,
                     message,
                     mensajeAviso,
-                    tituloMensaje = esMensajeDuoPerfecto ? Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper() : "",
+                    tituloMensaje = esMensajeElecMultiple ? Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper() : "",
                     data = pedidoWebDetalleModel,
                     listCuvEliminar,
                     total,
@@ -1507,7 +1507,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (enRangoProgNuevas)
                     {
-                        CrearLogProgNuevas("DuoPerfecto: ValidarStockEstrategia", CUV);
+                        CrearLogProgNuevas("ProgNuevas: ValidarStockEstrategia", CUV);
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     }
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
@@ -4488,21 +4488,21 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         [HttpPost]
-        public JsonResult EsPedidoDetalleDuoPerfecto(string cuv)
+        public JsonResult EsPedidoDetalleElecMultiple(string cuv)
         {
             try
             {
-                bool esDuoPerfecto;
+                bool esElecMultiple;
                 using (var svc = new ODSServiceClient())
                 {
-                    esDuoPerfecto = svc.EsCuvDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
+                    esElecMultiple = svc.EsCuvDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
                 }
 
                 return Json(new {
                     success = true,
-                    esDuoPerfecto = esDuoPerfecto,
-                    message = esDuoPerfecto ?
-                        string.Format(Constantes.ProgNuevas.Mensaje.DuoPerfecto_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre) :
+                    esElecMultiple = esElecMultiple,
+                    message = esElecMultiple ?
+                        string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre) :
                         ""
                 });
             }
