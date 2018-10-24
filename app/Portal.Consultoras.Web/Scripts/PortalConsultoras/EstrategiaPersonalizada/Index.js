@@ -557,49 +557,86 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
     var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
 
     if (currentSlide == 0) {
+        console.log(0);
         $(objPrevArrow).hide();
-
+        $(objNextArrow).show();
     }
     else {
 
-        if (slick.slideCount > 1 && objVisorSlick && lastSlick) {
-            var anchoCarrusel = $(objVisorSlick).offset().left + $(objVisorSlick).width();
-            var positionUltimoSlick = $(lastSlick).offset().left + $(lastSlick).width();
-            var paddindLeftUltimo = $(lastSlick).css('padding-left');
-            paddindLeftUltimo = paddindLeftUltimo ? paddindLeftUltimo.replace('px', '') : 0;
-            paddindLeftUltimo = parseFloat(paddindLeftUltimo);
+        var item = currentSlide;
+        var anchoFalta = 0;
+        do {
+            anchoFalta += $(slick.$slides[item]).innerWidth();
+            item++;
+        } while (item < slick.slideCount);
 
-            if (positionUltimoSlick < anchoCarrusel) {                
+        if (anchoFalta > $(slick.$list).width()) {
+            var currentSlideback = $(slick.$list).attr('data-currentSlide') || "";
+            console.log(1, currentSlideback);
+            if (currentSlideback == currentSlide) {
+                console.log(3);
+                slick.options.slidesToShow = isMobile() ? 1 : 2;
+                slick.setPosition();
+                slick.slickGoTo(currentSlide + 1);
+                currentSlide = currentSlide + 1;
+                //$(event.target).parents(sElementos.listadoProductos).slickGoTo(currentSlide + 1);
+                $(objPrevArrow).show();
                 $(objNextArrow).hide();
             }
             else {
-
-                if ((positionUltimoSlick > anchoCarrusel) && ($(lastSlick).offset().left + paddindLeftUltimo) < anchoCarrusel) {
-
-                    setTimeout(function () { 
-
-                        var strWidth = $(lastSlick).css('width').replace('px','');
-                        var paso = anchoCarrusel - $(lastSlick).offset().left;
-                        var avanzar =   parseFloat( strWidth) - paso;
-                        var efectoValor = $(event.target).find('.slick-track').css('transform');
-
-                        efectoValor = efectoValor.replace('matrix(1, 0, 0, 1,','');
-                        efectoValor = efectoValor.replace(', 0)', '');
-                        efectoValor = efectoValor.trim();
-                        efectoValor = parseFloat(efectoValor)
-                        var nuevoValor = efectoValor - avanzar;
-
-                        $(event.target).find('.slick-track').css('transform', 'translate3d(' + nuevoValor + 'px, 0px, 0px)');
-                        
-                        $(objNextArrow).hide();
-                    }, 100);                   
-                }
-
+                console.log(2);
+                $(objPrevArrow).show();
                 $(objNextArrow).show();
             }
         }
-        $(objPrevArrow).show();
+        else {
+            var cantFinal = slick.slideCount - slick.options.slidesToShow;
+            if (cantFinal == currentSlide) {
+                $(objPrevArrow).show();
+                $(objNextArrow).hide();
+            }
+        }
+
+        //if (slick.slideCount > 1 && objVisorSlick && lastSlick) {
+        //    var anchoCarrusel = $(objVisorSlick).offset().left + $(objVisorSlick).width();
+        //    var positionUltimoSlick = $(lastSlick).offset().left + $(lastSlick).width();
+        //    var paddindLeftUltimo = $(lastSlick).css('padding-left');
+        //    paddindLeftUltimo = paddindLeftUltimo ? paddindLeftUltimo.replace('px', '') : 0;
+        //    paddindLeftUltimo = parseFloat(paddindLeftUltimo); 
+             
+        //    if (positionUltimoSlick < anchoCarrusel) {                
+        //        $(objNextArrow).hide();
+        //    }
+        //    else {
+
+        //        if ((positionUltimoSlick > anchoCarrusel) && ($(lastSlick).offset().left + paddindLeftUltimo) < anchoCarrusel) {
+
+        //            setTimeout(function () { 
+
+        //                var strWidth = $(lastSlick).css('width').replace('px','');
+        //                var paso = anchoCarrusel - $(lastSlick).offset().left;
+        //                var avanzar =   parseFloat( strWidth) - paso;
+        //                var efectoValor = $(event.target).find('.slick-track').css('transform');
+
+        //                efectoValor = efectoValor.replace('matrix(1, 0, 0, 1,','');
+        //                efectoValor = efectoValor.replace(', 0)', '');
+        //                efectoValor = efectoValor.trim();
+        //                efectoValor = parseFloat(efectoValor)
+        //                var nuevoValor = efectoValor - avanzar;
+
+        //                $(event.target).find('.slick-track').css('transform', 'translate3d(' + nuevoValor + 'px, 0px, 0px)');
+                        
+        //                $(objNextArrow).hide();
+        //            }, 100);                   
+        //        }
+
+        //        $(objNextArrow).show();
+        //    }
+        //}
+        //$(objPrevArrow).show();
     }
+
+    $(slick.$list).attr('data-currentSlide', currentSlide);
 
 }
 
@@ -620,13 +657,21 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
     divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
     divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
         lazyLoad: "ondemand",
+
+        //dots: true,
+        //infinite: true,
+        //speed: 300,
+        //slidesToShow: 1,
+        //centerMode: true,
+        //variableWidth: true,
+
         infinite: cc == undefined ? true : cc,
         vertical: false,
         slidesToShow: esMobile ? 2 : 3,
         slidesToScroll: 1,
         autoplay: false,
         variableWidth: vw,
-        speed: 260,
+        speed: 300,
         arrows: !esMobile,
         prevArrow: '<a  class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
@@ -634,7 +679,7 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
         VerificarClick(slick, currentSlide, nextSlide, "normal");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
 
-        if (!cc && !isMobile()) {
+        if (!cc) {
             ShowOrHide_Arrows(event, slick, currentSlide);
         }    
         EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
