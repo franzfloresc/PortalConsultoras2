@@ -156,7 +156,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
-                "~/Scripts/PortalConsultoras/Buscador/buscadorLayout.js"
+                "~/Scripts/PortalConsultoras/Buscador/buscadorLayout.js",
+                "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Fuzemodal").Include(
@@ -300,7 +301,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/slick.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
-                "~/Scripts/PortalConsultoras/Buscador/Index.js"
+                "~/Scripts/PortalConsultoras/Buscador/Index.js",
+                "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Bienvenida").Include(

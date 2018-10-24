@@ -9,6 +9,7 @@ if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 var AnalyticsPortalModule = (function () {
     var _evento = {
         virtualEvent: "virtualEvent",
+        virtualRemoveEvent: "removeFromCart",
         productDetails: "productDetails",
         productClick: "productClick",
         productImpression: "productImpression",
@@ -71,7 +72,7 @@ var AnalyticsPortalModule = (function () {
         // Fin - Analytics Buscador Miguel
          // Ini - Analytics Ofertas
         contenedorHome: "Contenedor - Home",
-        campania: "Campaña ",
+        campania: "Campaña "
           // Fin - Analytics Ofertas
     };
 
@@ -1617,8 +1618,77 @@ var AnalyticsPortalModule = (function () {
 
         }
     }
+    var marcaVerTodoMiPedido = function (data) {
+        try {
+            var value = $(data).attr("title");
 
-     // Fin Analytics Ofertas Miguel
+            if (value !== "Ver mi pedido")
+                return;
+            
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': fnObtenerContenedor(),
+                'action': 'Click Botón',
+                'label': 'Ver todo mi pedido'
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+    var marcarRemoveFromCart = function (data, cantidad) {
+        try {
+            codigoOrigen = data.data.OrigenPedidoWeb;
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
+            dataLayer.push({
+                'event': _evento.virtualRemoveEvent,
+                'ecommerce': {
+                    'remove': {
+                        'products': [{
+                            'name': data.data.DescripcionProducto,
+                            'id': data.data.CUV,
+                            'price': data.data.Precio,
+                            'brand': data.data.DescripcionMarca,
+                            'category': "NO DISPONIBLE",
+                            'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
+                            'quantity': Number(cantidad),
+                            'ListaProducto': 'Contenedor - Home - ' + palanca + " - Campaña "+  $('#hdCampaniaCodigo').val()
+                        }]
+                    }
+                }
+            });
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    var marcaEliminarPedidoCompleto = function (data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic eliminar pedido completo.");
+
+            var products = [];
+            $.each(data, function (index) {
+                var item = data[index];
+                var product = {
+                    "id": item.CUV, "name": item.DescripcionProd, "price": item.ImporteTotal, "brand": item.DescripcionLarga, category: _texto.notavaliable, variant: _texto.estandar, quantity: item.Cantidad, 'ListaProducto': AnalyticsPortalModule.GetContenedorByOrigenPedido(null, item.OrigenPedidoWeb) + " - " + AnalyticsPortalModule.GetPalancaByOrigenPedido(item.OrigenPedidoWeb) + " - " + _constantes.campania + item.CampaniaID
+                };
+                products.push(product);
+            });
+
+            dataLayer.push({
+                'event': _evento.virtualRemoveEvent,
+                'ecommerce': {
+                    'remove': {
+                        'products': products
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
 
     return {
         MarcarVerFichaProducto: marcarVerFichaProducto,
@@ -1631,15 +1701,15 @@ var AnalyticsPortalModule = (function () {
         MarcarClicSetProductos: marcarClicSetProductos,
         MarImpresionSetProductos: marcarImpresionSetProductos,
         MarcarFichaBreadcrumb: marcarFichaBreadcrumb,
-        // Inicio - Analytics Buscador Miguel
+        // Inicio - Analytics Buscador 
         GetCurrencyCodes: getCurrencyCodes,
         GetPalancaBySeccion: getPalancaBySeccion,
         GetPalancaByOrigenPedido: getPalancaByOrigenPedido,
         GetSeccionHomeByOrigenPedido: getSeccionHomeByOrigenPedido,
         GetContenedorByOrigenPedido: getContenedorByOrigenPedido,
         MarcaAnadirCarritoGenerico: marcaAnadirCarritoGenerico,
-        // Fin - Analytics Buscador Miguel
-        // Inicio Analytics Home 1 Miguel
+        // Fin - Analytics Buscador 
+        // Inicio Analytics Home 1 
         MarcaGanaOfertas: marcaGanaOfertas,
         MarcaVerOfertasHome: marcaVerOfertasHome,
         MarcaSucribete: marcaSucribete,
@@ -1662,7 +1732,10 @@ var AnalyticsPortalModule = (function () {
         MarcaFlechaHome: marcaFlechaHome,
         MarcaAnadirCarritoLiquidacion: marcaAnadirCarritoLiquidacion,
         MarcaAnadirCarritoHomeBanner: marcaAnadirCarritoHomeBanner,
-        // Fin Analytics Home 1 Miguel
+        MarcarRemoveFromCart: marcarRemoveFromCart,
+
+        MarcaVerTodoMiPedido: marcaVerTodoMiPedido,
+        // Fin Analytics Home 1 
         // Inicio Analytics Ofertas  
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
         MarcaPromotionViewBanner: marcaPromotionViewBanner,
@@ -1682,7 +1755,9 @@ var AnalyticsPortalModule = (function () {
         MarcaManagerFiltros: marcaManagerFiltros,
         MarcaCompartirRedesSociales: marcaCompartirRedesSociales,
         MarcaVisualizarDetalleProducto: marcaVisualizarDetalleProducto,
-        MarcaVisualizarOtrosProductos: marcaVisualizarOtrosProductos
-         // Fin Analytics Ofertas Miguel
+        MarcaVisualizarOtrosProductos: marcaVisualizarOtrosProductos,
+        MarcaEliminarPedidoCompleto: marcaEliminarPedidoCompleto
+         // Fin Analytics Ofertas
+        
     }
 })();

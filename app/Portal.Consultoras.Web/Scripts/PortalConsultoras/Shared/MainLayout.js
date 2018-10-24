@@ -916,7 +916,10 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
     });
 }
 
-function RedirectIngresaTuPedido() {
+function RedirectIngresaTuPedido(e) {
+    if (!(typeof AnalyticsPortalModule === 'undefined'))
+        AnalyticsPortalModule.MarcaVerTodoMiPedido(e);
+
     location.href = baseUrl + 'Pedido/Index';
 }
 

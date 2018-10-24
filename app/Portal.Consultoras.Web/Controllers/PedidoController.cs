@@ -1094,7 +1094,8 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoEliminado.DescripcionOferta,
                         pedidoEliminado.TipoEstrategiaID,
                         pedidoAgrupado.EstrategiaId,
-                        pedidoAgrupado.TipoEstrategiaCodigo
+                        pedidoAgrupado.TipoEstrategiaCodigo,
+                        OrigenPedidoWeb = pedidoEliminado.OrigenPedidoWeb
                     },
                     cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad)
                 }));
@@ -1145,6 +1146,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult DeleteAll()
         {
             string message;
+            List<BEPedidoWebDetalle> listaMarcaciones;
             try
             {
                 if (ReservadoEnHorarioRestringido(out message)) return ErrorJson(message, true);
@@ -1173,7 +1175,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     _pedidoSetProvider.EliminarSet(userData.PaisID, setId, bePedidoWebDetalleParametros);
                 }
-
+                listaMarcaciones = ObtenerPedidoWebDetalle() ?? new List<BEPedidoWebDetalle>();
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
@@ -1186,7 +1188,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.Pedido_DeleteAll, true);
             }
 
-            return Json(new { success = true, DataBarra = GetDataBarra() }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, DataBarra = GetDataBarra(), ListaMarcaciones = listaMarcaciones }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -612,6 +612,8 @@ function EliminarPedidoTotalSi() {
 }
 
 function PedidoDetalleEliminarTodo() {
+    
+
     ShowLoading();
     if (HorarioRestringido()) {
         CloseLoading();
@@ -658,12 +660,10 @@ function PedidoDetalleEliminarTodo() {
 
             ActualizarGanancia(data.DataBarra);
             TrackingJetloreRemoveAll(listaDetallePedido);
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Ingresa tu pedido',
-                'action': 'Eliminar pedido completo',
-                'label': '(not available)'
-            });
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaEliminarPedidoCompleto(data.ListaMarcaciones);
+
             messageDelete("Se eliminaron todos productos del pedido.");
 
             ActualizarLocalStorageAgregado("rd", "todo", false);

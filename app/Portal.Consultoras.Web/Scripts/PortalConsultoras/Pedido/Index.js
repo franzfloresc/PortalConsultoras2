@@ -1900,22 +1900,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             microefectoPedidoGuardado();
             TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 
-            dataLayer.push({
-                'event': "removeFromCart",
-                'ecommerce': {
-                    'remove': {
-                        'products': [{
-                            'name': data.data.DescripcionProducto,
-                            'id': data.data.CUV,
-                            'price': data.data.Precio,
-                            'brand': data.data.DescripcionMarca,
-                            'category': "NO DISPONIBLE",
-                            'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
-                            'quantity': Number(cantidad)
-                        }]
-                    }
-                }
-            });
+            
+            AnalyticsPortalModule.MarcarRemoveFromCart(data, cantidad);
 
             CerrarSplash();
 
@@ -1997,6 +1983,7 @@ function MostrarEliminarPedidoTotal() {
 }
 
 function EliminarPedidoTotalSi() {
+    
     EliminarPedidoTotalNo();
     EliminarPedido();
 }
@@ -2286,12 +2273,15 @@ function EliminarPedido() {
             }
 
             TrackingJetloreRemoveAll(listaDetallePedido);
-            dataLayer.push({
-                'event': "virtualEvent",
-                'category': "Ingresa tu pedido",
-                'action': "Eliminar pedido completo",
-                'label': "(not available)"
-            });
+            //dataLayer.push({
+            //    'event': "virtualEvent",
+            //    'category': "Ingresa tu pedido",
+            //    'action': "Eliminar pedido completo",
+            //    'label': "(not available)"
+            //});
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaEliminarPedidoCompleto(data.ListaMarcaciones);
+
             MostrarBarra(data);
             CerrarSplash();
 
