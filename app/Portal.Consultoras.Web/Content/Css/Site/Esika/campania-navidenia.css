@@ -20,7 +20,7 @@
     -webkit-box-shadow: none;
     box-shadow: none;
     width:100%!important;
-    min-width:1024px!important;
+    min-width:992px!important;
     max-width:100%!important;
 }
 
@@ -235,6 +235,48 @@
 
     .wrapper_campania_navidenia_y_logo + .menu_new_esika {
         max-width: 553px!important;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1206px) {
+
+    .wrapper_campania_navidenia_y_logo{
+        width:12.5%!important;
+    }
+
+    .wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco{
+        left:-9px;
+        background-position: center 16px;
+        background-size: 67px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1199px){
+
+    .wrapper_campania_navidenia_y_logo .logo_esika a{
+        left:-6px;
+    }
+
+    .menu_socia_empresaria > .new_menu{
+        margin-left:13px!important;
+    }
+
+    .menu_socia_empresaria > .new_menu:first-child{
+        margin-left:0!important;
+    }
+
+    .menu_socia_empresaria > .new_menu > .new_menu_a{
+        font-size:10px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1024px){
+
+    .menu_socia_empresaria > .new_menu{
+        margin-left:8px!important;
     }
 
 }

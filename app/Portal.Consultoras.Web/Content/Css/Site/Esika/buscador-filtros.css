@@ -757,7 +757,7 @@
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido {
-        width: 17.4%;
+        width: 15.4%;
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida{
@@ -785,7 +785,7 @@
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido {
-        width: 15.85%;
+        width: 15%;
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida{
@@ -809,7 +809,7 @@
 @media screen and (max-width:1299px){
 
     .buscador_productos_con_enlace_menu_socia_empresaria{
-        width:16.15%;
+        width:16.2%;
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria .campo_buscador_productos{
@@ -817,7 +817,8 @@
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido {
-        width: 13.5%;
+        width: 13.2%;
+        left:14px;
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido .campo_buscador_productos{
@@ -850,7 +851,7 @@
 
     .buscador_productos_con_enlace_menu_socia_empresaria {
         width: 15%;
-        left: 5px;
+        left: 15px;
     }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido {
@@ -877,6 +878,11 @@
 
 @media screen and (max-width:1250px){
 
+    .buscador_productos_con_enlace_menu_socia_empresaria {
+        width: 14%;
+        left: 8px;
+    }
+
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
         width: 15.5%;
     }
@@ -888,6 +894,11 @@
 }
 
 @media screen and (max-width:1224px) {
+
+    .buscador_productos_con_enlace_menu_socia_empresaria {
+        width: 13%;
+        left: 5px;
+    }
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
         width: 16%;
@@ -903,12 +914,170 @@
 @media screen and (max-width:1212px){
 
     .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
-        width:12%;
-        left: -45px;
+        width:17%;
+        left: 15px;
     }
 
     .buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida {
         width: 23%;
+    }
+
+}
+
+@media screen and (max-width:1206px){
+
+    .buscador_productos_con_enlace_menu_socia_empresaria {
+        width: 16%;
+        left:8px;
+    }
+
+}
+
+@media screen and (max-width:1199px){
+
+    .buscador_productos_con_enlace_menu_socia_empresaria {
+        width: 16.5%;
+        left: 13px;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida{
+        width:20%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido{
+        width:15.4%;
+    }
+
+}
+
+@media screen and (max-width:1179px){
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido{
+        width:15%;
+    }
+
+}
+
+@media screen and (min-width:1127px) and (max-width:1150px){
+
+    .buscador_productos_con_enlace_menu_socia_empresaria {
+        width: 15.5%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida{
+        width:17.5%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido {
+        width: 12.5%;
+        left: 13px;
+    }
+
+}
+
+@media screen and (min-width:1101px) and (max-width:1126px){
+
+    .buscador_productos_con_enlace_menu_socia_empresaria {
+        width: 13.7%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
+        width: 15.9%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido {
+        width: 12%;
+        left: 1px;
+    }
+
+}
+
+@media screen and (min-width:1061px) and (max-width:1100px){
+
+    .buscador_productos_con_enlace_menu_socia_empresaria {
+        width: 13%;
+        left: 0;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
+        width: 13%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido {
+        width: 10%;
+        left: -3px;
+    }
+
+}
+
+@media screen and (min-width:1024px) and (max-width:1060px){
+
+    .buscador_productos_con_enlace_menu_socia_empresaria {
+        width: 10%;
+        left: 6px;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria .campo_buscador_productos {
+        width: 84%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
+        width: 14.2%;
+        left:0;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida .campo_buscador_productos {
+        width: 83.9%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido {
+        width: 8%;
+        left: 0;
+    }
+
+}
+
+@media screen and (min-width:1011px) and (max-width:1023px){
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
+        width: 13.3%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido {
+        width: 10%;
+        min-width:70px;
+        left:-1px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1010px){
+
+    .buscador_productos_con_enlace_menu_socia_empresaria {
+        width: 10.5%;
+        left: 13px;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria .campo_buscador_productos {
+        width: 84%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida {
+        width: 11.3%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida .campo_buscador_productos {
+        width: 84%;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido {
+        width: 8%;
+        min-width: 50px;
+        left: 3px;
+    }
+
+    .buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido .campo_buscador_productos{
+        width:80%;
     }
 
 }
