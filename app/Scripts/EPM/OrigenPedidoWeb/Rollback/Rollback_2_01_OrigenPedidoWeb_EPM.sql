@@ -1,4 +1,4 @@
-
+ï»¿
 GO
 USE BelcorpPeru
 go
@@ -6,7 +6,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -36,22 +36,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -78,16 +78,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -120,7 +120,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -129,7 +129,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -159,7 +159,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -171,7 +171,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -183,7 +183,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -210,19 +210,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -243,13 +243,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -273,7 +273,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -306,7 +306,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -315,7 +315,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -348,7 +348,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -375,13 +375,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -402,13 +402,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -432,7 +432,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -468,7 +468,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -495,7 +495,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
 
 USE BelcorpMexico
@@ -504,7 +504,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -534,22 +534,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -576,16 +576,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -618,7 +618,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -627,7 +627,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -657,7 +657,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -669,7 +669,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -681,7 +681,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -708,19 +708,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -741,13 +741,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -771,7 +771,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -804,7 +804,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -813,7 +813,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -846,7 +846,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -873,13 +873,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -900,13 +900,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -930,7 +930,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -966,7 +966,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -993,7 +993,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
 
 USE BelcorpColombia
@@ -1002,7 +1002,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -1032,22 +1032,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -1074,16 +1074,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -1116,7 +1116,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -1125,7 +1125,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -1155,7 +1155,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -1167,7 +1167,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -1179,7 +1179,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -1206,19 +1206,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -1239,13 +1239,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -1269,7 +1269,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -1302,7 +1302,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -1311,7 +1311,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -1344,7 +1344,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -1371,13 +1371,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -1398,13 +1398,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -1428,7 +1428,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -1464,7 +1464,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -1491,7 +1491,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
 
 USE BelcorpSalvador
@@ -1500,7 +1500,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -1530,22 +1530,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -1572,16 +1572,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -1614,7 +1614,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -1623,7 +1623,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -1653,7 +1653,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -1665,7 +1665,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -1677,7 +1677,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -1704,19 +1704,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -1737,13 +1737,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -1767,7 +1767,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -1800,7 +1800,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -1809,7 +1809,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -1842,7 +1842,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -1869,13 +1869,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -1896,13 +1896,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -1926,7 +1926,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -1962,7 +1962,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -1989,7 +1989,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
 
 USE BelcorpPuertoRico
@@ -1998,7 +1998,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -2028,22 +2028,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -2070,16 +2070,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -2112,7 +2112,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -2121,7 +2121,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -2151,7 +2151,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -2163,7 +2163,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -2175,7 +2175,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -2202,19 +2202,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -2235,13 +2235,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -2265,7 +2265,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -2298,7 +2298,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -2307,7 +2307,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -2340,7 +2340,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -2367,13 +2367,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -2394,13 +2394,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -2424,7 +2424,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -2460,7 +2460,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -2487,7 +2487,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
 
 USE BelcorpPanama
@@ -2496,7 +2496,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -2526,22 +2526,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -2568,16 +2568,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -2610,7 +2610,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -2619,7 +2619,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -2649,7 +2649,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -2661,7 +2661,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -2673,7 +2673,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -2700,19 +2700,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -2733,13 +2733,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -2763,7 +2763,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -2796,7 +2796,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -2805,7 +2805,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -2838,7 +2838,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -2865,13 +2865,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -2892,13 +2892,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -2922,7 +2922,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -2958,7 +2958,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -2985,7 +2985,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
 
 USE BelcorpGuatemala
@@ -2994,7 +2994,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -3024,22 +3024,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -3066,16 +3066,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -3108,7 +3108,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -3117,7 +3117,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -3147,7 +3147,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -3159,7 +3159,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -3171,7 +3171,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -3198,19 +3198,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -3231,13 +3231,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -3261,7 +3261,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -3294,7 +3294,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -3303,7 +3303,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -3336,7 +3336,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -3363,13 +3363,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -3390,13 +3390,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -3420,7 +3420,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -3456,7 +3456,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -3483,7 +3483,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
 
 USE BelcorpEcuador
@@ -3492,7 +3492,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -3522,22 +3522,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -3564,16 +3564,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -3606,7 +3606,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -3615,7 +3615,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -3645,7 +3645,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -3657,7 +3657,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -3669,7 +3669,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -3696,19 +3696,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -3729,13 +3729,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -3759,7 +3759,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -3792,7 +3792,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -3801,7 +3801,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -3834,7 +3834,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -3861,13 +3861,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -3888,13 +3888,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -3918,7 +3918,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -3954,7 +3954,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -3981,7 +3981,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
 
 USE BelcorpDominicana
@@ -3990,7 +3990,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -4020,22 +4020,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -4062,16 +4062,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -4104,7 +4104,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -4113,7 +4113,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -4143,7 +4143,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -4155,7 +4155,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -4167,7 +4167,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -4194,19 +4194,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -4227,13 +4227,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -4257,7 +4257,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -4290,7 +4290,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -4299,7 +4299,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -4332,7 +4332,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -4359,13 +4359,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -4386,13 +4386,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -4416,7 +4416,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -4452,7 +4452,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -4479,7 +4479,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
 
 USE BelcorpCostaRica
@@ -4488,7 +4488,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -4518,22 +4518,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -4560,16 +4560,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -4602,7 +4602,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -4611,7 +4611,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -4641,7 +4641,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -4653,7 +4653,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -4665,7 +4665,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -4692,19 +4692,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -4725,13 +4725,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -4755,7 +4755,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -4788,7 +4788,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -4797,7 +4797,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -4830,7 +4830,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -4857,13 +4857,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -4884,13 +4884,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -4914,7 +4914,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -4950,7 +4950,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -4977,7 +4977,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
 
 USE BelcorpChile
@@ -4986,7 +4986,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -5016,22 +5016,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -5058,16 +5058,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -5100,7 +5100,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -5109,7 +5109,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -5139,7 +5139,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -5151,7 +5151,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -5163,7 +5163,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -5190,19 +5190,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -5223,13 +5223,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -5253,7 +5253,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -5286,7 +5286,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -5295,7 +5295,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -5328,7 +5328,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -5355,13 +5355,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -5382,13 +5382,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -5412,7 +5412,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -5448,7 +5448,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -5475,7 +5475,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
 
 USE BelcorpBolivia
@@ -5484,7 +5484,7 @@ go
 delete from OrigenPedidoWeb 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1101','Desktop Home Revista Digital Sección','1','Desktop','1','Home','0','Revista Digital','1','Sección')
+VALUES ('1101','Desktop Home Revista Digital SecciÃ³n','1','Desktop','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1102','Desktop Home Revista Digital Popup','1','Desktop','1','Home','0','Revista Digital','2','Popup')
@@ -5514,22 +5514,22 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1151','Desktop Home Los Mas Vendidos Carrusel','1','Desktop','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1191','Desktop Home Oferta del Día Banner','1','Desktop','1','Home','9','Oferta del Día','1','Banner')
+VALUES ('1191','Desktop Home Oferta del DÃ­a Banner','1','Desktop','1','Home','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1192','Desktop Home Oferta del Día Popup','1','Desktop','1','Home','9','Oferta del Día','2','Popup')
+VALUES ('1192','Desktop Home Oferta del DÃ­a Popup','1','Desktop','1','Home','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1193','Desktop Home Oferta del Día Carrusel','1','Desktop','1','Home','9','Oferta del Día','3','Carrusel')
+VALUES ('1193','Desktop Home Oferta del DÃ­a Carrusel','1','Desktop','1','Home','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1194','Desktop Home Oferta del Día Detalle','1','Desktop','1','Home','9','Oferta del Día','4','Detalle')
+VALUES ('1194','Desktop Home Oferta del DÃ­a Detalle','1','Desktop','1','Home','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('12','Desktop Pedido  ','1','Desktop','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1201','Desktop Pedido Revista Digital Sección','1','Desktop','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('1201','Desktop Pedido Revista Digital SecciÃ³n','1','Desktop','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1202','Desktop Pedido Revista Digital Popup','1','Desktop','2','Pedido','0','Revista Digital','2','Popup')
@@ -5556,16 +5556,16 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1281','Desktop Pedido Consultora Online Sin PopUp','1','Desktop','2','Pedido','8','Consultora Online','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1291','Desktop Pedido Oferta del Día Banner','1','Desktop','2','Pedido','9','Oferta del Día','1','Banner')
+VALUES ('1291','Desktop Pedido Oferta del DÃ­a Banner','1','Desktop','2','Pedido','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1292','Desktop Pedido Oferta del Día Popup','1','Desktop','2','Pedido','9','Oferta del Día','2','Popup')
+VALUES ('1292','Desktop Pedido Oferta del DÃ­a Popup','1','Desktop','2','Pedido','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1293','Desktop Pedido Oferta del Día Carrusel','1','Desktop','2','Pedido','9','Oferta del Día','3','Carrusel')
+VALUES ('1293','Desktop Pedido Oferta del DÃ­a Carrusel','1','Desktop','2','Pedido','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1294','Desktop Pedido Oferta del Día Detalle','1','Desktop','2','Pedido','9','Oferta del Día','4','Detalle')
+VALUES ('1294','Desktop Pedido Oferta del DÃ­a Detalle','1','Desktop','2','Pedido','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1341','Desktop Liquidacion Liquidacion Sin PopUp','1','Desktop','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -5598,7 +5598,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1432','Desktop Catalogo Personalizado Catalogo Personalizado Con PopUp','1','Desktop','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1434','Desktop Buscador Oferta Del Día Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('1434','Desktop Buscador Oferta Del DÃ­a Desplegable Buscador','1','Desktop','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1452','Desktop Buscador GND Ficha','1','Desktop','4','Buscador','5','GND','2','Ficha')
@@ -5607,7 +5607,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1454','Desktop Buscador GND Desplegable Buscador','1','Desktop','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1464','Desktop Buscador Liquidación Desplegable Buscador','1','Desktop','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('1464','Desktop Buscador LiquidaciÃ³n Desplegable Buscador','1','Desktop','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1482','Desktop Buscador Herramientas de Venta Ficha','1','Desktop','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -5637,7 +5637,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1533','Desktop Product Page Showroom Tactica','1','Desktop','5','Product Page','3','Showroom','3','Tactica')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1541','Desktop Home ShowRoom Sección','1','Desktop','5','Home','4','ShowRoom','1','Sección')
+VALUES ('1541','Desktop Home ShowRoom SecciÃ³n','1','Desktop','5','Home','4','ShowRoom','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1571','Desktop ShowRoom ShowRoom Sin PopUp','1','Desktop','5','ShowRoom','7','ShowRoom','1','Sin PopUp')
@@ -5649,7 +5649,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1612','Desktop Los Mas Vendidos Product Page Carrusel','1','Desktop','6','Los Mas Vendidos','1','Product Page','2','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1711','Desktop RD Landing Revista Digital Sección Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('1711','Desktop RD Landing Revista Digital SecciÃ³n Simples y Niveles','1','Desktop','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1712','Desktop RD Landing Revista Digital Popup','1','Desktop','7','RD Landing','1','Revista Digital','2','Popup')
@@ -5661,7 +5661,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1731','Desktop RD Landing Revista Digital Ficha','1','Desktop','7','RD Landing','3','Revista Digital','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1801','Desktop Contenedor Revista Digital Sección','1','Desktop','8','Contenedor','0','Revista Digital','1','Sección')
+VALUES ('1801','Desktop Contenedor Revista Digital SecciÃ³n','1','Desktop','8','Contenedor','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('1802','Desktop Contenedor Revista Digital Popup','1','Desktop','8','Contenedor','0','Revista Digital','2','Popup')
@@ -5688,19 +5688,19 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('1871','Desktop Contenedor ShowRoom Sin PopUp','1','Desktop','8','Contenedor','7','ShowRoom','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1991','Desktop General Oferta del Día Banner','1','Desktop','9','General','9','Oferta del Día','1','Banner')
+VALUES ('1991','Desktop General Oferta del DÃ­a Banner','1','Desktop','9','General','9','Oferta del DÃ­a','1','Banner')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1992','Desktop General Oferta del Día Popup','1','Desktop','9','General','9','Oferta del Día','2','Popup')
+VALUES ('1992','Desktop General Oferta del DÃ­a Popup','1','Desktop','9','General','9','Oferta del DÃ­a','2','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1993','Desktop General Oferta del Día Carrusel','1','Desktop','9','General','9','Oferta del Día','3','Carrusel')
+VALUES ('1993','Desktop General Oferta del DÃ­a Carrusel','1','Desktop','9','General','9','Oferta del DÃ­a','3','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('1994','Desktop General Oferta del Día Detalle','1','Desktop','9','General','9','Oferta del Día','4','Detalle')
+VALUES ('1994','Desktop General Oferta del DÃ­a Detalle','1','Desktop','9','General','9','Oferta del DÃ­a','4','Detalle')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2101','Mobile Home Revista Digital Sección','2','Mobile','1','Home','0','Revista Digital','1','Sección')
+VALUES ('2101','Mobile Home Revista Digital SecciÃ³n','2','Mobile','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2102','Mobile Home Revista Digital Popup','2','Mobile','1','Home','0','Revista Digital','2','Popup')
@@ -5721,13 +5721,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2151','Mobile Home Los Mas Vendidos Carrusel','2','Mobile','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2191','Mobile Home Oferta del Día Popup','2','Mobile','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('2191','Mobile Home Oferta del DÃ­a Popup','2','Mobile','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('22','Mobile Pedido  ','2','Mobile','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2201','Mobile Pedido Revista Digital Sección','2','Mobile','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('2201','Mobile Pedido Revista Digital SecciÃ³n','2','Mobile','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2202','Mobile Pedido Revista Digital Popup','2','Mobile','2','Pedido','0','Revista Digital','2','Popup')
@@ -5751,7 +5751,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2261','Mobile Pedido Oferta Final Sin PopUp','2','Mobile','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2291','Mobile Pedido Oferta del Día Popup','2','Mobile','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('2291','Mobile Pedido Oferta del DÃ­a Popup','2','Mobile','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2341','Mobile Liquidacion Liquidacion Sin PopUp','2','Mobile','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -5784,7 +5784,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2432','Mobile Catalogo Personalizado Catalogo Personalizado Con PopUp','2','Mobile','4','Catalogo Personalizado','3','Catalogo Personalizado','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2434','Mobile Buscador Oferta Del Día Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del Día','4','Desplegable Buscador')
+VALUES ('2434','Mobile Buscador Oferta Del DÃ­a Desplegable Buscador','2','Mobile','4','Buscador','3','Oferta Del DÃ­a','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2452','Mobile Buscador GND Ficha','2','Mobile','4','Buscador','5','GND','2','Ficha')
@@ -5793,7 +5793,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2454','Mobile Buscador GND Desplegable Buscador','2','Mobile','4','Buscador','5','GND','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2464','Mobile Buscador Liquidación Desplegable Buscador','2','Mobile','4','Buscador','6','Liquidación','4','Desplegable Buscador')
+VALUES ('2464','Mobile Buscador LiquidaciÃ³n Desplegable Buscador','2','Mobile','4','Buscador','6','LiquidaciÃ³n','4','Desplegable Buscador')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2482','Mobile Buscador Herramientas de Venta Ficha','2','Mobile','4','Buscador','8','Herramientas de Venta','2','Ficha')
@@ -5826,7 +5826,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2611','Mobile Los Mas Vendidos Product Page Ficha','2','Mobile','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2711','Mobile RD Landing Revista Digital Sección Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('2711','Mobile RD Landing Revista Digital SecciÃ³n Simples y Niveles','2','Mobile','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('2712','Mobile RD Landing Revista Digital Popup','2','Mobile','7','RD Landing','1','Revista Digital','2','Popup')
@@ -5853,13 +5853,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('2822','Mobile Contenedor Ofertas para ti Con PopUp','2','Mobile','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('2991','Mobile General Oferta del Día Popup','2','Mobile','9','General','9','Oferta del Día','1','Popup')
+VALUES ('2991','Mobile General Oferta del DÃ­a Popup','2','Mobile','9','General','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4','App Consultora   ','4','App Consultora','','','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4101','App Consultora Home Revista Digital Sección','4','App Consultora','1','Home','0','Revista Digital','1','Sección')
+VALUES ('4101','App Consultora Home Revista Digital SecciÃ³n','4','App Consultora','1','Home','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4102','App Consultora Home Revista Digital Popup Ver Detalle','4','App Consultora','1','Home','0','Revista Digital','2','Popup Ver Detalle')
@@ -5880,13 +5880,13 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4151','App Consultora Home Los Mas Vendidos Carrusel','4','App Consultora','1','Home','5','Los Mas Vendidos','1','Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4191','App Consultora Home Oferta del Día Popup','4','App Consultora','1','Home','9','Oferta del Día','1','Popup')
+VALUES ('4191','App Consultora Home Oferta del DÃ­a Popup','4','App Consultora','1','Home','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('42','App Consultora Pedido  ','4','App Consultora','2','Pedido','','','','')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4201','App Consultora Pedido Revista Digital Sección','4','App Consultora','2','Pedido','0','Revista Digital','1','Sección')
+VALUES ('4201','App Consultora Pedido Revista Digital SecciÃ³n','4','App Consultora','2','Pedido','0','Revista Digital','1','SecciÃ³n')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4202','App Consultora Pedido Revista Digital Popup','4','App Consultora','2','Pedido','0','Revista Digital','2','Popup')
@@ -5910,7 +5910,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4261','App Consultora Pedido Oferta Final Sin PopUp','4','App Consultora','2','Pedido','6','Oferta Final','1','Sin PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4291','App Consultora Pedido Oferta del Día Popup','4','App Consultora','2','Pedido','9','Oferta del Día','1','Popup')
+VALUES ('4291','App Consultora Pedido Oferta del DÃ­a Popup','4','App Consultora','2','Pedido','9','Oferta del DÃ­a','1','Popup')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4341','App Consultora Liquidacion Liquidacion Sin PopUp','4','App Consultora','3','Liquidacion','4','Liquidacion','1','Sin PopUp')
@@ -5946,7 +5946,7 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4611','App Consultora Los Mas Vendidos Product Page Ficha','4','App Consultora','6','Los Mas Vendidos','1','Product Page','1','Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4711','App Consultora RD Landing Revista Digital Sección Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','Sección Simples y Niveles')
+VALUES ('4711','App Consultora RD Landing Revista Digital SecciÃ³n Simples y Niveles','4','App Consultora','7','RD Landing','1','Revista Digital','1','SecciÃ³n Simples y Niveles')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4712','App Consultora RD Landing Revista Digital Popup','4','App Consultora','7','RD Landing','1','Revista Digital','2','Popup')
@@ -5973,5 +5973,5 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('4822','App Consultora Contenedor Ofertas para ti Con PopUp','4','App Consultora','8','Contenedor','2','Ofertas para ti','2','Con PopUp')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
-VALUES ('4991','App Consultora General Oferta del Día Popup','4','App Consultora','9','General','9','Oferta del Día','1','Popup')
+VALUES ('4991','App Consultora General Oferta del DÃ­a Popup','4','App Consultora','9','General','9','Oferta del DÃ­a','1','Popup')
 go
