@@ -16,9 +16,14 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
     public class EstrategiaController : BaseController
     {
         protected OfertaBaseProvider _ofertaBaseProvider;
+        protected ConfiguracionOfertasHomeProvider _configuracionOfertasHomeProvider;
+        private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+
         public EstrategiaController()
         {
             _ofertaBaseProvider = new OfertaBaseProvider();
+            _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
+            _configuracionOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
         }
 
         #region Metodos Por Palanca
@@ -48,15 +53,21 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
-        public JsonResult RDObtenerProductosLan(BusquedaProductoModel model)
+        public JsonResult LANObtenerProductos(BusquedaProductoModel model)
         {
-            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan);
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos);
         }
 
         [HttpPost]
-        public JsonResult ConsultarEstrategiasOPT(BusquedaProductoModel model)
+        public JsonResult OPTObtenerProductos(BusquedaProductoModel model)
         {
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos);
+        }
+
+        [HttpPost]
+        public JsonResult MGObtenerProductos(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos);
         }
 
         [HttpGet]
@@ -153,11 +164,13 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     });
                 }
 
+                var esMobile = IsMobile();
+
                 var palanca = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPalanca(model, tipoConsulta);
 
                 var campania = _ofertaPersonalizadaProvider.ConsultarOfertasCampania(model, tipoConsulta);
 
-                var listaFinal1 = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(IsMobile(), userData.CodigoISO, userData.CampaniaID, campania, palanca);
+                var listaFinal1 = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(esMobile, userData.CodigoISO, userData.CampaniaID, campania, palanca);
 
                 var listPerdio = ConsultarOfertasListaPerdio(model, listaFinal1, tipoConsulta);
 
@@ -166,12 +179,19 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 var tipo = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPerdio(model, tipoConsulta);
 
                 var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
+
                 var listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaFinal1, listaPedido, userData.CodigoISO, userData.CampaniaID, tipo, userData.esConsultoraLider, userData.Simbolo);
+
+                listModel = _ofertaPersonalizadaProvider.SetCodigoPalancaMostrar(listModel, palanca);
 
                 var cantidadTotal = listModel.Count;
 
                 var guarda = !_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca);
 
+                var objBannerCajaProducto = _configuracionPaisDatosProvider.GetBannerCajaProducto(tipoConsulta, esMobile);
+
+                ActualizarSession(tipoConsulta, esMobile, cantidadTotal);
+                
                 return Json(new
                 {
                     success = true,
@@ -182,7 +202,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     cantidad = cantidadTotal,
                     codigo = palanca,
                     codigoOrigen = model.Codigo,
-                    guardaEnLocalStorage = guarda
+                    guardaEnLocalStorage = guarda,
+                    objBannerCajaProducto
                 });
             }
             catch (Exception ex)
@@ -244,6 +265,32 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             }
             return listPerdioFormato;
+        }
+
+        private void ActualizarSession(int tipoConsulta, bool esMobile, int cantidadTotal)
+        {
+            try
+            {
+                if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
+                {
+                    var sessionMg = SessionManager.MasGanadoras.GetModel();
+                    if (sessionMg.TieneLanding)
+                    {
+                        var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
+                        var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.MasGanadoras) ?? new ConfiguracionSeccionHomeModel();
+                        var cantidad = entConf.CantidadMostrar;
+                        if (cantidadTotal <= cantidad)
+                        {
+                            sessionMg.TieneLanding = false;
+                            SessionManager.MasGanadoras.SetModel(sessionMg);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, tipoConsulta.ToString());
+            }
         }
 
         #region Oferta Final
@@ -456,7 +503,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         #endregion
-        
+
         [HttpPost]
         public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
         {
@@ -482,9 +529,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 success = true
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
         #region Carrusel Ficha
-        
+
         [HttpPost]
         public JsonResult FichaObtenerProductosCarrusel(string cuvExcluido, string palanca)
         {
@@ -516,7 +563,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 {
                     success = true,
                     message = "Ok",
-                    data = listaOfertasModel==null?new List<EstrategiaPersonalizadaProductoModel>(): listaOfertasModel.Where(x => x.CUV2 != cuvExcluido).ToList()
+                    data = listaOfertasModel == null ? new List<EstrategiaPersonalizadaProductoModel>() : listaOfertasModel.Where(x => x.CUV2 != cuvExcluido).ToList()
                 });
             }
             catch (Exception ex)
@@ -526,7 +573,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
         }
 
-     
+
 
         #endregion
 

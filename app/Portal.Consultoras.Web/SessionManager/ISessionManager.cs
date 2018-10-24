@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager.MasGanadoras;
 using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
@@ -147,6 +148,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetTieneHvX1(bool tieneHv);
 
         bool GetTieneHvX1();
+
+        void SetTieneMg(bool tiene);
+
+        bool GetTieneMg();
 
         void SetUserData(UsuarioModel usuario);
 
@@ -462,6 +467,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<List<BEEstadoServicio>> GetListaRango();
 
+        IMasGanadoras MasGanadoras { get;  }
         bool GetMostrarBannerNuevas();
 
         void SetMostrarBannerNuevas(bool mostrarBannerNuevas);

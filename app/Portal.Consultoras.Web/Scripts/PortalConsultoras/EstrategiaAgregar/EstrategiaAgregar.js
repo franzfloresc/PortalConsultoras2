@@ -317,7 +317,7 @@ var EstrategiaAgregarModule = (function () {
             FlagNueva: $.trim(estrategia.FlagNueva)
         };
 
-        EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
+        EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function (data) {
             if (!checkTimeout(data)) {
                 CerrarLoad();
                 return false;
@@ -456,15 +456,17 @@ var EstrategiaAgregarModule = (function () {
 	
                     itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
 
-                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, cuv, false);
-                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, cuv, false);
-                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, cuv, false);
-                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.lan, cuv, false);
+                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, cuv, false);
+                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, cuv, false);
+                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, cuv, false);
+                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.lan, cuv, false);
+                    ActualizarLocalStoragePalancas(cuv, false);
                 })
             }
 
             var localStorageModule = new LocalStorageModule();
-            localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, true);
+            //localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, true);
+            localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
 
             if (belcorp.estrategia.applyChanges){

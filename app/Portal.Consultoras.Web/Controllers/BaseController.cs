@@ -59,7 +59,6 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly LogDynamoProvider _logDynamoProvider;
         protected readonly GuiaNegocioProvider _guiaNegocioProvider;
         protected readonly ShowRoomProvider _showRoomProvider;
-        protected readonly RevistaDigitalProvider revistaDigitalProvider;
         protected readonly RevistaDigitalProvider _revistaDigitalProvider;
         protected readonly PedidoWebProvider _pedidoWebProvider;
         protected OfertaViewProvider _ofertasViewProvider;  // Mover donde se utiliza
@@ -75,6 +74,13 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         protected readonly ComunicadoProvider _comunicadoProvider;
         protected readonly ProgramaNuevasProvider _programaNuevasProvider;
+        protected MasGanadorasModel MasGanadoras
+        {
+            get
+            {
+                return SessionManager.MasGanadoras.GetModel();
+            }
+        }
 
         protected ISessionManager SessionManager
         {
@@ -91,7 +97,6 @@ namespace Portal.Consultoras.Web.Controllers
             _tablaLogicaProvider = new TablaLogicaProvider();
             administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
-            revistaDigitalProvider = new RevistaDigitalProvider();
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
             _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
