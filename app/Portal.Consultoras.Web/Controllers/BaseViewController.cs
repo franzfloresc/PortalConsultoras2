@@ -192,11 +192,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
                 {
-                    if (url.Length > 1 && url[1].Contains("VC"))  // PPC
+                    if (url.Length > 1 && url[1].Contains("sap"))  // PPC
                     {
+                        sap = "&" + url[1].Substring(3);
                         SessionManager.SetUrlVc(1);
+                        if (EsDispositivoMovil())
+                        {
+                            return RedirectToAction("Index", "Ofertas", new { area = "Mobile", sap });
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Ofertas", sap );
+                        }
                     }
-                    return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+                    return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : ""});
                 }
 
                 palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
@@ -209,9 +218,18 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
 
-                    if (url.Length > 1 && url[1].Contains("SAP") && estrategiaPresonalizada == null)  // PPC
+                    if (url.Length > 1 && url[1].Contains("sap") && estrategiaPresonalizada == null)  // PPC
                     {
                         SessionManager.SetUrlVc(1);
+                        sap = "&" + url[1].Substring(3);
+                        if (EsDispositivoMovil())
+                        {
+                            return RedirectToAction("Index", "Ofertas", new { area = "Mobile", sap });
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Ofertas");
+                        }
                     }
 
                     if (estrategiaPresonalizada == null)

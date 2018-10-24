@@ -30,12 +30,22 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string sap = "";
             var url = (Request.Url.Query).Split('?');
-            if (EsDispositivoMovil() && url.Length > 1 && url[1].Contains("sap") && url[1].Contains("VC"))
+            if (EsDispositivoMovil())
             {
-                    sap = "&" + url[1].Substring(3);
-                    return RedirectToAction("Ficha", "DetalleEstrategia", new { area = "Mobile", palanca, campaniaId, cuv, origen, sap });
+                if (url.Length > 1)
+                {
+
+                    if (url[1].Contains("sap") && url[1].Contains("VC"))
+                    {
+                        sap = "&" + url[1].Substring(3);
+                        return RedirectToAction("Ficha", "DetalleEstrategia", new { area = "Mobile", palanca, campaniaId, cuv, origen, sap });
+                    }
+                }
             }
-            return base.Ficha(palanca, campaniaId, cuv, origen);
+
+                return base.Ficha(palanca, campaniaId, cuv, origen);
+
+          //  return View();
         }
 
         public JsonResult ObtenerComponentes(string estrategiaId, string cuv2,  string campania, string codigoVariante, string codigoEstrategia = "", List<EstrategiaComponenteModel> lstHermanos = null)
