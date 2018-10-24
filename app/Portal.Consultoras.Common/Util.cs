@@ -1179,7 +1179,7 @@ namespace Portal.Consultoras.Common
         /// <param name="Source">Lista de Entidades cuyos registros van a ser exportados a excel</param>
         /// <param name="columnDefinition">Diccionario que contiene: Nombre de las columnas a mostrar[Key], Propiedad asociada a la entidad[value]</param>
         /// <returns></returns>
-        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition)
+        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, Func<Stream, MemoryStream> onExcelRendered = null)
         {
             try
             {
@@ -1241,6 +1241,11 @@ namespace Portal.Consultoras.Common
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
+
+                if (onExcelRendered != null)
+                {
+                    stream = onExcelRendered(stream);
+                }
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();

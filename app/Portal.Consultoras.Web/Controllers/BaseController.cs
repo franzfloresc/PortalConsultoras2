@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -8,6 +9,7 @@ using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.Infraestructure.Excel;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia;
@@ -1403,6 +1405,23 @@ namespace Portal.Consultoras.Web.Controllers
                 ResultadoValidacion = false;
             }
             return Tuple.Create(ResultadoValidacion, URLCaminoExisto);
+        }
+
+        protected Func<Stream, MemoryStream> GetExcelSecureCallback()
+        {
+            var user = userData;
+            var processor = new ExcelProtectionProcessor
+            {
+                DataProvider = _tablaLogicaProvider,
+                PaisId = user.PaisID
+            };
+
+            if (!processor.IsRequiredProtection())
+            {
+                return null;
+            }
+
+            return stream => processor.Secure(stream, user.UsuarioNombre);
         }
 
     }
