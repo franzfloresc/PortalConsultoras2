@@ -1,5 +1,5 @@
 # Portal Consultoras SB2
 
-PI2-EPM-Sprint2-Pase22102018
+PI2-EPM-Sprint3_AjustePrecios
 
-Sprint 1 Tipos Analytics + Sprint 1 A/B TEsting + LasMasGanadoras + CompositorImagenes + OrigenPedidoWeb + ETL
+EPM-1605,EPM-1617
