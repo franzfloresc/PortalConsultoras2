@@ -1597,6 +1597,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return true;
         }
 
+        private void CrearLogProgNuevas(string message, string cuv, BEUsuario usuario)
+        {
+            if (WebConfig.Ambiente != "QA") return;
+
+            var listConsultoraRegistro = new List<string> { "006926193", "043862731", "011971059", "030320840", "003706273", "009118330", "020466782", "011930654", "011410731", "035515321" };
+            if (!listConsultoraRegistro.Contains(usuario.CodigoConsultora)) return;
+
+            var exTrace = string.Format("ISO:{0};Consultora{1};Cuv:{2}", usuario.CodigoISO, usuario.CodigoConsultora, cuv);
+            LogManager.SaveLog(new CustomTraceException(message, exTrace), usuario.CodigoConsultora, usuario.CodigoISO);
+        }
+
         //AgregarTransactional
         private bool AdministradorPedido(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> pedidoWebDetalles, BEEstrategia estrategia,
             string cuvlist, out string mensajeObs, out List<string> listCuvEliminar, out string TituloMensaje)
@@ -1635,6 +1646,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         {
                             if (pedidoDetalle.EnRangoProgramaNuevas)
                             {
+                                CrearLogProgNuevas("DuoPerfecto: PedidoInsertar", obePedidoWebDetalle.CUV, usuario);
+
                                 var pasoProgramaNueva = ValidarProgramaNuevas(usuario, obePedidoWebDetalle, lstDetalle, out mensajeObs, out listCuvEliminar, out TituloMensaje);
                                 if (!pasoProgramaNueva) return false;
                                 if (listCuvEliminar.Any())
