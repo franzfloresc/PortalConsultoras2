@@ -4387,11 +4387,6 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
                 pedidoDetalle.EnRangoProgramaNuevas = model.EnRangoProgramaNuevas || model.FlagNueva == "1";
 
-                if (pedidoDetalle.EnRangoProgramaNuevas)
-                {
-                    CrearLogProgNuevas("DuoPerfecto: PedidoInsertar", model.CUV);
-                }
-
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
                 if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
