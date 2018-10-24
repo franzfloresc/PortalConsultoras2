@@ -75,7 +75,7 @@
         <hr class="clear" />
         <div class="contenedor_productos_showroom"
              id="divProductosShowRoom"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingCompra"
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomCarrusel"
              style="margin-top: 25px;"></div>
     </div>
     <hr class="clear" />
@@ -168,7 +168,7 @@
         <div id="divContentSubCampania" class="banner_especial_showroom" style="background: @Model.ColorFondoContenidoOfertaSubCampania;display:none;">
             <div class="promocion_especial_header" id="banner-sub-campania"></div>
             <div class="content_set_oferta_especial" style="max-width: 1024px; padding: 0 0% 0 6%;">
-                <div class="content_carrusel_oferta_especial" id="contenedor-showroom-subcampanias" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.ShowRoomDesktopSubCampania"></div>
+                <div class="content_carrusel_oferta_especial" id="contenedor-showroom-subcampanias" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania"></div>
             </div>
         </div>
     }
@@ -242,11 +242,11 @@
         var precioMin = '@Model.PrecioMinFiltro';
         var precioMax = '@Model.PrecioMaxFiltro';
         var closeBannerCompraPorCompra = '@Model.CloseBannerCompraPorCompra';
-        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingCompra';
-        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingCompraTactica';
+        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomCarrusel';
+        @*var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingCompraTactica';*@
         var origenPedidoWebCarrusel = -1;
         var iconoLluvia = '@Model.IconoLLuvia';
-        var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.ShowRoomDesktopSubCampania';
+        var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
         var tieneSubCampania = '@Model.TieneSubCampania';
         var vfallSpeed = 4;
