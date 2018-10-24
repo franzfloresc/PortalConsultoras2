@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     model.OrigenPedidoWeb = tipoOrigenEstrategia == "1" ? Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel
                         : tipoOrigenEstrategia == "11" ? Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel
                         : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel
-                        : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel
+                        : tipoOrigenEstrategia == "21" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel
                         : (Request.UrlReferrer != null && IsMobile()) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
                 }
                 else
@@ -85,8 +85,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     model.OrigenPedidoWeb = tipoOrigenEstrategia == "1" ? Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel
                    : tipoOrigenEstrategia == "11" ? Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel
                    : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel
-                   : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel
-                   : (Request.UrlReferrer != null && IsMobile()) ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel : 0;
+                   : tipoOrigenEstrategia == "21" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel
+                   : (Request.UrlReferrer != null && IsMobile()) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
                 }
 
 
