@@ -281,7 +281,8 @@ var BuscadorModule = (function(){
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='ProductoBuscador']").eq(0);
-            BuscadorProvider.RegistroProductoBuscador(divPadre);
+            var textoBusqueda = $(_elementos.campoBuscadorProductos).val();
+            BuscadorProvider.RegistroProductoBuscador(divPadre, textoBusqueda);
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();

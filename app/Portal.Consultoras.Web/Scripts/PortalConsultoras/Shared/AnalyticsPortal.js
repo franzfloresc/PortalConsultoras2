@@ -37,11 +37,48 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Buscador Miguel
         isTest: false,
         currencyCodes: [{ "Country": "Peru", "CountryCode": "PE", "Currency": "Nuevo Sol", "Code": "PEN" }, { "Country": "Venezuela", "CountryCode": "VE", "Currency": "Bolivar", "Code": "VEF" }, { "Country": "Bolivia", "CountryCode": "BO", "Currency": "Boliviano", "Code": "BOB" }, { "Country": "Chile", "CountryCode": "CL", "Currency": "Chilean Peso", "Code": "CLP" }, { "Country": "Brazil", "CountryCode": "BR", "Currency": "Brazil", "Code": "BRL" }, { "Country": "Colombia", "CountryCode": "CO", "Currency": "Peso", "Code": "COP" }, { "Country": "Costa Rica", "CountryCode": "CR", "Currency": "Costa Rican Colon", "Code": "CRC" }, { "Country": "Ecuador", "CountryCode": "EC", "Currency": "Sucre", "Code": "ECS" }, { "Country": "El Salvador", "CountryCode": "SV", "Currency": "Salvadoran Colon", "Code": "SVC" }, { "Country": "United States", "CountryCode": "US", "Currency": "USD", "Code": "USD" },],
-        seccionesPalanca: [{ "CodigoSeccion": "LAN", "Palanca": "Lo Nuevo" }, { "CodigoSeccion": "RD", "Palanca": "Revista  Digital" }, { "CodigoSeccion": "HV", "Palanca": "Herramientas de Ventas" }, { "CodigoSeccion": "ODD", "Palanca": "Ofertas del día" }, { "CodigoSeccion": "SR", "Palanca": "ShowRoom" }],
-        origenpedidoWeb: [{ "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" }, { "CodigoPalanca": "01", "Palanca": "Showroom" }, { "CodigoPalanca": "02", "Palanca": "Lanzamientos" }, { "CodigoPalanca": "03", "Palanca": "Oferta Del Día" }, { "CodigoPalanca": "04", "Palanca": "Oferta Final" }, { "CodigoPalanca": "05", "Palanca": "GND" }, { "CodigoPalanca": "06", "Palanca": "Liquidación" }, { "CodigoPalanca": "07", "Palanca": "Producto Sugerido" }, { "CodigoPalanca": "08", "Palanca": "Herramientas de Venta" }, { "CodigoPalanca": "09", "Palanca": "Banners" }, { "CodigoPalanca": "10", "Palanca": "Digitado" }, { "CodigoPalanca": "11", "Palanca": "Catalogo Lbel" }, { "CodigoPalanca": "12", "Palanca": "Catalogo Esika" }, { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" }],
+        seccionesPalanca: [
+            { "CodigoSeccion": "LAN", "Palanca": "Lo Nuevo" },
+            { "CodigoSeccion": "RD", "Palanca": "Revista  Digital" },
+            { "CodigoSeccion": "HV", "Palanca": "Herramientas de Ventas" },
+            { "CodigoSeccion": "ODD", "Palanca": "Ofertas del día" },
+            { "CodigoSeccion": "SR", "Palanca": "ShowRoom" }],
+        origenpedidoWeb: [
+            { "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" },
+            { "CodigoPalanca": "01", "Palanca": "Showroom" },
+            { "CodigoPalanca": "02", "Palanca": "Lanzamientos" },
+            { "CodigoPalanca": "03", "Palanca": "Oferta Del Día" },
+            { "CodigoPalanca": "04", "Palanca": "Oferta Final" },
+            { "CodigoPalanca": "05", "Palanca": "GND" },
+            { "CodigoPalanca": "06", "Palanca": "Liquidación" },
+            { "CodigoPalanca": "07", "Palanca": "Producto Sugerido" },
+            { "CodigoPalanca": "08", "Palanca": "Herramientas de Venta" },
+            { "CodigoPalanca": "09", "Palanca": "Banners" },
+            { "CodigoPalanca": "10", "Palanca": "Digitado" },
+            { "CodigoPalanca": "11", "Palanca": "Catalogo Lbel" },
+            { "CodigoPalanca": "12", "Palanca": "Catalogo Esika" },
+            { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" }],
         origenpedidoWebHome: [{ "Codigo": "010306", "Descripcion": "Banner Header" }, { "Codigo": "010601", "Descripcion": "Liquidaciones Web" }, { "Codigo": "010001", "Descripcion": "Club GANA+" }],
-        paginas: [{ "CodigoPagina": "00", "Pagina": "Landing Herramientas de Venta" }, { "CodigoPagina": "01", "Pagina": "Home" }, { "CodigoPagina": "02", "Pagina": "Pedido" }, { "CodigoPagina": "03", "Pagina": "Landing Liquidación" }, { "CodigoPagina": "04", "Pagina": "Buscador" }, { "CodigoPagina": "05", "Pagina": "Landing Showroom" }, { "CodigoPagina": "06", "Pagina": "Landing GND" }, { "CodigoPagina": "07", "Pagina": "Landing Ofertas Para Ti" }, { "CodigoPagina": "08", "Pagina": "Contenedor" }, { "CodigoPagina": "09", "Pagina": "Otras" }, { "CodigoPagina": "10", "Pagina": "Landing Buscador" }],
-        secciones: [{ "CodigoSeccion": "01", "Seccion": "Carrusel" }, { "CodigoSeccion": "02", "Seccion": "Ficha" }, { "CodigoSeccion": "03", "Seccion": "Banner" }, { "CodigoSeccion": "04", "Seccion": "Desplegable Buscador" }, { "CodigoSeccion": "05", "Seccion": "Carrusel Ver Más" }, { "CodigoSeccion": "06", "Seccion": "Banner Superior" }, { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }],
+        paginas: [
+            { "CodigoPagina": "00", "Pagina": "Landing Herramientas de Venta" },
+            { "CodigoPagina": "01", "Pagina": "Home" },
+            { "CodigoPagina": "02", "Pagina": "Pedido" },
+            { "CodigoPagina": "03", "Pagina": "Landing Liquidación" },
+            { "CodigoPagina": "04", "Pagina": "Buscador" },
+            { "CodigoPagina": "05", "Pagina": "Landing Showroom" },
+            { "CodigoPagina": "06", "Pagina": "Landing GND" },
+            { "CodigoPagina": "07", "Pagina": "Landing Ofertas Para Ti" },
+            { "CodigoPagina": "08", "Pagina": "Contenedor" },
+            { "CodigoPagina": "09", "Pagina": "Otras" },
+            { "CodigoPagina": "10", "Pagina": "Landing Buscador" }],
+        secciones: [
+            { "CodigoSeccion": "01", "Seccion": "Carrusel" },
+            { "CodigoSeccion": "02", "Seccion": "Ficha" },
+            { "CodigoSeccion": "03", "Seccion": "Banner" },
+            { "CodigoSeccion": "04", "Seccion": "Desplegable Buscador" },
+            { "CodigoSeccion": "05", "Seccion": "Carrusel Ver Más" },
+            { "CodigoSeccion": "06", "Seccion": "Banner Superior" },
+            { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }],
         codigoPais: !(typeof userData === 'undefined') ? userData.pais : ""
         // Fin - Analytics Buscador Miguel
     };
@@ -165,9 +202,6 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-
-
-
     var marcarClicSetProductos = function (infoItem) {
 
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
@@ -235,6 +269,30 @@ var AnalyticsPortalModule = (function () {
         }
     }
     // Ini - Analytics Buscador Miguel
+        
+    var _getMarca = function (marcaId) {
+        switch (marcaId) {
+        case 1:
+            return "L'Bel";
+        case 2:
+            return "Ésika";
+        case 3:
+            return "Cyzone";
+        case 4:
+            return "S&M";
+        case 5:
+            return "Home Collection";
+        case 6:
+            return "Finart";
+        case 7:
+            return "Generico";
+        case 8:
+            return "Glance";
+        default:
+            return "Generico";
+        }
+    }
+    
         var getCurrencyCodes = function (codigoPais) {
             try {
 
@@ -365,16 +423,18 @@ var AnalyticsPortalModule = (function () {
             });
 
             var model = {
-                'DescripcionProd': estrategia.DescripcionCompleta,
-                'CUV': estrategia.PrecioVenta,
-                'PrecioUnidad': estrategia.DescripcionMarca,
+                'DescripcionCompleta': estrategia.DescripcionCompleta,
+                'CUV': estrategia.CUV2,
+                'PrecioUnidad': estrategia.PrecioVenta,
                 'DescripcionMarca': estrategia.CUV2,
+                'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
+                'MarcaId': estrategia.MarcaID,
                 'Cantidad': estrategia.Cantidad
             };
 
             var valorBuscar = localStorage.getItem('valorBuscador');
             switch (pagina.Pagina) {
-                case "Buscador": AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, codigoOrigenPedido, valorBuscar); break;
+                case "Buscador": AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar); break;
                
             }
 
@@ -405,15 +465,38 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcaAnadirCarritoBuscador = function (model, origenPedidoWebEstrategia, campoBuscar)
+    var _obtenerNombrePalanca = function(tipoEstrategiaId) {
+        switch (tipoEstrategiaId) {
+            case ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada:
+                return ConstantesModule.CodigosPalanca.GuiaDeNegocioDigitalizada;
+            case ConstantesModule.ConstantesPalanca.HerramientasVenta:
+                return ConstantesModule.CodigosPalanca.HerramientasVenta;
+            case ConstantesModule.ConstantesPalanca.ShowRoom:
+                return ConstantesModule.CodigosPalanca.ShowRoom;
+            case ConstantesModule.ConstantesPalanca.OfertaDelDia:
+                return ConstantesModule.CodigosPalanca.OfertaDelDia;
+            case ConstantesModule.ConstantesPalanca.OfertaParaTi:
+                return ConstantesModule.CodigosPalanca.OfertaParaTi;
+            case ConstantesModule.ConstantesPalanca.OfertasParaMi:
+                return ConstantesModule.CodigosPalanca.OfertasParaMi;
+            case ConstantesModule.ConstantesPalanca.Lanzamiento:
+                return ConstantesModule.CodigosPalanca.Lanzamiento;
+            default:
+                return "Gana+";
+        }
+    }
+    var marcaAnadirCarritoBuscador = function (model, origen, campoBuscar)
     {
         try {
-            var desplegable = "Desplegable";
+            var desplegable = "";
             if ($.isNumeric(campoBuscar) && campoBuscar.length == 5 )
-                desplegable = "Desplegable por CUV";
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedidoWebEstrategia);
-            var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(null, origenPedidoWebEstrategia);
-            var lista = contenedor + " - " + palanca + " - " + desplegable;
+                desplegable = " por CUV";
+            var palanca;
+            if (model.CodigoTipoEstrategia === "0") palanca = model.DescripcionEstrategia;
+            else palanca = _obtenerNombrePalanca(model.CodigoTipoEstrategia);
+            //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedidoWebEstrategia);
+            //var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(null, origenPedidoWebEstrategia);
+            var lista = "Buscador - " + palanca + " - " + origen + desplegable;
             dataLayer.push({
                 'event': _evento.addToCart,
                 'ecommerce': {
@@ -421,19 +504,20 @@ var AnalyticsPortalModule = (function () {
                     'add': {
                         'actionField': { 'list': lista },
                         'products': [{
-                            'name': model.DescripcionProd,
+                            'name': model.DescripcionCompleta,
                             'id': model.CUV,
                             'price': model.PrecioUnidad,
-                            'brand': model.DescripcionMarca,
+                            'brand': _getMarca(model.MarcaId),
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
-                            'quantity': mode.Cantidad
+                            'quantity': model.Cantidad
 
                         }]
                     }
                 }
             });
         } catch (e) {
+            console.error(e);
         }
     }
 
@@ -451,7 +535,7 @@ var AnalyticsPortalModule = (function () {
         }
     }
     // Fin - Analytics Buscador Miguel
-
+    
     return {
         MarcarVerFichaProducto: marcarVerFichaProducto,
         FcVerificarTipoMoneda: fcVerificarTipoMoneda,

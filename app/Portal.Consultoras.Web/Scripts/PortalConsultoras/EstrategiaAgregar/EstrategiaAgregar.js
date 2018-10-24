@@ -474,7 +474,9 @@ var EstrategiaAgregarModule = (function () {
                 //    AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
                 //}
                 //} 
-              
+                if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                    AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+                }
                 TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
             } catch (e) {
                 console.log(e);
