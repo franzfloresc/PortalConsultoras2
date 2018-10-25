@@ -296,7 +296,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Obtener Detalle
                 var pedidoID = 0;
-                var lstDetalle = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+                var lstDetalle = ObtenerPedidoWebSetDetalleAgrupado(usuario, true, out pedidoID);
 
                 pedido.ImporteTotal = lstDetalle.Sum(x => x.ImporteTotal);
 
@@ -1567,7 +1567,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 CodigoPrograma = pedidoDetalle.CodigoPrograma,
                 NumeroPedido = pedidoDetalle.ConsecutivoNueva
             };
-            var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, false).ToList();
+            var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, false, false).ToList();
             pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.FirstOrDefault().PedidoID : 0;
 
             return detallesPedidoWeb;
@@ -2116,6 +2116,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #region Sets
         private List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(BEUsuario usuario, out int pedidoID)
         {
+            return ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out pedidoID);
+        }
+        private List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(BEUsuario usuario, bool updLabelNuevas, out int pedidoID)
+        {
             var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
             {
                 PaisId = usuario.PaisID,
@@ -2128,7 +2132,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 AgruparSet = true
             };
 
-            var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
+            var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, true, updLabelNuevas).ToList();
             pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.FirstOrDefault().PedidoID : 0;
 
             return detallesPedidoWeb;

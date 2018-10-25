@@ -4,7 +4,6 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,11 +15,6 @@ namespace Portal.Consultoras.BizLogic
 {
     public partial class BLPedidoWebDetalle : IPedidoWebDetalleBusinessLogic
     {
-        //public BLPedidoWebDetalle()
-        //{
-        //    BLProgramaNuevas = new BLProgramaNuevas();
-        //}
-
         public IList<BEPedidoWebDetalle> GetClientesByCampania(int paisID, int campaniaID, long consultoraID)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
@@ -296,30 +290,33 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros,
-            bool consultoraOnLine = true)
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros)
+        {
+            return GetPedidoWebDetalleByCampania(detParametros, true, false);
+        }
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
-            var daPedidoWebDetalle = new DAPedidoWebDetalle(bePedidoWebDetalleParametros.PaisId);
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(detParametros.PaisId);
 
-            using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros))
+            using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebDetalleByCampania(detParametros))
             {
                 while (reader.Read())
                 {
-                    var entidad = new BEPedidoWebDetalle(reader, bePedidoWebDetalleParametros.Consultora);
-                    entidad.PaisID = bePedidoWebDetalleParametros.PaisId;
+                    var entidad = new BEPedidoWebDetalle(reader, detParametros.Consultora);
+                    entidad.PaisID = detParametros.PaisId;
                     pedidoWebDetalle.Add(entidad);
                 }
             }
-            _blProgramaNuevas.UpdateFlagCupones(bePedidoWebDetalleParametros.PaisId, pedidoWebDetalle);
+            if(updLabelNuevas) _blProgramaNuevas.UpdateFlagCupones(detParametros.PaisId, pedidoWebDetalle);
 
             #region ConsultoraOnline
             if (consultoraOnLine)
             {
-                var daConsultoraOnline = new DAConsultoraOnline(bePedidoWebDetalleParametros.PaisId);
+                var daConsultoraOnline = new DAConsultoraOnline(detParametros.PaisId);
                 var listaProductosConsultoraOnline = new List<BESolicitudClienteDetalle>();
 
-                using (IDataReader reader = daConsultoraOnline.GetProductoByCampaniaByConsultoraId(bePedidoWebDetalleParametros.CampaniaId, bePedidoWebDetalleParametros.ConsultoraId))
+                using (IDataReader reader = daConsultoraOnline.GetProductoByCampaniaByConsultoraId(detParametros.CampaniaId, detParametros.ConsultoraId))
                     while (reader.Read())
                     {
                         var entidad = new BESolicitudClienteDetalle(reader);
