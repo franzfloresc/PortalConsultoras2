@@ -107,7 +107,14 @@
             </li>
             {{#iff Ganancia '>' 0}}
             <li class="gana_precio_producto">
-                <p class="ganancia">GANA {{SimboloMoneda}} {{GananciaString}}</p>
+                <p class="ganancia">
+                    {{#iff CodigoVariante '!=' '2003'}}
+                    GANA
+                    {{/iff}}
+                    {{#iff CodigoVariante '==' '2003'}}
+                    GANA HASTA
+                    {{/iff}} {{SimboloMoneda}} {{GananciaString}}
+                </p>
             </li>
             {{/iff}}
         </ul>

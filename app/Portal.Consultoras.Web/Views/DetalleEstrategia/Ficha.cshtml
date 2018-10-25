@@ -120,7 +120,15 @@
                             </ul>
 
                             {{#iff Ganancia '>' 0}}
-                            <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
+                            <div class="ganancia">
+                                {{#iff CodigoVariante '!=' '2003'}}
+                                    GANA
+                                {{/iff}}
+                                {{#iff CodigoVariante '==' '2003'}}
+                                    GANA HASTA
+                                {{/iff}}
+                                <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
+                            </div>
                             {{/iff}}
                         </div>
                     </div>
