@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         public ConfiguracionOfertasHomeProvider()
-            : this (Web.SessionManager.SessionManager.Instance,
+            : this(Web.SessionManager.SessionManager.Instance,
                     Web.LogManager.LogManager.Instance,
                    new ConfiguracionPaisProvider(),
                    new GuiaNegocioProvider(),
@@ -76,8 +76,6 @@ namespace Portal.Consultoras.Web.Providers
                     var entConf = beConfiguracionOfertasHome;
                     entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
 
-                    //string titulo = "", subTitulo = "";
-
                     #region Pre Validacion
 
                     if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais)) continue;
@@ -86,14 +84,6 @@ namespace Portal.Consultoras.Web.Providers
                         || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                         || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
                     {
-                        //if (!RDObtenerTitulosSeccion(ref titulo, ref subTitulo, entConf.ConfiguracionPais.Codigo, userData.Sobrenombre))
-                        //    continue;
-
-                        //entConf.DesktopTitulo = titulo;
-                        //entConf.DesktopSubTitulo = subTitulo;
-
-                        //entConf.MobileTitulo = titulo;
-                        //entConf.MobileSubTitulo = subTitulo;
 
                         if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
                             && !revistaDigital.TieneRDC) continue;
