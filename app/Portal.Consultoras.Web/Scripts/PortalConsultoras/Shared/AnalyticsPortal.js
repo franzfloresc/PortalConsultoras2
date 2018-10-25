@@ -468,19 +468,21 @@ var AnalyticsPortalModule = (function () {
     var _obtenerNombrePalanca = function(tipoEstrategiaId) {
         switch (tipoEstrategiaId) {
             case ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada:
-                return ConstantesModule.CodigosPalanca.GuiaDeNegocioDigitalizada;
+                return "Guía de negocio";
             case ConstantesModule.ConstantesPalanca.HerramientasVenta:
-                return ConstantesModule.CodigosPalanca.HerramientasVenta;
+                return "Herramientas de Venta";
             case ConstantesModule.ConstantesPalanca.ShowRoom:
-                return ConstantesModule.CodigosPalanca.ShowRoom;
+                return "ShowRoom";
             case ConstantesModule.ConstantesPalanca.OfertaDelDia:
-                return ConstantesModule.CodigosPalanca.OfertaDelDia;
+                return "Oferta del Día";
             case ConstantesModule.ConstantesPalanca.OfertaParaTi:
-                return ConstantesModule.CodigosPalanca.OfertaParaTi;
+                return "Oferta para Ti";
             case ConstantesModule.ConstantesPalanca.OfertasParaMi:
-                return ConstantesModule.CodigosPalanca.OfertasParaMi;
+                return "Oferta para Mi";
             case ConstantesModule.ConstantesPalanca.Lanzamiento:
-                return ConstantesModule.CodigosPalanca.Lanzamiento;
+                return "Lanzamiento";
+            case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
+                return "Packs Ganadores";
             default:
                 return "Gana+";
         }
