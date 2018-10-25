@@ -14,7 +14,7 @@
             </a>
         </li>
         <li class="row flex-row flex-nowrap align-items-center ml-0 mr-0 menu__item menu__item--lateralDerechoIcono @(controllerAction == "bienvenidaindex" ? "oculto" : "")" data-title="Notificaciones">
-            <a href="javascript:;" onclick="Notificaciones();" class="menu__link d-inline-block" title="Notificaciones">
+            <a href="javascript:;" onclick="Notificaciones();" class="menu__link d-inline-block"  role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
                 <img src="@Url.Content("~/Content/Images/icono_notificaciones.svg")" alt="Notificaciones">
             </a>
             <span class="js-notificaciones notificaciones__cantidad notificaciones__cantidad--iconoNotificaciones d-inline-block">

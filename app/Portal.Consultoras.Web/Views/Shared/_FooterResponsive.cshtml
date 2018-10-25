@@ -243,20 +243,20 @@
                     <h5 class="footer__item__title">Nuestras marcas</h5>
                     <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
                         <li class="col-12 pl-0 pr-0 footer__item__content" role="outbound-link" region="Footer">
-                            <a href="http://www.lbel.com" class="footer__item__link d-block" title="L'bel">
+                            <a href="http://www.lbel.com" class="footer__item__link d-block" target="_blank" role="outbound-link" region="Footer" parent="Nuestras Marcas" title="LBEL" id="lnk-out-lbel">
                                 L'bel
                             </a>
                         </li>
                         @if (ViewBag.PaisAnalytics != "PA")
                         {
                             <li class="col-12 pl-0 pr-0 footer__item__content" role="outbound-link" region="Footer">
-                                <a href="http://www.esika.biz" class="footer__item__link d-block" title="Ésika">
+                                <a href="http://www.esika.biz" class="footer__item__link d-block" target="_blank" role="outbound-link" region="Footer" parent="Nuestras Marcas" title="ESIKA" id="lnk-out-esika">
                                     Ésika
                                 </a>
                             </li>
                         }
                         <li class="col-12 pl-0 pr-0 footer__item__content" role="outbound-link" region="Footer">
-                            <a href="http://www.cyzone.com" class="footer__item__link d-block" title="Cyzone">
+                            <a href="http://www.cyzone.com" class="footer__item__link d-block" target="_blank" role="outbound-link" region="Footer" parent="Nuestras Marcas" title="CYZONE" id="lnk-out-cyzone">
                                 Cyzone
                             </a>
                         </li>
@@ -274,10 +274,7 @@
                                 if (menuHijo.Descripcion.Trim().ToLower() == "contáctanos")
                                 {
                                     menuHijo.UrlItem += "?" + ViewBag.QSBR;
-
-                                    @*<script type="text/javascript">
-                                            document.getElementById("aBelcorpResponde").href = "@Html.Raw(menuHijo.UrlItem)";
-                                        </script>*@
+                                                                       
                                     <li id="urlContactanos"
                                         class="d-none"
                                         data-url-contactanos="@Html.Raw(menuHijo.UrlItem)">
@@ -342,7 +339,7 @@
                     <h5 class="col-12 footer__item__title mostrarEnDesktop">Síguenos</h5>
                     <ul class="row flex-row ml-0 mr-0 footer__item__content__list--siguenos">
                         <li class="col-6 col-lg-12 col-xl-12 footer__item__content">
-                            <a class="footer__item__link d-block" title="Facebook">
+                            <a class="footer__item__link d-block" target="_blank" role="outbound-link" region="Footer" parent="Síguenos" id="lnk-out-facebook" title="Facebook Belcorp">
                                 <span class="footer__item__link__text">
                                     Facebook
                                 </span>
@@ -352,7 +349,7 @@
                             </a>
                         </li>
                         <li class="col-6 col-lg-12 col-xl-12 footer__item__content">
-                            <a class="footer__item__link d-block" title="YouTube">
+                            <a class="footer__item__link d-block"  target="_blank" role="outbound-link" region="Footer" parent="Síguenos" id="lnk-out-youtube" title="Youtube Belcorp">
                                 <span class="footer__item__link__text">
                                     YouTube
                                 </span>
