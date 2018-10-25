@@ -307,7 +307,6 @@ $(document).ready(function () {
     });
 
     setInterval(animacionFlechaScroll, 1000);
-    setComunidadFooterLink();
 });
 
 function AbrirVentanaBelcorpChat(url) {
@@ -667,24 +666,6 @@ function OpenUrl(url, newPage) {
     }
 
     window.location.href = url;
-}
-
-function getUrlComunidad() {
-    var url = IsoPais === 'PE' || IsoPais === 'CO'
-        ? 'https://esikatuvozonline.questionpro.com/'
-        : 'http://comunidad.somosbelcorp.com/';
-
-    return url;
-}
-
-function setComunidadFooterLink() {
-    var url = getUrlComunidad();
-    var esPaisVOz = IsoPais === 'PE' || IsoPais === 'CO';
-    var title = esPaisVOz ? 'TU VOZ ONLINE' : 'COMUNIDAD VIRTUAL';
-    var desc =  esPaisVOz ? 'Queremos escuchar tu voz, estés donde estés' : 'Conoce todo lo que compartimos las mujeres de esta comunidad.';
-    $('#lnkComunidad').attr('href', url);
-    $('#capTuVoz').html(title);
-    $('#desTuVoz').html(desc);
 }
 
 function SendPushMiComunidad() {
