@@ -112,11 +112,31 @@
     border-top:none;
 }
 
-.menu__link--conSubmenu,
-.submenu__item--AsesorBelleza > .submenu__link
+.menu__link--conSubmenu:after,
+.submenu__item--AsesorBelleza > .submenu__link:after
 {
-    background-image:url(/Content/images/down_arrow.png);
-    background-position:97% center;
+    display: block;
+    position: absolute;
+    margin: auto 0;
+    width: 10px;
+    height: 6px;
+    top: 3px;
+    bottom: 0;
+    content: "";
+    border-top: 6px solid #000;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 4px solid transparent;
+    /*background-image:url(/Content/images/down_arrow.png);
+    background-position:97% center;*/
+}
+
+.menu__link--conSubmenu:after{
+    right:3px;
+}
+
+.submenu__item--AsesorBelleza > .submenu__link:after{
+    right:9px;
 }
 
 .menu__link--sinAfiliacionAppCatalogo{
@@ -274,13 +294,60 @@
     .menu__item[data-title="OFERTAS"],
     .menu__item--ofertas
     {
-        width:120px;
+        width:128px;
     }
 
     .menu__item[data-title="OFERTAS"] img,
     .menu__link--ofertas img
     {
         width: 166.36px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1168px){
+
+    .menu__item[data-title="OFERTAS"],
+    .menu__item--ofertas
+    {
+        width:127px;
+        margin-right:-9px;
+    }
+
+}
+
+@media screen and (min-width:1066px) and (max-width:1204px){
+
+    .submenu__lista--miNegocio{
+        left:-174px;
+    }
+
+    .pestana__marca__pais{
+        left:22.8%!important;
+    }
+
+}
+
+@media screen and (min-width:1066px) and (max-width:1199px){
+
+    .submenu__lista--miNegocio{
+        left:-172px;
+    }
+
+    .pestana__marca__pais{
+        left:21.8%!important;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1065px){
+
+    .submenu__lista--miNegocio{
+        left:-238px;
+    }
+
+    .pestana__marca__pais{
+        left:28.8%!important;
     }
 
 }

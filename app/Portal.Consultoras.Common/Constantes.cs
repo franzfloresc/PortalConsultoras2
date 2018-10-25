@@ -2721,7 +2721,7 @@ namespace Portal.Consultoras.Common
             public const int HVObtenerProductos = 4;
             public const int OPTObtenerProductos = 5;
             public const int NuevasObtenerProductos = 6;
-            public const int MGObtenerProductos = 6;
+            public const int MGObtenerProductos = 7;
         };
 
         #region PagoEnLinea
@@ -2950,11 +2950,11 @@ namespace Portal.Consultoras.Common
 
         public static class RutaBuscadorService
         {
-            //Buscador/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{CodigoZona}/{TextoBusqueda}/{CantidadProductos}/{SociaEmpresaria}/{SuscripcionActiva}/{MDO}/{RD}/{RDI}/{RDR}/{DiaFacturacion}
-            public const string UrlBuscador = "Buscador/{0}/{1}";
+            //Buscador/{CodigoISO}/{CampaniaID}/{Origen}
+            public const string UrlBuscador = "Buscador/{0}/{1}/{2}";
 
-            //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}
-            public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}";
+            //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{Origen}
+            public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}/{3}";
         }
 
         public static class ActualizacionDatosValidacion

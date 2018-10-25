@@ -3871,6 +3871,21 @@ namespace Portal.Consultoras.Common
             var nuevoOrigen = origenActual.Remove(origenActual.Length - 1, 1).Insert(origenActual.Length - 1, "2");
             return nuevoOrigen;
         }
+
+        public static bool EsDispositivoMovil()
+        {
+            var result = false;
+
+            try
+            {
+                result = HttpContext.Current.Request.Browser.IsMobileDevice;
+            }
+            catch
+            {
+            }
+
+            return result;
+        }
     }
 
     public static class DataRecord
