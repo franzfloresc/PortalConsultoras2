@@ -1295,18 +1295,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual bool EsDispositivoMovil()
         {
-            var result = false;
-
-            try
-            {
-                result = Request.Browser.IsMobileDevice;
-            }
-            catch
-            {
-                // Excepcion
-            }
-
-            return result;
+            return Util.EsDispositivoMovil(); 
         }
 
         public string GetControllerActual()

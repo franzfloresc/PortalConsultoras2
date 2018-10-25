@@ -20,8 +20,14 @@
     -webkit-box-shadow: none;
     box-shadow: none;
     width:100%!important;
-    min-width:1024px!important;
+    min-width:992px!important;
     max-width:100%!important;
+}
+
+.wrapper_header_componentes{
+    margin:0 auto;
+    width:100%;
+    max-width:1366px;
 }
 
 .wrapper_campania_navidenia_y_logo{
@@ -36,7 +42,6 @@
 }
 
 .wrapper_campania_navidenia_y_logo,
-.logo_marca_pais_fondo_navidenio,
 .wrapper_header_campania_navidenia .logo_esika a
 {
     height:61px;
@@ -54,17 +59,6 @@
     position:relative;
 }
 
-.logo_marca_pais_fondo_navidenio {
-    position: absolute;
-    margin: auto 0;
-    width: 100%;
-    height:61px;
-    top: 0;
-    bottom: 0;
-    left: -85%;
-    overflow: hidden;
-}
-
 .wrapper_campania_navidenia_y_logo + .menu_new_esika{
     width:auto!important;
 }
@@ -80,6 +74,7 @@
 .wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco{
     background: url(/Content/Images/Lbel/logo_marca_pais_blanco.svg) no-repeat;
     background-position:center;
+    background-size:117px;
 }
 
 .wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco:hover{
@@ -195,6 +190,40 @@
 
 }
 
+@media screen and (min-width:992px) and (max-width:1204px){
+
+    .wrapper_campania_navidenia_y_logo{
+        background-position: -71px -27px;
+        background-size: 146px;
+        padding-right:0;
+    }
+
+    .wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco{
+        background-size:105px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1199px){
+
+    .menu_socia_empresaria > .new_menu{
+        margin-left:13px!important;
+    }
+
+    .menu_socia_empresaria > .new_menu > .new_menu_a{
+        font-size:10px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1024px){
+
+    .menu_socia_empresaria > .new_menu{
+        margin-left:8px!important;
+    }
+
+}
+
 @media screen and (max-width:991px){
 
     .agregarBackgroundNavidenio{
@@ -303,8 +332,8 @@
 
     .menu_mobile_belcorp[data-codigo="contenedorofertas"]{
         background: #01362d;
-        background: -moz-linear-gradient(top,#01362d 0%,#016f5f 100%);
-        background: -webkit-linear-gradient(top,#01362d 0%,#016f5f 100%);
+        background: -moz-linear-gradient(top,#01362d 0%,#016f5f 91%);
+        background: -webkit-linear-gradient(top,#01362d 0%,#016f5f 91%);
         background: linear-gradient(to bottom,#00342a 20%,#016758 91%);
     }
 
