@@ -20,8 +20,25 @@
     -webkit-box-shadow: none;
     box-shadow: none;
     width:100%!important;
-    min-width:1024px!important;
+    min-width:992px!important;
     max-width:100%!important;
+}
+
+.wrapper_header_componentes{
+    display:block;
+    margin:0 auto;
+    width:100%;
+    max-width:1366px;
+    position:relative;
+}
+
+.wrapper_header_componentes:before{
+    width:100%;
+    left: -1212px;
+    background: -moz-linear-gradient(360.1deg, #E81C36 -63.78%, #720313 101.67%);
+    background: -webkit-linear-gradient(360.1deg, #E81C36 -63.78%, #720313 101.67%);
+    background: linear-gradient(360.1deg, #E81C36 -63.78%, #720313 101.67%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E81C36', endColorstr='#720313',GradientType=0 );
 }
 
 .wrapper_campania_navidenia_y_logo{
@@ -31,9 +48,11 @@
     overflow:hidden;
 }
 
+.wrapper_header_componentes:before,
 .wrapper_campania_navidenia_y_logo,
-.logo_marca_pais_fondo_navidenio,
-.wrapper_header_campania_navidenia .logo_esika a
+.wrapper_header_campania_navidenia .logo_esika a,
+.wrapper_campania_navidenia_y_logo .logo_esika:before,
+.wrapper_campania_navidenia_y_logo .logo_esika:after
 {
     height:61px;
 }
@@ -44,27 +63,45 @@
     position:relative;
 }
 
-.wrapper_campania_navidenia_y_logo .logo_esika a{
-    left:-15px;
-}
 
 .wrapper_campania_navidenia_y_logo .logo_esika{
     width:108px;
+    position:relative;
 }
 
-.logo_marca_pais_fondo_navidenio {
+.wrapper_campania_navidenia_y_logo .logo_esika a{
+    left:-15px;
+    z-index:2;
+}
+
+.wrapper_header_componentes:before,
+.wrapper_campania_navidenia_y_logo .logo_esika:before,
+.wrapper_campania_navidenia_y_logo .logo_esika:after
+{
+    display:block;
+    content:"";
     position: absolute;
-    margin: auto 0;
-    width: 100%;
-    height:61px;
+    z-index: 1;
     top: 0;
-    bottom: 0;
-    left: -85%;
+}
+
+.wrapper_campania_navidenia_y_logo .logo_esika:before,
+.wrapper_campania_navidenia_y_logo .logo_esika:after
+{
     background: -moz-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
     background: -webkit-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
     background: linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E81C36', endColorstr='#720313',GradientType=0 );
-    overflow: hidden;
+}
+
+.wrapper_campania_navidenia_y_logo .logo_esika:before{
+    width:138px;
+    right: 66px;
+}
+
+.wrapper_campania_navidenia_y_logo .logo_esika:after{
+    width:128px;
+    right: 4px;
     -moz-transform: skew(-13deg);
     -ms-transform: skew(-13deg);
     -o-transform: skew(-13deg);
@@ -82,6 +119,10 @@
 
 .wrapper_header_campania_navidenia .flecha_menu{
     border-top: 4px solid #FFF;
+}
+
+.wrapper_header_campania_navidenia .new_menu_a[title="MI ASESOR DE BELLEZA"] .flecha_menu{
+    border-top: 4px solid #000;
 }
 
 .wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco{
@@ -102,6 +143,10 @@
 .wrapper_header_campania_navidenia .cart_compras .notificaciones
 {
     color:#FFF;
+}
+
+.wrapper_header_campania_navidenia .new_menu_a[title="MI ASESOR DE BELLEZA"]{
+    color:#000;
 }
 
 .wrapper_header_campania_navidenia .flechita_info{
@@ -198,6 +243,48 @@
 
     .wrapper_campania_navidenia_y_logo + .menu_new_esika {
         max-width: 553px!important;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1206px) {
+
+    .wrapper_campania_navidenia_y_logo{
+        width:12.5%!important;
+    }
+
+    .wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco{
+        left:-9px;
+        background-position: center 16px;
+        background-size: 67px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1199px){
+
+    .wrapper_campania_navidenia_y_logo .logo_esika a{
+        left:-6px;
+    }
+
+    .menu_socia_empresaria > .new_menu{
+        margin-left:13px!important;
+    }
+
+    .menu_socia_empresaria > .new_menu:first-child{
+        margin-left:0!important;
+    }
+
+    .menu_socia_empresaria > .new_menu > .new_menu_a{
+        font-size:10px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1024px){
+
+    .menu_socia_empresaria > .new_menu{
+        margin-left:8px!important;
     }
 
 }
@@ -314,8 +401,8 @@
 
     .menu_mobile_belcorp[data-codigo="contenedorofertas"]{
         background: #01362d;
-        background: -moz-linear-gradient(top,#01362d 0%,#016f5f 100%);
-        background: -webkit-linear-gradient(top,#01362d 0%,#016f5f 100%);
+        background: -moz-linear-gradient(top,#01362d 0%,#016f5f 91%);
+        background: -webkit-linear-gradient(top,#01362d 0%,#016f5f 91%);
         background: linear-gradient(to bottom,#00342a 20%,#016758 91%);
     }
 

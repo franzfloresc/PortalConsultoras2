@@ -692,6 +692,10 @@
         padding-right:0;
     }
 
+    .layout__content__fichaProductos{
+        padding-top:0;
+    }
+
     /* FILTROS MOBILE */
 
     .background__filtros__mobile,
