@@ -1,5 +1,5 @@
 # Portal Consultoras SB2
 
-PI2-EPM-Mejora
+PI2-EPM-Sprint2_PedidoExpGrilla
 
-- Mejoras de codigo y sonar, kibana
+- Cambiar diseño de la grilla pase pedido
