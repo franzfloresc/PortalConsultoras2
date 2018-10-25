@@ -76,29 +76,29 @@
                 </li>
                 @foreach (var item in itemsFooter)
                 {
-                <li class="col-12 col-lg col-xl footer__item">
-                    <h5 class="col-12 footer__item__title">@item.Descripcion.ToUpper()</h5>
+                    <li class="col-12 col-lg col-xl footer__item">
+                        <h5 class="col-12 footer__item__title">@item.Descripcion.ToUpper()</h5>
 
-                    <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
-                        @foreach (var subitem in item.SubMenu)
+                        <ul class="row flex-row ml-0 mr-0 footer__item__content__list">
+                            @foreach (var subitem in item.SubMenu)
                             {
                                 var target = subitem.PaginaNueva ? "_blank" : "_self";
                                 var url = subitem.Version == "Completa"
                                     ? subitem.UrlItem.Trim().StartsWith("http") ? subitem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subitem.UrlItem)
                                     : subitem.UrlItem.Trim().StartsWith("http") ? subitem.UrlItem : string.Format("{0}{1}", urlDomain, subitem.UrlItem);
 
-                            <li class="col-12 footer__item__content">
-                                @if (subitem.Descripcion == "Tutorial")
+                                <li class="col-12 footer__item__content">
+                                    @if (subitem.Descripcion == "Tutorial")
                                     {
-                                    <a class="footer__item__link d-block"
-                                       title="@subitem.Descripcion"
-                                       role="link"
-                                       region="Footer"
-                                       parent="@item.Descripcion"
-                                       href="#"
-                                       id="tutorialFooterMobile">
-                                        @subitem.Descripcion.ToUpper()
-                                    </a>
+                                        <a class="footer__item__link d-block"
+                                           title="@subitem.Descripcion"
+                                           role="link"
+                                           region="Footer"
+                                           parent="@item.Descripcion"
+                                           href="#"
+                                           id="tutorialFooterMobile">
+                                            @subitem.Descripcion.ToUpper()
+                                        </a>
                                     }
                                     else
                                     {
@@ -108,31 +108,31 @@
                                         }
                                         if (subitem.Version == "Click")
                                         {
-                                    <a class="footer__item__link d-block"
-                                       title="@subitem.Descripcion"
-                                       role="button"
-                                       onclick="@string.Concat("javascript:", @subitem.UrlItem, "()")"
-                                       region="Footer"
-                                       parent="@item.Descripcion">
-                                        @subitem.Descripcion.ToUpper()
-                                    </a>
+                                            <a class="footer__item__link d-block"
+                                               title="@subitem.Descripcion"
+                                               role="button"
+                                               onclick="@string.Concat("javascript:", @subitem.UrlItem, "()")"
+                                               region="Footer"
+                                               parent="@item.Descripcion">
+                                                @subitem.Descripcion.ToUpper()
+                                            </a>
                                         }
                                         else
                                         {
-                                    <a class="footer__item__link d-block"
-                                       title="@subitem.Descripcion"
-                                       role="link"
-                                       region="Footer"
-                                       parent="@item.Descripcion"
-                                       target="@target"
-                                       href="@url">@subitem.Descripcion.ToUpper()</a>
+                                            <a class="footer__item__link d-block"
+                                               title="@subitem.Descripcion"
+                                               role="link"
+                                               region="Footer"
+                                               parent="@item.Descripcion"
+                                               target="@target"
+                                               href="@url">@subitem.Descripcion.ToUpper()</a>
                                         }
 
                                     }
-                            </li>
+                                </li>
                             }
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
                 }
                 <li class="col-8 col-lg col-xl footer__item footer__item--logo footer__item--logoBelcorp">
                     <picture class="col-12 d-block w-100">
@@ -184,16 +184,18 @@
         </div>
     </div>
 </footer>
-    
+
 <footer class="layout__footer row flex-row justify-content-start justify-content-lg-center justify-content-xl-center ml-0 mr-0 mostrarEnDesktop">
     <div class="col-12 pl-0 pr-0 footer__wrapper">
         <nav class="col-12 pl-0 pr-0 footer__items__list__wrapper mostrarEnDesktop">
             <ul class="row flex-row flex-lg-nowrap flex-xl-nowrap ml-0 mr-0 footer__items__list footer__items__list--primerListado">
                 <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
-                <a id="aBelcorpResponde"
-                   class="row flex-column align-items-center ml-0 mr-0 footer__link" 
-                   title="Belcorp Responde"
-                       href="http://belcorpresponde.somosbelcorp.com?@ViewBag.QSBR">
+                    <a id="aBelcorpResponde"
+                       class="row flex-column align-items-center ml-0 mr-0 footer__link"
+                       title="Belcorp Responde"
+                       href="http://belcorpresponde.somosbelcorp.com?@ViewBag.QSBR"
+                       role="outbound-link"
+                       region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE">
                         <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_esika_responde.png")" alt="Belcorp Responde">
                         @if (ViewBag.CodigoISODL == "CO")
                         {
@@ -208,26 +210,26 @@
                 </li>
                 <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
                     <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Comunidad Virtual"
-                       href="http://comunidad.somosbelcorp.com/">
-                        <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_comunidad_virtual.svg")" alt="Comunidad Virtual">
+                       href="http://comunidad.somosbelcorp.com/" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" target="_blank">
+                        <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_comunidad_virtual.svg")" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL">
                         <h3 class="footer__link__title text-uppercase">Comunidad Virtual</h3>
-                        <p class="footer__link__text text-center">Conoce todo lo que compartimos las mujeres de esta comunidad.</p>
+                        <p class="footer__link__text text-center" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL">Conoce todo lo que compartimos las mujeres de esta comunidad.</p>
                     </a>
                 </li>
                 <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
                     <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Catálogos"
-                       href="@Url.Action("Index", "MisCatalogosRevistas")">
+                       href="@Url.Action("Index", "MisCatalogosRevistas")" role="outbound-link" region="Footer" parent="Catálogos" target="_blank">
                         <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_catalogos.svg")" alt="Catálogos">
                         <h3 class="footer__link__title text-uppercase">Catálogos</h3>
-                        <p class="footer__link__text text-center">Entérate de nuestras promociones actuales en nuestro Catálogo Virtual.</p>
+                        <p class="footer__link__text text-center" role="outbound-link" region="Footer" parent="Catálogos" title="CATÁLOGOS">Entérate de nuestras promociones actuales en nuestro Catálogo Virtual.</p>
                     </a>
                 </li>
                 <li class="col-12 col-lg-3 col-xl-3 footer__item" role="outbound-link" region="Footer">
-                    <a class="row flex-column align-items-center ml-0 mr-0 footer__link" title="Noticias"
-                       href="http://comunidad.somosbelcorp.com/">
+                    <a class="row flex-column align-items-center ml-0 mr-0 footer__link"
+                       href="http://comunidad.somosbelcorp.com/" role="outbound-link" region="Footer" parent="Noticias" title="NOTICIAS" target="_blank">
                         <img class="footer__link__imagen" src="@Url.Content("~/Content/Images/icono_noticias.svg")" alt="Noticias">
                         <h3 class="footer__link__title text-uppercase">Noticias</h3>
-                        <p class="footer__link__text text-center">Entérate de las noticias de Belcorp.</p>
+                        <p class="footer__link__text text-center" role="outbound-link" region="Footer" parent="Noticias" title="NOTICIAS">Entérate de las noticias de Belcorp.</p>
                     </a>
                 </li>
             </ul>
@@ -274,14 +276,14 @@
                                     menuHijo.UrlItem += "?" + ViewBag.QSBR;
 
                                     @*<script type="text/javascript">
-                                        document.getElementById("aBelcorpResponde").href = "@Html.Raw(menuHijo.UrlItem)";
-                                    </script>*@
-                                    <li id="urlContactanos" 
-                                        class="d-none" 
+                                            document.getElementById("aBelcorpResponde").href = "@Html.Raw(menuHijo.UrlItem)";
+                                        </script>*@
+                                    <li id="urlContactanos"
+                                        class="d-none"
                                         data-url-contactanos="@Html.Raw(menuHijo.UrlItem)">
                                         Hide me.
                                     </li>
-                                    
+
                                 }
                                 var pageTarget = menuHijo.PaginaNueva ? "_blank" : "_self";
                                 if (string.IsNullOrEmpty(menuHijo.UrlItem))
@@ -368,7 +370,7 @@
         <hr class="col-12 pl-0 pr-0 linea__separadora mostrarEnDesktop">
         <div class="col-6 pl-0 pr-0 bandera__pais text-left">
             <span class="d-inline-block icono__bandera__pais">
-                <img src="@Url.Content(string.Format("~/Content/Banderas/{0}.png", ViewBag.CodigoISODL))"  alt="">
+                <img src="@Url.Content(string.Format("~/Content/Banderas/{0}.png", ViewBag.CodigoISODL))" alt="">
             </span>
             <span class="d-inline-block nombre__pais text-uppercase">
                 @ViewBag.NombrePais

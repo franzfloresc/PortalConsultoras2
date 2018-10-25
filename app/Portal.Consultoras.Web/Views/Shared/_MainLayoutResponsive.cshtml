@@ -9,14 +9,20 @@
 <html lang="es" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="Portal de consultoras" />
     <meta name="author" content="Belcorp" />
+
     <title>Belcorp | Portal Consultoras</title>
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+
+
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-    
+
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
@@ -67,6 +73,14 @@
         window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
         window.patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
 
+        @{
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        }
+        window.controllerName = '@ctrl.ToLower()';
+        window.actionName     = '@acti.ToLower()';
+
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
             'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
@@ -82,17 +96,22 @@
 
         var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
 
-        // Seteando Controlador y Accion
-        @{
-            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
-            var ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-            var acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
-        }
-        window.controllerName = '@ctrl.ToLower()';
-        window.actionName     = '@acti.ToLower()';
     </script>
 </head>
 <body>
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
+
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTrackingJetlore.cshtml")
+
+    <script type="text/javascript">
+        if (!String.prototype.startsWith) {
+            String.prototype.startsWith = function (searchString, position) {
+                position = position || 0;
+                return this.indexOf(searchString, position) === position;
+            };
+        }
+    </script>
+
     <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
         <header class="layout__header row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
             <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
@@ -147,22 +166,6 @@
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
 
-
-    <script type='text/javascript'>
-        (function () {
-            var proto = document.location.protocol || 'http:';
-            var trme = document.createElement('script');
-            trme.type = 'text/javascript';
-            trme.async = true;
-            trme.src = proto + '//trackme-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/trackme/js/tm.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(trme, s);
-        })();
-
-        function Buscador() {
-            location.href = baseUrl + 'Mobile/Buscador';
-        }
-    </script>
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         @*var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';*@
@@ -198,8 +201,34 @@
 
     @Scripts.Render("~/Bundle/Js/Mixto/PageResponsive")
 
+    <script type='text/javascript'>
+        (function () {
+            var proto = document.location.protocol || 'http:';
+            var trme = document.createElement('script');
+            trme.type = 'text/javascript';
+            trme.async = true;
+            trme.src = proto + '//trackme-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/trackme/js/tm.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(trme, s);
+        })();
+
+        function Buscador() {
+            location.href = baseUrl + 'Mobile/Buscador';
+        }
+    </script>
+
 
     @RenderSection("scripts", required: false)
+
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
+        <script>
+            var pixelAnalytics = Analytics();
+            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+        </script>
+        @TempData.Remove("PixelCodigoIso");
+    }
 
 </body>
 </html>
