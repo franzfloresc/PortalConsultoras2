@@ -1,4 +1,4 @@
-USE BelcorpBolivia;
+﻿USE BelcorpBolivia;
 GO
 declare @ConfiguracionPaisID int;
 set @ConfiguracionPaisID = (select top 1 ConfiguracionPaisID from dbo.configuracionpais where codigo = 'PN');

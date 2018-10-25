@@ -9,10 +9,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 
@@ -31,10 +31,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 
@@ -53,10 +53,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 
@@ -75,10 +75,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 
@@ -97,10 +97,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 
@@ -119,10 +119,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 
@@ -141,10 +141,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 
@@ -163,10 +163,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 
@@ -185,10 +185,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 
@@ -207,10 +207,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 
@@ -229,10 +229,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 
@@ -251,10 +251,10 @@ begin
 		update
 			dbo.configuracionpais
 		set
-			 orden			= orden			 - 1
-			,ordenbpt		= ordenbpt		 - 1
-			,mobileorden	= mobileorden	 - 1
-			,mobileordenbpt = mobileordenbpt - 1
+			 orden			= orden			 - 2
+			,ordenbpt		= ordenbpt		 - 2
+			,mobileorden	= mobileorden	 - 2
+			,mobileordenbpt = mobileordenbpt - 2
 		where
 			not orden in(0,1);
 

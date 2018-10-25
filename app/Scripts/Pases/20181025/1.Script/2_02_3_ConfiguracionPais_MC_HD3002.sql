@@ -1,4 +1,4 @@
-USE BelcorpBolivia;
+﻿USE BelcorpBolivia;
 GO
 if not exists (select 1 from ConfiguracionPais where Codigo = 'PN')
   INSERT INTO ConfiguracionPais
