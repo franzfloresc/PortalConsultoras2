@@ -679,9 +679,12 @@ function getUrlComunidad() {
 
 function setComunidadFooterLink() {
     var url = getUrlComunidad();
-    var title = IsoPais === 'PE' || IsoPais === 'CO' ? 'TU VOZ ONLINE' : 'COMUNIDAD VIRTUAL';
+    var esPaisVOz = IsoPais === 'PE' || IsoPais === 'CO';
+    var title = esPaisVOz ? 'TU VOZ ONLINE' : 'COMUNIDAD VIRTUAL';
+    var desc =  esPaisVOz ? 'Queremos escuchar tu voz, estés donde estés' : 'Conoce todo lo que compartimos las mujeres de esta comunidad.';
     $('#lnkComunidad').attr('href', url);
     $('#capTuVoz').html(title);
+    $('#desTuVoz').html(desc);
 }
 
 function SendPushMiComunidad() {
