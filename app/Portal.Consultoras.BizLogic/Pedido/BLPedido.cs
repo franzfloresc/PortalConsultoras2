@@ -935,6 +935,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Insertar pedido
                 //pedidoDetalle.OrigenPedidoWeb = usuario.RevistaDigital.TieneRevistaDigital() ?
                 //    Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertasParaTiCarrusel;
+                //pedidoDetalle.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertasParaTiCarrusel;
                 var codeResult = PedidoInsertar(usuario, pedidoDetalle, lstDetalle, false);
                 if (codeResult != Constantes.PedidoValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 

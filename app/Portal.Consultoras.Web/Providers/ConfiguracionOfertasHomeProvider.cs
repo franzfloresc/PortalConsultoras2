@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         public ConfiguracionOfertasHomeProvider()
-            : this (Web.SessionManager.SessionManager.Instance,
+            : this(Web.SessionManager.SessionManager.Instance,
                     Web.LogManager.LogManager.Instance,
                    new ConfiguracionPaisProvider(),
                    new GuiaNegocioProvider(),
@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     var entConf = beConfiguracionOfertasHome;
                     entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
-                    
+
                     #region Pre Validacion
 
                     if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais)) continue;
@@ -165,13 +165,13 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:
-                            seccion.UrlObtenerProductos = "Estrategia/ConsultarEstrategiasOPT"; 
+                            seccion.UrlObtenerProductos = "Estrategia/OPTObtenerProductos";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
                             seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.Lanzamiento:
-                            seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductosLan";
+                            seccion.UrlObtenerProductos = "Estrategia/LANObtenerProductos";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarrusel;
                             seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosFicha : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosFicha;
                             seccion.VerMas = false;
@@ -205,6 +205,18 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "HerramientasVenta/Revisar" : "HerramientasVenta/Comprar");
                             seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
                             seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
+                            break;
+                        case Constantes.ConfiguracionPais.MasGanadoras:
+                            if (!revistaDigital.EsActiva)
+                            {
+                                continue;
+                            }
+
+                            seccion.UrlObtenerProductos = "Estrategia/MGObtenerProductos";
+                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras";
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MasGanadorasMobileContenedorCarruselFicha : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MasGanadorasMobileContenedorCarruselFicha : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarruselFicha;
+                            seccion.VerMas = SessionManager.MasGanadoras.GetModel().TieneLanding;
                             break;
                     }
                     #endregion
@@ -242,6 +254,10 @@ namespace Portal.Consultoras.Web.Providers
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselIndividuales:
                             seccion.TemplatePresentacion = "seccion-carrusel-individuales";
                             seccion.TemplateProducto = "#lanzamiento-carrusel-individual-template";
+                            break;
+                        case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselIndividualesV2:
+                            seccion.TemplatePresentacion = isMobile ? "seccion-carrusel-individuales-v2" : "seccion-simple-centrado";
+                            seccion.TemplateProducto = isMobile ? "#template-producto-v2" : "#producto-landing-template";
                             break;
                     }
 
@@ -306,7 +322,7 @@ namespace Portal.Consultoras.Web.Providers
 
         protected virtual List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
         {
-            var  configuracionesOfertasHomes = new List<BEConfiguracionOfertasHome>();
+            var configuracionesOfertasHomes = new List<BEConfiguracionOfertasHome>();
 
             try
             {

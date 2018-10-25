@@ -64,6 +64,14 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                         {
                             while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                         }
+
+                        foreach (var item in estrategias)
+                        {
+                            if (item.EsOfertaIndependiente && !string.IsNullOrEmpty(item.ImagenOfertaIndependiente))
+                            {
+                                item.ImagenURL = item.ImagenOfertaIndependiente;
+                            }
+                        }
                         break;
                     case Constantes.TipoEstrategiaCodigo.Lanzamiento:
                         using (var reader = daEstrategia.GetEstrategiaLanzamiento(entidad))
@@ -129,6 +137,12 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                         break;
                     case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
                         using (var reader = daEstrategia.GetEstrategiaODD(entidad.CampaniaID, codConsultora, fechaInicioFact))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.MasGanadoras:
+                        using (var reader = daEstrategia.GetEstrategiaRevistaDigital(entidad))
                         {
                             while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                         }

@@ -990,6 +990,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private int MarcaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MaterialGananciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1987,6 +1990,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((this.MarcaIDField.Equals(value) != true)) {
                     this.MarcaIDField = value;
                     this.RaisePropertyChanged("MarcaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MaterialGanancia {
+            get {
+                return this.MaterialGananciaField;
+            }
+            set {
+                if ((this.MaterialGananciaField.Equals(value) != true)) {
+                    this.MaterialGananciaField = value;
+                    this.RaisePropertyChanged("MaterialGanancia");
                 }
             }
         }
