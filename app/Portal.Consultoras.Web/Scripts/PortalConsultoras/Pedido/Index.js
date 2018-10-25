@@ -10,6 +10,7 @@ var salto = 3;
 var arrayOfertasParaTi = [];
 var array_odd = [];
 var arrayProductosSugeridos = [];
+var arrayProductosGuardadoExito = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
@@ -2075,6 +2076,9 @@ function EjecutarServicioPROL() {
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
                 return;
             }
+            //Marcación Analytics
+            arrayProductosGuardadoExito = response; 
+            AnalyticsPortalModule.MarcarGuardaTuPedido();
 
             if (RespuestaEjecutarServicioPROL(response.data)) return;
             MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
@@ -2111,6 +2115,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(data, inicio) {
+    
     if (data.ErrorProl) {
         MostrarPopupErrorReserva(data.ListaObservacionesProl[0].Descripcion, data.AvisoProl);
         return true;
@@ -2127,7 +2132,11 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
         mensajeBloqueante = false;
 
         if (data.ObservacionRestrictiva) CrearPopupObservaciones(data, inicio);
-        else ArmarPopupObsReserva("¡Lo lograste! Tu pedido fue guardado con éxito", "");
+        else {
+            $('#divMensajeObservacionesPROL').data('prop-NotExito', data.ObservacionRestrictiva);
+            ArmarPopupObsReserva("¡Lo lograste! Tu pedido fue guardado con éxito", "");
+        }
+
     }
     
     CargarDetallePedido();
@@ -2210,7 +2219,7 @@ function ActualizarBtnGuardar(data) {
 }
 
 function MostrarMensajeProl(response, fnOfertaFinal) {
-    AnalyticsGuardarValidar(response);
+    //AnalyticsGuardarValidar(response);
     var cumpleOferta = fnOfertaFinal(response);
     if (cumpleOferta) return;
 
@@ -2224,7 +2233,7 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
 
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
-    AnalyticsPedidoValidado(response);
+    //AnalyticsPedidoValidado(response);
     $("#dialog_divReservaSatisfactoria").show();
     RedirigirPedidoValidado();
 }
@@ -3423,35 +3432,35 @@ function AnalyticsGuardarValidar(response) {
     });
 }
 
-function AnalyticsPedidoValidado(response) {
-    var arrayEstrategiasAnalytics = [];
+//function AnalyticsPedidoValidado(response) {
+//    var arrayEstrategiasAnalytics = [];
 
-    response.pedidoDetalle = response.pedidoDetalle || [];
-    $.each(response.pedidoDetalle, function (index, value) {
-        var estrategia = {
-            'name': value.name,
-            'id': value.id,
-            'price': $.trim(value.price),
-            'brand': value.brand,
-            'category': "NO DISPONIBLE",
-            'variant': value.variant == "" ? "Estándar" : value.variant,
-            'quantity': value.quantity
-        };
-        arrayEstrategiasAnalytics.push(estrategia);
-    });
+//    response.pedidoDetalle = response.pedidoDetalle || [];
+//    $.each(response.pedidoDetalle, function (index, value) {
+//        var estrategia = {
+//            'name': value.name,
+//            'id': value.id,
+//            'price': $.trim(value.price),
+//            'brand': value.brand,
+//            'category': "NO DISPONIBLE",
+//            'variant': value.variant == "" ? "Estándar" : value.variant,
+//            'quantity': value.quantity
+//        };
+//        arrayEstrategiasAnalytics.push(estrategia);
+//    });
 
-    dataLayer.push({
-        'event': "productCheckout",
-        'action': "Validado",
-        'label': "Validado con éxito",
-        'ecommerce': {
-            'checkout': {
-                'actionField': { 'step': 3 },
-                'products': arrayEstrategiasAnalytics
-            }
-        }
-    });
-}
+//    dataLayer.push({
+//        'event': "productCheckout",
+//        'action': "Validado",
+//        'label': "Validado con éxito",
+//        'ecommerce': {
+//            'checkout': {
+//                'actionField': { 'step': 3 },
+//                'products': arrayEstrategiasAnalytics
+//            }
+//        }
+//    });
+//}
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== "undefined" ? mostrarAlerta : true;
@@ -3534,6 +3543,18 @@ function ProcesarActualizacionMostrarContenedorCupon() {
             cuponModule.actualizarContenedorCupon();
         }
     }
+}
+function closeDialogObservacionesProl() {
+    
+    var notExitoFromProl = $('#divMensajeObservacionesPROL').data('prop-NotExito');
+
+    if (!notExitoFromProl)
+        if (!(typeof AnalyticsPortalModule === 'undefined'))
+            AnalyticsPortalModule.MarcaGuardarPedidoExito(arrayProductosGuardadoExito);
+
+        
+        $('#divObservacionesPROL').dialog('close');
+        
 }
 
 function ArmarPopupObsReserva(titulo, mensaje) {

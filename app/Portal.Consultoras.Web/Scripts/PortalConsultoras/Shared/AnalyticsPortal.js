@@ -19,7 +19,8 @@ var AnalyticsPortalModule = (function () {
         promotionView:"promotionView",
         //Fin Analytics Home 1
         //Inicio Analytics Ofertas
-        promotionClick: "promotionClick"
+        promotionClick: "promotionClick",
+        productCheckout: "productCheckout"
         //Fin Analytics Ofertas
     };
 
@@ -40,7 +41,8 @@ var AnalyticsPortalModule = (function () {
         contenedor: "Contenedor",
         contenedorDetalle: "Contenedor - Detalle de Producto",
         contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
-        contenedorRevisar: "Contenedor - Revisar"
+        contenedorRevisar: "Contenedor - Revisar",
+        CarritoCompras: "Carrito de compras"
         // Fin - Analytics Ofertas (Miguel)
     };
 
@@ -1689,6 +1691,71 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
+    var marcarGuardaTuPedido = function () {
+        try {
+            dataLayer.push({
+                'category': _texto.CarritoCompras,
+                'action': 'Intencion de Guardar pedido',
+                'label': 'Guardar Pedido'
+            });
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+    var marcarPedidoGuardoExito = function() {
+        try {
+            dataLayer.push({
+                'category': _texto.CarritoCompras,
+                'action': 'Intencion de Guardar pedido',
+                'label': 'Guardar Pedido'
+            });
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    /*
+* 2.1.6. Pedido guardado con éxito
+* Nombre Archivo Desktop: 
+* Linea de Código Desktop: 
+*/
+    var marcaGuardarPedidoExito = function (data) {
+        var arrayEstrategiasAnalytics = [];
+        data.pedidoDetalle = data.pedidoDetalle || [];
+        $.each(data.pedidoDetalle, function (index, value) {
+            var estrategia = {
+                'name': value.name,
+                'id': value.id,
+                'price': $.trim(value.price),
+                'brand': value.brand,
+                'category': "NO DISPONIBLE",
+                'variant': value.variant == "" ? "Estándar" : value.variant,
+                'quantity': value.quantity
+            };
+            arrayEstrategiasAnalytics.push(estrategia);
+        });
+        
+        try {
+            dataLayer.push({
+                'event': _evento.productCheckout,
+                'action': 'Guardar',
+                'label': 'Tu pedido se guardó con éxito',
+                'ecommerce': {
+                    'checkout': {
+                        'actionField': { 'step': '1', 'option': 'Tu pedido se guardó con éxito', 'action': 'checkout' },
+                        'products': arrayEstrategiasAnalytics
+
+                    }
+                }
+            });
+
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
 
     return {
         MarcarVerFichaProducto: marcarVerFichaProducto,
@@ -1756,7 +1823,10 @@ var AnalyticsPortalModule = (function () {
         MarcaCompartirRedesSociales: marcaCompartirRedesSociales,
         MarcaVisualizarDetalleProducto: marcaVisualizarDetalleProducto,
         MarcaVisualizarOtrosProductos: marcaVisualizarOtrosProductos,
-        MarcaEliminarPedidoCompleto: marcaEliminarPedidoCompleto
+        MarcaEliminarPedidoCompleto: marcaEliminarPedidoCompleto,
+        MarcarGuardaTuPedido: marcarGuardaTuPedido,
+        MarcarPedidoGuardoExito: marcarPedidoGuardoExito,
+        MarcaGuardarPedidoExito: marcaGuardarPedidoExito
          // Fin Analytics Ofertas
         
     }
