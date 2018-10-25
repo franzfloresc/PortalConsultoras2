@@ -93,6 +93,7 @@
     </script>
 </head>
 <body>
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTrackingJetlore.cshtml")
     <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
         <header class="layout__header layout__header--navidenio row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
             <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
@@ -140,6 +141,7 @@
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajes.cshtml")
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml");
 
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
@@ -195,6 +197,17 @@
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
+
+        function ShowLoading() {
+            $("#loading-spin").css('visibility', 'visible').fadeIn();
+        }
+
+        function CloseLoading() {
+            $("#loading-spin").fadeOut("fast", function () {
+                if ($.isFunction(LayoutHeader)) LayoutHeader();
+            });
+        }
+
     </script>
 
     @Scripts.Render("~/Bundle/Js/Desktop/JQuery3Js")

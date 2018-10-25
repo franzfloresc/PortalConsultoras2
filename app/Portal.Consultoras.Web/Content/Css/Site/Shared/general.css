@@ -33,7 +33,7 @@ body > img{
 
 /* FIN - ESTILOS GENERALES */
 
-/* ESTILOS MODIFICADORES JQUERY UI */
+/* ESTILOS MODIFICADORES JQUERY UI (PRECARGA PÁGINA RESULTADOS VERSIÓN DESKTOP) */
 
 .ui-widget-overlay{
     z-index:2000!important;
@@ -76,7 +76,270 @@ body > img{
     margin-top: 20px;
 }
 
-/* FIN - ESTILOS MODIFICADORES JQUERY UI */
+/* FIN - ESTILOS MODIFICADORES JQUERY UI (PRECARGA PÁGINA RESULTADOS VERSIÓN DESKTOP) */
+
+/* PRECARGA PÁGINA RESULTADOS VERSIÓN MOBILE */
+
+.content-spinner2 {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(240, 240, 240, .3);
+    z-index: 99999;
+    display: none;
+}
+
+.busy-loader {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    margin-left: -45px;
+    margin-top: -45px;
+}
+
+    .busy-loader .w-ball-wrapper {
+        position: absolute;
+        width: 86px;
+        height: 86px;
+        opacity: 0;
+        -moz-transform: rotate(225deg);
+        -moz-animation: orbit 4.4s infinite;
+        -webkit-transform: rotate(225deg);
+        -webkit-animation: orbit 4.4s infinite;
+        -ms-transform: rotate(225deg);
+        -ms-animation: orbit 4.4s infinite;
+        -o-transform: rotate(225deg);
+        -o-animation: orbit 4.4s infinite;
+        -webkit-transform: rotate(225deg);
+        -ms-transform: rotate(225deg);
+        transform: rotate(225deg);
+        -webkit-animation: orbit 4.4s infinite;
+        animation: orbit 4.4s infinite;
+    }
+
+        .busy-loader .w-ball-wrapper .w-ball {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background: #fff;
+            left: 0;
+            top: 0;
+            -o-border-radius: 11px;
+            border-radius: 11px;
+        }
+
+    .busy-loader .ball-1 {
+        -webkit-animation-delay: .96s;
+        -ms-animation-delay: .96s;
+        animation-delay: .96s;
+    }
+
+    .busy-loader .ball-2 {
+        -webkit-animation-delay: .19s;
+        -ms-animation-delay: .19s;
+        animation-delay: .19s;
+    }
+
+    .busy-loader .ball-3 {
+        -webkit-animation-delay: .38s;
+        -ms-animation-delay: .38s;
+        animation-delay: .38s;
+    }
+
+    .busy-loader .ball-4 {
+        -webkit-animation-delay: .58s;
+        -ms-animation-delay: .58s;
+        animation-delay: .58s;
+    }
+
+    .busy-loader .ball-5 {
+        -webkit-animation-delay: .77s;
+        -ms-animation-delay: .77s;
+        animation-delay: .77s;
+    }
+
+@-webkit-keyframes orbit {
+    0% {
+        opacity: 1;
+        z-index: 99;
+        -webkit-transform: rotate(180deg);
+        -webkit-animation-timing-function: ease-out;
+    }
+
+    7% {
+        opacity: 1;
+        -webkit-transform: rotate(300deg);
+        -webkit-animation-timing-function: linear;
+        -webkit-origin: 0;
+    }
+
+    30% {
+        opacity: 1;
+        -webkit-transform: rotate(410deg);
+        -webkit-animation-timing-function: ease-in-out;
+        -webkit-origin: 7%;
+    }
+
+    39% {
+        opacity: 1;
+        -webkit-transform: rotate(645deg);
+        -webkit-animation-timing-function: linear;
+        -webkit-origin: 30%;
+    }
+
+    70% {
+        opacity: 1;
+        -webkit-transform: rotate(770deg);
+        -webkit-animation-timing-function: ease-out;
+        -webkit-origin: 39%;
+    }
+
+    75% {
+        opacity: 1;
+        -webkit-transform: rotate(900deg);
+        -webkit-animation-timing-function: ease-out;
+        -webkit-origin: 70%;
+    }
+
+    76% {
+        opacity: 0;
+        -webkit-transform: rotate(900deg);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: rotate(900deg);
+    }
+}
+
+@-ms-keyframes orbit {
+    0% {
+        opacity: 1;
+        z-index: 99;
+        -ms-transform: rotate(180deg);
+        -ms-animation-timing-function: ease-out;
+    }
+
+    7% {
+        opacity: 1;
+        -ms-transform: rotate(300deg);
+        -ms-animation-timing-function: linear;
+        -ms-origin: 0;
+    }
+
+    30% {
+        opacity: 1;
+        -ms-transform: rotate(410deg);
+        -ms-animation-timing-function: ease-in-out;
+        -ms-origin: 7%;
+    }
+
+    39% {
+        opacity: 1;
+        -ms-transform: rotate(645deg);
+        -ms-animation-timing-function: linear;
+        -ms-origin: 30%;
+    }
+
+    70% {
+        opacity: 1;
+        -ms-transform: rotate(770deg);
+        -ms-animation-timing-function: ease-out;
+        -ms-origin: 39%;
+    }
+
+    75% {
+        opacity: 1;
+        -ms-transform: rotate(900deg);
+        -ms-animation-timing-function: ease-out;
+        -ms-origin: 70%;
+    }
+
+    76% {
+        opacity: 0;
+        -ms-transform: rotate(900deg);
+    }
+
+    100% {
+        opacity: 0;
+        -ms-transform: rotate(900deg);
+    }
+}
+
+@keyframes orbit {
+    0% {
+        opacity: 1;
+        z-index: 99;
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    7% {
+        opacity: 1;
+        -webkit-transform: rotate(300deg);
+        transform: rotate(300deg);
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        origin: 0;
+    }
+
+    30% {
+        opacity: 1;
+        -webkit-transform: rotate(410deg);
+        transform: rotate(410deg);
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        origin: 7%;
+    }
+
+    39% {
+        opacity: 1;
+        -webkit-transform: rotate(645deg);
+        transform: rotate(645deg);
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        origin: 30%;
+    }
+
+    70% {
+        opacity: 1;
+        -webkit-transform: rotate(770deg);
+        transform: rotate(770deg);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+        origin: 39%;
+    }
+
+    75% {
+        opacity: 1;
+        -webkit-transform: rotate(900deg);
+        transform: rotate(900deg);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+        origin: 70%;
+    }
+
+    76% {
+        opacity: 0;
+        -webkit-transform: rotate(900deg);
+        transform: rotate(900deg);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: rotate(900deg);
+        transform: rotate(900deg);
+    }
+}
+
+/* FIN - PRECARGA PÁGINA RESULTADOS VERSIÓN MOBILE */
 
 /* HELPERS CSS */
 
