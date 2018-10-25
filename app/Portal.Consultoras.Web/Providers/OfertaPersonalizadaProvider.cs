@@ -436,7 +436,7 @@ namespace Portal.Consultoras.Web.Providers
                         campaniaId,
                         userData.CodigoConsultora,
                         userData.CodigorRegion,
-                        userData.ZonaID,
+                        userData.CodigoZona,
                         materialGanancia);
                     var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital, userData.CodigoISO));
                     Task.WhenAll(taskApi);
