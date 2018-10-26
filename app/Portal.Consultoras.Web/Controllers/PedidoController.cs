@@ -289,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
-                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.DesktopPedido);
+                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopPedido);
 
                 ViewBag.NombreConsultora = userData.Sobrenombre;
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -1311,7 +1311,7 @@ namespace Portal.Consultoras.Web.Controllers
                     DescripcionLarga = producto.DescripcionMarca,
                     DescripcionEstrategia = producto.DescripcionEstrategia,
                     Categoria = producto.DescripcionCategoria,
-                    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome,
+                    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopHomeBannersCarrusel,
                     TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0
                 };
 
@@ -2999,9 +2999,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (!(obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal
-                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal
-                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppOfertaFinalSinPopup))
+                if (!(obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
+                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
+                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
+                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
+                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
+                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha))
                 {
                     string mensaje;
                     var noPasa = ReservadoEnHorarioRestringido(out mensaje);
