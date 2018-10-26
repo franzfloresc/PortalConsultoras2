@@ -879,12 +879,14 @@ namespace Portal.Consultoras.Common
 
             #region MasGanadoras     
 
-            public const int MasGanadorasDesktopLanding = 1111401; // Esta en duro en ConstantesModule
-            public const int MasGanadorasDesktopLandingFicha = 1111402; // Esta en duro en ConstantesModule
-            public const int MasGanadorasMobileLandingFicha = 2111402; // Esta en duro en ConstantesModule
-            public const int MasGanadorasDesktopContenedorCarrusel = 1081401; // Esta en duro en ConstantesModule
-            public const int MasGanadorasDesktopContenedorCarruselFicha = 1081402; // Esta en duro en ConstantesModule
-            public const int MasGanadorasMobileContenedorCarruselFicha = 2081402; // Esta en duro en ConstantesModule
+            public const int DesktopContenedorGanadorasCarrusel = 1081401; // Esta en duro en ConstantesModule
+            public const int DesktopContenedorGanadorasFicha = 1081402; // Esta en duro en ConstantesModule
+            public const int DesktopLandingGanadorasGanadorasCarrusel = 1111401; // Esta en duro en ConstantesModule
+            public const int DesktopLandingGanadorasGanadorasFicha = 1111402; // Esta en duro en ConstantesModule
+            public const int MobileContenedorGanadorasCarrusel = 2081401; // Esta en duro en ConstantesModule
+            public const int MobileContenedorGanadorasFicha = 2081402; // Esta en duro en ConstantesModule
+            public const int MobileLandingGanadorasGanadorasCarrusel = 2111401; // Esta en duro en ConstantesModule
+            public const int MobileLandingGanadorasGanadorasFicha = 2111402; // Esta en duro en ConstantesModule
 
             #endregion
 

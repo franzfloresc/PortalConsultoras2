@@ -80,12 +80,14 @@ var ConstantesModule = (function () {
         DesktopPedidoOfertaDelDiaBannerSuperior: "1020306",
         DesktopOtrasOfertaDelDiaBannerSuperior: "1090306",
 
-        MasGanadorasDesktopContenedorCarrusel: "1081401",
-        MasGanadorasDesktopContenedorCarruselFicha: "1081402",
-        MasGanadorasMobileContenedorCarruselFicha: "2081402",
-        MasGanadorasDesktopLanding: "1111401",
-        MasGanadorasDesktopLandingFicha: "1111402",
-        MasGanadorasMobileLandingFicha: "2111402"
+        DesktopContenedorGanadorasCarrusel: "1081401",
+        DesktopContenedorGanadorasFicha: "1081402",
+        DesktopLandingGanadorasGanadorasCarrusel: "1111401",
+        DesktopLandingGanadorasGanadorasFicha: "1111402",
+        MobileContenedorGanadorasCarrusel: "1081401",
+        MobileContenedorGanadorasFicha: "1081402",
+        MobileLandingGanadorasGanadorasCarrusel: "1111401",
+        MobileLandingGanadorasGanadorasFicha: "1111402"
     }
     
     return {
