@@ -110,9 +110,9 @@
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
                     // Filtros categorias
-                    if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.categorias, _elementos.filtrosCategorias);
+                    //if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.categorias, _elementos.filtrosCategorias);
                     // Filtros Marcas
-                    if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.marcas, _elementos.filtrosMarcas);
+                   // if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.marcas, _elementos.filtrosMarcas);
                     _funciones.UpadteFichaProducto();
                     _config.totalProductos = data.total;
                     _config.cargandoProductos = false;
