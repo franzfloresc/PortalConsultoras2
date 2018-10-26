@@ -168,7 +168,7 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
             FechaNacimiento = row.ToDateTime("FechaNacimiento");
             Correo = row.ToString("Correo");
             Celular = row.ToString("Celular");
-            Origen =  row.HasColumn("Origen")? row.ToString("Origen") : string.Empty;
+            Origen =  row.ToString("Origen");
         }
 
     }

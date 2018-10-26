@@ -2587,7 +2587,7 @@ namespace Portal.Consultoras.Common
 
         public static class PagoEnLineaNotificacion
         {
-            public const string Email_Notifier = "no-responder @somosbelcorp.com";
+            public const string Email_Notifier = "no-responder@somosbelcorp.com";
             public const string Email_Titulo = "PAGO EN LINEA";
             public const string Email_Template = "bin\\Templates\\mailing_pago_en_linea.html";
         }
