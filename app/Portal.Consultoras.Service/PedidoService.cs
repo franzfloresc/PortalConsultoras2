@@ -2156,7 +2156,8 @@ namespace Portal.Consultoras.Service
 
         public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
         {
-            return BLPagoEnLinea.InsertPagoEnLineaResultadoLog(paisId, entidad);
+            BLPagoEnLinea.InsertPagoEnLineaResultadoLog(paisId, entidad);
+            return entidad.PagoEnLineaResultadoLogId;
         }
 
         public string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora)
@@ -2219,8 +2220,17 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerPagoEnLineaURLPaginasBancos(paisId);
         }
 
-        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId) {
-            return BLPagoEnLinea.ObtenerPagoEnLineaConfiguracion(paisId);
+        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario) {
+            return BLPagoEnLinea.ObtenerPagoEnLineaConfiguracion(paisId, consultoraId, codigoUsuario);
+        }
+
+        public BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaVisaConfiguracion(paisId, codigoConsutora);
+        }
+
+        public BEPagoEnLineaRespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa) {
+            return BLPagoEnLinea.RegistrarPagoEnLineaVisa(usuario, pagoEnLineaVisa);
         }
 
         #endregion
@@ -2393,6 +2403,6 @@ namespace Portal.Consultoras.Service
         {
             return blEstrategia.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
         }
-
+        
     }
 }

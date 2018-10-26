@@ -1249,5 +1249,10 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return ((BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosConfiguracionModel();
         }
+
+        public BEUsuarioDatos GetDatosUsuario() {
+            return ((BEUsuarioDatos)HttpContext.Current.Session["DatosUsuario"]);
+        }
+
     }
 }

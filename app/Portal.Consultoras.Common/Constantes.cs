@@ -255,7 +255,7 @@ namespace Portal.Consultoras.Common
 
         public static class Inicializacion
         {
-            public const int EnteroInicial =  -1;
+            public const int EnteroInicial = -1;
         }
 
         public static class EstadoRespuestaServicio
@@ -2580,6 +2580,18 @@ namespace Portal.Consultoras.Common
             public const string Debito = "DEB";
         }
 
+        public static class PagoEnLineaPasarela
+        {
+            public const string Visa = "VISA";
+        }
+
+        public static class PagoEnLineaNotificacion
+        {
+            public const string Email_Notifier = "no-responder @somosbelcorp.com";
+            public const string Email_Titulo = "PAGO EN LINEA";
+            public const string Email_Template = "bin\\Templates\\mailing_pago_en_linea.html";
+        }
+
         public static class PagoEnLineaPasarelaVisa
         {
             public const string MerchantId = "01";
@@ -2593,6 +2605,39 @@ namespace Portal.Consultoras.Common
             public const string UrlLogoPasarelaPago = "09";
             public const string ColorBotonPagarPasarelaPago = "10";
             public const string MensajeInformacionPagoExitoso = "11";
+            public const string MontoMinimoPago = "13";
+
+            public const string NextCounterURL_Pattern = "{0}%s/nextCounter";
+            public const string Recurrence = "FALSE";
+            public const string RecurrenceAmount = "0.00";
+
+            public static class Code {
+                public const string CodigoError_Success = "0";
+                public const string CodigoAccion_Success = "000";
+            }            
+        }
+
+        public static class PagoEnLineaRespuestaServicio
+        {
+            private static Dictionary<string, string> _Message;
+
+            public static class Code
+            {
+                public const string SUCCESS = "0000";
+                public const string SUCCESS_YA_AGREGADO = "0001";
+            }
+
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                    {
+                        {Code.SUCCESS, "Pago en Línea registrado con éxito."},
+                        {Code.SUCCESS_YA_AGREGADO, "Pago en Línea ya fue registrado anteriormente."},
+                    });
+                }
+            }
         }
 
         public static class PagoEnLineaPasarelaPayu
@@ -2625,12 +2670,24 @@ namespace Portal.Consultoras.Common
             public const string DefaultCity = "Mexico";
         }
 
+        public static class PagoEnLineaResultadoLog
+        {
+            public const int Accion_Insert = 1;
+        }
+
         public static class PagoEnLineaMensajes
         {
             public const string CargoplataformaPe = "Cargo plataforma online";
             public const string CargoplataformaMx = "Comisión por transacción";
             public const string GastosLabelPe = "Gastos Adm.";
             public const string GastosLabelMx = "Cargo comisión por transacción";
+        }
+
+        public static class PagoEnLineaOrigen
+        {
+            public const string OrigenDesktop = "Desktop";
+            public const string OrigeMobile = "Mobile";
+            public const string OrigeAppConsultora = "APPConsultoras";
         }
 
         #endregion

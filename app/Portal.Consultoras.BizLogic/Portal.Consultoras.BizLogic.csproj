@@ -345,6 +345,9 @@
     <Content Include="Templates\mailing_bienvenida_coach_virtual.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Templates\mailing_pago_en_linea.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\mailing_proceso_actualizar_misdatos.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
