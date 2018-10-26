@@ -192,7 +192,7 @@
         }
 
         <hr class="clear" />
-        <div id="divOfertaProductosPerdio" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
+        <div id="divOfertaProductosPerdio" @*data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"*@
              data-content-perdido="@Model.CampaniaID"
              class="flex-container fix_zona_dorada_mobile " style="display: inline-flex !important;flex-wrap: wrap;justify-content: center; display: none;"></div>
         <hr class="clear" />
@@ -472,7 +472,7 @@ else
         var precioMax = '@Model.PrecioMaxFiltro';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom", new {area = "Mobile"})';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomCarrusel';
+        @*var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomCarrusel';*@
         var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
         var tieneSubCampania = '@Model.TieneSubCampania';

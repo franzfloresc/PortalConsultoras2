@@ -76,15 +76,18 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
-        var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
-        var ShowRoomMobileSubCampania = 2524;
-        var estrategia = {};
-        if (origenPedidoWebEstrategia == ShowRoomMobileSubCampania) {
-            estrategia = $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-                        .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia") || {};
-        } else {
-            estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia") || {};
-        }
+        //var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
+        //var ShowRoomMobileSubCampania = 2524;
+        //var estrategia = {};
+        //if (origenPedidoWebEstrategia == ShowRoomMobileSubCampania) {
+        //    estrategia = $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+        //                .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia") || {};
+        //} else {
+        var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
+                || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                        .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia")
+                || {};
+        //}
         return estrategia;
     };
 
@@ -225,7 +228,7 @@ var EstrategiaAgregarModule = (function () {
 
             var name = $.trim(estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada);
             rdAnalyticsModule.AgregarProductoDeshabilitado(
-                origenPedidoWebEstrategia,
+                estrategia.OrigenPedidoWebEstrategia,
                 estrategia.CampaniaID,
                 name,
                 isPopup);
@@ -243,14 +246,17 @@ var EstrategiaAgregarModule = (function () {
         _config.CampaniaCodigo = $(elementosDiv.hdCampaniaCodigo).val() || _config.CampaniaCodigo;
 
         var $btnAgregar = $(event.target);
+        console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
+        console.log(origenPedidoWebEstrategia);
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-        
+        console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             //if (isMobile()) {
             //    EstrategiaVerDetalleMobile(estrategia);
             //    return true;
             //}
+            estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
             sendAnalyticAgregarProductoDeshabilitado(estrategia, popup);
             return false;
@@ -512,11 +518,11 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
             }
-
+            if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
             
             return false;
-
-        }).fail(function (data, error) {
+        })
+        .fail(function (data, error) {
             CerrarLoad();
         });
 

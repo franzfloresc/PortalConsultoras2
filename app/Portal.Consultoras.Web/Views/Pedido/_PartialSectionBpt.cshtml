@@ -39,7 +39,7 @@
                 <p class="segundo-texto">
                     @Html.Raw(configuracionPaisDatosModel.Valor2)
                 </p>
-                <a class="boton-suscrito" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
+                <a class="boton-suscrito" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
             </div>
 
             @if (revistaDigital.EsActiva)
@@ -80,7 +80,7 @@
                 <p class="primer-texto" style="text-transform:none; font-size: 15px; margin: 0 0 1.5em 0;">
                     @Html.Raw(configuracionPaisDatosModel.Valor1) @Html.Raw(configuracionPaisDatosModel.Valor2)
                 </p>
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel)">VER MÁS</a>
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER MÁS</a>
             </div>
 
             @if (revistaDigital.EsActiva)
@@ -91,7 +91,7 @@
                         <div class="contenedor_productos">
                             <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"
                                  data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel"
-                                 data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel"></div>
+                                 data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiFicha"></div>
                         </div>
                         <hr class="clear" />
                     </div>
@@ -126,7 +126,7 @@ else if (revistaDigital.TieneRDI)
                 <div class="banner_pedido_masofertas">
                     <div class="banner_pedido_text margin_bottom_60">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
                     <div class="btn_diagonal btn_stroke btn_stroke2">
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel, '@Constantes.ConfiguracionPais.OfertasParaTi')">
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.OfertasParaTi')">
                             VER TODAS MIS OFERTAS
                             <img class="rd_arrowrightnegro" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                             <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
@@ -150,7 +150,7 @@ else if (revistaDigital.TieneRDI)
         <div class="club_gana_mas_pedido">
             <div class="logo_club no-suscrito"></div>
             <p class="primer-texto" style="text-transform:none; font-size: 15px; margin: 0 0 1.5em 0;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</p>
-            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel)">VER MÁS</a>
+            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER MÁS</a>
         </div>
         @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml", 
             new ViewDataDictionary

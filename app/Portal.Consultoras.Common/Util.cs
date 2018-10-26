@@ -3671,6 +3671,10 @@ namespace Portal.Consultoras.Common
                     {
                         case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
                         case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
+                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
+                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha:
+                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
+                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha:
                             result = "";
                             break;
                         default:
