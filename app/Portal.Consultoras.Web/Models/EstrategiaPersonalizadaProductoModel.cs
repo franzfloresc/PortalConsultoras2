@@ -77,6 +77,8 @@ namespace Portal.Consultoras.Web.Models
         public int TipoEstrategiaID { get; set; }
 
         public int TipoEstrategiaImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
-                                                             // se usa para ShowRoom
+        
+        public string CodigoPalanca { get; set; } // codigo donde se van a mostrar los productos
+
     }
 }

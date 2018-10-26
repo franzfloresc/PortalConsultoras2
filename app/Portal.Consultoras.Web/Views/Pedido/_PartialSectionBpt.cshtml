@@ -39,7 +39,7 @@
                 <p class="segundo-texto">
                     @Html.Raw(configuracionPaisDatosModel.Valor2)
                 </p>
-                <a class="boton-suscrito" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
+                <a class="boton-suscrito" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
             </div>
 
             @if (revistaDigital.EsActiva)
@@ -48,8 +48,8 @@
                     <div class="contenedor_carousel @margenvertical">
                         <div class="contenedor_productos">
                             <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"
-                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion"
-                                 data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp"></div>
+                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel"
+                                 data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiFicha"></div>
                             <hr class="clear" />
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                     {
                         { "Source", 3 },
                         { "NombreConsultora", revistaDigital.NombreConsultora },
-                        { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
+                        { "Origen", Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel },
                         { "NombrePalanca", revistaDigital.NombreComercialNoActiva },
                         { "Margenvertical", margenvertical }
                     })
@@ -80,7 +80,7 @@
                 <p class="primer-texto" style="text-transform:none; font-size: 15px; margin: 0 0 1.5em 0;">
                     @Html.Raw(configuracionPaisDatosModel.Valor1) @Html.Raw(configuracionPaisDatosModel.Valor2)
                 </p>
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion)">VER MÁS</a>
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER MÁS</a>
             </div>
 
             @if (revistaDigital.EsActiva)
@@ -90,8 +90,8 @@
                     <div class="contenedor_carousel @margenvertical">
                         <div class="contenedor_productos">
                             <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"
-                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion"
-                                 data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp"></div>
+                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel"
+                                 data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiFicha"></div>
                         </div>
                         <hr class="clear" />
                     </div>
@@ -105,7 +105,7 @@
                     {
                         { "Source", 3 },
                         { "NombreConsultora", revistaDigital.NombreConsultora },
-                        { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
+                        { "Origen", Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel },
                         { "NombrePalanca", revistaDigital.NombreComercialNoActiva },
                         { "Margenvertical", margenvertical }
                     })
@@ -128,7 +128,7 @@ else if (revistaDigital.TieneRDI)
             {
                 { "Source", 3 },
                 { "NombreConsultora", revistaDigital.NombreConsultora },
-                { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
+                { "Origen", Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel },
                 { "NombrePalanca", revistaDigital.NombreComercialNoActiva },
                 { "Margenvertical", margenvertical }
             })
@@ -141,7 +141,7 @@ else
     {
         { "Source", 1 },
         { "NombreConsultora", ViewBag.NombreConsultora },
-        { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
+        { "Origen", Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel },
         { "NombrePalanca", revistaDigital.NombreComercialNoActiva },
         { "Margenvertical", margenvertical }
     })

@@ -150,6 +150,32 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        #region Las mas Ganadoras
+
+        public ActionResult MasGanadorasViewLanding()
+        {
+            // tipo es para caso campaña actual (1) y campaña siguiente (2)
+            //var id = tipo == 1 ? userData.CampaniaID : Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
+            var id = userData.CampaniaID;
+
+            bool esMobile = IsMobile();
+
+            var model = new RevistaDigitalLandingModel
+            {
+                CampaniaID = id,
+                IsMobile = esMobile,
+                FiltersBySorting = _ofertasViewProvider.GetFiltersBySorting(IsMobile()),
+                FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
+                Success = true,
+                MensajeProductoBloqueado = _ofertasViewProvider.HVMensajeProductoBloqueado(herramientasVenta, esMobile),
+                CantidadFilas = 10
+            };
+
+            return PartialView("template-landing", model);
+        }
+
+        #endregion
+
         #region Herramienta Venta
 
         public ActionResult HVViewLanding(int tipo)
@@ -225,7 +251,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca
                         || Constantes.NombrePalanca.ShowRoom == palanca
                         || Constantes.NombrePalanca.OfertaDelDia == palanca);
-
+                modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetOrigenPedidoWebDetalle(origen, modelo.TieneCarrusel):0;
                 modelo.TieneCompartir = !(Constantes.NombrePalanca.HerramientasVenta == palanca
                     || Constantes.NombrePalanca.PackNuevas == palanca);
 
@@ -276,11 +302,13 @@ namespace Portal.Consultoras.Web.Controllers
                     breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area });
                     if (palanca == Constantes.NombrePalanca.ShowRoom)
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
+
                     if (palanca == Constantes.NombrePalanca.Lanzamiento)
                     {
                         var actionPalanca = productoPerteneceACampaniaActual ? "Index" : "Revisar";
-                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#LAN";
+                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.Lanzamiento;
                     }
+
                     if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
                         palanca == Constantes.NombrePalanca.OfertasParaMi ||
                         palanca == Constantes.NombrePalanca.RevistaDigital ||
@@ -293,18 +321,26 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#OPT";
+                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.OfertasParaTi;
                         }
                     }
                     if (palanca == Constantes.NombrePalanca.OfertaDelDia)
-                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#ODD";
+                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.OfertaDelDia;
+
                     if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
+                    
                     if (palanca == Constantes.NombrePalanca.HerramientasVenta)
                     {
                         var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
                         breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "HerramientasVenta", area });
                     }
+
+                    if (palanca == Constantes.NombrePalanca.MasGanadoras)
+                        breadCrumbs.Palanca.Url =
+                            SessionManager.MasGanadoras.GetModel().TieneLanding
+                            ? Url.Action("Index", new { controller = "MasGanadoras", area })
+                            : (Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.MasGanadoras);
                 }
                 
                 breadCrumbs.Producto.Url = "#";
@@ -329,12 +365,13 @@ namespace Portal.Consultoras.Web.Controllers
             NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "¡Solo Hoy!");
             NombrePalancas.Add(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio");
             NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
+            NombrePalancas.Add(Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras");
 
             NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, "Ofertas Para ti");
             return NombrePalancas;
         }
 
-        public int GetOrigenPedidoWebDetalle(string origen)
+        public int GetOrigenPedidoWebDetalle(string origen,bool tieneCarrusel = false)
         {
             origen = Util.Trim(origen);
             if (origen == "")
@@ -347,149 +384,267 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (intOrigen)
             {
+                #region Desktop
+                case Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarruselVerMas :  Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopHomeShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingGNDGNDCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingGNDGNDFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingHerramientasdeVentaHerramientasdeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingHerramientasdeVentaHerramientasdeVentasFicha;
+                    break;
+                #endregion Desktop
+                #region Mobile
+                case Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingOfertasParaTiOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingOfertasParaTiOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingHerramientasdeVentaHerramientasdeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingHerramientasdeVentaHerramientasdeVentaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileContenedorOfertaDelDiaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomFicha;
+                    break;
+
+                #endregion Mobile
+
+                #region Buscador Desktop
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorGNDFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaFicha;
+                    break;
+                #endregion Buscador Desktop
+
+                #region Buscador Mobile
+                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorGNDFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaFicha;
+                    break;
+                #endregion Buscador Mobile
+
+
                 //OPT
-                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHomePopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedidoPopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedor:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedorPopup;
-                    break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscadorFicha;
-                    break;
+                //case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome:
+                //    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHomePopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido:
+                //    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedidoPopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedor:
+                //    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedorPopup;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscador:
+                //    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscadorFicha;
+                //    break;
                 //Mobile
-                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileHomePopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedidoPopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup;
-                    break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscadorFicha;
-                    break;
+                //case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
+                //    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileHomePopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido:
+                //    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedidoPopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor:
+                //    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscador:
+                //    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscadorFicha;
+                //    break;
                 // RD
-                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomePopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
-                    break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
-                    break;
+                //case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion:
+                //    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomePopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion:
+                //    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding:
+                //    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento:
+                //    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor:
+                //    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
+                //    break;
                 //Mobile
-                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoPopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingPopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileHomePopup;
-                    break;
+                //case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
+                //    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
+                //    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoPopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding:
+                //    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingPopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
+                //    result = Constantes.OrigenPedidoWeb.LanzamientoMobileHomePopup;
+                //    break;
                 //LAN
-                case Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedor:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedorPopup;
-                    break;
-                case Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
-                    break;
-                case Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscadorFicha;
-                    break;
+                //case Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedor:
+                //    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedorPopup;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage:
+                //    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscador:
+                //    result = Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscadorFicha;
+                //    break;
                 //Mobile
-                case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup;
-                    break;
-                case Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage;
-                    break;
-                case Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscadorFicha;
-                    break;
+                //case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
+                //    result = Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage:
+                //    result = Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscador:
+                //    result = Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscadorFicha;
+                //    break;
                 //GND
-                case Constantes.OrigenPedidoWeb.GNDMobileLanding:
-                    result = Constantes.OrigenPedidoWeb.GNDMobileLandingPopup;
-                    break;
-                case Constantes.OrigenPedidoWeb.GNDDesktopLanding:
-                    result = Constantes.OrigenPedidoWeb.GNDDesktopLandingPopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscadorFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscadorFicha;
-                    break;
+                //case Constantes.OrigenPedidoWeb.GNDMobileLanding:
+                //    result = Constantes.OrigenPedidoWeb.GNDMobileLandingPopup;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.GNDDesktopLanding:
+                //    result = Constantes.OrigenPedidoWeb.GNDDesktopLandingPopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscador:
+                //    result = Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscadorFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscador:
+                //    result = Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscadorFicha;
+                //    break;
                 //HV
-                case Constantes.OrigenPedidoWeb.HVMobileLanding:
-                    result = Constantes.OrigenPedidoWeb.HVMobileLandingPopup;
-                    break;
-                case Constantes.OrigenPedidoWeb.HVDesktopLanding:
-                    result = Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp;
-                    break;
-                case Constantes.OrigenPedidoWeb.HVDesktopContenedor:
-                    result = Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
-                    break;
-                case Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscadorFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscadorFicha;
-                    break;
+                //case Constantes.OrigenPedidoWeb.HVMobileLanding:
+                //    result = Constantes.OrigenPedidoWeb.HVMobileLandingPopup;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.HVDesktopLanding:
+                //    result = Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.HVDesktopContenedor:
+                //    result = Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscador:
+                //    result = Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscadorFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscador:
+                //    result = Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscadorFicha;
+                //    break;
                 //SR
-                case Constantes.OrigenPedidoWeb.ShowRoomDesktopHome:
-                case Constantes.OrigenPedidoWeb.ShowRoomDesktopContenedor:
-                case Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingCompra:
-                case Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingIntriga:
-                case Constantes.OrigenPedidoWeb.ShowRoomDesktopSubCampania:
-                    result = Constantes.OrigenPedidoWeb.ShowRoomDesktopProductPage;
-                    break;
-                case Constantes.OrigenPedidoWeb.EspecialesDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.EspecialesDesktopBuscadorFicha;
-                    break;
+                //case Constantes.OrigenPedidoWeb.ShowRoomDesktopHome:
+                //case Constantes.OrigenPedidoWeb.ShowRoomDesktopContenedor:
+                //case Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingCompra:
+                //case Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingIntriga:
+                //case Constantes.OrigenPedidoWeb.ShowRoomDesktopSubCampania:
+                //    result = Constantes.OrigenPedidoWeb.ShowRoomDesktopProductPage;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.EspecialesDesktopBuscador:
+                //    result = Constantes.OrigenPedidoWeb.EspecialesDesktopBuscadorFicha;
+                //    break;
                 //Mobile
-                case Constantes.OrigenPedidoWeb.ShowRoomMobileContenedor:
-                case Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra:
-                case Constantes.OrigenPedidoWeb.ShowRoomMobileLandingIntriga:
-                case Constantes.OrigenPedidoWeb.ShowRoomMobileSubCampania:
-                    result = Constantes.OrigenPedidoWeb.ShowRoomMobileProductPage;
-                    break;
-                case Constantes.OrigenPedidoWeb.EspecialesMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.EspecialesMobileBuscadorFicha;
-                    break;
+                //case Constantes.OrigenPedidoWeb.ShowRoomMobileContenedor:
+                //case Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra:
+                //case Constantes.OrigenPedidoWeb.ShowRoomMobileLandingIntriga:
+                //case Constantes.OrigenPedidoWeb.ShowRoomMobileSubCampania:
+                //    result = Constantes.OrigenPedidoWeb.ShowRoomMobileProductPage;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.EspecialesMobileBuscador:
+                //    result = Constantes.OrigenPedidoWeb.EspecialesMobileBuscadorFicha;
+                //    break;
                 //ODD
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopHomeBanner:
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopPedidoBanner:
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopGeneralBanner:
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopContenedor:
-                    result = Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscadorFicha;
-                    break;
+                //case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopHomeBanner:
+                //case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopPedidoBanner:
+                //case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopGeneralBanner:
+                //case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopContenedor:
+                //    result = Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador:
+                //    result = Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscadorFicha;
+                //    break;
                 //Mobile
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaMobileHomeBanner:
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaMobileContenedor:
-                    result = Constantes.OrigenPedidoWeb.OfertaDelDiaMobileFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscadorFicha;
-                    break;
+                //case Constantes.OrigenPedidoWeb.OfertaDelDiaMobileHomeBanner:
+                //case Constantes.OrigenPedidoWeb.OfertaDelDiaMobileContenedor:
+                //    result = Constantes.OrigenPedidoWeb.OfertaDelDiaMobileFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador:
+                //    result = Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscadorFicha;
+                //    break;
             }
 
             return result;
