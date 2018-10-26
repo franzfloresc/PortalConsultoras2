@@ -47,10 +47,10 @@ else
             <span>@Model.FechaVencimiento</span>
         </div>
 
-        @if (Model.TienePagoEnLinea)
+        @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
         {
             <a href="@Url.Action("Index", "PagoEnLinea")" class="btn_paga_en_linea_con_credito_visa">
-                Paga en línea con visa
+                PAGA EN L&Iacute;NEA
             </a>
         }
     </div>
