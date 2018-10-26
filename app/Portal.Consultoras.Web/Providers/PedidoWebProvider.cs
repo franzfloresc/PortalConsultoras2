@@ -285,5 +285,16 @@ namespace Portal.Consultoras.Web.Providers
             return pedidoDetalleResult;
         }
 
+        public BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = pedidoServiceClient.UpdatePedidoDetalle(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
     }
 }

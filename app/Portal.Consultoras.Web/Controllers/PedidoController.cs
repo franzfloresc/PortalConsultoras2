@@ -948,6 +948,62 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult UpdateTransaction(PedidoWebDetalleModel model)
+        {
+            BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+            pedidoDetalle.Producto = new ServicePedido.BEProducto();
+
+            pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+            pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
+            pedidoDetalle.Producto.PrecioCatalogo = model.PrecioUnidad;
+            pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID == 0 ? model.TipoOfertaSisID.ToString() : model.TipoEstrategiaID.ToString();
+            pedidoDetalle.Producto.CUV = model.CUV;
+            pedidoDetalle.Producto.Descripcion = model.DescripcionProd;
+            pedidoDetalle.PaisID = userData.PaisID;
+            pedidoDetalle.EnRangoProgramaNuevas = model.EnRangoProgNuevas;
+            pedidoDetalle.SetID = model.SetID;
+            pedidoDetalle.PedidoDetalleID = (short)model.PedidoDetalleID;
+            pedidoDetalle.ClienteID = (short)model.ClienteID;
+            //pedidoDetalle.ClienteDescripcion = "";
+
+            var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
+
+            if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+            {
+                SessionManager.SetPedidoWeb(null);
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
+
+                var pedidoWebDetalle = ObtenerPedidoWebDetalle();
+                var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
+                var Total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
+                var FormatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
+
+                ObtenerPedidoWeb();
+                return Json(new
+                {
+                    success = true,
+                    message = pedidoDetalleResult.MensajeRespuesta,
+                    total = Total,
+                    TotalFormato = FormatoTotal,
+                    userData.Simbolo,
+                    extra = "",
+                    DataBarra = GetDataBarra(),
+                    cantidadTotalProductos = CantidadTotalProductos
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
+                    tituloMensaje = pedidoDetalleResult.TituloMensaje,
+                    errorInsertarProducto = "1"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpPost]
         public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder, int setId)
         {
