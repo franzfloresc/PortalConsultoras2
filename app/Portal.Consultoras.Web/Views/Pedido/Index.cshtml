@@ -163,7 +163,7 @@
 
         <div class="content_T_T" style="position:relative; z-index:100">
             <div class="bloque_left"></div>
-            <div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
+            @*<div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
                 <div class="paginador_pedidos mostrarPaginadorPedidos">
                     <div class="titulo_mis_pedidos" style="width:100%;">
 
@@ -226,7 +226,8 @@
                 </div>
 
                 <div class="clear"></div>
-            </div>
+            </div>*@
+            @Html.Partial("~/Views/Pedido/_vpPedidoGrilla.cshtml")
 
             <div class="caja_guardar_pedido">
                 <div class="contenedor_guardadoPedido">
@@ -1460,7 +1461,7 @@
     {{/each}}
 </script>
 
-<script id="paginador-template" type="text/x-handlebars-template">
+@*<script id="paginador-template" type="text/x-handlebars-template">
     <ul class="paginador_notificaciones" data-paginacion="block">
 
         <li class="productos_agregados_usuario">
@@ -1640,8 +1641,9 @@
     </div>
     {{/IsNullOrEmpty}}
     {{/each}}
-</script>
+</script>*@
 
+@Html.Partial("~/Views/Pedido/_vpPedidoGrilla-Template.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/FichaProducto/template-ficha-producto.cshtml")
 

@@ -10,6 +10,7 @@
 }
 
 <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Mobile/Pedido/PedidoGrilla.css")" rel="stylesheet" />
 
 
 <input type="hidden" id="hdEsFacturacion" value="@Model.EsFacturacion.ToString()" />
@@ -291,21 +292,6 @@
         <div class="contenedor_items_pedido">
             <div class="bloque_descripcion_items_ingresados">
                 <div class="descripcion_item_pedido">
-                    <span class="mensaje_tipoProd">
-                        {{#iff detalle.TipoPedido '==' 'M'}}
-                        <br />
-                        <span>App móvil</span>
-                        {{/iff}}
-
-                        {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
-                        <br />
-                        {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
-                        {{else}}
-                        <label for="{{detalle.DescripcionOferta}}">{{Replace (Replace detalle.DescripcionOferta '[' '') ']' ''}}</label>
-                        {{/iff}}
-                        {{/IsNullOrEmpty}}
-
-                    </span>
                     <span class="cod_prod">
                         {{#if detalle.EstadoSimplificacionCuv}}
                         {{#if detalle.IndicadorOfertaCUV}}
@@ -320,6 +306,20 @@
                         <span class="texto_rojo">*</span>
                         {{/iff}}
                         <span>{{Split detalle.DescripcionProd '|' 0}}</span>
+                    </span>
+                    <span class="mensaje_tipoProd">
+                        {{#iff detalle.TipoPedido '==' 'M'}}
+                        <br />
+                        <span>App móvil</span>
+                        {{/iff}}
+
+                        {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
+                        <br />
+                        {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
+                        {{else}}
+                        <label for="{{detalle.DescripcionOferta}}">{{Replace (Replace detalle.DescripcionOferta '[' '') ']' ''}}</label>
+                        {{/iff}}
+                        {{/IsNullOrEmpty}}
                     </span>
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
@@ -404,6 +404,29 @@
                         <span>{{SimboloMoneda}} <label class="ImporteTotal">{{detalle.FormatoImporteTotal}}</label></span>
                     </span>
                 </div>
+            </div>
+
+            <div style="display:block" class="popover bottom">
+                <div class="arrow"></div>
+                <p>¿Quieres eliminar este producto?</p>
+                <div class="button-popover">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button class="boton-secundario">No Gracias</button>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <button class="boton-primario">SÍ, ELIMINAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popover bottom">
+                <div class="arrow"></div>
+                <ul class="list-tooltip">
+                    <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                    <li>Este producto tiene observaciones. <button style="display: block;line-height: 19px;" class="boton-secundario">Ver detalles</button></li>
+                </ul>
             </div>
 
             {{#IsNullOrEmpty detalle.Mensaje '!='}}

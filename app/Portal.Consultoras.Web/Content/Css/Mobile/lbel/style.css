@@ -5611,20 +5611,6 @@ body {
     width: 50%;
 }
 
-    .contenedor_cantidadProductos div .campo_cantidadProductos input {
-        width: 100%;
-        border: 0;
-        background: #fff;
-        text-align: center;
-        color: #000;
-        font-size: 13px;
-        font-weight: bold;
-    }
-
-        .contenedor_cantidadProductos div .campo_cantidadProductos input[value] {
-            color: #000;
-        }
-
 .contenedor_seleccionCliente {
     display: block;
     margin-bottom: 30px;
@@ -5740,54 +5726,6 @@ body {
         color: #613c87;
     }*/
 
-.btn_agregarPedido, .btn_guardarPedido {
-    display: block;
-    width: 100%;
-    height: auto;
-    font-family: 'Lato';
-    position: fixed;
-    bottom: 0;
-    z-index: 1001;
-}
-
-.btn_guardarPedido {
-    display: none;
-}
-
-    .btn_agregarPedido input, .btn_guardarPedido input {
-        width: 100%;
-        height: 54px;
-        border: 0;
-        background: #642f80;
-        color: #fff;
-        font-weight: bold;
-        font-size: 15px;
-        text-align: center;
-        line-height: 15px;
-        -webkit-border-radius: 0;
-        -webkit-appearance: none !important;
-        text-transform: uppercase;
-    }
-
-.contenedor_carrusel_home .slick-list {
-    padding-bottom: 25px;
-    margin: 0;
-}
-
-.nombre_campania_pedido, .titulo_detalle {
-    display: block;
-    font-weight: 700;
-    font-size: 16px;
-    text-align: center;
-    color: #000;
-    font-family: 'Lato';
-    letter-spacing: .3px;
-}
-
-.nombre_campania_pedido {
-    margin: 0 0 21px 0;
-}
-
 .enlace_regresar {
     display: block;
     width: 22px;
@@ -5824,151 +5762,12 @@ body {
         width: 100%;
         height: auto;
     }
-
-.detalle_pedido_ingresado {
-    display: block;
+.btn_agregarPedido input, .btn_guardarPedido input {
+    background: #642f80;
 }
-
-.titulo_detalle {
-    border-top: 2px solid #bababa;
-    border-bottom: 2px solid #bababa;
-    height: 38px;
-    line-height: 32px;
-}
-
-.contenedor_items_pedido {
-    display: block;
-    text-align: left;
-    border-bottom: 2px solid #bababa;
-}
-
-.separador {
-    display: block;
-    height: 11px;
-    margin-bottom: 10px;
-}
-
-.bloque_descripcion_items_ingresados, .bloque_cantidades_precios_items_ingresados {
-    display: block;
-}
-
-.bloque_descripcion_items_ingresados {
-    margin-bottom: 8px;
-    margin-top: 20px;
-}
-
-.bloque_cantidades_precios_items_ingresados {
-    margin-bottom: 20px;
-}
-
-.descripcion_item_pedido, .icono_eliminar_item_pedido, .icono_kitNuevas {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.descripcion_item_pedido {
-    width: 90%;
-}
-
-    .descripcion_item_pedido span {
-        display: block;
-        text-align: left;
-        margin-bottom: 2px;
-    }
 
 .mensaje_tipoProd {
-    font-size: 12px;
     color: #b75d9f;
-    font-weight: bold;
-    line-height: 6px;
-    margin-bottom: 13px !important;
-    text-transform: uppercase;
-}
-
-.cod_prod, .desc_prod, .nom_cliente {
-    font-size: 14.5px;
-    font-weight: 500;
-    color: #000;
-}
-
-.nom_cliente {
-    color: #666;
-}
-
-.icono_eliminar_item_pedido {
-    width: 6%;
-    text-align: right;
-    padding-top: 6px;
-    cursor: pointer;
-}
-
-.icono_kitNuevas {
-    position: relative;
-    width: 8%;
-    text-align: right;
-    margin-top: 14px;
-    cursor: pointer;
-}
-
-.tooltip_kitNuevas {
-    position: absolute;
-    top: 169%;
-    right: -16%;
-    display: none;
-    text-align: center;
-    width: 292px;
-    height: auto;
-    padding: 15px;
-    background: #fff;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-    box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
-    -moz-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
-    -o-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
-    -ms-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
-    -webkit-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
-}
-
-    .tooltip_kitNuevas:after, .tooltip_kitNuevas:before {
-        bottom: 100%;
-        left: 95%;
-        border: solid transparent;
-        content: ' ';
-        height: 0;
-        width: 0;
-        position: absolute;
-    }
-
-    .tooltip_kitNuevas:after {
-        border-bottom-color: #fff;
-        border-width: 9px;
-        margin-left: -9px;
-    }
-
-    .tooltip_kitNuevas:before {
-        border-bottom-color: #ddd;
-        border-width: 10px;
-        margin-left: -10px;
-    }
-
-.texto_tooltipKitNuevas {
-    display: inline-block;
-    vertical-align: top;
-    color: #000;
-    font-family: 'Lato';
-    font-size: 13px;
-    max-width: 213px;
-    text-align: left;
-}
-
-.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos, .precios_item {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 0;
-}
-
-.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos {
-    width: 52%;
 }
 
     .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_menos, .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_mas {
@@ -5980,135 +5779,8 @@ body {
         max-width: 55.56px;
     }
 
-.precios_item {
-    width: 46%;
-}
-
-    .precios_item span {
-        display: block;
-        text-align: right;
-        font-weight: 500;
-    }
-
-.precio_normal_pedido {
-    font-size: 11px;
-    color: #666;
-    margin-bottom: 3px;
-}
-
-.precio_oferta_pedido {
-    font-size: 15px;
-}
-
-    .precio_oferta_pedido span:nth-child(2) {
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-.icono_advertencia_notificacion {
-    position: relative;
-    display: inline-block !important;
-    vertical-align: middle;
-    width: 20px;
-    height: 20px;
-    top: 1px;
-    left: -2px;
-    background: url('/Content/Images/Lbel/icono-admiracion.png') no-repeat center center;
-}
-
-.notificacion_productoAgotado {
-    background: #f4f4f4;
-    min-height: 73px;
-    position: relative;
-    bottom: -2px;
-    z-index: 2;
-    padding: 18px 20px 15px 20px;
-}
-
-    .notificacion_productoAgotado:before {
-        bottom: 100%;
-        left: 23%;
-        border: solid transparent;
-        content: ' ';
-        height: 0;
-        width: 0;
-        position: absolute;
-        border-bottom-color: #f4f4f4;
-        border-width: 10px;
-    }
-
-    .notificacion_productoAgotado span {
-        color: #b75d9f;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-.mensajes_adicionales_ingresoPedido {
-    margin-top: 20px;
-    padding-top: 20px;
-    padding-bottom: 26px;
-    border-top: 2px solid #bababa;
-    text-align: center;
-}
-
-.detalle_mensajeAdicional {
-    display: inline-block;
-    text-align: left;
-    width: 84%;
-    vertical-align: top;
-    font-size: 11px;
-    margin-left: 4px;
-    color: #7f7f7f;
-    font-weight: 400;
-}
-
-.mensaje_eliminarPedido {
-    display: block;
-    text-align: center;
-    font-size: 11px;
-    font-weight: 400;
-    color: #000;
-    margin-top: 25px;
-    margin-bottom: 30px;
-}
-
     .mensaje_eliminarPedido a {
         color: #642f80;
-        font-weight: 700;
-    }
-
-.tooltip_noOlvidesGuardarTuPedido {
-    position: relative;
-    margin: 0 auto 54px auto;
-    border: 1px solid #e7e1e1;
-    padding: 18px 15px;
-    width: 203.3px;
-    height: auto;
-    border-radius: 4px;
-    background: #fff;
-    font-family: 'Lato';
-    text-align: center;
-    box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
-    -moz-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
-    -o-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
-    -ms-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
-    -webkit-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
-}
-
-    .tooltip_noOlvidesGuardarTuPedido:before, .tooltip_noOlvidesGuardarTuPedido:after {
-        top: 100%;
-        left: 50%;
-        border: solid transparent;
-        content: '';
-        height: 0;
-        width: 0;
-        position: absolute;
-    }
-
-    .tooltip_noOlvidesGuardarTuPedido:before {
-        border-top-color: #e7e1e1;
-        border-width: 17px;
-        margin-left: -17px;
     }
 
     .tooltip_noOlvidesGuardarTuPedido:after {
@@ -6118,18 +5790,7 @@ body {
     }
 
     .tooltip_noOlvidesGuardarTuPedido h2 {
-        display: block;
-        font-size: 16px;
-        font-weight: 700;
         color: #642f80;
-        margin: 0 0 7px 0;
-    }
-
-    .tooltip_noOlvidesGuardarTuPedido span {
-        display: block;
-        font-size: 13px;
-        font-weight: 700;
-        color: #000;
     }
 
 /* POPUP AGREGASTE UNIDADES*/
