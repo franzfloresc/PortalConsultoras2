@@ -296,7 +296,7 @@ namespace Portal.Consultoras.BizLogic
         }
         public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas)
         {
-            var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
+            var listpedidoDetalle = new List<BEPedidoWebDetalle>();
             var daPedidoWebDetalle = new DAPedidoWebDetalle(detParametros.PaisId);
 
             using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebDetalleByCampania(detParametros))
@@ -305,10 +305,19 @@ namespace Portal.Consultoras.BizLogic
                 {
                     var entidad = new BEPedidoWebDetalle(reader, detParametros.Consultora);
                     entidad.PaisID = detParametros.PaisId;
-                    pedidoWebDetalle.Add(entidad);
+                    listpedidoDetalle.Add(entidad);
                 }
             }
-            if(updLabelNuevas) _blProgramaNuevas.UpdateFlagCupones(detParametros.PaisId, pedidoWebDetalle);
+            if (updLabelNuevas)
+            {
+                _blProgramaNuevas.UpdFlagCuponesAndDescOferta(
+                    detParametros.PaisId,
+                    detParametros.CampaniaId,
+                    detParametros.NumeroPedido,
+                    detParametros.CodigoPrograma,
+                    listpedidoDetalle
+                );
+            }
 
             #region ConsultoraOnline
             if (consultoraOnLine)
@@ -325,7 +334,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (listaProductosConsultoraOnline.Count > 0)
                 {
-                    foreach (var item in pedidoWebDetalle)
+                    foreach (var item in listpedidoDetalle)
                     {
                         var itemConsultoraOnline = listaProductosConsultoraOnline.FirstOrDefault(p => p.PedidoWebID == item.PedidoID && p.PedidoWebDetalleID == item.PedidoDetalleID);
                         if (itemConsultoraOnline != null) item.FlagConsultoraOnline = true;
@@ -334,7 +343,7 @@ namespace Portal.Consultoras.BizLogic
             }
             #endregion            
 
-            return pedidoWebDetalle;
+            return listpedidoDetalle;
         }
 
         public IList<BEPedidoDDWebDetalle> GetPedidosDDWebDetalleByCampaniaPedido(int paisID, int CampaniaID, int PedidoID)

@@ -78,7 +78,7 @@ namespace Portal.Consultoras.BizLogic
         {
             if (listPedidoDetalle == null || listPedidoDetalle.Count == 0) return;
             if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas, paisID)) return;
-            if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagEtiquetasDetalle, paisID)) return;
+            if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagLabelPedidoDet, paisID)) return;
             if (codigoPrograma == "") return;
 
             var fnEnRango = GetFnEnRangoCuvProgramaNuevas(paisID);
@@ -92,7 +92,7 @@ namespace Portal.Consultoras.BizLogic
             foreach (var detalle in listDetallePerteneceNuevas)
             {
                 detalle.EsCuponNuevas = true;
-                detalle.DescripcionOferta = "PACK DE NUEVAS";
+                detalle.DescripcionOferta = Constantes.ProgNuevas.DescripcionOferta.ProgNuevas;
             }
 
             var listCuvElectivas = listCuvPerteneceNuevas.Where(a => !a.IndicadorCuponIndependiente).ToList();
@@ -106,7 +106,7 @@ namespace Portal.Consultoras.BizLogic
             foreach (var detalle in listDetalleEnRango)
             {
                 detalle.EsElecMultipleNuevas = true;
-                detalle.DescripcionOferta = "DÚO PERFECTO";
+                detalle.DescripcionOferta = Constantes.ProgNuevas.DescripcionOferta.DuoPerfecto;
             }
         }
 

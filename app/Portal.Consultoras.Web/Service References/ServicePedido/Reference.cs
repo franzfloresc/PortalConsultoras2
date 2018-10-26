@@ -14951,13 +14951,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EliminadoTemporalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EnRangoProgNuevasField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsBackOrderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsCompraPorCompraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsCuponNuevasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsElecMultipleNuevasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsKitNuevaField;
@@ -15414,19 +15417,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EnRangoProgNuevas {
-            get {
-                return this.EnRangoProgNuevasField;
-            }
-            set {
-                if ((this.EnRangoProgNuevasField.Equals(value) != true)) {
-                    this.EnRangoProgNuevasField = value;
-                    this.RaisePropertyChanged("EnRangoProgNuevas");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EsBackOrder {
             get {
                 return this.EsBackOrderField;
@@ -15448,6 +15438,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EsCompraPorCompraField.Equals(value) != true)) {
                     this.EsCompraPorCompraField = value;
                     this.RaisePropertyChanged("EsCompraPorCompra");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsCuponNuevas {
+            get {
+                return this.EsCuponNuevasField;
+            }
+            set {
+                if ((this.EsCuponNuevasField.Equals(value) != true)) {
+                    this.EsCuponNuevasField = value;
+                    this.RaisePropertyChanged("EsCuponNuevas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsElecMultipleNuevas {
+            get {
+                return this.EsElecMultipleNuevasField;
+            }
+            set {
+                if ((this.EsElecMultipleNuevasField.Equals(value) != true)) {
+                    this.EsElecMultipleNuevasField = value;
+                    this.RaisePropertyChanged("EsElecMultipleNuevas");
                 }
             }
         }
@@ -39956,6 +39972,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicePedido.IPedidoService")]
     public interface IPedidoService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListConcursosVigentes", ReplyAction="http://tempuri.org/IPedidoService/ListConcursosVigentesResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListConcursosVigentes", ReplyAction="http://tempuri.org/IPedidoService/ListConcursosVigentesResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[]> ListConcursosVigentesAsync(int paisId, string codigoCampania, string codigoConsultora);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListConcursosByCampania", ReplyAction="http://tempuri.org/IPedidoService/ListConcursosByCampaniaResponse")]
         Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora);
         
@@ -40349,6 +40371,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListarEscalaDescuentoZona", ReplyAction="http://tempuri.org/IPedidoService/ListarEscalaDescuentoZonaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEscalaDescuento[]> ListarEscalaDescuentoZonaAsync(int paisID, int campaniaID, string region, string zona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GuardarImagenShowRoom", ReplyAction="http://tempuri.org/IPedidoService/GuardarImagenShowRoomResponse")]
+        int GuardarImagenShowRoom(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GuardarImagenShowRoom", ReplyAction="http://tempuri.org/IPedidoService/GuardarImagenShowRoomResponse")]
+        System.Threading.Tasks.Task<int> GuardarImagenShowRoomAsync(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse")]
         Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv);
@@ -40862,11 +40890,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcursoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[]> ObtenerPuntosXConsultoraConcursoAsync(int PaisID, string CodigoCampania, string CodigoConcursoPuntos);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListConcursosVigentes", ReplyAction="http://tempuri.org/IPedidoService/ListConcursosVigentesResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/HabilitaPedidoMultiple", ReplyAction="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleResponse")]
+        string HabilitaPedidoMultiple(int paisID, string[] infoConsultoras);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListConcursosVigentes", ReplyAction="http://tempuri.org/IPedidoService/ListConcursosVigentesResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[]> ListConcursosVigentesAsync(int paisId, string codigoCampania, string codigoConsultora);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/HabilitaPedidoMultiple", ReplyAction="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleResponse")]
+        System.Threading.Tasks.Task<string> HabilitaPedidoMultipleAsync(int paisID, string[] infoConsultoras);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleInformacionConsultoras", ReplyAction="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleInformacionConsultorasRes" +
             "ponse")]
@@ -41378,11 +41406,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarShowRoomEvento", ReplyAction="http://tempuri.org/IPedidoService/EliminarShowRoomEventoResponse")]
         System.Threading.Tasks.Task<int> EliminarShowRoomEventoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEvento beShowRoomEvento);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GuardarImagenShowRoom", ReplyAction="http://tempuri.org/IPedidoService/GuardarImagenShowRoomResponse")]
-        int GuardarImagenShowRoom(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilter", ReplyAction="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilterResponse")]
+        Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion[] GetCUVAsociadoByFilter(int PaisID, int CampaniaID, string CUV, string CodigoSegmento);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GuardarImagenShowRoom", ReplyAction="http://tempuri.org/IPedidoService/GuardarImagenShowRoomResponse")]
-        System.Threading.Tasks.Task<int> GuardarImagenShowRoomAsync(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilter", ReplyAction="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilterResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion[]> GetCUVAsociadoByFilterAsync(int PaisID, int CampaniaID, string CUV, string CodigoSegmento);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivo", ReplyAction="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivoResponse")]
         bool DelPedidoWebDetalleMasivo(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, int pedidoId);
@@ -41896,12 +41924,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdVisualizacionPopupProRecom", ReplyAction="http://tempuri.org/IPedidoService/UpdVisualizacionPopupProRecomResponse")]
         System.Threading.Tasks.Task<int> UpdVisualizacionPopupProRecomAsync(int consultoraid, int campaniaid, int paisid);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/HabilitaPedidoMultiple", ReplyAction="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleResponse")]
-        string HabilitaPedidoMultiple(int paisID, string[] infoConsultoras);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/HabilitaPedidoMultiple", ReplyAction="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleResponse")]
-        System.Threading.Tasks.Task<string> HabilitaPedidoMultipleAsync(int paisID, string[] infoConsultoras);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicadorResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPedidoReporteLiderIndicador GetPedidosReporteLiderIndicador(int paisID, long ConsultoraLiderID, string CodigoPais, string CodigoCampaniaActual);
         
@@ -41955,6 +41977,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalle", ReplyAction="http://tempuri.org/IPedidoService/DelPedidoWebDetalleResponse")]
         System.Threading.Tasks.Task DelPedidoWebDetalleAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle pedidowebdetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/SelectByCampaniaWithLabelProgNuevas", ReplyAction="http://tempuri.org/IPedidoService/SelectByCampaniaWithLabelProgNuevasResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampaniaWithLabelProgNuevas(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/SelectByCampaniaWithLabelProgNuevas", ReplyAction="http://tempuri.org/IPedidoService/SelectByCampaniaWithLabelProgNuevasResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> SelectByCampaniaWithLabelProgNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/SelectByCampania", ReplyAction="http://tempuri.org/IPedidoService/SelectByCampaniaResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampania(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
@@ -42415,12 +42443,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCrossSellingAsociacionListado", ReplyAction="http://tempuri.org/IPedidoService/GetCrossSellingAsociacionListadoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion[]> GetCrossSellingAsociacionListadoAsync(int PaisID, int CampaniaID, string CUV);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilter", ReplyAction="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilterResponse")]
-        Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion[] GetCUVAsociadoByFilter(int PaisID, int CampaniaID, string CUV, string CodigoSegmento);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilter", ReplyAction="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilterResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion[]> GetCUVAsociadoByFilterAsync(int PaisID, int CampaniaID, string CUV, string CodigoSegmento);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -42448,6 +42470,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public PedidoServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora) {
+            return base.Channel.ListConcursosVigentes(paisId, codigoCampania, codigoConsultora);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[]> ListConcursosVigentesAsync(int paisId, string codigoCampania, string codigoConsultora) {
+            return base.Channel.ListConcursosVigentesAsync(paisId, codigoCampania, codigoConsultora);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora) {
@@ -42960,6 +42990,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEscalaDescuento[]> ListarEscalaDescuentoZonaAsync(int paisID, int campaniaID, string region, string zona) {
             return base.Channel.ListarEscalaDescuentoZonaAsync(paisID, campaniaID, region, zona);
+        }
+        
+        public int GuardarImagenShowRoom(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion) {
+            return base.Channel.GuardarImagenShowRoom(paisID, eventoId, nombreImagenFinal, tipo, usuarioModificacion);
+        }
+        
+        public System.Threading.Tasks.Task<int> GuardarImagenShowRoomAsync(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion) {
+            return base.Channel.GuardarImagenShowRoomAsync(paisID, eventoId, nombreImagenFinal, tipo, usuarioModificacion);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv) {
@@ -43634,12 +43672,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.ObtenerPuntosXConsultoraConcursoAsync(PaisID, CodigoCampania, CodigoConcursoPuntos);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora) {
-            return base.Channel.ListConcursosVigentes(paisId, codigoCampania, codigoConsultora);
+        public string HabilitaPedidoMultiple(int paisID, string[] infoConsultoras) {
+            return base.Channel.HabilitaPedidoMultiple(paisID, infoConsultoras);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[]> ListConcursosVigentesAsync(int paisId, string codigoCampania, string codigoConsultora) {
-            return base.Channel.ListConcursosVigentesAsync(paisId, codigoCampania, codigoConsultora);
+        public System.Threading.Tasks.Task<string> HabilitaPedidoMultipleAsync(int paisID, string[] infoConsultoras) {
+            return base.Channel.HabilitaPedidoMultipleAsync(paisID, infoConsultoras);
         }
         
         public string[] HabilitaPedidoMultipleInformacionConsultoras(int paisID, System.Collections.Generic.Dictionary<string, string> listaConsultoras) {
@@ -44314,12 +44352,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.EliminarShowRoomEventoAsync(paisID, beShowRoomEvento);
         }
         
-        public int GuardarImagenShowRoom(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion) {
-            return base.Channel.GuardarImagenShowRoom(paisID, eventoId, nombreImagenFinal, tipo, usuarioModificacion);
+        public Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion[] GetCUVAsociadoByFilter(int PaisID, int CampaniaID, string CUV, string CodigoSegmento) {
+            return base.Channel.GetCUVAsociadoByFilter(PaisID, CampaniaID, CUV, CodigoSegmento);
         }
         
-        public System.Threading.Tasks.Task<int> GuardarImagenShowRoomAsync(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion) {
-            return base.Channel.GuardarImagenShowRoomAsync(paisID, eventoId, nombreImagenFinal, tipo, usuarioModificacion);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion[]> GetCUVAsociadoByFilterAsync(int PaisID, int CampaniaID, string CUV, string CodigoSegmento) {
+            return base.Channel.GetCUVAsociadoByFilterAsync(PaisID, CampaniaID, CUV, CodigoSegmento);
         }
         
         public bool DelPedidoWebDetalleMasivo(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, int pedidoId) {
@@ -44994,14 +45032,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.UpdVisualizacionPopupProRecomAsync(consultoraid, campaniaid, paisid);
         }
         
-        public string HabilitaPedidoMultiple(int paisID, string[] infoConsultoras) {
-            return base.Channel.HabilitaPedidoMultiple(paisID, infoConsultoras);
-        }
-        
-        public System.Threading.Tasks.Task<string> HabilitaPedidoMultipleAsync(int paisID, string[] infoConsultoras) {
-            return base.Channel.HabilitaPedidoMultipleAsync(paisID, infoConsultoras);
-        }
-        
         public Portal.Consultoras.Web.ServicePedido.BEPedidoReporteLiderIndicador GetPedidosReporteLiderIndicador(int paisID, long ConsultoraLiderID, string CodigoPais, string CodigoCampaniaActual) {
             return base.Channel.GetPedidosReporteLiderIndicador(paisID, ConsultoraLiderID, CodigoPais, CodigoCampaniaActual);
         }
@@ -45064,6 +45094,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task DelPedidoWebDetalleAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle pedidowebdetalle) {
             return base.Channel.DelPedidoWebDetalleAsync(pedidowebdetalle);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampaniaWithLabelProgNuevas(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros) {
+            return base.Channel.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> SelectByCampaniaWithLabelProgNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros) {
+            return base.Channel.SelectByCampaniaWithLabelProgNuevasAsync(bePedidoWebDetalleParametros);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampania(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros) {
@@ -45672,14 +45710,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion[]> GetCrossSellingAsociacionListadoAsync(int PaisID, int CampaniaID, string CUV) {
             return base.Channel.GetCrossSellingAsociacionListadoAsync(PaisID, CampaniaID, CUV);
-        }
-        
-        public Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion[] GetCUVAsociadoByFilter(int PaisID, int CampaniaID, string CUV, string CodigoSegmento) {
-            return base.Channel.GetCUVAsociadoByFilter(PaisID, CampaniaID, CUV, CodigoSegmento);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion[]> GetCUVAsociadoByFilterAsync(int PaisID, int CampaniaID, string CUV, string CodigoSegmento) {
-            return base.Channel.GetCUVAsociadoByFilterAsync(PaisID, CampaniaID, CUV, CodigoSegmento);
         }
     }
 }

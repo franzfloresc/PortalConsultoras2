@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Providers
                             NumeroPedido = userData.ConsecutivoNueva
                         };
 
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
                     }
                 }
 
@@ -147,7 +147,7 @@ namespace Portal.Consultoras.Web.Providers
                             AgruparSet = true
                         };
 
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
                     }
                 }
 
