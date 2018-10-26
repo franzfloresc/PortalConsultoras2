@@ -325,7 +325,6 @@ namespace Portal.Consultoras.Web.Providers
 
             if (!SessionManager.GetMostrarShowRoomProductos())
             {
-
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
                 seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
 
@@ -345,7 +344,8 @@ namespace Portal.Consultoras.Web.Providers
             else
             {
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom";
-                seccion.UrlObtenerProductos = esMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
+                //seccion.UrlObtenerProductos = esMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
+                seccion.UrlObtenerProductos = esMobile ? "" : "Estrategia/SRObtenerProductos";
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =

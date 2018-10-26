@@ -59,6 +59,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
+        public JsonResult SRObtenerProductos(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos);
+        }
+
+        [HttpPost]
         public JsonResult MGObtenerProductos(BusquedaProductoModel model)
         {
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos);
@@ -166,10 +172,11 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 var campania = _ofertaPersonalizadaProvider.ConsultarOfertasCampania(model, tipoConsulta);
 
                 var listaFinal1 = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(esMobile, userData.CodigoISO, userData.CampaniaID, campania, palanca);
+                var cantidadTotal0 = listaFinal1.Count;
 
                 var listPerdio = ConsultarOfertasListaPerdio(model, listaFinal1, tipoConsulta);
 
-                listaFinal1 = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrar(model, listaFinal1, tipoConsulta);
+                listaFinal1 = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrar(model, listaFinal1, tipoConsulta, palanca);
 
                 var tipo = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPerdio(model, tipoConsulta);
 
@@ -193,8 +200,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     lista = listModel,
                     listaPerdio = listPerdio,
                     campaniaId = model.CampaniaID,
-                    cantidadTotal = cantidadTotal,
+                    cantidadTotal,
                     cantidad = cantidadTotal,
+                    cantidadTotal0,
                     codigo = palanca,
                     codigoOrigen = model.Codigo,
                     guardaEnLocalStorage = guarda,
@@ -220,15 +228,32 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
             }
+            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
+            {
+                listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
+            }
             return listaRetorno;
         }
 
-        private List<EstrategiaPersonalizadaProductoModel> ConsultarOfertasListaPerdioRD(int campaniaId, List<EstrategiaPedidoModel> listModelCompleta)
+        private List<EstrategiaPersonalizadaProductoModel> ConsultarOfertasListaPerdioRD(int campaniaId, List<EstrategiaPedidoModel> listModelCompleta, string palanca = "")
         {
             var listPerdioFormato = new List<EstrategiaPersonalizadaProductoModel>();
             try
             {
                 List<EstrategiaPedidoModel> listPerdio;
+
+                if (palanca == Constantes.TipoEstrategiaCodigo.ShowRoom)
+                {
+                    if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+                    {
+                        var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
+                        listPerdio = listModelCompleta.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+                        listPerdioFormato = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listPerdio, listaPedido, userData.CodigoISO, userData.CampaniaID, 1, userData.esConsultoraLider, userData.Simbolo);
+
+                        return listPerdioFormato;
+                    }
+                }
+
                 if (_ofertaPersonalizadaProvider.TieneProductosPerdio(campaniaId))
                 {
                     var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
@@ -567,8 +592,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
             }
         }
-
-
 
         #endregion
 
