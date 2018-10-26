@@ -534,7 +534,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/Ficha.css",
                 "~/Content/Css/Site/Ficha/Carrusel.css",
                 "~/Content/Css/Site/Ficha/RedesSociales.css",
-                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras.css"
             ));
 
 
@@ -549,14 +550,18 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/CajaProducto.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ofertas").Include(
                 "~/Content/Css/Site/slick.css",
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Mobile/Contenedor/carrusel.individual.css",
-                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Mobile/LasMasGanadoras/presentacion-seccion-carrusel.css",
+                "~/Content/Css/Mobile/LasMasGanadoras/banner_ofertas_masGanadoras.css",
+                "~/Content/Css/Mobile/ProductoListado/CajaProductoV2.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Pedido").Include(

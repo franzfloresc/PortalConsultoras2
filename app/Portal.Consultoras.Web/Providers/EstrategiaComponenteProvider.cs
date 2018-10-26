@@ -499,7 +499,7 @@ namespace Portal.Consultoras.Web.Providers
                         listaComponentesOrdenados.AddRange(listaComponentesCyzone);
                 }
             }
-
+            
             listaComponentesOrdenados.AddRange(listaComponentesOtraMarca);
 
             return listaComponentesOrdenados;

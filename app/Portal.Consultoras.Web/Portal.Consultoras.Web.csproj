@@ -196,6 +196,7 @@
     </Compile>
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\MasGanadorasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiPerfilController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAcademiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PagoEnLineaController.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BuscadorController.cs" />
+    <Compile Include="Controllers\MasGanadorasController.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
     <Compile Include="Controllers\MiPerfilController.cs" />
@@ -496,6 +498,7 @@
     <Compile Include="Models\Estrategia\WaEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
+    <Compile Include="Models\MasGanadorasModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
     <Compile Include="Models\Ofertas\IndexViewModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoDetalleModel.cs" />
@@ -911,6 +914,8 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="SessionManager\ISessionManager.cs" />
+    <Compile Include="SessionManager\MasGanadoras\IMasGanadoras.cs" />
+    <Compile Include="SessionManager\MasGanadoras\MasGanadoras.cs" />
     <Compile Include="SessionManager\OfertaDelDia\IOfertaDelDia.cs" />
     <Compile Include="SessionManager\OfertaDelDia\OfertaDelDia.cs" />
     <Compile Include="SessionManager\ShowRoom\IShowRoom.cs" />
@@ -1360,7 +1365,10 @@
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
     <Content Include="Content\Css\Mobile\Ficha\SeleccionarTipo.css" />
+    <Content Include="Content\Css\Mobile\LasMasGanadoras\banner_ofertas_masGanadoras.css" />
+    <Content Include="Content\Css\Mobile\LasMasGanadoras\presentacion-seccion-carrusel.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
+    <Content Include="Content\Css\Mobile\ProductoListado\CajaProductoV2.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
@@ -1408,6 +1416,7 @@
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
     <Content Include="Content\Css\Site\MailConfirmacion\style.css" />
+    <Content Include="Content\Css\Site\MasGanadoras\banner_ofertas_masGanadoras.css" />
     <Content Include="Content\Css\Site\Menu\MenuPrincipal.css" />
     <Content Include="Content\Css\Site\Menu\MenuContenedor.css" />
     <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
@@ -3934,6 +3943,8 @@
     <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\PopusJS.js" />
+    <Content Include="Scripts\PortalConsultoras\Buscador\buscadorLayout.js" />
+    <Content Include="Scripts\PortalConsultoras\Buscador\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorModule.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
@@ -3951,6 +3962,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregarProvider.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\CajaProducto.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\EstrategiaUrls.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\EstrategiaComponente.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\api.js" />
@@ -4407,6 +4419,9 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpLoadingMobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Areas\Mobile\Views\MasGanadoras\template-landing.cshtml" />
+    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />
+    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-v2.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4697,9 +4712,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService6.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService62.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">
@@ -5415,6 +5427,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHidden.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHiddenSoloDesktop.cshtml" />
     <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
+    <Content Include="Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Views\Shared\_BuscadorResponsive.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
