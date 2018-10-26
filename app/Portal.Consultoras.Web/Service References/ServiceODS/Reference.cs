@@ -3705,17 +3705,17 @@ namespace Portal.Consultoras.Web.ServiceODS {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidaCuvElectivo", ReplyAction="http://tempuri.org/IODSService/ValidaCuvElectivoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarElectivos> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse")]
-        bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvElecMultiple", ReplyAction="http://tempuri.org/IODSService/EsCuvElecMultipleResponse")]
+        bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse")]
-        System.Threading.Tasks.Task<bool> EsCuvDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvElecMultiple", ReplyAction="http://tempuri.org/IODSService/EsCuvElecMultipleResponse")]
+        System.Threading.Tasks.Task<bool> EsCuvElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse")]
-        bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultiple", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultipleResponse")]
+        bool TieneListaEstrategiaElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse")]
-        System.Threading.Tasks.Task<bool> TieneListaEstrategiaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultiple", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultipleResponse")]
+        System.Threading.Tasks.Task<bool> TieneListaEstrategiaElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevas", ReplyAction="http://tempuri.org/IODSService/GetLimElectivosProgNuevasResponse")]
         int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
@@ -4085,20 +4085,20 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.ValidaCuvElectivoAsync(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
         }
         
-        public bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
-            return base.Channel.EsCuvDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+        public bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
+            return base.Channel.EsCuvElecMultiple(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
         }
         
-        public System.Threading.Tasks.Task<bool> EsCuvDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
-            return base.Channel.EsCuvDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+        public System.Threading.Tasks.Task<bool> EsCuvElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
+            return base.Channel.EsCuvElecMultipleAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
         }
         
-        public bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
-            return base.Channel.TieneListaEstrategiaDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        public bool TieneListaEstrategiaElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
+            return base.Channel.TieneListaEstrategiaElecMultiple(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
         }
         
-        public System.Threading.Tasks.Task<bool> TieneListaEstrategiaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
-            return base.Channel.TieneListaEstrategiaDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        public System.Threading.Tasks.Task<bool> TieneListaEstrategiaElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
+            return base.Channel.TieneListaEstrategiaElecMultipleAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
         }
         
         public int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma) {

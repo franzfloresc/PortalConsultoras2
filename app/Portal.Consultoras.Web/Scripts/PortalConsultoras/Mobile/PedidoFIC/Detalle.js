@@ -174,7 +174,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
             PrecioUnidad: PrecioUnidad,
             Cantidad: CantidadSoli,
             TipoOferta: TipoOfertaSisID || 0,
-            enRangoProgNuevas: false
+            esCuponNuevas: false
         });
         ShowLoading();
 

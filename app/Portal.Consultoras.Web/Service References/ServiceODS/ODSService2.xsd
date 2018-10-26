@@ -692,7 +692,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="EsCuvDuoPerfecto">
+  <xs:element name="EsCuvElecMultiple">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
@@ -703,14 +703,14 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="EsCuvDuoPerfectoResponse">
+  <xs:element name="EsCuvElecMultipleResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="EsCuvDuoPerfectoResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="EsCuvElecMultipleResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="TieneListaEstrategiaDuoPerfecto">
+  <xs:element name="TieneListaEstrategiaElecMultiple">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
@@ -721,10 +721,10 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="TieneListaEstrategiaDuoPerfectoResponse">
+  <xs:element name="TieneListaEstrategiaElecMultipleResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="TieneListaEstrategiaDuoPerfectoResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="TieneListaEstrategiaElecMultipleResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

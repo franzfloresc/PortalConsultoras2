@@ -219,7 +219,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
             PrecioUnidad: obj.PrecioUnidad,
             Cantidad: CantidadSoli,
             TipoOferta: obj.TipoOfertaSisID || 0,
-            enRangoProgNuevas: obj.EnRangoProgNuevas
+            esCuponNuevas: obj.EsCuponNuevas
         });
         ShowLoading();
 
@@ -443,33 +443,9 @@ function EliminarPedidoEvento(evento, esBackOrder) {
 
 function ValidDeleteElectivoNuevas(obj, fnDelete) {
     if (!$.isFunction(fnDelete)) fnDelete = function () { };
-    if (!obj.EnRangoProgNuevas) {
-        fnDelete(false);
-        return;
-    }
 
-    ShowLoading();
-    jQuery.ajax({
-        type: 'POST',
-        url: urlEsPedidoDetalleElecMultiple,
-        dataType: 'json',
-        data: JSON.stringify({ cuv: obj.CUV }),
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        cache: false
-    })
-        .always(CloseLoading)
-        .done(function (response) {
-            if (!checkTimeout(response)) return;
-            if (!response.success) {
-                messageInfoError(response.message);
-                return;
-            }
-
-            if (!response.esElecMultiple) fnDelete(false);
-            else messageConfirmacionDuoPerfecto(response.message, function () { fnDelete(true); });
-        })
-        .fail(function () { messageInfoError(mensajeSinConexionGenerico); });
+    if (!obj.EsElecMultipleNuevas) fnDelete(false);
+    else messageConfirmacionDuoPerfecto(response.message, function () { fnDelete(true); });
 }
 
 function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta, esBackOrder, setId) {
