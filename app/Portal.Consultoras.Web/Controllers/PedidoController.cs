@@ -950,6 +950,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult UpdateTransaction(PedidoWebDetalleModel model)
         {
+            string tipo = string.Empty;
+            bool modificoBackOrder = false;
+            string totalFormato = string.Empty;
+            var txtBuildCliente = new StringBuilder();
+
+
             BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
             pedidoDetalle.Producto = new ServicePedido.BEProducto();
 
@@ -964,7 +970,9 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.SetID = model.SetID;
             pedidoDetalle.PedidoDetalleID = (short)model.PedidoDetalleID;
             pedidoDetalle.ClienteID = (short)model.ClienteID;
-            //pedidoDetalle.ClienteDescripcion = "";
+            pedidoDetalle.PedidoID = model.PedidoID;
+            pedidoDetalle.StockNuevo = model.Stock;
+            pedidoDetalle.ClienteDescripcion = model.Nombre;
 
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
@@ -976,21 +984,27 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
-                var Total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
-                var FormatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
+                var total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
+                var FormatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
                 ObtenerPedidoWeb();
+
                 return Json(new
                 {
                     success = true,
                     message = pedidoDetalleResult.MensajeRespuesta,
-                    total = Total,
+                    Total = total,
                     TotalFormato = FormatoTotal,
+                    Total_Cliente = txtBuildCliente.ToString(),
+                    model.ClienteID_,
                     userData.Simbolo,
                     extra = "",
+                    tipo,
+                    modificoBackOrder,
                     DataBarra = GetDataBarra(),
                     cantidadTotalProductos = CantidadTotalProductos
                 }, JsonRequestBehavior.AllowGet);
+
             }
             else
             {

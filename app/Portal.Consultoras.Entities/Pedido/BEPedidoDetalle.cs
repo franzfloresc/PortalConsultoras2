@@ -54,5 +54,7 @@ namespace Portal.Consultoras.Entities.Pedido
         public bool EnRangoProgramaNuevas { get; set; }
         [DataMember]
         public BEEstrategia estrategia { get; set; }
+        [DataMember]
+        public int StockNuevo { get; set; }
     }
 }

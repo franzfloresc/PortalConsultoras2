@@ -483,7 +483,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var cantidadPedida = _ofertaProductoBusinessLogic.CantidadPedidoByConsultora(entidad);
                     var stock = _ofertaProductoBusinessLogic.GetStockOfertaProductoLiquidacion(usuario.PaisID, usuario.CampaniaID, pedidoDetalle.Producto.CUV);
 
-                    if (saldo < pedidoDetalle.Cantidad)
+                    if (saldo < pedidoDetalle.StockNuevo)
                     {
                         if (saldo == unidadesPermitidas)
                         {
@@ -503,7 +503,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     }
                     else
                     {
-                        if (stock < pedidoDetalle.Cantidad)
+                        if (stock < pedidoDetalle.StockNuevo)
                         {
                             return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SOBREPASA_STOCK, null, stock);
                         }
@@ -596,6 +596,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         ImporteTotal = detalle.ImporteTotal,
                         Nombre = detalle.ClienteID == 0 ? usuario.Nombre : detalle.ClienteDescripcion,
                         Flag = 2,
+                        Stock = pedidoDetalle.StockNuevo,
                         TipoAdm = Constantes.PedidoAccion.UPDATE
                     };
 
@@ -1822,13 +1823,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     }
 
+                    _pedidoWebDetalleBusinessLogic.UpdPedidoWebTotalesTransaction(usuario, pedidoWebDetalles[0].PedidoID, totalClientes, totalImporte);
 
                     switch (TipoAdm)
                     {
                         case Constantes.PedidoAccion.INSERT:
                             {
-                                _pedidoWebDetalleBusinessLogic.UpdPedidoWebTotalesTransaction(usuario, pedidoWebDetalles[0].PedidoID, totalClientes, totalImporte);
-
                                 if (!pedidoDetalle.esVirtualCoach)
                                 {
                                     var formatoPedidoWebSet = string.Empty;
