@@ -356,7 +356,9 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/style-pedido.css",
                 "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
-                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Site/Pedido/PedidoGrilla.css",
+                "~/Content/Css/Site/Pedido/PedidoTooltip.css"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Pedido").Include(

@@ -1544,7 +1544,7 @@ header {
         background: black;
     }
 /*ESTILO PARA PEDIDOS*/
-.pedido_left {
+/*.pedido_left {
     float: left;
 }
 
@@ -1732,8 +1732,9 @@ header {
     .pedidos_cliente:hover {
         text-decoration: underline;
     }
+    */
 /* CAJA PEDIDOS */
-.franja_negra {
+/*.franja_negra {
     position: absolute;
     width: 100%;
     height: 206px;
@@ -2256,9 +2257,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     margin: 0;
     padding: 0;
     margin-bottom: 5px;
-}
+}*/
 /*tool tip => info sobre el icono*/
-.info_copy {
+/*.info_copy {
     float: left;
     margin-right: 7px;
     height: 22px;
@@ -2403,8 +2404,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         margin: 0;
         float: none;
     }
+*/
 /* fin tool tip => info sobre el icono*/
-.boton_guardarPedido input[type='submit'], .boton_guardarPedido input[type='button'] {
+/*.boton_guardarPedido input[type='submit'], .boton_guardarPedido input[type='button'] {
     display: block;
     font-family: 'Lato';
     width: 218px;
@@ -2642,9 +2644,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         background: #f0f0f0;
     }
 
-.menos {
-    padding-top: 4px;
-}
 
 .mis_pedidos {
     text-align: left;
@@ -3023,6 +3022,10 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 
     .link_eliminar_pedido:hover {
         text-decoration: underline;
+    }*/
+
+.menos {
+    padding-top: 4px;
     }
 /* BANNERS INFERIORES */
 .contenedor_banners {
