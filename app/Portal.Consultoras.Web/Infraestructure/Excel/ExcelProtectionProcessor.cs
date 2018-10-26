@@ -7,7 +7,7 @@ namespace Portal.Consultoras.Web.Infraestructure.Excel
     public class ExcelProtectionProcessor
     {
         public const int TablaLogicaId = 151;
-        public const int TablaLogicaDatosId = 11501;
+        public const int TablaLogicaDatosId = 15101;
         public TablaLogicaProvider DataProvider { get; set; }
         public int PaisId { get; set; }
 

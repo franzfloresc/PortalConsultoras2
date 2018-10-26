@@ -1550,7 +1550,7 @@ namespace Portal.Consultoras.Common
         /// <param name="cookieName">Nombre de la cookie que será creado en el response de la descarga</param>
         /// <param name="valueName">Valor de la cookie creado en el response de la descarga</param>
         /// <returns></returns>
-        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName)
+        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName, Func<Stream, MemoryStream> onExcelRendered = null)
         {
             try
             {
@@ -1612,6 +1612,11 @@ namespace Portal.Consultoras.Common
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
+
+                if (onExcelRendered != null)
+                {
+                    stream = onExcelRendered(stream);
+                }
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();

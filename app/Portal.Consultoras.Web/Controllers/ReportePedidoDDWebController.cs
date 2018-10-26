@@ -476,7 +476,7 @@ namespace Portal.Consultoras.Web.Controllers
                 MotivoRechazo = string.IsNullOrEmpty(a.MotivoRechazo) ? "" : a.MotivoRechazo.Replace(",", ";")
             }).ToList();
 
-            ExportToCSV("exportar", lista, dic, "DescargaCompleta", "1");
+            Util.ExportToExcel("exportar", lista, dic, "DescargaCompleta", "1", GetExcelSecureCallback());
             return new EmptyResult();
         }
 
@@ -744,88 +744,5 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-        public bool ExportToCSV<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName)
-        {
-            try
-            {
-                string extension = ".csv";
-                string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
-
-                string nombre = originalFileName;
-                var sw = new StringWriter();
-
-                var txtBuilNombre = new StringBuilder();
-                var txtBuilCabecera = new StringBuilder();
-                foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
-                {
-                    txtBuilNombre.Append(keyvalue.Key + ",");
-                    txtBuilCabecera.Append(keyvalue.Value);
-                }
-                string csv = CreateCSVTextFile(txtBuilNombre.ToString(), Source);
-                sw.WriteLine(txtBuilCabecera.ToString());
-                sw.Write(csv);
-
-                HttpContext.Response.ClearHeaders();
-                HttpContext.Response.Clear();
-                if (!string.IsNullOrEmpty(cookieName) && !string.IsNullOrEmpty(valueName))
-                    HttpContext.Response.AppendCookie(new HttpCookie(cookieName, valueName));
-                HttpContext.Response.Buffer = false;
-                HttpContext.Response.AddHeader("Content-Disposition", "attachment; filename=" + nombre);
-                var isoEncoding = Encoding.GetEncoding("iso-8859-1");
-                HttpContext.Response.Charset = isoEncoding.WebName;
-                HttpContext.Response.ContentEncoding = isoEncoding;
-                HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                HttpContext.Response.ContentType = "text/csv";
-                HttpContext.Response.Write(sw);
-                HttpContext.Response.Flush();
-                HttpContext.Response.End();
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return false;
-            }
-        }
-
-        private static string CreateCSVTextFile<T>(string nombreCabecera, List<T> data)
-        {
-            PropertyInfo[] properties = typeof(T).GetProperties();
-            StringBuilder result = new StringBuilder();
-
-            foreach (var row in data)
-            {
-                var values = properties.Where(x => nombreCabecera.Contains(x.Name))
-                                       .Select(p => p.GetValue(row, null))
-                                       .Select(v => StringToCSVCell(Convert.ToString(v)));
-                var line = string.Join(",", values);
-                result.AppendLine(line);
-            }
-
-            return result.ToString();
-        }
-
-        private static string StringToCSVCell(string str)
-        {
-            bool mustQuote = (str.Contains(",") || str.Contains("\"") || str.Contains("\r") || str.Contains("\n"));
-            if (mustQuote)
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("\"");
-                foreach (char nextChar in str)
-                {
-                    sb.Append(nextChar);
-                    if (nextChar == '"')
-                        sb.Append("\"");
-                }
-                sb.Append("\"");
-                return sb.ToString();
-            }
-
-            return str;
-        }
-
     }
 }
