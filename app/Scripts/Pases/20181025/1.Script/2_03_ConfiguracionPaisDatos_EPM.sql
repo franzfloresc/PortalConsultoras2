@@ -1,7 +1,6 @@
 ﻿GO
 USE BelcorpPeru
 GO
-
 go
 begin
 
@@ -48,8 +47,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
@@ -61,7 +60,6 @@ go
 GO
 USE BelcorpMexico
 GO
-
 go
 begin
 
@@ -108,8 +106,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
@@ -121,7 +119,6 @@ go
 GO
 USE BelcorpColombia
 GO
-
 go
 begin
 
@@ -168,8 +165,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
@@ -181,7 +178,6 @@ go
 GO
 USE BelcorpSalvador
 GO
-
 go
 begin
 
@@ -228,8 +224,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
@@ -241,7 +237,6 @@ go
 GO
 USE BelcorpPuertoRico
 GO
-
 go
 begin
 
@@ -288,8 +283,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
@@ -301,7 +296,6 @@ go
 GO
 USE BelcorpPanama
 GO
-
 go
 begin
 
@@ -348,8 +342,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
@@ -361,7 +355,6 @@ go
 GO
 USE BelcorpGuatemala
 GO
-
 go
 begin
 
@@ -408,8 +401,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
@@ -421,7 +414,6 @@ go
 GO
 USE BelcorpEcuador
 GO
-
 go
 begin
 
@@ -468,8 +460,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
@@ -481,7 +473,6 @@ go
 GO
 USE BelcorpDominicana
 GO
-
 go
 begin
 
@@ -528,8 +519,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
@@ -541,7 +532,6 @@ go
 GO
 USE BelcorpCostaRica
 GO
-
 go
 begin
 
@@ -588,8 +578,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
@@ -601,7 +591,6 @@ go
 GO
 USE BelcorpChile
 GO
-
 go
 begin
 
@@ -648,8 +637,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
@@ -661,7 +650,6 @@ go
 GO
 USE BelcorpBolivia
 GO
-
 go
 begin
 
@@ -708,8 +696,8 @@ begin
 		@ConfiguracionPaisID
 		,'BannerCarruselTextoEnlace'
 		, 0
-		,'VER MÁS +'
-		,'VER MÁS +'
+		,'VER MÁS'
+		,'VER MÁS'
 		,null
 		,'Texto para el botón'
 		,1
