@@ -6,6 +6,13 @@ namespace Portal.Consultoras.Web.Models.Buscador
     [Serializable]
     public class BuscadorModel
     {
+        public BuscadorModel()
+        {
+            Filtro = new Filtros();
+            Orden = new Orden();
+            Paginacion = new Paginacion();
+        }
+
         public string TextoBusqueda { get; set; }
         public Orden Orden { get; set; }
         public Paginacion Paginacion { get; set; }
