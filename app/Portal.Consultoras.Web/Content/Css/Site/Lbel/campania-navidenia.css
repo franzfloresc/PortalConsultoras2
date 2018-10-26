@@ -71,6 +71,10 @@
     border-top: 4px solid #FFF;
 }
 
+.wrapper_header_campania_navidenia .new_menu_a[title="MI ASESOR DE BELLEZA"] .flecha_menu{
+    border-top: 4px solid #000;
+}
+
 .wrapper_header_campania_navidenia .logo_esika a.logo_marca_pais_blanco{
     background: url(/Content/Images/Lbel/logo_marca_pais_blanco.svg) no-repeat;
     background-position:center;
@@ -90,6 +94,10 @@
 .wrapper_header_campania_navidenia .cart_compras .notificaciones
 {
     color:#FFF;
+}
+
+.wrapper_header_campania_navidenia .new_menu_a[title="MI ASESOR DE BELLEZA"]{
+    color:#000;
 }
 
 .wrapper_header_campania_navidenia .flechita_info{
