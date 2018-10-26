@@ -1,10 +1,11 @@
 ﻿$(document).ready(function () {
     $("#tituloGuiaNegocioFloteante").html("REVISTA C-" + campaniaId.toString().substring(4, 6));
 
-    if (origenPedidoWebEstrategia == 2811) {
+    // Siempre es verdadero, este archivo solo se carga en Mobile GND Landing
+    //if (origenPedidoWebEstrategia == 2811) {
         $("#marca").css("z-index", "-100");
         $(".CMXD-btn-help").css("z-index", "-100");
-    }
+    //}
 
     mostrarImagenPortadaRevista(campaniaId);
 
