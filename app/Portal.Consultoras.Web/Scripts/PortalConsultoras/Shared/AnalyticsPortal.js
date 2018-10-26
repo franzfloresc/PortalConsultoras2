@@ -68,6 +68,7 @@ var AnalyticsPortalModule = (function () {
         seccionesPalanca: [{ "CodigoSeccion": "LAN", "Palanca": "Lo Nuevo" }, { "CodigoSeccion": "RD", "Palanca": "Revista  Digital" }, { "CodigoSeccion": "HV", "Palanca": "Herramientas de Ventas" }, { "CodigoSeccion": "ODD", "Palanca": "Ofertas del día" }, { "CodigoSeccion": "SR", "Palanca": "ShowRoom" }],
         origenpedidoWeb: [{ "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" }, { "CodigoPalanca": "01", "Palanca": "Showroom" }, { "CodigoPalanca": "02", "Palanca": "Lanzamientos" }, { "CodigoPalanca": "03", "Palanca": "Oferta Del Día" }, { "CodigoPalanca": "04", "Palanca": "Oferta Final" }, { "CodigoPalanca": "05", "Palanca": "GND" }, { "CodigoPalanca": "06", "Palanca": "Liquidación" }, { "CodigoPalanca": "07", "Palanca": "Producto Sugerido" }, { "CodigoPalanca": "08", "Palanca": "Herramientas de Venta" }, { "CodigoPalanca": "09", "Palanca": "Banners" }, { "CodigoPalanca": "10", "Palanca": "Digitado" }, { "CodigoPalanca": "11", "Palanca": "Catalogo Lbel" }, { "CodigoPalanca": "12", "Palanca": "Catalogo Esika" }, { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" }],
         origenpedidoWebHome: [{ "Codigo": "010306", "Descripcion": "Banner Header" }, { "Codigo": "010601", "Descripcion": "Liquidaciones Web" }, { "Codigo": "010001", "Descripcion": "Club GANA+" }],
+        origenpedidoWebEstrategia: [{ "Codigo": "1020001", "Descripcion": "Desktop Pedido Ofertas Para Ti Carrusel" }, { "Codigo": "2020001", "Descripcion": "Mobile Pedido Ofertas Para Ti Carrusel" }],
         paginas: [{ "CodigoPagina": "00", "Pagina": "Landing Herramientas de Venta" }, { "CodigoPagina": "01", "Pagina": "Home" }, { "CodigoPagina": "02", "Pagina": "Pedido" }, { "CodigoPagina": "03", "Pagina": "Landing Liquidación" }, { "CodigoPagina": "04", "Pagina": "Buscador" }, { "CodigoPagina": "05", "Pagina": "Landing Showroom" }, { "CodigoPagina": "06", "Pagina": "Landing GND" }, { "CodigoPagina": "07", "Pagina": "Landing Ofertas Para Ti" }, { "CodigoPagina": "08", "Pagina": "Contenedor" }, { "CodigoPagina": "09", "Pagina": "Otras" }, { "CodigoPagina": "10", "Pagina": "Landing Buscador" }],
         secciones: [{ "CodigoSeccion": "01", "Seccion": "Carrusel" }, { "CodigoSeccion": "02", "Seccion": "Ficha" }, { "CodigoSeccion": "03", "Seccion": "Banner" }, { "CodigoSeccion": "04", "Seccion": "Desplegable Buscador" }, { "CodigoSeccion": "05", "Seccion": "Carrusel Ver Más" }, { "CodigoSeccion": "06", "Seccion": "Banner Superior" }, { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }],
         codigoPais: !(typeof userData === 'undefined') ? userData.pais : "",
@@ -390,6 +391,7 @@ var AnalyticsPortalModule = (function () {
                 // Inicio Analytics Oferta Miguel
                 case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
+                case "Pedido": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                  // Fin Analytics Oferta Miguel
             }
 
@@ -647,10 +649,11 @@ var AnalyticsPortalModule = (function () {
         try {
             switch (_pagina) {
 
-                case "Home": AnalyticsPortalModule.MarcaDetalleProductoBienvenida(element, codigoOrigenPedido);
-                case "Contenedor": palanca == "Lanzamientos" ? AnalyticsPortalModule.MarcaClicBanner(element) : AnalyticsPortalModule.MarcaDetalleProducto(element);
-                case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(data); break;
-                case "Landing": AnalyticsPortalModule.MarcaDetalleProducto(element);
+                case "Home": AnalyticsPortalModule.MarcaDetalleProductoBienvenida(element, codigoOrigenPedido); break;
+                case "Contenedor": palanca == "Lanzamientos" ? AnalyticsPortalModule.MarcaClicBanner(element) : AnalyticsPortalModule.MarcaDetalleProducto(element); break;
+                //case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(data); break;
+                case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(element); break;
+                case "Landing": AnalyticsPortalModule.MarcaDetalleProducto(element); break;
             }
 
 
@@ -1757,6 +1760,72 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    /*
+* 2.1.7. Ofertas club gana más
+* 2.1.7.1. Ver ofertas
+* Nombre Archivo Desktop: 
+* Linea de Código Desktop: 
+*/
+    var marcaVerOfertas = function (origenPedidoWebEstrategia) {
+        origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
+        var codigo = origenPedidoWebEstrategia.toString();
+        var seccion = _constantes.origenpedidoWebEstrategia.find(function (element) {
+            return element.Codigo === codigo;
+        });
+
+        if (origenPedidoWebEstrategia.toString() !== seccion.Codigo.toString()) return;
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic ver ofertas.");
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Carrito de compras – Gana+',
+                'action': 'Click Botón',
+                'label': 'Ver Ofertas'
+            });
+        } catch (e) {
+
+        }
+    };
+
+/*
+* 2.1.7. Ofertas club gana más
+* 2.1.7.3. Agregar productos
+*/
+    //var marcaAgregarProductosCarrito = function (data) {
+    //    var arrayEstrategiasAnalytics = [];
+    //    data.pedidoDetalle = data.pedidoDetalle || [];
+    //    $.each(data.pedidoDetalle, function (index, value) {
+    //        var estrategia = {
+    //            'name': value.name,
+    //            'id': value.id,
+    //            'price': $.trim(value.price),
+    //            'brand': value.brand,
+    //            'category': "NO DISPONIBLE",
+    //            'variant': value.variant == "" ? "Estándar" : value.variant,
+    //            'quantity': value.quantity
+    //        };
+    //        arrayEstrategiasAnalytics.push(estrategia);
+    //    });
+
+    //    try {
+    //        dataLayer.push({
+    //            'event': _evento.addToCart,
+    //            'ecommerce': {
+    //                'currencyCode': "PEN",
+    //                'add': {
+    //                    'actionField': { 'list': "Carrito de compras - Club Gana+" },
+    //                    'products': arrayEstrategiasAnalytics
+    //                }
+    //            }
+    //        });
+
+
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //};
+
     return {
         MarcarVerFichaProducto: marcarVerFichaProducto,
         FcVerificarTipoMoneda: fcVerificarTipoMoneda,
@@ -1826,7 +1895,9 @@ var AnalyticsPortalModule = (function () {
         MarcaEliminarPedidoCompleto: marcaEliminarPedidoCompleto,
         MarcarGuardaTuPedido: marcarGuardaTuPedido,
         MarcarPedidoGuardoExito: marcarPedidoGuardoExito,
-        MarcaGuardarPedidoExito: marcaGuardarPedidoExito
+        MarcaGuardarPedidoExito: marcaGuardarPedidoExito,
+        MarcaVerOfertas: marcaVerOfertas
+        //MarcaAgregarProductosCarrito: marcaAgregarProductosCarrito
          // Fin Analytics Ofertas
         
     }
