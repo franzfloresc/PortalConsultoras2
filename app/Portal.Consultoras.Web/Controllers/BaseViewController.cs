@@ -508,7 +508,20 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 #endregion Buscador Mobile
 
-
+                #region Mas Ganadoras
+                case Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha;
+                    break;
+                #endregion
                 //OPT
                 //case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome:
                 //    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHomePopUp;
