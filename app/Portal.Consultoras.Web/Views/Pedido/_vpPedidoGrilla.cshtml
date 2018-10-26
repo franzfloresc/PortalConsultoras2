@@ -1,0 +1,66 @@
+﻿<div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
+    <div class="paginador_pedidos mostrarPaginadorPedidos">
+        <div class="titulo_mis_pedidos" style="width:100%;">
+
+            @if (ViewBag.MostrarPedidosPendientes == "1")
+            {
+                <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1>
+
+                <h1 id="penmostreo" style="display: none; background: white;" class="w_25" data-pedido="2">
+                    <b>PENDIENTES</b>
+                    <div class="info_tiempo_oportunidad inicial">
+                        <div class="campana">
+                            <a class="" href="javascript:;" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
+                                <div class="campana_svg mensaje_svg"></div>
+                                <p class="notificaciones notificaciones_existentes notificaciones_activas" id="cont1PedidosPend">0</p>
+                            </a>
+                        </div>
+                        <div class="noticia">
+                            <h6>Tienes <span id="cont2PedidosPend">0</span> pedidos pendientes.</h6>
+                            <h6 class="tiempos_P"><span><b>Te quedan <span id="fecPedidoPendRec">00:00:00</span></b></span> horas para atenderlo.</h6>
+                            <h4 class="linkea_Pendientes">►REVÍSALO</h4>
+                        </div>
+                    </div>
+                </h1>
+            }
+            else
+            {
+                <h1>MI <b>PEDIDO</b></h1>
+            }
+        </div>
+        <div id="paginadorCab">
+        </div>
+    </div>
+    <div class="clear"></div>
+
+
+    <div id="infoPedido">
+        <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
+            <div class="encabezado_ingresoPedido">
+                @*<div class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</div>*@
+                <div class="texto_encabezado_pedidos cabecera_producto" align="left">Producto</div>
+                <div class="texto_encabezado_pedidos cabecera_unidades">Unidades</div>
+                <div class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio Unitario</div>
+                <div class="texto_encabezado_pedidos subtotal cabecera_subtotal">
+                    <span class="mostrarPrecioUnitario">Precio Unitario</span>
+                    <span>Subtotal</span>
+                </div>
+                <div class="texto_encabezado_pedidos cabecera_cliente">
+                    <select id="ddlClientes" onchange="CambiarCliente(this)"></select>
+                </div>
+                <div class="texto_encabezado_pedidos acciones"></div>
+            </div>
+
+            <div id="tbobyDetallePedido"></div>
+        </div>
+    </div>
+
+    <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
+        <div id="paginadorPie">
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+</div>
+

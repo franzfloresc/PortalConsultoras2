@@ -1369,6 +1369,7 @@
     <Content Include="Content\Css\Mobile\LasMasGanadoras\presentacion-seccion-carrusel.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProductoV2.css" />
+    <Content Include="Content\Css\Mobile\Pedido\PedidoGrilla.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
@@ -1419,6 +1420,8 @@
     <Content Include="Content\Css\Site\MasGanadoras\banner_ofertas_masGanadoras.css" />
     <Content Include="Content\Css\Site\Menu\MenuPrincipal.css" />
     <Content Include="Content\Css\Site\Menu\MenuContenedor.css" />
+    <Content Include="Content\Css\Site\Pedido\PedidoGrilla.css" />
+    <Content Include="Content\Css\Site\Pedido\PedidoTooltip.css" />
     <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
@@ -5429,6 +5432,8 @@
     <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
     <Content Include="Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Views\Shared\_BuscadorResponsive.cshtml" />
+    <Content Include="Views\Pedido\_vpPedidoGrilla.cshtml" />
+    <Content Include="Views\Pedido\_vpPedidoGrilla-Template.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
