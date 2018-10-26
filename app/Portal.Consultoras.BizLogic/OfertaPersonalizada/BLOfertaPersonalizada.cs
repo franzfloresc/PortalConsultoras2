@@ -64,14 +64,6 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                         {
                             while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                         }
-
-                        foreach (var item in estrategias)
-                        {
-                            if (item.EsOfertaIndependiente && !string.IsNullOrEmpty(item.ImagenOfertaIndependiente))
-                            {
-                                item.ImagenURL = item.ImagenOfertaIndependiente;
-                            }
-                        }
                         break;
                     case Constantes.TipoEstrategiaCodigo.Lanzamiento:
                         using (var reader = daEstrategia.GetEstrategiaLanzamiento(entidad))
@@ -231,6 +223,7 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
 
                 estrategia.CampaniaID = entidad.CampaniaID;
                 estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenURL);
+                estrategia.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenOfertaIndependiente);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);

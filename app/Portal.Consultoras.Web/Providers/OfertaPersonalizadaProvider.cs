@@ -813,25 +813,33 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 estrategia.ID = estrategia.EstrategiaID;
-                if (estrategia.FlagMostrarImg == 1)
+
+                if (estrategia.EsOfertaIndependiente)
                 {
-                    if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                    {
-                        if (estrategia.FlagEstrella == 1)
-                        {
-                            estrategia.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
-                        }
-                    }
-                    else if (!(estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas
-                        || estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
-                    {
-                        estrategia.ImagenURL = "";
-                    }
+                    estrategia.ImagenURL = estrategia.MostrarImgOfertaIndependiente ? estrategia.ImagenOfertaIndependiente : "";
                 }
                 else
                 {
-                    estrategia.ImagenURL = "";
-                }
+                    if (estrategia.FlagMostrarImg == 1)
+                    {
+                        if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
+                        {
+                            if (estrategia.FlagEstrella == 1)
+                            {
+                                estrategia.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
+                            }
+                        }
+                        else if (!(estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas
+                            || estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
+                        {
+                            estrategia.ImagenURL = "";
+                        }
+                    }
+                    else
+                    {
+                        estrategia.ImagenURL = "";
+                    }
+                }                      
 
                 estrategia.PuedeCambiarCantidad = 1;
                 if (estrategia.TieneVariedad == 0 && estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas)
