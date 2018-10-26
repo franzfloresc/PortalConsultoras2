@@ -1,0 +1,1512 @@
+﻿/*ESTILO PARA PEDIDOS*/
+.pedido_left {
+    float: left;
+}
+
+.pedido_resumen_campaña {
+    float: right;
+    width: 510px;
+    margin-top: -30px;
+    width: 525px;
+}
+
+.pedido_numero_campaña {
+    font-family: 'lato';
+    font-size: 10pt;
+    color: black;
+    float: left;
+}
+
+    .pedido_numero_campaña span {
+        font-family: 'OldStandard-Italic';
+        font-size: 20.2pt;
+        letter-spacing: -1px;
+        line-height: 22px;
+    }
+
+.divisor_pedido {
+    float: left;
+    width: 12px;
+    height: 37px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.pedido_detalles_campaña {
+    font-family: 'lato';
+    font-size: 8pt;
+    color: black;
+    float: right;
+    width: 354px;
+    text-align: justify;
+}
+
+.pedido_flexipago {
+    font-family: 'lato';
+    font-weight: 900;
+    font-size: 8pt;
+    color: black;
+    margin-top: 10px;
+}
+
+    .pedido_flexipago span {
+        font-size: 9pt;
+        font-weight: 400;
+        margin-left: 30px;
+        margin-right: 5px;
+    }
+
+.wrapper_general2 {
+    position: relative;
+    padding-top: 20px;
+    width: 100%;
+    max-width: 1189px;
+    margin: 0 auto;
+    height: auto;
+    z-index: 2;
+}
+
+.wrapper_general {
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 60px;
+    width: 1110px;
+    margin: 0 auto;
+    height: auto;
+}
+
+.pago_ingreso_datos {
+    float: left;
+    font-family: 'lato';
+    font-size: 11pt;
+    font-weight: 400;
+    border: 1px solid #ccc;
+    margin-right: 8px;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 2px;
+    color: #999999;
+    padding-left: 10PX;
+}
+
+.pedido_ingreso_c {
+    width: 100%;
+    height: 100px;
+    margin-top: 40px;
+}
+
+.pedido_ingreso_c2 {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 34px;
+}
+
+    .pedido_ingreso_c2 .pedido_ingreso_datos_icono_mas {
+        color: #fff;
+        font-size: 17px !important;
+        float: left;
+        margin-right: 4px;
+        margin-top: -1px;
+    }
+
+.pedido_ingreso_datos {
+    float: left;
+    font-family: 'lato';
+    font-size: 9.4pt;
+    font-weight: 400;
+    color: #060000;
+    margin-right: 8px;
+}
+
+    .pedido_ingreso_datos input {
+        padding: 5px;
+        margin-top: 5px;
+        height: 33px;
+        border: 1px solid #ccc;
+    }
+
+        .pedido_ingreso_datos input::-webkit-input-placeholder {
+            font-weight: normal;
+        }
+
+        .pedido_ingreso_datos input:-moz-placeholder {
+            font-weight: normal;
+        }
+
+        .pedido_ingreso_datos input::-moz-placeholder {
+            font-weight: normal;
+        }
+
+        .pedido_ingreso_datos input:-ms-input-placeholder {
+            font-weight: normal;
+        }
+
+        .pedido_ingreso_datos input[value] {
+            vertical-align: middle;
+        }
+
+        .pedido_ingreso_datos input:hover {
+            border: 1px solid #e81c36 !important;
+        }
+
+.pedido_agregado {
+    border: 0;
+    width: 115px;
+    margin-top: 23px;
+    float: left;
+    background: #e81c36 !important;
+    background-position: 17px 8px;
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+}
+
+.pedidos_no_existe {
+    font-family: 'lato';
+    font-size: 9.4pt;
+    font-weight: 400;
+    color: #e81c36;
+    margin-top: 8px;
+}
+
+.pedidos_cliente {
+    font-family: 'lato';
+    font-size: 7.5pt;
+    font-weight: 400;
+    color: black;
+    margin-top: 9px;
+    letter-spacing: .8px;
+}
+
+    .pedidos_cliente:hover {
+        text-decoration: underline;
+    }
+/* CAJA PEDIDOS */
+.franja_negra {
+    position: absolute;
+    width: 100%;
+    height: 206px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.caja_pedidos {
+    display: block;
+    width: 68.85%;
+    margin-top: 4%;
+    position: relative;
+    height: auto;
+    float: left;
+    margin-right: 25px;
+}
+
+    .caja_pedidos.pedidoReservado {
+        width: 100% !important;
+    }
+
+.franja_negra.pedidoReservado {
+    height: 129px;
+}
+
+.grilla_pedidos {
+    display: block;
+    width: 100%;
+    font-family: 'Lato';
+}
+
+.filaIngresoPedidoOculto {
+    display: none;
+    left: 100%;
+    opacity: 0;
+}
+
+.grilla_pedidos label {
+    cursor: default;
+}
+
+.encabezado_ingresoPedido {
+    border-bottom: 1px solid #808080;
+}
+
+.contenido_ingresoPedido {
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+    .contenido_ingresoPedido.mouse_encima {
+        background: #fff;
+        transition: background .3s ease;
+        -moz-transition: background .3s ease;
+        -o-transition: background .3s ease;
+        -ms-transition: background .3s ease;
+        -webkit-transition: background .3s ease;
+    }
+
+        .contenido_ingresoPedido.mouse_encima:hover {
+            background: #f8f8f8;
+        }
+
+div.texto_encabezado_pedidos {
+    display: inline-block;
+    padding-bottom: 10px;
+    vertical-align: middle;
+    color: #797979;
+}
+
+div.texto_pedidos, div.celda_cantidad_pedidos {
+    display: inline-block;
+    padding: 17px 0px;
+    vertical-align: middle;
+    position: relative;
+}
+
+    div.texto_encabezado_pedidos.cabecera_codigo, div.texto_pedidos.celda_codigo {
+        width: 11%;
+    }
+
+    div.texto_encabezado_pedidos.cabecera_producto, div.texto_pedidos.celda_producto {
+        width: 41.3%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos {
+    width: 12%;
+}
+
+    div.celda_cantidad_pedidos div.liquidacion_rango_wrapper_pedido input {
+        font-size: 14px !important;
+        background: #fff;
+        padding-left: 0 !important;
+    }
+
+        div.celda_cantidad_pedidos div.liquidacion_rango_wrapper_pedido input[value] {
+            vertical-align: middle;
+        }
+
+.grilla_pedidos div.fila_mensajeProductoAgotado div {
+    padding-top: 0;
+    padding-bottom: 0 !important;
+    border: 0;
+}
+
+div.texto_encabezado_pedidos.cabecera_precioUnitario, div.texto_pedidos.precioUnitario {
+    width: 14%;
+    color: #808080;
+}
+
+div.texto_encabezado_pedidos.cabecera_subtotal, div.texto_pedidos.subtotal {
+    width: 11%;
+}
+
+div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
+    width: 16.4%;
+}
+
+.escalaDescuento_texto {
+    display: block;
+    margin-top: 70px;
+    margin-bottom: 40px;
+}
+
+.mensaje_escalaDescuento {
+    float: left;
+    color: red;
+    font-family: 'Lato';
+    font-size: 16px;
+}
+
+    .mensaje_escalaDescuento strong {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+.iconos_acciones {
+    float: right;
+    position: relative;
+    width: 20%;
+    height: 30px;
+}
+
+    .iconos_acciones .icono_imprimir {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 23%;
+    }
+
+    .iconos_acciones .icono_email {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        opacity: .6;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
+    }
+
+        .iconos_acciones .icono_email:hover {
+            opacity: .3;
+        }
+
+.noti.mensaje_producto_noExiste {
+    background: #fff;
+    height: 55px;
+    padding: 0 27px 0 27px;
+    margin-top: 16px;
+    border-radius: 5px;
+    box-shadow: 7px 6px 19px -5px #999;
+    position: absolute;
+    width: auto;
+    max-width: 700px;
+    top: 10.1%;
+}
+
+#divNotiNombre, #divNotiNombre2 {
+    top: -10.1%;
+}
+
+#divNotiCorreo, #divNotiCorreo2 {
+    top: 55.1%;
+}
+
+#divValidationSummary, #divValidationSummary2 {
+    color: red;
+}
+
+.noti.mensaje_producto_noExiste:after, .noti.mensaje_producto_noExiste:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.noti.mensaje_producto_noExiste:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: #fff;
+    border-width: 17px;
+    position: absolute;
+    top: -48%;
+    left: 5%;
+    z-index: 5;
+}
+
+.noti.mensaje_producto_noExiste .noti_message.red_texto_size {
+    position: relative;
+    color: #000;
+    font-size: 14px;
+    top: 50%;
+    margin-top: -11.5px;
+}
+
+.icono_advertencia_notificacion {
+    position: relative;
+    display: block;
+    float: left;
+    width: 20px;
+    height: 20px;
+    top: -1px;
+    margin-right: 7px;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') center center no-repeat;
+}
+
+.caja_guardar_pedido {
+    height: auto;
+    padding-left: 18px;
+    border-bottom: 2px solid #CCC;
+}
+
+.mostrarGuardarPedido {
+    display: none;
+}
+
+.contenedor_guardadoPedido {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    top: 50%;
+    margin-top: 20px;
+    margin-bottom: 48px;
+    text-align: left;
+}
+
+.bloque_montosPedido, .contenedor_btnGuardarPedido {
+    display: block;
+}
+
+.bloque_montosPedido {
+    width: 100%;
+    text-align: right;
+}
+
+.contenedor_btnGuardarPedido {
+    width: 100%;
+    text-align: right;
+}
+
+.caja_montos {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: top;
+}
+
+    .caja_montos div.info_extra_Validado {
+        vertical-align: top;
+        position: absolute;
+        float: none;
+        right: 99%;
+        top: 0;
+        z-index: 50;
+    }
+
+    .caja_montos .monto_resumenValidado {
+        display: none;
+    }
+
+    .caja_montos div.info_extra_Validado:hover .monto_resumenValidado {
+        display: block;
+    }
+
+    .caja_montos div {
+        display: inline-block;
+    }
+
+.caja_montos_textos {
+    margin-right: 15px;
+    position: relative;
+    text-align: left;
+}
+
+    .caja_montos_textos .pMontoCliente {
+        font-size: 16px !important;
+    }
+
+.caja_montos_cantidades .monto_ganancia, .caja_montos_cantidades .monto_total, .monto_descuento, .monto_montodescuento {
+    text-align: right;
+    font-size: 22px;
+    line-height: 33px;
+}
+
+.caja_montos_cantidades .monto_ganancia {
+    color: #e81c36;
+}
+
+.caja_montos_cantidades .monto_con_descuento {
+    color: #e81c36;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: right;
+}
+
+.mensajes {
+    display: inline-block;
+    margin-right: 8px;
+    margin-bottom: 7px;
+    vertical-align: top;
+}
+
+.mensaje_guardar_pedido {
+    display: block;
+    color: #cd2c39;
+    vertical-align: top;
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.mensaje_fecha_limite_cambios {
+    display: block;
+    color: #000;
+    vertical-align: top;
+    font-family: 'Lato';
+    font-size: 12px;
+    margin-right: 13px;
+}
+
+.tooltip_importanteGuardarPedido {
+    display: inline-block;
+    vertical-align: middle;
+    width: 213px;
+    height: auto;
+    padding: 20px 36px 20px 20px;
+    margin-right: 15px;
+    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    background: url('/Content/Images/Esika/fondo_pestana.png') no-repeat right center;
+    font-family: 'Lato';
+    font-size: 15px;
+    font-weight: 900;
+    color: #e81c36;
+    text-align: center;
+    line-height: 17px;
+    margin-top: 10px;
+}
+
+    .tooltip_importanteGuardarPedido span {
+        font-family: 'Lato';
+        font-size: 12px;
+        font-weight: 400;
+        color: black;
+        text-align: center;
+        display: block;
+        margin-top: 5px;
+        line-height: 15px;
+    }
+
+.boton_guardarPedido {
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    -o-transition: opacity .3s ease;
+    -ms-transition: opacity .3s ease;
+    -webkit-transition: opacity .3s ease;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+    .boton_guardarPedido:hover {
+        opacity: .8;
+        filter: alpha(opacity=80);
+    }
+
+.tooltips {
+    display: block;
+    background: #fff;
+    border-radius: 4px;
+}
+
+.tooltip_guardaPedido {
+    display: none;
+    width: 271px;
+    height: 104px;
+    position: absolute;
+    z-index: 50;
+    top: -64%;
+    left: 105%;
+    box-shadow: 3px 3px 15px 0 rgba(0,0,0,.31);
+    -moz-box-shadow: 3px 3px 15px 0 rgba(0,0,0,.31);
+    -o-box-shadow: 3px 3px 15px 0 rgba(0,0,0,.31);
+    -ms-box-shadow: 3px 3px 15px 0 rgba(0,0,0,.31);
+    -webkit-box-shadow: 3px 3px 15px 0 rgba(0,0,0,.31);
+    padding-top: 22px;
+    border: 1px solid #e7e1e1;
+}
+
+    .tooltip_guardaPedido .tooltip_flecha {
+        background: url('/Content/Images/tooltip-flecha.png') no-repeat 0 -26px !important;
+        position: absolute;
+        top: 0;
+        left: -11.2%;
+        width: 32px;
+        height: 102px;
+        z-index: 50;
+    }
+
+    .tooltip_guardaPedido h6 {
+        margin: 0;
+        padding: 0;
+        font-family: 'Lato';
+        font-size: 14px;
+        color: #000;
+        font-weight: bold !important;
+        text-align: center;
+        margin-bottom: 6px;
+    }
+
+    .tooltip_guardaPedido p {
+        width: 185px;
+        font-family: 'Lato';
+        font-size: 14px;
+        color: #000;
+        font-weight: normal;
+        margin: 0 auto;
+        line-height: 18px;
+    }
+
+.tooltip_infoCopy {
+    display: none;
+    width: 271px;
+    min-height: 158px;
+    height: auto;
+    position: absolute;
+    z-index: 50;
+    top: 58%;
+    left: 153%;
+    margin-top: -84px;
+    box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+    -moz-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+    -o-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+    -ms-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+    -webkit-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+    padding-top: 18px;
+    padding-left: 22px;
+    padding-right: 20px;
+    padding-bottom: 15px;
+    border: 1px solid #e7e1e1;
+}
+
+.tooltip_infoCopy_expand {
+    left: -1500%;
+}
+
+.tooltip_infoCopy .tooltip_flecha {
+    background: url('/Content/Images/tooltip-flecha.png') no-repeat 0 16px !important;
+    position: absolute;
+    top: -8%;
+    left: -11.5%;
+    z-index: 50;
+    width: 32px;
+    height: 169px;
+}
+
+.tooltip_infoCopy_expand .tooltip_flecha {
+    top: 3%;
+    left: 100%;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.tooltip_infoCopy h6 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: #000;
+    font-weight: bold !important;
+    text-align: left;
+    margin-bottom: 6px;
+}
+
+.tooltip_infoCopy p {
+    font-family: 'Lato';
+    font-size: 11px;
+    color: #000;
+    font-weight: bold;
+    line-height: 18px;
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 5px;
+}
+/*tool tip => info sobre el icono*/
+.info_copy {
+    float: left;
+    margin-right: 7px;
+    height: 22px;
+    margin-top: 3px;
+    position: relative;
+}
+
+    .info_copy .tooltip_importe {
+        display: none;
+        width: 260px;
+        height: 60px;
+        padding: 13px;
+        background: white;
+        position: absolute;
+        top: -83px;
+        -webkit-box-shadow: 0 7px 23px 2px rgba(179,173,179,1);
+        -moz-box-shadow: 0 7px 23px 2px rgba(179,173,179,1);
+        box-shadow: 0 7px 23px 2px rgba(179,173,179,1);
+    }
+
+        .info_copy .tooltip_importe:before {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            border: solid transparent;
+            content: ' ';
+            height: 0;
+            width: 0;
+            border-color: rgba(5, 7, 8, 0);
+            border-top-color: white;
+            border-width: 15px;
+            margin-left: -15px;
+            left: 5%;
+            z-index: 10;
+        }
+
+    .info_copy:hover .tooltip_importe {
+        display: block;
+    }
+
+
+    .info_copy .tooltip_infoCopy_grid {
+        display: none;
+        width: 271px;
+        min-height: 158px;
+        height: auto;
+        position: absolute;
+        background: #fff;
+        z-index: 50;
+        top: 58%;
+        left: 153%;
+        margin-top: -84px;
+        box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+        -moz-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+        -o-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+        -ms-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+        -webkit-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+        padding-top: 18px;
+        padding-left: 22px;
+        padding-right: 20px;
+        padding-bottom: 15px;
+        border: 1px solid #e7e1e1;
+    }
+
+        .info_copy .tooltip_infoCopy_grid:before {
+            position: absolute;
+        }
+
+    .info_copy:hover .tooltip_infoCopy_grid {
+        display: block;
+    }
+
+
+.tooltip_infoCopy_grid h6 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: #000;
+    font-weight: bold !important;
+    text-align: left;
+    margin-bottom: 6px;
+}
+
+
+.tooltip_infoCopy_grid p {
+    font-family: 'Lato';
+    font-size: 11px;
+    color: #000;
+    font-weight: bold;
+    line-height: 18px;
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 5px;
+}
+
+.info_copy .tooltip_flecha_grid {
+    background: url('/Content/Images/tooltip-flecha.png') no-repeat 0 16px !important;
+    position: absolute;
+    top: -8%;
+    left: -11.5%;
+    z-index: 50;
+    width: 32px;
+    height: 169px;
+}
+
+.infoCopy_expand .tooltip_flecha_grid {
+    top: 3%;
+    left: 100%;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.tooltip_flecha_grid_expand {
+    left: -1500%;
+}
+
+
+.info_copy .left_reservado {
+    float: left;
+    text-align: left;
+}
+
+.info_copy .right_reservado {
+    float: right;
+    text-align: right;
+}
+
+.info_copy .datos_Reservado {
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    line-height: 18px;
+}
+
+    .info_copy .datos_Reservado span {
+        display: block;
+        margin: 0;
+        float: none;
+    }
+/* fin tool tip => info sobre el icono*/
+.boton_guardarPedido input[type='submit'], .boton_guardarPedido input[type='button'] {
+    display: block;
+    font-family: 'Lato';
+    width: 218px;
+    height: 44.1px;
+    background: #e81c36;
+    border: 0;
+    color: #fff;
+    font-size: 12.7px;
+    line-height: 41.1px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-right: 0;
+}
+
+.monto_total, .monto_ganancia, .monto_con_descuento, .monto_descuento, .monto_montodescuento {
+    display: block;
+    font-family: 'Lato';
+    text-align: left;
+    margin-bottom: 0;
+}
+
+.caja_montos_textos .monto_con_descuento {
+    font-size: 14px;
+    color: #e4002d;
+    margin-bottom: 3px;
+    position: relative;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.caja_montos_cantidades .monto_descuento {
+    color: #000;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.caja_montos_cantidades .monto_montodescuento {
+    color: #000;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.monto_descuento {
+    margin-top: -3px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+    line-height: 24px;
+}
+
+.monto_montodescuento {
+    margin-top: -3px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+    line-height: 24px;
+}
+
+.monto_total {
+    margin-top: -3px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 42px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.monto_ganancia {
+    position: relative;
+    font-size: 16px;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #e81c36;
+}
+
+.tabla_pedidos, .tabla_productos_agotados {
+    font-family: 'Lato';
+    font-weight: normal;
+    color: #1a1a1a;
+    margin-top: 12px;
+}
+
+    .tabla_pedidos table, .tabla_productos_agotados table {
+        width: 100%;
+    }
+
+    .tabla_pedidos th {
+        padding-bottom: 10px;
+        border-bottom: 2px solid #000;
+        vertical-align: middle;
+        color: #797979;
+    }
+
+    .tabla_pedidos td {
+        border-bottom: 1px solid #CCC;
+        padding-top: 36px;
+        padding-bottom: 36px;
+        vertical-align: middle;
+    }
+
+    .tabla_productos_agotados td, .tabla_productos_agotados th {
+        border-bottom: 1px solid #CCC;
+        padding-top: 17px;
+        padding-bottom: 17px;
+        vertical-align: middle;
+        padding-right: 11px;
+    }
+
+    .tabla_productos_agotados th {
+        padding-bottom: 12px;
+        font-weight: 300 !important;
+        font-family: 'Lato';
+        text-transform: uppercase;
+        border-bottom: 2px solid black;
+    }
+
+    .tabla_pedidos tr.fila_mensajeProductoAgotado td {
+        padding-top: 0;
+        padding-bottom: 0 !important;
+        border: 0;
+    }
+
+.mensaje_productoAgotado {
+    display: block;
+    position: relative;
+    width: 100%;
+    background: #fee5e7;
+    height: 55px;
+    z-index: 3;
+    margin-top: -10px;
+    font-weight: bold;
+}
+
+    .mensaje_productoAgotado span {
+        text-decoration: underline;
+    }
+
+    .mensaje_productoAgotado:after, .mensaje_productoAgotado:before {
+        bottom: 100%;
+        left: 17%;
+        border: solid transparent;
+        content: ' ';
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .mensaje_productoAgotado:after {
+        border-color: rgba(136, 183, 213, 0);
+        border-bottom-color: #fee5e7;
+        border-width: 12px;
+    }
+
+    .mensaje_productoAgotado:before {
+        border-color: rgba(0, 0, 0, 0);
+        border-bottom: 0 solid transparent;
+        border-width: 36px;
+        margin-left: -36px;
+    }
+
+    .mensaje_productoAgotado p {
+        font-family: 'Lato';
+        font-size: 14px;
+        padding-left: 21.5px;
+        text-align: left;
+        color: #d20000;
+        height: 55px;
+        line-height: 55px;
+    }
+
+.cabecera_codigo {
+    width: 11%;
+    padding-right: 1%;
+    text-align: center;
+}
+
+.celda_codigo {
+    text-align: center;
+    padding-right: 1%;
+}
+
+.celda_iconos_acciones {
+    text-align: center;
+}
+
+.cabecera_producto {
+    width: 208px;
+}
+
+.tabla_pedidos td.text-center {
+    text-align: center;
+}
+
+.tabla_pedidos td div.liquidacion_rango_wrapper_pedido {
+    width: 68px;
+    height: 45px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-top: -25% !important;
+    margin-left: -32px;
+}
+
+    .tabla_pedidos td div.liquidacion_rango_wrapper_pedido input {
+        font-size: 12px !important;
+        background: #fff;
+        padding-left: 0 !important;
+    }
+
+        .tabla_pedidos td div.liquidacion_rango_wrapper_pedido input[value] {
+            vertical-align: middle;
+        }
+
+.tabla_pedidos td div.liquidacion_rango_right_pedido {
+    padding-top: 2px;
+}
+
+    .tabla_pedidos td div.liquidacion_rango_right_pedido a {
+        border-bottom: 1px solid #b0b0b0;
+    }
+
+.tabla_pedidos tr.mouse_encima {
+    background: #fff;
+    transition: background .3s ease;
+    -moz-transition: background .3s ease;
+    -o-transition: background .3s ease;
+    -ms-transition: background .3s ease;
+    -webkit-transition: background .3s ease;
+}
+
+    .tabla_pedidos tr.mouse_encima:hover {
+        background: #f0f0f0;
+    }
+
+.menos {
+    padding-top: 4px;
+}
+
+.mis_pedidos {
+    text-align: left;
+    font-size: 19px;
+    letter-spacing: 3px;
+    color: #000;
+    font-family: 'Lato';
+}
+
+.titulo_mis_pedidos, .titulo_pedidos_fic {
+    float: left;
+}
+
+    .titulo_mis_pedidos h1, .titulo_pedidos_fic h1 {
+        text-align: center;
+        font-weight: 700;
+        font-size: 25px;
+        letter-spacing: 2.5px;
+        color: #000;
+        font-family: 'Lato';
+        height: 65px;
+        line-height: 65px;
+        float: left;
+        margin-bottom: -2px;
+    }
+
+.bordespacive {
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-top: 1px solid;
+}
+
+.mis_pedidos span {
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #7f7f7f;
+    position: relative;
+    top: -2px;
+}
+
+.texto_encabezado_pedidos {
+    font-size: 13px;
+}
+
+    .texto_encabezado_pedidos select {
+        width: 106px;
+        height: 36px;
+        border: 1px solid #cccccc;
+        color: #797979;
+        font-family: 'Lato';
+        padding-left: 7px;
+        background: #f8f8f8;
+        border-radius: 4px;
+    }
+
+
+.texto_pedidos {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: normal;
+}
+
+.mensaje_adicional_producto {
+    display: none;
+    font-size: 12px;
+    font-weight: normal;
+    margin-top: 5px;
+}
+
+
+.texto_pedidos_ofertas {
+    letter-spacing: 0.5px;
+    display: block;
+    font-size: 11px;
+    color: #808080;
+    margin-top: 3px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.tabla_pedidos tbody tr:first-child .texto_pedidos_ofertas {
+    display: block;
+}
+
+.texto_pedidos.clientePedido {
+    width: 20%;
+}
+
+    .texto_pedidos.clientePedido input {
+        max-width: 107px;
+        text-align: left;
+        height: 32px;
+        font-family: 'Lato';
+        color: #1a1a1a;
+        font-weight: bold;
+        border: 0;
+        padding-left: 5px;
+        padding-right: 5px;
+        line-height: 32px;
+        font-size: 12px;
+    }
+
+.tabla_pedidos td {
+    position: relative;
+}
+
+.texto_pedidos.precioUnitario, .texto_pedidos.subtotal {
+    font-size: 12px;
+}
+
+.texto_encabezado_pedidos.precioUnitario {
+}
+
+.texto_pedidos .productos_ingresados_movil {
+    position: absolute;
+    top: 8%;
+    left: -23px;
+}
+
+.mostrarPrecioUnitario {
+    display: none;
+}
+
+.precio {
+    display: none;
+    font-size: 12px;
+    color: #797979;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.texto_pedidos.subtotal {
+    width: 15%;
+    max-width: 184px;
+    position: relative;
+}
+
+    .texto_pedidos.subtotal span.icon-advertencia {
+        background: url('/Content/Images/Esika/icono-admiracion.png') no-repeat center center;
+        width: 18px;
+        height: 18px;
+        font-family: 'Lato';
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        position: absolute;
+        right: -18%;
+        z-index: 6;
+    }
+
+.caja_montos_textos .monto_descuento span.icon-advertencia {
+    display: inline-block;
+    vertical-align: middle;
+    background: url('/Content/Images/Esika/icono-admiracion.png') no-repeat center center;
+    width: 18px;
+    height: 18px;
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    position: relative;
+    margin-top: -3px;
+    margin-left: 5px;
+    margin-right: 5px;
+    z-index: 6;
+}
+
+.celda_cantidad_pedidos {
+    position: relative;
+    width: 12%;
+}
+
+.paginador_pedidos {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 100px;
+}
+
+.mostrarPaginadorPedidos {
+    display: block;
+    margin-top: 36px;
+    margin-bottom: 26px;
+}
+
+    .mostrarPaginadorPedidos.inferior {
+        display: block;
+        position: relative;
+        margin-top: 36px;
+        margin-bottom: 0;
+        padding-bottom: 57px;
+    }
+
+.productos_agregados_usuario {
+    margin-right: 15px;
+    font-family: 'Lato';
+    font-size: 15px;
+    letter-spacing: .5px;
+    color: #000;
+    line-height: 20px;
+}
+
+    .productos_agregados_usuario .cantidad_productos_agregados {
+        font-size: 16px;
+    }
+
+.texto_pagina {
+    font-family: 'Lato';
+    font-size: 11.7px;
+    color: #7e7e7e;
+    letter-spacing: .2px;
+    margin-top: 2px;
+    margin-right: 5px;
+}
+
+.paginador_notificaciones {
+    float: right;
+}
+
+.paginador_pedidos ul {
+    float: left;
+}
+
+    .paginador_pedidos ul.right {
+        float: right;
+    }
+
+.paginador_notificaciones li {
+    float: left;
+}
+
+.paginador_pedidos ul li {
+    float: left;
+}
+
+.flecha_paginador_atras {
+    width: 0;
+    height: 9px;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-right: 6px solid #000;
+    margin-top: 8px;
+    margin-left: 9px;
+    margin-right: 5px;
+}
+
+.paginas_pedidos {
+    font-size: 11.7px;
+    color: #7e7e7e;
+    letter-spacing: .2px;
+}
+
+    .paginas_pedidos .pagina_actual {
+        margin-right: 3px;
+    }
+
+        .paginas_pedidos .pagina_actual input {
+            letter-spacing: .2px;
+            width: 15px;
+            height: 24px;
+            text-align: center;
+            color: #000;
+            font-family: 'Lato';
+            font-size: 11.7px;
+            border: none;
+            font-weight: bold;
+        }
+
+    .paginas_pedidos .paginas_totales {
+        font-size: 11.7px;
+        color: #7e7e7e;
+        letter-spacing: .2px;
+    }
+
+.flecha_paginador_adelante {
+    width: 0;
+    height: 9px;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 6px solid #000;
+    margin-top: 8px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.flecha_paginador_atras, .flecha_paginador_adelante {
+    cursor: pointer;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+    .flecha_paginador_atras:hover {
+        border-right: 6px solid rgba(0,0,0,.4);
+    }
+
+    .flecha_paginador_adelante:hover {
+        border-left: 6px solid rgba(0,0,0,.4);
+    }
+
+.contenedor_eliminacion_pedido {
+    margin-top: 27px;
+    margin-bottom: 27px;
+}
+
+.precio_total_sinDescuento {
+    display: block;
+    float: left;
+    width: 60%;
+    font-size: 11px;
+    font-family: 'Lato';
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+    .precio_total_sinDescuento span.icon-advertencia {
+        display: inline-block;
+        background: url('/Content/Images/Esika/icono-admiracion.png') no-repeat center center;
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+        font-family: 'Lato';
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+.texto_eliminar_pedido {
+    font-size: 11px;
+    font-family: 'Lato';
+    color: #1a1a1a;
+    display: block;
+    float: right;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+}
+
+.datos_para_movil {
+    display: block;
+    margin-bottom: 59px;
+}
+
+.productos_ingresados_movil {
+    font-size: 11px;
+    font-family: 'Lato';
+    color: #000;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+    .productos_ingresados_movil span.icon-mobile {
+        display: block;
+        float: left;
+        margin-top: -1px;
+        margin-left: 3px;
+        margin-right: 9px;
+    }
+
+.texto_pedido_completo {
+    float: left;
+    margin-right: 4px;
+}
+
+.link_eliminar_pedido {
+    color: #cd2c39;
+    float: right;
+    margin-left: 5px;
+}
+
+    .link_eliminar_pedido:hover {
+        text-decoration: underline;
+    }
+
+
+.seleccion_pagina select {
+    padding: 0px 4px 3px 4px;
+    border-radius: 4px;
+    border: 1px solid #a6a6a6;
+    background-color: #f8f8f8;
+}
+
+.liquidacion_rango_wrapper_pedido {
+    margin: 0px;
+}
+
+.celda_cantidad_pedidos .liquidacion_rango_wrapper_pedido {
+    margin-top: 0px !important;
+}
+
+.liquidacion_rango_right_pedido .menos img {
+    position: relative;
+    top: -1px;
+}
+
+.producto-codigo {
+    font-size: 12px;
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+}
+
+.franja_negra .liquidacion_rango_wrapper_pedido {
+    margin-top: 5px !important;
+}
