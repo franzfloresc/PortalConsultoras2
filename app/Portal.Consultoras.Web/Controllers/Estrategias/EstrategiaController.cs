@@ -70,6 +70,27 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos);
         }
 
+        //[HttpPost]
+        //public JsonResult SRObtenerProductos(BusquedaProductoModel model)
+        //{
+        //    return Json(new
+        //    {
+        //        success = true,
+        //        lista = new List<EstrategiaPersonalizadaProductoModel>(),
+        //        listaPerdio = new List<EstrategiaPersonalizadaProductoModel>() { },
+        //        campaniaId = model.CampaniaID,
+        //        cantidadTotal = cantidadTotal,
+        //        cantidad = cantidadTotal,
+        //        codigo = palanca,
+        //        codigoOrigen = model.Codigo,
+        //        guardaEnLocalStorage = guarda,
+        //        objBannerCajaProducto
+        //    });
+        //}
+
+
+
+
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string tipoOrigenEstrategia = "")
         {

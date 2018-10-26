@@ -198,21 +198,21 @@ function SeccionCargarProductos(objConsulta) {
     $.ajaxSetup({
         cache: false
     });
-
+    debugger;
     $.ajax({
-        type: "POST",
+        type: 'post',
         url: baseUrl + objConsulta.UrlObtenerProductos,
-        dataType: "json",
+        dataType: 'json',
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
+            //console.log(data);
             if (data.success === true) {
                 data.codigo = $.trim(data.codigo);
                 if (data.codigo !== "") {
                     data.campaniaId = $.trim(data.campaniaId) || campaniaCodigo;
-                    data.Seccion = listaSeccion[data.codigo + "-" + data.campaniaId]
-                        || listaSeccion[data.codigoOrigen + "-" + data.campaniaId];
+                    data.Seccion = listaSeccion[data.codigo + "-" + data.campaniaId] || listaSeccion[data.codigoOrigen + "-" + data.campaniaId];
                     if (data.Seccion != undefined) {
                         SeccionMostrarProductos(data);
                     }
@@ -319,44 +319,44 @@ function SeccionMostrarProductos(data) {
             UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
     }
-    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR)
-    {
-        // esta logica es para Intriga
-        if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString()) {
+    //else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR)
+    //{
+    //    // esta logica es para Intriga
+    //    if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString()) {
 
-            if (data.lista.length == 0) {
-                $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor .bloque-titulo .cantidad > span").hide();
-            }
-            else {
-                $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadAMostrar);
+    //        if (data.lista.length == 0) {
+    //            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor .bloque-titulo .cantidad > span").hide();
+    //        }
+    //        else {
+    //            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadAMostrar);
                 $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal0);
-                $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
-            }
-            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
-        }
-        else
-        {
-            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
-        }
+    //            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
+    //        }
+    //        $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+    //    }
+    //    else
+    //    {
+    //        $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+    //    }
 
-        if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.SimpleCentrado.toString()) {
-            if (data.lista.length > 0) {
-                $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
-                $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
+    //    if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.SimpleCentrado.toString()) {
+    //        if (data.lista.length > 0) {
+    //            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+    //            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
 
-                $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
-                $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
-            }
-            else
-            {
-                $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
-            }
-        }
-    }
-    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG)
+    //            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
+    //            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
+    //        }
+    //        else
+    //        {
+    //            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+    //        }
+    //    }
+    //}
+    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR)
     {
         //console.log('SeccionMostrarProductos -if ' + data.Seccion.Codigo);
-        if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
+        if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
             CarruselCiclico = false;
         }
 
@@ -365,13 +365,13 @@ function SeccionMostrarProductos(data) {
             var cantidadAMostrar = parseInt($("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html());
             if (data.cantidadTotal <= cantidadAMostrar) {
                 $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadTotal);
-                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
+                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
                     $("#" + data.Seccion.Codigo).find(sElementos.verMas).remove();
                     $("#" + data.Seccion.Codigo).find(sElementos.contadorProductos).remove();
                 }
             }
             else {
-                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
+                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
                     if (data.objBannerCajaProducto != undefined) {
                         data.lista.push(data.objBannerCajaProducto);
                     }
@@ -557,7 +557,7 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
     var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
 
     if (currentSlide == 0) {
-        console.log(0);
+        //console.log(0);
         $(objPrevArrow).hide();
         $(objNextArrow).show();
     }
@@ -572,9 +572,9 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 
         if (anchoFalta > $(slick.$list).width()) {
             var currentSlideback = $(slick.$list).attr('data-currentSlide') || "";
-            console.log(1, currentSlideback);
+            //console.log(1, currentSlideback);
             if (currentSlideback == currentSlide) {
-                console.log(3);
+                //console.log(3);
                 slick.options.slidesToShow = isMobile() ? 1 : 2;
                 slick.setPosition();
                 slick.slickGoTo(currentSlide + 1);
@@ -584,7 +584,7 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
                 $(objNextArrow).hide();
             }
             else {
-                console.log(2);
+                //console.log(2);
                 $(objPrevArrow).show();
                 $(objNextArrow).show();
             }
