@@ -21,6 +21,33 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return set;
         }
 
+        public bool EliminarTransaction(int paisId, int id, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
+        {
+
+            try
+            {
+                var result = 0;
+
+                var da = new DAPedidoWebSet(paisId);
+                var bLPedidoWebDetalle = new BLPedidoWebDetalle();
+                var daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
+
+                result = da.Eliminar(id);
+
+                var listaDetalle = bLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
+                var importeTotal = listaDetalle.Sum(p => p.ImporteTotal);
+
+                daPedidoWebDetalle.UpdateImporteTotalPedidoWeb(bePedidoWebDetalleParametros.CampaniaId, bePedidoWebDetalleParametros.ConsultoraId, importeTotal);
+
+                return result > 0;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public bool Eliminar(int paisId, int id, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
         {
             TransactionOptions oTransactionOptions =
