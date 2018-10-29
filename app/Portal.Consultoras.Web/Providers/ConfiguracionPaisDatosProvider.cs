@@ -225,6 +225,10 @@ namespace Portal.Consultoras.Web.Providers
                 modelo.DescripcionMarca = esMobile ? "/Mobile/MasGanadoras" : "/MasGanadoras";
                 modelo.TipoAccionAgregar = Constantes.TipoAccionAgregar.BannerCarruselMg;
             }
+            if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
+            {
+                //pendiente
+            }
             return modelo;
         }
 

@@ -339,7 +339,8 @@ function CargarProductosShowRoomPromise(busquedaModel) {
     var d = $.Deferred();
     var promise = $.ajax({
         type: 'POST',
-        url: baseUrl + 'ShowRoom/CargarProductosShowRoom',
+        //url: baseUrl + 'ShowRoom/CargarProductosShowRoom',
+        url: baseUrl + 'Estrategia/SRObtenerProductos',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(busquedaModel),
@@ -354,13 +355,21 @@ function CargarProductosShowRoomPromise(busquedaModel) {
 
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
     var objData = {};
+    console.log(response);
     if (response.success) {
+
+        var listaNoSubcampania = response.lista.filter(function (item) { return !item.EsSubcampania; });
+        var listaSubcampania = response.lista.filter(function (item) { return item.EsSubcampania; });
+        var limite = (busquedaModel && busquedaModel.Limite) ? busquedaModel.Limite : listaNoSubcampania.length;
+        if (limite > 0) listaNoSubcampania = listaNoSubcampania.splice(0, limite);
+
         if (aplicarFiltrosSubCampanias) {
-            if (response.listaSubCampania !== 'undefined') {
-                if (response.listaSubCampania.length > 0) {
-                    $.each(response.listaSubCampania,
-                        function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(35, true); });
-                    objData.lista = response.listaSubCampania;
+            if (typeof listaSubcampania !== 'undefined') {
+                if (listaSubcampania.length > 0) {
+                    $.each(listaSubcampania,
+                        function (i, v) { v.DescripcionCompleta = IfNull(v.DescripcionCompleta, '').SubStrToMax(35, true); });
+
+                    objData.lista = listaSubcampania;
                     SetHandlebars("#banner-sub-campania-template", objData.lista[0], "#banner-sub-campania");
                     SetHandlebars("#producto-landing-template", objData, "#contenedor-showroom-subcampanias");
                     $('#divContentSubCampania').show();
@@ -377,29 +386,29 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             }
         }
 
-        $.each(response.listaOfertas, function (index, value) {
-            value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
+        $.each(listaNoSubcampania, function (index, value) {
+            value.DescripcionCompleta = IfNull(value.DescripcionCompleta, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
             value.Posicion = index + 1;
         });
 
-        objData.lista = response.listaOfertas;
+        objData.lista = listaNoSubcampania
         SetHandlebars("#producto-landing-template", objData, '#divProductosShowRoom');
 
-        if (response.listaOfertasPerdio != 'undefined') {
-            if (response.listaOfertasPerdio.length > 0) {
+        if (typeof response.listaPerdio !== 'undefined') {
+            if (response.listaPerdio.length > 0) {
                 $("#contenido_zona_dorada").show();
                 $("#block_inscribete").show();
                 $("#divOfertaProductosPerdio").show();
 
-                objData.lista = response.listaOfertasPerdio;
+                objData.lista = response.listaPerdio;
 
                 SetHandlebars("#producto-landing-template", objData, '#divOfertaProductosPerdio');
             }
         }
 
         $('#divContentShowRoomHome').show();
-        $("#spnCantidadFiltro").html(response.listaOfertas.length);
-        $("#spnCantidadTotal").html(response.totalOfertas);
+        $("#spnCantidadFiltro").html(limite);
+        $("#spnCantidadTotal").html(response.cantidadTotal0);
 
         EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
     }
@@ -430,39 +439,43 @@ function CargarShowroomMobile(busquedaModel) {
 function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
     if (response.success) {
 
-        $.each(response.listaOfertas, function (index, value) {
-            value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
+        var listaNoSubcampania = response.lista.filter(function (item) { return !item.EsSubcampania; });
+        var listaSubcampania = response.lista.filter(function (item) { return item.EsSubcampania; });
+        var limite = (busquedaModel && busquedaModel.Limite) ? busquedaModel.Limite : listaNoSubcampania.length;
+        if (limite > 0) listaNoSubcampania = listaNoSubcampania.splice(0, limite);
+
+        $.each(listaNoSubcampania, function (index, value) {
+            value.DescripcionCompleta = IfNull(value.DescripcionCompleta, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
             value.Posicion = index + 1;
         });
 
         var objData = {};
-        objData.lista = response.listaOfertas;
-
+        objData.lista = listaNoSubcampania;
         SetHandlebars("#producto-landing-template", objData, '#divProductosShowRoom');
 
-        if (response.listaOfertasPerdio != 'undefined') {
-            if (response.listaOfertasPerdio.length > 0) {
+        if (response.listaPerdio != 'undefined') {
+            if (response.listaPerdio.length > 0) {
                 $("#contenido_zona_dorada").show();
                 $("#block_inscribete").show();
                 $("#divOfertaProductosPerdio").show();
 
-                objData.lista = response.listaOfertasPerdio;
+                objData.lista = response.listaPerdio;
 
                 SetHandlebars("#producto-landing-template", objData, '#divOfertaProductosPerdio');
             }
         }
 
-        $("#spnCantidadFiltro").html(response.listaOfertas.length);
-        $("#spnCantidadTotal").html(response.totalOfertas);
+        $("#spnCantidadFiltro").html(limite);
+        $("#spnCantidadTotal").html(response.cantidadTotal0);
 
-        if (response.listaSubCampania != 'undefined') {
-            if (response.listaSubCampania.length > 0) {
-                $.each(response.listaSubCampania,
-                    function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(30, true); });
+        if (typeof listaSubcampania !== 'undefined') {
+            if (listaSubcampania.length > 0) {
+                $.each(listaSubcampania,
+                    function (i, v) { v.DescripcionCompleta = IfNull(v.DescripcionCompleta, '').SubStrToMax(30, true); });
 
-                var dataSub = new Object(); 
-                dataSub.CantidadProductos = response.listaSubCampania.length;
-                dataSub.Lista = AsignarPosicionAListaOfertas(response.listaSubCampania);
+                var dataSub = new Object(); );
+                dataSub.CantidadProductos = listaSubcampania.length;
+                dataSub.Lista = AsignarPosicionAListaOfertas(listaSubcampania);
 
                 SetHandlebars("#template-showroom-subcampanias-mobile", dataSub, "#contenedor-showroom-subcampanias-mobile");
                 $('#divContentSubCampania').show();
@@ -520,7 +533,6 @@ function ConstruirDescripcionOferta(arrDescripcion) {
     var descripcion = "";
     if (arrDescripcion != null) {
         $.each(arrDescripcion, function (index, value) {
-
             descripcion += value.Descripcion + "<br />";
         });
     }

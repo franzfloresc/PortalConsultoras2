@@ -2565,6 +2565,7 @@ namespace Portal.Consultoras.Common
             public const int HVObtenerProductos = 4;
             public const int OPTObtenerProductos = 5;
             public const int MGObtenerProductos = 6;
+            public const int SRObtenerProductos = 7;
         };
 
         #region PagoEnLinea

@@ -331,7 +331,6 @@ namespace Portal.Consultoras.Web.Providers
 
             if (!SessionManager.GetMostrarShowRoomProductos())
             {
-
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
                 seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
 

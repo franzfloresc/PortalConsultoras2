@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-        string sap = "";
+            string sap = "";
             var url = (Request.Url.Query).Split('?');
             
             if (EsDispositivoMovil()) 
