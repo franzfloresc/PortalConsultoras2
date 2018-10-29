@@ -951,7 +951,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult UpdateTransaction(PedidoWebDetalleModel model)
         {
             string tipo = string.Empty;
-            bool modificoBackOrder = false;
             string totalFormato = string.Empty;
             var txtBuildCliente = new StringBuilder();
 
@@ -987,6 +986,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                 var FormatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
+                txtBuildCliente.Append(PedidoWebTotalClienteFormato(model.ClienteID_, pedidoWebDetalle));
+
                 ObtenerPedidoWeb();
 
                 return Json(new
@@ -999,8 +1000,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ClienteID_,
                     userData.Simbolo,
                     extra = "",
-                    tipo,
-                    modificoBackOrder,
+                    tipo = "U",
+                    modificoBackOrder = pedidoDetalleResult.ModificoBackOrder,
                     DataBarra = GetDataBarra(),
                     cantidadTotalProductos = CantidadTotalProductos
                 }, JsonRequestBehavior.AllowGet);
@@ -1011,9 +1012,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
-                    tituloMensaje = pedidoDetalleResult.TituloMensaje,
-                    errorInsertarProducto = "1"
+                    message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta
                 }, JsonRequestBehavior.AllowGet);
             }
         }

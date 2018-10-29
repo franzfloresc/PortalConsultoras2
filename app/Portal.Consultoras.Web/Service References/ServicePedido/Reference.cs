@@ -14174,6 +14174,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string MensajeRespuestaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ModificoBackOrderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TituloMensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -14227,6 +14230,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.MensajeRespuestaField, value) != true)) {
                     this.MensajeRespuestaField = value;
                     this.RaisePropertyChanged("MensajeRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ModificoBackOrder {
+            get {
+                return this.ModificoBackOrderField;
+            }
+            set {
+                if ((this.ModificoBackOrderField.Equals(value) != true)) {
+                    this.ModificoBackOrderField = value;
+                    this.RaisePropertyChanged("ModificoBackOrder");
                 }
             }
         }

@@ -18,5 +18,7 @@ namespace Portal.Consultoras.Entities.Pedido
         public List<string> listCuvEliminar { get; set; }
         [DataMember]
         public BEPedidoWebDetalle pedidoWebDetalle { get; set; }
+        [DataMember]
+        public bool ModificoBackOrder { get; set; }
     }
 }
