@@ -84,10 +84,10 @@ var ConstantesModule = (function () {
         DesktopContenedorGanadorasFicha: "1081402",
         DesktopLandingGanadorasGanadorasCarrusel: "1111401",
         DesktopLandingGanadorasGanadorasFicha: "1111402",
-        MobileContenedorGanadorasCarrusel: "1081401",
-        MobileContenedorGanadorasFicha: "1081402",
-        MobileLandingGanadorasGanadorasCarrusel: "1111401",
-        MobileLandingGanadorasGanadorasFicha: "1111402"
+        MobileContenedorGanadorasCarrusel: "2081401",
+        MobileContenedorGanadorasFicha: "2081402",
+        MobileLandingGanadorasGanadorasCarrusel: "2111401",
+        MobileLandingGanadorasGanadorasFicha: "2111402"
     }
     
     return {
