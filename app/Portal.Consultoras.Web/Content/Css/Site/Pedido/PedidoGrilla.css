@@ -1,4 +1,17 @@
-﻿/*ESTILO PARA PEDIDOS*/
+﻿#penmostreo {
+    cursor: pointer;
+}
+
+#pedmostreo {
+    cursor: pointer;
+    font-size: 17px;
+}
+
+h1#penmostreo .campana {
+    margin-top: 10px;
+}
+
+/*ESTILO PARA PEDIDOS*/
 .pedido_left {
     float: left;
 }
