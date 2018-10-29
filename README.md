@@ -1,5 +1,6 @@
 # Portal Consultoras SB2
 
-PI2-EPM-Sprint2-Pase22102018
+PI2-EPM-Sprint3-Pase31102018
 
-Sprint 1 Tipos Analytics + Sprint 1 A/B TEsting + LasMasGanadoras + CompositorImagenes + OrigenPedidoWeb + ETL
+Ajuste de precios
+HU BPT 1618,1605,1617
