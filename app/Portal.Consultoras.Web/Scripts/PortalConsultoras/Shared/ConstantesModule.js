@@ -78,7 +78,7 @@ var ConstantesModule = (function () {
         //OfertaDelDiaDesktopGeneralBanner: "1991",
         DesktopHomeOfertaDeliaBannerSuperior: "1010306",
         DesktopPedidoOfertaDelDiaBannerSuperior: "1020306",
-        DesktopOtrasOfertaDelDiaBannerSuperior: "1090306"
+        DesktopOtrasOfertaDelDiaBannerSuperior: "1090306",
 
         MasGanadorasDesktopContenedorCarrusel: "1081401",
         MasGanadorasDesktopContenedorCarruselFicha: "1081402",
