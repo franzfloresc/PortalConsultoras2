@@ -459,5 +459,8 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListaRango(List<List<BEEstadoServicio>> val);
 
         List<List<BEEstadoServicio>> GetListaRango();
+
+        List<string> GetListCuvArmaTuPack();
+        void SetListCuvArmaTuPack(List<string> listCuvArmaTuPack);
     }
 }

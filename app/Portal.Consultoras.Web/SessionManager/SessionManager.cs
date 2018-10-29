@@ -1249,5 +1249,8 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return ((BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosConfiguracionModel();
         }
+        
+        List<string> ISessionManager.GetListCuvArmaTuPack() { return (List<string>)HttpContext.Current.Session["ListCuvArmaTuPack"]; }
+        void ISessionManager.SetListCuvArmaTuPack(List<string> listCuvArmaTuPack) { HttpContext.Current.Session["ListCuvArmaTuPack"] = listCuvArmaTuPack; }
     }
 }

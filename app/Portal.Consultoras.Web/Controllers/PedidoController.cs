@@ -544,6 +544,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (mensajeError != "") return ErrorJson(mensajeError, true);
             }
 
+            mensajeError = ValidarStockArmaTuPackMensaje(model.CUV, Convert.ToInt32(model.Cantidad));
+            if (mensajeError != "") return ErrorJson(mensajeError, true);
+
             if (esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
             return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso, !string.IsNullOrEmpty(mensajeAviso)));
         }
@@ -1509,6 +1512,7 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     }
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
+                    if (mensaje == "") mensaje = ValidarStockArmaTuPackMensaje(CUV, intCantidad);
                     valido = mensaje == "";
                 }
 
@@ -4393,7 +4397,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     mensaje = svc.ValidarStockEstrategia(entidad);
                 }
-
                 mensaje = Util.Trim(mensaje);
             }
             catch (FaultException ex)
@@ -4407,7 +4410,41 @@ namespace Portal.Consultoras.Web.Controllers
 
             mensaje = mensaje == "OK" ? "" : mensaje;
             return mensaje;
+        }
+        
+        private string ValidarStockArmaTuPackMensaje(string cuv, int cantidad)
+        {
+            if (!GetListCuvArmaTuPack().Contains(cuv)) return "";
+            if (cantidad > 1) return string.Format(Constantes.ArmaTuPackMensajes.ExcedioLimite, 1);
 
+            var cantidadPedido = ObtenerPedidoWebDetalle().Where(d => d.CUV == cuv).Sum(d => d.Cantidad);
+            if (cantidadPedido > 0) return string.Format(Constantes.ArmaTuPackMensajes.ExcedioLimite, 1);
+
+            return "";
+        }
+
+        private List<string> GetListCuvArmaTuPack()
+        {
+            if (SessionManager.GetListCuvArmaTuPack() != null) return SessionManager.GetListCuvArmaTuPack();
+            try
+            {
+                var consultoraNuevas = Mapper.Map<BEConsultoraProgramaNuevas>(userData);
+                using (var sv = new SACServiceClient())
+                {
+                    var a = sv.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.ArmaTuPack).ToList();
+                    var c = a.FirstOrDefault(b => b.Codigo == Constantes.TablaLogicaDato.ArmaTuPack.ListCuv);
+                    var d = c != null ? c.Valor.Trim() : "";
+                    var e = d != "" ? d.Split(new char[] { ',', ';' }).ToList() : new List<string>();
+                    
+                    SessionManager.SetListCuvArmaTuPack(e ?? new List<string>());
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                SessionManager.SetListCuvArmaTuPack(new List<string>());
+            }
+            return SessionManager.GetListCuvArmaTuPack();
         }
 
         private JsonResult AgregarProductoVC(string listaCuvTonos, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")

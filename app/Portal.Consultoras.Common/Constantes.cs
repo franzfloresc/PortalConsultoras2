@@ -179,6 +179,10 @@ namespace Portal.Consultoras.Common
             public const int ActualizaEscalaDescuentoDestokp = 7201;
             public const int ActualizaEscalaDescuentoMobile = 7301;
 
+            public static class ArmaTuPack
+            {
+                public const string ListCuv = "ListCuv";
+            }
         }
 
         public static class ParametrosNames
@@ -1688,6 +1692,7 @@ namespace Portal.Consultoras.Common
             public const short EscalaDescuentoDestokp = 72;
             public const short EscalaDescuentoMobile = 73;
             public const short ListaOrdenamientoFiltros = 147;
+            public const short ArmaTuPack = 14;
         }
 
         public struct MensajesCDRExpress
@@ -2938,6 +2943,10 @@ namespace Portal.Consultoras.Common
         {
             public const string VerificacionCambioClave = "VF_CAMBIO_CLAVE";
         }
-
+        
+        public static class ArmaTuPackMensajes
+        {
+            public const string ExcedioLimite = "LAS UNIDADES INGRESADAS EXCEDEN EL MAXIMO PERMITIDO ({0}) EN ESTA CAMPAÑA.";
+        }
     }
 }
