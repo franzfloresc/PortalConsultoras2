@@ -198,7 +198,7 @@ function SeccionCargarProductos(objConsulta) {
     $.ajaxSetup({
         cache: false
     });
-    debugger;
+
     $.ajax({
         type: 'post',
         url: baseUrl + objConsulta.UrlObtenerProductos,

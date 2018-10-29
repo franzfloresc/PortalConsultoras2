@@ -160,11 +160,17 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
                             break;
                         case Constantes.ConfiguracionPais.ShowRoom:
-                            ConfiguracionSeccionShowRoom(ref seccion, isMobile);
-                            if (seccion.UrlLandig == "")
-                                continue;
+                            seccion.UrlObtenerProductos = "Estrategia/SRObtenerProductos";
+                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "ShowRoom";
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MasGanadorasMobileContenedorCarruselFicha : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MasGanadorasMobileContenedorCarruselFicha : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarruselFicha;
+                            //seccion.VerMas = SessionManager.MasGanadoras.GetModel().TieneLanding;
 
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.ShowRoomMobileContenedor : Constantes.OrigenPedidoWeb.ShowRoomDesktopContenedor;
+                            //ConfiguracionSeccionShowRoom(ref seccion, isMobile);
+                            //if (seccion.UrlLandig == "")
+                            //    continue;
+
+                            //seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.ShowRoomMobileContenedor : Constantes.OrigenPedidoWeb.ShowRoomDesktopContenedor;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
                             var estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
@@ -345,7 +351,8 @@ namespace Portal.Consultoras.Web.Providers
             else
             {
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom";
-                seccion.UrlObtenerProductos = esMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
+                //seccion.UrlObtenerProductos = esMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
+                seccion.UrlObtenerProductos = esMobile ? "" : "Estrategia/SRObtenerProductos";
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =
