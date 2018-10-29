@@ -505,6 +505,7 @@ namespace Portal.Consultoras.Web.Providers
                 listModel = new List<ServiceOferta.BEEstrategia>();
                 if (esRevistaDigital) AddEstrategiaLanzamiento(listModel, esMobile);
                 if (limitarEspacioNuevas) LimitarEspacioNuevas(listModel, listEstrategias, esRevistaDigital, esBannerProgNuevas);
+                if (listModel.Count == 0) listModel = listEstrategias;
                 SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, listModel);
             }
             return ConsultarEstrategiasFormatoEstrategiaToModel1(listModel, user.CodigoISO, user.CampaniaID);
