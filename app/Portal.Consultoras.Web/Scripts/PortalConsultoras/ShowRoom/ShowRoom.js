@@ -4,7 +4,7 @@ Mobile      => 2: Index    | 21: Detalle Oferta
 */
 var tipoOrigenPantalla = tipoOrigenPantalla || "";
 var origenPedidoWeb = origenPedidoWeb || 0;
-var origenPedidoWebTactica = origenPedidoWebTactica || 0;
+//var origenPedidoWebTactica = origenPedidoWebTactica || 0;
 var origenPedidoWebCarrusel = origenPedidoWebCarrusel || 0;
 var showRoomOrigenInsertar = showRoomOrigenInsertar || 0;
 
