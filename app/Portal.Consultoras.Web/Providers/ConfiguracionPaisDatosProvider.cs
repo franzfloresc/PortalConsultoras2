@@ -87,17 +87,17 @@ namespace Portal.Consultoras.Web.Providers
         {
             switch (seccion)
             {
-                case Constantes.OrigenPedidoWeb.DesktopHome:
+                case Constantes.OrigenPedidoWeb.SectionBptDesktopHome:
                     return ObtenerKeyHomePorEstado(estado, false);
-                case Constantes.OrigenPedidoWeb.DesktopPedido:
+                case Constantes.OrigenPedidoWeb.SectionBptDesktopPedido:
                     return ObtenerKeyPedidoPorEstado(estado, false);
-                case Constantes.OrigenPedidoWeb.DesktopCatalogo:
+                case Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo:
                     return ObtenerKeyCatalogoPorEstado(estado, false);
-                case Constantes.OrigenPedidoWeb.MobileHome:
+                case Constantes.OrigenPedidoWeb.SectionBptMobileHome:
                     return ObtenerKeyHomePorEstado(estado, true);
-                case Constantes.OrigenPedidoWeb.MobilePedido:
+                case Constantes.OrigenPedidoWeb.SectionBptMobilePedido:
                     return ObtenerKeyPedidoPorEstado(estado, true);
-                case Constantes.OrigenPedidoWeb.MobileCatalogo:
+                case Constantes.OrigenPedidoWeb.SectionBptMobileCatalogo:
                     return ObtenerKeyCatalogoPorEstado(estado, true);
                 default:
                     return ObtenerKeyHomePorEstado(estado, false);
