@@ -314,6 +314,9 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
@@ -704,6 +707,9 @@ VALUES ('4020402', 'App Consultora Pedido Oferta Final Ficha', '4', 'App Consult
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
@@ -1098,6 +1104,9 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
@@ -1488,6 +1497,9 @@ VALUES ('4020402', 'App Consultora Pedido Oferta Final Ficha', '4', 'App Consult
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
@@ -1882,6 +1894,9 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
@@ -2272,6 +2287,9 @@ VALUES ('4020402', 'App Consultora Pedido Oferta Final Ficha', '4', 'App Consult
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
@@ -2666,6 +2684,9 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
@@ -3056,6 +3077,9 @@ VALUES ('4020402', 'App Consultora Pedido Oferta Final Ficha', '4', 'App Consult
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
@@ -3450,6 +3474,9 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
@@ -3840,6 +3867,9 @@ VALUES ('4020402', 'App Consultora Pedido Oferta Final Ficha', '4', 'App Consult
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
@@ -4234,6 +4264,9 @@ INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesM
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
@@ -4624,6 +4657,9 @@ VALUES ('4020402', 'App Consultora Pedido Oferta Final Ficha', '4', 'App Consult
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('40210', 'App Consultora Pedido Digitado ', '4', 'App Consultora', '02', 'Pedido', '10', 'Digitado', '', '')
+
+INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
+VALUES ('4020701', 'App Consultora Pedido Producto Sugerido Carrusel', '4', 'App Consultora', '02', 'Pedido', '07', 'Producto Sugerido', '01', 'Carrusel')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb,DesOrigenPedidoWeb,CodMedio,DesMedio,CodZona,DesZona,CodSeccion,DesSeccion,CodPopup,DesPopup)
 VALUES ('4040002', 'App Consultora Buscador Ofertas Para Ti Ficha', '4', 'App Consultora', '04', 'Buscador', '00', 'Ofertas Para Ti', '02', 'Ficha')
