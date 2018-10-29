@@ -247,7 +247,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (SessionManager.GetBannerApp() == null)
             {
-                var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData);
+                var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData, EsDispositivoMovil());
                 SessionManager.SetBannerApp(lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora));
             }
 
