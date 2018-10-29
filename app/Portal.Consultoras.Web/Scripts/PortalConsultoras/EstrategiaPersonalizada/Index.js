@@ -329,7 +329,7 @@ function SeccionMostrarProductos(data) {
     //        }
     //        else {
     //            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadAMostrar);
-                $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal0);
+                //$("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal0);
     //            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
     //        }
     //        $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
@@ -362,9 +362,19 @@ function SeccionMostrarProductos(data) {
 
         if (data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+            var cantidadTotal = 0;
             var cantidadAMostrar = parseInt($("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html());
-            if (data.cantidadTotal <= cantidadAMostrar) {
-                $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadTotal);
+
+            if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
+                cantidadTotal = data.cantidadTotal0;
+            }
+            else {
+                cantidadTotal = data.cantidadTotal;
+            }
+
+            if (cantidadTotal <= cantidadAMostrar) {
+            //if (data.cantidadTotal <= cantidadAMostrar) {
+                $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(cantidadTotal);
                 if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
                     $("#" + data.Seccion.Codigo).find(sElementos.verMas).remove();
                     $("#" + data.Seccion.Codigo).find(sElementos.contadorProductos).remove();
@@ -377,7 +387,7 @@ function SeccionMostrarProductos(data) {
                     }
                 }
             }
-            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
+            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(cantidadTotal);
             $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
         }
         else

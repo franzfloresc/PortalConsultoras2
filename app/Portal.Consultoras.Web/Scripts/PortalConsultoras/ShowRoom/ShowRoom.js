@@ -473,7 +473,7 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
                 $.each(listaSubcampania,
                     function (i, v) { v.DescripcionCompleta = IfNull(v.DescripcionCompleta, '').SubStrToMax(30, true); });
 
-                var dataSub = new Object(); );
+                var dataSub = new Object(); //);
                 dataSub.CantidadProductos = listaSubcampania.length;
                 dataSub.Lista = AsignarPosicionAListaOfertas(listaSubcampania);
 

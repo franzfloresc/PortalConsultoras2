@@ -70,61 +70,61 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos);
         }
 
-        [HttpPost]
-        public JsonResult SRObtenerProductos(BusquedaProductoModel model)
-        {
-            return Json(new
-            {
-                success = true,
-                lista = new List<EstrategiaPersonalizadaProductoModel>() {
-                    new EstrategiaPersonalizadaProductoModel()
-                    {
-                        CUV2 = "31084",
-                        CampaniaID = 201816,
-                        ClaseEstrategia = "revistadigital-landing",
-                        CodigoEstrategia = "030",
-                        CodigoPalanca = "SR",
-                        CodigoVariante = Constantes.TipoEstrategiaSet.CompuestaVariable,
-                        DescripcionCompleta = "DescripcionCompleta",
-                        DescripcionCortada = "DescripcionCortada",
-                        DescripcionMarca = "Ésika",
-                        EsMultimarca = false,
-                        EsOfertaIndependiente = false,
-                        EsSubcampania = false,
-                        EstrategiaID = 30938,
-                        FlagNueva = 0,
-                        FotoProducto01 ="CL_2000845052018941791_ykfiapvjnk.png",
-                        Ganancia = 5890,
-                        GananciaString = "5.890",
-                        //Hermanos = ,
-                        ImagenURL = "",
-                        IsAgregado = false,
-                        //ListaDescripcionDetalle = ,
-                        //ListaPrecioNiveles = ,
-                        MarcaID = 2,
-                        Posicion = 0,
-                        Precio = 13380,
-                        Precio2 = 7490,
-                        PrecioTachado = "13.380",
-                        PrecioVenta = "7.490",
-                        TextoLibre = "",
-                        TienePaginaProducto = false,
-                        TienePaginaProductoMob = false,
-                        TipoAccionAgregar = 3,
-                        TipoEstrategiaDetalle = new EstrategiaDetalleModelo(){
-                            FlagIndividual = false
-                        },
+        //[HttpPost]
+        //public JsonResult SRObtenerProductos(BusquedaProductoModel model)
+        //{
+        //    return Json(new
+        //    {
+        //        success = true,
+        //        lista = new List<EstrategiaPersonalizadaProductoModel>() {
+        //            new EstrategiaPersonalizadaProductoModel()
+        //            {
+        //                CUV2 = "31084",
+        //                CampaniaID = 201816,
+        //                ClaseEstrategia = "revistadigital-landing",
+        //                CodigoEstrategia = "030",
+        //                CodigoPalanca = "SR",
+        //                CodigoVariante = Constantes.TipoEstrategiaSet.CompuestaVariable,
+        //                DescripcionCompleta = "DescripcionCompleta",
+        //                DescripcionCortada = "DescripcionCortada",
+        //                DescripcionMarca = "Ésika",
+        //                EsMultimarca = false,
+        //                EsOfertaIndependiente = false,
+        //                EsSubcampania = false,
+        //                EstrategiaID = 30938,
+        //                FlagNueva = 0,
+        //                FotoProducto01 ="CL_2000845052018941791_ykfiapvjnk.png",
+        //                Ganancia = 5890,
+        //                GananciaString = "5.890",
+        //                //Hermanos = ,
+        //                ImagenURL = "",
+        //                IsAgregado = false,
+        //                //ListaDescripcionDetalle = ,
+        //                //ListaPrecioNiveles = ,
+        //                MarcaID = 2,
+        //                Posicion = 0,
+        //                Precio = 13380,
+        //                Precio2 = 7490,
+        //                PrecioTachado = "13.380",
+        //                PrecioVenta = "7.490",
+        //                TextoLibre = "",
+        //                TienePaginaProducto = false,
+        //                TienePaginaProductoMob = false,
+        //                TipoAccionAgregar = 3,
+        //                TipoEstrategiaDetalle = new EstrategiaDetalleModelo(){
+        //                    FlagIndividual = false
+        //                },
 
-                    }
-                },
-                campaniaId = model.CampaniaID,
-                cantidadTotal = 500,
-                cantidad = 500,
-                codigo = "030",
-                codigoOrigen = model.Codigo
-                //objBannerCajaProducto
-            });
-        }
+        //            }
+        //        },
+        //        campaniaId = model.CampaniaID,
+        //        cantidadTotal = 500,
+        //        cantidad = 500,
+        //        codigo = "030",
+        //        codigoOrigen = model.Codigo
+        //        //objBannerCajaProducto
+        //    });
+        //}
 
 
 
