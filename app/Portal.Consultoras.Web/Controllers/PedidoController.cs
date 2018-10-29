@@ -1018,6 +1018,95 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+
+        [HttpPost]
+        public async Task<JsonResult> DeleteTransaction(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder, int setId)
+        {
+
+            var lastResult = new Tuple<bool, JsonResult>(false, Json(new { })); 
+ 
+            BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+            pedidoDetalle.Producto = new ServicePedido.BEProducto();
+            pedidoDetalle.SetID = setId;
+            pedidoDetalle.PedidoDetalleID = PedidoDetalleID;
+            pedidoDetalle.PedidoID = PedidoID;            
+            pedidoDetalle.Producto.TipoOfertaSisID = TipoOfertaSisID;
+            pedidoDetalle.Producto.CUV = Util.Trim(CUV);
+            pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+            pedidoDetalle.Cantidad = Convert.ToInt32(Cantidad);
+            pedidoDetalle.PaisID = userData.PaisID;
+            pedidoDetalle.IPUsuario = GetIPCliente();
+            pedidoDetalle.ClienteID = string.IsNullOrEmpty(ClienteID) ? (short)0 : Convert.ToInt16(ClienteID);
+            pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+
+            var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
+            var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
+            var pedidoAgrupado = listaPedidoWebDetalleAgrupado.FirstOrDefault(x => x.CUV == CUV) ?? new BEPedidoWebDetalle();
+            var pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
+            if (pedidoEliminado == null)
+                lastResult = new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste));
+
+            pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)
+                ? pedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";      
+
+            bool errorServer = false;
+
+            string tipo= string.Empty; 
+
+            var result = await _pedidoWebProvider.EliminarPedidoDetalle2(pedidoDetalle);
+
+            errorServer = result.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS;
+            tipo = result.MensajeRespuesta;
+
+            SessionManager.SetDetallesPedido(null);
+            SessionManager.SetDetallesPedidoSetAgrupado(null);
+            var olstPedidoWebDetalle = ObtenerPedidoWebDetalle(); 
+           
+            var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+            var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
+            var formatoTotalCliente = "";
+
+            if (olstPedidoWebDetalle.Any()) formatoTotalCliente = PedidoWebTotalClienteFormato(ClienteID, olstPedidoWebDetalle);
+
+            var listaCliente = ListarClienteSegunPedido("", olstPedidoWebDetalle);
+
+            SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
+
+            var message = !errorServer ? "OK"
+                        : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.";
+     
+            //Validar si el cuv sigue agregado
+            var EsAgregado = ValidarEsAgregado(pedidoAgrupado);
+
+            lastResult = new Tuple<bool, JsonResult>(!errorServer, Json(new
+            {           
+                success = !errorServer,
+                message,
+                formatoTotal,
+                total,
+                formatoTotalCliente,
+                listaCliente,
+                tipo,
+                EsAgregado,
+                DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                data = new
+                {
+                    DescripcionProducto = pedidoEliminado.DescripcionProd,
+                    pedidoEliminado.CUV,
+                    Precio = pedidoEliminado.PrecioUnidad.ToString("F"),
+                    DescripcionMarca = pedidoEliminado.DescripcionLarga,
+                    pedidoEliminado.DescripcionOferta,
+                    pedidoEliminado.TipoEstrategiaID,
+                    pedidoAgrupado.EstrategiaId,
+                    pedidoAgrupado.TipoEstrategiaCodigo
+                },
+                cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad)
+            }));
+
+            return lastResult.Item2;
+
+        }
+
         [HttpPost]
         public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder, int setId)
         {
@@ -1230,7 +1319,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeleteAll()
+        public async Task<JsonResult> DeleteAll()
         {
             string message;
             try
@@ -1238,30 +1327,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (ReservadoEnHorarioRestringido(out message)) return ErrorJson(message, true);
 
                 var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
-                using (var sv = new PedidoServiceClient())
-                {
-                    if (!sv.DelPedidoWebDetalleMasivo(usuario, userData.PedidoID)) return ErrorJson(Constantes.MensajesError.Pedido_DeleteAll, true);
-                }
-
-                var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
-                var setIds = pedidoWebDetalle.Select(d => d.SetID);
-
-                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                {
-                    PaisId = userData.PaisID,
-                    CampaniaId = userData.CampaniaID,
-                    ConsultoraId = userData.ConsultoraID,
-                    Consultora = userData.NombreConsultora,
-                    EsBpt = false,   //no se usa
-                    CodigoPrograma = userData.CodigoPrograma,
-                    NumeroPedido = userData.ConsecutivoNueva,
-                    AgruparSet = true
-                };
-                foreach (var setId in setIds)
-                {
-                    _pedidoSetProvider.EliminarSet(userData.PaisID, setId, bePedidoWebDetalleParametros);
-                }
-
+                var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
+                //BEPedidoDetalle
+                BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+                pedidoDetalle.PedidoID = listaPedidoWebDetalle.FirstOrDefault().PedidoID;
+                pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                pedidoDetalle.PaisID = userData.PaisID;
+                pedidoDetalle.IPUsuario = GetIPCliente();
+                pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+                var olstPedidoWebDetalle2 = await _pedidoWebProvider.EliminarPedidoDetalle2(pedidoDetalle);
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);

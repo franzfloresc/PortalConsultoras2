@@ -1881,7 +1881,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
     jQuery.ajax({
         type: "POST",
-        url: baseUrl + "Pedido/Delete",
+        url: baseUrl + "Pedido/DeleteTransaction",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(param),

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -291,6 +292,17 @@ namespace Portal.Consultoras.Web.Providers
             using (var pedidoServiceClient = new PedidoServiceClient())
             {
                 pedidoDetalleResult = pedidoServiceClient.UpdatePedidoDetalle(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
+        public async Task<BEPedidoDetalleResult> EliminarPedidoDetalle2(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = await pedidoServiceClient.DeletePedidoAsync(pedidoDetalle);
             }
 
             return pedidoDetalleResult;
