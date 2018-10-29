@@ -28656,17 +28656,17 @@ div.motivoRechazo textarea {
     border-left: 1px solid #d4d4d4;
 }
 
-#penmostreo {
+/*#penmostreo {
     cursor: pointer;
 }
 
 #pedmostreo {
     cursor: pointer;
-}
+}*/
 
-h1#penmostreo .campana {
+/*h1#penmostreo .campana {
     margin-top: 10px;
-}
+}*/
 
 #slide1_images .img_slide2Pedido {
     background: url('/Content/Images/Esika/tutorialPedido/esika_tutorial2.jpg') no-repeat center top;
