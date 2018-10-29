@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 IdCurso = SessionManager.GetMiAcademia();
                 FlagVideo = SessionManager.GetMiAcademiaVideo();
-                parametrosSap = SessionManager.GetMiAcademiaParametro();  //PPC
+                parametrosSap = SessionManager.GetMiAcademiaParametro();
                 SessionManager.SetMiAcademia(0);
                 SessionManager.SetMiAcademiaVideo(0);
 

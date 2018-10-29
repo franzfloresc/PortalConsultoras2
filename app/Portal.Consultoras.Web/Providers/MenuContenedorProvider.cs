@@ -247,41 +247,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return configuracionPaisMenu;
         }
-
-        //public string GetMenuActivoOptCodigoSegunActivo(string pathOrigen, RevistaDigitalModel revistaDigital, string CodigoConsultora, string CodigoISO)
-        //{
-        //    var codigo = "";
-        //    try
-        //    {
-        //        var origrn = int.Parse(pathOrigen);
-        //        switch (origrn)
-        //        {
-        //            case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
-        //                codigo = Constantes.ConfiguracionPais.Lanzamiento;
-        //                break;
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoLanzamiento:
-        //                codigo = Constantes.ConfiguracionPais.Lanzamiento;
-        //                break;
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionMasOfertas:
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas:
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
-        //                codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
-        //                break;
-        //            case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
-        //            case Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido:
-        //                codigo = Constantes.ConfiguracionPais.OfertasParaTi;
-        //                break;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Common.LogManager.SaveLog(ex, CodigoConsultora, CodigoISO);
-        //    }
-        //    return codigo;
-        //}
-
+        
         public List<ConfiguracionPaisModel> GetMenuContenedorByMenuActivoCampania(int campaniaIdMenuActivo, int campaniaIdUsuario, UsuarioModel userData, RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, bool esMobile)
         {
             var menuContenedor = BuildMenuContenedor(userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
