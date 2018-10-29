@@ -1239,7 +1239,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora);
 
         [OperationContract]
-        BEPagoEnLineaRespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa);
+        BERespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa);
 
         #endregion
 

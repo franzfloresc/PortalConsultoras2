@@ -2687,7 +2687,6 @@ namespace Portal.Consultoras.Common
         {
             public const string OrigenDesktop = "Desktop";
             public const string OrigeMobile = "Mobile";
-            public const string OrigeAppConsultora = "APPConsultoras";
         }
 
         #endregion

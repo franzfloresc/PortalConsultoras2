@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic.PagoEnlinea
 {
-    public class BLPagoEnLinea
+    public class BLPagoEnLinea : IPagoEnLineaBusinessLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
 
@@ -256,7 +256,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                         .Select(p => p.Valor).FirstOrDefault() ?? string.Empty;
         }
 
-        public BEPagoEnLineaRespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa) {
+        public BERespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa) {
             
             //Guardar el Log de Pago en Linea
             var bePagoEnLinea = GenerarEntidadPagoEnLineaLog(usuario, pagoEnLineaVisa);
@@ -374,7 +374,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             return bePagoEnLinea;
         }
 
-        private BEPagoEnLineaRespuestaServicio PagoEnLineaRespuestaServicio(string code, string message = null, decimal? saldoPendiente = null)
+        private BERespuestaServicio PagoEnLineaRespuestaServicio(string code, string message = null, decimal? saldoPendiente = null)
         {
             if (string.IsNullOrEmpty(message))
             {
@@ -382,11 +382,11 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                                     Constantes.PagoEnLineaRespuestaServicio.Message[code] : message;
             }
 
-            return new BEPagoEnLineaRespuestaServicio()
+            return new BERespuestaServicio()
             {
                 Code = code,
                 Message = message,
-                SaldoPendiente = saldoPendiente
+                Data = saldoPendiente
             };
         }
 
