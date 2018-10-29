@@ -17,6 +17,7 @@ namespace Portal.Consultoras.Data.PagoEnLinea
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertPagoEnLineaResultadoLog");
             Context.Database.AddOutParameter(command, "@PagoEnLineaResultadoLogId", DbType.Int32, 4);
+            Context.Database.AddOutParameter(command, "@Accion", DbType.Int32, 4);
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, entidad.ConsultoraId);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, entidad.CodigoConsultora);
             Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, entidad.NumeroDocumento);
@@ -62,10 +63,13 @@ namespace Portal.Consultoras.Data.PagoEnLinea
             Context.Database.AddInParameter(command, "@FechaNacimiento", DbType.DateTime, entidad.FechaNacimiento == default(DateTime) ? DBNull.Value : (object)entidad.FechaNacimiento);
             Context.Database.AddInParameter(command, "@Correo", DbType.AnsiString, entidad.Correo);
             Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, entidad.Celular);
+            Context.Database.AddInParameter(command, "@Origen", DbType.AnsiString, entidad.Origen);
 
             Context.ExecuteNonQuery(command);
 
-            return Convert.ToInt32(command.Parameters["@PagoEnLineaResultadoLogId"].Value);
+            entidad.PagoEnLineaResultadoLogId =  Convert.ToInt32(command.Parameters["@PagoEnLineaResultadoLogId"].Value);
+
+            return Convert.ToInt32(command.Parameters["@Accion"].Value);
         }
 
         public string ObtenerTokenTarjetaGuardadaByConsultora(string codigoConsultora)
@@ -175,6 +179,13 @@ namespace Portal.Consultoras.Data.PagoEnLinea
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ObtenerPagoEnLineaURLPaginasBancos");
             return Context.ExecuteScalar(command).ToString();
+        }
+
+        public IDataReader ObtenerPagoEnLineaBancos()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaBancos");
+
+            return Context.ExecuteReader(command);
         }
     }
 }

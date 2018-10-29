@@ -28,6 +28,12 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         public string TipoTarjeta { get; set; }
         [DataMember]
         public bool Estado { get; set; }
+        [DataMember]
+        public decimal? PorcentajeGastosAdministrativos { get; set; }
+        [DataMember]
+        public string PagoEnLineaGastosLabel { get; set; }
+        [DataMember]
+        public decimal? MontoMinimoPago { get; set; }
 
         #region Variables Externas
 
