@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Models
     {
         public int total { get; set; }
         public IList<Productos> productos { get; set; }
-        public Filtros filtros { get; set; }
+        //public Filtros filtros { get; set; }
     }
 
     public class Filtros
