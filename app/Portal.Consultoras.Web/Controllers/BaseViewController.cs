@@ -154,8 +154,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult MasGanadorasViewLanding()
         {
-            // tipo es para caso campaña actual (1) y campaña siguiente (2)
-            //var id = tipo == 1 ? userData.CampaniaID : Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
             var id = userData.CampaniaID;
 
             bool esMobile = IsMobile();
