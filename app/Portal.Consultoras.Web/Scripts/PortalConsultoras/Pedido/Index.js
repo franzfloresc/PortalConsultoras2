@@ -172,6 +172,7 @@ $(document).ready(function () {
         if ($(this).val().length === 5) {
             BuscarByCUV($(this).val());
         } else {
+            $("#divProductoAgotadoFinal").hide(); 
             $("#hdfCUV").val("");
             $("#divObservaciones").html("");
         }
@@ -343,13 +344,16 @@ $(document).ready(function () {
             }
         });
 
+        BloquearPantallaPedidoByPopupSugerido('');
         $("#divProductoAgotadoFinal").hide();
+
 
     });
     $("body").on("click", "[data-close='divProductoAgotadoFinal']", function () {
         InsertarDemandaTotalReemplazoSugerido(null, 0, 1, false);
         limpiarInputsPedido();
-        
+
+        BloquearPantallaPedidoByPopupSugerido('');
         $("#divProductoAgotadoFinal").hide();
         dataLayer.push({
             'event': "virtualEvent",
@@ -1372,7 +1376,8 @@ function ObtenerProductosSugeridos(CUV) {
 
             $("#divCarruselSugerido").html("");
 
-            $("#divProductoAgotadoFinal").show();
+            BloquearPantallaPedidoByPopupSugerido('none');
+            $("#divProductoAgotadoFinal").show();            
 
             SetHandlebars("#js-CarruselSugerido", lista, "#divCarruselSugerido");
 
@@ -3643,5 +3648,11 @@ var PedidoProvider = function () {
         PedidoEjecutarServicioProlPromise: _pedidoEjecutarServicioProlPromise
     };
 }();
+
+function BloquearPantallaPedidoByPopupSugerido(valor) {
+    $('.pedido_ingreso_c2').css('pointer-events', valor);
+    $('.content_T_T').css('pointer-events', valor);
+    $('#divListaEstrategias').css('pointer-events', valor);
+}
 
 
