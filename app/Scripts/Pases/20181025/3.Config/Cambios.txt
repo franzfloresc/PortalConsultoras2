@@ -4,7 +4,9 @@ Agregar:
 
 	<add key="JwtUsuario" value="userPortalSomosBelcorp" />
 	<add key="JwtPassword" value="Belcorp2018" />
-
+    <add key="RevistaPiloto_Grupos_CL201817" value="ESCrdr1,ESCrdr2" />
+    <add key="RevistaPiloto_Zonas_CL201817_ESCrdr1" value="1110, 1112,1408,1511,1707" />
+    <add key="RevistaPiloto_Zonas_CL201817_ESCrdr2" value="1106, 1116, 1209, 1521, 1714" />
 1.1.WSConsultoras
 
 Agregar:
@@ -23,3 +25,11 @@ Agregar:
 	<add key="PaisesMicroservicioPersonalizacion" value="PE,CL,CR,CO" />
 	<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="101,007,008,009" />
 	<!--Fin Microservicio-mongoDB-->
+
+1.2 PortalConsultoras2WCF
+
+Agregar:
+
+    <add key="RevistaPiloto_Grupos_CL201817" value="ESCrdr1,ESCrdr2" />
+    <add key="RevistaPiloto_Zonas_CL201817_ESCrdr1" value="1110, 1112,1408,1511,1707" />
+    <add key="RevistaPiloto_Zonas_CL201817_ESCrdr2" value="1106, 1116, 1209, 1521, 1714" />
