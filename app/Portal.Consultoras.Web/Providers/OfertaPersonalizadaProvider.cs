@@ -492,52 +492,61 @@ namespace Portal.Consultoras.Web.Providers
                 bool esBannerProgNuevas = TienElecMultipleConfigurado(esMobile, user);
                 SessionManager.SetMostrarBannerNuevas(esBannerProgNuevas);
 
-                listModel = ConsultarEstrategias(esMobile, 0, codAgrupacion, true, !esBannerProgNuevas);
-                if (!listModel.Any())
+                var listEstrategias = ConsultarEstrategias(esMobile, 0, codAgrupacion, true, !esBannerProgNuevas);
+                if (!listEstrategias.Any())
                 {
-                    SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, listModel);
+                    SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, listEstrategias);
                     return new List<EstrategiaPedidoModel>();
                 }
 
-                #region Validar Tipo RD 
+                bool esRevistaDigital = codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital;
+                bool limitarEspacioNuevas = esBannerProgNuevas || esRevistaDigital;
 
-                if (codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
-                {
-                    var listModelLan = ConsultarEstrategias(esMobile, 0, Constantes.TipoEstrategiaCodigo.Lanzamiento);
-                    var estrategiaLanzamiento = listModelLan.FirstOrDefault() ?? new ServiceOferta.BEEstrategia();
-                    
-                    var listaRevista = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList();
-                    if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
-                    {
-                        listaRevista = listaRevista.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-                    }
-                    var listaPackNueva = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
-
-                    var cantMax = espaciosCarrusel + 1;
-                    var cantPack = listaPackNueva.Any() ? 1 : 0;
-                    var espaciosRevista = Math.Min(cantMax - cantPack, listaRevista.Count);
-
-                    if (listaRevista.Count > espaciosRevista) 
-                    	listaRevista.RemoveRange(espaciosRevista, listaRevista.Count - espaciosRevista);
-                    	
-                    if (listaPackNueva.Any())
-                    {
-                        var espaciosNuevas = esBannerProgNuevas ? 1 : (cantMax - espaciosRevista);
-                        if (listaPackNueva.Count > espaciosNuevas) 
-                        	listaPackNueva.RemoveRange(espaciosNuevas, listaPackNueva.Count - espaciosNuevas);
-                    }
-
-                    listModel = new List<ServiceOferta.BEEstrategia>();
-                    if (estrategiaLanzamiento.EstrategiaID > 0) 
-                    	listModel.Add(estrategiaLanzamiento);
-                    listModel.AddRange(listaPackNueva);
-                    listModel.AddRange(listaRevista);
-                }
-                #endregion
-                
+                listModel = new List<ServiceOferta.BEEstrategia>();
+                if (esRevistaDigital) AddEstrategiaLanzamiento(listModel, esMobile);
+                if (limitarEspacioNuevas) LimitarEspacioNuevas(listModel, listEstrategias, esRevistaDigital, esBannerProgNuevas);
                 SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, listModel);
             }
             return ConsultarEstrategiasFormatoEstrategiaToModel1(listModel, user.CodigoISO, user.CampaniaID);
+        }
+        public List<ServiceOferta.BEEstrategia> GetListaRevistaCarrusel(List<ServiceOferta.BEEstrategia> listEstrategia, bool esRevistaDigital)
+        {
+            if (esRevistaDigital)
+            {
+                var listaRevista = listEstrategia.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList();
+                if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+                {
+                    listaRevista = listaRevista.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                }
+                return listaRevista;
+            }
+
+            return listEstrategia.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+        }
+        public void AddEstrategiaLanzamiento(List<ServiceOferta.BEEstrategia> listEstrategiaFinal, bool esMobile)
+        {
+            var listModelLan = ConsultarEstrategias(esMobile, 0, Constantes.TipoEstrategiaCodigo.Lanzamiento);
+            var estrategiaLanzamiento = listModelLan.FirstOrDefault() ?? new ServiceOferta.BEEstrategia();
+            if (estrategiaLanzamiento.EstrategiaID > 0) listEstrategiaFinal.Insert(0, estrategiaLanzamiento);
+        }
+        public void LimitarEspacioNuevas(List<ServiceOferta.BEEstrategia> listEstrategiaFinal, List<ServiceOferta.BEEstrategia> listEstrategia, bool esRevistaDigital, bool esBannerProgNuevas)
+        {
+            var listaPackNueva = listEstrategia.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+            var listaRevista = GetListaRevistaCarrusel(listEstrategia, esRevistaDigital);
+
+            var cantMax = espaciosCarrusel - listEstrategiaFinal.Count;
+            var cantPack = listaPackNueva.Any() ? 1 : 0;
+            var espaciosRevista = Math.Min(cantMax - cantPack, listaRevista.Count);
+
+            if (listaRevista.Count > espaciosRevista) listaRevista.RemoveRange(espaciosRevista, listaRevista.Count - espaciosRevista);
+            if (listaPackNueva.Any())
+            {
+                var espaciosNuevas = esBannerProgNuevas ? 1 : (cantMax - espaciosRevista);
+                if (listaPackNueva.Count > espaciosNuevas) listaPackNueva.RemoveRange(espaciosNuevas, listaPackNueva.Count - espaciosNuevas);
+            }
+
+            listEstrategiaFinal.AddRange(listaPackNueva);
+            listEstrategiaFinal.AddRange(listaRevista);
         }
 
         public List<EstrategiaPedidoModel> ValidBannerNuevas(bool esMobile, UsuarioModel user, List<EstrategiaPedidoModel> listEstrategia, bool bloquerBannerNuevas)
