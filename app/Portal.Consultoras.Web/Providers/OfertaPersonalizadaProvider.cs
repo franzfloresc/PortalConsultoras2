@@ -1303,7 +1303,6 @@ namespace Portal.Consultoras.Web.Providers
             switch (palanca)
             {
                 case Constantes.NombrePalanca.RevistaDigital:
-                case Constantes.NombrePalanca.PackNuevas:
                 case Constantes.NombrePalanca.OfertasParaMi:
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.RevistaDigital); break;
                 case Constantes.NombrePalanca.Lanzamiento:
@@ -1322,6 +1321,8 @@ namespace Portal.Consultoras.Web.Providers
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.OfertasParaTi); break;
                 case Constantes.NombrePalanca.MasGanadoras:
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.MasGanadoras); break;
+                case Constantes.NombrePalanca.PackNuevas:
+                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.ProgramaNuevas); break;
                 default:
                     tienePalanca = false; break;
             }
