@@ -872,56 +872,93 @@ namespace Portal.Consultoras.Common
             public const int DesktopBuscador = 19;
             public const int MobileBuscador = 29;
 
-            public const int OfertasParaTiDesktopBuscador = 1404;
-            public const int OfertasParaTiDesktopBuscadorFicha = 1402;
+            //public const int OfertasParaTiDesktopBuscador = 1404;
+            //public const int OfertasParaTiDesktopBuscadorFicha = 1402;
 
-            public const int OfertasParaTiMobileBuscador = 2404;
-            public const int OfertasParaTiMobileBuscadorFicha = 2402;
+            //public const int OfertasParaTiMobileBuscador = 2404;
+            //public const int OfertasParaTiMobileBuscadorFicha = 2402;
 
-            public const int EspecialesDesktopBuscador = 1414;
-            public const int EspecialesDesktopBuscadorFicha = 1412;
+            //public const int EspecialesDesktopBuscador = 1414;
+            //public const int EspecialesDesktopBuscadorFicha = 1412;
 
-            public const int EspecialesMobileBuscador = 2414;
-            public const int EspecialesMobileBuscadorFicha = 2412;
+            //public const int EspecialesMobileBuscador = 2414;
+            //public const int EspecialesMobileBuscadorFicha = 2412;
 
-            public const int LoNuevoNuevoDesktopBuscador = 1424;
-            public const int LoNuevoNuevoDesktopBuscadorFicha = 1422;
+            //public const int LoNuevoNuevoDesktopBuscador = 1424;
+            //public const int LoNuevoNuevoDesktopBuscadorFicha = 1422;
 
-            public const int LoNuevoNuevoMobileBuscador = 2424;
-            public const int LoNuevoNuevoMobileBuscadorFicha = 2422;
+            //public const int LoNuevoNuevoMobileBuscador = 2424;
+            //public const int LoNuevoNuevoMobileBuscadorFicha = 2422;
 
-            public const int OfertaSoloHoyDesktopBuscador = 1434;
-            public const int OfertaSoloHoyDesktopBuscadorFicha = 1432;
+            //public const int OfertaSoloHoyDesktopBuscador = 1434;
+            //public const int OfertaSoloHoyDesktopBuscadorFicha = 1432;
 
-            public const int OfertaSoloHoyMobileBuscador = 2434;
-            public const int OfertaSoloHoyMobileBuscadorFicha = 2432;
+            //public const int OfertaSoloHoyMobileBuscador = 2434;
+            //public const int OfertaSoloHoyMobileBuscadorFicha = 2432;
 
-            public const int GuiaNegocioDigitalDesktopBuscador = 1454;
-            public const int GuiaNegocioDigitalDesktopBuscadorFicha = 1452;
+            //public const int GuiaNegocioDigitalDesktopBuscador = 1454;
+            //public const int GuiaNegocioDigitalDesktopBuscadorFicha = 1452;
 
-            public const int GuiaNegocioDigitalMobileBuscador = 2454;
-            public const int GuiaNegocioDigitalMobileBuscadorFicha = 2452;
+            //public const int GuiaNegocioDigitalMobileBuscador = 2454;
+            //public const int GuiaNegocioDigitalMobileBuscadorFicha = 2452;
 
 
-            public const int HerramientaDeVentaDesktopBuscador = 1484;
-            public const int HerramientaDeVentaDesktopBuscadorFicha = 1482;
+            //public const int HerramientaDeVentaDesktopBuscador = 1484;
+            //public const int HerramientaDeVentaDesktopBuscadorFicha = 1482;
 
-            public const int HerramientaDeVentaMobileBuscador = 2484;
-            public const int HerramientaDeVentaMobileBuscadorFicha = 2482;
+            //public const int HerramientaDeVentaMobileBuscador = 2484;
+            //public const int HerramientaDeVentaMobileBuscadorFicha = 2482;
 
-            public const int LBelDesktopBuscador = 14;
-            public const int LBelMobileBuscador = 24;
-            public const int EsikaDesktopBuscador = 14;
-            public const int EsikaMobileBuscador = 24;
-            public const int CyzoneDesktopBuscador = 14;
-            public const int CyzoneMobileBuscador = 24;
-            public const int LiquidacionDesktopBuscador = 1464;
-            public const int LiquidacionMobileBuscador = 2464;
+            //public const int LBelDesktopBuscador = 14;
+            //public const int LBelMobileBuscador = 24;
+            //public const int EsikaDesktopBuscador = 14;
+            //public const int EsikaMobileBuscador = 24;
+            //public const int CyzoneDesktopBuscador = 14;
+            //public const int CyzoneMobileBuscador = 24;
+            //public const int LiquidacionDesktopBuscador = 1464;
+            //public const int LiquidacionMobileBuscador = 2464;
 
 
             //public const string Liquidacion = "1464";
             //public const string LiquidacionMobile = "2464";
 
+
+            public const int DesktopLandingBuscadorOfertasParaTiCarrusel = 1100001;
+            public const int DesktopLandingBuscadorShowroomCarrusel = 1100101;
+            public const int DesktopLandingBuscadorLanzamientosCarrusel = 1100201;
+            public const int DesktopLandingBuscadorOfertaDelDiaCarrusel = 1100301;
+            public const int DesktopLandingBuscadorGNDCarrusel = 1100501;
+            public const int DesktopLandingBuscadorLiquidacionCarrusel = 1100601;
+            public const int DesktopLandingBuscadorHerramientasDeVentaCarrusel = 1100801;
+            public const int DesktopLandingBuscadorCatalogoLbelCarrusel = 1101101;
+            public const int DesktopLandingBuscadorCatalogoEsikaCarrusel = 1101201;
+            public const int DesktopLandingBuscadorCatalogoCyzoneCarrusel = 1101201;
+
+            public const int MobileLandingBuscadorOfertasParaTiCarrusel = 2100001;
+            public const int MobileLandingBuscadorShowroomCarrusel = 2100101;
+            public const int MobileLandingBuscadorLanzamientosCarrusel = 2100201;
+            public const int MobileLandingBuscadorOfertaDelDiaCarrusel = 2100301;
+            public const int MobileLandingBuscadorGNDCarrusel = 2100501;
+            public const int MobileLandingBuscadorLiquidacionCarrusel = 2100601;
+            public const int MobileLandingBuscadorHerramientasDeVentaCarrusel = 2100801;
+            public const int MobileLandingBuscadorCatalogoLbelCarrusel = 2101101;
+            public const int MobileLandingBuscadorCatalogoEsikaCarrusel = 2101201;
+            public const int MobileLandingBuscadorCatalogoCyzoneCarrusel = 2101301;
+
+
+            public const int DesktopLandingBuscadorOfertasParaTiFicha = 1100002;
+            public const int DesktopLandingBuscadorShowroomFicha = 1100102;
+            public const int DesktopLandingBuscadorLanzamientosFicha = 1100202;
+            public const int DesktopLandingBuscadorOfertaDelDiaFicha = 1100302;
+            public const int DesktopLandingBuscadorGNDFicha = 1100502;            
+            public const int DesktopLandingBuscadorHerramientasDeVentaFicha = 1100802;
+
+            public const int MobileLandingBuscadorOfertasParaTiFicha = 2100002;
+            public const int MobileLandingBuscadorShowroomFicha = 2100102;
+            public const int MobileLandingBuscadorLanzamientosFicha = 2100202;
+            public const int MobileLandingBuscadorOfertaDelDiaFicha = 2100302;
+            public const int MobileLandingBuscadorGNDFicha = 2100502;            
+            public const int MobileLandingBuscadorHerramientasDeVentaFicha = 2100802;
 
             #endregion
         }
@@ -2926,7 +2963,7 @@ namespace Portal.Consultoras.Common
         {
             public const string UrlExcelMatrizCampania = "http://somosbelcorpprd.s3.amazonaws.com/Matriz/PLANTILLA_MASIVO_MATRIZ.xlsx";
         }
-        
+
         public class CodigoEstrategiaBuscador
         {
             public const string Liquidacion = "LIQ";

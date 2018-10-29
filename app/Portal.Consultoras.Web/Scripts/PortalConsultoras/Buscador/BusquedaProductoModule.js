@@ -95,7 +95,8 @@
                 Filtro: {
                     categoria: _config.categoria,
                     marca: _config.marca
-                }
+                },
+                IsMobile: _config.isMobile
             }
             return modelo;
         },
