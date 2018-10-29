@@ -1,5 +1,5 @@
 # Portal Consultoras SB2
 
-PI2-EPM-1557
+PI2-EPM-Sprint2-Pase22102018
 
-Cambiar prioridad en descripción de componentes de Showroom Ficha
+Sprint 1 Tipos Analytics + Sprint 1 A/B TEsting + LasMasGanadoras + CompositorImagenes + OrigenPedidoWeb + ETL

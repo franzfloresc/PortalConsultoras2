@@ -166,6 +166,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
@@ -322,6 +323,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/slick.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js"
             ));
@@ -532,7 +534,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/Ficha.css",
                 "~/Content/Css/Site/Ficha/Carrusel.css",
                 "~/Content/Css/Site/Ficha/RedesSociales.css",
-                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras.css"
             ));
 
 
@@ -547,14 +550,18 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/CajaProducto.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ofertas").Include(
                 "~/Content/Css/Site/slick.css",
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Mobile/Contenedor/carrusel.individual.css",
-                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Mobile/LasMasGanadoras/presentacion-seccion-carrusel.css",
+                "~/Content/Css/Mobile/LasMasGanadoras/banner_ofertas_masGanadoras.css",
+                "~/Content/Css/Mobile/ProductoListado/CajaProductoV2.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Pedido").Include(
@@ -884,6 +891,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/bootstrap/bootstrap.css",
                 "~/Content/Css/Site/Shared/general.css",
                 "~/Content/Css/Site/Shared/header-responsive.css",
+                "~/Content/Css/Site/Shared/campania-navidenia-responsive.css",
                 "~/Content/Css/Site/Shared/menu-principal-responsive.css",
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
@@ -896,6 +904,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/bootstrap/bootstrap.css",
                 "~/Content/Css/Site/Shared/general.css",
                 "~/Content/Css/Site/Shared/header-responsive.css",
+                "~/Content/Css/Site/Shared/campania-navidenia-responsive.css",
                 "~/Content/Css/Site/Shared/menu-principal-responsive.css",
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",

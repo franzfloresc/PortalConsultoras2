@@ -4,7 +4,6 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
-
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -47,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
 
-                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.DesktopHome);
+                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopHome);
                 ViewBag.UrlImgMiAcademia = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
                 ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
@@ -318,8 +317,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int ObtenerTipoPopUpMostrar(BienvenidaHomeModel model)
         {
-            var resultPopupEmail = ObtenerActualizacionEmail();
-            var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
+            var resultPopupEmail = ObtenerActualizacionEmailSms();
+            //var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
 
             if (model.ShowPopupMisDatos)
                 return Constantes.TipoPopUp.Ninguno;
@@ -340,7 +339,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                         tipoPopUpMostrar = 0;
 
-                    if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+                    if (resultPopupEmail == "" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
                     if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
@@ -513,8 +512,8 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         break;
                     case Constantes.TipoPopUp.ActualizarCorreo:
-                        var result = ObtenerActualizacionEmail();
-                        if (result.Split('|')[0] == "1")
+                        string result = ObtenerActualizacionEmailSms();
+                        if (result != "")
                         {
                             tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
                         }
@@ -2362,22 +2361,63 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        public string ObtenerActualizacionEmail()
+        public string ObtenerActualizacionEmailSms(string pagina = "1")
         {
             try
             {
+                BEMensajeToolTip obj = new BEMensajeToolTip();
+                string mensaje = string.Empty;
 
-                using (var svClient = new UsuarioServiceClient())
+                using (var sv = new UsuarioServiceClient())
+                    obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);                             
+
+                if (obj == null) return pagina == "1" ? "" : "|";
+                if (obj.oDatosPerfil == null) return pagina == "1" ? "" : "|";
+
+                string pendiente = string.Empty;
+                string tieneMensajes = string.Empty;
+
+                if (!string.IsNullOrEmpty(obj.MensajeCelular)) tieneMensajes = "1"; //1 => SMS; 2 => Email; 3 => Ambos
+                if (!string.IsNullOrEmpty(obj.MensajeEmail)) tieneMensajes = tieneMensajes == "1" ? "3" : "2";
+
+                string nuevoDatoCelular = !string.IsNullOrEmpty(obj.MensajeCelular) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+                string nuevoDatoEmail = !string.IsNullOrEmpty(obj.MensajeEmail) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+                nuevoDatoCelular = nuevoDatoCelular == null ? "" : nuevoDatoCelular;
+                nuevoDatoEmail = nuevoDatoEmail == null ? "" : nuevoDatoEmail;
+
+                if (nuevoDatoCelular == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "SMS" && a.Estado == "A")) pendiente = "c";
+                if (nuevoDatoEmail == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "Email" && a.Estado == "A")) pendiente = "e";
+
+                bool menSms = pendiente == "c" ? true : false;
+                if (!menSms) menSms = nuevoDatoCelular != "" ? true : false;
+                bool menEmail = pendiente == "e" ? true : false;
+                if (!menEmail) menEmail = nuevoDatoEmail != "" ? true : false;
+
+                switch (tieneMensajes)
                 {
-                    var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoUsuario);
-                    return result;
+                    case "1":
+                        if (obj.oDatosPerfil[0].TipoEnvio == "1") return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
+                        if (menSms) return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
+                        return pagina == "1" ? "" : "|";                        
+                    case "2":
+                        if (obj.oDatosPerfil[0].TipoEnvio == "1") return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
+                        if (menEmail) return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
+                        return pagina == "1" ? "" : "|";                        
+                    case "3":
+                        {
+                            if (obj.oDatosPerfil[0].TipoEnvio == "1") return pagina == "1" ? obj.MensajeAmbos : "|";
+                            if (menSms && !menEmail) return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
+                            if (!menSms && menEmail) return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
+                            if (menSms && menEmail) return pagina == "1" ? obj.MensajeAmbos : nuevoDatoCelular + "|" + nuevoDatoEmail;
+                            return pagina == "1" ? "" : "|";
+                        }
                 }
-
+                return pagina == "1" ? "" : "|";
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return "";
+                return pagina == "1" ? "" : "|";
             }
         }
 

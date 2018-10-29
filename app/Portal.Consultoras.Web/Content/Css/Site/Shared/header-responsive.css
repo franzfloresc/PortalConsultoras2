@@ -22,12 +22,22 @@
 
 .header__marca__pais {
     width: 185px;
+    position:relative;
+    cursor:pointer;
 }
 
 @media screen and (max-width:1270px){
 
     .header__marca__pais {
         width: 163px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1065px){
+
+    .layout__header{
+        padding-left:0;
     }
 
 }
