@@ -19,8 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
             var IdCurso = 0;
             var FlagVideo = 0;
             var parametrosSap = "";
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
+            
             try
             {
                 IdCurso = SessionManager.GetMiAcademia();

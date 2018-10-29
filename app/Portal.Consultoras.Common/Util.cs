@@ -433,7 +433,7 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
-        
+
         public static bool EnviarMail3(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string strFile, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))
@@ -3635,7 +3635,7 @@ namespace Portal.Consultoras.Common
                 {
                     if (string.IsNullOrEmpty(descripcion))
                         result = "";
-                    else 
+                    else
                         result = (descripcion.Replace("[", "")).Replace("]", "");
                 }
 
@@ -3711,7 +3711,7 @@ namespace Portal.Consultoras.Common
             bool IsMobile)
         {
             var result = "";
-            
+
             switch (codigoEstrategia)
             {
                 case "LIQ":
@@ -3866,7 +3866,7 @@ namespace Portal.Consultoras.Common
                 return default(T);
             }
         }
-        
+
 
         #region Convert
 
@@ -3878,7 +3878,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToString(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3890,7 +3893,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToString(lector[name]).Trim();
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(string);
         }
 
@@ -3903,7 +3909,10 @@ namespace Portal.Consultoras.Common
                     return Convert.ToInt16(lector[name]);
 
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3915,7 +3924,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToInt32(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3927,7 +3939,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToInt64(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(Int64);
         }
 
@@ -3939,7 +3954,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDecimal(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(decimal);
         }
 
@@ -3951,7 +3969,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDouble(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(double);
         }
 
@@ -3963,7 +3984,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToByte(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(byte);
         }
 
@@ -3975,7 +3999,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToBoolean(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3987,7 +4014,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDateTime(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3999,7 +4029,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDateTime(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 

@@ -89,7 +89,9 @@ namespace Portal.Consultoras.Entities
 
                 return resultado;
             }
-            set { }
+            set {
+                //
+            }
         }
 
         [DataMember]

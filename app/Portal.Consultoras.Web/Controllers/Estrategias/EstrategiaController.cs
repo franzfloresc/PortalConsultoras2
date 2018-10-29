@@ -185,7 +185,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var objBannerCajaProducto = _configuracionPaisDatosProvider.GetBannerCajaProducto(tipoConsulta, esMobile);
 
-                ActualizarSession(tipoConsulta, esMobile, cantidadTotal);
+                ActualizarSession(tipoConsulta, cantidadTotal);
                 
                 return Json(new
                 {
@@ -262,7 +262,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return listPerdioFormato;
         }
 
-        private void ActualizarSession(int tipoConsulta, bool esMobile, int cantidadTotal)
+        private void ActualizarSession(int tipoConsulta, int cantidadTotal)
         {
             try
             {
