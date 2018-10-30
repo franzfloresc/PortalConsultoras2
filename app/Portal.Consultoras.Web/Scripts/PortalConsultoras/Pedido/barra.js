@@ -558,6 +558,8 @@ function MostrarBarra(datax, destino) {
         $("#divBarra #divBarraMensajeLogrado .descuento_pedido").html(listaLimite[indPuntoLimite].nombreApp || listaLimite[indPuntoLimite].nombre);
     }
 
+
+
     $("#divBarraMensajeLogrado").css("width", "");
     var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width() + 1;
     wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
