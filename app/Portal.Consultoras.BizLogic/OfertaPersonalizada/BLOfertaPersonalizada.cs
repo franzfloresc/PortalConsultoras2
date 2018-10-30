@@ -229,6 +229,7 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
 
                 estrategia.CampaniaID = entidad.CampaniaID;
                 estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenURL);
+                estrategia.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenOfertaIndependiente);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);

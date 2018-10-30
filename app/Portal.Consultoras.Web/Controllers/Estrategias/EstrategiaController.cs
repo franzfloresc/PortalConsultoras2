@@ -35,6 +35,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
+        public JsonResult RDObtenerProductosNuevas(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.NuevasObtenerProductos);
+        }
+
+        [HttpPost]
         public JsonResult GNDObtenerProductos(BusquedaProductoModel model)
         {
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos);
@@ -70,13 +76,11 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             var model = new EstrategiaOutModel();
             try
             {
+                var isMobile = IsMobile();
                 var codAgrupa = (revistaDigital.TieneRDC && revistaDigital.EsActiva)
                     || (revistaDigital.TieneRDC && revistaDigital.ActivoMdo) ?
                     Constantes.TipoEstrategiaCodigo.RevistaDigital : Constantes.TipoEstrategiaCodigo.OfertaParaTi;
-
-                var esMobile = IsMobile();
-
-                var listModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasHomePedido(esMobile, userData.CodigoISO, userData.CampaniaID, codAgrupa);
+                var listModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasHomePedido(isMobile, userData, codAgrupa);
 
                 model.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
                 model.Consultora = userData.Sobrenombre;
@@ -91,7 +95,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         : tipoOrigenEstrategia == "11" ? Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel
                         : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel
                         : tipoOrigenEstrategia == "21" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel
-                        : (Request.UrlReferrer != null && esMobile) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
+                        : (Request.UrlReferrer != null && isMobile) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
                 }
                 else
                 {
@@ -99,14 +103,15 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                    : tipoOrigenEstrategia == "11" ? Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel
                    : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel
                    : tipoOrigenEstrategia == "21" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel
-                   : (Request.UrlReferrer != null && esMobile) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
+                   : (Request.UrlReferrer != null && isMobile) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
                 }
-
-
+                
                 var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
 
+                var bloquerBannerNuevas = (tipoOrigenEstrategia == "11" || tipoOrigenEstrategia == "21") && revistaDigital.TieneRDC && !revistaDigital.EsSuscrita;
+                var listEstrategias = _ofertaPersonalizadaProvider.ValidBannerNuevas(isMobile, userData, listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), bloquerBannerNuevas);
                 model.ListaLan = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
-                model.ListaModelo = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
+                model.ListaModelo = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listEstrategias, listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
             }
             catch (Exception ex)
             {

@@ -609,7 +609,7 @@
     .opcion__ordenamiento__dropdown--desplegado:before{
         height:48px;
         background-color:transparent;
-        width:104%;
+        width:102%;
         right:0;
         -moz-box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.5);
         -webkit-box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.5);
@@ -617,15 +617,16 @@
     }
 
     .opcion__ordenamiento__dropdown--desplegado:after{
-        width:107%;
+        width:102%;
         right:0;
         bottom: -9px;
-        height:10px;
+        height:11px;
     }
 
     .opcion__ordenamiento__dropdown__lista{
-        min-width:250px;
-        top: 49px;
+        max-width:96.5%;
+        /*max-width:96%;*/
+        top: 53px;
         right:10px;
         padding-top:4px;
         padding-bottom:6px;
@@ -942,6 +943,22 @@
     }
 
     /* FIN - FICHAS DE PRODUCTOS MOBILE */
+
+}
+
+@media screen and (min-width:330px) and (max-width:400px) {
+
+    .opcion__ordenamiento__dropdown__lista {
+        max-width: 94.4%;
+    }
+
+}
+
+@media screen and (max-width:329px){
+
+    .opcion__ordenamiento__dropdown__lista{
+        max-width:93.5%;
+    }
 
 }
 

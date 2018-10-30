@@ -1829,7 +1829,7 @@ function ValidDeleteElectivoNuevas(cuv, enRangoProgNuevas, fnDelete) {
     AbrirSplash();
     jQuery.ajax({
         type: 'POST',
-        url: urlEsPedidoDetalleDuoPerfecto,
+        url: urlEsPedidoDetalleElecMultiple,
         dataType: 'json',
         data: JSON.stringify({ cuv: cuv }),
         contentType: 'application/json; charset=utf-8',
@@ -1844,7 +1844,7 @@ function ValidDeleteElectivoNuevas(cuv, enRangoProgNuevas, fnDelete) {
                 return;
             }
 
-            if (!response.esDuoPerfecto) fnDelete(false);
+            if (!response.esElecMultiple) fnDelete(false);
             else messageConfirmacionDuoPerfecto(response.message, function () { fnDelete(true); });
         })
         .fail(function() { alert_msg(mensajeSinConexionGenerico); });
