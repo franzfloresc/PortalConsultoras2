@@ -172,7 +172,7 @@ $(document).ready(function () {
         if ($(this).val().length === 5) {
             BuscarByCUV($(this).val());
         } else {
-            $("#divProductoAgotadoFinal").hide(); 
+            $("#divProductoAgotadoFinal").fadeOut(100); 
             $("#hdfCUV").val("");
             $("#divObservaciones").html("");
         }
@@ -345,7 +345,7 @@ $(document).ready(function () {
         });
 
         BloquearPantallaPedidoByPopupSugerido('');
-        $("#divProductoAgotadoFinal").hide();
+        $("#divProductoAgotadoFinal").fadeOut(100);
 
 
     });
@@ -354,7 +354,7 @@ $(document).ready(function () {
         limpiarInputsPedido();
 
         BloquearPantallaPedidoByPopupSugerido('');
-        $("#divProductoAgotadoFinal").hide();
+        $("#divProductoAgotadoFinal").fadeOut(100);
         dataLayer.push({
             'event': "virtualEvent",
             'category': "Ingresa tu pedido",
@@ -1377,7 +1377,7 @@ function ObtenerProductosSugeridos(CUV) {
             $("#divCarruselSugerido").html("");
 
             BloquearPantallaPedidoByPopupSugerido('none');
-            $("#divProductoAgotadoFinal").show();            
+            $("#divProductoAgotadoFinal").fadeIn(230);            
 
             SetHandlebars("#js-CarruselSugerido", lista, "#divCarruselSugerido");
 
