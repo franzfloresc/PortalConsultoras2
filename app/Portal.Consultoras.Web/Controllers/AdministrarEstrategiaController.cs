@@ -573,8 +573,8 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = "OK";
                         beEstrategia = objEstrategia;
                         descripcion = beEstrategia.DescripcionCUV2;
-                        precio = (beEstrategia.Precio + beEstrategia.Ganancia).ToString("F2");
-                        wsprecio = beEstrategia.Precio.ToString();
+                        precio = (beEstrategia.PrecioPublico + beEstrategia.Ganancia).ToString("F2");
+                        wsprecio = beEstrategia.PrecioPublico.ToString();
                         ganancia = beEstrategia.Ganancia;
                         DescripcionMarca = beEstrategia.DescripcionMarca;
                         MarcaID = beEstrategia.MarcaID;
