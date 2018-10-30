@@ -43,7 +43,6 @@
         @*<div class="texto_pedidos celda_codigo">{{CUV}}</div>*@
         <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
 
-
             <span class="producto-codigo">{{CUV}}</span>
             {{#if_eq TipoPedido 'M'}}
             <span style="position:relative">
@@ -176,16 +175,17 @@
                 <li class="boton-primaria"><button>SÍ, ELIMINAR</button></li>
             </ul>
         </div>
-
-        <div class="popover bottom" style="width: 357px;">
+        {{#IsNullOrEmpty Mensaje '!='}}
+        <div class="popover bottom" style="width: 357px" id="tlpObservaciones">
             <div class="arrow"></div>
             <ul class="list-tooltip">
                 <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                <li class="boton-secundario">Este producto tiene observaciones. <button>Ver detalles</button></li>
+                <li class="boton-secundario">Este producto tiene observaciones. <button onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
             </ul>
         </div>
-    </div>
+        {{/IsNullOrEmpty}}
 
+    </div>
     {{/if}}
 
     {{#IsNullOrEmpty Mensaje '!='}}

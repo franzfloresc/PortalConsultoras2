@@ -1523,3 +1523,99 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 .franja_negra .liquidacion_rango_wrapper_pedido {
     margin-top: 5px !important;
 }
+
+
+/*Modal Observaciones pedido*/
+.overflow_hidden {
+    overflow: hidden;
+}
+
+.ui-widget-overlay {
+    width: 100% !important;
+}
+
+.ui-dialog {
+    overflow: initial !important;
+}
+
+.close_buttom_alerta {
+    position: absolute;
+    right: -30px;
+    z-index: 5555;
+    opacity: 1;
+    display: block;
+    top: 2px;
+}
+
+.ui-widget-overlay {
+    background: rgb(0, 0, 0) !important;
+    opacity: .85 !important;
+}
+
+.ui-dialog .ui-dialog-content {
+    position: initial;
+}
+
+#observaciones_alerta {
+    padding-bottom: 0px;
+    margin-top: 0px;
+}
+
+.observaciones_alerta_blocks {
+    width: 620px !important;
+    min-height: 350px;
+    max-height: 480px;
+    margin-top: 0px !important;
+    padding: 50px 0px;
+}
+
+.header_observaciones_alerta {
+    text-align: center;
+}
+
+.alert-observaciones img {
+    width: 25px;
+    height: auto;
+}
+
+.alert-observaciones {
+    height: 25px;
+    margin-right: 7px;
+}
+
+.header_observaciones_alerta ul {
+    margin-bottom: 10px;
+}
+
+.header_observaciones_alerta li {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+    .header_observaciones_alerta li h3 {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 18px;
+        color: #000;
+        margin-bottom: 0px;
+    }
+
+.header_observaciones_alerta p {
+    color: #000;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.descripcion_observaciones_alerta {
+    max-height: 300px;
+    overflow: auto;
+}
+
+    .descripcion_observaciones_alerta li {
+        margin-left: 15px;
+        color: #000;
+        line-height: normal;
+        font-size: 13px;
+        list-style: disc;
+        margin-bottom: 18px;
+    }
