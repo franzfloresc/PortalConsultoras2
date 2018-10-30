@@ -6050,7 +6050,7 @@ a.subir_carousel, a.bajar_carousel {
     font-family: 'lato';
     font-size: 10pt;
     color: black;
-    margin-top: 20px;
+    margin-top: 25px;
     text-align: center;
 }
 
@@ -8292,7 +8292,7 @@ ul.tabs {
     margin-bottom: 20px !important;
     margin: 0 auto;
     text-transform: uppercase;
-    font-size: 10pt !Important;
+    font-size: 20px !Important;
     font-family: 'lato';
     color: black;
     letter-spacing: .5px;

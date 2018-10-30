@@ -623,8 +623,13 @@ function CrearDialogs() {
         width: 500,
         draggable: true,
         title: "",
+        open: function (event, ui) {
+            $("body").addClass("");
+        },
+
         close: function (event, ui) {
             $(this).dialog("close");
+            $("body").removeClass("");
         }
     });
     $("#divAvisoEliminarRegaloGenerico").dialog({

@@ -6115,7 +6115,7 @@ a.subir_carousel, a.bajar_carousel {
     font-family: 'lato';
     font-size: 10pt;
     color: black;
-    margin-top: 20px;
+    margin-top: 25px;
     text-align: center;
 }
 
@@ -8356,7 +8356,7 @@ ul.tabs {
     margin-top: 20px !important;
     margin: 0 auto;
     text-transform: uppercase;
-    font-size: 10pt !Important;
+    font-size: 20px !Important;
     font-family: 'lato';
     color: black;
     letter-spacing: .5px;
@@ -9959,17 +9959,24 @@ ul.tabs {
 
 .input_modifica_horizontal {
     text-transform: uppercase;
-    margin-top: 5px;
-    width: 100px;
-    height: 40px;
+    width: 115px !important;
+    height: 45px;
     letter-spacing: .5px;
-    padding: 0;
-    background: #df3d3d;
     color: white;
-    font-family: 'lato';
-    font-size: 12px;
-    border: 0;
-    font-weight: 700;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #e81c36;
+    border: none;
+    font-weight: bold;
+}
+.input_modifica_horizontal_cancelar {
+    height: 45px;
+    color: #000;
+    background: none;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    text-decoration: underline;
 }
 
 .div-3 .ganancia {
