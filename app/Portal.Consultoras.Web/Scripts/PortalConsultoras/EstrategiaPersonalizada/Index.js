@@ -122,8 +122,7 @@ function SeccionCargarProductos(objConsulta) {
 
     var guardaEnLS = true;
 
-    if (objConsulta.Codigo === CONS_CODIGO_SECCION.RDR
-        || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.RDR || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
 
@@ -138,6 +137,7 @@ function SeccionCargarProductos(objConsulta) {
                 Palanca: objConsulta.Codigo
             }, false, objConsulta);
         }
+
         return false;
     }
 

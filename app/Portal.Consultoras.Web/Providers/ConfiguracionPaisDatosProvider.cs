@@ -216,23 +216,31 @@ namespace Portal.Consultoras.Web.Providers
 
         public EstrategiaPersonalizadaProductoModel GetBannerCajaProducto(int tipoConsulta, bool esMobile)
         {
+            IList<ConfiguracionPaisDatosModel> configuracionPaisDatos = null;
             var modelo = new EstrategiaPersonalizadaProductoModel();
+            var userData = sessionManager.GetUserData();
+
             if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
             {
-                var sessionPalanca = sessionManager.MasGanadoras.GetModel();
-                modelo.DescripcionCompleta = GetValorDato(sessionPalanca.ConfiguracionPaisDatos, Constantes.ConfiguracionPaisDatos.MG.BannerCarruselTitulo, esMobile);
-                modelo.DescripcionDetalle = GetValorDato(sessionPalanca.ConfiguracionPaisDatos, Constantes.ConfiguracionPaisDatos.MG.BannerCarruselTextoEnlace, esMobile);
+                configuracionPaisDatos = sessionManager.MasGanadoras.GetModel().ConfiguracionPaisDatos;
                 modelo.DescripcionMarca = esMobile ? "/Mobile/MasGanadoras" : "/MasGanadoras";
-                modelo.TipoAccionAgregar = Constantes.TipoAccionAgregar.BannerCarruselMg;
             }
             else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
             {
-                var sessionPalanca = sessionManager.GetEstrategiaSR();
-                modelo.DescripcionCompleta = GetValorDato(sessionPalanca.ConfiguracionPaisDatos, Constantes.ConfiguracionPaisDatos.MG.BannerCarruselTitulo, esMobile);
-                modelo.DescripcionDetalle = GetValorDato(sessionPalanca.ConfiguracionPaisDatos, Constantes.ConfiguracionPaisDatos.MG.BannerCarruselTextoEnlace, esMobile);
+                configuracionPaisDatos = sessionManager.GetEstrategiaSR().ConfiguracionPaisDatos;
                 modelo.DescripcionMarca = esMobile ? "/Mobile/ShowRoom" : "/ShowRoom";
-                modelo.TipoAccionAgregar = Constantes.TipoAccionAgregar.BannerCarruselMg;
             }
+            else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
+            {
+                configuracionPaisDatos = sessionManager.GetRevistaDigital().ConfiguracionPaisDatos;
+                modelo.DescripcionMarca = esMobile ? "/Mobile/RevistaDigital/Comprar" : "/RevistaDigital/Comprar";
+            }
+
+            modelo.DescripcionCompleta = GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselTitulo, esMobile);
+            modelo.DescripcionDetalle = GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselTextoEnlace, esMobile);
+            modelo.TipoAccionAgregar = Constantes.TipoAccionAgregar.BannerCarrusel;
+            modelo.ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselImagenFondo, esMobile));
+
             return modelo;
         }
 

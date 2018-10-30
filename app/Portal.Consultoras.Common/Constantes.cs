@@ -264,7 +264,7 @@ namespace Portal.Consultoras.Common
             public const int LoQuieres = 4;
             public const int LoQuieresInactivo = 5;
 
-            public const int BannerCarruselMg = 11;
+            public const int BannerCarrusel = 11;
 
         }
 
@@ -1561,6 +1561,12 @@ namespace Portal.Consultoras.Common
             public const string BloqueoProductoDigital = "BloqueoProductoDigital";
             public const string ActivoMdo = "ActivoMDO";
 
+            #region Banner Carrusel - Caja Producto
+            public const string BannerCarruselTitulo = "BannerCarruselTitulo";
+            public const string BannerCarruselTextoEnlace = "BannerCarruselTextoEnlace";
+            public const string BannerCarruselImagenFondo = "BannerCarruselImagenFondo";
+            #endregion
+
             public static class RD
             {
                 #region Data de Cabecera
@@ -1677,7 +1683,6 @@ namespace Portal.Consultoras.Common
                 public static readonly string SociaEmpresariaSuscritaNoActivaCancelarSuscripcion = "SESuscritaNoActivaCancelarSuscripcion";
                 public static readonly string SociaEmpresariaSuscritaActivaCancelarSuscripcion = "SESuscritaActivaCancelarSuscripcion";
                 #endregion
-
             }
 
             public static class RDR
@@ -1712,15 +1717,6 @@ namespace Portal.Consultoras.Common
                 public const string MPopupBloqueado = "MPopupBloqueado";
                 #endregion
             }
-
-            public static class MG
-            {
-                #region Banner Carrusel - Caja Producto
-                public const string BannerCarruselTitulo = "BannerCarruselTitulo";
-                public const string BannerCarruselTextoEnlace = "BannerCarruselTextoEnlace";
-                #endregion
-            }
-
         }
 
         public static class ConfiguracionSeccion

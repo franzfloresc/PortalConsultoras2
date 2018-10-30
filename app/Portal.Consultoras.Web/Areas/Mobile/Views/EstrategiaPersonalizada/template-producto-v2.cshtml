@@ -3,14 +3,11 @@
 <script id="template-producto-v2" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
 
-    {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.BannerCarruselMg'}}
-    <article class="banner_ofertas_masGanadoras caja-borde">
+    {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.BannerCarrusel'}}
+    <article class="banner_ofertas_masGanadoras caja-borde" {{#if ImagenURL}}style="background-image:url({{ImagenURL}});background-size: cover;background-color: #fff;"{{/if}}>
         <div class="contenido_ofertas">
             <p>{{{DescripcionCompleta}}}</p>
-            <a href="javascript:"
-               onclick="javascript: menuModule.sectionClick('{{DescripcionMarca}}');">
-                {{DescripcionDetalle}}
-            </a>
+            <a href="javascript:" onclick="javascript: menuModule.sectionClick('{{DescripcionMarca}}');">{{DescripcionDetalle}}</a>
         </div>
     </article>
     {{else}}
@@ -59,6 +56,5 @@
         }
     </article>
     {{/iff}}
-
     {{/each}}
 </script>

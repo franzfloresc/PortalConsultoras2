@@ -154,10 +154,18 @@ namespace Portal.Consultoras.Web.Providers
                             break;
                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                         case Constantes.ConfiguracionPais.RevistaDigital:
-                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "RevistaDigital/Revisar" : "RevistaDigital/Comprar");
                             seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
-                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
+                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "RevistaDigital/Revisar" : "RevistaDigital/Comprar");
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            //seccion.VerMas = SessionManager.ShowRoom.TieneLanding;
+
+
+
+                            //seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "RevistaDigital/Revisar" : "RevistaDigital/Comprar");
+                            //seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
+                            //seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            //seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                             break;
                         case Constantes.ConfiguracionPais.ShowRoom:
                             seccion.UrlObtenerProductos = "Estrategia/SRObtenerProductos";
