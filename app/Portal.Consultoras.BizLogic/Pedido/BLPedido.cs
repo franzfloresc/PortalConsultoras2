@@ -609,10 +609,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var listCuvEliminar = new List<string>();
                 string mensajeObs = "";
                 string TituloMensaje = "";
-                var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidoWebDetalles, null, "", Constantes.PedidoAccion.UPDATE, out mensajeObs, out listCuvEliminar, out TituloMensaje);
+                var modificoBackOrder = false;
+                var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidoWebDetalles, null, "", Constantes.PedidoAccion.UPDATE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder);
 
                 var response = PedidoDetalleRespuesta(transactionExitosa ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
-
+                response.ModificoBackOrder = modificoBackOrder;
                 //actualizar PROL
                 //var item = lstDetalle.FirstOrDefault(x => x.CUV == pedidoDetalle.Producto.CUV && x.ClienteID == pedidoDetalle.ClienteID);
                 //if (item != null)
@@ -780,7 +781,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         //var result = _pedidoWebSetBusinessLogic.Eliminar(usuario.PaisID, pedidoDetalle.SetID, bePedidoWebDetalleParametros);
                         //if (!result) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_ELIMINAR_SET);
 
-                        var result = AdministradorPedido(usuario, null, lista, null, null, Constantes.PedidoAccion.DELETE, out mensajeObs, out listCuvEliminar, out TituloMensaje);
+                        var modificoBackOrder = false;
+                        var result = AdministradorPedido(usuario, null, lista, null, null, Constantes.PedidoAccion.DELETE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder);
                        
                         if (!result) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_ELIMINAR_SET);
 
@@ -804,7 +806,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             TipoAdm = Constantes.PedidoAccion.DELETE
                         };
                         lista.Add(obePedidoWebDetalle);
-                        var result = AdministradorPedido(usuario, null, lista, null, null, Constantes.PedidoAccion.DELETE, out mensajeObs, out listCuvEliminar, out TituloMensaje);
+                        var modificoBackOrder = false;
+                        var result = AdministradorPedido(usuario, null, lista, null, null, Constantes.PedidoAccion.DELETE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder);
                         if (!result) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_ELIMINAR);
 
                     }
@@ -1751,11 +1754,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         //AgregarTransactional
         private bool AdministradorPedido(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> pedidoWebDetalles, BEEstrategia estrategia,
-            string cuvlist, string TipoAdm, out string mensajeObs, out List<string> listCuvEliminar, out string TituloMensaje)
+            string cuvlist, string TipoAdm, out string mensajeObs, out List<string> listCuvEliminar, out string TituloMensaje, out bool modificoBackOrder)
         {
             listCuvEliminar = new List<string>();
             mensajeObs = "";
             TituloMensaje = "";
+            modificoBackOrder = false;
+
             TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             try
             {
@@ -1841,6 +1846,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             if (oldPedidoWebDetalle.AceptoBackOrder && obePedidoWebDetalle.Cantidad < oldPedidoWebDetalle.Cantidad)
                                 //quitoCantBackOrder = true;
                                 obePedidoWebDetalle.QuitoCantBackOrder = true;
+                                modificoBackOrder = true;
                         }
 
                         if (pedidoDetalle != null)
@@ -3137,7 +3143,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var listCuvEliminar = new List<string>();
             string mensajeObs = "";
             string TituloMensaje = "";
-            var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, strCuvs, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje);
+            var modificoBackOrder = false;
+            var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, strCuvs, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder);
 
             var response = PedidoDetalleRespuesta(transactionExitosa ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
             response.listCuvEliminar = listCuvEliminar;
