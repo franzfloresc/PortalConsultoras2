@@ -2206,6 +2206,8 @@ namespace Portal.Consultoras.Common
         public static class PedidoValidacion
         {
             private static Dictionary<string, string> _Message;
+            private static Dictionary<string, PedidoValidacionConfiguracion> _Configuracion;
+
             public static class Code
             {
                 public const string SUCCESS = "0000";
@@ -2264,6 +2266,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_AGREGAR_BACKORDER = "2202";
 
             }
+
             public static Dictionary<string, string> Message
             {
                 get
@@ -2275,8 +2278,8 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
                         {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
                         {Code.ERROR_PRODUCTO_LIQUIDACION, "Este producto solo está disponible desde la sección de Liquidación Web."},
-                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
-                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
+                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Encuentra este producto en la guía de negocio Ésika con oferta especial."},
+                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Encuentra este producto en la guía de negocio L'bel con oferta especial."},
                         {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
                         {Code.ERROR_PRODUCTO_SUGERIDO,"Este producto tiene reemplazos sugeridos." },
                         {Code.ERROR_PRODUCTO_SET, "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas."},
@@ -2327,6 +2330,23 @@ namespace Portal.Consultoras.Common
                     });
                 }
             }
+
+            public static Dictionary<string, PedidoValidacionConfiguracion> Configuracion
+            {
+                get
+                {
+                    return _Configuracion ?? (_Configuracion = new Dictionary<string, PedidoValidacionConfiguracion>
+                    {
+                        { Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, new PedidoValidacionConfiguracion(){ PermiteAgregar = true } },
+                        { Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, new PedidoValidacionConfiguracion(){ PermiteAgregar = true } },
+                    });
+                }
+            }
+        }
+
+        public class PedidoValidacionConfiguracion
+        {
+            public bool PermiteAgregar { get; set; }
         }
 
         public static class PedidoDetalleApp
