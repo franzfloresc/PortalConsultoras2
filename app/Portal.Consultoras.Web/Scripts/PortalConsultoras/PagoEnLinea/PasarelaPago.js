@@ -65,7 +65,8 @@
                 dateFormat: 'dd/mm/yy',
                 maxDate: '0',
                 changeMonth: true,
-                changeYear: true
+                changeYear: true,
+                yearRange: "1900:2100"
             });
         }
 
