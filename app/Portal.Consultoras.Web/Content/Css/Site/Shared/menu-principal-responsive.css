@@ -411,8 +411,11 @@
     }
 
     .icono__cerrar{
+        width:26px;
         height:31px;
-        padding-right:10px;
+        position:absolute;
+        right:10px;
+        z-index:3;
     }
 
     .consultora__saludo--menu{
