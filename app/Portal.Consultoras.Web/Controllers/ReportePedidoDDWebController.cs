@@ -435,23 +435,23 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarExcelCabecera(FiltroReportePedidoDDWebModel model)
         {
             var dic = new Dictionary<string, string>{
-                { "NroRegistro", "Nro. Registro," },
-                { "FechaRegistro", "Fecha/Hora Ingreso," },
-                { "FechaReserva", "Fecha Reserva," },
-                { "CampaniaCodigo", "Año/Campaña," },
-                { "Region", "Región," },
-                { "Zona", "Zona," },
-                { "Seccion", "Sección," },
-                { "ConsultoraCodigo", "Cod. Consultora," },
-                { "ConsultoraNombre", "Nombre Consultora," },
-                { "DocumentoIdentidad", "Documento Identidad," },
-                { "ImporteTotal", "Monto Total Pedido," },
-                { "ImporteTotalConDescuento", "Monto Total Pedido con Descuento," },
-                { "ConsultoraSaldo", "Saldo," },
-                { "OrigenNombre", "Origen," },
-                { "EstadoValidacionNombre", "Validado," },
-                { "IndicadorEnviado", "Estado," },
-                { "MotivoRechazo", "Motivo de Rechazo" }
+                {"Nro. Registro", "NroRegistro"},
+                {"Fecha/Hora Ingreso", "FechaRegistro"},
+                {"Fecha Reserva", "FechaReserva"},
+                {"Año/Campaña", "CampaniaCodigo"},
+                {"Región", "Region"},
+                {"Zona", "Zona"},
+                {"Sección", "Seccion"},
+                {"Cod. Consultora", "ConsultoraCodigo"},
+                {"Nombre Consultora", "ConsultoraNombre"},
+                {"Documento Identidad", "DocumentoIdentidad"},
+                {"Monto Total Pedido", "ImporteTotal"},
+                {"Monto Total Pedido con Descuento", "ImporteTotalConDescuento"},
+                {"Saldo", "ConsultoraSaldo"},
+                {"Origen", "OrigenNombre"},
+                {"Validado", "EstadoValidacionNombre"},
+                {"Estado", "IndicadorEnviado"},
+                {"Motivo de Rechazo", "MotivoRechazo"}
             };
 
             var list = GetPedidoWebDD(model);
