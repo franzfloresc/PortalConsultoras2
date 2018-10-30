@@ -162,8 +162,8 @@ namespace Portal.Consultoras.Web.Providers
                         case Constantes.ConfiguracionPais.ShowRoom:
                             seccion.UrlObtenerProductos = "Estrategia/SRObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "ShowRoom";
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MasGanadorasMobileContenedorCarruselFicha : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MasGanadorasMobileContenedorCarruselFicha : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
                             seccion.VerMas = SessionManager.ShowRoom.TieneLanding;
 
                             //ConfiguracionSeccionShowRoom(ref seccion, isMobile);

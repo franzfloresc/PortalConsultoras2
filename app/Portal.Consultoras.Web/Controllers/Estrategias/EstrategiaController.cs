@@ -192,8 +192,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var objBannerCajaProducto = _configuracionPaisDatosProvider.GetBannerCajaProducto(tipoConsulta, esMobile);
 
-                ActualizarSession(tipoConsulta, esMobile, cantidadTotal);
-                
+                ActualizarSession(tipoConsulta, esMobile, (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos ? cantidadTotal0 : cantidadTotal));
+
                 return Json(new
                 {
                     success = true,

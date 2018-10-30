@@ -207,7 +207,6 @@ function SeccionCargarProductos(objConsulta) {
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
-            //console.log(data);
             if (data.success === true) {
                 data.codigo = $.trim(data.codigo);
                 if (data.codigo !== "") {
@@ -305,7 +304,8 @@ function SeccionMostrarProductos(data) {
             UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
     }
-    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.RD || data.Seccion.Codigo === CONS_CODIGO_SECCION.RDR)
+    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.RDR)
+    //else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.RD || data.Seccion.Codigo === CONS_CODIGO_SECCION.RDR)
     {
         if (data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
@@ -353,10 +353,10 @@ function SeccionMostrarProductos(data) {
     //        }
     //    }
     //}
-    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR)
+    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD)
     {
         //console.log('SeccionMostrarProductos -if ' + data.Seccion.Codigo);
-        if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
+        if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
             CarruselCiclico = false;
         }
 
@@ -381,7 +381,7 @@ function SeccionMostrarProductos(data) {
                 }
             }
             else {
-                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
+                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
                     if (data.objBannerCajaProducto != undefined) {
                         data.lista.push(data.objBannerCajaProducto);
                     }
