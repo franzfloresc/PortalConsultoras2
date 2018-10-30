@@ -463,6 +463,46 @@
         {{/each}}
     </div>
 
+    <!--PopUp pedido Observacion-->
+    <button type="button" class="" data-toggle="modal" data-target="#observacionPedido">
+        modal observaciones
+    </button>
+    <div class="modal fade" id="observacionPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close_observacionPedido" data-dismiss="modal" aria-label="Close">
+                    <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+                </button>
+                
+                <div class="header_observaciones_alerta">
+                    <ul>
+                        <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                        <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
+                    </ul>
+                    <div class="text-center">
+                        <p>Debes tener en cuenta que tu pedido ha sido<br /> reservado pero:</p>
+                    </div>
+                    <div class="descripcion_observaciones_alerta">
+                        <ul>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
+                        </ul>
+                    </div>
+                </div>               
+            </div>
+        </div>
+    </div>
+    <!--FinPopUp pedido Observacion-->
     <div class="separador"></div>
     <div style="margin-left: -28px;">
         <div class="textos_resumen">
@@ -507,15 +547,15 @@
             Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
         </span>
     </div>
-    
+
     <div class="mensaje_eliminarPedido">
         <span>
             Para eliminar el pedido completo
             <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
         </span>
     </div>
-  
-    
+
+
 </script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
