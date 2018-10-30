@@ -45,9 +45,12 @@
             {
                 <a href="@Url.Action("Index", "MiPerfil")" id="hrefActualizarDatos" title="Actualizar datos" class="actualizar_datos default-background"></a>
                 <div class="tooltip_info_revision_correo" style="display:none;">
+                    <div style="float:right;margin-top:-14px;margin-right:-5px;">
+                        <a class="cerrarTooltip">X</a>
+                    </div>
                     <div class="icono_info_alerta"></div>
                     <div class="tooltip_texto">
-                        <p>
+                        <p id="mensajeToolTip">
                             Ingresa y actualiza tu correo y/o celular para poder contactarnos contigo.
                         </p>
                     </div>
@@ -545,10 +548,6 @@
         </div>
     </div>
 </div>
-@*
-  DEUDA TECNICA  
-  <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>*@
-@*<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>*@
 
 <div class="contenedor_fondo_popup contenedor_fondo_popup_oscuro" id="fondoComunPopUp" style="display:none;">
     <div id="virtual-coach-dialog" class="popup_inscripcion_asesoria_online tipografia_lato" style="display:none;">
@@ -1108,17 +1107,12 @@
                     <span class="w-100 text-bold" id="spnEmail"></span>
                 </p>
                 <p class="w-100 envio_instrucciones_info">
-                    @*<span class="w-100">¿Aún no recibes nuestro correo?</span>*@
+
                     <a href="@Url.Action("Index", "MiPerfil")" title="Ir A Mis Datos" class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
                         Ir a mis datos
                     </a>
                 </p>
-                @*<p class="w-100 cambiar_correo_info">
-                        <span>¿Este no es tu correo?</span>
-                        <a href="#" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
-                    </p>*@
             </div>
-            @*<a href="#" class="enlace_no_cambiar_correo" title="Ya no deseo actualizar mi correo">Ya no deseo actualizar mi correo</a>*@
         </div>
     </div>
     <!-- FIN - POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE -->
@@ -1242,15 +1236,11 @@
 </div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-@*
-DEUDA TECNICA
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
 
 <script id="liquidacion-template" type="text/x-handlebars-template">
     {{#each this}}
     <div>
-        <div class="content_item_carrusel">
+        <div class="content_item_carrusel caja-borde">
             <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
             <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
             <input type="hidden" id="CUV" value="{{CUV}}" />
@@ -1354,79 +1344,6 @@ DEUDA TECNICA
 
     {{/each}}
 </script>
-
-@*<script id="template-showroom" type="text/x-handlebars-template">
-    <div class="content-favclientes content_carrusel_agregado">
-        <div class="linea_separadora"></div>
-        <div class="banner_showroom_home" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index", "ShowRoom")'">
-            <img data-src="@Model.ShowRoomBannerUrl" alt="" data-lazy-seccion-showroom="" />
-        </div>
-        <div style="width:71%;float:left;">
-            <div class="clear"></div>
-            <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos.</span><a class="btn_ver_todo_filtros" href="/ShowRoom">VER TODOS</a></div>
-            <hr class="clear">
-            <div class="contenedor_productos_showroom">
-                {{#each this as |item|}}
-                <div class="contiene-productos" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
-                    <div data-campos="" style="display:none;">
-                        <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
-                        <input type="hidden" class="valorCuv" value="{{CUV}}" />
-                        <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
-                        <input type="hidden" class="clasePrecioUnidad" value="{{PrecioOferta}}" />
-                        <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-                        <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
-                        <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
-                        <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
-                        <input type="hidden" class="origenPedidoWeb" value="1541" />
-                    </div>
-                    <div class="producto_img_home mini" data-img="">
-                        {{#IsNullOrEmpty ImagenProducto '=='}}
-                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" alt="" data-lazy-seccion-showroom="" />
-                        {{else}}
-                        <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
-                        {{/IsNullOrEmpty}}
-                        <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
-                    </div>
-                    <div class="producto_nombre_descripcion">
-                        <p class="nombre-producto-set">{{Descripcion}}</p>
-                        <div class="producto_precio" style="margin-bottom: 3px;">
-                            <span class="precio-oferta-normal">{{SimboloMoneda}} {{FormatoPrecioValorizado}}</span>
-                            <span class="precio-oferta-venta"><b>{{SimboloMoneda}} {{FormatoPrecioOferta}}</b></span>
-                        </div>
-                        {{#iff TipoAccionAgregar '==' '2'}}
-                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                            <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
-                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                   oninput="FuncionesGenerales.MaxLengthCheck(this, 2);" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
-                                   data-input="cantidad" data-cantidad-input="-">
-                            <div class="liquidacion_rango_right_pedido">
-                                <a class="mas" data-cantidad-agregar="+" href="javascript:;" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos" data-cantidad-agregar="-" href="javascript:;" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                            </div>
-                        </div>
-                        <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
-                        {{/iff}}
-                        {{#iff TipoAccionAgregar '==' '3'}}
-                        <a class="btn_elige_tono" href="{{UrlDetalle}}">
-                            <b style="color:#000000">ELIGE TU OPCIÓN</b>
-                        </a>
-                        {{/iff}}
-                        <div class="clear"></div>
-                        <div style="padding-top: 9px; margin-bottom:6px; height: 15px;">
-                            <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
-                                AGREGADO
-                                <div class="icono"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{/each}}
-                <div class="clear"></div>
-            </div>
-        </div>
-        <hr class="clear">
-    </div>
-</script>*@
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div class="clear"></div>
@@ -2096,7 +2013,6 @@ DEUDA TECNICA
         var urlOfertasIndex = '@Url.Action("Index", "ShowRoom")';
         var urlShowRoomIntriga = '@Url.Action("Intriga", "ShowRoom")';
         var urlShowRoomVenta = '@Url.Action("Index", "ShowRoom")';
-        var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
         var urlRevistaDigitalInformacion = '@Url.Action("Informacion", "RevistaDigital")';
         var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';

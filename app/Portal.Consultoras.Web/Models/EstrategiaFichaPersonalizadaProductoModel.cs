@@ -1,6 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
 using System;
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -27,8 +26,7 @@ namespace Portal.Consultoras.Web.Models
         public double TeQuedan { get; set; }
         public string ColorFondo1 { get; set; }
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
-        //public string CodigoIsoConsultora { get; set; }
-        //public bool TieneRevistaDigital { get; set; }
+
         public DetalleEstrategiaBreadCrumbsModel BreadCrumbs { get; set; }
     }
 

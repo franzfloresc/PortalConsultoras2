@@ -1,6 +1,5 @@
 ﻿
 var ConstantesModule = (function () {
-  
     var _codigosPalanca = {
         OfertaParaTi: "OfertaParaTi",
         PackNuevas: "PackNuevas", // Oferta Nueva Esika
@@ -18,14 +17,16 @@ var ConstantesModule = (function () {
         HerramientasVenta: "Demostradores",
         ProgramaNuevasRegalo: "ProgramaNuevasRegalo",
         ParticipaProgramaNuevas: "ParticipaProgramaNuevas",
-        NotParticipaProgramaNuevas: "NotParticipaProgramaNuevas"
+        NotParticipaProgramaNuevas: "NotParticipaProgramaNuevas",
+        Ganadoras : "Ganadoras"
     }
     
     var _keysLocalStorage = {
         GuiaDeNegocio: "GNDLista",
         HerramientasVenta: "HVLista",
         Lanzamiento: "LANLista",
-        RevistaDigital: "RDLista"
+        RevistaDigital: "RDLista",
+        Ganadoras: "MGLista"
     }
     
     var _codigoVariedad = {
@@ -40,6 +41,7 @@ var ConstantesModule = (function () {
         OfertaWeb: "003",
         Lanzamiento: "005",
         OfertasParaMi: "007",
+        MasGanadoras: "007",
         PackAltoDesembolso: "008",
         RevistaDigital: "101",
         LosMasVendidos: "020",
@@ -55,16 +57,17 @@ var ConstantesModule = (function () {
     }
 
     var _tipoEstrategia = {
-        rd: "rd",
-        hv: "hv",
-        gn: "gn",
-        lan: "lan"
+        RD: "RD",
+        HV: "HV",
+        GND: "GN",
+        LAN: "LAN",
+        MG: "MG"
     }
 
     var _urlObtenerEstrategia = {
-        OfertaParaTi: "/Estrategia/ConsultarEstrategiasOPT",
+        OfertaParaTi: "/Estrategia/OPTObtenerProductos",
         OfertasParaMi: "/Estrategia/RDObtenerProductos",
-        Lanzamiento: "/Estrategia/RDObtenerProductosLan",
+        Lanzamiento: "/Estrategia/LANObtenerProductos",
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
         HerrameintasVenta: "/Estrategia/HVObtenerProductos"
     }
@@ -75,9 +78,16 @@ var ConstantesModule = (function () {
         //OfertaDelDiaDesktopGeneralBanner: "1991",
         DesktopHomeOfertaDeliaBannerSuperior: "1010306",
         DesktopPedidoOfertaDelDiaBannerSuperior: "1020306",
-        DesktopOtrasOfertaDelDiaBannerSuperior: "1090306"
+        DesktopOtrasOfertaDelDiaBannerSuperior: "1090306",
 
-
+        DesktopContenedorGanadorasCarrusel: "1081401",
+        DesktopContenedorGanadorasFicha: "1081402",
+        DesktopLandingGanadorasGanadorasCarrusel: "1111401",
+        DesktopLandingGanadorasGanadorasFicha: "1111402",
+        MobileContenedorGanadorasCarrusel: "2081401",
+        MobileContenedorGanadorasFicha: "2081402",
+        MobileLandingGanadorasGanadorasCarrusel: "2111401",
+        MobileLandingGanadorasGanadorasFicha: "2111402"
     }
     
     return {

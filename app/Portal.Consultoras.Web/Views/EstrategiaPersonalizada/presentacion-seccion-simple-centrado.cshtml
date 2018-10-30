@@ -9,7 +9,7 @@
         seccionTituloClass += " seccion-titulo-dorado";
         vermasClass += " dorado";
     }
-    if (Model.Codigo.ToLower().Equals("opt"))
+    if (Model.Codigo.ToLower().Equals("opt") || Model.Codigo.ToLower().Equals("mg"))
     {
         classOpt = "carrusel-simple-opt";
     }
@@ -18,7 +18,7 @@
     #carrusel-simple-opt .contenido_834 .revistadigital-landing { min-width: auto !important; }
     #carrusel-simple-opt .contenido_834 .slick-list { width: 824px !important;}
 </style>
-<div class="bc_plantilla_estrategia_personalizada" style="background: url(@Model.ImagenFondo) center center no-repeat; background-position: center !important; min-height: 500px;vertical-align: middle;"
+<div class="bc_plantilla_estrategia_personalizada" style="background: url(@Model.ImagenFondo) center center no-repeat; background-position: center !important; background-size: cover; min-height: 500px;vertical-align: middle;"
      data-plantilla="simple-centrado">
     <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834">
         <div class="bloque-titulo">
@@ -31,7 +31,7 @@
 
             @if (Model.VerMas)
             {
-                <div class="ir">
+                <div class="ir" data-seccion-vermas="@Model.Codigo">
                     <a class="@vermasClass" href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics','@Model.OrigenPedido')">VER MÁS OFERTAS</a>
                 </div>
             }

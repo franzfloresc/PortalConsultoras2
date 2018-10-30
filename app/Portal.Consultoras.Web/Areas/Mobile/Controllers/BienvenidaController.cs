@@ -16,13 +16,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class BienvenidaController : BaseMobileController
     {
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
-        protected TablaLogicaProvider _tablaLogica;
+        protected Providers.TablaLogicaProvider _tablaLogica;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
-            _tablaLogica = new TablaLogicaProvider();
+            _tablaLogica = new Providers.TablaLogicaProvider();
         }
-
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(int verSeccion = 0)
@@ -134,7 +133,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (LogicaCaminoExisto.Any())
                 {
                     var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
-                    bool caminiExitoActive = (CaminoExistoFirst != null && CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
+                    bool caminiExitoActive = (CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
                     if (caminiExitoActive)
                     {
                         var accesoCaminoExito = this.ObjectCaminoExito();
@@ -603,5 +602,4 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
     }
-
 }

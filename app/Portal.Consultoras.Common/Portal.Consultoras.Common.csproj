@@ -201,6 +201,10 @@
     <Compile Include="Reader\IStreamReader.cs" />
     <Compile Include="RegexUtilities.cs" />
     <Compile Include="Response\GenericResponse.cs" />
+    <Compile Include="SeguridadApi\JwtAutentication.cs" />
+    <Compile Include="SeguridadApi\JwtContext.cs" />
+    <Compile Include="SeguridadApi\JwtModule.cs" />
+    <Compile Include="SeguridadApi\JwtToken.cs" />
     <Compile Include="Settings\ServiceSettings.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Validator\IPhoneValidator.cs" />
@@ -215,6 +219,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -433,11 +433,7 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
-        //public static bool EnviarMail(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML)
-        //{
-        //    return Util.EnviarMail(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null, false);
-        //}
-
+        
         public static bool EnviarMail3(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string strFile, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))
@@ -3550,7 +3546,7 @@ namespace Portal.Consultoras.Common
 
             if (!lista.Any()) return result;
 
-            if (string.IsNullOrEmpty(tipoEstrategiaCodigo) && buscador == false)
+            if (string.IsNullOrEmpty(tipoEstrategiaCodigo) && !buscador)
             {
                 switch (codigoCatalago)
                 {
@@ -3839,11 +3835,56 @@ namespace Portal.Consultoras.Common
             return tipoPersonalizacion;
         }
 
-        public static string ProcesarOrigenPedido(string origenActual, bool isApp)
+        public static string ProcesarOrigenPedidoApp(string origenActual)
         {
-            if (!isApp) return origenActual;
+            if (string.IsNullOrEmpty(origenActual)) return origenActual;
             var nuevoOrigen = origenActual.Remove(0, 1).Insert(0, "4");
             return nuevoOrigen;
+        }
+
+        public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc, Action<Exception> fnExcep, T defaultValue)
+        {
+            if (!fnIsNull(fnGet())) return fnGet();
+
+            try { fnSet(fnCalc()); }
+            catch (Exception ex)
+            {
+                fnSet(defaultValue);
+                fnExcep(ex);
+            }
+
+            return fnGet();
+        }
+
+        public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc)
+        {
+            T value = fnGet();
+            if (!fnIsNull(value)) return value;
+
+            value = fnCalc();
+            fnSet(value);
+            return value;
+        }
+        public static string ProcesarOrigenPedidoAppFicha(string origenActual)
+        {
+            if (string.IsNullOrEmpty(origenActual)) return origenActual;
+            var nuevoOrigen = origenActual.Remove(origenActual.Length - 1, 1).Insert(origenActual.Length - 1, "2");
+            return nuevoOrigen;
+        }
+
+        public static bool EsDispositivoMovil()
+        {
+            var result = false;
+
+            try
+            {
+                result = HttpContext.Current.Request.Browser.IsMobileDevice;
+            }
+            catch
+            {
+            }
+
+            return result;
         }
     }
 
