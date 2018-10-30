@@ -444,7 +444,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@IPUsuario", DbType.AnsiString, pedidowebdetalle.IPUsuario);
             Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidowebdetalle.CodigoUsuarioCreacion);
 
-            Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int16, pedidowebdetalle.OrigenPedidoWeb);
+            Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int32, pedidowebdetalle.OrigenPedidoWeb);
             Context.Database.AddInParameter(command, "@EsCompraPorCompra", DbType.Boolean, pedidowebdetalle.EsCompraPorCompra);
             Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, pedidowebdetalle.TipoEstrategiaID);
 
