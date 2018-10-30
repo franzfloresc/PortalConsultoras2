@@ -310,14 +310,16 @@
     .agregarBackgroundNavidenio .icono_busqueda_mobile{
         opacity:1;
         margin-right:8px;
+        top:-1px;
     }
 
     .agregarBackgroundNavidenio .campana_svg_mobile{
-        background: url(/Content/Images/icono-notificaciones-blanco.svg) no-repeat;
-        background-position: center -2px;
+        background: url(/Content/Images/icono_notificaciones_blanco.svg) no-repeat;
+        background-position: center 1px;
         width: 20px;
         height: 19px;
         margin-right: 14px;
+        top: -3px;
     }
 
     .agregarBackgroundNavidenio .campana_mobile .icon-shop-belcorp:before,

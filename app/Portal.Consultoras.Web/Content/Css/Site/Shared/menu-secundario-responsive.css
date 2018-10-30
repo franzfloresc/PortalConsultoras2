@@ -275,6 +275,11 @@
         display:none;
     }
 
+    .menu__link--buscadorMobile img{
+        width:20px;
+        height:20px;
+    }
+
 }
 
 /* FIN - MENÚ SECUNDARIO MOBILE */
