@@ -272,38 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Comprar desde Pagina de Oferta
-
-        public ActionResult DetalleOferta(int id)
-        {
-            if (!ValidarIngresoShowRoom(false))
-                return RedirectToAction("Index", "Bienvenida");
-
-            var modelo = ViewDetalleOferta(id);
-            modelo.EstrategiaID = id;
-
-            List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
-
-            if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
-            {
-                UsuarioModel usurioModel = new UsuarioModel
-                {
-                    CodigoISO = userData.CodigoISO,
-                    CampaniaID = userData.CampaniaID
-                };
-                listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
-                listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
-            }
-            else
-            {
-                listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
-            }
-
-            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion,Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-            ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion,Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-
-            return View("DetalleSet", modelo);
-        }
-
+        
         #endregion
 
         [HttpPost]
