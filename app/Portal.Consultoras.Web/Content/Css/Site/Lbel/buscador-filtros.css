@@ -391,8 +391,8 @@
         padding-top:0;
     }
 
-    div[data-item="ProductoBuscador"]:last-child{
-        padding-bottom:0;
+    .resultado_busqueda_producto:nth-last-child(-n+2){
+        padding-bottom:8px;
         border-bottom:none;
     }
 
