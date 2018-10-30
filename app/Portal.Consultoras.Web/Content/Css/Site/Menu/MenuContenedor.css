@@ -1,5 +1,4 @@
 ﻿.op-menu-horizonta-fixed {
-    /*position: fixed;*/
     width: 100%;
     background-color: #fff;
     z-index: 5;
@@ -32,7 +31,6 @@
             }
 
                 .op-menu-horizontal .subnavegador li a img {
-                    /*width: 70px;*/
                     vertical-align: middle;
                     margin-top: -3px;
                 }
