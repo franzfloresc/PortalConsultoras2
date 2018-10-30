@@ -1797,8 +1797,17 @@ function btnSalirTlpDelete(CUV){
 }
 
 function tooltipObservaciones(Mensaje) {
+    msj = Mensaje.split("<br/>");
+    msj.pop();
     $("#observaciones_alerta").dialog("open");
-    $("#desc_obs_alerta").html("<ul><li>" + Mensaje + "</ul></li>");
+    if (msj.length > 0) {
+        $("#desc_obs_alerta").html("<ul></ul>");
+        for (i = 0; i < msj.length; i++) {
+            $("#desc_obs_alerta ul").append("<li>" + msj[i] + "</li>");
+        }
+    } else {
+        $("#desc_obs_alerta").html("<ul><li>" + Mensaje + "</li></ul>");
+    }    
 }
 
 function btnSalirTlpObservaciones() {

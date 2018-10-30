@@ -435,8 +435,17 @@ function btnSalirTlpDelete(PedidoDetalleID) {
 }
 
 function tooltipObservaciones(Mensaje) {
-    $('#observacionPedido').modal()
-    $("#desc_obs_alert").html("<ul><li>" + Mensaje + "</ul></li>");
+    $('#observacionPedido').modal();
+    msj = Mensaje.split("<br/>");
+    msj.pop();
+    if (msj.length > 0) {
+        $("#desc_obs_alert").html("<ul></ul>");
+        for (i = 0; i < msj.length; i++) {
+            $("#desc_obs_alert ul").append("<li>" + msj[i] + "</li>");
+        }
+    } else {
+        $("#desc_obs_alert").html("<ul><li>" + Mensaje + "</li></ul>");
+    }
 }
 
 function btnSalirTlpObservaciones() {
