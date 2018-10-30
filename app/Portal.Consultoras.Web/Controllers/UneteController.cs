@@ -2016,6 +2016,28 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
+        public ActionResult ExcepcionarDocumento()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ExcepcionarDocumento", null);
+            return View();
+        }
+        public JsonResult GrabarDocumentoExcepcion(string numerodocumento)
+        {
+            int id = 0;
+            UsuarioModel oUsuarioModel = SessionManager.GetUserData();
+            PortalServiceClient oservice = new PortalServiceClient();
+            id = oservice.GrabarDocumentoExcepcion(CodigoISO, numerodocumento + "|" + oUsuarioModel.CodigoUsuario);
+            oservice.Close();
+            return Json(new { message = id.ToString() });
+        }        public string ListarDocumentoExcepcion(string numerodocumento)
+        {
+            string rpta = "";
+            PortalServiceClient oservice = new PortalServiceClient();
+            rpta = oservice.ListarDocumentoExcepcion(CodigoISO, numerodocumento);
+            oservice.Close();
+            return rpta;
+        }
+
         public string getHTMLSACUnete(string action, string urlParams)
         {
             string urlSacUente = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UneteURL);
