@@ -247,11 +247,12 @@
         var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
-        @*var OrigenPedidoMobileBuscador = @Constantes.OrigenPedidoWeb.MobileBuscador;*@
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
+        var esAppMobile = true;
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
+        var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
     </script>
 
     <script type="text/javascript">

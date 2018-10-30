@@ -348,7 +348,7 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function () {
         var estrategia;
-        
+        console.log(_config);
         if (_config.tieneSession === "True") {
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         }
@@ -542,6 +542,7 @@ var FichaModule = (function (config) {
         var estrategia = _estrategia;
         
         if (estrategia == null) {
+            console.log('location', 1);
             window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
             return false;
         }
@@ -600,8 +601,9 @@ var FichaModule = (function (config) {
 
     function getEstrategia()
     {
-        return _estrategia;
+        return _estrategia || _getEstrategia();
     }
+
     function Inicializar() { 
         _localStorageModule = LocalStorageModule();
         _construirSeccionEstrategia();

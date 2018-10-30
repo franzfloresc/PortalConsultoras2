@@ -72,6 +72,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             MisCursos();
 
+          
+
             if (EsUsuarioAutenticado())
             {
                 if (misCursos > 0)
@@ -1326,6 +1328,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                         usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
 
+                       
+
                         #endregion
                     }
 
@@ -1334,7 +1338,10 @@ namespace Portal.Consultoras.Web.Controllers
                         var lstFiltersFAV = await CargarFiltersFAV(usuarioModel);
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
+                    usuarioModel.JwtToken = await Common.JwtAutentication.getWebTokenAsync(JwtContext.Instance);
 
+
+                   
                     using (var usuarioCliente = new UsuarioServiceClient())
                     {
                         var insert = usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
@@ -1355,7 +1362,11 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpmX1(true);
                     sessionManager.SetTieneHv(true);
                     sessionManager.SetTieneHvX1(true);
+                    sessionManager.SetJwtApiSomosBelcorp(usuarioModel.JwtToken);
                     sessionManager.SetTieneMg(true);
+
+
+
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
@@ -2985,7 +2996,7 @@ namespace Portal.Consultoras.Web.Controllers
         private Dictionary<string, string> getNuevasDescripcionesBuscador(int paisId)
         {
             var result = new Dictionary<string, string>();
-            var listaDescripciones = new List<BETablaLogicaDatos>();
+            List<BETablaLogicaDatos> listaDescripciones;
 
             using (var tablaLogica = new SACServiceClient())
             {
@@ -3003,7 +3014,7 @@ namespace Portal.Consultoras.Web.Controllers
         private Dictionary<string, string> getListaOrdenamientoFiltrosBuscador(int paisId)
         {
             var result = new Dictionary<string, string>();
-            var listaDescripciones = new List<BETablaLogicaDatos>();
+            List<BETablaLogicaDatos> listaDescripciones;
 
             using (var tablaLogica = new SACServiceClient())
             {
