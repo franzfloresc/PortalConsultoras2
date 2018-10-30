@@ -175,23 +175,23 @@
                 <li class="boton-primaria"><button onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EnRangoProgNuevas}});">SÍ, ELIMINAR</button></li>
             </ul>
         </div>
+        {{#IsNullOrEmpty Mensaje '!='}}
+        <div class="popover bottom" style="width: 357px" id="tlpObservaciones">
+            <div class="arrow"></div>
+            <ul class="list-tooltip">
+                <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                <li class="boton-secundario">Este producto tiene observaciones. <button onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
+            </ul>
+        </div>
 
+        {{/IsNullOrEmpty}}
 
 
     </div>
 
     {{/if}}
 
-    {{#IsNullOrEmpty Mensaje '!='}}
-    <div class="popover bottom" style="width: 357px" id="tlpObservaciones">
-        <div class="arrow"></div>
-        <ul class="list-tooltip">
-            <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-            <li class="boton-secundario">Este producto tiene observaciones. <button onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
-        </ul>
-    </div>
-
-    {{/IsNullOrEmpty}}
+    
     {{/each}}
 
     @*{{#IsNullOrEmpty Mensaje '!='}}
