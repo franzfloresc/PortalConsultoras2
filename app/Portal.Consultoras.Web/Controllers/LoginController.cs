@@ -27,6 +27,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1858,7 +1859,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 var buscadorYFiltrosModel = new BuscadorYFiltrosConfiguracionModel();
                 var masGanadorasModel = new MasGanadorasModel();
-                
+                var showroomConfigModel = new ConfigModel();
+
                 if (configuracionesPaisModels.Any())
                 {
                     var configuracionPaisDatosAll = await GetConfiguracionPaisDatos(usuarioModel);
@@ -1942,6 +1944,9 @@ namespace Portal.Consultoras.Web.Controllers
                                 masGanadorasModel.TieneMG = c.Estado;
                                 masGanadorasModel = ConfiguracionPaisDatosMasGanadoras(masGanadorasModel, configuracionPaisDatos);
                                 break;
+                            case Constantes.ConfiguracionPais.ShowRoom:
+                                showroomConfigModel = ConfiguracionPaisDatosShowRoom(showroomConfigModel, configuracionPaisDatos);
+                                break;
                         }
 
                         listaConfiPaisModel.Add(c);
@@ -1960,6 +1965,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetHerramientasVenta(herramientasVentaModel);
                     sessionManager.SetBuscadorYFiltros(buscadorYFiltrosModel);
                     sessionManager.MasGanadoras.SetModel(masGanadorasModel);
+                    sessionManager.SetEstrategiaSR(showroomConfigModel);
                 }
 
                 usuarioModel.CodigosRevistaImpresa = await ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
@@ -2341,6 +2347,15 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         public virtual MasGanadorasModel ConfiguracionPaisDatosMasGanadoras(MasGanadorasModel model, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            model.ConfiguracionPaisDatos =
+                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
+                    new List<ConfiguracionPaisDatosModel>();
+
+            return model;
+        }
+
+        public virtual ConfigModel ConfiguracionPaisDatosShowRoom(ConfigModel model, List<BEConfiguracionPaisDatos> listaDatos)
         {
             model.ConfiguracionPaisDatos =
                     Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??

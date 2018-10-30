@@ -225,9 +225,13 @@ namespace Portal.Consultoras.Web.Providers
                 modelo.DescripcionMarca = esMobile ? "/Mobile/MasGanadoras" : "/MasGanadoras";
                 modelo.TipoAccionAgregar = Constantes.TipoAccionAgregar.BannerCarruselMg;
             }
-            if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
+            else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
             {
-                //pendiente
+                var sessionPalanca = sessionManager.GetEstrategiaSR();
+                modelo.DescripcionCompleta = GetValorDato(sessionPalanca.ConfiguracionPaisDatos, Constantes.ConfiguracionPaisDatos.MG.BannerCarruselTitulo, esMobile);
+                modelo.DescripcionDetalle = GetValorDato(sessionPalanca.ConfiguracionPaisDatos, Constantes.ConfiguracionPaisDatos.MG.BannerCarruselTextoEnlace, esMobile);
+                modelo.DescripcionMarca = esMobile ? "/Mobile/ShowRoom" : "/ShowRoom";
+                modelo.TipoAccionAgregar = Constantes.TipoAccionAgregar.BannerCarruselMg;
             }
             return modelo;
         }
