@@ -998,6 +998,9 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorOfertaDelDiaCarrusel = 2080301;
             public const int MobileContenedorOfertaDelDiaFicha = 2080302;
             public const int AppConsultoraContenedorOfertaDelDiaFicha = 4080302;
+
+
+
             public const int DesktopHomeShowroomCarrusel = 1010101;
             public const int DesktopHomeShowroomFicha = 1010102;
             public const int DesktopHomeShowroomCarruselVerMas = 1010105;
@@ -1013,6 +1016,9 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraLandingShowroomShowroomFicha = 4050102;
             public const int MobileLandingShowroomShowroomSubCampania = 2050107;
             public const int AppConsultoraLandingShowroomShowroomSubCampania = 4050107;
+
+
+
             public const int DesktopLandingGNDGNDCarrusel = 1060501;
             public const int DesktopLandingGNDGNDFicha = 1060502;
             public const int MobileLandingGNDGNDCarrusel = 2060501;

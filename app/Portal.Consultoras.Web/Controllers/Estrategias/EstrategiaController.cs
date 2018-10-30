@@ -306,6 +306,20 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         }
                     }
                 }
+                else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
+                {
+                    var session = SessionManager.ShowRoom;
+                    if (session.TieneLanding)
+                    {
+                        var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
+                        var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.ShowRoom) ?? new ConfiguracionSeccionHomeModel();
+                        var cantidad = entConf.CantidadMostrar;
+                        if (cantidadTotal <= cantidad)
+                        {
+                            session.TieneLanding = false;
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
