@@ -246,7 +246,7 @@ namespace Portal.Consultoras.Web.Providers
                     userData
                 ));
 
-            Task.WhenAll(taskApi);;
+            Task.WhenAll(taskApi);
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
 
@@ -291,6 +291,7 @@ namespace Portal.Consultoras.Web.Providers
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
+
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
@@ -333,7 +334,7 @@ namespace Portal.Consultoras.Web.Providers
                 MatrizComercialId = entidad.IdMatrizComercial,
                 PrecioPublico = (float)entidad.PrecioPublico,
                 Zona = entidad.Zona,
-                EsSubCampania = entidad.EsSubCampania == 1 ? true : false,
+                EsSubCampania = entidad.EsSubCampania == 1,
                 ImagenMiniatura = entidad.ImagenMiniaturaURL ?? string.Empty
             };
             return waModel;
@@ -542,9 +543,6 @@ namespace Portal.Consultoras.Web.Providers
             Task.WhenAll(taskApi);
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
-
-            //if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-            //    throw new Exception(respuesta.Message);
 
             List<ShowRoomEventoModelo> l = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<ShowRoomEventoModelo>>(respuesta.Result.ToString()) : new List<ShowRoomEventoModelo>();
 

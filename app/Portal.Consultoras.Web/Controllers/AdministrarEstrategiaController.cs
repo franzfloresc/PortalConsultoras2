@@ -69,7 +69,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };
-                 
+
             }
             catch (Exception ex)
             {
@@ -540,7 +540,7 @@ namespace Portal.Consultoras.Web.Controllers
                     "text/html");
             }
         }
-        
+
         [HttpPost]
         public JsonResult GetOfertaByCUV(string CampaniaID, string CUV2,
             string TipoEstrategiaID, string CUV1, string flag,
@@ -642,21 +642,21 @@ namespace Portal.Consultoras.Web.Controllers
                     idMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString("F2");
                 }
-                    return Json(new
-                    {
-                        success = true,
-                        message = mensaje,
-                        descripcion,
-                        precio,
-                        wsprecio,
-                        codigoSAP = codigoSap,
-                        enMatrizComercial,
-                        idMatrizComercial,
-                        ganancia = ganancia.ToString("F2"),
-                        extra = "",
-                        niveles,
-                        beEstrategia
-                    }, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    descripcion,
+                    precio,
+                    wsprecio,
+                    codigoSAP = codigoSap,
+                    enMatrizComercial,
+                    idMatrizComercial,
+                    ganancia = ganancia.ToString("F2"),
+                    extra = "",
+                    niveles,
+                    beEstrategia
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -751,9 +751,10 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model, 
-            string _id,string _flagRecoProduc,string _flagRecoPerfil)
+        public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model,
+            string _id, string _flagRecoProduc, string _flagRecoPerfil)
         {
+            string error = "";
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
@@ -785,18 +786,24 @@ namespace Portal.Consultoras.Web.Controllers
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
+                    error += "| region codigo_estrategia y variedad";
                     respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidad);
+                    error += "| region codigo_estrategia y variedad fin - respuestaServiceCdr = " + respuestaServiceCdr;
 
                     if (respuestaServiceCdr.Any())
                     {
+                        error += "| respuestaServiceCdr.Any - TieneVariedad";
                         entidad.CodigoEstrategia = respuestaServiceCdr[0].codigo_estrategia;
                         entidad.TieneVariedad = TieneVariedad(entidad.CodigoEstrategia, entidad.CUV1);
+                        error += "| respuestaServiceCdr.Any - TieneVariedad fin = " + entidad.TieneVariedad;
                     }
                 }
 
                 #endregion
 
                 var numeroPedidosAsociados = model.NumeroPedido.Split(',').Select(int.Parse).ToList();
+                error += "| NumeroPedido.Split = " + numeroPedidosAsociados.Count;
+
                 var estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
 
                 foreach (var item in numeroPedidosAsociados)
@@ -807,81 +814,110 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (entidad.CodigoTipoEstrategia != null)
                         {
+                            error += "| if CodigoTipoEstrategia != null";
                             if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                             {
+                                error += "| if CodigoTipoEstrategia Equals Lan";
                                 estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
                                 if (entidad.EstrategiaID != 0)
+                                {
+                                    error += "| if entidad.EstrategiaID != 0";
                                     estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
-
+                                    error += "| if entidad.EstrategiaID != 0 fin - estrategiaDetalle = " + estrategiaDetalle;
+                                }
+                                error += "| VerficarArchivos";
                                 entidad = VerficarArchivos(entidad, estrategiaDetalle);
+                                error += "| VerficarArchivos = " + entidad;
                             }
                         }
 
                         #region Imagen Resize  
-
+                        error += "| mensajeErrorImagenResize";
                         mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
+                        error += "| mensajeErrorImagenResize fin = " + mensajeErrorImagenResize;
 
                         #endregion
 
                         if (entidad.ImagenMiniaturaURL == string.Empty || entidad.ImagenMiniaturaURL == "prod_grilla_vacio.png")
                         {
+                            error += "| ImagenMiniaturaURL vacia";
                             entidad.ImagenMiniaturaURL = entidad.ImagenURL;
+                            error += "| ImagenMiniaturaURL vacia - fin = " + entidad.ImagenMiniaturaURL;
                         }
                         else
                         {
+                            error += "| ImagenMiniaturaURL";
                             entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
+                            error += "| ImagenMiniaturaURL fin = " + entidad.ImagenMiniaturaURL;
                         }
 
                         if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia, dbdefault))
                         {
                             if (entidad.EstrategiaID != 0)
                             {
+                                error += "| EditarEstrategia";
                                 administrarEstrategiaProvider.EditarEstrategia(entidad, _id, userData.CodigoISO, _flagRecoProduc, _flagRecoPerfil);
+                                error += "| EditarEstrategia fin";
                             }
                             else
                             {
+                                error += "| RegistrarEstrategia";
                                 administrarEstrategiaProvider.RegistrarEstrategia(entidad, userData.CodigoISO);
+                                error += "| RegistrarEstrategia fin";
                             }
                         }
                         else
                         {
+                            error += "| InsertarEstrategia";
                             entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
+                            error += "| InsertarEstrategia Fin = " + entidad.EstrategiaID;
                         }
                     }
                 }
 
+                error += "| EstrategiaProductoInsertar";
                 EstrategiaProductoInsertar(respuestaServiceCdr, entidad);
+                error += "| EstrategiaProductoInsertar fin";
 
                 if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
                     !string.IsNullOrEmpty(model.PrecioAnt) &&
                     model.Precio2 != model.PrecioAnt)
+                {
+                    error += "| UpdateCacheListaOfertaFinal";
                     UpdateCacheListaOfertaFinal(model.CampaniaID);
+                    error += "| UpdateCacheListaOfertaFinal fin";
+                }
 
                 return Json(new
                 {
                     success = true,
                     message = "Se grabó con éxito la estrategia. " + mensajeErrorImagenResize,
-                    extra = ""
+                    extra = "",
+                    msjError = error
                 });
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| FaultException = " + ex.Message;
                 return Json(new
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = "",
+                    msjError = error
                 });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| Exception = " + ex.Message;
                 return Json(new
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = "",
+                    msjError = error
                 });
             }
         }
@@ -938,8 +974,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = Convert.ToInt32(CampaniaID),
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
                     CUV2 = cuv2,
-                     AgregarEnMatriz=true,
-                     UsuarioRegistro = userData.CodigoConsultora
+                    AgregarEnMatriz = true,
+                    UsuarioRegistro = userData.CodigoConsultora
                 };
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
@@ -996,32 +1032,121 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         public JsonResult GetImagesBySapCode(int paisID, string estragiaId, string cuv2, string CampaniaID,
-            string TipoEstrategiaID, int pagina)
+            string TipoEstrategiaID, int pagina, string nombreImagen)
         {
-            List<BEMatrizComercialImagen> lst;
-            var estrategia = new ServicePedido.BEEstrategia
+            string error = "";
+            try
             {
-                PaisID = paisID,
-                EstrategiaID = Convert.ToInt32(estragiaId),
-                CUV2 = cuv2,
-                CampaniaID = Convert.ToInt32(CampaniaID),
-                TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID)
-            };
+                List<BEMatrizComercialImagen> lst;
+                var estrategia = new ServicePedido.BEEstrategia
+                {
+                    PaisID = paisID,
+                    EstrategiaID = Convert.ToInt32(estragiaId),
+                    CUV2 = cuv2,
+                    CampaniaID = Convert.ToInt32(CampaniaID),
+                    TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID)
+                };
+
+                if (pagina == 1)
+                {
+                    error += "| primera pagina";
+                    GetImagenesByEstrategiaMatrizComercialImagenIsOk(estrategia, pagina, -1, nombreImagen);
+                    error += "| primera pagina fin";
+                }
+
+                // validar si existe en MatrizComercialImagen
+                using (var sv = new PedidoServiceClient())
+                {
+                    lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, 10).ToList();
+                    error += "| GetImagenesByEstrategiaMatrizComercialImagen = " + lst.Count;
+                }
+
+                return GetImagesCommonResult(lst, paisID, error);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| FaultException = " + ex.Message;
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = "",
+                    msjError = error
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| Exception = " + ex.Message;
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = "",
+                    msjError = error
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private void GetImagenesByEstrategiaMatrizComercialImagenIsOk(ServicePedido.BEEstrategia estrategia, int pagina, int total, string nombreImagen)
+        {
+            nombreImagen = Util.Trim(nombreImagen);
+            if (nombreImagen == "")
+            {
+                return;
+            }
+
+            List<BEMatrizComercialImagen> lst;
 
             using (var sv = new PedidoServiceClient())
             {
-                lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, 10).ToList();
+                lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, -1).ToList();
             }
 
-            return GetImagesCommonResult(lst, paisID);
+            bool foto = false;
+
+            foreach (var item in lst)
+            {
+                if (lst.Any(x => item.Foto.ToLower() == nombreImagen.ToLower()))
+                {
+                    foto = true;
+                    break;
+                }
+            }
+
+            if (foto)
+            {
+                return;
+            }
+
+            var entidadImagen = lst[0];
+
+            var entity = new BEMatrizComercialImagen
+            {
+                IdMatrizComercial = entidadImagen.IdMatrizComercial,
+                PaisID = userData.PaisID,
+                UsuarioRegistro = userData.CodigoConsultora,
+                UsuarioModificacion = userData.CodigoConsultora,
+                NemoTecnico = null, // NemoTecnico apagado
+                DescripcionComercial = null,  // NemoTecnico apagado,
+                Foto = nombreImagen
+            };
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                entity.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
+            }
         }
 
-        private JsonResult GetImagesCommonResult(List<BEMatrizComercialImagen> lst, int paisID)
+        private JsonResult GetImagesCommonResult(List<BEMatrizComercialImagen> lst, int paisID, string error)
         {
             var totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
+            error += "| GetImagesCommonResult - totalRegistros = " + totalRegistros;
             var data = MapImages(lst, paisID);
+            error += "| GetImagesCommonResult - MapImages = " + data.Count;
 
-            return Json(new { imagenes = data, totalRegistros = totalRegistros });
+            return Json(new { imagenes = data, totalRegistros = totalRegistros, msjError = error });
         }
 
         private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisID)
@@ -1062,7 +1187,7 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
             if (lst.Count > 0)
-            {                
+            {
                 lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
                 lst.Update(x => x.Simbolo = userData.Simbolo);
             }
@@ -1351,6 +1476,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+
                 return Json(new
                 {
                     success = false,
@@ -1369,7 +1495,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         public static byte[] ReadFully(Stream input)
         {
             var buffer = new byte[16 * 1024];
@@ -1894,10 +2020,10 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     using (var svc = new SACServiceClient())
-                	{
-                    beDescripcionEstrategias = svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(),
-                        model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray()).ToList();
-                	}
+                    {
+                        beDescripcionEstrategias = svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(),
+                            model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray()).ToList();
+                    }
                     descripcionEstrategiaModels =
                         Mapper.Map<List<BEDescripcionEstrategia>, List<DescripcionEstrategiaModel>>(
                             beDescripcionEstrategias);
@@ -2168,7 +2294,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 Descripcion1 = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Description].ToString().TrimEnd(),
                                 Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order]),
                                 IdMarca = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct])
-                                
+
                             });
                         }
                     }

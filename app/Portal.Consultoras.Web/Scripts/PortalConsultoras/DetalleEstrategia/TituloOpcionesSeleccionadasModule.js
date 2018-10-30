@@ -31,17 +31,17 @@ var TituloOpcionesSeleccionadasModule = (function () {
 
     var _obtenerTitulo = function () {
         var titulo = "";
-        //
+        
         if (_componente.HermanosSeleccionados.length === 0 && _componente.FactorCuadre === 1)
             titulo = "Elige 1 opción";
         if (_componente.HermanosSeleccionados.length === 0 && _componente.FactorCuadre > 1)
             titulo = "Elige " + _componente.FactorCuadre + " opciones";
-        //
+        
         if (_componente.HermanosSeleccionados.length > 0 && _componente.cantidadFaltantes === 1)
             titulo = "Te Falta 1 opción";
         if (_componente.HermanosSeleccionados.length > 0 && _componente.cantidadFaltantes > 1)
             titulo = "Te Faltan " + _componente.cantidadFaltantes + " opciones";
-        //
+        
         if (_componente.cantidadFaltantes === 0
             && _componente.resumenAplicados.length === 0
             && _componente.HermanosSeleccionados.length === 1)
@@ -50,7 +50,7 @@ var TituloOpcionesSeleccionadasModule = (function () {
             && _componente.resumenAplicados.length === 0
             && _componente.HermanosSeleccionados.length > 1)
             titulo = "¡Listo! <span>ya tienes tus</span> " + _componente.HermanosSeleccionados.length + " opciones";
-        //
+        
         if (_componente.cantidadFaltantes === 0
             && _componente.resumenAplicados.length > 0
             && (typeof _componente.mostrarListo === "undefined" || !_componente.mostrarListo)
@@ -61,7 +61,7 @@ var TituloOpcionesSeleccionadasModule = (function () {
             && (typeof _componente.mostrarListo === "undefined" || !_componente.mostrarListo)
             && _componente.HermanosSeleccionados.length > 1)
             titulo = "Cambia tus " + _componente.HermanosSeleccionados.length + " opciones";
-        //
+        
         if (_componente.cantidadFaltantes === 0
             && _componente.resumenAplicados.length > 0
             && (_componente.mostrarListo)
@@ -72,29 +72,29 @@ var TituloOpcionesSeleccionadasModule = (function () {
             && (_componente.mostrarListo)
             && _componente.HermanosSeleccionados.length > 1)
             titulo = "¡Listo! <span>ya tienes tus</span> " + _componente.HermanosSeleccionados.length + " opciones";
-        //
+        
         return titulo;
     };
 
     var _obtenerSubTitulo = function () {
         var subtitulo = "";
-        //
+        
         if (_componente.HermanosSeleccionados.length === 1)
             subtitulo = "1 seleccionado";
         if (_componente.HermanosSeleccionados.length > 1 || _componente.HermanosSeleccionados.length === 0)
             subtitulo = _componente.HermanosSeleccionados.length + " seleccionados";
-        //
+        
         return subtitulo;
     };
 
     var CargarTituloOpcionesSeleccionadas = function(componente) {
         _componente = componente || _componente;
-        //
+        
         var model = {
             titulo: _obtenerTitulo(),
             subtitulo: _obtenerSubTitulo()
         };
-        //
+        
         SetHandlebars(_elements.divTituloOpcionesSeleccionadas.templateId, model, _elements.divTituloOpcionesSeleccionadas.id);
     };
 

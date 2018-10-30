@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Entities
         public int mesConsultoraLider { get; set; }
 
         private bool bEstadoSimplificacionCUV { get; set; }
-        private bool bEsquemaDAConsultora;
+        private readonly bool bEsquemaDAConsultora;
         private string digitoVerificador;
         private long consultoraAsociadoID;
 
