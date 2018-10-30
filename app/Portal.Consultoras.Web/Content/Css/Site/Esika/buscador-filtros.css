@@ -720,12 +720,13 @@
 
 .ver_todos_los_resultados_wrapper{
     width: 100%;
-    align-items: flex-end;
+    align-items: flex-start;
     background-color: #FFF;
     position:-webkit-sticky;
     position: sticky;
-    bottom: -14px;
-    height: 75px;
+    bottom:0;
+    height: 64px;
+    padding-top:11px;
     z-index: 3;
 }
 

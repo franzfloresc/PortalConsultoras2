@@ -23,6 +23,7 @@
 .header__marca__pais {
     width: 185px;
     position:relative;
+    cursor:pointer;
 }
 
 @media screen and (max-width:1270px){

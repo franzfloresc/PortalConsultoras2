@@ -128,17 +128,6 @@
                 Success: true
             };
 
-            //var equalsNumber = function (numero) {
-            //    if (localData.CelularActual === numero) {
-            //        return {
-            //            Success: false,
-            //            Message: 'El número no puede ser el mismo.'
-            //        };
-            //    }
-
-            //    return success;
-            //}
-
             var onlyNumbers = function (numero) {
                 var pattern = /^\d+$/;
                 if (!pattern.test(numero)) {
@@ -177,7 +166,6 @@
             }
 
             return [
-                //equalsNumber,
                 onlyNumbers,
                 byCountryLength,
                 byCountryFormat

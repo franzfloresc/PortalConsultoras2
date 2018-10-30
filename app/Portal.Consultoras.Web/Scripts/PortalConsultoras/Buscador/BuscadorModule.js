@@ -50,7 +50,7 @@ var BuscadorModule = (function () {
         agregarProducto: ".agregarProductoBuscador",
         redireccionarFicha: ".redireccionarFicha",
         botonVerTodos: "#BotonVerTodosResultados",
-        logoPaginaResponsive: '.logoPaginaResponsive'
+        logoPaginaResponsive: '.logoPaginaResponsive'        
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
@@ -73,6 +73,7 @@ var BuscadorModule = (function () {
             $(document).on("click", _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
             $(document).on("click", _elementos.botonVerTodos, _eventos.ClickVerTodos);
             $(document).on("click", _elementos.logoPaginaResponsive, _eventos.RedireccionarMenuPrincipal);
+
         },
         CampoDeBusquedaConCaracteres: function (campoBuscador) {
             if (campoBuscador !== undefined) $(campoBuscador).addClass("campo_buscador_productos_activo");
@@ -227,7 +228,7 @@ var BuscadorModule = (function () {
                                 $("#ResultadoBuscador").fadeIn(100);
                                 if (!_config.isMobile) {
                                     $(".lista_resultados_busqueda_productos").animate({
-                                        'min-height': $("#ResultadoBuscador").height() + 25
+                                        'min-height': $("#ResultadoBuscador").height() + 35
                                     },
                                         100);
                                 }
@@ -310,7 +311,12 @@ var BuscadorModule = (function () {
         },
         RedireccionarMenuPrincipal: function (e) {
             e.preventDefault();
-
+            if (!_config.isMobile) {
+                window.location.href = 'Bienvenida';
+            }
+            else {
+                window.location.href = 'Mobile/Bienvenida';
+            }
         }
     };
 
