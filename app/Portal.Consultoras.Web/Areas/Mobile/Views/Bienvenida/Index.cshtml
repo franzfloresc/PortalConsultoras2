@@ -87,9 +87,12 @@
             {
                 <a href="@Url.Action("Index", "MiPerfil")" id="hrefActualizarDatos" title="Actualizar datos" class="subir_foto_mobile default-background"></a>
                 <div class="tooltip_info_revision_correo" style="display:none;">
+                    <div style="float:right;margin-top:-14px;margin-right:-5px;">
+                        <a class="cerrarTooltip">X</a>
+                    </div>
                     <div class="icono_info_alerta"></div>
                     <div class="tooltip_texto">
-                        <p>
+                        <p id="mensajeToolTip">
                             Ingresa y actualiza tu correo y/o celular para poder contactarnos contigo.
                         </p>
                     </div>

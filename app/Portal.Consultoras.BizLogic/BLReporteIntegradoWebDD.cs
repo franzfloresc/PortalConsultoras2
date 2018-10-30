@@ -17,7 +17,7 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 DAReporteIntegradoWebDD odaReporteIntegradoWebDd = new DAReporteIntegradoWebDD(PaisID);
-                prefijoDetalle = "Error de Base de Datos: ";
+                prefijoDetalle += "|Error de Base de Datos: ";
                 DateTime fechaHoraPais = new DAPedidoWeb(PaisID).GetFechaHoraPais();
                 DataSet dsPedidosWeb = odaReporteIntegradoWebDd.GetReporteIntegradoWebDD(CampaniaIDInicio, CampaniaIDFin);
                 DataTable dtPedidosWeb = dsPedidosWeb.Tables[0];
@@ -29,7 +29,7 @@ namespace Portal.Consultoras.BizLogic
                 string file = FormatFile(ftpElement.Header, fechaHoraPais);
                 string nombre = file.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
 
-                prefijoDetalle = "Error al Generar el Archivo: ";
+                prefijoDetalle += "|Error al Generar el Archivo: ";
                 using (var streamWriter = new StreamWriter(file))
                 {
                     if (dtPedidosWeb != null && dtPedidosWeb.Rows.Count != 0)
@@ -44,7 +44,7 @@ namespace Portal.Consultoras.BizLogic
                         streamWriter.Write(string.Empty);
                     }
                 }
-                prefijoDetalle = "Error al Cargar el Archivo en el FTP: ";
+                prefijoDetalle += "|Error al Cargar el Archivo en el FTP: ";
 
                 if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                 {

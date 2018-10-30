@@ -142,6 +142,8 @@
     <Compile Include="Producto\BLOfertaProducto.cs" />
     <Compile Include="Producto\IBuscadorBusinessLogic.cs" />
     <Compile Include="Producto\IOfertaProductoBusinessLogic.cs" />
+    <Compile Include="ProgramaNuevas\BLProgramaNuevas.cs" />
+    <Compile Include="ProgramaNuevas\IProgramaNuevasBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConsultorasProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Reserva\BLReserva.cs" />
     <Compile Include="Estrategia\BLEstrategiaProducto.cs" />

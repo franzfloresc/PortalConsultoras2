@@ -172,6 +172,10 @@ namespace Portal.Consultoras.Common
 
             public const int ActualizaDatosEnabled = 14301;
 
+            public const int MensajeActualizarEmailSms = 1001;
+            public const int MensajeActualizarSms = 1002;
+            public const int MensajeActualizarEmail = 1003;
+
             public static class PersonalizacionOdd
             {
                 public static readonly int ColorFondoBanner = 9301;
@@ -266,6 +270,11 @@ namespace Portal.Consultoras.Common
 
             public const int BannerCarruselMg = 11;
 
+        }
+        
+        public static class Inicializacion
+        {
+            public const int EnteroInicial =  -1;
         }
 
         public static class EstadoRespuestaServicio
@@ -409,6 +418,9 @@ namespace Portal.Consultoras.Common
 
             public const string DescripcionPedidoOtro = "OTROS";
             public const int CodigoPedidoOtro = 0;
+
+
+            public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
 
         }
 
@@ -867,12 +879,14 @@ namespace Portal.Consultoras.Common
 
             #region MasGanadoras     
 
-            public const int MasGanadorasDesktopLanding = 1111401; // Esta en duro en ConstantesModule
-            public const int MasGanadorasDesktopLandingFicha = 1111402; // Esta en duro en ConstantesModule
-            public const int MasGanadorasMobileLandingFicha = 2111402; // Esta en duro en ConstantesModule
-            public const int MasGanadorasDesktopContenedorCarrusel = 1081401; // Esta en duro en ConstantesModule
-            public const int MasGanadorasDesktopContenedorCarruselFicha = 1081402; // Esta en duro en ConstantesModule
-            public const int MasGanadorasMobileContenedorCarruselFicha = 2081402; // Esta en duro en ConstantesModule
+            public const int DesktopContenedorGanadorasCarrusel = 1081401; // Esta en duro en ConstantesModule
+            public const int DesktopContenedorGanadorasFicha = 1081402; // Esta en duro en ConstantesModule
+            public const int DesktopLandingGanadorasGanadorasCarrusel = 1111401; // Esta en duro en ConstantesModule
+            public const int DesktopLandingGanadorasGanadorasFicha = 1111402; // Esta en duro en ConstantesModule
+            public const int MobileContenedorGanadorasCarrusel = 2081401; // Esta en duro en ConstantesModule
+            public const int MobileContenedorGanadorasFicha = 2081402; // Esta en duro en ConstantesModule
+            public const int MobileLandingGanadorasGanadorasCarrusel = 2111401; // Esta en duro en ConstantesModule
+            public const int MobileLandingGanadorasGanadorasFicha = 2111402; // Esta en duro en ConstantesModule
 
             #endregion
 
@@ -1538,6 +1552,8 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "HV";
             public const string PagoEnLinea = "PAYONLINE";
             public const string BuscadorYFiltros = "B&F";
+            public const string ProgramaNuevas = "PN";
+            public const string ElecMultiple = "DP";
             public const string MasGanadoras = "MG";
         }
 
@@ -1847,7 +1863,7 @@ namespace Portal.Consultoras.Common
             public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
             public const short NuevaDescripcionProductos = 145;
-
+            public const short MensajesToolTipPerfil = 10;
             public const short EscalaDescuentoDestokp = 72;
             public const short EscalaDescuentoMobile = 73;
             public const short ListaOrdenamientoFiltros = 147;
@@ -2172,7 +2188,10 @@ namespace Portal.Consultoras.Common
             public const string DetalleShowRoom = "/detalle/especiales";
             public const string DetalleOfertaDelDia = "/detalle/solohoy";
             public const string DetallePackNuevas = "/detalle/packnuevas";
+            public const string ProgramaNuevas = "/programanuevas";
+            public const string ProgramaNuevasIndex = "/programanuevas/index";
             public const string DetalleMasGanadoras = "/detalle/ganadoras";
+
         }
 
         public static class TipoVistaEstrategia
@@ -2241,7 +2260,8 @@ namespace Portal.Consultoras.Common
             public static class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string FlagActivar = "ProgramaNuevas";
+                public const string FlagProgNuevas = "ProgramaNuevas";
+                public const string FlagBannerElecMultiple = "BannerElecMultiple";
             }
 
             public static class Rango
@@ -2260,7 +2280,7 @@ namespace Portal.Consultoras.Common
                 public const string Electivo_NoAgregarPorLimite = "Ya no puedes añadir otro producto, tu {0} está completo.";
                 public const string Electivo_CompletasteLimite = "¡Completaste tu {0}!";
                 public const string Electivo_TeFaltaPocoLimite = "¡Agregaste 1 producto, te falta {0} para completar tu {1}!";
-                public const string DuoPerfecto_ConfirmaEliminar = "Si eliminas este producto te quedarás sin tu {0}";
+                public const string ElecMultiple_ConfirmaEliminar = "Si eliminas este producto te quedarás sin tu {0}";
             }
         }
 
@@ -2375,6 +2395,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_ESTRATEGIA = "1108";
                 public const string ERROR_PRODUCTO_SUGERIDO = "1109";
                 public const string ERROR_PRODUCTO_SET = "1110";
+                public const string ERROR_PRODUCTO_NONUEVA = "1111";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -2436,6 +2457,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
                         {Code.ERROR_PRODUCTO_SUGERIDO,"Este producto tiene reemplazos sugeridos." },
                         {Code.ERROR_PRODUCTO_SET, "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas."},
+                        {Code.ERROR_PRODUCTO_NONUEVA,"El código solicitado es exclusivo para quienes participan del Programa de Nuevas." },
 
                         {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                         {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
@@ -2700,7 +2722,8 @@ namespace Portal.Consultoras.Common
             public const int GNDObtenerProductos = 3;
             public const int HVObtenerProductos = 4;
             public const int OPTObtenerProductos = 5;
-            public const int MGObtenerProductos = 6;
+            public const int NuevasObtenerProductos = 6;
+            public const int MGObtenerProductos = 7;
         };
 
         #region PagoEnLinea
@@ -2911,6 +2934,7 @@ namespace Portal.Consultoras.Common
             public const string Parametros = "03";
             public const string PaisesConfigurables = "CO;CR;GT;MX";
         }
+
         public static class TipoConfiguracionBuscador
         {
             public const string MostrarBuscador = "MostrarBuscador";
@@ -2924,17 +2948,15 @@ namespace Portal.Consultoras.Common
             public const string MostrarOpcionesOrdenamiento = "MostrarOpcionesOrdenamiento";
             public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
             public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
-            
         }
-
 
         public static class RutaBuscadorService
         {
-            //Buscador/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{CodigoZona}/{TextoBusqueda}/{CantidadProductos}/{SociaEmpresaria}/{SuscripcionActiva}/{MDO}/{RD}/{RDI}/{RDR}/{DiaFacturacion}
-            public const string UrlBuscador = "Buscador/{0}/{1}";
+            //Buscador/{CodigoISO}/{CampaniaID}/{Origen}
+            public const string UrlBuscador = "Buscador/{0}/{1}/{2}";
 
-            //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}
-            public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}";
+            //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{Origen}
+            public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}/{3}";
         }
 
         public static class ActualizacionDatosValidacion
@@ -3078,7 +3100,7 @@ namespace Portal.Consultoras.Common
             public const string AcionesOmitidas = "ActualizarContrasenia";
         }
 
-        public class PlantillaExcel
+        public static class PlantillaExcel
         {
             public const string UrlExcelMatrizCampania = "http://somosbelcorpprd.s3.amazonaws.com/Matriz/PLANTILLA_MASIVO_MATRIZ.xlsx";
         }

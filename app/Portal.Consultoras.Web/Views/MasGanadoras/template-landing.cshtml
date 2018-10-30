@@ -11,8 +11,8 @@
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/HerramientaVenta-Landing")
 }
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"
-     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MasGanadorasDesktopLanding"
-     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.MasGanadorasDesktopLandingFicha">
+     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel"
+     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha">
     <div class="content_belcorp parche_productos_1000" data-listado-content="" style="">
 
         <div id="orderby-filter">
@@ -55,8 +55,8 @@
         </div>
 
         <div id="RDListado" data-content-item="@Model.CampaniaID"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MasGanadorasDesktopLanding"
-             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.MasGanadorasDesktopLandingFicha">
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel"
+             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha">
 
             <div id="divOfertaProductos" style="text-align: center; margin-left:0 !important;"></div>
             <div id="no-productos" class="seccion-no-productos">
@@ -75,11 +75,6 @@
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
-@*
-DEUDA TECNICA    
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")*@
-
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
 <div class="flecha_scroll">
@@ -92,7 +87,7 @@ DEUDA TECNICA
     var tipoOrigenPantalla = 1;
     var urlOfertaCargarProductos = '@Url.Action("MGObtenerProductos", "Estrategia", new { area = ""})';
     var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
-    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MasGanadorasDesktopLanding';
+    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel';
     var tipoOrigenEstrategia = 1;
     var CantidadFilas = @Model.CantidadFilas;
     var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
