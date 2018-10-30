@@ -1788,6 +1788,23 @@ function CerrarProductoAgregado() {
     $("#pop_liquidacion").hide();
 }
 
+function tooltipDelete(CUV) {
+     $("#tlpDelete_" + CUV).show();
+}
+
+function btnSalirTlpDelete(CUV){
+    $("#tlpDelete_" + CUV).hide();
+}
+
+function tooltipObservaciones(Mensaje) {
+    $("#observaciones_alerta").dialog("open");
+    $("#desc_obs_alerta").html("<ul><li>" + Mensaje + "</ul></li>");
+}
+
+function btnSalirTlpObservaciones() {
+    $("#tlpObservaciones").dialog("close");
+}
+
 function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, enRangoProgNuevas) {
     if (MuestraPopupDeleteRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId)) return;
 
