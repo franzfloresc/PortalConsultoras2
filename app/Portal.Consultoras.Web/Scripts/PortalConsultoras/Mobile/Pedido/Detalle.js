@@ -426,6 +426,23 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     PedidoUpdate(item);
 }
 
+function tooltipDelete(PedidoDetalleID) {
+    $("#tlpDelete_" + PedidoDetalleID).show();
+}
+
+function btnSalirTlpDelete(PedidoDetalleID) {
+    $("#tlpDelete_" + PedidoDetalleID).hide();
+}
+
+function tooltipObservaciones(Mensaje) {
+    $('#observacionPedido').modal()
+    $("#desc_obs_alert").html("<ul><li>" + Mensaje + "</ul></li>");
+}
+
+function btnSalirTlpObservaciones() {
+    $("#observacionPedido").modal("close");
+}
+
 function EliminarPedidoEvento(evento, esBackOrder) {
     var target = $(evento.currentTarget);
     var id = $.trim(target.attr("data-pedidodetalleid")) || "0";
