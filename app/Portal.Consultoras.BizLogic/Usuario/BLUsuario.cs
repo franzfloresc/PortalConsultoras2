@@ -555,8 +555,10 @@ namespace Portal.Consultoras.BizLogic
                 var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.ActualizaDatosEnabled));
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
-                var buscadorTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.BuscadorYFiltros));
-                var revistaDigitalTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Format("{0}|{1}|{2}", Constantes.ConfiguracionPais.RevistaDigital, Constantes.ConfiguracionPais.RevistaDigitalIntriga, Constantes.ConfiguracionPais.RevistaDigitalReducida)));
+                
+                var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Format("{0}|{1}|{2}|{3}|{4}", Constantes.ConfiguracionPais.RevistaDigital,
+                    Constantes.ConfiguracionPais.RevistaDigitalIntriga, Constantes.ConfiguracionPais.RevistaDigitalReducida, Constantes.ConfiguracionPais.BuscadorYFiltros, 
+                    Constantes.ConfiguracionPais.PagoEnLinea)));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -573,8 +575,7 @@ namespace Portal.Consultoras.BizLogic
                                 actualizaDatosTask,
                                 actualizaDatosConfigTask,
                                 contratoAceptacionTask,
-                                buscadorTask,
-                                revistaDigitalTask);
+                                usuarioPaisTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -617,7 +618,7 @@ namespace Portal.Consultoras.BizLogic
                 if (actualizaDatosTask.Result != null)
                 {
                     var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
-                    usuario.PuedeActualizar = (item != null ? item.Valor == "1" : false);
+                    usuario.PuedeActualizar = (item != null && item.Valor == "1");
                 }
                 if (actualizaDatosConfigTask.Result != null)
                 {
@@ -634,8 +635,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.IndicadorContratoAceptacion = contratoAceptacionTask.Result.Count(e => e.AceptoContrato == 1);
                 }
 
-                usuario = buscadorTask.Result ?? usuario;
-                usuario = revistaDigitalTask.Result ?? usuario;
+                usuario = usuarioPaisTask.Result ?? usuario;
 
                 return usuario;
             }
@@ -1878,7 +1878,7 @@ namespace Portal.Consultoras.BizLogic
         {
 
             var actualizaDatosPais = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(usuario.PaisID, Constantes.TablaLogica.ActualizaDatosEnabled).FirstOrDefault();
-            usuario.PuedeActualizar = (actualizaDatosPais != null ? actualizaDatosPais.Valor == "1" : false);
+            usuario.PuedeActualizar = (actualizaDatosPais != null && actualizaDatosPais.Valor == "1");
             if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
 
             var actualizaDatosConfigTask = GetOpcionesVerificacion(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
@@ -3273,6 +3273,10 @@ namespace Portal.Consultoras.BizLogic
                             case Constantes.ConfiguracionPais.BuscadorYFiltros:
                                 usuario.BuscadorYFiltrosConfiguracion = ConfiguracionPaisBuscadorYFiltro(configuracionPaisDatos);
                                 break;
+                            case Constantes.ConfiguracionPais.PagoEnLinea:
+                                if (configuracion.Estado)
+                                    usuario.TienePagoEnLinea = true;
+                                break;
                         }
                     }
                 }
@@ -3437,31 +3441,31 @@ namespace Portal.Consultoras.BizLogic
             var buscadorYFiltrosConfiguracion = new BEBuscadorYFiltrosConfiguracion();
             short valor1 = 0;
 
-            var mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBuscador).FirstOrDefault();
+            var mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBuscador);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBuscador = mostrarBuscador.Valor1 == "1";
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscador).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscador = valor1;
             }
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscadorMostrar = valor1;
             }
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.TotalResultadosBuscador = valor1;
             }
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 == "1";
 
             mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).FirstOrDefault();
@@ -3500,9 +3504,28 @@ namespace Portal.Consultoras.BizLogic
         {
             return new DAUsuario(paisID).GetActualizacionEmail(codigoUsuario);
         }
-        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
+        public BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario)
         {
-            return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
+            var DAUsuario = new DAUsuario(paisID);
+            var oMensaje = new BEMensajeToolTip();
+            var datosPerfil = new List<BEUsuarioPerfil>();
+            using (IDataReader reader = DAUsuario.GetActualizacionEmailySms(codigoUsuario))
+            {
+                while (reader.Read())
+                    datosPerfil.Add(new BEUsuarioPerfil(reader));
+            }
+
+            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.MensajesToolTipPerfil);
+            oMensaje.oDatosPerfil = datosPerfil;
+            oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
+
+            return oMensaje;
+        }
+        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario, string tipoEnvio)
+        {
+            return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario, tipoEnvio);
         }
 
         public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)

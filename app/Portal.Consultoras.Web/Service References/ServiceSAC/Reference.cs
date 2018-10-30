@@ -3036,6 +3036,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private int MarcaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MaterialGananciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4033,6 +4036,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.MarcaIDField.Equals(value) != true)) {
                     this.MarcaIDField = value;
                     this.RaisePropertyChanged("MarcaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MaterialGanancia {
+            get {
+                return this.MaterialGananciaField;
+            }
+            set {
+                if ((this.MaterialGananciaField.Equals(value) != true)) {
+                    this.MaterialGananciaField = value;
+                    this.RaisePropertyChanged("MaterialGanancia");
                 }
             }
         }
@@ -5149,6 +5165,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private int CampaniaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaAppField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5284,6 +5303,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.CampaniaField.Equals(value) != true)) {
                     this.CampaniaField = value;
                     this.RaisePropertyChanged("Campania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaApp {
+            get {
+                return this.CampaniaAppField;
+            }
+            set {
+                if ((this.CampaniaAppField.Equals(value) != true)) {
+                    this.CampaniaAppField = value;
+                    this.RaisePropertyChanged("CampaniaApp");
                 }
             }
         }
@@ -7047,6 +7079,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string OrigenPedidoWebField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrigenPedidoWebFichaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private double PrecioCatalogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7200,6 +7235,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.OrigenPedidoWebField, value) != true)) {
                     this.OrigenPedidoWebField = value;
                     this.RaisePropertyChanged("OrigenPedidoWeb");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrigenPedidoWebFicha {
+            get {
+                return this.OrigenPedidoWebFichaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenPedidoWebFichaField, value) != true)) {
+                    this.OrigenPedidoWebFichaField = value;
+                    this.RaisePropertyChanged("OrigenPedidoWebFicha");
                 }
             }
         }
@@ -16542,6 +16590,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadas", ReplyAction="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadasResponse")]
         System.Threading.Tasks.Task<int> GetCantidadOfertasPersonalizadasAsync(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenes", ReplyAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenesResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEEstrategia[] GetOfertasPersonalizadasImagenes(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenes", ReplyAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasImagenesResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstrategia[]> GetOfertasPersonalizadasImagenesAsync(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfigurado", ReplyAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfiguradoResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEEstrategia[] GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
         
@@ -16585,6 +16639,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalleResponse")]
         System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetDetalleAsync(int paisID, int nroLote, int pagina);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagen", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagenResponse")]
+        bool EstrategiaTemporalActualizarSetImagen(int paisID, int nroLote, int pagina);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagen", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetImagenResponse")]
+        System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetImagenAsync(int paisID, int nroLote, int pagina);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivoResponse" +
             "")]
@@ -18026,6 +18086,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.GetCantidadOfertasPersonalizadasAsync(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
         }
         
+        public Portal.Consultoras.Web.ServiceSAC.BEEstrategia[] GetOfertasPersonalizadasImagenes(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia) {
+            return base.Channel.GetOfertasPersonalizadasImagenes(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstrategia[]> GetOfertasPersonalizadasImagenesAsync(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia) {
+            return base.Channel.GetOfertasPersonalizadasImagenesAsync(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
+        }
+        
         public Portal.Consultoras.Web.ServiceSAC.BEEstrategia[] GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv) {
             return base.Channel.GetOfertasPersonalizadasByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv);
         }
@@ -18080,6 +18148,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetDetalleAsync(int paisID, int nroLote, int pagina) {
             return base.Channel.EstrategiaTemporalActualizarSetDetalleAsync(paisID, nroLote, pagina);
+        }
+        
+        public bool EstrategiaTemporalActualizarSetImagen(int paisID, int nroLote, int pagina) {
+            return base.Channel.EstrategiaTemporalActualizarSetImagen(paisID, nroLote, pagina);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetImagenAsync(int paisID, int nroLote, int pagina) {
+            return base.Channel.EstrategiaTemporalActualizarSetImagenAsync(paisID, nroLote, pagina);
         }
         
         public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote) {

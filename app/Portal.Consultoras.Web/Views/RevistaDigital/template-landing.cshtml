@@ -16,8 +16,8 @@
 }
 
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"
-     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
-     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
+     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiCarrusel"
+     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiFicha">
     <div class="content_belcorp parche_productos_1000" data-listado-content="">
 
         @if (Model.MostrarFiltros)
@@ -65,8 +65,8 @@
     </div>
     <div class="content_belcorp parche_productos_1000" data-listado-content="" style="">
         <div id="RDListado" data-content-item="@Model.CampaniaID"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
-             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiCarrusel"
+             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiFicha">
 
             <div id="divOfertaProductos" style="text-align: center;"></div>
         </div>
@@ -126,16 +126,6 @@
 <hr class="clear" />
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-
-@*
-    DEUDA TECNICA
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
-
-
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
-    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
-
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
 <div class="flecha_scroll">
@@ -148,7 +138,7 @@
         var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "Estrategia", new { area = ""})';
         var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiCarrusel';
         var tipoOrigenEstrategia = 17;
         var CantidadFilas = @Model.CantidadFilas;
         var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
