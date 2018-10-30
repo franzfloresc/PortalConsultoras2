@@ -651,8 +651,7 @@ var AnalyticsPortalModule = (function () {
 
                 case "Home": AnalyticsPortalModule.MarcaDetalleProductoBienvenida(element, codigoOrigenPedido); break;
                 case "Contenedor": palanca == "Lanzamientos" ? AnalyticsPortalModule.MarcaClicBanner(element) : AnalyticsPortalModule.MarcaDetalleProducto(element); break;
-                //case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(data); break;
-                case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(element); break;
+                case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(element); break; //marcacion punto 2.1.7.4. según el documento de correciones Roxana 
                 case "Landing": AnalyticsPortalModule.MarcaDetalleProducto(element); break;
             }
 
@@ -673,7 +672,7 @@ var AnalyticsPortalModule = (function () {
                 'ecommerce': {
                     'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
                     'click': {
-                        'actionField': { 'list': 'Home - Club GANA+' },
+                        'actionField': { 'list': 'Home - GANA+' },
                         'products': [{
                             'name': item.DescripcionCompleta,
                             'id': item.CUV2,
@@ -1760,7 +1759,7 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    /*
+/*
 * 2.1.7. Ofertas club gana más
 * 2.1.7.1. Ver ofertas
 * Nombre Archivo Desktop: 
@@ -1782,6 +1781,24 @@ var AnalyticsPortalModule = (function () {
                 'category': 'Carrito de compras – Gana+',
                 'action': 'Click Botón',
                 'label': 'Ver Ofertas'
+            });
+        } catch (e) {
+
+        }
+    };
+/*
+* 2.1.7. Ofertas club gana más
+* 2.1.7.5. Ver ofertas
+* Nombre Archivo Desktop: 
+* Linea de Código Desktop: 
+*/
+    var marcaBannersInferioresDescontinuados = function (strLabel) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': _texto.CarritoCompras,
+                'action': 'Click Botón',
+                'label': strLabel
             });
         } catch (e) {
 
@@ -1896,7 +1913,8 @@ var AnalyticsPortalModule = (function () {
         MarcarGuardaTuPedido: marcarGuardaTuPedido,
         MarcarPedidoGuardoExito: marcarPedidoGuardoExito,
         MarcaGuardarPedidoExito: marcaGuardarPedidoExito,
-        MarcaVerOfertas: marcaVerOfertas
+        MarcaVerOfertas: marcaVerOfertas,
+        MarcaBannersInferioresDescontinuados: marcaBannersInferioresDescontinuados
         //MarcaAgregarProductosCarrito: marcaAgregarProductosCarrito
          // Fin Analytics Ofertas
         

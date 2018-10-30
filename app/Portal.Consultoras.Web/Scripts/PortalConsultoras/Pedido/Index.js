@@ -3366,19 +3366,37 @@ function MostrarDetalleGanancia() {
 }
 
 function AnalyticsBannersInferiores(obj) {
-    dataLayer.push({
-        'event': "promotionClick",
-        'ecommerce': {
-            'promoClick': {
-                'promotions': [
-                    {
-                        'id': obj.id,
-                        'name': obj.name,
-                        'position': obj.position
-                    }]
-            }
-        }
-    });
+    
+    var option = obj.id || 0
+    if (option === 0) return;
+    var strLabel = "";
+    switch (option) {
+        case "1": //descontinuados
+            strLabel = "Productos descontinuados";
+            break;
+        case "3": // liquidaciones web
+            strLabel = "Liquidaciones Web";
+            break;
+        case "4": //productos agotados
+            strLabel = "Productos agotados";
+            break;
+    }
+    if (!(typeof AnalyticsPortalModule === 'undefined'))
+        AnalyticsPortalModule.MarcaBannersInferioresDescontinuados(strLabel);
+
+    //dataLayer.push({
+    //    'event': "promotionClick",
+    //    'ecommerce': {
+    //        'promoClick': {
+    //            'promotions': [
+    //                {
+    //                    'id': obj.id,
+    //                    'name': obj.name,
+    //                    'position': obj.position
+    //                }]
+    //        }
+    //    }
+    //});
 }
 
 function AnalyticsBannersInferioresImpression() {
