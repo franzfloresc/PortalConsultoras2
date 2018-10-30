@@ -432,7 +432,7 @@
     content: "";
     margin-right: 2px;
     position: relative;
-    top: 5px;
+    top: 4px;
     width: 25px;
     height: 30px;
     background-image: url(/Content/Images/icono-elige-tu-opcion.svg);
@@ -443,6 +443,7 @@
 
 .btn__elegir__opcion--fichaProducto span:after{
     content: "Elige tu opción";
+    margin-bottom:1px;
 }
 
 .btn__inactivo--fichaProducto{
