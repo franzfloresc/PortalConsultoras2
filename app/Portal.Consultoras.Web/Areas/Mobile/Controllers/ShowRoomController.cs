@@ -147,20 +147,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
-
-        public ActionResult DetalleOferta(int id)
-        {
-            ActionExecutingMobile();
-
-            if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
-
-            var modelo = ViewDetalleOferta(id);
-            
-            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-
-            return View("DetalleOferta", modelo);
-        }
-
+        
         #region Metodos Privados
 
         private ShowRoomEventoModel OfertaShowRoom()
