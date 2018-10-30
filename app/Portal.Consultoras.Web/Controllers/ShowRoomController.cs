@@ -257,6 +257,7 @@ namespace Portal.Consultoras.Web.Controllers
         
         #endregion
 
+        /*
         [HttpPost]
         public JsonResult CargarProductosShowRoom(BusquedaProductoModel model)
         {
@@ -323,7 +324,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
             }
         }
+        */
 
+        /*
         [HttpPost]
         public JsonResult CargarProductosShowRoomOferta(BusquedaProductoModel model)
         {
@@ -363,6 +366,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
             }
         }
+        */
 
         [HttpPost]
         public JsonResult GetDataShowRoomIntriga()

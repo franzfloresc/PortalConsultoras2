@@ -219,7 +219,6 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     divProd.find('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:100px;padding: 15px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
     divProd.find("#divOfertaProductosLoad").show();
 
-    //debugger;
     if (filtroCampania[codPalancaCampania] != undefined) {
         if (filtroCampania[codPalancaCampania].response != undefined) {
             if (filtroCampania[codPalancaCampania].response.Completo == 1) {

@@ -214,7 +214,12 @@ namespace Portal.Consultoras.Web.Providers
                 configEstrategiaSR.BeShowRoom = null;
                 configEstrategiaSR.CargoEntidadesShowRoom = false;
 
-                if (!PaisTieneShowRoom(model.CodigoISO)) return;
+                if (!PaisTieneShowRoom(model.CodigoISO))
+                {
+                    configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                    _sessionManager.SetEstrategiaSR(configEstrategiaSR);
+                    return;
+                }
                 
                 configEstrategiaSR.BeShowRoom = GetShowRoomEventoByCampaniaId(model);
                 configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model);
@@ -235,7 +240,6 @@ namespace Portal.Consultoras.Web.Providers
                     _sessionManager.SetEsShowRoom("1");
 
                     configEstrategiaSR.BloqueoProductoDigital = ObtenerBloquedoProductoDigital(model);
-
                     var fechaHoy = model.FechaHoy;
 
                     if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
@@ -245,7 +249,10 @@ namespace Portal.Consultoras.Web.Providers
                     }
 
                     if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                    {
                         _sessionManager.SetMostrarShowRoomProductosExpiro("1");
+                        configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                    }
                 }
 
                 configEstrategiaSR.CargoEntidadesShowRoom = true;
@@ -254,6 +261,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
                 configEstrategiaSR.CargoEntidadesShowRoom = false;
+                configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
             }
 
             _sessionManager.SetEstrategiaSR(configEstrategiaSR);
