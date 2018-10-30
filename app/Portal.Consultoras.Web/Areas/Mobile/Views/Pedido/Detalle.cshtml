@@ -339,22 +339,22 @@
                     </div>
                 </div>
                 {{else}}
-                
+
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">
+                    <a href="javascript:;" title="Eliminar" onclick="tooltipDelete({{PedidoDetalleID}});" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
-                
+
                 {{/if}}
-            </div>            
+            </div>
             <div class="bloque_cantidades_precios_items_ingresados">
                 <div class="contenedor_cantidadProductos">
                     <div data-cantidad-contenedor="">
                         <div class="campo_cantidadProductos">
                             {{#iff detalle.EsKitNueva '==' true}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    value="{{detalle.Cantidad}}"
@@ -365,7 +365,7 @@
                                    autocomplete="off">
                             {{else iff detalle.TipoEstrategiaID '==' 1}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    value="{{detalle.Cantidad}}"
@@ -376,7 +376,7 @@
                                    autocomplete="off">
                             {{else}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    onblur="UpdateLiquidacionEvento(event)"
@@ -406,30 +406,34 @@
                 </div>
             </div>
 
-            <div style="display:block" class="popover bottom">
+            <div style="display:none" class="popover bottom" id="tlpDelete_{{PedidoDetalleID}}">
                 <div class="arrow"></div>
                 <p>¿Quieres eliminar este producto?</p>
                 <div class="button-popover">
                     <div class="row">
                         <div class="col-xs-6">
-                            <button class="boton-secundario">No Gracias</button>
+                            <button onclick="btnSalirTlpDelete('{{PedidoDetalleID}}');">No Gracias</button>
                         </div>
                         <div class="col-xs-6 text-right">
-                            <button class="boton-primario">SÍ, ELIMINAR</button>
+                            <button onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">SÍ, ELIMINAR</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="popover bottom">
+            {{#IsNullOrEmpty detalle.Mensaje '!='}}
+            <div class="popover bottom" id="tlpObservaciones">
                 <div class="arrow"></div>
                 <ul class="list-tooltip">
                     <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                    <li>Este producto tiene observaciones. <button style="display: block;line-height: 19px;" class="boton-secundario">Ver detalles</button></li>
+                    <li>Este producto tiene observaciones. <button style="display: block;line-height: 19px;" class="boton-secundario" onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
                 </ul>
             </div>
+            {{/IsNullOrEmpty}}
+            {{#if EsBackOrder}}
+            {{#if AceptoBackOrder}}
 
-            {{#IsNullOrEmpty detalle.Mensaje '!='}}
+            @*{{#IsNullOrEmpty detalle.Mensaje '!='}}
             <div class="notificacion_productoAgotado">
                 <small>
                     {{#iff detalle.TipoObservacion '!=' 0}}
@@ -441,7 +445,8 @@
             </div>
             {{/IsNullOrEmpty}}
             {{#if EsBackOrder}}
-            {{#if AceptoBackOrder}}
+            {{#if AceptoBackOrder}}*@
+
             <div class="stock_content_agotado">
                 <div class="texto_stock" style="color:black"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
             </div>
