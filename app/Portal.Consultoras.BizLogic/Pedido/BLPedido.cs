@@ -113,13 +113,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 
                 usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
-                
-                var cuv = Util.Trim(productoBuscar.CodigoDescripcion);
 
-                Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(usuario, cuv);
-                
-                if (num.Equals(Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva))
-                    return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
+                //Validación de cuvs en programa nuevas
+                var num = ValidarProgramaNuevas(usuario, productoBuscar.CodigoDescripcion);
+                if (num.Equals(Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva)) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
 
                 //Validación producto no existe
                 var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
