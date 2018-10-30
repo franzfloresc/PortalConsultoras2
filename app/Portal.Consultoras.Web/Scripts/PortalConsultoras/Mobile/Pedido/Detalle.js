@@ -435,8 +435,8 @@ function EliminarPedidoEvento(evento, esBackOrder) {
 
     ConfigurarFnEliminarProducto(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.CantidadTemporal, obj.DescripcionProd, obj.PrecioUnidad, obj.MarcaID, obj.DescripcionOferta, esBackOrder, obj.SetID);
     if (MuestraPopupDeleteRegaloGenerico()) return false;
-    ValidDeleteElectivoNuevas(obj, function (esDuoPerfecto) {
-        if (esDuoPerfecto) fnEliminarProducto();
+    ValidDeleteElectivoNuevas(obj, function (esElecMultiple) {
+        if (esElecMultiple) fnEliminarProducto();
         else $("#popup-eliminar-item").show();
     });
 }
@@ -451,7 +451,7 @@ function ValidDeleteElectivoNuevas(obj, fnDelete) {
     ShowLoading();
     jQuery.ajax({
         type: 'POST',
-        url: urlEsPedidoDetalleDuoPerfecto,
+        url: urlEsPedidoDetalleElecMultiple,
         dataType: 'json',
         data: JSON.stringify({ cuv: obj.CUV }),
         contentType: 'application/json; charset=utf-8',
@@ -466,7 +466,7 @@ function ValidDeleteElectivoNuevas(obj, fnDelete) {
                 return;
             }
 
-            if (!response.esDuoPerfecto) fnDelete(false);
+            if (!response.esElecMultiple) fnDelete(false);
             else messageConfirmacionDuoPerfecto(response.message, function () { fnDelete(true); });
         })
         .fail(function () { messageInfoError(mensajeSinConexionGenerico); });
@@ -530,10 +530,6 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                 });
                 cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue Eliminado.');
-
-                //ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
-                //ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
-                //ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
 
                 ActualizarLocalStoragePalancas(data.data.CUV, false);
             },
@@ -698,10 +694,6 @@ function PedidoDetalleEliminarTodo() {
             });
             messageDelete("Se eliminaron todos productos del pedido.");
 
-            //ActualizarLocalStorageAgregado("rd", "todo", false);
-            //ActualizarLocalStorageAgregado("gn", "todo", false);
-            //ActualizarLocalStorageAgregado("hv", "todo", false);
-            //ActualizarLocalStorageAgregado("lan", "todo", false);
             ActualizarLocalStoragePalancas("todo", false);
 
             location.reload();

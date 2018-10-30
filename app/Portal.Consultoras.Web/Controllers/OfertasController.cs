@@ -13,9 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly ConfiguracionOfertasHomeProvider _confiOfertasHomeProvider;
             
-        public OfertasController() : this(new ConfiguracionOfertasHomeProvider())
-        {
-        }
+        public OfertasController() : this(new ConfiguracionOfertasHomeProvider()) { }
 
         public OfertasController(ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider):base()
         {
@@ -50,8 +48,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
                 }
+            }
 
-}
             try
             {
                 var indexViewModel = new IndexViewModel();

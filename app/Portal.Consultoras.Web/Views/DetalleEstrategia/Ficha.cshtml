@@ -352,11 +352,9 @@
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
             });
             fichaModule.Inicializar();
-            //CerrarLoad();
 
             if (tieneCarrusel)
             {
-                //AbrirLoad();
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
@@ -373,7 +371,7 @@
         });
 
         $(document).ajaxStop(function () {
-            //CerrarLoad();
+
         })
 
     </script>

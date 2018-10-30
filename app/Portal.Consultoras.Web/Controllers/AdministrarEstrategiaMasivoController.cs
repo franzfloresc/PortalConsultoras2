@@ -695,6 +695,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EstrategiaOfertasPersonalizadasInsert(int campaniaId, int nroLote, string codigoEstrategia, string estrategiaMIds)
         {
+            string mensajePaso = "Inicio";
             try
             {
                 int lote = 0;
@@ -703,12 +704,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoEstrategia))
                 {
+                    mensajePaso += "|SiMongo";
+                    mensajePaso += "|UsarMsPersonalizacion";
                     List<string> estrategiaMidsList = new List<string>();
                     estrategiaMidsList.AddRange(estrategiaMIds.Split(',').ToList());
+
+                    mensajePaso += "|estrategiaMidsList = " + estrategiaMidsList.Count;
                     if (estrategiaMidsList.Any())
                     {
-
                         var estado = administrarEstrategiaProvider.CargarEstrategia(estrategiaMidsList, userData.CodigoISO);
+
+                        mensajePaso += "|CargarEstrategia";
+
                         lote = estado["CUVOK"].Count;
                         foreach (var item in estado["CUVOK"])
                         {
@@ -726,13 +733,16 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
+                    mensajePaso += "|NoMongo";
                     using (var svc = new SACServiceClient())
                     {
                         lote = svc.EstrategiaTemporalInsertarEstrategiaMasivo(userData.PaisID, nroLote);
+                        mensajePaso += "|EstrategiaTemporalInsertarEstrategiaMasivo NroLote = " + lote;
                     }
                 }
 
                 administrarEstrategiaProvider.JobBuscador(campaniaId.ToString(), codigoEstrategia, userData);
+                mensajePaso += "|JobBuscador";
 
                 return Json(new
                 {
@@ -741,16 +751,19 @@ namespace Portal.Consultoras.Web.Controllers
                     NroLote = nroLote,
                     NroLoteRetorno = lote,
                     mongoIdsOK = txtBuildIdsEstrategiaOk,
-                    mongoIdsERROR = txtBuildIdsEstrategiaError
+                    mongoIdsERROR = txtBuildIdsEstrategiaError,
+                    mensajePaso
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                mensajePaso += "|Exception";
                 return Json(new
                 {
                     success = false,
-                    message = ex.Message
+                    message = ex.Message,
+                    mensajePaso
                 }, JsonRequestBehavior.AllowGet);
             }
         }

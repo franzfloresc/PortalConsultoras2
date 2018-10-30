@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -6,9 +7,6 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Portal.Consultoras.Web.LogManager;
-using System.Web.Script.Serialization;
-using System.Diagnostics;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -19,6 +17,8 @@ namespace Portal.Consultoras.Web.Providers
         public virtual ConfiguracionPaisProvider ConfiguracionPais { get; private set; }
         public virtual GuiaNegocioProvider GuiaNegocio { get; private set; }
         public virtual ShowRoomProvider ShowRoom { get; private set; }
+        public virtual OfertaPersonalizadaProvider OfertaPersonalizada { get; private set; }
+        public virtual ProgramaNuevasProvider ProgramaNuevas { get; private set; }
 
         private UsuarioModel userData
         {
@@ -41,21 +41,27 @@ namespace Portal.Consultoras.Web.Providers
                     Web.LogManager.LogManager.Instance,
                    new ConfiguracionPaisProvider(),
                    new GuiaNegocioProvider(),
-                   new ShowRoomProvider())
+                   new ShowRoomProvider(),
+                   new OfertaPersonalizadaProvider(),
+                   new ProgramaNuevasProvider(Web.SessionManager.SessionManager.Instance))
         {
         }
 
         public ConfiguracionOfertasHomeProvider(ISessionManager sessionManager,
             ILogManager logManager,
-            ConfiguracionPaisProvider configuracionPaisProvider,
+            ConfiguracionPaisProvider configuracionPais,
             GuiaNegocioProvider guiaNegocio,
-            ShowRoomProvider showRoom)
+            ShowRoomProvider showRoom,
+            OfertaPersonalizadaProvider ofertaPersonalizada,
+            ProgramaNuevasProvider programaNuevasProvider)
         {
             SessionManager = sessionManager;
             LogManager = logManager;
-            ConfiguracionPais = configuracionPaisProvider;
+            ConfiguracionPais = configuracionPais;
             GuiaNegocio = guiaNegocio;
             ShowRoom = showRoom;
+            OfertaPersonalizada = ofertaPersonalizada;
+            ProgramaNuevas = programaNuevasProvider;
         }
 
         public virtual List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital, bool esMobile)
@@ -69,8 +75,10 @@ namespace Portal.Consultoras.Web.Providers
 
                 var seccionesContenedor = GetSeccionesContenedor();
                 seccionesContenedor = GetSeccionesContenedorByCampania(seccionesContenedor);
-
                 var isMobile = esMobile;
+                var esElecMultiple = ProgramaNuevas.GetLimElectivos() > 1;
+                List<ServiceOferta.BEEstrategia> listProgNuevas = null;
+
                 foreach (var beConfiguracionOfertasHome in seccionesContenedor)
                 {
                     var entConf = beConfiguracionOfertasHome;
@@ -140,6 +148,22 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
                             seccion.UrlObtenerProductos = "";
                             break;
+                        case Constantes.ConfiguracionPais.ProgramaNuevas:
+                            if (esElecMultiple) continue;
+
+                            listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
+                            if (!listProgNuevas.Any()) continue;
+
+                            seccion.UrlObtenerProductos = "";
+                            break;
+                        case Constantes.ConfiguracionPais.ElecMultiple:
+                            if (!esElecMultiple) continue;
+
+                            listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
+                            if (!listProgNuevas.Any()) continue;
+
+                            seccion.UrlObtenerProductos = "";
+                            break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:
                             seccion.UrlObtenerProductos = "Estrategia/OPTObtenerProductos";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
@@ -196,8 +220,8 @@ namespace Portal.Consultoras.Web.Providers
 
                             seccion.UrlObtenerProductos = "Estrategia/MGObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras";
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MasGanadorasMobileContenedorCarruselFicha : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MasGanadorasMobileContenedorCarruselFicha : Constantes.OrigenPedidoWeb.MasGanadorasDesktopContenedorCarruselFicha;
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasFicha : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
                             seccion.VerMas = SessionManager.MasGanadoras.GetModel().TieneLanding;
                             break;
                     }
