@@ -7,7 +7,7 @@
 
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/busqueda-productos.css")" rel="stylesheet" />
 
-<section class="row flex-row ml-0 mr-0 layout__content">
+<main class="row flex-row ml-0 mr-0 layout__content">
     <!-- SECCIÓN FILTROS -->
     @if (ViewBag.FlagFiltrosBuscador)
     {
@@ -124,8 +124,7 @@
         }
         <section class="col-12 fichas__productos__wrapper text-center" id="FichasProductosBuscador"></section>
     </section>
-    <!-- FIN - SECCIÓN FICHA DE PRODUCTOS -->
-</section>
+</main>
 @section scripts{
     <script type="text/javascript">
     var textoBusqueda = '@Model.TextoBusqueda';
