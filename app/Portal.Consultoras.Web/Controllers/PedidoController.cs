@@ -1339,8 +1339,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
-                SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
-                UpdPedidoWebMontosPROL();
+                SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null); 
             }
             catch (Exception ex)
             {
