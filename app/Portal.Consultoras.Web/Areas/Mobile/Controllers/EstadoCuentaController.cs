@@ -71,6 +71,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
+                ViewBag.PaisId = userData.PaisID;
             }
             catch (FaultException ex)
             {

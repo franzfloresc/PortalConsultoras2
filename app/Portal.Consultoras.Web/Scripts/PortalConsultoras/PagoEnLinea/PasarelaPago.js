@@ -63,7 +63,9 @@
         function initWidgets() {
             $("#Birthdate").datepicker({
                 dateFormat: 'dd/mm/yy',
-                maxDate: '0'
+                maxDate: '0',
+                changeMonth: true,
+                changeYear: true
             });
         }
 
