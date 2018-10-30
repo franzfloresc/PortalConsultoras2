@@ -9,7 +9,7 @@ var delay = (function () {
     };
 })();
 
-var BuscadorModule = (function(){
+var BuscadorModule = (function () {
 
     var _keys = [
         { name: 'tab', val: 9 },
@@ -50,7 +50,7 @@ var BuscadorModule = (function(){
         agregarProducto: ".agregarProductoBuscador",
         redireccionarFicha: ".redireccionarFicha",
         botonVerTodos: "#BotonVerTodosResultados",
-        logoPaginaResponsive: '.logoPaginaResponsive'
+        logoPaginaResponsive: '.logoPaginaResponsive'        
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
@@ -59,7 +59,7 @@ var BuscadorModule = (function(){
         urlBusquedaProducto: "/BusquedaProductos",
         aplicarLogicaCantidadBotonVerTodos: (AplicarLogicaCantidadBotonVerTodos === 'true')
 
-};
+    };
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {
             if (!_config.isMobile) {
@@ -73,6 +73,7 @@ var BuscadorModule = (function(){
             $(document).on("click", _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
             $(document).on("click", _elementos.botonVerTodos, _eventos.ClickVerTodos);
             $(document).on("click", _elementos.logoPaginaResponsive, _eventos.RedireccionarMenuPrincipal);
+
         },
         CampoDeBusquedaConCaracteres: function (campoBuscador) {
             if (campoBuscador !== undefined) $(campoBuscador).addClass("campo_buscador_productos_activo");
@@ -156,14 +157,14 @@ var BuscadorModule = (function(){
             if (key) return false;
 
             $("#ResultadoBuscador").html("");
-            
+
             if (event.which === 27 && !_config.isMobile) {
                 if ($(".lista_resultados_busqueda_productos").length > 0) {
                     _funciones.AccionesLimpiarBusqueda($("#CampoBuscadorProductos"), $("#ResultadoBuscador"));
                     return false;
                 }
             }
-            
+
             var valorBusqueda = $(this).val();
 
             if (valorBusqueda.length >= _config.caracteresBuscador) {
@@ -202,7 +203,7 @@ var BuscadorModule = (function(){
                     });
 
                     var successBusqueda = function (r) {
-                        
+
                         if (r.total == 0) {
                             $(".spinner").fadeOut(150);
                             $(".busqueda_sin_resultados").fadeIn(60);
@@ -213,7 +214,7 @@ var BuscadorModule = (function(){
                                 if (item.Descripcion.length > TotalCaracteresEnListaBuscador) {
                                     item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + "...";
                                 }
-                            });                            
+                            });
 
                             SetHandlebars("#js-ResultadoBuscador", r.productos, "#ResultadoBuscador");
 
@@ -226,7 +227,7 @@ var BuscadorModule = (function(){
                                 $("#ResultadoBuscador").fadeIn(100);
                                 if (!_config.isMobile) {
                                     $(".lista_resultados_busqueda_productos").animate({
-                                        'min-height': $("#ResultadoBuscador").height() + 43
+                                        'min-height': $("#ResultadoBuscador").height() + 35
                                     },
                                         100);
                                 }
@@ -245,7 +246,7 @@ var BuscadorModule = (function(){
                 }, 200);
 
             } else {
-                if(!_config.isMobile) _funciones.CampoDeBusquedaSinCaracteres($(this));
+                if (!_config.isMobile) _funciones.CampoDeBusquedaSinCaracteres($(this));
                 if ($(".busqueda_sin_resultados").is(":visible")) {
                     $(".busqueda_sin_resultados").fadeOut(60);
                 }
@@ -302,17 +303,22 @@ var BuscadorModule = (function(){
                 return true;
             }
         },
-        ClickVerTodos: function() {
+        ClickVerTodos: function () {
             var valorBusqueda = $(_elementos.campoBuscadorProductos).val();
             var url = _config.urlBusquedaProducto + "?q=" + valorBusqueda;
             window.location.href = url;
         },
         RedireccionarMenuPrincipal: function (e) {
             e.preventDefault();
-            
+            if (!_config.isMobile) {
+                window.location.href = 'Bienvenida';
+            }
+            else {
+                window.location.href = 'Mobile/Bienvenida';
+            }
         }
     };
-    
+
 
     //Public functions
     function Inicializar() {

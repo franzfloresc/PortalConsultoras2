@@ -97,37 +97,6 @@
                                     </div>
                                 </div>
 
-                                @*@if (ViewBag.HabilitarRegalo)
-                                    {
-                                        <div class="div-3">
-                                            <div class="titI">Descripción Regalo:</div>
-                                            <div class="selectA borde_redondeado">
-                                                <textarea id="txtRegaloDescripcion" maxlength="500" cols="29"></textarea>
-                                            </div>
-                                            <div class="titC">
-                                                <span>Imagen Seleccionada:</span>
-                                            </div>
-                                            <div class="pdr_modal borde_redondeado">
-                                                <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-matriz-preview" data-id="">
-                                            </div>
-                                        </div>
-                                        <div class="div-3" id="matriz-comercial" style="display:none">
-                                            <div class="titI" style="visibility:hidden">Descripción Regalo:</div>
-                                            <div class="Content_modal" style="margin-left: 10px; padding-top: 10px; padding-bottom: 0; width:545px">
-                                                <div id="matriz-comercial-header">
-                                                    <div id="matriz-imagenes-paginacion"></div>
-                                                </div>
-                                                <div class="actions">
-                                                    <div class="file-upload" id="file-upload"></div>
-                                                </div>
-                                                <div class="div-3">
-                                                    <div id="matriz-comercial-images" class="matsriz-comercial-list matriz-campania">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }*@
-
                                 <div class="div-3">
                                     <div class="titI"></div>
                                     <div class="input_search">
@@ -146,8 +115,6 @@
                         <div class="selectA borde_redondeado">
                             <select id="ddlPaisM"></select>
                         </div>
-                        @*</div>
-                            <div class="div-3">*@
                         <div class="titI">Año Campaña:</div>
                         <div class="selectA borde_redondeado">
                          <select id="ddlCampaniaM" disabled></select>
@@ -160,7 +127,6 @@
                     <div class="div-3" id="divArchivo" style="display:none">
                         <div class="titB">Archivo:</div>
                         <div id="divuplArchivo" class="titB">
-                            @*<input id="uplArchivo" name="uplArchivo" type="file" />*@
                             <input type="file" id="uplArchivo" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.xlsx" />
                         </div>
                         <div id="downxlxs">
