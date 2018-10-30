@@ -83,7 +83,7 @@
     }
 
     var _fnGrillaEstrategias1 = function () {
-        console.log('_fnGrillaEstrategias1 Inicio', new Date());
+        //console.log('_fnGrillaEstrategias1 Inicio', new Date());
         $("#listCargaMasiva1").jqGrid("GridUnload");
         jQuery("#listCargaMasiva1").jqGrid({
             url: _config.urlConsultarOfertasPersonalizadas,
@@ -555,6 +555,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(params),
                 async: true,
+                timeout: 120000, // sets timeout to 2 min
                 success: function (data) {
                     console.log('respuesta ' + _config.urlEstrategiaOfertasPersonalizadasInsert, new Date());
                     console.log(data); 

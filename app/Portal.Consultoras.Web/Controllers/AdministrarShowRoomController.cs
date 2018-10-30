@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var l = administrarEstrategiaProvider.ConsultarShowRoom(userData.CodigoISO, campaniaId);
 
-                    showRoomEvento = l.Count() > 0 ? l.FirstOrDefault() : null;
+                    showRoomEvento = l.Count > 0 ? l.FirstOrDefault() : null;
                 }
                 else
                 {

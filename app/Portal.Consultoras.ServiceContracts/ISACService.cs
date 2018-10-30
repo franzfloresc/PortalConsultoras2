@@ -796,6 +796,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int GetCantidadOfertasPersonalizadas(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
+        
+        [OperationContract]
+        List<BEEstrategia> GetOfertasPersonalizadasImagenes(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
 
         [OperationContract]
         List<BEEstrategia> GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
@@ -817,6 +820,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote, int pagina);
+
+        [OperationContract]
+        bool EstrategiaTemporalActualizarSetImagen(int paisID, int nroLote, int pagina);
 
         [OperationContract]
         int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote);

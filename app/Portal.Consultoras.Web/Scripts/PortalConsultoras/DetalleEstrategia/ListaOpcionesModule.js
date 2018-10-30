@@ -14,6 +14,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
@@ -34,9 +35,7 @@ var ListaOpcionesModule = (function () {
             id: "#lista-opciones",
             templateId: "#lista-opciones-template",
             height: function () {
-                //var heightContenedorTituloOpciones = $(_elements.contenedorTituloOpciones.id).innerHeight();
-                //var heightContenedorAplicarSeleccion = $(_elements.contenedorAplicarSeleccion.id).innerHeight();
-                return window.innerHeight - 169; //(heightContenedorTituloOpciones + heightContenedorAplicarSeleccion);
+                return window.innerHeight - 169;
             }
         },
         
@@ -142,9 +141,6 @@ var ListaOpcionesModule = (function () {
 
         if (_componente.HermanosSeleccionados.length === _componente.FactorCuadre) {
 
-            //$("#elegir-opciones-modal").find(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
-            //$("#elegir-opciones-modal").find(".seleccion_btn").find("button").addClass("btn_desactivado_general");
-
             _bloquearEleccion();
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)
@@ -156,10 +152,8 @@ var ListaOpcionesModule = (function () {
                 .addClass(_elements.btnAplicarSeleccion.disabledClass);
         }
 
-        //
         $(_elements.listaOpciones.id).html("");
         SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
-        //
         
     };
 
@@ -178,15 +172,15 @@ var ListaOpcionesModule = (function () {
     var ListarOpciones = function (componente) {
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
-        //
+        
         _inicializarComponenteModel(componente);
-        //
+
         _renderListaOpciones();
-        //
+
         setTimeout(function() {
             opcionesEvents.applyChanges("onOptionSelected", _componente);
         }, 200);
-        //
+
         return false;
     };
 
@@ -201,14 +195,9 @@ var ListaOpcionesModule = (function () {
                 return false;
             }
         });
-        //
+        
         if (typeof opcion === "undefined" || opcion === null) throw "var opcion is not defined or null";
         _componente.HermanosSeleccionados.push(opcion);
-        //_componente.HermanosSeleccionados.push(opcion);
-        //_componente.HermanosSeleccionados.push(opcion);
-        //_componente.HermanosSeleccionados.push(opcion);
-        //_componente.HermanosSeleccionados.push(opcion);
-        //_componente.HermanosSeleccionados.push(opcion);
         _actualizarCantidadFaltantes();
     };
 
@@ -216,23 +205,37 @@ var ListaOpcionesModule = (function () {
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
-        //
+        
         if (_componente.esCampaniaSiguiente) {
             return false;
         }
-        //
+        
         if (_componente.FactorCuadre === _componente.HermanosSeleccionados.length) {
             return false;
         }
-        //
+        
         if (typeof event !== "undefined") EstrategiaAgregarModule.AdicionarCantidad(event);
-        //
+        
         _agregarOpcionAComponenteModel(cuv);
-        //
+        
         _renderListaOpciones();
-        //
+        
         opcionesEvents.applyChanges("onOptionSelected", _componente);
-        //
+        
+        var estrategia = fichaModule.GetEstrategia();
+        var nombreComponente = getNombreComponente(cuv);
+
+
+        if (typeof event !== "undefined") {
+            AnalyticsPortalModule.MarcarAumentardisminuirOpcionProducto("Aumentar", estrategia, nombreComponente);
+            return false;
+        }
+        
+        if (_componente.FactorCuadre === 1 ) {
+            AnalyticsPortalModule.MarcarPopupBotonEligeloSoloUno(estrategia, _componente );
+        } else {
+            AnalyticsPortalModule.MarcarPopupBotonEligeloVariasOpciones(estrategia, nombreComponente);
+        }
         return false;
     };
 
@@ -268,32 +271,62 @@ var ListaOpcionesModule = (function () {
     };
 
     var EliminarOpcion = function (cuv, event, indice) {
+        
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
 
         var _indice = (typeof indice !== "undefined") ? indice : "";
-        //
+        
         if (_componente.esCampaniaSiguiente) {
             return false;
         }
-        //
+        
+        var nombreComponente = getNombreComponente(cuv);
+        
         if (typeof event !== "undefined" && event !== null) EstrategiaAgregarModule.DisminuirCantidad(event);
-        //
+        
         _eliminarOpcionDeComponenteModel(cuv, _indice);
-        //
+        
         _renderListaOpciones();
-        //
+        
         opcionesEvents.applyChanges("onOptionSelected", _componente);
-        //
+        
+        var estrategia = fichaModule.GetEstrategia();
+        if (typeof event !== "undefined" && event !== null) {
+            AnalyticsPortalModule.MarcarAumentardisminuirOpcionProducto("Disminuir", estrategia, nombreComponente);
+
+            return false;
+        }
+
+        
+        if (_componente.FactorCuadre === 1) {
+            AnalyticsPortalModule.MarcarEliminarOpcionSeleccionada(estrategia, nombreComponente)
+        } else {
+            AnalyticsPortalModule.MarcarEliminarOpcionSeleccionadaVariasOpciones(estrategia, nombreComponente)
+        }
+        
         return false;
+    };
+    var getNombreComponente = function (cuv) {
+        var NombreBulk = "";
+        $.each(_componente.HermanosSeleccionados, function (index, item) {
+            
+            if (item.Cuv == cuv) {
+                NombreBulk = item.NombreBulk;
+                return false;
+            }
+            
+        });
+        return NombreBulk;
     };
 
     var GetComponente = function () {
         return _componente;
     };
 
-    var CloseElegirOpcionesModal = function () {
+    var CloseElegirOpcionesModal = function (callFromSeleccionarPaletaOpcion) {
+        var _callFromSeleccionarPaletaOpcion = callFromSeleccionarPaletaOpcion || false;
         _componente.HermanosSeleccionados = [];
         if (_componente.resumenAplicados.length == 0) {
             $.each(_componente.Hermanos, function (index, item) {
@@ -309,6 +342,18 @@ var ListaOpcionesModule = (function () {
             $(".modal-fondo").hide();
             $("body").removeClass("modal_activado");
         }
+        if (!_callFromSeleccionarPaletaOpcion) {
+            
+            var estrategia = fichaModule.GetEstrategia();
+            if (_componente.FactorCuadre === 1) {
+                AnalyticsPortalModule.MarcarCerrarPopupEligeUnaOpcion(estrategia);
+            } else {
+                AnalyticsPortalModule.MarcarPopupCerrarEligeXOpciones(estrategia);
+            }
+        }
+        
+        
+        
     }
 
     return {

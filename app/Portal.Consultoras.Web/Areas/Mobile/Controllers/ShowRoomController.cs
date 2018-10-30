@@ -148,37 +148,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
-
-        public ActionResult DetalleOferta(int id)
-        {
-            ActionExecutingMobile();
-
-            if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
-
-            var modelo = ViewDetalleOferta(id);
-
-            List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
-
-            if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
-            {
-                UsuarioModel usurioModel = new UsuarioModel
-                {
-                    CodigoISO = userData.CodigoISO,
-                    CampaniaID = userData.CampaniaID
-                };
-                listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
-                listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
-            }
-            else
-            {
-                listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
-            }
-
-            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-
-            return View("DetalleOferta", modelo);
-        }
-
+        
         #region Metodos Privados
 
         private ShowRoomEventoModel OfertaShowRoom()
