@@ -67,6 +67,18 @@
   <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePaso5Pasos_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePaso5PasosResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePaso5PasosMexico_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePaso5PasosMexico" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePaso5PasosMexico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePaso5PasosMexicoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_EliminarSolicitudPostulanteMexico_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarSolicitudPostulanteMexico" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_EliminarSolicitudPostulanteMexico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarSolicitudPostulanteMexicoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePasoList_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePasoList" />
   </wsdl:message>
@@ -78,6 +90,12 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePasoList5Pasos_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePasoList5PasosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePasoList5PasosMexico_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePasoList5PasosMexico" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePasoList5PasosMexico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePasoList5PasosMexicoResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_AgregarSolicitudPostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:AgregarSolicitudPostulante" />
@@ -186,6 +204,12 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteApta_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteAptaMexico_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaMexico" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteAptaMexico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaMexicoResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteAptaByDoc_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaByDoc" />
@@ -476,6 +500,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5Pasos" message="tns:IPortalService_ActualizarSolicitudPostulantePaso5Pasos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5PasosResponse" message="tns:IPortalService_ActualizarSolicitudPostulantePaso5Pasos_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulantePaso5PasosMexico">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5PasosMexico" message="tns:IPortalService_ActualizarSolicitudPostulantePaso5PasosMexico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5PasosMexicoResponse" message="tns:IPortalService_ActualizarSolicitudPostulantePaso5PasosMexico_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarSolicitudPostulanteMexico">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EliminarSolicitudPostulanteMexico" message="tns:IPortalService_EliminarSolicitudPostulanteMexico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EliminarSolicitudPostulanteMexicoResponse" message="tns:IPortalService_EliminarSolicitudPostulanteMexico_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ActualizarSolicitudPostulantePasoList">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoListResponse" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList_OutputMessage" />
@@ -483,6 +515,10 @@
     <wsdl:operation name="ActualizarSolicitudPostulantePasoList5Pasos">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5Pasos" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList5Pasos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5PasosResponse" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList5Pasos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulantePasoList5PasosMexico">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5PasosMexico" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList5PasosMexico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5PasosMexicoResponse" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList5PasosMexico_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AgregarSolicitudPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AgregarSolicitudPostulante" message="tns:IPortalService_AgregarSolicitudPostulante_InputMessage" />
@@ -555,6 +591,10 @@
     <wsdl:operation name="ObtenerSolicitudPostulanteApta">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteApta" message="tns:IPortalService_ObtenerSolicitudPostulanteApta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaResponse" message="tns:IPortalService_ObtenerSolicitudPostulanteApta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPostulanteAptaMexico">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexico" message="tns:IPortalService_ObtenerSolicitudPostulanteAptaMexico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexicoResponse" message="tns:IPortalService_ObtenerSolicitudPostulanteAptaMexico_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudPostulanteAptaByDoc">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaByDoc" message="tns:IPortalService_ObtenerSolicitudPostulanteAptaByDoc_InputMessage" />
@@ -808,6 +848,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulantePaso5PasosMexico">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5PasosMexico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarSolicitudPostulanteMexico">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/EliminarSolicitudPostulanteMexico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarSolicitudPostulantePasoList">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList" style="document" />
       <wsdl:input>
@@ -819,6 +877,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarSolicitudPostulantePasoList5Pasos">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5Pasos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulantePasoList5PasosMexico">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5PasosMexico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -981,6 +1048,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudPostulanteApta">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteApta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPostulanteAptaMexico">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

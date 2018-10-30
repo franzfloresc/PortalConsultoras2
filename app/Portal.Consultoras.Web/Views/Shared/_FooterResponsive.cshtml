@@ -271,10 +271,7 @@
                                 if (menuHijo.Descripcion.Trim().ToLower() == "contáctanos")
                                 {
                                     menuHijo.UrlItem += "?" + ViewBag.QSBR;
-
-                                    @*<script type="text/javascript">
-                                        document.getElementById("aBelcorpResponde").href = "@Html.Raw(menuHijo.UrlItem)";
-                                    </script>*@
+                                    
                                     <li id="urlContactanos" 
                                         class="d-none" 
                                         data-url-contactanos="@Html.Raw(menuHijo.UrlItem)">

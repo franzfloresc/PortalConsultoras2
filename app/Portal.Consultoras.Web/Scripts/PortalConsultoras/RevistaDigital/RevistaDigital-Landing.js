@@ -41,7 +41,7 @@ $(document).ready(function () {
         $(this).hide();
     });
 
-    if (isPagina("revistadigital") || isPagina("guianegocio") || isPagina("herramientasventa")) {
+    if (isPagina("revistadigital") || isPagina("guianegocio") || isPagina("herramientasventa") || isPagina("programanuevas") || isPagina("masganadoras")) {
         OfertaCargarProductos(null);
     }
 
@@ -65,7 +65,7 @@ function OfertaObtenerProductos(filtro, clear) {
             rdAnalyticsModule.FiltrarProducto(tipo, label);
         }
     } catch (e) {
-        console.log("Error analytic RD: " + e);
+        console.error("Error analytic RD: " + e);
     }
 }
 
@@ -188,7 +188,7 @@ function OfertaObtenerFiltro(filtro, clear) {
 }
 
 function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
-
+    //console.log('OfertaCargarProductos', busquedaModel, clear, objSeccion);
     busquedaModel = busquedaModel || Clone(filtroIni);
     objSeccion = objSeccion || {};
     busquedaModel.CampaniaID = busquedaModel.CampaniaID || objSeccion.CampaniaId || campaniaId || campaniaCodigo || 0;
@@ -219,6 +219,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     divProd.find('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:100px;padding: 15px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
     divProd.find("#divOfertaProductosLoad").show();
 
+    //debugger;
     if (filtroCampania[codPalancaCampania] != undefined) {
         if (filtroCampania[codPalancaCampania].response != undefined) {
             if (filtroCampania[codPalancaCampania].response.Completo == 1) {
@@ -240,7 +241,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     }
 
     busquedaModel = busquedaModel || new Object();
-    
+
     $.ajaxSetup({
         cache: false
     });
@@ -260,7 +261,6 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
             }
 
             OfertaCargarProductoRespuesta(response, clear, busquedaModel);
-
         },
         error: function (response, error) {
             divProd.find("#divOfertaProductosLoad").hide();
@@ -272,6 +272,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 }
 
 function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
+    //console.log('OfertaCargarProductoRespuesta', response, clear, busquedaModel);
     CerrarLoad();
 
     var divProd = $("[data-listado-campania=" + response.campaniaId + "]");

@@ -1,6 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
 using System;
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -14,6 +13,7 @@ namespace Portal.Consultoras.Web.Models
         public String CodigoVideo { get; set; } //Por defecto 1 video
         public string OrigenUrl { get; set; }
         public int OrigenAgregar { get; set; }
+        public int OrigenAgregarCarrusel { get; set; }
         public string Palanca { get; set; }
         public bool TieneSession { get; set; }
         public int Campania { get; set; }
@@ -26,8 +26,7 @@ namespace Portal.Consultoras.Web.Models
         public double TeQuedan { get; set; }
         public string ColorFondo1 { get; set; }
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
-        //public string CodigoIsoConsultora { get; set; }
-        //public bool TieneRevistaDigital { get; set; }
+
         public DetalleEstrategiaBreadCrumbsModel BreadCrumbs { get; set; }
     }
 
