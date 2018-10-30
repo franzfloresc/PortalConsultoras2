@@ -334,7 +334,7 @@ namespace Portal.Consultoras.Web.Providers
                 MatrizComercialId = entidad.IdMatrizComercial,
                 PrecioPublico = (float)entidad.PrecioPublico,
                 Zona = entidad.Zona,
-                EsSubCampania = entidad.EsSubCampania == 1 ? true : false,
+                EsSubCampania = entidad.EsSubCampania == 1,
                 ImagenMiniatura = entidad.ImagenMiniaturaURL ?? string.Empty
             };
             return waModel;
