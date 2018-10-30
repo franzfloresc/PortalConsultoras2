@@ -494,7 +494,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
                     usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
                     usuario.AceptacionConsultoraDA = configuracionConsultora.AceptacionConsultoraDA;
-                    usuario.DiaFacturacion = (usuario.FechaInicioFacturacion - DateTime.Now).Days;
+                    usuario.DiaFacturacion = (DateTime.Now.Date - usuario.FechaInicioFacturacion).Days;
                 }
 
                 if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -1802,6 +1802,10 @@ namespace Portal.Consultoras.BizLogic
                             resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
                         }
                     }
+                }
+                else if (usuario.PaisID == Constantes.PaisID.Colombia ) {
+                    this.UpdateDatos(usuario, CorreoAnterior);
+                    resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
                 }
             }
             catch (Exception ex)
@@ -3467,6 +3471,12 @@ namespace Portal.Consultoras.BizLogic
             mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 == "1";
 
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).FirstOrDefault();
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
+
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos).FirstOrDefault();
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.AplicarLogicaCantidadBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
+
             return buscadorYFiltrosConfiguracion;
         }
         #endregion
@@ -3494,9 +3504,28 @@ namespace Portal.Consultoras.BizLogic
         {
             return new DAUsuario(paisID).GetActualizacionEmail(codigoUsuario);
         }
-        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
+        public BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario)
         {
-            return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
+            var DAUsuario = new DAUsuario(paisID);
+            var oMensaje = new BEMensajeToolTip();
+            var datosPerfil = new List<BEUsuarioPerfil>();
+            using (IDataReader reader = DAUsuario.GetActualizacionEmailySms(codigoUsuario))
+            {
+                while (reader.Read())
+                    datosPerfil.Add(new BEUsuarioPerfil(reader));
+            }
+
+            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.MensajesToolTipPerfil);
+            oMensaje.oDatosPerfil = datosPerfil;
+            oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
+
+            return oMensaje;
+        }
+        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario, string tipoEnvio)
+        {
+            return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario, tipoEnvio);
         }
 
         public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)
