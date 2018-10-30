@@ -435,12 +435,12 @@ function btnSalirTlpDelete(PedidoDetalleID) {
 }
 
 function tooltipObservaciones(Mensaje) {
-    $("#observaciones_alerta").dialog("open");
-    $("#desc_obs_alerta").html("<ul><li>" + Mensaje + "</ul></li>");
+    $('#observacionPedido').modal()
+    $("#desc_obs_alert").html("<ul><li>" + Mensaje + "</ul></li>");
 }
 
 function btnSalirTlpObservaciones() {
-    $("#tlpObservaciones").dialog("close");
+    $("#observacionPedido").modal("close");
 }
 
 function EliminarPedidoEvento(evento, esBackOrder) {
