@@ -953,11 +953,6 @@
 
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
 
-@*
-    DEUDA TECNICA
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>*@
-
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
@@ -1648,10 +1643,6 @@
 </script>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-@*
-DEUDA TECNICA
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
 @Html.Partial("~/Views/FichaProducto/template-ficha-producto.cshtml")
 
 <script id="productos-faltantes-template" type="text/x-handlebars-template">
@@ -2070,7 +2061,7 @@ DEUDA TECNICA
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
         var mensajeSinConexionGenerico = '@Constantes.MensajesError.SinConexion';
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
-        var urlEsPedidoDetalleDuoPerfecto = '@Url.Action("EsPedidoDetalleDuoPerfecto", "Pedido")';
+        var urlEsPedidoDetalleElecMultiple = '@Url.Action("EsPedidoDetalleElecMultiple", "Pedido")';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)

@@ -77,7 +77,6 @@ $(document).ready(function () {
                 AccionesCampoBusquedaMobileAlDigitar: function () {
 
                     // validar teclas especiales
-                    //var key = keys.find(key => key.val === event.which);
                     var key = false;
                     $.each(keys, function (i, value) {
                         if (value.val === event.which) key = true;
@@ -123,8 +122,6 @@ $(document).ready(function () {
                                 var lista = r;
 
                                 if (lista.length <= 0) {
-                                    //$('#ResultadoBuscadorMobile').fadeOut(150);
-                                    //me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
                                     $('.spinner').fadeOut(150);
                                     $('.busqueda_sin_resultados').fadeIn(60);
                                 } else {
@@ -152,7 +149,6 @@ $(document).ready(function () {
                         }, 200);
 
                     } else {
-                        //me.Funciones.CampoDeBusquedaSinCaracteres($(this));
                         if ($('.busqueda_sin_resultados').is(':visible')) {
                             $('.busqueda_sin_resultados').fadeOut(60);
                         }

@@ -116,35 +116,6 @@
 }
 else if (revistaDigital.TieneRDI)
 {
-    @*<div class="banner_pedido_rd">
-                <div class="cabecera_pedido_rd">
-                    <div class="rd_logo">
-                        <img src="@urlLogo" alt="" class="small">
-                    </div>
-                    <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                </div>
-                <div class="banner_pedido_masofertas">
-                    <div class="banner_pedido_text margin_bottom_60">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-                    <div class="btn_diagonal btn_stroke btn_stroke2">
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.OfertasParaTi')">
-                            VER TODAS MIS OFERTAS
-                            <img class="rd_arrowrightnegro" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                            <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-            @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-            new ViewDataDictionary {
-                { "Source", 2 },
-                { "NombreConsultora", revistaDigital.NombreConsultora },
-                { "Origen", Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel },
-                { "NombrePalanca", revistaDigital.NombreComercialNoActiva },
-        { "Margenvertical", margenvertical }
-            });*@
-
     <div class="fondo_gris revistaDigitalCompleta" style="background:transparent !important;">
 
         <div class="club_gana_mas_pedido">

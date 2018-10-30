@@ -54,27 +54,6 @@ var OpcionesSeleccionadasModule = (function () {
                 infinite : false
             };
 
-            //$(".seleccion_btn button").click(function () {
-            //    $(".item_selecionado").css("display", "flex");
-            //    $(".item_selecionado div").css("display", "block");
-            //    $(".item_selecionado div").animate({
-            //        width: "56px",
-            //        height: "76px"
-            //    }, 150, function () {
-            //        $(".item_selecionado_close").css("display", "flex");
-            //    });
-            //});
-
-            //$(".item_selecionado_close").click(function () {
-            //    $(".item_selecionado_close").css("display", "none");
-            //    $(".item_selecionado div").animate({
-            //        width: "1px",
-            //        height: "1px",
-            //    }, 150, function () {
-            //        $(".item_selecionado").css("display", "none");
-            //    });
-            //});
-
             if (!isMobile()) {
                 slickSettings.arrows = true;
                 slickSettings.prevArrow = '<a id="opciones-seleccionadas-prev" class="flecha_ofertas-tipo prev" style="left:-5%; text-align:left;display:none;"><img src="' +

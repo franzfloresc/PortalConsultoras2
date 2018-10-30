@@ -3714,10 +3714,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AplicarLogicaCantidadBotonVerTodosBuscadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short CaracteresBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short CaracteresBuscadorMostrarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IndicadorConsultoraDummyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarBotonVerTodosBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool MostrarBuscadorField;
@@ -3732,6 +3741,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AplicarLogicaCantidadBotonVerTodosBuscador {
+            get {
+                return this.AplicarLogicaCantidadBotonVerTodosBuscadorField;
+            }
+            set {
+                if ((this.AplicarLogicaCantidadBotonVerTodosBuscadorField.Equals(value) != true)) {
+                    this.AplicarLogicaCantidadBotonVerTodosBuscadorField = value;
+                    this.RaisePropertyChanged("AplicarLogicaCantidadBotonVerTodosBuscador");
+                }
             }
         }
         
@@ -3757,6 +3779,32 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.CaracteresBuscadorMostrarField.Equals(value) != true)) {
                     this.CaracteresBuscadorMostrarField = value;
                     this.RaisePropertyChanged("CaracteresBuscadorMostrar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IndicadorConsultoraDummy {
+            get {
+                return this.IndicadorConsultoraDummyField;
+            }
+            set {
+                if ((this.IndicadorConsultoraDummyField.Equals(value) != true)) {
+                    this.IndicadorConsultoraDummyField = value;
+                    this.RaisePropertyChanged("IndicadorConsultoraDummy");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarBotonVerTodosBuscador {
+            get {
+                return this.MostrarBotonVerTodosBuscadorField;
+            }
+            set {
+                if ((this.MostrarBotonVerTodosBuscadorField.Equals(value) != true)) {
+                    this.MostrarBotonVerTodosBuscadorField = value;
+                    this.RaisePropertyChanged("MostrarBotonVerTodosBuscador");
                 }
             }
         }

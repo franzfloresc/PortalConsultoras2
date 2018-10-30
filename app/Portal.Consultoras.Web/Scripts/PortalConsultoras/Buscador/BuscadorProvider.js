@@ -88,7 +88,7 @@
                                     return false;
                                 }
 
-                                producto.html("Agregado");
+                                producto.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
 
                                 if (isPagina("pedido")) {
                                     if (model != null && model != undefined)
@@ -99,7 +99,11 @@
                                 }
 
                                 microefectoPedidoGuardado();
-                                CargarResumenCampaniaHeader();
+
+                                if (!isMobile()) {
+                                    CargarResumenCampaniaHeader();
+                                } 
+
                                 CerrarLoad();
                                 _registrarAnalytics(model, textoBusqueda);
                             },

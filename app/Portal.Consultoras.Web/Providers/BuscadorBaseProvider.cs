@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -30,7 +28,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
                 httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
 
                 var httpResponse = await httpClient.GetAsync(path);
 
@@ -42,10 +40,8 @@ namespace Portal.Consultoras.Web.Providers
             return personalizacion;
         }
 
-        //Llamadas Post genérica
         public async Task<T> PostAsync<T>(string url, object data) where T : class, new()
         {
-
             var dataJson = JsonConvert.SerializeObject(data);
             var stringContent = new StringContent(dataJson, Encoding.UTF8, contentType);
             var httpResponse = await httpClientBuscador.PostAsync(url, stringContent);
@@ -57,29 +53,5 @@ namespace Portal.Consultoras.Web.Providers
 
             return dataObject;
         }
-
-        public async Task<List<BuscadorYFiltrosModel>> ObtenerBuscadorDesdeApi(string path)
-        {
-            var resultados = new List<BuscadorYFiltrosModel>();
-            using (var httpClient = new HttpClient())
-            {
-                httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var httpResponse = await httpClient.GetAsync(path);
-
-                if (!httpResponse.IsSuccessStatusCode) return resultados;
-                var jsonString = await httpResponse.Content.ReadAsStringAsync();
-
-                var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
-
-        
-            }
-
-            return resultados;
-        }
-
-
     }
 }
