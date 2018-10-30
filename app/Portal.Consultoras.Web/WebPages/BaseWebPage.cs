@@ -15,12 +15,7 @@ namespace Portal.Consultoras.Web.WebPages
             if (userData == null)
             {
                 CerrarSesion();
-
-                //Uri urlPortal = Util.GetUrlHost(Request);
-
-                //string urlSesionExpirada = string.Format("{0}/Login/SesionExpirada", urlPortal.AbsolutePath);
-
-                //Response.Redirect(urlSesionExpirada);
+                
                 Response.Redirect("/Login/SesionExpirada");
             }
         }

@@ -329,11 +329,7 @@ input:focus{
         -webkit-transition: all 0.2s ease;
         transition: all 0.2s ease;
     }
-
-    /*.grupo_form_cambio_datos input[disabled]{
-        background-color:#FFF;
-    }*/
-
+    
     .grupo_form_cambio_datos input {
         background-color:transparent;
         margin-top:18px;
@@ -867,7 +863,6 @@ input:focus{
 }
 
     .opcion_foto_perfil:hover{
-        /*width:280px;*/
         background-color:#fbfbfb;
         -moz-box-shadow: 0 4px 11px -7px rgba(103, 103, 103, 0.9);
         -webkit-box-shadow: 0 4px 11px -7px rgba(103, 103, 103, 0.9);

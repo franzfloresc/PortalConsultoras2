@@ -229,6 +229,19 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="UbigeoPA" nillable="true" type="tns:UbigeoPA" />
+  <xs:complexType name="UbigeoSV">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UbigeoTemplate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CANTON_CENTRO_POBLADO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DEPARTAMENTO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MUNICIPIO" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UbigeoSV" nillable="true" type="tns:UbigeoSV" />
   <xs:complexType name="UbigeoGT">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:UbigeoTemplate">
@@ -243,19 +256,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="UbigeoGT" nillable="true" type="tns:UbigeoGT" />
-  <xs:complexType name="UbigeoSV">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:UbigeoTemplate">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CANTON_CENTRO_POBLADO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="DEPARTAMENTO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="MUNICIPIO" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="UbigeoSV" nillable="true" type="tns:UbigeoSV" />
   <xs:complexType name="ArrayOfUbigeoTemplate">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />

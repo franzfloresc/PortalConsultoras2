@@ -1,10 +1,6 @@
 ﻿@using System.Web.Optimization
 @using Portal.Consultoras.Common
 
-@{
-    var origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopBuscador;
-}
-
 <!DOCTYPE html>
 <html lang="es" class="no-js">
 <head>
@@ -93,36 +89,43 @@
     </script>
 </head>
 <body>
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTrackingJetlore.cshtml")
     <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
-        <header class="layout__header row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
-            <div class="header__icono__menu mostrarEnMobile pl-0 pr-0">
-                <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
-            </div>
-            <div class="header__marca__pais text-right">
-                @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
-                {
-                    <picture class="d-block w-100">
-                        <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
-                        <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
-                        <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
-                    </picture>
-                }
-                else
-                {
-                    <picture class="d-block w-100">
-                        <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-                        <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-                    </picture>
-                }
+        <header class="layout__header layout__header--navidenio row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
+            <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
+                <div class="header__icono__menu mostrarEnMobile pl-0 pr-0">
+                    <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
+                </div>
+                <div class="header__marca__pais text-right">
+                    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+                    {
+                        <picture class="d-block w-100">
+                            @*<source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
+                                <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
+                                <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">*@
+                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")">
+                            <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")">
+                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")" alt="Ésika">
+                        </picture>
 
-
+                    }
+                    else
+                    {
+                        <picture class="d-block w-100">
+                            @*<source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                                <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">*@
+                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais_blanco.svg")">
+                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais_blanco.svg")">
+                        </picture>
+                    }
+                </div>
+                @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
+                @if (ViewBag.MostrarBuscadorYFiltros)
+                {
+                    @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
+                }
+                @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
             </div>
-            @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
-            @if (ViewBag.MostrarBuscadorYFiltros)
-            {
-                @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
-            }
-            @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
         </header>
 
         @RenderBody()
@@ -134,6 +137,7 @@
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajes.cshtml")
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml");
 
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
@@ -163,7 +167,6 @@
     </script>
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        @*var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';*@
         var viewBagRol = '@ViewBag.Rol';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var campaniaCodigo = '@ViewBag.CampaniaCodigo';
@@ -185,11 +188,21 @@
         var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
-        var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
+
+        function ShowLoading() {
+            $("#loading-spin").css('visibility', 'visible').fadeIn();
+        }
+
+        function CloseLoading() {
+            $("#loading-spin").fadeOut("fast", function () {
+                if ($.isFunction(LayoutHeader)) LayoutHeader();
+            });
+        }
+
     </script>
 
     @Scripts.Render("~/Bundle/Js/Desktop/JQuery3Js")

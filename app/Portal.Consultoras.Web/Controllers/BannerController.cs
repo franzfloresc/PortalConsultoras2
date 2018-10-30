@@ -720,7 +720,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (!System.IO.File.Exists(Globals.RutaTemporales))
                             Directory.CreateDirectory(Globals.RutaTemporales);
                         postedFile.SaveAs(path);
-                        path = Url.Content(Path.Combine(Globals.RutaTemporales, fileName));
+                        //path = Url.Content(Path.Combine(Globals.RutaTemporales, fileName));
                     }
 
                     return Json(new { success = true, name = qqfile }, "text/html");

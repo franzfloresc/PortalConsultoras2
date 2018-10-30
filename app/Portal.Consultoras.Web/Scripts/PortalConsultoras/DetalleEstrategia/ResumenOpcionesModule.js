@@ -62,7 +62,10 @@ var ResumenOpcionesModule = (function () {
         }
     } 
 
-    var AplicarOpciones = function () {
+    var AplicarOpciones = function (callFromSeleccionarPaletaOpcion) {
+        
+        
+        var callCloseElegirOpcionesModal = callFromSeleccionarPaletaOpcion ? !callFromSeleccionarPaletaOpcion : true;
         _componente = ListaOpcionesModule.GetComponente() || _componente;
         if (!(_componente.FactorCuadre === _componente.HermanosSeleccionados.length)) {
             return false;
@@ -83,7 +86,9 @@ var ResumenOpcionesModule = (function () {
         
         $(resumenOpcionesContenedor).show();
 
-        ListaOpcionesModule.CloseElegirOpcionesModal();
+        if (callCloseElegirOpcionesModal) {
+            ListaOpcionesModule.CloseElegirOpcionesModal(callCloseElegirOpcionesModal);
+        }
 
         SetHandlebars(_elements.resumenOpciones.template, _componente, resumenOpcionesContenedor);
 
@@ -102,6 +107,25 @@ var ResumenOpcionesModule = (function () {
         }
 
         _verificarActivarBtn(codigoVariante);
+
+        if (callCloseElegirOpcionesModal) {
+            var estrategia = fichaModule.GetEstrategia();
+            var nombreConcat = "";
+            if (_componente.FactorCuadre === 1) {
+                AnalyticsPortalModule.MarcarBotonAplicarSeleccion(estrategia, _componente);
+            } else {
+                $.each(_componente.resumenAplicados, function (index, opcion) {
+                    if (opcion.cantidadSeleccionada > 0) {
+                        nombreConcat += " " + estrategia.DescripcionCompleta +" " + opcion.NombreBulk + " |";
+                    }
+                });
+
+                nombreConcat = Left(nombreConcat, nombreConcat.length - 1).trim();
+                
+                AnalyticsPortalModule.MarcarPopupBotonAplicarSeleccionVariasOpciones(nombreConcat);
+            }
+        }
+        
         
         return false;
     };
@@ -121,5 +145,5 @@ var ResumenOpcionesModule = (function () {
 }());
 
 opcionesEvents.subscribe("onComponentSelected", function(componente) {
-    //ResumenOpcionesModule.Inicializar();
+
 });
