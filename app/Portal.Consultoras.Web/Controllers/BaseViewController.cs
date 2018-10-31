@@ -467,61 +467,24 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion Mobile
 
                 #region Buscador Desktop
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorGNDFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaFicha;
-                    break;
-                #endregion Buscador Desktop
-
-                #region Buscador Mobile
-                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorShowroomFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorGNDFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaFicha;
-                    break;
-                #endregion Buscador Mobile
-
-                #region Mas Ganadoras
-                case Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel:
-                    result = Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel:
-                    result = Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel:
-                    result = Constantes.OrigenPedidoWeb.MobileContenedorGanadorasFicha;
-                    break;
-                case Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel:
-                    result = Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha;
-                     break;
-
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorGNDFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaFicha;
+                //    break;
                 case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel:
                     result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiFicha;
                     break;
@@ -540,6 +503,27 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel:
                     result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaFicha;
                     break;
+                #endregion Buscador Desktop
+
+                #region Buscador Mobile
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorShowroomFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorGNDFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaFicha;
+                //    break;
                 case Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel:
                     result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiFicha;
                     break;
@@ -558,6 +542,24 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel:
                     result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaFicha;
                     break;
+                #endregion Buscador Mobile
+
+                #region Mas Ganadoras
+                case Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha;
+                     break;
+
+               
+              
                 #endregion
                 //OPT
                 //case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome:
