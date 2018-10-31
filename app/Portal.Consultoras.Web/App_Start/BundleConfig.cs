@@ -913,6 +913,13 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/footer-responsive.css",
                 "~/Content/Css/Site/Lbel/marca-pais-responsive.css"
             ));
+
+            #region Tooltip Obs - Delete
+            bundles.Add(new StyleBundle("~/Bundle/Js/tooltip").Include(
+                "~/Scripts/PortalConsultoras/Pedido/tooltip.js"
+            ));
+            #endregion
+
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else

@@ -1817,32 +1817,6 @@ function CerrarProductoAgregado() {
     $("#pop_liquidacion").hide();
 }
 
-function tooltipDelete(CUV) {
-     $("#tlpDelete_" + CUV).show();
-}
-
-function btnSalirTlpDelete(CUV){
-    $("#tlpDelete_" + CUV).hide();
-}
-
-function tooltipObservaciones(Mensaje) {
-    msj = Mensaje.split("<br/>");
-    msj.pop();
-    $("#observaciones_alerta").dialog("open");
-    if (msj.length > 0) {
-        $("#desc_obs_alerta").html("<ul></ul>");
-        for (i = 0; i < msj.length; i++) {
-            $("#desc_obs_alerta ul").append("<li>" + msj[i] + "</li>");
-        }
-    } else {
-        $("#desc_obs_alerta").html("<ul><li>" + Mensaje + "</li></ul>");
-    }    
-}
-
-function btnSalirTlpObservaciones() {
-    $("#tlpObservaciones").dialog("close");
-}
-
 function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, enRangoProgNuevas) {
     if (MuestraPopupDeleteRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId)) return;
 
@@ -3599,7 +3573,8 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 
 function ArmarPopupObsReserva(titulo, mensaje) {
     $("#divTituloObservacionesPROL").html(titulo);
-    $("#divMensajeObservacionesPROL").html(mensaje);
+    //$("#divMensajeObservacionesPROL").html(mensaje);
+    $("#divMensajeObservacionesPROL").html("Tu pedido tiene observaciones, por favor revísalo.");
 }
 
 function MostrarPopupErrorReserva(mensajePedido, esAviso) {

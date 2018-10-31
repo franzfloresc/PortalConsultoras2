@@ -28,12 +28,12 @@
         <input id="hdAccionBotonProl" type="hidden" value="@ViewBag.AccionBoton" />
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
-                @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+                @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
                     if (mobileConfiguracion.MostrarBotonAtras)
                     {
                         <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
                     }
-                 }
+                }
                 <h2 class="nombre_campania_pedido">
                     MI PEDIDO
                     <span>@Model.DescripcionCampaniaActual</span>
@@ -83,7 +83,7 @@
 
         <div id="divCondicionesCupon" style="display: none; color: #9b9b9b; margin-bottom: 35px;">
             <div style="text-align:center; font-size: 11px;">*No incluye herramientas de venta</div>
-            <div class="clearfix"></div>    
+            <div class="clearfix"></div>
         </div>
 
     </div>
@@ -434,18 +434,18 @@
             {{#if AceptoBackOrder}}
 
             @*{{#IsNullOrEmpty detalle.Mensaje '!='}}
-            <div class="notificacion_productoAgotado">
-                <small>
-                    {{#iff detalle.TipoObservacion '!=' 0}}
-                    {{{Replace detalle.Mensaje '¿Deseas aceptar el reemplazo?' ''}}}
-                    {{else}}
-                    {{detalle.Mensaje}}
-                    {{/iff}}
-                </small>
-            </div>
-            {{/IsNullOrEmpty}}
-            {{#if EsBackOrder}}
-            {{#if AceptoBackOrder}}*@
+                <div class="notificacion_productoAgotado">
+                    <small>
+                        {{#iff detalle.TipoObservacion '!=' 0}}
+                        {{{Replace detalle.Mensaje '¿Deseas aceptar el reemplazo?' ''}}}
+                        {{else}}
+                        {{detalle.Mensaje}}
+                        {{/iff}}
+                    </small>
+                </div>
+                {{/IsNullOrEmpty}}
+                {{#if EsBackOrder}}
+                {{#if AceptoBackOrder}}*@
 
             <div class="stock_content_agotado">
                 <div class="texto_stock" style="color:black"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
@@ -465,15 +465,15 @@
 
     <!--PopUp pedido Observacion-->
     @*<button type="button" class="" data-toggle="modal" data-target="#observacionPedido">
-        modal observaciones
-    </button>*@
+            modal observaciones
+        </button>*@
     <div class="modal fade" id="observacionPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <button type="button" class="close_observacionPedido" data-dismiss="modal" aria-label="Close">
                     <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
                 </button>
-                
+
                 <div class="header_observaciones_alerta">
                     <ul>
                         <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
@@ -484,21 +484,21 @@
                     </div>
                     <div class="descripcion_observaciones_alerta" id="desc_obs_alert">
                         @*<ul>
-                            <li>
-                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                            </li>
-                            <li>
-                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                            </li>
-                            <li>
-                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                            </li>
-                        </ul>*@
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                            </ul>*@
                     </div>
-                </div>               
+                </div>
             </div>
         </div>
     </div>
@@ -560,7 +560,7 @@
 </script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
-    <div  data-popup-body="">
+    <div data-popup-body="">
         <div class="popup_ofertaFinal fondo_gris_popup" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}">
             <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px;" data-popup-close="divOfertaFinal" onclick="of_google_analytics_cerrar_popup()">
                 <div class="draw_close" alt="Cerrar"></div>
@@ -814,7 +814,7 @@
             <div class="content_info_regalo">
                 <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
                 <div class="content_imagen_sorpresa">
-                    <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt=""/>
+                    <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt="" />
                 </div>
                 <div class="descripcion_regalo" id="of-regalo-descripcion-larga">
                     Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
@@ -825,11 +825,11 @@
         </div>
 
     </div>
-    
+
 </script>
 
 <script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
-        <div class="content_popMobile" data-item="{{ID}}" style="padding-bottom:0;">
+    <div class="content_popMobile" data-item="{{ID}}" style="padding-bottom:0;">
         <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
         <hr class="clear">
         <div class="content_imagen_ficha" style="overflow:hidden;">
@@ -874,12 +874,12 @@
             </div>
             @if (mobileConfiguracion.MostrarHipervinculo)
             {
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
-                <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
-            </a>
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
-                <img src="/Content/Images/Mobile/Esika/facebook.png" alt="">
-            </a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
+                    <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
+                </a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
+                    <img src="/Content/Images/Mobile/Esika/facebook.png" alt="">
+                </a>
             }
         </div>
         <hr class="clear">
@@ -891,8 +891,8 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                         <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
-                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha" href="javascript:;" data-popup-verdetalle="{{id}}"
-                           onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>
+                    <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha" href="javascript:;" data-popup-verdetalle="{{id}}"
+                       onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>
                     <hr class="clear">
                 </div>
             </div>
@@ -969,6 +969,7 @@
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/tooltip")
 
     @if (Model.MostrarPopupPrecargados)
     {
@@ -978,5 +979,5 @@
             });
 
         </script>
-    }    
+    }
 }
