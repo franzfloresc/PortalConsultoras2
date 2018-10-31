@@ -656,6 +656,9 @@
 </div>
 
 <div id="divConfirmEliminarTotal" style="display: none; text-align: center;">
+    <a class="close_buttom_alerta_alerta" href="">
+        <img src="/Content/Images/close-icon.svg" alt="Alternate Text">
+    </a>
     <img class="icon_alerta_eliminar" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="">
     <div class="terminos_title_2">
         IMPORTANTE
@@ -665,7 +668,7 @@
         ¿Deseas eliminar el pedido completo?
     </div>
     <div style="text-align: center; margin-top: 18px;">
-        <input id="btnEliminarPedidoCompletoNo" type="button" value="NO, GRACIAS" onclick="EliminarPedidoTotalNo()" class="input_modifica_horizontal_cancelar" style="width: 100px; margin-left: 0;" />
+        <input id="btnEliminarPedidoCompletoNo" type="button" value="No, gracias" onclick="EliminarPedidoTotalNo()" class="input_modifica_horizontal_cancelar" style="width: 100px; margin-left: 0;" />
         <input id="btnEliminarPedidoCompletoSi" type="button" value="SÍ, ELIMINAR" onclick="EliminarPedidoTotalSi()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
     </div>
 </div>
@@ -2121,7 +2124,7 @@
                     width: 620,
                     open: function (event, ui) {
                         $("body").addClass("overflow_hidden");
-                        $(".ui-widget-header").css("display", "none");
+                        //$(".ui-widget-header").css("display", "none");
                     },
                     close: function (event, ui) {
                         $("body").removeClass("overflow_hidden");
@@ -2132,7 +2135,7 @@
                         //$(".ui-dialog").css({ height: "620px !important" });
 
                         $("#observaciones_alerta").parent().addClass("observaciones_alerta_blocks");
-                        $("#observaciones_alerta").parent().css({ height: "620px !important" });
+                        $("#observaciones_alerta").parent().attr('style', function (i, s) { return s + 'width: 620px !important;' });
                     },
 
                 });

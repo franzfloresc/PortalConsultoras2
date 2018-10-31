@@ -624,20 +624,29 @@ function CrearDialogs() {
         draggable: true,
         title: "",
         open: function (event, ui) {
-            $("body").addClass("");
+            $("body").addClass("overflow_hidden");
         },
 
         close: function (event, ui) {
             $(this).dialog("close");
-            $("body").removeClass("");
-        }
+            $("body").removeClass("overflow_hidden");
+        },
+
+        create: function (event, ui) {
+            $("#divConfirmEliminarTotal").parent().addClass("pop_up_eliminar");
+        },
     });
+
+    $('.close_buttom_alerta_alerta').click(function () {
+        $('#divConfirmEliminarTotal').dialog('close');
+        return false;
+    });
+
     $("#divAvisoEliminarRegaloGenerico").dialog({
         autoOpen: false,
         resizable: false,
         modal: true,
         closeOnEscape: true,
-        width: 500,
         draggable: true,
         title: "",
         close: function (event, ui) {
@@ -649,7 +658,7 @@ function CrearDialogs() {
         resizable: false,
         modal: true,
         closeOnEscape: true,
-        width: 500,
+        
         draggable: true
     });
 

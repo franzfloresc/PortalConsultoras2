@@ -6110,13 +6110,13 @@ a.subir_carousel, a.bajar_carousel {
     border: 1px solid black;
 }
 /*POP UP PEDIDO*/
-.pop_pedido_mensaje {
-    width: 300px;
+/*.pop_pedido_mensaje {
     font-family: 'lato';
     font-size: 10pt;
     color: black;
     margin-top: 25px;
     text-align: center;
+    width: 100%;
 }
 
     .pop_pedido_mensaje span {
@@ -6124,7 +6124,7 @@ a.subir_carousel, a.bajar_carousel {
         font-size: 12pt;
         font-weight: bold;
         letter-spacing: -1px;
-    }
+    }*/
 /*BOTON FLOTANTE LIQUIDACION PEDIDO*/
 .envolvente_pop_up {
     width: 1110px;
@@ -8349,7 +8349,7 @@ ul.tabs {
     font-weight: normal !Important;
 }
 
-.terminos_title_2 {
+/*.terminos_title_2 {
     font-weight: 700;
     margin-bottom: 10px;
     text-align: center;
@@ -8360,7 +8360,7 @@ ul.tabs {
     font-family: 'lato';
     color: black;
     letter-spacing: .5px;
-}
+}*/
 
 .terminos_title_Contrato {
     width: 380px;
@@ -9957,7 +9957,7 @@ ul.tabs {
     font-weight: bold;
 }
 
-.input_modifica_horizontal {
+/*.input_modifica_horizontal {
     text-transform: uppercase;
     width: 115px !important;
     height: 45px;
@@ -9977,7 +9977,7 @@ ul.tabs {
     font-weight: bold;
     border: none;
     text-decoration: underline;
-}
+}*/
 
 .div-3 .ganancia {
     float: right;
@@ -13677,10 +13677,12 @@ ol {
         display: none;
     }
 
-.ui-dialog.ui-widget-content {
+/*.ui-dialog.ui-widget-content {
     background: #FFFFFF !important;
     color: #555 !important;
-}
+    width: auto !important;
+}*/
+
 
 .ui-dialog .ui-dialog-buttonpane {
     background: #fff;
