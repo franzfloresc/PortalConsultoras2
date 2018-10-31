@@ -115,7 +115,7 @@
     <Compile Include="Contrato\BLContratoAceptacion.cs" />
     <Compile Include="Contrato\IContratoAceptacionBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
-    <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
+    <Compile Include="ProgramaNuevas\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaProductoBusinessLogic.cs" />
     <Compile Include="Estrategia\ITipoEstrategiaBusinessLogic.cs" />
@@ -159,7 +159,7 @@
     <Compile Include="BLConfiguracionCampania.cs" />
     <Compile Include="BLConfiguracionParametroCarga.cs" />
     <Compile Include="BLConfiguracionPortal.cs" />
-    <Compile Include="Estrategia\BLConfiguracionProgramaNuevas.cs" />
+    <Compile Include="ProgramaNuevas\BLConfiguracionProgramaNuevas.cs" />
     <Compile Include="BLConfiguracionTipoProcesoCargaPedidos.cs" />
     <Compile Include="BLConfiguracionValidacion.cs" />
     <Compile Include="BLConfiguracionValidacionNuevoPROL.cs" />

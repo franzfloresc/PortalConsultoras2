@@ -319,6 +319,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.ColorFondo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ColorFondo1OfertaFinalRegalo", "Mobile");
             }
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
+            model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
 
             return View(model);
         }
