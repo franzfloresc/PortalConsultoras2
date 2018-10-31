@@ -2514,8 +2514,8 @@ namespace Portal.Consultoras.Common
                 {
                     return _Configuracion ?? (_Configuracion = new Dictionary<string, PedidoValidacionConfiguracion>
                     {
-                        { Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, new PedidoValidacionConfiguracion(){ PermiteAgregar = true } },
-                        { Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, new PedidoValidacionConfiguracion(){ PermiteAgregar = true } },
+                        { Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true } },
+                        { Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true } },
                     });
                 }
             }
@@ -2523,7 +2523,7 @@ namespace Portal.Consultoras.Common
 
         public class PedidoValidacionConfiguracion
         {
-            public bool PermiteAgregar { get; set; }
+            public bool PermiteAgregarPedido { get; set; }
         }
 
         public static class PedidoDetalleApp

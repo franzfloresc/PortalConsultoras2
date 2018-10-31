@@ -1263,7 +1263,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private BEPedidoProducto ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
         {
             var pedidoMensajeConfig = Constantes.PedidoValidacion.Configuracion;
-            if (producto != null && pedidoMensajeConfig.ContainsKey(codigoRespuesta)) producto.PermiteAgregar = pedidoMensajeConfig[codigoRespuesta].PermiteAgregar;
+            if (producto != null && pedidoMensajeConfig.ContainsKey(codigoRespuesta)) producto.PermiteAgregarPedido = pedidoMensajeConfig[codigoRespuesta].PermiteAgregarPedido;
 
             return new BEPedidoProducto()
             {

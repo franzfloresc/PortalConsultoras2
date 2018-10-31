@@ -124,7 +124,7 @@ namespace Portal.Consultoras.Entities
         public string CodigoEstrategia { get; set; }
 
         [DataMember]
-        public bool PermiteAgregar { get; set; }
+        public bool PermiteAgregarPedido { get; set; }
 
         public BEProducto(IDataRecord row)
         {
