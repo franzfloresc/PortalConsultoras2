@@ -40,10 +40,10 @@ $(document).ready(function () {
                     cabecera.appendChild(nuevoScript);
 
                     me.Funciones.Marcador();
-                    // ----ppc
+
                     var id_tono_sel = '#fav_tono_' + me.settings.cuv;
                     $(id_tono_sel).trigger('click');     
-                //----ppc
+
                 }
             },
             AlertaMensajeProductoNotFound: function () {
@@ -126,14 +126,12 @@ $(document).ready(function () {
                 me.Funciones.FichaProductoMasTonos();
                 TrackingJetloreView(ficha.CUV2, $("#hdCampaniaCodigo").val());
                 me.Funciones.CloseLoading();
-                //----ppc
-                
+
                 var cuvp = ficha.CUV2;
                 var id_tono_sel = '#fav_tono_' + cuvp;
                 
                 $(me.settings.popupId).find(id_tono_sel).trigger('click');
-                
-                //----ppc
+
             },
             ObtenerProducto: function () {
 
@@ -344,8 +342,7 @@ $(document).ready(function () {
 
                         me.Funciones.CloseLoading();
                         if (popup) {
-                            CerrarPopup('#popupDetalleCarousel_lanzamiento'); //DEUDA TECNICA
-                            //$('#popupDetalleCarousel_packNuevas').hide(); //DEUDA TECNICA
+                            CerrarPopup('#popupDetalleCarousel_lanzamiento');
                         }
 
                     },
