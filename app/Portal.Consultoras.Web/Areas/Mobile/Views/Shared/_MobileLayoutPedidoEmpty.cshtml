@@ -165,8 +165,8 @@
     var cerrarRechazado = '@ViewBag.CerrarRechazado';
     var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
-    var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
-    var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
+    var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel;
+    var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel;
 
     //ODD
     var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
@@ -201,6 +201,7 @@
         var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
+        var esAppMobile = true;
     </script>
 
     <script type="text/javascript">

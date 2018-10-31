@@ -291,6 +291,7 @@ namespace Portal.Consultoras.Web.Providers
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
+
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
@@ -765,31 +766,10 @@ namespace Portal.Consultoras.Web.Providers
                 cuvPadre = o.CUV2,
                 campaniaId = o.Campania,
                 cuv = o.CUV,
-                //codigoEstrategia = 0,
-                //grupo = 0,
-                //codigoSap = string,
-                //cantidad = 0,
-                //precioUnitario = 0,
-                //precioValorizado = 0,
-                //orden = 0,
-                //indicadorDigitable = true,
-                //factorCuadre = 0,
                 descripcion = o.Descripcion1,
-                //marcaId = 0,
                 nombreProducto = o.NombreProducto,
-                //imagenProducto = string,
-                //activo = true,
-                //usuarioCreacion = string,
-                //fechaCreacion = 2018 - 09 - 07T17 = 38 = 03.887Z,
                 usuarioModificacion = userData.CodigoUsuario,
                 fechaModificacion = DateTime.Now,
-                //estrategiaId = 0,
-                //estrategiaProductoId = 0,
-                //nombreComercial = string,
-                //descripcion = string,
-                //volumen = string,
-                //imagenBulk = string,
-                //nombreBulk = string
             });
 
             var taskApi = Task.Run(() => RespSBMicroservicios(

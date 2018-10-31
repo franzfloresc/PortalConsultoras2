@@ -150,7 +150,7 @@
     <div class="contenedor_productos_liquidacion content_showroom" style="position: relative;">
         <div id="divProductosShowRoom"
              style="display: inline-flex; flex-wrap: wrap; justify-content: center;"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra">
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomCarrusel">
         </div>
     </div>
 </div>
@@ -192,7 +192,7 @@
         }
 
         <hr class="clear" />
-        <div id="divOfertaProductosPerdio" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
+        <div id="divOfertaProductosPerdio"
              data-content-perdido="@Model.CampaniaID"
              class="flex-container fix_zona_dorada_mobile " style="display: inline-flex !important;flex-wrap: wrap;justify-content: center; display: none;"></div>
         <hr class="clear" />
@@ -227,10 +227,6 @@
 
 @if (Model.TieneSubCampania)
 {
-    //var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
-
-    //if (listaSubCampania != null && listaSubCampania.Count > 0)
-    //{
     <div id="divContentSubCampania" style="display:none;">
         <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
             <div class="content_titulo_sub_oferta">
@@ -244,7 +240,7 @@
             <hr class="clear" />
 
         </div>
-        <div class="content_display_set_suboferta" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.ShowRoomMobileSubCampania">
+        <div class="content_display_set_suboferta" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania">
             <div class="content_header_sub">
                 <div class="content_titulo_sub_oferta">
                     <hr class="clear" />
@@ -271,7 +267,7 @@
             </div>
         </div>
     </div>
-    //}
+
 }
 else
 {
@@ -370,8 +366,7 @@ else
         var precioMin = '@Model.PrecioMinFiltro';
         var precioMax = '@Model.PrecioMaxFiltro';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra';
-        var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.ShowRoomMobileSubCampania';
+        var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
         var tieneSubCampania = '@Model.TieneSubCampania';
     </script>

@@ -208,9 +208,9 @@ function ArmarCarouselEstrategias(data) {
     $(".js-slick-prev").remove();
     $(".js-slick-next").remove();
     $("#divListadoEstrategia.slick-initialized").slick("unslick");
+
     data.Lista = data.Lista || [];
     if (data.Lista.length == 0) {
-
         $("#divListaEstrategias").show();
         $("#divContenedorListaEstrategia").hide();
         $(".contenido_gana_mas").hide();
@@ -226,24 +226,17 @@ function ArmarCarouselEstrategias(data) {
         return false;
     }
 
-    $.each(data.ListaLan, function (i, item) {
-        item.Posicion = i + 1;
-    });
-
+    $.each(data.ListaLan, function (i, item) { item.Posicion = i + 1; });
     $.each(data.Lista, function (i, item) {
-        item.Posicion = i + 1;
         item.EsBanner = false;
         item.EsLanzamiento = false;
     });
-
     tieneOPT = true;
-    arrayOfertasParaTi = data.Lista;
 
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
     
     if (revistaDigital != null) {
-        if (revistaDigital.TieneRDC) {
-            
+        if (revistaDigital.TieneRDC) {            
             if (data.ListaLan) {
                 if (data.ListaLan.length > 0) {
                     if (revistaDigital.EsActiva) {
@@ -256,12 +249,6 @@ function ArmarCarouselEstrategias(data) {
                         if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
                             data.Lista.splice(0, 0, productoLanzamiento);
                         }
-
-                        $.each(data.Lista, function (i, item) {
-                            item.Posicion = i + 1;
-                        });
-
-                        arrayOfertasParaTi = data.Lista;
                     }
                 }
             }
@@ -273,21 +260,16 @@ function ArmarCarouselEstrategias(data) {
 
                 if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
                     data.Lista.splice(3, 0, bannerClubGanaMas);
-                } else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
+                }
+                else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
                     data.Lista.splice(1, 0, bannerClubGanaMas);
                 }
-
-                $.each(data.Lista, function (i, item) {
-                    item.Posicion = i + 1;
-                });
-
-                arrayOfertasParaTi = data.Lista;
-            }
-            
+            }            
         }
     }
-   
 
+    $.each(data.Lista, function (i, item) { item.Posicion = i + 1; });
+    arrayOfertasParaTi = data.Lista;
     data.lista = data.Lista;
     SetHandlebars("#producto-landing-template", data, "#divListadoEstrategia");
 
@@ -309,7 +291,8 @@ function ArmarCarouselEstrategias(data) {
         var cantProCarrusel = 4;
         var esVariableWidth = true;
 
-        $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel");
+        //$("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel caja-borde");
+
         $("#divListaEstrategias").show();
 
         EstablecerLazyCarrusel("#divListadoEstrategia");
@@ -470,7 +453,6 @@ function ArmarCarouselEstrategias(data) {
     }
 
     TagManagerCarruselInicio(data.Lista);
-
 }
 
 function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
@@ -884,10 +866,11 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         }
                         if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
 
-                        ActualizarLocalStorageAgregado("rd", param.CUV, true);
-                        ActualizarLocalStorageAgregado("gn", param.CUV, true);
-                        ActualizarLocalStorageAgregado("hv", param.CUV, true);
-                        ActualizarLocalStorageAgregado("lan", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("rd", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("gn", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("hv", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("lan", param.CUV, true);
+                        ActualizarLocalStoragePalancas(param.CUV, true);
 
                         ProcesarActualizacionMostrarContenedorCupon();
                     },

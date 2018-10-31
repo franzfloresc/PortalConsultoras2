@@ -45,9 +45,12 @@
             {
                 <a href="@Url.Action("Index", "MiPerfil")" id="hrefActualizarDatos" title="Actualizar datos" class="actualizar_datos default-background"></a>
                 <div class="tooltip_info_revision_correo" style="display:none;">
+                    <div style="float:right;margin-top:-14px;margin-right:-5px;">
+                        <a class="cerrarTooltip">X</a>
+                    </div>
                     <div class="icono_info_alerta"></div>
                     <div class="tooltip_texto">
-                        <p>
+                        <p id="mensajeToolTip">
                             Ingresa y actualiza tu correo y/o celular para poder contactarnos contigo.
                         </p>
                     </div>
@@ -318,7 +321,7 @@
             <div class="clear"></div>
             <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos.</span><a class="btn_ver_todo_filtros" href="/ShowRoom">VER TODOS</a></div>
             <hr class="clear">
-            <div class="contenedor_productos_showroom" id="divProductosShowRoom" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.ShowRoomDesktopHome">
+            <div class="contenedor_productos_showroom" id="divProductosShowRoom" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarrusel">
             </div>
         </div>
         <hr class="clear">
@@ -1237,7 +1240,7 @@
 <script id="liquidacion-template" type="text/x-handlebars-template">
     {{#each this}}
     <div>
-        <div class="content_item_carrusel">
+        <div class="content_item_carrusel caja-borde">
             <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
             <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
             <input type="hidden" id="CUV" value="{{CUV}}" />
@@ -2005,7 +2008,7 @@
         var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "" })';
         var tipoOrigenEstrategia = 1;
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel';
 
         var urlOfertasIndex = '@Url.Action("Index", "ShowRoom")';
         var urlShowRoomIntriga = '@Url.Action("Intriga", "ShowRoom")';
@@ -2013,8 +2016,8 @@
         var urlRevistaDigitalInformacion = '@Url.Action("Informacion", "RevistaDigital")';
         var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
-        var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.ShowRoomDesktopHome';
-        var DesktopHomeLiquidacion = @Constantes.OrigenPedidoWeb.DesktopHomeLiquidacion;
+        var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarrusel';
+        var DesktopHomeLiquidacion = @Constantes.OrigenPedidoWeb.DesktopHomeLiquidacionCarrusel;
         var tipoOrigenPantalla = 1;
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         var tieneCupon = '@Model.TieneCupon';

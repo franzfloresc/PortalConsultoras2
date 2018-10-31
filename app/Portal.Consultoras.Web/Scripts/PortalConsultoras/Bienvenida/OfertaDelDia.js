@@ -8,9 +8,7 @@ var belcorp = belcorp || {};
 belcorp.estrategia = belcorp.estrategia || {};
 registerEvent.call(belcorp.estrategia, "onProductoAgregado");
 belcorp.estrategia.subscribe("onProductoAgregado", function (data) {
-    //if (data.data.TipoEstrategiaCodigo === ConstantesModule.ConstantesPalanca.OfertaDelDia) {
-        //alert(data.data.DescripcionProd);
-    //}
+
 });
 
 var fechaMostrarBanner = Date.now();
@@ -153,7 +151,7 @@ var OfertaDelDiaModule = function () {
         return listaOfertasConClases;
     };
 
-    var RenderOfertaDelDia = function(data, contenedorOfertas) {
+    var RenderOfertaDelDia = function (data, contenedorOfertas) {
         $(contenedorOfertas).hide();
 
         data.ListaOferta = data.ListaOferta || [];
@@ -312,13 +310,13 @@ var OfertaDelDiaModule = function () {
                 var _data = response.data;
                 var origenPedidoWeb = 0;
                 if (isPagina('bienvenida')) {
-                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.OfertaDelDiaDesktopHomeBanner;
+                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.DesktopHomeOfertaDeliaBannerSuperior;
                 }
                 else if (isPagina('pedido')) {
-                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.OfertaDelDiaDesktopPedidoBanner;
+                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.DesktopPedidoOfertaDelDiaBannerSuperior;
                 }
                 else {
-                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.OfertaDelDiaDesktopGeneralBanner;
+                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.DesktopOtrasOfertaDelDiaBannerSuperior;
                 }
 
                 _data.OrigenPedidoWeb = origenPedidoWeb;

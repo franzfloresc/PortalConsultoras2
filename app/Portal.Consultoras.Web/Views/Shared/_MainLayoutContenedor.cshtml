@@ -1,9 +1,5 @@
 ﻿@using Portal.Consultoras.Common
 
-@{
-    var origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopBuscador;
-}
-
 <!DOCTYPE html>
 <html lang="es" class="no-js">
 <head>
@@ -39,9 +35,9 @@
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))' == "True";
-        //var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
-        //var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var gTipoUsuario = '@ViewBag.TipoUsuario';
         var IsoPais = '@ViewBag.CodigoISODL';
@@ -214,7 +210,6 @@
 
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        //var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var viewBagRol = '@ViewBag.Rol';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var campaniaCodigo = '@ViewBag.CampaniaCodigo';
@@ -234,7 +229,7 @@
         var OrigenDesktopODD = 0;
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
-        var OrigenPedidoDesktopBuscador = @Constantes.OrigenPedidoWeb.DesktopBuscador;
+
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
     </script>

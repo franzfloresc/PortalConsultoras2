@@ -433,7 +433,7 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
-        
+
         public static bool EnviarMail3(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string strFile, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))
@@ -3635,7 +3635,7 @@ namespace Portal.Consultoras.Common
                 {
                     if (string.IsNullOrEmpty(descripcion))
                         result = "";
-                    else 
+                    else
                         result = (descripcion.Replace("[", "")).Replace("]", "");
                 }
 
@@ -3667,6 +3667,10 @@ namespace Portal.Consultoras.Common
                     {
                         case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
                         case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
+                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
+                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha:
+                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
+                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha:
                             result = "";
                             break;
                         default:
@@ -3711,45 +3715,45 @@ namespace Portal.Consultoras.Common
             switch (codigoEstrategia)
             {
                 case "LIQ":
-                    result = IsMobile ? Constantes.OrigenPedidoWeb.LiquidacionMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LiquidacionDesktopBuscador.ToString();
+                    result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLiquidacionDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorLiquidacionDesplegableBuscador.ToString();
                     break;
                 case "CAT":
-                    result = (marcaId == 1 ? (IsMobile ? Constantes.OrigenPedidoWeb.LBelMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LBelDesktopBuscador.ToString()) :
-                        (marcaId == 2 ? (IsMobile ? Constantes.OrigenPedidoWeb.EsikaMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.EsikaDesktopBuscador.ToString()) :
-                        (IsMobile ? Constantes.OrigenPedidoWeb.CyzoneMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.CyzoneDesktopBuscador.ToString())));
+                    result = (marcaId == 1 ? (IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoLbelDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoLbelDesplegableBuscador.ToString()) :
+                        (marcaId == 2 ? (IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoEsikaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoEsikaDesplegableBuscador.ToString()) :
+                        (IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoCyzoneDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoCyzoneDesplegableBuscador.ToString())));
                     break;
                 case "ODD":
-                    result = IsMobile ? Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador.ToString();
+                    result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString();
                     break;
                 default:
                     switch (codigoTipoEstrategia)
                     {
                         case Constantes.TipoEstrategiaCodigo.ShowRoom:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.EspecialesMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.EspecialesDesktopBuscador.ToString();
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador.ToString();
                             break;
                         case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscador.ToString();
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador.ToString();
                             break;
                         case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                         case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                         case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscador.ToString();
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador.ToString();
                             break;
                         case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador.ToString();
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString();
                             break;
                         case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscador.ToString();
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador.ToString();
                             break;
                         case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscador.ToString();
+                            result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador.ToString();
                             break;
                         default:
                             break;
                     }
                     break;
             }
-                        
+
             return result;
         }
 
@@ -3789,11 +3793,56 @@ namespace Portal.Consultoras.Common
             return tipoPersonalizacion;
         }
 
-        public static string ProcesarOrigenPedido(string origenActual, bool isApp)
+        public static string ProcesarOrigenPedidoApp(string origenActual)
         {
-            if (!isApp) return origenActual;
+            if (string.IsNullOrEmpty(origenActual)) return origenActual;
             var nuevoOrigen = origenActual.Remove(0, 1).Insert(0, "4");
             return nuevoOrigen;
+        }
+
+        public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc, Action<Exception> fnExcep, T defaultValue)
+        {
+            if (!fnIsNull(fnGet())) return fnGet();
+
+            try { fnSet(fnCalc()); }
+            catch (Exception ex)
+            {
+                fnSet(defaultValue);
+                fnExcep(ex);
+            }
+
+            return fnGet();
+        }
+
+        public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc)
+        {
+            T value = fnGet();
+            if (!fnIsNull(value)) return value;
+
+            value = fnCalc();
+            fnSet(value);
+            return value;
+        }
+        public static string ProcesarOrigenPedidoAppFicha(string origenActual)
+        {
+            if (string.IsNullOrEmpty(origenActual)) return origenActual;
+            var nuevoOrigen = origenActual.Remove(origenActual.Length - 1, 1).Insert(origenActual.Length - 1, "2");
+            return nuevoOrigen;
+        }
+
+        public static bool EsDispositivoMovil()
+        {
+            var result = false;
+
+            try
+            {
+                result = HttpContext.Current.Request.Browser.IsMobileDevice;
+            }
+            catch
+            {
+            }
+
+            return result;
         }
     }
 
@@ -3862,7 +3911,7 @@ namespace Portal.Consultoras.Common
                 return default(T);
             }
         }
-        
+
 
         #region Convert
 
@@ -3874,7 +3923,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToString(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3886,7 +3938,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToString(lector[name]).Trim();
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(string);
         }
 
@@ -3899,7 +3954,10 @@ namespace Portal.Consultoras.Common
                     return Convert.ToInt16(lector[name]);
 
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3911,7 +3969,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToInt32(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3923,7 +3984,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToInt64(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(Int64);
         }
 
@@ -3935,7 +3999,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDecimal(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(decimal);
         }
 
@@ -3947,7 +4014,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDouble(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(double);
         }
 
@@ -3959,7 +4029,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToByte(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(byte);
         }
 
@@ -3971,7 +4044,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToBoolean(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3983,7 +4059,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDateTime(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3995,7 +4074,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDateTime(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 

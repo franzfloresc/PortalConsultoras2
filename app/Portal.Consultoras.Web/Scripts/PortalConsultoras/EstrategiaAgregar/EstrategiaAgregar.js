@@ -73,15 +73,12 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
-        var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
-        var ShowRoomMobileSubCampania = 2524;
-        var estrategia = {};
-        if (origenPedidoWebEstrategia == ShowRoomMobileSubCampania) {
-            estrategia = $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-                        .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia") || {};
-        } else {
-            estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia") || {};
-        }
+        
+        var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
+                || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                        .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia")
+                || {};
+
         return estrategia;
     };
 
@@ -216,7 +213,7 @@ var EstrategiaAgregarModule = (function () {
 
             var name = $.trim(estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada);
             rdAnalyticsModule.AgregarProductoDeshabilitado(
-                origenPedidoWebEstrategia,
+                estrategia.OrigenPedidoWebEstrategia,
                 estrategia.CampaniaID,
                 name,
                 isPopup);
@@ -234,10 +231,13 @@ var EstrategiaAgregarModule = (function () {
         _config.CampaniaCodigo = $(elementosDiv.hdCampaniaCodigo).val() || _config.CampaniaCodigo;
 
         var $btnAgregar = $(event.target);
+        console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
+        console.log(origenPedidoWebEstrategia);
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-        
+        console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
+            estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
             sendAnalyticAgregarProductoDeshabilitado(estrategia, popup);
             return false;
@@ -311,7 +311,7 @@ var EstrategiaAgregarModule = (function () {
             FlagNueva: $.trim(estrategia.FlagNueva)
         };
 
-        EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
+        EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function (data) {
             if (!checkTimeout(data)) {
                 CerrarLoad();
                 return false;
@@ -446,19 +446,15 @@ var EstrategiaAgregarModule = (function () {
             }
             if (data.listCuvEliminar != null) {
                 $.each(data.listCuvEliminar, function (i, cuv) {
-                    //Se debe integrar en un solo metodo
 	
                     itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
 
-                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, cuv, false);
-                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, cuv, false);
-                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, cuv, false);
-                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.lan, cuv, false);
+                    ActualizarLocalStoragePalancas(cuv, false);
                 })
             }
 
             var localStorageModule = new LocalStorageModule();
-            localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, true);
+            localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
 
             if (belcorp.estrategia.applyChanges){

@@ -1829,7 +1829,7 @@ function ValidDeleteElectivoNuevas(cuv, enRangoProgNuevas, fnDelete) {
     AbrirSplash();
     jQuery.ajax({
         type: 'POST',
-        url: urlEsPedidoDetalleDuoPerfecto,
+        url: urlEsPedidoDetalleElecMultiple,
         dataType: 'json',
         data: JSON.stringify({ cuv: cuv }),
         contentType: 'application/json; charset=utf-8',
@@ -1844,7 +1844,7 @@ function ValidDeleteElectivoNuevas(cuv, enRangoProgNuevas, fnDelete) {
                 return;
             }
 
-            if (!response.esDuoPerfecto) fnDelete(false);
+            if (!response.esElecMultiple) fnDelete(false);
             else messageConfirmacionDuoPerfecto(response.message, function () { fnDelete(true); });
         })
         .fail(function() { alert_msg(mensajeSinConexionGenerico); });
@@ -1937,6 +1937,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
             }
             
+            ActualizarLocalStoragePalancas(data.data.CUV, false);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -2300,10 +2301,7 @@ function EliminarPedido() {
             MostrarBarra(data);
             CerrarSplash();
 
-            ActualizarLocalStorageAgregado("rd", "todo", false);
-            ActualizarLocalStorageAgregado("gn", "todo", false);
-            ActualizarLocalStorageAgregado("hv", "todo", false);
-            ActualizarLocalStorageAgregado("lan", "todo", false);
+            ActualizarLocalStoragePalancas("todo", false);
 
             location.href = baseUrl + "Pedido/Index";
         },
