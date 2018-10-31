@@ -440,7 +440,7 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
-        
+
         public static bool EnviarMail3(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string strFile, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))
@@ -3642,7 +3642,7 @@ namespace Portal.Consultoras.Common
                 {
                     if (string.IsNullOrEmpty(descripcion))
                         result = "";
-                    else 
+                    else
                         result = (descripcion.Replace("[", "")).Replace("]", "");
                 }
 
@@ -3718,48 +3718,6 @@ namespace Portal.Consultoras.Common
             bool IsMobile)
         {
             var result = "";
-
-            //switch (codigoEstrategia)
-            //{
-            //    case "LIQ":
-            //        result = IsMobile ? Constantes.OrigenPedidoWeb.LiquidacionMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LiquidacionDesktopBuscador.ToString();
-            //        break;
-            //    case "CAT":
-            //        result = (marcaId == 1 ? (IsMobile ? Constantes.OrigenPedidoWeb.LBelMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LBelDesktopBuscador.ToString()) :
-            //            (marcaId == 2 ? (IsMobile ? Constantes.OrigenPedidoWeb.EsikaMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.EsikaDesktopBuscador.ToString()) :
-            //            (IsMobile ? Constantes.OrigenPedidoWeb.CyzoneMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.CyzoneDesktopBuscador.ToString())));
-            //        break;
-            //    case "ODD":
-            //        result = IsMobile ? Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador.ToString();
-            //        break;
-            //    default:
-            //        switch (codigoTipoEstrategia)
-            //        {
-            //            case Constantes.TipoEstrategiaCodigo.ShowRoom:
-            //                result = IsMobile ? Constantes.OrigenPedidoWeb.EspecialesMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.EspecialesDesktopBuscador.ToString();
-            //                break;
-            //            case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-            //                result = IsMobile ? Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscador.ToString();
-            //                break;
-            //            case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
-            //            case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
-            //            case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-            //                result = IsMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscador.ToString();
-            //                break;
-            //            case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
-            //                result = IsMobile ? Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador.ToString();
-            //                break;
-            //            case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-            //                result = IsMobile ? Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscador.ToString();
-            //                break;
-            //            case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-            //                result = IsMobile ? Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscador.ToString();
-            //                break;
-            //            default:
-            //                break;
-            //        }
-            //        break;
-            //}
 
             switch (codigoEstrategia)
             {
@@ -3960,7 +3918,7 @@ namespace Portal.Consultoras.Common
                 return default(T);
             }
         }
-        
+
 
         #region Convert
 
@@ -3972,7 +3930,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToString(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3984,7 +3945,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToString(lector[name]).Trim();
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(string);
         }
 
@@ -3997,7 +3961,10 @@ namespace Portal.Consultoras.Common
                     return Convert.ToInt16(lector[name]);
 
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -4009,7 +3976,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToInt32(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -4021,7 +3991,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToInt64(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(Int64);
         }
 
@@ -4033,7 +4006,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDecimal(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(decimal);
         }
 
@@ -4045,7 +4021,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDouble(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(double);
         }
 
@@ -4057,7 +4036,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToByte(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(byte);
         }
 
@@ -4069,7 +4051,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToBoolean(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -4081,7 +4066,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDateTime(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -4093,7 +4081,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDateTime(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
