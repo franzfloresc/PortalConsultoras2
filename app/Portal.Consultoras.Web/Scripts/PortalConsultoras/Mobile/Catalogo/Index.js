@@ -27,11 +27,9 @@ var cantCamRev = 3;
 var aCamRev = new Array();
 
 $(document).ready(function () {
-    // PPC
     if (!window.hasOwnProperty("MarcaCatalogo")) {
         Object.defineProperty(window, 'MarcaCatalogo', { value: ''});
     }
-    // PPC
     aCam.push($("#hdCampaniaAnterior").val());
     aCam.push($("#hdCampaniaActual").val());
     aCam.push($("#hdCampaniaSiguiente").val());
@@ -80,10 +78,8 @@ $(document).ready(function () {
     //soluciona error en producción : Uncaught ReferenceError: CatalogoMostrar is not defined
     
     $("#divCatalogo a[data-button_carrusel='carrusel'] > img").click(function (e) {
-    //$("#divCatalogo a > img").click(function (e) {
-   
+
         var img = $(this).attr("id") || "";
-        //if (img == "") return false;
         if (img === "cata_img_prev") CatalogoMostrar(-1, this);
         else CatalogoMostrar(1, this);
 
@@ -362,7 +358,7 @@ function FinRenderCatalogo() {
         $("#divCatalogo > div > div").show();
         CatalogoMostrar(0);
         CloseLoading();        
-        SeleccionarCatalogo();   // PPC
+        SeleccionarCatalogo();
     }
 }
 function CargarTodosCorreo() {
@@ -404,25 +400,15 @@ function SeleccionarCatalogo() {
 
     if (Marcas[0] == 'esika') {
         Marca = '#' + campania + '_Esika' 
-        //$(Marca).focus();
-        //$(Marca).select();
-        //$(Marca).show();
-       // $(Marca).focus();
         $(window).scrollTop(600);
     } 
     if (Marcas[0] == 'lbel') {
         Marca = '#' + campania + '_Lbel' 
         Marca2 = '#' + campania + '_Lbel' + '_WS' 
-        //$(Marca2).focus();
-        //$(Marca2).select();
-        //$(Marca2).show();
         $(window).scrollTop(200);
     } 
     if (Marcas[0] == 'cyzone') {
         Marca = '#' + campania + '_Cyzone' 
-        //$(Marca).focus();
-        //$(Marca).select();
-        //$(Marca).show();
         $(window).scrollTop(1000);
     } 
 }

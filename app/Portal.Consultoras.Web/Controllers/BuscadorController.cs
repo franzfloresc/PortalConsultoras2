@@ -2,7 +2,6 @@
 using Portal.Consultoras.Web.Models.Buscador;
 using Portal.Consultoras.Web.Providers;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -11,7 +10,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class BuscadorController : BaseController
     {
         private readonly BuscadorYFiltrosProvider BuscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
-        // GET: Buscador
+        
         public ActionResult Index()
         {
             return View();
@@ -23,7 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(model);
-                ProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, SessionManager.GetDetallesPedido(), userData, revistaDigital, false);
+                ProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, SessionManager.GetDetallesPedido(), userData, revistaDigital, IsMobile());
             }
             catch (Exception ex)
             {

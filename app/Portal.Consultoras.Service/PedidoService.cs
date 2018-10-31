@@ -1703,7 +1703,7 @@ namespace Portal.Consultoras.Service
         public string GetCuvKitNuevas(BEConsultoraProgramaNuevas consultoraNuevas, BEConfiguracionProgramaNuevas confProgNuevas)
         {
             return BLConfiguracionProgramaNuevas.GetCuvKitNuevas(consultoraNuevas, confProgNuevas);
-        }        
+        }
 
         #endregion
 
