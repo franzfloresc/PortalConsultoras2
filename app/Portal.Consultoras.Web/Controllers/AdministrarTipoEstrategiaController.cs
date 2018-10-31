@@ -423,11 +423,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var failImage = false;
                 var image = Image.FromFile(path);
-                if (image.Width > 144)
+                if (image.Width > 62)
                 {
                     failImage = true;
                 }
-                if (image.Height > 32)
+                if (image.Height > 62)
                 {
                     failImage = true;
                 }

@@ -54,8 +54,10 @@ $(function () {
         $(this).parent(".alert-top").slideUp();
     });
 
-    CargarCantidadProductosPedidos(true);
-    CargarCantidadNotificacionesSinLeer();
+    if (typeof esAppMobile == 'undefined') {
+        CargarCantidadProductosPedidos(true);
+        CargarCantidadNotificacionesSinLeer();
+    }
 
     $("body").on("keyup", ".ValidaNumeral", function (evt) {
         var theEvent = evt || window.event;

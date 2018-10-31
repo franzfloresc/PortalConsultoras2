@@ -1,5 +1,6 @@
-﻿<script id="componentes-template" type="text/x-handlebars-template">
-    {{#iff CodigoVariante '==' '2001'}}
+﻿@using Portal.Consultoras.Common
+<script id="componentes-template" type="text/x-handlebars-template">
+    {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.IndividualConTonos'}}
     {{#each this.Hermanos as |componente|}}
     <div class="content_tonos_producto" data-tono="" data-opciones-seleccionadas="0" data-tono-digitable="1">
         <div class="tono_select_opt">
@@ -53,7 +54,7 @@
     </div>
     {{/each}}
     {{/iff}}
-    {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
+    {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
     <div class="contenido_titulo">
         <div class="">
             <span>CONTENIDO:</span>

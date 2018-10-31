@@ -934,10 +934,19 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
             return Context.ExecuteScalar(command).ToString();
         }
-        public string CancelarAtualizacionEmail(string codigoUsuario)
+
+        public IDataReader GetActualizacionEmailySms(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetActualizarEmailySms");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, codigoUsuario);
+            return Context.ExecuteReader(command);
+        }
+
+        public string CancelarAtualizacionEmail(string codigoUsuario, string tipoEnvio)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("CancelarAtualizacionEmail");
             Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.String, tipoEnvio);
             return Context.ExecuteScalar(command).ToString();
         }
 

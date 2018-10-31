@@ -8,9 +8,7 @@ var belcorp = belcorp || {};
 belcorp.estrategia = belcorp.estrategia || {};
 registerEvent.call(belcorp.estrategia, "onProductoAgregado");
 belcorp.estrategia.subscribe("onProductoAgregado", function (data) {
-    //if (data.data.TipoEstrategiaCodigo === ConstantesModule.ConstantesPalanca.OfertaDelDia) {
-        //alert(data.data.DescripcionProd);
-    //}
+
 });
 
 var fechaMostrarBanner = Date.now();
