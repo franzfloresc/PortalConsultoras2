@@ -4430,30 +4430,6 @@ namespace Portal.Consultoras.Web.Controllers
             return mensaje;
         }
 
-        private List<string> GetListCuvArmaTuPack()
-        {
-            if (SessionManager.GetListCuvArmaTuPack() != null) return SessionManager.GetListCuvArmaTuPack();
-            try
-            {
-                var consultoraNuevas = Mapper.Map<BEConsultoraProgramaNuevas>(userData);
-                using (var sv = new SACServiceClient())
-                {
-                    var a = sv.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.ArmaTuPack).ToList();
-                    var c = a.FirstOrDefault(b => b.Codigo == Constantes.TablaLogicaDato.ArmaTuPack.ListCuv);
-                    var d = c != null ? c.Valor.Trim() : "";
-                    var e = d != "" ? d.Split(new char[] { ',', ';' }).ToList() : new List<string>();
-                    
-                    SessionManager.SetListCuvArmaTuPack(e ?? new List<string>());
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                SessionManager.SetListCuvArmaTuPack(new List<string>());
-            }
-            return SessionManager.GetListCuvArmaTuPack();
-        }
-
         private JsonResult AgregarProductoVC(string listaCuvTonos, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")
         {
             try
