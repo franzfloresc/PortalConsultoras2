@@ -2382,7 +2382,6 @@ namespace Portal.Consultoras.Common
 
         public static class PedidoValidacion
         {
-            private static Dictionary<string, string> _Message;
             private static Dictionary<string, PedidoValidacionConfiguracion> _Configuracion;
 
             public static class Code
@@ -2444,86 +2443,80 @@ namespace Portal.Consultoras.Common
 
             }
 
-            public static Dictionary<string, string> Message
-            {
-                get
-                {
-                    return _Message ?? (_Message = new Dictionary<string, string>
-                    {
-                        {Code.SUCCESS, "OK"},
-                        {Code.ERROR_INTERNO, string.Empty},
-                        {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
-                        {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
-                        {Code.ERROR_PRODUCTO_LIQUIDACION, "Este producto solo está disponible desde la sección de Liquidación Web."},
-                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Encuentra este producto en la guía de negocio Ésika con oferta especial."},
-                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Encuentra este producto en la guía de negocio L'bel con oferta especial."},
-                        {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
-                        {Code.ERROR_PRODUCTO_SUGERIDO,"Este producto tiene reemplazos sugeridos." },
-                        {Code.ERROR_PRODUCTO_SET, "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas."},
-                        {Code.ERROR_PRODUCTO_NONUEVA,"El código solicitado es exclusivo para quienes participan del Programa de Nuevas." },
-
-                        {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
-                        {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
-                        {Code.ERROR_KIT_INICIO, Constantes.MensajesError.InsertarValidarKitInicio },
-                        {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
-                        {Code.ERROR_VALIDA_DATOS , string.Empty },
-                        {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
-                        {Code.ERROR_ACTUALIZAR_SET, "Ocurrió un error al actualizar el set." },
-                        {Code.ERROR_SET_NOENCONTRADO, "Set no encontrado."},
-                        {Code.ERROR_UNIDAD_SOBREPASA_PERMITIDO, "Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta ({0}) del producto."},
-                        {Code.ERROR_UNIDAD_SINSALDO, "Las Unidades Permitidas de Venta son solo ({0}), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique." },
-                        {Code.ERROR_UNIDAD_CONSALDO, "Las Unidades Permitidas de Venta son solo ({0}), pero Usted solo puede adicionar ({1}) más, debido a que ya agregó este producto a su pedido, verifique." },
-                        {Code.ERROR_UNIDAD_SOBREPASA_STOCK, "Lamentablemente, la cantidad solicitada sobrepasa el stock actual ({0}) del producto, verifique." },
-                        {Code.ERROR_ELIMINAR, "Ocurrió un error al eliminar el detalle de pedido." },
-                        {Code.ERROR_ELIMINAR_SET, "Ocurrió un error al eliminar el detalle del set."},
-                        {Code.ERROR_ELIMINAR_TODO, "Ocurrió un error al eliminar el pedido." },
-                        {Code.ERROR_ELIMINAR_TODO_SET, "Ocurrió un error al eliminar el set." },
-                        {Code.ERROR_CANTIDAD_LIMITE, "La cantidad no debe ser mayor que la cantidad limite ( {0} )." },
-
-                        {Code.ERROR_RESERVA_NINGUNO, "El pedido no se reservó." },
-                        {Code.SUCCESS_RESERVA, "Pedido reservado." },
-                        {Code.SUCCESS_RESERVA_OBS, "Pedido reservado, productos con observaciones." },
-                        {Code.ERROR_RESERVA_OBS, "Pedido no reservado, productos con observaciones." },
-                        {Code.ERROR_RESERVA_MONTO_MIN, "Pedido no reservado, no supera monto mínimo." },
-                        {Code.ERROR_RESERVA_MONTO_MAX, "Pedido no reservado, excede monto máximo." },
-                        {Code.ERORR_RESERVA_NO_DISP, "Reserva no disponible." },
-                        {Code.ERROR_RESERVA_DEUDA, "Pedido no reservado, deuda pendiente." },
-                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"},
-                        {Code.ERROR_GUARDAR_NINGUNO, "El pedido no se guardó." },
-                        {Code.SUCCESS_GUARDAR, "Pedido guardado." },
-                        {Code.SUCCESS_GUARDAR_OBS, "Pedido guardado, productos con observaciones." },
-                        {Code.ERROR_GUARDAR_OBS, "Pedido no guardado, productos con observaciones." },
-                        {Code.ERROR_GUARDAR_MONTO_MIN, "Pedido no guardado, no supera monto mínimo." },
-                        {Code.ERROR_GUARDAR_MONTO_MAX, "Pedido no guardado, excede monto máximo." },
-                        {Code.ERORR_GUARDAR_NO_DISP, "Guardar no disponible." },
-                        {Code.ERROR_GUARDAR_DEUDA, "Pedido no guardado, deuda pendiente." },
-
-                        {Code.ERROR_DESHACER_PEDIDO , "Ocurrió un error al deshacer el pedido." },
-                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." },
-
-                        {Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO , "No se puede agregar un set como BackOrder." },
-                        {Code.ERROR_AGREGAR_BACKORDER , "No se encuentra el detalle en el pedido para agregarlo como BackOrder." }
-
-                    });
-                }
-            }
-
             public static Dictionary<string, PedidoValidacionConfiguracion> Configuracion
             {
                 get
                 {
                     return _Configuracion ?? (_Configuracion = new Dictionary<string, PedidoValidacionConfiguracion>
-                    {
-                        { Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true } },
-                        { Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true } },
-                    });
+                        {
+                            {Code.SUCCESS, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true, Mensaje = "OK" } } ,
+                            {Code.ERROR_INTERNO, new PedidoValidacionConfiguracion() },
+                            {Code.ERROR_PRODUCTO_NOEXISTE, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto no existe." } },
+                            {Code.ERROR_PRODUCTO_AGOTADO, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto está agotado."} },
+                            {Code.ERROR_PRODUCTO_LIQUIDACION, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto solo está disponible desde la sección de Liquidación Web."} },
+                            {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true, Mensaje = "Encuentra este producto en la guía de negocio Ésika con oferta especial." } },
+                            {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true, Mensaje = "Encuentra este producto en la guía de negocio L'bel con oferta especial."} },
+                            {Code.ERROR_PRODUCTO_ESTRATEGIA, new PedidoValidacionConfiguracion() },
+                            {Code.ERROR_PRODUCTO_SUGERIDO, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto tiene reemplazos sugeridos." } },
+                            {Code.ERROR_PRODUCTO_SET, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas."} },
+                            {Code.ERROR_PRODUCTO_NONUEVA, new PedidoValidacionConfiguracion(){ Mensaje = "El código solicitado es exclusivo para quienes participan del Programa de Nuevas." } },
+
+                            {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, new PedidoValidacionConfiguracion()},
+                            {Code.ERROR_STOCK_ESTRATEGIA, new PedidoValidacionConfiguracion()},
+                            {Code.ERROR_KIT_INICIO, new PedidoValidacionConfiguracion(){ Mensaje = Constantes.MensajesError.InsertarValidarKitInicio } },
+                            {Code.ERROR_GRABAR, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al insertar el pedido."} },
+                            {Code.ERROR_VALIDA_DATOS , new PedidoValidacionConfiguracion() },
+                            {Code.ERROR_ACTUALIZAR, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al actualizar el pedido." } },
+                            {Code.ERROR_ACTUALIZAR_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al actualizar el set." } },
+                            {Code.ERROR_SET_NOENCONTRADO, new PedidoValidacionConfiguracion(){ Mensaje ="Set no encontrado."} },
+                            {Code.ERROR_UNIDAD_SOBREPASA_PERMITIDO, new PedidoValidacionConfiguracion(){ Mensaje ="Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta ({0}) del producto."} },
+                            {Code.ERROR_UNIDAD_SINSALDO, new PedidoValidacionConfiguracion(){ Mensaje ="Las Unidades Permitidas de Venta son solo ({0}), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique." } },
+                            {Code.ERROR_UNIDAD_CONSALDO, new PedidoValidacionConfiguracion(){ Mensaje ="Las Unidades Permitidas de Venta son solo ({0}), pero Usted solo puede adicionar ({1}) más, debido a que ya agregó este producto a su pedido, verifique." } },
+                            {Code.ERROR_UNIDAD_SOBREPASA_STOCK, new PedidoValidacionConfiguracion(){ Mensaje ="Lamentablemente, la cantidad solicitada sobrepasa el stock actual ({0}) del producto, verifique." } },
+                            {Code.ERROR_ELIMINAR, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el detalle de pedido." } },
+                            {Code.ERROR_ELIMINAR_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el detalle del set."} },
+                            {Code.ERROR_ELIMINAR_TODO, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el pedido." } },
+                            {Code.ERROR_ELIMINAR_TODO_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el set." } },
+                            {Code.ERROR_CANTIDAD_LIMITE, new PedidoValidacionConfiguracion(){ Mensaje ="La cantidad no debe ser mayor que la cantidad limite ( {0} )." } },
+
+                            {Code.ERROR_RESERVA_NINGUNO, new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se reservó." } },
+                            {Code.SUCCESS_RESERVA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido reservado." } },
+                            {Code.SUCCESS_RESERVA_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido reservado, productos con observaciones." } },
+                            {Code.ERROR_RESERVA_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no reservado, productos con observaciones." } },
+                            {Code.ERROR_RESERVA_MONTO_MIN, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no reservado, no supera monto mínimo." } },
+                            {Code.ERROR_RESERVA_MONTO_MAX, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no reservado, excede monto máximo." } },
+                            {Code.ERORR_RESERVA_NO_DISP, new PedidoValidacionConfiguracion(){ Mensaje ="Reserva no disponible." } },
+                            {Code.ERROR_RESERVA_DEUDA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no reservado, deuda pendiente." } },
+                            {Code.ERROR_RESERVA_BACK_ORDER, new PedidoValidacionConfiguracion(){ Mensaje ="No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"} },
+                            {Code.ERROR_GUARDAR_NINGUNO, new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se guardó." } },
+                            {Code.SUCCESS_GUARDAR, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido guardado." } },
+                            {Code.SUCCESS_GUARDAR_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido guardado, productos con observaciones." } },
+                            {Code.ERROR_GUARDAR_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no guardado, productos con observaciones." } },
+                            {Code.ERROR_GUARDAR_MONTO_MIN, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no guardado, no supera monto mínimo." } },
+                            {Code.ERROR_GUARDAR_MONTO_MAX, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no guardado, excede monto máximo." } },
+                            {Code.ERORR_GUARDAR_NO_DISP, new PedidoValidacionConfiguracion(){ Mensaje ="Guardar no disponible." } },
+                            {Code.ERROR_GUARDAR_DEUDA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no guardado, deuda pendiente." } },
+
+                            {Code.ERROR_DESHACER_PEDIDO , new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al deshacer el pedido." } },
+                            {Code.ERROR_DESHACER_PEDIDO_ESTADO , new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se encuentra reservado." } },
+
+                            {Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO , new PedidoValidacionConfiguracion(){ Mensaje ="No se puede agregar un set como BackOrder." } },
+                            {Code.ERROR_AGREGAR_BACKORDER , new PedidoValidacionConfiguracion(){ Mensaje ="No se encuentra el detalle en el pedido para agregarlo como BackOrder." } }
+
+                        });
                 }
             }
         }
 
         public class PedidoValidacionConfiguracion
         {
+            public PedidoValidacionConfiguracion()
+            {
+                PermiteAgregarPedido = false;
+                Mensaje = string.Empty;
+            }
             public bool PermiteAgregarPedido { get; set; }
+            public string Mensaje { get; set; }
         }
 
         public static class PedidoDetalleApp
