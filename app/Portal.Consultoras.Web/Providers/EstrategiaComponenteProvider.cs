@@ -78,7 +78,10 @@ namespace Portal.Consultoras.Web.Providers
                 if (joinCuv == "") return new List<EstrategiaComponenteModel>();
 
 
-                mensaje += "EstrategiaProductos= " + listaBeEstrategiaProductos.Count + "|";
+                //listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos);
+                //mensaje += "GetEstrategiaDetalleCompuestaMs = " + listaEstrategiaComponente.Count + "|";
+
+                listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
                 var listaProductos = GetAppProductoBySap(estrategiaModelo, joinCuv);
                 if (!listaProductos.Any()) return new List<EstrategiaComponenteModel>();
