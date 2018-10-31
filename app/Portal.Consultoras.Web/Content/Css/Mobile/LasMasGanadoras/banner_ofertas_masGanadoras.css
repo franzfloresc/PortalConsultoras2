@@ -29,3 +29,17 @@
     border-radius: 4px;
     margin: 0 auto;
 }
+
+.carousel-mas-ganadoras {
+    margin-top: 18px;
+}
+
+div[nosuscrita] .titulo_MasGanadoras {
+    color: #e81c36;
+}
+div[nosuscrita] .boton_MasGanadoras {
+    background-color: #e81c36;
+}
+div[nosuscrita] .contenido_ofertas a {
+    background-color: #e81c36;
+}

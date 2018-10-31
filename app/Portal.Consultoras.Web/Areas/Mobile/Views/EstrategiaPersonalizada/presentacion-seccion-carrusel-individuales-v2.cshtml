@@ -5,7 +5,7 @@
     //var camapaniaEfectiva = "C" + revistaDigital.CampaniaActiva;
 }
 
-<div class="contenedor_MasGanadoras_carrusel" 
+<div class="contenedor_MasGanadoras_carrusel" @(ViewBag.revistaDigital.EsActiva == true ? "suscrita" : "nosuscrita"  )
      style="background: url(@Model.ImagenFondo);background-position-x: center;background-repeat: no-repeat; background-size: cover;"
      data-plantilla="carrusel-individuales-v2">
     <div class="row">
