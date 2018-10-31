@@ -1,0 +1,26 @@
+1.1.WSConsultoras
+Agregar:
+	QAS:
+	<add key="Ambiente" value="QA" />
+
+	Portal.Consultoras.WS.Data.Properties.Settings:
+	<setting name="Portal_Consultoras_WS_Data_ServiceLMSQA_ws_server"
+          serializeAs="String">
+          <value>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php</value>
+        </setting>
+	
+	PPR, PRD:
+	<add key="Ambiente" value="PRD" />
+
+	Portal.Consultoras.WS.Data.Properties.Settings:
+	<setting name="Portal_Consultoras_WS_Data_ServiceLMSQA_ws_server"
+          serializeAs="String">
+          <value>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php</value>
+        </setting>
+
+Modificar:
+	QAS,PPR, PRD:
+	<setting name="Portal_Consultoras_WS_Data_ServiceLMS_ws_server"
+          serializeAs="String">
+          <value>http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php</value>
+      	</setting>
