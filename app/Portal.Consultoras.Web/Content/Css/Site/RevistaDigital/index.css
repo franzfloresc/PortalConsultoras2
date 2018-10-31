@@ -38,67 +38,6 @@
     max-height: 415px;
 }
 
-/*.detalle_set_banner_ofertas_fix {
-    position: absolute;
-    width: auto;
-    min-width: 302px;
-    top: 30px;
-    left: 45px;
-    background: white;
-    z-index: 20;
-}*/
-
-/*.content_set_imagen_banner {
-    width: auto;
-    height: auto;
-    text-align: center;
-    margin-top: 10px;
-}*/
-
-/*.content_set_imagen_banner img {
-    width: auto;
-    height: 150px;
-}*/
-
-/*.titulo_set_banner_ept {
-    font-family: 'Lato';
-    font-size: 13px;
-    text-align: center;
-    margin-top: 5px;
-}*/
-
-/*.detalle_set_banner_ept {
-    font-family: 'Lato';
-    font-size: 13px;
-    text-align: center;
-    font-weight: 700;
-    color: black;
-    margin-top: 3px;
-    margin-bottom: 3px;
-}*/
-
-/*.btn_mas_info_set {
-    font-family: 'Lato';
-    font-size: 12px;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 11px;
-}*/
-
-/*.etiqueta_nuevo_ept {
-    text-align: left;
-    z-index: 30;
-}*/
-
-/*.fondo_imagen_set {
-    width: 140px;
-    height: 140px;
-}*/
-
-/*.fondo_imagen_set img {
-    width: 100%;
-}*/
-
 .btn-set-previous {
     width: 130px;
     height: 130px;
@@ -124,10 +63,6 @@
     left: 0;
     top: 45px;
 }
-
-/*.btn-ofertas-margen-fix {
-    margin-top: 10px;
-}*/
 
 /* FIN LANZAMIENTO */
 .marca_ept {
@@ -267,6 +202,56 @@
     height: 46px;
     padding: 13px 0px;
 }
+
+.revistadigital-landing .content_item_carrusel_prog_nuevas {
+    background-color: #ebebeb !important;
+    border: none !important;
+    min-height: 372px;
+    padding: 100px 42px 33px 42px;
+    width: 240px;
+    margin: auto;
+    float: none;
+}
+.revistadigital-landing .content_item_carrusel_prog_nuevas .container_text {
+    position: relative;
+}
+    .revistadigital-landing .content_item_carrusel_prog_nuevas .container_text p.primero {
+        font-style: normal;
+        font-stretch: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 1.27;
+        letter-spacing: 0px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .revistadigital-landing .content_item_carrusel_prog_nuevas .container_text p.segundo {
+        display: block;
+        width: 100%;
+        font-family: Lato;
+        font-size: 19px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0.8px;
+        text-align: center;
+        margin-bottom: 23px;
+    }
+    .revistadigital-landing .content_item_carrusel_prog_nuevas .container_text p.boton {
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        text-align: center;
+        width: 100%;
+        color: #ffffff;
+        background: black;
+        height: 46px;
+        padding: 13px 0px;
+    }
 
 .revistadigital-landing .producto_img_home img {
     height: 100%;
