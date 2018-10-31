@@ -438,7 +438,7 @@ namespace Portal.Consultoras.Web.Providers
                         userData.CodigorRegion,
                         userData.CodigoZona,
                         materialGanancia);
-                    var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital, userData.CodigoISO));
+                    var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital, userData.CodigoISO));
                     Task.WhenAll(taskApi);
                     listEstrategia = taskApi.Result;
                 }
