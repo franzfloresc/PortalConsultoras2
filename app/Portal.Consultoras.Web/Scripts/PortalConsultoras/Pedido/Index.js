@@ -1823,7 +1823,7 @@ function ValidDeleteElectivoNuevas(cuv, esElecMultipleNuevas, fnDelete) {
     if (!$.isFunction(fnDelete)) fnDelete = function () { };
 
     if (!esElecMultipleNuevas) fnDelete(false);
-    else messageConfirmacionDuoPerfecto(response.message, function () { fnDelete(true); });
+    else messageConfirmacionDuoPerfecto(mensajeElecMultipleEliminar, function () { fnDelete(true); });
 }
 
 function ContinuarEliminacion() {

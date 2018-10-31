@@ -103,7 +103,7 @@ namespace Portal.Consultoras.BizLogic
             if (limElectivos <= 1) return;
 
             var listDetalleElectivos = listDetallePerteneceNuevas.Where(d => listCuvElectivas.Any(c =>c.CodigoCupon == d.CUV)).ToList();
-            foreach (var detalle in listDetalleEnRango)
+            foreach (var detalle in listDetalleElectivos)
             {
                 detalle.EsElecMultipleNuevas = true;
                 detalle.DescripcionOferta = Constantes.ProgNuevas.DescripcionOferta.DuoPerfecto;

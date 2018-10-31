@@ -445,7 +445,7 @@ function ValidDeleteElectivoNuevas(obj, fnDelete) {
     if (!$.isFunction(fnDelete)) fnDelete = function () { };
 
     if (!obj.EsElecMultipleNuevas) fnDelete(false);
-    else messageConfirmacionDuoPerfecto(response.message, function () { fnDelete(true); });
+    else messageConfirmacionDuoPerfecto(mensajeElecMultipleEliminar, function () { fnDelete(true); });
 }
 
 function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta, esBackOrder, setId) {
