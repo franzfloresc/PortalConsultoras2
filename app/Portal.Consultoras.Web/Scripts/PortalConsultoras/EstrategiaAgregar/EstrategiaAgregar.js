@@ -371,7 +371,12 @@ var EstrategiaAgregarModule = (function () {
             }
 
             var cuv = estrategia.CUV2;
+            if (cuv.substring(0,3)=='999') {
+                sessionStorage.setItem('cuvPack', cuv);
+            }
+            
 
+         
             var tipoOrigenEstrategiaAux = 0;
             if (typeof tipoOrigenEstrategia != "undefined") {
                 tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;

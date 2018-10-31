@@ -408,6 +408,10 @@ $(document).ready(function () {
                 AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
             }
 
+            if (cuv.substring(0, 3) == '999') {//OG
+                sessionStorage.setItem('cuvPack', cuv);
+            }
+
             ProcesarActualizacionMostrarContenedorCupon();
             $("#btnAgregar").removeAttr("disabled");
         } else {
