@@ -152,7 +152,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private ShowRoomEventoModel OfertaShowRoom()
         {
-            if (!ValidarIngresoShowRoom(false))
+            if (!_showRoomProvider.ValidarIngresoShowRoom(false))
             {
                 return null;
             }

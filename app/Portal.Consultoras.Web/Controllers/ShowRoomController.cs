@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
                 if (mostrarPopupIntriga) return RedirectToAction("Intriga", "ShowRoom");
-                if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
+                if (!_showRoomProvider.ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
 
                 if (!string.IsNullOrEmpty(query))
                 {

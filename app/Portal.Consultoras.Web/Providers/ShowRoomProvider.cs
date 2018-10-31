@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Providers
         private readonly ISessionManager _sessionManager;
         private readonly ConfiguracionManagerProvider _configuracionManager;
 
-        public ShowRoomProvider() : this(LogManager.LogManager.Instance, 
+        public ShowRoomProvider() : this(LogManager.LogManager.Instance,
             SessionManager.SessionManager.Instance,
             new ConfiguracionManagerProvider())
         {
@@ -47,15 +47,15 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         public ShowRoomProvider(TablaLogicaProvider tablaLogicaProvider) : this(
-            LogManager.LogManager.Instance, 
-            SessionManager.SessionManager.Instance, 
+            LogManager.LogManager.Instance,
+            SessionManager.SessionManager.Instance,
             new ConfiguracionManagerProvider())
         {
             this._tablaLogicaProvider = tablaLogicaProvider;
         }
 
-       
-        
+
+
 
         /// <summary>
         /// Obtiene la configuracion de Base de datos
@@ -109,13 +109,12 @@ namespace Portal.Consultoras.Web.Providers
 
         public ShowRoomEventoConsultoraModel GetShowRoomConsultora(UsuarioModel model)
         {
-            
             using (var sv = new PedidoServiceClient())
             {
-                var  showRoomEventoConsultora = sv.GetShowRoomConsultora(
-                    model.PaisID, 
-                    model.CampaniaID, 
-                    model.GetCodigoConsultora(), 
+                var showRoomEventoConsultora = sv.GetShowRoomConsultora(
+                    model.PaisID,
+                    model.CampaniaID,
+                    model.GetCodigoConsultora(),
                     true);
                 return Mapper.Map<BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>(showRoomEventoConsultora);
             }
@@ -126,7 +125,7 @@ namespace Portal.Consultoras.Web.Providers
             using (var sv = new PedidoServiceClient())
             {
                 var showRoomNiveles = sv.GetShowRoomNivel(model.PaisID).ToList();
-                return Mapper.Map<List<BEShowRoomNivel> , List<ShowRoomNivelModel>>(showRoomNiveles);
+                return Mapper.Map<List<BEShowRoomNivel>, List<ShowRoomNivelModel>>(showRoomNiveles);
             }
         }
 
@@ -139,7 +138,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<ShowRoomPersonalizacionNivelModel> GetShowRoomPersonalizacionNivel(UsuarioModel model,int eventoId, int showRoomNivelId,int categoriaId)
+        public List<ShowRoomPersonalizacionNivelModel> GetShowRoomPersonalizacionNivel(UsuarioModel model, int eventoId, int showRoomNivelId, int categoriaId)
         {
             using (var sv = new PedidoServiceClient())
             {
@@ -198,7 +197,7 @@ namespace Portal.Consultoras.Web.Providers
                 _logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "ShowRoomProvider.GetEventoConsultoraRecibido");
             }
         }
-        
+
         public void CargarEntidadesShowRoom(UsuarioModel model)
         {
             var configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
@@ -220,7 +219,7 @@ namespace Portal.Consultoras.Web.Providers
                     _sessionManager.SetEstrategiaSR(configEstrategiaSR);
                     return;
                 }
-                
+
                 configEstrategiaSR.BeShowRoom = GetShowRoomEventoByCampaniaId(model);
                 configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model);
                 configEstrategiaSR.ListaNivel = GetShowRoomNivel(model);
@@ -239,7 +238,8 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     _sessionManager.SetEsShowRoom("1");
 
-                    configEstrategiaSR.BloqueoProductoDigital = ObtenerBloquedoProductoDigital(model);
+                    //configEstrategiaSR.BloqueoProductoDigital = ObtenerBloquedoProductoDigital(model);
+
                     var fechaHoy = model.FechaHoy;
 
                     if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
@@ -276,7 +276,7 @@ namespace Portal.Consultoras.Web.Providers
             var tieneShowRoom = paisesShowRoom.Contains(codigoIsoPais);
             return tieneShowRoom;
         }
-        
+
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral(string codigoIso, double zonaHoraria, DateTime fechaInicioCampania)
         {
             var model = new ShowRoomBannerLateralModel();
@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return model;
         }
-        
+
         private void ActualizarValorPersonalizacionesShowRoom(UsuarioModel model, ConfigModel configEstrategiaSR)
         {
             var personalizacionesNivel = GetShowRoomPersonalizacionNivel(model,
@@ -378,10 +378,12 @@ namespace Portal.Consultoras.Web.Providers
                          p.PersonalizacionId == item.PersonalizacionId);
 
                 if (personalizacionNivel == null) continue;
+
                 item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
                 item.Valor = personalizacionNivel.Valor;
 
                 if (item.TipoAtributo != "IMAGEN") continue;
+
                 if (string.IsNullOrEmpty(item.Valor))
                 {
                     item.Valor = string.Empty;
@@ -392,16 +394,16 @@ namespace Portal.Consultoras.Web.Providers
                 item.Valor = ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
             }
         }
-        
+
         private int ObtenerNivelId(List<ShowRoomNivelModel> niveles)
         {
             var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ?? new ShowRoomNivelModel();
             return showRoomNivelPais.NivelId;
         }
-        
+
         public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
         {
-            var configEstrategiaSR = _sessionManager.GetEstrategiaSR(); 
+            var configEstrategiaSR = _sessionManager.GetEstrategiaSR();
             if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
                 return string.Empty;
 
@@ -412,50 +414,66 @@ namespace Portal.Consultoras.Web.Providers
                 : model.Valor;
         }
 
-        private bool ObtenerBloquedoProductoDigital(UsuarioModel usuarioModel)
+        //private bool ObtenerBloquedoProductoDigital(UsuarioModel usuarioModel)
+        //{
+        //    ServiceUsuario.BEConfiguracionPaisDatos entidadConfig;
+        //    bool result = false;
+        //    try
+        //    {
+        //        var ConfigPaisSR = _sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.ShowRoom); 
+        //        var entidad = new ServiceUsuario.BEConfiguracionPaisDatos
+        //        {
+        //            PaisID = usuarioModel.PaisID,
+        //            CampaniaID = usuarioModel.CampaniaID,
+        //            ConfiguracionPaisID = ConfigPaisSR.ConfiguracionPaisID,
+        //            ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
+        //            {
+        //                Codigo = Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital,
+        //                Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
+        //                {
+        //                    CodigoConsultora = usuarioModel.CodigoConsultora,
+        //                    CodigoRegion = usuarioModel.CodigorRegion,
+        //                    CodigoZona = usuarioModel.CodigoZona,
+        //                    CodigoSeccion = usuarioModel.SeccionAnalytics
+        //                }
+        //            }
+        //        };
+        //        using (var sv = new ServiceUsuario.UsuarioServiceClient())
+        //        {
+        //            var lst =  sv.GetConfiguracionPaisDatos(entidad);
+        //            entidadConfig = lst.FirstOrDefault();
+        //        }
+        //        if (entidadConfig != null) result = entidadConfig.Valor1 == "1"; 
+        //    }
+        //    catch (Exception ex )
+        //    {
+        //        _logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(),
+        //            "ShowRoomProvider.ObtenerBloquedoProductoDigital");
+        //    }
+        //    return result;
+        //}
+
+        public bool ValidarIngresoShowRoom(bool esIntriga)
         {
-            ServiceUsuario.BEConfiguracionPaisDatos entidadConfig;
-            bool result = false;
-            
-            try
+            var configEstrategiaSR = _sessionManager.GetEstrategiaSR();
+            if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                return false;
+
+            var resultado = false;
+            var esShowRoom = _sessionManager.GetEsShowRoom();
+            var mostrarShowRoomProductos = _sessionManager.GetMostrarShowRoomProductos();
+            var mostrarShowRoomProductosExpiro = _sessionManager.GetMostrarShowRoomProductosExpiro();
+
+            if (esIntriga)
             {
-
-                var ConfigPaisSR = _sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.ShowRoom); 
-
-                var entidad = new ServiceUsuario.BEConfiguracionPaisDatos
-                {
-                    PaisID = usuarioModel.PaisID,
-                    CampaniaID = usuarioModel.CampaniaID,
-                    ConfiguracionPaisID = ConfigPaisSR.ConfiguracionPaisID,
-                    ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
-                    {
-                        Codigo = Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital,
-                        Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
-                        {
-                            CodigoConsultora = usuarioModel.CodigoConsultora,
-                            CodigoRegion = usuarioModel.CodigorRegion,
-                            CodigoZona = usuarioModel.CodigoZona,
-                            CodigoSeccion = usuarioModel.SeccionAnalytics
-                        }
-                    }
-                };
-
-                using (var sv = new ServiceUsuario.UsuarioServiceClient())
-                {
-                    var lst =  sv.GetConfiguracionPaisDatos(entidad);
-                    entidadConfig = lst.FirstOrDefault();
-                }
-
-                if (entidadConfig != null) result = entidadConfig.Valor1 == "1"; 
-               
+                resultado = esShowRoom && !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
             }
-            catch (Exception ex )
+            else
             {
-                _logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(),
-                    "ShowRoomProvider.ObtenerBloquedoProductoDigital");
+                resultado = esShowRoom && mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
             }
 
-            return result;
+            return resultado;
         }
     }
 }

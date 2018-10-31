@@ -178,31 +178,18 @@ namespace Portal.Consultoras.Web.Providers
                             break;
                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                         case Constantes.ConfiguracionPais.RevistaDigital:
-                            seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "RevistaDigital/Revisar" : "RevistaDigital/Comprar");
+                            seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                             //seccion.VerMas = SessionManager.ShowRoom.TieneLanding;
 
-
-
-                            //seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "RevistaDigital/Revisar" : "RevistaDigital/Comprar");
-                            //seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
-                            //seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
-                            //seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                             break;
                         case Constantes.ConfiguracionPais.ShowRoom:
-                            seccion.UrlObtenerProductos = "Estrategia/SRObtenerProductos";
-                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "ShowRoom";
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
-                            seccion.VerMas = SessionManager.ShowRoom.TieneLanding;
-
-                            //ConfiguracionSeccionShowRoom(ref seccion, isMobile);
-                            //if (seccion.UrlLandig == "")
-                            //    continue;
-
-                            //seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
+                            seccion = ConfiguracionSeccionShowRoom(seccion, isMobile);
+                            if (seccion.UrlLandig == "")
+                                continue;
+                            
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
                             var estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
@@ -353,20 +340,22 @@ namespace Portal.Consultoras.Web.Providers
             return configuracionesOfertasHomes;
         }
 
-        private void ConfiguracionSeccionShowRoom(ref ConfiguracionSeccionHomeModel seccion, bool esMobile)
+        private ConfiguracionSeccionHomeModel ConfiguracionSeccionShowRoom(ConfiguracionSeccionHomeModel seccion, bool esMobile)
         {
             seccion.UrlLandig = "";
 
-            if (!SessionManager.GetEsShowRoom())
-                return;
-
-            if (SessionManager.GetMostrarShowRoomProductosExpiro())
-                return;
-
+            if (ShowRoom.ValidarIngresoShowRoom(false))
+                return seccion;
+            
+            seccion.UrlObtenerProductos = "Estrategia/SRObtenerProductos";
+            seccion.OrigenPedido = esMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
+            seccion.OrigenPedidoPopup = esMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomFicha : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomFicha;
+            seccion.VerMas = SessionManager.ShowRoom.TieneLanding;
+            
             if (!SessionManager.GetMostrarShowRoomProductos())
             {
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
-                seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
+                //seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
 
                 if (!esMobile)
                 {
@@ -385,7 +374,6 @@ namespace Portal.Consultoras.Web.Providers
             {
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom";
                 //seccion.UrlObtenerProductos = esMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
-                seccion.UrlObtenerProductos = esMobile ? "" : "Estrategia/SRObtenerProductos";
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =
@@ -401,8 +389,10 @@ namespace Portal.Consultoras.Web.Providers
 
                 var listaShowRoom = SessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
                 seccion.CantidadProductos = listaShowRoom.Count;
-                seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
+                seccion.CantidadMostrar = Math.Min(seccion.CantidadMostrar, seccion.CantidadProductos);
             }
+
+            return seccion;
         }
 
     }

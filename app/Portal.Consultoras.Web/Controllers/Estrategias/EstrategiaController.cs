@@ -75,7 +75,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos);
         }
-        
+
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string tipoOrigenEstrategia = "")
         {
@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                    : tipoOrigenEstrategia == "21" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel
                    : (Request.UrlReferrer != null && isMobile) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
                 }
-                
+
                 var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
 
                 var bloquerBannerNuevas = (tipoOrigenEstrategia == "11" || tipoOrigenEstrategia == "21") && revistaDigital.TieneRDC && !revistaDigital.EsSuscrita;
@@ -173,21 +173,35 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 var esMobile = IsMobile();
 
                 var palanca = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPalanca(model, tipoConsulta);
+                
+                List<EstrategiaPersonalizadaProductoModel> listModel;
+                List<EstrategiaPersonalizadaProductoModel> listPerdio;
+                var listaSubCampania = new List<EstrategiaPersonalizadaProductoModel>();
+                int cantidadTotal0 = 0;
+                if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
+                {
+                    listModel = SessionManager.ShowRoom.Ofertas;
+                    cantidadTotal0 = listModel.Count;
+                    listModel = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrarSR(model, listModel, tipoConsulta);
+                    listPerdio = SessionManager.ShowRoom.OfertasPerdio;
+                    listaSubCampania = SessionManager.ShowRoom.OfertasSubCampania;
+                }
+                else
+                {
+                    var campania = _ofertaPersonalizadaProvider.ConsultarOfertasCampania(model, tipoConsulta);
 
-                var campania = _ofertaPersonalizadaProvider.ConsultarOfertasCampania(model, tipoConsulta);
+                    var listaFinal1 = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(esMobile, userData.CodigoISO, userData.CampaniaID, campania, palanca);
 
-                var listaFinal1 = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(esMobile, userData.CodigoISO, userData.CampaniaID, campania, palanca);
-                var cantidadTotal0 = listaFinal1.Count;
+                    listPerdio = ConsultarOfertasListaPerdio(model, listaFinal1, tipoConsulta);
 
-                var listPerdio = ConsultarOfertasListaPerdio(model, listaFinal1, tipoConsulta);
+                    listaFinal1 = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrar(model, listaFinal1, tipoConsulta);
 
-                listaFinal1 = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrar(model, listaFinal1, tipoConsulta, palanca);
+                    var tipo = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPerdio(model, tipoConsulta);
 
-                var tipo = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPerdio(model, tipoConsulta);
+                    var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
 
-                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
-
-                var listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaFinal1, listaPedido, userData.CodigoISO, userData.CampaniaID, tipo, userData.esConsultoraLider, userData.Simbolo);
+                    listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaFinal1, listaPedido, userData.CodigoISO, userData.CampaniaID, tipo, userData.esConsultoraLider, userData.Simbolo);
+                }
 
                 listModel = _ofertaPersonalizadaProvider.SetCodigoPalancaMostrar(listModel, palanca);
 
@@ -204,6 +218,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     success = true,
                     lista = listModel,
                     listaPerdio = listPerdio,
+                    listaSubCampania,
                     campaniaId = model.CampaniaID,
                     cantidadTotal,
                     cantidad = cantidadTotal,
@@ -233,32 +248,16 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
             }
-            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
-            {
-                listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
-            }
             return listaRetorno;
         }
 
-        private List<EstrategiaPersonalizadaProductoModel> ConsultarOfertasListaPerdioRD(int campaniaId, List<EstrategiaPedidoModel> listModelCompleta, string palanca = "")
+        private List<EstrategiaPersonalizadaProductoModel> ConsultarOfertasListaPerdioRD(int campaniaId, List<EstrategiaPedidoModel> listModelCompleta)
         {
             var listPerdioFormato = new List<EstrategiaPersonalizadaProductoModel>();
             try
             {
                 List<EstrategiaPedidoModel> listPerdio;
-
-                if (palanca == Constantes.TipoEstrategiaCodigo.ShowRoom)
-                {
-                    if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
-                    {
-                        var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
-                        listPerdio = listModelCompleta.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
-                        listPerdioFormato = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listPerdio, listaPedido, userData.CodigoISO, userData.CampaniaID, 1, userData.esConsultoraLider, userData.Simbolo);
-
-                        return listPerdioFormato;
-                    }
-                }
-
+                
                 if (_ofertaPersonalizadaProvider.TieneProductosPerdio(campaniaId))
                 {
                     var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;

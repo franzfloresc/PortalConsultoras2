@@ -270,8 +270,6 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 
         cantTotalMostrar = listado.length;
 
-        console.log(cantTotalMostrar);
-
         $.each(listado, function (ind, prod) {
             prod.Posicion = ind + 1;
             if (ind >= cantListados && ind < cantListados + CantidadFilas) {

@@ -562,7 +562,6 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
     var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
 
     if (currentSlide == 0) {
-        //console.log(0);
         $(objPrevArrow).hide();
         $(objNextArrow).show();
     }
@@ -577,9 +576,7 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 
         if (anchoFalta > $(slick.$list).width()) {
             var currentSlideback = $(slick.$list).attr('data-currentSlide') || "";
-            //console.log(1, currentSlideback);
             if (currentSlideback == currentSlide) {
-                //console.log(3);
                 slick.options.slidesToShow = isMobile() ? 1 : 2;
                 slick.setPosition();
                 slick.slickGoTo(currentSlide + 1);
@@ -589,7 +586,6 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
                 $(objNextArrow).hide();
             }
             else {
-                //console.log(2);
                 $(objPrevArrow).show();
                 $(objNextArrow).show();
             }
