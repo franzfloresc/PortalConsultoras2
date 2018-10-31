@@ -214,8 +214,7 @@ function ArmarCarouselEstrategias(data) {
         $("#divListaEstrategias").show();
         $("#divContenedorListaEstrategia").hide();
         $(".contenido_gana_mas").hide();
-        //if (revistaDigital) {
-        //    if (revistaDigital.TieneRDC) {
+
                 if (isMobile()) {
                     $(".wrapper_resumen_mobile_clubganamas .zonadecolor, .wrapper_resumen_mobile_clubganamas").css({ "height": "200px" });
                 } else {
@@ -223,8 +222,6 @@ function ArmarCarouselEstrategias(data) {
                     $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
                     $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
                 }
-        //    }
-        //}
         
         return false;
     }
@@ -294,7 +291,8 @@ function ArmarCarouselEstrategias(data) {
         var cantProCarrusel = 4;
         var esVariableWidth = true;
 
-        $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel");
+        //$("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel caja-borde");
+
         $("#divListaEstrategias").show();
 
         EstablecerLazyCarrusel("#divListadoEstrategia");
@@ -624,7 +622,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                     divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
                 }
 
-                //$(".contenedor_popup_detalleCarousel").hide(); DEUDA TECNICA
                 $("#divMensajeBloqueada").show();
             }
         }
@@ -869,10 +866,11 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         }
                         if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
 
-                        ActualizarLocalStorageAgregado("rd", param.CUV, true);
-                        ActualizarLocalStorageAgregado("gn", param.CUV, true);
-                        ActualizarLocalStorageAgregado("hv", param.CUV, true);
-                        ActualizarLocalStorageAgregado("lan", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("rd", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("gn", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("hv", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("lan", param.CUV, true);
+                        ActualizarLocalStoragePalancas(param.CUV, true);
 
                         ProcesarActualizacionMostrarContenedorCupon();
                     },
@@ -893,7 +891,6 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 }
 
 function HidePopupEstrategiasEspeciales() {
-    //$("#popupDetalleCarousel_packNuevas").hide(); DEUDA TECNICA (BORRAR ESTA FUNCIÓN DESPUES)
 }
 
 function CerrarLoad() {

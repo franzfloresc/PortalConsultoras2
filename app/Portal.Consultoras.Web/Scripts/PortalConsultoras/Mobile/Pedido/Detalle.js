@@ -507,9 +507,7 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                 cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue Eliminado.');
 
-                ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
-                ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
-                ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
+                ActualizarLocalStoragePalancas(data.data.CUV, false);
             },
             error: function (data, error) {
                 CloseLoading();
@@ -672,10 +670,7 @@ function PedidoDetalleEliminarTodo() {
             });
             messageDelete("Se eliminaron todos productos del pedido.");
 
-            ActualizarLocalStorageAgregado("rd", "todo", false);
-            ActualizarLocalStorageAgregado("gn", "todo", false);
-            ActualizarLocalStorageAgregado("hv", "todo", false);
-            ActualizarLocalStorageAgregado("lan", "todo", false);
+            ActualizarLocalStoragePalancas("todo", false);
 
             location.reload();
 
@@ -989,7 +984,7 @@ function CrearPopupObservaciones(model) {
             if (item.Caso == 95 || item.Caso == 105) mensaje += "<li>" + item.Descripcion + "</li>";
             else mensaje += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
 
-            return false; //?????????????????????????????????????????
+            return false;
         });
     }
     mensaje += "</ul>";

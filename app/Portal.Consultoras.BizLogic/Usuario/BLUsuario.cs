@@ -494,7 +494,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
                     usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
                     usuario.AceptacionConsultoraDA = configuracionConsultora.AceptacionConsultoraDA;
-                    usuario.DiaFacturacion = (usuario.FechaInicioFacturacion - DateTime.Now).Days;
+                    usuario.DiaFacturacion = (DateTime.Now.Date - usuario.FechaInicioFacturacion).Days;
                 }
 
                 if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -617,7 +617,7 @@ namespace Portal.Consultoras.BizLogic
                 if (actualizaDatosTask.Result != null)
                 {
                     var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
-                    usuario.PuedeActualizar = (item != null ? item.Valor == "1" : false);
+                    usuario.PuedeActualizar = (item != null && item.Valor == "1");
                 }
                 if (actualizaDatosConfigTask.Result != null)
                 {
@@ -1803,6 +1803,10 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
                 }
+                else if (usuario.PaisID == Constantes.PaisID.Colombia ) {
+                    this.UpdateDatos(usuario, CorreoAnterior);
+                    resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
+                }
             }
             catch (Exception ex)
             {
@@ -1874,11 +1878,13 @@ namespace Portal.Consultoras.BizLogic
         {
 
             var actualizaDatosPais = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(usuario.PaisID, Constantes.TablaLogica.ActualizaDatosEnabled).FirstOrDefault();
-            usuario.PuedeActualizar = (actualizaDatosPais != null ? actualizaDatosPais.Valor == "1" : false);
-            if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
+            usuario.PuedeActualizar = (actualizaDatosPais != null && actualizaDatosPais.Valor == "1");
+            if (!usuario.PuedeActualizar)
+                return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
 
             var actualizaDatosConfigTask = GetOpcionesVerificacion(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
-            if (actualizaDatosConfigTask != null ? !actualizaDatosConfigTask.OpcionEmail : true) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
+            if (actualizaDatosConfigTask == null || !actualizaDatosConfigTask.OpcionEmail)
+                return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
 
             var respuestaServicio = ActualizarEmail(usuario, correoNuevo);
 
@@ -2672,7 +2678,8 @@ namespace Portal.Consultoras.BizLogic
             return DAUsuario.VerificarIgualdadCodigoIngresado(oUsu, codigoIngresado, soloValidar);
         }
 
-        private bool VerificarIgualdadCodigoIngresadoAutenticidad(int paisID, BEUsuarioDatos oUsuDatos, string codigoIngresado, bool soloValidar) {
+        private bool VerificarIgualdadCodigoIngresadoAutenticidad(int paisID, BEUsuarioDatos oUsuDatos, string codigoIngresado, bool soloValidar)
+        {
             /*Obteniendo Datos de Verificacion de Autenticidad*/
             var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
             if (opcion == null) return false;
@@ -2687,7 +2694,8 @@ namespace Portal.Consultoras.BizLogic
                 if (!tieneZona.VerifAutenticidad) return false;
             }
             /* Verificamos que se requiere el cambio de clave */
-            if (opcion.OpcionContrasena && oUsu.OpcionCambioClave == 0) {
+            if (opcion.OpcionContrasena && oUsu.OpcionCambioClave == 0)
+            {
                 /* Marcamos el cambio de clave obligatorio */
                 var DAUsuario = new DAUsuario(paisID);
                 DAUsuario.InsMetaConsultora(oUsuDatos.CodigoUsuario, Constantes.MetaConsultora.VerificacionCambioClave, "1");
@@ -2881,7 +2889,7 @@ namespace Portal.Consultoras.BizLogic
                         CampaniaID = oUsu.campaniaID,
                         NroCelular = oUsu.Celular,
                         Mensaje = oCredencial.Mensaje,
-                        CodigoIso =  oUsu.CodigoIso,
+                        CodigoIso = oUsu.CodigoIso,
                         EsMobile = oUsu.EsMobile,
                         RequestUrl = oCredencial.RequestUrl,
                         RecursoApi = oCredencial.RecursoApi
@@ -2942,7 +2950,8 @@ namespace Portal.Consultoras.BizLogic
             return BLobj.GetOpcionesVerificacion(paisID, origenID);
         }
 
-        private BECodigoGenerado GetCodigoGeneradoSms(int paisID, int origenID, string codigoUsuario){            
+        private BECodigoGenerado GetCodigoGeneradoSms(int paisID, int origenID, string codigoUsuario)
+        {
             using (var reader = new DAUsuario(paisID).GetCodigoGenerado(origenID, codigoUsuario))
                 return reader.MapToObject<BECodigoGenerado>(true);
         }
@@ -3092,7 +3101,7 @@ namespace Portal.Consultoras.BizLogic
                         oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarCelular;
                 }
                 if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion && !opcion.OpcionContrasena) return null;
-               
+
                 oUsu.OrigenID = opcion.OrigenID;
                 oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
                 oUsu.CodigoUsuario = CodigoUsuario;
@@ -3104,8 +3113,8 @@ namespace Portal.Consultoras.BizLogic
                 if (codGenerado != null && oUsu.Cantidad != 0)
                 {
                     var dateDiffHours = Common.Util.DateDiff(Enumeradores.DateInterval.Hour, codGenerado.FechaRegistro, codGenerado.FechaActual);
-                    oUsu.HoraRestanteSms = (dateDiffHours > 23 ? oUsu.HoraRestanteSms : (int)(Constantes.VerificacionValidacion.TIME_REINTENTO - Common.Util.DateDiff(Enumeradores.DateInterval.Second, codGenerado.FechaRegistro, codGenerado.FechaActual)));                    
-                    oUsu.IntentosRestanteSms = (dateDiffHours < 24 ? Math.Max(0,opcion.IntentosSms - codGenerado.CantidadEnvios) : opcion.IntentosSms);
+                    oUsu.HoraRestanteSms = (dateDiffHours > 23 ? oUsu.HoraRestanteSms : (int)(Constantes.VerificacionValidacion.TIME_REINTENTO - Common.Util.DateDiff(Enumeradores.DateInterval.Second, codGenerado.FechaRegistro, codGenerado.FechaActual)));
+                    oUsu.IntentosRestanteSms = (dateDiffHours < 24 ? Math.Max(0, opcion.IntentosSms - codGenerado.CantidadEnvios) : opcion.IntentosSms);
                     oUsu.HoraRestanteSms = oUsu.IntentosRestanteSms < 1 ? oUsu.HoraRestanteSms : 0;
                 }
                 else
@@ -3138,7 +3147,6 @@ namespace Portal.Consultoras.BizLogic
         private BEUsuarioDatos GetUsuarioVerificacionCambioClave(int paisID, string CodigoUsuario)
         {
             var DAUsuario = new DAUsuario(paisID);
-            var datos = new BEUsuarioDatos();
             using (var reader = DAUsuario.GetUsuarioVerificacionCambioClave(CodigoUsuario))
                 return reader.MapToObject<BEUsuarioDatos>(true);
         }
@@ -3179,13 +3187,15 @@ namespace Portal.Consultoras.BizLogic
             var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
             if (opcion == null) return EnvioSMSRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CELULAR_ACTIVACION);
             DAUsuario daUsuario = new DAUsuario(paisID);
-            if (opcion.IntentosSms > 0) {
+            if (opcion.IntentosSms > 0)
+            {
                 /* Tiene Habilitado el Limite de Envios SMS */
                 var codGenerado = GetCodigoGeneradoSms(paisID, opcion.OrigenID, oUsu.CodigoUsuario);
-                if (codGenerado != null) {
+                if (codGenerado != null)
+                {
                     /* Validamos el contador del envio */
-                    var dateDiffHours = Common.Util.DateDiff(Enumeradores.DateInterval.Hour, codGenerado.FechaRegistro, codGenerado.FechaActual);                    
-                    EnviosSms = (dateDiffHours > 23) ? EnviosSms : codGenerado.CantidadEnvios;                                    
+                    var dateDiffHours = Common.Util.DateDiff(Enumeradores.DateInterval.Hour, codGenerado.FechaRegistro, codGenerado.FechaActual);
+                    EnviosSms = (dateDiffHours > 23) ? EnviosSms : codGenerado.CantidadEnvios;
                     opcionDesabilitado = (opcion.IntentosSms <= EnviosSms);
                     if (opcionDesabilitado)
                     {
@@ -3197,8 +3207,9 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             /* Envia el SMS */
-            var result =  ProcesaEnvioSms(paisID, oUsu, EnviosSms);
-            if (result.resultado) {
+            var result = ProcesaEnvioSms(paisID, oUsu, EnviosSms);
+            if (result.resultado)
+            {
                 /* Bloqueamos el Envio de SMS */
                 EnviosSms++;
                 opcionDesabilitado = (opcion.IntentosSms <= EnviosSms);
@@ -3433,32 +3444,38 @@ namespace Portal.Consultoras.BizLogic
             var buscadorYFiltrosConfiguracion = new BEBuscadorYFiltrosConfiguracion();
             short valor1 = 0;
 
-            var mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBuscador).FirstOrDefault();
+            var mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBuscador);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBuscador = mostrarBuscador.Valor1 == "1";
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscador).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscador = valor1;
             }
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.CaracteresBuscadorMostrar = valor1;
             }
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador);
             if (mostrarBuscador != null)
             {
                 short.TryParse(mostrarBuscador.Valor1, out valor1);
                 buscadorYFiltrosConfiguracion.TotalResultadosBuscador = valor1;
             }
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 == "1";
+
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).FirstOrDefault();
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
+
+            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos).FirstOrDefault();
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.AplicarLogicaCantidadBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
 
             return buscadorYFiltrosConfiguracion;
         }
@@ -3487,9 +3504,28 @@ namespace Portal.Consultoras.BizLogic
         {
             return new DAUsuario(paisID).GetActualizacionEmail(codigoUsuario);
         }
-        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
+        public BEMensajeToolTip GetActualizacionEmailySms(int paisID, string codigoUsuario)
         {
-            return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
+            var DAUsuario = new DAUsuario(paisID);
+            var oMensaje = new BEMensajeToolTip();
+            var datosPerfil = new List<BEUsuarioPerfil>();
+            using (IDataReader reader = DAUsuario.GetActualizacionEmailySms(codigoUsuario))
+            {
+                while (reader.Read())
+                    datosPerfil.Add(new BEUsuarioPerfil(reader));
+            }
+
+            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.MensajesToolTipPerfil);
+            oMensaje.oDatosPerfil = datosPerfil;
+            oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
+
+            return oMensaje;
+        }
+        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario, string tipoEnvio)
+        {
+            return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario, tipoEnvio);
         }
 
         public BEUsuarioDireccion GetDireccionConsultora(int paisID, string codigoUsuario)

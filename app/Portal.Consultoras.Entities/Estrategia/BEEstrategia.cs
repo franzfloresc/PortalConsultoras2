@@ -276,6 +276,9 @@ namespace Portal.Consultoras.Entities
         public string Niveles { get; set; }
 
         [DataMember]
+        public int MaterialGanancia { get; set; }
+
+        [DataMember]
         public int FlagRevista { get; set; }
 
         [DataMember]
