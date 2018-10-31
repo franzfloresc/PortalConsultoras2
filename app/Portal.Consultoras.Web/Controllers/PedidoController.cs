@@ -4411,13 +4411,23 @@ namespace Portal.Consultoras.Web.Controllers
         
         private string ValidarStockArmaTuPackMensaje(string cuv, int cantidad)
         {
-            if (!GetListCuvArmaTuPack().Contains(cuv)) return "";
-            if (cantidad > 1) return string.Format(Constantes.ArmaTuPackMensajes.ExcedioLimite, 1);
+            string mensaje = "";
+            try
+            {
+                bool estaEnLimite;
+                var cantidadActual = ObtenerPedidoWebDetalle().Where(d => d.CUV == cuv).Sum(d => d.Cantidad);
 
-            var cantidadPedido = ObtenerPedidoWebDetalle().Where(d => d.CUV == cuv).Sum(d => d.Cantidad);
-            if (cantidadPedido > 0) return string.Format(Constantes.ArmaTuPackMensajes.ExcedioLimite, 1);
-
-            return "";
+                using (var sv = new ODSServiceClient())
+                {
+                    estaEnLimite = sv.CuvArmaTuPackEstaEnLimite(userData.PaisID, userData.CampaniaID, userData.CodigoZona, cuv, cantidad, cantidadActual);
+                }
+                if (estaEnLimite) mensaje = string.Format(Constantes.ArmaTuPackMensajes.ExcedioLimite, 1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return mensaje;
         }
 
         private List<string> GetListCuvArmaTuPack()
@@ -4544,8 +4554,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.ErrorGenerico);
             }
         }
-
-
+        
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
         {
             Enumeradores.ValidacionProgramaNuevas numero;

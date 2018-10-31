@@ -3728,6 +3728,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarVentaExclusiva", ReplyAction="http://tempuri.org/IODSService/ValidarVentaExclusivaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva> ValidarVentaExclusivaAsync(int paisID, int campaniaID, string codigoConsultora, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite", ReplyAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse")]
+        bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite", ReplyAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse")]
+        System.Threading.Tasks.Task<bool> CuvArmaTuPackEstaEnLimiteAsync(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4115,6 +4121,14 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva> ValidarVentaExclusivaAsync(int paisID, int campaniaID, string codigoConsultora, string cuv) {
             return base.Channel.ValidarVentaExclusivaAsync(paisID, campaniaID, codigoConsultora, cuv);
+        }
+        
+        public bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
+            return base.Channel.CuvArmaTuPackEstaEnLimite(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CuvArmaTuPackEstaEnLimiteAsync(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
+            return base.Channel.CuvArmaTuPackEstaEnLimiteAsync(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
         }
     }
 }
