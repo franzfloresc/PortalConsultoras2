@@ -2301,6 +2301,10 @@ function EliminarPedido() {
             MostrarBarra(data);
             CerrarSplash();
 
+            //ActualizarLocalStorageAgregado("rd", "todo", false);
+            //ActualizarLocalStorageAgregado("gn", "todo", false);
+            //ActualizarLocalStorageAgregado("hv", "todo", false);
+            //ActualizarLocalStorageAgregado("lan", "todo", false);
             ActualizarLocalStoragePalancas("todo", false);
 
             location.href = baseUrl + "Pedido/Index";

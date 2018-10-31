@@ -912,6 +912,11 @@
     height:100%;
 }
 
+/*.icono_marca_visa{
+    width: 29px;
+    margin-bottom:3px;
+}*/
+
 .cta_pago_en_linea{
     position:fixed;
     z-index:1000;
@@ -1064,6 +1069,10 @@
 {
     font-size:14px;
 }
+
+/*.titulo_resumen_pago_exitoso {
+    margin-bottom: 19.65px;
+}*/
 
 .info_importante_tarjeta_credito_habilitada{
     margin-top: 30px;

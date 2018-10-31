@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Web.WebPages
             }
             catch (WebException)
             {
-                //
+
             }
 
         }

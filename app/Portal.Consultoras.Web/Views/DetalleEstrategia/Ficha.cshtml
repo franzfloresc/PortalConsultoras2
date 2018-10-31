@@ -1,5 +1,4 @@
-﻿@using Portal.Consultoras.Common
-@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
+﻿@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
@@ -38,7 +37,7 @@
                     <div id="FichaImagenProducto" class="contenedor_imagen">
                         <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
                     </div>
-                    {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
+                    {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
                     <hr class="clear">
                     <div id="contenedor_foto_referencial" class="texto_referencial">
                         <span data-texto_referencial="">* Foto Referencial</span>
@@ -121,15 +120,7 @@
                             </ul>
 
                             {{#iff Ganancia '>' 0}}
-                            <div class="ganancia">
-                                {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
-                                GANA
-                                {{/iff}}
-                                {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
-                                GANA HASTA
-                                {{/iff}}
-                                <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
-                            </div>
+                            <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
                             {{/iff}}
                         </div>
                     </div>
@@ -361,9 +352,11 @@
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
             });
             fichaModule.Inicializar();
+            //CerrarLoad();
 
             if (tieneCarrusel)
             {
+                //AbrirLoad();
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
@@ -380,7 +373,7 @@
         });
 
         $(document).ajaxStop(function () {
-
+            //CerrarLoad();
         })
 
     </script>

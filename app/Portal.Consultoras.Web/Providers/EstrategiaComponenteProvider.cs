@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Web.Providers
             mensaje = "";
 
             var userData = SessionManager.GetUserData();
-            List<EstrategiaComponenteModel> listaEstrategiaComponente;
+            var listaEstrategiaComponente = new List<EstrategiaComponenteModel>();
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
                 mensaje += "SiMongo|";
@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 mensaje += "GetAppProductoBySap = " + listaProductos.Count + "|";
 
-                listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos);
+                listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
                 mensaje += "GetEstrategiaDetalleCompuestaMs = " + listaEstrategiaComponente.Count + "|";
             }
             else
@@ -98,7 +98,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
 
-                listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
+                listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos, codigoTipoEstrategia);
                 mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
             }
 
@@ -138,20 +138,13 @@ namespace Portal.Consultoras.Web.Providers
                 x.NombreBulk = String.IsNullOrEmpty(x.NombreBulk) ? x.NombreComercial : x.NombreBulk;
                 x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
-                if (string.IsNullOrWhiteSpace(x.ImagenProducto) && string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
+                if (string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
                 var campaniaId = estrategiaModelo.CampaniaID;
                 var codigoMarca = string.Empty;
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
                 if (x.IdMarca == Constantes.Marca.Cyzone) codigoMarca = "C";
-                if ((x.NombreComercial.Equals(x.NombreBulk)))
-                {
-                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenProducto) ? "" : string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenProducto);
-                }
-                else
-                {
-                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenBulk) ? "" : string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, x.CampaniaApp, codigoMarca, x.ImagenBulk);
-                }
+                x.ImagenBulk = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, x.CampaniaApp, codigoMarca, x.ImagenBulk);
             });
 
             return listaProducto;
@@ -189,7 +182,8 @@ namespace Portal.Consultoras.Web.Providers
 
         private List<EstrategiaComponenteModel> GetEstrategiaDetalleCompuestaMs(EstrategiaPersonalizadaProductoModel estrategiaModelo,
                                                                    List<BEEstrategiaProducto> listaBeEstrategiaProductos,
-                                                                   List<Producto> listaProductos)
+                                                                   List<Producto> listaProductos,
+                                                                   string codigoTipoEstrategia)
         {
             var listaEstrategiaComponenteProductos = Mapper.Map<List<Producto>, List<EstrategiaComponenteModel>>(listaProductos);
 
@@ -218,7 +212,7 @@ namespace Portal.Consultoras.Web.Providers
                         ?? new EstrategiaComponenteModel()).Clone();
                 }
 
-                componenteModel.NombreComercial = GetNombreComercial(componenteModel, beEstrategiaProducto, true);
+                componenteModel.NombreComercial = GetNombreComercial(componenteModel, beEstrategiaProducto, codigoTipoEstrategia, true);
 
                 if (!string.IsNullOrEmpty(beEstrategiaProducto.ImagenProducto))
                 {
@@ -247,7 +241,8 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         private List<EstrategiaComponenteModel> GetEstrategiaDetalleCompuesta(EstrategiaPersonalizadaProductoModel estrategiaModelo,
-                                                                    List<BEEstrategiaProducto> listaBeEstrategiaProductos)
+                                                                    List<BEEstrategiaProducto> listaBeEstrategiaProductos,
+                                                                    string codigoTipoEstrategia)
         {
             var listaEstrategiaComponenteProductos = new List<EstrategiaComponenteModel>();
             listaBeEstrategiaProductos = listaBeEstrategiaProductos.OrderBy(p => p.Grupo).ToList();
@@ -256,7 +251,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 var componenteModel = new EstrategiaComponenteModel { };
 
-                componenteModel.NombreComercial = GetNombreComercial(componenteModel, beEstrategiaProducto, false);
+                componenteModel.NombreComercial = GetNombreComercial(componenteModel, beEstrategiaProducto, codigoTipoEstrategia, false);
 
                 componenteModel.Descripcion = beEstrategiaProducto.Descripcion;
                 componenteModel.NombreBulk = Util.Trim(beEstrategiaProducto.NombreBulk);
@@ -282,6 +277,8 @@ namespace Portal.Consultoras.Web.Providers
 
         private List<EstrategiaComponenteModel> EstrategiaComponenteLimpieza(string codigoVariante, List<EstrategiaComponenteModel> listaEstrategiaComponenteProductos)
         {
+            //listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.Where(c => c.NombreBulk != "").ToList();
+
             switch (codigoVariante)
             {
                 case Constantes.TipoEstrategiaSet.CompuestaFija:
@@ -377,7 +374,7 @@ namespace Portal.Consultoras.Web.Providers
             return existe;
         }
 
-        private string GetNombreComercial(EstrategiaComponenteModel componenteModel, BEEstrategiaProducto beEstrategiaProducto, bool esMs)
+        private string GetNombreComercial(EstrategiaComponenteModel componenteModel, BEEstrategiaProducto beEstrategiaProducto, string codigoTipoEstrategia, bool esMs)
         {
             beEstrategiaProducto.NombreProducto = Util.Trim(beEstrategiaProducto.NombreProducto);
             beEstrategiaProducto.NombreBulk = Util.Trim(beEstrategiaProducto.NombreBulk);
@@ -389,7 +386,14 @@ namespace Portal.Consultoras.Web.Providers
 
             componenteModel.NombreBulk = beEstrategiaProducto.NombreBulk == "" ? componenteModel.NombreBulk : beEstrategiaProducto.NombreBulk;
             componenteModel.Volumen = beEstrategiaProducto.Volumen == "" ? componenteModel.Volumen : beEstrategiaProducto.Volumen;
-            
+
+            //if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
+            //{
+            //    componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto == "" ?
+            //        beEstrategiaProducto.NombreComercial : beEstrategiaProducto.NombreProducto;
+            //}
+            //else
+            //{
             if (esMs)
             {
                 if (componenteModel.NombreComercial == "")
@@ -401,6 +405,12 @@ namespace Portal.Consultoras.Web.Providers
             {
                 componenteModel.NombreComercial = beEstrategiaProducto.NombreComercial == "" ?
                     beEstrategiaProducto.NombreProducto : beEstrategiaProducto.NombreComercial;
+            }
+            //}
+
+            if (componenteModel.NombreComercial == null)
+            {
+                componenteModel.NombreComercial = string.Empty;
             }
 
             if (componenteModel.NombreBulk != "" && !(" " + componenteModel.NombreComercial.ToLower() + " ").Contains(" " + componenteModel.NombreBulk.ToLower() + " "))

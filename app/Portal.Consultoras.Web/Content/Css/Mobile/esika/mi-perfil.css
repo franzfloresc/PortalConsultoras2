@@ -884,6 +884,7 @@
 }
 
     .opcion_foto_perfil:hover{
+        /*width:280px;*/
         background-color:#fbfbfb;
         -moz-box-shadow: 0 4px 11px -7px rgba(103, 103, 103, 0.9);
         -webkit-box-shadow: 0 4px 11px -7px rgba(103, 103, 103, 0.9);

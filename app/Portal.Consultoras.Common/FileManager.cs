@@ -26,9 +26,7 @@ namespace Portal.Consultoras.Common
                 var c = root + Path;
                 File.Delete(c + filename);
             }
-            catch (Exception) {
-                //
-            }
+            catch (Exception) { }
         }
 
         public static void DeleteImagesInFolder(string root)

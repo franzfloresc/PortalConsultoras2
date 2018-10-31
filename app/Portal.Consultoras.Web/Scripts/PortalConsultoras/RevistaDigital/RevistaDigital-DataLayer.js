@@ -45,6 +45,8 @@ var rdAnalyticsModule = (function () {
         homeLanMobile: "2103", // solo para RedireccionarContenedorComprar
         catalogoMobile: "2401", // solo para RedireccionarContenedorComprar
         pedidoMobile: "2201", // solo para RedireccionarContenedorComprar
+        //homeVerMobile: "2104", // ya no se utiliza
+        //homeVerMasMobile: "2105", // ya no se utiliza
         rdLan: "1070001", // anterior "1721",
         rdOfertas: "1070001", // anterior "1711",
         rdDetalle: "1080202", // anterior "1731",
@@ -273,6 +275,12 @@ var rdAnalyticsModule = (function () {
                 case _origenWeb.pedidoMobile:
                     _virtualEventPush(_seccionWeb.pedidoMobile, _text.epm, _action.clickBanner);
                     break;
+                //case _origenWeb.homeVerMobile:
+                //    _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.verTodas);
+                //    break;
+                //case _origenWeb.homeVerMasMobile:
+                //    _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.verMas);
+                //    break;
             }
         } catch (e) {
             console.log(_text.exception + e);

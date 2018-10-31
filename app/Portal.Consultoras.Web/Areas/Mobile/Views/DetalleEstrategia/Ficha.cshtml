@@ -42,7 +42,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="{{ImgMedium FotoProducto01}}" />
             </div>
-            {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
+            {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
             <hr class="clear">
             <div id="contenedor_foto_referencial" class="texto_referencial">
                 <span data-texto_referencial="">* Foto Referencial</span>
@@ -107,19 +107,12 @@
             </li>
             {{#iff Ganancia '>' 0}}
             <li class="gana_precio_producto">
-                <p class="ganancia">
-                    {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
-                    GANA
-                    {{/iff}}
-                    {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
-                    GANA HASTA
-                    {{/iff}} {{SimboloMoneda}} {{GananciaString}}
-                </p>
+                <p class="ganancia">GANA {{SimboloMoneda}} {{GananciaString}}</p>
             </li>
             {{/iff}}
         </ul>
     </div>
-    {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
+    {{#iff CodigoVariante 'ContainsArray' '[2001,2002,2003]'}}
     <div class="container">
         <div class="">
             <div class="seleccion_tonos">
@@ -329,8 +322,10 @@ else
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new {area = ""})'
             });
             fichaModule.Inicializar();
+            //CerrarLoad();
 
             if (tieneCarrusel) {
+                //AbrirLoad();
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
@@ -347,7 +342,7 @@ else
         });
 
         $(document).ajaxStop(function () {
-
+            //CerrarLoad();
         })
     </script>
 }

@@ -98,9 +98,7 @@ namespace Portal.Consultoras.Common
             htmlTemplate = htmlTemplate.Replace("#Pin#", Pin);
 
             try { Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname); }
-            catch {
-                //
-            }
+            catch { }
         }
 
         public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo, string parametros)

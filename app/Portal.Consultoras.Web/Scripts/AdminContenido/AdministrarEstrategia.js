@@ -49,7 +49,7 @@
         rutastylejstree: config.rutastylejstree,
         urlUploadBloqueoCuv: config.urlUploadBloqueoCuv
     };
-
+     
     var _variables = {
         isNuevo: false,
         cantidadPrecargar: 0,
@@ -81,6 +81,7 @@
     var _idEstrategia = {
         OfertaParaTi: 4,
         PackNuevas: 6,
+        //OfertaWeb: "003",
         Lanzamiento: 9,
         OfertasParaMi: 10,
         PackAltoDesembolso: 11,
@@ -2313,11 +2314,11 @@
             success: function (data) {
                 $("#listCargaDescMasiva").jqGrid("GridUnload");
                 var mensaje = "";
-                if (data.listActualizado == 0 && data.listInsertado == 0) {
+                if (data.listActualizado == 0) {
                     mensaje = 'No se realizó ninguna actualización ni inserción (Verificar que los CUVs existan en la tabla "ods.OfertasPersonalizadas").';
                 }
                 else {
-                    mensaje = "El procedimiento culmino con éxito, <br /> - Se actualizaron " + data.listActualizado + " Set(s) <br /> - Se insertaron " + data.listInsertado + " Set(s)";
+                    mensaje = "El procedimiento culmino con éxito, <br /> - Se actualizaron " + data.listActualizado + " Set(s)";
                 }
                 closeWaitingDialog();
                 $("#estadoCargaMasiva").css("color", "black");
@@ -2347,7 +2348,17 @@
             closeWaitingDialog();
             return false;
         }
-        
+
+        //var archivo = document.getElementById("fileDescMasivo").files[0];
+        //var splitArchivo = archivo.name.split('.');
+        //var lengthArray = splitArchivo.length;
+
+        //if (splitArchivo[lengthArray - 1] != 'csv') {
+        //    _toastHelper.error("Formato de archivo requerido es \".csv\".");
+        //    closeWaitingDialog();
+        //    return false;
+        //}
+
         formData.append("Documento", document.getElementById("fileDescMasivo").files[0]);
         formData.append("Pais", $("#ddlPais").val());
         formData.append("CampaniaId", $("#ddlCampania").val());
@@ -3150,6 +3161,11 @@
 
             waitingDialog();
 
+            //var estrategias = jQuery("#list").jqGrid("getDataIDs", "EstrategiaID");
+            //var estrategiasSeleccionadas = jQuery("#list").jqGrid("getGridParam", "selarrrow");
+            //var estrategiasNoSeleccionadas = estrategias.filter(function(obj) {
+            //    return estrategiasSeleccionadas.indexOf(obj) == -1;
+            //});
             var estrategiasSeleccionadas = new Array();
             var estrategiasNoSeleccionadas = new Array();
 
@@ -3983,6 +3999,37 @@
 
         return false;
     }
+
+    //function Editar(id, event) {
+    //    event.preventDefault();
+    //    event.stopPropagation();
+
+    //    if (id != 0)
+    //        _variables.isNuevo = false;
+
+    //    if (id) {
+    //        _limpiarFiltrosNemotecnico();
+
+    //        waitingDialog();
+
+    //        $("#hdEstrategiaID").val(id);
+
+    //        _clearFields();
+
+    //        var params = {
+    //            EstrategiaID: $("#hdEstrategiaID").val(),
+    //            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+    //            CampaniaID: $("#ddlCampania").val(),
+    //            ValidarImagen: $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen"),
+    //            PesoMaximo: $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo")
+    //        };
+
+    //        _idImagen = id;
+    //        _editar(params, id);
+    //    }
+
+    //    return false;
+    //}
 
     function Deshabilitar(id, mongoId, tipoEstrategiaCodigo, event) {
         event.preventDefault();

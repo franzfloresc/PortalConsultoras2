@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
+        public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
         {
             var estrategias = new List<ServiceOferta.BEEstrategia>();
             var httpResponse = await httpClient.GetAsync(path);
@@ -77,6 +78,7 @@ namespace Portal.Consultoras.Web.Providers
                         TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
                         TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
+                        EsSubCampania = Convert.ToBoolean(item.esSubCampania ) ? 1 : 0
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
                     if (estrategia.Precio2 > 0)
@@ -86,6 +88,35 @@ namespace Portal.Consultoras.Web.Providers
                         {
                             ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
                             {
+                                ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
+                                {
+                                    Grupo = componente.grupo,
+                                    CUV = componente.cuv,
+                                    SAP = componente.codigoSap,
+                                    Orden = componente.orden,
+                                    Precio = componente.precioUnitario,
+                                    Digitable = Convert.ToBoolean(componente.indicadorDigitable) ? 1 : 0,
+                                    Cantidad = componente.cantidad,
+                                    FactorCuadre = componente.factorCuadre,
+                                    IdMarca = componente.marcaId,
+                                    NombreMarca = componente.nombreMarca,
+                                    NombreComercial = componente.nombreComercial,
+                                    Volumen = componente.volumen,
+                                    NombreBulk = componente.nombreBulk
+                                };
+
+                                compoponentes.Add(estrategiaTono);
+                            }
+
+                            estrategia.EstrategiaProducto = compoponentes.ToArray();
+
+                            estrategias.Add(estrategia);
+                        }
+                        else
+                        {
+                            listaCuvPrecio0.Add(estrategia.CUV2);
+                            codTipoEstrategia = estrategia.CodigoTipoEstrategia;
+                            codCampania = estrategia.CampaniaID.ToString();
                                 Grupo = componente.grupo,
                                 CUV = componente.cuv,
                                 SAP = componente.codigoSap,

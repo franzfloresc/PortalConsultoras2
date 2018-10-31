@@ -192,7 +192,7 @@
         }
 
         <hr class="clear" />
-        <div id="divOfertaProductosPerdio"
+        <div id="divOfertaProductosPerdio" @*data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"*@
              data-content-perdido="@Model.CampaniaID"
              class="flex-container fix_zona_dorada_mobile " style="display: inline-flex !important;flex-wrap: wrap;justify-content: center; display: none;"></div>
         <hr class="clear" />
@@ -227,6 +227,10 @@
 
 @if (Model.TieneSubCampania)
 {
+    //var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
+
+    //if (listaSubCampania != null && listaSubCampania.Count > 0)
+    //{
     <div id="divContentSubCampania" style="display:none;">
         <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
             <div class="content_titulo_sub_oferta">
@@ -267,7 +271,7 @@
             </div>
         </div>
     </div>
-
+    //}
 }
 else
 {
@@ -366,6 +370,7 @@ else
         var precioMin = '@Model.PrecioMinFiltro';
         var precioMax = '@Model.PrecioMaxFiltro';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        @*var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomCarrusel';*@
         var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
         var tieneSubCampania = '@Model.TieneSubCampania';

@@ -1,8 +1,7 @@
-﻿@using Portal.Consultoras.Common
-<script id="resumen-opciones-template" type="text/x-handlebars-template">
+﻿<script id="resumen-opciones-template" type="text/x-handlebars-template">
     {{#each this.resumenAplicadosVisualizar as |componente|}}
     {{#iff componente.cantidadAplicada '>' 0}}
-    <ul class="tonos_seleccionados_item {{#iff this.CodigoVariante '==' '@Constantes.TipoEstrategiaSet.IndividualConTonos'}}tono_seleccionado{{/iff}}" data-tono="">
+    <ul class="tonos_seleccionados_item {{#iff this.CodigoVariante '==' '2001'}}tono_seleccionado{{/iff}}" data-tono="">
         <li class="imagen_seleccionado"><img src="{{componente.ImagenBulk}}" alt="" /></li>
         <li class="titulo_selecionado">
             <span class="cantidad_producto_opt">x{{componente.cantidadAplicada}} </span>
@@ -21,9 +20,7 @@
     {{/each}}
     {{/iff}}
 
-    <a class="btn_cambiar_opciones {{#iff this.CodigoVariante '==' '@Constantes.TipoEstrategiaSet.IndividualConTonos'}}cambiar_opcion{{/iff}}" 
-       href="#" }
-       onclick="javascript: ComponentesModule.SeleccionarComponente('{{this.Cuv}}')">
+    <a class="btn_cambiar_opciones {{#iff this.CodigoVariante '==' '2001'}}cambiar_opcion{{/iff}}" href="#" onclick="javascript: ComponentesModule.SeleccionarComponente('{{this.Cuv}}')">
         {{#iff this.FactorCuadre '==' '1'}}
         Cambiar opción
         {{else}}
@@ -31,7 +28,7 @@
         {{/iff}}
         <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" />
     </a>
-    {{#iff this.CodigoVariante '==' '@Constantes.TipoEstrategiaSet.IndividualConTonos'}}
+    {{#iff this.CodigoVariante '==' '2001'}}
     <hr class="clear">
     {{/iff}}
 </script>

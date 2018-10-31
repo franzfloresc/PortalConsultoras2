@@ -724,7 +724,6 @@ namespace Portal.Consultoras.Common
             //public const int ShowRoomMobileSubCampania = 2524;
             //public const int ShowRoomMobileContenedor = 2871;
             //public const int MobileShowRoom = 2571;
-
             #endregion
 
             #region OfertaDelDia 
@@ -2893,11 +2892,11 @@ namespace Portal.Consultoras.Common
             //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
             public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
 
-            ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}/{materialGanancia}
-            public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}";
-
-            //api/Componente/{pais}/{codigoCampania}/{cuv}
-            public const string UrlObtenerComponente = "api/Componente/{0}/{1}/{2}";
+            ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}
+            public const string UrlObtenerOfertas = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}";
+            
+            //api/Evento/Get/{pais}/{campania}
+            public const string UrlObtenerEvento = "api/Evento/Get/{0}/{1}";
 
             #endregion
         }
@@ -3100,7 +3099,7 @@ namespace Portal.Consultoras.Common
             public const string AcionesOmitidas = "ActualizarContrasenia";
         }
 
-        public static class PlantillaExcel
+        public class PlantillaExcel
         {
             public const string UrlExcelMatrizCampania = "http://somosbelcorpprd.s3.amazonaws.com/Matriz/PLANTILLA_MASIVO_MATRIZ.xlsx";
         }

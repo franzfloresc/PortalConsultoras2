@@ -81,6 +81,18 @@ namespace Portal.Consultoras.Web.Providers
 
         public string GetValorDato(string codigo, bool esMobile, int valor = 1)
         {
+            //var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+            //var valorDato = "";
+            //switch (valor)
+            //{
+            //    case 0: valorDato = esMobile ? dato.Valor2 : dato.Valor1; break;
+            //    case 1: valorDato = dato.Valor1; break;
+            //    case 2: valorDato = dato.Valor2; break;
+            //    case 3: valorDato = dato.Valor3; break;
+            //    default: valorDato = dato.Valor1; break;
+            //}
+            //return Util.Trim(valorDato);
+
             return _configuracionPaisDatos.GetValorDato(revistaDigital.ConfiguracionPaisDatos, codigo, esMobile, valor);
         }
 

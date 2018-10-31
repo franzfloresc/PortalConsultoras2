@@ -1,6 +1,5 @@
-﻿@using Portal.Consultoras.Common
-<script id="componentes-template" type="text/x-handlebars-template">
-    {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.IndividualConTonos'}}
+﻿<script id="componentes-template" type="text/x-handlebars-template">
+    {{#iff CodigoVariante '==' '2001'}}
 
     {{#each this.Hermanos as |componente|}}
     <div class="content_tonos" data-tono="" data-opciones-seleccionadas="0" data-tono-digitable="1">
@@ -53,7 +52,7 @@
     </div>
     {{/each}}
     {{/iff}}
-    {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
+    {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
     <div class="contenido_titulo">
         <div class="">
             <span>CONTENIDO:</span>
@@ -83,7 +82,7 @@
                         <span class="text_referencial_tipos">*Nombre de producto referencial</span>
                         {{/if}}
                     </div>
-
+                    
                 </div>
             </div>
 
@@ -91,7 +90,7 @@
             <div class="content_right_ficha" style="width:43%;">
                 <div class="tono_select_opt">
                     <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" data-tono-change-cuv="{{componente.Cuv}}"
-                         onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
+                     onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
                         <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
                         <div class="texto_tono_seleccionado">
                             {{#iff componente.FactorCuadre '==' '1'}}
