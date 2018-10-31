@@ -228,8 +228,11 @@
   <xs:element name="BEUsuario" nillable="true" type="tns:BEUsuario" />
   <xs:complexType name="BEBuscadorYFiltrosConfiguracion">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AplicarLogicaCantidadBotonVerTodosBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="CaracteresBuscador" type="xs:short" />
       <xs:element minOccurs="0" name="CaracteresBuscadorMostrar" type="xs:short" />
+      <xs:element minOccurs="0" name="IndicadorConsultoraDummy" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MostrarBotonVerTodosBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="MostrarBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="TotalResultadosBuscador" type="xs:short" />
     </xs:sequence>

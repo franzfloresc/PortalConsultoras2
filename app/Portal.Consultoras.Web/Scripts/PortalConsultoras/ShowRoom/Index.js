@@ -52,16 +52,13 @@ $(document).ready(function () {
         stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
             stilo = stilo.replace("display:none", "display:block");
-            //$('.banner_especial_showroom').attr("style", stilo);
-            //$('.banner_especial_showroom').show();
+
         }
     }
 
     $(".seleccion_filtro_fav").on("click", function () {
         $(this).toggleClass("seleccion_click_flitro");
     });
-
-    //TagManagerOfertaShowRoom();
 
     $('#DialogMensajesBanner').dialog({
         autoOpen: false,
@@ -226,9 +223,7 @@ $(document).ready(function () {
     if (localStorage["cerrar_banner_sub_campanias"]) {
         cerrar_banner_sub_campanias = true;
     }
-    //if (tieneSubCampania == "True" && itemsSubCampania > 0 && cerrar_banner_sub_campanias == false) {
-    //    ver_subcamapania = true;
-    //}
+
     if (tieneCompraXCompra == "True" && itemsCompraXCompra > 0 && closeBannerCompraPorCompra == "False") {
         ver_compraxcompra = true;
     }
@@ -239,9 +234,8 @@ $(document).ready(function () {
         $("#divBannerCompraPorCompra").hide();
          stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
-             stilo = stilo.replace("display:none", "display:block");
-            //$('.banner_especial_showroom').attr("style", stilo);
-            //$('.banner_especial_showroom').show();
+            stilo = stilo.replace("display:none", "display:block");
+
         }
         $(".footer_e").css("margin-bottom", "73px");
     }
@@ -249,9 +243,8 @@ $(document).ready(function () {
         $("#divBannerCompraPorCompra").hide();
          stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
-             stilo = stilo.replace("display:none", "display:block");
-            //$('.banner_especial_showroom').attr("style", stilo);
-            //$('.banner_especial_showroom').show();
+            stilo = stilo.replace("display:none", "display:block");
+
         }
     }
     else if (ver_compraxcompra == true) {

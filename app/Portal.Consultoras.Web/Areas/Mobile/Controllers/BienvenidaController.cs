@@ -25,7 +25,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             _bienvenidaProvider = new BienvenidaProvider();
         }
 
-
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(int verSeccion = 0)
         {
@@ -102,7 +101,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 ViewBag.NombreConsultora = model.NombreConsultora;
 
-                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.MobileHome);
+                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptMobileHome);
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
                 ViewBag.UrlImagenFAVMobile = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
 
@@ -137,7 +136,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (LogicaCaminoExisto.Any())
                 {
                     var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
-                    bool caminiExitoActive = (CaminoExistoFirst != null && CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
+                    bool caminiExitoActive = (CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
                     if (caminiExitoActive)
                     {
                         var accesoCaminoExito = this.ObjectCaminoExito();
@@ -591,5 +590,4 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
     }
-
 }

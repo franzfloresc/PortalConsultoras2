@@ -82,13 +82,9 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
         stackTrace = thrownError;
     }
     else if (thrownError == 'abort') {
-        //message += "Request was aborted.";
-        //stackTrace = thrownError;
         return;
     }
     else if (jqxhr.status === 0) {
-        //message += "No connection.";
-        //stackTrace = jqxhr.responseText;
         return;
     }
     else if (jqxhr.status >= 400) {

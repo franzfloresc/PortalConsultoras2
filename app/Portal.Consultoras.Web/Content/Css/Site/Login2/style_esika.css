@@ -1145,7 +1145,6 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     position: relative;
     background: white;
-    /*padding-top: 29px;*/
     padding-bottom: 44px;
     margin-bottom: 30px;
 }
@@ -1342,11 +1341,6 @@ h1, h2, h3, h4, h5, h6 {
         border: 1px solid rgba(242, 242, 242, 0.5);
     }
 
-/*.opciones_recuperacionContrasenia:nth-child(3n):hover{
-    border:none;
-    cursor:default;
-}*/
-
 .opcion_correoElectronico, .opcion_chateaConNosotros {
     margin-bottom: 20px;
 }
@@ -1504,11 +1498,6 @@ h1, h2, h3, h4, h5, h6 {
     background-repeat: no-repeat;
     background-size: 100%;
 }
-
-/*.icono_correo img {
-        width: 100%;
-        height: auto;
-    }*/
 
 #popup_olvidasteContrasenia .formCont {
     margin-left: 20.2%;
@@ -2082,15 +2071,6 @@ h1, h2, h3, h4, h5, h6 {
             content: "\e62c";
             color: #FFF;
         }
-
-    /*.icono_tel img {
-        display: block;
-        margin: 0 auto;
-        width: 100%;
-        height: auto;
-        position: relative;
-        left: -1px;
-    }*/
 
     .num_central {
         display: block;

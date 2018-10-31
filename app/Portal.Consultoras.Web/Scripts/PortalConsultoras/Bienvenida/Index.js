@@ -109,6 +109,10 @@ $(document).ready(function () {
         }
     });
 
+    $('.cerrarTooltip').click(function () {
+        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
+    });
+
     document.onkeydown = function (evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
@@ -229,7 +233,7 @@ $(document).ready(function () {
     CargarCarouselLiquidaciones();
     CargarMisCursos();
     CargarBanners();
-    //CargarCatalogoPersonalizado();
+
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
@@ -1475,7 +1479,7 @@ function CargarMisDatos() {
         error: function (data, error) { }
     });
 }
-///
+
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
@@ -1490,7 +1494,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     }
 };
-///
+
 function CambiarContrasenia() {
     var oldPassword = $("#txtContraseniaAnterior").val();
     var newPassword01 = $("#txtNuevaContrasenia01").val();
@@ -1555,12 +1559,6 @@ function CambiarContrasenia() {
                             $(".campos_actualizarDatos").delay(200);
                             $(".campos_actualizarDatos").fadeIn(200);
                             alert("Se cambió satisfactoriamente la contraseña.");
-                            //var reqRedirect = getUrlParameter('verCambioClave');
-                            //if (reqRedirect != null) {
-                            //    setTimeout(function () { CerrarSesion(); }, 2000);
-                            //} else {
-                            //    setTimeout(function () { CerrarSesion(); }, 2000);
-                            //}
                         }
                         return false;
                     }
@@ -3258,15 +3256,19 @@ function dataLayerVC(action, label) {
 }
 
 function ConsultarEmailPendiente() {
+    var item = {
+        pagina: "1"
+    }
     $.ajax({
         type: 'POST',
-        url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
+        url: baseUrl + 'Bienvenida/ObtenerActualizacionEmailSms',
         dataType: 'Text',
         contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
         success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.split('|')[0] == '1') {
-                    document.getElementById('spnEmail').innerHTML = data.split('|')[1];
+            if (checkTimeout(data)) { 
+                if (data != '') {
+                    document.getElementById('mensajeToolTip').innerHTML = data;
                     document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
                 }
             }
