@@ -228,7 +228,9 @@ namespace Portal.Consultoras.Web.Providers
                 return listModel1;
 
             if (model.Limite > 0)
-                listaFinal1 = listaFinal1.Take(model.Limite).ToList();
+                listModel1 = listaFinal1.Take(model.Limite).ToList();
+            else
+                listModel1 = listaFinal1;
 
             // Aplicar filtros: rango de precios, ordenamiento
             if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
