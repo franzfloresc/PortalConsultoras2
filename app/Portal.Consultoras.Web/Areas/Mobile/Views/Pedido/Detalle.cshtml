@@ -130,8 +130,12 @@
         <hr class="clear">
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div class="mensaje_alerta">¿Deseas eliminar el pedido completo?.</div>
-        <a href="javascript:;" onclick="EliminarPedidoTotalSi();" class="btn_ok_mobile"><b>OK</b></a>
+        <div class="mensaje_alerta">¿Deseas eliminar el pedido completo?</div>
+
+        <div style="text-align: center; margin-top: 18px;">
+            <input id="btnEliminarPedidoCompletoNo" type="button" value="No, gracias" onclick="EliminarPedidoTotalNo()" class="input_modifica_horizontal_cancelar" style="width: 100px; margin-left: 0;" />
+            <input id="btnEliminarPedidoCompletoSi" type="button" value="SÍ, ELIMINAR" onclick="EliminarPedidoTotalSi()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+        </div>
     </div>
 </div>
 

@@ -539,3 +539,26 @@
         margin-bottom: 18px;
         display: list-item;
     }
+
+.input_modifica_horizontal {
+    text-transform: uppercase;
+    width: 115px !important;
+    height: 45px;
+    letter-spacing: .5px;
+    color: white;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #e81c36;
+    border: none;
+    font-weight: bold;
+}
+
+.input_modifica_horizontal_cancelar {
+    height: 45px;
+    color: #000;
+    background: none;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    text-decoration: underline;
+}
