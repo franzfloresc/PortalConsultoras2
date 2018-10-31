@@ -1627,7 +1627,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Canal", "Canal"}
             };
 
-            Util.ExportToExcel("SueniosDeNavidad", lst, dic);
+            Util.ExportToExcel("SueniosDeNavidad", lst, dic, GetExcelSecureCallback());
             return View();
         }
 
