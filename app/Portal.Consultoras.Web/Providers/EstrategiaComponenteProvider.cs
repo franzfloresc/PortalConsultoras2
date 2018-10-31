@@ -87,6 +87,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 //listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos);
                 //mensaje += "GetEstrategiaDetalleCompuestaMs = " + listaEstrategiaComponente.Count + "|";
+
                 listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
                 if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
