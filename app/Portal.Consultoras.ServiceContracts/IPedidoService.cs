@@ -1234,6 +1234,16 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ObtenerPagoEnLineaNumeroOrden(int paisId);
+
+        [OperationContract]
+        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario);
+
+        [OperationContract]
+        BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora);
+
+        [OperationContract]
+        BERespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa);
+
         #endregion
 
         [OperationContract]

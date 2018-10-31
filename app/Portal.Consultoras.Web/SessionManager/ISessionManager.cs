@@ -469,6 +469,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<List<BEEstadoServicio>> GetListaRango();
 
+        BEUsuarioDatos GetDatosUsuario();
+
         IMasGanadoras MasGanadoras { get;  }
         bool GetMostrarBannerNuevas();
 

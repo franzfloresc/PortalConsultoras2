@@ -75,6 +75,13 @@ namespace Portal.Consultoras.Common
             return Math.Round(value, NumDecimales);
         }
 
+        static public Decimal ParseDecimal(object value, IFormatProvider provider)
+        {
+            Decimal number;
+            bool result = Decimal.TryParse(ParseString(value), NumberStyles.Any, provider, out number);
+            return result ? number : 0;
+        }
+
         static public String ParseString(object value)
         {
             var cadena = Convert.ToString(value);
