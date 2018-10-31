@@ -126,7 +126,7 @@
     background-color: #FFF;
     background-image:url(/Content/Images/Lbel/pestana_lbel.png);
     top: -3px;
-    left: 9.4%;
+    left: 15.7%;
     background-size: cover;
 }
 
@@ -180,9 +180,7 @@
     }
 
     .header__marca__pais picture {
-        margin-top: 0;
-        position: relative;
-        left: -3px;
+        margin-top: 9px;
     }
 
     .header__marca__pais img{
