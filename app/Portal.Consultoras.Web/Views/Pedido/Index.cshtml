@@ -598,11 +598,23 @@
     <div class="popup_tutorial_pedido" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
         <div id="slide1_container" class="shadow">
             <div id="slide1_images">
-                <div class="imagen_tutorial img_slide1Pedido"></div>
-                <div class="imagen_tutorial img_slide2Pedido"></div>
-                <div class="imagen_tutorial img_slide3Pedido"></div>
-                <div class="imagen_tutorial img_slide4Pedido"></div>
-                <div class="imagen_tutorial img_slide5Pedido"></div>
+                @if (ViewBag.CodigoISODL == Constantes.CodigosISOPais.Peru ||
+                     ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+                {
+                    <div class="imagen_tutorial img_slide1Pedido fondo1Pedido"></div>
+                    <div class="imagen_tutorial img_slide2Pedido fondo2Pedido"></div>
+                    <div class="imagen_tutorial img_slide3Pedido fondo3Pedido"></div>
+                    <div class="imagen_tutorial img_slide4Pedido fondo4Pedido"></div>
+                    <div class="imagen_tutorial img_slide5Pedido fondo5Pedido"></div>
+                }
+                else
+                {
+                    <div class="imagen_tutorial img_slide1Pedido"></div>
+                    <div class="imagen_tutorial img_slide2Pedido"></div>
+                    <div class="imagen_tutorial img_slide3Pedido"></div>
+                    <div class="imagen_tutorial img_slide4Pedido"></div>
+                    <div class="imagen_tutorial img_slide5Pedido"></div>
+                }
             </div>
         </div>
         <div class="btn_cerrar_actualizarMisDatos">
