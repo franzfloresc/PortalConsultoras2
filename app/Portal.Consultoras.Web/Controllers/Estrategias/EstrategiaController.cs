@@ -180,11 +180,11 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 int cantidadTotal0 = 0;
                 if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
                 {
-                    listModel = SessionManager.ShowRoom.Ofertas;
+                    listModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
                     cantidadTotal0 = listModel.Count;
                     listModel = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrarSR(model, listModel, tipoConsulta);
-                    listPerdio = SessionManager.ShowRoom.OfertasPerdio;
-                    listaSubCampania = SessionManager.ShowRoom.OfertasSubCampania;
+                    listPerdio = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3);
+                    listaSubCampania = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 2); ;
                 }
                 else
                 {
@@ -317,6 +317,20 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     {
                         var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
                         var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.ShowRoom) ?? new ConfiguracionSeccionHomeModel();
+                        var cantidad = entConf.CantidadMostrar;
+                        if (cantidadTotal <= cantidad)
+                        {
+                            session.TieneLanding = false;
+                        }
+                    }
+                }
+                else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
+                {
+                    var session = SessionManager.GetRevistaDigital();
+                    if (session.TieneLanding)
+                    {
+                        var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
+                        var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.RevistaDigital) ?? new ConfiguracionSeccionHomeModel();
                         var cantidad = entConf.CantidadMostrar;
                         if (cantidadTotal <= cantidad)
                         {

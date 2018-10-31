@@ -182,7 +182,7 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
                             seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
-                            //seccion.VerMas = SessionManager.ShowRoom.TieneLanding;
+                            seccion.VerMas = SessionManager.GetRevistaDigital().TieneLanding;
 
                             break;
                         case Constantes.ConfiguracionPais.ShowRoom:
@@ -344,7 +344,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             seccion.UrlLandig = "";
 
-            if (ShowRoom.ValidarIngresoShowRoom(false))
+            if (!ShowRoom.ValidarIngresoShowRoom(false))
                 return seccion;
             
             seccion.UrlObtenerProductos = "Estrategia/SRObtenerProductos";

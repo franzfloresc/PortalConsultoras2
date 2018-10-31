@@ -152,13 +152,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private ShowRoomEventoModel OfertaShowRoom()
         {
-            if (!_showRoomProvider.ValidarIngresoShowRoom(false))
-            {
-                return null;
-            }
-
             try
             {
+                if (!_showRoomProvider.ValidarIngresoShowRoom(false))
+                {
+                    return null;
+                }
+
                 var showRoomEventoModel = CargarValoresModel();
 
                 if (configEstrategiaSR.ListaPersonalizacionConsultora != null)
