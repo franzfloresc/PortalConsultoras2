@@ -16,11 +16,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class BienvenidaController : BaseMobileController
     {
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
-        protected Providers.TablaLogicaProvider _tablaLogica;
+        private readonly BienvenidaProvider _bienvenidaProvider;
+        protected TablaLogicaProvider _tablaLogica;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
-            _tablaLogica = new Providers.TablaLogicaProvider();
+            _tablaLogica = new TablaLogicaProvider();
+            _bienvenidaProvider = new BienvenidaProvider();
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]

@@ -640,7 +640,8 @@ namespace Portal.Consultoras.Web.Providers
                userData.CampaniaID,
                userData.CodigoConsultora,
                userData.CodigorRegion,
-               userData.ZonaID);
+               userData.ZonaID,
+               0);
 
             var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathShowroom, userData.CodigoISO));
             Task.WhenAll(taskApi);
