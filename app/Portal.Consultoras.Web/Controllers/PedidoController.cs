@@ -1348,7 +1348,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.PaisID = userData.PaisID;
                 pedidoDetalle.IPUsuario = GetIPCliente();
                 pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
-                var olstPedidoWebDetalle2 = await _pedidoWebProvider.EliminarPedidoDetalle2(pedidoDetalle);
+                var olstPedidoWebDetalle2 = await _pedidoWebProvider.EliminarPedidoDetalle(pedidoDetalle);
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
