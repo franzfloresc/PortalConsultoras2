@@ -6,7 +6,7 @@ if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
 }(window.jQuery);
 
-var AnalyticsPortalModule = (function () {
+var AnalyticsPortalModule = (function() {
     var _evento = {
         virtualEvent: "virtualEvent",
         virtualRemoveEvent: "removeFromCart",
@@ -16,7 +16,7 @@ var AnalyticsPortalModule = (function () {
         socialEvent: "socialEvent",
         addToCart: "addToCart",
         //Inicio Analytics Home 1
-        promotionView:"promotionView",
+        promotionView: "promotionView",
         //Fin Analytics Home 1
         //Inicio Analytics Ofertas
         promotionClick: "promotionClick",
@@ -56,13 +56,16 @@ var AnalyticsPortalModule = (function () {
         CART: "CART",
         ODD: "ODD",
         HOME: "HOME",
-        HOMEOFERTA: "HOMEOFERTA"
+        HOMEOFERTA: "HOMEOFERTA",
+        GND: "GND"
     };
     // Fin - Analytics Home 1 (Miguel)
 
     var _constantes = {
         simboloSolPeru: "S/.",
         solPeru: "PEN",
+        simboloCostaRica: "¢",
+        MonedaCostaRica: "CR",
         // Ini - Analytics Buscador Miguel
         isTest: false,
         currencyCodes: [{ "Country": "Peru", "CountryCode": "PE", "Currency": "Nuevo Sol", "Code": "PEN" }, { "Country": "Venezuela", "CountryCode": "VE", "Currency": "Bolivar", "Code": "VEF" }, { "Country": "Bolivia", "CountryCode": "BO", "Currency": "Boliviano", "Code": "BOB" }, { "Country": "Chile", "CountryCode": "CL", "Currency": "Chilean Peso", "Code": "CLP" }, { "Country": "Brazil", "CountryCode": "BR", "Currency": "Brazil", "Code": "BRL" }, { "Country": "Colombia", "CountryCode": "CO", "Currency": "Peso", "Code": "COP" }, { "Country": "Costa Rica", "CountryCode": "CR", "Currency": "Costa Rican Colon", "Code": "CRC" }, { "Country": "Ecuador", "CountryCode": "EC", "Currency": "Sucre", "Code": "ECS" }, { "Country": "El Salvador", "CountryCode": "SV", "Currency": "Salvadoran Colon", "Code": "SVC" }, { "Country": "United States", "CountryCode": "US", "Currency": "USD", "Code": "USD" },],
@@ -110,6 +113,9 @@ var AnalyticsPortalModule = (function () {
             switch (simboloMoneda) {
                 case _constantes.simboloSolPeru:
                     tipoMoneda = _constantes.solPeru;
+                    break;
+                case _constantes.simboloCostaRica:
+                    tipoMoneda = _constantes.MonedaCostaRica;
                     break;
             }
         } catch (e) {
@@ -203,14 +209,20 @@ var AnalyticsPortalModule = (function () {
        // var $btnAgregar = $(event.target);
        // var origenPedidoWebEstrategia = EstrategiaAgregarModule.GetOrigenPedidoWeb($btnAgregar);
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+        var currencyCode = "";
+        tipoMoneda = tipoMoneda || "";
+        if (tipoMoneda === "")
+            currencyCode = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
+        else
+            currencyCode = tipoMoneda;
         var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, origenPedidoWebEstrategia, estoyEnLaFicha);
-        
+        debugger;
 
         try {
             dataLayer.push({
                 'event': _evento.productClick,
                 'ecommerce': {
-                    'currencyCode': tipoMoneda,
+                    'currencyCode': currencyCode,
                     'click': {
                         'actionField': {
                             'list': contenedor + " - Campaña "+  $('#hdCampaniaCodigo').val()
@@ -553,6 +565,7 @@ var AnalyticsPortalModule = (function () {
                 case _codigoSeccion.ODD: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
                 case _codigoSeccion.CART: AnalyticsPortalModule.MarcaProductImpressionCart(seccion, data); break;
                 case _codigoSeccion.SR: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
+                case _codigoSeccion.GND: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
 
                 // Fin Analytics Ofertas Miguel
             }
