@@ -274,7 +274,6 @@ namespace Portal.Consultoras.Web.Providers
         {
             var resultado = false;
             var userData = sessionManager.GetUserData();
-            var usrDatos = sessionManager.GetDatosUsuario();
 
             try
             {
@@ -288,7 +287,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa, userData);
 
-                bePagoEnLinea.Origen = usrDatos != null ? (usrDatos.EsMobile ? Constantes.PagoEnLineaOrigen.OrigeMobile : Constantes.PagoEnLineaOrigen.OrigenDesktop) : Constantes.PagoEnLineaOrigen.OrigenDesktop;
+                bePagoEnLinea.Origen = (model.EsMobile ? Constantes.PagoEnLineaOrigen.OrigeMobile : Constantes.PagoEnLineaOrigen.OrigenDesktop);
 
                 bePagoEnLinea.MontoPago = model.MontoDeuda;
                 bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;
