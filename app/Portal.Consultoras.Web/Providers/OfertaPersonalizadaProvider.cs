@@ -973,7 +973,7 @@ namespace Portal.Consultoras.Web.Providers
                     return ObtenerListaProductoShowRoom(usuarioModel, campaniaId, codigoConsultora, esDiasFacturacion, 1)
                         .FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.OfertaDelDia:
-                    var listaProductoODD = RevisarCamposParaMostrar(ObtenerListaProductoODD(), true);
+                    var listaProductoODD = RevisarCamposParaMostrar(ObtenerListaProductoODD(usuarioModel), true);
                     return listaProductoODD.FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.PackNuevas:
                     var varSession = Constantes.ConstSession.ListaEstrategia + Constantes.TipoEstrategiaCodigo.PackNuevas;
@@ -991,20 +991,34 @@ namespace Portal.Consultoras.Web.Providers
         }
 
 
-        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD()
+        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD(UsuarioModel model)
         {
-            if (SessionManager.OfertaDelDia.Estrategia != null)
+            OfertaDelDiaProvider ofertaDelDiaProvider = new OfertaDelDiaProvider();
+
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
             {
-                if (SessionManager.OfertaDelDia.Estrategia.ListaOferta != null)
+                return ConsultarEstrategiasModelFormato(ofertaDelDiaProvider.GetOfertas(model),
+                                                    model.CodigoISO,
+                                                    model.CampaniaID,
+                                                    2,
+                                                    model.esConsultoraLider,
+                                                    model.Simbolo);
+            }
+            else
+            {
+                if (SessionManager.OfertaDelDia.Estrategia != null)
                 {
-                    var ListaOfertaSession = SessionManager.OfertaDelDia.Estrategia.ListaOferta;
-                    return ListaOfertaSession;
+                    if (SessionManager.OfertaDelDia.Estrategia.ListaOferta != null)
+                    {
+                        var ListaOfertaSession = SessionManager.OfertaDelDia.Estrategia.ListaOferta;
+                        return ListaOfertaSession;
+                    }
+                    else
+                        return new List<EstrategiaPersonalizadaProductoModel>();
                 }
                 else
                     return new List<EstrategiaPersonalizadaProductoModel>();
             }
-            else
-                return new List<EstrategiaPersonalizadaProductoModel>();
         }
 
         public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoShowRoom(UsuarioModel userData, int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
