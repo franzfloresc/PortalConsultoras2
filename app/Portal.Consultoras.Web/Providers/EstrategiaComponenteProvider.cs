@@ -138,13 +138,20 @@ namespace Portal.Consultoras.Web.Providers
                 x.NombreBulk = String.IsNullOrEmpty(x.NombreBulk) ? x.NombreComercial : x.NombreBulk;
                 x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
-                if (string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
+                if (string.IsNullOrWhiteSpace(x.ImagenProducto) && string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
                 var campaniaId = estrategiaModelo.CampaniaID;
                 var codigoMarca = string.Empty;
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
                 if (x.IdMarca == Constantes.Marca.Cyzone) codigoMarca = "C";
-                x.ImagenBulk = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, x.CampaniaApp, codigoMarca, x.ImagenBulk);
+                if ((x.NombreComercial.Equals(x.NombreBulk)))
+                {
+                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenProducto) ? "" : string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenProducto);
+                }
+                else
+                {
+                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenBulk) ? "" : string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, x.CampaniaApp, codigoMarca, x.ImagenBulk);
+                }
             });
 
             return listaProducto;
