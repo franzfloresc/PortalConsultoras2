@@ -411,6 +411,7 @@ namespace Portal.Consultoras.Web.Providers
             string content = taskApi.Result;
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+            if (respuesta == null) return null;
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 throw new Exception(respuesta.Message);
