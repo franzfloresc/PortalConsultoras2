@@ -88,35 +88,6 @@ namespace Portal.Consultoras.Web.Providers
                         {
                             ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
                             {
-                                ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
-                                {
-                                    Grupo = componente.grupo,
-                                    CUV = componente.cuv,
-                                    SAP = componente.codigoSap,
-                                    Orden = componente.orden,
-                                    Precio = componente.precioUnitario,
-                                    Digitable = Convert.ToBoolean(componente.indicadorDigitable) ? 1 : 0,
-                                    Cantidad = componente.cantidad,
-                                    FactorCuadre = componente.factorCuadre,
-                                    IdMarca = componente.marcaId,
-                                    NombreMarca = componente.nombreMarca,
-                                    NombreComercial = componente.nombreComercial,
-                                    Volumen = componente.volumen,
-                                    NombreBulk = componente.nombreBulk
-                                };
-
-                                compoponentes.Add(estrategiaTono);
-                            }
-
-                            estrategia.EstrategiaProducto = compoponentes.ToArray();
-
-                            estrategias.Add(estrategia);
-                        }
-                        else
-                        {
-                            listaCuvPrecio0.Add(estrategia.CUV2);
-                            codTipoEstrategia = estrategia.CodigoTipoEstrategia;
-                            codCampania = estrategia.CampaniaID.ToString();
                                 Grupo = componente.grupo,
                                 CUV = componente.cuv,
                                 SAP = componente.codigoSap,

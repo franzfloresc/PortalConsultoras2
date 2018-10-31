@@ -50,7 +50,6 @@ namespace Portal.Consultoras.Web.Controllers
             var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                //return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
                 if (url.Length > 1)
                 {
                     sap = "&" + url[1];
