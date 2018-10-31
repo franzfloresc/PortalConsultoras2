@@ -3,12 +3,9 @@
 
 @{
     ViewBag.Title = "Buscador";
-    //var layout = ViewContext.MobilePedidoLayout();
     var layout = "_MobileLayoutEmpty";
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
-
-    //var origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileBuscador;
 }
 
 @section styles{
