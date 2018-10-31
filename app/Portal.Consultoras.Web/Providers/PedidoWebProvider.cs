@@ -297,7 +297,7 @@ namespace Portal.Consultoras.Web.Providers
             return pedidoDetalleResult;
         }
 
-        public async Task<BEPedidoDetalleResult> EliminarPedidoDetalle2(BEPedidoDetalle pedidoDetalle)
+        public async Task<BEPedidoDetalleResult> EliminarPedidoDetalle(BEPedidoDetalle pedidoDetalle)
         {
             BEPedidoDetalleResult pedidoDetalleResult;
             using (var pedidoServiceClient = new PedidoServiceClient())

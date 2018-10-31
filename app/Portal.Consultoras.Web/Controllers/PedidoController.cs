@@ -1041,9 +1041,23 @@ namespace Portal.Consultoras.Web.Controllers
             var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
             var pedidoAgrupado = listaPedidoWebDetalleAgrupado.FirstOrDefault(x => x.CUV == CUV) ?? new BEPedidoWebDetalle();
-            var pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
+            var pedidoEliminado = new BEPedidoWebDetalle();
+
+            if (setId > 0)
+            {
+                var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, setId);              
+                pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == set.Detalles.FirstOrDefault().CUV);
+            }
+            else
+            {
+                pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
+            }
+
             if (pedidoEliminado == null)
-                lastResult = new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste));
+                return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste)).Item2;
+
+
+            var result = await _pedidoWebProvider.EliminarPedidoDetalle(pedidoDetalle);
 
             pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)
                 ? pedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";      
@@ -1052,7 +1066,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string tipo= string.Empty; 
 
-            var result = await _pedidoWebProvider.EliminarPedidoDetalle2(pedidoDetalle);
+           
 
             errorServer = result.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS;
             tipo = result.MensajeRespuesta;
