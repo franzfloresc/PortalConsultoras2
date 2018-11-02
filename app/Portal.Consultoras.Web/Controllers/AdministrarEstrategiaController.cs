@@ -862,9 +862,12 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             else
                             {
-                                error += "| RegistrarEstrategia";
-                                administrarEstrategiaProvider.RegistrarEstrategia(entidad, userData.CodigoISO);
-                                error += "| RegistrarEstrategia fin";
+                                if (!_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia, dbdefault))
+                                {
+                                    error += "| RegistrarEstrategia";
+                                    administrarEstrategiaProvider.RegistrarEstrategia(entidad, userData.CodigoISO);
+                                    error += "| RegistrarEstrategia fin";
+                                }
                             }
                         }
                         else
