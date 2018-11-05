@@ -24,3 +24,9 @@ Modificar:
           serializeAs="String">
           <value>http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php</value>
       	</setting>
+
+1.2 PortalConsultoras2
+Modificar:
+
+<add key="PaisesMicroservicioPersonalizacion" value="PE,CL,CR,CO" />
+<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="101,001,009,005,007,008,010,030"/> 
