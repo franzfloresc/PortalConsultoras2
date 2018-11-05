@@ -30,7 +30,7 @@ namespace Portal.Consultoras.BizLogic
 
             using (IDataReader reader = daContratoAc.ReporteContratoAceptacion(codigoconsultora, cedula, fechaInicio, FechaFin))
             {
-                var columns = ((IDataRecord)reader).GetAllNames();
+                //var columns = ((IDataRecord)reader).GetAllNames();
 
                 while (reader.Read())
                 {
