@@ -769,6 +769,10 @@ namespace Portal.Consultoras.Web.Providers
                 cuv = o.CUV,
                 descripcion = o.Descripcion1,
                 nombreProducto = o.NombreProducto,
+                imagenProducto = o.ImagenProducto,
+                activo = o.Activo,
+                //usuarioCreacion = string,
+                //fechaCreacion = 2018 - 09 - 07T17 = 38 = 03.887Z,
                 usuarioModificacion = userData.CodigoUsuario,
                 fechaModificacion = DateTime.Now,
             });

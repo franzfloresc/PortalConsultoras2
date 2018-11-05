@@ -545,7 +545,19 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
                 else if (palanca == Constantes.NombrePalanca.OfertaDelDia)
                 {
-                    listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoODD();
+                    UsuarioModel model = new UsuarioModel
+                    {
+                        PaisID= userData.PaisID,
+                        CampaniaID=userData.CampaniaID,
+                        ZonaID=userData.ZonaID,
+                        ZonaHoraria=userData.ZonaHoraria,
+                        FechaInicioCampania=userData.FechaInicioCampania,
+                        Simbolo=userData.Simbolo,
+                        CodigoConsultora=userData.CodigoConsultora,
+                        ConsultoraID=userData.ConsultoraID
+                    };
+
+                    listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoODD(model);
                 }
                 else if (palanca == Constantes.NombrePalanca.PackNuevas)
                 {
