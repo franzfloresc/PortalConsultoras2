@@ -230,6 +230,7 @@
     <Compile Include="Areas\Mobile\Controllers\PedidosFacturadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\HerramientasVentaController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\ProgramaNuevasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\RevistaDigitalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
@@ -296,6 +297,7 @@
     <Compile Include="Controllers\MasGanadorasController.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
+    <Compile Include="Controllers\ComunController.cs" />
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
@@ -310,8 +312,10 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Controllers\ProgramaNuevasController.cs" />
     <Compile Include="Models\Buscador\BuscadorModel.cs" />
     <Compile Include="Models\Buscador\BusquedaProductoOutModel.cs" />
+    <Compile Include="CustomFilters\ValidateAjaxModelAttribute.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
@@ -328,6 +332,7 @@
     <Compile Include="Infraestructure\Validator\Phone\NotSamePhoneValidator.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosModel.cs" />
+    <Compile Include="Models\Common\InLogUsabilidadModel.cs" />
     <Compile Include="Models\DetalleEstrategia\BreadCrumbModel.cs" />
     <Compile Include="Models\DetalleEstrategia\DetalleEstrategiaBreadCrumbsModel.cs" />
     <Compile Include="Models\EstrategiaComponenteModel.cs" />
@@ -778,6 +783,7 @@
     <Compile Include="Providers\EventoFestivoProvider.cs" />
     <Compile Include="Providers\GuiaNegocioProvider.cs" />
     <Compile Include="Providers\BaseProvider.cs" />
+    <Compile Include="Providers\ProgramaNuevasProvider.cs" />
     <Compile Include="Providers\IssuuProvider.cs" />
     <Compile Include="Providers\MenuContenedorProvider.cs" />
     <Compile Include="Providers\MenuProvider.cs" />
@@ -1368,8 +1374,8 @@
     <Content Include="Content\Css\Mobile\LasMasGanadoras\banner_ofertas_masGanadoras.css" />
     <Content Include="Content\Css\Mobile\LasMasGanadoras\presentacion-seccion-carrusel.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
-    <Content Include="Content\Css\Mobile\ProductoListado\CajaProductoV2.css" />
     <Content Include="Content\Css\Mobile\Pedido\PedidoGrilla.css" />
+    <Content Include="Content\Css\Mobile\ProductoListado\CajaProductoV2.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
@@ -1431,6 +1437,7 @@
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Shared\buscador-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\campania-navidenia-responsive.css" />
     <Content Include="Content\Css\Site\Shared\footer-responsive.css" />
     <Content Include="Content\Css\Site\Shared\header-responsive.css" />
     <Content Include="Content\Css\Site\Shared\menu-principal-responsive.css" />
@@ -1619,9 +1626,11 @@
     <Content Include="Content\Images\icono_comunidad_virtual.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
+    <Content Include="Content\Images\icono_lupa_blanco.svg" />
     <Content Include="Content\Images\icono_lupa.svg" />
     <Content Include="Content\Images\icono_noticias.svg" />
     <Content Include="Content\Images\icono_notificaciones.svg" />
+    <Content Include="Content\Images\icono_notificaciones_blanco.svg" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
@@ -4421,6 +4430,7 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpAlertaPedidosOnline.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpLoadingMobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
+    <Content Include="Areas\Mobile\Views\ProgramaNuevas\Index.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Areas\Mobile\Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />
@@ -4623,9 +4633,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService116.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService118.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService12.xsd">
@@ -5430,6 +5437,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHidden.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHiddenSoloDesktop.cshtml" />
     <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
+    <Content Include="Views\ProgramaNuevas\Index.cshtml" />
     <Content Include="Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Views\Shared\_BuscadorResponsive.cshtml" />
     <Content Include="Views\Pedido\_vpPedidoGrilla.cshtml" />
@@ -5749,6 +5757,7 @@
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Buscador\" />
     <Folder Include="Views\Campania\" />
+    <Folder Include="Views\Comun\" />
     <Folder Include="Views\Cupon\" />
     <Folder Include="Views\EstrategiaProductoComentario\" />
   </ItemGroup>

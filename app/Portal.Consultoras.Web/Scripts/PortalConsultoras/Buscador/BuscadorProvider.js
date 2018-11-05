@@ -80,7 +80,7 @@
                                     return false;
                                 }
 
-                                producto.html("Agregado");
+                                producto.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
 
                                 if (isPagina("pedido")) {
                                     if (model != null && model != undefined)
@@ -91,7 +91,9 @@
                                 }
 
                                 microefectoPedidoGuardado();
-                                CargarResumenCampaniaHeader();
+
+                                    CargarResumenCampaniaHeader();
+
                                 CerrarLoad();
                             },
                             error: function (data, error) {
@@ -106,7 +108,7 @@
     }
 
     var RegistroProductoBuscador = function (divPadre) {
-        
+
         var model = JSON.parse($(divPadre).find(".hdBuscadorJSON").val());
         var cantidad = $(divPadre).find("[data-input='cantidad']").val();
         var agregado = $(divPadre).find(".etiqueta_buscador_producto");
@@ -196,9 +198,9 @@
                             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
                             MostrarBarra(data);
                         }
-                        microefectoPedidoGuardado();
-                        CargarResumenCampaniaHeader();
                     }
+                    microefectoPedidoGuardado();
+                    CargarResumenCampaniaHeader();
                     CerrarLoad();
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');

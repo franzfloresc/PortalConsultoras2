@@ -16,6 +16,11 @@ namespace Portal.Consultoras.BizLogic
 {
     public partial class BLPedidoWebDetalle : IPedidoWebDetalleBusinessLogic
     {
+        //public BLPedidoWebDetalle()
+        //{
+        //    BLProgramaNuevas = new BLProgramaNuevas();
+        //}
+
         public IList<BEPedidoWebDetalle> GetClientesByCampania(int paisID, int campaniaID, long consultoraID)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
@@ -306,7 +311,7 @@ namespace Portal.Consultoras.BizLogic
                     pedidoWebDetalle.Add(entidad);
                 }
             }
-            new BLProducto().UpdateFlagCupones(bePedidoWebDetalleParametros.PaisId, pedidoWebDetalle);
+            _blProgramaNuevas.UpdateFlagCupones(bePedidoWebDetalleParametros.PaisId, pedidoWebDetalle);
 
             #region ConsultoraOnline
             if (consultoraOnLine)

@@ -142,7 +142,6 @@ function SeccionCargarProductos(objConsulta) {
     }
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.HV) {
-        //console.log('SeccionCargarProductos - HV' + objConsulta.Codigo, objConsulta);
         if (!varContenedor.CargoHv) {
             varContenedor.CargoHv = true;
             OfertaCargarProductos({
@@ -156,7 +155,6 @@ function SeccionCargarProductos(objConsulta) {
     }
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.MG) {
-        //console.log('SeccionCargarProductos - MG -' + objConsulta.Codigo, objConsulta);
         if (!varContenedor.CargoMg) {
             varContenedor.CargoMg = true;
             OfertaCargarProductos({
@@ -228,7 +226,6 @@ function SeccionCargarProductos(objConsulta) {
 }
 
 function SeccionMostrarProductos(data) {
-    //console.log('SeccionMostrarProductos', data.Seccion.Codigo, data);
     var CarruselCiclico = true;
 
     if (isMobile()) {
@@ -355,7 +352,6 @@ function SeccionMostrarProductos(data) {
     }
     else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG)
     {
-        //console.log('SeccionMostrarProductos -if ' + data.Seccion.Codigo);
         if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
             CarruselCiclico = false;
         }
@@ -417,8 +413,6 @@ function SeccionMostrarProductos(data) {
         RenderCarruselIndividuales(htmlSeccion);
     }
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.carruselIndividualesv2) {
-
-        //console.log('RenderCarruselSimpleV2 - data.Seccion.TipoPresentacion ', CONS_TIPO_PRESENTACION.carruselIndividualesv2, CarruselCiclico);
         RenderCarruselSimpleV2(htmlSeccion, CarruselCiclico, true);
     }
 }
@@ -579,7 +573,7 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
                 slick.setPosition();
                 slick.slickGoTo(currentSlide + 1);
                 currentSlide = currentSlide + 1;
-                //$(event.target).parents(sElementos.listadoProductos).slickGoTo(currentSlide + 1);
+
                 $(objPrevArrow).show();
                 $(objNextArrow).hide();
             }
@@ -596,44 +590,6 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
                 $(objNextArrow).hide();
             }
         }
-
-        //if (slick.slideCount > 1 && objVisorSlick && lastSlick) {
-        //    var anchoCarrusel = $(objVisorSlick).offset().left + $(objVisorSlick).width();
-        //    var positionUltimoSlick = $(lastSlick).offset().left + $(lastSlick).width();
-        //    var paddindLeftUltimo = $(lastSlick).css('padding-left');
-        //    paddindLeftUltimo = paddindLeftUltimo ? paddindLeftUltimo.replace('px', '') : 0;
-        //    paddindLeftUltimo = parseFloat(paddindLeftUltimo); 
-             
-        //    if (positionUltimoSlick < anchoCarrusel) {                
-        //        $(objNextArrow).hide();
-        //    }
-        //    else {
-
-        //        if ((positionUltimoSlick > anchoCarrusel) && ($(lastSlick).offset().left + paddindLeftUltimo) < anchoCarrusel) {
-
-        //            setTimeout(function () { 
-
-        //                var strWidth = $(lastSlick).css('width').replace('px','');
-        //                var paso = anchoCarrusel - $(lastSlick).offset().left;
-        //                var avanzar =   parseFloat( strWidth) - paso;
-        //                var efectoValor = $(event.target).find('.slick-track').css('transform');
-
-        //                efectoValor = efectoValor.replace('matrix(1, 0, 0, 1,','');
-        //                efectoValor = efectoValor.replace(', 0)', '');
-        //                efectoValor = efectoValor.trim();
-        //                efectoValor = parseFloat(efectoValor)
-        //                var nuevoValor = efectoValor - avanzar;
-
-        //                $(event.target).find('.slick-track').css('transform', 'translate3d(' + nuevoValor + 'px, 0px, 0px)');
-                        
-        //                $(objNextArrow).hide();
-        //            }, 100);                   
-        //        }
-
-        //        $(objNextArrow).show();
-        //    }
-        //}
-        //$(objPrevArrow).show();
     }
 
     $(slick.$list).attr('data-currentSlide', currentSlide);
@@ -645,26 +601,14 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
         return false;
 
     vw = vw || true;
-    //console.log(divProd.find(sElementos.listadoProductos));
+
     divProd.find(sElementos.listadoProductos).attr("class", "contenedor_carrusel");
-    //$('[data-item=46349] .producto_img img').load(function () {
-    //    console.log('me cargo puto!!!');
-    //});
-
-
+    
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
     var esMobile = isMobile();
     divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
     divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
         lazyLoad: "ondemand",
-
-        //dots: true,
-        //infinite: true,
-        //speed: 300,
-        //slidesToShow: 1,
-        //centerMode: true,
-        //variableWidth: true,
-
         infinite: cc == undefined ? true : cc,
         vertical: false,
         slidesToShow: esMobile ? 2 : 3,
