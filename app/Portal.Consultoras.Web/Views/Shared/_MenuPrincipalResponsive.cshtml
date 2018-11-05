@@ -229,7 +229,8 @@
                                     <li class="submenu__item">
                                         @if (menuHijo.UrlItem == "")
                                         {
-                                            <a href="javascript:;" class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                            <a href="javascript:;" class="submenu__link d-block"
+                                               target="@menuHijo.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
                                                 @menuHijo.Descripcion
                                             </a>
                                         }
@@ -268,7 +269,8 @@
                                                         <li class="submenu__item" data-title="Esika Trend">
                                                             @if (w.UrlItem == "")
                                                             {
-                                                                <a href="javascript:;" class="submenu__link d-block">
+                                                                <a href="javascript:;" class="submenu__link d-block"
+                                                                   target="@w.PageTarget" role="menu" region="Principal" parent="@w.Descripcion" title="@w.Descripcion" id="lnk-pri-@w.DescripcionFormateada">
                                                                     @w.Descripcion
                                                                 </a>
                                                             }
@@ -333,7 +335,8 @@
                 <li class="menu__item" data-title="@menuPadre.Descripcion">
                     @if (menuPadre.UrlItem == "")
                     {
-                        <a href="javascript:;" class="menu__link d-block" title="@menuPadre.Descripcion">
+                        <a href="javascript:;" class="menu__link d-block" 
+                           target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                             @menuPadre.Descripcion
                         </a>
                     }
