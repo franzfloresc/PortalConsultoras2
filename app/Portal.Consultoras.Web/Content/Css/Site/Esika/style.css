@@ -5854,13 +5854,13 @@ a.subir_carousel, a.bajar_carousel {
     border: 1px solid black;
 }
 /*POP UP PEDIDO*/
-.pop_pedido_mensaje {
-    width: 300px;
+/*.pop_pedido_mensaje {
     font-family: 'lato';
     font-size: 10pt;
     color: black;
-    margin-top: 20px;
+    margin-top: 25px;
     text-align: center;
+    width: 100%;
 }
 
     .pop_pedido_mensaje span {
@@ -5868,7 +5868,7 @@ a.subir_carousel, a.bajar_carousel {
         font-size: 12pt;
         font-weight: bold;
         letter-spacing: -1px;
-    }
+    }*/
 /*BOTON FLOTANTE LIQUIDACION PEDIDO*/
 .envolvente_pop_up {
     width: 1110px;
@@ -8070,18 +8070,18 @@ ul.tabs {
     font-weight: normal !Important;
 }
 
-.terminos_title_2 {
+/*.terminos_title_2 {
     font-weight: 700;
     margin-bottom: 10px;
     text-align: center;
     margin-top: 20px !important;
     margin: 0 auto;
     text-transform: uppercase;
-    font-size: 10pt !Important;
+    font-size: 20px !Important;
     font-family: 'lato';
     color: black;
     letter-spacing: .5px;
-}
+}*/
 
 .terminos_title_Contrato {
     width: 380px;
@@ -9662,20 +9662,27 @@ ul.tabs {
     font-weight: bold;
 }
 
-.input_modifica_horizontal {
+/*.input_modifica_horizontal {
     text-transform: uppercase;
-    margin-top: 5px;
-    width: 100px;
-    height: 40px;
+    width: 115px !important;
+    height: 45px;
     letter-spacing: .5px;
-    padding: 0;
-    background: #df3d3d;
     color: white;
-    font-family: 'lato';
-    font-size: 12px;
-    border: 0;
-    font-weight: 700;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #e81c36;
+    border: none;
+    font-weight: bold;
 }
+.input_modifica_horizontal_cancelar {
+    height: 45px;
+    color: #000;
+    background: none;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    text-decoration: underline;
+}*/
 
 .div-3 .ganancia {
     float: right;
@@ -13375,11 +13382,12 @@ ol {
         display: none;
     }
 
-.ui-dialog.ui-widget-content {
-    width: auto !important;
+/*.ui-dialog.ui-widget-content {
     background: #FFFFFF !important;
     color: #555 !important;
-}
+    width: auto !important;
+}*/
+
 
 .ui-dialog .ui-dialog-buttonpane {
     background: #fff;
