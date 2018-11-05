@@ -555,10 +555,15 @@ namespace Portal.Consultoras.BizLogic
                 var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.ActualizaDatosEnabled));
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
-                
-                var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Format("{0}|{1}|{2}|{3}|{4}", Constantes.ConfiguracionPais.RevistaDigital,
-                    Constantes.ConfiguracionPais.RevistaDigitalIntriga, Constantes.ConfiguracionPais.RevistaDigitalReducida, Constantes.ConfiguracionPais.BuscadorYFiltros, 
-                    Constantes.ConfiguracionPais.PagoEnLinea)));
+
+                var lstConfiguracionPais = new List<string>();
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigitalIntriga);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigitalReducida);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.BuscadorYFiltros);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.PagoEnLinea);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.MasGanadoras);
+                var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Join("|", lstConfiguracionPais)));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -3283,6 +3288,9 @@ namespace Portal.Consultoras.BizLogic
                             case Constantes.ConfiguracionPais.PagoEnLinea:
                                 if (configuracion.Estado)
                                     usuario.TienePagoEnLinea = true;
+                                break;
+                            case Constantes.ConfiguracionPais.MasGanadoras:
+                                usuario.TieneMG = configuracion.Estado;
                                 break;
                         }
                     }
