@@ -108,3 +108,12 @@ BEGIN
 END
 GO
 
+USE BelcorpEcuador
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'usp_UpdateEstrategiaMasiva')
+BEGIN
+    DROP PROCEDURE dbo.usp_UpdateEstrategiaMasiva
+END
+GO
