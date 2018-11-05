@@ -257,14 +257,18 @@ function CargarProductosShowRoom(busquedaModel) {
 
 
     $.when(cargarProductosShowRoomPromise)
-
+    
         .then(function (response) {
-            if (response.listaOfertas.length > 0) {
-                //Hacer marcación Analytics para ShowRoom
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    response.listaOfertas.lista = response.listaOfertas;
+            response.listaOfertas = response.listaOfertas || "";
+            if (response.listaOfertas !== "") {
+                if (response.listaOfertas.length > 0) {
+                    //Hacer marcación Analytics para ShowRoom
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        response.listaOfertas.lista = response.listaOfertas;
                     AnalyticsPortalModule.MarcaGenericaLista(window.esShowRoom ? ConstantesModule.TipoEstrategia.SR : "", response.listaOfertas);
+                }
             }
+            
             ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
             EstablecerAccionLazyImagen("img[data-lazy-seccion-showroom]");
         })
