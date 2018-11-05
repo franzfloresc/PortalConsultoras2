@@ -192,21 +192,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Lógica de Popups
 
-                ValidaPopUpPaisModel popUpPaisModel = new ValidaPopUpPaisModel() {
+                ValidaPopUpPaisModel popUpPaisModel = new ValidaPopUpPaisModel()
+                {
                     ShowPopupMisDatos = model.ShowPopupMisDatos,
-                    ValidaDatosActualizados  = model.ValidaDatosActualizados,
-                    ValidaSegmento  = model.ValidaSegmento,
+                    ValidaDatosActualizados = model.ValidaDatosActualizados,
+                    ValidaSegmento = model.ValidaSegmento,
                     ValidaTiempoVentana = model.ValidaTiempoVentana
                 };
 
                 //model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model);
                 model.TipoPopUpMostrar = _bienvenidaProvider.ObtenerTipoPopUpMostrar(EsDispositivoMovil(), popUpPaisModel);
-                if (model.TipoPopUpMostrar == Constantes.TipoPopUp.VideoIntroductorio)
+                if (model.TipoPopUpMostrar == Constantes.TipoPopUp.VideoIntroductorio 
+                    && (userData.VioTutorialDesktop == 0) && (userData.VioTutorialSalvavidas == 0))
                 {
-                    if ((userData.VioTutorialDesktop == 0) && (userData.VioTutorialSalvavidas == 0))
-                    {
-                        ViewBag.MostrarUbicacionTutorial = 0;
-                    }
+                    ViewBag.MostrarUbicacionTutorial = 0;
                 }
 
                 model.TieneFacturacionElectronica = GetDatosFacturacionElectronica(userData.PaisID, Constantes.FacturacionElectronica.TablaLogicaID, Constantes.FacturacionElectronica.FlagActivacion) == "1";
@@ -738,32 +737,32 @@ namespace Portal.Consultoras.Web.Controllers
         //    }
         //}
 
-        private void UpdateUsuarioTutorial(int tipo)
-        {
-            int retorno;
-            using (var sv = new UsuarioServiceClient())
-            {
-                retorno = sv.UpdateUsuarioTutoriales(userData.PaisID, userData.CodigoUsuario, tipo);
-            }
+        //private void UpdateUsuarioTutorial(int tipo)
+        //{
+        //    int retorno;
+        //    using (var sv = new UsuarioServiceClient())
+        //    {
+        //        retorno = sv.UpdateUsuarioTutoriales(userData.PaisID, userData.CodigoUsuario, tipo);
+        //    }
 
-            switch (tipo)
-            {
-                case Constantes.TipoTutorial.Video:
-                    userData.VioVideoModelo = retorno;
-                    break;
-                case Constantes.TipoTutorial.Desktop:
-                    userData.VioTutorialDesktop = retorno;
-                    break;
-                case Constantes.TipoTutorial.Salvavidas:
-                    userData.VioTutorialSalvavidas = retorno;
-                    break;
-                case Constantes.TipoTutorial.Mobile:
-                    userData.VioTutorialModelo = retorno;
-                    break;
-            }
+        //    switch (tipo)
+        //    {
+        //        case Constantes.TipoTutorial.Video:
+        //            userData.VioVideoModelo = retorno;
+        //            break;
+        //        case Constantes.TipoTutorial.Desktop:
+        //            userData.VioTutorialDesktop = retorno;
+        //            break;
+        //        case Constantes.TipoTutorial.Salvavidas:
+        //            userData.VioTutorialSalvavidas = retorno;
+        //            break;
+        //        case Constantes.TipoTutorial.Mobile:
+        //            userData.VioTutorialModelo = retorno;
+        //            break;
+        //    }
 
-            SessionManager.SetUserData(userData);
-        }
+        //    SessionManager.SetUserData(userData);
+        //}
 
         public JsonResult AceptarContrato(bool checkAceptar, string origenAceptacion, string AppVersion)
         {
@@ -2005,7 +2004,7 @@ namespace Portal.Consultoras.Web.Controllers
             var comunicadoVisualizado = 0;
             var comunicado = new BEComunicado();
 
-            var tempComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData,EsDispositivoMovil());
+            var tempComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData, EsDispositivoMovil());
 
             if (tempComunicados != null && tempComunicados.Count > 0)
             {
@@ -2386,7 +2385,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEMensajeToolTip obj;
-                string mensaje = string.Empty;
 
                 using (var sv = new UsuarioServiceClient())
                     obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);

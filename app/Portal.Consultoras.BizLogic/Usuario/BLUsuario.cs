@@ -3481,7 +3481,7 @@ namespace Portal.Consultoras.BizLogic
             mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.AplicarLogicaCantidadBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarOpcionesOrdenamiento = mostrarBuscador.Valor1 == "1";
 
             return buscadorYFiltrosConfiguracion;
