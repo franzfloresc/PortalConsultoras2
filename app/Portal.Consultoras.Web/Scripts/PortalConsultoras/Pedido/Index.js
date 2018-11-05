@@ -455,6 +455,35 @@ $(document).ready(function () {
 
     LayoutMenu();
 
+    $("#observaciones_alerta").dialog({
+        modal: true,
+        draggable: false,
+        resizable: false,
+        width: 620,
+        autoOpen: false,
+        open: function (event, ui) {
+            $("body").addClass("overflow_hidden");
+            $(".ui-widget-header").css("display", "none");
+        },
+        close: function (event, ui) {
+            $("body").removeClass("overflow_hidden");
+        },
+
+        create: function (event, ui) {
+            //$(".ui-dialog").addClass("observaciones_alerta_blocks");
+            //$(".ui-dialog").css({ height: "620px !important" });
+
+            $("#observaciones_alerta").parent().addClass("observaciones_alerta_blocks");
+            $("#observaciones_alerta").parent().css({ height: "620px !important" });
+        },
+
+    });
+
+    $('.close_buttom_alerta').click(function () {
+        $('#observaciones_alerta').dialog('close');
+        return false;
+    });
+
 });
 
 function CargarDetallePedido(page, rows) {
@@ -3558,7 +3587,8 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 
 function ArmarPopupObsReserva(titulo, mensaje) {
     $("#divTituloObservacionesPROL").html(titulo);
-    $("#divMensajeObservacionesPROL").html(mensaje);
+    //$("#divMensajeObservacionesPROL").html(mensaje);
+    $("#divMensajeObservacionesPROL").html("Tu pedido tiene observaciones, por favor revísalo.");
 }
 
 function MostrarPopupErrorReserva(mensajePedido, esAviso) {

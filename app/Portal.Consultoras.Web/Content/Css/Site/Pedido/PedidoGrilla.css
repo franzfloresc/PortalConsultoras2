@@ -1526,13 +1526,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 
 
 /*Modal Observaciones pedido*/
-
-.ui-dialog.ui-widget-content {
-    background: #FFFFFF !important;
-    color: #555 !important;
-    width: auto !important;
-}
-
 .overflow_hidden {
     overflow: hidden;
 }
@@ -1566,20 +1559,15 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 #observaciones_alerta {
     padding-bottom: 0px;
     margin-top: 0px;
+}
+
+.observaciones_alerta_blocks {
     width: 620px !important;
+    min-height: 350px;
+    max-height: 480px;
+    margin-top: 0px !important;
+    padding: 50px 0px;
 }
-
-.observaciones_alerta_blocks .ui-widget-header {
-    display: none !important;
-}
-
-    .observaciones_alerta_blocks {
-        width: 620px !important;
-        min-height: 350px;
-        max-height: 480px;
-        margin-top: 0px !important;
-        padding: 50px 0px;
-    }
 
 .header_observaciones_alerta {
     text-align: center;
