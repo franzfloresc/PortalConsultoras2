@@ -1,5 +1,5 @@
 # Portal Consultoras SB2
 
-PI2-EPM-Sprint2_PedidoExpGrilla
+PI2-EPM-Sprint3-PedidoExp
 
-- Cambiar diseño de la grilla pase pedido
+- Cambiar la experiencia del pase pedido
