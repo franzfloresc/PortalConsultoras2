@@ -9822,6 +9822,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             }
 
         }
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int EstadoPostulanteID
         {
