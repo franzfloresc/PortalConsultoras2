@@ -260,14 +260,6 @@ function CargarProductosShowRoom(busquedaModel) {
     
         .then(function (response) {
             response.listaOfertas = response.listaOfertas || "";
-            if (response.listaOfertas !== "") {
-                if (response.listaOfertas.length > 0) {
-                    //Hacer marcación Analytics para ShowRoom
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        response.listaOfertas.lista = response.listaOfertas;
-                    AnalyticsPortalModule.MarcaGenericaLista(window.esShowRoom ? ConstantesModule.TipoEstrategia.SR : "", response.listaOfertas);
-                }
-            }
             
             ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
             EstablecerAccionLazyImagen("img[data-lazy-seccion-showroom]");
@@ -367,6 +359,10 @@ function CargarProductosShowRoomPromise(busquedaModel) {
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
     var objData = {};
     if (response.success) {
+
+
+        AnalyticsSRListaOferta(response);
+
         if (aplicarFiltrosSubCampanias) {
             if (response.listaSubCampania !== 'undefined') {
                 if (response.listaSubCampania.length > 0) {
@@ -441,6 +437,9 @@ function CargarShowroomMobile(busquedaModel) {
 
 function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
     if (response.success) {
+
+        
+        AnalyticsSRListaOferta(response);
 
         $.each(response.listaOfertas, function (index, value) {
             value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
@@ -537,4 +536,14 @@ function ConstruirDescripcionOferta(arrDescripcion) {
         });
     }
     return descripcion;
+}
+
+function AnalyticsSRListaOferta(response) {
+    if (response.listaOfertas.length > 0) {
+        //Hacer marcación Analytics para ShowRoom
+        if (!(typeof AnalyticsPortalModule === 'undefined')) {
+            response.listaOfertas.lista = response.listaOfertas;
+            AnalyticsPortalModule.MarcaGenericaLista(window.esShowRoom ? ConstantesModule.TipoEstrategia.SR : "", response.listaOfertas);
+        }
+    }
 }
