@@ -416,10 +416,10 @@
                 <div class="button-popover">
                     <div class="row">
                         <div class="col-xs-6">
-                            <button onclick="btnSalirTlpDelete('{{PedidoDetalleID}}');">No Gracias</button>
+                            <button class="boton-secundario" onclick="btnSalirTlpDelete('{{PedidoDetalleID}}');">No Gracias</button>
                         </div>
                         <div class="col-xs-6 text-right">
-                            <button onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">SÍ, ELIMINAR</button>
+                            <button class="boton-primario" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">SÍ, ELIMINAR</button>
                         </div>
                     </div>
                 </div>
