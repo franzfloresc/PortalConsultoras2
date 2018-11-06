@@ -73,18 +73,12 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
-        //var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
-        //var ShowRoomMobileSubCampania = 2524;
-        //var estrategia = {};
-        //if (origenPedidoWebEstrategia == ShowRoomMobileSubCampania) {
-        //    estrategia = $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-        //                .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia") || {};
-        //} else {
+        
         var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
                 || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
                         .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia")
                 || {};
-        //}
+
         return estrategia;
     };
 
@@ -465,20 +459,14 @@ var EstrategiaAgregarModule = (function () {
             }
             if (data.listCuvEliminar != null) {
                 $.each(data.listCuvEliminar, function (i, cuv) {
-                    //Se debe integrar en un solo metodo
 	
                     itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
 
-                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, cuv, false);
-                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, cuv, false);
-                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, cuv, false);
-                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.lan, cuv, false);
                     ActualizarLocalStoragePalancas(cuv, false);
                 })
             }
 
             var localStorageModule = new LocalStorageModule();
-            //localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, true);
             localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
 

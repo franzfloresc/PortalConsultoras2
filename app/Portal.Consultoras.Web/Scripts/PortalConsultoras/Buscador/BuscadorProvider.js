@@ -100,9 +100,7 @@
 
                                 microefectoPedidoGuardado();
 
-                                if (!isMobile()) {
                                     CargarResumenCampaniaHeader();
-                                } 
 
                                 CerrarLoad();
                                 _registrarAnalytics(model, textoBusqueda);
@@ -211,9 +209,9 @@
                                 .html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
                             MostrarBarra(data);
                         }
-                        microefectoPedidoGuardado();
-                        CargarResumenCampaniaHeader();
                     }
+                    microefectoPedidoGuardado();
+                    CargarResumenCampaniaHeader();
                     CerrarLoad();
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');

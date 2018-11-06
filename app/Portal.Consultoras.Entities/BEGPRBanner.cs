@@ -30,7 +30,9 @@ namespace Portal.Consultoras.Entities
 
                 return _Textovinculo;
             }
-            set { }
+            set {
+                //
+            }
         }
     }
 }
