@@ -514,7 +514,6 @@ var AnalyticsPortalModule = (function () {
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
                             'quantity': model.Cantidad
-
                         }]
                     }
                 }

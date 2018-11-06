@@ -21,7 +21,7 @@
     var RegistroLiquidacion = function (model, cantidad, producto, textoBusqueda) {
         if (ReservadoOEnHorarioRestringido())
             return false;
-
+        model.Cantidad = cantidad;
         var Item = {
             MarcaID: model.MarcaId,
             Cantidad: cantidad,
@@ -123,7 +123,8 @@
         var model = JSON.parse($(divPadre).find(".hdBuscadorJSON").val());
         var cantidad = $(divPadre).find("[data-input='cantidad']").val();
         var agregado = $(divPadre).find(".etiqueta_buscador_producto");
-
+        model.Cantidad = cantidad;
+        
         if (model.TipoPersonalizacion == "LIQ") {
             RegistroLiquidacion(model, cantidad, agregado, textoBusqueda);
         } else {
