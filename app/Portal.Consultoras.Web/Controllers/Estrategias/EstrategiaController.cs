@@ -554,7 +554,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         FechaInicioCampania=userData.FechaInicioCampania,
                         Simbolo=userData.Simbolo,
                         CodigoConsultora=userData.CodigoConsultora,
-                        ConsultoraID=userData.ConsultoraID
+                        ConsultoraID=userData.ConsultoraID,
+                        CodigoISO=userData.CodigoISO
                     };
 
                     listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoODD(model);
