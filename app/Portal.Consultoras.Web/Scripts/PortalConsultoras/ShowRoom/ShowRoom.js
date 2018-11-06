@@ -259,8 +259,6 @@ function CargarProductosShowRoom(busquedaModel) {
     $.when(cargarProductosShowRoomPromise)
     
         .then(function (response) {
-            response.listaOfertas = response.listaOfertas || "";
-            
             ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
             EstablecerAccionLazyImagen("img[data-lazy-seccion-showroom]");
         })
