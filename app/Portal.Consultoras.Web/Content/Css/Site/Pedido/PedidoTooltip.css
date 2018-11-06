@@ -13,7 +13,7 @@
     max-width: 100%;
     margin-bottom: 21px;
     padding: 15px;
-    width: 480px;
+    width: 100%;
 }
 
     .popover.top {
@@ -176,6 +176,10 @@
     margin: 0px;
     padding: 0px;
 }
+
+    .list-tooltip li:first-child {
+        width: 68%;
+    }
 
     .list-tooltip li {
         display: inline-block;
