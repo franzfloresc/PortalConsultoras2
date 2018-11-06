@@ -468,13 +468,9 @@ $(document).ready(function () {
         close: function (event, ui) {
             $("body").removeClass("overflow_hidden");
         },
-
         create: function (event, ui) {
-            //$(".ui-dialog").addClass("observaciones_alerta_blocks");
-            //$(".ui-dialog").css({ height: "620px !important" });
-
             $("#observaciones_alerta").parent().addClass("observaciones_alerta_blocks");
-            $("#observaciones_alerta").parent().css({ height: "620px !important" });
+            //$("#observaciones_alerta").parent().css({ height: "620px !important" });
         },
 
     });
@@ -655,12 +651,10 @@ function CrearDialogs() {
         open: function (event, ui) {
             $("body").addClass("overflow_hidden");
         },
-
         close: function (event, ui) {
             $(this).dialog("close");
             $("body").removeClass("overflow_hidden");
         },
-
         create: function (event, ui) {
             $("#divConfirmEliminarTotal").parent().addClass("pop_up_eliminar");
         },
@@ -687,7 +681,6 @@ function CrearDialogs() {
         resizable: false,
         modal: true,
         closeOnEscape: true,
-        
         draggable: true
     });
 
@@ -3587,8 +3580,7 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 
 function ArmarPopupObsReserva(titulo, mensaje) {
     $("#divTituloObservacionesPROL").html(titulo);
-    //$("#divMensajeObservacionesPROL").html(mensaje);
-    $("#divMensajeObservacionesPROL").html("Tu pedido tiene observaciones, por favor revísalo.");
+    $("#divMensajeObservacionesPROL").html(mensaje);
 }
 
 function MostrarPopupErrorReserva(mensajePedido, esAviso) {

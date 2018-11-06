@@ -374,6 +374,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 }
 
 function EliminarPedidoEvento(evento, esBackOrder) {
+
     var obj0 = $(evento.currentTarget);
     var id = $.trim(obj0.attr("data-pedidodetalleid")) || "0";
     if (isNaN(id) || parseInt(id, 10) <= 0) {

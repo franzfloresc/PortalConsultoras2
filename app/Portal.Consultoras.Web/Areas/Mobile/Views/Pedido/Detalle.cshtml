@@ -426,19 +426,7 @@
             </div>
 
             {{#IsNullOrEmpty detalle.Mensaje '!='}}
-            <div class="popover bottom" id="tlpObservaciones">
-                <div class="arrow"></div>
-                <ul class="list-tooltip">
-                    <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                    <li>Este producto tiene observaciones. <button style="display: block;line-height: 19px;" class="boton-secundario" onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
-                </ul>
-            </div>
-            {{/IsNullOrEmpty}}
-            {{#if EsBackOrder}}
-            {{#if AceptoBackOrder}}
-
-            @*{{#IsNullOrEmpty detalle.Mensaje '!='}}
-                <div class="notificacion_productoAgotado">
+                @*<div class="notificacion_productoAgotado">
                     <small>
                         {{#iff detalle.TipoObservacion '!=' 0}}
                         {{{Replace detalle.Mensaje '¿Deseas aceptar el reemplazo?' ''}}}
@@ -446,11 +434,17 @@
                         {{detalle.Mensaje}}
                         {{/iff}}
                     </small>
+                </div>*@
+                <div class="popover bottom" id="tlpObservaciones">
+                    <div class="arrow"></div>
+                    <ul class="list-tooltip">
+                        <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                        <li>Este producto tiene observaciones. <button style="display: block;line-height: 19px;" class="boton-secundario" onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
+                    </ul>
                 </div>
-                {{/IsNullOrEmpty}}
-                {{#if EsBackOrder}}
-                {{#if AceptoBackOrder}}*@
-
+            {{/IsNullOrEmpty}}
+            {{#if EsBackOrder}}
+            {{#if AceptoBackOrder}}
             <div class="stock_content_agotado">
                 <div class="texto_stock" style="color:black"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
             </div>
@@ -973,7 +967,6 @@
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/tooltip")
 
     @if (Model.MostrarPopupPrecargados)
     {

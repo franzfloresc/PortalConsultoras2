@@ -374,7 +374,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/Pedido/tooltip.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/OfertaDelDia").Include(
@@ -462,7 +463,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                "~/Scripts/PortalConsultoras/Pedido/tooltip.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/_LoginLayout-Esika").Include(
@@ -913,13 +915,6 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/footer-responsive.css",
                 "~/Content/Css/Site/Lbel/marca-pais-responsive.css"
             ));
-
-            #region Tooltip Obs - Delete
-            bundles.Add(new StyleBundle("~/Bundle/Js/tooltip").Include(
-                "~/Scripts/PortalConsultoras/Pedido/tooltip.js"
-            ));
-            #endregion
-
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
