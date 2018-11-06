@@ -223,12 +223,13 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 var enableExternalApp_String = listaConfiguracion.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App_PBI_ExternalApp).Select(e => e.Valor).FirstOrDefault();
                 if(enableExternalApp_String != "1")  result.ListaBanco.ForEach( e => e.URIExternalApp = null );
             }
-            if (result.ListaBanco.Where(e => e.Estado).Count() < 1) {
+            if (!result.ListaBanco.Where(e => e.Estado).Any()) {
                 var pagoBancaPorInternet = result.ListaMedioPago.Where(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado ).FirstOrDefault();
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
             }
 
-            result.ListaMedioPago.Where(e => e.Estado).ToLookup(e => e.Estado = result.ListaMetodoPago.Where( p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId ).Count() > 0);            
+            result.ListaMedioPago.Where(e => e.Estado && e.Codigo != Constantes.PagoEnLineaPasarela.PBI)
+                .ToLookup(e => e.Estado = result.ListaMetodoPago.Where( p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId ).Any());            
 
             return result;
         }
