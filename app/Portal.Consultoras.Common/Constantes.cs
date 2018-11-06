@@ -184,6 +184,11 @@ namespace Portal.Consultoras.Common
 
             public const int ActualizaEscalaDescuentoDestokp = 7201;
             public const int ActualizaEscalaDescuentoMobile = 7301;
+
+            public static class PagoEnLinea {
+                public const int Habilitar_App = 12213;
+                public const int Habilitar_App_PBI_ExternalApp = 12214;
+            }
         }
 
         public static class ParametrosNames
@@ -2768,6 +2773,7 @@ namespace Portal.Consultoras.Common
         public static class PagoEnLineaPasarela
         {
             public const string Visa = "VISA";
+            public const string PBI = "PBI";            
         }
 
         public static class PagoEnLineaNotificacion
