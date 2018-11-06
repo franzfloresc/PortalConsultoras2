@@ -372,7 +372,7 @@ function SeccionMostrarProductos(data) {
             if (cantidadTotal <= cantidadAMostrar) {
             //if (data.cantidadTotal <= cantidadAMostrar) {
                 $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(cantidadTotal);
-                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
+                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
                     $("#" + data.Seccion.Codigo).find(sElementos.verMas).remove();
                     $("#" + data.Seccion.Codigo).find(sElementos.contadorProductos).remove();
                 }
