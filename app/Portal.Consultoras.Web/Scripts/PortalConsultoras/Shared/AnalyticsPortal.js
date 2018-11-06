@@ -361,7 +361,7 @@ var AnalyticsPortalModule = (function () {
                 var esCarrusel = false;
                 if (!(event == null)) {
                     var elementCarrusel = $(event.target).closest("div:has(*[data-item-tag])");
-                    var esCarrusel = elementCarrusel.hasClass("content_item_carrusel");
+                     esCarrusel = elementCarrusel.hasClass("content_item_carrusel");
                 }
                 var contenedorFicha = esCarrusel ? _texto.contenedorDetalleSets : _texto.contenedorDetalle;
                 switch (pagina.Pagina) {
@@ -445,19 +445,17 @@ var AnalyticsPortalModule = (function () {
     }
     
     
-    var marcaEligeUnaOpcion = function (url)
+    var marcaEligeUnaOpcion = function (url, textobusqueda)
     {
         try {
-            var esMobile = url.includes("Mobile");
-            var value = esMobile ? $("#CampoBuscadorProductosMobile").val() : $("#CampoBuscadorProductos").val();
-            localStorage.setItem('valorBuscador', value);
+            localStorage.setItem('valorBuscador', textobusqueda);
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Buscador SB',
                 'action': 'Elige tu opción',
-                'label': value,
+                'label': textobusqueda,
                 'eventCallback': function () {
-                    document.location = url
+                    document.location = url;
                 }
             });
 
@@ -497,8 +495,6 @@ var AnalyticsPortalModule = (function () {
             var palanca;
             if (model.CodigoTipoEstrategia === "0") palanca = model.DescripcionEstrategia;
             else palanca = _obtenerNombrePalanca(model.CodigoTipoEstrategia);
-            //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedidoWebEstrategia);
-            //var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(null, origenPedidoWebEstrategia);
             var lista = "Buscador - " + palanca + " - " + origen + desplegable;
             dataLayer.push({
                 'event': _evento.addToCart,
