@@ -236,10 +236,15 @@ namespace Portal.Consultoras.Web.Providers
                 modelo.DescripcionMarca = esMobile ? "/Mobile/RevistaDigital/Comprar" : "/RevistaDigital/Comprar";
             }
 
-            modelo.DescripcionCompleta = GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselTitulo, esMobile);
-            modelo.DescripcionDetalle = GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselTextoEnlace, esMobile);
-            modelo.TipoAccionAgregar = Constantes.TipoAccionAgregar.BannerCarrusel;
-            modelo.ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselImagenFondo, esMobile));
+            if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos || 
+                tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos || 
+                tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
+            {
+                modelo.DescripcionCompleta = GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselTitulo, esMobile);
+                modelo.DescripcionDetalle = GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselTextoEnlace, esMobile);
+                modelo.TipoAccionAgregar = Constantes.TipoAccionAgregar.BannerCarrusel;
+                modelo.ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselImagenFondo, esMobile));
+            }
 
             return modelo;
         }

@@ -31,3 +31,14 @@
     border: 1px solid #fff;
     border-radius: 4px;
 }
+
+div[nosuscrita] div.bloque-titulo div.seccion-titulo span {
+    color: #e81c36;
+}
+div[nosuscrita] div.bloque-titulo div.ir a {
+    background-color: #e81c36 !important;
+}
+
+div[nosuscrita] .content_estrategia_carrusel .slick-list article.banner_ofertas_masGanadoras a {
+    background: #e81c36;
+}
