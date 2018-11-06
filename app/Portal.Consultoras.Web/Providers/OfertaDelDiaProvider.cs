@@ -182,7 +182,7 @@ namespace Portal.Consultoras.Web.Providers
                         return oddSession;
 
                     oddSession.TeQuedan = CountdownOdd(usuario);
-                    oddSession.ImagenBanner = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + usuario.CodigoISO, oddSession.ImagenBanner);
+                    oddSession.ImagenBanner = ConfigCdn.GetUrlFileCdnMatriz(usuario.CodigoISO, oddSession.ImagenBanner);
                     return oddSession;
                 }
 

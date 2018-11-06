@@ -854,14 +854,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 lstEstrategia = ConsultarEstrategiasHomePedido(codAgrupa, usuario);
 
                 lstEstrategia = lstEstrategia.Where(x => x.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-
-                var carpetaPais = string.Format("{0}/{1}", Globals.UrlMatriz, usuario.CodigoISO);
-
+                
                 foreach (var item in lstEstrategia)
                 {
                     item.PaisID = usuario.PaisID;
                     item.DescripcionCortaCUV2 = Util.SubStrCortarNombre(item.DescripcionCUV2, 40);
-                    item.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, item.FotoProducto01);
+                    item.FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(usuario.CodigoISO, item.FotoProducto01);
                     item.FotoProductoSmall = Util.GenerarRutaImagenResize(item.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
                     item.FotoProductoMedium = Util.GenerarRutaImagenResize(item.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
                     GetEstrategiaDetalleCarrusel(item);

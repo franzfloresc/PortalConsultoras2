@@ -215,7 +215,7 @@ namespace Portal.Consultoras.Web.Providers
             if (!tieneRevistaDigital)
             {
                 urlImagen = _configuracionManager.GetDefaultGifMenuOfertas();
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS, urlImagen);
@@ -225,7 +225,7 @@ namespace Portal.Consultoras.Web.Providers
             if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
@@ -236,7 +236,7 @@ namespace Portal.Consultoras.Web.Providers
             if (tieneRevistaDigital && revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS, urlImagen);
@@ -246,7 +246,7 @@ namespace Portal.Consultoras.Web.Providers
             if (revistaDigital.TieneRDI)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);

@@ -147,8 +147,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia));
+                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.ImagenEstrategia));
 
                 var lista = (from a in lst
                              where a.FlagActivo == 1
@@ -255,10 +254,8 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = new List<EstrategiaMDbAdapterModel>();
                     }
 
-                    var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
                     if (lst.Count > 0)
-                        lst.Update(x => x.BEEstrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.BEEstrategia.ImagenURL));
+                        lst.Update(x => x.BEEstrategia.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.BEEstrategia.ImagenURL));
 
                     var grid = new BEGrid
                     {
@@ -1003,8 +1000,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
 
                 entidad = lst[0].BEEstrategia;
-                string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, entidad.ImagenMiniaturaURL);
+                entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, entidad.ImagenMiniaturaURL);
 
                 return Json(entidad, JsonRequestBehavior.AllowGet);
             }
@@ -1183,12 +1179,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
             }
-
-            var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
+            
             if (lst.Count > 0)
             {
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.ImagenURL));
                 lst.Update(x => x.Simbolo = userData.Simbolo);
             }
             ViewBag.ProductoDestacadoDetalle = lst[0];
@@ -1616,9 +1610,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.GetEstrategias(entidad).ToList();
                 }
-
-                var carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
+                
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.ImagenURL));
 
                 var grid = new BEGrid()
                 {
@@ -1911,9 +1904,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.GetEstrategias(entidad).ToList();
                 }
-
-                var carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
+                
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.ImagenURL));
 
                 var grid = new BEGrid()
                 {

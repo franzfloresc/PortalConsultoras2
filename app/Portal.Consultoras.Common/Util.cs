@@ -3269,10 +3269,8 @@ namespace Portal.Consultoras.Common
             {
                 string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
                 string soloExtension = Path.GetExtension(rutaImagen);
-
-                var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
-
-                ruta = ConfigCdn.GetUrlFileCdn(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
+                
+                ruta = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, soloImagen + rutaNombreExtension + soloExtension);
             }
             else
             {
