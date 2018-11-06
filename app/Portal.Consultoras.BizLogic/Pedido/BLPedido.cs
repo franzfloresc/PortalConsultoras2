@@ -551,12 +551,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (pedidoDetalle.SetID > 0)
                 {
-                    var pedidoExiste = lstDetalle.FirstOrDefault(x => x.CUV == pedidoDetalle.Producto.CUV);
-                    pedidoDetalle.PedidoDetalleID = pedidoExiste == null ? (short)0 : pedidoExiste.PedidoDetalleID;
+                    //var pedidoExiste = lstDetalle.FirstOrDefault(x => x.CUV == pedidoDetalle.Producto.CUV);
+                    //pedidoDetalle.PedidoDetalleID = pedidoExiste == null ? (short)0 : pedidoExiste.PedidoDetalleID;
 
                     var detallePedido = _pedidoWebDetalleBusinessLogic.GetPedidoWebSetDetalle(pedidoDetalle.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
                     //detallePedido.Where(p => p.SetId == pedidoDetalle.SetID).ToList().ForEach(p => p.Cantidad = pedidoDetalle.Cantidad * p.FactorRepeticion);
-                    var xsets = detallePedido.Where(x => x.SetId != pedidoDetalle.SetID);
+                    var xsets = detallePedido.Where(x => x.SetId != pedidoDetalle.SetID).ToList();
                     var ncant = pedidoDetalle.Cantidad;
 
                     var set = _pedidoWebSetBusinessLogic.Obtener(pedidoDetalle.PaisID, pedidoDetalle.SetID);
@@ -565,7 +565,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         var ocant = 0;
                         if (xsets.Any())
                         {
-                            var xset = xsets.Where(x => x.CuvProducto == detalleSet.CuvProducto);
+                            var xset = xsets.Where(x => x.CuvProducto == detalleSet.CuvProducto).ToList();
                             ocant = xset.Any() ? xset.Sum(x => x.Cantidad) : 0;
                         }
 
@@ -631,8 +631,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     pedidoWebDetalles.Add(obePedidoWebDetalle);
 
-                    var accionActualizar = PedidoActualizar(usuario, detalle, lstDetalle);
-                    if (accionActualizar != Constantes.PedidoValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(accionActualizar);
+                    //var accionActualizar = PedidoActualizar(usuario, detalle, lstDetalle);
+                    //if (accionActualizar != Constantes.PedidoValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(accionActualizar);
                 }
 
                 var listCuvEliminar = new List<string>();
@@ -1883,9 +1883,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             var oldPedidoWebDetalle = lstDetalle.FirstOrDefault(x => x.PedidoDetalleID == obePedidoWebDetalle.PedidoDetalleID) ?? new BEPedidoWebDetalle();
 
                             if (oldPedidoWebDetalle.AceptoBackOrder && obePedidoWebDetalle.Cantidad < oldPedidoWebDetalle.Cantidad)
+                            {
                                 //quitoCantBackOrder = true;
                                 obePedidoWebDetalle.QuitoCantBackOrder = true;
                                 modificoBackOrder = true;
+                            }
                         }
 
                         if (pedidoDetalle != null)
