@@ -6,7 +6,7 @@ if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
 }(window.jQuery);
 
-var AnalyticsPortalModule = (function() {
+var AnalyticsPortalModule = (function () {
     var _evento = {
         virtualEvent: "virtualEvent",
         virtualRemoveEvent: "removeFromCart",
@@ -68,19 +68,78 @@ var AnalyticsPortalModule = (function() {
         MonedaCostaRica: "CR",
         // Ini - Analytics Buscador Miguel
         isTest: false,
-        currencyCodes: [{ "Country": "Peru", "CountryCode": "PE", "Currency": "Nuevo Sol", "Code": "PEN" }, { "Country": "Venezuela", "CountryCode": "VE", "Currency": "Bolivar", "Code": "VEF" }, { "Country": "Bolivia", "CountryCode": "BO", "Currency": "Boliviano", "Code": "BOB" }, { "Country": "Chile", "CountryCode": "CL", "Currency": "Chilean Peso", "Code": "CLP" }, { "Country": "Brazil", "CountryCode": "BR", "Currency": "Brazil", "Code": "BRL" }, { "Country": "Colombia", "CountryCode": "CO", "Currency": "Peso", "Code": "COP" }, { "Country": "Costa Rica", "CountryCode": "CR", "Currency": "Costa Rican Colon", "Code": "CRC" }, { "Country": "Ecuador", "CountryCode": "EC", "Currency": "Sucre", "Code": "ECS" }, { "Country": "El Salvador", "CountryCode": "SV", "Currency": "Salvadoran Colon", "Code": "SVC" }, { "Country": "United States", "CountryCode": "US", "Currency": "USD", "Code": "USD" },],
-        seccionesPalanca: [{ "CodigoSeccion": "LAN", "Palanca": "Lo Nuevo" }, { "CodigoSeccion": "RD", "Palanca": "Revista  Digital" }, { "CodigoSeccion": "HV", "Palanca": "Herramientas de Ventas" }, { "CodigoSeccion": "ODD", "Palanca": "Ofertas del día" }, { "CodigoSeccion": "SR", "Palanca": "ShowRoom" }],
-        origenpedidoWeb: [{ "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" }, { "CodigoPalanca": "01", "Palanca": "Showroom" }, { "CodigoPalanca": "02", "Palanca": "Lanzamientos" }, { "CodigoPalanca": "03", "Palanca": "Oferta Del Día" }, { "CodigoPalanca": "04", "Palanca": "Oferta Final" }, { "CodigoPalanca": "05", "Palanca": "GND" }, { "CodigoPalanca": "06", "Palanca": "Liquidación" }, { "CodigoPalanca": "07", "Palanca": "Producto Sugerido" }, { "CodigoPalanca": "08", "Palanca": "Herramientas de Venta" }, { "CodigoPalanca": "09", "Palanca": "Banners" }, { "CodigoPalanca": "10", "Palanca": "Digitado" }, { "CodigoPalanca": "11", "Palanca": "Catalogo Lbel" }, { "CodigoPalanca": "12", "Palanca": "Catalogo Esika" }, { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" }],
-        origenpedidoWebHome: [{ "Codigo": "010306", "Descripcion": "Banner Header" }, { "Codigo": "010601", "Descripcion": "Liquidaciones Web" }, { "Codigo": "010001", "Descripcion": "Club GANA+" }],
-        origenpedidoWebEstrategia: [{ "Codigo": "1020001", "Descripcion": "Desktop Pedido Ofertas Para Ti Carrusel" }, { "Codigo": "2020001", "Descripcion": "Mobile Pedido Ofertas Para Ti Carrusel" }],
-        paginas: [{ "CodigoPagina": "00", "Pagina": "Landing Herramientas de Venta" }, { "CodigoPagina": "01", "Pagina": "Home" }, { "CodigoPagina": "02", "Pagina": "Pedido" }, { "CodigoPagina": "03", "Pagina": "Landing Liquidación" }, { "CodigoPagina": "04", "Pagina": "Buscador" }, { "CodigoPagina": "05", "Pagina": "Landing Showroom" }, { "CodigoPagina": "06", "Pagina": "Landing GND" }, { "CodigoPagina": "07", "Pagina": "Landing Ofertas Para Ti" }, { "CodigoPagina": "08", "Pagina": "Contenedor" }, { "CodigoPagina": "09", "Pagina": "Otras" }, { "CodigoPagina": "10", "Pagina": "Landing Buscador" }],
-        secciones: [{ "CodigoSeccion": "01", "Seccion": "Carrusel" }, { "CodigoSeccion": "02", "Seccion": "Ficha" }, { "CodigoSeccion": "03", "Seccion": "Banner" }, { "CodigoSeccion": "04", "Seccion": "Desplegable Buscador" }, { "CodigoSeccion": "05", "Seccion": "Carrusel Ver Más" }, { "CodigoSeccion": "06", "Seccion": "Banner Superior" }, { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }],
+        currencyCodes: [
+            { "Country": "Peru", "CountryCode": "PE", "Currency": "Nuevo Sol", "Code": "PEN" },
+            { "Country": "Venezuela", "CountryCode": "VE", "Currency": "Bolivar", "Code": "VEF" },
+            { "Country": "Bolivia", "CountryCode": "BO", "Currency": "Boliviano", "Code": "BOB" },
+            { "Country": "Chile", "CountryCode": "CL", "Currency": "Chilean Peso", "Code": "CLP" },
+            { "Country": "Brazil", "CountryCode": "BR", "Currency": "Brazil", "Code": "BRL" },
+            { "Country": "Colombia", "CountryCode": "CO", "Currency": "Peso", "Code": "COP" },
+            { "Country": "Costa Rica", "CountryCode": "CR", "Currency": "Costa Rican Colon", "Code": "CRC" },
+            { "Country": "Ecuador", "CountryCode": "EC", "Currency": "Sucre", "Code": "ECS" },
+            { "Country": "El Salvador", "CountryCode": "SV", "Currency": "Salvadoran Colon", "Code": "SVC" },
+            { "Country": "United States", "CountryCode": "US", "Currency": "USD", "Code": "USD" }
+        ],
+        seccionesPalanca: [
+            { "CodigoSeccion": "LAN", "Palanca": "Lo Nuevo" },
+            { "CodigoSeccion": "RD", "Palanca": "Revista  Digital" },
+            { "CodigoSeccion": "HV", "Palanca": "Herramientas de Ventas" },
+            { "CodigoSeccion": "ODD", "Palanca": "Ofertas del día" },
+            { "CodigoSeccion": "SR", "Palanca": "ShowRoom" }
+        ],
+        origenpedidoWeb: [
+            { "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" },
+            { "CodigoPalanca": "01", "Palanca": "Showroom" },
+            { "CodigoPalanca": "02", "Palanca": "Lanzamientos" },
+            { "CodigoPalanca": "03", "Palanca": "Oferta Del Día" },
+            { "CodigoPalanca": "04", "Palanca": "Oferta Final" },
+            { "CodigoPalanca": "05", "Palanca": "GND" },
+            { "CodigoPalanca": "06", "Palanca": "Liquidación" },
+            { "CodigoPalanca": "07", "Palanca": "Producto Sugerido" },
+            { "CodigoPalanca": "08", "Palanca": "Herramientas de Venta" },
+            { "CodigoPalanca": "09", "Palanca": "Banners" },
+            { "CodigoPalanca": "10", "Palanca": "Digitado" },
+            { "CodigoPalanca": "11", "Palanca": "Catalogo Lbel" },
+            { "CodigoPalanca": "12", "Palanca": "Catalogo Esika" },
+            { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" }
+        ],
+        origenpedidoWebHome: [
+            { "Codigo": "010306", "Descripcion": "Banner Header" },
+            { "Codigo": "010601", "Descripcion": "Liquidaciones Web" },
+            { "Codigo": "010001", "Descripcion": "Club GANA+" }
+        ],
+        origenpedidoWebEstrategia: [
+            { "Codigo": "1020001", "Descripcion": "Desktop Pedido Ofertas Para Ti Carrusel" },
+            { "Codigo": "2020001", "Descripcion": "Mobile Pedido Ofertas Para Ti Carrusel" }
+        ],
+        paginas: [
+            { "CodigoPagina": "00", "Pagina": "Landing Herramientas de Venta" },
+            { "CodigoPagina": "01", "Pagina": "Home" },
+            { "CodigoPagina": "02", "Pagina": "Pedido" },
+            { "CodigoPagina": "03", "Pagina": "Landing Liquidación" },
+            { "CodigoPagina": "04", "Pagina": "Buscador" },
+            { "CodigoPagina": "05", "Pagina": "Landing Showroom" },
+            { "CodigoPagina": "06", "Pagina": "Landing GND" },
+            { "CodigoPagina": "07", "Pagina": "Landing Ofertas Para Ti" },
+            { "CodigoPagina": "08", "Pagina": "Contenedor" },
+            { "CodigoPagina": "09", "Pagina": "Otras" },
+            { "CodigoPagina": "10", "Pagina": "Landing Buscador" }
+        ],
+        secciones: [
+            { "CodigoSeccion": "01", "Seccion": "Carrusel" },
+            { "CodigoSeccion": "02", "Seccion": "Ficha" },
+            { "CodigoSeccion": "03", "Seccion": "Banner" },
+            { "CodigoSeccion": "04", "Seccion": "Desplegable Buscador" },
+            { "CodigoSeccion": "05", "Seccion": "Carrusel Ver Más" },
+            { "CodigoSeccion": "06", "Seccion": "Banner Superior" },
+            { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }
+        ],
         codigoPais: !(typeof userData === 'undefined') ? userData.pais : "",
         // Fin - Analytics Buscador Miguel
-         // Ini - Analytics Ofertas
+        // Ini - Analytics Ofertas
         contenedorHome: "Contenedor - Home",
         campania: "Campaña "
-          // Fin - Analytics Ofertas
+        // Fin - Analytics Ofertas
     };
 
     var marcarVerFichaProducto = function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
@@ -203,11 +262,11 @@ var AnalyticsPortalModule = (function() {
             console.log(_texto.exception + e);
         }
     }
-      
+
     var marcarClicSetProductos = function (infoItem, event, origenPedidoWebEstrategia, estoyEnLaFicha) {
-         
-       // var $btnAgregar = $(event.target);
-       // var origenPedidoWebEstrategia = EstrategiaAgregarModule.GetOrigenPedidoWeb($btnAgregar);
+
+        // var $btnAgregar = $(event.target);
+        // var origenPedidoWebEstrategia = EstrategiaAgregarModule.GetOrigenPedidoWeb($btnAgregar);
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         var currencyCode = "";
         tipoMoneda = tipoMoneda || "";
@@ -225,13 +284,13 @@ var AnalyticsPortalModule = (function() {
                     'currencyCode': currencyCode,
                     'click': {
                         'actionField': {
-                            'list': contenedor + " - Campaña "+  $('#hdCampaniaCodigo').val()
-        },
+                            'list': contenedor + " - Campaña " + $('#hdCampaniaCodigo').val()
+                        },
                         'products': [{
-                            'name':     infoItem.DescripcionCompleta,
-                            'id':       infoItem.CUV2,
-                            'price':    infoItem.Precio2,
-                            'brand':    infoItem.DescripcionMarca,
+                            'name': infoItem.DescripcionCompleta,
+                            'id': infoItem.CUV2,
+                            'price': infoItem.Precio2,
+                            'brand': infoItem.DescripcionMarca,
                             'category': infoItem.CodigoCategoria,
                             'variant': (infoItem.CodigoVariante !== "" || (typeof infoItem.CodigoVariante === "undefined")) ? infoItem.CodigoVariante : 'Estándar',
                             'position': infoItem.Posicion
@@ -242,11 +301,11 @@ var AnalyticsPortalModule = (function() {
         } catch (e) {
             console.log(_texto.exception + e);
         }
-        
+
     }
     //Impresiones por productos en el carrusel
     var marcarImpresionSetProductos = function (ArrayItems) {
-        
+
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         try {
             dataLayer.push({
@@ -261,7 +320,7 @@ var AnalyticsPortalModule = (function() {
         } catch (e) {
             console.log(_texto.exception + e);
         }
-        
+
     }
 
     var marcarFichaBreadcrumb = function (opcion) {
@@ -277,104 +336,104 @@ var AnalyticsPortalModule = (function() {
         }
     }
     // Ini - Analytics Buscador Miguel
-        var getCurrencyCodes = function (codigoPais) {
-            try {
+    var getCurrencyCodes = function (codigoPais) {
+        try {
 
-                var currencyInfo = _constantes.currencyCodes.find(function (element) {
-                    return element.CountryCode == codigoPais;
-                });
-                return currencyInfo != undefined ? currencyInfo.Code : _texto.notavaliable;
-            } catch (e) {
-                console.log(_texto.excepcion + e);
-            }
-        };
+            var currencyInfo = _constantes.currencyCodes.find(function (element) {
+                return element.CountryCode == codigoPais;
+            });
+            return currencyInfo != undefined ? currencyInfo.Code : _texto.notavaliable;
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    };
 
-        var getPalancaBySeccion = function (codigoSeccion) {
-            try {
+    var getPalancaBySeccion = function (codigoSeccion) {
+        try {
 
-                var seccion = _constantes.seccionesPalanca.find(function (element) {
-                    return element.CodigoSeccion == codigoSeccion;
-                });
-                return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
-            } catch (e) {
-                console.log(_texto.excepcion + e);
-            }
-        };
+            var seccion = _constantes.seccionesPalanca.find(function (element) {
+                return element.CodigoSeccion == codigoSeccion;
+            });
+            return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    };
 
-        var getPalancaByOrigenPedido = function (codigoOrigenPedido) {
-            try {
-                var codigoPalanca = codigoOrigenPedido.toString().substring(3, 5);
-                var seccion = _constantes.origenpedidoWeb.find(function (element) {
-                    return element.CodigoPalanca == codigoPalanca;
-                });
-                return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
-            } catch (e) {
-                console.log(_texto.excepcion + e);
-            }
-        };
+    var getPalancaByOrigenPedido = function (codigoOrigenPedido) {
+        try {
+            var codigoPalanca = codigoOrigenPedido.toString().substring(3, 5);
+            var seccion = _constantes.origenpedidoWeb.find(function (element) {
+                return element.CodigoPalanca == codigoPalanca;
+            });
+            return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    };
 
-        var getSeccionHomeByOrigenPedido = function (codigoOrigenPedido) {
-            try {
-                var codigo = codigoOrigenPedido.toString().substr(1, 5);
-                var seccion = _constantes.origenpedidoWebHome.find(function (element) {
-                    return element.Codigo == codigo;
-                });
-                return seccion != undefined ? seccion.Descripcion : _texto.notavaliable;
-            } catch (e) {
-                console.log(_texto.excepcion + e);
-            }
-        };
+    var getSeccionHomeByOrigenPedido = function (codigoOrigenPedido) {
+        try {
+            var codigo = codigoOrigenPedido.toString().substr(1, 5);
+            var seccion = _constantes.origenpedidoWebHome.find(function (element) {
+                return element.Codigo == codigo;
+            });
+            return seccion != undefined ? seccion.Descripcion : _texto.notavaliable;
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    };
 
     var getContenedorByOrigenPedido = function (event, codigoOrigenPedido, estoyEnLaFicha) {
-            try {
-                var contenedor = "";
-                var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
-                var codigoSeccion = codigoOrigenPedido.toString().substring(5, 7);
-                var seccion = _constantes.secciones.find(function (element) {
-                    return element.CodigoSeccion == codigoSeccion;
-                });
+        try {
+            var contenedor = "";
+            var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
+            var codigoSeccion = codigoOrigenPedido.toString().substring(5, 7);
+            var seccion = _constantes.secciones.find(function (element) {
+                return element.CodigoSeccion == codigoSeccion;
+            });
 
-                var pagina = _constantes.paginas.find(function (element) {
-                    return element.CodigoPagina == codigoPagina;
-                });
+            var pagina = _constantes.paginas.find(function (element) {
+                return element.CodigoPagina == codigoPagina;
+            });
 
-                //var esCarrusel = seccion.Seccion == "Carrusel";
-                var esVerMas = typeof seccion !== "undefined" ? seccion.Seccion == "Carrusel Ver Más" : false;
-                var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
-                var esCarrusel = false;
-                if (!(event == null)) {
-                    var elementCarrusel = $(event.target || event).parents("[data-item]");
-                    esCarrusel = elementCarrusel.hasClass("slick-slide");
-                }
-                //if (estoyEnLaFicha !== "undefined")
-                if (typeof window.fichaModule !== "undefined")
-                    esFicha = true;
-
-                var contenedorFicha = esCarrusel ? _texto.contenedorDetalleSets : _texto.contenedorDetalle;
-                switch (pagina.Pagina) {
-                    case "Home": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
-                    case "Contenedor": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
-                    case "Landing Ofertas Para Ti": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Pedido": contenedor = "Carrito de compras"; break;
-                    case "Otras": contenedor = !esFicha ? _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Landing Showroom": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Landing GND": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Landing Herramientas de Venta": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Landing Liquidación": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Buscador": contenedor = "Buscador"; break;
-
-                }
-
-                return contenedor;
-            } catch (e) {
-                console.log(_texto.excepcion + e);
+            //var esCarrusel = seccion.Seccion == "Carrusel";
+            var esVerMas = typeof seccion !== "undefined" ? seccion.Seccion == "Carrusel Ver Más" : false;
+            var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
+            var esCarrusel = false;
+            if (!(event == null)) {
+                var elementCarrusel = $(event.target || event).parents("[data-item]");
+                esCarrusel = elementCarrusel.hasClass("slick-slide");
             }
-        };
+            //if (estoyEnLaFicha !== "undefined")
+            if (typeof window.fichaModule !== "undefined")
+                esFicha = true;
+
+            var contenedorFicha = esCarrusel ? _texto.contenedorDetalleSets : _texto.contenedorDetalle;
+            switch (pagina.Pagina) {
+                case "Home": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
+                case "Contenedor": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
+                case "Landing Ofertas Para Ti": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Pedido": contenedor = "Carrito de compras"; break;
+                case "Otras": contenedor = !esFicha ? _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Showroom": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing GND": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Herramientas de Venta": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Liquidación": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Buscador": contenedor = "Buscador"; break;
+
+            }
+
+            return contenedor;
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    };
 
     var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
         try {
             var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
-         
+
             var pagina = _constantes.paginas.find(function (element) {
                 return element.CodigoPagina == codigoPagina;
             });
@@ -399,11 +458,11 @@ var AnalyticsPortalModule = (function() {
             switch (_pagina) {
                 case "Buscador": AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, codigoOrigenPedido, valorBuscar); break;
                 case "Home": seccion.Seccion == "Banner Superior" ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia) : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia); break;
-                // Inicio Analytics Oferta Miguel
+                    // Inicio Analytics Oferta Miguel
                 case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Pedido": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-                 // Fin Analytics Oferta Miguel
+                    // Fin Analytics Oferta Miguel
             }
 
         } catch (e) {
@@ -411,11 +470,11 @@ var AnalyticsPortalModule = (function() {
         }
     }
 
-     
+
     // Fin - Analytics Buscador Miguel
 
     // Inicio Analytics Home 1 Miguel
-    var marcaGanaOfertas = function (data,url) {
+    var marcaGanaOfertas = function (data, url) {
 
         try {
 
@@ -551,14 +610,14 @@ var AnalyticsPortalModule = (function() {
         try {
 
             seccion = seccion.replace("Lista", "");
-             // Inicio Analytics Ofertas 
+            // Inicio Analytics Ofertas 
             var esLanding = typeof listaSeccion === 'undefined' ? false : true;
             // Fin Analytics Ofertas Miguel
 
             switch (seccion) {
                 case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(seccion, data, limit); break;
                 case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break;
-                 // Inicio Analytics Ofertas  
+                    // Inicio Analytics Ofertas  
                 case _codigoSeccion.LAN: AnalyticsPortalModule.MarcaPromotionViewBanner(seccion, data); break;
                 case _codigoSeccion.HV: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
                 case _codigoSeccion.RD: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
@@ -567,7 +626,7 @@ var AnalyticsPortalModule = (function() {
                 case _codigoSeccion.SR: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
                 case _codigoSeccion.GND: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
 
-                // Fin Analytics Ofertas Miguel
+                    // Fin Analytics Ofertas Miguel
             }
         } catch (e) {
 
@@ -577,7 +636,7 @@ var AnalyticsPortalModule = (function() {
 
     var marcaProductImpressionHome = function (codigoSeccion, data, limit) {
         try {
-         
+
             if (_constantes.isTest)
                 alert("Marcación product impression.");
 
@@ -647,7 +706,7 @@ var AnalyticsPortalModule = (function() {
 
     }
 
-    var marcaGenericaClic = function (element,codigoOrigenPedido) {
+    var marcaGenericaClic = function (element, codigoOrigenPedido) {
         var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
 
         var pagina = _constantes.paginas.find(function (element) {
@@ -873,8 +932,7 @@ var AnalyticsPortalModule = (function() {
     var marcaVerOtrasOfertasHome = function (url, codigo) {
         try {
 
-            if (codigo == _codigoSeccion.LAN)
-            {
+            if (codigo == _codigoSeccion.LAN) {
                 dataLayer.push({
                     'event': 'virtualEvent',
                     'category': 'Home – Club GANA+',
@@ -896,7 +954,7 @@ var AnalyticsPortalModule = (function() {
                     }
                 });
             }
-          
+
         } catch (e) {
             document.location = url;
             console.log(_texto.excepcion + e);
@@ -936,8 +994,7 @@ var AnalyticsPortalModule = (function() {
         }
     }
 
-    var marcaFlechaHome = function (flecha)
-    {
+    var marcaFlechaHome = function (flecha) {
         try {
             dataLayer.push({
                 'event': 'virtualEvent',
@@ -983,58 +1040,58 @@ var AnalyticsPortalModule = (function() {
     }
     // Fin Analytics Home 1 Miguel
 
-     // Inicio Analytics Ofertas Miguel
-        /*
-        * 1.2. Banners
-        * 1.2.1. Clic en Flechas de Banner
-        * Nombre Archivo Desktop: Scripts\PortalConsultoras\EstrategiaPersonalizada\Index.js
-        * Linea de Código Desktop: 367,368
-        */
-            var marcaClicFlechaBanner = function (data) {
-                try {
+    // Inicio Analytics Ofertas Miguel
+    /*
+    * 1.2. Banners
+    * 1.2.1. Clic en Flechas de Banner
+    * Nombre Archivo Desktop: Scripts\PortalConsultoras\EstrategiaPersonalizada\Index.js
+    * Linea de Código Desktop: 367,368
+    */
+    var marcaClicFlechaBanner = function (data) {
+        try {
 
-                    if (_constantes.isTest)
-                        alert("Marcación clic flecha banner.");
-                    var codigoOrigenPedido = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
-                    var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenPedido);
+            if (_constantes.isTest)
+                alert("Marcación clic flecha banner.");
+            var codigoOrigenPedido = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenPedido);
 
 
-                    var tipoFlecha = $(data).data("direccionflecha");
-                    dataLayer.push({
-                        'event': _evento.virtualEvent,
-                        'category': "Contenedor - Home",
-                        'action': palanca + ' - Flechas de banner',
-                        'label': tipoFlecha
-                    });
+            var tipoFlecha = $(data).data("direccionflecha");
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': "Contenedor - Home",
+                'action': palanca + ' - Flechas de banner',
+                'label': tipoFlecha
+            });
 
-                } catch (e) {
-                    console.log(_texto.excepcion + e);
-                }
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
     }
 
-        /*
-        * 1.2.2. Promotion View
-        * Nombre Archivo Desktop: Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js
-        * Linea de Código Desktop: 256
-     */
-        var marcaPromotionViewBanner = function (codigoSeccion, data) {
-            try {
-                if (_constantes.isTest)
-                    alert("Marcación promotion view.");
-                var promotions = AnalyticsPortalModule.AutoMapperV2(codigoSeccion, data);
-                if (promotions.length == 0)
-                    return false;
-                dataLayer.push({
-                    'event': _evento.promotionView,
-                    'ecommerce': {
-                        'promoView': {
-                            'promotions': promotions
-                        }
+    /*
+    * 1.2.2. Promotion View
+    * Nombre Archivo Desktop: Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js
+    * Linea de Código Desktop: 256
+ */
+    var marcaPromotionViewBanner = function (codigoSeccion, data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación promotion view.");
+            var promotions = AnalyticsPortalModule.AutoMapperV2(codigoSeccion, data);
+            if (promotions.length == 0)
+                return false;
+            dataLayer.push({
+                'event': _evento.promotionView,
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': promotions
                     }
-                });
-            } catch (e) {
-                console.log(_texto.excepcion + e);
-            }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
 
     }
 
@@ -1090,8 +1147,7 @@ var AnalyticsPortalModule = (function() {
 
 
 
-        switch (window.controllerName)
-        {
+        switch (window.controllerName) {
             case "ofertas": contenedor = esRevisar ? _texto.contenedorRevisar : _constantes.contenedorHome; break;
             case "pedido": contenedor = _texto.contenedorRevisar; break;
             default: contenedor = _texto.contenedor; break;
@@ -1242,7 +1298,7 @@ var AnalyticsPortalModule = (function() {
     }
 
     var marcaProductImpressionLanding = function (codigoSeccion, data) {
-        try {     
+        try {
 
             if (_constantes.isTest)
                 alert("Marcación product impression.");
@@ -1359,7 +1415,7 @@ var AnalyticsPortalModule = (function() {
             if (esCarrusel)
                 list = contenedor + " - " + _constantes.campania + producto.CampaniaID;
             else
-               list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
+                list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
 
             dataLayer.push({
                 'event': _evento.addToCart,
@@ -1395,8 +1451,8 @@ var AnalyticsPortalModule = (function() {
 
 
             var esLanding = typeof listaSeccion === 'undefined' ? true : false;
-             esLanding ? AnalyticsPortalModule.MarcaDetalleProductoPrincipalLanding(data) : AnalyticsPortalModule.MarcaDetalleProductoPrincipal(data);
-           
+            esLanding ? AnalyticsPortalModule.MarcaDetalleProductoPrincipalLanding(data) : AnalyticsPortalModule.MarcaDetalleProductoPrincipal(data);
+
 
 
         } catch (e) {
@@ -1542,7 +1598,7 @@ var AnalyticsPortalModule = (function() {
             var tipoFiltro = $(data).data("filtro-campo");
             var textoFiltro = tipoFiltro == "precio" ? "Ordenar por precio" : "Filtrar por marca";
             var codigoOrigenWeb = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb")
-            var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(null,codigoOrigenWeb);
+            var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(null, codigoOrigenWeb);
             var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenWeb);
             dataLayer.push({
                 'event': _evento.virtualEvent,
@@ -1555,8 +1611,7 @@ var AnalyticsPortalModule = (function() {
         }
     }
 
-    var marcaCompartirRedesSociales = function (tipo,url)
-    {
+    var marcaCompartirRedesSociales = function (tipo, url) {
         try {
             dataLayer.push({
                 'event': 'socialEvent',
@@ -1640,7 +1695,7 @@ var AnalyticsPortalModule = (function() {
 
             if (value !== "Ver mi pedido")
                 return;
-            
+
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': fnObtenerContenedor(),
@@ -1667,7 +1722,7 @@ var AnalyticsPortalModule = (function() {
                             'category': "NO DISPONIBLE",
                             'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
                             'quantity': Number(cantidad),
-                            'ListaProducto': 'Contenedor - Home - ' + palanca + " - Campaña "+  $('#hdCampaniaCodigo').val()
+                            'ListaProducto': 'Contenedor - Home - ' + palanca + " - Campaña " + $('#hdCampaniaCodigo').val()
                         }]
                     }
                 }
@@ -1717,7 +1772,7 @@ var AnalyticsPortalModule = (function() {
             console.log(_texto.excepcion + e);
         }
     }
-    var marcarPedidoGuardoExito = function() {
+    var marcarPedidoGuardoExito = function () {
         try {
             dataLayer.push({
                 'category': _texto.CarritoCompras,
@@ -1750,7 +1805,7 @@ var AnalyticsPortalModule = (function() {
             };
             arrayEstrategiasAnalytics.push(estrategia);
         });
-        
+
         try {
             dataLayer.push({
                 'event': _evento.productCheckout,
@@ -1771,12 +1826,12 @@ var AnalyticsPortalModule = (function() {
         }
     }
 
-/*
-* 2.1.7. Ofertas club gana más
-* 2.1.7.1. Ver ofertas
-* Nombre Archivo Desktop: 
-* Linea de Código Desktop: 
-*/
+    /*
+    * 2.1.7. Ofertas club gana más
+    * 2.1.7.1. Ver ofertas
+    * Nombre Archivo Desktop: 
+    * Linea de Código Desktop: 
+    */
     var marcaVerOfertas = function (origenPedidoWebEstrategia) {
         origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
         var codigo = origenPedidoWebEstrategia.toString();
@@ -1798,12 +1853,12 @@ var AnalyticsPortalModule = (function() {
 
         }
     };
-/*
-* 2.1.7. Ofertas club gana más
-* 2.1.7.5. Ver ofertas
-* Nombre Archivo Desktop: 
-* Linea de Código Desktop: 
-*/
+    /*
+    * 2.1.7. Ofertas club gana más
+    * 2.1.7.5. Ver ofertas
+    * Nombre Archivo Desktop: 
+    * Linea de Código Desktop: 
+    */
     var marcaBannersInferioresDescontinuados = function (strLabel) {
         try {
             dataLayer.push({
@@ -1817,10 +1872,10 @@ var AnalyticsPortalModule = (function() {
         }
     };
 
-/*
-* 2.1.7. Ofertas club gana más
-* 2.1.7.3. Agregar productos
-*/
+    /*
+    * 2.1.7. Ofertas club gana más
+    * 2.1.7.3. Agregar productos
+    */
     //var marcaAgregarProductosCarrito = function (data) {
     //    var arrayEstrategiasAnalytics = [];
     //    data.pedidoDetalle = data.pedidoDetalle || [];
@@ -1989,7 +2044,7 @@ var AnalyticsPortalModule = (function() {
             console.log(_texto.exception + e);
         }
     }
-    var marcarEliminarOpcionSeleccionadaVariasOpciones = function (estrategia, nombreComponentes ) {
+    var marcarEliminarOpcionSeleccionadaVariasOpciones = function (estrategia, nombreComponentes) {
         try {
             dataLayer.push({
                 'event': _evento.virtualEvent,
@@ -2054,7 +2109,7 @@ var AnalyticsPortalModule = (function() {
         MarcarAumentardisminuirOpcionProducto: marcarAumentardisminuirOpcionProducto,
         MarcarCambiarOpcionVariasOpciones: marcarCambiarOpcionVariasOpciones,
         // Fin - Rama TiposAnalytics
-        
+
         // Inicio - Analytics Buscador 
         GetCurrencyCodes: getCurrencyCodes,
         GetPalancaBySeccion: getPalancaBySeccion,
@@ -2063,7 +2118,7 @@ var AnalyticsPortalModule = (function() {
         GetContenedorByOrigenPedido: getContenedorByOrigenPedido,
         MarcaAnadirCarritoGenerico: marcaAnadirCarritoGenerico,
         // Fin - Analytics Buscador 
-        
+
         // Inicio Analytics Home 1 
         MarcaGanaOfertas: marcaGanaOfertas,
         MarcaVerOfertasHome: marcaVerOfertasHome,
@@ -2118,7 +2173,7 @@ var AnalyticsPortalModule = (function() {
         MarcaVerOfertas: marcaVerOfertas,
         MarcaBannersInferioresDescontinuados: marcaBannersInferioresDescontinuados
         //MarcaAgregarProductosCarrito: marcaAgregarProductosCarrito
-         // Fin Analytics Ofertas
-        
+        // Fin Analytics Ofertas
+
     }
 })();
