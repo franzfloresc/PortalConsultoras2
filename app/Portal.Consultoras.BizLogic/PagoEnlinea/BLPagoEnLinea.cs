@@ -228,7 +228,8 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
             }
 
-            result.ListaMedioPago.Where(e => e.Estado).All(e => e.Estado = result.ListaMetodoPago.Any(p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId));            
+            result.ListaMedioPago.Where(e => e.Estado && e.Codigo != Constantes.PagoEnLineaPasarela.PBI)
+                .All(e => e.Estado = result.ListaMetodoPago.Any(p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId));            
 
             return result;
         }
