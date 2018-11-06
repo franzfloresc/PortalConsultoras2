@@ -219,9 +219,13 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 decimal montoMinimoPago;
                 if (decimal.TryParse(montoMinimoPagoString, NumberStyles.Any, provider, out montoMinimoPago)) metodoPagoVisa.MontoMinimoPago = montoMinimoPago;                
             }
-            if (listaConfiguracion != null && result.ListaBanco != null) {
+            if (listaConfiguracion != null) {
                 var enableExternalApp_String = listaConfiguracion.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App_PBI_ExternalApp).Select(e => e.Valor).FirstOrDefault();
                 if(enableExternalApp_String != "1")  result.ListaBanco.ForEach( e => e.URIExternalApp = null );
+            }
+            if (result.ListaBanco.Where(e => e.Estado).Count() < 1) {
+                var pagoBancaPorInternet = result.ListaMedioPago.Where(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado ).FirstOrDefault();
+                if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
             }
 
             return result;

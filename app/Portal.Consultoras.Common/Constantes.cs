@@ -2773,6 +2773,7 @@ namespace Portal.Consultoras.Common
         public static class PagoEnLineaPasarela
         {
             public const string Visa = "VISA";
+            public const string PBI = "PBI";            
         }
 
         public static class PagoEnLineaNotificacion
