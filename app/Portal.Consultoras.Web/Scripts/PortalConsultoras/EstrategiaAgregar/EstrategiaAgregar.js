@@ -380,7 +380,7 @@ var EstrategiaAgregarModule = (function () {
 
             if (isMobile()) {
               //ActualizarGanancia(data.DataBarra);
-                var prevTotal = $("[data-pedidocondescuento]").html() * 1;
+                var prevTotal = $("[data-pedidocondescuento]").html().replace(',', '') * 1;
                 MostrarBarra(data);  //OG
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();                   
@@ -515,11 +515,11 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
             }
-
+            if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
               
             return false;
-
-        }).fail(function (data, error) {
+        })
+        .fail(function (data, error) {
             CerrarLoad();
         });
         

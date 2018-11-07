@@ -28,7 +28,7 @@ function MostrarBarra(datax, destino) {
         if (dataBarra.redondeo == undefined) {
             $.each(listaEscalaDescuento, function (i, item) {
                 if (IsDecimalExist(item.MontoHasta)) {
-                    listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta)
+                    listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta);
                 } else {
                     listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta) + 1;
                 }
@@ -219,92 +219,44 @@ function MostrarBarra(datax, destino) {
     var dataTP = dataBarra.TippingPointBarra;
 
     // si se va ha mostrar el tooltip
-    if (dataTP.Active == true)
+    if (dataTP.Active)
     {
-        if (dataTP.ActiveMonto == true)
-        {
-            if (dataTP.ActiveTooltip == true)
-            {
-                htmlTippintPoint =
-                    '<div id="punto_{punto}" data-punto="{select}">'
-                        + '<div class="monto_minimo_barra">'
-                            + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
-                                + '<div class="contenedor_tippingPoint">'
-                                    + '<div class="tippingPoint {estado}"></div>'
-                                        + '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + dataTP.TippingPointMontoStr + '</div>'
-                                    + '<div class="tooltip_regalo_meta_tippingPoint">'
-                                        + '<div class="tooltip_producto_regalo_img">'
-                                            + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
-                                        + '</div>'
-                                            + '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + dataTP.TippingPointMontoStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
-                                    + '</div>'
-                                + '</div>'
-                            + '</div>'
-                            + '<div class="linea_indicador_barra"></div>'
+        htmlTippintPoint =
+            '<div id="punto_{punto}" data-punto="{select}">'
+                + '<div class="monto_minimo_barra">'
+                    + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
+                        + '<div class="{barra_tooltip_class}">'
+                            + '<div class="tippingPoint {estado}"></div>'
+                            + '{barra_monto}'
+                            + '{barra_tooltip}'
                         + '</div>'
-                    + '</div>';
-            }
-            else
-            {
-                //5) Cuando en las configuraciones (a nivel de tablas) desactive la opción de "Mostrar imagen y descripción" 
-                //--> en la barra de descuentos no debe aparecer el efecto de rebote del regalito ni mostrarse la ventana emergente cuando pase el mouse por ahí
-                 htmlTippintPoint =
-                    '<div id="punto_{punto}" data-punto="{select}">'
-                        + '<div class="monto_minimo_barra">'
-                            + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
-                                + '<div class="">'
-                                    + '<div class="tippingPoint {estado}"></div>'
-                                        + '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + dataTP.TippingPointMontoStr + '</div>'
-                                + '</div>'
-                            + '</div>'
-                            + '<div class="linea_indicador_barra"></div>'
-                        + '</div>'
-                    + '</div>';
-            }
-        }
-        else
-        {
-            //4) Cuando en las configuraciones (a nivel de tablas) desactive la opción de "Mostrar monto" 
-            //--> en la barra de descuentos no debe mostrar el monto configurado para el tiping point
-            if (dataTP.ActiveMonto == false && dataTP.ActiveTooltip == false)
-            {
-                // regalo estatico sin tooltip ni rebote 
-                 htmlTippintPoint =
-                    '<div id="punto_{punto}" data-punto="{select}">'
-                        + '<div class="monto_minimo_barra">'
-                            + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
-                                + '<div class="">'
-                                    + '<div class="tippingPoint {estado}"></div>'
-                                + '</div>'
-                            + '</div>'
-                            + '<div class="linea_indicador_barra"></div>'
-                        + '</div>'
-                    + '</div>';
+                    + '</div>'
+                    + '<div class="linea_indicador_barra"></div>'
+                + '</div>'
+            + '</div>';
 
-
-            }
-            else
-            {
-                htmlTippintPoint =
-                    '<div id="punto_{punto}" data-punto="{select}">'
-                        + '<div class="monto_minimo_barra">'
-                            + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
-                                + '<div class="contenedor_tippingPoint">'
-                                    + '<div class="tippingPoint {estado}"></div>'
-                                    + '<div class="tooltip_regalo_meta_tippingPoint">'
-                                        + '<div class="tooltip_producto_regalo_img">'
-                                            + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
-                                        + '</div>'
-                                            + '<div class="tooltip_producto_regalo_descripcion"><br> llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
-                                    + '</div>'
-                                + '</div>'
-                            + '</div>'
-                            + '<div class="linea_indicador_barra"></div>'
-                        + '</div>'
-                    + '</div>';
-
-            }
-        }
+        htmlTippintPoint = htmlTippintPoint
+            .replace('{barra_tooltip_class}', dataTP.ActiveTooltip ? 'contenedor_tippingPoint' : '')
+            .replace('{barra_tooltip}',
+                dataTP.ActiveTooltip ?
+                '<div class="tooltip_regalo_meta_tippingPoint">'
+                    + '<div class="tooltip_producto_regalo_img">'
+                        + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
+                    + '</div>'
+                    + '{barra_tooltip_descripcion}'
+                + '</div>' :
+                ''
+            )
+            .replace('{barra_monto}',
+                dataTP.ActiveMonto ?
+                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + dataTP.TippingPointMontoStr + '</div>' :
+                ''
+            )
+            .replace('{barra_tooltip_descripcion}',
+                dataTP.ActiveMonto ?
+                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + dataTP.TippingPointMontoStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
+                '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
+            );
     }
    
     var htmlPuntoLimite = '<div id="punto_{punto}" data-punto="{select}">'
@@ -617,6 +569,44 @@ function MostrarBarra(datax, destino) {
     return true;
 }
 
+$('.btn_elegir_regalo').click(function () {
+    seleccionRegaloProgramaNuevas($(this));
+});
+
+$('.enlace_elegir_otro_regalo').click(function (e) {
+    e.preventDefault();
+    cambiarEleccionRegaloProgramaNuevas();
+});
+
+if ($('.regalo_tippingPoint').css('display') == 'none') {
+    $('.tipo_montos_y_regalo_tippingPoint').find('.w-100').css('justify-content', 'space-between');
+}
+
+function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
+    regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_carousel_elegido');
+    regaloProgramaNuevas.fadeOut(100);
+    $('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
+    setTimeout(function () {
+        regaloProgramaNuevas.next().fadeIn(150);
+        $('.mensaje_titulo_popup_eleccion_regalo').html('¡Ya elegiste tu regalo!');
+        $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
+        $('.enlace_elegir_otro_regalo').fadeIn(100);
+        $('.enlace_elegir_otro_regalo').css('display', 'block');
+    }, 150);    
+}
+
+function cambiarEleccionRegaloProgramaNuevas() {
+    $('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_carousel_elegido');
+    $('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
+    $('.mensaje_regalo_elegido').fadeOut(150);
+    setTimeout(function () {
+        $('.mensaje_titulo_popup_eleccion_regalo').html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
+        $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
+        $('.btn_elegir_regalo').fadeIn(150);
+        $('.enlace_elegir_otro_regalo').fadeOut(100);
+    }, 150);
+}
+
 function showPopupNivelSuperado(barra, prevTotal) {
     if (!barra) {
         return;
@@ -626,12 +616,14 @@ function showPopupNivelSuperado(barra, prevTotal) {
     if (tippingPoint > 0) {
         var superaRegalo = tippingPoint <= dataBarra.TotalPedido && tippingPoint > prevTotal;
         if (superaRegalo) {
+            var popupId = '#popupPremio';
+            loadMessage($(popupId), ['¡FELICIDADES!', 'LLEGASTE A TU REGALO']);
+            AbrirPopup(popupId);
             mostrarLluvia();
-            alert('alcanzo regalo');
             // show popup regalo
         }
     } else {
-        showPopupEscalaSiguiente(data.DataBarra, prevTotal);
+        showPopupEscalaSiguiente(barra, prevTotal);
     }
 }
 
@@ -645,12 +637,14 @@ function showPopupEscalaSiguiente(dataBarra, prevTotal) {
         var escala = dataBarra.ListaEscalaDescuento[i];
         if (total >= escala.MontoDesde && total < escala.MontoHasta) {
             if (escala.MontoDesde > prevTotal) {
-                var content = '¡FELICIDADES!  LLEGASTE AL #porcentaje% Dscto.';
+                var content = '¡FELICIDADES!  LLEGASTE AL|#porcentaje% Dscto.';
                 content = content.replace('#porcentaje', escala.PorDescuento);
-
+                var lines = content.split('|');
+                var popupId = '#popupPremio';
+                loadMessage($(popupId), lines);
+                AbrirPopup(popupId);
                 mostrarLluvia();
-                alert(content);
-                // show popup
+
                 return true;
                 
             }
@@ -658,4 +652,15 @@ function showPopupEscalaSiguiente(dataBarra, prevTotal) {
     }
 
     return false;
+}
+
+function loadMessage(container, lines) {
+    var total = lines.length;
+    var prefix = '.line';
+    for (var i = 0; i < total; i++) {
+        var element = container.find(prefix + (i + 1));
+        if (!element) continue;
+
+        element.html(lines[i]);
+    }
 }

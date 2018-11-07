@@ -9072,6 +9072,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private short CaracteresBuscadorMostrarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IndicadorConsultoraDummyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool MostrarBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9109,6 +9112,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CaracteresBuscadorMostrarField.Equals(value) != true)) {
                     this.CaracteresBuscadorMostrarField = value;
                     this.RaisePropertyChanged("CaracteresBuscadorMostrar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IndicadorConsultoraDummy {
+            get {
+                return this.IndicadorConsultoraDummyField;
+            }
+            set {
+                if ((this.IndicadorConsultoraDummyField.Equals(value) != true)) {
+                    this.IndicadorConsultoraDummyField = value;
+                    this.RaisePropertyChanged("IndicadorConsultoraDummy");
                 }
             }
         }
@@ -12413,6 +12429,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CampaniaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaAppField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12548,6 +12567,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CampaniaField.Equals(value) != true)) {
                     this.CampaniaField = value;
                     this.RaisePropertyChanged("Campania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaApp {
+            get {
+                return this.CampaniaAppField;
+            }
+            set {
+                if ((this.CampaniaAppField.Equals(value) != true)) {
+                    this.CampaniaAppField = value;
+                    this.RaisePropertyChanged("CampaniaApp");
                 }
             }
         }
@@ -14919,6 +14951,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EliminadoTemporalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EnRangoProgNuevasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsBackOrderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -15374,6 +15409,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EliminadoTemporalField.Equals(value) != true)) {
                     this.EliminadoTemporalField = value;
                     this.RaisePropertyChanged("EliminadoTemporal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EnRangoProgNuevas {
+            get {
+                return this.EnRangoProgNuevasField;
+            }
+            set {
+                if ((this.EnRangoProgNuevasField.Equals(value) != true)) {
+                    this.EnRangoProgNuevasField = value;
+                    this.RaisePropertyChanged("EnRangoProgNuevas");
                 }
             }
         }
@@ -40200,6 +40248,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCampos", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCamposResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaPasarelaCampos[]> ObtenerPagoEnLineaPasarelaCamposAsync(int paisId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancos", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancosResponse")]
+        string ObtenerPagoEnLineaURLPaginasBancos(int paisId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancos", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancosResponse")]
+        System.Threading.Tasks.Task<string> ObtenerPagoEnLineaURLPaginasBancosAsync(int paisId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrdenResponse")]
         int ObtenerPagoEnLineaNumeroOrden(int paisId);
         
@@ -42770,6 +42824,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaPasarelaCampos[]> ObtenerPagoEnLineaPasarelaCamposAsync(int paisId) {
             return base.Channel.ObtenerPagoEnLineaPasarelaCamposAsync(paisId);
+        }
+        
+        public string ObtenerPagoEnLineaURLPaginasBancos(int paisId) {
+            return base.Channel.ObtenerPagoEnLineaURLPaginasBancos(paisId);
+        }
+        
+        public System.Threading.Tasks.Task<string> ObtenerPagoEnLineaURLPaginasBancosAsync(int paisId) {
+            return base.Channel.ObtenerPagoEnLineaURLPaginasBancosAsync(paisId);
         }
         
         public int ObtenerPagoEnLineaNumeroOrden(int paisId) {

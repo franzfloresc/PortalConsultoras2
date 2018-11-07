@@ -2,6 +2,7 @@
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Models
 @using Portal.Consultoras.Web.Helpers;
+@using Newtonsoft.Json;
 
 @model PedidoMobileModel
 @{
@@ -42,20 +43,18 @@
             </form>
         </div>
     </div>
-    @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
     <div class="franja_inferior_banner_pedido"></div>
-
     <div style="display:none;" class="mensaje_ingreso_cuvs" id="divMensajeCUV">
-        <a id="btnCerrarMensaje" class="cerrar_mensajeMobile" style="display:none;" href="javascript:;" onclick="javascript: $('#divMensajeCUV').hide();">
+        <a id="btnCerrarMensaje" class="cerrar_mensajeMobile" style="display:none;" href="javascript:;" onclick="javascript: CerrarMensajeCuv();">
             <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
         </a>
         <span id="divIcono" class="icono_aprobacion"></span>
         <span id="divMensaje" class="mensaje_productoCUV">
         </span>
     </div>
-
     <div class="contenedor_producto">
         <div class="content_320 ingresoPedidom">
+            @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
             <div id="divProductoMantenedor" style="display: none;">
                 <div style="display: none;">
                     <input type="hidden" id="hdfCUV" />
@@ -195,7 +194,7 @@
                         <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
                     </div>
                 </div>
-                <button type="button" class="btn_verMiPedido">
+                <button type="button" class="btn_verMiPedido boton_ingresa_tu_pedido_navidenio">
                     VER MI PEDIDO
                 </button>
             </div>
@@ -390,6 +389,8 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+@{ Html.RenderPartial("_PopupEleccionRegalo");}
+@{ Html.RenderPartial("_PopupPremio");}
 
 @section scripts
 {
@@ -466,11 +467,27 @@
 
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
-        var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DataBarra))');
+        var dataBarra = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.DataBarra).ToString().Replace("'", @"\'"))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido", new { area = "" })';
-        var iconoLluvia = '@Url.Content("~/Content/Images/confetti-rombo.svg")';
+        $('#carouselOpcionesRegalo').slick({
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll:1,
+            autoplay: false,
+            speed: 300,
+            arrows: false,
+            variableWidth: true,
+            centerMode:true
+        });
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/confetti-rombo.svg")',
+            '@Url.Content("~/Content/Images/confetti-estrella.svg")',
+            '@Url.Content("~/Content/Images/confetti-circulo.svg")',
+            '@Url.Content("~/Content/Images/confetti-ondas.svg")'
+        ];
         var noIniciarLluvia = true;
+        var lluviaContainerId = '#popupPremio';
     </script>
 
     @if (mobileConfiguracion.EsAppMobile)

@@ -37,10 +37,10 @@
                     MI PEDIDO
                     <span>@Model.DescripcionCampaniaActual</span>
                 </h2>
-                @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
                 <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
                 <input type="hidden" id="hdfTotal" value="@Model.Total" />
-                <div id="divProductosDetalle">
+                @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
+                <div id="divProductosDetalle" class="contenedor_lista_detalle_productos">
                     <div class="text-center">
                         <img alt="Cargando..." src="@Url.Content("~/Content/images/Loading.gif")" />
                     </div>
@@ -294,6 +294,9 @@
             <div class="bloque_descripcion_items_ingresados">
                 <div class="descripcion_item_pedido">
                     <span class="mensaje_tipoProd">
+                        <!-- Si producto es el regalo escogido del Programa Nuevas -->
+                        <span class="text-uppercase" style="display:none;">Regalo Programa Nuevas</span>
+                        <!-- Fin - Si producto es el regalo escogido del Programa Nuevas -->
                         {{#iff detalle.TipoPedido '==' 'M'}}
                         <br />
                         <span>App móvil</span>
@@ -306,7 +309,6 @@
                         <label for="{{detalle.DescripcionOferta}}">{{Replace (Replace detalle.DescripcionOferta '[' '') ']' ''}}</label>
                         {{/iff}}
                         {{/IsNullOrEmpty}}
-
                     </span>
                     <span class="cod_prod">
                         {{#if detalle.EstadoSimplificacionCuv}}
@@ -326,8 +328,15 @@
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
                     {{/iff}}
+                    <!-- Si producto es regalo escogido del Programa Nuevas -->
+                    <span class="tooltip_informativo_condicion_regalo_programaNuevas" style="display:none;">Sólo si llegas a tu monto</span>
+                    <!-- Fin - Si producto es regalo escogido del Programa Nuevas -->
                 </div>
-
+                @*<div class="icono_cambiar_regalo_programaNuevas">
+                    <a href="" title="Cambiar regalo">
+                        <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
+                    </a>
+                </div>*@
                 {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
                     <a href="javascript:;" title="Ver Info Kit Nuevas">
@@ -836,7 +845,8 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
-
+@{ Html.RenderPartial("_PopupEleccionRegalo");}
+@{ Html.RenderPartial("_PopupPremio");}
 @section Scripts{
 
     <script type="text/javascript">
@@ -868,6 +878,7 @@
 
         var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
+        var urlEsPedidoDetalleDuoPerfecto = '@Url.Action("EsPedidoDetalleDuoPerfecto", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
 
@@ -904,8 +915,24 @@
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.DataBarra))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         document.getElementsByClassName('descuento_pedido')[0].style.display = 'None';
-        var iconoLluvia = '@Url.Content("~/Content/Images/confetti-rombo.svg")';
+        $('#carouselOpcionesRegalo').slick({
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll:1,
+            autoplay: false,
+            speed: 300,
+            arrows: false,
+            variableWidth: true,
+            centerMode:true
+        });
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/confetti-rombo.svg")',
+            '@Url.Content("~/Content/Images/confetti-estrella.svg")',
+            '@Url.Content("~/Content/Images/confetti-circulo.svg")',
+            '@Url.Content("~/Content/Images/confetti-ondas.svg")'
+        ];
         var noIniciarLluvia = true;
+        var lluviaContainerId = '#popupPremio';
     </script>
     @Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
 

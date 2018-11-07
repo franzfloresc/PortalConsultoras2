@@ -579,6 +579,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CaracteresBuscador" type="xs:short" />
       <xs:element minOccurs="0" name="CaracteresBuscadorMostrar" type="xs:short" />
+      <xs:element minOccurs="0" name="IndicadorConsultoraDummy" type="xs:boolean" />
       <xs:element minOccurs="0" name="MostrarBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="TotalResultadosBuscador" type="xs:short" />
     </xs:sequence>
@@ -835,6 +836,7 @@
       <xs:element minOccurs="0" name="DescripcionProd" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="EliminadoTemporal" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EnRangoProgNuevas" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCompraPorCompra" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
@@ -1065,6 +1067,7 @@
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaApp" type="xs:int" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoError" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoErrorObs" nillable="true" type="xs:string" />

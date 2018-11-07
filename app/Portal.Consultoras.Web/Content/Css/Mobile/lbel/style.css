@@ -5384,6 +5384,7 @@ table > thead > tr > th {
     font-weight: 700;
     border-top: 1px solid #b0b0b0;
     border-bottom: 1px solid #b0b0b0;
+    font-size: 11px;
 }
 
 .cantidad_mas_home {
@@ -5672,6 +5673,14 @@ body {
     margin-bottom: 20px;
 }
 
+@media screen and (min-width:0) and (max-width:407px) {
+
+    .mi_ganancia {
+        max-width: 126px;
+    }
+
+}
+
 .montos_resumen {
     text-align: right;
 }
@@ -5680,13 +5689,6 @@ body {
     color: #642f80;
     font-weight: 700;
     text-transform: uppercase;
-}
-
-@media screen and (min-width:0) and (max-width:407px) {
-
-    .mi_ganancia {
-        max-width: 126px;
-    }
 }
 
 .textos_resumen span, .montos_resumen span {
@@ -5784,7 +5786,7 @@ body {
 }
 
 .nombre_campania_pedido {
-    margin: 0 0 21px 0;
+    margin: 7px 0 21px 0;
 }
 
 .enlace_regresar {
@@ -5829,10 +5831,10 @@ body {
 }
 
 .titulo_detalle {
-    border-top: 2px solid #bababa;
-    border-bottom: 2px solid #bababa;
+    border-top: 1px solid #bababa;
+    border-bottom: 1px solid #bababa;
     height: 38px;
-    line-height: 32px;
+    line-height: 33px;
 }
 
 .contenedor_items_pedido {
@@ -5860,7 +5862,7 @@ body {
     margin-bottom: 20px;
 }
 
-.descripcion_item_pedido, .icono_eliminar_item_pedido, .icono_kitNuevas {
+.descripcion_item_pedido, .icono_eliminar_item_pedido, .icono_kitNuevas, .icono_cambiar_regalo_programaNuevas {
     display: inline-block;
     vertical-align: top;
 }
@@ -12007,12 +12009,15 @@ span.icon-advertencia {
     font-family: 'Lato';
     font-size: 11px;
     font-weight: 700;
-    color: #613c87;
     text-align: center;
     margin-bottom: 5px;
     margin-left: 10px;
     margin-right: 10px;
 }
+
+    .texto_elige_tono img {
+        padding-right: 4px;
+    }
 
 .check_intriga:before {
     content: '✓';
@@ -14560,6 +14565,7 @@ span.icon-advertencia {
 /*FIN ESTILOS EMBEBER APP (APPCONS-1099)*/
 
 /* APPCONS-1098 */
+
 .ajustePosicionFlecha {
     left: 14px;
     top: 40%;
@@ -14597,14 +14603,13 @@ span.icon-advertencia {
     background: #fff;
     position: relative;
     z-index: 1;
-    padding: 13px 15px 9px 15px;
-    font-family: 'Lato';
+    font-family:'Lato';
 }
 
 .barra_ganancia {
     display: block;
     width: 100%;
-    height: 20px;
+    height: 12px;
     position: relative;
     background: rgba(255,255,255,1);
     background: -moz-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
@@ -14614,9 +14619,10 @@ span.icon-advertencia {
     background: -ms-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d8d8d8', GradientType=0 );
-    border-radius: 10px;
+    border:1px solid #DEDEDE;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -14627,7 +14633,7 @@ span.icon-advertencia {
 }
 
 .barra_ganancia_espacio_logrado {
-    width: 85%;
+    width: 0%;
     background: rgba(97,60,135,1);
     background: -moz-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
     background: -webkit-gradient(left top, right top, color-stop(0, rgba(97,60,135,1)), color-stop(100%, rgba(232,28,54,1)));
@@ -14664,6 +14670,7 @@ span.icon-advertencia {
     color: #642f80;
     text-transform: uppercase;
 }
+
 /* FIN APPCONS-1098 */
 
 /* MIS CERTIFICADOS MOBILE */
@@ -14695,6 +14702,118 @@ span.icon-advertencia {
         font-size: 19px;
     }
 /*FIN BANNER APP*/
+
+.contenedor_circulos {
+    display: none;
+    position: absolute;
+    z-index: 500;
+    left: 23px;
+    top: 6px;
+}
+
+.circulo-1, .circulo-2, .circulo-3 {
+    display: block;
+    border-radius: 100%;
+    position: absolute;
+    background: #642f80;
+    z-index: 500;
+}
+
+.circulo-1.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+.circulo-2.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .6s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+.circulo-3.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .9s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes circulo {
+    0% {
+        top: 12px;
+        left: 7px;
+        opacity: .8;
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+}
+
+@-moz-keyframes circulo {
+    0% {
+        top: 12px;
+        left: 7px;
+        opacity: .8;
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+}
+
+@-o-keyframes circulo {
+    0% {
+        top: 12px;
+        left: 7px;
+        opacity: .8;
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+}
+
+@keyframes circulo {
+    0% {
+        top: 12px;
+        left: 7px;
+        opacity: .8;
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+}
 
 @-webkit-keyframes flash {
     0% {
@@ -15205,3 +15324,471 @@ span.icon-advertencia {
     border-color: #6c398a !important;
     color: #6c398a;
 }
+
+/* MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
+
+#popupInformacionConfDuoPerfecto .terminos_title_2{
+    font-weight:900!important;
+}
+
+#popupInformacionConfDuoPerfecto a:last-child{
+    background-color:#642f80!important;
+    width: 140px!important;
+}
+
+#popupInformacionConfDuoPerfecto a:first-child{
+    background-color: transparent!important;
+    color: #000!important;
+    text-decoration: underline!important;
+}
+
+/* FIN - MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
+
+/* PROGRAMA NUEVAS - ELIGE TU REGALO */
+
+.tipo_montos_y_regalo_tippingPoint{
+    justify-content:flex-end;
+    position:relative;
+    font-size:12px;
+    color:#808080;
+    text-align:right;
+}
+
+.tipo_montos_y_regalo_tippingPoint,
+.tipo_montos_y_regalo_tippingPoint > div
+{
+    display:flex;
+    flex-direction:row;
+}
+
+.tipo_montos_y_regalo_tippingPoint > div{
+    justify-content:flex-end;
+}
+
+.monto_minimo,
+.regalo_tippingPoint,
+.monto_maximo
+{
+    display: inline-block;
+}
+
+.monto_minimo{
+    margin-left:25px;
+}
+
+.monto_minimo,
+.monto_maximo
+{
+    position: relative;
+    font-size:11px;
+    line-height:14px;
+    margin-top: 6px;
+}
+
+.monto_minimo div:last-child,
+.monto_maximo div:last-child
+{
+    margin-bottom:12px;
+}
+
+.monto_maximo{
+    display:none;
+}
+
+.monto_minimo:after,
+.monto_maximo:after
+{
+    display: block;
+    margin: 0 auto;
+    content: "";
+    width: 1px;
+    height: 8px;
+    background-color: #808080;
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+}
+
+.icono_regalo{
+    position: relative;
+    z-index: 10;
+    font-size:11px;
+}
+
+.regalo_tippingPoint {
+    margin-left:66px;
+    top:-6px;
+}
+
+.regalo_tippingPoint:after{
+    display: block;
+    margin: 0 auto;
+    content: "";
+    width: 1px;
+    height: 8px;
+    background-color: #e81c36;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+}
+
+.regalo_tippingPoint img{
+    width:25px;
+    position:relative;
+    z-index:600;
+}
+
+.regalo_tippingPoint + .monto_maximo{
+    margin-left:72px;
+}
+
+.regalo_tippingPoint .contenedor_circulos{
+    display:block;
+    top:-3px;
+    left:7.6px;
+}
+
+/*.regalo_tippingPoint .circulo-3{
+    display:none;
+}*/
+
+.contenedor_barra_mobile{
+    margin-bottom:38px;
+}
+
+.mensaje_meta{
+    font-size:15px;
+    padding-top:13px;
+    padding-left:1px;
+    margin-bottom:19px;
+    text-align:left;
+}
+
+.icono_cambiar_regalo_programaNuevas{
+    width: 40px;
+    padding: 10px;
+    position: relative;
+    margin-left: -14px;
+    top: 3px;
+    right: -10px;
+}
+
+.icono_cambiar_regalo_programaNuevas a{
+    display:block;
+}
+
+.icono_cambiar_regalo_programaNuevas img{
+    width:100%;
+    height:auto;
+}
+
+.tooltip_informativo_condicion_regalo_programaNuevas{
+    display:block;
+    position:relative;
+    width:164px;
+    height:48px;
+    line-height:48px;
+    font-size:13px;
+    background-color:#f8f8f8;
+    color:#000;
+    text-align:center!important;
+    margin-top:8px;
+    margin-bottom:21px!important;
+}
+
+.tooltip_informativo_condicion_regalo_programaNuevas:before{
+    display:block;
+    content:"";
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+    height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f8f8f8;
+	border-width: 7px;
+	margin-left: -64px;
+}
+
+/* POPUP ELIGE TU REGALO DEL PROGRAMA NUEVAS */
+
+.popup_eleccion_regalo_programaNuevas,
+.popup_meta_regalo_programaNuevas
+{
+    padding-top:41px;
+    padding-bottom:33px;
+    height: 100%;
+    overflow:auto!important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #FFF;
+    z-index: 2000;
+}
+
+.popup_eleccion_regalo_programaNuevas_header{
+    height:155px;
+}
+
+.icono_regalo_popup_programaNuevas,
+.icono_regalo_popup_meta_regalo,
+.titulo_popup_eleccion_regalo_programaNuevas,
+.opciones_regalo_carousel_programaNuevas,
+.enlace_elegir_otro_regalo
+{
+    margin:0 auto;
+}
+
+.icono_regalo_popup_programaNuevas,
+.icono_regalo_popup_programaNuevas img
+{
+    width:40px;
+    height:auto;
+}
+
+.titulo_popup_eleccion_regalo_programaNuevas,
+.titulo_popup_meta_regalo_programaNuevas
+{
+    margin-left:auto;
+    margin-right:auto;
+    max-width:285px;
+    line-height:26px;
+    margin-top:14px;
+    margin-bottom:15px;
+}
+
+.titulo_popup_eleccion_regalo_programaNuevas span,
+.titulo_popup_meta_regalo_programaNuevas span
+{
+    font-family: 'Lato', sans-serif;
+    letter-spacing:0.2px;
+}
+
+.mensaje_titulo_popup_eleccion_regalo{
+    display: block;
+}
+
+.mensaje_titulo_popup_eleccion_regalo,
+.mensaje_titulo_popup_regalo_elegido,
+.titulo_popup_meta_regalo_programaNuevas span:first-child
+{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.titulo_popup_eleccion_regalo_programaNuevas span:last-child,
+.titulo_popup_meta_regalo_programaNuevas span:last-child
+{
+    display:block;
+    font-size:18px;
+}
+
+.mensaje_titulo_popup_regalo_elegido{
+    display:none;
+}
+
+.opciones_regalo_programaNuevas_wrapper{
+    min-height: 401px;
+    background-color: #F5F5F5;
+    margin-bottom: 41px;
+    padding-top: 35px;
+    padding-bottom: 51px;
+    position: relative;
+}
+
+.btn_seguir_comprando,
+.btn_escoger_o_cambiar_regalo
+{
+    display:block;
+    margin:0 auto;
+    border:1px solid #000;
+    width:220px;
+    height:56px;
+    line-height:56px;
+    font-size:14px;
+    font-weight:bold;
+    background-color:#FFF;
+    border-radius:4px;
+}
+
+    .btn_seguir_comprando,
+    .btn_escoger_o_cambiar_regalo,
+    .btn_seguir_comprando:hover,
+    .btn_escoger_o_cambiar_regalo:hover
+    {
+        text-decoration:none;
+        color:#000;
+    }
+
+.opciones_regalo_carousel_programaNuevas.slick-slider{
+    margin-top:2px;
+}
+
+.opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
+    display:inline-block;
+    vertical-align:top;
+    float:none;
+    min-height:315px;
+    padding-top:0!important;
+    padding-bottom:25px!important;
+}
+
+.opcion_regalo_carousel_programaNuevas {
+    background-color: #FFF;
+    border: 1px solid #D8D8D8;
+    width: 245px;
+    margin-left: 12px;
+    margin-right: 12px;
+    -moz-box-shadow: 0 6px 18px -8px rgba(103,103,103,0.5);
+    -webkit-box-shadow: 0 6px 18px -8px rgba(103,103,103,0.5);
+    box-shadow: 0 6px 18px -8px rgba(103,103,103,0.5);
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.opcion_regalo_carousel_elegido{
+    border:1px solid #000;
+}
+
+.img_regalo_carousel{
+    padding-top:25px;
+    height:145px;
+    margin-bottom:9px;
+}
+
+.img_regalo_carousel img{
+    width:auto;
+    height:100%;
+}
+
+.marca_producto{
+    font-size:13px;
+    font-weight:300;
+    letter-spacing:0.2px;
+    color:#000;
+    margin-bottom:5px;
+}
+
+.descrip_regalo_carousel,
+.btn_elegir_regalo
+{
+    font-size:14.63px;
+    font-weight:bold;
+}
+
+.descrip_regalo_carousel{
+    letter-spacing: 0.24px;
+    height: 51px;
+    margin-bottom: 15px;
+}
+
+.btn_elegir_regalo{
+    width:185px;
+    height:45px;
+    background-color:#000;
+    border:1px solid #000;
+    color:#FFF;
+    border-radius:4px;
+}
+
+.icono_cerrar_popup_eleccion_regalo_programaNuevas{
+    position: absolute;
+    top: 15px;
+    right: 11px;
+    width: 16px;
+    text-decoration:none;
+}
+
+.icono_cerrar_popup_eleccion_regalo_programaNuevas img,
+.icono_check_regalo_elegido img
+{
+    width:100%;
+    height:auto;
+}
+
+.enlace_elegir_otro_regalo{
+    display:none;
+    max-width: 150px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+    font-size: 14px;
+    color: #000;
+    height: 45px;
+    line-height: 45px;
+}
+
+.mensaje_regalo_elegido {
+    display:none;
+    margin-top: 30px;
+}
+
+.icono_check_regalo_elegido,
+.texto_regalo_elegido
+{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.icono_check_regalo_elegido{
+    width:9px;
+    margin-bottom:3px;
+    margin-right:6px;
+}
+
+.texto_regalo_elegido{
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* FIN - POPUP ELIGE TU REGALO DEL PROGRAMA NUEVAS */
+
+/* POPUP FELICITACIONES META REGALO */
+
+.icono_regalo_popup_meta_regalo,
+.icono_regalo_popup_meta_regalo img
+{
+    width:60px;
+    height:auto;
+}
+
+.icono_regalo_popup_meta_regalo {
+    margin-bottom: 33px;
+}
+
+.titulo_popup_meta_regalo_programaNuevas span:first-child{
+    line-height:10px;
+    text-transform:uppercase;
+}
+
+.titulo_popup_meta_regalo_programaNuevas span:last-child{
+    margin-top:21px;
+    line-height:25px;
+}
+
+.btn_escoger_o_cambiar_regalo{
+    margin-top:70px;
+    width: 90%;
+    max-width: 330px;
+}
+
+.popup_meta_regalo_programaNuevas .popup_meta_regalo_programaNuevas_contenido{
+    position:absolute;
+    margin:0 auto;
+    top:128px;
+    left:0;
+    right:0;
+    bottom:0;
+    height:346px;
+}
+
+/* FIN - POPUP FELICITACIONES META REGALO */
+
+/* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
