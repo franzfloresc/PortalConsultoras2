@@ -583,13 +583,15 @@ if ($('.regalo_tippingPoint').css('display') == 'none') {
 }
 
 function cargarPopupEleccionRegalo() {
-    $('#popupEleccionRegalo').fadeIn(200);
-    cargarRegalosDisponiblesProgramasNuevas();
+    setTimeout(function () {
+        $('#popupEleccionRegalo').fadeIn(200);
+        armarCarouselRegalosDisponiblesProgramasNuevas();
+    }, 150);
 }
 
-function cargarRegalosDisponiblesProgramasNuevas() {
+function armarCarouselRegalosDisponiblesProgramasNuevas() {
     $('#carouselOpcionesRegalo').slick({
-        infinite: true,
+        infinite: false,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: false,
