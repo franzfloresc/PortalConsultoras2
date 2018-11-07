@@ -2455,7 +2455,7 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_PRODUCTO_AGOTADO, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto está agotado."} },
                             {Code.ERROR_PRODUCTO_LIQUIDACION, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto solo está disponible desde la sección de Liquidación Web."} },
                             {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true, Mensaje = "Encuentra este producto en la guía de negocio Ésika con oferta especial." } },
-                            {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true, Mensaje = "Encuentra este producto en la guía de negocio L'bel con oferta especial."} },
+                            {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true, Mensaje = "Encuentra este producto en la guía de negocio L'Bel con oferta especial."} },
                             {Code.ERROR_PRODUCTO_ESTRATEGIA, new PedidoValidacionConfiguracion() },
                             {Code.ERROR_PRODUCTO_SUGERIDO, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto tiene reemplazos sugeridos." } },
                             {Code.ERROR_PRODUCTO_SET, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas."} },
