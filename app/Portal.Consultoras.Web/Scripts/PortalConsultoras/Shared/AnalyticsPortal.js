@@ -37,13 +37,25 @@ var AnalyticsPortalModule = (function () {
         solPeru: "PEN",
         // Ini - Analytics Buscador Miguel
         isTest: false,
-        currencyCodes: [{ "Country": "Peru", "CountryCode": "PE", "Currency": "Nuevo Sol", "Code": "PEN" }, { "Country": "Venezuela", "CountryCode": "VE", "Currency": "Bolivar", "Code": "VEF" }, { "Country": "Bolivia", "CountryCode": "BO", "Currency": "Boliviano", "Code": "BOB" }, { "Country": "Chile", "CountryCode": "CL", "Currency": "Chilean Peso", "Code": "CLP" }, { "Country": "Brazil", "CountryCode": "BR", "Currency": "Brazil", "Code": "BRL" }, { "Country": "Colombia", "CountryCode": "CO", "Currency": "Peso", "Code": "COP" }, { "Country": "Costa Rica", "CountryCode": "CR", "Currency": "Costa Rican Colon", "Code": "CRC" }, { "Country": "Ecuador", "CountryCode": "EC", "Currency": "Sucre", "Code": "ECS" }, { "Country": "El Salvador", "CountryCode": "SV", "Currency": "Salvadoran Colon", "Code": "SVC" }, { "Country": "United States", "CountryCode": "US", "Currency": "USD", "Code": "USD" },],
+        currencyCodes: [
+            { "Country": "Peru", "CountryCode": "PE", "Currency": "Nuevo Sol", "Code": "PEN" },
+            { "Country": "Venezuela", "CountryCode": "VE", "Currency": "Bolivar", "Code": "VEF" },
+            { "Country": "Bolivia", "CountryCode": "BO", "Currency": "Boliviano", "Code": "BOB" },
+            { "Country": "Chile", "CountryCode": "CL", "Currency": "Chilean Peso", "Code": "CLP" },
+            { "Country": "Brazil", "CountryCode": "BR", "Currency": "Brazil", "Code": "BRL" },
+            { "Country": "Colombia", "CountryCode": "CO", "Currency": "Peso", "Code": "COP" },
+            { "Country": "Costa Rica", "CountryCode": "CR", "Currency": "Costa Rican Colon", "Code": "CRC" },
+            { "Country": "Ecuador", "CountryCode": "EC", "Currency": "Sucre", "Code": "ECS" },
+            { "Country": "El Salvador", "CountryCode": "SV", "Currency": "Salvadoran Colon", "Code": "SVC" },
+            { "Country": "United States", "CountryCode": "US", "Currency": "USD", "Code": "USD" }
+        ],
         seccionesPalanca: [
             { "CodigoSeccion": "LAN", "Palanca": "Lo Nuevo" },
             { "CodigoSeccion": "RD", "Palanca": "Revista  Digital" },
             { "CodigoSeccion": "HV", "Palanca": "Herramientas de Ventas" },
             { "CodigoSeccion": "ODD", "Palanca": "Ofertas del día" },
-            { "CodigoSeccion": "SR", "Palanca": "ShowRoom" }],
+            { "CodigoSeccion": "SR", "Palanca": "ShowRoom" }
+        ],
         origenpedidoWeb: [
             { "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" },
             { "CodigoPalanca": "01", "Palanca": "Showroom" },
@@ -58,8 +70,13 @@ var AnalyticsPortalModule = (function () {
             { "CodigoPalanca": "10", "Palanca": "Digitado" },
             { "CodigoPalanca": "11", "Palanca": "Catalogo Lbel" },
             { "CodigoPalanca": "12", "Palanca": "Catalogo Esika" },
-            { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" }],
-        origenpedidoWebHome: [{ "Codigo": "010306", "Descripcion": "Banner Header" }, { "Codigo": "010601", "Descripcion": "Liquidaciones Web" }, { "Codigo": "010001", "Descripcion": "Club GANA+" }],
+            { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" }
+        ],
+        origenpedidoWebHome: [
+            { "Codigo": "010306", "Descripcion": "Banner Header" },
+            { "Codigo": "010601", "Descripcion": "Liquidaciones Web" },
+            { "Codigo": "010001", "Descripcion": "Club GANA+" }
+        ],
         paginas: [
             { "CodigoPagina": "00", "Pagina": "Landing Herramientas de Venta" },
             { "CodigoPagina": "01", "Pagina": "Home" },
@@ -71,7 +88,8 @@ var AnalyticsPortalModule = (function () {
             { "CodigoPagina": "07", "Pagina": "Landing Ofertas Para Ti" },
             { "CodigoPagina": "08", "Pagina": "Contenedor" },
             { "CodigoPagina": "09", "Pagina": "Otras" },
-            { "CodigoPagina": "10", "Pagina": "Landing Buscador" }],
+            { "CodigoPagina": "10", "Pagina": "Landing Buscador" }
+        ],
         secciones: [
             { "CodigoSeccion": "01", "Seccion": "Carrusel" },
             { "CodigoSeccion": "02", "Seccion": "Ficha" },
@@ -79,7 +97,8 @@ var AnalyticsPortalModule = (function () {
             { "CodigoSeccion": "04", "Seccion": "Desplegable Buscador" },
             { "CodigoSeccion": "05", "Seccion": "Carrusel Ver Más" },
             { "CodigoSeccion": "06", "Seccion": "Banner Superior" },
-            { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }],
+            { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }
+        ],
         codigoPais: !(typeof userData === 'undefined') ? userData.pais : ""
         // Fin - Analytics Buscador Miguel
     };
@@ -202,7 +221,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
-      
+
     var marcarClicSetProductos = function (infoItem) {
 
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
@@ -270,130 +289,129 @@ var AnalyticsPortalModule = (function () {
         }
     }
     // Ini - Analytics Buscador Miguel
-        
+
     var _getMarca = function (marcaId) {
         switch (marcaId) {
-        case 1:
-            return "L'Bel";
-        case 2:
-            return "Ésika";
-        case 3:
-            return "Cyzone";
-        case 4:
-            return "S&M";
-        case 5:
-            return "Home Collection";
-        case 6:
-            return "Finart";
-        case 7:
-            return "Generico";
-        case 8:
-            return "Glance";
-        default:
-            return "Generico";
+            case 1:
+                return "L'Bel";
+            case 2:
+                return "Ésika";
+            case 3:
+                return "Cyzone";
+            case 4:
+                return "S&M";
+            case 5:
+                return "Home Collection";
+            case 6:
+                return "Finart";
+            case 7:
+                return "Generico";
+            case 8:
+                return "Glance";
+            default:
+                return "Generico";
         }
     }
-    
-        var getCurrencyCodes = function (codigoPais) {
-            try {
 
-                var currencyInfo = _constantes.currencyCodes.find(function (element) {
-                    return element.CountryCode == codigoPais;
-                });
-                return currencyInfo != undefined ? currencyInfo.Code : _texto.notavaliable;
-            } catch (e) {
-                console.log(_texto.excepcion + e);
+    var getCurrencyCodes = function (codigoPais) {
+        try {
+
+            var currencyInfo = _constantes.currencyCodes.find(function (element) {
+                return element.CountryCode == codigoPais;
+            });
+            return currencyInfo != undefined ? currencyInfo.Code : _texto.notavaliable;
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    };
+
+    var getPalancaBySeccion = function (codigoSeccion) {
+        try {
+
+            var seccion = _constantes.seccionesPalanca.find(function (element) {
+                return element.CodigoSeccion == codigoSeccion;
+            });
+            return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    };
+
+    var getPalancaByOrigenPedido = function (codigoOrigenPedido) {
+        try {
+            var codigoPalanca = codigoOrigenPedido.toString().substring(3, 5);
+            var seccion = _constantes.origenpedidoWeb.find(function (element) {
+                return element.CodigoPalanca == codigoPalanca;
+            });
+            return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    };
+
+    var getSeccionHomeByOrigenPedido = function (codigoOrigenPedido) {
+        try {
+            var codigo = codigoOrigenPedido.toString().substr(1, 5);
+            var seccion = _constantes.origenpedidoWebHome.find(function (element) {
+                return element.Codigo == codigo;
+            });
+            return seccion != undefined ? seccion.Descripcion : _texto.notavaliable;
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    };
+
+    var getContenedorByOrigenPedido = function (event, codigoOrigenPedido) {
+        try {
+            var contenedor = "";
+            var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
+            var codigoSeccion = codigoOrigenPedido.toString().substring(5, 7);
+            var seccion = _constantes.secciones.find(function (element) {
+                return element.CodigoSeccion == codigoSeccion;
+            });
+
+            var pagina = _constantes.paginas.find(function (element) {
+                return element.CodigoPagina == codigoPagina;
+            });
+
+            //var esCarrusel = seccion.Seccion == "Carrusel";
+            var esVerMas = typeof seccion !== "undefined" ? seccion.Seccion == "Carrusel Ver Más" : false;
+            var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
+            var esCarrusel = false;
+            if (!(event == null)) {
+                var elementCarrusel = $(event.target).closest("div:has(*[data-item-tag])");
+                esCarrusel = elementCarrusel.hasClass("content_item_carrusel");
             }
-        };
+            var contenedorFicha = esCarrusel ? _texto.contenedorDetalleSets : _texto.contenedorDetalle;
+            switch (pagina.Pagina) {
+                case "Home": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
+                case "Contenedor": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
+                case "Landing Ofertas Para Ti": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Pedido": contenedor = "Carrito de compras"; break;
+                case "Otras": contenedor = !esFicha ? _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Showroom": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing GND": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Herramientas de Venta": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Liquidación": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Buscador": contenedor = "Buscador"; break;
 
-        var getPalancaBySeccion = function (codigoSeccion) {
-            try {
-
-                var seccion = _constantes.seccionesPalanca.find(function (element) {
-                    return element.CodigoSeccion == codigoSeccion;
-                });
-                return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
-            } catch (e) {
-                console.log(_texto.excepcion + e);
             }
-        };
 
-        var getPalancaByOrigenPedido = function (codigoOrigenPedido) {
-            try {
-                var codigoPalanca = codigoOrigenPedido.toString().substring(3, 5);
-                var seccion = _constantes.origenpedidoWeb.find(function (element) {
-                    return element.CodigoPalanca == codigoPalanca;
-                });
-                return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
-            } catch (e) {
-                console.log(_texto.excepcion + e);
-            }
-        };
+            return contenedor;
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    };
 
-        var getSeccionHomeByOrigenPedido = function (codigoOrigenPedido) {
-            try {
-                var codigo = codigoOrigenPedido.toString().substr(1, 5);
-                var seccion = _constantes.origenpedidoWebHome.find(function (element) {
-                    return element.Codigo == codigo;
-                });
-                return seccion != undefined ? seccion.Descripcion : _texto.notavaliable;
-            } catch (e) {
-                console.log(_texto.excepcion + e);
-            }
-        };
-
-        var getContenedorByOrigenPedido = function (event, codigoOrigenPedido) {
-            try {
-                var contenedor = "";
-                var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
-                var codigoSeccion = codigoOrigenPedido.toString().substring(5, 7);
-                var seccion = _constantes.secciones.find(function (element) {
-                    return element.CodigoSeccion == codigoSeccion;
-                });
-
-                var pagina = _constantes.paginas.find(function (element) {
-                    return element.CodigoPagina == codigoPagina;
-                });
-
-                //var esCarrusel = seccion.Seccion == "Carrusel";
-                var esVerMas = typeof seccion !== "undefined" ? seccion.Seccion == "Carrusel Ver Más" : false;
-                var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
-                var esCarrusel = false;
-                if (!(event == null)) {
-                    var elementCarrusel = $(event.target).closest("div:has(*[data-item-tag])");
-                     esCarrusel = elementCarrusel.hasClass("content_item_carrusel");
-                }
-                var contenedorFicha = esCarrusel ? _texto.contenedorDetalleSets : _texto.contenedorDetalle;
-                switch (pagina.Pagina) {
-                    case "Home": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
-                    case "Contenedor": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
-                    case "Landing Ofertas Para Ti": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Pedido": contenedor = "Carrito de compras"; break;
-                    case "Otras": contenedor = !esFicha ? _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Landing Showroom": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Landing GND": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Landing Herramientas de Venta": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Landing Liquidación": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
-                    case "Buscador": contenedor = "Buscador"; break;
-
-                }
-
-                return contenedor;
-            } catch (e) {
-                console.log(_texto.excepcion + e);
-            }
-        };
-
-    var marcaBarraBusqueda = function ()
-    {
+    var marcaBarraBusqueda = function () {
         try {
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Buscador SB',
                 'action': 'Selección',
                 'label': _texto.notavaliable
-            });           
-       
+            });
+
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
@@ -414,10 +432,9 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia)
-    {
+    var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
         try {
-            var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);       
+            var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
 
             var pagina = _constantes.paginas.find(function (element) {
                 return element.CodigoPagina == codigoPagina;
@@ -436,17 +453,16 @@ var AnalyticsPortalModule = (function () {
             var valorBuscar = localStorage.getItem('valorBuscador');
             switch (pagina.Pagina) {
                 case "Buscador": AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar); break;
-               
+
             }
 
         } catch (e) {
 
         }
     }
-    
-    
-    var marcaEligeUnaOpcion = function (url, textobusqueda)
-    {
+
+
+    var marcaEligeUnaOpcion = function (url, textobusqueda) {
         try {
             localStorage.setItem('valorBuscador', textobusqueda);
             dataLayer.push({
@@ -464,7 +480,7 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var _obtenerNombrePalanca = function(tipoEstrategiaId) {
+    var _obtenerNombrePalanca = function (tipoEstrategiaId) {
         switch (tipoEstrategiaId) {
             case ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada:
                 return "Guía de negocio";
@@ -486,11 +502,10 @@ var AnalyticsPortalModule = (function () {
                 return "Gana+";
         }
     }
-    var marcaAnadirCarritoBuscador = function (model, origen, campoBuscar)
-    {
+    var marcaAnadirCarritoBuscador = function (model, origen, campoBuscar) {
         try {
             var desplegable = "";
-            if ($.isNumeric(campoBuscar) && campoBuscar.length == 5 )
+            if ($.isNumeric(campoBuscar) && campoBuscar.length == 5)
                 desplegable = " por CUV";
             var palanca;
             if (model.CodigoTipoEstrategia === "0") palanca = model.DescripcionEstrategia;
@@ -519,8 +534,7 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcaSeleccionarContenidoBusqueda = function (busqueda)
-    {
+    var marcaSeleccionarContenidoBusqueda = function (busqueda) {
         try {
             dataLayer.push({
                 'event': 'virtualEvent',
@@ -533,7 +547,7 @@ var AnalyticsPortalModule = (function () {
         }
     }
     // Fin - Analytics Buscador Miguel
-    
+
     // Ini - Rama TiposAnalytics
     //Nuevos métodos para HU EMP-1442 (Jira)
     var marcarImagenProducto = function (opcion, detalle) {
@@ -668,7 +682,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
-    var marcarEliminarOpcionSeleccionadaVariasOpciones = function (estrategia, nombreComponentes ) {
+    var marcarEliminarOpcionSeleccionadaVariasOpciones = function (estrategia, nombreComponentes) {
         try {
             dataLayer.push({
                 'event': _evento.virtualEvent,
