@@ -310,7 +310,7 @@ namespace Portal.Consultoras.BizLogic
             }
             if (updLabelNuevas)
             {
-                _blProgramaNuevas.UpdFlagCuponesAndDescOferta(
+                _blProgramaNuevas.UpdFlagCupones(
                     detParametros.PaisId,
                     detParametros.CampaniaId,
                     detParametros.NumeroPedido,

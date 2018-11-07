@@ -2283,12 +2283,6 @@ namespace Portal.Consultoras.Common
                 public const string Electivo_TeFaltaPocoLimite = "¡Agregaste 1 producto, te falta {0} para completar tu {1}!";
                 public const string ElecMultiple_ConfirmaEliminar = "Si eliminas este producto te quedarás sin tu {0}";
             }
-
-            public static class DescripcionOferta
-            {
-                public const string ProgNuevas = "PACK DE NUEVAS";
-                public const string DuoPerfecto = "DÚO PERFECTO";
-            }
         }
 
         public static class VentaExclusiva
@@ -3091,6 +3085,8 @@ namespace Portal.Consultoras.Common
             public const string HERRAMIENTASDEVENTA = "HERRAMIENTASDEVENTA";
             public const string ESPECIALES = "ESPECIALES";
             public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
+            public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
+            public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
         }
 
         public static class CodigosCatalogos

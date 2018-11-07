@@ -332,7 +332,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         x.TipoEstrategiaCodigo,
                         x.MarcaID,
                         x.CodigoCatalago,
-                        x.DescripcionOferta));
+                        x.DescripcionOferta,
+                        x.EsCuponNuevas,
+                        x.EsElecMultipleNuevas));
 
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
                     lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0).Update

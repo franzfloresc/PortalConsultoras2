@@ -74,7 +74,7 @@ namespace Portal.Consultoras.BizLogic
             return resp;
         }
 
-        public void UpdFlagCuponesAndDescOferta(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<BEPedidoWebDetalle> listPedidoDetalle)
+        public void UpdFlagCupones(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<BEPedidoWebDetalle> listPedidoDetalle)
         {
             if (listPedidoDetalle == null || listPedidoDetalle.Count == 0) return;
             if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas, paisID)) return;
@@ -89,11 +89,7 @@ namespace Portal.Consultoras.BizLogic
             if (listCuvPerteneceNuevas.Count == 0) return;
 
             var listDetallePerteneceNuevas = listDetalleEnRango.Where(d => listCuvPerteneceNuevas.Any(p => p.CodigoCupon == d.CUV)).ToList();
-            foreach (var detalle in listDetallePerteneceNuevas)
-            {
-                detalle.EsCuponNuevas = true;
-                detalle.DescripcionOferta = Constantes.ProgNuevas.DescripcionOferta.ProgNuevas;
-            }
+            listDetallePerteneceNuevas.ForEach(d => d.EsCuponNuevas = true);
 
             var listCuvElectivas = listCuvPerteneceNuevas.Where(a => !a.IndicadorCuponIndependiente).ToList();
             if (listCuvElectivas.Count == 0) return;
@@ -103,11 +99,7 @@ namespace Portal.Consultoras.BizLogic
             if (limElectivos <= 1) return;
 
             var listDetalleElectivos = listDetallePerteneceNuevas.Where(d => listCuvElectivas.Any(c =>c.CodigoCupon == d.CUV)).ToList();
-            foreach (var detalle in listDetalleElectivos)
-            {
-                detalle.EsElecMultipleNuevas = true;
-                detalle.DescripcionOferta = Constantes.ProgNuevas.DescripcionOferta.DuoPerfecto;
-            }
+            listDetalleElectivos.ForEach(d => d.EsElecMultipleNuevas = true);
         }
 
         public bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
