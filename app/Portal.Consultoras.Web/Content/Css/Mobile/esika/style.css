@@ -15612,6 +15612,13 @@ a {
     left:7.6px;
 }
 
+.regalo_tippingPoint .circulo-1,
+.regalo_tippingPoint .circulo-2,
+.regalo_tippingPoint .circulo-3
+{
+    border:1px solid #a20015;
+}
+
 .regalo_tippingPoint .default-color{
     color:#e81c36;
 }

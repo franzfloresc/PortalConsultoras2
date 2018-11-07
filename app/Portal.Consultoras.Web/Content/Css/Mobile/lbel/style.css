@@ -15450,6 +15450,13 @@ span.icon-advertencia {
     left:7.6px;
 }
 
+.regalo_tippingPoint .circulo-1,
+.regalo_tippingPoint .circulo-2,
+.regalo_tippingPoint .circulo-3
+{
+    border:1px solid #440c61;
+}
+
 .regalo_tippingPoint .default-color{
     color:#e81c36;
 }

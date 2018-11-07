@@ -591,7 +591,7 @@ function cargarPopupEleccionRegalo() {
 
 function armarCarouselRegalosDisponiblesProgramasNuevas() {
     $('#carouselOpcionesRegalo').slick({
-        infinite: false,
+        infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: false,
