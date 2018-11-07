@@ -43,7 +43,9 @@ var AnalyticsPortalModule = (function() {
         contenedorDetalle: "Contenedor - Detalle de Producto",
         contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
         contenedorRevisar: "Contenedor - Revisar",
-        CarritoCompras: "Carrito de compras"
+        CarritoCompras: "Carrito de compras",
+        siguiente: "Ver siguiente",
+        anterior: "Ver anterior"
         // Fin - Analytics Ofertas (Miguel)
     };
 
@@ -57,7 +59,8 @@ var AnalyticsPortalModule = (function() {
         ODD: "ODD",
         HOME: "HOME",
         HOMEOFERTA: "HOMEOFERTA",
-        GND: "GND"
+        GND: "GND",
+        MG : "MG"
     };
     // Fin - Analytics Home 1 (Miguel)
 
@@ -68,21 +71,89 @@ var AnalyticsPortalModule = (function() {
         MonedaCostaRica: "CR",
         // Ini - Analytics Buscador Miguel
         isTest: false,
-        currencyCodes: [{ "Country": "Peru", "CountryCode": "PE", "Currency": "Nuevo Sol", "Code": "PEN" }, { "Country": "Venezuela", "CountryCode": "VE", "Currency": "Bolivar", "Code": "VEF" }, { "Country": "Bolivia", "CountryCode": "BO", "Currency": "Boliviano", "Code": "BOB" }, { "Country": "Chile", "CountryCode": "CL", "Currency": "Chilean Peso", "Code": "CLP" }, { "Country": "Brazil", "CountryCode": "BR", "Currency": "Brazil", "Code": "BRL" }, { "Country": "Colombia", "CountryCode": "CO", "Currency": "Peso", "Code": "COP" }, { "Country": "Costa Rica", "CountryCode": "CR", "Currency": "Costa Rican Colon", "Code": "CRC" }, { "Country": "Ecuador", "CountryCode": "EC", "Currency": "Sucre", "Code": "ECS" }, { "Country": "El Salvador", "CountryCode": "SV", "Currency": "Salvadoran Colon", "Code": "SVC" }, { "Country": "United States", "CountryCode": "US", "Currency": "USD", "Code": "USD" },],
-        seccionesPalanca: [{ "CodigoSeccion": "LAN", "Palanca": "Lo Nuevo" }, { "CodigoSeccion": "RD", "Palanca": "Revista  Digital" }, { "CodigoSeccion": "HV", "Palanca": "Herramientas de Ventas" }, { "CodigoSeccion": "ODD", "Palanca": "Ofertas del día" }, { "CodigoSeccion": "SR", "Palanca": "ShowRoom" }],
-        origenpedidoWeb: [{ "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" }, { "CodigoPalanca": "01", "Palanca": "Showroom" }, { "CodigoPalanca": "02", "Palanca": "Lanzamientos" }, { "CodigoPalanca": "03", "Palanca": "Oferta Del Día" }, { "CodigoPalanca": "04", "Palanca": "Oferta Final" }, { "CodigoPalanca": "05", "Palanca": "GND" }, { "CodigoPalanca": "06", "Palanca": "Liquidación" }, { "CodigoPalanca": "07", "Palanca": "Producto Sugerido" }, { "CodigoPalanca": "08", "Palanca": "Herramientas de Venta" }, { "CodigoPalanca": "09", "Palanca": "Banners" }, { "CodigoPalanca": "10", "Palanca": "Digitado" }, { "CodigoPalanca": "11", "Palanca": "Catalogo Lbel" }, { "CodigoPalanca": "12", "Palanca": "Catalogo Esika" }, { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" }],
-        origenpedidoWebHome: [{ "Codigo": "010306", "Descripcion": "Banner Header" }, { "Codigo": "010601", "Descripcion": "Liquidaciones Web" }, { "Codigo": "010001", "Descripcion": "Club GANA+" }],
-        origenpedidoWebEstrategia: [{ "Codigo": "1020001", "Descripcion": "Desktop Pedido Ofertas Para Ti Carrusel" }, { "Codigo": "2020001", "Descripcion": "Mobile Pedido Ofertas Para Ti Carrusel" }],
-        paginas: [{ "CodigoPagina": "00", "Pagina": "Landing Herramientas de Venta" }, { "CodigoPagina": "01", "Pagina": "Home" }, { "CodigoPagina": "02", "Pagina": "Pedido" }, { "CodigoPagina": "03", "Pagina": "Landing Liquidación" }, { "CodigoPagina": "04", "Pagina": "Buscador" }, { "CodigoPagina": "05", "Pagina": "Landing Showroom" }, { "CodigoPagina": "06", "Pagina": "Landing GND" }, { "CodigoPagina": "07", "Pagina": "Landing Ofertas Para Ti" }, { "CodigoPagina": "08", "Pagina": "Contenedor" }, { "CodigoPagina": "09", "Pagina": "Otras" }, { "CodigoPagina": "10", "Pagina": "Landing Buscador" }],
-        secciones: [{ "CodigoSeccion": "01", "Seccion": "Carrusel" }, { "CodigoSeccion": "02", "Seccion": "Ficha" }, { "CodigoSeccion": "03", "Seccion": "Banner" }, { "CodigoSeccion": "04", "Seccion": "Desplegable Buscador" }, { "CodigoSeccion": "05", "Seccion": "Carrusel Ver Más" }, { "CodigoSeccion": "06", "Seccion": "Banner Superior" }, { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }],
+        currencyCodes: [
+            { "Country": "Peru", "CountryCode": "PE", "Currency": "Nuevo Sol", "Code": "PEN" },
+            { "Country": "Venezuela", "CountryCode": "VE", "Currency": "Bolivar", "Code": "VEF" },
+            { "Country": "Bolivia", "CountryCode": "BO", "Currency": "Boliviano", "Code": "BOB" },
+            { "Country": "Chile", "CountryCode": "CL", "Currency": "Chilean Peso", "Code": "CLP" },
+            { "Country": "Brazil", "CountryCode": "BR", "Currency": "Brazil", "Code": "BRL" },
+            { "Country": "Colombia", "CountryCode": "CO", "Currency": "Peso", "Code": "COP" },
+            { "Country": "Costa Rica", "CountryCode": "CR", "Currency": "Costa Rican Colon", "Code": "CRC" },
+            { "Country": "Ecuador", "CountryCode": "EC", "Currency": "Sucre", "Code": "ECS" },
+            { "Country": "El Salvador", "CountryCode": "SV", "Currency": "Salvadoran Colon", "Code": "SVC" },
+            { "Country": "United States", "CountryCode": "US", "Currency": "USD", "Code": "USD" }
+            ],
+        seccionesPalanca: [
+            { "CodigoSeccion": "LAN", "Palanca": "Lo Nuevo" },
+            { "CodigoSeccion": "RD", "Palanca": "Revista  Digital" },
+            { "CodigoSeccion": "HV", "Palanca": "Herramientas de Ventas" },
+            { "CodigoSeccion": "ODD", "Palanca": "Ofertas del día" },
+            { "CodigoSeccion": "SR", "Palanca": "ShowRoom" }],
+        origenpedidoWeb: [
+            { "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" },
+            { "CodigoPalanca": "01", "Palanca": "Showroom" },
+            { "CodigoPalanca": "02", "Palanca": "Lanzamientos" },
+            { "CodigoPalanca": "03", "Palanca": "Oferta Del Día" },
+            { "CodigoPalanca": "04", "Palanca": "Oferta Final" },
+            { "CodigoPalanca": "05", "Palanca": "GND" },
+            { "CodigoPalanca": "06", "Palanca": "Liquidación" },
+            { "CodigoPalanca": "07", "Palanca": "Producto Sugerido" },
+            { "CodigoPalanca": "08", "Palanca": "Herramientas de Venta" },
+            { "CodigoPalanca": "09", "Palanca": "Banners" },
+            { "CodigoPalanca": "10", "Palanca": "Digitado" },
+            { "CodigoPalanca": "11", "Palanca": "Catalogo Lbel" },
+            { "CodigoPalanca": "12", "Palanca": "Catalogo Esika" },
+            { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" },
+            { "CodigoPalanca": "14", "Palanca": "Más Ganadoras" }
+        ],
+        origenpedidoWebHome: [
+            { "Codigo": "010306", "Descripcion": "Banner Header" },
+            { "Codigo": "010601", "Descripcion": "Liquidaciones Web" },
+            { "Codigo": "010001", "Descripcion": "Club GANA+" }
+        ],
+        origenpedidoWebEstrategia: [
+            { "Codigo": "1020001", "Descripcion": "Desktop Pedido Ofertas Para Ti Carrusel" },
+            { "Codigo": "2020001", "Descripcion": "Mobile Pedido Ofertas Para Ti Carrusel" }
+        ],
+        paginas: [
+            { "CodigoPagina": "00", "Pagina": "Landing Herramientas de Venta" },
+            { "CodigoPagina": "01", "Pagina": "Home" },
+            { "CodigoPagina": "02", "Pagina": "Pedido" },
+            { "CodigoPagina": "03", "Pagina": "Landing Liquidación" },
+            { "CodigoPagina": "04", "Pagina": "Buscador" },
+            { "CodigoPagina": "05", "Pagina": "Landing Showroom" },
+            { "CodigoPagina": "06", "Pagina": "Landing GND" },
+            { "CodigoPagina": "07", "Pagina": "Landing Ofertas Para Ti" },
+            { "CodigoPagina": "08", "Pagina": "Contenedor" },
+            { "CodigoPagina": "09", "Pagina": "Otras" },
+            { "CodigoPagina": "10", "Pagina": "Landing Buscador" },
+            { "CodigoPagina": "11", "Pagina": "Landing Ganadoras" }
+        ],
+        secciones: [
+            { "CodigoSeccion": "01", "Seccion": "Carrusel" },
+            { "CodigoSeccion": "02", "Seccion": "Ficha" },
+            { "CodigoSeccion": "03", "Seccion": "Banner" },
+            { "CodigoSeccion": "04", "Seccion": "Desplegable Buscador" },
+            { "CodigoSeccion": "05", "Seccion": "Carrusel Ver Más" },
+            { "CodigoSeccion": "06", "Seccion": "Banner Superior" },
+            { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }
+        ],
         codigoPais: !(typeof userData === 'undefined') ? userData.pais : "",
         // Fin - Analytics Buscador Miguel
          // Ini - Analytics Ofertas
         contenedorHome: "Contenedor - Home",
-        campania: "Campaña "
+        campania: "Campaña ",
+        IdBannerGanadorasVerMas : "000123"
           // Fin - Analytics Ofertas
     };
-
+    var _getDirection = function (direction) {
+        switch (direction) {
+        case 1:
+                return _texto.siguiente;
+        case 2:
+                return _texto.anterior;
+        }
+    }
     var marcarVerFichaProducto = function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
         try {
             dataLayer.push({
@@ -216,7 +287,7 @@ var AnalyticsPortalModule = (function() {
         else
             currencyCode = tipoMoneda;
         var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, origenPedidoWebEstrategia, estoyEnLaFicha);
-        debugger;
+        
 
         try {
             dataLayer.push({
@@ -553,7 +624,7 @@ var AnalyticsPortalModule = (function() {
             seccion = seccion.replace("Lista", "");
              // Inicio Analytics Ofertas 
             var esLanding = typeof listaSeccion === 'undefined' ? false : true;
-            // Fin Analytics Ofertas Miguel
+            // Fin Analytics Ofertas 
 
             switch (seccion) {
                 case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(seccion, data, limit); break;
@@ -566,6 +637,7 @@ var AnalyticsPortalModule = (function() {
                 case _codigoSeccion.CART: AnalyticsPortalModule.MarcaProductImpressionCart(seccion, data); break;
                 case _codigoSeccion.SR: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
                 case _codigoSeccion.GND: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
+                case _codigoSeccion.MG: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
 
                 // Fin Analytics Ofertas Miguel
             }
@@ -655,6 +727,7 @@ var AnalyticsPortalModule = (function() {
         });
 
         var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenPedido);
+        
         var _pagina = pagina.Pagina;
         if (pagina.Pagina.includes("Landing"))
             _pagina = "Landing";
@@ -2025,6 +2098,100 @@ var AnalyticsPortalModule = (function() {
             console.log(_texto.exception + e);
         }
     }
+    //******GANADORAS******//
+
+    var marcaPromotionViewCarrusel = function() {
+        try {
+            dataLayer.push({
+                'event': _evento.promotionView,
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': _constantes.IdBannerGanadorasVerMas,
+                                'name': 'Tenemos Más Opciones Para ti - Las Más Ganadoras',
+                                'position': 'Contenedor - Home',
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    function marcarClickMasOfertasMG(url, origenPedido) {
+        try {                                        
+            //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': fnObtenerContenedor(),
+                'action': 'Las Más Ganadoras - Clic Botón',
+                'label': 'Ver más ofertas',
+                'eventCallback': function () {
+                    document.location = url;
+                }
+            });
+
+        } catch (e) {
+            document.location = url;
+            console.log(_texto.excepcion + e);
+        }
+    }
+    function marcarClickMasOfertasBannerMG(url) {
+        try {
+            
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': fnObtenerContenedor(),
+                'action': 'Las Más Ganadoras - Clic Banner',
+                'label': 'Ver más',
+                'eventCallback': function () {
+                    document.location = url;
+                }
+            });
+
+        } catch (e) {
+            document.location = url;
+            console.log(_texto.excepcion + e);
+        }
+    }
+    function marcarClickMasOfertasPromotionClickMG() {
+        try {
+            dataLayer.push({
+                'event': _evento.promotionClick,
+                'ecommerce': {
+                    'promoClick': {
+                        'promotions': [
+                            {
+                                'id': _constantes.IdBannerGanadorasVerMas,
+                                'name': 'Tenemos Más Opciones Para ti - Las Más Ganadoras',
+                                'position': 'Contenedor - Home', 'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+
+        } catch (e) {
+            document.location = url;
+            console.log(_texto.excepcion + e);
+        }
+    }
+    var _virtualEventPush = function (label) {
+
+        dataLayer.push({
+            "event": _evento.virtualEvent,
+            "category": fnObtenerContenedor(),
+            "action": "Las Más Ganadoras - Clic Flechas",
+            "label": label
+        });
+    };
+
+    function clickArrowMG(direction) {
+        _virtualEventPush(_getDirection(direction));
+    }
+    
     // Fin - Rama TiposAnalytics
 
     return {
@@ -2116,9 +2283,16 @@ var AnalyticsPortalModule = (function() {
         MarcarPedidoGuardoExito: marcarPedidoGuardoExito,
         MarcaGuardarPedidoExito: marcaGuardarPedidoExito,
         MarcaVerOfertas: marcaVerOfertas,
-        MarcaBannersInferioresDescontinuados: marcaBannersInferioresDescontinuados
+        MarcaBannersInferioresDescontinuados: marcaBannersInferioresDescontinuados,
         //MarcaAgregarProductosCarrito: marcaAgregarProductosCarrito
          // Fin Analytics Ofertas
-        
+
+        // Comienzo Analytics Marcaciones Ganadoras!
+        MarcaPromotionViewCarrusel: marcaPromotionViewCarrusel,
+        MarcarClickMasOfertasMG: marcarClickMasOfertasMG,
+        MarcarClickMasOfertasBannerMG: marcarClickMasOfertasBannerMG,
+        MarcarClickMasOfertasPromotionClickMG: marcarClickMasOfertasPromotionClickMG,
+        ClickArrowMG: clickArrowMG
+        // Fin Analytics Marcaciones Ganadoras!
     }
 })();

@@ -283,6 +283,7 @@ var menuModule = (function () {
         }
     }
     function sectionClick(url, titulo, origenPedido) {
+        
         titulo = titulo || "";
         //if (typeof rdAnalyticsModule !== "undefined") {
         //    rdAnalyticsModule.ContendorSection(titulo);
@@ -293,8 +294,19 @@ var menuModule = (function () {
                     url = "/Mobile" + url;
         }
         
-        if (typeof AnalyticsPortalModule !== "undefined")
-            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, origenPedido);
+        if (typeof AnalyticsPortalModule !== "undefined") {
+            if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
+                if (titulo === "BotonVerMas")
+                    AnalyticsPortalModule.MarcarClickMasOfertasMG(url, origenPedido);
+                if (titulo === "BannerMG") {
+                    AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
+                    AnalyticsPortalModule.MarcarClickMasOfertasBannerMG(url);
+                }
+                
+                    console.log("nothing");
+            } else
+               AnalyticsPortalModule.MarcaClicVerMasOfertas(url, origenPedido);
+        }
             
         //window.location.href = url;
     }
