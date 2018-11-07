@@ -15445,7 +15445,7 @@ span.icon-advertencia {
 }
 
 .regalo_tippingPoint .contenedor_circulos{
-    display:block;
+    display:none;
     top:-3px;
     left:7.6px;
 }
