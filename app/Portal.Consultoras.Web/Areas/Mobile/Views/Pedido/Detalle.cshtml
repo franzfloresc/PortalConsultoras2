@@ -915,16 +915,6 @@
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.DataBarra))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         document.getElementsByClassName('descuento_pedido')[0].style.display = 'None';
-        $('#carouselOpcionesRegalo').slick({
-            infinite: true,
-            slidesToShow: 1,
-            slidesToScroll:1,
-            autoplay: false,
-            speed: 300,
-            arrows: false,
-            variableWidth: true,
-            centerMode:true
-        });
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/confetti-rombo.svg")',
             '@Url.Content("~/Content/Images/confetti-estrella.svg")',

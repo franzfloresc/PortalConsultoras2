@@ -582,6 +582,24 @@ if ($('.regalo_tippingPoint').css('display') == 'none') {
     $('.tipo_montos_y_regalo_tippingPoint').find('.w-100').css('justify-content', 'space-between');
 }
 
+function cargarPopupEleccionRegalo() {
+    $('#popupEleccionRegalo').fadeIn(200);
+    cargarRegalosDisponiblesProgramasNuevas();
+}
+
+function cargarRegalosDisponiblesProgramasNuevas() {
+    $('#carouselOpcionesRegalo').slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: false,
+        speed: 300,
+        arrows: false,
+        variableWidth: true,
+        centerMode: true
+    });
+}
+
 function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
     regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_carousel_elegido');
     regaloProgramaNuevas.fadeOut(100);

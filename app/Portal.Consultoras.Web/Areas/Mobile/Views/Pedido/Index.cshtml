@@ -470,16 +470,6 @@
         var dataBarra = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.DataBarra).ToString().Replace("'", @"\'"))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido", new { area = "" })';
-        $('#carouselOpcionesRegalo').slick({
-            infinite: true,
-            slidesToShow: 1,
-            slidesToScroll:1,
-            autoplay: false,
-            speed: 300,
-            arrows: false,
-            variableWidth: true,
-            centerMode:true
-        });
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/confetti-rombo.svg")',
             '@Url.Content("~/Content/Images/confetti-estrella.svg")',
