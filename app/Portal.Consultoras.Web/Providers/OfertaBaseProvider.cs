@@ -169,6 +169,7 @@ namespace Portal.Consultoras.Web.Providers
             return nombreOferta;
         }
 
+
         public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
         {
             if (dbDefault) return false;
