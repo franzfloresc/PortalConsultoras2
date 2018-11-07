@@ -346,6 +346,9 @@ namespace Portal.Consultoras.Web.Providers
 
             if (!ShowRoom.ValidarIngresoShowRoom(false))
                 return seccion;
+
+            if (SessionManager.ShowRoom.Ofertas == null || SessionManager.ShowRoom.Ofertas.Count == 0)
+                return seccion;
             
             seccion.UrlObtenerProductos = "Estrategia/SRObtenerProductos";
             seccion.OrigenPedido = esMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
