@@ -318,7 +318,6 @@ namespace Portal.Consultoras.Web.Controllers
         private int ObtenerTipoPopUpMostrar(BienvenidaHomeModel model)
         {
             var resultPopupEmail = ObtenerActualizacionEmailSms();
-            //var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
 
             if (model.ShowPopupMisDatos)
                 return Constantes.TipoPopUp.Ninguno;
