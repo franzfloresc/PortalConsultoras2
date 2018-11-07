@@ -229,7 +229,10 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             }
 
             result.ListaMedioPago.Where(e => e.Estado && e.Codigo != Constantes.PagoEnLineaPasarela.PBI)
-                .All(e => e.Estado = result.ListaMetodoPago.Any(p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId));            
+                .All(e => {
+                        e.Estado = result.ListaMetodoPago.Any(p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId);
+                        return true;
+                    });
 
             return result;
         }
