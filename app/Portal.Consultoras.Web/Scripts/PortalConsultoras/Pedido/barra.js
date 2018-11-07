@@ -569,6 +569,44 @@ function MostrarBarra(datax, destino) {
     return true;
 }
 
+$('.btn_elegir_regalo').click(function () {
+    seleccionRegaloProgramaNuevas($(this));
+});
+
+$('.enlace_elegir_otro_regalo').click(function (e) {
+    e.preventDefault();
+    cambiarEleccionRegaloProgramaNuevas();
+});
+
+if ($('.regalo_tippingPoint').css('display') == 'none') {
+    $('.tipo_montos_y_regalo_tippingPoint').find('.w-100').css('justify-content', 'space-between');
+}
+
+function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
+    regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_carousel_elegido');
+    regaloProgramaNuevas.fadeOut(100);
+    $('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
+    setTimeout(function () {
+        regaloProgramaNuevas.next().fadeIn(150);
+        $('.mensaje_titulo_popup_eleccion_regalo').html('¡Ya elegiste tu regalo!');
+        $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
+        $('.enlace_elegir_otro_regalo').fadeIn(100);
+        $('.enlace_elegir_otro_regalo').css('display', 'block');
+    }, 150);    
+}
+
+function cambiarEleccionRegaloProgramaNuevas() {
+    $('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_carousel_elegido');
+    $('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
+    $('.mensaje_regalo_elegido').fadeOut(150);
+    setTimeout(function () {
+        $('.mensaje_titulo_popup_eleccion_regalo').html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
+        $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
+        $('.btn_elegir_regalo').fadeIn(150);
+        $('.enlace_elegir_otro_regalo').fadeOut(100);
+    }, 150);
+}
+
 function showPopupNivelSuperado(barra, prevTotal) {
     if (!barra) {
         return;

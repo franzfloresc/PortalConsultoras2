@@ -65,7 +65,7 @@ function ocultarLluvia() {
 
 function hideImages() {
     closeImagenRain = 1;
-    $("img[id^='fO']").hide();
+    $("img[id^='fO']").fadeOut(200);
 }
 
 function newObject(url, height, width) {
