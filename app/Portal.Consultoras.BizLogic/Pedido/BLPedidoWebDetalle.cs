@@ -876,22 +876,22 @@ namespace Portal.Consultoras.BizLogic
             var result = false;
             result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
 
-            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-            {
-                PaisId = paisID,
-                CampaniaId = Campaniaid,
-                ConsultoraId = ConsultoraId,
-                Consultora = nombreConsultora,
-                EsBpt = false,   //no se usa
-                CodigoPrograma = codigoPrograma,
-                NumeroPedido = numeroPedido,
-                AgruparSet = true
-            };
+            //var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+            //{
+            //    PaisId = paisID,
+            //    CampaniaId = Campaniaid,
+            //    ConsultoraId = ConsultoraId,
+            //    Consultora = nombreConsultora,
+            //    EsBpt = false,   //no se usa
+            //    CodigoPrograma = codigoPrograma,
+            //    NumeroPedido = numeroPedido,
+            //    AgruparSet = true
+            //};
 
-            var listaDetalle = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
-            var importeTotal = listaDetalle.Sum(p => p.ImporteTotal);
+            //var listaDetalle = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
+            //var importeTotal = listaDetalle.Sum(p => p.ImporteTotal);
 
-            daPedidoWebDetalle.UpdateImporteTotalPedidoWeb(Campaniaid, ConsultoraId, importeTotal);
+            //daPedidoWebDetalle.UpdateImporteTotalPedidoWeb(Campaniaid, ConsultoraId, importeTotal);
 
             return result;
         }
