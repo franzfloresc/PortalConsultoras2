@@ -65,7 +65,7 @@
 			<input type="hidden" id="hdfMarcaID" value="@Model.MarcaID" name="MarcaID" />
 			<input type="hidden" id="hdfPrecioUnidad" value="@Model.PrecioUnidad" name="PrecioUnidad" />
 			<input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
-			<input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedido" name="OrigenPedidoWeb" />
+			<input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedidoDigitado" name="OrigenPedidoWeb" />
 			<input type="hidden" id="hdfEsBusquedaSR" />
 			<input type="hidden" id="hdfEstrategiaId" value="0"/>
 
@@ -953,11 +953,6 @@
 
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
 
-@*
-    DEUDA TECNICA
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>*@
-
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
@@ -1504,7 +1499,6 @@
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         <div class="texto_pedidos celda_codigo">{{CUV}}</div>
         <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
-
             <span class="texto_pedidos_ofertas">
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
             </span>
@@ -1521,8 +1515,7 @@
                 <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{/if_eq}}
-
-
+            
             <div id="tooltipDescPro" class="tooltipPedido">
                 {{Split DescripcionProd '|' 0}}
             </div>
@@ -1544,8 +1537,8 @@
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                 <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
-                       data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
-                       onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}')" />
+                    data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
+                    onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                     <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -1606,8 +1599,8 @@
             {{#iff DescripcionLarga 'Contains' '\''}}
             {{Replace DescripcionLarga '\'' ''}}
             {{/iff}}
-            <a onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}');"
-               style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+                <a onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EnRangoProgNuevas}});"
+                    style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
 
             {{/if}}
         </div>
@@ -1621,7 +1614,7 @@
         <div class="stock_content">
             <div class="texto_stock" style="margin-top: 10PX;width:60%">@Constantes.BackOrder.mensajeBackOrderDestokp</div>
             <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
-                <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}', '{{SetID}}');">NO, ELIMÍNALO</a>
+                <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}', '{{SetID}}', false);">NO, ELIMÍNALO</a>
                 <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SÍ, GRACIAS!</a>
             </div>
             <hr class="clear" />
@@ -1650,10 +1643,6 @@
 </script>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-@*
-DEUDA TECNICA
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
 @Html.Partial("~/Views/FichaProducto/template-ficha-producto.cshtml")
 
 <script id="productos-faltantes-template" type="text/x-handlebars-template">
@@ -1889,7 +1878,7 @@ DEUDA TECNICA
                                                 <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                                             </div>
                                         </div>
-                                        <a class="boton_Agregalo_home agregarOfertaFinal" onclick="of_google_analytics_addtocar('desktop','list',{{ID}},'{{TipoMeta}}')">
+                                        <a class="boton_Agregalo_home agregarOfertaFinal" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel" onclick="of_google_analytics_addtocar('desktop','list',{{ID}},'{{TipoMeta}}')">
                                             AGRÉGALO
                                         </a>
                                         <div class="clear"></div>
@@ -1995,7 +1984,7 @@ DEUDA TECNICA
                     <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                 </div>
             </div>
-            <a class="boton_Agregalo_home ficha_btn_agregar agregarOfertaFinalVerDetalle" data-popup-verdetalle="{{id}}" style="width:238px;"
+            <a class="boton_Agregalo_home ficha_btn_agregar agregarOfertaFinalVerDetalle" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha" data-popup-verdetalle="{{id}}" style="width:238px;"
                onclick="of_google_analytics_addtocar('desktop','detail',{{ID}},'{{TipoMeta}}')">
                 AGRÉGALO
             </a>
@@ -2041,10 +2030,11 @@ DEUDA TECNICA
         else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';
         var origenPagina = 2;
         var tipoOrigenEstrategia = 11;
-        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel;
         var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido;
-        var DesktopPedidoSugerido = @Constantes.OrigenPedidoWeb.DesktopPedidoSugerido;
-        var DesktopPedidoOfertaFinal = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal;
+        var DesktopPedidoSugerido = @Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel;
+        var DesktopPedidoOfertaFinal = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel;
+        var DesktopPedidoOfertaFinalFicha = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha;
         var mobileDevice = false;
         var indicadorGPRSB = '@Model.IndicadorGPRSB';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
@@ -2069,7 +2059,9 @@ DEUDA TECNICA
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
+        var mensajeSinConexionGenerico = '@Constantes.MensajesError.SinConexion';
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
+        var urlEsPedidoDetalleElecMultiple = '@Url.Action("EsPedidoDetalleElecMultiple", "Pedido")';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)

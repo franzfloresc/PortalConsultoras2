@@ -208,14 +208,13 @@ function ArmarCarouselEstrategias(data) {
     $(".js-slick-prev").remove();
     $(".js-slick-next").remove();
     $("#divListadoEstrategia.slick-initialized").slick("unslick");
+
     data.Lista = data.Lista || [];
     if (data.Lista.length == 0) {
-
         $("#divListaEstrategias").show();
         $("#divContenedorListaEstrategia").hide();
         $(".contenido_gana_mas").hide();
-        //if (revistaDigital) {
-        //    if (revistaDigital.TieneRDC) {
+
                 if (isMobile()) {
                     $(".wrapper_resumen_mobile_clubganamas .zonadecolor, .wrapper_resumen_mobile_clubganamas").css({ "height": "200px" });
                 } else {
@@ -223,30 +222,21 @@ function ArmarCarouselEstrategias(data) {
                     $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
                     $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
                 }
-        //    }
-        //}
         
         return false;
     }
 
-    $.each(data.ListaLan, function (i, item) {
-        item.Posicion = i + 1;
-    });
-
+    $.each(data.ListaLan, function (i, item) { item.Posicion = i + 1; });
     $.each(data.Lista, function (i, item) {
-        item.Posicion = i + 1;
         item.EsBanner = false;
         item.EsLanzamiento = false;
     });
-
     tieneOPT = true;
-    arrayOfertasParaTi = data.Lista;
 
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
     
     if (revistaDigital != null) {
-        if (revistaDigital.TieneRDC) {
-            
+        if (revistaDigital.TieneRDC) {            
             if (data.ListaLan) {
                 if (data.ListaLan.length > 0) {
                     if (revistaDigital.EsActiva) {
@@ -259,12 +249,6 @@ function ArmarCarouselEstrategias(data) {
                         if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
                             data.Lista.splice(0, 0, productoLanzamiento);
                         }
-
-                        $.each(data.Lista, function (i, item) {
-                            item.Posicion = i + 1;
-                        });
-
-                        arrayOfertasParaTi = data.Lista;
                     }
                 }
             }
@@ -276,21 +260,16 @@ function ArmarCarouselEstrategias(data) {
 
                 if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
                     data.Lista.splice(3, 0, bannerClubGanaMas);
-                } else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
+                }
+                else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
                     data.Lista.splice(1, 0, bannerClubGanaMas);
                 }
-
-                $.each(data.Lista, function (i, item) {
-                    item.Posicion = i + 1;
-                });
-
-                arrayOfertasParaTi = data.Lista;
-            }
-            
+            }            
         }
     }
-   
 
+    $.each(data.Lista, function (i, item) { item.Posicion = i + 1; });
+    arrayOfertasParaTi = data.Lista;
     data.lista = data.Lista;
     SetHandlebars("#producto-landing-template", data, "#divListadoEstrategia");
 
@@ -312,7 +291,8 @@ function ArmarCarouselEstrategias(data) {
         var cantProCarrusel = 4;
         var esVariableWidth = true;
 
-        $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel");
+        //$("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel caja-borde");
+
         $("#divListaEstrategias").show();
 
         EstablecerLazyCarrusel("#divListadoEstrategia");
@@ -473,7 +453,6 @@ function ArmarCarouselEstrategias(data) {
     }
 
     TagManagerCarruselInicio(data.Lista);
-
 }
 
 function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
@@ -643,7 +622,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                     divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
                 }
 
-                //$(".contenedor_popup_detalleCarousel").hide(); DEUDA TECNICA
                 $("#divMensajeBloqueada").show();
             }
         }
@@ -748,7 +726,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     });
 }
 
-
 function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     AbrirLoad();
     var marcaID = datosEst.MarcaID;
@@ -798,7 +775,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         ClienteID_: "-1",
         TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
         Descripcion: descripcion,
-        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val()
+        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
+        enRangoProgNuevas: datosEst.FlagNueva == "1"
     };
 
     jQuery.ajax({
@@ -814,8 +792,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                     AbrirMensajeEstrategia(datos.message);
                 }
                 CerrarLoad();
-            } else {
-
+            }
+            else {
                 jQuery.ajax({
                     type: "POST",
                     url: baseUrl + "Pedido/AgregarProductoZE",
@@ -830,7 +808,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         }
 
                         if (data.success != true) {
-                            messageInfoError(data.message);
+                            if (!IsNullOrEmpty(data.tituloMensaje)) AbrirMensaje(data.message, data.tituloMensaje);
+                            else messageInfoError(data.message);
                             CerrarLoad();
                             return false;
                         }
@@ -840,27 +819,20 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         if (divAgregado != null) {
                             $(divAgregado).show();
                         }
-
                         if (tipoOrigenEstrategia == 1) {
                             MostrarBarra(data, "1");
-
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias();
-                          
-
                             CargarResumenCampaniaHeader(true);
                         }
                         else if (tipoOrigenEstrategia == 11) {
-
                             $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
-
                             cierreCarouselEstrategias();
                             CargarCarouselEstrategias();
                             CargarResumenCampaniaHeader();
                             HideDialog("divVistaPrevia");
 
                             tieneMicroefecto = true;
-
                             CargarDetallePedido();
                             MostrarBarra(data);
                         }
@@ -877,12 +849,10 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                                 }
                             }
                             else if (tipoOrigenEstrategia != 272) {
-                                CargarCarouselEstrategias();
-
-                           
+                                CargarCarouselEstrategias();                           
                             }
                         }
-
+                        
                         // falta agregar este metodo en para las revista digital
                         try {
                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
@@ -894,11 +864,13 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             CerrarPopup("#popupDetalleCarousel_lanzamiento");
                             HidePopupEstrategiasEspeciales();
                         }
+                        if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
 
-                        ActualizarLocalStorageAgregado("rd", param.CUV, true);
-                        ActualizarLocalStorageAgregado("gn", param.CUV, true);
-                        ActualizarLocalStorageAgregado("hv", param.CUV, true);
-                        ActualizarLocalStorageAgregado("lan", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("rd", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("gn", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("hv", param.CUV, true);
+                        //ActualizarLocalStorageAgregado("lan", param.CUV, true);
+                        ActualizarLocalStoragePalancas(param.CUV, true);
 
                         ProcesarActualizacionMostrarContenedorCupon();
                     },
@@ -919,7 +891,6 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 }
 
 function HidePopupEstrategiasEspeciales() {
-    //$("#popupDetalleCarousel_packNuevas").hide(); DEUDA TECNICA (BORRAR ESTA FUNCIÓN DESPUES)
 }
 
 function CerrarLoad() {

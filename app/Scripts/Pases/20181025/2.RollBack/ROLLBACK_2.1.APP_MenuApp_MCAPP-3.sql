@@ -1,0 +1,144 @@
+USE BelcorpPeru
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+
+USE BelcorpMexico
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+
+USE BelcorpColombia
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+
+USE BelcorpSalvador
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+
+USE BelcorpPuertoRico
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+
+USE BelcorpPanama
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+
+USE BelcorpGuatemala
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+
+USE BelcorpEcuador
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+
+USE BelcorpDominicana
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+
+USE BelcorpCostaRica
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+
+USE BelcorpChile
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+
+USE BelcorpBolivia
+GO
+
+/* ELIMINAMOS EL MENU EXISTENTE */
+DELETE MenuApp WHERE [VersionMenu] = 6;
+GO
+
+/* ELIMINAMOS CHATBOT CONSULTORAS CONFIGURACION */
+DELETE TablaLogicaDatos WHERE [TablaLogicaDatosID] = 14901;
+DELETE TablaLogica WHERE [TablaLogicaID] = 149;
+GO
+

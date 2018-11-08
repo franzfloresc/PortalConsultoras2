@@ -35,7 +35,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (EsDispositivoMovil())
             {
-               // return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca = marca });
                 if (url.Length > 1 && url[1].Contains("sap"))
                 {                    
                     sap = "&" + url[1].Remove(0, 12);
@@ -62,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
-            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.DesktopCatalogo);
+            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;

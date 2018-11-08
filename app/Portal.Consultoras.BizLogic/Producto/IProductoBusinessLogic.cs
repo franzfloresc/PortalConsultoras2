@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities.ProgramaNuevas;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -27,9 +26,6 @@ namespace Portal.Consultoras.BizLogic
         IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID, string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt);
         IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
         int UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario);
-        Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv);
-        int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada);
-        BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido);
         Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv);
     }
 }

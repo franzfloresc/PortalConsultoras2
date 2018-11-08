@@ -25,63 +25,6 @@
 
         return d.promise();
     };
-    //var _mostrarMasTonos = function (menos) {
-    //    if (!isMobile()) {
-    //        return false;
-    //    }
-
-    //    if (menos) {
-    //        var tonos = $("#popupDetalleCarousel_lanzamiento [data-tono-div] [data-tono-change]");
-    //        var h = $(tonos[0]).height();
-    //        var w = $(tonos[0]).width();
-    //        var total = tonos.length;
-    //        var t = $("#popupDetalleCarousel_lanzamiento [data-tono-div]").width();
-    //        if (w * total > t) {
-    //            $(".indicador_tono").show();
-    //        }
-    //        else {
-    //            $(".indicador_tono").hide();
-    //        }
-    //        $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", Math.max(h, w) + 5);
-    //    } else {
-    //        $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", "auto");
-    //    }
-    //    return false;
-    //}
-
-
-    //var _ValidarSeleccionTono = function (objInput, esFicha) {
-    //    var attrClass = $.trim($(objInput).attr("class"));
-    //    if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
-
-    //        //var $SelectTonos = $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']");
-    //        var $SelectTonos = $(objInput).parents("[data-item]").find("[data-opciones-seleccionadas='0']").find("[data-tono-change='1']");
-    //        var $SeleccionTonoToolTip = $("[data-selecciontono='tooltip']");
-
-    //        if (isMobile()) {
-    //            if (esFicha) {
-    //                if ($SelectTonos.length > 0) {
-    //                    var $PrimerElemento = $SelectTonos[0];
-    //                    var Altura = $($PrimerElemento).offset().top - 200;
-    //                    window.scrollTo(0, Altura);
-    //                }
-    //            }
-    //        }
-
-    //        if (esFicha) {
-    //            $SeleccionTonoToolTip.show();
-    //            setTimeout(function () { $SeleccionTonoToolTip.hide(); }, 2000);
-    //        }
-
-    //        $SelectTonos.removeClass("texto_sin_tono").addClass("variedad_sin_seleccionar");
-    //        setTimeout(
-    //            function () {
-    //                $SelectTonos.removeClass("variedad_sin_seleccionar").addClass("texto_sin_tono");
-    //            }, 1000);
-    //        return true;
-    //    }
-    //    return false;
-    //}
 
     var _eventos =
         {
@@ -216,8 +159,6 @@
 
     return {
         Inicializar: Inicializar
-        //MostrarMasTonos: _mostrarMasTonos,
-        //ValidarSeleccionTono: _ValidarSeleccionTono
     };
 
 })();

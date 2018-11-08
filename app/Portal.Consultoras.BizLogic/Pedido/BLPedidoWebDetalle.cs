@@ -16,6 +16,11 @@ namespace Portal.Consultoras.BizLogic
 {
     public partial class BLPedidoWebDetalle : IPedidoWebDetalleBusinessLogic
     {
+        //public BLPedidoWebDetalle()
+        //{
+        //    BLProgramaNuevas = new BLProgramaNuevas();
+        //}
+
         public IList<BEPedidoWebDetalle> GetClientesByCampania(int paisID, int campaniaID, long consultoraID)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
@@ -291,19 +296,22 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros, 
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros,
             bool consultoraOnLine = true)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
             var daPedidoWebDetalle = new DAPedidoWebDetalle(bePedidoWebDetalleParametros.PaisId);
 
             using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros))
+            {
                 while (reader.Read())
                 {
                     var entidad = new BEPedidoWebDetalle(reader, bePedidoWebDetalleParametros.Consultora);
                     entidad.PaisID = bePedidoWebDetalleParametros.PaisId;
                     pedidoWebDetalle.Add(entidad);
                 }
+            }
+            _blProgramaNuevas.UpdateFlagCupones(bePedidoWebDetalleParametros.PaisId, pedidoWebDetalle);
 
             #region ConsultoraOnline
             if (consultoraOnLine)
@@ -323,14 +331,11 @@ namespace Portal.Consultoras.BizLogic
                     foreach (var item in pedidoWebDetalle)
                     {
                         var itemConsultoraOnline = listaProductosConsultoraOnline.FirstOrDefault(p => p.PedidoWebID == item.PedidoID && p.PedidoWebDetalleID == item.PedidoDetalleID);
-                        if (itemConsultoraOnline != null)
-                        {
-                            item.FlagConsultoraOnline = true;
-                        }
+                        if (itemConsultoraOnline != null) item.FlagConsultoraOnline = true;
                     }
                 }
             }
-            #endregion
+            #endregion            
 
             return pedidoWebDetalle;
         }

@@ -54,8 +54,10 @@ $(function () {
         $(this).parent(".alert-top").slideUp();
     });
 
-    CargarCantidadProductosPedidos(true);
-    CargarCantidadNotificacionesSinLeer();
+    if (typeof esAppMobile == 'undefined') {
+        CargarCantidadProductosPedidos(true);
+        CargarCantidadNotificacionesSinLeer();
+    }
 
     $("body").on("keyup", ".ValidaNumeral", function (evt) {
         var theEvent = evt || window.event;
@@ -839,6 +841,15 @@ function messageConfirmacion(message, fnAceptar) {
     }
 }
 
+function messageConfirmacionDuoPerfecto(message, fnAceptar) {
+    $('#mensajeInformacionConfDuoPerfecto').html(message);
+    $('#popupInformacionConfDuoPerfecto').show();
+    if ($.isFunction(fnAceptar)) {
+        $('#popupInformacionConfDuoPerfecto .aceptar-mobile').off('click');
+        $('#popupInformacionConfDuoPerfecto .aceptar-mobile').on('click', fnAceptar);
+    }
+}
+
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
     noMostrarEfecto = noMostrarEfecto || false;
     var montoWebAcumulado = "";
@@ -989,7 +1000,7 @@ function odd_mobile_google_analytics_promotion_impresion(list, event, index) {
     var elements = list.length;
     var item = null;
     var impresion = null;
-    if (event === 'page_load') {//Ok
+    if (event === 'page_load') {
 
         position = 1;
         for (var i = 0; i <= elements - 1; i++) {

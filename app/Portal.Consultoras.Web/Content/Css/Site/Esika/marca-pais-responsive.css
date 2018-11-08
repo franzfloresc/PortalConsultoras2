@@ -1,0 +1,285 @@
+﻿/* ESTILOS MARCA PAÍS ÉSIKA */
+
+/* HEADER */
+
+/* HEADER MARCA PAÍS NAVIDEÑO */
+
+.layout__header--navidenio .layout__container:before,
+.layout__header--navidenio .header__marca__pais:before,
+.layout__header--navidenio .header__marca__pais:after
+{
+    display:block;
+    content:"";
+    position: absolute;
+    z-index: -1;
+    height: 60px;
+}
+
+.layout__header--navidenio .header__marca__pais:before,
+.layout__header--navidenio .header__marca__pais:after
+{
+    background: -moz-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+    background: -webkit-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+    background: linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E81C36', endColorstr='#720313',GradientType=0 );
+}
+
+.layout__header--navidenio .layout__container:before{
+    left: -1197px;
+    top: 0;
+    background: -moz-linear-gradient(360.1deg, #E81C36 -63.78%, #720313 101.67%);
+    background: -webkit-linear-gradient(360.1deg, #E81C36 -63.78%, #720313 101.67%);
+    background: linear-gradient(360.1deg, #E81C36 -63.78%, #720313 101.67%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E81C36', endColorstr='#720313',GradientType=0 );
+}
+
+.layout__header--navidenio .layout__container:before,
+.layout__header--navidenio .header__marca__pais:before
+{
+    width:100%;
+}
+
+.layout__header--navidenio .header__marca__pais:before{
+    top: -14px;
+}
+
+.layout__header--navidenio .header__marca__pais:after{
+    width: 128px;
+    top:-13px;
+    right: -25px;
+    -moz-transform: skew(-13deg);
+    -ms-transform: skew(-13deg);
+    -o-transform: skew(-13deg);
+    -webkit-transform: skew(-13deg);
+    transform: skew(-13deg);
+}
+
+.layout__header--navidenio .header__marca__pais{
+    right:24px;
+    top:-1px;
+}
+
+.layout__header--navidenio .pestana__marca__pais{
+    background-color:transparent;
+}
+
+@media screen and (min-width:992px) and (max-width:1270px){
+
+    .layout__header--navidenio .header__marca__pais:before,
+    .layout__header--navidenio .header__marca__pais:after
+    {
+        top: -16px;
+    }
+
+}
+
+@media screen and (max-width:991px){
+
+    .layout__header--navidenio .layout__container{
+        justify-content:flex-start!important;
+    }
+
+    .layout__header--navidenio .layout__container:before{
+        display:none;
+    }
+
+    .layout__header--navidenio .header__marca__pais{
+        width:105px;
+        text-align:left!important;
+        right:0;
+    }
+
+    .layout__header--navidenio .header__marca__pais img {
+        right: 1px;
+        height: 30px;
+        margin-top: -4px;
+        padding-left: 17px;
+    }
+
+    .layout__header--navidenio .header__marca__pais:before,
+    .layout__header--navidenio .header__marca__pais:after
+    {
+        top:-14px;
+    }
+
+    .layout__header--navidenio .header__marca__pais:before{
+        right:35px;
+    }
+
+    .layout__header--navidenio .header__marca__pais:after{
+        right:-6px;
+    }
+
+    .layout__header--navidenio .header__menu--lateralDerecho{
+        flex-grow:1!important;
+    }
+
+    .layout__header--navidenio .menu__lista{
+        justify-content:flex-end!important;
+    }
+
+    .layout__header--navidenio .menu__item--lateralDerechoIcono:first-child,
+    .layout__header--navidenio .menu__item--lateralDerechoIcono:nth-child(2)
+    {
+        margin-right:13px!important;
+    }
+
+}
+
+/* FIN - HEADER MARCA PAÍS NAVIDEÑO */
+
+.header__marca__pais img{
+    width:auto;
+    height:100%;
+    margin-top:-1px;
+}
+
+.icono__actualizarDatos,
+.notificaciones__cantidad,
+.btn__productos__agregados--IngresarPedido,
+.ui-button-text-only .ui-button-text
+{
+    background-color:#e81c36;
+}
+
+.menu__link--pedido{
+    background-image:url(../../../images/esika/vineta_indicador.png);
+}
+
+.menu__item--campaniaActual{
+    background-color: #a18328;
+}
+
+.pestana__marca__pais {
+    width:20px;
+    height:17px;
+    background-color: #FFF;
+    background-image: url('/Content/Images/Esika/pestana_esika.png');
+    background-size: 20px;
+    background-position: center 1px;
+    top:-17px;
+    left:10.3%;
+}
+
+.submenu__lista--miNegocio{
+    top:54px;
+}
+
+.submenu__lista--miAsesorBelleza{
+    margin-top:7px;
+}
+
+.submenu__lista--miAsesorBelleza .pestana__marca__pais{
+    left:38%;
+}
+
+@media screen and (max-width:1270px){
+
+    .header__marca__pais picture{
+        height:29px;
+    }
+
+}
+
+@media screen and (max-width:1249px){
+
+    .header__marca__pais picture{
+        height:27px;
+    }
+
+}
+
+@media screen and (min-width:1207px) and (max-width:1212px){
+
+    .menu__item[data-title="OFERTAS"],
+    .menu__item--ofertas
+    {
+        margin-left: -5px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1206px){
+
+    .header__marca__pais{
+        width:106px;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1065px){
+
+    .menu__item[data-title="OFERTAS"] img,
+    .menu__link--ofertas img
+    {
+        width: 134.36px;
+    }
+
+}
+
+@media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+    .header__marca__pais{
+        height:33px;
+    }
+
+    .header__marca__pais img{
+        height:auto!important;
+    }
+
+}
+
+/* FIN - HEADER */
+
+/* HEADER MOBILE */
+
+@media screen and (max-width: 991px) and (-ms-high-contrast: none), (max-width: 991px) and (-ms-high-contrast: active) {
+
+    .header__marca__pais{
+        background-image:url(/Content/Images/esika/logo_marca_pais_mobile.svg);
+        background-repeat:no-repeat;
+        background-size:73px;
+    }
+
+}
+
+@media screen and (max-width:991px){
+
+    .header__marca__pais{
+        width:136px;
+        background-position:59% center;
+    }
+
+    .header__marca__pais picture {
+        margin-top: 3px;
+    }
+
+}
+
+@media screen and (max-width:480px) {
+
+    .header__marca__pais{
+        background-position:67% center;
+    }
+
+}
+
+@media screen and (max-width:370px) {
+
+    .header__marca__pais{
+        background-position:79% center;
+    }
+
+}
+
+@media screen and (max-width:350px) {
+
+    .header__marca__pais{
+        background-position:89% center;
+    }
+
+}
+
+/* FIN - HEADER MOBILE */
+
+/* FIN - ESTILOS MARCA PAÍS ÉSIKA */

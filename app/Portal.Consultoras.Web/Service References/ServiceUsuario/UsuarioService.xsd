@@ -397,8 +397,11 @@
   <xs:element name="BEUsuario" nillable="true" type="tns:BEUsuario" />
   <xs:complexType name="BEBuscadorYFiltrosConfiguracion">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AplicarLogicaCantidadBotonVerTodosBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="CaracteresBuscador" type="xs:short" />
       <xs:element minOccurs="0" name="CaracteresBuscadorMostrar" type="xs:short" />
+      <xs:element minOccurs="0" name="IndicadorConsultoraDummy" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MostrarBotonVerTodosBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="MostrarBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="TotalResultadosBuscador" type="xs:short" />
     </xs:sequence>
@@ -757,8 +760,10 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="AceptoContrato" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeviceID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DireccionIP" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaAceptacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMEI" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="InformacionSOMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />

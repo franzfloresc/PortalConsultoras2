@@ -25,15 +25,12 @@ namespace Portal.Consultoras.BizLogic
         public List<BeReporteContrato> ReporteContratoAceptacion(int paisID, string codigoconsultora, string cedula, DateTime? fechaInicio, DateTime? FechaFin)
         {
             List<BeReporteContrato> listsBeReporteContrato = new List<BeReporteContrato>();
-
-            //if (string.IsNullOrEmpty(codigoUsuario) && fechaIngreso == DateTime.MinValue && string.IsNullOrEmpty(codigoConsultora) && string.IsNullOrEmpty(codigoZona) && campaniaID == 0)
-            //    return pedidosIngresados;
-
+            
             var daContratoAc = new DAContratoAceptacion(paisID);
 
             using (IDataReader reader = daContratoAc.ReporteContratoAceptacion(codigoconsultora, cedula, fechaInicio, FechaFin))
             {
-                var columns = ((IDataRecord)reader).GetAllNames();
+                //var columns = ((IDataRecord)reader).GetAllNames();
 
                 while (reader.Read())
                 {
@@ -46,7 +43,9 @@ namespace Portal.Consultoras.BizLogic
                         FechaAceptacion = reader[4].ToString(),
                         Origen = reader[5].ToString(),
                         DireccionIP = reader[6].ToString(),
-                        InformacionSOMobile = reader[7].ToString()
+                        InformacionSOMobile = reader[7].ToString(),
+                        IMEI = reader[8].ToString(),
+                        DeviceID= reader[9].ToString()
                     });
                 }
 

@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -15,13 +16,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class BienvenidaController : BaseMobileController
     {
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
-        protected TablaLogicaProvider _tablaLogica;
+        protected Providers.TablaLogicaProvider _tablaLogica;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
-            _tablaLogica = new TablaLogicaProvider();
+            _tablaLogica = new Providers.TablaLogicaProvider();
         }
-
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(int verSeccion = 0)
@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 ViewBag.NombreConsultora = model.NombreConsultora;
 
-                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.MobileHome);
+                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptMobileHome);
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
                 ViewBag.UrlImagenFAVMobile = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
 
@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (LogicaCaminoExisto.Any())
                 {
                     var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
-                    bool caminiExitoActive = (CaminoExistoFirst != null && CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
+                    bool caminiExitoActive = (CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
                     if (caminiExitoActive)
                     {
                         var accesoCaminoExito = this.ObjectCaminoExito();
@@ -237,9 +237,30 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private int ObtenerTipoPopUpMostrar()
         {
-            var tipoPopUpMostrar = 0;
-            var resultPopupEmail = ObtenerActualizacionEmail();
-            var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
+
+            var listaPopUps = ObtenerListaPopupsDesdeServicio();
+            var tipoPopUpMostrar  = 0;
+            if (listaPopUps.Any())
+            {
+                foreach (var popup in listaPopUps)
+                {
+                    switch (popup.CodigoPopup)
+                    {     
+                        case Constantes.TipoPopUp.ActualizarCorreo:
+                            var result = ObtenerActualizacionEmail();
+                            if (result.Split('|')[0] == "1")
+                            {
+                                tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
+                                SessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
+                                return tipoPopUpMostrar;
+                            }
+                            break;
+                    }
+                    if (tipoPopUpMostrar > 0)
+                        break;
+                }                            
+            }
+
 
             if (SessionManager.GetTipoPopUpMostrar() != -1)
             {
@@ -254,12 +275,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return tipoPopUpMostrar;
             }
 
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora && resultPopupEmailSplited == "1")
-            {
-                tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
-                SessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
-                return tipoPopUpMostrar;
-            }
+     
 
             if (userData.TieneCupon == 1 && userData.CodigoISO == Constantes.CodigosISOPais.Peru)
             {
@@ -566,6 +582,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-    }
 
+
+        private List<BEPopupPais> ObtenerListaPopupsDesdeServicio()
+        {
+            var listaPopUps = new List<BEPopupPais>();
+            try
+            {
+                using (var sac = new SACServiceClient())
+                {
+                    listaPopUps = sac.ObtenerOrdenPopUpMostrar(userData.PaisID).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return listaPopUps;
+        }
+
+    }
 }

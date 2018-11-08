@@ -12,15 +12,6 @@ $(document).ready(function () {
 
     // sirve para limpiar LocalStorage
     LocalStorageLimpiar();
-    /*
-    if (esPaisEsika == 'True') {
-        $('#cssStyle>link').attr('disabled', false);
-        $('#cssStyleLbel>link').attr('disabled', true);
-    }
-    if (esPaisLbel == 'True') {
-        $('#cssStyle>link').attr('disabled', true);
-        $('#cssStyleLbel>link').attr('disabled', false);
-    }*/
 
     $(".DropDown").change(function () {
         val_Usuario = false;
@@ -264,13 +255,6 @@ function AbrirFooter(Marca, Url) {
     return false;
 }
 
-/**
- * Problema de seguridad como: 
- * Uncaught SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
- * @param storage {Storage}
- * return true|false {Bolean}
- * uso: storageIsSuport(window.localStorage)
- */
 function storageIsSuport(storage) {
     try {
         var key = "__some_random_value__";
@@ -287,9 +271,9 @@ function LocalStorageLimpiar() {
     if (typeof (Storage) !== 'undefined' && storageIsSuport(window.localStorage)) {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-        var itemChatEConnected = localStorage.getItem('connected');//add
-        var itemChatEConfigParams = localStorage.getItem('ConfigParams');//add
-        var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');//add
+        var itemChatEConnected = localStorage.getItem('connected');
+        var itemChatEConfigParams = localStorage.getItem('ConfigParams');
+        var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -300,18 +284,18 @@ function LocalStorageLimpiar() {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
 
-        if (typeof (itemChatEConnected) !== 'undefined' && itemChatEConnected !== null) {//add
+        if (typeof (itemChatEConnected) !== 'undefined' && itemChatEConnected !== null) {
             localStorage.setItem('connected', itemChatEConnected);
         }
 
-        if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {//add
+        if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {
             localStorage.setItem('ConfigParams', itemChatEConfigParams);
         }
 
-        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {//add
+        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {
             localStorage.setItem('SurvicateStorage', itemSurvicateStorage);
         }
-        //SetItemLocalStorageSurvicate(itemSurvicateStorage);
+
     }
 
     function SetItemLocalStorageSurvicate(storage) {
