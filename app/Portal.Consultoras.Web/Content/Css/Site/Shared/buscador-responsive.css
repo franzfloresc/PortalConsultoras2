@@ -11,7 +11,7 @@
     border:1px solid #d8d8d8;
     height:38px;
     margin-left: 19px;
-    margin-right: 8px;
+    margin-right: 3px;
     padding: 0 10px 0 12px;
     position:relative;
 }
@@ -117,7 +117,7 @@
 .lista_resultados_busqueda_productos{
     display: none; 
     position: absolute;
-    top: 42px;
+    top: 41px;
     right: -3px;
     width: 621px;
     min-height: 250px;
@@ -164,7 +164,7 @@
     margin-top: 17px;
     width: 98.55%;
     min-height: 65px;
-    max-height: 397px;
+    max-height: 384px;
     overflow: auto;
     position: relative;
     padding-bottom:0;
@@ -201,7 +201,7 @@
         padding-top:0;
     }
 
-    .resultado_busqueda_producto:last-child{
+    div[data-item="ProductoBuscador"]:last-child{
         padding-bottom:0;
         border-bottom:none!important;
     }
@@ -210,8 +210,6 @@
     -ms-flex: 0 0 27%;
     flex: 0 0 27%;
     max-width: 27%;
-    /*margin-left: 7px;
-    width: 125.78px; */
     height: 68px;
     position: relative;
     overflow: hidden;
@@ -238,11 +236,9 @@
 }
 
 .resultado_busqueda_descrip_prod{
-    /*width:168.33px;*/
     -ms-flex: 0 0 32%;
     flex: 0 0 32%;
     max-width:137px;
-    /*max-width: 32%;*/
     margin-right:10px;
 }
 
@@ -250,10 +246,6 @@
     font-size:13px;
     letter-spacing:0.2px;
     overflow-wrap:break-word;
-    /*margin-bottom:-3px;*/
-    /*text-overflow:ellipsis;
-    white-space:nowrap;
-    overflow:hidden;*/
 }
 
 .resultado_busqueda_nom_producto,
@@ -317,12 +309,6 @@
 .resultado_busqueda_cantidad_prod{
     margin-right:7px;
 }
-
-/* .resultado_busqueda_cantidad_prod,
-.resultado_busqueda_btn_agregar_wrapper
-{
-    width:122.33px;
-} */
 
 .cantidad_menos_home,
 .cantidad_mas_home
@@ -406,10 +392,6 @@
 {
     border: 1px solid #000;
 }
-
-/*.resultado_busqueda_btn_elegir_opcion_wrapper{
-    width:254px;
-}*/
 
 .btn_elegir_opcion{
     justify-content:center;
@@ -532,6 +514,7 @@
     width: 100%;
     align-items: flex-end;
     background-color: #FFF;
+    position:-webkit-sticky;
     position: sticky;
     bottom: -14px;
     height: 75px;
@@ -560,6 +543,23 @@
     }
 
 /* FIN - BUSCADOR PRODUCTOS DESKTOP */
+
+@media screen and (min-width:992px) and (max-width:1150px){
+
+    .buscador__productos {
+        margin-left: 27px;
+        flex-basis:0;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1065px){
+
+    .buscador__productos{
+        margin-left:-15px;
+    }
+
+}
 
 /* CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
 
@@ -601,11 +601,6 @@
 /* BUSCADOR PRODUCTOS MOBILE */
 
 @media screen and (max-width:991px) {
-
-    /* .layout__header{
-        padding:0;
-        height:100%;
-    } */
     
     .buscador__productos{
         display:none;

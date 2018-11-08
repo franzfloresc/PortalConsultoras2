@@ -33,8 +33,6 @@ namespace Portal.Consultoras.Web.Controllers
             var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                //return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
-
                 if (url.Length > 1)
                 {
                     sap = "&" + url[1];

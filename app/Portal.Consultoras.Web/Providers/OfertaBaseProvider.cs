@@ -1,4 +1,4 @@
-﻿using   Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
@@ -30,98 +30,104 @@ namespace Portal.Consultoras.Web.Providers
             var estrategias = new List<ServiceOferta.BEEstrategia>();
             var httpResponse = await httpClient.GetAsync(path);
 
-            if (httpResponse.IsSuccessStatusCode)
+            if (!httpResponse.IsSuccessStatusCode)
             {
-                var jsonString = await httpResponse.Content.ReadAsStringAsync();
-
-                var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
-                var listaCuvPrecio0 = new List<string>();
-                string codTipoEstrategia = "", codCampania = "";
-
-                foreach (var item in list)
-                {
-                    try
-                    {
-                        ServiceOferta.BEEstrategia estrategia = new ServiceOferta.BEEstrategia
-                        {
-                            CampaniaID = item.codigoCampania,
-                            CodigoEstrategia = item.codigoEstrategia,
-                            CodigoProducto = item.codigoProducto,
-                            CUV2 = item.cuV2,
-                            DescripcionCUV2 = item.descripcionCUV2,
-                            DescripcionEstrategia = item.descripcionTipoEstrategia,
-                            DescripcionMarca = item.marcaDescripcion,
-                            EstrategiaID = Convert.ToInt32(item.estrategiaId),
-                            FlagNueva = Convert.ToBoolean(item.flagNueva) ? 1 : 0,
-                            FlagRevista = Convert.ToBoolean(item.flagRevista) ? 1 : 0,
-                            FotoProducto01 = item.imagenURL,
-                            ImagenURL = item.imagenEstrategia,
-                            IndicadorMontoMinimo = Convert.ToInt32(item.indicadorMontoMinimo),
-                            LimiteVenta = Convert.ToInt32(item.limiteVenta),
-                            MarcaID = Convert.ToInt32(item.marcaId),
-                            Orden = Convert.ToInt32(item.orden),
-                            Precio = Convert.ToDecimal(item.precio),
-                            Precio2 = Convert.ToDecimal(item.precio2),
-                            PrecioString = Util.DecimalToStringFormat((decimal)item.precio2, codigoISO),
-                            PrecioTachado = Util.DecimalToStringFormat((decimal)item.precio, codigoISO),
-                            GananciaString = Util.DecimalToStringFormat((decimal)item.ganancia, codigoISO),
-                            Ganancia = Convert.ToDecimal(item.ganancia),
-                            TextoLibre = item.textoLibre,
-                            TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
-                            TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
-                            TipoEstrategiaImagenMostrar = 6,
-                        };
-                        estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
-                        if (estrategia.Precio2 > 0)
-                        {
-                            var compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
-                            foreach (var componente in item.componentes)
-                            {
-                                ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
-                                {
-                                    Grupo = componente.grupo,
-                                    CUV = componente.cuv,
-                                    SAP = componente.codigoSap,
-                                    Orden = componente.orden,
-                                    Precio = componente.precioUnitario,
-                                    Digitable = Convert.ToBoolean(componente.indicadorDigitable) ? 1 : 0,
-                                    Cantidad = componente.cantidad,
-                                    FactorCuadre = componente.factorCuadre,
-                                    IdMarca = componente.marcaId,
-                                    NombreMarca = componente.nombreMarca
-                                };
-
-                                compoponentes.Add(estrategiaTono);
-                            }
-
-                            estrategia.EstrategiaProducto = compoponentes.ToArray();
-
-                            estrategias.Add(estrategia);
-                        }
-                        else
-                        {
-                            listaCuvPrecio0.Add(estrategia.CUV2);
-                            codTipoEstrategia = estrategia.CodigoTipoEstrategia;
-                            codCampania = estrategia.CampaniaID.ToString();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Common.LogManager.SaveLog(ex, "", codigoISO);
-                    }
-                }
-
-                if (listaCuvPrecio0.Any())
-                {
-                    try
-                    {
-                        string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
-                        Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
-                    }
-                    catch(Exception ex) { throw ex; }
-                }
-                
+                return estrategias;
             }
+
+            var jsonString = await httpResponse.Content.ReadAsStringAsync();
+            if (Util.Trim(jsonString) == "")
+            {
+                return estrategias;
+            }
+
+            var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString) ?? new List<dynamic>();
+            var listaCuvPrecio0 = new List<string>();
+            string codTipoEstrategia = "", codCampania = "";
+
+            foreach (var item in list)
+            {
+                try
+                {
+                    ServiceOferta.BEEstrategia estrategia = new ServiceOferta.BEEstrategia
+                    {
+                        CampaniaID = item.codigoCampania,
+                        CodigoEstrategia = item.codigoEstrategia,
+                        CodigoProducto = item.codigoProducto,
+                        CUV2 = item.cuV2,
+                        DescripcionCUV2 = item.descripcionCUV2,
+                        DescripcionEstrategia = item.descripcionTipoEstrategia,
+                        DescripcionMarca = item.marcaDescripcion,
+                        EstrategiaID = Convert.ToInt32(item.estrategiaId),
+                        FlagNueva = Convert.ToBoolean(item.flagNueva) ? 1 : 0,
+                        FlagRevista = Convert.ToBoolean(item.flagRevista) ? 1 : 0,
+                        FotoProducto01 = item.imagenURL,
+                        ImagenURL = item.imagenEstrategia,
+                        IndicadorMontoMinimo = Convert.ToInt32(item.indicadorMontoMinimo),
+                        LimiteVenta = Convert.ToInt32(item.limiteVenta),
+                        MarcaID = Convert.ToInt32(item.marcaId),
+                        Orden = Convert.ToInt32(item.orden),
+                        Precio = Convert.ToDecimal(item.precio),
+                        Precio2 = Convert.ToDecimal(item.precio2),
+                        PrecioString = Util.DecimalToStringFormat((decimal)item.precio2, codigoISO),
+                        PrecioTachado = Util.DecimalToStringFormat((decimal)item.precio, codigoISO),
+                        GananciaString = Util.DecimalToStringFormat((decimal)item.ganancia, codigoISO),
+                        Ganancia = Convert.ToDecimal(item.ganancia),
+                        TextoLibre = item.textoLibre,
+                        TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
+                        TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
+                        TipoEstrategiaImagenMostrar = 6,
+                    };
+                    estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
+                    if (estrategia.Precio2 > 0)
+                    {
+                        var compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
+                        foreach (var componente in item.componentes)
+                        {
+                            ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
+                            {
+                                Grupo = componente.grupo,
+                                CUV = componente.cuv,
+                                SAP = componente.codigoSap,
+                                Orden = componente.orden,
+                                Precio = componente.precioUnitario,
+                                Digitable = Convert.ToBoolean(componente.indicadorDigitable) ? 1 : 0,
+                                Cantidad = componente.cantidad,
+                                FactorCuadre = componente.factorCuadre,
+                                IdMarca = componente.marcaId,
+                                NombreMarca = componente.nombreMarca
+                            };
+
+                            compoponentes.Add(estrategiaTono);
+                        }
+
+                        estrategia.EstrategiaProducto = compoponentes.ToArray();
+
+                        estrategias.Add(estrategia);
+                    }
+                    else
+                    {
+                        listaCuvPrecio0.Add(estrategia.CUV2);
+                        codTipoEstrategia = estrategia.CodigoTipoEstrategia;
+                        codCampania = estrategia.CampaniaID.ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Common.LogManager.SaveLog(ex, "", codigoISO);
+                }
+            }
+
+            if (listaCuvPrecio0.Any())
+            {
+                try
+                {
+                    string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
+                    Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
+                }
+                catch (Exception ex) { throw ex; }
+            }
+
             return estrategias;
         }
 
@@ -162,7 +168,7 @@ namespace Portal.Consultoras.Web.Providers
             return nombreOferta;
         }
 
-        public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault=false)
+        public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
         {
             if (dbDefault) return false;
             bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);

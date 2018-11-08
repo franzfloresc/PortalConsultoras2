@@ -17,7 +17,7 @@
                     <p class="primero">@Html.Raw(configuracionPaisDatosModel.Valor1)</p>
                     <p class="segundo">@Html.Raw(configuracionPaisDatosModel.Valor2)</p>
                 </span>
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion,'@Constantes.ConfiguracionPais.RevistaDigital')" class="boton-ver-mas">
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion,'@Constantes.ConfiguracionPais.RevistaDigital')" class="boton-ver-mas">
                     VER MÁS OFERTAS
                 </a>
 
@@ -29,7 +29,7 @@
                         <hr class="clear" />
                         <div style="padding-top:20px; background:transparent;">
                             <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
-                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion" style="width: 100%;"></div>
+                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel" style="width: 100%;"></div>
                         </div>
                     </div>
                 }
@@ -40,7 +40,7 @@
                         {
                             { "Source", 3 },
                             { "NombreConsultora", revistaDigital.NombreConsultora },
-                            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+                            { "Origen", Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel },
                             { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
                         })
                 }
@@ -71,7 +71,7 @@
                         <hr class="clear" />
                         <div style="padding-top:20px; background:transparent;">
                             <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
-                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion" style="width: 100%;"></div>
+                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel" style="width: 100%;"></div>
                         </div>
 
                     </div>
@@ -83,7 +83,7 @@
                         {
                             { "Source", 3 },
                             { "NombreConsultora", revistaDigital.NombreConsultora },
-                            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+                            { "Origen", Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel },
                             { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
                         })
                 }
@@ -114,7 +114,7 @@ else if (revistaDigital.TieneRDI)
                 {
                     { "Source", 3 },
                     { "NombreConsultora", revistaDigital.NombreConsultora },
-                    { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+                    { "Origen", Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel },
                     { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
                 })
         </div>
@@ -127,7 +127,7 @@ else
         new ViewDataDictionary {
             { "Source", 1 },
             { "NombreConsultora", revistaDigital.NombreConsultora },
-            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+            { "Origen", Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel },
             { "NombrePalanca", revistaDigital.NombreComercialNoActiva}
         })
 }
