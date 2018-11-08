@@ -419,6 +419,7 @@ namespace Portal.Consultoras.Web.Controllers
             usuario.PaisID = userData.PaisID;
             usuario.PrimerNombre = userData.PrimerNombre;
             usuario.CodigoISO = userData.CodigoISO;
+            usuario.CodigoUsuario = userData.CodigoUsuario;
 
             var resultado = string.Empty;
             using (ServiceUsuario.UsuarioServiceClient svr = new ServiceUsuario.UsuarioServiceClient())
