@@ -19,5 +19,6 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string TipoTarjeta { get; set; }
         public string RutaIcono { get; set; }
         public bool Estado { get; set; }
+        public decimal? MontoMinimoPago { get; set; }
     }
 }
