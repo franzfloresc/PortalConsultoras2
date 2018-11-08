@@ -13831,6 +13831,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EsKitNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsKitNuevaAutoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsSugeridoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13952,6 +13955,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EsKitNuevaField.Equals(value) != true)) {
                     this.EsKitNuevaField = value;
                     this.RaisePropertyChanged("EsKitNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsKitNuevaAuto {
+            get {
+                return this.EsKitNuevaAutoField;
+            }
+            set {
+                if ((this.EsKitNuevaAutoField.Equals(value) != true)) {
+                    this.EsKitNuevaAutoField = value;
+                    this.RaisePropertyChanged("EsKitNuevaAuto");
                 }
             }
         }

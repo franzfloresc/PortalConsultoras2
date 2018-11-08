@@ -3113,8 +3113,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
                 var descTono = listSp.Length > 3 ? listSp[3] : pedidoDetalle.Producto.Descripcion;
 
-                var result = InsertarValidarKitInicio(usuario, pedidoDetalle);
-                if (!result) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_KIT_INICIO, "Kit de Inicio");
+                if (!pedidoDetalle.EsKitNuevaAuto)
+                {
+                    var result = InsertarValidarKitInicio(usuario, pedidoDetalle);
+                    if (!result) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_KIT_INICIO, "Kit de Inicio");
+                }
 
                 var pedidoWebDetalle = new BEPedidoWebDetalle
                 {

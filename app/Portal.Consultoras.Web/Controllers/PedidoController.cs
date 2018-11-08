@@ -3663,7 +3663,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, cuvKitNuevas).ToList();
             }
-            if (olstProducto.Count > 0) PedidoInsertarGenerico(CreatePedidoCrudModelKitInicio(olstProducto[0]), true);
+            if (olstProducto.Count > 0) PedidoAgregarProductoTransaction(CreatePedidoCrudModelKitInicio(olstProducto[0]));
         }
 
         private PedidoCrudModel CreatePedidoCrudModelKitInicio(ServiceODS.BEProducto producto)
@@ -3679,7 +3679,8 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoOfertaSisID = 0,
                 IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString(),
                 ConfiguracionOfertaID = 0,
-                EsKitNueva = true
+                EsKitNueva = true,
+                EsKitNuevaAuto = true
             };
         }
 

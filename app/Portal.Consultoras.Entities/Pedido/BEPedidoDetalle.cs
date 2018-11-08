@@ -56,5 +56,7 @@ namespace Portal.Consultoras.Entities.Pedido
         public BEEstrategia estrategia { get; set; }
         [DataMember]
         public int StockNuevo { get; set; }
+        [DataMember]
+        public bool EsKitNuevaAuto { get; set; }
     }
 }
