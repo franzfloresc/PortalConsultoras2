@@ -323,7 +323,7 @@ $(document).ready(function () {
             Posicion: posicion
         };
 
-        AgregarProducto("PedidoInsertar", model, "divProductoSugerido", true);
+        AgregarProducto("PedidoAgregarProductoTransaction", model, "divProductoSugerido", true);
         dataLayer.push({
             'event': "addToCart",
             'ecommerce': {

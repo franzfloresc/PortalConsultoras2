@@ -4545,6 +4545,8 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
                 pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
                 pedidoDetalle.EnRangoProgramaNuevas = model.EnRangoProgramaNuevas || model.FlagNueva == "1";
+                pedidoDetalle.EsSugerido = model.EsSugerido;
+                pedidoDetalle.EsKitNueva = model.EsKitNueva;
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
