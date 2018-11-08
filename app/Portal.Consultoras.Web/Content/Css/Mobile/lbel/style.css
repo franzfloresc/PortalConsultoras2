@@ -15438,7 +15438,7 @@ span.icon-advertencia {
 .regalo_tippingPoint {
     /*margin-left: 66px;*/
     top: -23px;
-    right: -4px;
+    right: 0;
 }
 
 .regalo_tippingPoint img{
@@ -15455,19 +15455,19 @@ span.icon-advertencia {
 .microEfecto_regaloPendienteEleccion{
     display:none;
     top:-3px;
-    left:7.6px;
+    left:5px;
 }
 
 .microEfecto_regaloPendienteEleccion .circulo-1,
 .microEfecto_regaloPendienteEleccion .circulo-2,
 .microEfecto_regaloPendienteEleccion .circulo-3
 {
-    border:1px solid #a20015;
+    border:1px solid #321342;
 }
 
 .monto_regaloTippingPoint{
     display: block;
-    color: #e81c36;
+    color: #642f80;
     position: absolute;
     min-width: 50px;
     left: -12px;
@@ -15475,7 +15475,7 @@ span.icon-advertencia {
 
 .monto_regaloTippingPoint:before{
     background-color: #e81c36;
-    top: -8px;
+    top: -7px!important;
 }
 
 .contenedor_barra_mobile{
