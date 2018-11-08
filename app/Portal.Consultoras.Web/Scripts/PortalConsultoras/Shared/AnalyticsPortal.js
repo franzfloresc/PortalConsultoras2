@@ -443,7 +443,7 @@ var AnalyticsPortalModule = (function () {
             var model = {
                 'DescripcionCompleta': estrategia.DescripcionCompleta,
                 'CUV': estrategia.CUV2,
-                'PrecioUnidad': estrategia.PrecioVenta,
+                'Precio': estrategia.PrecioVenta,
                 'DescripcionMarca': estrategia.CUV2,
                 'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
                 'MarcaId': estrategia.MarcaID,
@@ -520,10 +520,10 @@ var AnalyticsPortalModule = (function () {
                         'products': [{
                             'name': model.DescripcionCompleta,
                             'id': model.CUV,
-                            'price': model.PrecioUnidad,
+                            'price': model.Precio,
                             'brand': _getMarca(model.MarcaId),
                             'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
+                            'variant': campoBuscar,
                             'quantity': model.Cantidad
                         }]
                     }
