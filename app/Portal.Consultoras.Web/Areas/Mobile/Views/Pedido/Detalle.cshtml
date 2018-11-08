@@ -332,11 +332,13 @@
                     <span class="tooltip_informativo_condicion_regalo_programaNuevas" style="display:none;">Sólo si llegas a tu monto</span>
                     <!-- Fin - Si producto es regalo escogido del Programa Nuevas -->
                 </div>
-                @*<div class="icono_cambiar_regalo_programaNuevas">
-                    <a href="" title="Cambiar regalo">
+                <!-- Icono Editar Regalo -->
+                <div class="icono_cambiar_regalo_programaNuevas" style="display:none;">
+                    <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
                         <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
                     </a>
-                </div>*@
+                </div>
+                <!-- Fin - Icono Editar Regalo -->
                 {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
                     <a href="javascript:;" title="Ver Info Kit Nuevas">
