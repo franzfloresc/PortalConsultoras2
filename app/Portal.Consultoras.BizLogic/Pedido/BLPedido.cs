@@ -1961,18 +1961,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             {
                                 if (pedidoDetalle.SetID > 0)
                                 {
-                                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                                    {
-                                        PaisId = usuario.PaisID,
-                                        CampaniaId = usuario.CampaniaID,
-                                        ConsultoraId = usuario.ConsultoraID,
-                                        Consultora = usuario.Nombre,
-                                        EsBpt = false,   //no se usa
-                                        CodigoPrograma = usuario.CodigoPrograma,
-                                        NumeroPedido = usuario.ConsecutivoNueva,
-                                        AgruparSet = true
-                                    };
-                                    _pedidoWebDetalleBusinessLogic.UpdCantidadPedidoWebSet(pedidoDetalle.PaisID, pedidoDetalle.SetID, pedidoDetalle.Cantidad, bePedidoWebDetalleParametros);
+                                    _pedidoWebDetalleBusinessLogic.UpdCantidadPedidoWebSetTransaction(pedidoDetalle.PaisID, pedidoDetalle.SetID, pedidoDetalle.Cantidad);
                                 }
                             }break;
                         case Constantes.PedidoAccion.DELETE:

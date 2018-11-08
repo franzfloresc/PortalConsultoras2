@@ -926,6 +926,16 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        public bool UpdCantidadPedidoWebSetTransaction (int paisId, int setId, int cantidad)
+        {
+                var result = false;
+
+                DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
+                result = daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
+
+                return result;
+        }
+
         public List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId)
         {
             DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
