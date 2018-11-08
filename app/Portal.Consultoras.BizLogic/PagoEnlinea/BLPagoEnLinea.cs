@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using Newtonsoft.Json;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data.PagoEnLinea;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.PagoEnLinea;
@@ -408,7 +409,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             {
                 Code = code,
                 Message = message,
-                Data = string.Format("{0}|{1}", pagoEnLineaResultadoLogId, saldoPendiente)
+                Data = JsonConvert.SerializeObject(new { PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId, SaldoPendiente = saldoPendiente })
             };
         }
 

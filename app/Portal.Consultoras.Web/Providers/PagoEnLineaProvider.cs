@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.PagoEnLinea;
 using Portal.Consultoras.Web.Models;
@@ -173,7 +174,7 @@ namespace Portal.Consultoras.Web.Providers
 
             string json = JsonHelper.JsonSerializer<DataToken>(datatoken);
 
-            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;            
             HttpWebRequest requestSesion;
             requestSesion = WebRequest.Create(urlCreateSessionTokenAPI) as HttpWebRequest;
             requestSesion.Method = "POST";
@@ -316,11 +317,11 @@ namespace Portal.Consultoras.Web.Providers
                     model.DescripcionCodigoAccion = bePagoEnLinea.Data.DSC_COD_ACCION;
                 }
 
-                var dataString = (string)result.Data ?? "";
-                var dataList = dataString.Split('|');
-
-                if (dataList.Length > 0) {
-                    model.PagoEnLineaResultadoLogId = int.TryParse(dataList[0], out int pagoEnLineaResultadoLogId) ? pagoEnLineaResultadoLogId : model.PagoEnLineaResultadoLogId;
+                dynamic jsonObject = null;
+                if (result.Data != null)
+                {
+                    jsonObject = JsonConvert.DeserializeObject<dynamic>((string)result.Data);
+                    model.PagoEnLineaResultadoLogId = int.TryParse((string)jsonObject.PagoEnLineaResultadoLogId, out int pagoEnLineaResultadoLogId) ? pagoEnLineaResultadoLogId : model.PagoEnLineaResultadoLogId;
                 }
 
                 if (bePagoEnLinea.PaymentStatus == Constantes.PagoEnLineaPasarelaVisa.Code.CodigoError_Success &&
@@ -338,9 +339,8 @@ namespace Portal.Consultoras.Web.Providers
                     if (result.Code == Constantes.PagoEnLineaRespuestaServicio.Code.SUCCESS)
                     {
                         model.MensajeInformacionPagoExitoso = mensajeExitoso;
-
-                        if (dataList.Length > 1) {
-                            userData.MontoDeuda = decimal.TryParse(dataList[1], out decimal saldoPendiente) ? saldoPendiente : userData.MontoDeuda;
+                        if (jsonObject != null) {
+                            userData.MontoDeuda = decimal.TryParse((string)jsonObject.SaldoPendiente, out decimal saldoPendiente) ? saldoPendiente : userData.MontoDeuda;
                         }
                         sessionManager.SetUserData(userData);
                     }
