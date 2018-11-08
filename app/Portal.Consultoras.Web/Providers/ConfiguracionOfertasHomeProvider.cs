@@ -346,9 +346,6 @@ namespace Portal.Consultoras.Web.Providers
 
             if (!ShowRoom.ValidarIngresoShowRoom(false))
                 return seccion;
-
-            if (SessionManager.ShowRoom.Ofertas == null || SessionManager.ShowRoom.Ofertas.Count == 0)
-                return seccion;
             
             seccion.UrlObtenerProductos = "Estrategia/SRObtenerProductos";
             seccion.OrigenPedido = esMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
@@ -390,9 +387,14 @@ namespace Portal.Consultoras.Web.Providers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                var listaShowRoom = SessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
-                seccion.CantidadProductos = listaShowRoom.Count;
-                seccion.CantidadMostrar = Math.Min(seccion.CantidadMostrar, seccion.CantidadProductos);
+                
+                if (SessionManager.ShowRoom.Ofertas != null)
+                {
+                    var listaShowRoom = SessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
+                    seccion.CantidadProductos = listaShowRoom.Count;
+                    seccion.CantidadMostrar = Math.Min(seccion.CantidadMostrar, seccion.CantidadProductos);
+                }
+
             }
 
             return seccion;

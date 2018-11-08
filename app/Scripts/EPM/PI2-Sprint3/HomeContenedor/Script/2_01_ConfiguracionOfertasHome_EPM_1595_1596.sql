@@ -49,7 +49,7 @@ begin
 	declare @vConfiguracionPaisIDChile int;
 	declare @vCampaniaIDChile int;
 
-	set @vCampaniaIDChile = 201816;
+	set @vCampaniaIDChile = 201813;
 
 	/* Revista digital 
 	 */
