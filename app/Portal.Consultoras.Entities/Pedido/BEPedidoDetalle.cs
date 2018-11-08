@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Entities.Pedido
         {
             Producto = new BEProducto();
             Usuario = new BEUsuario();
-            estrategia = new BEEstrategia();
+            Estrategia = new BEEstrategia();
         }
 
         [DataMember]
@@ -49,11 +49,11 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public string TipoPersonalizacion { get; set; }
         [DataMember]
-        public bool esVirtualCoach { get; set; }
+        public bool EsVirtualCoach { get; set; }
         [DataMember]
         public bool EnRangoProgramaNuevas { get; set; }
         [DataMember]
-        public BEEstrategia estrategia { get; set; }
+        public BEEstrategia Estrategia { get; set; }
         [DataMember]
         public int StockNuevo { get; set; }
         [DataMember]

@@ -117,87 +117,87 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEOfertaProducto>, List<OfertaProductoModel>>(lst);
         }
 
-        [HttpPost]
-        public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
-        {
-            try
-            {
-                object jsoNdata;
-                if (CUVTieneStock(model.CUV))
-                {
-                    BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
+        //[HttpPost]
+        //public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
+        //{
+        //    try
+        //    {
+        //        object jsoNdata;
+        //        if (CUVTieneStock(model.CUV))
+        //        {
+        //            BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
 
-                    entidad.PaisID = userData.PaisID;
-                    entidad.ConsultoraID = userData.ConsultoraID;
-                    entidad.CampaniaID = userData.CampaniaID;
-                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Web;
-                    entidad.IPUsuario = userData.IPUsuario;
+        //            entidad.PaisID = userData.PaisID;
+        //            entidad.ConsultoraID = userData.ConsultoraID;
+        //            entidad.CampaniaID = userData.CampaniaID;
+        //            entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Web;
+        //            entidad.IPUsuario = userData.IPUsuario;
 
-                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-                    entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-                    entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
+        //            entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
+        //            entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+        //            entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        sv.InsPedidoWebDetalleOferta(entidad);
-                    }
+        //            using (PedidoServiceClient sv = new PedidoServiceClient())
+        //            {
+        //                sv.InsPedidoWebDetalleOferta(entidad);
+        //            }
 
-                    UpdPedidoWebMontosPROL();
+        //            UpdPedidoWebMontosPROL();
 
-                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico
-                    {
-                        PedidoID = entidad.PedidoID,
-                        CampaniaID = entidad.CampaniaID,
-                        PedidoDetalleID = entidad.PedidoDetalleID,
-                        IndicadorIPUsuario = GetIPCliente(),
-                        IndicadorFingerprint = "",
-                        IndicadorToken = (SessionManager.GetTokenPedidoAutentico() != null)
-                            ? SessionManager.GetTokenPedidoAutentico().ToString()
-                            : ""
-                    };
+        //            BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico
+        //            {
+        //                PedidoID = entidad.PedidoID,
+        //                CampaniaID = entidad.CampaniaID,
+        //                PedidoDetalleID = entidad.PedidoDetalleID,
+        //                IndicadorIPUsuario = GetIPCliente(),
+        //                IndicadorFingerprint = "",
+        //                IndicadorToken = (SessionManager.GetTokenPedidoAutentico() != null)
+        //                    ? SessionManager.GetTokenPedidoAutentico().ToString()
+        //                    : ""
+        //            };
 
-                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+        //            InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
 
-                    jsoNdata = new
-                    {
-                        success = true,
-                        message = "Se agregó la Oferta Web satisfactoriamente.",
-                        extra = ""
-                    };
-                }
-                else
-                {
-                    jsoNdata = new
-                    {
-                        success = false,
-                        message = "Producto Agotado.",
-                        extra = ""
-                    };
-                }
+        //            jsoNdata = new
+        //            {
+        //                success = true,
+        //                message = "Se agregó la Oferta Web satisfactoriamente.",
+        //                extra = ""
+        //            };
+        //        }
+        //        else
+        //        {
+        //            jsoNdata = new
+        //            {
+        //                success = false,
+        //                message = "Producto Agotado.",
+        //                extra = ""
+        //            };
+        //        }
 
-                return Json(jsoNdata);
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-        }
+        //        return Json(jsoNdata);
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //}
 
         private bool CUVTieneStock(string cuv)
         {

@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Web.Providers
             return pedidoWeb;
         }
 
-        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(int esOpt, bool noSession = false)
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(int esOpt)
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             var userData = sessionManager.GetUserData();
@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 detallesPedidoWeb = sessionManager.GetDetallesPedido();
-                if (detallesPedidoWeb == null || noSession)
+                if (detallesPedidoWeb == null)
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
@@ -308,5 +308,37 @@ namespace Portal.Consultoras.Web.Providers
             return pedidoDetalleResult;
         }
 
+        public bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHora)
+        {
+            if (!usuario.DiaPROL)
+                return false;
+
+            var horaNow = new TimeSpan(fechaHora.Hour, fechaHora.Minute, 0);
+            var esHorarioReserva = (fechaHora < usuario.FechaInicioCampania) ?
+                (horaNow > usuario.HoraInicioPreReserva && horaNow < usuario.HoraFinPreReserva) :
+                (horaNow > usuario.HoraInicioReserva && horaNow < usuario.HoraFinReserva);
+
+            if (!esHorarioReserva)
+                return false;
+
+            if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                return (BuildFechaNoHabil(usuario) == 0);
+
+            return true;
+        }
+
+        private int BuildFechaNoHabil(UsuarioModel usuario)
+        {
+            var result = 0;
+            if (usuario != null && usuario.RolID != 0)
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    result = sv.GetFechaNoHabilFacturacion(usuario.PaisID, usuario.CodigoZona, DateTime.Today);
+                }
+            }
+
+            return result;
+        }
     }
 }

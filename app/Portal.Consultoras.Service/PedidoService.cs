@@ -1880,10 +1880,10 @@ namespace Portal.Consultoras.Service
             return new BLReserva().EnviarCorreoReservaProl(input);
         }
 
-        public int InsertarDesglose(BEInputReservaProl input)
-        {
-            return new BLReserva().InsertarDesglose(input);
-        }
+        //public int InsertarDesglose(BEInputReservaProl input)
+        //{
+        //    return new BLReserva().InsertarDesglose(input);
+        //}
 
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
         {

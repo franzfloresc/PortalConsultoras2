@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Pedido;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
@@ -26,15 +27,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
-                var result = 0;
+                if (bePedidoWebDetalleParametros == null)
+                {
+                    return false;
+                }
 
                 var da = new DAPedidoWebSet(paisId);
-                var bLPedidoWebDetalle = new BLPedidoWebDetalle();
+                var result = da.Eliminar(id);
+
+                var blPedidoWebDetalle = new BLPedidoWebDetalle();
                 var daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
-
-                result = da.Eliminar(id);
-
-                var listaDetalle = bLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
+                var listaDetalle = blPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
                 var importeTotal = listaDetalle.Sum(p => p.ImporteTotal);
 
                 daPedidoWebDetalle.UpdateImporteTotalPedidoWeb(bePedidoWebDetalleParametros.CampaniaId, bePedidoWebDetalleParametros.ConsultoraId, importeTotal);
@@ -44,6 +47,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, bePedidoWebDetalleParametros.ConsultoraId, paisId);
                 return false;
             }
         }

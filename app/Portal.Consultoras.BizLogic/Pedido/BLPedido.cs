@@ -211,7 +211,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             try
             {
                 //Agrega cuvs de estrategia al pedido
-                if (pedidoDetalle.Producto.EstrategiaID > 0 || (pedidoDetalle.estrategia != null))
+                if (pedidoDetalle.Producto.EstrategiaID > 0 || pedidoDetalle.Estrategia != null)
                 {
                     pedidoDetalle.ClienteID = 0;
                     pedidoDetalle.ClienteDescripcion = string.Empty;
@@ -456,6 +456,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                                                     usuario.CampaniaID,
                                                                     usuario.UsuarioPrueba == 1,
                                                                     usuario.AceptacionConsultoraDA);
+
                 if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
                     return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
                 #endregion
@@ -1943,7 +1944,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     {
                         case Constantes.PedidoAccion.INSERT:
                             {
-                                if (!pedidoDetalle.esVirtualCoach)
+                                if (!pedidoDetalle.EsVirtualCoach)
                                 {
                                     var formatoPedidoWebSet = string.Empty;
 
@@ -2982,7 +2983,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             #region FiltrarEstrategiaPedido
             int indFlagNueva;
             Int32.TryParse(pedidoDetalle.Producto.FlagNueva == "" ? "0" : pedidoDetalle.Producto.FlagNueva, out indFlagNueva);
-            var estrategia = pedidoDetalle.estrategia ?? FiltrarEstrategiaPedido(usuario.PaisID, pedidoDetalle.Producto.EstrategiaID, indFlagNueva);
+            var estrategia = pedidoDetalle.Estrategia ?? FiltrarEstrategiaPedido(usuario.PaisID, pedidoDetalle.Producto.EstrategiaID, indFlagNueva);
             if (string.IsNullOrEmpty(estrategia.CUV2))
             {
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_ESTRATEGIA, "El producto no fué encontrado.");
@@ -3190,8 +3191,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, strCuvs, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder);
 
             var response = PedidoDetalleRespuesta(transactionExitosa ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
-            response.listCuvEliminar = listCuvEliminar;
-            response.pedidoWebDetalle = pedidowebdetalles[0];
+            response.ListCuvEliminar = listCuvEliminar;
+            response.PedidoWebDetalle = pedidowebdetalles[0];
             response.MensajeAviso = mensajeObs;
             response.TituloMensaje = TituloMensaje;
 

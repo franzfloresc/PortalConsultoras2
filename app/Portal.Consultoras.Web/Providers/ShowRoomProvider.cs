@@ -408,12 +408,9 @@ namespace Portal.Consultoras.Web.Providers
         {
             ServiceUsuario.BEConfiguracionPaisDatos entidadConfig;
             bool result = false;
-            
             try
             {
-
                 var ConfigPaisSR = _sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.ShowRoom); 
-
                 var entidad = new ServiceUsuario.BEConfiguracionPaisDatos
                 {
                     PaisID = usuarioModel.PaisID,
@@ -431,22 +428,18 @@ namespace Portal.Consultoras.Web.Providers
                         }
                     }
                 };
-
                 using (var sv = new ServiceUsuario.UsuarioServiceClient())
                 {
                     var lst =  sv.GetConfiguracionPaisDatos(entidad);
                     entidadConfig = lst.FirstOrDefault();
                 }
-
                 if (entidadConfig != null) result = entidadConfig.Valor1 == "1"; 
-               
             }
             catch (Exception ex )
             {
                 _logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(),
                     "ShowRoomProvider.ObtenerBloquedoProductoDigital");
             }
-
             return result;
         }
     }
