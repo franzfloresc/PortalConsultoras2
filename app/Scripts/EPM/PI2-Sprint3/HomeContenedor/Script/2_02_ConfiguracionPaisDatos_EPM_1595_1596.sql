@@ -16,8 +16,8 @@ begin
 				dbo.configuracionpaisdatos 
 			set 
 				 CampaniaID = 0
-				,valor1 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI'
-				,valor2 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI' 
+				,valor1 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>'
+				,valor2 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>' 
 				,Descripcion = 'Texto para el banner del carrusel'
 				,Estado = 1
 				,Componente = 'BannerCarrusel'
@@ -28,7 +28,7 @@ begin
 		else
 		begin
 			insert into dbo.configuracionpaisdatos(ConfiguracionPaisId,Codigo,CampaniaID,Valor1,Valor2,Descripcion,Estado,Componente)  values 
-			(@vConfiguracionPaisIDPeru,'BannerCarruselTitulo',0,'TENEMOS MÁS&nbsp;OPCIONES PARA TI','TENEMOS MÁS&nbsp;OPCIONES PARA TI','Texto para el banner del carrusel',1,'BannerCarrusel');
+			(@vConfiguracionPaisIDPeru,'BannerCarruselTitulo',0,'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','Texto para el banner del carrusel',1,'BannerCarrusel');
 		end;
 		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDPeru) and (Codigo = 'BannerCarruselTextoEnlace')))
 		begin
@@ -84,8 +84,8 @@ begin
 				dbo.configuracionpaisdatos 
 			set 
 				 CampaniaID = 0
-				,valor1 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI'
-				,valor2 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI' 
+				,valor1 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>'
+				,valor2 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>' 
 				,Descripcion = 'Texto para el banner del carrusel'
 				,Estado = 1
 				,Componente = 'BannerCarrusel'
@@ -96,7 +96,7 @@ begin
 		else
 		begin
 			insert into dbo.configuracionpaisdatos(ConfiguracionPaisId,Codigo,CampaniaID,Valor1,Valor2,Descripcion,Estado,Componente)  values 
-			(@vConfiguracionPaisIDPeru,'BannerCarruselTitulo',0,'TENEMOS MÁS&nbsp;OPCIONES PARA TI','TENEMOS MÁS&nbsp;OPCIONES PARA TI','Texto para el banner del carrusel',1,'BannerCarrusel');
+			(@vConfiguracionPaisIDPeru,'BannerCarruselTitulo',0,'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','Texto para el banner del carrusel',1,'BannerCarrusel');
 		end;
 		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDPeru) and (Codigo = 'BannerCarruselTextoEnlace')))
 		begin
@@ -159,8 +159,8 @@ begin
 				dbo.configuracionpaisdatos 
 			set 
 				 CampaniaID = 0
-				,valor1 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI'
-				,valor2 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI' 
+				,valor1 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>'
+				,valor2 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>' 
 				,Descripcion = 'Texto para el banner del carrusel'
 				,Estado = 1
 				,Componente = 'BannerCarrusel'
@@ -171,7 +171,7 @@ begin
 		else
 		begin
 			insert into dbo.configuracionpaisdatos(ConfiguracionPaisId,Codigo,CampaniaID,Valor1,Valor2,Descripcion,Estado,Componente)  values 
-			(@vConfiguracionPaisIDChile,'BannerCarruselTitulo',0,'TENEMOS MÁS&nbsp;OPCIONES PARA TI','TENEMOS MÁS&nbsp;OPCIONES PARA TI','Texto para el banner del carrusel',1,'BannerCarrusel');
+			(@vConfiguracionPaisIDChile,'BannerCarruselTitulo',0,'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','Texto para el banner del carrusel',1,'BannerCarrusel');
 		end;
 		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDChile) and (Codigo = 'BannerCarruselTextoEnlace')))
 		begin
@@ -227,8 +227,8 @@ begin
 				dbo.configuracionpaisdatos 
 			set 
 				 CampaniaID = 0
-				,valor1 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI'
-				,valor2 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI' 
+				,valor1 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>'
+				,valor2 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>' 
 				,Descripcion = 'Texto para el banner del carrusel'
 				,Estado = 1
 				,Componente = 'BannerCarrusel'
@@ -239,7 +239,7 @@ begin
 		else
 		begin
 			insert into dbo.configuracionpaisdatos(ConfiguracionPaisId,Codigo,CampaniaID,Valor1,Valor2,Descripcion,Estado,Componente)  values 
-			(@vConfiguracionPaisIDChile,'BannerCarruselTitulo',0,'TENEMOS MÁS&nbsp;OPCIONES PARA TI','TENEMOS MÁS&nbsp;OPCIONES PARA TI','Texto para el banner del carrusel',1,'BannerCarrusel');
+			(@vConfiguracionPaisIDChile,'BannerCarruselTitulo',0,'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','Texto para el banner del carrusel',1,'BannerCarrusel');
 		end;
 		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDChile) and (Codigo = 'BannerCarruselTextoEnlace')))
 		begin
@@ -302,8 +302,8 @@ begin
 				dbo.configuracionpaisdatos 
 			set 
 				 CampaniaID = 0
-				,valor1 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI'
-				,valor2 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI' 
+				,valor1 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>'
+				,valor2 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>' 
 				,Descripcion = 'Texto para el banner del carrusel'
 				,Estado = 1
 				,Componente = 'BannerCarrusel'
@@ -314,7 +314,7 @@ begin
 		else
 		begin
 			insert into dbo.configuracionpaisdatos(ConfiguracionPaisId,Codigo,CampaniaID,Valor1,Valor2,Descripcion,Estado,Componente)  values 
-			(@vConfiguracionPaisIDCostaRica,'BannerCarruselTitulo',0,'TENEMOS MÁS&nbsp;OPCIONES PARA TI','TENEMOS MÁS&nbsp;OPCIONES PARA TI','Texto para el banner del carrusel',1,'BannerCarrusel');
+			(@vConfiguracionPaisIDCostaRica,'BannerCarruselTitulo',0,'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','Texto para el banner del carrusel',1,'BannerCarrusel');
 		end;
 		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDCostaRica) and (Codigo = 'BannerCarruselTextoEnlace')))
 		begin
@@ -370,8 +370,8 @@ begin
 				dbo.configuracionpaisdatos 
 			set 
 				 CampaniaID = 0
-				,valor1 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI'
-				,valor2 = 'TENEMOS MÁS&nbsp;OPCIONES PARA TI' 
+				,valor1 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>'
+				,valor2 = 'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>' 
 				,Descripcion = 'Texto para el banner del carrusel'
 				,Estado = 1
 				,Componente = 'BannerCarrusel'
@@ -382,7 +382,7 @@ begin
 		else
 		begin
 			insert into dbo.configuracionpaisdatos(ConfiguracionPaisId,Codigo,CampaniaID,Valor1,Valor2,Descripcion,Estado,Componente)  values 
-			(@vConfiguracionPaisIDCostaRica,'BannerCarruselTitulo',0,'TENEMOS MÁS&nbsp;OPCIONES PARA TI','TENEMOS MÁS&nbsp;OPCIONES PARA TI','Texto para el banner del carrusel',1,'BannerCarrusel');
+			(@vConfiguracionPaisIDCostaRica,'BannerCarruselTitulo',0,'TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','TENEMOS <b>MÁS&nbsp;OPCIONES PARA TI</b>','Texto para el banner del carrusel',1,'BannerCarrusel');
 		end;
 		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDCostaRica) and (Codigo = 'BannerCarruselTextoEnlace')))
 		begin
