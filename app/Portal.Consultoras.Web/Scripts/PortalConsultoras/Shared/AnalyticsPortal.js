@@ -1839,7 +1839,9 @@ var AnalyticsPortalModule = (function () {
             return element.Codigo === codigo;
         });
 
+        if (seccion == null) return;
         if (origenPedidoWebEstrategia.toString() !== seccion.Codigo.toString()) return;
+
         try {
             if (_constantes.isTest)
                 alert("Marcación clic ver ofertas.");
