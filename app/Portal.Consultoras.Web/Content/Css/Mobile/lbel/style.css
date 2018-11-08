@@ -15362,7 +15362,7 @@ span.icon-advertencia {
 }
 
 .tipo_montos_y_regalo_tippingPoint > div{
-    justify-content:flex-end;
+    justify-content:space-between;
 }
 
 .monto_minimo,
@@ -15372,9 +15372,9 @@ span.icon-advertencia {
     display: inline-block;
 }
 
-.monto_minimo{
+/*.monto_minimo{
     margin-left:25px;
-}
+}*/
 
 .monto_minimo,
 .monto_maximo
@@ -15383,6 +15383,19 @@ span.icon-advertencia {
     font-size:11px;
     line-height:14px;
     margin-top: 6px;
+    min-width:100px;
+}
+
+.monto_minimo div,
+.monto_maximo div
+{
+    display:inline-block;
+}
+
+.monto_minimo div:first-child,
+.monto_maximo div:first-child
+{
+    margin-top:6px;
 }
 
 .monto_minimo div:last-child,
@@ -15391,23 +15404,29 @@ span.icon-advertencia {
     margin-bottom:12px;
 }
 
-.monto_maximo{
+/*.monto_maximo{
     display:none;
-}
+}*/
 
-.monto_minimo:after,
-.monto_maximo:after
+.monto_minimo:before,
+.monto_maximo:before,
+.regalo_tippingPoint .default-color:before
 {
     display: block;
     margin: 0 auto;
     content: "";
     width: 1px;
     height: 8px;
-    background-color: #808080;
     position: absolute;
-    bottom: 2px;
+    top: -4px;
     left: 0;
     right: 0;
+}
+
+.monto_minimo:before,
+.monto_maximo:before
+{
+    background-color: #808080;
 }
 
 .icono_regalo{
@@ -15417,20 +15436,8 @@ span.icon-advertencia {
 }
 
 .regalo_tippingPoint {
-    margin-left:66px;
-    top:-6px;
-}
-
-.regalo_tippingPoint:after{
-    display: block;
-    margin: 0 auto;
-    content: "";
-    width: 1px;
-    height: 8px;
-    background-color: #e81c36;
-    position: absolute;
-    bottom: -4px;
-    left: 0;
+    /*margin-left: 66px;*/
+    top: -23px;
     right: 0;
 }
 
@@ -15438,21 +15445,38 @@ span.icon-advertencia {
     width:25px;
     position:relative;
     z-index:600;
+    margin-bottom:8px;
 }
 
-.regalo_tippingPoint + .monto_maximo{
+/*.regalo_tippingPoint + .monto_maximo{
     margin-left:72px;
-}
-
-.regalo_tippingPoint .contenedor_circulos{
-    display:block;
-    top:-3px;
-    left:7.6px;
-}
-
-/*.regalo_tippingPoint .circulo-3{
-    display:none;
 }*/
+
+.microEfecto_regaloPendienteEleccion{
+    display:none;
+    top:-3px;
+    left:5px;
+}
+
+.microEfecto_regaloPendienteEleccion .circulo-1,
+.microEfecto_regaloPendienteEleccion .circulo-2,
+.microEfecto_regaloPendienteEleccion .circulo-3
+{
+    border:1px solid #321342;
+}
+
+.monto_regaloTippingPoint{
+    display: block;
+    color: #642f80;
+    position: absolute;
+    min-width: 50px;
+    left: -12px;
+}
+
+.monto_regaloTippingPoint:before{
+    background-color: #e81c36;
+    top: -7px!important;
+}
 
 .contenedor_barra_mobile{
     margin-bottom:38px;
@@ -15462,7 +15486,7 @@ span.icon-advertencia {
     font-size:15px;
     padding-top:13px;
     padding-left:1px;
-    margin-bottom:19px;
+    margin-bottom:27px;
     text-align:left;
 }
 
@@ -15471,7 +15495,7 @@ span.icon-advertencia {
     padding: 10px;
     position: relative;
     margin-left: -14px;
-    top: 3px;
+    top: 0;
     right: -10px;
 }
 
@@ -15723,6 +15747,7 @@ span.icon-advertencia {
     color: #000;
     height: 45px;
     line-height: 45px;
+    text-decoration:underline;
 }
 
 .mensaje_regalo_elegido {
@@ -15790,5 +15815,67 @@ span.icon-advertencia {
 }
 
 /* FIN - POPUP FELICITACIONES META REGALO */
+
+/* POPUP LÍMITE DE LÍNEA DE CRÉDITO */
+
+.popup_limite_lineaCredito{
+    position:fixed;
+    top:-17px;
+    width:100%;
+    height:100%;
+    background-color:#FFF;
+    z-index:2000;
+}
+
+.popup_limite_lineaCredito_contenido{
+    position:absolute;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    height:230px;
+}
+
+.icono_popup_limite_lineaCredito{
+    margin:0 auto 35px auto;
+    width:70px;
+    height:auto;
+}
+
+.icono_popup_limite_lineaCredito img{
+    width:100%;
+    height:auto;
+}
+
+.mensaje_popup_limite_lineaCredito{
+    margin:0 auto;
+}
+
+.titulo_mensaje_popup{
+    font-size:20px;
+    font-weight:bold;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.descripcion_mensaje_popup{
+    font-size:16px;
+    margin-bottom:0;
+}
+
+@media screen and (max-width:350px){
+
+    .titulo_mensaje_popup{
+        font-size:18px;
+    }
+
+    .descripcion_mensaje_popup{
+        font-size:14px;
+    }
+
+}
+
+/* FIN - POPUP LÍMITE DE LÍNEA DE CRÉDITO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */

@@ -332,11 +332,13 @@
                     <span class="tooltip_informativo_condicion_regalo_programaNuevas" style="display:none;">Sólo si llegas a tu monto</span>
                     <!-- Fin - Si producto es regalo escogido del Programa Nuevas -->
                 </div>
-                @*<div class="icono_cambiar_regalo_programaNuevas">
-                    <a href="" title="Cambiar regalo">
+                <!-- Icono Editar Regalo -->
+                <div class="icono_cambiar_regalo_programaNuevas" style="display:none;">
+                    <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
                         <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
                     </a>
-                </div>*@
+                </div>
+                <!-- Fin - Icono Editar Regalo -->
                 {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
                     <a href="javascript:;" title="Ver Info Kit Nuevas">
@@ -915,16 +917,6 @@
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.DataBarra))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         document.getElementsByClassName('descuento_pedido')[0].style.display = 'None';
-        $('#carouselOpcionesRegalo').slick({
-            infinite: true,
-            slidesToShow: 1,
-            slidesToScroll:1,
-            autoplay: false,
-            speed: 300,
-            arrows: false,
-            variableWidth: true,
-            centerMode:true
-        });
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/confetti-rombo.svg")',
             '@Url.Content("~/Content/Images/confetti-estrella.svg")',

@@ -609,8 +609,29 @@ $('.enlace_elegir_otro_regalo').click(function (e) {
     cambiarEleccionRegaloProgramaNuevas();
 });
 
-if ($('.regalo_tippingPoint').css('display') == 'none') {
-    $('.tipo_montos_y_regalo_tippingPoint').find('.w-100').css('justify-content', 'space-between');
+if ($('.monto_maximo').css('display') == 'none') {
+    $('.tipo_montos_y_regalo_tippingPoint').find('.w-100').css('justify-content', 'flex-end');
+    $('.monto_minimo').css('margin-right', '51px');
+}
+
+function cargarPopupEleccionRegalo() {
+    setTimeout(function () {
+        $('#popupEleccionRegalo').fadeIn(200);
+        armarCarouselRegalosDisponiblesProgramasNuevas();
+    }, 150);
+}
+
+function armarCarouselRegalosDisponiblesProgramasNuevas() {
+    $('#carouselOpcionesRegalo').slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: false,
+        speed: 300,
+        arrows: false,
+        variableWidth: true,
+        centerMode: true
+    });
 }
 
 function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
