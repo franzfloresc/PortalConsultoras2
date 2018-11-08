@@ -1615,6 +1615,7 @@
     <Content Include="Content\Images\icono_lupa.svg" />
     <Content Include="Content\Images\icono_noticias.svg" />
     <Content Include="Content\Images\icono_notificaciones.svg" />
+    <Content Include="Content\Images\icono_popup_limite_credito.svg" />
     <Content Include="Content\Images\icono_regalo.png" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
