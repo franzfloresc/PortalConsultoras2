@@ -193,15 +193,12 @@
         function ArmarMensaje(password1, password2) {
             if (password1 == "" || password2 == "")
                 return "Ingresa ambos campos de contraseña.";
-                //return "Datos incorrectos. Por favor, volver a ingresar";
 
             if (password1.length <= 6)
                 return "La nueva contraseña debe de tener como mínimo 7 caracteres.";
-                //return "Datos incorrectos. Por favor, volver a ingresar";
 
             if (password1 != password2)
                 return "Los campos de la nueva contraseña deben ser iguales, verifique.";
-                //return "Datos incorrectos. Por favor, volver a ingresar";
 
             return "";
         }

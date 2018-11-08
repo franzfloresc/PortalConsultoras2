@@ -42,6 +42,19 @@ namespace Portal.Consultoras.BizLogic
             return "";
         }
 
+        public string GetMensajeKitNuevas(string codigoISO, bool esConsultoraNueva, int consecutivoNueva)
+        {
+            if (WebConfig.PaisesFraccionKitNuevas.Contains(codigoISO))
+            {
+                if (esConsultoraNueva) return Constantes.ProgNuevas.Mensaje.KitNueva_Pedido1;
+                if (consecutivoNueva == 1) return Constantes.ProgNuevas.Mensaje.KitNueva_Pedido2;
+                if (consecutivoNueva == 2) return Constantes.ProgNuevas.Mensaje.KitNueva_Pedido3;
+            }
+            else if (esConsultoraNueva) return Constantes.ProgNuevas.Mensaje.KitNueva_Pedido1Unico;
+
+            return "";
+        }
+
         public BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEConsultoraProgramaNuevas consultoraNuevas, BEConfiguracionProgramaNuevas confProgNuevas)
         {
             confProgNuevas.Campania = consultoraNuevas.CampaniaID.ToString();
