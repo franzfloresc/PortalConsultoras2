@@ -160,7 +160,7 @@ h1#penmostreo .campana {
         }
 
         .pedido_ingreso_datos input:hover {
-            border: 1px solid #e81c36 !important;
+            border: 1px solid;
         }
 
 .pedido_agregado {
@@ -168,7 +168,6 @@ h1#penmostreo .campana {
     width: 115px;
     margin-top: 23px;
     float: left;
-    background: #e81c36 !important;
     background-position: 17px 8px;
     font-family: 'lato';
     font-weight: 700;
@@ -184,7 +183,6 @@ h1#penmostreo .campana {
     font-family: 'lato';
     font-size: 9.4pt;
     font-weight: 400;
-    color: #e81c36;
     margin-top: 8px;
 }
 
@@ -516,12 +514,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     line-height: 33px;
 }
 
-.caja_montos_cantidades .monto_ganancia {
-    color: #e81c36;
-}
-
 .caja_montos_cantidades .monto_con_descuento {
-    color: #e81c36;
     font-size: 22px;
     font-weight: 700;
     text-align: right;
@@ -534,15 +527,14 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     vertical-align: top;
 }
 
-.mensaje_guardar_pedido {
+/*.mensaje_guardar_pedido {
     display: block;
-    color: #cd2c39;
     vertical-align: top;
     font-family: 'Lato';
     font-size: 16px;
     font-weight: bold;
     text-align: right;
-}
+}*/
 
 .mensaje_fecha_limite_cambios {
     display: block;
@@ -567,7 +559,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-family: 'Lato';
     font-size: 15px;
     font-weight: 900;
-    color: #e81c36;
     text-align: center;
     line-height: 17px;
     margin-top: 10px;
@@ -732,7 +723,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-family: 'Lato';
     width: 218px;
     height: 44.1px;
-    background: #e81c36;
     border: 0;
     color: #fff;
     font-size: 12.7px;
@@ -752,7 +742,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 
 .caja_montos_textos .monto_con_descuento {
     font-size: 14px;
-    color: #e4002d;
     margin-bottom: 3px;
     position: relative;
     text-align: left;
@@ -801,7 +790,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-size: 16px;
     font-weight: normal;
     text-transform: uppercase;
-    color: #e81c36;
 }
 
 .tabla_pedidos, .tabla_productos_agotados {
@@ -1106,15 +1094,17 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 
     .texto_pedidos.subtotal span.icon-advertencia {
         background: url('/Content/Images/Esika/icono-admiracion.png') no-repeat center center;
-        width: 18px;
-        height: 18px;
+        width: 15px;
+        height: 15px;
         font-family: 'Lato';
         font-size: 16px;
         font-weight: bold;
         color: #fff;
-        position: absolute;
-        right: -18%;
         z-index: 6;
+        display: inline-block;
+        vertical-align: bottom;
+        background-size: cover;
+        margin-left: 3px;
     }
 
 .caja_montos_textos .monto_descuento span.icon-advertencia {
@@ -1338,7 +1328,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
 
 .link_eliminar_pedido {
-    color: #cd2c39;
     float: right;
     margin-left: 5px;
 }
@@ -1535,7 +1524,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     color: white;
     font-size: 13px;
     border-radius: 4px;
-    background-color: #e81c36;
     border: none;
     font-weight: bold;
 }

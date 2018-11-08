@@ -73,7 +73,7 @@
 
             <div class="pedido_ingreso_datos campo_codigo">
                 <br />
-                <input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral" placeholder="Código" />
+                <input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral default-border-hover" placeholder="Código" />
             </div>
 
             <div class="pedido_ingreso_datos campo_descripcion_producto">
@@ -88,19 +88,20 @@
                 </div>
                 <!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
                 <br />
-                <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
+                <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico default-border-hover"
                        onkeyup="PreValidarCUV(event);" placeholder="Descripción producto" />
             </div>
 
             <div class="pedido_ingreso_datos campo_precio">
                 <br />
-                <input id="txtPrecioR" disabled="disabled" class="preciounitario" placeholder="Precio" />
+                <input id="txtPrecioR" disabled="disabled" class="preciounitario default-border-hover" placeholder="Precio" />
             </div>
 
             <div class="pedido_ingreso_datos campo_cantidad">
                 <br />
                 <div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
-                    <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                    <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" 
+                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral default-border-hover"
                            onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)" />
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
@@ -112,7 +113,7 @@
             <div class="pedido_ingreso_datos campo_cliente">
                 <br />
                 <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
-                       maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
+                       maxlength="50" class="ValidaAlfanumerico default-border-hover" placeholder="Cliente (Opcional)" />
                 <span class="pedido_ingreso_datos_icono_mas">+</span>
                 <a class="pedidos_cliente" onclick="showClienteDetalle(null);">
                     AGREGAR NUEVO CLIENTE
@@ -120,7 +121,7 @@
             </div>
             <input type="hidden" id="hdFlagNueva" />
             <input type="hidden" id="hdMetodoBusqueda" />
-            <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular(event);" class="pedido_agregado" />
+            <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular(event);" class="pedido_agregado default-background" />
         </form>
     </div>
     <div class="clear"></div>
@@ -253,14 +254,14 @@
                                         <span class="dscto_ofertasNiveles">(-) Dscto. Ofertas Por Niveles</span>
                                     </div>
                                     <br />
-                                    <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                                    <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
                                         <span id="spnNombreCliente"></span>
                                     </p>
                                     <div class="monto_total">
                                         <span><b>Monto total:</b></span>
                                     </div>
                                     <br />
-                                    <div class="monto_ganancia">
+                                    <div class="monto_ganancia default-color">
                                         <div class="info_extra_Validado abrir_popupMisGanancias">
                                             <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
                                         </div>
@@ -334,7 +335,7 @@
                                         <span data-montodescuento>@Model.Simbolo @Model.FormatoMontoDescuento</span>
                                     </div>
 
-                                    <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                                    <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
                                         <span id="spnTotalCliente"></span>
                                     </p>
                                     <p class="monto_total">
@@ -346,7 +347,7 @@
                                         </b>
                                     </p>
 
-                                    <p class="monto_ganancia">
+                                    <p class="monto_ganancia default-color">
                                         <b>
                                             @Model.Simbolo
                                             <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
@@ -376,21 +377,21 @@
                         @{
                             if (ViewBag.TipoUsuario == 2)
                             {
-                                <div class="tooltip_importanteGuardarPedido" style="width:370px;">
+                                <div class="tooltip_importanteGuardarPedido default-color" style="width:370px;">
                                     <text>@tooltip1</text>
                                     <span>@tooltip2</span>
                                 </div>
                             }
                             else
                             {
-                                <div class="tooltip_importanteGuardarPedido">
+                                <div class="tooltip_importanteGuardarPedido default-color">
                                     <text>@tooltip1</text>
                                     <span>@tooltip2</span>
                                 </div>
                             }
                         }
                         <div class="boton_guardarPedido">
-                            <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy" />
+                            <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy default-background-color" />
                         </div>
                     </div>
 
@@ -458,7 +459,7 @@
 
                 <p class="texto_eliminar_pedido">
                     <span class="texto_pedido_completo">
-                        Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
+                        Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido default-color" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
                     </span>
                 </p>
 
