@@ -204,7 +204,7 @@ var menuModule = (function () {
         }
     }
     function menuClick(e, url) {
-    
+        
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
         var codigo = objHtmlEvent.data("codigo") || "";
@@ -252,7 +252,11 @@ var menuModule = (function () {
                 $(elementos.claseimgNoSeleccionado).hide();
                 _animateScrollTo(elementos.html, menuHeight);
             }
-
+            
+            //var campania = $(element).data("campania") || "";
+            if (typeof AnalyticsPortalModule !== "undefined") {
+                AnalyticsPortalModule.ClickTabGanadoras(codigo);
+            }
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
 
             window.location = window.location.origin + url;

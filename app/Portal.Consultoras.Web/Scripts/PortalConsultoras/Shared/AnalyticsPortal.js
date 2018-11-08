@@ -43,6 +43,7 @@ var AnalyticsPortalModule = (function() {
         contenedorDetalle: "Contenedor - Detalle de Producto",
         contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
         contenedorRevisar: "Contenedor - Revisar",
+        contenedorMasGanadoras: "Más Ganadoras",
         CarritoCompras: "Carrito de compras",
         siguiente: "Ver siguiente",
         anterior: "Ver anterior"
@@ -143,7 +144,8 @@ var AnalyticsPortalModule = (function() {
          // Ini - Analytics Ofertas
         contenedorHome: "Contenedor - Home",
         campania: "Campaña ",
-        IdBannerGanadorasVerMas : "000123"
+        IdBannerGanadorasVerMas: "000123",
+        TextoGanadoras : "Ganadoras"
           // Fin - Analytics Ofertas
     };
     var _getDirection = function (direction) {
@@ -449,7 +451,12 @@ var AnalyticsPortalModule = (function() {
             var pagina = _constantes.paginas.find(function (element) {
                 return element.CodigoPagina == codigoPagina;
             });
-
+            //Marcar analytics cuando es Ganadoras en ficha y 
+            var estoyEnLaFicha = typeof fichaModule !== "undefined";
+            if (estrategia.CodigoPalanca === _codigoSeccion.MG && estoyEnLaFicha) {
+                AnalyticsPortalModule.ClickAddCartFicha(event, codigoOrigenPedido, estrategia);
+                return;
+            }
             var codigoSeccion = codigoOrigenPedido.toString().substring(5, 7);
             var seccion = _constantes.secciones.find(function (element) {
                 return element.CodigoSeccion == codigoSeccion;
@@ -1167,6 +1174,7 @@ var AnalyticsPortalModule = (function() {
         {
             case "ofertas": contenedor = esRevisar ? _texto.contenedorRevisar : _constantes.contenedorHome; break;
             case "pedido": contenedor = _texto.contenedorRevisar; break;
+            case "masganadoras": contenedor = _texto.contenedorMasGanadoras; break;
             default: contenedor = _texto.contenedor; break;
         }
 
@@ -1414,12 +1422,19 @@ var AnalyticsPortalModule = (function() {
     * Linea de Código Desktop: 309
  */
     var marcaAnadirCarrito = function (event, codigoOrigen, data) {
+        
         try {
             if (_constantes.isTest)
                 alert("Marcación clic añadir al carrito.");
 
             var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
             var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, codigoOrigen);
+
+            var codigoPalanca = codigoOrigen.toString().substring(3, 5);
+            var seccion = _constantes.origenpedidoWeb.find(function (element) {
+                return element.CodigoPalanca === codigoPalanca;
+            });
+
             var esCarrusel = false;
             if (!(event == null)) {
                 var elementCarrusel = $(event.target || event).parents("[data-item]");
@@ -1429,8 +1444,10 @@ var AnalyticsPortalModule = (function() {
             var producto = data;
             var list = "";
             //Si es carrusel de la ficha
-            if (esCarrusel)
+            if (esCarrusel && seccion.CodigoPalanca !== _constantes.origenpedidoWeb[codigoPalanca].CodigoPalanca)
                 list = contenedor + " - " + _constantes.campania + producto.CampaniaID;
+            else if (seccion.CodigoPalanca === _constantes.origenpedidoWeb[codigoPalanca].CodigoPalanca)
+                list = contenedor + " - " + palanca;
             else
                list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
 
@@ -1491,9 +1508,13 @@ var AnalyticsPortalModule = (function() {
             var text = $(data).data("item-tag");
             var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
             var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
-            var list = contenedor + " - " + palanca + " - " + _constantes.campania + item.CampaniaID;
-
-
+            var list = "";
+            if (_codigoSeccion.MG === codigoSeccion)
+                list = contenedor + " - " + palanca;
+             else 
+                list = contenedor + " - " + palanca + " - " + _constantes.campania + item.CampaniaID;
+            
+                
             dataLayer.push({
                 'event': _evento.productClick,
                 'ecommerce': {
@@ -1528,7 +1549,13 @@ var AnalyticsPortalModule = (function() {
             var text = $(data).data("item-tag");
             var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
             var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
-            var list = contenedor + " - " + palanca + " - " + _constantes.campania + item.CampaniaID;
+            var list = "";
+
+            if (_codigoSeccion.MG === item.CodigoPalanca)
+                list = contenedor + " - " + palanca;
+            else
+                list = contenedor + " - " + palanca + " - " + _constantes.campania + item.CampaniaID;
+
 
             dataLayer.push({
                 'event': _evento.productClick,
@@ -1628,15 +1655,19 @@ var AnalyticsPortalModule = (function() {
         }
     }
 
-    var marcaCompartirRedesSociales = function (tipo,url)
-    {
+    var marcaCompartirRedesSociales = function (tipo,url) {
+        debugger; 
         try {
-            dataLayer.push({
-                'event': 'socialEvent',
-                'network': tipo == "FB" ? 'Facebook' : "Whatsapp",
-                'action': 'Compartir',
-                'target': url == "" ? undefined : url
-            });
+            //var location = window.location.href;
+            //var isGanadoras = location.indexOf(_constantes.TextoGanadoras) > 0;
+            
+                dataLayer.push({
+                    'event': 'socialEvent',
+                    'network': tipo == "FB" ? 'Facebook' : "Whatsapp",
+                    'action': 'Compartir',
+                    'target': url == "" ? undefined : url
+                });
+            
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
@@ -2191,7 +2222,60 @@ var AnalyticsPortalModule = (function() {
     function clickArrowMG(direction) {
         _virtualEventPush(_getDirection(direction));
     }
-    
+    function clickOnBreadcrumb(url, codigoPalanca, titulo) {
+        
+        try {
+            if (codigoPalanca === _codigoSeccion.MG)
+                dataLayer.push({
+                    "event": _evento.virtualEvent,
+                    "category": _texto.fichaProducto,
+                    "action": 'Breadcrumb - Clic en Botón',
+                    "label": titulo || "",
+                    'eventCallback': function () {
+                        document.location = url;
+                    }
+                });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+    function clickAddCartFicha(event, codigoOrigenPedido, estrategia) {
+        try {
+            
+            var producto = estrategia;
+
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'add': {
+                        'actionField': { 'list': 'Ficha de Producto – Las Más Ganadoras' },
+                        'products': [{
+                            'name': producto.DescripcionCompleta,
+                            'price': producto.PrecioVenta,
+                            'brand': producto.DescripcionMarca,
+                            'id': producto.CUV2,
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'quantity': producto.Cantidad
+                        }]
+                    }
+                }
+            });
+
+        } catch (e) {
+
+        }
+    }
+    function clickTabGanadoras(codigo) {
+        if (codigo === _codigoSeccion.MG)
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": fnObtenerContenedor(), 
+                "action": 'Clic tab',
+                "label": 'Las Más Ganadoras'
+            });
+    }
     // Fin - Rama TiposAnalytics
 
     return {
@@ -2292,7 +2376,10 @@ var AnalyticsPortalModule = (function() {
         MarcarClickMasOfertasMG: marcarClickMasOfertasMG,
         MarcarClickMasOfertasBannerMG: marcarClickMasOfertasBannerMG,
         MarcarClickMasOfertasPromotionClickMG: marcarClickMasOfertasPromotionClickMG,
-        ClickArrowMG: clickArrowMG
+        ClickArrowMG: clickArrowMG,
+        ClickOnBreadcrumb: clickOnBreadcrumb,
+        ClickAddCartFicha: clickAddCartFicha,
+        ClickTabGanadoras: clickTabGanadoras 
         // Fin Analytics Marcaciones Ganadoras!
     }
 })();

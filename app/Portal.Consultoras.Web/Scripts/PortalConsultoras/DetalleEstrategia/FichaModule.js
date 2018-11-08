@@ -22,6 +22,15 @@ registerEvent.call(opcionesEvents, "onOptionSelected");
 
 var variablesPortal = variablesPortal || {};
 
+//Función para breadcumb
+function eventBreadCumb(url, titulo) {
+    
+    var codigoPalanca = fichaModule.GetEstrategia().CodigoPalanca || "";
+    if (!(typeof AnalyticsPortalModule === 'undefined'))
+        AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
+        
+}
+
 var FichaModule = (function (config) {
     "use strict";
 
@@ -607,6 +616,8 @@ var FichaModule = (function (config) {
         return _estrategia || _getEstrategia();
     }
 
+    
+
     function Inicializar() { 
         _localStorageModule = LocalStorageModule();
         _construirSeccionEstrategia();
@@ -615,7 +626,7 @@ var FichaModule = (function (config) {
         _crearTabs();
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
-
+       
     }
 
     return {

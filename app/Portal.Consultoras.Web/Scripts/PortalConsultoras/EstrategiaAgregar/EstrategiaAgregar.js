@@ -1,4 +1,5 @@
 ﻿/// <reference path="../../../Scripts/jquery-1.11.2.js" />
+/// <reference path="../../../Scripts/jquery-1.11.2.js" />
 /// <reference path="../../../Scripts/General.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/MainLayout.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
@@ -442,6 +443,7 @@ var EstrategiaAgregarModule = (function () {
                 //}
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+
                 TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
             } catch (e) {
                 console.log(e);
