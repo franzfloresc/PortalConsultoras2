@@ -15362,7 +15362,7 @@ span.icon-advertencia {
 }
 
 .tipo_montos_y_regalo_tippingPoint > div{
-    justify-content:flex-end;
+    justify-content:space-between;
 }
 
 .monto_minimo,
@@ -15372,9 +15372,9 @@ span.icon-advertencia {
     display: inline-block;
 }
 
-.monto_minimo{
+/*.monto_minimo{
     margin-left:25px;
-}
+}*/
 
 .monto_minimo,
 .monto_maximo
@@ -15383,6 +15383,19 @@ span.icon-advertencia {
     font-size:11px;
     line-height:14px;
     margin-top: 6px;
+    min-width:100px;
+}
+
+.monto_minimo div,
+.monto_maximo div
+{
+    display:inline-block;
+}
+
+.monto_minimo div:first-child,
+.monto_maximo div:first-child
+{
+    margin-top:6px;
 }
 
 .monto_minimo div:last-child,
@@ -15391,23 +15404,29 @@ span.icon-advertencia {
     margin-bottom:12px;
 }
 
-.monto_maximo{
+/*.monto_maximo{
     display:none;
-}
+}*/
 
-.monto_minimo:after,
-.monto_maximo:after
+.monto_minimo:before,
+.monto_maximo:before,
+.regalo_tippingPoint .default-color:before
 {
     display: block;
     margin: 0 auto;
     content: "";
     width: 1px;
     height: 8px;
-    background-color: #808080;
     position: absolute;
-    bottom: 2px;
+    top: -4px;
     left: 0;
     right: 0;
+}
+
+.monto_minimo:before,
+.monto_maximo:before
+{
+    background-color: #808080;
 }
 
 .icono_regalo{
@@ -15417,53 +15436,47 @@ span.icon-advertencia {
 }
 
 .regalo_tippingPoint {
-    margin-left:66px;
-    top:-6px;
-}
-
-.regalo_tippingPoint:after{
-    display: block;
-    margin: 0 auto;
-    content: "";
-    width: 1px;
-    height: 8px;
-    background-color: #e81c36;
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    right: 0;
+    /*margin-left: 66px;*/
+    top: -23px;
+    right: -4px;
 }
 
 .regalo_tippingPoint img{
     width:25px;
     position:relative;
     z-index:600;
+    margin-bottom:8px;
 }
 
-.regalo_tippingPoint + .monto_maximo{
+/*.regalo_tippingPoint + .monto_maximo{
     margin-left:72px;
-}
+}*/
 
-.regalo_tippingPoint .contenedor_circulos{
+.microEfecto_regaloPendienteEleccion{
     display:none;
     top:-3px;
     left:7.6px;
 }
 
-.regalo_tippingPoint .circulo-1,
-.regalo_tippingPoint .circulo-2,
-.regalo_tippingPoint .circulo-3
+.microEfecto_regaloPendienteEleccion .circulo-1,
+.microEfecto_regaloPendienteEleccion .circulo-2,
+.microEfecto_regaloPendienteEleccion .circulo-3
 {
-    border:1px solid #440c61;
+    border:1px solid #a20015;
 }
 
-.regalo_tippingPoint .default-color{
-    color:#e81c36;
+.monto_regaloTippingPoint{
+    display: block;
+    color: #e81c36;
+    position: absolute;
+    min-width: 50px;
+    left: -12px;
 }
 
-/*.regalo_tippingPoint .circulo-3{
-    display:none;
-}*/
+.monto_regaloTippingPoint:before{
+    background-color: #e81c36;
+    top: -8px;
+}
 
 .contenedor_barra_mobile{
     margin-bottom:38px;
@@ -15473,7 +15486,7 @@ span.icon-advertencia {
     font-size:15px;
     padding-top:13px;
     padding-left:1px;
-    margin-bottom:19px;
+    margin-bottom:27px;
     text-align:left;
 }
 

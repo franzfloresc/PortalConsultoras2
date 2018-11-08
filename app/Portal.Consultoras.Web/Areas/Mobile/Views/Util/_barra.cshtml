@@ -12,31 +12,31 @@
         <div class="mensaje_meta">
             Te falta <span class="text-bold">S/ 310</span> para llevarte tu regalo.
         </div>
+        <div id="divBarraPosicion" class="barra_ganancia">
+            <span id="divBarraEspacioLimite" class="BarraLimite">
+                <span id="divBarraEspacioLogrado" class="barra_ganancia_espacio_logrado"></span>
+            </span>
+        </div>
         <div class="tipo_montos_y_regalo_tippingPoint">
             <div class="w-100">
                 <div class="monto_minimo text-center">
-                    <div>M. Mínimo</div>
+                    <div>M. Mínimo </div>
                     <div>S/ 210</div>
                 </div>
-                <a class="icono_regalo regalo_tippingPoint text-center" title="Elige tu regalo">
+                <a class="icono_regalo regalo_tippingPoint text-center" title="Elige tu regalo" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();">
                     <img src="@Url.Content("~/Content/Images/icono_regalo.png")" alt="Elige tu regalo" />
-                    <div class="default-color">S/ 370</div>
-                    <div class="contenedor_circulos">
+                    <div class="monto_regaloTippingPoint default-color">S/ 370</div>
+                    <div class="contenedor_circulos microEfecto_regaloPendienteEleccion">
                         <div class="circulo-1 iniciarTransicion"></div>
                         <div class="circulo-2 iniciarTransicion"></div>
                         <div class="circulo-3 iniciarTransicion"></div>
                     </div>
                 </a>
-                <div class="monto_maximo text-center">
-                    <div>L. crédito</div>
+                <div class="monto_maximo text-center" style="display:none;">
+                    <div>M. Máximo </div>
                     <div>S/ 500</div>
                 </div>
             </div>
-        </div>
-        <div id="divBarraPosicion" class="barra_ganancia">
-            <span id="divBarraEspacioLimite" class="BarraLimite">
-                <span id="divBarraEspacioLogrado" class="barra_ganancia_espacio_logrado"></span>
-            </span>
         </div>
     </div>
 </div>
