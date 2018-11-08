@@ -546,9 +546,14 @@ function CargarDetallePedido(page, rows) {
                 var html = ArmarDetallePedido(data.ListaDetalleModel);
                 $("#tbobyDetallePedido").html(html);
 
-                var htmlPaginador = ArmarDetallePedidoPaginador(data);
-                $("#paginadorCab").html(htmlPaginador);
-                $("#paginadorPie").html(htmlPaginador);
+                data.footer = true;
+                var htmlPaginadorH = ArmarDetallePedidoPaginador(data);
+
+                data.footer = false;
+                var htmlPaginadorF = ArmarDetallePedidoPaginador(data);
+
+                $("#paginadorCab").html(htmlPaginadorH);
+                $("#paginadorPie").html(htmlPaginadorF);
 
                 $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
                 $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);

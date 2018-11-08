@@ -2,9 +2,9 @@
 
 <script id="paginador-template" type="text/x-handlebars-template">
     <ul class="paginador_notificaciones" data-paginacion="block">
-
+        {{#if footer}}
         <li class="productos_agregados_usuario">
-            He agregado
+            Has agregado
             <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion='recordCount'>{{RegistrosTotal}}</b></span>
             &nbsp;productos
         </li>
@@ -17,8 +17,9 @@
                 <option value="50">ver 50 filas</option>
             </select>
         </li>
+        {{/if}}
     </ul>
-
+    
     <ul class="paginador_notificaciones right" data-paginacion="block">
         <li class="texto_pagina">Página</li>
         <li class="flecha_paginador_atras" data-paginacion="back"></li>
