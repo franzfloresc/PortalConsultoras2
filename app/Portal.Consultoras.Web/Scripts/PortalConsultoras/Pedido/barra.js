@@ -83,14 +83,14 @@ function MostrarBarra(datax, destino) {
             valorStr: data.MontoMinimoStr
         });
 
-        //if (tp > 0 && dataBarra.TippingPointBarra.Active) { OG
+        if (tp > 0 && dataBarra.TippingPointBarra.Active) { //OG
             listaLimite.push({
                 nombre: "",
                 tipoMensaje: 'TippingPoint',
                 valor: data.TippingPoint,
                 valorStr: data.TippingPointStr
             });
-       // }
+        }
         
         listaLimite.push({
             nombre: textoPunto.replace("{titulo}", "L. crédito").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMaximoStr),
@@ -533,6 +533,14 @@ function MostrarBarra(datax, destino) {
     }
 
     tipoMensaje += belcorp.barra.settings.isMobile ? 'Mobile' : '';
+
+    if (dataBarra.TippingPointBarra.Active == true && belcorp.barra.settings.isMobile) {
+        if (vLogro*1 < dataBarra.TippingPoint*1) {
+            tipoMensaje = "TippingPointMobileNoSupero";
+        }
+    }
+
+
     listaMensajeMeta = listaMensajeMeta || new Array();
     var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
     objMsg.Titulo = $.trim(objMsg.Titulo);
@@ -550,9 +558,32 @@ function MostrarBarra(datax, destino) {
     if (!belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
     }
+    else
+    {
+        if (dataBarra.TippingPointBarra.Active == true) {
+            $('#divBarra #divBarraMensajeLogrado .agrega_barra').hide();
+            $('#divBarraMensajeTippingPoint').show();
+            if (dataBarra.TotalPedido < dataBarra.TippingPoint) {
+                tipoMensaje = "TippingPointMobileNoSupero";
+                var faltanteRegalo = dataBarra.TippingPoint * 1 - dataBarra.TotalPedido * 1;
+                $("#divBarra #divBarraMensajeTippingPoint").html(objMsg.Mensaje.replace("#valor", 'S/ ' + faltanteRegalo));
+                $('#divIconos').show();
+                $('#divMontoMinimo').html('S/ ' + dataBarra.MontoMinimoStr);
+                $('#divtippingPoint').html('S/ ' + dataBarra.TippingPointStr);
+            }
 
+        }
+        else {
 
-    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
+            //$("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
+
+            $('#divIconos').show();
+            $('#divMontoMinimo').html('S/ ' + dataBarra.MontoMinimoStr);
+            $('#hrefIconoRegalo').hide();
+        }
+    }
+
+    
 
     // OG
     //if (belcorp.barra.settings.isMobile) {
