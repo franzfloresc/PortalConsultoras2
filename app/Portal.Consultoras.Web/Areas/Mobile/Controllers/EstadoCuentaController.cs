@@ -71,6 +71,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
+                model.MostrarPagoEnLinea = userData.MontoDeuda > 0;
             }
             catch (FaultException ex)
             {
