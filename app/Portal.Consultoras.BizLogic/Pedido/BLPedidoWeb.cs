@@ -13,6 +13,9 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Transactions;
+using System.Net;
+using System.Web.Script.Serialization;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -1901,7 +1904,8 @@ namespace Portal.Consultoras.BizLogic
             return listaResultado;
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora,  int usuarioPrueba, string  consultoraAsociada, int top )
+        #region MisPedidos
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora,  int usuarioPrueba, string  consultoraAsociada, int top, bool mostrarPaqueteDocumentario)
         {
             var listaPedidosFacturados = GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora, top);
 
@@ -1913,8 +1917,80 @@ namespace Portal.Consultoras.BizLogic
                 return true;
             });
 
+            if (mostrarPaqueteDocumentario)
+            {
+                var tasks = listaPedidosFacturados.Select(x => Task.Run(() => ObtenerRutaPaqueteDocumentario(usuarioPrueba == 1 ? consultoraAsociada : codigoConsultora, x.CampaniaID.ToString(), x.NumeroPedido.ToString(), Common.Util.GetPaisISO(paisID)))).ToArray();
+                Task.WaitAll(tasks);
+
+                listaPedidosFacturados.All(x =>
+                {
+                    var result = tasks.FirstOrDefault(y => y.Result.NumeroPedido == x.NumeroPedido && y.Result.CampaniaID == x.CampaniaID);
+                    x.RutaPaqueteDocumentario = result == null ? string.Empty : result.Result.RutaPaqueteDocumentario;
+                    return true;
+                });
+            }
+
             return listaPedidosFacturados;
         }
+    
+        private BEPedidoWeb ObtenerRutaPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido, string paisIso)
+        {
+            var errorMessage = string.Empty;
+            var url = string.Empty;
+            try
+            {
+                var input = new
+                {
+                    Pais = paisIso,
+                    Tipo = "1",
+                    CodigoConsultora = codigoConsultora,
+                    Campana = campania,
+                    NumeroPedido = numeroPedido
+                };
+                var urlService = ConfigurationManager.AppSettings["WS_RV_PDF_NEW"];
+                var wrapper = ConsumirServicio<DEWrapperPDF>(input, urlService);
+                var result = (wrapper ?? new DEWrapperPDF()).GET_URLResult;
+                if (result != null)
+                {
+                    if (result.errorCode != "00000" && result.errorMessage != "OK") errorMessage = result.errorMessage;
+                    if (string.IsNullOrEmpty(errorMessage) && result.objeto != null)
+                    {
+                        if (result.objeto.Count > 0) url = result.objeto[0].url;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoConsultora, paisIso);
+                throw new BizLogicException("No se pudo obtener la ruta de paquete documentario.", ex);
+            }
+            return new BEPedidoWeb()
+            {
+                RutaPaqueteDocumentario = url,
+                CampaniaID = Convert.ToInt32(campania),
+                NumeroPedido = Convert.ToInt32(numeroPedido)
+            };
+        }
+
+        private T ConsumirServicio<T>(object input, string metodo)
+        {
+            var serializer = new JavaScriptSerializer();
+            var request = WebRequest.Create(metodo);
+            request.Method = "POST";
+            request.ContentType = "application/json; charset=utf-8";
+            var inputJson = serializer.Serialize(input);
+            using (var writer = new StreamWriter(request.GetRequestStream()))
+            {
+                writer.Write(inputJson);
+            }
+            var outputJson = string.Empty;
+            using (StreamReader reader = new StreamReader(request.GetResponse().GetResponseStream()))
+            {
+                outputJson = reader.ReadToEnd();
+            }
+            return serializer.Deserialize<T>(outputJson);
+        }
+        #endregion
 
         public void InsLogOfertaFinal(int PaisID, BEOfertaFinalConsultoraLog entidad)
         {
