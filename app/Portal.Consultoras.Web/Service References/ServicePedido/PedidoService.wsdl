@@ -44,6 +44,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_ListConcursosByCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListConcursosByCampania" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ListConcursosByCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListConcursosByCampaniaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerIncentivosConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerIncentivosConsultora" />
   </wsdl:message>
@@ -332,6 +338,24 @@
   <wsdl:message name="IPedidoService_ObtenerPagoEnLineaNumeroOrden_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaNumeroOrdenResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaVisaConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaVisaConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RegistrarPagoEnLineaVisa_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarPagoEnLineaVisa" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RegistrarPagoEnLineaVisa_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarPagoEnLineaVisaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertPedidoWebSet_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertPedidoWebSet" />
   </wsdl:message>
@@ -583,6 +607,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetCuvKitNuevas_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCuvKitNuevasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMensajeKitNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMensajeKitNuevas" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMensajeKitNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMensajeKitNuevasResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_UpdateMontosPedidoWeb_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateMontosPedidoWeb" />
@@ -925,12 +955,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_ListConcursosVigentes_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListConcursosVigentesResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_ListConcursosByCampania_InputMessage">
-    <wsdl:part name="parameters" element="tns:ListConcursosByCampania" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_ListConcursosByCampania_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ListConcursosByCampaniaResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_HabilitaPedidoMultipleInformacionConsultoras_InputMessage">
     <wsdl:part name="parameters" element="tns:HabilitaPedidoMultipleInformacionConsultoras" />
@@ -2463,6 +2487,10 @@
     <wsdl:part name="parameters" element="tns:GetCUVAsociadoByFilterResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="ListConcursosByCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosByCampania" message="tns:IPedidoService_ListConcursosByCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosByCampaniaResponse" message="tns:IPedidoService_ListConcursosByCampania_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerIncentivosConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultora" message="tns:IPedidoService_ObtenerIncentivosConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultoraResponse" message="tns:IPedidoService_ObtenerIncentivosConsultora_OutputMessage" />
@@ -2655,6 +2683,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrdenResponse" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracion" message="tns:IPedidoService_ObtenerPagoEnLineaConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracionResponse" message="tns:IPedidoService_ObtenerPagoEnLineaConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaVisaConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracion" message="tns:IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracionResponse" message="tns:IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPagoEnLineaVisa">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisa" message="tns:IPedidoService_RegistrarPagoEnLineaVisa_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisaResponse" message="tns:IPedidoService_RegistrarPagoEnLineaVisa_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertPedidoWebSet">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoWebSet" message="tns:IPedidoService_InsertPedidoWebSet_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoWebSetResponse" message="tns:IPedidoService_InsertPedidoWebSet_OutputMessage" />
@@ -2822,6 +2862,10 @@
     <wsdl:operation name="GetCuvKitNuevas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCuvKitNuevas" message="tns:IPedidoService_GetCuvKitNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCuvKitNuevasResponse" message="tns:IPedidoService_GetCuvKitNuevas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMensajeKitNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMensajeKitNuevas" message="tns:IPedidoService_GetMensajeKitNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMensajeKitNuevasResponse" message="tns:IPedidoService_GetMensajeKitNuevas_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateMontosPedidoWeb">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontosPedidoWeb" message="tns:IPedidoService_UpdateMontosPedidoWeb_InputMessage" />
@@ -3050,10 +3094,6 @@
     <wsdl:operation name="ListConcursosVigentes">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosVigentes" message="tns:IPedidoService_ListConcursosVigentes_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosVigentesResponse" message="tns:IPedidoService_ListConcursosVigentes_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ListConcursosByCampania">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosByCampania" message="tns:IPedidoService_ListConcursosByCampania_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosByCampaniaResponse" message="tns:IPedidoService_ListConcursosByCampania_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="HabilitaPedidoMultipleInformacionConsultoras">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleInformacionConsultoras" message="tns:IPedidoService_HabilitaPedidoMultipleInformacionConsultoras_InputMessage" />
@@ -4078,6 +4118,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListConcursosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerIncentivosConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultora" style="document" />
       <wsdl:input>
@@ -4510,6 +4559,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaVisaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPagoEnLineaVisa">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertPedidoWebSet">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoWebSet" style="document" />
       <wsdl:input>
@@ -4881,6 +4957,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCuvKitNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCuvKitNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMensajeKitNuevas">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMensajeKitNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5394,15 +5479,6 @@
     </wsdl:operation>
     <wsdl:operation name="ListConcursosVigentes">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosVigentes" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ListConcursosByCampania">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosByCampania" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7709,6 +7785,15 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListConcursosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerIncentivosConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultora" style="document" />
       <wsdl:input>
@@ -8141,6 +8226,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaVisaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPagoEnLineaVisa">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertPedidoWebSet">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoWebSet" style="document" />
       <wsdl:input>
@@ -8512,6 +8624,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCuvKitNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCuvKitNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMensajeKitNuevas">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMensajeKitNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9025,15 +9146,6 @@
     </wsdl:operation>
     <wsdl:operation name="ListConcursosVigentes">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosVigentes" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ListConcursosByCampania">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosByCampania" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -48,7 +48,7 @@ $(document).ready(function () {
     'use strict';
 
     var BuscadorSB;
-
+    var ContadorBusquedas = 0;
     BuscadorSB = function () {
         var me = this;
 
@@ -144,7 +144,13 @@ $(document).ready(function () {
                     if (cantidadCaracteresParaMostrarSugerenciasBusqueda >= CaracteresBuscador) {
 
                         me.Funciones.CampoDeBusquedaConCaracteres($('#CampoBuscadorProductos'));
-
+                            if (ContadorBusquedas === 0) {
+                                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                                    AnalyticsPortalModule.MarcaBarraBusqueda();
+                                ContadorBusquedas++;
+                            }                           
+                        
+                            
                         $('.spinner').fadeIn(150);
 
                         if (xhr && xhr.readyState != 4) {
@@ -194,6 +200,11 @@ $(document).ready(function () {
                                     }, 400);
 
                                     SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscador');
+                                        $(".lista_resultados_busqueda_productos").one("mouseover", function () {
+                                            var buscar = $("#CampoBuscadorProductos").val();
+                                            AnalyticsPortalModule.MarcaSeleccionarContenidoBusqueda(buscar);
+
+                                        });
                                 }
 
                             }
@@ -328,6 +339,9 @@ $(document).ready(function () {
                                 microefectoPedidoGuardado();
                                 CargarResumenCampaniaHeader();
                                 CerrarLoad();
+                                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, OrigenPedidoWeb, $("#CampoBuscadorProductos").val());
+                              
                                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
                                 agregado.html("Agregado");
                                 var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
@@ -355,7 +369,9 @@ $(document).ready(function () {
                         var UrlDetalle = GetPalanca(codigoEstrategia);
                         if (UrlDetalle == "") return false;
                         UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-                        window.location = UrlDetalle;
+                        //window.location = UrlDetalle;
+                        if (!(typeof AnalyticsPortalModule === 'undefined'))
+                            AnalyticsPortalModule.MarcaEligeUnaOpcion(UrlDetalle);
                         return true;
                     }
                 }

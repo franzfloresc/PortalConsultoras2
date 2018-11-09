@@ -898,10 +898,8 @@ function EstructurarDataCarouselLiquidaciones(array) {
 
     return array;
 }
-//function AgregarProductoLiquidacion(contenedor) {
-//    var inputCantidad = $(contenedor).find("#txtCantidad").val();
-//    if (!$.isNumeric(inputCantidad)) {
-//        AbrirMensaje("Ingrese un valor numérico.");
+//function AgregarProductoLiquidacion(contenedor) {    
+//    var inputCantidad = $(contenedor).find("[data-input='cantidad']").val();
 //        $(contenedor).find("#txtCantidad").val(1);
 //        return false;
 //    }
@@ -912,9 +910,8 @@ function EstructurarDataCarouselLiquidaciones(array) {
 //    }
 
 //    waitingDialog({});
-//    var item = {
-//        Cantidad: $(contenedor).find("#txtCantidad").val(),
-//        MarcaID: $(contenedor).find("#MarcaID").val(),
+//    var item = {      
+//        Cantidad: $(contenedor).find("[data-input='cantidad']").val(),
 //        PrecioUnidad: $(contenedor).find("#PrecioOferta").val(),
 //        CUV: $(contenedor).find("#CUV").val(),
 //        ConfiguracionOfertaID: $(contenedor).find("#ConfiguracionOfertaID").val(),

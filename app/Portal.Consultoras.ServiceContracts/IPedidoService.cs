@@ -904,6 +904,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string GetCuvKitNuevas(BEConsultoraProgramaNuevas consultoraNuevas, BEConfiguracionProgramaNuevas confProgNuevas);
 
+        [OperationContract]
+        string GetMensajeKitNuevas(string codigoISO, bool esConsultoraNueva, int consecutivoNueva);
+
         #endregion
 
         [OperationContract]
@@ -1231,6 +1234,16 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ObtenerPagoEnLineaNumeroOrden(int paisId);
+
+        [OperationContract]
+        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario);
+
+        [OperationContract]
+        BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora);
+
+        [OperationContract]
+        BERespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa);
+
         #endregion
 
         [OperationContract]

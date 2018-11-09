@@ -149,7 +149,7 @@ function AgregarProductoOfertaLiquidacion(xthis) {
 
         jQuery.ajax({
             type: 'POST',
-            url: baseUrl + ControllerRegistro + 'PedidoAgregarProductoTransaction',
+            url: baseUrl + urlAgregarUnico,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(Item),
@@ -257,7 +257,7 @@ function RegistrarProductoOferta(e) {
 
         jQuery.ajax({
             type: 'POST',
-            url: baseUrl + ControllerRegistro + 'PedidoAgregarProductoTransaction',
+            url: baseUrl + urlAgregarUnico,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(Item),
@@ -345,7 +345,7 @@ function AgregarProductoOfertaLiquidacionMobile(article) {
 
         jQuery.ajax({
             type: 'POST',
-            url: baseUrl + ControllerRegistro + 'PedidoAgregarProductoTransaction',
+            url: baseUrl + urlAgregarUnico,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(Item),
@@ -433,7 +433,7 @@ function AgregarProductoLiquidacionBienvenida(contenedor) {
 
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + ControllerRegistro + 'PedidoAgregarProductoTransaction',
+        url: baseUrl + urlAgregarUnico,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -482,13 +482,22 @@ var BuscadorProvider = function () {
         isMobile: window.matchMedia("(max-width:991px)").matches
     }
 
-    var AjaxError = function (data) {
+    var _ajaxError = function (data) {
         CerrarLoad();
         if (checkTimeout(data)) AbrirMensaje(data.message);
     }
 
-    var RegistroLiquidacion = function (model, cantidad, producto) {
-       
+    var _registrarAnalytics = function (model, textoBusqueda) {
+        try {
+            AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Desplegable", textoBusqueda);
+        } catch (e) {
+
+        }
+    };
+
+    var RegistroLiquidacion = function (model, cantidad, producto, textoBusqueda) {
+
+        model.Cantidad = cantidad;
         var Item = {
             MarcaID: model.MarcaId,
             Cantidad: cantidad,
@@ -507,7 +516,7 @@ var BuscadorProvider = function () {
 
         jQuery.ajax({
             type: 'POST',
-            url: baseUrl + ControllerRegistro + 'PedidoAgregarProductoTransaction',
+            url: baseUrl + urlAgregarUnico,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(Item),
@@ -524,7 +533,7 @@ var BuscadorProvider = function () {
                     return false;
                 }
 
-                producto.html('Agregado');
+                producto.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
 
                 if (isPagina('pedido')) {
                     if (model != null && model != undefined)
@@ -535,8 +544,11 @@ var BuscadorProvider = function () {
                 }
 
                 microefectoPedidoGuardado();
+
                 CargarResumenCampaniaHeader();
+
                 CerrarLoad();
+                _registrarAnalytics(model, textoBusqueda);
             },
             error: function (data, error) {
                 CerrarLoad();
@@ -544,14 +556,15 @@ var BuscadorProvider = function () {
         });
     }
 
-    var RegistroProductoBuscador = function (divPadre) {
+    var RegistroProductoBuscador = function (divPadre, textoBusqueda) {
 
         var model = JSON.parse($(divPadre).find(".hdBuscadorJSON").val());
         var cantidad = $(divPadre).find("[data-input='cantidad']").val();
         var agregado = $(divPadre).find(".etiqueta_buscador_producto");
+        model.Cantidad = cantidad;
 
         if (model.TipoPersonalizacion == "LIQ") {
-            RegistroLiquidacion(model, cantidad, agregado);
+            RegistroLiquidacion(model, cantidad, agregado, textoBusqueda);
         } else {
             var cuv = model.CUV;
             var tipoOfertaSisID = model.TipoPersonalizacion == "CAT" ? 0 : model.TipoEstrategiaId;
@@ -582,7 +595,7 @@ var BuscadorProvider = function () {
                 return false;
             }
 
-            var urlInsertar = baseUrl + ControllerRegistro + 'PedidoAgregarProductoTransaction';
+            var urlInsertar = baseUrl + urlAgregarUnico;
 
             var modelFinal = {
                 CUV: cuv,
@@ -627,7 +640,8 @@ var BuscadorProvider = function () {
                                 PedidoOnSuccessSugerido(modelFinal);
 
                             CargarDetallePedido();
-                            $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
+                            $("#pCantidadProductosPedido")
+                                .html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
                             MostrarBarra(data);
                         }
                     }
@@ -638,15 +652,16 @@ var BuscadorProvider = function () {
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
                     var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
                     $(divPadre).find(".hdBuscadorCantidadesAgregadas").val(totalAgregado);
+                    _registrarAnalytics(model, textoBusqueda);
                     return true;
                 },
                 error: function (data, error) {
-                    AjaxError(data);
+                    _ajaxError(data);
                     return false;
                 }
             });
         }
-    }
+    };
 
     return {
         RegistroProductoBuscador: RegistroProductoBuscador
