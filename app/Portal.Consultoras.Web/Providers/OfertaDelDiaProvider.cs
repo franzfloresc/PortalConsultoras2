@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
@@ -22,7 +23,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public OfertaDelDiaProvider()
         {
-            sessionManager = SessionManager.SessionManager.Instance;
+            sessionManager =  SessionManager.SessionManager.Instance;
             _configuracionManager = new ConfiguracionManagerProvider();
             _tablaLogica = new TablaLogicaProvider();
             _ofertaPersonalizada = new OfertaPersonalizadaProvider();
@@ -47,12 +48,12 @@ namespace Portal.Consultoras.Web.Providers
                 };
 
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
-                {                   
+                {
                     var diaInicio = DateTime.Now.Date.Subtract(model.FechaInicioCampania.Date).Days;
-                    string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, 
-                        model.CodigoISO, 
-                        Constantes.ConfiguracionPais.OfertaDelDia, 
-                        model.CampaniaID, 
+                    string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia,
+                        model.CodigoISO,
+                        Constantes.ConfiguracionPais.OfertaDelDia,
+                        model.CampaniaID,
                         model.CodigoConsultora,
                         diaInicio);
                     var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOfertaDelDia, model.CodigoISO));
@@ -63,9 +64,9 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 else
                 {
-                    using (var osc = new OfertaServiceClient())
+                    using (var ofertaService = new OfertaServiceClient())
                     {
-                        ofertasDelDia = osc.GetEstrategiaODD(entidad, entidad.ConsultoraID, model.FechaInicioCampania.Date).ToList();
+                        ofertasDelDia = ofertaService.GetEstrategiaODD(entidad, entidad.ConsultoraID, model.FechaInicioCampania.Date).ToList();
                     }
                 }
             }
@@ -166,8 +167,8 @@ namespace Portal.Consultoras.Web.Providers
 
         public DataModel GetOfertaDelDiaConfiguracion(UsuarioModel usuario)
         {
-            var oddSession = sessionManager.OfertaDelDia.Estrategia;
-
+           var oddSession = sessionManager.OfertaDelDia.Estrategia;
+           
             try
             {
                 if (!usuario.EsConsultora())
@@ -176,28 +177,44 @@ namespace Portal.Consultoras.Web.Providers
                     return new DataModel();
                 }
 
+        
                 if (oddSession != null)
                 {
                     if (!oddSession.TieneOfertaDelDia)
                         return oddSession;
+
+                    if (UsarMsPersonalizacion(usuario.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
+                    {
+                        oddSession.ListaOferta = _ofertaPersonalizada.ConsultarEstrategiasModelFormato(GetOfertas(usuario),
+                                                                                                    usuario.CodigoISO,
+                                                                                                    usuario.CampaniaID,
+                                                                                                    2,
+                                                                                                    usuario.esConsultoraLider,
+                                                                                                    usuario.Simbolo);
+                    }
 
                     oddSession.TeQuedan = CountdownOdd(usuario);
                     oddSession.ImagenBanner = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + usuario.CodigoISO, oddSession.ImagenBanner);
                     return oddSession;
                 }
 
-                oddSession = new DataModel();
-                oddSession.TieneOfertaDelDia = true;
+                oddSession = new DataModel
+                {
+                    TieneOfertaDelDia = true,
+                    ListaOferta = _ofertaPersonalizada.ConsultarEstrategiasModelFormato(GetOfertas(usuario),
+                                                                                        usuario.CodigoISO, 
+                                                                                        usuario.CampaniaID, 
+                                                                                        2, 
+                                                                                        usuario.esConsultoraLider, 
+                                                                                        usuario.Simbolo)
+                };
 
                 var personalizacionesOdd = _tablaLogica.ObtenerConfiguracion(usuario.PaisID, Constantes.TablaLogica.PersonalizacionODD);
                 if (!personalizacionesOdd.Any())
                 {
                     oddSession.TieneOfertaDelDia = false;
-                    oddSession.ListaOferta = new List<EstrategiaPersonalizadaProductoModel>();
                 }
-                var listaEstrategia = GetOfertas(usuario);
-
-                oddSession.ListaOferta = _ofertaPersonalizada.ConsultarEstrategiasModelFormato(listaEstrategia, usuario.CodigoISO, usuario.CampaniaID, 2, usuario.esConsultoraLider, usuario.Simbolo);
+                
                 if (!oddSession.ListaOferta.Any())
                 {
                     oddSession.TieneOfertaDelDia = false;
