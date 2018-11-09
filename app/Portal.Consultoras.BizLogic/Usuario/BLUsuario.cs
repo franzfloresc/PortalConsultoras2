@@ -555,10 +555,16 @@ namespace Portal.Consultoras.BizLogic
                 var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.ActualizaDatosEnabled));
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
-                
-                var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Format("{0}|{1}|{2}|{3}|{4}", Constantes.ConfiguracionPais.RevistaDigital,
-                    Constantes.ConfiguracionPais.RevistaDigitalIntriga, Constantes.ConfiguracionPais.RevistaDigitalReducida, Constantes.ConfiguracionPais.BuscadorYFiltros, 
-                    Constantes.ConfiguracionPais.PagoEnLinea)));
+                var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.ValoresPagoEnLinea));
+
+                var lstConfiguracionPais = new List<string>();
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigitalIntriga);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigitalReducida);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.BuscadorYFiltros);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.PagoEnLinea);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.MasGanadoras);
+                var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Join("|", lstConfiguracionPais)));                
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -575,7 +581,8 @@ namespace Portal.Consultoras.BizLogic
                                 actualizaDatosTask,
                                 actualizaDatosConfigTask,
                                 contratoAceptacionTask,
-                                usuarioPaisTask);
+                                usuarioPaisTask,
+                                pagoEnLineaTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -636,6 +643,11 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 usuario = usuarioPaisTask.Result ?? usuario;
+
+                if(pagoEnLineaTask.Result != null){
+                    var enablePagoEnLineaApp = pagoEnLineaTask.Result.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App).Select(e => e.Valor).FirstOrDefault();
+                    usuario.TienePagoEnLinea = (usuario.TienePagoEnLinea && enablePagoEnLineaApp == "1");
+                }
 
                 return usuario;
             }
@@ -3283,6 +3295,9 @@ namespace Portal.Consultoras.BizLogic
                             case Constantes.ConfiguracionPais.PagoEnLinea:
                                 if (configuracion.Estado)
                                     usuario.TienePagoEnLinea = true;
+                                break;
+                            case Constantes.ConfiguracionPais.MasGanadoras:
+                                usuario.TieneMG = configuracion.Estado;
                                 break;
                         }
                     }
