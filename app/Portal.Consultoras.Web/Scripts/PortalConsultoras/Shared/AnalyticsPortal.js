@@ -2198,7 +2198,8 @@ var AnalyticsPortalModule = (function() {
                             {
                                 'id': _constantes.IdBannerGanadorasVerMas,
                                 'name': 'Tenemos Más Opciones Para ti - Las Más Ganadoras',
-                                'position': 'Contenedor - Home', 'creative': 'Banner'
+                                'position': fnObtenerContenedor(),
+                                'creative': 'Banner'
                             }]
                     }
                 }

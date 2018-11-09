@@ -286,8 +286,9 @@ var menuModule = (function () {
             });
         }
     }
-    function sectionClick(url, titulo, origenPedido) {
+    function sectionClick(url, titulo, e) {
         
+        var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
         titulo = titulo || "";
         //if (typeof rdAnalyticsModule !== "undefined") {
         //    rdAnalyticsModule.ContendorSection(titulo);
