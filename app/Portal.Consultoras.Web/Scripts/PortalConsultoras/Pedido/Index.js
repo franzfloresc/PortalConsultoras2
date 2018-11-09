@@ -3123,7 +3123,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
         enRangoProgNuevas: enRangoProgNuevas
     };
 
-    AbrirSplash();
+    //AbrirSplash();
     jQuery.ajax({
         type: "POST",
         url: baseUrl + "Pedido/UpdateTransaction",
@@ -3138,6 +3138,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                 return false;
 
             if (data.success != true) {
+                $(txtLPCant).val(cantAnti);
                 var errorCliente = data.errorCliente || false;
                 if (!errorCliente) {
                     messageInfoError(data.message);
