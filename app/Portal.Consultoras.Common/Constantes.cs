@@ -2858,6 +2858,12 @@ namespace Portal.Consultoras.Common
             public const string GastosLabelMx = "Cargo comisión por transacción";
         }
 
+        public static class MensajePago
+        {
+            public const string MensajeGeneral = "Paga en Línea con Visa";
+            public const string MensajeMx = "Paga en Línea";
+        }
+
         public static class PagoEnLineaOrigen
         {
             public const string OrigenDesktop = "Desktop";

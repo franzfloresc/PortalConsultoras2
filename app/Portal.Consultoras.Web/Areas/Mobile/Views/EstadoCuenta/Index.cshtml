@@ -46,12 +46,14 @@ else
             <span>Vencimiento :</span>
             <span>@Model.FechaVencimiento</span>
         </div>
-
+        
         @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
         {
-            <a href="@Url.Action("Index", "PagoEnLinea")" class="btn_paga_en_linea_con_credito_visa">
-                PAGA EN L&Iacute;NEA
-            </a>
+        <a href="@Url.Action("Index", "PagoEnLinea")" class="btn_paga_en_linea_con_credito_visa">
+            @(ViewBag.PaisId == Constantes.PaisID.Mexico
+                                            ? Constantes.MensajePago.MensajeMx  
+                                            : Constantes.MensajePago.MensajeGeneral )
+        </a>
         }
     </div>
 
