@@ -4548,6 +4548,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.EnRangoProgramaNuevas = model.EnRangoProgramaNuevas || model.FlagNueva == "1";
                 pedidoDetalle.EsSugerido = model.EsSugerido;
                 pedidoDetalle.EsKitNueva = model.EsKitNueva;
+                pedidoDetalle.EsKitNuevaAuto = model.EsKitNuevaAuto;
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
