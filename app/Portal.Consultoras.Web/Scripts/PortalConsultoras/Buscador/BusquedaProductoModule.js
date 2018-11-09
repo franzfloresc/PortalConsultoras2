@@ -261,7 +261,7 @@
             $(_elementos.seccionFiltros).fadeIn(80);
             $(_elementos.seccionFiltros).delay(30);
             $(_elementos.seccionFiltros).animate({
-                left : 0 + '%'
+                right : 0 + '%'
             }, 150);
         },
 
@@ -269,7 +269,7 @@
             e.preventDefault();
             $(_elementos.body).css({ 'overflow-y': '' });
             $(_elementos.seccionFiltros).animate({
-                left: -100 + '%'
+                right: -100 + '%'
             }, 150);
             $(_elementos.backgroundAlMostrarFiltrosMobile).delay(100);
             $(_elementos.backgroundAlMostrarFiltrosMobile).fadeOut(100);
