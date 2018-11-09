@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     CargarFiltroRangoPrecio();
-    //CargarProductosShowRoom(null);
+
     CargarShowroomMobile(null);
 
     var AbrirBanner = 0;

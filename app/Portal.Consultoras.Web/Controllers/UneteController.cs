@@ -291,8 +291,6 @@ namespace Portal.Consultoras.Web.Controllers
                             bajoOrMedio = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
                             finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
                         }
-                        // Type @const = (CodigoISO == Pais.Ecuador) ? typeof(Enumeradores.TipoNivelesRiesgo): typeof(Constantes.TipoNivelesRiesgo)
-                        // var alto = @const 
 
                         if (CodigoISO == Pais.Bolivia)
                         {
@@ -1577,6 +1575,12 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = PostHTMLSACUnete("GrabarDatosDireccion", model);
 
             RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(), "CONSULTAR UBICACION", "GRABAR DIRECCION");
+            return PartialView("_TemplateMensaje");
+        }
+
+        public ActionResult MessageBox(string msj)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("MessageBox", "&msj=" + msj);
             return PartialView("_TemplateMensaje");
         }
 
