@@ -3087,6 +3087,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             #region PrepararPedidoDetalle
             //Preparar Pedido Detalle
+            pedidoDetalle.Producto.TipoEstrategiaID = string.IsNullOrEmpty(pedidoDetalle.Producto.TipoEstrategiaID) ? "0" : pedidoDetalle.Producto.TipoEstrategiaID;
             pedidoDetalle.Producto.TipoEstrategiaID = Convert.ToInt32(pedidoDetalle.Producto.TipoEstrategiaID) == 0 ? estrategia.TipoEstrategiaID.ToString() : pedidoDetalle.Producto.TipoEstrategiaID;
             var tipoEstrategiaID = 0;
             int.TryParse(pedidoDetalle.Producto.TipoEstrategiaID, out tipoEstrategiaID);
@@ -3098,7 +3099,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             List<BEPedidoWebDetalle> pedidowebdetalles = new List<BEPedidoWebDetalle>();
 
             var listCuvTonos = pedidoDetalle.Producto.CUV;
-            if (listCuvTonos == "")
+            if (string.IsNullOrEmpty(listCuvTonos))
             {
                 listCuvTonos = estrategia.CUV2;
             }
@@ -3135,7 +3136,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     OrigenPedidoWeb = pedidoDetalle.OrigenPedidoWeb,
                     ConfiguracionOfertaID = pedidoDetalle.Producto.ConfiguracionOfertaID,
                     ClienteID = pedidoDetalle.ClienteID,
-                    OfertaWeb = false,
+                    OfertaWeb = pedidoDetalle.OfertaWeb,
                     IndicadorMontoMinimo = pedidoDetalle.Producto.IndicadorMontoMinimo == 0 ? estrategia.IndicadorMontoMinimo : pedidoDetalle.Producto.IndicadorMontoMinimo,
                     EsSugerido = pedidoDetalle.EsSugerido,
                     EsKitNueva = pedidoDetalle.EsKitNueva,

@@ -58,5 +58,7 @@ namespace Portal.Consultoras.Entities.Pedido
         public int StockNuevo { get; set; }
         [DataMember]
         public bool EsKitNuevaAuto { get; set; }
+        [DataMember]
+        public bool OfertaWeb { get; set; }
     }
 }

@@ -4549,6 +4549,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.EsSugerido = model.EsSugerido;
                 pedidoDetalle.EsKitNueva = model.EsKitNueva;
                 pedidoDetalle.EsKitNuevaAuto = model.EsKitNuevaAuto;
+                pedidoDetalle.OfertaWeb = model.OfertaWeb;
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 

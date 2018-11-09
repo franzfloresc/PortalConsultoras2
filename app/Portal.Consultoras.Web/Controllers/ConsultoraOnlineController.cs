@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -1513,41 +1514,84 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle
+                //BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle
+                //{
+                //    IPUsuario = userData.IPUsuario,
+                //    CampaniaID = userData.CampaniaID,
+                //    ConsultoraID = userData.ConsultoraID,
+                //    PaisID = userData.PaisID,
+                //    TipoOfertaSisID = model.TipoOfertaSisID,
+                //    ConfiguracionOfertaID = model.ConfiguracionOfertaID,
+                //    ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID),
+                //    PedidoID = userData.PedidoID,
+                //    OfertaWeb = model.OfertaWeb,
+                //    IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo),
+                //    SubTipoOfertaSisID = 0,
+                //    EsSugerido = model.EsSugerido,
+                //    EsKitNueva = model.EsKitNueva,
+                //    MarcaID = Convert.ToByte(model.MarcaID),
+                //    Cantidad = Convert.ToInt32(model.Cantidad),
+                //    PrecioUnidad = model.PrecioUnidad,
+                //    CUV = model.CUV,
+                //    OrigenPedidoWeb = model.OrigenPedidoWeb,
+                //    DescripcionProd = model.DescripcionProd
+                //};
+
+                //oBePedidoWebDetalle.ImporteTotal = oBePedidoWebDetalle.Cantidad * oBePedidoWebDetalle.PrecioUnidad;
+                //oBePedidoWebDetalle.Nombre = oBePedidoWebDetalle.ClienteID == 0
+                //    ? userData.NombreConsultora
+                //    : model.ClienteDescripcion;
+
+                //bool errorServer;
+                //string tipo;
+                //List<BEPedidoWebDetalle> olstPedidoWebDetalle =
+                //    AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo);
+
+
+                BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+                pedidoDetalle.Producto = new ServicePedido.BEProducto();
+
+                pedidoDetalle.estrategia = new ServicePedido.BEEstrategia();
+                pedidoDetalle.estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
+                pedidoDetalle.estrategia.LimiteVenta = 99;
+                pedidoDetalle.estrategia.DescripcionCUV2 = Util.Trim(model.DescripcionProd);
+                pedidoDetalle.estrategia.FlagNueva = 0;
+                pedidoDetalle.estrategia.Precio2 = model.PrecioUnidad;
+                pedidoDetalle.estrategia.TipoEstrategiaID = 0;
+                pedidoDetalle.estrategia.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
+                pedidoDetalle.estrategia.CUV2 = model.CUV;
+                pedidoDetalle.estrategia.MarcaID = model.MarcaID;
+
+                pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
+                pedidoDetalle.Producto.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
+                pedidoDetalle.Producto.CUV = "";
+                pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
+                pedidoDetalle.Producto.FlagNueva = "0";
+                pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
+                pedidoDetalle.PaisID = userData.PaisID;
+                pedidoDetalle.IPUsuario = GetIPCliente();
+                pedidoDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(model.OrigenPedidoWeb);
+                pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
+                pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+                pedidoDetalle.EsSugerido = model.EsSugerido;
+                pedidoDetalle.EsKitNueva = model.EsKitNueva;
+                pedidoDetalle.OfertaWeb = model.OfertaWeb;
+
+                var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+
+                if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
                 {
-                    IPUsuario = userData.IPUsuario,
-                    CampaniaID = userData.CampaniaID,
-                    ConsultoraID = userData.ConsultoraID,
-                    PaisID = userData.PaisID,
-                    TipoOfertaSisID = model.TipoOfertaSisID,
-                    ConfiguracionOfertaID = model.ConfiguracionOfertaID,
-                    ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID),
-                    PedidoID = userData.PedidoID,
-                    OfertaWeb = model.OfertaWeb,
-                    IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo),
-                    SubTipoOfertaSisID = 0,
-                    EsSugerido = model.EsSugerido,
-                    EsKitNueva = model.EsKitNueva,
-                    MarcaID = Convert.ToByte(model.MarcaID),
-                    Cantidad = Convert.ToInt32(model.Cantidad),
-                    PrecioUnidad = model.PrecioUnidad,
-                    CUV = model.CUV,
-                    OrigenPedidoWeb = model.OrigenPedidoWeb,
-                    DescripcionProd = model.DescripcionProd
-                };
+                    SessionManager.SetPedidoWeb(null);
+                    SessionManager.SetDetallesPedido(null);
+                    SessionManager.SetDetallesPedidoSetAgrupado(null);
 
-
-                oBePedidoWebDetalle.ImporteTotal = oBePedidoWebDetalle.Cantidad * oBePedidoWebDetalle.PrecioUnidad;
-                oBePedidoWebDetalle.Nombre = oBePedidoWebDetalle.ClienteID == 0
-                    ? userData.NombreConsultora
-                    : model.ClienteDescripcion;
-
-                bool errorServer;
-                string tipo;
-                List<BEPedidoWebDetalle> olstPedidoWebDetalle =
-                    AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo);
-
-                return !errorServer ? olstPedidoWebDetalle : null;
+                    return ObtenerPedidoWebDetalle();
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception ex)
             {
