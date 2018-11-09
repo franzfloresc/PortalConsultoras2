@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Portal.Consultoras.Common
+@{
     // Asignar permisosList con los elementos solo del Pie de página
     var permisoList = (List<Portal.Consultoras.Web.Models.PermisoModel>)ViewBag.Permiso;
 
@@ -23,11 +24,23 @@
         <br />
         <span>Escríbenos o llámanos a través de nuestra Central Telefónica</span>
     </a>
-    <a href="http://comunidad.somosbelcorp.com/" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" class="footer_responde" target="_blank">
-        <img src="@Url.Content("~/Content/Images/Esika/icon_comunidad.png")" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" /><br />
-        COMUNIDAD VIRTUAL <br />
-        <span role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL">Conoce todo lo que compartimos las mujeres de esta comunidad.</span>
-    </a>
+    @if (ViewBag.CodigoISODL == Constantes.CodigosISOPais.Peru ||
+         ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+    {
+        <a href="https://esikatuvozonline.questionpro.com/" role="outbound-link" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE" class="footer_responde" target="_blank">
+            <img src="@Url.Content("~/Content/Images/Esika/icon_comunidad.png")" role="outbound-link" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE" /><br />
+            TU VOZ ONLINE <br />
+            <span role="outbound-link" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE">Queremos escuchar tu voz, estés donde estés</span>
+        </a>
+    }
+    else
+    {
+        <a href="http://comunidad.somosbelcorp.com/" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" class="footer_responde" target="_blank">
+            <img src="@Url.Content("~/Content/Images/Esika/icon_comunidad.png")" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" /><br />
+            COMUNIDAD VIRTUAL <br />
+            <span role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL">Conoce todo lo que compartimos las mujeres de esta comunidad.</span>
+        </a>
+    }
     <a href="@Url.Action("Index", "MisCatalogosRevistas")" role="outbound-link" region="Footer" parent="Catálogos" title="CATÁLOGOS" class="footer_responde" target="_blank">
         <img src="@Url.Content("~/Content/Images/Esika/icon_catalogo.png")" role="outbound-link" region="Footer" parent="Catálogos" title="CATÁLOGOS" /><br />
         CATÁLOGOS <br />
