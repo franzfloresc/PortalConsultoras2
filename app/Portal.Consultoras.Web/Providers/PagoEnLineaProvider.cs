@@ -286,6 +286,9 @@ namespace Portal.Consultoras.Web.Providers
                 var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
 
                 BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa, userData);
+
+                bePagoEnLinea.Origen = (model.EsMobile ? Constantes.PagoEnLineaOrigen.OrigeMobile : Constantes.PagoEnLineaOrigen.OrigenDesktop);
+
                 bePagoEnLinea.MontoPago = model.MontoDeuda;
                 bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;
 
