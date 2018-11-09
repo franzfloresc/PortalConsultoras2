@@ -81,7 +81,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
         channel: '#jenkins',
         teamDomain: 'arquitectura-td',
         tokenCredentialId: 'arquitecturatd_slack_credentials')
-		
+    		
 	 slackSend (
         color: colorCode,
         message: summary,

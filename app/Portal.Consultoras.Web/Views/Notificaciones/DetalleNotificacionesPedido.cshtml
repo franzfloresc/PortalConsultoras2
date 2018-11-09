@@ -4,7 +4,6 @@
     decimal totalPRol = 0;
     decimal totalPedido = 0;
     decimal descuento = 0;
-    //bool IndicadorOferta = false;
     string simboloMoneda = Model.simbolo;
 }
 @if (Model.Origen != 3)
@@ -95,9 +94,6 @@
                     <td colspan="2" style="padding-top: 15px; padding-left: 10px; padding-right: 10px; border-bottom:2px solid #9E9E9E">
                         @foreach (var item in Model.ListaNotificacionesDetallePedido)
                         {
-                            //totalPRol = item.MontoTotalProl;
-                            //totalPedido = item.ImporteTotalPedido;
-
                             <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-bottom: 20px;">
                                 <tr>
                                     <td style="width: 50%; text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; ">Cód. Venta: @item.CUV</td>

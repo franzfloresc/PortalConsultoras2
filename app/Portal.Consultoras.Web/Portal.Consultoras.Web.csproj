@@ -295,6 +295,7 @@
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BuscadorController.cs" />
     <Compile Include="Controllers\MasGanadorasController.cs" />
+    <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
     <Compile Include="Controllers\ComunController.cs" />
@@ -745,6 +746,7 @@
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
     <Compile Include="Models\ValidacionStockModel.cs" />
     <Compile Include="Models\ValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\ValidaPopUpPaisModel.cs" />
     <Compile Include="Models\VericaAutenticidadModel.cs" />
     <Compile Include="Models\ZonaModel.cs" />
     <Compile Include="Pdto.aspx.cs">
@@ -771,6 +773,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Providers\AdministrarEstrategiaProvider.cs" />
+    <Compile Include="Providers\BienvenidaProvider.cs" />
     <Compile Include="Providers\BuscadorBaseProvider.cs" />
     <Compile Include="Providers\BuscadorYFiltrosProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
@@ -1585,6 +1588,17 @@
     <Content Include="Content\Images\Esika\RevistaDigital\gif-club-ganamas2.gif" />
     <Content Include="Content\Images\Esika\RevistaDigital\gif-ganamas.gif" />
     <Content Include="Content\Images\Esika\RevistaDigital\menuOfertas_20181001_1121.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika1A.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika2A.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika3A.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika4A.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika5A.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika6A.png" />
+    <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial1A.png" />
+    <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial2A.png" />
+    <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial3A.png" />
+    <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial4A.png" />
+    <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial5A.png" />
     <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente2.svg" />
     <Content Include="Content\Images\down_arrow.png" />
     <Content Include="Content\Images\Esika\logo_marca_pais_desktop.svg" />
@@ -4636,6 +4650,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService116.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService118.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService12.xsd">
