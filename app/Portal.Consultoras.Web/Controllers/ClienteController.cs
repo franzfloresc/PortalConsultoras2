@@ -69,13 +69,17 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Mantener(ClienteModel model)
         {
+            string mensaje = string.Empty;
+
             List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
 
             try
             {
+                mensaje = "|inicio";
                 if (!string.IsNullOrEmpty(model.Celular))
                 {
+                    mensaje += "|validacion celular";
                     contactos.Add(new BEClienteContactoDB()
                     {
                         ClienteID = model.ClienteID,
@@ -87,6 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!string.IsNullOrEmpty(model.Telefono))
                 {
+                    mensaje += "|validacion telefono";
                     contactos.Add(new BEClienteContactoDB()
                     {
                         ClienteID = model.ClienteID,
@@ -98,6 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!string.IsNullOrEmpty(model.eMail))
                 {
+                    mensaje += "|validacion email";
                     contactos.Add(new BEClienteContactoDB()
                     {
                         ClienteID = model.ClienteID,
@@ -107,6 +113,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
+                mensaje += "|clientes.Add(new BEClienteDB()";
                 clientes.Add(new BEClienteDB()
                 {
                     CodigoCliente = model.CodigoCliente,
@@ -122,6 +129,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEClienteDB> response;
                 using (var sv = new ClienteServiceClient())
                 {
+                    mensaje += "|dentro de using (var sv = new ClienteServiceClient())";
                     response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
                 }
 
@@ -138,32 +146,35 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
+                    mensaje += "|no se registro correctamente";
                     return Json(new
                     {
                         success = false,
-                        message = itemResponse.MensajeRespuesta,
-                        extra = ""
+                        message = itemResponse.MensajeRespuesta + mensaje,
+                        extra = mensaje
                     });
                 }
             }
             catch (FaultException ex)
             {
+                mensaje += "|catch FaultException";
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = mensaje
                 });
             }
             catch (Exception ex)
             {
+                mensaje += "|catch exception";
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = mensaje
                 });
             }
         }
