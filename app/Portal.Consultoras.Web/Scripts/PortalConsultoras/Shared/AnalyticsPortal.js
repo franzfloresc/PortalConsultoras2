@@ -277,6 +277,7 @@ var AnalyticsPortalModule = (function () {
         var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, origenPedidoWebEstrategia, estoyEnLaFicha);
         debugger;
 
+
         try {
             dataLayer.push({
                 'event': _evento.productClick,
@@ -302,9 +303,11 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
 
+
     }
     //Impresiones por productos en el carrusel
     var marcarImpresionSetProductos = function (ArrayItems) {
+
 
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         try {
@@ -321,6 +324,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
 
+
     }
 
     var marcarFichaBreadcrumb = function (opcion) {
@@ -336,6 +340,30 @@ var AnalyticsPortalModule = (function () {
         }
     }
     // Ini - Analytics Buscador Miguel
+
+    var _getMarca = function (marcaId) {
+        switch (marcaId) {
+            case 1:
+                return "L'Bel";
+            case 2:
+                return "Ésika";
+            case 3:
+                return "Cyzone";
+            case 4:
+                return "S&M";
+            case 5:
+                return "Home Collection";
+            case 6:
+                return "Finart";
+            case 7:
+                return "Generico";
+            case 8:
+                return "Glance";
+            default:
+                return "Generico";
+        }
+    }
+
     var getCurrencyCodes = function (codigoPais) {
         try {
 
@@ -430,6 +458,35 @@ var AnalyticsPortalModule = (function () {
         }
     };
 
+    var marcaBarraBusqueda = function () {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Buscador SB',
+                'action': 'Selección',
+                'label': _texto.notavaliable
+            });
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    var marcaBarraBusquedaMobile = function (url) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Buscador SB',
+                'action': 'Selección',
+                'label': _texto.notavaliable,
+                'eventCallback': function () {
+                    document.location = url
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
     var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
         try {
             var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
@@ -444,19 +501,22 @@ var AnalyticsPortalModule = (function () {
             });
 
             var model = {
-                'DescripcionProd': estrategia.DescripcionCompleta,
-                'CUV': estrategia.PrecioVenta,
-                'PrecioUnidad': estrategia.DescripcionMarca,
+                'DescripcionCompleta': estrategia.DescripcionCompleta,
+                'CUV': estrategia.CUV2,
+                'Precio': estrategia.PrecioVenta,
                 'DescripcionMarca': estrategia.CUV2,
+                'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
+                'MarcaId': estrategia.MarcaID,
                 'Cantidad': estrategia.Cantidad
             };
+
             var _pagina = pagina.Pagina;
             if (pagina.Pagina.includes("Landing"))
                 _pagina = "Landing";
 
             var valorBuscar = localStorage.getItem('valorBuscador');
             switch (_pagina) {
-                case "Buscador": AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, codigoOrigenPedido, valorBuscar); break;
+                case "Buscador": AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar); break;
                 case "Home": seccion.Seccion == "Banner Superior" ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia) : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia); break;
                     // Inicio Analytics Oferta Miguel
                 case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
@@ -471,6 +531,90 @@ var AnalyticsPortalModule = (function () {
     }
 
 
+    var marcaEligeUnaOpcion = function (url, textobusqueda) {
+        try {
+            localStorage.setItem('valorBuscador', textobusqueda);
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Buscador SB',
+                'action': 'Elige tu opción',
+                'label': textobusqueda,
+                'eventCallback': function () {
+                    document.location = url;
+                }
+            });
+
+        } catch (e) {
+
+        }
+    }
+
+    var _obtenerNombrePalanca = function (tipoEstrategiaId) {
+        switch (tipoEstrategiaId) {
+            case ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada:
+                return "Guía de negocio";
+            case ConstantesModule.ConstantesPalanca.HerramientasVenta:
+                return "Herramientas de Venta";
+            case ConstantesModule.ConstantesPalanca.ShowRoom:
+                return "ShowRoom";
+            case ConstantesModule.ConstantesPalanca.OfertaDelDia:
+                return "Oferta del Día";
+            case ConstantesModule.ConstantesPalanca.OfertaParaTi:
+                return "Oferta para Ti";
+            case ConstantesModule.ConstantesPalanca.OfertasParaMi:
+                return "Oferta para Mi";
+            case ConstantesModule.ConstantesPalanca.Lanzamiento:
+                return "Lanzamiento";
+            case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
+                return "Packs Ganadores";
+            default:
+                return "Gana+";
+        }
+    }
+    var marcaAnadirCarritoBuscador = function (model, origen, campoBuscar) {
+        try {
+            var desplegable = "";
+            if ($.isNumeric(campoBuscar) && campoBuscar.length == 5)
+                desplegable = " por CUV";
+            var palanca;
+            if (model.CodigoTipoEstrategia === "0") palanca = model.DescripcionEstrategia;
+            else palanca = _obtenerNombrePalanca(model.CodigoTipoEstrategia);
+            var lista = "Buscador - " + palanca + " - " + origen + desplegable;
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'add': {
+                        'actionField': { 'list': lista },
+                        'products': [{
+                            'name': model.DescripcionCompleta,
+                            'id': model.CUV,
+                            'price': model.Precio,
+                            'brand': _getMarca(model.MarcaId),
+                            'category': _texto.notavaliable,
+                            'variant': campoBuscar,
+                            'quantity': model.Cantidad
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaSeleccionarContenidoBusqueda = function (busqueda) {
+        try {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Buscador SB',
+                'action': 'Buscar',
+                'label': busqueda
+            });
+        } catch (e) {
+
+        }
+    }
     // Fin - Analytics Buscador Miguel
 
     // Inicio Analytics Home 1 Miguel
@@ -1039,6 +1183,8 @@ var AnalyticsPortalModule = (function () {
 
     }
     // Fin Analytics Home 1 Miguel
+
+    
 
     // Inicio Analytics Ofertas Miguel
     /*
@@ -2112,14 +2258,19 @@ var AnalyticsPortalModule = (function () {
         MarcarCambiarOpcionVariasOpciones: marcarCambiarOpcionVariasOpciones,
         // Fin - Rama TiposAnalytics
 
-        // Inicio - Analytics Buscador 
+        // Inicio - Analytics Buscador Miguel
+        MarcaBarraBusqueda: marcaBarraBusqueda,
         GetCurrencyCodes: getCurrencyCodes,
         GetPalancaBySeccion: getPalancaBySeccion,
         GetPalancaByOrigenPedido: getPalancaByOrigenPedido,
         GetSeccionHomeByOrigenPedido: getSeccionHomeByOrigenPedido,
         GetContenedorByOrigenPedido: getContenedorByOrigenPedido,
+        MarcaEligeUnaOpcion: marcaEligeUnaOpcion,
+        MarcaBarraBusquedaMobile: marcaBarraBusquedaMobile,
+        MarcaAnadirCarritoBuscador: marcaAnadirCarritoBuscador,
+        MarcaSeleccionarContenidoBusqueda: marcaSeleccionarContenidoBusqueda,
         MarcaAnadirCarritoGenerico: marcaAnadirCarritoGenerico,
-        // Fin - Analytics Buscador 
+        // Fin - Analytics Buscador Miguel
 
         // Inicio Analytics Home 1 
         MarcaGanaOfertas: marcaGanaOfertas,
