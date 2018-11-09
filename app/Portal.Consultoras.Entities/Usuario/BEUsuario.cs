@@ -1233,6 +1233,8 @@ namespace Portal.Consultoras.Entities
         public BEBuscadorYFiltrosConfiguracion BuscadorYFiltrosConfiguracion { get; set; }
         [DataMember]
         public int DiaFacturacion { get; set; }
+        [DataMember]
+        public bool TienePagoEnLinea { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
