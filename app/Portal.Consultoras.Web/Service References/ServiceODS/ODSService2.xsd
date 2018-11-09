@@ -4,6 +4,7 @@
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
+  <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.LimiteVenta" />
   <xs:element name="GetProductoComercialByListaCuv">
     <xs:complexType>
       <xs:sequence>
@@ -759,6 +760,26 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="ValidarVentaExclusivaResult" type="q37:Enumeradores.ValidacionVentaExclusiva" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CuvTieneLimiteVenta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="region" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="zona" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cantidadIngresada" type="xs:int" />
+        <xs:element minOccurs="0" name="cantidadActual" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CuvTieneLimiteVentaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.LimiteVenta" minOccurs="0" name="CuvTieneLimiteVentaResult" nillable="true" type="q38:BERespValidarLimiteVenta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

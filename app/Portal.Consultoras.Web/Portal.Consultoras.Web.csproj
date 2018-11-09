@@ -65,9 +65,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\ClosedXML.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Logging">
-      <HintPath>..\packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
-    </Reference>
     <Reference Include="CourtesyFlush">
       <HintPath>..\Library\CourtesyFlush.dll</HintPath>
     </Reference>
@@ -4547,6 +4544,9 @@
     <None Include="Service References\ServiceODS\ODSService311.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceODS\ODSService312.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceODS\ODSService32.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -5518,6 +5518,10 @@
     <Content Include="Views\Unete\NivelesRiesgo.cshtml" />
     <Content Include="Views\Unete\_RechazarPostulante.cshtml" />
     <Content Include="Views\Unete\_AprobarPostulante.cshtml" />
+    <Content Include="Web References\ServiceLMS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

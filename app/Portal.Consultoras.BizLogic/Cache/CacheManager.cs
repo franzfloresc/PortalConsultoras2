@@ -48,7 +48,8 @@ namespace Portal.Consultoras.BizLogic
         HorarioChat,
         HorarioBelcorpResponde,
         CredencialesSMS,
-        NivelesProgramaNuevas
+        NivelesProgramaNuevas,
+        CuvUbigeoLimiteVenta
     }
 
     internal static class CacheManager<T>
