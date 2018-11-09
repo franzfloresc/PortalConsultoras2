@@ -208,6 +208,7 @@ var BuscadorModule = (function () {
                         if (r.total == 0) {
                             $(".spinner").fadeOut(150);
                             $(".busqueda_sin_resultados").fadeIn(60);
+                            virtualEvent('Buscador SB', 'Búsqueda - sin Resultados', valorBusqueda);
                         } else {
 
                             $.each(r.productos, function (index, item) {
@@ -307,6 +308,7 @@ var BuscadorModule = (function () {
         ClickVerTodos: function () {
             var valorBusqueda = $(_elementos.campoBuscadorProductos).val();
             var url = _config.urlBusquedaProducto + "?q=" + valorBusqueda;
+            virtualEvent('Buscador SB', 'Ver todos los resultados', valorBusqueda);
             window.location.href = url;
         },
         RedireccionarMenuPrincipal: function (e) {
