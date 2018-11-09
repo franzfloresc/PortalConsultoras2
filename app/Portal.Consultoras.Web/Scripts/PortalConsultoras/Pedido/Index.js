@@ -880,7 +880,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
 
     jQuery.ajax({
         type: "POST",
-        url: baseUrl + "Pedido/AgregarProductoZE",
+        url: baseUrl + "Pedido/PedidoAgregarProductoTransaction",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(param2),
