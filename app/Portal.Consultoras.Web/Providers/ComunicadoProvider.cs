@@ -8,12 +8,13 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class ComunicadoProvider
     {
-        public List<BEComunicado> ObtenerComunicadoPorConsultora(UsuarioModel userSession)
+        public List<BEComunicado> ObtenerComunicadoPorConsultora(UsuarioModel userSession, bool esMobile)
         {
             using (var sac = new SACServiceClient())
             {
                 var lstComunicados = sac.ObtenerComunicadoPorConsultora(userSession.PaisID, userSession.CodigoConsultora,
-                        Constantes.ComunicadoTipoDispositivo.Mobile, userSession.CodigorRegion, userSession.CodigoZona, userSession.ConsultoraNueva);
+                        (esMobile)?Constantes.ComunicadoTipoDispositivo.Mobile:Constantes.ComunicadoTipoDispositivo.Desktop, 
+                        userSession.CodigorRegion, userSession.CodigoZona, userSession.ConsultoraNueva);
 
                 return lstComunicados.ToList();
             }

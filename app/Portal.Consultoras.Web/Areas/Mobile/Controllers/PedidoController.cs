@@ -314,11 +314,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (!SessionManager.GetEsShowRoom() && SessionManager.GetEsShowRoom().ToString() == "1")
             {
-                ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Mobile");
+                ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom( "ImagenFondoOfertaFinalRegalo", "Mobile");
                 ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
                 ViewBag.ColorFondo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ColorFondo1OfertaFinalRegalo", "Mobile");
             }
+
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
+            model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
+
             ViewBag.DataBarra = GetDataBarra(true, true);//OG
             return View(model);
         }
