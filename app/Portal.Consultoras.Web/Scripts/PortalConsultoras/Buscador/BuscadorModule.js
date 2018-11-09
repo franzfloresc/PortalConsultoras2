@@ -50,7 +50,7 @@ var BuscadorModule = (function () {
         agregarProducto: ".agregarProductoBuscador",
         redireccionarFicha: ".redireccionarFicha",
         botonVerTodos: "#BotonVerTodosResultados",
-        logoPaginaResponsive: '.logoPaginaResponsive'        
+        logoPaginaResponsive: '.logoPaginaResponsive'
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
@@ -293,8 +293,11 @@ var BuscadorModule = (function () {
             var codigoCampania = $(divPadre).find(".hdBuscadorCampaniaID").val();
             var codigoCuv = $(divPadre).find(".hdBuscadorCUV").val();
             var OrigenPedidoWeb = $(divPadre).find(".hdBuscadorOrigenPedidoWeb").val();
+            var descripcionProducto = $(divPadre).find(".hdBuscadorDescripcion").val();
 
             var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
+
+            console.log(codigoEstrategia);
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);
@@ -302,8 +305,12 @@ var BuscadorModule = (function () {
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
                 //console.log(UrlDetalle);
                 window.location = UrlDetalle;
+                virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
                 return true;
             }
+
+            
+
         },
         ClickVerTodos: function () {
             var valorBusqueda = $(_elementos.campoBuscadorProductos).val();

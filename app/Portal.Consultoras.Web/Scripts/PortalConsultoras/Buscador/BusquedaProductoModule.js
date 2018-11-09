@@ -113,7 +113,7 @@
                     // Filtros categorias
                     //if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.categorias, _elementos.filtrosCategorias);
                     // Filtros Marcas
-                   // if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.marcas, _elementos.filtrosMarcas);
+                    // if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.marcas, _elementos.filtrosMarcas);
                     _funciones.UpadteFichaProducto();
                     _config.totalProductos = data.total;
                     _config.cargandoProductos = false;
@@ -185,7 +185,7 @@
                 }
             });
 
-           
+
         }
     };
     var _eventos = {
@@ -236,7 +236,7 @@
             _config.numeroPaginaActual = 0;
 
             var textoOrdenamiento = $(this).attr('title');
-            
+
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
@@ -250,22 +250,22 @@
                 });
 
             $('.ul-seleccionado').html(textoOrdenamiento);
-            
+
         },
 
-        MostrarFiltrosMobile: function(e){
+        MostrarFiltrosMobile: function (e) {
             e.preventDefault();
-            $(_elementos.body).css({'overflow-y':'hidden'});
+            $(_elementos.body).css({ 'overflow-y': 'hidden' });
             $(_elementos.layoutContent).css({ 'z-index': '2000' });
             $(_elementos.backgroundAlMostrarFiltrosMobile).fadeIn(100);
             $(_elementos.seccionFiltros).fadeIn(80);
             $(_elementos.seccionFiltros).delay(30);
             $(_elementos.seccionFiltros).animate({
-                left : 0 + '%'
+                left: 0 + '%'
             }, 150);
         },
 
-        CerrarFiltrosMobile: function(e){
+        CerrarFiltrosMobile: function (e) {
             e.preventDefault();
             $(_elementos.body).css({ 'overflow-y': '' });
             $(_elementos.seccionFiltros).animate({
@@ -297,7 +297,7 @@
             contenidoTipoFiltro.slideToggle(250);
         },
 
-        LimpiarFiltros: function(){
+        LimpiarFiltros: function () {
             $(_elementos.filtroCheckbox).removeAttr('checked');
         },
 
@@ -335,6 +335,7 @@
             var codigoCampania = model.CampaniaID;
             var codigoCuv = model.CUV;
             var origenPedidoWeb = model.OrigenPedidoWeb;
+            var descripcionProducto = model.DescripcionCompleta;
 
             var codigo = ['030', '005', '001', '007', '008', '009', '010', '011'];
 
@@ -344,6 +345,7 @@
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
                 //console.log(UrlDetalle);
                 window.location = UrlDetalle;
+                virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + _config.textoBusqueda);
                 return true;
             }
         },
@@ -381,7 +383,7 @@
     };
 })();
 
-$(document).ready(function () { 
+$(document).ready(function () {
 
     BusquedaProductoModule.Inicializar();
 
