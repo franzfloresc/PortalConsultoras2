@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -68,25 +68,15 @@ namespace Portal.Consultoras.Web.Providers
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
                 mensaje += "SiMongo|";
-                listaBeEstrategiaProductos = new List<BEEstrategiaProducto>();
-                if (estrategiaModelo.Hermanos != null)
-                {
-                    listaBeEstrategiaProductos = Mapper.Map<List<EstrategiaComponenteModel>, List<ServicePedido.BEEstrategiaProducto>>(estrategiaModelo.Hermanos);
-                    joinCuv = String.Join("|", listaBeEstrategiaProductos.Distinct().Select(o => o.SAP));
-                }
 
-                if (joinCuv == "") return new List<EstrategiaComponenteModel>();
+                listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
+                if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
 
-                mensaje += "EstrategiaProductos= " + listaBeEstrategiaProductos.Count + "|";
+                mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
 
-                var listaProductos = GetAppProductoBySap(estrategiaModelo, joinCuv);
-                if (!listaProductos.Any()) return new List<EstrategiaComponenteModel>();
-
-                mensaje += "GetAppProductoBySap = " + listaProductos.Count + "|";
-
-                listaEstrategiaComponente = GetEstrategiaDetalleCompuestaMs(estrategiaModelo, listaBeEstrategiaProductos, listaProductos);
-                mensaje += "GetEstrategiaDetalleCompuestaMs = " + listaEstrategiaComponente.Count + "|";
+                listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
+                mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
             }
             else
             {
@@ -401,6 +391,11 @@ namespace Portal.Consultoras.Web.Providers
             {
                 componenteModel.NombreComercial = beEstrategiaProducto.NombreComercial == "" ?
                     beEstrategiaProducto.NombreProducto : beEstrategiaProducto.NombreComercial;
+            }
+
+            if (componenteModel.NombreComercial == null)
+            {
+                componenteModel.NombreComercial = string.Empty;
             }
 
             if (componenteModel.NombreBulk != "" && !(" " + componenteModel.NombreComercial.ToLower() + " ").Contains(" " + componenteModel.NombreBulk.ToLower() + " "))

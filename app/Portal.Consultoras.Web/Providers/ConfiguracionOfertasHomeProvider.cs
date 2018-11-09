@@ -349,6 +349,25 @@ namespace Portal.Consultoras.Web.Providers
             if (SessionManager.GetMostrarShowRoomProductosExpiro())
                 return;
 
+            var userData = SessionManager.GetUserData();
+
+            List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+
+            if (ShowRoom.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+            {
+                UsuarioModel usurioModel = new UsuarioModel
+                {
+                    CodigoISO = userData.CodigoISO,
+                    CampaniaID = userData.CampaniaID
+                };
+                listaPersonalizacion = ShowRoom.GetShowRoomPersonalizacion(usurioModel);
+                listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
+            }
+            else
+            {
+                listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
+            }
+
             if (!SessionManager.GetMostrarShowRoomProductos())
             {
 
@@ -358,13 +377,13 @@ namespace Portal.Consultoras.Web.Providers
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =
-                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
+                        ShowRoom.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 }
                 else
                 {
                     seccion.ImagenFondo =
-                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
+                        ShowRoom.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
             }
@@ -375,13 +394,13 @@ namespace Portal.Consultoras.Web.Providers
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =
-                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
+                        ShowRoom.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 }
                 else
                 {
                     seccion.ImagenFondo =
-                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
+                        ShowRoom.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 

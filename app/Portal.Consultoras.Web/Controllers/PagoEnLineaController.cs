@@ -552,7 +552,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Hora de Proceso","FechaCreacionHoraFormat" }
             };
 
-            Util.ExportToExcel<BEPagoEnLineaResultadoLogReporte>("ReportePagoEnLineaExcel", lst.ToList(), dic);
+            Util.ExportToExcel("ReportePagoEnLineaExcel", lst.ToList(), dic, GetExcelSecureCallback());
             return View();
         }
 
