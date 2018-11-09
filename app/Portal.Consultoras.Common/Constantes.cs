@@ -729,7 +729,6 @@ namespace Portal.Consultoras.Common
             //public const int ShowRoomMobileSubCampania = 2524;
             //public const int ShowRoomMobileContenedor = 2871;
             //public const int MobileShowRoom = 2571;
-
             #endregion
 
             #region OfertaDelDia 
@@ -2278,6 +2277,10 @@ namespace Portal.Consultoras.Common
 
             public static class Mensaje
             {
+                public const string KitNueva_Pedido1Unico = "Este Kit se agrega automáticamente sólo en tu primer pedido.";
+                public const string KitNueva_Pedido1 = "Este Kit se agrega automáticamente en tu primer pedido.";
+                public const string KitNueva_Pedido2 = "Este Kit se agrega automáticamente en tu segundo pedido.";
+                public const string KitNueva_Pedido3 = "Este Kit se agrega automáticamente en tu tercer pedido.";
                 public const string ConsultoraNoNueva = "El código solicitado es exclusivo para quienes participan del Programa de Nuevas.";
                 public const string CuvNoPerteneceASuPrograma = "El codigo ingresado es incorrecto. Revise el folleto del Programa de Nuevas y solicite el que le corresponde.";
                 public const string ExcedeLimiteUnidades = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña";
@@ -2969,10 +2972,10 @@ namespace Portal.Consultoras.Common
             public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
 
             ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}/{materialGanancia}
-            public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}";
+            public const string UrlObtenerOfertas = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}";
 
-            //api/Componente/{pais}/{codigoCampania}/{cuv}
-            public const string UrlObtenerComponente = "api/Componente/{0}/{1}/{2}";
+            //api/Evento/Get/{pais}/{campania}
+            public const string UrlObtenerEvento = "api/Evento/Get/{0}/{1}";
 
             #endregion
         }

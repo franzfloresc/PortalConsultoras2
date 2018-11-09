@@ -1708,6 +1708,11 @@ namespace Portal.Consultoras.Service
             return BLConfiguracionProgramaNuevas.GetCuvKitNuevas(consultoraNuevas, confProgNuevas);
         }
 
+        public string GetMensajeKitNuevas(string codigoISO, bool esConsultoraNueva, int consecutivoNueva)
+        {
+            return BLConfiguracionProgramaNuevas.GetMensajeKitNuevas(codigoISO, esConsultoraNueva, consecutivoNueva);
+        }
+
         #endregion
 
         public void UpdateMontosPedidoWeb(BEPedidoWeb bePedidoWeb)
