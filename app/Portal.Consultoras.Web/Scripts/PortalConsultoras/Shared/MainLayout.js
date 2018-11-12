@@ -219,6 +219,19 @@ $(document).ready(function () {
         }
     });
 
+    $('#divMensajeConfDuoPerfecto').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 500,
+        draggable: true,
+        title: "",
+        close: function (event, ui) {
+            $(this).dialog('close');
+        }
+    });
+
     $(".ValidaAlfanumericoCom").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
@@ -294,7 +307,6 @@ $(document).ready(function () {
     });
 
     setInterval(animacionFlechaScroll, 1000);
-
 });
 
 function AbrirVentanaBelcorpChat(url) {
@@ -645,6 +657,15 @@ function AbrirModalRegistroComunidad() {
     SendPushMiComunidad();
 
     return false;
+}
+
+function OpenUrl(url, newPage) {
+    if (newPage) {
+        window.open(url, '_blank');
+        return;
+    }
+
+    window.location.href = url;
 }
 
 function SendPushMiComunidad() {
@@ -1107,6 +1128,18 @@ function messageConfirmacion(title, message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+}
+
+function messageConfirmacionDuoPerfecto(message, fnAceptar) {
+    message = $.trim(message);
+    if (message == "") return false;
+
+    $('#divMensajeConfDuoPerfecto .divTexto p').html(message);
+    $('#divMensajeConfDuoPerfecto').dialog('open');
+    if ($.isFunction(fnAceptar)) {
+        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').off('click');
+        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').on('click', fnAceptar);
     }
 }
 

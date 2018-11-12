@@ -8,8 +8,8 @@
 
 .wrapper_header_cincuenta_anios_belcorp {
     width: 100% !important;
-    min-width: 1024px !important;
-    max-width: 1366px !important;
+    min-width: 1024px!important;
+    max-width: 100%!important;
 }
 
 .wrapper_cincuenta_anios_belcorp_y_logo {
@@ -42,9 +42,6 @@
 
 .wrapper_cincuenta_anios_belcorp_y_logo,
 .menu_new_esika
-/*.menu_esika_b,
-.logo_esika,
-.nav_principal*/ 
 {
     display: inline-block;
     vertical-align: middle;
@@ -55,11 +52,6 @@
     .wrapper_cincuenta_anios_belcorp_y_logo {
         width: 17.5% !important;
     }
-
-    /*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
-        width:350px!important;
-    }*/
-
 }
 
 @media screen and (min-width:1145px) and (max-width:1212px) {

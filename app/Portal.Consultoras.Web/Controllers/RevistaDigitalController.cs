@@ -65,7 +65,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (EsDispositivoMovil())
             {
-               // return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
                 if (url.Length > 1)
                 {
                     sap = "&" + url[1];

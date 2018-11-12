@@ -42,7 +42,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="{{ImgMedium FotoProducto01}}" />
             </div>
-            {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
+            {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
             <hr class="clear">
             <div id="contenedor_foto_referencial" class="texto_referencial">
                 <span data-texto_referencial="">* Foto Referencial</span>
@@ -107,12 +107,19 @@
             </li>
             {{#iff Ganancia '>' 0}}
             <li class="gana_precio_producto">
-                <p class="ganancia">GANA {{SimboloMoneda}} {{GananciaString}}</p>
+                <p class="ganancia">
+                    {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
+                    GANA
+                    {{/iff}}
+                    {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
+                    GANA HASTA
+                    {{/iff}} {{SimboloMoneda}} {{GananciaString}}
+                </p>
             </li>
             {{/iff}}
         </ul>
     </div>
-    {{#iff CodigoVariante 'ContainsArray' '[2001,2002,2003]'}}
+    {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
     <div class="container">
         <div class="">
             <div class="seleccion_tonos">
@@ -162,11 +169,11 @@
 
                 <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
                     <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                        <img id="imgFichaProduMenos" src="/Content/Images/Mobile/Esika/menos.png" alt="">
+                        <span>-</span>
                     </a>
                     <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                     <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                        <img id="imgFichaProduMas" src="/Content/Images/Mobile/Esika/mas.png" alt="">
+                        <span>+</span>
                     </a>
                 </div>
 
@@ -324,10 +331,8 @@ else
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new {area = ""})'
             });
             fichaModule.Inicializar();
-            //CerrarLoad();
 
             if (tieneCarrusel) {
-                //AbrirLoad();
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
@@ -344,7 +349,7 @@ else
         });
 
         $(document).ajaxStop(function () {
-            //CerrarLoad();
+
         })
     </script>
 }

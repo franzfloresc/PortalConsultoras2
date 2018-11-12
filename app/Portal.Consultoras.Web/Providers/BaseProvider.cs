@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Providers
                 fecha = diasFaltantes > 0
                     ? " CIERRA EL " + fechaInicioCampania.Day + " " + Util.NombreMes(fechaInicioCampania.Month).ToUpper()
                     : " CIERRA HOY";
-                
+
                 return fecha + " - " + hrCierrePortal.Replace(".", "");
             }
             else
@@ -105,6 +105,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
         }
+
     }
 
 }

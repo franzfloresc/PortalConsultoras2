@@ -1,19 +1,14 @@
 ﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
 using System;
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
     public class DetalleEstrategiaFichaModel : EstrategiaPersonalizadaProductoModel
     {
-        //hacer el seguimiento.
-        //public List<TituloDetalle> DetallesProducto { get; set; } //Pestana detalles de la ficha detalle del CUV
-        //public List<TituloDetalle> DetallesPack { get; set; } //Pestana detalles del pack
-        //public List<TipVenta> TipsVentas { get; set; } //Pestana Tips Ventas de la ficha detalle del CUV
-        //public List<TituloDetalle> Beneficios { get; set; } //Pestana beneficios
         public String CodigoVideo { get; set; } //Por defecto 1 video
         public string OrigenUrl { get; set; }
         public int OrigenAgregar { get; set; }
+        public int OrigenAgregarCarrusel { get; set; }
         public string Palanca { get; set; }
         public bool TieneSession { get; set; }
         public int Campania { get; set; }
@@ -26,21 +21,8 @@ namespace Portal.Consultoras.Web.Models
         public double TeQuedan { get; set; }
         public string ColorFondo1 { get; set; }
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
-        //public string CodigoIsoConsultora { get; set; }
-        //public bool TieneRevistaDigital { get; set; }
+
         public DetalleEstrategiaBreadCrumbsModel BreadCrumbs { get; set; }
         public bool EsVC { get; set; }
     }
-
-    // Cuando se implemente se puede fusionar en una sola entidad con campos genericos
-    //public class TituloDetalle
-    //{
-    //    string Titulo { get; set; }
-    //    string TextoLargo { get; set; }
-    //}
-    //public class TipVenta
-    //{
-    //    string RutaImagen { get; set; }
-    //    string TextoTip { get; set; }
-    //}
 }

@@ -8,7 +8,6 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -29,9 +28,8 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogica = new TablaLogicaProvider();
         }
 
-        public PagoEnLineaModel ObtenerValoresPagoEnLinea()
+        public PagoEnLineaModel ObtenerValoresPagoEnLinea(PagoEnLineaModel model)
         {
-            var model = new PagoEnLineaModel();
             var userData = sessionManager.GetUserData();
 
             model.CodigoIso = userData.CodigoISO;
@@ -49,32 +47,6 @@ namespace Portal.Consultoras.Web.Providers
 
             model.ListaTipoPago = ObtenerListaTipoPago();
             model.ListaMedioPago = ObtenerListaMedioPago();
-
-            return model;
-        }
-
-        public PagoEnLineaModel ObtenerValoresMetodoPago(PagoEnLineaModel model)
-        {
-            model.ListaMetodoPago = ObtenerListaMetodoPago();
-            model.PagoVisaModel = new PagoVisaModel();
-            if (model.ListaMetodoPago.Count > 0)
-            {
-                var metodoPagoPasarelaVisa = model.ListaMetodoPago.FirstOrDefault(p => p.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
-
-                if (metodoPagoPasarelaVisa != null)
-                {
-                    model.PagoVisaModel = ObtenerValoresPagoVisa(model);
-                }
-                else
-                {
-                    metodoPagoPasarelaVisa = model.ListaMetodoPago.FirstOrDefault(p => p.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU);
-                    if (metodoPagoPasarelaVisa != null)
-                        model.PagoVisaModel = ObtenerValoresPagoPayu(model);
-                    else
-                        model.PagoVisaModel = new PagoVisaModel();
-                }
-
-            }
 
             return model;
         }
@@ -172,15 +144,6 @@ namespace Portal.Consultoras.Web.Providers
             var userData = sessionManager.GetUserData();
 
             #region Valores Configuracion Pago En Linea
-
-            //var listaConfiguracion = _tablaLogica.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
-
-            //pagoVisaModel.MerchantId = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MerchantId);
-            //pagoVisaModel.AccessKeyId = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.AccessKeyId);
-            //pagoVisaModel.SecretAccessKey = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.SecretAccessKey);
-            //pagoVisaModel.UrlSessionBotonPagos = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlSessionBotonPago);
-            //pagoVisaModel.UrlGenerarNumeroPedido = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlGenerarNumeroPedido);
-            //pagoVisaModel.UrlLibreriaPagoVisa = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLibreriaPagoVisa);
             pagoVisaModel.SessionToken = Guid.NewGuid().ToString().ToUpper();
 
             var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaVisa;
@@ -291,7 +254,7 @@ namespace Portal.Consultoras.Web.Providers
             return pagoVisaModel;
         }
 
-        public PagoVisaModel ObtenerValoresPagoPayu(PagoEnLineaModel model)
+        public PagoVisaModel ObtenerValoresPagoPayu()
         {
             var settings = ConfigurationManager.AppSettings;
             var pagoModel = new PagoVisaModel
@@ -303,8 +266,7 @@ namespace Portal.Consultoras.Web.Providers
                 UrlPagoPayu = settings[Constantes.PagoEnLineaPasarelaPayu.Endpoint],
                 IsTest = settings[Constantes.PagoEnLineaPasarelaPayu.Test] == "1"
             };
-
-
+            
             return pagoModel;
         }
 
@@ -324,6 +286,9 @@ namespace Portal.Consultoras.Web.Providers
                 var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
 
                 BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa, userData);
+
+                bePagoEnLinea.Origen = (model.EsMobile ? Constantes.PagoEnLineaOrigen.OrigeMobile : Constantes.PagoEnLineaOrigen.OrigenDesktop);
+
                 bePagoEnLinea.MontoPago = model.MontoDeuda;
                 bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;
 
@@ -617,20 +582,16 @@ namespace Portal.Consultoras.Web.Providers
             return result;
         }
 
-        public PagoEnLineaMedioPagoDetalleModel ObtenerMetodoPagoSelecccionado(PagoEnLineaModel pago, string card, int medio)
-        {
-            return pago.ListaMetodoPago
-                .FirstOrDefault(m =>
-                    m.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU &&
-                    m.PagoEnLineaMedioPagoId == medio &&
-                    m.TipoTarjeta == card);
-        }
-
         public bool CanPay(UsuarioModel userData, PagoEnLineaModel pago)
         {
             return userData.TienePagoEnLinea &&
                    pago.MontoDeuda > 0 &&
                    userData.MontoDeuda >= pago.MontoDeuda;
+        }
+
+        public bool IsLoadMetodoPago(PagoEnLineaModel pago)
+        {
+            return pago != null && pago.MetodoPagoSeleccionado != null;
         }
 
         public IEnumerable<string> ObtenerMeses()

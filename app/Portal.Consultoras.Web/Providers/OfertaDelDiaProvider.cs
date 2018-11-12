@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
@@ -47,12 +48,12 @@ namespace Portal.Consultoras.Web.Providers
                 };
 
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
-                {                   
+                {
                     var diaInicio = DateTime.Now.Date.Subtract(model.FechaInicioCampania.Date).Days;
-                    string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, 
-                        model.CodigoISO, 
-                        Constantes.ConfiguracionPais.OfertaDelDia, 
-                        model.CampaniaID, 
+                    string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia,
+                        model.CodigoISO,
+                        Constantes.ConfiguracionPais.OfertaDelDia,
+                        model.CampaniaID,
                         model.CodigoConsultora,
                         diaInicio);
                     var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOfertaDelDia, model.CodigoISO));
@@ -65,7 +66,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     using (var osc = new OfertaServiceClient())
                     {
-                        ofertasDelDia = osc.GetEstrategiaODD(entidad, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
+                        ofertasDelDia = osc.GetEstrategiaODD(entidad, entidad.ConsultoraID, model.FechaInicioCampania.Date).ToList();
                     }
                 }
             }
@@ -182,7 +183,7 @@ namespace Portal.Consultoras.Web.Providers
                         return oddSession;
 
                     oddSession.TeQuedan = CountdownOdd(usuario);
-                    oddSession.ImagenBanner = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + usuario.CodigoISO, oddSession.ImagenBanner);
+                    oddSession.ImagenBanner = ConfigCdn.GetUrlFileCdn(usuario.CodigoISO, oddSession.ImagenBanner);
                     return oddSession;
                 }
 

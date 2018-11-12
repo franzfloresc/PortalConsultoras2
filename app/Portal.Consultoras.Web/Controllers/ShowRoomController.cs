@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -49,7 +50,6 @@ namespace Portal.Consultoras.Web.Controllers
             var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                //return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
                 if (url.Length > 1)
                 {
                     sap = "&" + url[1];
@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!showRoomEventoModel.TieneOfertasAMostrar) return RedirectToAction("Index", "Bienvenida");
 
                 showRoomEventoModel.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
-                showRoomEventoModel.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 var dato = _ofertasViewProvider.ObtenerPerdioTitulo(userData.CampaniaID, IsMobile());
                 showRoomEventoModel.ProductosPerdio = dato.Estado;
@@ -254,21 +254,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Comprar desde Pagina de Oferta
-
-        public ActionResult DetalleOferta(int id)
-        {
-            if (!ValidarIngresoShowRoom(false))
-                return RedirectToAction("Index", "Bienvenida");
-
-            var modelo = ViewDetalleOferta(id);
-            modelo.EstrategiaID = id;
-
-            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-            ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-
-            return View("DetalleSet", modelo);
-        }
-
+        
         #endregion
 
         [HttpPost]

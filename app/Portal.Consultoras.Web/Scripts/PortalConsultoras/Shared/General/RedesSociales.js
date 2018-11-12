@@ -125,13 +125,13 @@
 
         texto = texto.ReplaceAll("&", "y");
 
-        return "whatsapp://send?text=" + texto;
+        return "whatsapp://send?text=" + texto; 
     }
 
     var CompartirRedesSocialesAnalytics = function (tipoRedes, ruta, nombre) {
 
         try {
-            if (typeof origenPedidoWebEstrategia != "undefined" && origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+            if (typeof origenPedidoWebEstrategia !== "undefined" && origenPedidoWebEstrategia.indexOf("7") !== -1) {
                 rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
             } else {
 
@@ -193,8 +193,19 @@
         // asignar el check al catalogo correspondiente mediante tipoCatalogo
         campaniaEmail = campania;
         $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
-        $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").attr('checked', "checked");
-        
+
+        //$("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").attr('checked', "checked"); OMG
+
+        var divs = document.getElementById('divCheckbox').children;
+        for (var i = 0; i < divs.length; i++) {
+            var atribute = divs[i].getAttribute("data-cat");
+            if (atribute ==tipoCatalogo) {
+                divs[i].firstElementChild.firstElementChild.setAttribute("checked", "checked");
+                divs[i].firstElementChild.lastElementChild.click();             
+            }
+        }
+
+       
         $('#CompartirCorreo').show();
         $('#CompartirCorreoMobile').show();
 

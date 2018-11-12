@@ -38,9 +38,10 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPedidoService_ListConcursosVigentes_InputMessage">
@@ -331,6 +332,12 @@
   <wsdl:message name="IPedidoService_ObtenerPagoEnLineaPasarelaCampos_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaPasarelaCamposResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaURLPaginasBancos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaURLPaginasBancos" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaURLPaginasBancos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaURLPaginasBancosResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerPagoEnLineaNumeroOrden_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaNumeroOrden" />
   </wsdl:message>
@@ -589,6 +596,12 @@
   <wsdl:message name="IPedidoService_GetCuvKitNuevas_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCuvKitNuevasResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMensajeKitNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMensajeKitNuevas" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMensajeKitNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMensajeKitNuevasResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_UpdateMontosPedidoWeb_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateMontosPedidoWeb" />
   </wsdl:message>
@@ -624,12 +637,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidosIngresadoFacturadoApp_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosIngresadoFacturadoAppResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConsultorasProgramaNuevas_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConsultorasProgramaNuevas" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConsultorasProgramaNuevas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConsultorasProgramaNuevasResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetMensajeMetaConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMensajeMetaConsultora" />
@@ -2660,6 +2667,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCampos" message="tns:IPedidoService_ObtenerPagoEnLineaPasarelaCampos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaPasarelaCamposResponse" message="tns:IPedidoService_ObtenerPagoEnLineaPasarelaCampos_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaURLPaginasBancos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancos" message="tns:IPedidoService_ObtenerPagoEnLineaURLPaginasBancos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancosResponse" message="tns:IPedidoService_ObtenerPagoEnLineaURLPaginasBancos_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPagoEnLineaNumeroOrden">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrdenResponse" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_OutputMessage" />
@@ -2832,6 +2843,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCuvKitNuevas" message="tns:IPedidoService_GetCuvKitNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCuvKitNuevasResponse" message="tns:IPedidoService_GetCuvKitNuevas_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetMensajeKitNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMensajeKitNuevas" message="tns:IPedidoService_GetMensajeKitNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMensajeKitNuevasResponse" message="tns:IPedidoService_GetMensajeKitNuevas_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateMontosPedidoWeb">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontosPedidoWeb" message="tns:IPedidoService_UpdateMontosPedidoWeb_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontosPedidoWebResponse" message="tns:IPedidoService_UpdateMontosPedidoWeb_OutputMessage" />
@@ -2855,10 +2870,6 @@
     <wsdl:operation name="GetPedidosIngresadoFacturadoApp">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoApp" message="tns:IPedidoService_GetPedidosIngresadoFacturadoApp_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoAppResponse" message="tns:IPedidoService_GetPedidosIngresadoFacturadoApp_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultorasProgramaNuevas">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" message="tns:IPedidoService_GetConsultorasProgramaNuevas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevasResponse" message="tns:IPedidoService_GetConsultorasProgramaNuevas_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetMensajeMetaConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMensajeMetaConsultora" message="tns:IPedidoService_GetMensajeMetaConsultora_InputMessage" />
@@ -4519,6 +4530,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaURLPaginasBancos">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPagoEnLineaNumeroOrden">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" style="document" />
       <wsdl:input>
@@ -4906,6 +4926,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetMensajeKitNuevas">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMensajeKitNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateMontosPedidoWeb">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMontosPedidoWeb" style="document" />
       <wsdl:input>
@@ -4953,15 +4982,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidosIngresadoFacturadoApp">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoApp" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultorasProgramaNuevas">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8159,6 +8179,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaURLPaginasBancos">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaURLPaginasBancos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPagoEnLineaNumeroOrden">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" style="document" />
       <wsdl:input>
@@ -8546,6 +8575,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetMensajeKitNuevas">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMensajeKitNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateMontosPedidoWeb">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMontosPedidoWeb" style="document" />
       <wsdl:input>
@@ -8593,15 +8631,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidosIngresadoFacturadoApp">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoApp" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultorasProgramaNuevas">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

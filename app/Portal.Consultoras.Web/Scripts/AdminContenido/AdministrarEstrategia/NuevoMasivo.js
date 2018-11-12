@@ -83,7 +83,7 @@
     }
 
     var _fnGrillaEstrategias1 = function () {
-        console.log('_fnGrillaEstrategias1 Inicio', new Date());
+        //console.log('_fnGrillaEstrategias1 Inicio', new Date());
         $("#listCargaMasiva1").jqGrid("GridUnload");
         jQuery("#listCargaMasiva1").jqGrid({
             url: _config.urlConsultarOfertasPersonalizadas,
@@ -555,17 +555,15 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(params),
                 async: true,
+                timeout: 120000, // sets timeout to 2 min
                 success: function (data) {
                     console.log('respuesta ' + _config.urlEstrategiaOfertasPersonalizadasInsert, new Date());
                     console.log(data); 
                     if (data.success) {
-                        $("#precargadosdiv").html(data.mongoIdsOK);
-                        $("#cargadoserrordiv").html(data.mongoIdsERROR);
-
-                        closeWaitingDialog();
                         $("#divMasivoPaso1").hide();
                         $("#divMasivoPaso2").hide();
                         $("#divMasivoPaso3").show();
+                        closeWaitingDialog();
 
                         $("#divPaso1").removeClass("boton_redondo_admcontenido_on");
                         $("#divPaso1").addClass("boton_redondo_admcontenido_off");
@@ -575,6 +573,10 @@
 
                         $("#divPaso3").removeClass("boton_redondo_admcontenido_off");
                         $("#divPaso3").addClass("boton_redondo_admcontenido_on");
+                        
+                        $("#precargadosdiv").html(JSON.parse(JSON.stringify(data.mongoIdsOK)));
+                        $("#cargadoserrordiv").html(JSON.parse(JSON.stringify(data.mongoIdsERROR)));
+                       
                     } else {
                         _toastHelper.error(data.message);
                         _eventos.clickCancelarMasivo1();
@@ -584,7 +586,6 @@
                     _toastHelper.error(_config.MensajeErrorGeneral);
                 }
             });
-
             console.log('ejecutando clickAceptarMasivo2 - fin'); 
         },
         clickCancelarMasivo1: function () {

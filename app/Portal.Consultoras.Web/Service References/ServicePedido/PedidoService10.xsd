@@ -577,8 +577,11 @@
   <xs:element name="BEUsuario" nillable="true" type="tns:BEUsuario" />
   <xs:complexType name="BEBuscadorYFiltrosConfiguracion">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AplicarLogicaCantidadBotonVerTodosBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="CaracteresBuscador" type="xs:short" />
       <xs:element minOccurs="0" name="CaracteresBuscadorMostrar" type="xs:short" />
+      <xs:element minOccurs="0" name="IndicadorConsultoraDummy" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MostrarBotonVerTodosBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="MostrarBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="TotalResultadosBuscador" type="xs:short" />
     </xs:sequence>
@@ -835,6 +838,7 @@
       <xs:element minOccurs="0" name="DescripcionProd" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="EliminadoTemporal" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EnRangoProgNuevas" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCompraPorCompra" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
@@ -1013,6 +1017,7 @@
           <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
           <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
           <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
+          <xs:element minOccurs="0" name="MaterialGanancia" type="xs:int" />
           <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MostrarImgOfertaIndependiente" type="xs:boolean" />
           <xs:element minOccurs="0" name="Niveles" nillable="true" type="xs:string" />
@@ -1065,6 +1070,7 @@
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaApp" type="xs:int" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoError" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoErrorObs" nillable="true" type="xs:string" />
@@ -1250,18 +1256,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEPedidoWeb" nillable="true" type="tns:ArrayOfBEPedidoWeb" />
-  <xs:complexType name="BEConsultorasProgramaNuevas">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsecutivoNueva" type="xs:int" />
-      <xs:element minOccurs="0" name="MontoVentaExigido" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Motivo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Participa" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConsultorasProgramaNuevas" nillable="true" type="tns:BEConsultorasProgramaNuevas" />
   <xs:complexType name="BEProcesoPedidoRechazado">
     <xs:sequence>
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />

@@ -54,7 +54,9 @@ namespace Portal.Consultoras.Web.WebPages
                             String uniqueId = SSOClient.ANONYMOUS_UNIQUE_ID;
                             SSOClient.writeLithiumCookie(uniqueId, usuario.CodigoUsuario, usuario.Correo, Request, Response);
                         }
-                        catch { }
+                        catch {
+                            //Excepcion
+                        }
                     }
                     else Response.Redirect(ConfigurationManager.AppSettings["URL_COM"]);
                 }

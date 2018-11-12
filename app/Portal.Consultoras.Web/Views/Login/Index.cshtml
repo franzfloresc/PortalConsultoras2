@@ -453,17 +453,6 @@
         <span>{{mensaje}}{{telefono}}</span>
         <div></div>
     </script>
-
-    @*@{
-        if (HttpContext.Current.Request.Browser.IsMobileDevice)
-        {
-            <a href="#" class="lk_chat" ismovildevice="1" target="_blank"></a>
-        }
-        else
-        {
-            <a href="#" class="lk_chat" ismovildevice="0"></a>
-        }
-    }*@
     <div id="popupRestaurarClave" style="display:none;">
         <div id="popup_opciones_recuperacion_contrasenia">
             <div class="content_bg_opciones_recuperacion_contrasenia">
@@ -486,10 +475,7 @@
                     <b class="menPrioridad3" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica en el siguiente horario:</b>
                     <span id="menAutenticacionNueva" class="texto_disculpa" style="display:none;">por ser la primera vez que ingresas, 
                     para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
-                    @*<!-- INICIO - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->
-                    <span id="menAutenticacionReactivada" class="texto_disculpa" style="display:none;">ya que has vuelto después de tiempo, 
-                    para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
-                    <!-- FIN - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->*@
+
                 </div>
 
                 <div class="opciones_recuperacion_contrasenia">
@@ -828,7 +814,7 @@
                         <div class="titulo_opcion_chatea_con_nosotros">Por el momento el chat en movil no esta disponible, favor de ingresar a través de un computador</div>
                        
                     </div>
-                    @*<p>Por el momento el chat en mobil no esta disponible, favor de ingresar a través de un computador</p>*@
+
                 </div>
             </div>
         </div>
@@ -1120,7 +1106,6 @@
     var urlProcesaEnvioSms = '@Url.Action("ProcesaEnvioSms", "Login")';
     var urlLoginAcceder = '@Url.Action("Login", "Login")';
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
-    @*var urlVerificarCodigoGenerado = '@Url.Action("VerificarCodigoGenerado", "Login")';*@
     var urlIniciarLogin = '@Url.Action("Login", "Login")';
     var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
 </script>

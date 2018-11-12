@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -23,11 +24,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Index()
         {
             if (!userData.TienePagoEnLinea)
-                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                return RedirectToAction("Index", "Bienvenida");
 
-            SessionManager.SetDatosPagoVisa(null);
+            var model = SessionManager.GetDatosPagoVisa();
+            if (!_pagoEnLineaProvider.IsLoadMetodoPago(model)) return RedirectToAction("MetodoPago");
 
-            var model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea();
+            model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea(model);
+
             ViewBag.PagoEnLineaGastosLabel = userData.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.GastosLabelMx : Constantes.PagoEnLineaMensajes.GastosLabelPe;
 
             return View(model);
@@ -35,45 +38,41 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult MetodoPago()
         {
-            var model = SessionManager.GetDatosPagoVisa();
+            if (!userData.TienePagoEnLinea)
+                return RedirectToAction("Index", "Bienvenida");
 
-            if (model == null)
-                return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
-
-            model = _pagoEnLineaProvider.ObtenerValoresMetodoPago(model);
+            var model = new PagoEnLineaModel
+            {
+                ListaMetodoPago = _pagoEnLineaProvider.ObtenerListaMetodoPago()
+            };
+            SessionManager.SetDatosPagoVisa(model);
 
             return View(model);
         }
 
+
+        [HttpPost]
+        public string ObtenerBancos()
+        {
+            string bancos = "";
+            using (var ps = new PedidoServiceClient())
+            {
+                bancos = ps.ObtenerPagoEnLineaURLPaginasBancos(userData.PaisID);
+            }
+            return bancos;
+        }
+
+
         [HttpGet]
-        public ActionResult PasarelaPago(string cardType, int medio = 0)
+        public ActionResult PasarelaPago()
         {
             var pago = SessionManager.GetDatosPagoVisa();
-            if (pago == null || pago.ListaMetodoPago == null) return RedirectToAction("Index");
-            if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+            if (!_pagoEnLineaProvider.IsLoadMetodoPago(pago)) return RedirectToAction("MetodoPago");
+            if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida");
 
-            if (!string.IsNullOrEmpty(cardType))
-            {
-                var selected = _pagoEnLineaProvider.ObtenerMetodoPagoSelecccionado(pago, cardType, medio);
+            pago.PagoVisaModel = _pagoEnLineaProvider.ObtenerValoresPagoPayu();
+            LoadViewParameters(pago, _pagoEnLineaProvider.ObtenerCamposRequeridos());
 
-                if (selected == null)
-                {
-                    return RedirectToAction("Index");
-                }
-                pago.MetodoPagoSeleccionado = selected;
-                SessionManager.SetDatosPagoVisa(pago);
-            }
-
-            if (pago.MetodoPagoSeleccionado == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            SetDeviceSessionId(pago);
-            ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerCamposRequeridos();
-            ViewBag.UrlIconMedioPago = _pagoEnLineaProvider.GetUrlIconMedioPago(pago);
-            ViewBag.PagoMontoTotal = pago.Simbolo + " " + pago.MontoDeudaConGastosString;
-            CargarListsPasarela();
             var model = new PaymentInfo
             {
                 Phone = userData.Celular,
@@ -88,8 +87,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public async Task<ActionResult> PasarelaPago(PaymentInfo info)
         {
             var pago = SessionManager.GetDatosPagoVisa();
-            if (pago == null || pago.ListaMetodoPago == null) return RedirectToAction("Index");
-            if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+            if (!_pagoEnLineaProvider.IsLoadMetodoPago(pago)) return RedirectToAction("MetodoPago");
+            if (!_pagoEnLineaProvider.CanPay(userData, pago)) return RedirectToAction("Index", "Bienvenida");
 
             var requiredFields = _pagoEnLineaProvider.ObtenerCamposRequeridos();
 
@@ -104,26 +103,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (validator.IsValid(info))
                 {
-                    var provider = new PagoPayuProvider
-                    {
-                        User = userData,
-                        SessionId = Session.SessionID,
-                        IpClient = GetIPCliente(),
-                        Agent = Request.UserAgent,
-                        PagoProvider = _pagoEnLineaProvider
-                    };
-
-                    var success = await provider.Pay(info, pago);
-                    if (!success)
-                        return View("PagoRechazado", pago);
-
-                    ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcionMx);
-                    ViewBag.PaisId = userData.PaisID;
-
-                    var view = View("PagoExitoso", pago);
-                    SessionManager.SetDatosPagoVisa(null);
-
-                    return view;
+                    return await GetPayResult(info, pago);
                 }
 
                 foreach (var error in validator.Errors)
@@ -132,11 +112,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            SetDeviceSessionId(pago);
-            ViewBag.PagoLineaCampos = requiredFields;
-            ViewBag.UrlIconMedioPago = _pagoEnLineaProvider.GetUrlIconMedioPago(pago);
-            ViewBag.PagoMontoTotal = pago.Simbolo + " " + pago.MontoDeudaConGastosString;
-            CargarListsPasarela();
+            LoadViewParameters(pago, requiredFields);
 
             return View(info);
         }
@@ -145,11 +121,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var model = SessionManager.GetDatosPagoVisa();
 
-            if (model == null)
-                return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
+            if (!_pagoEnLineaProvider.IsLoadMetodoPago(model)) return RedirectToAction("MetodoPago");
+            if (!_pagoEnLineaProvider.CanPay(userData, model)) return RedirectToAction("Index", "Bienvenida");
 
             model.PagoVisaModel = _pagoEnLineaProvider.ObtenerValoresPagoVisa(model);
-
             SessionManager.SetDatosPagoVisa(model);
 
             return View(model);
@@ -165,6 +140,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 string transactionToken = Request.Form["transactionToken"];
+                if (string.IsNullOrWhiteSpace(transactionToken)) return RedirectToAction("MetodoPago");
+
+                model.EsMobile = true;
                 bool pagoOk = _pagoEnLineaProvider.ProcesarPagoVisa(ref model, transactionToken);
 
                 if (pagoOk)
@@ -187,6 +165,44 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View("PagoRechazado", model);
         }
 
+        private async Task<ActionResult> GetPayResult(PaymentInfo info, PagoEnLineaModel pago)
+        {
+            var provider = new PagoPayuProvider
+            {
+                User = userData,
+                SessionId = Session.SessionID,
+                IpClient = GetIPCliente(),
+                Agent = Request.UserAgent,
+                PagoProvider = _pagoEnLineaProvider
+            };
+
+            var success = await provider.Pay(info, pago);
+            SessionManager.SetDatosPagoVisa(null);
+            SessionManager.SetListadoEstadoCuenta(null);
+
+            if (!success)
+                return View("PagoRechazado", pago);
+
+            ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcionMx);
+            ViewBag.PaisId = userData.PaisID;
+
+            var view = View("PagoExitoso", pago);
+
+            return view;
+        }
+
+        private void LoadViewParameters(PagoEnLineaModel pago, string[] requiredFields)
+        {
+            pago.DeviceSessionId = GetDeviceSessionId();
+            SessionManager.SetDatosPagoVisa(pago);
+
+            ViewBag.DeviceSessionId = pago.DeviceSessionId;
+            ViewBag.PagoLineaCampos = requiredFields;
+            ViewBag.UrlIconMedioPago = _pagoEnLineaProvider.GetUrlIconMedioPago(pago);
+            ViewBag.PagoMontoTotal = pago.Simbolo + " " + pago.MontoDeudaConGastosString;
+            CargarListsPasarela();
+        }
+
         private void CargarListsPasarela()
         {
             Func<string, SelectListItem> fnSelect = m => new SelectListItem { Value = m, Text = m };
@@ -194,15 +210,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.YearList = _pagoEnLineaProvider.ObtenerAnios().Select(fnSelect);
         }
 
-        private void SetDeviceSessionId(PagoEnLineaModel pago)
+        private string GetDeviceSessionId()
         {
             var provider = new PagoPayuProvider
             {
                 SessionId = Session.SessionID
             };
-            pago.DeviceSessionId = provider.GetDeviceSessionId();
-            SessionManager.SetDatosPagoVisa(pago);
-            ViewBag.DeviceSessionId = pago.DeviceSessionId;
+            return provider.GetDeviceSessionId();
         }
     }
 }

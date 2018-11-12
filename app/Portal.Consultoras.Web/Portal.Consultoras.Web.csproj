@@ -196,6 +196,7 @@
     </Compile>
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\MasGanadorasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiPerfilController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAcademiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PagoEnLineaController.cs" />
@@ -218,7 +219,6 @@
     <Compile Include="Areas\Mobile\Controllers\EstadoCuentaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MenuController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NotificacionesController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertaLiquidacionController.cs" />
     <Compile Include="Areas\Mobile\Controllers\FichaProductoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DescargarAppController.cs" />
@@ -230,6 +230,7 @@
     <Compile Include="Areas\Mobile\Controllers\PedidosFacturadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\HerramientasVentaController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\ProgramaNuevasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\RevistaDigitalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
@@ -293,7 +294,11 @@
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BuscadorController.cs" />
+    <Compile Include="Controllers\MasGanadorasController.cs" />
+    <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
+    <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
+    <Compile Include="Controllers\ComunController.cs" />
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
@@ -308,11 +313,13 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Controllers\ProgramaNuevasController.cs" />
     <Compile Include="Models\Buscador\BuscadorModel.cs" />
+    <Compile Include="Models\Buscador\BusquedaProductoOutModel.cs" />
+    <Compile Include="CustomFilters\ValidateAjaxModelAttribute.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
-    <Compile Include="Controllers\LanzamientosController.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
     <Compile Include="Infraestructure\Sms\ISmsSender.cs" />
@@ -326,6 +333,7 @@
     <Compile Include="Infraestructure\Validator\Phone\NotSamePhoneValidator.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosModel.cs" />
+    <Compile Include="Models\Common\InLogUsabilidadModel.cs" />
     <Compile Include="Models\DetalleEstrategia\BreadCrumbModel.cs" />
     <Compile Include="Models\DetalleEstrategia\DetalleEstrategiaBreadCrumbsModel.cs" />
     <Compile Include="Models\EstrategiaComponenteModel.cs" />
@@ -496,6 +504,7 @@
     <Compile Include="Models\Estrategia\WaEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
+    <Compile Include="Models\MasGanadorasModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
     <Compile Include="Models\Ofertas\IndexViewModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoDetalleModel.cs" />
@@ -737,6 +746,7 @@
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
     <Compile Include="Models\ValidacionStockModel.cs" />
     <Compile Include="Models\ValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\ValidaPopUpPaisModel.cs" />
     <Compile Include="Models\VericaAutenticidadModel.cs" />
     <Compile Include="Models\ZonaModel.cs" />
     <Compile Include="Pdto.aspx.cs">
@@ -763,6 +773,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Providers\AdministrarEstrategiaProvider.cs" />
+    <Compile Include="Providers\BienvenidaProvider.cs" />
     <Compile Include="Providers\BuscadorBaseProvider.cs" />
     <Compile Include="Providers\BuscadorYFiltrosProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
@@ -775,6 +786,7 @@
     <Compile Include="Providers\EventoFestivoProvider.cs" />
     <Compile Include="Providers\GuiaNegocioProvider.cs" />
     <Compile Include="Providers\BaseProvider.cs" />
+    <Compile Include="Providers\ProgramaNuevasProvider.cs" />
     <Compile Include="Providers\IssuuProvider.cs" />
     <Compile Include="Providers\MenuContenedorProvider.cs" />
     <Compile Include="Providers\MenuProvider.cs" />
@@ -911,6 +923,8 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="SessionManager\ISessionManager.cs" />
+    <Compile Include="SessionManager\MasGanadoras\IMasGanadoras.cs" />
+    <Compile Include="SessionManager\MasGanadoras\MasGanadoras.cs" />
     <Compile Include="SessionManager\OfertaDelDia\IOfertaDelDia.cs" />
     <Compile Include="SessionManager\OfertaDelDia\OfertaDelDia.cs" />
     <Compile Include="SessionManager\ShowRoom\IShowRoom.cs" />
@@ -1360,7 +1374,10 @@
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
     <Content Include="Content\Css\Mobile\Ficha\SeleccionarTipo.css" />
+    <Content Include="Content\Css\Mobile\LasMasGanadoras\banner_ofertas_masGanadoras.css" />
+    <Content Include="Content\Css\Mobile\LasMasGanadoras\presentacion-seccion-carrusel.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
+    <Content Include="Content\Css\Mobile\ProductoListado\CajaProductoV2.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
@@ -1370,11 +1387,14 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
+    <Content Include="Content\Css\Site\bootstrap\bootstrap.css" />
+    <Content Include="Content\Css\Site\BusquedaProductos\busqueda-productos.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
     <Content Include="Content\Css\Site\Esika\buscador-filtros.css" />
+    <Content Include="Content\Css\Site\Esika\campania-navidenia.css" />
     <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
     <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
-    <Content Include="Content\Css\Site\Esika\style-esika-responsive.css" />
+    <Content Include="Content\Css\Site\Esika\marca-pais-responsive.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Esika\verificacion-pin.css" />
@@ -1396,14 +1416,16 @@
     <Content Include="Content\Css\Site\ion.rangeSlider\normalize.css" />
     <Content Include="Content\Css\Site\Landing\producto.landing.css" />
     <Content Include="Content\Css\Site\Lbel\buscador-filtros.css" />
+    <Content Include="Content\Css\Site\Lbel\campania-navidenia.css" />
     <Content Include="Content\Css\Site\Lbel\mi-perfil.css" />
-    <Content Include="Content\Css\Site\Lbel\style-lbel-responsive.css" />
+    <Content Include="Content\Css\Site\Lbel\marca-pais-responsive.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
     <Content Include="Content\Css\Site\MailConfirmacion\style.css" />
+    <Content Include="Content\Css\Site\MasGanadoras\banner_ofertas_masGanadoras.css" />
     <Content Include="Content\Css\Site\Menu\MenuPrincipal.css" />
     <Content Include="Content\Css\Site\Menu\MenuContenedor.css" />
     <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
@@ -1414,8 +1436,22 @@
     <Content Include="Content\Css\Site\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
-    <Content Include="Content\Css\Site\Shared\style-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\buscador-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\campania-navidenia-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\footer-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\header-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\menu-principal-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\menu-secundario-responsive.css" />
+    <Content Include="Content\Css\Site\Shared\general.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
+    <Content Include="Content\Images\banco_bbva.png" />
+    <Content Include="Content\Images\banco_bcp.png" />
+    <Content Include="Content\Images\check-agregado-icono.svg" />
+    <Content Include="Content\Images\check-icono.svg" />
+    <Content Include="Content\Images\banco_de_la_nacion.png" />
+    <Content Include="Content\Images\banco_interbank.png" />
+    <Content Include="Content\Images\banco_pichincha.png" />
+    <Content Include="Content\Images\banco_scotiabank.png" />
     <Content Include="Content\Images\cincuenta_anios_belcorp_cabecera.png" />
     <Content Include="Content\Images\Buscador\product-iphone.png" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
@@ -1546,19 +1582,41 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\Esika\RevistaDigital\gana-mas-navidad-esika.svg" />
+    <Content Include="Content\Images\Esika\RevistaDigital\gif-club-ganamas2.gif" />
+    <Content Include="Content\Images\Esika\RevistaDigital\gif-ganamas.gif" />
+    <Content Include="Content\Images\Esika\RevistaDigital\menuOfertas_20181001_1121.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika1A.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika2A.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika3A.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika4A.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika5A.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika6A.png" />
+    <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial1A.png" />
+    <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial2A.png" />
+    <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial3A.png" />
+    <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial4A.png" />
+    <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial5A.png" />
     <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente2.svg" />
     <Content Include="Content\Images\down_arrow.png" />
     <Content Include="Content\Images\Esika\logo_marca_pais_desktop.svg" />
     <Content Include="Content\Images\Esika\logo_marca_pais_mobile.svg" />
     <Content Include="Content\Images\Esika\vineta_indicador.png" />
+    <Content Include="Content\Images\Esika\fondo-navidenio.png" />
+    <Content Include="Content\Images\Esika\logo_marca_pais_desktop_blanco.svg" />
     <Content Include="Content\Images\flecha_icono.svg" />
+    <Content Include="Content\Images\icono-carrito-compra-blanco.svg" />
     <Content Include="Content\Images\icono-elige-tu-opcion.svg" />
     <Content Include="Content\Images\Esika\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\Esika\flecha_next.svg" />
     <Content Include="Content\Images\icono-menu-mobile.svg" />
     <Content Include="Content\Images\Esika\flecha_prev.svg" />
+    <Content Include="Content\Images\icono_alerta.svg" />
     <Content Include="Content\Images\etiqueta-club-ganamas-blanco-independiente2.svg" />
     <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente2.png" />
+    <Content Include="Content\Images\icono-lupa-blanco.svg" />
+    <Content Include="Content\Images\icono-notificaciones-blanco.svg" />
+    <Content Include="Content\Images\icono-tutorial-blanco.svg" />
     <Content Include="Content\Images\icono_avatar.svg" />
     <Content Include="Content\Images\Esika\icono_camara.svg" />
     <Content Include="Content\Images\Esika\icono_cambiar_dato.svg" />
@@ -1571,6 +1629,7 @@
     <Content Include="Content\Images\flecha-campo-select.svg" />
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\icono_avatar_menu.svg" />
+    <Content Include="Content\Images\icono_banca_por_internet.png" />
     <Content Include="Content\Images\icono_cargar_foto_desde_galeria.svg" />
     <Content Include="Content\Images\icono_carrito.svg" />
     <Content Include="Content\Images\icono_catalogos.svg" />
@@ -1578,15 +1637,19 @@
     <Content Include="Content\Images\icono_comunidad_virtual.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
+    <Content Include="Content\Images\icono_lupa_blanco.svg" />
     <Content Include="Content\Images\icono_lupa.svg" />
     <Content Include="Content\Images\icono_noticias.svg" />
     <Content Include="Content\Images\icono_notificaciones.svg" />
+    <Content Include="Content\Images\icono_notificaciones_blanco.svg" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
     <Content Include="Content\Images\imagen_prod_no_disponible.svg" />
+    <Content Include="Content\Images\Lbel\copo-nieve.png" />
+    <Content Include="Content\Images\Lbel\copos-nieve.png" />
     <Content Include="Content\Images\Lbel\icono_cambiar_dato.svg" />
     <Content Include="Content\Images\Lbel\icono_candado.svg" />
     <Content Include="Content\Images\Lbel\icono_envelope.svg" />
@@ -1595,6 +1658,10 @@
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
     <Content Include="Content\Images\Lbel\estrellas.png" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\gana-mas-navidad-lbel.svg" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\gif-club-ganamas2.gif" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\gif-ganamas.gif" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\menuOfertas_20181001_1121.jpg" />
     <Content Include="Content\Images\logo-club-ganamas-dorado2.svg" />
     <Content Include="Content\Images\Lbel\logo_marca_pais.svg" />
     <Content Include="Content\Images\Lbel\vineta_indicador.png" />
@@ -1602,8 +1669,12 @@
     <Content Include="Content\Images\logo_belcorp_mobile.svg" />
     <Content Include="Content\Images\logo_facebook.svg" />
     <Content Include="Content\Images\logo_youtube.svg" />
+    <Content Include="Content\Images\mas.svg" />
+    <Content Include="Content\Images\menos.svg" />
     <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
     <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
+    <Content Include="Content\Images\Lbel\logo_marca_pais_blanco.svg" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\ofertas-digitales-navidad-lbel.svg" />
     <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\1f44d.png" />
@@ -3372,6 +3443,7 @@
     <Content Include="Content\Images\MontoMinimoBannerVEC4.jpg" />
     <Content Include="Content\Images\more.png" />
     <Content Include="Content\Images\mujer-seccion-revista-bienvenida.png" />
+    <Content Include="Content\Images\multi_facil.png" />
     <Content Include="Content\Images\nav-arrow.png" />
     <Content Include="Content\Images\nav-bg.png" />
     <Content Include="Content\Images\new_email.png" />
@@ -3385,6 +3457,7 @@
     <Content Include="Content\Images\no_email.png" />
     <Content Include="Content\Images\no_image.gif" />
     <Content Include="Content\Images\nuevo-producto.png" />
+    <Content Include="Content\Images\oferta-sin-imagen.svg" />
     <Content Include="Content\Images\oferta-ultimo-minuto.png" />
     <Content Include="Content\Images\oferta.png" />
     <Content Include="Content\Images\offer-suscription-icon.svg" />
@@ -3392,6 +3465,8 @@
     <Content Include="Content\Images\ojito.png" />
     <Content Include="Content\Images\ojos.svg" />
     <Content Include="Content\Images\ojos_negro.svg" />
+    <Content Include="Content\Images\ordenar-flecha-icono.svg" />
+    <Content Include="Content\Images\ordenar-icono.svg" />
     <Content Include="Content\Images\paquete_doc.png" />
     <Content Include="Content\Images\paquete_documentario.svg" />
     <Content Include="Content\Images\paypal_error.png" />
@@ -3560,6 +3635,7 @@
     <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_esika_no_seleccionado.svg" />
     <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_esika_seleccionado.svg" />
     <Content Include="Content\Images\RevistaDigital\NuevosLogos\ofertas_digitales_lbel_seleccionado.svg" />
+    <Content Include="Content\Images\Esika\RevistaDigital\ofertas-digitales-navidad-esika.svg" />
     <Content Include="Content\Images\RevistaDigital\offer-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_BLANCO.svg" />
@@ -3745,6 +3821,7 @@
     <Content Include="Content\Images\webtracking\regresar.png" />
     <Content Include="Content\Images\webtracking\settings.png" />
     <Content Include="Content\Images\webtracking\si.png" />
+    <Content Include="Content\Images\western_union.png" />
     <Content Include="Content\Images\xloading.gif" />
     <Content Include="Content\Images\zona_.png" />
     <Content Include="Content\layer-flx-cl\img\boton_conoce_05.png" />
@@ -3846,6 +3923,7 @@
     <Content Include="Scripts\jquery-labelauty.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Scripts\jquery-migrate-3.0.0.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.custom-scrollbar.js" />
@@ -3890,6 +3968,9 @@
     <Content Include="Scripts\PortalConsultoras\Bienvenida\PopusJS.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\buscadorLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorModule.js" />
+    <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />
+    <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
@@ -3904,6 +3985,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregarProvider.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\CajaProducto.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\EstrategiaUrls.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\EstrategiaComponente.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\api.js" />
@@ -4265,7 +4347,6 @@
     <Content Include="Areas\Mobile\Views\FichaProducto\ProductoNotFound.cshtml" />
     <Content Include="Areas\Mobile\Views\SeguimientoPedido\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBannerTop.cshtml" />
-    <Content Include="Areas\Mobile\Views\OfertaDelDia\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBanner.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueMensajesPostulante.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueMensajesPedido.cshtml" />
@@ -4360,6 +4441,11 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpAlertaPedidosOnline.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpLoadingMobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
+    <Content Include="Areas\Mobile\Views\ProgramaNuevas\Index.cshtml" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Areas\Mobile\Views\MasGanadoras\template-landing.cshtml" />
+    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />
+    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-v2.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4560,6 +4646,9 @@
     <None Include="Service References\ServicePedido\PedidoService116.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService118.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService12.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4647,9 +4736,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService6.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService62.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">
@@ -5238,14 +5324,12 @@
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <Content Include="Views\Shared\VistaParcialMenu\_Menu2.cshtml" />
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\Unete\ReporteFunnel.cshtml" />
     <Content Include="Views\Unete\_DevolverSolicitud.cshtml" />
     <Content Include="Views\Shared\MatrizComercial\_divVistaPrevia.cshtml" />
     <Content Include="Views\Shared\MatrizComercial\_matrizComercialItemTemplate.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo8.cshtml" />
     <Content Include="Views\Unete\_MotivoRechazo.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalanca.cshtml" />
@@ -5367,6 +5451,9 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHidden.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpInputHiddenSoloDesktop.cshtml" />
     <Content Include="Views\Unete\_CambioTipoNegocio.cshtml" />
+    <Content Include="Views\ProgramaNuevas\Index.cshtml" />
+    <Content Include="Views\MasGanadoras\template-landing.cshtml" />
+    <Content Include="Views\Shared\_BuscadorResponsive.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5419,7 +5506,6 @@
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
-    <Content Include="Views\ShowRoom\DetalleSet.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\WsGestionWeb.wsdl" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete1.xsd">
       <SubType>Designer</SubType>
@@ -5683,6 +5769,7 @@
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Buscador\" />
     <Folder Include="Views\Campania\" />
+    <Folder Include="Views\Comun\" />
     <Folder Include="Views\Cupon\" />
     <Folder Include="Views\EstrategiaProductoComentario\" />
   </ItemGroup>

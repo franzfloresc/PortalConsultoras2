@@ -11,15 +11,6 @@ body {
     font-weight: 700;
 }
 
-/*.imagen_fondo_detalle {
-    background-position: center center;
-    background-repeat: no-repeat;
-    height: 315px;
-    position: absolute;
-    width: 100%;
-    background-size: cover;
-}*/
-
 .contenedor_detalle {
     display: flex;
     font-size: 13px;
@@ -58,10 +49,6 @@ body {
     height: auto;
     width: auto;
 }
-
-/*.contenedor_imagen_ancho_mayor {
-    margin: 0 12%;
-}*/
 
 .ficha_detalle {
     background-color: #fff;
@@ -166,27 +153,12 @@ body {
 }
 
 
-/*.contenedor_nombre_descripcion_producto {
-    float: left;
-    padding-top: 40px;
-    width: 100%;
-}*/
-
 .nombre_detalle_producto {
     font-size: 15px;
     font-weight: 700;
     letter-spacing: .4px;
     line-height: 1;
 }
-
-/*.descripcion_detalle_producto_ver_mas {
-    margin-top: 8px;
-    line-height: 1.23;
-}*/
-
-/*.txt_ver_mas {
-    text-decoration: underline;
-}*/
 
 .contenido_titulo {
     font-size: 13px;
@@ -202,14 +174,6 @@ body {
     width: 100%;
     margin-bottom:45px;
 }
-
-/*.texto_contenido {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    line-height: 1.08;
-    margin: 22px 0 18px 0;
-}*/
 
 .detalle_producto {
     border-bottom: none !important;
@@ -356,11 +320,6 @@ body {
     border-radius: 4px;
 }
 
-/*.btn_agregalo_desactivado {
-    background: #d8d8d8;
-    pointer-events: none;
-}*/
-
 .seleccion_btn .btn_desactivado_general {
     pointer-events: none;
 }
@@ -467,66 +426,15 @@ body {
     width: 100%;
 }
 
-/*.contenedor_limitacion {
-   float: left;
-   width: 100%;
-}*/
-
 .signo_exclamacion {
     float: left;
     position: relative;
 }
 
-/*.dibujar_signo_exclamacion {
-    height: 17px;
-    margin: auto;
-    position: relative;
-    width: 17px;
-}
-
-.dibujar_signo_exclamacion::before, .dibujar_signo_exclamacion::after {
-    content: '';
-    position: absolute;
-    -webkit-transition: initial;
-    transition: initial;
-    z-index: 1;
-}
-
-.dibujar_signo_exclamacion, .dibujar_signo_exclamacion::after {
-    border: solid 1px #e81c36;
-    border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-}
-
-.dibujar_signo_exclamacion::before {
-    border-left: solid 1px #e81c36;
-    height: 38%;
-    left: 48%;
-    top: 25%;
-}
-
-.dibujar_signo_exclamacion::after {
-    background-color: #e81c36;
-    height: 1%;
-    left: 46%;
-    top: 68%;
-    width: 1%;
-}*/
-
-/*.txt_limitacion {
-    font-weight: 700;
-    margin-left: 8px;
-}*/
-
 .txt_ul {
     list-style: initial;
     margin: 0 28px;
 }
-
-/*.txt_li {
-    margin-bottom: 24px;
-}*/
 
 .txt_li_titulo {
     font-size: 15px;
@@ -658,92 +566,10 @@ body {
     width: 100%;
 }
 
-/*.selector_lista_tonos {
-    border: solid 1px #000;
-    height: 45px;
-    margin-top: 33px;
-    position: relative;
-    width: 48%;
-}*/
-
-/*.contenedor_lista_tonos_imagen {
-    float: left;
-    margin: 17px 0 13px 0;
-    width: 100%;
-}*/
-
-/*.contenedor_item_tono_imagen {
-    border: solid 1px rgba(0, 0, 0, 0.00);
-    float: left;
-    margin: 0 14px 14px 0;
-}
-
-.contenedor_item_tono_imagen_seleccionado {
-    border: solid 1px #000;
-}*/
-
-/*.selector_tono {
-    border: solid 1px #000;
-    float: right;
-    height: 45px;
-    margin-top: 10px;
-    position: relative;
-    width: 40%;
-}*/
-
 .elige_tono {
     height: 100%;
     width: 100%;
 }
-
-/*.selector_tono_escogido {
-    border: solid 1px #b0b0b0;
-}*/
-
-/*.img_item_tono {
-    float: left;
-    height: 42px;
-    overflow: hidden;
-}
-
-.img_item_tono img {
-    height: 100%;
-    width: auto;
-}*/
-
-/*.txt_item_tono {
-    float: left;
-    line-height: 43px;
-    margin-left: 13px;
-    width: 62%;
-}*/
-
-/*.contenedor_items_tonos {
-    background-color: #fff;
-    border: solid 1px #b0b0b0;
-    border-top: none;
-    max-height: 176px;
-    overflow-y: auto;
-    position: absolute;
-    top: 44px;
-    width: 100%;
-}*/
-
-/*.contenedor_item_tono {
-    border-bottom: solid 1px #b0b0b0;
-}
-
-.contenedor_item_tono:last-child {
-    border-bottom: none;
-}*/
-
-/*.contenedor_flecha_tonos {
-    display: flex;
-    float: right;
-    height: 43px;
-    position: relative;
-    width: 12%;
-}*/
 
 .dibujar_flecha_tonos {
     margin: auto 0;
@@ -829,6 +655,7 @@ body {
     padding: 13px 15px 13px 14px !important;
     height: auto;
     margin: 0;
+    line-height: normal;
 }
 
 .texto_sin_tono .tono_seleccionado {
@@ -864,39 +691,6 @@ body {
 .content_tonos {
     padding-bottom: 45px;
 }
-
-/*.dibujar_flecha_tonos::after {
-    left: 60%;
-    -webkit-transform: rotate(130deg);
-    -moz-transform: rotate(130deg);
-    -ms-transform: rotate(130deg);
-    -o-transform: rotate(130deg);
-    transform: rotate(130deg);
-}
-
-.dibujar_flecha_tonos_por_elegir::before {
-    -webkit-transform: rotate(310deg);
-    -moz-transform: rotate(310deg);
-    -ms-transform: rotate(310deg);
-    -o-transform: rotate(310deg);
-    transform: rotate(310deg);
-}
-
-.dibujar_flecha_tonos_por_elegir::after {
-    -webkit-transform: rotate(230deg);
-    -moz-transform: rotate(230deg);
-    -ms-transform: rotate(230deg);
-    -o-transform: rotate(230deg);
-    transform: rotate(230deg);
-}
-
-.dibujar_flecha_tonos::before {
-    -webkit-transform: rotate(50deg);
-    -moz-transform: rotate(50deg);
-    -ms-transform: rotate(50deg);
-    -o-transform: rotate(50deg);
-    transform: rotate(50deg);
-}*/
 
 .tonos_seleccionados {
     border: solid 1px #000000;

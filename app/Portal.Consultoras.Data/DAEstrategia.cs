@@ -294,6 +294,7 @@ namespace Portal.Consultoras.Data
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                Context.Database.AddInParameter(command, "@FlagMaterialGanancia", DbType.Int32, entidad.MaterialGanancia);
                 return Context.ExecuteReader(command);
             }
         }
@@ -519,23 +520,21 @@ namespace Portal.Consultoras.Data
         
         public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaMasiva"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.usp_UpdateEstrategiaMasiva"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML.ToString());
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
-                Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, entidad.UsuarioCreacion);
                 Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entidad.UsuarioModificacion);
                 Context.Database.AddOutParameter(command, "@RetornoActualizacion", DbType.Int32, 1000);
-                Context.Database.AddOutParameter(command, "@RetornoInsercion", DbType.Int32, 1000);
                 Context.ExecuteNonQuery(command);
-                List<int> result = new List<int>() { Convert.ToInt32(command.Parameters["@RetornoActualizacion"].Value), Convert.ToInt32(command.Parameters["@RetornoInsercion"].Value) };
+                List<int> result = new List<int>() { Convert.ToInt32(command.Parameters["@RetornoActualizacion"].Value)};
                 return result;
             }
         }
         public List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarProductoShowroomMasiva"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.usp_UpdateEstrategiaProductoMasiva"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML.ToString());
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
@@ -561,6 +560,18 @@ namespace Portal.Consultoras.Data
                 result = int.Parse(Context.ExecuteScalar(command).ToString());
             }
             return result;
+        }
+
+        public IDataReader GetOfertasPersonalizadasImagenes(int campaniaId, int tipoConfigurado, string codigoEstrategia)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasPersonalizadasImagenes"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
+                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, codigoEstrategia);
+                command.CommandTimeout = 0;
+                return Context.ExecuteReader(command);
+            }
         }
 
         public IDataReader GetOfertasPersonalizadasByTipoConfigurado(int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
@@ -653,6 +664,17 @@ namespace Portal.Consultoras.Data
         public bool EstrategiaTemporalActualizarSetDetalle(int nroLote, int pagina)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarSetDetalle"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
+                Context.ExecuteReader(command);
+                return true;
+            }
+        }
+
+        public bool EstrategiaTemporalActualizarSetImagen(int nroLote, int pagina)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarSetImagen"))
             {
                 Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
                 Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);

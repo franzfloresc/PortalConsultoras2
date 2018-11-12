@@ -100,13 +100,11 @@
     min-height: 397px !important;
     padding: 111px 30px 33px 30px;
 }
-
     .contenedor_carrusel_home .content_item_carrusel_clubganamas .clubganamas_logo {
         position: absolute;
         left: 0;
         top: 0;
     }
-
     .contenedor_carrusel_home .content_item_carrusel_clubganamas p {
         display: block;
         width: 100%;
@@ -124,7 +122,6 @@
         margin-bottom: 22px;
         word-wrap: break-word;
     }
-
     .contenedor_carrusel_home .content_item_carrusel_clubganamas a {
         font-size: 13px;
         font-weight: bold;
@@ -141,7 +138,6 @@
         display: block;
         word-wrap: break-word;
     }
-
     .contenedor_carrusel_home .content_item_carrusel_clubganamas p.primero {
         display: block;
         width: 100%;
@@ -160,7 +156,6 @@
         margin-bottom: 10px;
         font-weight: normal !important;
     }
-
     .contenedor_carrusel_home .content_item_carrusel_clubganamas p.segundo {
         display: block;
         width: 100%;
@@ -188,6 +183,83 @@
         .contenedor_carrusel_home .content_item_carrusel_clubganamas p {
             font-size: 15px;
         }
+}
+
+.contenedor_carrusel_home .content_item_carrusel_prog_nuevas {
+    background-color: #ebebeb !important;
+    border: none !important;
+    min-height: 397px !important;
+    padding: 100px 42px 0px 42px;
+}
+    .contenedor_carrusel_home .content_item_carrusel_prog_nuevas .clubganamas_logo {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .contenedor_carrusel_home .content_item_carrusel_prog_nuevas .container_text {
+        position: relative;
+        max-width: 300px;
+        margin: auto;
+    }
+    .contenedor_carrusel_home .content_item_carrusel_prog_nuevas .container_text p.primero {
+        display: block;
+        width: 100%;
+        height: auto;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: auto;
+        word-wrap: break-word;
+        margin-bottom: 10px;
+        font-weight: normal !important;
+    }
+    .contenedor_carrusel_home .content_item_carrusel_prog_nuevas .container_text p.segundo {
+        display: block;
+        width: 100%;
+        height: auto;
+        font-family: Lato;
+        font-size: 27px !important;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: 23px;
+        word-wrap: break-word;
+    }
+    .contenedor_carrusel_home .content_item_carrusel_prog_nuevas .container_text p.boton {
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        letter-spacing: 1px;
+        text-align: center;
+        width: 100%;
+        color: #ffffff;
+        background: black;
+        padding: 13px 5px;
+        margin-top: 5px;
+        width: 100%;
+        display: block;
+        word-wrap: break-word;
+    }
+
+@media only screen and (max-width: 1199px) {
+    .contenedor_carrusel_home .content_item_carrusel_prog_nuevas .container_text p.primero {
+        font-size: 12px !important;
+        letter-spacing: 0px;
+    }
+    .contenedor_carrusel_home .content_item_carrusel_prog_nuevas .container_text p.segundo {
+        font-size: 19px !important;
+        letter-spacing: 0.8px;
+    }
 }
 
 .contenedor_carrusel_home .content_item_carrusel_clubganamas_off {
@@ -258,52 +330,6 @@
     }
 
 /* SECCIÓN REVISTA DIGITAL VISTA CATÁLOGOS Y REVISTAS */
-
-/*div#tab_revistasdigital_mobile {
-    margin: -35px auto 0 auto;
-    width: 100%;
-    max-width: 400px;
-}*/
-
-/*.contenedor_seccionRevistaDigital {
-    display: block;
-    margin: 0 15px;
-    padding-left: 34px;
-}*/
-
-/*.seccionRevistaDigital_logo_marca {
-    height: 97px;
-    display: block;
-}*/
-
-    /*.seccionRevistaDigital_logo_marca img {
-        text-align: left;
-        width: auto;
-        height: 100%;
-    }*/
-
-/*.contenido_seccionRevistaDigital {
-    display: block;
-    margin-top: 9px;
-    position: relative;
-    z-index: 5;
-}
-
-    .contenido_seccionRevistaDigital span {
-        font-family: 'Lato';
-        font-weight: bold;
-        width: 100%;
-    }
-
-        .contenido_seccionRevistaDigital span:first-child {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .contenido_seccionRevistaDigital span:last-child {
-            font-size: 13px;
-        }*/
 
 .contenedor_botonVerMasOfertas {
     display: block;
@@ -394,7 +420,7 @@
 .wrapper_resumen_mobile_clubganamas {
     margin-top: 10px;
     margin-bottom: 10px;
-    height: 600px;
+    height: auto;
 }
 
     .wrapper_resumen_mobile_clubganamas .zonadecolor {
@@ -423,7 +449,6 @@
         color: black;
         font-size: 13px;
         padding: 10px 0 15px 0;
-        /*text-transform: uppercase;*/
     }
 
         .wrapper_resumen_mobile_clubganamas .zonadecolor span.margin_top {
@@ -503,51 +528,6 @@
     word-wrap: break-word;
 }
 
-/*.btn_black_solid a, .btn_white_stroke a {
-    background-color: black;
-    color: white;
-    text-decoration: none;
-    padding: 15px 25px;
-    border: 1px solid black;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .5px;
-}*/
-
-/*.btn_white_stroke a {
-    border-color: white;
-}*/
-
-/*.mob_home_bpt {
-    font-family: 'Lato';
-    text-align: center;
-}*/
-
-/*.rd_lanzamiento {
-    font-size: 14px;
-    font-weight: 700;
-    margin: 20px 0 20px;
-}*/
-
-/*.rd_lanzamiento_producto {
-    width: 100%;
-    max-width: 320px;
-    margin: 20px 0;
-}*/
-
-/*.rd_verofertas {
-    background-color: black;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-transform: uppercase;
-}*/
-
-/*.mob_carrusel_bpt {
-    background-color: #F2EEF0;
-    padding-bottom: 30px;
-    font-weight: 600;
-}*/
 .boton-ver-mas.no_suscrita {
     background: none !important;
     color: #000 !important;

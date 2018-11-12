@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager.MasGanadoras;
 using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
@@ -148,6 +149,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetTieneHvX1();
 
+        void SetTieneMg(bool tiene);
+
+        bool GetTieneMg();
+
         void SetUserData(UsuarioModel usuario);
 
         UsuarioModel GetUserData();
@@ -243,13 +248,21 @@ namespace Portal.Consultoras.Web.SessionManager
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
 
         IOfertaDelDia OfertaDelDia { get; }
-        BEConfiguracionProgramaNuevas ConfiguracionProgramaNuevas { get; set; }
-        bool ProcesoKitNuevas { get; set; }
-        string CuvKitNuevas { get; set; }
-        
-        void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel);
 
-        BuscadorYFiltrosModel GetBuscadorYFiltros();
+        BEConfiguracionProgramaNuevas GetConfiguracionProgNuevas();
+        void SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas configuracion);
+        bool GetProcesoKitNuevas();
+        void SetProcesoKitNuevas(bool proceso);
+        string GetCuvKitNuevas();
+        void SetCuvKitNuevas(string cuvKit);
+        string GetMensajeKitNuevas();
+        void SetMensajeKitNuevas(string mensajeKit);
+        int GetLimElectivosProgNuevas();
+        void SetLimElectivosProgNuevas(int limElectivos);
+
+        void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
+
+        BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros();
         
         void SetOcultarBannerApp(dynamic val);
 
@@ -440,14 +453,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<BETablaLogicaDatos> GetCDRExpressMensajes();
 
-        void SetCuvEsProgramaNuevas(bool val);
-
-        bool GetCuvEsProgramaNuevas();
-
-        void SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas val);
-
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas();
-
         void SetOcultarBannerTop(bool val);
 
         bool GetOcultarBannerTop();
@@ -467,5 +472,16 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListaRango(List<List<BEEstadoServicio>> val);
 
         List<List<BEEstadoServicio>> GetListaRango();
+
+        BEUsuarioDatos GetDatosUsuario();
+
+        IMasGanadoras MasGanadoras { get;  }
+        bool GetMostrarBannerNuevas();
+
+        void SetMostrarBannerNuevas(bool mostrarBannerNuevas);
+        
+        void SetJwtApiSomosBelcorp(string token);
+        
+        string GetJwtApiSomosBelcorp();
     }
 }
