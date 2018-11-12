@@ -1,6 +1,4 @@
-﻿ /*.BloqueLandingRD{
-     padding-left:139px;
- }*/
+﻿
  .parche_productos_1000{
      max-width:1000px;
  }
@@ -21,7 +19,6 @@
      min-width: 230px;
      padding-right: 10px;
      padding-left: 10px;
-     /* border: none; */
      box-shadow: none;
  }
  .parche_productos_1000 .contenido_834 .revistadigital-landing .content_item_carrusel img.imagen_producto {
@@ -66,5 +63,3 @@
 #divOfertaProductos{
     text-align:center !important;
 }
-
-

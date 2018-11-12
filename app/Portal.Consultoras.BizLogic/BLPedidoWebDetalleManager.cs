@@ -14,20 +14,30 @@ namespace Portal.Consultoras.BizLogic
     public partial class BLPedidoWebDetalle
     {
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
+        private readonly IProductoBusinessLogic _blProducto;
+        private readonly IProgramaNuevasBusinessLogic _blProgramaNuevas;
 
         private readonly BLPedidoWeb _blPedidoWeb;
-        private readonly BLProducto _blProducto;
         private readonly BLUsuario _blUsuario;
         private readonly BLEstrategia _blEstrategia;
         private readonly BLOfertaProducto _blOfertaProducto;
         private const string SUCCESS = "OK";
 
-        public BLPedidoWebDetalle() : this(new BLConsultoraConcurso())
-        { }
+        public BLPedidoWebDetalle() : this(
+            new BLConsultoraConcurso(),
+            new BLProducto(),
+            new BLProgramaNuevas()
+        ) { }
 
-        public BLPedidoWebDetalle(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic)
+        public BLPedidoWebDetalle(
+            IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
+            IProductoBusinessLogic productoBusinessLogic,
+            IProgramaNuevasBusinessLogic programaNuevasBusinessLogic
+        )
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
+            _blProducto = productoBusinessLogic;
+            _blProgramaNuevas = programaNuevasBusinessLogic;
 
             _blPedidoWeb = new BLPedidoWeb();
             _blProducto = new BLProducto();

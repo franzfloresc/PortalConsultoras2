@@ -110,6 +110,10 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         public string Correo { get; set; }
         [DataMember]
         public string Celular { get; set; }
+        [DataMember]
+        public string Origen { get; set; }
+
+        public BEPagoEnLineaResultadoLog() { }
 
         public BEPagoEnLineaResultadoLog(IDataRecord row)
         {
@@ -164,6 +168,7 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
             FechaNacimiento = row.ToDateTime("FechaNacimiento");
             Correo = row.ToString("Correo");
             Celular = row.ToString("Celular");
+            Origen =  row.ToString("Origen");
         }
 
     }

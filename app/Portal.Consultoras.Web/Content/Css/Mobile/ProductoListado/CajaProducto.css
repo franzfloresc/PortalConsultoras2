@@ -1,9 +1,7 @@
 ﻿
 /*Mobile*/
 .box_producto_mobile_fix {
-    /*height: 300px;*/
     padding: 0px 12px;
-    /*box-sizing: content-box;*/
 }
 
 .btn_elige_tono {
@@ -45,4 +43,11 @@
 }
 .contenedor_carrusel_home .content_item_carrusel_clubganamas_off a.portada, .btn_agregar_ficha_producto {
     border-radius: 4px;
+}
+
+.caja-borde {
+    border-radius: 4px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
