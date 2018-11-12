@@ -289,6 +289,7 @@
     <Compile Include="Controllers\AdministrarLinksController.cs" />
     <Compile Include="Controllers\AdministrarLugaresPagoController.cs" />
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
+    <Compile Include="Controllers\AdministrarReporteRevisionIncidenciasController.cs" />
     <Compile Include="Controllers\AdministrarReporteValidacionController.cs" />
     <Compile Include="Controllers\AdministrarShowRoomController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
@@ -700,6 +701,8 @@
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />
     <Compile Include="Models\FiltroReportePedidoDDWebModel.cs" />
     <Compile Include="Models\ReportePedidoFICModel.cs" />
+    <Compile Include="Models\ReporteRevisionIncidenciasModel.cs" />
+    <Compile Include="Models\ReporteRevisionIncidencias\ReporteRevisionIncidenciasMDbAdapterModel.cs" />
     <Compile Include="Models\ReporteRol.cs" />
     <Compile Include="Models\ReporteValidacionModel.cs" />
     <Compile Include="Models\ReporteValidacionSRModel.cs" />
@@ -3875,6 +3878,7 @@
     <Content Include="Scripts\AdminContenido\DescripcionComercial.js" />
     <Content Include="Scripts\AdminContenido\Palanca\AdminPalancaDatos.js" />
     <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />
+    <Content Include="Scripts\AdminContenido\ReporteRevisionIncidencias.js" />
     <Content Include="Scripts\AdminContenido\ReporteValidacion.js" />
     <Content Include="Scripts\AdminContenido\ToastHelper.js" />
     <Content Include="Scripts\AdminContenido\Nemotecnico.js" />
@@ -5454,6 +5458,7 @@
     <Content Include="Views\ProgramaNuevas\Index.cshtml" />
     <Content Include="Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Views\Shared\_BuscadorResponsive.cshtml" />
+    <Content Include="Views\AdministrarReporteRevisionIncidencias\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
