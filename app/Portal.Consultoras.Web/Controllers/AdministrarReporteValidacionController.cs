@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
@@ -12,6 +13,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarReporteValidacionController : BaseController
     {
+
+        protected OfertaBaseProvider _ofertaBaseProvider;
         private const string NombreReporteValidacionOPT = "ReporteValidacionOPT";
         private const string NombreReporteValidacionODD = "ReporteValidacionODD";
         private const string NombreReporteValidacionOPM = "ReporteValidacionOPM";
@@ -23,6 +26,11 @@ namespace Portal.Consultoras.Web.Controllers
         private const string NombreSRHoja4 = "Ofertas (Componentes del Set)";
 
         private const string MensajeNoHayRegistros = "No existen registros para la campaña.";
+
+        public AdministrarReporteValidacionController()
+        {
+            _ofertaBaseProvider = new OfertaBaseProvider();
+        }
 
         public ActionResult Index()
         {
@@ -127,9 +135,18 @@ namespace Portal.Consultoras.Web.Controllers
             if (int.Parse(TipoEstrategiaID) == 10)
                 nombreReporte = NombreReporteValidacionOPM;
 
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+
+            if ((int.Parse(TipoEstrategiaID) != 99) || 
+                _ofertaBaseProvider.UsarMsPersonalizacion(Constantes.ReporteValidacionDatos.TipoEstrategiaCodigo[int.Parse(TipoEstrategiaID)]))
             {
-                lst = sv.GetReporteValidacion(userData.PaisID, Convert.ToInt32(CampaniaID), Convert.ToInt32(TipoEstrategiaID)).ToList();
+                lst = administrarEstrategiaProvider.ObtenerReporteValidacionPalancas(Constantes.ReporteValidacionDatos.TipoPersonalizacion[int.Parse(TipoEstrategiaID)], CampaniaID);
+            }
+            else
+            { 
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    lst = sv.GetReporteValidacion(userData.PaisID, Convert.ToInt32(CampaniaID), Convert.ToInt32(TipoEstrategiaID)).ToList();
+                }
             }
 
             if (lst.Count == 0)

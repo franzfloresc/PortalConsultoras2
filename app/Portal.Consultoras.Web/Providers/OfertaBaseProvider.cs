@@ -176,5 +176,11 @@ namespace Portal.Consultoras.Web.Providers
             bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return paisHabilitado && tipoEstrategiaHabilitado;
         }
+
+        public bool UsarMsPersonalizacion(string tipoEstrategia)
+        {
+            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            return tipoEstrategiaHabilitado;
+        }
     }
 }

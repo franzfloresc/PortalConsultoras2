@@ -812,5 +812,22 @@ namespace Portal.Consultoras.Web.Providers
                 LogManager.LogManager.LogErrorWebServicesBus(new Exception(message, ex), userData.CodigoConsultora, userData.CodigoISO);
             }
         }
+
+        public  List<ServicePedido.BEReporteValidacion> ObtenerReporteValidacionPalancas(string tipo,string  campaniaId)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+            string jsonParameters = string.Empty;
+
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion,tipo,campaniaId,WebConfig.PaisesMicroservicioPersonalizacion);
+            var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
+            Task.WhenAll(taskApi);
+            string content = taskApi.Result;
+
+            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+
+            List<ServicePedido.BEReporteValidacion> listaReporte = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<ServicePedido.BEReporteValidacion>>(respuesta.Result.ToString()) : new List<ServicePedido.BEReporteValidacion>();
+
+            return listaReporte;
+        }
     }
 }

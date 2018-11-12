@@ -2899,6 +2899,11 @@ namespace Portal.Consultoras.Common
             public const string UrlObtenerEvento = "api/Evento/Get/{0}/{1}";
 
             #endregion
+
+            #region Reporte
+            //api/Estrategia/ReporteValidacion/{tipo}/{campania}/{paises}
+            public const string UrlReporteValidacion = "api/Estrategia/ReporteValidacion/{0}/{1}/{2}";
+            #endregion
         }
         public static class OfertaFinalLog
         {
@@ -3121,6 +3126,47 @@ namespace Portal.Consultoras.Common
             public const int ObtenerOpmTodo = 0;
             public const int ObtenerOpmSinForzadasMG1 = 1;
             public const int ObtenerOpmSoloForzadasMG1 = 2;
+        }
+
+        public static class ReporteValidacionDatos
+        {
+            private static Dictionary<int, string> _TipoPersonalizacion;
+            private static Dictionary<int, string> _TipoEstrategiaCodigo;   
+            public static class EstrategiaID
+            {
+                public const int OPT = 4;
+                public const int ODD = 7;
+                public const int OPM = 10;
+                public const int SR = 99;
+            }
+
+            public static Dictionary<int, string> TipoPersonalizacion
+            {
+                get
+                {
+                    return _TipoPersonalizacion ?? (_TipoPersonalizacion = new Dictionary<int, string>
+                    {
+                        {EstrategiaID.ODD, "ODD"},
+                        {EstrategiaID.OPM, "OPM"},
+                        {EstrategiaID.OPT, "OPT"},
+                        {EstrategiaID.SR, "SR"}
+                    });
+                }
+            }
+
+            public static Dictionary<int, string> TipoEstrategiaCodigo
+            {
+                get
+                {
+                    return _TipoEstrategiaCodigo ?? (_TipoEstrategiaCodigo = new Dictionary<int, string>
+                    {
+                        {EstrategiaID.ODD, "009"},
+                        {EstrategiaID.OPM, "007"},
+                        {EstrategiaID.OPT, "001"},
+                        {EstrategiaID.SR, "030"}
+                    });
+                }
+            }
         }
 
     }
