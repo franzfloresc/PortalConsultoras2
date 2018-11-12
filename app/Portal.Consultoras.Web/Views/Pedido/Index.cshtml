@@ -1592,7 +1592,6 @@
                 <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                     <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
                                data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" 
-                               @*onkeypress="PreValidarCUV(event);"*@
                                attrKey="PreValidarCUV"
                                onfocus="SeleccionarContenido(this)"
                                onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
@@ -1649,7 +1648,7 @@
                         <div class="tooltip_flecha_grid"></div>
                         <h6>Kit de Inicio</h6>
                         <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
-                        <p>*@Model.MensajeKitNuevas</p>
+                        <p>* @Model.MensajeKitNuevas</p>
                     </div>
                 </div>
                 {{else}}
