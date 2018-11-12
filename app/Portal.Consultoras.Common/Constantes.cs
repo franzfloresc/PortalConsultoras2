@@ -189,6 +189,12 @@ namespace Portal.Consultoras.Common
                 public const int Habilitar_App = 12213;
                 public const int Habilitar_App_PBI_ExternalApp = 12214;
             }
+            
+            public static class ArmaTuPack
+            {
+                public const string ListCuv = "ListCuv";
+            }
+
         }
 
         public static class ParametrosNames
@@ -1562,6 +1568,7 @@ namespace Portal.Consultoras.Common
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
+            public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
         }
 
         public static class MensajesExito
@@ -1908,6 +1915,7 @@ namespace Portal.Consultoras.Common
             public const short EscalaDescuentoDestokp = 72;
             public const short EscalaDescuentoMobile = 73;
             public const short ListaOrdenamientoFiltros = 147;
+            public const short ArmaTuPack = 14;
         }
 
         public struct MensajesCDRExpress
@@ -3245,6 +3253,5 @@ namespace Portal.Consultoras.Common
             public const int ObtenerOpmSinForzadasMG1 = 1;
             public const int ObtenerOpmSoloForzadasMG1 = 2;
         }
-
     }
 }
