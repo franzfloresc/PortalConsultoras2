@@ -187,7 +187,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (controllerName == "PedidosFacturados") return true;
             if (controllerName == "OfertaLiquidacion") return true;
             if (controllerName == "Ofertas") return true;
-            //if (controllerName == "OfertaDelDia") return true;
 
             return false;
         }
@@ -201,7 +200,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (controllerName == "Pedido") return true;
             if (controllerName == "ShowRoom") return true;
             if (controllerName == "Ofertas") return true;
-            //if (controllerName == "OfertaDelDia") return true;
 
             return false;
         }
@@ -247,7 +245,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (SessionManager.GetBannerApp() == null)
             {
-                var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData);
+                var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData, EsDispositivoMovil());
                 SessionManager.SetBannerApp(lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora));
             }
 

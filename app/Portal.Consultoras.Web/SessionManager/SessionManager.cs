@@ -664,6 +664,8 @@ namespace Portal.Consultoras.Web.SessionManager
         void ISessionManager.SetProcesoKitNuevas(bool proceso) { HttpContext.Current.Session["ProcesoKitNuevas"] = proceso; }
         string ISessionManager.GetCuvKitNuevas() { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
         void ISessionManager.SetCuvKitNuevas(string cuvKit) { HttpContext.Current.Session["CuvKitNuevas"] = cuvKit; }
+        string ISessionManager.GetMensajeKitNuevas() { return (string)HttpContext.Current.Session["MensajeKitNuevas"]; }
+        void ISessionManager.SetMensajeKitNuevas(string mensajeKit) { HttpContext.Current.Session["MensajeKitNuevas"] = mensajeKit; }
         int ISessionManager.GetLimElectivosProgNuevas() { return (int)(HttpContext.Current.Session["GetLimElectivosProgNuevas"] ?? 0); }
         void ISessionManager.SetLimElectivosProgNuevas(int limElectivos) { HttpContext.Current.Session["GetLimElectivosProgNuevas"] = limElectivos; }
 
@@ -1273,6 +1275,10 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return ((BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosConfiguracionModel();
         }
+
+        public BEUsuarioDatos GetDatosUsuario() {
+            return ((BEUsuarioDatos)HttpContext.Current.Session["DatosUsuario"]);
+        }
         
         bool ISessionManager.GetMostrarBannerNuevas() { return (bool)(HttpContext.Current.Session["MostrarBannerNuevas"] ?? false); }
         void ISessionManager.SetMostrarBannerNuevas(bool mostrarBannerNuevas) { HttpContext.Current.Session["MostrarBannerNuevas"] = mostrarBannerNuevas; }
@@ -1284,6 +1290,5 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ;
         }
-        
     }
 }
