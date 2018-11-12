@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 /* PROCEDURE GetMenusApp */
@@ -7,7 +7,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -20,7 +20,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -28,13 +27,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -53,7 +46,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
@@ -67,7 +59,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -80,7 +72,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -88,13 +79,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -113,7 +98,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
@@ -127,7 +111,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -140,7 +124,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -148,13 +131,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -173,7 +150,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
@@ -187,7 +163,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -200,7 +176,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -208,13 +183,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -233,7 +202,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
@@ -247,7 +215,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -260,7 +228,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -268,13 +235,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -293,7 +254,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
@@ -307,7 +267,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -320,7 +280,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -328,13 +287,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -353,7 +306,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
@@ -367,7 +319,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -380,7 +332,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -388,13 +339,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -413,7 +358,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
@@ -427,7 +371,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -440,7 +384,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -448,13 +391,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -473,7 +410,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
@@ -487,7 +423,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -500,7 +436,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -508,13 +443,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -533,7 +462,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
@@ -547,7 +475,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -560,7 +488,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -568,13 +495,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -593,7 +514,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
@@ -607,7 +527,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -620,7 +540,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -628,13 +547,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -653,7 +566,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
@@ -667,7 +579,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-ALTER PROCEDURE [dbo].[GetMenusApp]  
+CREATE PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
@@ -680,7 +592,6 @@ BEGIN
 	DECLARE @IndicadorPermisoFIC INT = 0
 	DECLARE @IndicadorPermisoCaminoExito INT = 0
 	DECLARE @IndicadorChatbot INT = 0
-	DECLARE @IndicadorCliente INT = 1
 	  
 	IF @CodigoConsultora IS NOT NULL
 	BEGIN
@@ -688,13 +599,7 @@ BEGIN
 		SELECT @IndicadorPermisoCaminoExito = 1 
 		FROM [ods].Zona (NOLOCK)  
 		WHERE zonaid = @ZonaID AND [codigo] IN ('0826', '0823', '0803', '0830');
-		IF @CodigoConsultora <> ''
-		BEGIN
-			SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
-			SELECT @IndicadorCliente = 0
-			FROM dbo.MenuApp (NOLOCK)
-			WHERE VersionMenu = @VersionMenu  AND Codigo = 'MEN_TOP_CHAT_BOT' AND Visible = 1 AND @IndicadorChatbot = 1;
-		END
+		SET @IndicadorChatbot = dbo.GetPermisoChatbot(@CodigoConsultora);
 	END
 	
 	SELECT   
@@ -713,7 +618,6 @@ BEGIN
 		AND (Codigo NOT IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') OR (Codigo IN ('MEN_LAT_PEDIDOFIC', 'MEN_TOP_PEDIDOFIC') AND @IndicadorPermisoFIC = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') OR (Codigo IN ('MEN_LAT_CAM_EXITO', 'MEN_TOP_CAM_EXITO') AND @IndicadorPermisoCaminoExito = 1))
 		AND (Codigo NOT IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') OR (Codigo IN ('MEN_LAT_CHAT_BOT', 'MEN_TOP_CHAT_BOT') AND @IndicadorChatbot = 1))
-		AND (Codigo != 'MEN_TOP_CLIENTES' OR (Codigo = 'MEN_TOP_CLIENTES' AND @IndicadorCliente = 1)) 
 	SET NOCOUNT OFF  
 END
 GO
