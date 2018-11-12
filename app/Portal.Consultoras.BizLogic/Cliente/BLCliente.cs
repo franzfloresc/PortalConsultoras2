@@ -228,6 +228,9 @@ namespace Portal.Consultoras.BizLogic
         /// <returns></returns>
         public List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
+            try
+            {
+
             var blClienteDb = new BLClienteDB();
             var daCliente = new DACliente(paisID);
 
@@ -282,6 +285,12 @@ namespace Portal.Consultoras.BizLogic
 
                     cliente.CodigoRespuesta = this.EliminarSB(cliente, daCliente);
                 }
+            }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisID);
             }
 
             return clientes;
