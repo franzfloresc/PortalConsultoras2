@@ -97,7 +97,10 @@
 
                     <input type="hidden" id="hdCdrWebDatos_Ssic" />
                     <div class="rango_reclamo" data-cantidad-contenedor="">
-                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(event); " onfocus=" SeleccionarContenido(this) ">
+                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
+                               @*onkeypress=" PreValidarCUV(event); "*@
+                               attrKey="PreValidarCUV"
+                               onfocus=" SeleccionarContenido(this) ">
                         <div class="liquidacion_rango_right_pedido">
                             <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                             <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
