@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace Portal.Consultoras.Web.Areas.Mobile.Helpers
+    //Portal.Consultoras.Web.Areas.Mobile.Helpers
+namespace Portal.Consultoras.Web.CustomHelpers
 {
     public static class StringsHelper
     {
