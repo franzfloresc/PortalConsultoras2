@@ -228,13 +228,13 @@
 /* ETIQUETAS DE CRITERIOS ELEGIDOS EN FILTROS */
 
 .layout__content__etiquetas_criteriosElegidos{
-    margin-top:25px;
-    margin-bottom:25px;
+    margin-top:20px;
+    margin-bottom:20px;
 }
 
 .lista__etiquetas__criteriosElegidos{
-    overflow-x:auto;
     height:auto;
+    max-width:872px;
     margin-bottom:0;
 }
 
@@ -250,6 +250,8 @@
     min-width:72px;
     height:36px;
     margin-left:0;
+    margin-top:10px;
+    margin-bottom:10px;
     padding-left:10px;
     padding-right:10px;
 }
@@ -277,7 +279,7 @@
     width:10px;
     height:auto;
     position:relative;
-    top:1px;
+    top:0.3px;
 }
 
 .icono__eliminar__criterioElegido img{
@@ -286,6 +288,7 @@
 }
 
 .enlace__limpiar__filtros{
+    display:block;
     text-decoration:underline!important;
 }
 

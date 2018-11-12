@@ -3,6 +3,7 @@
     var _elementos = {
         body: "body",
         layoutContent: '.layout__content',
+        eliminarEtiquetaCriterioElegido : '.enlace__eliminar__etiqueta',
         opcionOrdenar: "#dpw-ordenar, .opcion__ordenamiento__label",
         opcionFiltrar: "#opcionFiltrar",
         opcionCerrarFiltrosMobile: '#cerrarFiltros, .filtro__btn--aplicar',
@@ -23,6 +24,7 @@
         dataToggle: '[data-toggle]',
         filtrosCategorias: '#filtrosCategorias',
         filtrosMarcas: '#filtrosMarcas',
+        enlaceLimpiarEtiquetasFiltros: '.enlace__limpiar__filtros',
         buscadorFiltrosSeleccionar: '.buscadorFiltrosSeleccionar'
     };
     var _modificador = {
@@ -77,9 +79,10 @@
             $(document).on("click", _elementos.opcionLimpiarFiltros, _eventos.LimpiarFiltros);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
             $(document).on("click", _elementos.btnAgregar, _eventos.RegistrarProducto);
-            $(document).on('click', _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
+            $(document).on("click", _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
             $(document).on("click", _elementos.buscadorFiltrosSeleccionar, _eventos.FiltrosSelecionados);
-
+            $(document).on("click", _elementos.eliminarEtiquetaCriterioElegido, _eventos.EliminarEtiquetaCriterioElegido);
+            $(document).on("click", _elementos.enlaceLimpiarEtiquetasFiltros, _eventos.LimpiarEtiquetasFiltros);
         },
         ConstruirModeloBusqueda: function () {
             var modelo = {
@@ -189,6 +192,24 @@
         }
     };
     var _eventos = {
+
+        EliminarEtiquetaCriterioElegido: function (e) {
+            e.preventDefault();
+            $(this).parents('.etiqueta__criterioElegido').fadeOut(70);
+            setTimeout(function () {
+                $(this).parents('.etiqueta__criterioElegido').remove();
+            },100);
+        },
+
+        LimpiarEtiquetasFiltros: function(e){
+            e.preventDefault();
+            $('.etiqueta__criterioElegido').fadeOut(70);
+            $(this).fadeOut(70);
+            setTimeout(function () {
+                $('.etiqueta__criterioElegido').remove();
+            },100);
+        },
+
         DropDownOrdenar: function () {
             var dpw_ordenar = document.getElementById('dpw-ordenar');
             dpw_ordenar.classList.toggle(_modificador.itemDropDowndesplegado);
