@@ -452,16 +452,17 @@ namespace Portal.Consultoras.Web.Providers
             return showRoomNivelPais.NivelId;
         }
 
-        public string ObtenerValorPersonalizacionShowRoom(List<ShowRoomPersonalizacionModel> listaPersonalizacion, string codigoAtributo, string tipoAplicacion)
+        public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
         {
-            if (listaPersonalizacion == null)
+            var configEstrategiaSR = _sessionManager.GetEstrategiaSR();
+            if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
                 return string.Empty;
 
-            var model = listaPersonalizacion.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
+            var model = configEstrategiaSR.ListaPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
 
             return model == null
-                ? string.Empty
-                : model.Valor;
+                       ? string.Empty
+                       : model.Valor;
         }
 
         //private bool ObtenerBloquedoProductoDigital(UsuarioModel usuarioModel)
