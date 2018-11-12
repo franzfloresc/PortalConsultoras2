@@ -56,8 +56,8 @@
 
 
         <div id="RDListado" data-content-item="@Model.CampaniaID"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDDesktopLanding"
-             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.GNDDesktopLandingPopUp">
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopLandingGNDGNDCarrusel"
+             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.DesktopLandingGNDGNDFicha">
 
             <div id="divOfertaProductos" style="text-align: center;"></div>
             <div id="no-productos" class="seccion-no-productos">
@@ -76,14 +76,6 @@
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
-@* DEUDA TECNICA <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>*@
-@* DEUDA TECNICA
-    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")*@
-
-@* DEUDA TECNICA <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>*@
-@* DEUDA TECNICA
-    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
-
 <div class="flecha_scroll">
     <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
 </div>
@@ -95,7 +87,7 @@
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var tipoOrigenPantalla = 1;
     var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "Estrategia", new { area = ""})';
-    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.GNDDesktopLanding';
+    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopLandingGNDGNDCarrusel';
     var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
     var tipoOrigenEstrategia = 1;
     var CantidadFilas = @Model.CantidadFilas;

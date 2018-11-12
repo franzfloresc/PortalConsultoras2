@@ -168,8 +168,8 @@
                         <span>CLIENTE ONLINE</span>
                         {{else}}
 
-                        {{#iff OrigenPedidoWeb '==' '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
-                        {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
+                        {{#iff OrigenPedidoWeb '==' '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel'}}
+                        {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel'}}
                         {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Liquidacion}}
                         <br />
                         <span>Oferta Liquidación</span>
@@ -211,25 +211,11 @@
                     {{/iff}}
                 </div>
 
-                {{#if detalle.EsKitNueva}}
-                <div class="icono_kitNuevas">
-                    <a href="javascript:;" title="Ver Info Kit Nuevas">
-                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Ver Info Kit Nuevas" />
-                    </a>
-                    <div class="tooltip_kitNuevas">
-                        <span class="icono_notaDemanda" style="display:inline-block;"></span>
-                        <span class="texto_tooltipKitNuevas">
-                            Este Kit se agrega automáticamente sólo en tu primer pedido.
-                        </span>
-                    </div>
-                </div>
-                {{else}}
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
-                {{/if}}
             </div>
             <div style="display: none;">
                 <input type="hidden" id="PrecioUnidad_{{detalle.PedidoDetalleID}}" name="PrecioUnidad_{{detalle.PedidoDetalleID}}" value="{{detalle.PrecioUnidad}}">
@@ -685,7 +671,7 @@
         var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
         var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
         var nombreConsultora = '@ViewBag.NombreConsultora';
-        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
+        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel;
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Detalle.js")"></script>

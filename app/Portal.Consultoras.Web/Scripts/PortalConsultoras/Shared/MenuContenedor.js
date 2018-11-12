@@ -283,8 +283,14 @@ var menuModule = (function () {
         }
     }
     function sectionClick(url, titulo) {
+        titulo = titulo || "";
         if (typeof rdAnalyticsModule !== "undefined") {
             rdAnalyticsModule.ContendorSection(titulo);
+        }
+        if (_var.Mobile) {
+            if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0)
+                if (url.indexOf("Mobile") < 0)
+                    url = "/Mobile" + url;
         }
         window.location.href = url;
     }

@@ -553,7 +553,6 @@ function MostrarBarra(datax, destino) {
     var valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
     var valorMontoEsacalaDescuento = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(parseFloat(listaLimite[indPuntoLimite].valor - me));
     $("#divBarra #divBarraMensajeLogrado").show();
-
     //OG
     if (!belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
@@ -582,13 +581,20 @@ function MostrarBarra(datax, destino) {
             $('#hrefIconoRegalo').hide();
         }
     }
-
     
+    
+    if (sessionStorage.getItem("cuvPack") != null) {
+      $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));    
+    }
+    else
+
 
     // OG
     //if (belcorp.barra.settings.isMobile) {
     //    $("#divBarra #divBarraMensajeLogrado .descuento_pedido").html(listaLimite[indPuntoLimite].nombreApp || listaLimite[indPuntoLimite].nombre);
     //}
+
+
 
     $("#divBarraMensajeLogrado").css("width", "");
     var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width() + 1;

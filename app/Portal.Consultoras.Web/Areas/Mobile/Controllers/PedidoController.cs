@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
             model.TieneMasVendidos = userData.TieneMasVendidos;
-            model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.MobilePedido);
+            model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptMobilePedido);
             var isMobileApp = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion", false) != null;
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             model.ClienteId = mobileConfiguracion.ClienteID;
@@ -179,7 +179,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            //return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param = param }));
+
             if (url.Length > 1 && url[1].Contains("sap"))
             {
                  sap = "&" + url[1].Remove(0, 26);
@@ -314,11 +314,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (!SessionManager.GetEsShowRoom() && SessionManager.GetEsShowRoom().ToString() == "1")
             {
-                ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Mobile");
+                ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom( "ImagenFondoOfertaFinalRegalo", "Mobile");
                 ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
                 ViewBag.ColorFondo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ColorFondo1OfertaFinalRegalo", "Mobile");
             }
+
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
+            model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
+
             ViewBag.DataBarra = GetDataBarra(true, true);//OG
             return View(model);
         }

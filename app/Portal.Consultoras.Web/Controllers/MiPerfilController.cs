@@ -588,14 +588,14 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        public string CancelarAtualizacionEmail()
+        public string CancelarAtualizacionEmail(string tipoEnvio)
         {
             try
             {
 
                 using (var svClient = new UsuarioServiceClient())
                 {
-                    var result = svClient.CancelarAtualizacionEmail(userData.PaisID, userData.CodigoUsuario);
+                    var result = svClient.CancelarAtualizacionEmail(userData.PaisID, userData.CodigoUsuario, tipoEnvio);
                     return result;
                 }
                 

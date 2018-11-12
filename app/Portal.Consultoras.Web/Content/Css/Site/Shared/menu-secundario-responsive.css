@@ -23,8 +23,7 @@
     content:"";
 }
 
-.notificaciones__cantidad{
-    
+.notificaciones__cantidad{    
     width: 20px;
     height: 20px;
     color: #FFF;
@@ -72,6 +71,7 @@
 
 .num__cantidad__prod{
     font-size:12px;
+    cursor:pointer;
 }
 
 .productos__agregados{

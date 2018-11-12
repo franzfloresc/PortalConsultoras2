@@ -95,6 +95,9 @@
     <Compile Include="Oferta\BEGuiaNegocio.cs" />
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
     <Compile Include="Oferta\BEOfertaFinal.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLinea.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaBanco.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaVisa.cs" />
     <Compile Include="Pedido\BEPedidoReservaResult.cs" />
     <Compile Include="Producto\BEBuscadorResponse.cs" />
     <Compile Include="ProgramaNuevas\BENivelesProgramaNuevas.cs" />
@@ -403,6 +406,7 @@
     <Compile Include="ShowRoom\BEShowRoomPersonalizacionNivel.cs" />
     <Compile Include="ShowRoom\BEShowRoomTipoOferta.cs" />
     <Compile Include="BEUsuarioConfiguracion.cs" />
+    <Compile Include="Usuario\BEUsuarioPerfil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">

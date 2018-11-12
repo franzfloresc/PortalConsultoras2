@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager.MasGanadoras;
 using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
@@ -23,6 +24,7 @@ namespace Portal.Consultoras.Web.SessionManager
         //
         private static IShowRoom _showRoom;
         private static IOfertaDelDia _ofertaDelDia;
+        private static IMasGanadoras _masGanadoras;
 
         public SessionManager()
         {
@@ -31,6 +33,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
             if (_ofertaDelDia == null)
                 _ofertaDelDia = new OfertaDelDia.OfertaDelDia();
+
+            if (_masGanadoras == null)
+                _masGanadoras = new MasGanadoras.MasGanadoras();
         }
 
         public static ISessionManager Instance
@@ -162,6 +167,13 @@ namespace Portal.Consultoras.Web.SessionManager
             }
         }
 
+        public IMasGanadoras MasGanadoras
+        {
+            get
+            {
+                return _masGanadoras;
+            }
+        }
 
         BEPedidoWeb ISessionManager.GetPedidoWeb()
         {
@@ -404,6 +416,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneHvX1] ?? false);
         }
 
+        public void SetTieneMg(bool tiene)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneMg] = tiene;
+        }
+
+        public bool GetTieneMg()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneMg] ?? false);
+        }
+
         void ISessionManager.SetUserData(UsuarioModel usuario)
         {
             HttpContext.Current.Session["UserData"] = usuario;
@@ -630,7 +652,7 @@ namespace Portal.Consultoras.Web.SessionManager
             return Convert.ToBoolean(HttpContext.Current.Session["PedidoValidado"]);
         }
         
-        BEConfiguracionProgramaNuevas ISessionManager.GetConfiguracionProgramaNuevas()
+        BEConfiguracionProgramaNuevas ISessionManager.GetConfiguracionProgNuevas()
         {
             return (BEConfiguracionProgramaNuevas)HttpContext.Current.Session["ConfiguracionProgramaNuevas"];
         }
@@ -642,6 +664,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void ISessionManager.SetProcesoKitNuevas(bool proceso) { HttpContext.Current.Session["ProcesoKitNuevas"] = proceso; }
         string ISessionManager.GetCuvKitNuevas() { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
         void ISessionManager.SetCuvKitNuevas(string cuvKit) { HttpContext.Current.Session["CuvKitNuevas"] = cuvKit; }
+        string ISessionManager.GetMensajeKitNuevas() { return (string)HttpContext.Current.Session["MensajeKitNuevas"]; }
+        void ISessionManager.SetMensajeKitNuevas(string mensajeKit) { HttpContext.Current.Session["MensajeKitNuevas"] = mensajeKit; }
+        int ISessionManager.GetLimElectivosProgNuevas() { return (int)(HttpContext.Current.Session["GetLimElectivosProgNuevas"] ?? 0); }
+        void ISessionManager.SetLimElectivosProgNuevas(int limElectivos) { HttpContext.Current.Session["GetLimElectivosProgNuevas"] = limElectivos; }
 
         // -----------------------------------
 
@@ -1248,6 +1274,21 @@ namespace Portal.Consultoras.Web.SessionManager
         public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros()
         {
             return ((BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosConfiguracionModel();
+        }
+
+        public BEUsuarioDatos GetDatosUsuario() {
+            return ((BEUsuarioDatos)HttpContext.Current.Session["DatosUsuario"]);
+        }
+        
+        bool ISessionManager.GetMostrarBannerNuevas() { return (bool)(HttpContext.Current.Session["MostrarBannerNuevas"] ?? false); }
+        void ISessionManager.SetMostrarBannerNuevas(bool mostrarBannerNuevas) { HttpContext.Current.Session["MostrarBannerNuevas"] = mostrarBannerNuevas; }
+        public void SetJwtApiSomosBelcorp(string token)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] = token;
+        }
+         string ISessionManager.GetJwtApiSomosBelcorp()
+        {
+            return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ;
         }
     }
 }

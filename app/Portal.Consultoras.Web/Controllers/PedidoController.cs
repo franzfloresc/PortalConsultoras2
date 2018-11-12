@@ -37,6 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+
         public PedidoController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
@@ -51,7 +52,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (EsDispositivoMovil())
             {
-                //return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
                 if (url.Length > 1 && url[1].Contains("sap"))
                 {
                     sap = "&" + url[1];
@@ -290,7 +290,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
-                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.DesktopPedido);
+                model.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopPedido);
 
                 ViewBag.NombreConsultora = userData.Sobrenombre;
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -327,9 +327,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!SessionManager.GetEsShowRoom() && SessionManager.GetEsShowRoom().ToString() == "1")
             {
-                ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
-                ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Desktop");
+                ViewBag.ImagenFondoOFRegalo =
+                    _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
+                ViewBag.Titulo1OFRegalo =
+                    _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Desktop");
             }
+
+            model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
 
             return View("Index", model);
         }
@@ -369,8 +373,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     string sap = "";
                     var url = (Request.Url.Query).Split('?');
-
-                    //return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
 
                     if (url.Length > 1 && url[1].Contains("sap"))
                     {
@@ -529,7 +531,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (model.EnRangoProgramaNuevas)
             {
-                CrearLogProgNuevas("DuoPerfecto: PedidoInsertar", model.CUV);
+                CrearLogProgNuevas("ProgNuevas: PedidoInsertar", model.CUV);
 
                 listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, out mensajeError, out mensajeAviso);
                 if (mensajeError != "")
@@ -548,7 +550,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso, !string.IsNullOrEmpty(mensajeAviso)));
         }
 
-        private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "", bool esMensajeDuoPerfecto = false)
+        private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "", bool esMensajeElecMultiple = false)
         {
             try
             {
@@ -622,7 +624,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = !errorServer,
                     message,
                     mensajeAviso,
-                    tituloMensaje = esMensajeDuoPerfecto ? Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper() : "",
+                    tituloMensaje = esMensajeElecMultiple ? Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper() : "",
                     data = pedidoWebDetalleModel,
                     listCuvEliminar,
                     total,
@@ -699,9 +701,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private object InsertarValidarKitInicio(string cuv)
         {
-            if (GetConfiguracionProgramaNuevas().IndProgObli != "1") return null;
+            if (_programaNuevasProvider.GetConfiguracion().IndProgObli != "1") return null;
 
-            string cuvKitNuevas = GetCuvKitNuevas();
+            string cuvKitNuevas = _programaNuevasProvider.GetCuvKit();
             if (string.IsNullOrEmpty(cuvKitNuevas)) return null;
             if (cuvKitNuevas != cuv) return null;
 
@@ -846,7 +848,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (model.SetID > 0)
             {
                 var detallePedido = _pedidoSetProvider.ObtenerDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                //detallePedido.Where(p => p.SetId == model.SetID).ToList().ForEach(p => p.Cantidad = int.Parse(model.Cantidad) * p.FactorRepeticion);
+
                 var xsets = detallePedido.Where(x => x.SetId != model.SetID).ToList();
                 var ncant = int.Parse(model.Cantidad);
 
@@ -866,7 +868,6 @@ namespace Portal.Consultoras.Web.Controllers
                         CampaniaID = model.CampaniaID,
                         PedidoID = model.PedidoID,
                         PedidoDetalleID = Convert.ToInt16(item.PedidoDetalleId),
-                        //Cantidad = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
                         Cantidad = (ncant * item.FactorRepeticion) + ocant,
                         PrecioUnidad = item.PrecioUnidad,
                         ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID),
@@ -875,7 +876,6 @@ namespace Portal.Consultoras.Web.Controllers
                         Stock = model.Stock,
                         Flag = model.Flag,
                         DescripcionProd = model.DescripcionProd,
-                        //ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * item.FactorRepeticion * item.PrecioUnidad
                         ImporteTotal = ((ncant * item.FactorRepeticion) + ocant) * item.PrecioUnidad,
                     };
                     listaPedidoWebDetalle.Add(obePedidoWebDetalle);
@@ -961,12 +961,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, setId);
                 List<BEPedidoWebDetalle> listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                //var detallePedido = _pedidoSetProvider.ObtenerDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 foreach (var detalle in set.Detalles)
                 {
                     BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.FirstOrDefault(p => p.CUV == detalle.CUV);
                     if (pedidoWebDetalle == null) continue;
-                    //int cantidad = pedidoWebDetalle.Cantidad - detallePedido.Where(p => p.CUV == detalle.CUV).Sum(p => set.Cantidad * p.FactorRepeticion);
+
                     int cantidad = pedidoWebDetalle.Cantidad - (set.Cantidad * detalle.FactorRepeticion);
                     if (cantidad > 0)
                     {
@@ -1133,7 +1132,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool ValidarEsAgregado(BEPedidoWebDetalle pedidoAgrupado)
         {
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
-            return listaPedidoWebDetalleAgrupado.Where(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId).Count() > 0 ? true : false;
+            return listaPedidoWebDetalleAgrupado.Count(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId) > 0;
         }
 
         private string GetObservacionesProlPorCuv(string cuv)
@@ -1317,7 +1316,7 @@ namespace Portal.Consultoras.Web.Controllers
                     DescripcionLarga = producto.DescripcionMarca,
                     DescripcionEstrategia = producto.DescripcionEstrategia,
                     Categoria = producto.DescripcionCategoria,
-                    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome,
+                    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopHomeBannersCarrusel,
                     TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0
                 };
 
@@ -1505,7 +1504,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (enRangoProgNuevas)
                     {
-                        CrearLogProgNuevas("DuoPerfecto: ValidarStockEstrategia", CUV);
+                        CrearLogProgNuevas("ProgNuevas: ValidarStockEstrategia", CUV);
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     }
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
@@ -1815,7 +1814,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             beProductos = beProductos
                     .Where(prod =>
-                         !(prod.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                         (prod.CodigoEstrategia != Constantes.TipoEstrategiaSet.CompuestaVariable)
                     )
                     .ToList();
 
@@ -3005,9 +3004,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (!(obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal
-                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal
-                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppOfertaFinalSinPopup))
+                if (!(obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
+                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
+                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
+                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
+                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
+                    || obePedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha))
                 {
                     string mensaje;
                     var noPasa = ReservadoEnHorarioRestringido(out mensaje);
@@ -3486,9 +3488,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (userData.EsConsultoraOficina) return;
             if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
-            if (GetConfiguracionProgramaNuevas().IndProgObli != "1") return;
+            if (_programaNuevasProvider.GetConfiguracion().IndProgObli != "1") return;
 
-            string cuvKitNuevas = GetCuvKitNuevas();
+            string cuvKitNuevas = _programaNuevasProvider.GetCuvKit();
             if (string.IsNullOrEmpty(cuvKitNuevas)) return;
             if (ObtenerPedidoWebDetalle().Any(d => d.CUV == cuvKitNuevas && d.PedidoDetalleID > 0)) return;
 
@@ -4486,21 +4488,21 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         [HttpPost]
-        public JsonResult EsPedidoDetalleDuoPerfecto(string cuv)
+        public JsonResult EsPedidoDetalleElecMultiple(string cuv)
         {
             try
             {
-                bool esDuoPerfecto;
+                bool esElecMultiple;
                 using (var svc = new ODSServiceClient())
                 {
-                    esDuoPerfecto = svc.EsDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
+                    esElecMultiple = svc.EsCuvDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
                 }
 
                 return Json(new {
                     success = true,
-                    esDuoPerfecto = esDuoPerfecto,
-                    message = esDuoPerfecto ?
-                        string.Format(Constantes.ProgNuevas.Mensaje.DuoPerfecto_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre) :
+                    esElecMultiple = esElecMultiple,
+                    message = esElecMultiple ?
+                        string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre) :
                         ""
                 });
             }
@@ -4511,7 +4513,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        
 
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
         {

@@ -41,7 +41,7 @@ $(document).ready(function () {
         $(this).hide();
     });
 
-    if (isPagina("revistadigital") || isPagina("guianegocio") || isPagina("herramientasventa")) {
+    if (isPagina("revistadigital") || isPagina("guianegocio") || isPagina("herramientasventa") || isPagina("programanuevas") || isPagina("masganadoras")) {
         OfertaCargarProductos(null);
     }
 
@@ -65,7 +65,7 @@ function OfertaObtenerProductos(filtro, clear) {
             rdAnalyticsModule.FiltrarProducto(tipo, label);
         }
     } catch (e) {
-        console.log("Error analytic RD: " + e);
+        console.error("Error analytic RD: " + e);
     }
 }
 
@@ -140,7 +140,7 @@ function OfertaObtenerFiltro(filtro, clear) {
                 Tipo: campo,
                 Valor: valor
             };
-            //return listaFiltros;
+
         }
         else {
 
@@ -240,7 +240,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     }
 
     busquedaModel = busquedaModel || new Object();
-    
+
     $.ajaxSetup({
         cache: false
     });
@@ -260,7 +260,6 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
             }
 
             OfertaCargarProductoRespuesta(response, clear, busquedaModel);
-
         },
         error: function (response, error) {
             divProd.find("#divOfertaProductosLoad").hide();
@@ -272,6 +271,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 }
 
 function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
+
     CerrarLoad();
 
     var divProd = $("[data-listado-campania=" + response.campaniaId + "]");
