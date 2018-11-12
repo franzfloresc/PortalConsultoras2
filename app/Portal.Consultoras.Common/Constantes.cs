@@ -974,6 +974,43 @@ namespace Portal.Consultoras.Common
             //public const string LiquidacionMobile = "2464";
 
 
+            public const int DesktopLandingBuscadorOfertasParaTiCarrusel = 1100001;
+            public const int DesktopLandingBuscadorShowroomCarrusel = 1100101;
+            public const int DesktopLandingBuscadorLanzamientosCarrusel = 1100201;
+            public const int DesktopLandingBuscadorOfertaDelDiaCarrusel = 1100301;
+            public const int DesktopLandingBuscadorGNDCarrusel = 1100501;
+            public const int DesktopLandingBuscadorLiquidacionCarrusel = 1100601;
+            public const int DesktopLandingBuscadorHerramientasDeVentaCarrusel = 1100801;
+            public const int DesktopLandingBuscadorCatalogoLbelCarrusel = 1101101;
+            public const int DesktopLandingBuscadorCatalogoEsikaCarrusel = 1101201;
+            public const int DesktopLandingBuscadorCatalogoCyzoneCarrusel = 1101201;
+
+            public const int MobileLandingBuscadorOfertasParaTiCarrusel = 2100001;
+            public const int MobileLandingBuscadorShowroomCarrusel = 2100101;
+            public const int MobileLandingBuscadorLanzamientosCarrusel = 2100201;
+            public const int MobileLandingBuscadorOfertaDelDiaCarrusel = 2100301;
+            public const int MobileLandingBuscadorGNDCarrusel = 2100501;
+            public const int MobileLandingBuscadorLiquidacionCarrusel = 2100601;
+            public const int MobileLandingBuscadorHerramientasDeVentaCarrusel = 2100801;
+            public const int MobileLandingBuscadorCatalogoLbelCarrusel = 2101101;
+            public const int MobileLandingBuscadorCatalogoEsikaCarrusel = 2101201;
+            public const int MobileLandingBuscadorCatalogoCyzoneCarrusel = 2101301;
+
+
+            public const int DesktopLandingBuscadorOfertasParaTiFicha = 1100002;
+            public const int DesktopLandingBuscadorShowroomFicha = 1100102;
+            public const int DesktopLandingBuscadorLanzamientosFicha = 1100202;
+            public const int DesktopLandingBuscadorOfertaDelDiaFicha = 1100302;
+            public const int DesktopLandingBuscadorGNDFicha = 1100502;            
+            public const int DesktopLandingBuscadorHerramientasDeVentaFicha = 1100802;
+
+            public const int MobileLandingBuscadorOfertasParaTiFicha = 2100002;
+            public const int MobileLandingBuscadorShowroomFicha = 2100102;
+            public const int MobileLandingBuscadorLanzamientosFicha = 2100202;
+            public const int MobileLandingBuscadorOfertaDelDiaFicha = 2100302;
+            public const int MobileLandingBuscadorGNDFicha = 2100502;            
+            public const int MobileLandingBuscadorHerramientasDeVentaFicha = 2100802;
+
             #endregion
 
             #region Nuevos Códigos Origen Pedido
@@ -3032,11 +3069,12 @@ namespace Portal.Consultoras.Common
             public const string MostrarOpcionesOrdenamiento = "MostrarOpcionesOrdenamiento";
             public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
             public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
+            public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
         }
 
         public static class RutaBuscadorService
         {
-            //Buscador/{CodigoISO}/{CampaniaID}/{Origen}
+            //Buscador/{CodigoISO}/{CampaniaID}
             public const string UrlBuscador = "Buscador/{0}/{1}/{2}";
 
             //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{Origen}
@@ -3188,7 +3226,7 @@ namespace Portal.Consultoras.Common
         {
             public const string UrlExcelMatrizCampania = "http://somosbelcorpprd.s3.amazonaws.com/Matriz/PLANTILLA_MASIVO_MATRIZ.xlsx";
         }
-        
+
         public static class CodigoEstrategiaBuscador
         {
             public const string Liquidacion = "LIQ";

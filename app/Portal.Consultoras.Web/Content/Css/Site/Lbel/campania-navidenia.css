@@ -67,6 +67,13 @@
     border-bottom:none;
 }
 
+.wrapper_header_campania_navidenia .new_menu_a:hover,
+.wrapper_header_campania_navidenia .menu_titulo[title="Ingreso Pedido"]:hover,
+.wrapper_header_campania_navidenia a.menu_enlace:hover
+{
+    text-decoration:underline;
+}
+
 .wrapper_header_campania_navidenia .flecha_menu{
     border-top: 4px solid #FFF;
 }
@@ -303,14 +310,16 @@
     .agregarBackgroundNavidenio .icono_busqueda_mobile{
         opacity:1;
         margin-right:8px;
+        top:-1px;
     }
 
     .agregarBackgroundNavidenio .campana_svg_mobile{
-        background: url(/Content/Images/icono-notificaciones-blanco.svg) no-repeat;
-        background-position: center -2px;
+        background: url(/Content/Images/icono_notificaciones_blanco.svg) no-repeat;
+        background-position: center 1px;
         width: 20px;
         height: 19px;
         margin-right: 14px;
+        top: -3px;
     }
 
     .agregarBackgroundNavidenio .campana_mobile .icon-shop-belcorp:before,
