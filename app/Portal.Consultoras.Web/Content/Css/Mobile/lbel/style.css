@@ -5724,7 +5724,7 @@ input[type='checkbox']:checked + span:after {
 }
 
 .exclamacion_icono_mobile {
-    background: url('/Content/Images/Lbel/icono_exclamacion_lbel.png') no-repeat;
+    background: url('/Content/Images/Esika/icono_exclamacion_esika.png') no-repeat;
     background-size: cover;
 }
 
@@ -8485,18 +8485,19 @@ a {
 }
 
 span.icon-advertencia {
-    display: inline-block;
-    background: url('/Content/Images/Lbel/icono-admiracion.png') no-repeat center center;
-    width: 18px;
-    height: 18px;
-    margin-right: 8px;
+    display: inline-block !important;
+    background: url('/Content/Images/Esika/icono-admiracion.png') no-repeat center center;
+    width: 15px;
+    height: 15px;
+    margin-right: 6px;
     font-family: 'Lato';
     font-size: 16px;
     font-weight: bold;
     color: #fff;
     text-align: center;
-    vertical-align: middle;
+    vertical-align: sub;
     margin-top: -6px;
+    background-size: cover;
 }
 
 /* POPUP OFERTA FINAL */

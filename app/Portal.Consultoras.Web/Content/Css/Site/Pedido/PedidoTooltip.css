@@ -13,7 +13,7 @@
     max-width: 100%;
     margin-bottom: 21px;
     padding: 15px;
-    width: 100%;
+    width: 98%;
 }
 
     .popover.top {
@@ -178,7 +178,7 @@
 }
 
     .list-tooltip li:first-child {
-        width: 68%;
+        width: 67%;
     }
 
     .list-tooltip li {
@@ -202,7 +202,6 @@
 
 .boton-primaria button {
     border-radius: 4px;
-    background-color: #e81c36;
     color: #fff;
     line-height: normal;
     text-transform: uppercase;
@@ -218,6 +217,6 @@
 }
 
 .icon-alert {
-    margin-right: 10px !important;
+    margin-right: 7px !important;
 }
 

@@ -251,6 +251,8 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetProcesoKitNuevas(bool proceso);
         string GetCuvKitNuevas();
         void SetCuvKitNuevas(string cuvKit);
+        string GetMensajeKitNuevas();
+        void SetMensajeKitNuevas(string mensajeKit);
         int GetLimElectivosProgNuevas();
         void SetLimElectivosProgNuevas(int limElectivos);
 
@@ -466,6 +468,8 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListaRango(List<List<BEEstadoServicio>> val);
 
         List<List<BEEstadoServicio>> GetListaRango();
+
+        BEUsuarioDatos GetDatosUsuario();
 
         IMasGanadoras MasGanadoras { get;  }
         bool GetMostrarBannerNuevas();

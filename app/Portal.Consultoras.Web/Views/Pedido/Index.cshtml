@@ -73,7 +73,7 @@
 
             <div class="pedido_ingreso_datos campo_codigo">
                 <br />
-                <input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral" placeholder="Código" />
+                <input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral default-border-hover" placeholder="Código" />
             </div>
 
             <div class="pedido_ingreso_datos campo_descripcion_producto">
@@ -88,20 +88,24 @@
                 </div>
                 <!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
                 <br />
-                <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
-                       onkeyup="PreValidarCUV(event);" placeholder="Descripción producto" />
+                <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico default-border-hover"
+                       @*onkeyup="PreValidarCUV(event);"*@ 
+                       attrKey="PreValidarCUV"
+                       placeholder="Descripción producto" />
             </div>
 
             <div class="pedido_ingreso_datos campo_precio">
                 <br />
-                <input id="txtPrecioR" disabled="disabled" class="preciounitario" placeholder="Precio" />
+                <input id="txtPrecioR" disabled="disabled" class="preciounitario default-border-hover" placeholder="Precio" />
             </div>
 
             <div class="pedido_ingreso_datos campo_cantidad">
                 <br />
                 <div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
-                    <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                           onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)" />
+                    <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" 
+                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral default-border-hover"
+                           @*onkeypress="PreValidarCUV(event);"*@ 
+                           onfocus="SeleccionarContenido(this)" attrKey="PreValidarCUV"/>
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                         <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -112,7 +116,7 @@
             <div class="pedido_ingreso_datos campo_cliente">
                 <br />
                 <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
-                       maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
+                       maxlength="50" class="ValidaAlfanumerico default-border-hover" placeholder="Cliente (Opcional)" />
                 <span class="pedido_ingreso_datos_icono_mas">+</span>
                 <a class="pedidos_cliente" onclick="showClienteDetalle(null);">
                     AGREGAR NUEVO CLIENTE
@@ -120,7 +124,7 @@
             </div>
             <input type="hidden" id="hdFlagNueva" />
             <input type="hidden" id="hdMetodoBusqueda" />
-            <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular(event);" class="pedido_agregado" />
+            <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular(event);" class="pedido_agregado default-background" />
         </form>
     </div>
     <div class="clear"></div>
@@ -253,14 +257,14 @@
                                         <span class="dscto_ofertasNiveles">(-) Dscto. Ofertas Por Niveles</span>
                                     </div>
                                     <br />
-                                    <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                                    <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
                                         <span id="spnNombreCliente"></span>
                                     </p>
                                     <div class="monto_total">
                                         <span><b>Monto total:</b></span>
                                     </div>
                                     <br />
-                                    <div class="monto_ganancia">
+                                    <div class="monto_ganancia default-color">
                                         <div class="info_extra_Validado abrir_popupMisGanancias">
                                             <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
                                         </div>
@@ -334,7 +338,7 @@
                                         <span data-montodescuento>@Model.Simbolo @Model.FormatoMontoDescuento</span>
                                     </div>
 
-                                    <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                                    <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
                                         <span id="spnTotalCliente"></span>
                                     </p>
                                     <p class="monto_total">
@@ -346,7 +350,7 @@
                                         </b>
                                     </p>
 
-                                    <p class="monto_ganancia">
+                                    <p class="monto_ganancia default-color">
                                         <b>
                                             @Model.Simbolo
                                             <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
@@ -376,21 +380,21 @@
                         @{
                             if (ViewBag.TipoUsuario == 2)
                             {
-                                <div class="tooltip_importanteGuardarPedido" style="width:370px;">
+                                <div class="tooltip_importanteGuardarPedido default-color" style="width:370px;">
                                     <text>@tooltip1</text>
                                     <span>@tooltip2</span>
                                 </div>
                             }
                             else
                             {
-                                <div class="tooltip_importanteGuardarPedido">
+                                <div class="tooltip_importanteGuardarPedido default-color">
                                     <text>@tooltip1</text>
                                     <span>@tooltip2</span>
                                 </div>
                             }
                         }
                         <div class="boton_guardarPedido">
-                            <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy" />
+                            <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy default-background-color" />
                         </div>
                     </div>
 
@@ -458,7 +462,7 @@
 
                 <p class="texto_eliminar_pedido">
                     <span class="texto_pedido_completo">
-                        Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
+                        Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido default-color" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
                     </span>
                 </p>
 
@@ -630,11 +634,23 @@
     <div class="popup_tutorial_pedido" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
         <div id="slide1_container" class="shadow">
             <div id="slide1_images">
-                <div class="imagen_tutorial img_slide1Pedido"></div>
-                <div class="imagen_tutorial img_slide2Pedido"></div>
-                <div class="imagen_tutorial img_slide3Pedido"></div>
-                <div class="imagen_tutorial img_slide4Pedido"></div>
-                <div class="imagen_tutorial img_slide5Pedido"></div>
+                @if (ViewBag.CodigoISODL == Constantes.CodigosISOPais.Peru ||
+                     ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+                {
+                    <div class="imagen_tutorial img_slide1Pedido fondo1Pedido"></div>
+                    <div class="imagen_tutorial img_slide2Pedido fondo2Pedido"></div>
+                    <div class="imagen_tutorial img_slide3Pedido fondo3Pedido"></div>
+                    <div class="imagen_tutorial img_slide4Pedido fondo4Pedido"></div>
+                    <div class="imagen_tutorial img_slide5Pedido fondo5Pedido"></div>
+                }
+                else
+                {
+                    <div class="imagen_tutorial img_slide1Pedido"></div>
+                    <div class="imagen_tutorial img_slide2Pedido"></div>
+                    <div class="imagen_tutorial img_slide3Pedido"></div>
+                    <div class="imagen_tutorial img_slide4Pedido"></div>
+                    <div class="imagen_tutorial img_slide5Pedido"></div>
+                }
             </div>
         </div>
         <div class="btn_cerrar_actualizarMisDatos">
@@ -1575,8 +1591,11 @@
                 {{else}}
                 <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                     <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
-                        data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
-                        onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
+                               data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" 
+                               @*onkeypress="PreValidarCUV(event);"*@
+                               attrKey="PreValidarCUV"
+                               onfocus="SeleccionarContenido(this)"
+                               onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                         <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -1630,7 +1649,7 @@
                         <div class="tooltip_flecha_grid"></div>
                         <h6>Kit de Inicio</h6>
                         <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
-                        <p>*Este Kit se agrega automáticamente solo en tu primer pedido.</p>
+                        <p>*@Model.MensajeKitNuevas</p>
                     </div>
                 </div>
                 {{else}}

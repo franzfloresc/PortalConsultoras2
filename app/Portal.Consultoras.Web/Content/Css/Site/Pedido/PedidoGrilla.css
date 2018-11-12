@@ -160,7 +160,7 @@ h1#penmostreo .campana {
         }
 
         .pedido_ingreso_datos input:hover {
-            border: 1px solid #e81c36 !important;
+            border: 1px solid;
         }
 
 .pedido_agregado {
@@ -168,7 +168,6 @@ h1#penmostreo .campana {
     width: 115px;
     margin-top: 23px;
     float: left;
-    background: #e81c36 !important;
     background-position: 17px 8px;
     font-family: 'lato';
     font-weight: 700;
@@ -184,7 +183,6 @@ h1#penmostreo .campana {
     font-family: 'lato';
     font-size: 9.4pt;
     font-weight: 400;
-    color: #e81c36;
     margin-top: 8px;
 }
 
@@ -516,12 +514,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     line-height: 33px;
 }
 
-.caja_montos_cantidades .monto_ganancia {
-    color: #e81c36;
-}
-
 .caja_montos_cantidades .monto_con_descuento {
-    color: #e81c36;
     font-size: 22px;
     font-weight: 700;
     text-align: right;
@@ -534,15 +527,14 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     vertical-align: top;
 }
 
-.mensaje_guardar_pedido {
+/*.mensaje_guardar_pedido {
     display: block;
-    color: #cd2c39;
     vertical-align: top;
     font-family: 'Lato';
     font-size: 16px;
     font-weight: bold;
     text-align: right;
-}
+}*/
 
 .mensaje_fecha_limite_cambios {
     display: block;
@@ -567,7 +559,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-family: 'Lato';
     font-size: 15px;
     font-weight: 900;
-    color: #e81c36;
     text-align: center;
     line-height: 17px;
     margin-top: 10px;
@@ -725,159 +716,13 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     padding: 0;
     margin-bottom: 5px;
 }
-/*tool tip => info sobre el icono*/
-.info_copy {
-    float: left;
-    margin-right: 7px;
-    height: 22px;
-    margin-top: 3px;
-    position: relative;
-}
 
-    .info_copy .tooltip_importe {
-        display: none;
-        width: 260px;
-        height: 60px;
-        padding: 13px;
-        background: white;
-        position: absolute;
-        top: -83px;
-        -webkit-box-shadow: 0 7px 23px 2px rgba(179,173,179,1);
-        -moz-box-shadow: 0 7px 23px 2px rgba(179,173,179,1);
-        box-shadow: 0 7px 23px 2px rgba(179,173,179,1);
-    }
-
-        .info_copy .tooltip_importe:before {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            border: solid transparent;
-            content: ' ';
-            height: 0;
-            width: 0;
-            border-color: rgba(5, 7, 8, 0);
-            border-top-color: white;
-            border-width: 15px;
-            margin-left: -15px;
-            left: 5%;
-            z-index: 10;
-        }
-
-    .info_copy:hover .tooltip_importe {
-        display: block;
-    }
-
-
-    .info_copy .tooltip_infoCopy_grid {
-        display: none;
-        width: 271px;
-        min-height: 158px;
-        height: auto;
-        position: absolute;
-        background: #fff;
-        z-index: 50;
-        top: 58%;
-        left: 153%;
-        margin-top: -84px;
-        box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
-        -moz-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
-        -o-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
-        -ms-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
-        -webkit-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
-        padding-top: 18px;
-        padding-left: 22px;
-        padding-right: 20px;
-        padding-bottom: 15px;
-        border: 1px solid #e7e1e1;
-    }
-
-        .info_copy .tooltip_infoCopy_grid:before {
-            position: absolute;
-        }
-
-    .info_copy:hover .tooltip_infoCopy_grid {
-        display: block;
-    }
-
-
-.tooltip_infoCopy_grid h6 {
-    margin: 0;
-    padding: 0;
-    font-family: 'Lato';
-    font-size: 14px;
-    color: #000;
-    font-weight: bold !important;
-    text-align: left;
-    margin-bottom: 6px;
-}
-
-
-.tooltip_infoCopy_grid p {
-    font-family: 'Lato';
-    font-size: 11px;
-    color: #000;
-    font-weight: bold;
-    line-height: 18px;
-    text-align: justify;
-    margin: 0;
-    padding: 0;
-    margin-bottom: 5px;
-}
-
-.info_copy .tooltip_flecha_grid {
-    background: url('/Content/Images/tooltip-flecha.png') no-repeat 0 16px !important;
-    position: absolute;
-    top: -8%;
-    left: -11.5%;
-    z-index: 50;
-    width: 32px;
-    height: 169px;
-}
-
-.infoCopy_expand .tooltip_flecha_grid {
-    top: 3%;
-    left: 100%;
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
-}
-
-.tooltip_flecha_grid_expand {
-    left: -1500%;
-}
-
-
-.info_copy .left_reservado {
-    float: left;
-    text-align: left;
-}
-
-.info_copy .right_reservado {
-    float: right;
-    text-align: right;
-}
-
-.info_copy .datos_Reservado {
-    font-family: 'Lato';
-    font-size: 13px;
-    color: black;
-    line-height: 18px;
-}
-
-    .info_copy .datos_Reservado span {
-        display: block;
-        margin: 0;
-        float: none;
-    }
 /* fin tool tip => info sobre el icono*/
 .boton_guardarPedido input[type='submit'], .boton_guardarPedido input[type='button'] {
     display: block;
     font-family: 'Lato';
     width: 218px;
     height: 44.1px;
-    background: #e81c36;
     border: 0;
     color: #fff;
     font-size: 12.7px;
@@ -897,7 +742,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 
 .caja_montos_textos .monto_con_descuento {
     font-size: 14px;
-    color: #e4002d;
     margin-bottom: 3px;
     position: relative;
     text-align: left;
@@ -946,7 +790,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-size: 16px;
     font-weight: normal;
     text-transform: uppercase;
-    color: #e81c36;
 }
 
 .tabla_pedidos, .tabla_productos_agotados {
@@ -1251,15 +1094,17 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 
     .texto_pedidos.subtotal span.icon-advertencia {
         background: url('/Content/Images/Esika/icono-admiracion.png') no-repeat center center;
-        width: 18px;
-        height: 18px;
+        width: 15px;
+        height: 15px;
         font-family: 'Lato';
         font-size: 16px;
         font-weight: bold;
         color: #fff;
-        position: absolute;
-        right: -18%;
         z-index: 6;
+        display: inline-block;
+        vertical-align: bottom;
+        background-size: cover;
+        margin-left: 3px;
     }
 
 .caja_montos_textos .monto_descuento span.icon-advertencia {
@@ -1483,7 +1328,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
 
 .link_eliminar_pedido {
-    color: #cd2c39;
     float: right;
     margin-left: 5px;
 }
@@ -1680,7 +1524,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     color: white;
     font-size: 13px;
     border-radius: 4px;
-    background-color: #e81c36;
     border: none;
     font-weight: bold;
 }
