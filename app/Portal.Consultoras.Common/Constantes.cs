@@ -1525,6 +1525,7 @@ namespace Portal.Consultoras.Common
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
+            public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
         }
 
         public static class MensajesExito
@@ -3127,11 +3128,6 @@ namespace Portal.Consultoras.Common
             public const int ObtenerOpmTodo = 0;
             public const int ObtenerOpmSinForzadasMG1 = 1;
             public const int ObtenerOpmSoloForzadasMG1 = 2;
-        }
-        
-        public static class ArmaTuPackMensajes
-        {
-            public const string ExcedioLimite = "LAS UNIDADES INGRESADAS EXCEDEN EL MAXIMO PERMITIDO ({0}) EN ESTA CAMPAÑA.";
         }
     }
 }
