@@ -117,7 +117,7 @@ function SeccionCargarProductos(objConsulta) {
         return false;
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId] = objConsulta;
-
+    
     var paisHabilitado = typeof variableEstrategia.PaisHabilitado == "string" && variableEstrategia.PaisHabilitado.indexOf(IsoPais) > -1
 
     var guardaEnLS = true;

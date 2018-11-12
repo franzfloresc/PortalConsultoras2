@@ -19,5 +19,7 @@ namespace Portal.Consultoras.Entities
         public bool MostrarBotonVerTodosBuscador { get; set; }
         [DataMember]
         public bool AplicarLogicaCantidadBotonVerTodosBuscador { get; set; }
+        [DataMember]
+        public bool MostrarOpcionesOrdenamiento { get; set; }
     }
 }

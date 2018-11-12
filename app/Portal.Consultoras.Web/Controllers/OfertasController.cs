@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.Models.Ofertas;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -58,6 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
                 };
+            
                 indexViewModel.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 indexViewModel.VariablesEstrategia = GetVariableEstrategia();
 

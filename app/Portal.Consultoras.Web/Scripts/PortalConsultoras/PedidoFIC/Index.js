@@ -386,7 +386,14 @@ function ValidarDescripcion() {
         $("#divMensaje").text("");
     }
 }
-
+$('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
+    
+    if (event.keyCode == 13) {
+        if ($("#btnAgregar")[0].disabled == false) {
+            AgregarProductoListado();
+        }
+    }
+})
 function PreValidarCUV(event) {
     event = event || window.event;
 
