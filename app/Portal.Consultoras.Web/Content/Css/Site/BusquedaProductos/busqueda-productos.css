@@ -6,10 +6,15 @@
     max-width:1366px;
 }
 
-.layout__content__fichaProductos{
-    padding-top:9px;
+.layout__content__fichaProductos,
+.layout__content__etiquetas_criteriosElegidos
+{
     width:100%;
     max-width:970px;
+}
+
+.layout__content__fichaProductos{
+    padding-top:9px;
 }
 
 .layout__content__filtros + .layout__content__fichaProductos{
@@ -219,6 +224,72 @@
     background-repeat:no-repeat;
     background-position:center;
 }
+
+/* ETIQUETAS DE CRITERIOS ELEGIDOS EN FILTROS */
+
+.layout__content__etiquetas_criteriosElegidos{
+    margin-top:25px;
+    margin-bottom:25px;
+}
+
+.lista__etiquetas__criteriosElegidos{
+    overflow-x:auto;
+    height:auto;
+    margin-bottom:0;
+}
+
+.lista__etiquetas__criteriosElegidos,
+.etiqueta__criterioElegido
+{
+    margin-right:10px;
+}
+
+.etiqueta__criterioElegido{
+    background-color:#808080;
+    border-radius:4px;
+    min-width:72px;
+    height:36px;
+    margin-left:0;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.etiqueta__criterioElegido_descrip,
+.enlace__limpiar__filtros
+{
+    font-size:13px;
+    letter-spacing:0.5px;
+}
+
+.etiqueta__criterioElegido_descrip{
+    color:#FFF;
+    font-weight:bold;
+    margin-right:8px;
+}
+
+.enlace__eliminar__etiqueta,
+.enlace__limpiar__filtros
+{
+    cursor:pointer;
+}
+
+.icono__eliminar__criterioElegido{
+    width:10px;
+    height:auto;
+    position:relative;
+    top:1px;
+}
+
+.icono__eliminar__criterioElegido img{
+    width:100%;
+    height:auto;
+}
+
+.enlace__limpiar__filtros{
+    text-decoration:underline!important;
+}
+
+/* FIN - ETIQUETAS DE CRITERIOS ELEGIDOS EN FILTROS */
 
 /* FICHAS DE PRODUCTOS DESKTOP */
 

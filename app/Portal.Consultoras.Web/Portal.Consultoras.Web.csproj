@@ -1444,6 +1444,7 @@
     <Content Include="Content\Images\cerrar-filtros.svg" />
     <Content Include="Content\Images\banco_bbva.png" />
     <Content Include="Content\Images\banco_bcp.png" />
+    <Content Include="Content\Images\cerrar-tag-icono.svg" />
     <Content Include="Content\Images\check-agregado-icono.svg" />
     <Content Include="Content\Images\check-icono.svg" />
     <Content Include="Content\Images\checkbox-filtros.svg" />
