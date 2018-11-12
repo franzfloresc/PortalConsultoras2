@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Providers
                         DescripcionMarca = item.marcaDescripcion,
                         EstrategiaID = Convert.ToInt32(item.estrategiaId),
                         FlagNueva = Convert.ToBoolean(item.flagNueva) ? 1 : 0,
-                        FlagRevista = Convert.ToBoolean(item.flagRevista) ? 1 : 0,
+                        FlagRevista = item.flagRevista,
                         FotoProducto01 = item.imagenURL,
                         ImagenURL = item.imagenEstrategia,
                         IndicadorMontoMinimo = Convert.ToInt32(item.indicadorMontoMinimo),
@@ -169,12 +169,19 @@ namespace Portal.Consultoras.Web.Providers
             return nombreOferta;
         }
 
+
         public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
         {
             if (dbDefault) return false;
             bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
             bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return paisHabilitado && tipoEstrategiaHabilitado;
+        }
+
+        public bool UsarMsPersonalizacion(string tipoEstrategia)
+        {
+            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            return tipoEstrategiaHabilitado;
         }
     }
 }

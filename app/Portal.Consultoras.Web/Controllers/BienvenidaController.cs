@@ -219,25 +219,8 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetActualizarDatosConsultora(true);
                 }
 
-                List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
-
-                if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
-                {
-                    UsuarioModel usurioModel = new UsuarioModel
-                    {
-                        CodigoISO = userData.CodigoISO,
-                        CampaniaID = userData.CampaniaID
-                    };
-                    listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
-                    listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
-                }
-                else
-                {
-                    listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
-                }
-
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
-                model.ShowRoomBannerUrl = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                model.ShowRoomBannerUrl = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.EMail = userData.EMail;
@@ -1663,7 +1646,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Canal", "Canal"}
             };
 
-            Util.ExportToExcel("SueniosDeNavidad", lst, dic);
+            Util.ExportToExcel("SueniosDeNavidad", lst, dic, GetExcelSecureCallback());
             return View();
         }
 
@@ -2400,22 +2383,62 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string ObtenerActualizacionEmailSms(string pagina = "1")
         {
-            //try
-            //{
+            try
+            {
+                BEMensajeToolTip obj = new BEMensajeToolTip();
+                string mensaje = string.Empty;
 
-            //    using (var svClient = new UsuarioServiceClient())
-            //    {
-            //        var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoUsuario);
-            //        return result;
-            //    }
+                using (var sv = new UsuarioServiceClient())
+                    obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            //    return "";
-            //}
-            return _bienvenidaProvider.ObtenerActualizacionEmail();
+                if (obj == null) return pagina == "1" ? "" : "|";
+                if (obj.oDatosPerfil == null) return pagina == "1" ? "" : "|";
+
+                string pendiente = string.Empty;
+                string tieneMensajes = string.Empty;
+
+                if (!string.IsNullOrEmpty(obj.MensajeCelular)) tieneMensajes = "1"; //1 => SMS; 2 => Email; 3 => Ambos
+                if (!string.IsNullOrEmpty(obj.MensajeEmail)) tieneMensajes = tieneMensajes == "1" ? "3" : "2";
+
+                string nuevoDatoCelular = !string.IsNullOrEmpty(obj.MensajeCelular) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+                string nuevoDatoEmail = !string.IsNullOrEmpty(obj.MensajeEmail) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+                nuevoDatoCelular = nuevoDatoCelular == null ? "" : nuevoDatoCelular;
+                nuevoDatoEmail = nuevoDatoEmail == null ? "" : nuevoDatoEmail;
+
+                if (nuevoDatoCelular == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "SMS" && a.Estado == "A")) pendiente = "c";
+                if (nuevoDatoEmail == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "Email" && a.Estado == "A")) pendiente = "e";
+
+                bool menSms = pendiente == "c" ? true : false;
+                if (!menSms) menSms = nuevoDatoCelular != "" ? true : false;
+                bool menEmail = pendiente == "e" ? true : false;
+                if (!menEmail) menEmail = nuevoDatoEmail != "" ? true : false;
+
+                switch (tieneMensajes)
+                {
+                    case "1":
+                        if (obj.oDatosPerfil[0].TipoEnvio == "1") return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
+                        if (menSms) return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
+                        return pagina == "1" ? "" : "|";
+                    case "2":
+                        if (obj.oDatosPerfil[0].TipoEnvio == "1") return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
+                        if (menEmail) return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
+                        return pagina == "1" ? "" : "|";
+                    case "3":
+                        {
+                            if (obj.oDatosPerfil[0].TipoEnvio == "1") return pagina == "1" ? obj.MensajeAmbos : "|";
+                            if (menSms && !menEmail) return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
+                            if (!menSms && menEmail) return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
+                            if (menSms && menEmail) return pagina == "1" ? obj.MensajeAmbos : nuevoDatoCelular + "|" + nuevoDatoEmail;
+                            return pagina == "1" ? "" : "|";
+                        }
+                }
+                return pagina == "1" ? "" : "|";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return pagina == "1" ? "" : "|";
+            }
         }
 
         public JsonResult ObtenerEstadoContrato()
