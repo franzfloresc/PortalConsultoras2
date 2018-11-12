@@ -134,6 +134,12 @@ $(document).ready(function () {
                                         $('.spinner').fadeOut(150);
                                         $('#ResultadoBuscadorMobile').fadeIn(150);
                                     }, 400);
+
+                                    //$(".lista_resultados_busqueda_productos_mobile").one("mouseover", function () {
+                                    //   var buscar = $("#CampoBuscadorProductosMobile").val();
+                                    //    AnalyticsPortalModule.MarcaSeleccionarContenidoBusqueda(buscar);
+
+                                    //});
                                 }
                             }
 
@@ -276,7 +282,9 @@ $(document).ready(function () {
                         if (UrlDetalle == "") return false;
                         UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
                         //console.log(UrlDetalle);
-                        window.location = UrlDetalle;
+                        //window.location = UrlDetalle;
+                        //if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        //    AnalyticsPortalModule.MarcaEligeUnaOpcion(UrlDetalle);
                         return true;
                     }
                 }

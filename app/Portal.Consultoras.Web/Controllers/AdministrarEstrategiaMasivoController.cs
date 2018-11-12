@@ -719,7 +719,7 @@ namespace Portal.Consultoras.Web.Controllers
                         lote = estado["CUVOK"].Count;
                         foreach (var item in estado["CUVOK"])
                         {
-                            if (txtBuildIdsEstrategiaOk.ToString() != "")
+                            if (txtBuildIdsEstrategiaOk.ToString() != "") 
                                 txtBuildIdsEstrategiaOk.Append(",");
                             txtBuildIdsEstrategiaOk.Append(item);
                         }
@@ -750,8 +750,8 @@ namespace Portal.Consultoras.Web.Controllers
                     message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias.",
                     NroLote = nroLote,
                     NroLoteRetorno = lote,
-                    mongoIdsOK = txtBuildIdsEstrategiaOk,
-                    mongoIdsERROR = txtBuildIdsEstrategiaError,
+                     mongoIdsOK = txtBuildIdsEstrategiaOk.ToString(),
+                    mongoIdsERROR = txtBuildIdsEstrategiaError.ToString(),
                     mensajePaso
                 }, JsonRequestBehavior.AllowGet);
             }

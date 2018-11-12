@@ -14,6 +14,7 @@ using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -49,7 +50,7 @@ namespace Portal.Consultoras.Service
         private readonly BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
         private readonly BLCuponConsultora BLCuponConsultora;
         private readonly BLFichaProducto blFichaProducto;
-        private readonly BLPagoEnLinea BLPagoEnLinea;
+        private readonly IPagoEnLineaBusinessLogic _pagoEnLineaBusinessLogic;
         private readonly BLActivarPremioNuevas _ActivarPremioNuevas;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
@@ -59,7 +60,7 @@ namespace Portal.Consultoras.Service
         private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
 
         public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(), 
-            new BLPedido(), new BLPedidoWebSet())
+            new BLPedido(), new BLPedidoWebSet(), new BLPagoEnLinea())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -84,7 +85,6 @@ namespace Portal.Consultoras.Service
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
             BLCuponConsultora = new BLCuponConsultora();
             blFichaProducto = new BLFichaProducto();
-            BLPagoEnLinea = new BLPagoEnLinea();
             _ActivarPremioNuevas = new BLActivarPremioNuevas();
         }
 
@@ -93,7 +93,9 @@ namespace Portal.Consultoras.Service
             IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic, 
             ITrackingBusinessLogic trackingBusinessLogic,
             IPedidoBusinessLogic pedidoBusinessLogic,           
-            IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic)
+            IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic,
+            IPagoEnLineaBusinessLogic pagoEnLineaBusinessLogic
+            )
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -101,6 +103,7 @@ namespace Portal.Consultoras.Service
             _trackingBusinessLogic = trackingBusinessLogic;
             _pedidoBusinessLogic = pedidoBusinessLogic;
             _pedidoWebSetBusinessLogic = pedidoWebSetBusinessLogic;
+            _pagoEnLineaBusinessLogic = pagoEnLineaBusinessLogic;
         }
 
         #region Reporte Lider
@@ -1705,6 +1708,11 @@ namespace Portal.Consultoras.Service
             return BLConfiguracionProgramaNuevas.GetCuvKitNuevas(consultoraNuevas, confProgNuevas);
         }
 
+        public string GetMensajeKitNuevas(string codigoISO, bool esConsultoraNueva, int consecutivoNueva)
+        {
+            return BLConfiguracionProgramaNuevas.GetMensajeKitNuevas(codigoISO, esConsultoraNueva, consecutivoNueva);
+        }
+
         #endregion
 
         public void UpdateMontosPedidoWeb(BEPedidoWeb bePedidoWeb)
@@ -2155,67 +2163,81 @@ namespace Portal.Consultoras.Service
 
         public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
         {
-            return BLPagoEnLinea.InsertPagoEnLineaResultadoLog(paisId, entidad);
+            _pagoEnLineaBusinessLogic.InsertPagoEnLineaResultadoLog(paisId, entidad);
+            return entidad.PagoEnLineaResultadoLogId;
         }
 
         public string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora)
         {
-            return BLPagoEnLinea.ObtenerTokenTarjetaGuardadaByConsultora(paisId, codigoConsultora);
+            return _pagoEnLineaBusinessLogic.ObtenerTokenTarjetaGuardadaByConsultora(paisId, codigoConsultora);
         }
 
         public void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda)
         {
-            BLPagoEnLinea.UpdateMontoDeudaConsultora(paisId, codigoConsultora, montoDeuda);
+            _pagoEnLineaBusinessLogic.UpdateMontoDeudaConsultora(paisId, codigoConsultora, montoDeuda);
         }
 
         public BEPagoEnLineaResultadoLog ObtenerPagoEnLineaById(int paisId, int pagoEnLineaResultadoLogId)
         {
-            return BLPagoEnLinea.ObtenerPagoEnLineaById(paisId, pagoEnLineaResultadoLogId);
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaById(paisId, pagoEnLineaResultadoLogId);
         }
 
         public BEPagoEnLineaResultadoLog ObtenerUltimoPagoEnLineaByConsultoraId(int paisId, long consultoraId)
         {
-            return BLPagoEnLinea.ObtenerUltimoPagoEnLineaByConsultoraId(paisId, consultoraId);
+            return _pagoEnLineaBusinessLogic.ObtenerUltimoPagoEnLineaByConsultoraId(paisId, consultoraId);
         }
 
         public List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro)
         {
-            return BLPagoEnLinea.ObtenerPagoEnLineaByFiltro(paisId, filtro);
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaByFiltro(paisId, filtro);
         }
 
         public List<BEPagoEnLineaTipoPago> ObtenerPagoEnLineaTipoPago(int paisId)
         {
-            return BLPagoEnLinea.ObtenerPagoEnLineaTipoPago(paisId);
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaTipoPago(paisId);
         }
 
         public List<BEPagoEnLineaMedioPago> ObtenerPagoEnLineaMedioPago(int paisId)
         {
-            return BLPagoEnLinea.ObtenerPagoEnLineaMedioPago(paisId);
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaMedioPago(paisId);
         }   
         
         public List<BEPagoEnLineaMedioPagoDetalle> ObtenerPagoEnLineaMedioPagoDetalle(int paisId)
         {
-            return BLPagoEnLinea.ObtenerPagoEnLineaMedioPagoDetalle(paisId);
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaMedioPagoDetalle(paisId);
         }
 
         public List<BEPagoEnLineaTipoPasarela> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma)
         {
-            return BLPagoEnLinea.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, codigoPlataforma);
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, codigoPlataforma);
         }
 
         public List<BEPagoEnLineaPasarelaCampos> ObtenerPagoEnLineaPasarelaCampos(int paisId)
         {
-            return BLPagoEnLinea.ObtenerPagoEnLineaPasarelaCampos(paisId);
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaPasarelaCampos(paisId);
         }
 
         public int ObtenerPagoEnLineaNumeroOrden(int paisId)
         {
-            return BLPagoEnLinea.ObtenerNumeroOrden(paisId);
+            return _pagoEnLineaBusinessLogic.ObtenerNumeroOrden(paisId);
         }
 
         public string ObtenerPagoEnLineaURLPaginasBancos(int paisId)
         {
-            return BLPagoEnLinea.ObtenerPagoEnLineaURLPaginasBancos(paisId);
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaURLPaginasBancos(paisId);
+        }
+
+        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario) {
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaConfiguracion(paisId, consultoraId, codigoUsuario);
+        }
+
+        public BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora)
+        {
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaVisaConfiguracion(paisId, codigoConsutora);
+        }
+
+        public BERespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa) {
+            return _pagoEnLineaBusinessLogic.RegistrarPagoEnLineaVisa(usuario, pagoEnLineaVisa);
         }
 
         #endregion
@@ -2388,6 +2410,6 @@ namespace Portal.Consultoras.Service
         {
             return blEstrategia.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
         }
-
+        
     }
 }

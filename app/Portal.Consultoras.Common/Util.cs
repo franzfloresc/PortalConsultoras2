@@ -75,6 +75,13 @@ namespace Portal.Consultoras.Common
             return Math.Round(value, NumDecimales);
         }
 
+        static public Decimal ParseDecimal(object value, IFormatProvider provider)
+        {
+            Decimal number;
+            bool result = Decimal.TryParse(ParseString(value), NumberStyles.Any, provider, out number);
+            return result ? number : 0;
+        }
+
         static public String ParseString(object value)
         {
             var cadena = Convert.ToString(value);
@@ -1175,7 +1182,7 @@ namespace Portal.Consultoras.Common
         /// <param name="Source">Lista de Entidades cuyos registros van a ser exportados a excel</param>
         /// <param name="columnDefinition">Diccionario que contiene: Nombre de las columnas a mostrar[Key], Propiedad asociada a la entidad[value]</param>
         /// <returns></returns>
-        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition)
+        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, Func<Stream, MemoryStream> onExcelRendered = null)
         {
             try
             {
@@ -1237,6 +1244,11 @@ namespace Portal.Consultoras.Common
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
+
+                if (onExcelRendered != null)
+                {
+                    stream = onExcelRendered(stream);
+                }
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();
@@ -1541,7 +1553,7 @@ namespace Portal.Consultoras.Common
         /// <param name="cookieName">Nombre de la cookie que será creado en el response de la descarga</param>
         /// <param name="valueName">Valor de la cookie creado en el response de la descarga</param>
         /// <returns></returns>
-        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName)
+        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName, Func<Stream, MemoryStream> onExcelRendered = null)
         {
             try
             {
@@ -1603,6 +1615,11 @@ namespace Portal.Consultoras.Common
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
+
+                if (onExcelRendered != null)
+                {
+                    stream = onExcelRendered(stream);
+                }
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();
@@ -3922,7 +3939,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToString(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3934,7 +3954,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToString(lector[name]).Trim();
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(string);
         }
 
@@ -3947,7 +3970,10 @@ namespace Portal.Consultoras.Common
                     return Convert.ToInt16(lector[name]);
 
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3959,7 +3985,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToInt32(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3971,7 +4000,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToInt64(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(Int64);
         }
 
@@ -3983,7 +4015,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDecimal(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(decimal);
         }
 
@@ -3995,7 +4030,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDouble(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(double);
         }
 
@@ -4007,7 +4045,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToByte(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(byte);
         }
 
@@ -4019,7 +4060,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToBoolean(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -4031,7 +4075,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDateTime(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -4043,7 +4090,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDateTime(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 

@@ -19,13 +19,12 @@ namespace Portal.Consultoras.Web.Controllers
             var IdCurso = 0;
             var FlagVideo = 0;
             var parametrosSap = "";
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
+            
             try
             {
                 IdCurso = SessionManager.GetMiAcademia();
                 FlagVideo = SessionManager.GetMiAcademiaVideo();
-                parametrosSap = SessionManager.GetMiAcademiaParametro();  //PPC
+                parametrosSap = SessionManager.GetMiAcademiaParametro();
                 SessionManager.SetMiAcademia(0);
                 SessionManager.SetMiAcademiaVideo(0);
 

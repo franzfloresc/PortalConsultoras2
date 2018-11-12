@@ -2981,7 +2981,7 @@ namespace Portal.Consultoras.Web.Controllers
         private Dictionary<string, string> getNuevasDescripcionesBuscador(int paisId)
         {
             var result = new Dictionary<string, string>();
-            var listaDescripciones = new List<BETablaLogicaDatos>();
+            List<BETablaLogicaDatos> listaDescripciones;
 
             using (var tablaLogica = new SACServiceClient())
             {
@@ -2999,7 +2999,7 @@ namespace Portal.Consultoras.Web.Controllers
         private Dictionary<string, string> getListaOrdenamientoFiltrosBuscador(int paisId)
         {
             var result = new Dictionary<string, string>();
-            var listaDescripciones = new List<BETablaLogicaDatos>();
+            List<BETablaLogicaDatos> listaDescripciones;
 
             using (var tablaLogica = new SACServiceClient())
             {

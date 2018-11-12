@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public bool OpcionSms { get; set; }
         [DataMember]
-        public int IntentosSms { get; set; }        
+        public int IntentosSms { get; set; }
         [DataMember]
         public bool OpcionChat { get; set; }
         [DataMember]
@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
     [DataContract]
     public class BEUsuarioDatos
     {
-        
+
         [DataMember]
         [Column("CodigoUsuario")]
         public string CodigoUsuario { get; set; }
@@ -125,7 +125,14 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public string CodigoIso { get; set; }
         [DataMember]
-        public bool opcionHabilitar { get { return true; } set { } }
+        public bool opcionHabilitar
+        {
+            get { return true; }
+            set
+            {
+                //
+            }
+        }
         [DataMember]
         public bool OpcionDesabilitado { get; set; }
         [DataMember]
@@ -142,20 +149,21 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public int IntentosRestanteSms { get; set; }
 
-        public BEUsuarioDatos(){
+        public BEUsuarioDatos()
+        {
             IntentosRestanteSms = -1;
         }
 
         public BEUsuarioDatos(IDataRecord row)
-        {            
+        {
             CodigoUsuario = row.ToString("CodigoUsuario");
             CodigoConsultora = row.ToString("CodigoConsultora");
-            Cantidad = row.ToInt32("Cantidad");            
-            PrimerNombre = row.ToString("PrimerNombre");            
-            IdEstadoActividad = row.ToInt32("IdEstadoActividad");            
-            Celular = row.ToString("Celular");            
-            Correo = row.ToString("Correo");            
-            ZonaID = row.ToInt32("ZonaID");            
+            Cantidad = row.ToInt32("Cantidad");
+            PrimerNombre = row.ToString("PrimerNombre");
+            IdEstadoActividad = row.ToInt32("IdEstadoActividad");
+            Celular = row.ToString("Celular");
+            Correo = row.ToString("Correo");
+            ZonaID = row.ToInt32("ZonaID");
             RegionID = row.ToInt32("RegionID");
             CodigoConsultora = row.ToString("CodigoConsultora");
             OpcionCambioClave = row.ToInt32("OpcionCambioClave");

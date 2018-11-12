@@ -145,5 +145,5 @@ var ResumenOpcionesModule = (function () {
 }());
 
 opcionesEvents.subscribe("onComponentSelected", function(componente) {
-    //ResumenOpcionesModule.Inicializar();
+
 });
