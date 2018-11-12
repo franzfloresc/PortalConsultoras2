@@ -37,6 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+
         public PedidoController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
@@ -326,9 +327,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!SessionManager.GetEsShowRoom() && SessionManager.GetEsShowRoom().ToString() == "1")
             {
-                ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
-                ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Desktop");
+                ViewBag.ImagenFondoOFRegalo =
+                    _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
+                ViewBag.Titulo1OFRegalo =
+                    _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Desktop");
             }
+
+            model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
 
             return View("Index", model);
         }
