@@ -41,7 +41,7 @@ $(document).ready(function () {
         //if (ReservadoOEnHorarioRestringido())
         //    return;
         var article = $(this).parents(".liquidacion_item").eq(0);
-        AgregarProductoOfertaLiquidacionMobile(article);
+        PedidoRegistroModule.AgregarProductoOfertaLiquidacionMobile(article);
         e.preventDefault();
         (this).blur();
     });

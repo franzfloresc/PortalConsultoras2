@@ -337,7 +337,7 @@ $(document).ready(function () {
             Posicion: posicion
         };
 
-        AgregarProductoPorUrl("PedidoAgregarProductoTransaction", model, "divProductoSugerido", true);
+        PedidoRegistroModule.AgregarProductoPorUrl("PedidoAgregarProductoTransaction", model, "divProductoSugerido", true);
         dataLayer.push({
             'event': "addToCart",
             'ecommerce': {
@@ -418,9 +418,9 @@ $(document).ready(function () {
                 form.data.TipoOfertaSisID = $("#hdTipoEstrategiaID").val();
                 form.data.TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
                 form.data.EnRangoProgramaNuevas = cuvEsProgNuevas;
-                InsertarProductoPasePedido(form);
+                PedidoRegistroModule.InsertarProductoPasePedido(form);
             } else {
-                AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
+                PedidoRegistroModule.AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
             }
 
             if (cuv.substring(0, 3) == '999') {//OG
@@ -1111,7 +1111,7 @@ function PreValidarCUV(event) {
 
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
-            AgregarProductoListadoPasePedido();
+            PedidoRegistroModule.AgregarProductoListadoPasePedido();
         }
     }
 }

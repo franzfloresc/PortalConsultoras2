@@ -414,7 +414,7 @@ $(document).ready(function () {
         }
 
         var contenedor = $(this).parents(".content_item_carrusel");
-        AgregarProductoLiquidacionBienvenida(contenedor);
+        PedidoRegistroModule.AgregarProductoLiquidacionBienvenida(contenedor);
     });
     $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion-tallacolor', function () {
         if (ReservadoOEnHorarioRestringido())
@@ -450,7 +450,7 @@ $(document).ready(function () {
         //    return false;
 
         var contenedor = $(this).parents('#divTonosTallas');
-        AgregarProductoLiquidacionBienvenida(contenedor);
+        PedidoRegistroModule.AgregarProductoLiquidacionBienvenida(contenedor);
     });
     $(document).on('click', '.btn_cerrar_escogerTono', function () {
         HidePopupTonosTallas();

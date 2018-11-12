@@ -19,7 +19,7 @@ var tipoMeta = null;
 
 $(document).ready(function () {
     $("body").on("click", ".agregarOfertaFinal", function () {
-        AgregarOfertaFinalClick(this);
+        PedidoRegistroModule.AgregarOfertaFinalClick(this);
         //var divPadre = $(this).parents("[data-item='ofertaFinal']").eq(0);
         //var objCantidad = $(this).parent().find('[data-input="cantidad"]');
 
@@ -32,7 +32,7 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".agregarOfertaFinalVerDetalle", function () {
-        AgregarOfertaFinalDetalleClick(this);
+        PedidoRegistroModule.AgregarOfertaFinalDetalleClick(this);
         //var prodId = $(this).attr("data-popup-verdetalle");
         //var divPadre = $("#divCarruselOfertaFinal").find("[data-popup-id=" + prodId + "]").eq(0);
         //var objCantidad = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-input='cantidad']");

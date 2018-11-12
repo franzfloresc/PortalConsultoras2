@@ -102,7 +102,7 @@ $(document).ready(function () {
         cargarProductoPopup(objProducto, objHidden);
     });
     $(document).on('click', ".js-boton_agregar_popup", function () {
-        AgregarProductoOfertaLiquidacion(this);
+        PedidoRegistroModule.AgregarProductoOfertaLiquidacion(this);
     });
 
     //$(document).on('click', ".js-boton_agregar_popup", function () {
@@ -226,7 +226,7 @@ $(document).ready(function () {
     //}
     //});
 
-    $(document).on('click', ".js-boton_liquidacion", RegistrarProductoOferta);
+    $(document).on('click', ".js-boton_liquidacion", PedidoRegistroModule.RegistrarProductoOferta);
 
     Inicializar();
 });

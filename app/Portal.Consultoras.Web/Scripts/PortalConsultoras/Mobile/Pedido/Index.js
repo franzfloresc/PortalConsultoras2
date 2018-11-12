@@ -192,7 +192,7 @@ $(document).ready(function () {
             return false;
         }
         
-        AgregarProductoListadoPasePedidoMobile();
+        PedidoRegistroModule.AgregarProductoListadoPasePedidoMobile();
     });
 
     $("body").on("click", ".btnAgregarSugerido", function () {
