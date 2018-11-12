@@ -1,0 +1,7 @@
+1.1.WSConsultoras
+Agregar:
+	QAS:
+	<add key="UrlPaqueteDocumentarioPDF" value="http://54.208.59.210/RVDigitalWSPrueba/PdfService.svc/GetPaquete" />
+	
+	PPR, PRD:
+	<add key="UrlPaqueteDocumentarioPDF" value="http://54.208.59.210/RVDigitalWS/PdfService.svc/GetPaquete" />

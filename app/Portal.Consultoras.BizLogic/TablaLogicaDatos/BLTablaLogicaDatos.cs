@@ -1,8 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Data;
 
@@ -10,7 +10,7 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLTablaLogicaDatos : ITablaLogicaDatosBusinessLogic
     {
-        public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, short tablaLogicaID)
+        public List<BETablaLogicaDatos> GetList(int paisID, short tablaLogicaID)
         {
             var lst = new List<BETablaLogicaDatos>();
 
@@ -28,9 +28,9 @@ namespace Portal.Consultoras.BizLogic
 
             return lst;
         }
-        public List<BETablaLogicaDatos> GetTablaLogicaDatosCache(int paisID, short tablaLogicaID)
+        public List<BETablaLogicaDatos> GetListCache(int paisID, short tablaLogicaID)
         {
-            return CacheManager<List<BETablaLogicaDatos>>.ValidateDataElement(paisID, ECacheItem.TablaLogicaDatos, tablaLogicaID.ToString(), () => GetTablaLogicaDatos(paisID, tablaLogicaID));
+            return CacheManager<List<BETablaLogicaDatos>>.ValidateDataElement(paisID, ECacheItem.TablaLogicaDatos, tablaLogicaID.ToString(), () => GetList(paisID, tablaLogicaID));
         }
     }
 }

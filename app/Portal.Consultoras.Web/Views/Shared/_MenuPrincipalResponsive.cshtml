@@ -49,7 +49,7 @@
     <div class="icono__cerrar row flex-column align-items-end ml-0 mr-0">
         <img src="@Url.Content("~/Content/Images/icono_cerrar_menu_mobile.png")" alt="Cerrar">
     </div>
-    <div class="consultora__saludo row flex-column justify-content-center align-items-center ml-0 mr-0 mb-30">
+    <div class="consultora__saludo row flex-column justify-content-center align-items-center ml-0 mr-0 mt-31 mb-30">
         <div class="consultora__datos consultora__datos--menu">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
@@ -65,7 +65,7 @@
 
                 </div>
                 <div class="icono__actualizarDatos text-center">
-                    <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})">
+                    <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" title="Actualizar datos">
                         <img src="@Url.Content("~/Content/Images/mobile/icono_editar_foto_perfil.svg")" alt="Actualizar datos">
                     </a>
                 </div>
@@ -79,7 +79,7 @@
     </div>
     <ul class="menu__lista row flex-column flex-lg-row flex-xl-row justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center ml-0 mr-0 mb-0 pl-0">
         <li class="menu__item" data-title="Ingresa tu pedido">
-            <a class="menu__link menu__link--pedido d-block text-uppercase" title="Ingresa tu pedido">
+            <a class="menu__link menu__link--pedido d-block text-uppercase" role="menu" region="Menú Lateral" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido">
                 Ingresa <span class="text-bold">tu pedido</span>
             </a>
         </li>
@@ -91,10 +91,10 @@
                 if (item.Descripcion != "¿Necesitas ayuda?")
                 {
                     <li class="menu__item" data-title="@item.Descripcion">
-                        <a class="menu__link d-block"
-                           title="@item.Descripcion"
-                           href="@item.UrlItem"
-                           id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()">
+                        <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
+                           class="menu__link d-block" target="@item.PageTarget"
+                           href="@item.UrlItem" @item.OnClickFunt data-orden="@item.OrdenItem"
+                           id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo">
                             @if (item.UrlImagen != "")
                             {
                                 <img src="@item.UrlImagen" alt="@item.Descripcion" />
@@ -110,9 +110,8 @@
             else
             {
                 <li class="menu__item" data-title="@item.Descripcion">
-                    <a class="menu__link d-block menu__link--conSubmenu menu__link--conSubmenuMobile"
-                       parent="@item.Descripcion" title="@item.Descripcion"
-                       data-toggle="collapse" data-parent="#accordion"
+                    <a role="menu" region="Menú Lateral" parent="@item.Descripcion" title="@item.Descripcion"
+                       class="menu__link d-block menu__link--conSubmenu menu__link--conSubmenuMobile" data-toggle="collapse" data-parent="#accordion"
                        href="#SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">
                         @item.Descripcion
                     </a>
@@ -178,7 +177,6 @@
     </a>
 </nav>
 <!-- FIN - MENÚ PRINCIPAL MOBILE -->
-
 <!-- MENÚ PRINCIPAL DESKTOP -->
 
 <nav class="header__menu header__menu--lateralIzquierdo mostrarEnDesktop">
@@ -209,7 +207,7 @@
                             {
                                 if (menuHijo.SubMenus.Count > 0)
                                 {
-                                    
+
                                 }
                                 else
                                 {
@@ -231,7 +229,8 @@
                                     <li class="submenu__item">
                                         @if (menuHijo.UrlItem == "")
                                         {
-                                            <a href="javascript:;" class="submenu__link d-block" title="@menuHijo.Descripcion">
+                                            <a href="javascript:;" class="submenu__link d-block"
+                                               target="@menuHijo.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
                                                 @menuHijo.Descripcion
                                             </a>
                                         }
@@ -270,7 +269,8 @@
                                                         <li class="submenu__item" data-title="Esika Trend">
                                                             @if (w.UrlItem == "")
                                                             {
-                                                                <a href="javascript:;" class="submenu__link d-block">
+                                                                <a href="javascript:;" class="submenu__link d-block"
+                                                                   target="@w.PageTarget" role="menu" region="Principal" parent="@w.Descripcion" title="@w.Descripcion" id="lnk-pri-@w.DescripcionFormateada">
                                                                     @w.Descripcion
                                                                 </a>
                                                             }
@@ -310,7 +310,7 @@
                                 if (ViewBag.SegmentoConsultoraMenu == 1)
                                 {
                                     <li class="submenu__item submenu__item--Catalogos">
-                                        <a href="@urlProgramaNuevas" class="submenu__link d-block" title="Catálogos">
+                                        <a href="@urlProgramaNuevas" class="submenu__link d-block" role="menu" region="Principal" parent="MI NEGOCIO" title="Programa Nuevas" target="_blank">
                                             <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_02.png" class="w-100" alt="Catálogos">
                                             <div class="submenu__item__title w-100">PROGRAMA NUEVAS</div>
                                         </a>
@@ -319,7 +319,7 @@
                                 else
                                 {
                                     <li class="submenu__item submenu__item--Incentivos">
-                                        <a href="javascript:;" class="submenu__link d-block" title="Incentivos" onclick="RedirectMenu('Index', 'Incentivos', 0, 'Incentivos')">
+                                        <a href="javascript:;" class="submenu__link d-block" onclick="RedirectMenu('Index', 'Incentivos', 0, 'Incentivos')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Incentivos" id="lnk-pri-Incentivos">
                                             <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_03.png" class="w-100" alt="Incentivos">
                                             <div class="submenu__item__title w-100">Incentivos</div>
                                         </a>
@@ -335,7 +335,8 @@
                 <li class="menu__item" data-title="@menuPadre.Descripcion">
                     @if (menuPadre.UrlItem == "")
                     {
-                        <a href="javascript:;" class="menu__link d-block" title="@menuPadre.Descripcion">
+                        <a href="javascript:;" class="menu__link d-block" 
+                           target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                             @menuPadre.Descripcion
                         </a>
                     }
