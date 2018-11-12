@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mailing Notificaci&oacute; Pago Exitoso</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
+    </style>
+</head>
+<body style="margin:0;">
+    <div style="display:block; width:100%; max-width:600px; margin:0 auto; height:auto; font-family:'Lato', 'Arial', sans-serif;  color:#000;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr height="88">
+                    <th style="border-bottom: 1px solid #000;">
+                        <img src="#URL_IMAGEN_MARCA#" alt="Logo &Eacute;sika" width="96" height="38" align="center">
+                    </th>
+                </tr>
+                <tr height="40" align="center" style="display:block; padding-top:25px;">
+                    <th style="padding: 0px 15px 0px 15px;">
+                        <div style="font-size:22px; font-weight:bold; letter-spacing:0.1px; margin-bottom:32px;">Hola <span>#FORMATO_NOMBRECOMPLETO#</span></div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div style="display:block; padding-left:25px; padding-right:25px; margin-bottom:24px;">
+                            <p style="display:block; font-size:14px; color:#000;">
+                                <span style="display:block; font-weight:bold; font-size:15px; margin-bottom:5px; text-transform:uppercase; color:#COLOR_MARCA#;">¡Tu pago fue exitoso!</span>Puedes revisar el resumen de tu pago a continuaci&oacute;n.
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="display:block; padding-left:25px; padding-right:25px;">
+                            <h3 style="display:block; margin-top:0; margin-bottom:0; text-align:left; color:#000; font-size:15px; font-weight:bold; font-family:'Lato', 'Arial', sans-serif; text-transform:uppercase; padding-bottom:10px;">
+                                Resumen del pago
+                            </h3>
+                            <div style="display:block; border:1px solid #B5B5B5; padding-top:10px; padding-right:10px; padding-bottom:10px; padding-left:10px;">
+                                <div style="display:block; margin-bottom:1px;">
+                                    <div style="display:inline-block; width:56%; font-size:14px; text-align:left; text-transform:uppercase; font-weight:700;">N° de operaci&oacute;n :</div>
+                                    <div style="display:inline-block; width:42%; font-size:14px; text-align:right; font-weight:700;">#FORMATO_NUMEROOPERACION#</div>
+                                </div>
+                                <div style="display:block;">
+                                    <div style="display:inline-block; width:56%; font-size:14px; text-align:left; text-transform:uppercase; font-weight:700;">Nro. Tarjeta :</div>
+                                    <div style="display:inline-block; width:42%; font-size:14px; text-align:right; font-weight:700;">#FORMATO_NUMTARJETA#</div>
+                                </div>
+                                <div style="display:block;">
+                                    <div style="display:inline-block; width:56%; font-size:14px; text-align:left; text-transform:uppercase; font-weight:700;">Fecha de Pago :</div>
+                                    <div style="display:inline-block; width:42%; font-size:14px; text-align:right; font-weight:700;">#FORMATO_FECHAPAGO#</div>
+                                </div>
+                                <div style="display:block; margin-top:18px; margin-bottom:18px;">
+                                    <div style="display:block; margin-bottom:3px;">
+                                        <div style="display:inline-block; width:56%; font-size:14px; text-align:left;">Monto:</div>
+                                        <div style="display:inline-block; width:42%; font-size:14px; text-align:right;">#FORMATO_SIMBOLO# #FORMATO_MONTODEUDA#</div>
+                                    </div>
+                                    <div style="display:block; margin-bottom:8px;">
+                                        <div style="display:inline-block; width:56%; font-size:14px; text-align:left;">#LABEL_CARGO#:</div>
+                                        <div style="display:inline-block; width:42%; font-size:14px; text-align:right;">#FORMATO_SIMBOLO# #FORMATO_MONTOGASTOSADMINISTRATIVOS#</div>
+                                    </div>
+                                    <div style="display:block; border-top:1px solid #B5B5B5; padding-top:8px;">
+                                        <div style="display:inline-block; width:56%; font-size:14px; text-align:left; text-transform:uppercase; font-weight:700;">Total pagado:</div>
+                                        <div style="display:inline-block; width:42%; font-size:14px; text-align:right; font-weight:700;">#FORMATO_SIMBOLO# #FORMATO_MONTOTOTAL#</div>
+                                    </div>
+                                </div>
+                                <div style="display:block;">
+                                    <div style="display:inline-block; font-size:14px; text-align:left; font-weight:700;">Saldo pendiente:</div>
+                                    <div style="display:inline-block; font-size:14px; text-align:left; font-weight:700;">
+                                        <span style="display:inline-block; margin-right:1px;">#FORMATO_SIMBOLO#</span>
+                                        <span style="display:inline-block;">#FORMATO_SALDOPENDIENTE#</span>
+                                    </div>
+                                </div>
+                                <div style="display:block;">
+                                    <span style="display:inline-block; font-size:14px; margin-right:1px;">Vencimiento:</span>
+                                    <span style="display:inline-block; font-size:14px;">#FORMATO_FECHAVENCIMIENTO#</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="display:block; padding-left:25px; padding-right:24px; margin-top:30px; margin-bottom:40px;">
+                            <p style="display:block; font-size:13px;">
+                                #FORMATO_MENSAJEINFORMACION#
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="background-color:#000!important; height:auto; display:block; padding:12px 16px 16px 0px; text-align:center;">
+                            <div style="display:inline-block; vertical-align:middle; padding-top:7px;">
+                                <div style="width:68px; display:inline-block; vertical-align:middle; margin-bottom:4px;">
+                                    <a href="https://www.somosbelcorp.com" title="Ir a sitio web de Belcorp" target="_blank" style="display:block; text-decoration:none;">
+                                        <img src="https://cdn1-prd.somosbelcorp.com/Correo/logo-belcorp.png" alt="Logo Belcorp">
+                                    </a>
+                                </div>
+                                <div style="width:68px; display:inline-block; vertical-align:middle; position:relative; margin-top:3px;">
+                                    <a href="https://www.esika.com" title="Ir a sitio web de &Eacute;sika" target="_blank" style="display:block; text-decoration:none;">
+                                        <img src="https://cdn1-prd.somosbelcorp.com/Correo/logo-esika.png" alt="Logo &Eacute;sika">
+                                    </a>
+                                </div>
+                                <div style="width:64px; display:inline-block; vertical-align:middle; position:relative; margin-bottom:3px;">
+                                    <a href="https://www.lbel.com" title="Ir a sitio web de L'bel" target="_blank" style="display:block; text-decoration:none;">
+                                        <img src="https://cdn1-prd.somosbelcorp.com/Correo/logo-lbel.png" alt="Logo L'bel">
+                                    </a>
+                                </div>
+                                <div style="width:80px; display:inline-block; vertical-align:middle; position:relative; margin-top:4px;">
+                                    <a href="https://www.cyzone.com" title="Ir a sitio web de Cyzone" target="_blank" style="display:block; text-decoration:none;">
+                                        <img src="https://cdn1-prd.somosbelcorp.com/Correo/logo-cyzone.png" alt="Logo Cyzone">
+                                    </a>
+                                </div>
+                            </div>
+                            <div style="display:inline-block; vertical-align:middle; padding-top:7px;">
+                                <div style="width:97px; height:25px; display:inline-block; vertical-align:middle;">
+                                    <div style="height:26px; border-left:1px solid #FFF!important; color:#FFF!important; font-family:'Lato', 'Arial'; font-size:11px; text-align:right; line-height:24px;">
+                                        S&Iacute;GUENOS EN
+                                    </div>
+                                </div>
+                                <div style="width:25px; text-align:right; display:inline-block; vertical-align:middle; margin-bottom:1px;">
+                                    <a href="https://www.facebook.com/SomosBelcorpOficial/" title="S&iacute;guenos en Facebook" target="_blank" style="display:block; text-decoration:none;">
+                                        <img src="https://cdn1-prd.somosbelcorp.com/Correo/logo-facebook.png" alt="Logo Facebook">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <div style="display:block; font-size:11px; padding:18px 0px; text-align:center;">
+                            <div style="display:inline-block; padding:0px 10px; border-right:1px solid #000!important;">
+                                <a href="http://comunidad.somosbelcorp.com/" title="¿Tienes dudas?" target="_blank" style="text-decoration:none; color:#000!important;">
+                                    ¿Tienes dudas?
+                                </a>
+                            </div>
+                            <div style="display:inline-block; padding:0px 10px;">
+                                <a href="http://www.belcorpresponde.com/" title="Cont&aacute;ctanos" target="_blank" style="text-decoration:none; color:#000!important;">
+                                    Cont&aacute;ctanos
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+

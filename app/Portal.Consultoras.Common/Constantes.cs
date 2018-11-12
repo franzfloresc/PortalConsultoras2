@@ -274,7 +274,7 @@ namespace Portal.Consultoras.Common
         
         public static class Inicializacion
         {
-            public const int EnteroInicial =  -1;
+            public const int EnteroInicial = -1;
         }
 
         public static class EstadoRespuestaServicio
@@ -2272,6 +2272,10 @@ namespace Portal.Consultoras.Common
 
             public static class Mensaje
             {
+                public const string KitNueva_Pedido1Unico = "Este Kit se agrega automáticamente sólo en tu primer pedido.";
+                public const string KitNueva_Pedido1 = "Este Kit se agrega automáticamente en tu primer pedido.";
+                public const string KitNueva_Pedido2 = "Este Kit se agrega automáticamente en tu segundo pedido.";
+                public const string KitNueva_Pedido3 = "Este Kit se agrega automáticamente en tu tercer pedido.";
                 public const string ConsultoraNoNueva = "El código solicitado es exclusivo para quienes participan del Programa de Nuevas.";
                 public const string CuvNoPerteneceASuPrograma = "El codigo ingresado es incorrecto. Revise el folleto del Programa de Nuevas y solicite el que le corresponde.";
                 public const string ExcedeLimiteUnidades = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña";
@@ -2751,6 +2755,18 @@ namespace Portal.Consultoras.Common
             public const string Debito = "DEB";
         }
 
+        public static class PagoEnLineaPasarela
+        {
+            public const string Visa = "VISA";
+        }
+
+        public static class PagoEnLineaNotificacion
+        {
+            public const string Email_Notifier = "no-responder@somosbelcorp.com";
+            public const string Email_Titulo = "PAGO EN LINEA";
+            public const string Email_Template = "bin\\Templates\\mailing_pago_en_linea.html";
+        }
+
         public static class PagoEnLineaPasarelaVisa
         {
             public const string MerchantId = "01";
@@ -2764,6 +2780,39 @@ namespace Portal.Consultoras.Common
             public const string UrlLogoPasarelaPago = "09";
             public const string ColorBotonPagarPasarelaPago = "10";
             public const string MensajeInformacionPagoExitoso = "11";
+            public const string MontoMinimoPago = "13";
+
+            public const string NextCounterURL_Pattern = "{0}%s/nextCounter";
+            public const string Recurrence = "FALSE";
+            public const string RecurrenceAmount = "0.00";
+
+            public static class Code {
+                public const string CodigoError_Success = "0";
+                public const string CodigoAccion_Success = "000";
+            }            
+        }
+
+        public static class PagoEnLineaRespuestaServicio
+        {
+            private static Dictionary<string, string> _Message;
+
+            public static class Code
+            {
+                public const string SUCCESS = "0000";
+                public const string SUCCESS_YA_AGREGADO = "0001";
+            }
+
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                    {
+                        {Code.SUCCESS, "Pago en Línea registrado con éxito."},
+                        {Code.SUCCESS_YA_AGREGADO, "Pago en Línea ya fue registrado anteriormente."},
+                    });
+                }
+            }
         }
 
         public static class PagoEnLineaPasarelaPayu
@@ -2796,12 +2845,23 @@ namespace Portal.Consultoras.Common
             public const string DefaultCity = "Mexico";
         }
 
+        public static class PagoEnLineaResultadoLog
+        {
+            public const int Accion_Insert = 1;
+        }
+
         public static class PagoEnLineaMensajes
         {
             public const string CargoplataformaPe = "Cargo plataforma online";
             public const string CargoplataformaMx = "Comisión por transacción";
             public const string GastosLabelPe = "Gastos Adm.";
             public const string GastosLabelMx = "Cargo comisión por transacción";
+        }
+
+        public static class PagoEnLineaOrigen
+        {
+            public const string OrigenDesktop = "Desktop";
+            public const string OrigeMobile = "Mobile";
         }
 
         #endregion
@@ -2898,6 +2958,11 @@ namespace Portal.Consultoras.Common
             //api/Evento/Get/{pais}/{campania}
             public const string UrlObtenerEvento = "api/Evento/Get/{0}/{1}";
 
+            #endregion
+
+            #region Reporte
+            //api/Estrategia/ReporteValidacion/{tipo}/{campania}/{paises}
+            public const string UrlReporteValidacion = "api/Estrategia/ReporteValidacion/{0}/{1}/{2}";
             #endregion
         }
         public static class OfertaFinalLog
@@ -3121,6 +3186,47 @@ namespace Portal.Consultoras.Common
             public const int ObtenerOpmTodo = 0;
             public const int ObtenerOpmSinForzadasMG1 = 1;
             public const int ObtenerOpmSoloForzadasMG1 = 2;
+        }
+
+        public static class ReporteValidacionDatos
+        {
+            private static Dictionary<int, string> _TipoPersonalizacion;
+            private static Dictionary<int, string> _TipoEstrategiaCodigo;   
+            public static class EstrategiaID
+            {
+                public const int OPT = 4;
+                public const int ODD = 7;
+                public const int OPM = 10;
+                public const int SR = 99;
+            }
+
+            public static Dictionary<int, string> TipoPersonalizacion
+            {
+                get
+                {
+                    return _TipoPersonalizacion ?? (_TipoPersonalizacion = new Dictionary<int, string>
+                    {
+                        {EstrategiaID.ODD, "ODD"},
+                        {EstrategiaID.OPM, "OPM"},
+                        {EstrategiaID.OPT, "OPT"},
+                        {EstrategiaID.SR, "SR"}
+                    });
+                }
+            }
+
+            public static Dictionary<int, string> TipoEstrategiaCodigo
+            {
+                get
+                {
+                    return _TipoEstrategiaCodigo ?? (_TipoEstrategiaCodigo = new Dictionary<int, string>
+                    {
+                        {EstrategiaID.ODD, "009"},
+                        {EstrategiaID.OPM, "007"},
+                        {EstrategiaID.OPT, "001"},
+                        {EstrategiaID.SR, "030"}
+                    });
+                }
+            }
         }
 
     }

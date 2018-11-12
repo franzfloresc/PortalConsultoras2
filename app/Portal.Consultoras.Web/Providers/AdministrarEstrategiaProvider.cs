@@ -411,6 +411,7 @@ namespace Portal.Consultoras.Web.Providers
             string content = taskApi.Result;
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+            if (respuesta == null) return null;
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 throw new Exception(respuesta.Message);
@@ -811,6 +812,23 @@ namespace Portal.Consultoras.Web.Providers
                 var message = string.Format("AdministrarEstrategiaProvider_JobBuscador: campania={0}, codigoEstrategia={1}, exception={2}", codigoCampania, codigoEstrategia, ex.Message);
                 LogManager.LogManager.LogErrorWebServicesBus(new Exception(message, ex), userData.CodigoConsultora, userData.CodigoISO);
             }
+        }
+
+        public  List<ServicePedido.BEReporteValidacion> ObtenerReporteValidacionPalancas(string tipo,string  campaniaId)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+            string jsonParameters = string.Empty;
+
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion,tipo,campaniaId,WebConfig.PaisesMicroservicioPersonalizacion);
+            var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
+            Task.WhenAll(taskApi);
+            string content = taskApi.Result;
+
+            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+
+            List<ServicePedido.BEReporteValidacion> listaReporte = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<ServicePedido.BEReporteValidacion>>(respuesta.Result.ToString()) : new List<ServicePedido.BEReporteValidacion>();
+
+            return listaReporte;
         }
     }
 }
