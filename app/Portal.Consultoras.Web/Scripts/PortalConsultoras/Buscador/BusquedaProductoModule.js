@@ -237,6 +237,9 @@
 
             var textoOrdenamiento = $(this).attr('title');
 
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaClicOpcionesFiltrarBuscador(textoOrdenamiento);
+
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
@@ -249,8 +252,9 @@
                     CerrarLoad();
                 });
 
-            $('.ul-seleccionado').html(textoOrdenamiento);
+            $('.ul-seleccionado').html(textoOrdenamiento);       
 
+         
         },
 
         MostrarFiltrosMobile: function (e) {
@@ -345,7 +349,12 @@
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
                 //console.log(UrlDetalle);
                 window.location = UrlDetalle;
-                virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + _config.textoBusqueda);
+                //virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + _config.textoBusqueda);
+
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + _config.textoBusqueda);
+
+
                 return true;
             }
         },

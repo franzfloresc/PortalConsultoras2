@@ -226,7 +226,10 @@ var BuscadorModule = (function () {
                         if (r.total == 0) {
                             $(".spinner").fadeOut(150);
                             $(".busqueda_sin_resultados").fadeIn(60);
-                            virtualEvent('Buscador SB', 'Búsqueda - sin Resultados', valorBusqueda);
+
+                            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                                AnalyticsPortalModule.MarcaBusquedaSinResultadosBuscador(valorBusqueda);
+                                                        
                         } else {
 
                             $.each(r.productos, function (index, item) {
@@ -327,7 +330,12 @@ var BuscadorModule = (function () {
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
                 _funciones.LlamarAnalyticsElijeUnaOpcion(UrlDetalle, textoBusqueda);
                 window.location = UrlDetalle;
-                virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
+
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
+
+               
+                //virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
                 return true;
             }
 
@@ -337,7 +345,11 @@ var BuscadorModule = (function () {
         ClickVerTodos: function () {
             var valorBusqueda = $(_elementos.campoBuscadorProductos).val();
             var url = _config.urlBusquedaProducto + "?q=" + valorBusqueda;
-            virtualEvent('Buscador SB', 'Ver todos los resultados', valorBusqueda);
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaVerTodosLosResultadosBuscador(valorBusqueda);
+            
+            
             window.location.href = url;
         },
         RedireccionarMenuPrincipal: function (e) {
