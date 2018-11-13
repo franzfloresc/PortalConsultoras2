@@ -1,39 +1,47 @@
 ﻿@using Portal.Consultoras.Web.Models
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 @{
-    //var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
-    //var camapaniaEfectiva = "C" + revistaDigital.CampaniaActiva;
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+
+    var headerAttr = "nosuscrita";
+    if (revistaDigital.EsActiva == true)
+    {
+        headerAttr = "suscrita";
+    }
 }
 
-<div class="contenedor_MasGanadoras_carrusel" 
+<div @headerAttr 
+     class="contenedor_MasGanadoras_carrusel"
      style="background: url(@Model.ImagenFondo);background-position-x: center;background-repeat: no-repeat; background-size: cover;"
      data-plantilla="carrusel-individuales-v2">
-    <div class="row">
-        <div class="col-xs-6">
+        <ul class="title_MasGanadoras">
+        <li class="">
             <h3 class="titulo_MasGanadoras">@Model.Titulo</h3>
-        </div>
-        <div style="display:none;">
+        </li>
+        
+        <li style="display:none;">
             <div style="display:none;" data-productos-info="">
                 <span>
-                    Mostrando 
-                    <span data-productos-mostrar="">@Model.CantidadMostrar</span> 
-                    de 
+                    Mostrando
+                    <span data-productos-mostrar="">@Model.CantidadMostrar</span>
+                    de
                     <span data-productos-total="">@Model.CantidadProductos</span>
                 </span>
             </div>
-        </div>
+        </li>
 
         @if (Model.VerMas)
         {
-            <div class="col-xs-6 text-right" data-seccion-vermas="@Model.Codigo">
-                <a class="boton_MasGanadoras" 
+            <li class="text-right" data-seccion-vermas="@Model.Codigo">
+                <a class="boton_MasGanadoras"
                    href="javascript:;"
-                   onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.Titulo');" >
-                VER MÁS
+                   onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.Titulo');">
+                    VER MÁS
                 </a>
-            </div>
+            </li>
         }
-    </div>
+        </ul>
+    
     <div class="carousel-mas-ganadoras"
          data-seccion-productos=""
          data-content-item="@Model.CampaniaID">

@@ -3,62 +3,58 @@
 <script id="template-producto-v2" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
 
-    {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.BannerCarruselMg'}}
-        <article class="banner_ofertas_masGanadoras caja-borde">
-            <div class="contenido_ofertas">
-                <p>{{{DescripcionCompleta}}}</p>
-                <a href="javascript:"
-                   onclick="javascript: menuModule.sectionClick('{{DescripcionMarca}}');">
-                    {{DescripcionDetalle}}
-                </a>
-            </div>
-        </article>
+    {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.BannerCarrusel'}}
+    <article class="banner_ofertas_masGanadoras caja-borde" {{#if ImagenURL}}style="background-image:url({{ImagenURL}});background-size: 100% 100%;background-color: #fff;"{{/if}}>
+        <div class="contenido_ofertas">
+            <p {{#if ImagenURL}}style="color:#000;"{{/if}}>{{{DescripcionCompleta}}}</p>
+            <a href="javascript:" onclick="javascript: menuModule.sectionClick('{{DescripcionMarca}}');">{{DescripcionDetalle}}</a>
+        </div>
+    </article>
     {{else}}
-        <article class="item_producto_contenedor caja-borde"
-                 data-item="{{EstrategiaID}}"
-                 data-item-cuv="{{CUV2}}"
-                 data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}"
-                 data-item-producto="true">
+    <article class="item_producto_contenedor caja-borde"
+             data-item="{{EstrategiaID}}"
+             data-item-cuv="{{CUV2}}"
+             data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}"
+             data-item-producto="true">
 
-            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-            <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+        <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
 
-            <div data-item-tag="verdetalle" 
-                 onclick="javascript:OnClickFichaDetalle(this);">
+        <div data-item-tag="verdetalle"
+             onclick="javascript:OnClickFichaDetalle(this);">
 
-                <div class="producto_img">
-                    <img data-src="{{ImgSmall FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" alt="" />
-                </div>
-                <div class="clear"></div>
-                <div class="producto_contenido">
-                    <h6 class="marca_item">{{DescripcionMarca}}</h6>
-                    <p class="nombre_producto_item">{{Substr 34 DescripcionCompleta}}</p>
-                    <span class="precio_normal_item">
-                        {{#iff Precio '>' 0}}
-                        {{SimboloMoneda}} {{PrecioTachado}}
-                        {{else}}
-                        &nbsp;
-                        {{/iff}}
-                    </span>
-                    <span class="precio_oferta_item">{{SimboloMoneda}} {{PrecioVenta}}</span>
-                </div>
+            <div class="producto_img">
+                <img data-src="{{ImgSmall FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" alt="" />
             </div>
             <div class="clear"></div>
-            @if (ViewBag.TieneBotones)
-            {
-            }
-            else
-            {
-            <div data-tipoagregar="{{TipoAccionAgregar}}">
-                {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}           
-                            <div class="elige_tono_item cursor_pointer"  data-item-tag="verdetalle"    onclick="javascript:OnClickFichaDetalle(this);" >
-                                <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
-                            </div>           
+            <div class="producto_contenido">
+                <h6 class="marca_item">{{DescripcionMarca}}</h6>
+                <p class="nombre_producto_item">{{Substr 34 DescripcionCompleta}}</p>
+                <span class="precio_normal_item">
+                    {{#iff Precio '>' 0}}
+                    {{SimboloMoneda}} {{PrecioTachado}}
+                    {{else}}
+                    &nbsp;
                     {{/iff}}
+                </span>
+                <span class="precio_oferta_item">{{SimboloMoneda}} {{PrecioVenta}}</span>
             </div>
-            }
-        </article>
+        </div>
+        <div class="clear"></div>
+        @if (ViewBag.TieneBotones)
+        {
+        }
+        else
+        {
+            <div data-tipoagregar="{{TipoAccionAgregar}}">
+                {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
+                <div class="elige_tono_item cursor_pointer" data-item-tag="verdetalle" onclick="javascript:OnClickFichaDetalle(this);">
+                    <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
+                </div>
+                {{/iff}}
+            </div>
+        }
+    </article>
     {{/iff}}
-
     {{/each}}
 </script>

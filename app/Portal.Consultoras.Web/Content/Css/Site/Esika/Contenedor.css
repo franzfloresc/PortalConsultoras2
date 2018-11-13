@@ -33,18 +33,14 @@
 }
 
 .parche_presentacion_contenedor .bloque-titulo .seccion-titulo {
-    color: #b52e36;
+    color: #e81c36;
 }
 
 .parche_presentacion_contenedor .bloque-titulo .ir a {
-    background: #b52e36;
+    background: #e81c36;
 }
-
-
 
 .op-menu-horizontal .subnavegador li .activado {
     border-bottom: 3px solid #B52E36;
     color: #B52E36;
 }
-
-

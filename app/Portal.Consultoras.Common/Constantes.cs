@@ -268,7 +268,7 @@ namespace Portal.Consultoras.Common
             public const int LoQuieres = 4;
             public const int LoQuieresInactivo = 5;
 
-            public const int BannerCarruselMg = 11;
+            public const int BannerCarrusel = 11;
 
         }
         
@@ -1011,6 +1011,7 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorOfertaDelDiaCarrusel = 2080301;
             public const int MobileContenedorOfertaDelDiaFicha = 2080302;
             public const int AppConsultoraContenedorOfertaDelDiaFicha = 4080302;
+
             public const int DesktopHomeShowroomCarrusel = 1010101;
             public const int DesktopHomeShowroomFicha = 1010102;
             public const int DesktopHomeShowroomCarruselVerMas = 1010105;
@@ -1026,6 +1027,7 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraLandingShowroomShowroomFicha = 4050102;
             public const int MobileLandingShowroomShowroomSubCampania = 2050107;
             public const int AppConsultoraLandingShowroomShowroomSubCampania = 4050107;
+
             public const int DesktopLandingGNDGNDCarrusel = 1060501;
             public const int DesktopLandingGNDGNDFicha = 1060502;
             public const int MobileLandingGNDGNDCarrusel = 2060501;
@@ -1087,6 +1089,7 @@ namespace Portal.Consultoras.Common
             public const int MobileBuscadorHerramientasdeVentaFicha = 2040802;
 
             public const int MobileContenedorShowroomCarrusel = 2080101;
+            public const int MobileContenedorShowroomFicha = 2080102;
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
 
             #endregion
@@ -1570,6 +1573,12 @@ namespace Portal.Consultoras.Common
             public const string BloqueoProductoDigital = "BloqueoProductoDigital";
             public const string ActivoMdo = "ActivoMDO";
 
+            #region Banner Carrusel - Caja Producto
+            public const string BannerCarruselTitulo = "BannerCarruselTitulo";
+            public const string BannerCarruselTextoEnlace = "BannerCarruselTextoEnlace";
+            public const string BannerCarruselImagenFondo = "BannerCarruselImagenFondo";
+            #endregion
+
             public static class RD
             {
                 #region Data de Cabecera
@@ -1686,7 +1695,6 @@ namespace Portal.Consultoras.Common
                 public static readonly string SociaEmpresariaSuscritaNoActivaCancelarSuscripcion = "SESuscritaNoActivaCancelarSuscripcion";
                 public static readonly string SociaEmpresariaSuscritaActivaCancelarSuscripcion = "SESuscritaActivaCancelarSuscripcion";
                 #endregion
-
             }
 
             public static class RDR
@@ -1721,15 +1729,6 @@ namespace Portal.Consultoras.Common
                 public const string MPopupBloqueado = "MPopupBloqueado";
                 #endregion
             }
-
-            public static class MG
-            {
-                #region Banner Carrusel - Caja Producto
-                public const string BannerCarruselTitulo = "BannerCarruselTitulo";
-                public const string BannerCarruselTextoEnlace = "BannerCarruselTextoEnlace";
-                #endregion
-            }
-
         }
 
         public static class ConfiguracionSeccion
@@ -2727,6 +2726,7 @@ namespace Portal.Consultoras.Common
             public const int OPTObtenerProductos = 5;
             public const int NuevasObtenerProductos = 6;
             public const int MGObtenerProductos = 7;
+            public const int SRObtenerProductos = 8;
         };
 
         #region PagoEnLinea
