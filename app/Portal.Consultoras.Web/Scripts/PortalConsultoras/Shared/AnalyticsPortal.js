@@ -157,6 +157,12 @@ var AnalyticsPortalModule = (function () {
                 return _texto.anterior;
         }
     }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Metodos Iniciales
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+
     var marcarVerFichaProducto = function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
         try {
             dataLayer.push({
@@ -320,6 +326,7 @@ var AnalyticsPortalModule = (function () {
 
 
     }
+
     //Impresiones por productos en el carrusel
     var marcarImpresionSetProductos = function (ArrayItems) {
 
@@ -354,7 +361,14 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Metodos Iniciales
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Analytics Buscador Miguel
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     var _getMarca = function (marcaId) {
         switch (marcaId) {
@@ -502,6 +516,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
+
     var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
         try {
             var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
@@ -550,7 +565,6 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-
     var marcaEligeUnaOpcion = function (url, textobusqueda) {
         try {
             localStorage.setItem('valorBuscador', textobusqueda);
@@ -591,6 +605,7 @@ var AnalyticsPortalModule = (function () {
                 return "Gana+";
         }
     }
+
     var marcaAnadirCarritoBuscador = function (model, origen, campoBuscar) {
         try {
             var desplegable = "";
@@ -635,9 +650,15 @@ var AnalyticsPortalModule = (function () {
 
         }
     }
-    // Fin - Analytics Buscador Miguel
 
-    // Inicio Analytics Home 1 Miguel
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics Buscador Miguel
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Analytics Home 1 Miguel
+    ////////////////////////////////////////////////////////////////////////////////////////
+
     var marcaGanaOfertas = function (data, url) {
 
         try {
@@ -727,7 +748,6 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-
 
     var marcaVerOfertasHome = function (url) {
         try {
@@ -1145,7 +1165,6 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-
     var marcaClicFechaLiquidacion = function (direccion) {
         try {
 
@@ -1204,11 +1223,15 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-    // Fin Analytics Home 1 Miguel
 
-    
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics Home 1 Miguel
+    ////////////////////////////////////////////////////////////////////////////////////////
 
-    // Inicio Analytics Ofertas Miguel
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Analytics Ofertas Miguel
+    ////////////////////////////////////////////////////////////////////////////////////////
+
     /*
     * 1.2. Banners
     * 1.2.1. Clic en Flechas de Banner
@@ -2066,46 +2089,14 @@ var AnalyticsPortalModule = (function () {
         }
     };
 
-    /*
-    * 2.1.7. Ofertas club gana más
-    * 2.1.7.3. Agregar productos
-    */
-    //var marcaAgregarProductosCarrito = function (data) {
-    //    var arrayEstrategiasAnalytics = [];
-    //    data.pedidoDetalle = data.pedidoDetalle || [];
-    //    $.each(data.pedidoDetalle, function (index, value) {
-    //        var estrategia = {
-    //            'name': value.name,
-    //            'id': value.id,
-    //            'price': $.trim(value.price),
-    //            'brand': value.brand,
-    //            'category': "NO DISPONIBLE",
-    //            'variant': value.variant == "" ? "Estándar" : value.variant,
-    //            'quantity': value.quantity
-    //        };
-    //        arrayEstrategiasAnalytics.push(estrategia);
-    //    });
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics Ofertas Miguel
+    ////////////////////////////////////////////////////////////////////////////////////////
 
-    //    try {
-    //        dataLayer.push({
-    //            'event': _evento.addToCart,
-    //            'ecommerce': {
-    //                'currencyCode': "PEN",
-    //                'add': {
-    //                    'actionField': { 'list': "Carrito de compras - Club Gana+" },
-    //                    'products': arrayEstrategiasAnalytics
-    //                }
-    //            }
-    //        });
-
-
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //};
-
+    ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Rama TiposAnalytics
-    //Nuevos métodos para HU EMP-1442 (Jira)
+    ////////////////////////////////////////////////////////////////////////////////////////
+
     var marcarImagenProducto = function (opcion, detalle) {
         try {
             dataLayer.push({
@@ -2274,6 +2265,12 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Rama TiposAnalytics
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+
     //****** GANADORAS******//
 
     var marcaPromotionViewCarrusel = function() {
@@ -2422,9 +2419,10 @@ var AnalyticsPortalModule = (function () {
                 "label": 'Las Más Ganadoras'
             });
     }
-    // Fin - Rama TiposAnalytics
+    
 
     return {
+        // Ini - Metodos Iniciales
         MarcarVerFichaProducto: marcarVerFichaProducto,
         FcVerificarTipoMoneda: fcVerificarTipoMoneda,
         MarcarIniciarPlayVideo: marcarIniciarPlayVideo,
@@ -2435,6 +2433,8 @@ var AnalyticsPortalModule = (function () {
         MarcarClicSetProductos: marcarClicSetProductos,
         MarImpresionSetProductos: marcarImpresionSetProductos,
         MarcarFichaBreadcrumb: marcarFichaBreadcrumb,
+        // Fin - Metodos Iniciales
+
         // Ini - Rama TiposAnalytics
         MarcarImagenProducto: marcarImagenProducto,
         MarcarPopupEligeUnaOpcion: marcarPopupEligeUnaOpcion,
@@ -2452,7 +2452,7 @@ var AnalyticsPortalModule = (function () {
         MarcarCambiarOpcionVariasOpciones: marcarCambiarOpcionVariasOpciones,
         // Fin - Rama TiposAnalytics
 
-        // Inicio - Analytics Buscador Miguel
+        // Ini - Analytics Buscador Miguel
         MarcaBarraBusqueda: marcaBarraBusqueda,
         GetCurrencyCodes: getCurrencyCodes,
         GetPalancaBySeccion: getPalancaBySeccion,
@@ -2466,7 +2466,7 @@ var AnalyticsPortalModule = (function () {
         MarcaAnadirCarritoGenerico: marcaAnadirCarritoGenerico,
         // Fin - Analytics Buscador Miguel
 
-        // Inicio Analytics Home 1 
+        // Ini - Analytics Home 1 
         MarcaGanaOfertas: marcaGanaOfertas,
         MarcaVerOfertasHome: marcaVerOfertasHome,
         MarcaSucribete: marcaSucribete,
@@ -2490,10 +2490,10 @@ var AnalyticsPortalModule = (function () {
         MarcaAnadirCarritoLiquidacion: marcaAnadirCarritoLiquidacion,
         MarcaAnadirCarritoHomeBanner: marcaAnadirCarritoHomeBanner,
         MarcarRemoveFromCart: marcarRemoveFromCart,
-
         MarcaVerTodoMiPedido: marcaVerTodoMiPedido,
-        // Fin Analytics Home 1 
-        // Inicio Analytics Ofertas  
+        // Fin - Analytics Home 1 
+
+        // Ini - Analytics Ofertas  
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
         MarcaPromotionViewBanner: marcaPromotionViewBanner,
         AutoMapper: autoMapper,
@@ -2519,8 +2519,7 @@ var AnalyticsPortalModule = (function () {
         MarcaGuardarPedidoExito: marcaGuardarPedidoExito,
         MarcaVerOfertas: marcaVerOfertas,
         MarcaBannersInferioresDescontinuados: marcaBannersInferioresDescontinuados,
-        //MarcaAgregarProductosCarrito: marcaAgregarProductosCarrito
-        // Fin Analytics Ofertas
+        // Fin - Analytics Ofertas
 
         // Comienzo Analytics Marcaciones Ganadoras!
         MarcaPromotionViewCarrusel: marcaPromotionViewCarrusel,
