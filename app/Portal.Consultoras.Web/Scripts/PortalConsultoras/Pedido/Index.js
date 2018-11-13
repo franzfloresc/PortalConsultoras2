@@ -1901,7 +1901,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
     jQuery.ajax({
         type: "POST",
-        url: baseUrl + "Pedido/DeleteTransaction",
+        url: baseUrl + "PedidoRegistro/DeleteTransaction",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(param),
@@ -2294,7 +2294,7 @@ function EliminarPedido() {
     var item = {};
     jQuery.ajax({
         type: "POST",
-        url: baseUrl + "Pedido/DeleteAll",
+        url: baseUrl + "PedidoRegistro/DeleteAll",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(item),
@@ -3146,7 +3146,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
     //AbrirSplash();
     jQuery.ajax({
         type: "POST",
-        url: baseUrl + "Pedido/UpdateTransaction",
+        url: baseUrl + "PedidoRegistro/UpdateTransaction",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(item),
