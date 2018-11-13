@@ -4789,6 +4789,31 @@ body {
         width: 100%;
         height: auto;
     }
+
+.btn_agregarPedido, .btn_guardarPedido {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: 'Lato';
+    position: fixed;
+    bottom: 0;
+    z-index: 1001;
+}
+
+    .btn_agregarPedido input, .btn_guardarPedido input {
+        width: 100%;
+        height: 54px;
+        border: 0;
+        color: #fff;
+        font-weight: bold;
+        font-size: 15px;
+        text-align: center;
+        line-height: 15px;
+        -webkit-border-radius: 0;
+        -webkit-appearance: none !important;
+        text-transform: uppercase;
+    }
+
 .btn_agregarPedido input, .btn_guardarPedido input {
     background: #e81c36;
     }
