@@ -4,19 +4,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
@@ -25,19 +25,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
@@ -46,19 +46,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
@@ -67,19 +67,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
@@ -88,19 +88,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
@@ -109,19 +109,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
@@ -130,19 +130,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
@@ -151,19 +151,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
@@ -172,19 +172,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
@@ -193,19 +193,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
@@ -214,19 +214,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
@@ -235,19 +235,19 @@ GO
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '201')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '201','Ésika','Marca Ésika')
+	VALUES (14802, 1, '201','Ésika','mar-esika')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','Marca L''bel')
+	VALUES (14802, 1, '202','L''bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '203','Cyzone','Marca Cyzone')
+	VALUES (14802, 1, '203','Cyzone','mar-cyzone')
 END
 
 GO
