@@ -1,4 +1,4 @@
-use BelcorpPeru_BPT;
+use BelcorpBolivia;
 go
 
 begin
@@ -63,37 +63,37 @@ begin
 	end;
 end;
 
-use BelcorpChile_BPT;
+use BelcorpChile;
 go
 
 begin
-	declare @vConfiguracionPaisIDChile int;
+	declare @vConfiguracionPaisID int;
 	
 	/* Revista digital 
 	 */
 	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'RD'))
 	begin
-		set @vConfiguracionPaisIDChile = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
 
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDChile) and (Codigo = 'BannerCarruselTitulo')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDChile) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselTitulo'));
 		end;
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDChile) and (Codigo = 'BannerCarruselTextoEnlace')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDChile) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselTextoEnlace'));
 		end;
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDChile) and (Codigo = 'BannerCarruselImagenFondo')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDChile) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselImagenFondo'));
 		end;
 	end;
@@ -102,63 +102,63 @@ begin
 	 */
 	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'SR'))
 	begin
-		set @vConfiguracionPaisIDChile = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
 
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDChile) and (Codigo = 'BannerCarruselTitulo')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDChile) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselTitulo'));
 		end;
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDChile) and (Codigo = 'BannerCarruselTextoEnlace')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDChile) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselTextoEnlace'));
 		end;
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDChile) and (Codigo = 'BannerCarruselImagenFondo')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDChile) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselImagenFondo'));
 		end;
 	end;
 end;
 
-use BelcorpCostaRica_BPT;
+use BelcorpColombia;
 go
 
 begin
-	declare @vConfiguracionPaisIDCostaRica int;
+	declare @vConfiguracionPaisID int;
 	
 	/* Revista digital 
 	 */
 	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'RD'))
 	begin
-		set @vConfiguracionPaisIDCostaRica = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
 
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDCostaRica) and (Codigo = 'BannerCarruselTitulo')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDCostaRica) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselTitulo'));
 		end;
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDCostaRica) and (Codigo = 'BannerCarruselTextoEnlace')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDCostaRica) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselTextoEnlace'));
 		end;
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDCostaRica) and (Codigo = 'BannerCarruselImagenFondo')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDCostaRica) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselImagenFondo'));
 		end;
 	end;
@@ -167,27 +167,612 @@ begin
 	 */
 	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'SR'))
 	begin
-		set @vConfiguracionPaisIDCostaRica = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
 
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDCostaRica) and (Codigo = 'BannerCarruselTitulo')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDCostaRica) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselTitulo'));
 		end;
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDCostaRica) and (Codigo = 'BannerCarruselTextoEnlace')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDCostaRica) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselTextoEnlace'));
 		end;
-		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisIDCostaRica) and (Codigo = 'BannerCarruselImagenFondo')))
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
 		begin
 			delete from dbo.configuracionpaisdatos 
 			where 
-				((configuracionpaisid = @vConfiguracionPaisIDCostaRica) and 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+end;
+
+use BelcorpCostaRica;
+go
+
+begin
+	declare @vConfiguracionPaisID int;
+	
+	/* Revista digital 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'RD'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+
+	/* ShowRoom 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'SR'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+end;
+
+use BelcorpDominicana;
+go
+
+begin
+	declare @vConfiguracionPaisID int;
+	
+	/* Revista digital 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'RD'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+
+	/* ShowRoom 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'SR'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+end;
+
+use BelcorpEcuador;
+go
+
+begin
+	declare @vConfiguracionPaisID int;
+	
+	/* Revista digital 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'RD'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+
+	/* ShowRoom 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'SR'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+end;
+
+use BelcorpGuatemala;
+go
+
+begin
+	declare @vConfiguracionPaisID int;
+	
+	/* Revista digital 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'RD'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+
+	/* ShowRoom 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'SR'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+end;
+
+use BelcorpMexico;
+go
+
+begin
+	declare @vConfiguracionPaisID int;
+	
+	/* Revista digital 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'RD'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+
+	/* ShowRoom 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'SR'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+end;
+
+use BelcorpPanama;
+go
+
+begin
+	declare @vConfiguracionPaisID int;
+	
+	/* Revista digital 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'RD'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+
+	/* ShowRoom 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'SR'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+end;
+
+use BelcorpPeru;
+go
+
+begin
+	declare @vConfiguracionPaisID int;
+	
+	/* Revista digital 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'RD'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+
+	/* ShowRoom 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'SR'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+end;
+
+use BelcorpPuertoRico;
+go
+
+begin
+	declare @vConfiguracionPaisID int;
+	
+	/* Revista digital 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'RD'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+
+	/* ShowRoom 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'SR'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+end;
+
+use BelcorpSalvador;
+go
+
+begin
+	declare @vConfiguracionPaisID int;
+	
+	/* Revista digital 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'RD'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'RD');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselImagenFondo'));
+		end;
+	end;
+
+	/* ShowRoom 
+	 */
+	if(exists(select * from dbo.ConfiguracionPais where Codigo = 'SR'))
+	begin
+		set @vConfiguracionPaisID = (select ConfiguracionPaisID from dbo.ConfiguracionPais where Codigo = 'SR');
+
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTitulo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTitulo'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselTextoEnlace')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
+				 (codigo = 'BannerCarruselTextoEnlace'));
+		end;
+		if(exists(select * from dbo.configuracionpaisdatos where (configuracionpaisid = @vConfiguracionPaisID) and (Codigo = 'BannerCarruselImagenFondo')))
+		begin
+			delete from dbo.configuracionpaisdatos 
+			where 
+				((configuracionpaisid = @vConfiguracionPaisID) and 
 				 (codigo = 'BannerCarruselImagenFondo'));
 		end;
 	end;
