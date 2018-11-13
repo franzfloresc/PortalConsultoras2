@@ -5,3 +5,9 @@ Agregar:
 	
 	PPR, PRD:
 	<add key="UrlPaqueteDocumentarioPDF" value="http://54.208.59.210/RVDigitalWS/PdfService.svc/GetPaquete" />
+
+1.2 PortalConsultoras2
+Modificar:
+	QAS,PPR, PRD:
+	<add key="PaisesMicroservicioPersonalizacion" value="PE,CL,CR,CO" />
+    <add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="101,009,007,008,030,001,010"/>
