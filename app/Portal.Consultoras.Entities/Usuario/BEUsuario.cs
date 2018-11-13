@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Entities
         public int mesConsultoraLider { get; set; }
 
         private bool bEstadoSimplificacionCUV { get; set; }
-        private bool bEsquemaDAConsultora;
+        private readonly bool bEsquemaDAConsultora;
         private string digitoVerificador;
         private long consultoraAsociadoID;
 
@@ -1233,6 +1233,8 @@ namespace Portal.Consultoras.Entities
         public BEBuscadorYFiltrosConfiguracion BuscadorYFiltrosConfiguracion { get; set; }
         [DataMember]
         public int DiaFacturacion { get; set; }
+        [DataMember]
+        public bool TienePagoEnLinea { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {

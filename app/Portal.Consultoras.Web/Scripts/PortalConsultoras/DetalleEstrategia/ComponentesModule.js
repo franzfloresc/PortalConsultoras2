@@ -79,15 +79,15 @@ var ComponentesModule = (function () {
     };
 
     var SeleccionarComponente = function (cuv) {
+        
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param cuv is not defined or null";
-
+        var componente = {}            
         $.each(_estrategia.Hermanos, function (index, hermano) {
             cuv = $.trim(cuv);
-            if (cuv === hermano.Cuv) {
-                var componente = {};
-                componente = _estrategia.Hermanos[index];
+            if (cuv === hermano.Cuv) { 
+                componente = _estrategia.Hermanos[index];   
 
                 opcionesEvents.applyChanges("onComponentSelected", componente);
 
@@ -96,9 +96,27 @@ var ComponentesModule = (function () {
                 return false;
             }
         });
+        
+        if (componente.resumenAplicados) {
+            if (componente.resumenAplicados.length > 0) {
+                if (componente.FactorCuadre === 1) {
+                    AnalyticsPortalModule.MarcarCambiarOpcion(_estrategia);
+                } else {
+                    AnalyticsPortalModule.MarcarCambiarOpcionVariasOpciones(_estrategia);
+                }
+                
+                return false;
+            }
+        }
+        if (componente.FactorCuadre === 1) {
+            AnalyticsPortalModule.MarcarPopupEligeUnaOpcion(_estrategia);
+        } else {
+            AnalyticsPortalModule.MarcarPopupEligeXOpciones(_estrategia);
+        }
     }
 
     var SeleccionarPaletaOpcion = function (event, cuv) {
+        
         var $PaletaOpcion = $(event.target);
         var CuvPadre = $PaletaOpcion.length > 0 ? $PaletaOpcion.parents("[data-tono-div]").data("tono-div") : "";
 
@@ -111,7 +129,7 @@ var ComponentesModule = (function () {
             CuvPadre === null ||
             $.trim(CuvPadre) === "") throw "param CuvPadre is not defined or null";
         CuvPadre = $.trim(CuvPadre);
-
+        
         $.each(_estrategia.Hermanos, function (index, hermano) {
             CuvPadre = $.trim(CuvPadre);
             if (CuvPadre === hermano.Cuv) {
@@ -131,12 +149,15 @@ var ComponentesModule = (function () {
 
                 opcionesEvents.applyChanges("onComponentSelected", componente);
 
-                ResumenOpcionesModule.AplicarOpciones();
+                var callFromSeleccionarPaletaOpcion = true;
+                ResumenOpcionesModule.AplicarOpciones(callFromSeleccionarPaletaOpcion);
+                //Marcación Analytics (EPM-1442)
+                AnalyticsPortalModule.MarcarImagenProducto(_estrategia, componente.resumenAplicados);
 
                 return false;
             }
         });
-
+        
         return false;
     }
     var LimpiarComponentes = function () {
@@ -158,12 +179,15 @@ var ComponentesModule = (function () {
             });
         }
     }
+    function getEstrategia() {
+        return _estrategia;
+    }
     return {
         ListarComponentes: ListarComponentes,
         SeleccionarComponente: SeleccionarComponente,
         SeleccionarPaletaOpcion: SeleccionarPaletaOpcion,
         LimpiarComponentes: LimpiarComponentes,
-        EstrategiaEntidad: _estrategia
+        GetEstrategia: getEstrategia
     };
 }());
 

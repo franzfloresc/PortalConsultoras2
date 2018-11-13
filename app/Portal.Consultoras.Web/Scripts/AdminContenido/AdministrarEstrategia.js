@@ -49,7 +49,7 @@
         rutastylejstree: config.rutastylejstree,
         urlUploadBloqueoCuv: config.urlUploadBloqueoCuv
     };
-
+     
     var _variables = {
         isNuevo: false,
         cantidadPrecargar: 0,
@@ -77,10 +77,10 @@
         ShowRoom: "030"
 
     }
+
     var _idEstrategia = {
         OfertaParaTi: 4,
         PackNuevas: 6,
-        //OfertaWeb: "003",
         Lanzamiento: 9,
         OfertasParaMi: 10,
         PackAltoDesembolso: 11,
@@ -117,6 +117,7 @@
         _paginador.paginar(numRegistros);
 
     };
+
     var _mostrarListaImagenes = function (editData) {
         SetHandlebars("#matriz-comercial-item-template", editData, "#matriz-comercial-images");
         $(".qq-upload-list").css("display", "none");
@@ -186,6 +187,7 @@
             ]
         });
     }
+
     var _activarDesactivarChecks = function () {
         $(".activar-desactivar").each(function () {
             if (!$(this).attr("checked")) {
@@ -215,6 +217,7 @@
             }
         });
     }
+
     var _obtenerImagenGrilla = function (id) {
         if (id === 0) return "";
         var imagen = jQuery("#list").jqGrid("getCell", id, "ImagenURL") || "";
@@ -269,6 +272,7 @@
     }
 
     var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico });
+
     var _descripcionComercial = DescripcionComercial({
         prefixControlDescripcionComercial: "label-descripcioncomercial-",
         actualizarDescripcionComercialAction: _config.actualizarDescripcionComercialAction,
@@ -285,6 +289,7 @@
         habilitarNemotecnico: _config.habilitarNemotecnico,
         nemotecnico: _nemotecnico
     });
+
     var _uploadComplete = function (id, fileName, response) {
         if (checkTimeout(response)) {
             $(".qq-upload-list").css("display", "none");
@@ -303,6 +308,7 @@
         }
         closeWaitingDialog();
     }
+
     var _obtenerParamsFileUpload = function (itemData, editData) {
         return {
             elementId: itemData.elementId,
@@ -314,6 +320,7 @@
             onComplete: _uploadComplete
         }
     };
+
     var _crearFileUploadAdd = function (editData) {
         var itemData = { elementId: "file-upload", IdMatrizComercialImagen: 0 };
         var params = _obtenerParamsFileUpload(itemData, editData);
@@ -340,20 +347,24 @@
         };
 
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
-            //console.log(data);
+
             var TipoEstrategiaCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+
             if (TipoEstrategiaCodigo == _config.tipoEstrategiaIncentivosProgramaNuevas)
                 $("#divPrecioValorizado").html("Ganancia");
             else
                 $("#divPrecioValorizado").html("Precio Valorizado");
+
             $("#_id").val(_editData.mongoIdVal);
+
             showDialog("DialogAdministracionEstrategia");
             _ActualizarFlagIndividual(data);
+
             _editData.IdMatrizComercial = data.IdMatrizComercial;
             _editData.CUV2 = data.CUV2;
-
             _crearFileUploadAdd(_editData);
 
+            _editData.NombreImagen = data.ImagenURL;
             _obtenerImagenes(_editData, 1, true).done(function () {
                 showDialog("matriz-comercial-dialog");
                 closeWaitingDialog();
@@ -570,16 +581,22 @@
             return data;
         };
     };
-
+    
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
+
+        var imagen = $("#imgSeleccionada").attr('src');
+        var ultimoSlash = imagen.lastIndexOf("/");
+        var nombreImagen = imagen.substring(ultimoSlash + 1);
         var params = {
             paisID: data.paisID,
             estragiaId: data.EstrategiaID,
             cuv2: data.CUV2,
             CampaniaID: data.CampaniaID,
             TipoEstrategiaID: data.TipoEstrategiaID,
-            pagina: pagina
+            pagina: pagina,
+            nombreImagen: data.NombreImagen
         };
+        
         return $.post(_config.getImagesBySapCodeAction, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     }
 
@@ -619,6 +636,7 @@
             return data;
         }
     };
+
     var _obtenerImagenesByCodigoSAP = function (data, pagina, recargarPaginacion) {
         var params = { paisID: $("#ddlPais").val(), codigoSAP: data.CodigoSAP, pagina: pagina };
         return $.post(_config.getImagesByCodigoSAPAction, params)
@@ -650,6 +668,7 @@
 
         return msj;
     };
+
     var _uploadFileLanzamineto = function (divId) {
         var uploader = new qq.FileUploader({
             allowedExtensions: ["jpg", "png", "jpeg"],
@@ -699,6 +718,7 @@
             beforeSelectRow: function (rowid, e) { return false; }
         });
     }
+
     var _createGridNotUpdated = function (list) {
         var gridJson = { page: 1, total: 2, records: 10, rows: list };
         $("#listDescNoActualizada").jqGrid("GridUnload");
@@ -765,6 +785,7 @@
         }
         return Des;
     }
+
     var _showImage = function (cellvalue, options, rowObject) {
         var image = $.trim(rowObject[9]);
         var filename = image.replace(/^.*[\\\/]/, "");
@@ -773,6 +794,7 @@
             '" alt="" width="70px" height="60px" title="" border="0" />';
         return image;
     }
+
     var _mostrarInformacionCuv = function (cuvIngresado) {
         var isNuevo = _variables.isNuevo;
         $("#hdnCodigoSAP").val("");
@@ -902,15 +924,18 @@
             });
         }
     }
+
     var _limpiarCamposLanzamiento = function (nombreCampo) {
         $("#nombre-" + nombreCampo).val("");
         $("#src-" + nombreCampo).attr("src", _config.rutaImagenVacia);
     };
+
     var _limpiarBusquedaNemotecnico = function () {
         _limpiarFiltrosNemotecnico();
         waitingDialog();
         _obtenerImagenesByCodigoSAP(_editData, 1, true);
     }
+
     var _clearFields = function () {
 
         $("#hdnCodigoSAP").val("");
@@ -1045,6 +1070,7 @@
             }
         });
     }
+
     var _uploadFileBloqueoCuv = function () {
         var formData = new FormData();
         var totalFiles = document.getElementById("fileBloqueoCuv").files.length;
@@ -1143,6 +1169,7 @@
         }
         return true;
     }
+
     var _fnGrilla = function () {
         $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
@@ -1391,6 +1418,7 @@
         _obtenerImagenesByNemotecnico(_editData, 1, true);
         return true;
     }
+
     var _pedidoAsociadoChecks = function () {
         waitingDialog();
         $.ajaxSetup({ cache: false });
@@ -1433,6 +1461,7 @@
             }
         });
     }
+
     var _validarMasivo = function () {
         if ($("#ddlPais").val() === "") {
             _toastHelper.error("Debe seleccionar el País, verifique.");
@@ -1464,6 +1493,7 @@
 
         return true;
     }
+
     var _cerrarTallaColor = function () {
         var params = {
             CampaniaID: $("#ddlCampania").val(),
@@ -2241,7 +2271,6 @@
         });
     }
 
-
     var _vistaNuevoProductoShowroon = function () {
         $("#seccionTallaColor").hide();
         $("#seccionOfertaUltimoMinuto").hide();
@@ -2284,11 +2313,11 @@
             success: function (data) {
                 $("#listCargaDescMasiva").jqGrid("GridUnload");
                 var mensaje = "";
-                if (data.listActualizado == 0 && data.listInsertado == 0) {
+                if (data.listActualizado == 0) {
                     mensaje = 'No se realizó ninguna actualización ni inserción (Verificar que los CUVs existan en la tabla "ods.OfertasPersonalizadas").';
                 }
                 else {
-                    mensaje = "El procedimiento culmino con éxito, <br /> - Se actualizaron " + data.listActualizado + " Set(s) <br /> - Se insertaron " + data.listInsertado + " Set(s)";
+                    mensaje = "El procedimiento culmino con éxito, <br /> - Se actualizaron " + data.listActualizado + " Set(s)";
                 }
                 closeWaitingDialog();
                 $("#estadoCargaMasiva").css("color", "black");
@@ -2318,17 +2347,7 @@
             closeWaitingDialog();
             return false;
         }
-
-        //var archivo = document.getElementById("fileDescMasivo").files[0];
-        //var splitArchivo = archivo.name.split('.');
-        //var lengthArray = splitArchivo.length;
-
-        //if (splitArchivo[lengthArray - 1] != 'csv') {
-        //    _toastHelper.error("Formato de archivo requerido es \".csv\".");
-        //    closeWaitingDialog();
-        //    return false;
-        //}
-
+        
         formData.append("Documento", document.getElementById("fileDescMasivo").files[0]);
         formData.append("Pais", $("#ddlPais").val());
         formData.append("CampaniaId", $("#ddlCampania").val());
@@ -2982,6 +3001,7 @@
         });
         // SHOWROOM-FIN
     }
+
     var _eventos = {
         clickNuevo: function () {
             _variables.isNuevo = true;
@@ -3130,11 +3150,6 @@
 
             waitingDialog();
 
-            //var estrategias = jQuery("#list").jqGrid("getDataIDs", "EstrategiaID");
-            //var estrategiasSeleccionadas = jQuery("#list").jqGrid("getGridParam", "selarrrow");
-            //var estrategiasNoSeleccionadas = estrategias.filter(function(obj) {
-            //    return estrategiasSeleccionadas.indexOf(obj) == -1;
-            //});
             var estrategiasSeleccionadas = new Array();
             var estrategiasNoSeleccionadas = new Array();
 
@@ -3968,39 +3983,6 @@
 
         return false;
     }
-
-    //function Editar(id, event) {
-    //    event.preventDefault();
-    //    event.stopPropagation();
-
-    //    if (id != 0)
-    //        _variables.isNuevo = false;
-
-    //    if (id) {
-    //        _limpiarFiltrosNemotecnico();
-
-    //        waitingDialog();
-
-    //        $("#hdEstrategiaID").val(id);
-
-    //        _clearFields();
-
-    //        var params = {
-    //            EstrategiaID: $("#hdEstrategiaID").val(),
-    //            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-    //            CampaniaID: $("#ddlCampania").val(),
-    //            ValidarImagen: $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen"),
-    //            PesoMaximo: $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo")
-    //        };
-
-    //        _idImagen = id;
-    //        _editar(params, id);
-    //    }
-
-    //    return false;
-    //}
-
-
 
     function Deshabilitar(id, mongoId, tipoEstrategiaCodigo, event) {
         event.preventDefault();
