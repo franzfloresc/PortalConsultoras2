@@ -84,6 +84,7 @@ function MostrarBarra(datax, destino) {
         });
 
         if (tp > 0 && dataBarra.TippingPointBarra.Active) { //OG
+            $('#divBarra .contenedor_circulos').show();
             listaLimite.push({
                 nombre: "",
                 tipoMensaje: 'TippingPoint',
@@ -536,10 +537,9 @@ function MostrarBarra(datax, destino) {
 
     if (dataBarra.TippingPointBarra.Active == true && belcorp.barra.settings.isMobile) {
         if (vLogro*1 < dataBarra.TippingPoint*1) {
-            tipoMensaje = "TippingPointMobileNoSupero";
+            tipoMensaje = "TippingPointMobile";
         }
     }
-
 
     listaMensajeMeta = listaMensajeMeta || new Array();
     var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
@@ -560,28 +560,34 @@ function MostrarBarra(datax, destino) {
     else
     {
         if (dataBarra.TippingPointBarra.Active == true) {
-            $('#divBarra #divBarraMensajeLogrado .agrega_barra').hide();
-            $('#divBarraMensajeTippingPoint').show();
-            if (dataBarra.TotalPedido < dataBarra.TippingPoint) {
-                tipoMensaje = "TippingPointMobileNoSupero";
-                var faltanteRegalo = dataBarra.TippingPoint * 1 - dataBarra.TotalPedido * 1;
-                $("#divBarra #divBarraMensajeTippingPoint").html(objMsg.Mensaje.replace("#valor", 'S/ ' + faltanteRegalo));
-                $('#divIconos').show();
-                $('#divMontoMinimo').html('S/ ' + dataBarra.MontoMinimoStr);
-                $('#divtippingPoint').html('S/ ' + dataBarra.TippingPointStr);
+            $('#divMontoMinimo').html(variablesPortal.SimboloMoneda + ' ' + dataBarra.MontoMinimoStr);
+            //$('#divBarra #divBarraMensajeLogrado .agrega_barra').hide();
+            if (vLogro*1 < dataBarra.TippingPoint*1) {
+                var faltanteRegalo = DecimalToStringFormat(dataBarra.TippingPoint * 1 - vLogro * 1);
+                $("#divBarra #divBarraMensajeLogrado .agrega_barra")
+                    .html(objMsg.Mensaje.replace("#valor", variablesPortal.SimboloMoneda + ' ' + faltanteRegalo));
+                //$('#divIconos').show();
+                $('#divtippingPoint').html(variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr);
+            } else {
+                $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
             }
 
+            if (dataBarra.TippingPoint < vLogro) {
+                $('#divBarra .monto_maximo').show();
+                $('#divMontoMaximo').html(variablesPortal.SimboloMoneda + ' ' + dataBarra.MontoMaximoStr);
+            } else {
+                $('#divBarra .monto_maximo').hide();
+            }
         }
         else {
 
-            //$("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
-
-            $('#divIconos').show();
-            $('#divMontoMinimo').html('S/ ' + dataBarra.MontoMinimoStr);
+            $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
+            //$('#divIconos').show();
+            //$('#divMontoMinimo').html(variablesPortal.SimboloMoneda + ' ' + dataBarra.MontoMinimoStr);
             $('#hrefIconoRegalo').hide();
         }
     }
-    
+   
     
     if (sessionStorage.getItem("cuvPack") != null) {
       $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));    

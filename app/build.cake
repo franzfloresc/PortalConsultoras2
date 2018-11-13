@@ -83,11 +83,11 @@ Task("SonarBegin")
 {
     SonarBegin(new SonarBeginSettings {
         Url = sonarEndpoint,
-        Name = "Consultoras - Web - ",
+        Name = "Consultoras - Web - " + branch,
         Key = "portal.consultoras",
         Login = sonarLogin,
         Password = sonarPassword,
-        // Branch = branch // Require https://docs.sonarqube.org/display/PLUG/Branch+Plugin
+        // Branch = branch
     });
 });
 
@@ -114,7 +114,7 @@ Task("SonarJS")
     });
 });
 
-// Require: https://github.com/racodond/sonar-css-plugin
+// Require: https://docs.sonarqube.org/display/PLUG/SonarCSS
 Task("SonarCSS")
     .Does(() => 
 {
