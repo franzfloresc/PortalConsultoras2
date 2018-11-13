@@ -439,9 +439,8 @@ namespace Portal.Consultoras.Web.Providers
                         item.Valor = string.Empty;
                         continue;
                     }
-
-                    var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                    item.Valor = ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
+                
+                    item.Valor = ConfigCdn.GetUrlFileCdnMatriz(model.CodigoISO, item.Valor);
                 }
             }
         }

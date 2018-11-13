@@ -228,10 +228,7 @@ namespace Portal.Consultoras.BizLogic
         /// <returns></returns>
         public List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
-            long ConsultoraID = 0;
-            var blZonificacion = new BLZonificacion();
-            var bePais = blZonificacion.SelectPais(paisID);
-
+            long consultoraId = 0;
             try
             {
                 var blClienteDb = new BLClienteDB();
@@ -239,7 +236,7 @@ namespace Portal.Consultoras.BizLogic
 
                 foreach (var cliente in clientes)
                 {
-                    ConsultoraID = cliente.ConsultoraID;
+                    consultoraId = cliente.ConsultoraID;
                     cliente.PaisID = paisID;
 
                     if (cliente.Estado == Constantes.ClienteEstado.Activo)
@@ -289,15 +286,17 @@ namespace Portal.Consultoras.BizLogic
 
                         cliente.CodigoRespuesta = this.EliminarSB(cliente, daCliente);
                     }
-                }
 
-                return clientes;
+                }
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, ConsultoraID, bePais.CodigoISO);
+                LogManager.SaveLog(ex, consultoraId, paisID);
                 throw;
+
             }
+
+            return clientes;
         }
 
         /// <summary>
@@ -335,33 +334,33 @@ namespace Portal.Consultoras.BizLogic
 
                 //CONSULTA FINAL
                 clientes = (from tblConsultoraCliente in lstConsultoraCliente
-                                join tblCliente in lstCliente
-                                 on tblConsultoraCliente.CodigoCliente equals tblCliente.CodigoCliente
-                                join tblClienteDetalle in lstClienteDetalle
-                                on tblConsultoraCliente.ClienteID equals tblClienteDetalle.ClienteID
-                                select new BEClienteDB
-                                {
-                                    ConsultoraID = tblConsultoraCliente.ConsultoraID,
-                                    CodigoCliente = tblConsultoraCliente.CodigoCliente,
-                                    ClienteID = tblConsultoraCliente.ClienteID,
-                                    Apellidos = tblConsultoraCliente.ApellidoCliente,
-                                    Nombres = tblConsultoraCliente.NombreCliente,
-                                    Alias = tblCliente.Alias,
-                                    Foto = tblCliente.Foto,
-                                    FechaNacimiento = tblCliente.FechaNacimiento,
-                                    Sexo = tblCliente.Sexo,
-                                    Documento = tblCliente.Documento,
-                                    Origen = tblCliente.Origen,
-                                    Favorito = tblConsultoraCliente.Favorito,
-                                    TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
-                                    Saldo = tblClienteDetalle.Saldo,
-                                    CantidadProductos = tblClienteDetalle.CantidadProductos,
-                                    MontoPedido = tblClienteDetalle.MontoPedido,
-                                    CantidadPedido = tblClienteDetalle.CantidadPedido,
-                                    Contactos = tblConsultoraCliente.Contactos,
-                                    Recordatorios = recordatorios.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList(),
-                                    Notas = notas.Data.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList()
-                                }).OrderBy(x => x.NombreCompleto).ToList();
+                            join tblCliente in lstCliente
+                             on tblConsultoraCliente.CodigoCliente equals tblCliente.CodigoCliente
+                            join tblClienteDetalle in lstClienteDetalle
+                            on tblConsultoraCliente.ClienteID equals tblClienteDetalle.ClienteID
+                            select new BEClienteDB
+                            {
+                                ConsultoraID = tblConsultoraCliente.ConsultoraID,
+                                CodigoCliente = tblConsultoraCliente.CodigoCliente,
+                                ClienteID = tblConsultoraCliente.ClienteID,
+                                Apellidos = tblConsultoraCliente.ApellidoCliente,
+                                Nombres = tblConsultoraCliente.NombreCliente,
+                                Alias = tblCliente.Alias,
+                                Foto = tblCliente.Foto,
+                                FechaNacimiento = tblCliente.FechaNacimiento,
+                                Sexo = tblCliente.Sexo,
+                                Documento = tblCliente.Documento,
+                                Origen = tblCliente.Origen,
+                                Favorito = tblConsultoraCliente.Favorito,
+                                TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
+                                Saldo = tblClienteDetalle.Saldo,
+                                CantidadProductos = tblClienteDetalle.CantidadProductos,
+                                MontoPedido = tblClienteDetalle.MontoPedido,
+                                CantidadPedido = tblClienteDetalle.CantidadPedido,
+                                Contactos = tblConsultoraCliente.Contactos,
+                                Recordatorios = recordatorios.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList(),
+                                Notas = notas.Data.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList()
+                            }).OrderBy(x => x.NombreCompleto).ToList();
             }
             catch (Exception ex)
             {

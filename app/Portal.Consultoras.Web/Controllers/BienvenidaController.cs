@@ -2385,7 +2385,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEMensajeToolTip obj = new BEMensajeToolTip();
+                BEMensajeToolTip obj;
                 string mensaje = string.Empty;
 
                 using (var sv = new UsuarioServiceClient())
@@ -2402,16 +2402,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string nuevoDatoCelular = !string.IsNullOrEmpty(obj.MensajeCelular) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
                 string nuevoDatoEmail = !string.IsNullOrEmpty(obj.MensajeEmail) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
-                nuevoDatoCelular = nuevoDatoCelular == null ? "" : nuevoDatoCelular;
-                nuevoDatoEmail = nuevoDatoEmail == null ? "" : nuevoDatoEmail;
+                nuevoDatoCelular = nuevoDatoCelular ?? "";
+                nuevoDatoEmail = nuevoDatoEmail ?? "";
 
-                if (nuevoDatoCelular == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "SMS" && a.Estado == "A")) pendiente = "c";
-                if (nuevoDatoEmail == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "Email" && a.Estado == "A")) pendiente = "e";
+                if (nuevoDatoCelular == "" && !obj.oDatosPerfil.Any(a => a.TipoEnvio == "SMS" && a.Estado == "A")) pendiente = "c";
+                if (nuevoDatoEmail == "" && !obj.oDatosPerfil.Any(a => a.TipoEnvio == "Email" && a.Estado == "A")) pendiente = "e";
 
-                bool menSms = pendiente == "c" ? true : false;
-                if (!menSms) menSms = nuevoDatoCelular != "" ? true : false;
-                bool menEmail = pendiente == "e" ? true : false;
-                if (!menEmail) menEmail = nuevoDatoEmail != "" ? true : false;
+                bool menSms = pendiente == "c";
+                if (!menSms) menSms = nuevoDatoCelular != "";
+                bool menEmail = pendiente == "e";
+                if (!menEmail) menEmail = nuevoDatoEmail != "";
 
                 switch (tieneMensajes)
                 {

@@ -436,8 +436,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                     if (!tipoCross && userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                     {
-                        var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        imagenUrl = ConfigCdn.GetUrlFileCdn(carpetapais, imagenUrl);
+                        imagenUrl = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, imagenUrl);
                     }
                     p.ImagenProductoSugerido = imagenUrl;
                     p.ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, userData.CodigoISO);
@@ -561,7 +560,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             if (modelo != null)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
                 modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
                 modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
@@ -571,7 +569,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
                 modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
                 modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-                modelo.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.FotoProducto01);
+                modelo.FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, modelo.FotoProducto01);
             }
 
             SessionManager.SetProductoTemporal(modelo);
