@@ -240,6 +240,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    id = a.BEReporteCuvDetallado.CuvHijo,
                                    cell = new string[]
                                    {
+                                a.BEReporteCuvDetallado.DescripcionEstrategia,
                                 a.BEReporteCuvDetallado.CuvPadre,
                                 a.BEReporteCuvDetallado.CuvHijo,
                                 a.BEReporteCuvDetallado.CodigoEstrategia,
@@ -271,7 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult ConsultarReporteEstrategiasConsultora(string sidx, string sord, int page, int rows, int CampaniaID,
-           string CodigoConsultora, DateTime FechaConsulta, int TipoEstrategiaID)
+           string CodigoConsultora, string FechaConsulta, int TipoEstrategiaID)
         {
             try
             {
@@ -283,7 +284,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (var sv = new PedidoServiceClient())
                     {
-                        var tmpReporteLst = sv.GetReporteEstrategiasPorConsultora(userData.PaisID, CampaniaID, CodigoConsultora, TipoEstrategiaID, FechaConsulta).ToList();
+                        var tmpReporteLst = sv.GetReporteEstrategiasPorConsultora(userData.PaisID, CampaniaID, CodigoConsultora, TipoEstrategiaID, Convert.ToDateTime(FechaConsulta)).ToList();
                         foreach (var itemReporte in tmpReporteLst)
                         {
                             lst.Add(new ReporteRevisionIncidenciasMDbAdapterModel { BEReporteEstrategiasPorConsultora = itemReporte });

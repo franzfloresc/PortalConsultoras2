@@ -53,6 +53,7 @@ namespace Portal.Consultoras.Entities
     {
         public BEReporteCuvDetallado(IDataRecord row)
         {
+            DescripcionEstrategia = row.ToString("DescripcionEstrategia");
             CuvPadre = row.ToString("CuvPadre");
             CuvHijo = row.ToString("CuvHijo");
             CodigoEstrategia = row.ToString("CodigoEstrategia");
@@ -71,6 +72,8 @@ namespace Portal.Consultoras.Entities
         }
 
         #region Member Properties
+        [DataMember]
+        public string DescripcionEstrategia { get; set; }
         [DataMember]
         public string CuvPadre { get; set; }
 

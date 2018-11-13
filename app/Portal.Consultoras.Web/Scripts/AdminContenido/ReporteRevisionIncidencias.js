@@ -178,6 +178,11 @@
                 _toastHelper.error("Debe seleccionar un tipo de estrategia, verifique.");
                 return false;
             }
+
+            if ($("#txtFechaConsulta").val() === "") {
+                _toastHelper.error("Debe elegir una fecha de consulta.");
+                return false;
+            }
         }
 
         if (tipoConsulta == "4") {
@@ -264,13 +269,13 @@
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
             colNames: [
-                "Cuv", "SAP", "DescripcionProd", "Palanca", "imagenURL", "Activo", "PuedeDigitarse", "PrecioSet"
+                "Cuv", "SAP", "Descripcion", "Palanca", "Imagen", "Activo", "Digitable", "Precio"
             ],
             colModel: [
                 {
                     name: "Cuv",
                     index: "Cuv",
-                    width: 20,
+                    width: 50,
                     editable: true,
                     resizable: false,
                     hidden: false
@@ -278,7 +283,7 @@
                 {
                     name: "SAP",
                     index: "SAP",
-                    width: 30,
+                    width: 80,
                     editable: true,
                     resizable: false,
                     hidden: false,
@@ -287,7 +292,7 @@
                 {
                     name: "DescripcionProd",
                     index: "DescripcionProd",
-                    width: 100,
+                    width: 300,
                     editable: true,
                     hidden: false,
                     sortable: false
@@ -295,7 +300,7 @@
                 {
                     name: "Palanca",
                     index: "Palanca",
-                    width: 70,
+                    width: 100,
                     editable: true,
                     align: "center",
                     resizable: false,
@@ -304,7 +309,7 @@
                 {
                     name: "imagenURL",
                     index: "imagenURL",
-                    width: 70,
+                    width: 250,
                     editable: true,
                     resizable: false,
                     sortable: true,
@@ -313,7 +318,7 @@
                 {
                     name: "Activo",
                     index: "Activo",
-                    width: 20,
+                    width: 50,
                     align: "center",
                     resizable: false,
                     hidden: false,
@@ -322,7 +327,7 @@
                 {
                     name: "PuedeDigitarse",
                     index: "PuedeDigitarse",
-                    width: 40,
+                    width: 50,
                     align: "center",
                     editable: true,
                     resizable: false,
@@ -331,7 +336,7 @@
                 {
                     name: "PrecioSet",
                     index: "PrecioSet",
-                    width: 40,
+                    width: 50,
                     align: "center",
                     editable: true,
                     resizable: false,
@@ -353,12 +358,12 @@
             recordtext: "{0} - {1} de {2} Registros",
             emptyrecords: "No hay resultados",
             rowNum: 10,
-            scrollOffset: 0,
             rowList: [10, 20, 30, 40, 50],
             sortname: "Orden",
             sortorder: "asc",
             viewrecords: true,
             height: "auto",
+            shrinkToFit: false,
             width: 930,
             pgtext: "Pág: {0} de {1}",
             altRows: true,
@@ -389,14 +394,22 @@
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
             colNames: [
-                "Padre", "Hijo", "Estrategia", "Grupo", "SAP", "Marca Est.", "Marca Mtz.", "F.C",
+                "Estrategia","Padre", "Hijo", "Tipo", "Grupo", "SAP", "Marca Est.", "Marca Mtz.", "F.C",
                 "Pre. Uni.", "Pre. Pub.", "Digitable", "Nombre", "Img Tipos", "Img Tonos", "N. Bulk"
             ],
             colModel: [
                 {
+                    name: "DescripcionEstrategia",
+                    index: "DescripcionEstrategia",
+                    width: 100,
+                    editable: true,
+                    resizable: false,
+                    hidden: false
+                },
+                {
                     name: "CuvPadre",
                     index: "CuvPadre",
-                    width: 20,
+                    width: 40,
                     editable: true,
                     resizable: false,
                     hidden: false
@@ -404,7 +417,7 @@
                 {
                     name: "CuvHijo",
                     index: "CuvHijo",
-                    width: 20,
+                    width: 40,
                     editable: true,
                     resizable: false,
                     hidden: false
@@ -412,7 +425,7 @@
                 {
                     name: "CodigoEstrategia",
                     index: "CodigoEstrategia",
-                    width: 35,
+                    width: 40,
                     editable: true,
                     resizable: false,
                     hidden: false
@@ -420,7 +433,7 @@
                 {
                     name: "Grupo",
                     index: "Grupo",
-                    width: 20,
+                    width: 40,
                     editable: true,
                     resizable: false,
                     hidden: false
@@ -428,7 +441,7 @@
                 {
                     name: "SAP",
                     index: "SAP",
-                    width: 35,
+                    width: 80,
                     editable: true,
                     resizable: false,
                     hidden: false,
@@ -437,7 +450,7 @@
                 {
                     name: "MarcaEstrategia",
                     index: "MarcaEstrategia",
-                    width: 40,
+                    width: 70,
                     editable: true,
                     hidden: false,
                     sortable: false
@@ -445,7 +458,7 @@
                 {
                     name: "MarcaMatriz",
                     index: "MarcaMatriz",
-                    width: 40,
+                    width: 70,
                     editable: false,
                     hidden: false,
                     sortable: false
@@ -453,7 +466,7 @@
                 {
                     name: "FactorCuadre",
                     index: "FactorCuadre",
-                    width: 20,
+                    width: 40,
                     editable: true,
                     hidden: false,
                     sortable: false
@@ -461,7 +474,7 @@
                 {
                     name: "PrecioUnitario",
                     index: "PrecioUnitario",
-                    width: 40,
+                    width: 80,
                     align: "center",
                     editable: false,
                     resizable: false,
@@ -470,7 +483,7 @@
                 {
                     name: "PrecioPublico",
                     index: "PrecioPublico",
-                    width: 40,
+                    width: 80,
                     align: "center",
                     editable: false,
                     resizable: false,
@@ -479,7 +492,7 @@
                 {
                     name: "Digitable",
                     index: "Digitable",
-                    width: 20,
+                    width: 60,
                     editable: false,
                     align: "center",
                     resizable: false,
@@ -488,7 +501,7 @@
                 {
                     name: "NombreProducto",
                     index: "NombreProducto",
-                    width: 100,
+                    width: 300,
                     editable: false,
                     align: "center",
                     resizable: false,
@@ -497,7 +510,7 @@
                 {
                     name: "ImagenTipos",
                     index: "ImagenTipos",
-                    width: 70,
+                    width: 150,
                     editable: false,
                     resizable: false,
                     sortable: false,
@@ -506,7 +519,7 @@
                 {
                     name: "ImagenTonos",
                     index: "ImagenTonos",
-                    width: 70,
+                    width: 150,
                     editable: false,
                     resizable: false,
                     sortable: false,
@@ -515,7 +528,7 @@
                 {
                     name: "NombreBulk",
                     index: "NombreBulk",
-                    width: 20,
+                    width: 100,
                     align: "center",
                     resizable: false,
                     hidden: false,
@@ -537,12 +550,12 @@
             recordtext: "{0} - {1} de {2} Registros",
             emptyrecords: "No hay resultados",
             rowNum: 10,
-            scrollOffset: 0,
             rowList: [10, 20, 30, 40, 50],
             sortname: "Orden",
             sortorder: "asc",
             viewrecords: true,
             height: "auto",
+            shrinkToFit: false,
             width: 930,
             pgtext: "Pág: {0} de {1}",
             altRows: true,
