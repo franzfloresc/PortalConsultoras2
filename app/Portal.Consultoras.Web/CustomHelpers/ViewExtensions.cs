@@ -5,7 +5,7 @@ using Portal.Consultoras.Web.Infraestructure;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace Portal.Consultoras.Web.Helpers
+namespace Portal.Consultoras.Web.CustomHelpers
 {
     public static class ViewExtensions
     {

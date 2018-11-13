@@ -25,6 +25,7 @@ using System.Web.Mvc;
 using ClosedXML.Excel;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
+using Portal.Consultoras.Web.CustomHelpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {

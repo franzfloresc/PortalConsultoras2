@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Routing;
 
-namespace Portal.Consultoras.Web.Helpers
+namespace Portal.Consultoras.Web.CustomHelpers
 {
     public static class RouteExtensions
     {

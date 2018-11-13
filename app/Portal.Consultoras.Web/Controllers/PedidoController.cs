@@ -4426,7 +4426,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     estaEnLimite = sv.CuvArmaTuPackEstaEnLimite(userData.PaisID, userData.CampaniaID, userData.CodigoZona, cuv, cantidad, cantidadActual);
                 }
-                if (estaEnLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, 1).ToUpper();
+                if (estaEnLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, 1);
             }
             catch (Exception ex)
             {
