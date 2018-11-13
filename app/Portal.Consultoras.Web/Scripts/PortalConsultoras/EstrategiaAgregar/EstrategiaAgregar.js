@@ -1,5 +1,4 @@
 ﻿/// <reference path="../../../Scripts/jquery-1.11.2.js" />
-/// <reference path="../../../Scripts/jquery-1.11.2.js" />
 /// <reference path="../../../Scripts/General.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/MainLayout.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
@@ -224,7 +223,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaAgregar = function (event, popup, limite, esFicha) {
-        
+
         popup = popup || false;
         limite = limite || 0;
 
@@ -372,7 +371,10 @@ var EstrategiaAgregarModule = (function () {
             }
 
             var cuv = estrategia.CUV2;
-
+            if (cuv.substring(0,3)=='999') {
+                sessionStorage.setItem('cuvPack', cuv);
+            }
+            
             var tipoOrigenEstrategiaAux = 0;
             if (typeof tipoOrigenEstrategia != "undefined") {
                 tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;
@@ -432,18 +434,28 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
             }
-            
-            try {
-                //if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-                //    rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
-                //} else {
-                //    if (typeof TagManagerClickAgregarProductoOfertaParaTI !== constantes.undefined()) {
-                //        TagManagerClickAgregarProductoOfertaParaTI(estrategia);
-                //    }
-                //}
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
 
+            try {
+                //var controllerName = window.controllerName;
+                //if (controllerName == "bienvenida") {
+                    //if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+                    //    rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
+                    //} else {
+                    //    if (typeof TagManagerClickAgregarProductoOfertaParaTI !== constantes.undefined()) {
+                    //        TagManagerClickAgregarProductoOfertaParaTI(estrategia);
+                    //    }
+                    //}
+                  //  if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    //    AnalyticsPortalModule.MarcaAnadirCarritoHome(event, origenPedidoWebEstrategia, estrategia);
+               // }
+                //else {
+                //if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                //    AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+                //}
+                //} 
+                if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                    AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+                }
                 TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
             } catch (e) {
                 console.log(e);

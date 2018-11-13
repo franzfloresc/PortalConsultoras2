@@ -89,7 +89,9 @@
 				<!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
 				<br />
 				<input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
-					   onkeyup="PreValidarCUV(event);" placeholder="Descripción producto" />
+                       @*onkeyup="PreValidarCUV(event);"*@ 
+                       attrKey="PreValidarCUV"
+                       placeholder="Descripción producto" />
 			</div>
 
 			<div class="pedido_ingreso_datos campo_precio">
@@ -101,7 +103,8 @@
 				<br />
 				<div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
 					<input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-						   onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)" />
+                           @*onkeypress="PreValidarCUV(event);"*@ 
+                           onfocus="SeleccionarContenido(this)" attrKey="PreValidarCUV"/>
 					<div class="liquidacion_rango_right_pedido">
 						<a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
 						<a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -598,11 +601,23 @@
     <div class="popup_tutorial_pedido" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
         <div id="slide1_container" class="shadow">
             <div id="slide1_images">
-                <div class="imagen_tutorial img_slide1Pedido"></div>
-                <div class="imagen_tutorial img_slide2Pedido"></div>
-                <div class="imagen_tutorial img_slide3Pedido"></div>
-                <div class="imagen_tutorial img_slide4Pedido"></div>
-                <div class="imagen_tutorial img_slide5Pedido"></div>
+                @if (ViewBag.CodigoISODL == Constantes.CodigosISOPais.Peru ||
+                     ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+                {
+                    <div class="imagen_tutorial img_slide1Pedido fondo1Pedido"></div>
+                    <div class="imagen_tutorial img_slide2Pedido fondo2Pedido"></div>
+                    <div class="imagen_tutorial img_slide3Pedido fondo3Pedido"></div>
+                    <div class="imagen_tutorial img_slide4Pedido fondo4Pedido"></div>
+                    <div class="imagen_tutorial img_slide5Pedido fondo5Pedido"></div>
+                }
+                else
+                {
+                    <div class="imagen_tutorial img_slide1Pedido"></div>
+                    <div class="imagen_tutorial img_slide2Pedido"></div>
+                    <div class="imagen_tutorial img_slide3Pedido"></div>
+                    <div class="imagen_tutorial img_slide4Pedido"></div>
+                    <div class="imagen_tutorial img_slide5Pedido"></div>
+                }
             </div>
         </div>
         <div class="btn_cerrar_actualizarMisDatos">
@@ -1537,8 +1552,11 @@
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                 <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
-                    data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
-                    onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
+                               data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" 
+                               @*onkeypress="PreValidarCUV(event);"*@
+                               attrKey="PreValidarCUV"
+                               onfocus="SeleccionarContenido(this)"
+                               onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                     <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -1592,7 +1610,7 @@
                     <div class="tooltip_flecha_grid"></div>
                     <h6>Kit de Inicio</h6>
                     <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
-                    <p>*Este Kit se agrega automáticamente solo en tu primer pedido.</p>
+                    <p>*@Model.MensajeKitNuevas</p>
                 </div>
             </div>
             {{else}}
