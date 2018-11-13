@@ -212,7 +212,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Site/Esika/buscador-filtros.css",
                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
-               "~/Content/Css/Site/Esika/campania-navidenia.css"
+               "~/Content/Css/Site/Esika/campania-navidenia.css",
+               "~/Content/Css/Site/Pedido/PedidoInfo.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
@@ -242,7 +243,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/revistaDigital.css",
                "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Site/Lbel/buscador-filtros.css",
-               "~/Content/Css/Site/Lbel/campania-navidenia.css"
+               "~/Content/Css/Site/Lbel/campania-navidenia.css",
+               "~/Content/Css/Site/Pedido/PedidoInfo.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Lbel-Contenedor").Include(
@@ -356,7 +358,9 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/style-pedido.css",
                 "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
-                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Site/Pedido/PedidoGrilla.css",
+                "~/Content/Css/Site/Pedido/PedidoTooltip.css"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Pedido").Include(
@@ -372,7 +376,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/Pedido/tooltip.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/OfertaDelDia").Include(
@@ -460,7 +465,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                "~/Scripts/PortalConsultoras/Pedido/tooltip.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/_LoginLayout-Esika").Include(

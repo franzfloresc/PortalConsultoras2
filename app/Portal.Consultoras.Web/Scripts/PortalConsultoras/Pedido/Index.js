@@ -473,6 +473,31 @@ $(document).ready(function () {
 
     LayoutMenu();
 
+    $("#observaciones_alerta").dialog({
+        modal: true,
+        draggable: false,
+        resizable: false,
+        width: 620,
+        autoOpen: false,
+        open: function (event, ui) {
+            $("body").addClass("overflow_hidden");
+            $(".ui-widget-header").css("display", "none");
+        },
+        close: function (event, ui) {
+            $("body").removeClass("overflow_hidden");
+        },
+        create: function (event, ui) {
+            $("#observaciones_alerta").parent().addClass("observaciones_alerta_blocks");
+            //$("#observaciones_alerta").parent().css({ height: "620px !important" });
+        },
+
+    });
+
+    $('.close_buttom_alerta').click(function () {
+        $('#observaciones_alerta').dialog('close');
+        return false;
+    });
+
 });
 
 function CargarDetallePedido(page, rows) {
@@ -539,9 +564,14 @@ function CargarDetallePedido(page, rows) {
                 var html = ArmarDetallePedido(data.ListaDetalleModel);
                 $("#tbobyDetallePedido").html(html);
 
-                var htmlPaginador = ArmarDetallePedidoPaginador(data);
-                $("#paginadorCab").html(htmlPaginador);
-                $("#paginadorPie").html(htmlPaginador);
+                data.footer = true;
+                var htmlPaginadorH = ArmarDetallePedidoPaginador(data);
+
+                data.footer = false;
+                var htmlPaginadorF = ArmarDetallePedidoPaginador(data);
+
+                $("#paginadorCab").html(htmlPaginadorH);
+                $("#paginadorPie").html(htmlPaginadorF);
 
                 $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
                 $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
@@ -641,16 +671,28 @@ function CrearDialogs() {
         width: 500,
         draggable: true,
         title: "",
+        open: function (event, ui) {
+            $("body").addClass("overflow_hidden");
+        },
         close: function (event, ui) {
             $(this).dialog("close");
-        }
+            $("body").removeClass("overflow_hidden");
+        },
+        create: function (event, ui) {
+            $("#divConfirmEliminarTotal").parent().addClass("pop_up_eliminar");
+        },
     });
+
+    $('.close_buttom_alerta_alerta').click(function () {
+        $('#divConfirmEliminarTotal').dialog('close');
+        return false;
+    });
+
     $("#divAvisoEliminarRegaloGenerico").dialog({
         autoOpen: false,
         resizable: false,
         modal: true,
         closeOnEscape: true,
-        width: 500,
         draggable: true,
         title: "",
         close: function (event, ui) {
@@ -662,7 +704,6 @@ function CrearDialogs() {
         resizable: false,
         modal: true,
         closeOnEscape: true,
-        width: 500,
         draggable: true
     });
 
