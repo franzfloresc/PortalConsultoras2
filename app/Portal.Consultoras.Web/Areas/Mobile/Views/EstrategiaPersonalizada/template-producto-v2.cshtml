@@ -4,10 +4,16 @@
     {{#each this.lista as |item|}}
 
     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.BannerCarrusel'}}
-    <article class="banner_ofertas_masGanadoras caja-borde" {{#if ImagenURL}}style="background-image:url({{ImagenURL}});background-size: 100% 100%;background-color: #fff;"{{/if}}>
+    <article class="banner_ofertas_masGanadoras caja-borde"
+             {{#if ImagenURL}} style="background-image:url({{ImagenURL}});background-size: 100% 100%;background-color: #fff;" {{/if}}>
         <div class="contenido_ofertas">
-            <p {{#if ImagenURL}}style="color:#000;"{{/if}}>{{{DescripcionCompleta}}}</p>
-            <a href="javascript:" onclick="javascript: menuModule.sectionClick('{{DescripcionMarca}}');">{{DescripcionDetalle}}</a>
+            <p {{#if ImagenURL}} style="color:#000;" {{/if}}>
+                {{{DescripcionCompleta}}}
+            </p>
+            <a href="javascript:"
+               onclick="javascript: menuModule.sectionClick('{{DescripcionMarca}}');">
+                {{DescripcionDetalle}}
+            </a>
         </div>
     </article>
     {{else}}
@@ -18,13 +24,18 @@
              data-item-producto="true">
 
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
+        <div style="display:none;">
+            <div data-estrategia="{{JSON2string item}}"></div>
+        </div>
 
         <div data-item-tag="verdetalle"
              onclick="javascript:OnClickFichaDetalle(this);">
 
             <div class="producto_img">
-                <img data-src="{{ImgSmall FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" alt="" />
+                <img data-src="{{ImgSmall FotoProducto01}}"
+                     data-img-lazy="1"
+                     data-lazy-seccion-revista-digital=""
+                     alt="" />
             </div>
             <div class="clear"></div>
             <div class="producto_contenido">
@@ -48,7 +59,9 @@
         {
             <div data-tipoagregar="{{TipoAccionAgregar}}">
                 {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
-                <div class="elige_tono_item cursor_pointer" data-item-tag="verdetalle" onclick="javascript:OnClickFichaDetalle(this);">
+                <div class="elige_tono_item cursor_pointer"
+                     data-item-tag="verdetalle"
+                     onclick="javascript:OnClickFichaDetalle(this);">
                     <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
                 </div>
                 {{/iff}}
