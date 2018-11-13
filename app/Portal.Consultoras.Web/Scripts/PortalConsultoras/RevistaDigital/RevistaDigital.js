@@ -656,7 +656,8 @@ function RDDetalleVolver(campaniaId) {
     window.location = urlVolver + "#LAN";
 }
 
-function CheckClickCarrousel(action, source) {
+function CheckClickCarrousel(action, source, seccionName) {
+    
     if (action === "next") {
         sliderWay = 1;
     } else if (action === "prev") {
@@ -666,14 +667,22 @@ function CheckClickCarrousel(action, source) {
     if (source === "normal") {
         clickedSlider = 1;
     }
-    CallAnalitycsClickArrow();
+    CallAnalitycsClickArrow(seccionName);
 }
 
-function CallAnalitycsClickArrow() {
+function CallAnalitycsClickArrow(seccionName) {
+    
     if (sliderWay !== 0 && clickedSlider !== 0) {
-        if (typeof rdAnalyticsModule !== "undefined") {
-            rdAnalyticsModule.ClickArrowLan(sliderWay);
+        if (seccionName === "MG") {
+            if (typeof AnalyticsPortalModule !== "undefined") {
+                AnalyticsPortalModule.ClickArrowMG(sliderWay);
+            }
+        } else {
+            if (typeof rdAnalyticsModule !== "undefined") {
+                rdAnalyticsModule.ClickArrowLan(sliderWay);
+            }
         }
+        
         sliderWay = 0;
         clickedSlider = 0;
     }

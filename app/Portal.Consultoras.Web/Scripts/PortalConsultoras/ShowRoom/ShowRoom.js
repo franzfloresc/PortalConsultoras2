@@ -255,7 +255,9 @@ function CargarProductosShowRoom(busquedaModel) {
     var aplicarFiltrosSubCampanias = (busquedaModel == null);
     var cargarProductosShowRoomPromise = CargarProductosShowRoomPromise(busquedaModel);
 
+
     $.when(cargarProductosShowRoomPromise)
+    
         .then(function (response) {
             ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
             EstablecerAccionLazyImagen("img[data-lazy-seccion-showroom]");
@@ -363,6 +365,8 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
         response.lista = [];
         response.listaPerdio = [];
         
+        AnalyticsSRListaOferta(response);
+
         if (aplicarFiltrosSubCampanias) {
             if (response.listaSubCampania !== 'undefined') {
                 if (response.listaSubCampania.length > 0) {
@@ -443,7 +447,9 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
         response.listaOfertasPerdio = Clone(response.listaPerdio || []);
         response.lista = [];
         response.listaPerdio = [];
-
+        
+        AnalyticsSRListaOferta(response);
+        
         $.each(response.listaOfertas, function (index, value) {
             value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
             value.Posicion = index + 1;
@@ -538,4 +544,14 @@ function ConstruirDescripcionOferta(arrDescripcion) {
         });
     }
     return descripcion;
+}
+
+function AnalyticsSRListaOferta(response) {
+    if (response.listaOfertas.length > 0) {
+        //Hacer marcación Analytics para ShowRoom
+        if (!(typeof AnalyticsPortalModule === 'undefined')) {
+            response.listaOfertas.lista = response.listaOfertas;
+            AnalyticsPortalModule.MarcaGenericaLista(window.esShowRoom ? ConstantesModule.TipoEstrategia.SR : "", response.listaOfertas);
+        }
+    }
 }

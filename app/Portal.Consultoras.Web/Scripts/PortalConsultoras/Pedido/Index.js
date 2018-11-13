@@ -10,6 +10,7 @@ var salto = 3;
 var arrayOfertasParaTi = [];
 var array_odd = [];
 var arrayProductosSugeridos = [];
+var arrayProductosGuardadoExito = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
@@ -1970,22 +1971,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             microefectoPedidoGuardado();
             TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 
-            dataLayer.push({
-                'event': "removeFromCart",
-                'ecommerce': {
-                    'remove': {
-                        'products': [{
-                            'name': data.data.DescripcionProducto,
-                            'id': data.data.CUV,
-                            'price': data.data.Precio,
-                            'brand': data.data.DescripcionMarca,
-                            'category': "NO DISPONIBLE",
-                            'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
-                            'quantity': Number(cantidad)
-                        }]
-                    }
-                }
-            });
+            
+            AnalyticsPortalModule.MarcarRemoveFromCart(data, cantidad);
 
             CerrarSplash();
 
@@ -2063,6 +2050,7 @@ function MostrarEliminarPedidoTotal() {
 }
 
 function EliminarPedidoTotalSi() {
+    
     EliminarPedidoTotalNo();
     EliminarPedido();
 }
@@ -2154,6 +2142,9 @@ function EjecutarServicioPROL() {
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
                 return;
             }
+            //Marcación Analytics
+            arrayProductosGuardadoExito = response; 
+            AnalyticsPortalModule.MarcarGuardaTuPedido();
 
             if (RespuestaEjecutarServicioPROL(response.data)) return;
             MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
@@ -2190,6 +2181,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(data, inicio) {
+    
     if (data.ErrorProl) {
         MostrarPopupErrorReserva(data.ListaObservacionesProl[0].Descripcion, data.AvisoProl);
         return true;
@@ -2206,7 +2198,11 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
         mensajeBloqueante = false;
 
         if (data.ObservacionRestrictiva) CrearPopupObservaciones(data, inicio);
-        else ArmarPopupObsReserva("¡Lo lograste! Tu pedido fue guardado con éxito", "");
+        else {
+            $('#divMensajeObservacionesPROL').data('prop-NotExito', data.ObservacionRestrictiva);
+            ArmarPopupObsReserva("¡Lo lograste! Tu pedido fue guardado con éxito", "");
+        }
+
     }
     
     CargarDetallePedido();
@@ -2289,7 +2285,7 @@ function ActualizarBtnGuardar(data) {
 }
 
 function MostrarMensajeProl(response, fnOfertaFinal) {
-    AnalyticsGuardarValidar(response);
+    //AnalyticsGuardarValidar(response);
     var cumpleOferta = fnOfertaFinal(response);
     if (cumpleOferta) return;
 
@@ -2303,7 +2299,7 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
 
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
-    AnalyticsPedidoValidado(response);
+    //AnalyticsPedidoValidado(response);
     $("#dialog_divReservaSatisfactoria").show();
     RedirigirPedidoValidado();
 }
@@ -2352,12 +2348,15 @@ function EliminarPedido() {
             }
 
             TrackingJetloreRemoveAll(listaDetallePedido);
-            dataLayer.push({
-                'event': "virtualEvent",
-                'category': "Ingresa tu pedido",
-                'action': "Eliminar pedido completo",
-                'label': "(not available)"
-            });
+            //dataLayer.push({
+            //    'event': "virtualEvent",
+            //    'category': "Ingresa tu pedido",
+            //    'action': "Eliminar pedido completo",
+            //    'label': "(not available)"
+            //});
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaEliminarPedidoCompleto(data.ListaMarcaciones);
+
             MostrarBarra(data);
             CerrarSplash();
 
@@ -3418,19 +3417,37 @@ function MostrarDetalleGanancia() {
 }
 
 function AnalyticsBannersInferiores(obj) {
-    dataLayer.push({
-        'event': "promotionClick",
-        'ecommerce': {
-            'promoClick': {
-                'promotions': [
-                    {
-                        'id': obj.id,
-                        'name': obj.name,
-                        'position': obj.position
-                    }]
-            }
-        }
-    });
+    
+    var option = obj.id || 0
+    if (option === 0) return;
+    var strLabel = "";
+    switch (option) {
+        case "1": //descontinuados
+            strLabel = "Productos descontinuados";
+            break;
+        case "3": // liquidaciones web
+            strLabel = "Liquidaciones Web";
+            break;
+        case "4": //productos agotados
+            strLabel = "Productos agotados";
+            break;
+    }
+    if (!(typeof AnalyticsPortalModule === 'undefined'))
+        AnalyticsPortalModule.MarcaBannersInferioresDescontinuados(strLabel);
+
+    //dataLayer.push({
+    //    'event': "promotionClick",
+    //    'ecommerce': {
+    //        'promoClick': {
+    //            'promotions': [
+    //                {
+    //                    'id': obj.id,
+    //                    'name': obj.name,
+    //                    'position': obj.position
+    //                }]
+    //        }
+    //    }
+    //});
 }
 
 function AnalyticsBannersInferioresImpression() {
@@ -3489,35 +3506,35 @@ function AnalyticsGuardarValidar(response) {
     });
 }
 
-function AnalyticsPedidoValidado(response) {
-    var arrayEstrategiasAnalytics = [];
+//function AnalyticsPedidoValidado(response) {
+//    var arrayEstrategiasAnalytics = [];
 
-    response.pedidoDetalle = response.pedidoDetalle || [];
-    $.each(response.pedidoDetalle, function (index, value) {
-        var estrategia = {
-            'name': value.name,
-            'id': value.id,
-            'price': $.trim(value.price),
-            'brand': value.brand,
-            'category': "NO DISPONIBLE",
-            'variant': value.variant == "" ? "Estándar" : value.variant,
-            'quantity': value.quantity
-        };
-        arrayEstrategiasAnalytics.push(estrategia);
-    });
+//    response.pedidoDetalle = response.pedidoDetalle || [];
+//    $.each(response.pedidoDetalle, function (index, value) {
+//        var estrategia = {
+//            'name': value.name,
+//            'id': value.id,
+//            'price': $.trim(value.price),
+//            'brand': value.brand,
+//            'category': "NO DISPONIBLE",
+//            'variant': value.variant == "" ? "Estándar" : value.variant,
+//            'quantity': value.quantity
+//        };
+//        arrayEstrategiasAnalytics.push(estrategia);
+//    });
 
-    dataLayer.push({
-        'event': "productCheckout",
-        'action': "Validado",
-        'label': "Validado con éxito",
-        'ecommerce': {
-            'checkout': {
-                'actionField': { 'step': 3 },
-                'products': arrayEstrategiasAnalytics
-            }
-        }
-    });
-}
+//    dataLayer.push({
+//        'event': "productCheckout",
+//        'action': "Validado",
+//        'label': "Validado con éxito",
+//        'ecommerce': {
+//            'checkout': {
+//                'actionField': { 'step': 3 },
+//                'products': arrayEstrategiasAnalytics
+//            }
+//        }
+//    });
+//}
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== "undefined" ? mostrarAlerta : true;
@@ -3600,6 +3617,18 @@ function ProcesarActualizacionMostrarContenedorCupon() {
             cuponModule.actualizarContenedorCupon();
         }
     }
+}
+function closeDialogObservacionesProl() {
+    
+    var notExitoFromProl = $('#divMensajeObservacionesPROL').data('prop-NotExito');
+
+    if (!notExitoFromProl)
+        if (!(typeof AnalyticsPortalModule === 'undefined'))
+            AnalyticsPortalModule.MarcaGuardarPedidoExito(arrayProductosGuardadoExito);
+
+        
+        $('#divObservacionesPROL').dialog('close');
+        
 }
 
 function ArmarPopupObsReserva(titulo, mensaje) {

@@ -7,7 +7,10 @@
     <article class="banner_ofertas_masGanadoras caja-borde" {{#if ImagenURL}}style="background-image:url({{ImagenURL}});background-size: 100% 100%;background-color: #fff;"{{/if}}>
         <div class="contenido_ofertas">
             <p {{#if ImagenURL}}style="color:#000;"{{/if}}>{{{DescripcionCompleta}}}</p>
-            <a href="javascript:" onclick="javascript: menuModule.sectionClick('{{DescripcionMarca}}');">{{DescripcionDetalle}}</a>
+            <a href="javascript:"
+                   onclick="javascript: menuModule.sectionClick('{{DescripcionMarca}}','BannerMG', this)">
+                    {{DescripcionDetalle}}
+                </a>
         </div>
     </article>
     {{else}}

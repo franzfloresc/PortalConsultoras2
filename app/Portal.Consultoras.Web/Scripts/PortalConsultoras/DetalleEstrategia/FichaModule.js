@@ -22,6 +22,15 @@ registerEvent.call(opcionesEvents, "onOptionSelected");
 
 var variablesPortal = variablesPortal || {};
 
+//Función para breadcumb
+function eventBreadCumb(url, titulo) {
+    
+    var codigoPalanca = fichaModule.GetEstrategia().CodigoPalanca || "";
+    if (!(typeof AnalyticsPortalModule === 'undefined'))
+        AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
+        
+}
+
 var FichaModule = (function (config) {
     "use strict";
 
@@ -530,6 +539,7 @@ var FichaModule = (function (config) {
             SetHandlebars("#template-fichadetallevideo", estrategia, "#contenedor-tab-video");
 
             if (youtubeModule) {
+                
                 youtubeModule.Inicializar();
             }
         }
@@ -594,8 +604,10 @@ var FichaModule = (function (config) {
         _construirSeccionDetalleFichas(estrategia);
 
         // Se realiza la marcación en analytics de la información de la ficha de un producto.
-        var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
-        AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
+        //var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+        //AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
+        if (!(typeof AnalyticsPortalModule === 'undefined'))
+            AnalyticsPortalModule.MarcaVisualizarDetalleProducto(estrategia);
         return true;
     };
 
@@ -603,6 +615,8 @@ var FichaModule = (function (config) {
     {
         return _estrategia || _getEstrategia();
     }
+
+    
 
     function Inicializar() { 
         _localStorageModule = LocalStorageModule();
@@ -612,7 +626,7 @@ var FichaModule = (function (config) {
         _crearTabs();
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
-
+       
     }
 
     return {
