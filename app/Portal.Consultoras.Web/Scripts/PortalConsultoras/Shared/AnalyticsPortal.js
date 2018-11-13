@@ -61,7 +61,7 @@ var AnalyticsPortalModule = (function () {
         HOME: "HOME",
         HOMEOFERTA: "HOMEOFERTA",
         GND: "GND",
-        MG : "MG"
+        MG: "MG"
     };
     // Fin - Analytics Home 1 (Miguel)
 
@@ -146,22 +146,13 @@ var AnalyticsPortalModule = (function () {
         contenedorHome: "Contenedor - Home",
         campania: "Campaña ",
         IdBannerGanadorasVerMas: "000123",
-        TextoGanadoras : "Ganadoras"
+        TextoGanadoras: "Ganadoras"
         // Fin - Analytics Ofertas
     };
-    var _getDirection = function (direction) {
-        switch (direction) {
-        case 1:
-                return _texto.siguiente;
-        case 2:
-                return _texto.anterior;
-        }
-    }
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
-
 
     var marcarVerFichaProducto = function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
         try {
@@ -296,7 +287,7 @@ var AnalyticsPortalModule = (function () {
         else
             currencyCode = tipoMoneda;
         var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, origenPedidoWebEstrategia, estoyEnLaFicha);
-        
+
 
 
         try {
@@ -899,7 +890,7 @@ var AnalyticsPortalModule = (function () {
         });
 
         var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenPedido);
-        
+
         var _pagina = pagina.Pagina;
         if (pagina.Pagina.includes("Landing"))
             _pagina = "Landing";
@@ -1589,7 +1580,7 @@ var AnalyticsPortalModule = (function () {
     * Linea de Código Desktop: 309
  */
     var marcaAnadirCarrito = function (event, codigoOrigen, data) {
-        
+
         try {
             if (_constantes.isTest)
                 alert("Marcación clic añadir al carrito.");
@@ -1678,10 +1669,10 @@ var AnalyticsPortalModule = (function () {
             var list = "";
             if (_codigoSeccion.MG === codigoSeccion)
                 list = contenedor + " - " + palanca;
-             else 
+            else
                 list = contenedor + " - " + palanca + " - " + _constantes.campania + item.CampaniaID;
-            
-                
+
+
             dataLayer.push({
                 'event': _evento.productClick,
                 'ecommerce': {
@@ -1826,14 +1817,14 @@ var AnalyticsPortalModule = (function () {
         try {
             //var location = window.location.href;
             //var isGanadoras = location.indexOf(_constantes.TextoGanadoras) > 0;
-            
-                dataLayer.push({
-                    'event': 'socialEvent',
-                    'network': tipo == "FB" ? 'Facebook' : "Whatsapp",
-                    'action': 'Compartir',
-                    'target': url == "" ? undefined : url
-                });
-            
+
+            dataLayer.push({
+                'event': 'socialEvent',
+                'network': tipo == "FB" ? 'Facebook' : "Whatsapp",
+                'action': 'Compartir',
+                'target': url == "" ? undefined : url
+            });
+
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
@@ -2270,10 +2261,20 @@ var AnalyticsPortalModule = (function () {
     // Fin - Rama TiposAnalytics
     ////////////////////////////////////////////////////////////////////////////////////////
 
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Analytics Ganadoras
+    ////////////////////////////////////////////////////////////////////////////////////////
 
-    //****** GANADORAS******//
+    var _getDirection = function (direction) {
+        switch (direction) {
+            case 1:
+                return _texto.siguiente;
+            case 2:
+                return _texto.anterior;
+        }
+    }
 
-    var marcaPromotionViewCarrusel = function() {
+    var marcaPromotionViewCarrusel = function () {
         try {
             dataLayer.push({
                 'event': _evento.promotionView,
@@ -2293,8 +2294,9 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
+
     function marcarClickMasOfertasMG(url, origenPedido) {
-        try {                                        
+        try {
             //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
 
             dataLayer.push({
@@ -2312,9 +2314,10 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
+
     function marcarClickMasOfertasBannerMG(url) {
         try {
-            
+
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': fnObtenerContenedor(),
@@ -2330,6 +2333,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
+
     function marcarClickMasOfertasPromotionClickMG() {
         try {
             dataLayer.push({
@@ -2352,6 +2356,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
+
     var _virtualEventPush = function (label) {
 
         dataLayer.push({
@@ -2365,8 +2370,9 @@ var AnalyticsPortalModule = (function () {
     function clickArrowMG(direction) {
         _virtualEventPush(_getDirection(direction));
     }
+
     function clickOnBreadcrumb(url, codigoPalanca, titulo) {
-        
+
         try {
             if (codigoPalanca === _codigoSeccion.MG)
                 dataLayer.push({
@@ -2382,9 +2388,10 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
+
     function clickAddCartFicha(event, codigoOrigenPedido, estrategia) {
         try {
-            
+
             var producto = estrategia;
 
             dataLayer.push({
@@ -2410,16 +2417,20 @@ var AnalyticsPortalModule = (function () {
 
         }
     }
+
     function clickTabGanadoras(codigo) {
         if (codigo === _codigoSeccion.MG)
             dataLayer.push({
                 "event": _evento.virtualEvent,
-                "category": fnObtenerContenedor(), 
+                "category": fnObtenerContenedor(),
                 "action": 'Clic tab',
                 "label": 'Las Más Ganadoras'
             });
     }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics Ganadoras
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     return {
         // Ini - Metodos Iniciales
@@ -2521,7 +2532,7 @@ var AnalyticsPortalModule = (function () {
         MarcaBannersInferioresDescontinuados: marcaBannersInferioresDescontinuados,
         // Fin - Analytics Ofertas
 
-        // Comienzo Analytics Marcaciones Ganadoras!
+        // Ini - Analytics Ganadoras
         MarcaPromotionViewCarrusel: marcaPromotionViewCarrusel,
         MarcarClickMasOfertasMG: marcarClickMasOfertasMG,
         MarcarClickMasOfertasBannerMG: marcarClickMasOfertasBannerMG,
@@ -2529,7 +2540,7 @@ var AnalyticsPortalModule = (function () {
         ClickArrowMG: clickArrowMG,
         ClickOnBreadcrumb: clickOnBreadcrumb,
         ClickAddCartFicha: clickAddCartFicha,
-        ClickTabGanadoras: clickTabGanadoras 
-        // Fin Analytics Marcaciones Ganadoras!
+        ClickTabGanadoras: clickTabGanadoras
+        // Fin - Analytics Ganadoras
     }
 })();
