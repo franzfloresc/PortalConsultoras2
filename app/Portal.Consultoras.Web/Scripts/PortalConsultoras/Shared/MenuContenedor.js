@@ -287,7 +287,7 @@ var menuModule = (function () {
         }
     }
     function sectionClick(url, titulo, e) {
-        debugger;
+        
         var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
         titulo = titulo || "";
         url = url || "";
