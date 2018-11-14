@@ -301,18 +301,16 @@ var menuModule = (function () {
         }
         
         if (typeof AnalyticsPortalModule !== "undefined") {
-            origenPedido = origenPedido || "";
+            OrigenPedidoWeb = OrigenPedidoWeb || "";
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
                 if (titulo === "BotonVerMas")
-                    AnalyticsPortalModule.MarcarClickMasOfertasMG(url, origenPedido);
+                    AnalyticsPortalModule.MarcarClickMasOfertasMG(url, OrigenPedidoWeb);
                 if (titulo === "BannerMG") {
                     AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
                     AnalyticsPortalModule.MarcarClickMasOfertasBannerMG(url);
-                }
-                
-                    console.log("nothing");
+                }   
             } else
-               AnalyticsPortalModule.MarcaClicVerMasOfertas(url, origenPedido);
+                AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb);
         }
             
         //window.location.href = url;
