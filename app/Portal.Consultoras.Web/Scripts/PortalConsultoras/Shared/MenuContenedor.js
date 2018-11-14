@@ -284,6 +284,7 @@ var menuModule = (function () {
     }
     function sectionClick(url, titulo, origenPedido) {
         titulo = titulo || "";
+        url = url || "";
         //if (typeof rdAnalyticsModule !== "undefined") {
         //    rdAnalyticsModule.ContendorSection(titulo);
         //}
@@ -293,8 +294,10 @@ var menuModule = (function () {
                     url = "/Mobile" + url;
         }
         
-        if (typeof AnalyticsPortalModule !== "undefined")
+        if (typeof AnalyticsPortalModule !== "undefined") {
+            origenPedido = origenPedido || "";
             AnalyticsPortalModule.MarcaClicVerMasOfertas(url, origenPedido);
+        }
             
         //window.location.href = url;
     }
