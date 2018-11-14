@@ -146,7 +146,6 @@
                 </div>
                 <hr class="clear" />
                 <div id="divBarraLimite">
-
                 </div>
                 <hr class="clear" />
                 <div id="divBarraPosicion" class="BarraPosicion">
@@ -154,7 +153,6 @@
                         <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
                     </span>
                 </div>
-                <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Algunos productos no suman a la escala de comisión. Guarda tu pedido para actualizar tu barra.</div>
             </div>
             <div class="clear"></div>
         </div>
@@ -246,7 +244,6 @@
                                         <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
                                     </div>
                                 </div>
-
                                 <hr class="clear" />
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
@@ -415,7 +412,7 @@
                     <img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">
                 </div>
             </div>
-
+            <div class="informacion_barra text-right">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Algunos productos no suman a la escala de comisión. Guarda tu pedido para actualizar tu barra.</div>
             <div class="contenedor_eliminacion_pedido">
                 <div class="datos_simplificacionCUV" style="display: none;">
                     <p class="precio_total_sinDescuento">
@@ -971,6 +968,8 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupEleccionRegalo.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupPremio.cshtml")
 
 @if (Model.MostrarPopupPrecargados)
 {
