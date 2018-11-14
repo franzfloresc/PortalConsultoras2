@@ -108,8 +108,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 
                 var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
 
-                var bloquerBannerNuevas = (tipoOrigenEstrategia == "11" || tipoOrigenEstrategia == "21") && revistaDigital.TieneRDC && !revistaDigital.EsSuscrita;
-                var listEstrategias = _ofertaPersonalizadaProvider.ValidBannerNuevas(isMobile, userData, listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), bloquerBannerNuevas);
+                var bloquearBannerNuevas = (tipoOrigenEstrategia == "11" || tipoOrigenEstrategia == "21") && revistaDigital.TieneRDC && !revistaDigital.EsSuscrita;
+                var listEstrategias = _ofertaPersonalizadaProvider.ValidBannerNuevas(isMobile, userData, listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), bloquearBannerNuevas);
                 model.ListaLan = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
                 model.ListaModelo = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listEstrategias, listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
             }
@@ -545,20 +545,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
                 else if (palanca == Constantes.NombrePalanca.OfertaDelDia)
                 {
-                    UsuarioModel model = new UsuarioModel
-                    {
-                        PaisID= userData.PaisID,
-                        CampaniaID=userData.CampaniaID,
-                        ZonaID=userData.ZonaID,
-                        ZonaHoraria=userData.ZonaHoraria,
-                        FechaInicioCampania=userData.FechaInicioCampania,
-                        Simbolo=userData.Simbolo,
-                        CodigoConsultora=userData.CodigoConsultora,
-                        ConsultoraID=userData.ConsultoraID,
-                        CodigoISO=userData.CodigoISO
-                    };
-
-                    listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoODD(model);
+                    listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoODD();
                 }
                 else if (palanca == Constantes.NombrePalanca.PackNuevas)
                 {

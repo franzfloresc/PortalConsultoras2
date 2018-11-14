@@ -212,12 +212,31 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
+            string sap = "";   // PPC
+            var url = (Request.Url.Query).Split('?');   // PPC
+
+
             try
             {
-                if( _ofertaPersonalizadaProvider == null) throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
+                if ( _ofertaPersonalizadaProvider == null) throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
 
                 if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
-                    return RedirectToAction("Index", "Ofertas",new { area = IsMobile() ? "Mobile" : "" });
+                {
+                    if (url.Length > 1 && url[1].Contains("sap"))  // PPC
+                    {
+                        sap = "&" + url[1].Substring(3);
+                        SessionManager.SetUrlVc(1);
+                        if (EsDispositivoMovil())
+                        {
+                            return RedirectToAction("Index", "Ofertas", new { area = "Mobile", sap });
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Ofertas", sap );
+                        }
+                    }
+                    return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : ""});
+                }
 
                 palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
 
@@ -228,9 +247,24 @@ namespace Portal.Consultoras.Web.Controllers
                 if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
+
+                    if (url.Length > 1 && url[1].Contains("sap") && estrategiaPresonalizada == null)  // PPC
+                    {
+                        SessionManager.SetUrlVc(1);
+                        sap = "&" + url[1].Substring(3);
+                        if (EsDispositivoMovil())
+                        {
+                            return RedirectToAction("Index", "Ofertas", new { area = "Mobile", sap });
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Ofertas");
+                        }
+                    }
+
                     if (estrategiaPresonalizada == null)
                         return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-
+                    
                     if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
                     if (palanca == Constantes.NombrePalanca.PackNuevas)
@@ -465,44 +499,80 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion Mobile
 
                 #region Buscador Desktop
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiFicha;
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorGNDFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaFicha;
+                //    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomFicha;
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosFicha;
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaFicha;
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorGNDFicha;
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaFicha;
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaFicha;
                     break;
                 #endregion Buscador Desktop
 
                 #region Buscador Mobile
-                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiFicha;
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorShowroomFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorGNDFicha;
+                //    break;
+                //case Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador:
+                //    result = Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaFicha;
+                //    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorShowroomFicha;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosFicha;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaFicha;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorGNDFicha;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador:
-                    result = Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaFicha;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaFicha;
                     break;
                 #endregion Buscador Mobile
 
@@ -518,7 +588,10 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel:
                     result = Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha;
-                    break;
+                     break;
+
+               
+              
                 #endregion
             }
 
