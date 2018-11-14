@@ -293,7 +293,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 LogManager.SaveLog(ex, consultoraId, paisID);
                 throw;
-
             }
 
             return clientes;

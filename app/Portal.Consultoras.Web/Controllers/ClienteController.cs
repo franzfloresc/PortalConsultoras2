@@ -131,6 +131,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     mensaje += "|dentro de using (var sv = new ClienteServiceClient())";
                     response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
+                    mensaje += "|SaveDB = " + response.Count;
                 }
 
                 var itemResponse = response.First();
@@ -163,7 +164,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = ex.Message,
-                    extra = mensaje
+                    extra = mensaje,
+                    ex
                 });
             }
             catch (Exception ex)
@@ -174,7 +176,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = ex.Message,
-                    extra = mensaje
+                    extra = mensaje,
+                    ex
                 });
             }
         }
