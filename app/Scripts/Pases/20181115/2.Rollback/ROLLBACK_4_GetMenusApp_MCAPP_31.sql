@@ -7,7 +7,7 @@ IF (OBJECT_ID ( 'dbo.GetMenusApp', 'P' ) IS NULL)
 GO
 
 /* PROCEDURE GetMenusApp */
-CREATE PROCEDURE [dbo].[GetMenusApp]  
+ALTER PROCEDURE [dbo].[GetMenusApp]  
 	@RevistaDigitalSuscripcion SMALLINT = 1,  
 	@VersionMenu SMALLINT = 1,
 	@CodigoConsultora VARCHAR(20) = NULL,
