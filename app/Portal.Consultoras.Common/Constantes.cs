@@ -3026,6 +3026,7 @@ namespace Portal.Consultoras.Common
             public const string MostrarOpcionesOrdenamiento = "MostrarOpcionesOrdenamiento";
             public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
             public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
+            public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
         }
 
         public static class RutaBuscadorService
