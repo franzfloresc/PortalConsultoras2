@@ -1242,6 +1242,25 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_INTERNO, ex.Message);
             }
         }
+
+        public List<BEPedidoDetalleResult> InsertMasivo(List<BEPedidoDetalle> lstPedidoDetalle)
+        {
+            return lstPedidoDetalle.Select(pedidoDetalle =>
+            {
+                var result = Insert(pedidoDetalle);
+                result.CUV = pedidoDetalle.Producto.CUV;
+                return result;
+            }).ToList();
+
+            //var tasks = lstPedidoDetalle.Select(pedidoDetalle => Task.Run(() =>
+            //{
+            //    var result = Insert(pedidoDetalle);
+            //    result.CUV = pedidoDetalle.Producto.CUV;
+            //    return result;
+            //})).ToArray();
+            //Task.WaitAll(tasks);
+            //return tasks.Select(x => x.Result).ToList();
+        }
         #endregion
 
         #region GetCUV
