@@ -293,7 +293,7 @@ div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos {
 }
 
     div.celda_cantidad_pedidos div.liquidacion_rango_wrapper_pedido input {
-        font-size: 14px !important;
+        font-size: 16px !important;
         background: #fff;
         padding-left: 0 !important;
     }
@@ -301,6 +301,12 @@ div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos {
         div.celda_cantidad_pedidos div.liquidacion_rango_wrapper_pedido input[value] {
             vertical-align: middle;
         }
+
+
+.texto_cantidad_pedidos{
+    font-size: 16px !important;
+}
+
 
 .grilla_pedidos div.fila_mensajeProductoAgotado div {
     padding-top: 0;
