@@ -2,15 +2,15 @@
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PortalService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPortalService_ObtenerParametrosUnete_InputMessage">
@@ -204,12 +204,6 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteApta_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteAptaMexico_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaMexico" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteAptaMexico_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaMexicoResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteAptaByDoc_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaByDoc" />
@@ -463,6 +457,30 @@
   <wsdl:message name="IPortalService_AgregarEventoSolicitudPostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:AgregarEventoSolicitudPostulanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_GrabarDocumentoExcepcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GrabarDocumentoExcepcion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GrabarDocumentoExcepcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GrabarDocumentoExcepcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ListarDocumentoExcepcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarDocumentoExcepcion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ListarDocumentoExcepcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarDocumentoExcepcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ImagenesWhatsApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:ImagenesWhatsApp" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ImagenesWhatsApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ImagenesWhatsAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ResponseWhatsApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResponseWhatsApp" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ResponseWhatsApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResponseWhatsAppResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUnete" message="tns:IPortalService_ObtenerParametrosUnete_InputMessage" />
@@ -591,10 +609,6 @@
     <wsdl:operation name="ObtenerSolicitudPostulanteApta">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteApta" message="tns:IPortalService_ObtenerSolicitudPostulanteApta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaResponse" message="tns:IPortalService_ObtenerSolicitudPostulanteApta_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerSolicitudPostulanteAptaMexico">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexico" message="tns:IPortalService_ObtenerSolicitudPostulanteAptaMexico_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexicoResponse" message="tns:IPortalService_ObtenerSolicitudPostulanteAptaMexico_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudPostulanteAptaByDoc">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaByDoc" message="tns:IPortalService_ObtenerSolicitudPostulanteAptaByDoc_InputMessage" />
@@ -763,6 +777,22 @@
     <wsdl:operation name="AgregarEventoSolicitudPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulante" message="tns:IPortalService_AgregarEventoSolicitudPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulanteResponse" message="tns:IPortalService_AgregarEventoSolicitudPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GrabarDocumentoExcepcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GrabarDocumentoExcepcion" message="tns:IPortalService_GrabarDocumentoExcepcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GrabarDocumentoExcepcionResponse" message="tns:IPortalService_GrabarDocumentoExcepcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarDocumentoExcepcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ListarDocumentoExcepcion" message="tns:IPortalService_ListarDocumentoExcepcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ListarDocumentoExcepcionResponse" message="tns:IPortalService_ListarDocumentoExcepcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ImagenesWhatsApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ImagenesWhatsApp" message="tns:IPortalService_ImagenesWhatsApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ImagenesWhatsAppResponse" message="tns:IPortalService_ImagenesWhatsApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResponseWhatsApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ResponseWhatsApp" message="tns:IPortalService_ResponseWhatsApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ResponseWhatsAppResponse" message="tns:IPortalService_ResponseWhatsApp_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -1048,15 +1078,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudPostulanteApta">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteApta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerSolicitudPostulanteAptaMexico">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1442,10 +1463,46 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GrabarDocumentoExcepcion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GrabarDocumentoExcepcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarDocumentoExcepcion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ListarDocumentoExcepcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImagenesWhatsApp">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ImagenesWhatsApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResponseWhatsApp">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ResponseWhatsApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="PortalService">
     <wsdl:port name="BasicHttpBinding_IPortalService" binding="tns:BasicHttpBinding_IPortalService">
-      <soap:address location="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc" />
+      <soap:address location="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

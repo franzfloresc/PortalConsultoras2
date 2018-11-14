@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBuscador')
@@ -6,7 +6,7 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
 USE BelcorpMexico
@@ -17,7 +17,7 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
 USE BelcorpColombia
@@ -28,7 +28,7 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
 USE BelcorpSalvador
@@ -39,7 +39,7 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
 USE BelcorpPuertoRico
@@ -50,7 +50,7 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
 USE BelcorpPanama
@@ -61,7 +61,7 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
 USE BelcorpGuatemala
@@ -72,7 +72,7 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
 USE BelcorpEcuador
@@ -83,7 +83,7 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
 USE BelcorpDominicana
@@ -94,7 +94,7 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
 USE BelcorpCostaRica
@@ -105,7 +105,7 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
 USE BelcorpChile
@@ -116,7 +116,7 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
 USE BelcorpBolivia
@@ -127,6 +127,6 @@ IF EXISTS (SELECT * FROM configuracionpaisDatos WHERE codigo = 'FlagFiltrosBusca
 
 DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
 INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la p�gina de resultados.', 1, NULL)
+VALUES (@id, 'FlagFiltrosBuscador',0, 0, NULL, NULL, 'Flag para activar filtros en la página de resultados.', 1, NULL)
 GO
 
