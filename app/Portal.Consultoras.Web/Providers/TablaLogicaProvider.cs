@@ -38,6 +38,18 @@ namespace Portal.Consultoras.Web.Providers
             return valor;
         }
 
+        public string ObtenerValorDesdeLista(List<TablaLogicaDatosModel> datos, short idTablaLogicaDatos)
+        {
+            if (datos == null || datos.Count == 0)
+            {
+                return string.Empty;
+            }
+            
+            var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos) ?? new TablaLogicaDatosModel();
+
+            return Util.Trim(par.Valor);
+        }
+
         public int ObtenerValorTablaLogicaInt(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
         {
             var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);

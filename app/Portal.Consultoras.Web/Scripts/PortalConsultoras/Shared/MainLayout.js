@@ -307,7 +307,6 @@ $(document).ready(function () {
     });
 
     setInterval(animacionFlechaScroll, 1000);
-
 });
 
 function AbrirVentanaBelcorpChat(url) {
@@ -658,6 +657,15 @@ function AbrirModalRegistroComunidad() {
     SendPushMiComunidad();
 
     return false;
+}
+
+function OpenUrl(url, newPage) {
+    if (newPage) {
+        window.open(url, '_blank');
+        return;
+    }
+
+    window.location.href = url;
 }
 
 function SendPushMiComunidad() {

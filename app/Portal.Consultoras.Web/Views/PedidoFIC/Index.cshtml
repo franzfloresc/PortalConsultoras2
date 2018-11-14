@@ -68,7 +68,9 @@
             <div class="pedido_ingreso_datos campo_descripcion_producto">
                 <br />
                 <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
-                       onkeyup="PreValidarCUV(event);" placeholder="Descripción producto" />
+                       @*onkeyup="PreValidarCUV(event);"*@ 
+                        attrKey="PreValidarCUV"
+                       placeholder="Descripción producto" />
             </div>
 
             <div class="pedido_ingreso_datos campo_precio">
@@ -80,7 +82,9 @@
                 <br />
                 <div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
                     <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                           onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)" />
+                           @*onkeypress="PreValidarCUV(event);"*@ 
+                            attrKey="PreValidarCUV"
+                           onfocus="SeleccionarContenido(this)" />
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                         <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -287,7 +291,10 @@
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                 <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" id="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" />
                 <input type="text" value="{{Cantidad}}" data-input="cantidad" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" id="txtLPCant{{PedidoDetalleID}}"
-                       data-pedido="{{PedidoDetalleID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
+                       data-pedido="{{PedidoDetalleID}}" 
+                       @*onkeypress="PreValidarCUV(event);"*@
+                        attrKey="PreValidarCUV"
+                       onfocus="SeleccionarContenido(this)"
                        onblur="UpdateLiquidacion('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}')" />
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>

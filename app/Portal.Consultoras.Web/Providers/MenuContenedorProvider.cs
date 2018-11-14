@@ -88,9 +88,8 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.UrlMenuContenedor.SwInicioIndex:
                 case Constantes.UrlMenuContenedor.SwPersonalizado:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
-                    menuActivo.OrigenPantalla = esMobile
-                        ? Constantes.OrigenPantallaWeb.MShowRoom
-                        : Constantes.OrigenPantallaWeb.DShowRoom;
+                    menuActivo.OrigenPantalla = esMobile ? Constantes.OrigenPantallaWeb.MShowRoom : Constantes.OrigenPantallaWeb.DShowRoom;
+
                     break;
 
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
@@ -251,41 +250,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return configuracionPaisMenu;
         }
-
-        //public string GetMenuActivoOptCodigoSegunActivo(string pathOrigen, RevistaDigitalModel revistaDigital, string CodigoConsultora, string CodigoISO)
-        //{
-        //    var codigo = "";
-        //    try
-        //    {
-        //        var origrn = int.Parse(pathOrigen);
-        //        switch (origrn)
-        //        {
-        //            case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
-        //                codigo = Constantes.ConfiguracionPais.Lanzamiento;
-        //                break;
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoLanzamiento:
-        //                codigo = Constantes.ConfiguracionPais.Lanzamiento;
-        //                break;
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionMasOfertas:
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas:
-        //            case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
-        //                codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
-        //                break;
-        //            case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
-        //            case Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido:
-        //                codigo = Constantes.ConfiguracionPais.OfertasParaTi;
-        //                break;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Common.LogManager.SaveLog(ex, CodigoConsultora, CodigoISO);
-        //    }
-        //    return codigo;
-        //}
-
+        
         public List<ConfiguracionPaisModel> GetMenuContenedorByMenuActivoCampania(int campaniaIdMenuActivo, int campaniaIdUsuario, UsuarioModel userData, RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, OfertaPersonalizadaProvider _ofertaPersonalizadaProvider, ProgramaNuevasProvider _programaNuevasProvider, bool esMobile)
         {
             var menuContenedor = BuildMenuContenedor(userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
@@ -444,6 +409,7 @@ namespace Portal.Consultoras.Web.Providers
                             continue;
 
                         config.UrlMenu = string.Empty;
+
                         if (!sessionManager.GetMostrarShowRoomProductos() &&
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
@@ -454,8 +420,8 @@ namespace Portal.Consultoras.Web.Providers
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
                             config.UrlMenu = "ShowRoom";
-
                         }
+
                         if (config.UrlMenu == "")
                             continue;
 

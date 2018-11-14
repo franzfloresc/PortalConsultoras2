@@ -73,18 +73,12 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
-        //var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
-        //var ShowRoomMobileSubCampania = 2524;
-        //var estrategia = {};
-        //if (origenPedidoWebEstrategia == ShowRoomMobileSubCampania) {
-        //    estrategia = $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-        //                .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia") || {};
-        //} else {
+        
         var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
                 || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
                         .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia")
                 || {};
-        //}
+
         return estrategia;
     };
 
@@ -377,7 +371,12 @@ var EstrategiaAgregarModule = (function () {
             }
 
             var cuv = estrategia.CUV2;
+            if (cuv.substring(0,3)=='999') {
+                sessionStorage.setItem('cuvPack', cuv);
+            }
+            
 
+         
             var tipoOrigenEstrategiaAux = 0;
             if (typeof tipoOrigenEstrategia != "undefined") {
                 tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;
@@ -439,12 +438,25 @@ var EstrategiaAgregarModule = (function () {
             }
 
             try {
-                if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-                    rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
-                } else {
-                    if (typeof TagManagerClickAgregarProductoOfertaParaTI !== constantes.undefined()) {
-                        TagManagerClickAgregarProductoOfertaParaTI(estrategia);
-                    }
+                //var controllerName = window.controllerName;
+                //if (controllerName == "bienvenida") {
+                    //if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+                    //    rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
+                    //} else {
+                    //    if (typeof TagManagerClickAgregarProductoOfertaParaTI !== constantes.undefined()) {
+                    //        TagManagerClickAgregarProductoOfertaParaTI(estrategia);
+                    //    }
+                    //}
+                  //  if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    //    AnalyticsPortalModule.MarcaAnadirCarritoHome(event, origenPedidoWebEstrategia, estrategia);
+               // }
+                //else {
+                //if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                //    AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+                //}
+                //} 
+                if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                    AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
                 }
                 TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
             } catch (e) {
@@ -452,20 +464,14 @@ var EstrategiaAgregarModule = (function () {
             }
             if (data.listCuvEliminar != null) {
                 $.each(data.listCuvEliminar, function (i, cuv) {
-                    //Se debe integrar en un solo metodo
 	
                     itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
 
-                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, cuv, false);
-                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, cuv, false);
-                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, cuv, false);
-                    //ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.lan, cuv, false);
                     ActualizarLocalStoragePalancas(cuv, false);
                 })
             }
 
             var localStorageModule = new LocalStorageModule();
-            //localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoEstrategia, true);
             localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
 

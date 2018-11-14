@@ -331,52 +331,6 @@
 
 /* SECCIÓN REVISTA DIGITAL VISTA CATÁLOGOS Y REVISTAS */
 
-/*div#tab_revistasdigital_mobile {
-    margin: -35px auto 0 auto;
-    width: 100%;
-    max-width: 400px;
-}*/
-
-/*.contenedor_seccionRevistaDigital {
-    display: block;
-    margin: 0 15px;
-    padding-left: 34px;
-}*/
-
-/*.seccionRevistaDigital_logo_marca {
-    height: 97px;
-    display: block;
-}*/
-
-    /*.seccionRevistaDigital_logo_marca img {
-        text-align: left;
-        width: auto;
-        height: 100%;
-    }*/
-
-/*.contenido_seccionRevistaDigital {
-    display: block;
-    margin-top: 9px;
-    position: relative;
-    z-index: 5;
-}
-
-    .contenido_seccionRevistaDigital span {
-        font-family: 'Lato';
-        font-weight: bold;
-        width: 100%;
-    }
-
-        .contenido_seccionRevistaDigital span:first-child {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .contenido_seccionRevistaDigital span:last-child {
-            font-size: 13px;
-        }*/
-
 .contenedor_botonVerMasOfertas {
     display: block;
     position: relative;
@@ -495,7 +449,6 @@
         color: black;
         font-size: 13px;
         padding: 10px 0 15px 0;
-        /*text-transform: uppercase;*/
     }
 
         .wrapper_resumen_mobile_clubganamas .zonadecolor span.margin_top {
@@ -575,51 +528,6 @@
     word-wrap: break-word;
 }
 
-/*.btn_black_solid a, .btn_white_stroke a {
-    background-color: black;
-    color: white;
-    text-decoration: none;
-    padding: 15px 25px;
-    border: 1px solid black;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .5px;
-}*/
-
-/*.btn_white_stroke a {
-    border-color: white;
-}*/
-
-/*.mob_home_bpt {
-    font-family: 'Lato';
-    text-align: center;
-}*/
-
-/*.rd_lanzamiento {
-    font-size: 14px;
-    font-weight: 700;
-    margin: 20px 0 20px;
-}*/
-
-/*.rd_lanzamiento_producto {
-    width: 100%;
-    max-width: 320px;
-    margin: 20px 0;
-}*/
-
-/*.rd_verofertas {
-    background-color: black;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-transform: uppercase;
-}*/
-
-/*.mob_carrusel_bpt {
-    background-color: #F2EEF0;
-    padding-bottom: 30px;
-    font-weight: 600;
-}*/
 .boton-ver-mas.no_suscrita {
     background: none !important;
     color: #000 !important;
