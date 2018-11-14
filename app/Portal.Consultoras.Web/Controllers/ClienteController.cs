@@ -165,7 +165,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ex.Message,
                     extra = mensaje,
-                    ex
+                    Trycatch = Common.LogManager.GetMensajeError(ex)
                 });
             }
             catch (Exception ex)
@@ -177,7 +177,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ex.Message,
                     extra = mensaje,
-                    ex
+                    Trycatch = Common.LogManager.GetMensajeError(ex)
                 });
             }
         }

@@ -318,5 +318,33 @@ namespace Portal.Consultoras.Common
             string indexName = pattern + DateTime.Now.ToString("yyyy.MM.dd");
             return endpoint + indexName + "/LogEvent";
         }
+
+        public static string GetMensajeError(Exception ex)
+        {
+            var exceptionMessage = "";
+            try
+            {
+                var separador = " | ";
+
+                if (ex != null)
+                {
+                    exceptionMessage += "Error message: " + ex.Message;
+                    exceptionMessage += separador + "StackTrace: " + ex.StackTrace;
+                    
+                    var innerException = ex.InnerException;
+                    while (innerException != null)
+                    {
+                        exceptionMessage = string.Format("{0}, InnerException: {1}", exceptionMessage, innerException.Message);
+                        innerException = innerException.InnerException;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //
+            }
+
+            return exceptionMessage;
+        }
     }
 }
