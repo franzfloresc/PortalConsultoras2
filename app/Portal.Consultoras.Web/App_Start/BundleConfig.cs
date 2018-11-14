@@ -363,6 +363,12 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Pedido/PedidoTooltip.css"
             ));
 
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/PedidoValidado").Include(
+                "~/Content/Css/Site/style-pedido.css",
+                "~/Content/Css/Site/Pedido/PedidoGrilla.css"
+            ));
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Pedido").Include(
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
@@ -378,6 +384,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PedidoValidado").Include(
+               "~/Scripts/PortalConsultoras/Pedido/Validado.js",
+                "~/Scripts/PortalConsultoras/Pedido/barra.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/OfertaDelDia").Include(
