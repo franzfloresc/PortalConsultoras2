@@ -290,6 +290,7 @@ var menuModule = (function () {
         
         var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
         titulo = titulo || "";
+        url = url || "";
         //if (typeof rdAnalyticsModule !== "undefined") {
         //    rdAnalyticsModule.ContendorSection(titulo);
         //}
@@ -300,6 +301,7 @@ var menuModule = (function () {
         }
         
         if (typeof AnalyticsPortalModule !== "undefined") {
+            origenPedido = origenPedido || "";
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
                 if (titulo === "BotonVerMas")
                     AnalyticsPortalModule.MarcarClickMasOfertasMG(url, origenPedido);
