@@ -49,7 +49,7 @@
 }
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-v2.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-v2.cshtml", new ViewDataDictionary { { "TieneBotones", false }, { "EsSuscrita", ViewBag.EsSuscrita } })
 
 @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 

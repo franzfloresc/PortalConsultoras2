@@ -1,5 +1,14 @@
 ﻿@using Portal.Consultoras.Common
 
+@{ 
+    var vermasClass = "";
+
+    if (ViewBag.EsSuscrita)
+    {
+        vermasClass = "dorado";
+    }
+}
+
 <script id="template-producto-v2" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
 
@@ -11,6 +20,7 @@
                 {{{DescripcionCompleta}}}
             </p>
             <a href="javascript:"
+               class="@vermasClass"
                onclick="javascript: menuModule.sectionClick('{{DescripcionMarca}}','BannerMG', this)">
                 {{DescripcionDetalle}}
             </a>
