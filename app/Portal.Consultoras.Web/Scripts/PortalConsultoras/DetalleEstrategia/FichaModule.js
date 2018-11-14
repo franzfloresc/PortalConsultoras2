@@ -27,7 +27,11 @@ function eventBreadCumb(url, titulo) {
     
     var codigoPalanca = fichaModule.GetEstrategia().CodigoPalanca || "";
     if (!(typeof AnalyticsPortalModule === 'undefined'))
-        AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
+        if (codigoPalanca === ConstantesModule.TipoEstrategia.MG) {
+            AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
+            return;
+        }
+    document.location = url;
         
 }
 
