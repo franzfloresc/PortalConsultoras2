@@ -210,6 +210,30 @@
                 if (val[i].cantidad > 0) array.push(val[i]);
             }
             return array;
+        },
+        AgregarEtiquetaFiltroSeleccionado: function (texto) {
+
+            if (_config.isMobile) {
+                var contenedorEtiquetas = $('.layout__content__etiquetas_criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
+            } else {
+                var contenedorEtiquetas = $('.layout__content__etiquetas_criteriosElegidosDesktop').find('.lista__etiquetas__criteriosElegidos');
+                $('.layout__content__etiquetas_criteriosElegidosDesktop').fadeIn(100);
+            }
+
+            var etiquetaFiltroSeleccionadoHtml =
+                '<li class="row flex-row justify-content-center align-items-center etiqueta__criterioElegido">'
+                   + '<span class="etiqueta__criterioElegido_descrip">'
+                      + texto
+                   + '</span>'
+                   + '<a class="d-block enlace__eliminar__etiqueta icono__eliminar__criterioElegido" title="Eliminar etiqueta">'
+                      + '<img src="/Content/Images/cerrar-tag-icono.svg" alt="Eliminar etiqueta" class="d-block" />'
+                   + '</a>'
+                + '</li>';
+
+            contenedorEtiquetas.append(etiquetaFiltroSeleccionadoHtml);
+            if (contenedorEtiquetas.find('.etiqueta__criterioElegido').length > 0 && contenedorEtiquetas.find('.etiqueta__criterioElegido').length < 2) {
+                $(_elementos.enlaceLimpiarEtiquetasFiltros).fadeIn(100);
+            }
         }
     };
 var _eventos = {
@@ -417,9 +441,10 @@ var _eventos = {
         //var input = $(divPadre).find(".buscadorFiltrosChecked");
         var id = $(divPadre).find(".BuscadorFiltroID").val();
         var texto = $(divPadre).find(".BuscadorFiltroLabel").val();
-
         if (id.substring(0, 3) == 'cat') _config.categoria = texto;
         if (id.substring(0, 3) == 'mar') _config.marca = texto;
+
+        _funciones.AgregarEtiquetaFiltroSeleccionado(texto);
 
         _funciones.CargarProductos();
     }
