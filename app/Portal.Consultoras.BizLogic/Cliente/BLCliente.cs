@@ -229,6 +229,8 @@ namespace Portal.Consultoras.BizLogic
         public List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
             long ConsultoraID = 0;
+            var blZonificacion = new BLZonificacion();
+            var bePais = blZonificacion.SelectPais(paisID);
 
             try
             {
