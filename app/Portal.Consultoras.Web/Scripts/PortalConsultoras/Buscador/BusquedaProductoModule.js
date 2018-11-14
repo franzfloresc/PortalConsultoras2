@@ -190,8 +190,20 @@
                     fichaProducto.addClass('ficha__producto--delgada');
                 }
             });
-
-           
+        },
+        AnchoContenedorEtiquetasCriteriosElegidos: function () {
+            var sumAnchoEtiquetas = 0;
+            $('.etiqueta__criterioElegido').each(function () {
+                sumAnchoEtiquetas += $(this).outerWidth() + 10;
+            });
+            setTimeout(function () {
+                $('.lista__etiquetas__criteriosElegidos').css('width', sumAnchoEtiquetas - 30);
+            }, 100);
+        },
+        ActualizarAnchoContenedorEtiquetasCriteriosElegidos: function (AnchoEtiquetaCriterioEliminado) {
+            var anchoContenedorEtiquetasActualizado = $('.lista__etiquetas__criteriosElegidos').outerWidth() - AnchoEtiquetaCriterioEliminado;
+            $('.lista__etiquetas__criteriosElegidos').css('width', anchoContenedorEtiquetasActualizado);
+            }
         },
         validarFiltros: function (val) {
             var array = [];
@@ -206,10 +218,21 @@
 
         EliminarEtiquetaCriterioElegido: function (e) {
             e.preventDefault();
-            $(this).parents('.etiqueta__criterioElegido').fadeOut(70);
+            var etiquetaCriterioPorEliminar = $(this).parents('.etiqueta__criterioElegido');
+            etiquetaCriterioPorEliminar.fadeOut(70);
+            if(_config.isMobile){
+                var capturarAnchoEtiquetaPorEliminar = etiquetaCriterioPorEliminar.outerWidth() + 10;
+                _funciones.ActualizarAnchoContenedorEtiquetasCriteriosElegidos(capturarAnchoEtiquetaPorEliminar);
+            }
             setTimeout(function () {
-                $(this).parents('.etiqueta__criterioElegido').remove();
-            },100);
+                etiquetaCriterioPorEliminar.remove();
+                if ($('.layout__content__etiquetas_criteriosElegidosMobile').find('.etiqueta__criterioElegido').length == 0) {
+                    if (_config.isMobile) {
+                        $('.lista__etiquetas__criteriosElegidos').css('width', '')
+                    }
+                    $('.layout__content__etiquetas_criteriosElegidos').slideUp(80);
+                }
+            }, 100);
         },
 
         LimpiarEtiquetasFiltros: function(e){
@@ -218,6 +241,12 @@
             $(this).fadeOut(70);
             setTimeout(function () {
                 $('.etiqueta__criterioElegido').remove();
+                if ($('.layout__content__etiquetas_criteriosElegidosMobile').find('.etiqueta__criterioElegido').length == 0) {
+                    if (_config.isMobile) {
+                        $('.lista__etiquetas__criteriosElegidos').css('width', '')
+                    }
+                    $('.layout__content__etiquetas_criteriosElegidos').slideUp(80);
+                }
             },100);
         },
 
@@ -294,6 +323,9 @@
             $(_elementos.seccionFiltros).delay(30);
             $(_elementos.seccionFiltros).animate({
                 right : 0 + '%'
+            }, 150);
+            setTimeout(function () {
+                _funciones.AnchoContenedorEtiquetasCriteriosElegidos();
             }, 150);
         },
 
