@@ -35,24 +35,25 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
-            
-            if (EsDispositivoMovil()) 
-            {
-                if (url.Length > 1)
-                {
-                    sap = "&" + url[1];
-                    return RedirectToAction("Index", "Ofertas", new { area = "Mobile", sap });
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
-                }
-            }
-
             try
             {
+
+                string sap = "";
+                var url = (Request.Url.Query).Split('?');
+
+                if (EsDispositivoMovil())
+                {
+                    if (url.Length > 1)
+                    {
+                        sap = "&" + url[1];
+                        return RedirectToAction("Index", "Ofertas", new { area = "Mobile", sap });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
+                    }
+                }
+
                 var indexViewModel = new IndexViewModel();
                 indexViewModel.EstrategiaPersonalizada = new EstrategiaPersonalizadaModel
                 {
