@@ -40,6 +40,10 @@
     background: #e81c36;
 }
 
+div.content_estrategia_carrusel article a {
+    background: #e81c36;
+}
+
 .op-menu-horizontal .subnavegador li .activado {
     border-bottom: 3px solid #B52E36;
     color: #B52E36;
