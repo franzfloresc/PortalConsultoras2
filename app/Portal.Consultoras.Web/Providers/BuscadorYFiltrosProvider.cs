@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Providers
             var userData = _sessionManager.GetUserData();
             var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
                 userData.CodigoISO,
-                userData.CampaniaID,
+                "201816",//userData.CampaniaID,
                 Origen
             );
 
@@ -79,8 +79,9 @@ namespace Portal.Consultoras.Web.Providers
                 },
                 filtro = new
                 {
-                    categoria = buscadorModel.Filtro.categoria == null ? "" : buscadorModel.Filtro.categoria,
-                    marca = buscadorModel.Filtro.marca == null ? "" : buscadorModel.Filtro.marca
+                    categoria = buscadorModel.Filtro.categoria,
+                    marca = buscadorModel.Filtro.marca,
+                    precio = buscadorModel.Filtro.precio 
                 }
             };
         }

@@ -93,6 +93,13 @@
                         </div>
                         <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosMarcas"></ul>
                     </li>
+                    <li class="col-12 pl-0 pr-0 filtro__tipo">
+                        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+                            <div class="col-10 pl-0 pr-0">Precios</div>
+                            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+                        </div>
+                        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosPrecios"></ul>
+                    </li>
                 </ul>
                 <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 mostrarEnMobile filtro__btn__mobile__wrapper">
                     <div class="col-6 pl-0">
@@ -231,13 +238,13 @@
 <script id="js-fichaFiltros" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <li class="col-12 pl-0 pr-0 filtro__item" data-item="BuscadorFiltros">
-        <input type="hidden" class="BuscadorFiltroLabel" value="{{label}}" />
-        <input type="hidden" class="BuscadorFiltroID" value="{{id}}" />
+        <input type="hidden" class="BuscadorFiltroLabel" value="{{nombreFiltro}}" />
+        <input type="hidden" class="BuscadorFiltroID" value="{{idFiltro}}" />
         <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields buscadorFiltrosSeleccionar">
-            <input id="{{id}}" type="checkbox" class="filtro__item__checkbox buscadorFiltrosChecked" {{#if marcado}} checked {{/if}} /> <!--checked-->
-            <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="{{id}}">
+            <input id="{{idFiltro}}" type="checkbox" class="filtro__item__checkbox buscadorFiltrosChecked" {{#if marcado}} checked {{/if}} /> <!--checked-->
+            <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="{{idFiltro}}">
                 <span class="d-inline-block filtro__item__checkbox"></span>
-                <span class="d-inline-block">{{label}} ({{count}})</span>
+                <span class="d-inline-block">{{nombreFiltro}} ({{cantidad}})</span>
             </label>
         </div>
     </li>

@@ -24,6 +24,7 @@
         dataToggle: '[data-toggle]',
         filtrosCategorias: '#filtrosCategorias',
         filtrosMarcas: '#filtrosMarcas',
+        filtrosPrecios: '#filtrosPrecios',
         enlaceLimpiarEtiquetasFiltros: '.enlace__limpiar__filtros',
         buscadorFiltrosSeleccionar: '.buscadorFiltrosSeleccionar'
     };
@@ -114,9 +115,11 @@
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
                     // Filtros categorias
-                    //if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.categorias, _elementos.filtrosCategorias);
+                    if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, _funciones.validarFiltros(data.filtros.categorias), _elementos.filtrosCategorias);
                     // Filtros Marcas
-                   // if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.marcas, _elementos.filtrosMarcas);
+                    if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, _funciones.validarFiltros(data.filtros.marcas), _elementos.filtrosMarcas);
+                    // Filtros Precios
+                    if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, _funciones.validarFiltros(data.filtros.precios), _elementos.filtrosPrecios)
                     _funciones.UpadteFichaProducto();
                     _config.totalProductos = data.total;
                     _config.cargandoProductos = false;
@@ -189,7 +192,15 @@
             });
 
            
+        },
+        validarFiltros: function (val) {
+            var array = [];
+            for (var i = 0; i < val.length; i++) {
+                if (val[i].cantidad > 0) array.push(val[i]);
+            }
+            return array;
         }
+
     };
     var _eventos = {
 

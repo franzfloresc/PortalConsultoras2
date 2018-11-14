@@ -22,21 +22,25 @@ namespace Portal.Consultoras.Web.Models.Buscador
 
     public class Filtros
     {
-        public string categoria { get; set; }
-        public string marca { get; set; }
+        public List<ValoresFiltros> categoria { get; set; }
+        public List<ValoresFiltros> marca { get; set; }
+        public List<ValoresFiltros> precio { get; set; }
     }
 
     public class ValoresFiltros
     {
-        public string id { get; set; }
+        public string idFiltro { get; set; }
+        public string nombreFiltro { get; set; }
+        public double min { get; set; }
+        public double max { get; set; }
     }
-    
+
     public class Paginacion
     {
         public int NumeroPagina { get; set; }
         public int Cantidad { get; set; }
     }
-    
+
     public class Orden
     {
         public string Campo { get; set; }
