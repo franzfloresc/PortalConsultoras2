@@ -8969,10 +8969,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string campania1erPasePedidoField;
-
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EstadoPostulanteIDField;
-
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -9839,26 +9836,8 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                     this.RaisePropertyChanged("campania1erPasePedido");
                 }
             }
-
         }
-
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int EstadoPostulanteID
-        {
-            get
-            {
-                return this.EstadoPostulanteIDField;
-            }
-            set
-            {
-                if ((this.EstadoPostulanteIDField.Equals(value) != true))
-                {
-                    this.EstadoPostulanteIDField = value;
-                    this.RaisePropertyChanged("EstadoPostulanteID");
-                }
-            }
-        }
-
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -12417,6 +12396,115 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResponseBotmaker", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE")]
+    [System.SerializableAttribute()]
+    public partial class ResponseBotmaker : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string dniImg1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string dniImg2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nroDocumentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string paisField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string servImg3Field;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string dniImg1 {
+            get {
+                return this.dniImg1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.dniImg1Field, value) != true)) {
+                    this.dniImg1Field = value;
+                    this.RaisePropertyChanged("dniImg1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string dniImg2 {
+            get {
+                return this.dniImg2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.dniImg2Field, value) != true)) {
+                    this.dniImg2Field = value;
+                    this.RaisePropertyChanged("dniImg2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string nroDocumento {
+            get {
+                return this.nroDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nroDocumentoField, value) != true)) {
+                    this.nroDocumentoField = value;
+                    this.RaisePropertyChanged("nroDocumento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string pais {
+            get {
+                return this.paisField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.paisField, value) != true)) {
+                    this.paisField = value;
+                    this.RaisePropertyChanged("pais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string servImg3 {
+            get {
+                return this.servImg3Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.servImg3Field, value) != true)) {
+                    this.servImg3Field = value;
+                    this.RaisePropertyChanged("servImg3");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceUnete.IPortalService")]
     public interface IPortalService {
@@ -12632,12 +12720,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteApta", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteAptaBE> ObtenerSolicitudPostulanteAptaAsync(string codigoISO, string numeroDocumento);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexico", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexicoResponse")]
-        Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteAptaBE ObtenerSolicitudPostulanteAptaMexico(string codigoISO, string numeroDocumento, string primerNombre, string segundoNombre, string apellidoPaterno, string apellidoMaterno);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexico", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexicoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteAptaBE> ObtenerSolicitudPostulanteAptaMexicoAsync(string codigoISO, string numeroDocumento, string primerNombre, string segundoNombre, string apellidoPaterno, string apellidoMaterno);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaByDoc", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaByDocResponse")]
         Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteAptaBE ObtenerSolicitudPostulanteAptaByDoc(string codigoISO, string numeroDocumento, string tipoDocumento);
@@ -12916,6 +12998,18 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ListarDocumentoExcepcion", ReplyAction="http://tempuri.org/IPortalService/ListarDocumentoExcepcionResponse")]
         System.Threading.Tasks.Task<string> ListarDocumentoExcepcionAsync(string CodigoISO, string data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ImagenesWhatsApp", ReplyAction="http://tempuri.org/IPortalService/ImagenesWhatsAppResponse")]
+        bool ImagenesWhatsApp(string jwtToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ImagenesWhatsApp", ReplyAction="http://tempuri.org/IPortalService/ImagenesWhatsAppResponse")]
+        System.Threading.Tasks.Task<bool> ImagenesWhatsAppAsync(string jwtToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ResponseWhatsApp", ReplyAction="http://tempuri.org/IPortalService/ResponseWhatsAppResponse")]
+        Portal.Consultoras.Web.ServiceUnete.ResponseBotmaker ResponseWhatsApp(string jwtToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ResponseWhatsApp", ReplyAction="http://tempuri.org/IPortalService/ResponseWhatsAppResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ResponseBotmaker> ResponseWhatsAppAsync(string jwtToken);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -13199,14 +13293,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteAptaBE> ObtenerSolicitudPostulanteAptaAsync(string codigoISO, string numeroDocumento) {
             return base.Channel.ObtenerSolicitudPostulanteAptaAsync(codigoISO, numeroDocumento);
-        }
-        
-        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteAptaBE ObtenerSolicitudPostulanteAptaMexico(string codigoISO, string numeroDocumento, string primerNombre, string segundoNombre, string apellidoPaterno, string apellidoMaterno) {
-            return base.Channel.ObtenerSolicitudPostulanteAptaMexico(codigoISO, numeroDocumento, primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteAptaBE> ObtenerSolicitudPostulanteAptaMexicoAsync(string codigoISO, string numeroDocumento, string primerNombre, string segundoNombre, string apellidoPaterno, string apellidoMaterno) {
-            return base.Channel.ObtenerSolicitudPostulanteAptaMexicoAsync(codigoISO, numeroDocumento, primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno);
         }
         
         public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteAptaBE ObtenerSolicitudPostulanteAptaByDoc(string codigoISO, string numeroDocumento, string tipoDocumento) {
@@ -13559,6 +13645,22 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         public System.Threading.Tasks.Task<string> ListarDocumentoExcepcionAsync(string CodigoISO, string data) {
             return base.Channel.ListarDocumentoExcepcionAsync(CodigoISO, data);
+        }
+        
+        public bool ImagenesWhatsApp(string jwtToken) {
+            return base.Channel.ImagenesWhatsApp(jwtToken);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ImagenesWhatsAppAsync(string jwtToken) {
+            return base.Channel.ImagenesWhatsAppAsync(jwtToken);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUnete.ResponseBotmaker ResponseWhatsApp(string jwtToken) {
+            return base.Channel.ResponseWhatsApp(jwtToken);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ResponseBotmaker> ResponseWhatsAppAsync(string jwtToken) {
+            return base.Channel.ResponseWhatsAppAsync(jwtToken);
         }
     }
 }
