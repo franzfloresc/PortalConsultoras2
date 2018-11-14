@@ -1865,7 +1865,7 @@ namespace Portal.Consultoras.Common
             queryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 });
             for (int i = 0; i < Parametros.Length; i++)
             {
-                queryString[i.ToString()] = Parametros[i].Trim();
+                queryString[i.ToString()] = !string.IsNullOrEmpty(Parametros[i]) ? Parametros[i].Trim() : null;
             }
 
             return HttpUtility.UrlEncode(queryString.ToString());
