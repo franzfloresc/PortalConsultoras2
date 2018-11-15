@@ -11,7 +11,7 @@
     </div>*@
 <div id="popupPremio" class="popup_meta_regalo_programaNuevas w-100 text-center" style="display:none;">
     <div class="popup_meta_regalo_programaNuevas_header w-100">
-        <a class="icono_cerrar_popup_eleccion_regalo_programaNuevas" title="Cerrar" href="javascript:;" onclick="javascript: $('#popupPremio').fadeOut(200);">
+        <a class="icono_cerrar_popup_eleccion_regalo_programaNuevas" title="Cerrar" href="javascript:;" onclick="javascript: $('body').css('overflow-y', ''); $('#popupPremio').fadeOut(200);">
             <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
         </a>
     </div>
@@ -27,7 +27,7 @@
                 Puedes elegir ahora o<br />seleccionaremos uno por ti
             </span>
         </h2>
-        <a class="btn_escoger_o_cambiar_regalo text-uppercase" href="javascript:;" onclick="javascript: $('#popupPremio').fadeOut(200); cargarPopupEleccionRegalo();">
+        <a class="btn_escoger_o_cambiar_regalo text-uppercase" href="javascript:;" onclick="javascript: $('body').css('overflow-y', ''); $('#popupPremio').fadeOut(200); cargarPopupEleccionRegalo();">
             ¡Escoger ahora!
         </a>
     </div>

@@ -590,6 +590,7 @@ if ($('.monto_maximo').css('display') == 'none') {
 }
 
 function cargarPopupEleccionRegalo() {
+    $('body').css('overflow-y', 'hidden');
     setTimeout(function () {
         $('#popupEleccionRegalo').fadeIn(200);
         armarCarouselRegalosDisponiblesProgramasNuevas();
