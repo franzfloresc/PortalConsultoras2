@@ -31,7 +31,6 @@ namespace Portal.Consultoras.Common
         public static string GetUrlFileCdnMatriz(string isoPais, string fileName)
         {
             var carpetaPais = string.Format("{0}/{1}", Globals.UrlMatriz, isoPais);
-
             return GetUrlFileCdn(carpetaPais, fileName);
         }
 
