@@ -434,10 +434,11 @@ function EliminarPedidoEvento(evento, esBackOrder) {
     if (!obj) return false;
 
     ConfigurarFnEliminarProducto(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.CantidadTemporal, obj.DescripcionProd, obj.PrecioUnidad, obj.MarcaID, obj.DescripcionOferta, esBackOrder, obj.SetID);
-    if (MuestraPopupDeleteRegaloGenerico()) return false;
+    //if (MuestraPopupDeleteRegaloGenerico()) return false;
     ValidDeleteElectivoNuevas(obj, function (esElecMultiple) {
         if (esElecMultiple) fnEliminarProducto();
-        else $("#popup-eliminar-item").show();
+        //else $("#popup-eliminar-item").show();
+        else ConfirmaEliminarPedido();
     });
 }
 
@@ -540,31 +541,31 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
     };
 }
 
-function MuestraPopupDeleteRegaloGenerico() {
-    $('#mensaleAvisoRegalo').hide();
-    if (typeof esUpselling === 'undefined' || !esUpselling) return false;
+//function MuestraPopupDeleteRegaloGenerico() {
+//    $('#mensaleAvisoRegalo').hide();
+//    if (typeof esUpselling === 'undefined' || !esUpselling) return false;
 
-    var regalo = GetUpSellingGanado();
-    if (regalo == null) return false;
+//    var regalo = GetUpSellingGanado();
+//    if (regalo == null) return false;
     
-    ('#mensaleAvisoRegalo').show();
-    $("#popup-eliminar-item").show();
-    return true;
-}
-function ConfigurarPopUpConfirmacion() {
-    if (typeof esUpselling !== 'undefined' && esUpselling) {
-        var regalo = GetUpSellingGanado();
+//    ('#mensaleAvisoRegalo').show();
+//    $("#popup-eliminar-item").show();
+//    return true;
+//}
+//function ConfigurarPopUpConfirmacion() {
+//    if (typeof esUpselling !== 'undefined' && esUpselling) {
+//        var regalo = GetUpSellingGanado();
 
-        if (regalo != null) $('#mensaleAvisoRegalo').show();
-        else $('#mensaleAvisoRegalo').hide();
-    }
-    else $('#mensaleAvisoRegalo').hide();
+//        if (regalo != null) $('#mensaleAvisoRegalo').show();
+//        else $('#mensaleAvisoRegalo').hide();
+//    }
+//    else $('#mensaleAvisoRegalo').hide();
 
-    $("#popup-eliminar-item").show();
-}
+//    $("#popup-eliminar-item").show();
+//}
 
 function ConfirmaEliminarPedido() {
-    $("#popup-eliminar-item").hide();
+    //$("#popup-eliminar-item").hide();
 
     if (ReservadoOEnHorarioRestringido())
         return false;

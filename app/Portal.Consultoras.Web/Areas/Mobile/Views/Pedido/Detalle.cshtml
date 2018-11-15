@@ -109,7 +109,7 @@
 </div>
 <div id="popup-eliminar-mensaje" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-mensaje').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
@@ -139,7 +139,7 @@
     </div>
 </div>
 
-<div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
+@*<div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
@@ -151,7 +151,7 @@
         <div id="mensaleAvisoRegalo" class="mensaje_alerta">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</div>
         <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile"><b>OK</b></a>
     </div>
-</div>
+</div>*@
 <div id="MensajeLograste" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
@@ -345,7 +345,11 @@
                 {{else}}
 
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" title="Eliminar" onclick="tooltipDelete({{PedidoDetalleID}});" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">
+                    <a href="javascript:;" 
+                       title="Eliminar" 
+                       onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');" 
+                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}" 
+                       data-setid="{{detalle.SetID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
@@ -410,16 +414,20 @@
                 </div>
             </div>
 
-            <div style="display:none" class="popover bottom" id="tlpDelete_{{PedidoDetalleID}}">
+            <div style="display:none" class="popover bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
                 <div class="arrow"></div>
-                <p>¿Quieres eliminar este producto?</p>
+                <p data-mensaje-eliminar="directo">¿Quieres eliminar este producto?</p>
+                <p data-mensaje-eliminar="regalo">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</p>
                 <div class="button-popover">
                     <div class="row">
                         <div class="col-xs-6">
-                            <button class="boton-secundario" onclick="btnSalirTlpDelete('{{PedidoDetalleID}}');">No Gracias</button>
+                            <button class="boton-secundario" onclick="btnSalirTlpDelete('{{PedidoDetalleID}}','{{SetID}}');">No Gracias</button>
                         </div>
                         <div class="col-xs-6 text-right">
-                            <button class="boton-primario default-background" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">SÍ, ELIMINAR</button>
+                            <button class="boton-primario default-background" 
+                                    onclick="EliminarPedidoEvento(event)" 
+                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}" 
+                                    data-setid="{{detalle.SetID}}">SÍ, ELIMINAR</button>
                         </div>
                     </div>
                 </div>
