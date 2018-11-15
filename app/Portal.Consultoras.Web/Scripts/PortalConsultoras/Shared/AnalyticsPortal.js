@@ -1108,7 +1108,7 @@ var AnalyticsPortalModule = (function () {
 
     var marcaVerOtrasOfertasHome = function (url, codigo) {
         try {
-
+            codigo = codigo || "";
             if (codigo == _codigoSeccion.LAN) {
                 dataLayer.push({
                     'event': 'virtualEvent',
@@ -1131,10 +1131,12 @@ var AnalyticsPortalModule = (function () {
                     }
                 });
             }
-
+            else {
+                document.location = url;
+            }
         } catch (e) {
             document.location = url;
-            console.log(_texto.excepcion + e);
+            console.log("marcaVerOtrasOfertasHome", _texto.excepcion + e);
         }
     }
 
@@ -2039,18 +2041,19 @@ var AnalyticsPortalModule = (function () {
     * Linea de Código Desktop: 
     */
     var marcaVerOfertas = function (origenPedidoWebEstrategia) {
-        origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
-        var codigo = origenPedidoWebEstrategia.toString();
-        var seccion = _constantes.origenpedidoWebEstrategia.find(function (element) {
-            return element.Codigo === codigo;
-        });
-
-        if (seccion == null) return;
-        if (origenPedidoWebEstrategia.toString() !== seccion.Codigo.toString()) return;
-
         try {
+            origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
+            var codigo = origenPedidoWebEstrategia.toString();
+            var seccion = _constantes.origenpedidoWebEstrategia.find(function (element) {
+                return element.Codigo === codigo;
+            });
+
+            if (seccion == null) return;
+            if (origenPedidoWebEstrategia.toString() !== seccion.Codigo.toString()) return;
+
             if (_constantes.isTest)
                 alert("Marcación clic ver ofertas.");
+
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Carrito de compras – Gana+',
@@ -2058,7 +2061,7 @@ var AnalyticsPortalModule = (function () {
                 'label': 'Ver Ofertas'
             });
         } catch (e) {
-
+            console.log("marcaVerOtrasOfertasHome", _texto.excepcion, e);
         }
     };
     /*
