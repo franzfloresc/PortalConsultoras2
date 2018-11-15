@@ -1698,6 +1698,7 @@ namespace Portal.Consultoras.Common
 
             public static class Code
             {
+                public const string ErrorGeneral = "-1";
                 public const string SUCCESS = "0";
                 public const string ERROR_FORMATOTELCELULAR = "1";
                 public const string ERROR_FORMATOTELFIJO = "2";
@@ -1730,6 +1731,7 @@ namespace Portal.Consultoras.Common
                 {
                     return _Message ?? (_Message = new Dictionary<string, string>
                     {
+                        {Code.ErrorGeneral, "No se pudo procesar su solicitud."},
                         {Code.SUCCESS, "OK"},
                         {Code.ERROR_FORMATOTELCELULAR, "Formato de número de teléfono celular incorrecto."},
                         {Code.ERROR_FORMATOTELFIJO, "Formato de número de teléfono fijo incorrecto."},

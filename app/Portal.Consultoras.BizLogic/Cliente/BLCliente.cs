@@ -229,13 +229,15 @@ namespace Portal.Consultoras.BizLogic
         public List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
             long consultoraId = 0;
-            try
-            {
-                var blClienteDb = new BLClienteDB();
-                var daCliente = new DACliente(paisID);
 
-                foreach (var cliente in clientes)
+            var blClienteDb = new BLClienteDB();
+            var daCliente = new DACliente(paisID);
+
+            foreach (var cliente in clientes)
+            {
+                try
                 {
+                    cliente.CodigoRespuesta = "";
                     consultoraId = cliente.ConsultoraID;
                     cliente.PaisID = paisID;
 
@@ -286,13 +288,12 @@ namespace Portal.Consultoras.BizLogic
 
                         cliente.CodigoRespuesta = this.EliminarSB(cliente, daCliente);
                     }
-
                 }
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, consultoraId, paisID);
-                throw;
+                catch (Exception ex)
+                {
+                    LogManager.SaveLog(ex, consultoraId, paisID);
+                    cliente.CodigoRespuesta = Constantes.ClienteValidacion.Code.ErrorGeneral;
+                }
             }
 
             return clientes;
