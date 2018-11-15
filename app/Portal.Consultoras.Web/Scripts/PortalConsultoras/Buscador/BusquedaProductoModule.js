@@ -2,7 +2,15 @@
 
     var _elementos = {
         body: "body",
+        layoutContent: '.layout__content',
         opcionOrdenar: "#dpw-ordenar, .opcion__ordenamiento__label",
+        opcionFiltrar: "#opcionFiltrar",
+        opcionCerrarFiltrosMobile: '#cerrarFiltros, .filtro__btn--aplicar',
+        opcionLimpiarFiltros: '.filtro__btn--limpiar',
+        filtroCheckbox: '.filtro__item__checkbox',
+        backgroundAlMostrarFiltrosMobile: '.background__filtros__mobile',
+        seccionFiltros: '.layout__content__filtros',
+        filtroTipoTitulo: '.filtro__tipo__titulo',
         footer: "footer",
         spanTotalProductos: "#TotalProductos",
         itemDropDown: ".opcion__ordenamiento__dropdown__item",
@@ -10,8 +18,12 @@
         btnAgregar: ".FichaAgregarProductoBuscador",
         divContenedorFicha: "#FichasProductosBuscador",
         scriptHandleBarFicha: "#js-FichaProductoBuscador",
+        scriptHandleBarFiltros: '#js-fichaFiltros',
         redireccionarFicha: '.redireccionarFicha',
-        dataToggle: '[data-toggle]'
+        dataToggle: '[data-toggle]',
+        filtrosCategorias: '#filtrosCategorias',
+        filtrosMarcas: '#filtrosMarcas',
+        buscadorFiltrosSeleccionar: '.buscadorFiltrosSeleccionar'
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -27,7 +39,10 @@
         ordenCampo: "orden",
         ordenTipo: "asc",
         cargandoProductos: false,
-        maxCaracteresDesc: totalCaracteresDescripcion
+        maxCaracteresDesc: totalCaracteresDescripcion,
+        categoria: '',
+        marca: '',
+        isHome: false
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -57,9 +72,14 @@
             $(document).on("click", _elementos.body, _eventos.DropDownCerrar);
             $(document).on("keyup", _elementos.body, _eventos.DropDownCerrar);
             $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
+            $(document).on("click", _elementos.opcionFiltrar, _eventos.MostrarFiltrosMobile);
+            $(document).on("click", _elementos.opcionCerrarFiltrosMobile, _eventos.CerrarFiltrosMobile);
+            $(document).on("click", _elementos.filtroTipoTitulo, _eventos.MostrarOcultarContenidoTipoFiltro);
+            $(document).on("click", _elementos.opcionLimpiarFiltros, _eventos.LimpiarFiltros);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
             $(document).on("click", _elementos.btnAgregar, _eventos.RegistrarProducto);
             $(document).on('click', _elementos.redireccionarFicha, _eventos.RedireccionarAFichaDeFotoYDescripcion);
+            $(document).on("click", _elementos.buscadorFiltrosSeleccionar, _eventos.FiltrosSelecionados);
 
         },
         ConstruirModeloBusqueda: function () {
@@ -72,7 +92,13 @@
                 Orden: {
                     Campo: _config.ordenCampo,
                     Tipo: _config.ordenTipo
-                }
+                },
+                Filtro: {
+                    categoria: _config.categoria,
+                    marca: _config.marca
+                },
+                IsMobile: _config.isMobile,
+                IsHome: _config.isHome
             }
             return modelo;
         },
@@ -86,6 +112,10 @@
                     $(_elementos.spanTotalProductos).html(data.total);
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
+                    // Filtros categorias
+                    //if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.categorias, _elementos.filtrosCategorias);
+                    // Filtros Marcas
+                   // if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros.marcas, _elementos.filtrosMarcas);
                     _funciones.UpadteFichaProducto();
                     _config.totalProductos = data.total;
                     _config.cargandoProductos = false;
@@ -224,6 +254,55 @@
             $('.ul-seleccionado').html(textoOrdenamiento);
             
         },
+
+        MostrarFiltrosMobile: function(e){
+            e.preventDefault();
+            $(_elementos.body).css({'overflow-y':'hidden'});
+            $(_elementos.layoutContent).css({ 'z-index': '2000' });
+            $(_elementos.backgroundAlMostrarFiltrosMobile).fadeIn(100);
+            $(_elementos.seccionFiltros).fadeIn(80);
+            $(_elementos.seccionFiltros).delay(30);
+            $(_elementos.seccionFiltros).animate({
+                left : 0 + '%'
+            }, 150);
+        },
+
+        CerrarFiltrosMobile: function(e){
+            e.preventDefault();
+            $(_elementos.body).css({ 'overflow-y': '' });
+            $(_elementos.seccionFiltros).animate({
+                left: -100 + '%'
+            }, 150);
+            $(_elementos.backgroundAlMostrarFiltrosMobile).delay(100);
+            $(_elementos.backgroundAlMostrarFiltrosMobile).fadeOut(100);
+            setTimeout(function () {
+                $(_elementos.layoutContent).css({ 'z-index': '2' });
+            }, 400);
+            $(_elementos.seccionFiltros).scrollTop(0);
+        },
+
+        MostrarOcultarContenidoTipoFiltro: function (e) {
+            var filtroTipo = $(this).parent();
+            var contenidoTipoFiltro = $(this).next();
+
+            if (contenidoTipoFiltro.css('display') == 'none') {
+                filtroTipo.animate({
+                    'padding-bottom': 18 + 'px'
+                }, 100);
+            } else {
+                filtroTipo.animate({
+                    'padding-bottom': 9 + 'px'
+                }, 100);
+            }
+
+            $(this).toggleClass('filtro__tipo__titulo--mostrarContenido');
+            contenidoTipoFiltro.slideToggle(250);
+        },
+
+        LimpiarFiltros: function(){
+            $(_elementos.filtroCheckbox).removeAttr('checked');
+        },
+
         ScrollCargarProductos: function () {
             _config.cargandoProductos = true;
             _config.numeroPaginaActual++;
@@ -240,12 +319,14 @@
                     console.error(error.toString());
                 });
         },
+
         RegistrarProducto: function (e) {
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
             BuscadorProvider.RegistroProductoBuscador(divPadre);
         },
+
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
 
@@ -267,6 +348,20 @@
                 window.location = UrlDetalle;
                 return true;
             }
+        },
+
+        FiltrosSelecionados: function (e) {
+            e.preventDefault();
+
+            var divPadre = $(this).parents("[data-item='BuscadorFiltros']").eq(0);
+            //var input = $(divPadre).find(".buscadorFiltrosChecked");
+            var id = $(divPadre).find(".BuscadorFiltroID").val();
+            var texto = $(divPadre).find(".BuscadorFiltroLabel").val();
+
+            if (id.substring(0, 3) == 'cat') _config.categoria = texto;
+            if (id.substring(0, 3) == 'mar') _config.marca = texto;
+
+            _funciones.CargarProductos();
         }
     };
 

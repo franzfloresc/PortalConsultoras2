@@ -63,7 +63,11 @@
         function initWidgets() {
             $("#Birthdate").datepicker({
                 dateFormat: 'dd/mm/yy',
-                maxDate: '0'
+                //maxDate: '0',
+                changeMonth: true,
+                changeYear: true,
+                monthNamesShort: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ],
+                yearRange: "c-120:c"
             });
         }
 
