@@ -103,7 +103,10 @@
                                     CargarResumenCampaniaHeader();
 
                                 CerrarLoad();
-                                _registrarAnalytics(model, textoBusqueda);
+                                //_registrarAnalytics(model, textoBusqueda);
+                                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, 'Resultados', $('#TextoBusqueda').html());
+
                             },
                             error: function (data, error) {
                                 CerrarLoad();
@@ -214,22 +217,14 @@
                     CargarResumenCampaniaHeader();
                     CerrarLoad();
 
-                    //virtualEventAddToCart(
-                    //    currencyCode,
-                    //    list,
-                    //    modelFinal.DescripcionProd,
-                    //    brand,
-                    //    id,
-                    //    category,
-                    //    variant,
-                    //    modelFinal.Cantidad
-                    //);
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelFinal, 'Resultados', $('#TextoBusqueda').html());
 
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
                     var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
                     $(divPadre).find(".hdBuscadorCantidadesAgregadas").val(totalAgregado);
-                    _registrarAnalytics(model, textoBusqueda);
+                    //_registrarAnalytics(model, textoBusqueda);
                     return true;
                 },
                 error: function(data, error) {
