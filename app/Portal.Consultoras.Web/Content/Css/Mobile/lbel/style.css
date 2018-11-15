@@ -13671,7 +13671,7 @@ span.icon-advertencia {
 }
 
 .meta_descuento {
-    width: 61%;
+    width: 100%;
     text-align: left;
 }
 
@@ -14367,6 +14367,7 @@ span.icon-advertencia {
     font-size:12px;
     color:#808080;
     text-align:right;
+    min-height:57px;
 }
 
 .tipo_montos_y_regalo_tippingPoint,
@@ -14376,9 +14377,9 @@ span.icon-advertencia {
     flex-direction:row;
 }
 
-.tipo_montos_y_regalo_tippingPoint > div{
+/*.tipo_montos_y_regalo_tippingPoint > div{
     justify-content:space-between;
-}
+}*/
 
 .monto_minimo,
 .regalo_tippingPoint,
@@ -14394,17 +14395,16 @@ span.icon-advertencia {
 .monto_minimo,
 .monto_maximo
 {
-    position: relative;
+    position: absolute;
     font-size:11px;
     line-height:14px;
-    margin-top: 6px;
-    min-width:100px;
+    margin-top: 3px;
 }
 
 .monto_minimo div,
 .monto_maximo div
 {
-    display:inline-block;
+    display:block;
 }
 
 .monto_minimo div:first-child,
@@ -14419,48 +14419,58 @@ span.icon-advertencia {
     margin-bottom:12px;
 }
 
-/*.monto_maximo{
-    display:none;
-}*/
+.monto_maximo{
+    right:0;
+}
 
-.monto_minimo:before,
-.monto_maximo:before,
-.regalo_tippingPoint .default-color:before
+.linea_posicion_monto,
+.linea_posicion_monto_regalo
 {
     display: block;
-    margin: 0 auto;
-    content: "";
     width: 1px;
     height: 8px;
     position: absolute;
-    top: -4px;
+    top: 0;
+}
+
+.linea_posicion_monto{
+    background-color: #808080;
     left: 0;
     right: 0;
 }
 
-.monto_minimo:before,
-.monto_maximo:before
-{
-    background-color: #808080;
+.linea_posicion_monto_regalo{
+    left:auto;
+    right:12px;
+    background-color:#642f80;
 }
 
 .icono_regalo{
-    position: relative;
+    position: absolute;
     z-index: 10;
     font-size:11px;
+    width:25px;
 }
 
 .regalo_tippingPoint {
     /*margin-left: 66px;*/
     top: -23px;
+    left:0;
+    /*right: 0;*/
+}
+
+.regalo_tippingPointInicio {
+    top: -23px;
     right: 0;
 }
 
-.regalo_tippingPoint img{
-    width:25px;
-    position:relative;
-    z-index:600;
-    margin-bottom:8px;
+.regalo_tippingPoint img,
+.regalo_tippingPointInicio img
+{
+    width: 25px;
+    position: relative;
+    z-index: 600;
+    margin-bottom: 6px;
 }
 
 /*.regalo_tippingPoint + .monto_maximo{
@@ -14485,6 +14495,7 @@ span.icon-advertencia {
     color: #642f80;
     position: absolute;
     min-width: 50px;
+    top:31px;
     left: -12px;
 }
 
@@ -14497,12 +14508,18 @@ span.icon-advertencia {
     margin-bottom:38px;
 }
 
-.mensaje_meta{
+.agrega_barra,
+.mensaje_meta
+{
     font-size:15px;
     padding-top:13px;
     padding-left:1px;
-    margin-bottom:27px;
+    margin-bottom:5px;
     text-align:left;
+}
+
+.mensaje_meta{
+    display:none;
 }
 
 .icono_cambiar_regalo_programaNuevas{

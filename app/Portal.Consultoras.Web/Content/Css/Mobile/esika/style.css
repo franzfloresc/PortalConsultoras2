@@ -13723,7 +13723,7 @@ a {
 }
 
 .meta_descuento {
-    width: 61%;
+    width: 100%;
     text-align: left;
 }
 
@@ -14511,6 +14511,7 @@ a {
     font-size:12px;
     color:#808080;
     text-align:right;
+    min-height:57px;
 }
 
 .tipo_montos_y_regalo_tippingPoint,
@@ -14541,14 +14542,13 @@ a {
     position: absolute;
     font-size:11px;
     line-height:14px;
-    margin-top: 6px;
-    min-width:100px;
+    margin-top: 3px;
 }
 
 .monto_minimo div,
 .monto_maximo div
 {
-    display:inline-block;
+    display:block;
 }
 
 .monto_minimo div:first-child,
@@ -14567,31 +14567,33 @@ a {
     right:0;
 }
 
-.monto_minimo:before,
-.monto_maximo:before,
-.regalo_tippingPoint .default-color:before
+.linea_posicion_monto,
+.linea_posicion_monto_regalo
 {
     display: block;
-    margin: 0 auto;
-    content: "";
     width: 1px;
     height: 8px;
     position: absolute;
-    top: -4px;
+    top: 0;
+}
+
+.linea_posicion_monto{
+    background-color: #808080;
     left: 0;
     right: 0;
 }
 
-.monto_minimo:before,
-.monto_maximo:before
-{
-    background-color: #808080;
+.linea_posicion_monto_regalo{
+    left:auto;
+    right:12px;
+    background-color:#e81c36;
 }
 
 .icono_regalo{
     position: absolute;
     z-index: 10;
     font-size:11px;
+    width:25px;
 }
 
 .regalo_tippingPoint {
@@ -14606,13 +14608,13 @@ a {
     right: 0;
 }
 
-
 .regalo_tippingPoint img,
-.regalo_tippingPointInicio  img{
+.regalo_tippingPointInicio img
+{
     width: 25px;
     position: relative;
     z-index: 600;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 /*.regalo_tippingPoint + .monto_maximo{
@@ -14637,6 +14639,7 @@ a {
     color: #e81c36;
     position: absolute;
     min-width: 50px;
+    top:31px;
     left: -12px;
 }
 
@@ -14649,12 +14652,18 @@ a {
     margin-bottom:38px;
 }
 
-.mensaje_meta{
+.agrega_barra,
+.mensaje_meta
+{
     font-size:15px;
     padding-top:13px;
     padding-left:1px;
-    margin-bottom:27px;
+    margin-bottom:5px;
     text-align:left;
+}
+
+.mensaje_meta{
+    display:none;
 }
 
 .icono_cambiar_regalo_programaNuevas{

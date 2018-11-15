@@ -762,8 +762,6 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
 
     return false;
 }
-    }
-}
 
 function CalculoLlenadoBarra(MontoMaximo, MontoActual) {
         if (dataBarra.TippingPointBarra.Active == true) {
@@ -792,6 +790,7 @@ function CalculoPosicionMinimoMaximo() {
     if (dataBarra.TippingPointBarra.Active == true) {
         if (dataBarra.TotalPedido * 1 <= dataBarra.TippingPoint * 1) {
             var PosicionMontoMinimo = montoMinimo * 100 / montoTipipoing;
+            document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
             document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo) + '%';
         } else {
             var PosicionMontoMinimo = montoMinimo * 100 / montoMaximo;
@@ -806,6 +805,8 @@ function CalculoPosicionMinimoMaximo() {
                 document.getElementById('MontoMaximoBloque').style.left = (anchoBarraPorcentaje-10) + '%';
             }
             else
-            document.getElementById('MontoMaximoBloque').style.left = (anchoBarraPorcentaje) + '%';
+                document.getElementById('MontoMaximoBloque').style.left = (anchoBarraPorcentaje) + '%';
             
         }
+    }
+}
