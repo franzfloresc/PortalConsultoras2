@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new ClienteServiceClient())
                 {
                     mensaje += "|dentro de using (var sv = new ClienteServiceClient())";
-                    response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
+                    response = sv.Guardar(userData.PaisID, clientes.ToArray()).ToList();
                     mensaje += "|SaveDB = " + response.Count;
                 }
 

@@ -168,6 +168,11 @@ namespace Portal.Consultoras.Service
             return BLCliente.SaveDB(paisID, clientes);
         }
 
+        public List<BEClienteDB> Guardar(int paisId, List<BEClienteDB> clientes)
+        {
+            return SaveDB(paisId, clientes);
+        }
+
         public IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID)
         {
             return BLCliente.SelectByConsultoraDB(paisID, consultoraID, campaniaID, clienteID);
