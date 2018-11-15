@@ -1134,17 +1134,17 @@ function messageConfirmacion(title, message, fnAceptar) {
     }
 }
 
-function messageConfirmacionDuoPerfecto(message, fnAceptar) {
-    message = $.trim(message);
-    if (message == "") return false;
+//function messageConfirmacionDuoPerfecto(message, fnAceptar) {
+//    message = $.trim(message);
+//    if (message == "") return false;
 
-    $('#divMensajeConfDuoPerfecto .divTexto p').html(message);
-    $('#divMensajeConfDuoPerfecto').dialog('open');
-    if ($.isFunction(fnAceptar)) {
-        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').off('click');
-        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').on('click', fnAceptar);
-    }
-}
+//    $('#divMensajeConfDuoPerfecto .divTexto p').html(message);
+//    $('#divMensajeConfDuoPerfecto').dialog('open');
+//    if ($.isFunction(fnAceptar)) {
+//        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').off('click');
+//        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').on('click', fnAceptar);
+//    }
+//}
 
 function closeOfertaDelDia(sender) {
     var nombreProducto = $(sender)

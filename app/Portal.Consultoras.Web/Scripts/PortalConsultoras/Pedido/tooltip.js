@@ -1,10 +1,30 @@
 ﻿
-function tooltipDelete(PedidoDetalleID) {
-    $("#tlpDelete_" + PedidoDetalleID).show();
+function tooltipDelete(pedidoDetalleID, sedId) {
+    var id = "#tlpDelete_" + pedidoDetalleID + "_" + sedId;
+    $(id + " [data-mensaje-eliminar]").hide();
+
+    if (ValidarTieneRegalo()) {
+        $(id + " [data-mensaje-eliminar='regalo']").show();
+    }
+    else {
+        $(id + " [data-mensaje-eliminar='directo']").show();
+    }
+
+    $(id).show();
 }
 
-function btnSalirTlpDelete(PedidoDetalleID) {
-    $("#tlpDelete_" + PedidoDetalleID).hide();
+function btnSalirTlpDelete(PedidoDetalleID, sedId) {
+    var id = "#tlpDelete_" + PedidoDetalleID + "_" + sedId;
+    $(id + " [data-mensaje-eliminar]").hide();
+    $(id).hide();
+}
+
+function ValidarTieneRegalo() {
+    if (typeof esUpselling === "undefined" || !esUpselling)
+        return false;
+
+    var regalo = GetUpSellingGanado();
+    return regalo != null;
 }
 
 function tooltipObservaciones(Mensaje) {
