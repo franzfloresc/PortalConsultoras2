@@ -1515,6 +1515,9 @@
         <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
             <span class="texto_pedidos_ofertas">
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
+                <!-- Cuando la consultora haya seleccionado un regalo se le muestra la descripción de oferta correspondiente al regalo de Programa Nuevas -->
+                <label for="Regalo Programa Nuevas" style="display:none;">Regalo Programa Nuevas</label>
+                <!-- Fin - Cuando la consultora haya seleccionado un regalo se le muestra la descripción de oferta correspondiente al regalo de Programa Nuevas -->
             </span>
 
             {{#if_eq TipoPedido 'M'}}
@@ -1529,7 +1532,11 @@
                 <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{/if_eq}}
-            
+            <!-- Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
+            <div class="tooltip_informativo_condicion_regalo_programaNuevas" style="display:none;">
+                Sólo si llegas a tu monto
+            </div>
+            <!-- Fin - Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
             <div id="tooltipDescPro" class="tooltipPedido">
                 {{Split DescripcionProd '|' 0}}
             </div>

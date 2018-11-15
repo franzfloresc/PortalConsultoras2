@@ -35595,17 +35595,19 @@ height:30px;
 }
 
 .tooltip_informativo_condicion_regalo_programaNuevas{
-    display:block;
-    position:relative;
-    width:164px;
-    height:48px;
-    line-height:48px;
-    font-size:13px;
-    background-color:#f8f8f8;
-    color:#000;
-    text-align:center!important;
-    margin-top:8px;
-    margin-bottom:21px!important;
+    display: block;
+    position: relative;
+    width: 151px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 12px;
+    background-color: #f8f8f8;
+    color: #000;
+    text-align: center!important;
+    margin-top: 8px;
+    margin-bottom: -5px!important;
+    z-index: 1000;
+    border-radius: 4px;
 }
 
 .tooltip_informativo_condicion_regalo_programaNuevas:before{
@@ -35937,12 +35939,6 @@ height:30px;
 .titulo_popup_meta_regalo_programaNuevas span:last-child{
     margin-top:21px;
     line-height:25px;
-}
-
-.btn_escoger_o_cambiar_regalo{
-    margin-top:70px;
-    width: 90%;
-    max-width: 330px;
 }
 
 .popup_meta_regalo_programaNuevas .popup_meta_regalo_programaNuevas_contenido{
