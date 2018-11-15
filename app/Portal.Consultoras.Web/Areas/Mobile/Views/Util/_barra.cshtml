@@ -2,7 +2,7 @@
 <div data-barra-width="" class="contenedor_barra_mobile">
     <div id="divBarra" class="contenedor_barra_ganancia">
         <div id="divBarraMensajeLogrado" style="display:none;">
-            <div class="meta_descuento">
+            <div @*class="meta_descuento"*@>
                 <div class="mensaje_barra" style="display: inline;"></div>
                 <div class="agrega_barra"></div>
             </div>
@@ -11,7 +11,6 @@
         </div>
 
         <div class="mensaje_meta">
-            @*Te falta <span class="text-bold">S/ 310</span> para llevarte tu regalo.*@
 
             <div id="divBarraPosicion" class="barra_ganancia">
                 <span id="divBarraEspacioLimite" class="BarraLimite">
@@ -21,23 +20,14 @@
             </div>
             <div class="tipo_montos_y_regalo_tippingPoint">
                 <div class="w-100">
-                    <div class="monto_minimo text-center">
+                    <div class="monto_minimo text-center" style="display: none;">
                         <div>M. Mínimo</div>
                         <div id="divMontoMinimo"></div>
                     </div>
-                    @*<a class="icono_regalo regalo_tippingPoint text-center" id="hrefIconoRegalo" title="Elige tu regalo">
-                        <img src="@Url.Content("~/Content/Images/icono_regalo.png")" alt="Elige tu regalo" />
-                        <div class="default-color" id="divtippingPoint">S/ 310</div>
-                        <div class="contenedor_circulos">
-                        <div>M. Mínimo </div>
-                        <div>S/ 210</div>
-                    </div>
-                   </a>*@
 
-
-                    <a class="icono_regalo regalo_tippingPoint text-center" id="hrefIconoRegalo" title="Elige tu regalo" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();">
+                    <a class="icono_regalo regalo_tippingPoint text-center" id="hrefIconoRegalo" title="Elige tu regalo" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();" style="display: none;">
                         <img src="@Url.Content("~/Content/Images/icono_regalo.png")" alt="Elige tu regalo" />
-                        <div class="monto_regaloTippingPoint default-color" id="divtippingPoint">S/ 370</div>
+                        <div class="monto_regaloTippingPoint default-color" id="divtippingPoint" style="display: none;"></div>
                         <div class="contenedor_circulos microEfecto_regaloPendienteEleccion">
                             <div class="circulo-1 iniciarTransicion"></div>
                             <div class="circulo-2 iniciarTransicion"></div>
