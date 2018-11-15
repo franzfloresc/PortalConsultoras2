@@ -74,7 +74,6 @@
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstadoBuroCrediticioID" type="xs:int" />
-      <xs:element minOccurs="0" name="EstadoPostulanteID" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoTelefonico" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaCreacionCodigo" nillable="true" type="xs:string" />
