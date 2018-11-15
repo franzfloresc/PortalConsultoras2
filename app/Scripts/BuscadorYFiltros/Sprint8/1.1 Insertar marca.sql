@@ -10,7 +10,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
@@ -31,7 +31,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
@@ -52,7 +52,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
@@ -73,7 +73,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
@@ -94,7 +94,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
@@ -115,7 +115,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
@@ -136,7 +136,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
@@ -157,7 +157,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
@@ -178,7 +178,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
@@ -199,7 +199,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
@@ -220,7 +220,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
@@ -241,7 +241,7 @@ END
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '202')
 BEGIN
 	INSERT INTO FiltroBuscador (TablaLogicaDatosID, Estado, Codigo, Nombre, Descripcion)
-	VALUES (14802, 1, '202','L''bel','mar-lbel')
+	VALUES (14802, 1, '202','L''Bel','mar-lbel')
 END
 
 IF NOT EXISTS (SELECT 1 FROM FiltroBuscador WHERE Codigo = '203')
