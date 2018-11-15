@@ -1624,9 +1624,13 @@
             {{Replace DescripcionLarga '\'' ''}}
             {{/iff}}
                 <a onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EnRangoProgNuevas}});"
-                    style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+                    style="display:none; background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
 
             {{/if}}
+            <!-- Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
+            <a href="javascript:;" onclick="javascript: $('body').css('overflow-y', ''); $('#popupPremio').fadeOut(200); cargarPopupEleccionRegalo();"
+               style="background-image: url('@Url.Content("~/Content/Images/icono_editar.svg")'); background-repeat:no-repeat; background-size:contain; width: 19px; height: 22px; margin: 0 auto;" title="Editar regalo"></a>
+            <!-- Fin - Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
         </div>
         {{#if EsBackOrder}}
         {{#if AceptoBackOrder}}
