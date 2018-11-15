@@ -4785,32 +4785,32 @@
     <None Include="Service References\ServiceSeguridad\SeguridadService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService.xsd">
+    <None Include="Service References\ServiceUnete\PortalService11.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService81.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService1.xsd">
+    <None Include="Service References\ServiceUnete\PortalService82.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService2.xsd">
+    <None Include="Service References\ServiceUnete\PortalService83.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService3.xsd">
+    <None Include="Service References\ServiceUnete\PortalService84.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService4.xsd">
+    <None Include="Service References\ServiceUnete\PortalService85.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService5.xsd">
+    <None Include="Service References\ServiceUnete\PortalService86.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService6.xsd">
+    <None Include="Service References\ServiceUnete\PortalService87.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService7.xsd">
+    <None Include="Service References\ServiceUnete\PortalService88.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService9.xsd">
+    <None Include="Service References\ServiceUnete\PortalService89.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
@@ -5458,7 +5458,6 @@
     <Content Include="Views\ProgramaNuevas\Index.cshtml" />
     <Content Include="Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Views\Shared\_BuscadorResponsive.cshtml" />
-    <Content Include="Views\Unete\ExcepcionarDocumento.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
