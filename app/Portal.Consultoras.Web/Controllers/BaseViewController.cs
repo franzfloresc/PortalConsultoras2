@@ -499,24 +499,26 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion Mobile
 
                 #region Buscador Desktop
-                //case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador:
-                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiFicha;
-                //    break;
-                //case Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador:
-                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomFicha;
-                //    break;
-                //case Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador:
-                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosFicha;
-                //    break;
-                //case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador:
-                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaFicha;
-                //    break;
-                //case Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador:
-                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorGNDFicha;
-                //    break;
-                //case Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador:
-                //    result = Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaFicha;
-                //    break;
+
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorGNDFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaFicha;
+                    break;
+
                 case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel:
                     result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiFicha;
                     break;

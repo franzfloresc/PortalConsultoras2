@@ -41,7 +41,8 @@
         cargandoProductos: false,
         maxCaracteresDesc: totalCaracteresDescripcion,
         categoria: '',
-        marca: ''
+        marca: '',
+        isHome: false
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -96,7 +97,8 @@
                     categoria: _config.categoria,
                     marca: _config.marca
                 },
-                IsMobile: _config.isMobile
+                IsMobile: _config.isMobile,
+                IsHome: _config.isHome
             }
             return modelo;
         },

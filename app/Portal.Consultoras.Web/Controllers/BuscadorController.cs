@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class BuscadorController : BaseController
     {
         private readonly BuscadorYFiltrosProvider BuscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
-        
+
         public ActionResult Index()
         {
             return View();
@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(model);
-                ProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, SessionManager.GetDetallesPedido(), userData, revistaDigital, model.IsMobile);
+                ProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, SessionManager.GetDetallesPedido(), userData, revistaDigital, model.IsMobile, model.IsHome);
             }
             catch (Exception ex)
             {
