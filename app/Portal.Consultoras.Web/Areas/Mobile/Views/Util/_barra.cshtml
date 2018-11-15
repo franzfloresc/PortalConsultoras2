@@ -21,7 +21,7 @@
             </div>
             <div class="tipo_montos_y_regalo_tippingPoint">
                 <div class="w-100">
-                    <div class="monto_minimo text-center">
+                    <div class="monto_minimo text-center" id="MontoMinimoBloque">
                         <div>M. Mínimo</div>
                         <div id="divMontoMinimo"></div>
                     </div>
@@ -35,7 +35,7 @@
                    </a>*@
 
 
-                    <a class="icono_regalo regalo_tippingPoint text-center" id="hrefIconoRegalo" title="Elige tu regalo" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();">
+                    <a class="icono_regalo regalo_tippingPointInicio text-center" id="hrefIconoRegalo" title="Elige tu regalo" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();">
                         <img src="@Url.Content("~/Content/Images/icono_regalo.png")" alt="Elige tu regalo" />
                         <div class="monto_regaloTippingPoint default-color" id="divtippingPoint">S/ 370</div>
                         <div class="contenedor_circulos microEfecto_regaloPendienteEleccion">
@@ -45,7 +45,7 @@
                         </div>
                     </a>
 
-                    <div class="monto_maximo text-center" style="display:none;">
+                    <div class="monto_maximo text-center" style="display:none;" id="MontoMaximoBloque">
                         <div>M. Máximo </div>
                         <div id="divMontoMaximo">S/ 500</div>
                     </div>

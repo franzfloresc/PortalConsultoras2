@@ -14520,9 +14520,9 @@ a {
     flex-direction:row;
 }
 
-.tipo_montos_y_regalo_tippingPoint > div{
+/*.tipo_montos_y_regalo_tippingPoint > div{
     justify-content:space-between;
-}
+}*/
 
 .monto_minimo,
 .regalo_tippingPoint,
@@ -14538,7 +14538,7 @@ a {
 .monto_minimo,
 .monto_maximo
 {
-    position: relative;
+    position: absolute;
     font-size:11px;
     line-height:14px;
     margin-top: 6px;
@@ -14563,9 +14563,9 @@ a {
     margin-bottom:12px;
 }
 
-/*.monto_maximo{
-    display:none;
-}*/
+.monto_maximo{
+    right:0;
+}
 
 .monto_minimo:before,
 .monto_maximo:before,
@@ -14589,7 +14589,7 @@ a {
 }
 
 .icono_regalo{
-    position: relative;
+    position: absolute;
     z-index: 10;
     font-size:11px;
 }
@@ -14597,14 +14597,22 @@ a {
 .regalo_tippingPoint {
     /*margin-left: 66px;*/
     top: -23px;
+    left:0;
+    /*right: 0;*/
+}
+
+.regalo_tippingPointInicio {
+    top: -23px;
     right: 0;
 }
 
-.regalo_tippingPoint img{
-    width:25px;
-    position:relative;
-    z-index:600;
-    margin-bottom:8px;
+
+.regalo_tippingPoint img,
+.regalo_tippingPointInicio  img{
+    width: 25px;
+    position: relative;
+    z-index: 600;
+    margin-bottom: 8px;
 }
 
 /*.regalo_tippingPoint + .monto_maximo{

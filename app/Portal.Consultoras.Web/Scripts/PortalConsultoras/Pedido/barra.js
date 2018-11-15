@@ -516,8 +516,14 @@ function MostrarBarra(datax, destino) {
         }
     }
 
+   // console.log(wLogro);
+    if (belcorp.barra.settings.isMobile) {
+        wLogro = CalculoLlenadoBarra(dataBarra.MontoMaximo, dataBarra.TotalPedido);
+        CalculoPosicionMinimoMaximo();
+    }
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
     $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
+
 
     if (destino == "1") {
         return true;
@@ -621,10 +627,10 @@ $('.enlace_elegir_otro_regalo').click(function (e) {
     cambiarEleccionRegaloProgramaNuevas();
 });
 
-if ($('.monto_maximo').css('display') == 'none') {
-    $('.tipo_montos_y_regalo_tippingPoint').find('.w-100').css('justify-content', 'flex-end');
-    $('.monto_minimo').css('margin-right', '51px');
-}
+//if ($('.monto_maximo').css('display') == 'none') {
+//    $('.tipo_montos_y_regalo_tippingPoint').find('.w-100').css('justify-content', 'flex-end');
+//    $('.monto_minimo').css('margin-right', '51px');
+//}
 
 function cargarPopupEleccionRegalo() {
     setTimeout(function () {
@@ -726,5 +732,52 @@ function loadMessage(container, lines) {
         if (!element) continue;
 
         element.html(lines[i]);
+    }
+}
+
+function CalculoLlenadoBarra(MontoMaximo, MontoActual) {
+        if (dataBarra.TippingPointBarra.Active == true) {
+            if (dataBarra.TotalPedido * 1 <= dataBarra.TippingPoint * 1) {
+                MontoMaximo = dataBarra.TippingPoint;
+                var AvancePorcentaje = (MontoActual * 100) / MontoMaximo;
+                return AvancePorcentaje + '%';
+            }
+            else {
+                var AvancePorcentaje = (MontoActual * 100) / MontoMaximo;
+                return AvancePorcentaje - 3.5 + '%';
+            }
+           
+        }   
+}
+
+function CalculoPosicionMinimoMaximo() {
+    var montoMinimo = dataBarra.MontoMinimo;
+    var montoMaximo = dataBarra.MontoMaximo;
+    var montoTipipoing = dataBarra.TippingPoint;
+
+    var anchoDispositivo = window.innerWidth;
+    var anchoBarraPorcentaje = 91.25;//%
+
+
+    if (dataBarra.TippingPointBarra.Active == true) {
+        if (dataBarra.TotalPedido * 1 <= dataBarra.TippingPoint * 1) {
+            var PosicionMontoMinimo = montoMinimo * 100 / montoTipipoing;
+            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo) + '%';
+        } else {
+            var PosicionMontoMinimo = montoMinimo * 100 / montoMaximo;
+            var PosicionMontoTipipoing = montoTipipoing * 100 / montoMaximo; 
+           
+
+            document.getElementById('hrefIconoRegalo').className = document.getElementById('hrefIconoRegalo').className.replace('regalo_tippingPointInicio', 'regalo_tippingPoint');
+            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo-5) + '%';
+            document.getElementById('hrefIconoRegalo').style.left = (PosicionMontoTipipoing - 5) + '%';
+
+            if (window.innerWidth<720) {
+                document.getElementById('MontoMaximoBloque').style.left = (anchoBarraPorcentaje-10) + '%';
+            }
+            else
+            document.getElementById('MontoMaximoBloque').style.left = (anchoBarraPorcentaje) + '%';
+            
+        }
     }
 }
