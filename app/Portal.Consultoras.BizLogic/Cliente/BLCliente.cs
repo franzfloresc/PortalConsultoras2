@@ -291,8 +291,9 @@ namespace Portal.Consultoras.BizLogic
                 }
                 catch (Exception ex)
                 {
-                    LogManager.SaveLog(ex, consultoraId, paisID);
                     cliente.CodigoRespuesta = Constantes.ClienteValidacion.Code.ErrorGeneral;
+                    LogManager.SaveLog(ex, consultoraId, paisID);
+                    throw new Exception(Common.LogManager.GetMensajeError(ex));
                 }
             }
 
