@@ -227,6 +227,7 @@ function SeccionCargarProductos(objConsulta) {
 }
 
 function SeccionMostrarProductos(data) {
+    console.log(data.Seccion.Codigo, data);
     var CarruselCiclico = true;
 
     if (isMobile()) {
@@ -348,13 +349,12 @@ function SeccionMostrarProductos(data) {
     //{
     //    // esta logica es para Intriga
     //    if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString()) {
-
     //        if (data.lista.length == 0) {
     //            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor .bloque-titulo .cantidad > span").hide();
     //        }
     //        else {
     //            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadAMostrar);
-                //$("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal0);
+    //            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal0);
     //            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
     //        }
     //        $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
@@ -368,7 +368,6 @@ function SeccionMostrarProductos(data) {
     //        if (data.lista.length > 0) {
     //            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
     //            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
-
     //            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
     //            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
     //        }
@@ -378,9 +377,14 @@ function SeccionMostrarProductos(data) {
     //        }
     //    }
     //}
-    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD)
+    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV
+        || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
+        || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR
+        || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD)
     {
-        if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
+        if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
+            || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR
+            || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
             CarruselCiclico = false;
         }
 
