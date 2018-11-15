@@ -788,7 +788,6 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
     ShowLoading();
     PROL = PROL || "0";
-    var prevTotal =  $("[data-pedidocondescuento]").html().replace(',', '')*1;
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoUpdate,
@@ -806,9 +805,9 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
                 return false;
             }
 
+            var prevTotal = mtoLogroBarra || 0;
             MostrarBarra(data);
             showPopupNivelSuperado(data.DataBarra, prevTotal);
-
 
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
@@ -1177,7 +1176,6 @@ function InsertarProducto(model, asyncX, urlMobile) {
     var retorno = new Object();
 
     urlPedidoInsert = (!urlMobile ? urlPedidoInsert : baseUrl + "Pedido/" + urlMobile);
-    var prevTotal = $("[data-pedidocondescuento]").html().replace(',', '') * 1;
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoInsert,
@@ -1201,7 +1199,7 @@ function InsertarProducto(model, asyncX, urlMobile) {
             CloseLoading();
 
             setTimeout(function () { }, 2000);
-
+            var prevTotal = mtoLogroBarra || 0;
             MostrarBarra(data);
             showPopupNivelSuperado(data.DataBarra, prevTotal);
 
