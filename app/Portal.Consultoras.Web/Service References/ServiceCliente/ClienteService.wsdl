@@ -181,12 +181,6 @@
   <wsdl:message name="IClienteService_SaveDB_OutputMessage">
     <wsdl:part name="parameters" element="tns:SaveDBResponse" />
   </wsdl:message>
-  <wsdl:message name="IClienteService_Guardar_InputMessage">
-    <wsdl:part name="parameters" element="tns:Guardar" />
-  </wsdl:message>
-  <wsdl:message name="IClienteService_Guardar_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GuardarResponse" />
-  </wsdl:message>
   <wsdl:message name="IClienteService_SelectByConsultoraDB_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectByConsultoraDB" />
   </wsdl:message>
@@ -373,10 +367,6 @@
     <wsdl:operation name="SaveDB">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/SaveDB" message="tns:IClienteService_SaveDB_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/SaveDBResponse" message="tns:IClienteService_SaveDB_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Guardar">
-      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/Guardar" message="tns:IClienteService_Guardar_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GuardarResponse" message="tns:IClienteService_Guardar_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SelectByConsultoraDB">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/SelectByConsultoraDB" message="tns:IClienteService_SelectByConsultoraDB_InputMessage" />
@@ -650,15 +640,6 @@
     </wsdl:operation>
     <wsdl:operation name="SaveDB">
       <soap:operation soapAction="http://tempuri.org/IClienteService/SaveDB" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Guardar">
-      <soap:operation soapAction="http://tempuri.org/IClienteService/Guardar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1014,15 +995,6 @@
     </wsdl:operation>
     <wsdl:operation name="SaveDB">
       <soap:operation soapAction="http://tempuri.org/IClienteService/SaveDB" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Guardar">
-      <soap:operation soapAction="http://tempuri.org/IClienteService/Guardar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

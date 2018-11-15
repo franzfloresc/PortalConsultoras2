@@ -69,17 +69,17 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Mantener(ClienteModel model)
         {
-            string mensaje = string.Empty;
+            string mensajePaso = string.Empty;
 
             List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
 
             try
             {
-                mensaje = "|inicio";
+                mensajePaso = "|inicio";
                 if (!string.IsNullOrEmpty(model.Celular))
                 {
-                    mensaje += "|validacion celular";
+                    mensajePaso += "|validacion celular";
                     contactos.Add(new BEClienteContactoDB()
                     {
                         ClienteID = model.ClienteID,
@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!string.IsNullOrEmpty(model.Telefono))
                 {
-                    mensaje += "|validacion telefono";
+                    mensajePaso += "|validacion telefono";
                     contactos.Add(new BEClienteContactoDB()
                     {
                         ClienteID = model.ClienteID,
@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!string.IsNullOrEmpty(model.eMail))
                 {
-                    mensaje += "|validacion email";
+                    mensajePaso += "|validacion email";
                     contactos.Add(new BEClienteContactoDB()
                     {
                         ClienteID = model.ClienteID,
@@ -113,7 +113,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                mensaje += "|clientes.Add(new BEClienteDB()";
+                mensajePaso += "|clientes.Add(new BEClienteDB()";
                 clientes.Add(new BEClienteDB()
                 {
                     CodigoCliente = model.CodigoCliente,
@@ -129,12 +129,13 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEClienteDB> response;
                 using (var sv = new ClienteServiceClient())
                 {
-                    mensaje += "|dentro de using (var sv = new ClienteServiceClient())";
-                    response = sv.Guardar(userData.PaisID, clientes.ToArray()).ToList();
-                    mensaje += "|SaveDB = " + response.Count;
+                    mensajePaso += "|dentro de using (var sv = new ClienteServiceClient())";
+                    response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
+                    mensajePaso += "|SaveDB = " + response.Count;
                 }
 
                 var itemResponse = response.First();
+                mensajePaso += "| CodigoRespuesta = " + itemResponse.CodigoRespuesta;
 
                 if (itemResponse.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
                 {
@@ -142,41 +143,41 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = true,
                         message = (itemResponse.Insertado ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
-                        extra = string.Format("{0}|{1}", itemResponse.CodigoCliente, itemResponse.ClienteID)
+                        extra = string.Format("{0}|{1}", itemResponse.CodigoCliente, itemResponse.ClienteID),
+                        mensajePaso
                     });
                 }
                 else
                 {
-                    mensaje += "|no se registro correctamente";
                     return Json(new
                     {
                         success = false,
-                        message = itemResponse.MensajeRespuesta + mensaje,
-                        extra = mensaje
+                        message = itemResponse.MensajeRespuesta,
+                        mensajePaso
                     });
                 }
             }
             catch (FaultException ex)
             {
-                mensaje += "|catch FaultException";
+                mensajePaso += "|catch FaultException";
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
                     message = ex.Message,
-                    extra = mensaje,
+                    mensajePaso,
                     Trycatch = Common.LogManager.GetMensajeError(ex)
                 });
             }
             catch (Exception ex)
             {
-                mensaje += "|catch exception";
+                mensajePaso += "|catch exception";
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
                     message = ex.Message,
-                    extra = mensaje,
+                    mensajePaso,
                     Trycatch = Common.LogManager.GetMensajeError(ex)
                 });
             }

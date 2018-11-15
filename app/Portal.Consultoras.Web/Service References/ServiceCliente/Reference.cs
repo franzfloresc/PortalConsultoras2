@@ -5040,12 +5040,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/SaveDB", ReplyAction="http://tempuri.org/IClienteService/SaveDBResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SaveDBAsync(int paisID, Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] clientes);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/Guardar", ReplyAction="http://tempuri.org/IClienteService/GuardarResponse")]
-        Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] Guardar(int paisId, Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] clientes);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/Guardar", ReplyAction="http://tempuri.org/IClienteService/GuardarResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> GuardarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] clientes);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/SelectByConsultoraDB", ReplyAction="http://tempuri.org/IClienteService/SelectByConsultoraDBResponse")]
         Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID);
         
@@ -5354,14 +5348,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SaveDBAsync(int paisID, Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] clientes) {
             return base.Channel.SaveDBAsync(paisID, clientes);
-        }
-        
-        public Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] Guardar(int paisId, Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] clientes) {
-            return base.Channel.Guardar(paisId, clientes);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> GuardarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] clientes) {
-            return base.Channel.GuardarAsync(paisId, clientes);
         }
         
         public Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID) {

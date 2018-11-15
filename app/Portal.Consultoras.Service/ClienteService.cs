@@ -163,14 +163,9 @@ namespace Portal.Consultoras.Service
         }
 
         #region ClienteDB
-        public List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes)
+        public IList<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
             return BLCliente.SaveDB(paisID, clientes);
-        }
-
-        public List<BEClienteDB> Guardar(int paisId, List<BEClienteDB> clientes)
-        {
-            return SaveDB(paisId, clientes);
         }
 
         public IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID)
