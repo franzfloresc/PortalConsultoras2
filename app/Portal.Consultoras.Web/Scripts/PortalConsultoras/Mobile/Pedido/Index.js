@@ -630,7 +630,7 @@ function InsertarProductoSugerido(model) {
         CloseLoading();
         return false;
     }
-
+    
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoInsert,
@@ -649,8 +649,9 @@ function InsertarProductoSugerido(model) {
                 CloseLoading();
                 return false;
             }
-
+            var prevTotal = mtoLogroBarra || 0;
             MostrarBarra(data);
+            
             var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
             if (existeError == "1") {
                 AbrirMensaje("Ocurrió un error al ejecutar la operación.");
@@ -659,6 +660,7 @@ function InsertarProductoSugerido(model) {
             }
 
             CloseLoading();
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
 
             $("#divProductoObservaciones").html("");
             VisibleEstrategias(true);
@@ -777,7 +779,7 @@ function InsertarProducto() {
 		urlInsertar = urlPedidoAgregarProducto;
 		model.EstrategiaID = $("#hdfEstrategiaId").val();
 	}
-
+    
     jQuery.ajax({
         type: 'POST',
         url: urlInsertar,
@@ -811,7 +813,8 @@ function InsertarProducto() {
                 return false;
             }
 
-            CloseLoading();            
+            CloseLoading();
+            var prevTotal = mtoLogroBarra || 0;
             MostrarBarra(data);
             var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
             if (existeError == "1") {
@@ -821,6 +824,8 @@ function InsertarProducto() {
                 CloseLoading();
                 return false;
             }
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
+
             $('#divMensajeCUV').hide();
             $("#divProductoObservaciones").html("");
             $("#divProductoMantenedor").hide();

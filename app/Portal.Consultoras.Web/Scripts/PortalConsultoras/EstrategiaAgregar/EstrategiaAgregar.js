@@ -364,7 +364,7 @@ var EstrategiaAgregarModule = (function () {
 
             if (isMobile()) {
               //ActualizarGanancia(data.DataBarra);
-                var prevTotal = $("[data-pedidocondescuento]").html().replace(',', '') * 1;
+                var prevTotal = mtoLogroBarra || 0;
                 MostrarBarra(data);  //OG
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();                   
