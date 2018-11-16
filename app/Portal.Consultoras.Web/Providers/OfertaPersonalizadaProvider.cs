@@ -493,15 +493,27 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipo))
                 {
-                    string pathRevistaDigital = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
+                    string TipoPersonalizacion = "";
+
+                    switch (tipo)
+                    {
+                        case "001": TipoPersonalizacion = Constantes.ConfiguracionPais.OfertasParaTi; break;
+                        case "101": TipoPersonalizacion = Constantes.ConfiguracionPais.RevistaDigital; break;
+                        case "005": TipoPersonalizacion = Constantes.ConfiguracionPais.Lanzamiento; break;
+                        case "010": TipoPersonalizacion = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada; break;
+                        case "030": TipoPersonalizacion = Constantes.ConfiguracionPais.ShowRoom; break;
+                        case "009": TipoPersonalizacion = Constantes.ConfiguracionPais.OfertaDelDia; break;
+                    }
+
+                    string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
                         userData.CodigoISO,
-                        Constantes.ConfiguracionPais.RevistaDigital,
+                        TipoPersonalizacion,
                         campaniaId,
                         userData.CodigoConsultora,
                         userData.CodigorRegion,
                         userData.CodigoZona,
                         materialGanancia);
-                    var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital, userData.CodigoISO));
+                    var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathMS, userData.CodigoISO));
                     Task.WhenAll(taskApi);
                     listEstrategia = taskApi.Result;
                 }
@@ -552,7 +564,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             else
             {
-                bool esBannerProgNuevas = TienElecMultipleConfigurado(esMobile, user);
+                bool esBannerProgNuevas = TieneElecMultipleConfigurado(esMobile, user);
                 SessionManager.SetMostrarBannerNuevas(esBannerProgNuevas);
 
                 var listEstrategias = ConsultarEstrategias(esMobile, 0, codAgrupacion, true, !esBannerProgNuevas);
@@ -638,7 +650,7 @@ namespace Portal.Consultoras.Web.Providers
             return listEstrategia;
         }
 
-        public bool TienElecMultipleConfigurado(bool esMobile, UsuarioModel user)
+        public bool TieneElecMultipleConfigurado(bool esMobile, UsuarioModel user)
         {
             try
             {
