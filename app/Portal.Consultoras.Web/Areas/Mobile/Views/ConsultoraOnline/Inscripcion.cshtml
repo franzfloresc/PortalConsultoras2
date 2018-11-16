@@ -1,4 +1,4 @@
-﻿@using Portal.Consultoras.Web.Helpers
+﻿@using Portal.Consultoras.Web.CustomHelpers
 @model Portal.Consultoras.Web.Models.ClienteContactaConsultoraModel
 
 @{
@@ -17,7 +17,7 @@
     <div class="col-xs-12">
         <ol class="breadcrumb-next upper">
             <li>
-                @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+                @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
                     if (mobileConfiguracion.MostrarBotonAtras)
                     {
                         <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>

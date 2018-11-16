@@ -9,6 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css' />
+
     <meta http-equiv="refresh" content="4;url=@Url.Action("Index", "Login", new { returnUrl = ViewBag.ReturnURL })" />
 
     <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
@@ -22,12 +23,12 @@
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Site-Lbel-CssSB2")
     }
-
     <script src="~/Scripts/jquery-1.11.2.min.js"></script>
+
 </head>
-<body class="fondo_oscuro" style="display:block">
-    <div class="popup_agregarUnidades">
-        <div class="contenido_popUp">
+<body  id="id_Error_1" class="fondo_oscuro" style="display:block">
+    <div id="id_Error" class="popup_agregarUnidades">
+        <div class="contenido_popUp" id="id_Error_2">
             <span class="icono_exclamacion"></span>
             <h1 class="titulo_agregarUnidades"><b>SESIÓN FINALIZADA</b></h1>
             <div id="mensajeSesionSB2_Error" class="mensaje_agregarUnidades">
@@ -37,4 +38,29 @@
     </div>
     <input type="hidden" id="PaginaSesionExpirada" />
 </body>
+<script>    
+    var isVC = false;
+    var getUrlParam = '';
+    var sPageURL = decodeURIComponent(window.location.search.substring(1));
+    getUrlParam = getUrlParameter("utm_source");
+    if ((getUrlParam == 'SAPHybris') || (getUrlParam == 'SMS' && sPageURL.includes('VC'))) {
+        $("body").addClass("icono_exclamacion");
+        $('.fondo_oscuro').removeClass("fondo_oscuro"); 
+        $("#id_Error_1").removeClass("fondo_oscuro"); 
+        $("#id_Error_1").addClass("fondo_detalle_blanco");
+        $("#id_Error").css("display", "none");
+    }
+    function getUrlParameter(sParam) {        
+        var sPageURL = decodeURIComponent(window.location.search.substring(1));        
+        var sURLVariables = sPageURL.split('&');
+        var sParameterName;
+        var i;
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+</script>
 </html>
