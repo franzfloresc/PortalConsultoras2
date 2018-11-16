@@ -1053,6 +1053,7 @@
 
     .lista__etiquetas__criteriosElegidos{
         position:absolute;
+        min-width:120px;
     }
 
     /* FIN - ETIQUETAS DE CRITERIOS ELEGIDOS EN FILTROS (MOBILE) */
