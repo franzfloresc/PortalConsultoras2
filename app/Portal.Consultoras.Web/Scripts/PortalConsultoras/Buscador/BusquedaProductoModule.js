@@ -355,6 +355,8 @@
             _config.marca = filtroMarca;
             _config.precio = filtroPrecio;
 
+            $(_elementos.preCargaFiltros).css('width', 90 + '%');
+
             _funciones.CargarProductos();
         }
     };
@@ -593,7 +595,7 @@
             };
 
             var _localStorage = _funciones.devuelveNombreLocalStorage(idFiltro);
-            var element = $('#' + idFiltro);
+            var element = $('#' + idFiltro + '[type="checkbox"]');
 
             if (element.is(':checked')) {
                 filtroCriterio = _funciones.quitarFiltroMarcado(idFiltro, _localStorage);
