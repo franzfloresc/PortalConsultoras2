@@ -155,7 +155,7 @@
 
 .submenu__lista--miNegocio{
     width: 937px;
-    left:-45px;
+    left:-108px;
     height: 239px;
     z-index:6;
     align-content:space-evenly;
@@ -401,8 +401,11 @@
     }
 
     .icono__cerrar{
+        width:26px;
         height:31px;
-        padding-right:10px;
+        position:absolute;
+        right:10px;
+        z-index:3;
     }
 
     .consultora__saludo--menu{

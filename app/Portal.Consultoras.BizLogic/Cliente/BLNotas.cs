@@ -145,7 +145,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
 
         public ResponseType<bool> PuedeAgregarMasNotas(int paisId, long consultoraId, short clienteId)
         {
-            var variablesApp = _blTablaLogicaDatos.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.App);
+            var variablesApp = _blTablaLogicaDatos.GetList(paisId, Constantes.TablaLogica.App);
             var notaMaximaConfiguracion = variablesApp.FirstOrDefault(v => v.Codigo == Constantes.TablaLogica.Keys.NotaCantidadMaxima);
             int notaMaxima = 10;
             if (notaMaximaConfiguracion != null)

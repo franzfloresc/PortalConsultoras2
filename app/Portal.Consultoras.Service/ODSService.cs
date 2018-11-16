@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.ArmaTuPack;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ProgramaNuevas;
@@ -12,6 +13,7 @@ namespace Portal.Consultoras.Service
     {
         private readonly IProductoBusinessLogic BLProducto;
         private readonly IProgramaNuevasBusinessLogic BLProgramaNuevas;
+        private readonly IArmaTuPackBusinessLogic BLArmaTuPack;
         private readonly BLMensajeCUV BLMensajeCUV;
         private readonly BLConsultora BLConsultora;
         private readonly BLTipoMeta BLTipoMeta;
@@ -25,6 +27,7 @@ namespace Portal.Consultoras.Service
             BLConsultora = new BLConsultora();
             BLTipoMeta = new BLTipoMeta();
             BLUbigeo = new BLUbigeo();
+            BLArmaTuPack = new BLArmaTuPack();
         }
 
         public IList<BEMensajeCUV> GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID)
@@ -259,6 +262,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.GetListBrothersByCUV(paisID, codCampania, cuv);
         }
+
         #region Programa Nuevas Activo
         public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv)
         {
@@ -295,6 +299,13 @@ namespace Portal.Consultoras.Service
         public Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv)
         {
             return BLProducto.ValidarVentaExclusiva(paisID, campaniaID, codigoConsultora, cuv);
+        }
+        #endregion
+
+        #region ArmaTuPack
+        public bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual)
+        {
+            return BLArmaTuPack.CuvEstaEnLimite(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
         }
         #endregion
     }
