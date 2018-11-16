@@ -213,8 +213,7 @@
 </div>
 
 @section scripts{
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")?v=2"></script>
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")?v=2"></script>
     <script type="text/javascript">
         var pasarelaActual = '@metodoPago.TipoPasarelaCodigoPlataforma';
         var metodoPagoPasarelaVisa = '@Constantes.PagoEnLineaMetodoPago.PasarelaVisa';
@@ -223,5 +222,6 @@
         var rutaPagoVisa = '@Url.Action("PagoVisa", "PagoEnLinea")';
         var urlPasarelaPago = '@Url.Action("PasarelaPago","PagoEnLinea")';
         var tipoOrigenPantalla = 1;
+        var montoMinimoPago = @metodoPago.MontoMinimoPago;
     </script>
 }
