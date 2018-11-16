@@ -12,6 +12,7 @@
     {
     <!-- SECCIÓN FILTROS -->
         <div class="col-12 pl-0 pr-0 background__filtros__mobile"></div>
+        <!-- ESTA SECCIÓN APARECE CADA VEZ QUE SE HAGA CLICK EN ALGÚN FILTRO Y SE ACTUALICE LA PÁGINA DE RESULTADOS SEGÚN LO SELECCIONADO -->
         <div class="col-12 pl-0 pr-0 layout__precarga layout__precarga--actualizacionFiltros">
             <div class="row flex-column justify-content-center align-items-center ml-0 mr-0 layout__precarga__componentes">
                 <div class="d-block precarga__spinner__wrapper precarga__spinner__wrapper--actualizacionFiltros">
@@ -60,10 +61,11 @@
                     </svg>
                 </div>
                 <p class="d-block mx-auto text-center text-bold precarga__texto">
-                    Estamos buscando<br/>las mejores ofertas para ti 🙂
+                    Estamos buscando<br />las mejores ofertas para ti 🙂
                 </p>
             </div>
         </div>
+        <!-- FIN - ESTE BLOQUE APARECE CADA VEZ QUE SE HAGA CLICK EN ALGÚN FILTRO Y SE ACTUALICE LA PÁGINA DE RESULTADOS SEGÚN LO SELECCIONADO -->
         <section class="row flex-row justify-content-center align-items-stretch ml-0 mr-0 layout__content__filtros">
             <div class="col-12 pl-0 pr-0 filtros__wrapper">
                 <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtros_subtitulo mostrarEnMobile">
@@ -76,64 +78,8 @@
                     </a>
                 </div>
                 <!-- SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (MOBILE) -->
-                <div class="row flex-row align-items-baseline ml-0 mr-0 mostrarEnMobile layout__content__etiquetas_criteriosElegidos layout__content__etiquetas_criteriosElegidosMobile">
+                <div class="row flex-row align-items-baseline ml-0 mr-0 mostrarEnMobile layout__content__etiquetas_criteriosElegidos layout__content__etiquetas_criteriosElegidosMobile" style="display:none;">
                     <ul class="row flex-row ml-0 lista__etiquetas__criteriosElegidos">
-                        <li class="row flex-row justify-content-center align-items-center etiqueta__criterioElegido">
-                            <span class="etiqueta__criterioElegido_descrip">
-                                Menos de S/ 50
-                            </span>
-                            <a class="d-block enlace__eliminar__etiqueta icono__eliminar__criterioElegido" title="Eliminar etiqueta">
-                                <img src="@Url.Content("~/Content/Images/cerrar-tag-icono.svg")" alt="Eliminar etiqueta" class="d-block" />
-                            </a>
-                        </li>
-                        <li class="row flex-row justify-content-center align-items-center etiqueta__criterioElegido">
-                            <span class="etiqueta__criterioElegido_descrip">
-                                Packs
-                            </span>
-                            <a class="d-block enlace__eliminar__etiqueta icono__eliminar__criterioElegido" title="Eliminar etiqueta">
-                                <img src="@Url.Content("~/Content/Images/cerrar-tag-icono.svg")" alt="Eliminar etiqueta" class="d-block" />
-                            </a>
-                        </li>
-                        <li class="row flex-row justify-content-center align-items-center etiqueta__criterioElegido">
-                            <span class="etiqueta__criterioElegido_descrip">
-                                Maquillaje
-                            </span>
-                            <a class="d-block enlace__eliminar__etiqueta icono__eliminar__criterioElegido" title="Eliminar etiqueta">
-                                <img src="@Url.Content("~/Content/Images/cerrar-tag-icono.svg")" alt="Eliminar etiqueta" class="d-block" />
-                            </a>
-                        </li>
-                        <li class="row flex-row justify-content-center align-items-center etiqueta__criterioElegido">
-                            <span class="etiqueta__criterioElegido_descrip">
-                                Labios
-                            </span>
-                            <a class="d-block enlace__eliminar__etiqueta icono__eliminar__criterioElegido" title="Eliminar etiqueta">
-                                <img src="@Url.Content("~/Content/Images/cerrar-tag-icono.svg")" alt="Eliminar etiqueta" class="d-block" />
-                            </a>
-                        </li>
-                        <li class="row flex-row justify-content-center align-items-center etiqueta__criterioElegido">
-                            <span class="etiqueta__criterioElegido_descrip">
-                                Menos de S/ 50
-                            </span>
-                            <a class="d-block enlace__eliminar__etiqueta icono__eliminar__criterioElegido" title="Eliminar etiqueta">
-                                <img src="@Url.Content("~/Content/Images/cerrar-tag-icono.svg")" alt="Eliminar etiqueta" class="d-block" />
-                            </a>
-                        </li>
-                        <li class="row flex-row justify-content-center align-items-center etiqueta__criterioElegido">
-                            <span class="etiqueta__criterioElegido_descrip">
-                                Menos de S/ 50
-                            </span>
-                            <a class="d-block enlace__eliminar__etiqueta icono__eliminar__criterioElegido" title="Eliminar etiqueta">
-                                <img src="@Url.Content("~/Content/Images/cerrar-tag-icono.svg")" alt="Eliminar etiqueta" class="d-block" />
-                            </a>
-                        </li>
-                        <li class="row flex-row justify-content-center align-items-center etiqueta__criterioElegido">
-                            <span class="etiqueta__criterioElegido_descrip">
-                                Menos de S/ 50
-                            </span>
-                            <a class="d-block enlace__eliminar__etiqueta icono__eliminar__criterioElegido" title="Eliminar etiqueta">
-                                <img src="@Url.Content("~/Content/Images/cerrar-tag-icono.svg")" alt="Eliminar etiqueta" class="d-block" />
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 <!-- FIN - SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (MOBILE) -->
@@ -245,8 +191,7 @@
         }
         <!-- SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (DESKTOP) -->
         <section class="row flex-row align-items-baseline ml-0 mr-0 mx-auto w-100 mostrarEnDesktop layout__content__etiquetas_criteriosElegidos layout__content__etiquetas_criteriosElegidosDesktop" style="display:none;">
-            <ul class="row flex-row ml-0 lista__etiquetas__criteriosElegidos">
-            </ul>
+            <ul class="row flex-row ml-0 lista__etiquetas__criteriosElegidos"></ul>
             <a title="Limpiar filtros" class="text-right enlace__limpiar__filtros">
                 Limpiar filtros
             </a>
