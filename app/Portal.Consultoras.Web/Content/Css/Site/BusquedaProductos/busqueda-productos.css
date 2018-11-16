@@ -7,7 +7,7 @@
 }
 
 .layout__content__fichaProductos,
-.layout__content__etiquetas_criteriosElegidos
+.layout__content__etiquetas__criteriosElegidos
 {
     width:100%;
     max-width:970px;
@@ -18,7 +18,7 @@
 }
 
 .layout__content__filtros + .layout__content__fichaProductos,
-.layout__content__filtros + .layout__content__fichaProductos .layout__content__etiquetas_criteriosElegidos
+.layout__content__filtros + .layout__content__fichaProductos .layout__content__etiquetas__criteriosElegidos
 {
     width: calc(100% - 330px);
     min-width:716px;
@@ -228,7 +228,7 @@
 
 /* ETIQUETAS DE CRITERIOS ELEGIDOS EN FILTROS (DESKTOP) */
 
-.layout__content__etiquetas_criteriosElegidos{
+.layout__content__etiquetas__criteriosElegidos{
     margin-top:20px;
     margin-bottom:0;
 }
@@ -1029,11 +1029,11 @@
 
     /* ETIQUETAS DE CRITERIOS ELEGIDOS EN FILTROS (MOBILE) */
 
-    .layout__content__etiquetas_criteriosElegidos::-webkit-scrollbar {
+    .layout__content__etiquetas__criteriosElegidos::-webkit-scrollbar {
         height: 0;
     }
 
-    .layout__content__etiquetas_criteriosElegidos{
+    .layout__content__etiquetas__criteriosElegidos{
         margin-top:0;
         margin-bottom:0;
         height:58px;
@@ -1046,7 +1046,7 @@
         overflow-y:hidden;
     }
 
-    .layout__content__etiquetas_criteriosElegidos,
+    .layout__content__etiquetas__criteriosElegidos,
     .lista__etiquetas__criteriosElegidos
     {
         max-width:none;
@@ -1076,6 +1076,8 @@
     .layout__precarga--actualizacionFiltros{
         width:90%;
         top:0;
+        left:auto;
+        right:0;
     }
 
     .layout__precarga__componentes{

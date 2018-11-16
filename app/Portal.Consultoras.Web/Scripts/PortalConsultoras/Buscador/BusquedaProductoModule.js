@@ -32,7 +32,7 @@
         preCargaFiltros: '.layout__precarga--actualizacionFiltros',
         criteriosBuscadorMobile: '.criteriosBuscadorMobile',
         criteriosBuscadorDesktop: '.criteriosBuscadorDesktop',
-        mostrarLayoutCriterios: '.layout__content__etiquetas_criteriosElegidos',
+        mostrarLayoutCriterios: '.layout__content__etiquetas__criteriosElegidos',
         etiquetaCriterioElegido: '.icono__eliminar__criterioElegido'
     };
     var _modificador = {
@@ -210,7 +210,7 @@
             });
         },
         AnchoContenedorEtiquetasCriteriosElegidosMobile: function () {
-            _elementos.contenedorEtiquetas = $('.layout__content__etiquetas_criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
+            _elementos.contenedorEtiquetas = $('.layout__content__etiquetas__criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
             var sumAnchoEtiquetas = 0;
             _elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').each(function () {
                 sumAnchoEtiquetas += $(this).outerWidth() + 12;
@@ -225,11 +225,11 @@
         },
         AgregarEtiquetaFiltroSeleccionado: function (texto) {
             if (_config.isMobile) {
-                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas_criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
-                $('.layout__content__etiquetas_criteriosElegidosMobile').slideDown(100);
+                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas__criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
+                $('.layout__content__etiquetas__criteriosElegidosMobile').slideDown(100);
             } else {
-                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas_criteriosElegidosDesktop').find('.lista__etiquetas__criteriosElegidos');
-                $('.layout__content__etiquetas_criteriosElegidosDesktop').fadeIn(100);
+                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas__criteriosElegidosDesktop').find('.lista__etiquetas__criteriosElegidos');
+                $('.layout__content__etiquetas__criteriosElegidosDesktop').fadeIn(100);
             }
 
             var etiquetaFiltroSeleccionadoHtml =
@@ -359,9 +359,9 @@
         EliminarEtiquetaCriterioElegido: function (e) {
             e.preventDefault();
             if (_config.isMobile) {
-                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas_criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
+                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas__criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
             } else {
-                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas_criteriosElegidosDesktop').find('.lista__etiquetas__criteriosElegidos');
+                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas__criteriosElegidosDesktop').find('.lista__etiquetas__criteriosElegidos');
             }
             var etiquetaCriterioPorEliminar = $(this).parents('.etiqueta__criterioElegido');
             etiquetaCriterioPorEliminar.fadeOut(70);
@@ -383,10 +383,10 @@
         LimpiarEtiquetasFiltros: function (e) {
             e.preventDefault();
             if (_config.isMobile) {
-                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas_criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
+                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas__criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
                 _elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').fadeOut(70);
             } else {
-                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas_criteriosElegidosDesktop').find('.lista__etiquetas__criteriosElegidos');
+                _elementos.contenedorEtiquetas = $('.layout__content__etiquetas__criteriosElegidosDesktop').find('.lista__etiquetas__criteriosElegidos');
                 _elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').fadeOut(70);
                 $(this).fadeOut(70);
             }
