@@ -76,11 +76,16 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     campo = buscadorModel.Orden.Campo,
                     tipo = buscadorModel.Orden.Tipo
+                },
+                filtro = new
+                {
+                    categoria = buscadorModel.Filtro.categoria == null ? "" : buscadorModel.Filtro.categoria,
+                    marca = buscadorModel.Filtro.marca == null ? "" : buscadorModel.Filtro.marca
                 }
             };
         }
 
-        public async Task<BuscadorYFiltrosModel> ValidacionProductoAgregado(BuscadorYFiltrosModel resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital, bool IsMobile)
+        public async Task<BuscadorYFiltrosModel> ValidacionProductoAgregado(BuscadorYFiltrosModel resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital, bool IsMobile,bool IsHome)
         {
             var labelAgregado = "";
             var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
@@ -100,7 +105,7 @@ namespace Portal.Consultoras.Web.Providers
                 item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
-                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile);
+                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile,IsHome);
                 item.Agregado = labelAgregado;
                 item.Stock = !item.Stock;
                 item.DescripcionCompleta = item.Descripcion;

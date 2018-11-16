@@ -1,11 +1,11 @@
-﻿@using Portal.Consultoras.Web.Helpers
+﻿@using Portal.Consultoras.Web.CustomHelpers
 @model Portal.Consultoras.Web.Areas.Mobile.Models.ConsultoraOnlineHistorialMobileModel
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -17,7 +17,7 @@
     <div class="pestana_lbel"></div>
     <div id="div-tabs" class="tabs-link tab-primary upper">
         @foreach (var campania in Model.CampaniasConsultoraOnline)
-            {
+        {
             <a href="javascript:;" class="mytab" data-campania-id="@campania.CampaniaID">
                 <small>Campaña</small> <br />
                 <b>@campania.NroCampania</b> @campania.Anio

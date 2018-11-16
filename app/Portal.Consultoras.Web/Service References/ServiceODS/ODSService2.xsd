@@ -762,4 +762,23 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="CuvArmaTuPackEstaEnLimite">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="zona" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cantidadIngresada" type="xs:int" />
+        <xs:element minOccurs="0" name="cantidadActual" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CuvArmaTuPackEstaEnLimiteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CuvArmaTuPackEstaEnLimiteResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -136,7 +136,7 @@ namespace Portal.Consultoras.BizLogic
         private bool IsFlagOn(string codigo, int paisID)
         {
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
-            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgNuevas.EncenderValidacion.TablaLogicaID);
+            var lstTabla = blTablaLogicaDatos.GetListCache(paisID, Constantes.ProgNuevas.EncenderValidacion.TablaLogicaID);
             if (lstTabla.Count == 0) return false;
             if (lstTabla.Where(a => a.Codigo == codigo).Select(b => b.Valor).FirstOrDefault() == "1") return true;
             return false;
@@ -149,7 +149,7 @@ namespace Portal.Consultoras.BizLogic
         }
         private Predicate<int> GetFnEnRangoCuvProgramaNuevas(int paisID)
         {
-            var lstTabla = new BLTablaLogicaDatos().GetTablaLogicaDatosCache(paisID, Constantes.ProgNuevas.Rango.TablaLogicaID);
+            var lstTabla = new BLTablaLogicaDatos().GetListCache(paisID, Constantes.ProgNuevas.Rango.TablaLogicaID);
             if (lstTabla.Count == 0) return new Predicate<int>(cuv => false);
 
             int cuvIni = Convert.ToInt32(lstTabla.Where(a => a.Codigo == Constantes.ProgNuevas.Rango.cuvInicio).Select(b => b.Descripcion).FirstOrDefault());
