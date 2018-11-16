@@ -184,6 +184,17 @@ namespace Portal.Consultoras.Common
 
             public const int ActualizaEscalaDescuentoDestokp = 7201;
             public const int ActualizaEscalaDescuentoMobile = 7301;
+
+            public static class PagoEnLinea {
+                public const int Habilitar_App = 12213;
+                public const int Habilitar_App_PBI_ExternalApp = 12214;
+            }
+            
+            public static class ArmaTuPack
+            {
+                public const string ListCuv = "ListCuv";
+            }
+
         }
 
         public static class ParametrosNames
@@ -1557,6 +1568,7 @@ namespace Portal.Consultoras.Common
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
+            public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
         }
 
         public static class MensajesExito
@@ -1903,6 +1915,7 @@ namespace Portal.Consultoras.Common
             public const short EscalaDescuentoDestokp = 72;
             public const short EscalaDescuentoMobile = 73;
             public const short ListaOrdenamientoFiltros = 147;
+            public const short ArmaTuPack = 14;
         }
 
         public struct MensajesCDRExpress
@@ -2422,7 +2435,8 @@ namespace Portal.Consultoras.Common
 
         public static class PedidoValidacion
         {
-            private static Dictionary<string, string> _Message;
+            private static Dictionary<string, PedidoValidacionConfiguracion> _Configuracion;
+
             public static class Code
             {
                 public const string SUCCESS = "0000";
@@ -2481,69 +2495,81 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_AGREGAR_BACKORDER = "2202";
 
             }
-            public static Dictionary<string, string> Message
+
+            public static Dictionary<string, PedidoValidacionConfiguracion> Configuracion
             {
                 get
                 {
-                    return _Message ?? (_Message = new Dictionary<string, string>
-                    {
-                        {Code.SUCCESS, "OK"},
-                        {Code.ERROR_INTERNO, string.Empty},
-                        {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
-                        {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
-                        {Code.ERROR_PRODUCTO_LIQUIDACION, "Este producto solo está disponible desde la sección de Liquidación Web."},
-                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
-                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
-                        {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
-                        {Code.ERROR_PRODUCTO_SUGERIDO,"Este producto tiene reemplazos sugeridos." },
-                        {Code.ERROR_PRODUCTO_SET, "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas."},
-                        {Code.ERROR_PRODUCTO_NONUEVA,"El código solicitado es exclusivo para quienes participan del Programa de Nuevas." },
+                    return _Configuracion ?? (_Configuracion = new Dictionary<string, PedidoValidacionConfiguracion>
+                        {
+                            {Code.SUCCESS, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true, Mensaje = "OK" } } ,
+                            {Code.ERROR_INTERNO, new PedidoValidacionConfiguracion() },
+                            {Code.ERROR_PRODUCTO_NOEXISTE, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto no existe." } },
+                            {Code.ERROR_PRODUCTO_AGOTADO, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto está agotado."} },
+                            {Code.ERROR_PRODUCTO_LIQUIDACION, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto solo está disponible desde la sección de Liquidación Web."} },
+                            {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true, Mensaje = "Encuentra este producto en la guía de negocio Ésika con oferta especial." } },
+                            {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, new PedidoValidacionConfiguracion(){ PermiteAgregarPedido = true, Mensaje = "Encuentra este producto en la guía de negocio L'Bel con oferta especial."} },
+                            {Code.ERROR_PRODUCTO_ESTRATEGIA, new PedidoValidacionConfiguracion() },
+                            {Code.ERROR_PRODUCTO_SUGERIDO, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto tiene reemplazos sugeridos." } },
+                            {Code.ERROR_PRODUCTO_SET, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas."} },
+                            {Code.ERROR_PRODUCTO_NONUEVA, new PedidoValidacionConfiguracion(){ Mensaje = "El código solicitado es exclusivo para quienes participan del Programa de Nuevas." } },
 
-                        {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
-                        {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
-                        {Code.ERROR_KIT_INICIO, Constantes.MensajesError.InsertarValidarKitInicio },
-                        {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
-                        {Code.ERROR_VALIDA_DATOS , string.Empty },
-                        {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
-                        {Code.ERROR_ACTUALIZAR_SET, "Ocurrió un error al actualizar el set." },
-                        {Code.ERROR_SET_NOENCONTRADO, "Set no encontrado."},
-                        {Code.ERROR_UNIDAD_SOBREPASA_PERMITIDO, "Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta ({0}) del producto."},
-                        {Code.ERROR_UNIDAD_SINSALDO, "Las Unidades Permitidas de Venta son solo ({0}), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique." },
-                        {Code.ERROR_UNIDAD_CONSALDO, "Las Unidades Permitidas de Venta son solo ({0}), pero Usted solo puede adicionar ({1}) más, debido a que ya agregó este producto a su pedido, verifique." },
-                        {Code.ERROR_UNIDAD_SOBREPASA_STOCK, "Lamentablemente, la cantidad solicitada sobrepasa el stock actual ({0}) del producto, verifique." },
-                        {Code.ERROR_ELIMINAR, "Ocurrió un error al eliminar el detalle de pedido." },
-                        {Code.ERROR_ELIMINAR_SET, "Ocurrió un error al eliminar el detalle del set."},
-                        {Code.ERROR_ELIMINAR_TODO, "Ocurrió un error al eliminar el pedido." },
-                        {Code.ERROR_ELIMINAR_TODO_SET, "Ocurrió un error al eliminar el set." },
-                        {Code.ERROR_CANTIDAD_LIMITE, "La cantidad no debe ser mayor que la cantidad limite ( {0} )." },
+                            {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, new PedidoValidacionConfiguracion()},
+                            {Code.ERROR_STOCK_ESTRATEGIA, new PedidoValidacionConfiguracion()},
+                            {Code.ERROR_KIT_INICIO, new PedidoValidacionConfiguracion(){ Mensaje = Constantes.MensajesError.InsertarValidarKitInicio } },
+                            {Code.ERROR_GRABAR, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al insertar el pedido."} },
+                            {Code.ERROR_VALIDA_DATOS , new PedidoValidacionConfiguracion() },
+                            {Code.ERROR_ACTUALIZAR, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al actualizar el pedido." } },
+                            {Code.ERROR_ACTUALIZAR_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al actualizar el set." } },
+                            {Code.ERROR_SET_NOENCONTRADO, new PedidoValidacionConfiguracion(){ Mensaje ="Set no encontrado."} },
+                            {Code.ERROR_UNIDAD_SOBREPASA_PERMITIDO, new PedidoValidacionConfiguracion(){ Mensaje ="Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta ({0}) del producto."} },
+                            {Code.ERROR_UNIDAD_SINSALDO, new PedidoValidacionConfiguracion(){ Mensaje ="Las Unidades Permitidas de Venta son solo ({0}), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique." } },
+                            {Code.ERROR_UNIDAD_CONSALDO, new PedidoValidacionConfiguracion(){ Mensaje ="Las Unidades Permitidas de Venta son solo ({0}), pero Usted solo puede adicionar ({1}) más, debido a que ya agregó este producto a su pedido, verifique." } },
+                            {Code.ERROR_UNIDAD_SOBREPASA_STOCK, new PedidoValidacionConfiguracion(){ Mensaje ="Lamentablemente, la cantidad solicitada sobrepasa el stock actual ({0}) del producto, verifique." } },
+                            {Code.ERROR_ELIMINAR, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el detalle de pedido." } },
+                            {Code.ERROR_ELIMINAR_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el detalle del set."} },
+                            {Code.ERROR_ELIMINAR_TODO, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el pedido." } },
+                            {Code.ERROR_ELIMINAR_TODO_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el set." } },
+                            {Code.ERROR_CANTIDAD_LIMITE, new PedidoValidacionConfiguracion(){ Mensaje ="La cantidad no debe ser mayor que la cantidad limite ( {0} )." } },
 
-                        {Code.ERROR_RESERVA_NINGUNO, "El pedido no se reservó." },
-                        {Code.SUCCESS_RESERVA, "Pedido reservado." },
-                        {Code.SUCCESS_RESERVA_OBS, "Pedido reservado, productos con observaciones." },
-                        {Code.ERROR_RESERVA_OBS, "Pedido no reservado, productos con observaciones." },
-                        {Code.ERROR_RESERVA_MONTO_MIN, "Pedido no reservado, no supera monto mínimo." },
-                        {Code.ERROR_RESERVA_MONTO_MAX, "Pedido no reservado, excede monto máximo." },
-                        {Code.ERORR_RESERVA_NO_DISP, "Reserva no disponible." },
-                        {Code.ERROR_RESERVA_DEUDA, "Pedido no reservado, deuda pendiente." },
-                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"},
-                        {Code.ERROR_GUARDAR_NINGUNO, "El pedido no se guardó." },
-                        {Code.SUCCESS_GUARDAR, "Pedido guardado." },
-                        {Code.SUCCESS_GUARDAR_OBS, "Pedido guardado, productos con observaciones." },
-                        {Code.ERROR_GUARDAR_OBS, "Pedido no guardado, productos con observaciones." },
-                        {Code.ERROR_GUARDAR_MONTO_MIN, "Pedido no guardado, no supera monto mínimo." },
-                        {Code.ERROR_GUARDAR_MONTO_MAX, "Pedido no guardado, excede monto máximo." },
-                        {Code.ERORR_GUARDAR_NO_DISP, "Guardar no disponible." },
-                        {Code.ERROR_GUARDAR_DEUDA, "Pedido no guardado, deuda pendiente." },
+                            {Code.ERROR_RESERVA_NINGUNO, new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se reservó." } },
+                            {Code.SUCCESS_RESERVA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido reservado." } },
+                            {Code.SUCCESS_RESERVA_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido reservado, productos con observaciones." } },
+                            {Code.ERROR_RESERVA_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no reservado, productos con observaciones." } },
+                            {Code.ERROR_RESERVA_MONTO_MIN, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no reservado, no supera monto mínimo." } },
+                            {Code.ERROR_RESERVA_MONTO_MAX, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no reservado, excede monto máximo." } },
+                            {Code.ERORR_RESERVA_NO_DISP, new PedidoValidacionConfiguracion(){ Mensaje ="Reserva no disponible." } },
+                            {Code.ERROR_RESERVA_DEUDA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no reservado, deuda pendiente." } },
+                            {Code.ERROR_RESERVA_BACK_ORDER, new PedidoValidacionConfiguracion(){ Mensaje ="No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"} },
+                            {Code.ERROR_GUARDAR_NINGUNO, new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se guardó." } },
+                            {Code.SUCCESS_GUARDAR, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido guardado." } },
+                            {Code.SUCCESS_GUARDAR_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido guardado, productos con observaciones." } },
+                            {Code.ERROR_GUARDAR_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no guardado, productos con observaciones." } },
+                            {Code.ERROR_GUARDAR_MONTO_MIN, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no guardado, no supera monto mínimo." } },
+                            {Code.ERROR_GUARDAR_MONTO_MAX, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no guardado, excede monto máximo." } },
+                            {Code.ERORR_GUARDAR_NO_DISP, new PedidoValidacionConfiguracion(){ Mensaje ="Guardar no disponible." } },
+                            {Code.ERROR_GUARDAR_DEUDA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no guardado, deuda pendiente." } },
 
-                        {Code.ERROR_DESHACER_PEDIDO , "Ocurrió un error al deshacer el pedido." },
-                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." },
+                            {Code.ERROR_DESHACER_PEDIDO , new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al deshacer el pedido." } },
+                            {Code.ERROR_DESHACER_PEDIDO_ESTADO , new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se encuentra reservado." } },
 
-                        {Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO , "No se puede agregar un set como BackOrder." },
-                        {Code.ERROR_AGREGAR_BACKORDER , "No se encuentra el detalle en el pedido para agregarlo como BackOrder." }
+                            {Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO , new PedidoValidacionConfiguracion(){ Mensaje ="No se puede agregar un set como BackOrder." } },
+                            {Code.ERROR_AGREGAR_BACKORDER , new PedidoValidacionConfiguracion(){ Mensaje ="No se encuentra el detalle en el pedido para agregarlo como BackOrder." } }
 
-                    });
+                        });
                 }
             }
+        }
+
+        public class PedidoValidacionConfiguracion
+        {
+            public PedidoValidacionConfiguracion()
+            {
+                PermiteAgregarPedido = false;
+                Mensaje = string.Empty;
+            }
+            public bool PermiteAgregarPedido { get; set; }
+            public string Mensaje { get; set; }
         }
 
         public static class PedidoDetalleApp
@@ -2795,6 +2821,7 @@ namespace Portal.Consultoras.Common
         public static class PagoEnLineaPasarela
         {
             public const string Visa = "VISA";
+            public const string PBI = "PBI";            
         }
 
         public static class PagoEnLineaNotificacion
@@ -2893,6 +2920,12 @@ namespace Portal.Consultoras.Common
             public const string CargoplataformaMx = "Comisión por transacción";
             public const string GastosLabelPe = "Gastos Adm.";
             public const string GastosLabelMx = "Cargo comisión por transacción";
+        }
+
+        public static class MensajePago
+        {
+            public const string MensajeGeneral = "Paga en Línea con Visa";
+            public const string MensajeMx = "Paga en Línea";
         }
 
         public static class PagoEnLineaOrigen
@@ -2995,6 +3028,11 @@ namespace Portal.Consultoras.Common
             //api/Evento/Get/{pais}/{campania}
             public const string UrlObtenerEvento = "api/Evento/Get/{0}/{1}";
 
+            #endregion
+
+            #region Reporte
+            //api/Estrategia/ReporteValidacion/{tipo}/{campania}/{paises}
+            public const string UrlReporteValidacion = "api/Estrategia/ReporteValidacion/{0}/{1}/{2}";
             #endregion
         }
         public static class OfertaFinalLog
@@ -3219,6 +3257,47 @@ namespace Portal.Consultoras.Common
             public const int ObtenerOpmTodo = 0;
             public const int ObtenerOpmSinForzadasMG1 = 1;
             public const int ObtenerOpmSoloForzadasMG1 = 2;
+        }
+
+        public static class ReporteValidacionDatos
+        {
+            private static Dictionary<int, string> _TipoPersonalizacion;
+            private static Dictionary<int, string> _TipoEstrategiaCodigo;   
+            public static class EstrategiaID
+            {
+                public const int OPT = 4;
+                public const int ODD = 7;
+                public const int OPM = 10;
+                public const int SR = 99;
+            }
+
+            public static Dictionary<int, string> TipoPersonalizacion
+            {
+                get
+                {
+                    return _TipoPersonalizacion ?? (_TipoPersonalizacion = new Dictionary<int, string>
+                    {
+                        {EstrategiaID.ODD, "ODD"},
+                        {EstrategiaID.OPM, "OPM"},
+                        {EstrategiaID.OPT, "OPT"},
+                        {EstrategiaID.SR, "SR"}
+                    });
+                }
+            }
+
+            public static Dictionary<int, string> TipoEstrategiaCodigo
+            {
+                get
+                {
+                    return _TipoEstrategiaCodigo ?? (_TipoEstrategiaCodigo = new Dictionary<int, string>
+                    {
+                        {EstrategiaID.ODD, "009"},
+                        {EstrategiaID.OPM, "007"},
+                        {EstrategiaID.OPT, "001"},
+                        {EstrategiaID.SR, "030"}
+                    });
+                }
+            }
         }
 
     }
