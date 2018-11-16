@@ -1054,7 +1054,7 @@
 
     .lista__etiquetas__criteriosElegidos{
         position:absolute;
-        min-width:120px;
+        min-width:150px;
     }
 
     .etiqueta__criterioElegido_descrip{
