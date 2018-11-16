@@ -235,9 +235,7 @@
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
-    <Compile Include="Areas\Mobile\Helpers\HtmlsHelper.cs" />
-    <Compile Include="Areas\Mobile\Helpers\JavaScriptHelper.cs" />
-    <Compile Include="Areas\Mobile\Helpers\StringsHelper.cs" />
+    <Compile Include="CustomHelpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
     <Compile Include="Areas\Mobile\Models\CatalogoCompartirModel.cs" />
@@ -321,16 +319,16 @@
     <Compile Include="Controllers\ReporteContratoController.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
-    <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
-    <Compile Include="Infraestructure\Sms\ISmsSender.cs" />
-    <Compile Include="Infraestructure\Sms\SmsProcess.cs" />
-    <Compile Include="Infraestructure\Validator\IEntityValidator.cs" />
-    <Compile Include="Infraestructure\Validator\PagoEnLinea\PasarelaValidator.cs" />
-    <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhone.cs" />
-    <Compile Include="Infraestructure\Validator\Phone\MultiPhoneValidator.cs" />
-    <Compile Include="Infraestructure\Validator\Phone\NotExistingPhone.cs" />
-    <Compile Include="Infraestructure\Reader\ColumnCsvTransform.cs" />
-    <Compile Include="Infraestructure\Validator\Phone\NotSamePhoneValidator.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\Sms\ISmsConfirm.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\Sms\ISmsSender.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\Sms\SmsProcess.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\Validator\IEntityValidator.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\Validator\PagoEnLinea\PasarelaValidator.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\Validator\Phone\MatchCountryPhone.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\Validator\Phone\MultiPhoneValidator.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\Validator\Phone\NotExistingPhone.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\Reader\ColumnCsvTransform.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\Validator\Phone\NotSamePhoneValidator.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosModel.cs" />
     <Compile Include="Models\Common\InLogUsabilidadModel.cs" />
@@ -456,28 +454,28 @@
     <Compile Include="CustomFilters\UniqueSessionAttribute.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
     <Compile Include="CustomHelpers\UploadHelper.cs" />
-    <Compile Include="GestionPasos\AsignacionFactory.cs" />
-    <Compile Include="GestionPasos\CorreoHelper.cs" />
-    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaBolivia.cs" />
-    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
-    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaChile.cs" />
-    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaColombia.cs" />
-    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaDominicana.cs" />
-    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaEcuador.cs" />
-    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaMexico.cs" />
-    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPeru.cs" />
-    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPuertoRico.cs" />
-    <Compile Include="GestionPasos\HtmlHelpers.cs" />
-    <Compile Include="GestionPasos\IEvaluacionCrediticia.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\AsignacionFactory.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\CorreoHelper.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaBolivia.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaChile.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaColombia.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaDominicana.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaEcuador.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaMexico.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPeru.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPuertoRico.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\HtmlHelpers.cs" />
+    <Compile Include="CustomHelpers\GestionPasos\IEvaluacionCrediticia.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ControllerExtensions.cs" />
-    <Compile Include="Helpers\RouteExtensions.cs" />
-    <Compile Include="Helpers\SessionExtensions.cs" />
-    <Compile Include="Helpers\ViewExtensions.cs" />
-    <Compile Include="Infraestructure\Settings.cs" />
-    <Compile Include="Infraestructure\UniqueRoute.cs" />
+    <Compile Include="CustomHelpers\ControllerExtensions.cs" />
+    <Compile Include="CustomHelpers\RouteExtensions.cs" />
+    <Compile Include="CustomHelpers\SessionExtensions.cs" />
+    <Compile Include="CustomHelpers\ViewExtensions.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\Settings.cs" />
+    <Compile Include="CustomHelpers\Infraestructure\UniqueRoute.cs" />
     <Compile Include="LogManager\ILogManager.cs" />
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdmCuponModel.cs" />
@@ -4788,32 +4786,32 @@
     <None Include="Service References\ServiceSeguridad\SeguridadService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService11.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService81.xsd">
+    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService82.xsd">
+    <None Include="Service References\ServiceUnete\PortalService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService83.xsd">
+    <None Include="Service References\ServiceUnete\PortalService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService84.xsd">
+    <None Include="Service References\ServiceUnete\PortalService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService85.xsd">
+    <None Include="Service References\ServiceUnete\PortalService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService86.xsd">
+    <None Include="Service References\ServiceUnete\PortalService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService87.xsd">
+    <None Include="Service References\ServiceUnete\PortalService6.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService88.xsd">
+    <None Include="Service References\ServiceUnete\PortalService7.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService89.xsd">
+    <None Include="Service References\ServiceUnete\PortalService9.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
@@ -5461,6 +5459,7 @@
     <Content Include="Views\ProgramaNuevas\Index.cshtml" />
     <Content Include="Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Views\Shared\_BuscadorResponsive.cshtml" />
+    <Content Include="Views\Unete\ExcepcionarDocumento.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5770,7 +5769,7 @@
     <Folder Include="Annotations\App_Data\" />
     <Folder Include="Areas\Mobile\Views\EstrategiaProductoComentario\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
-    <Folder Include="GestionPasos\Asignaciones\" />
+    <Folder Include="CustomHelpers\GestionPasos\Asignaciones\" />
     <Folder Include="Views\App\" />
     <Folder Include="Views\BaseHerramientasVenta\" />
     <Folder Include="Views\BaseShowRoom\" />

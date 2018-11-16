@@ -4141,20 +4141,6 @@ table > thead > tr > th {
     height:auto;
 }
 
-.info_lugares_de_pago{
-    font-size:12px;
-    letter-spacing:0.3px;
-    color:#8a8a8a;
-    margin-top:18px;
-    margin-bottom:-9px;
-}
-
-.info_lugares_de_pago a,
-.info_lugares_de_pago a:hover{
-    text-decoration:underline;
-    color:#8a8a8a;
-}
-
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
