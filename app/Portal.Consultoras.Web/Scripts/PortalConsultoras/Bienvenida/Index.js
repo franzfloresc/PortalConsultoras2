@@ -899,7 +899,9 @@ function EstructurarDataCarouselLiquidaciones(array) {
     return array;
 }
 function AgregarProductoLiquidacion(contenedor) {
-    var inputCantidad = $(contenedor).find("#txtCantidad").val();
+    
+  
+    var inputCantidad = $(contenedor).find("[data-input='cantidad']").val();
     if (!$.isNumeric(inputCantidad)) {
         AbrirMensaje("Ingrese un valor numérico.");
         $(contenedor).find("#txtCantidad").val(1);
@@ -913,7 +915,8 @@ function AgregarProductoLiquidacion(contenedor) {
 
     waitingDialog({});
     var item = {
-        Cantidad: $(contenedor).find("#txtCantidad").val(),
+        
+        Cantidad: $(contenedor).find("[data-input='cantidad']").val(),
         MarcaID: $(contenedor).find("#MarcaID").val(),
         PrecioUnidad: $(contenedor).find("#PrecioOferta").val(),
         CUV: $(contenedor).find("#CUV").val(),

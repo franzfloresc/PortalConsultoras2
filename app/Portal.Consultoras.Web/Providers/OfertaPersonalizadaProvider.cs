@@ -430,7 +430,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipo))
                 {
-                    string pathRevistaDigital = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerRevistaDigital,
+                    string pathRevistaDigital = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
                         userData.CodigoISO,
                         Constantes.ConfiguracionPais.RevistaDigital,
                         campaniaId,
@@ -438,7 +438,7 @@ namespace Portal.Consultoras.Web.Providers
                         userData.CodigorRegion,
                         userData.CodigoZona,
                         materialGanancia);
-                    var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital, userData.CodigoISO));
+                    var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital, userData.CodigoISO));
                     Task.WhenAll(taskApi);
                     listEstrategia = taskApi.Result;
                 }
@@ -716,10 +716,18 @@ namespace Portal.Consultoras.Web.Providers
                 CodigoTipoEstrategia = "030"
             };
 
-            using (var osc = new OfertaServiceClient())
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(usuarioModel.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
             {
-                var listaProducto = osc.GetEstrategiasPedido(entidad).ToList();
+                List<ServiceOferta.BEEstrategia> listaProducto = new ShowRoomProvider().GetShowRoomOfertasConsultora();
                 return listaProducto;
+            }
+            else
+            {
+                using (var osc = new OfertaServiceClient())
+                {
+                    var listaProducto = osc.GetEstrategiasPedido(entidad).ToList();
+                    return listaProducto;
+                }
             }
         }
 

@@ -9,5 +9,7 @@ namespace Portal.Consultoras.Entities.Pedido
         public string CodigoRespuesta { get; set; }
         [DataMember]
         public string MensajeRespuesta { get; set; }
+        [DataMember]
+        public string CUV { get; set; }
     }
 }
