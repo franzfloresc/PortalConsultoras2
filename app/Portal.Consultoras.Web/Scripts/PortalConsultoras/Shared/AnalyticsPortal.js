@@ -452,8 +452,10 @@ var AnalyticsPortalModule = (function () {
 
             var valorBuscar = localStorage.getItem('valorBuscador');
             switch (pagina.Pagina) {
-                case "Buscador": AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar); break;
-                case "Landing Buscador": AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar); break;
+                case "Buscador":
+                case "Landing Buscador":
+                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+                    break;
 
             }
 
@@ -521,7 +523,7 @@ var AnalyticsPortalModule = (function () {
                         'products': [{
                             'name': model.DescripcionCompleta,
                             'id': model.CUV,
-                            'price': model.Precio,
+                            'price': parseFloat(model.Precio).toFixed(2).toString(),
                             'brand': _getMarca(model.MarcaId),
                             'category': _texto.notavaliable,
                             'variant': campoBuscar,

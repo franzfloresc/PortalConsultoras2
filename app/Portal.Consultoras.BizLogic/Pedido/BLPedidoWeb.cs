@@ -4,6 +4,7 @@ using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,6 +15,7 @@ using System.Linq;
 using System.Transactions;
 using System.Net;
 using System.Web.Script.Serialization;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -1788,64 +1790,52 @@ namespace Portal.Consultoras.BizLogic
         public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int top)
         {
             var listaPedidosFacturados = new List<BEPedidoWeb>();
+            var listaAgrupada = new List<BEPedidoWeb>();
+            var listaPedidoIngresado = new List<BEPedidoWeb>();
 
-            var blPais = new BLPais();
-
-            var daPedidoWeb = new DAPedidoWeb(paisID);
-
-            if (!blPais.EsPaisHana(paisID))
+            if (!new BLPais().EsPaisHana(paisID))
             {
-                using (IDataReader reader = daPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID, top))
+                using (var reader = new DAPedidoWeb(paisID).GetPedidosIngresadoFacturado(consultoraID, campaniaID, top))
+                {
                     while (reader.Read())
                     {
-                        var entidad = new BEPedidoWeb(reader);
-                        listaPedidosFacturados.Add(entidad);
+                        listaPedidosFacturados.Add(new BEPedidoWeb(reader));
                     }
+                }
             }
             else
             {
-                var dapHedidoWeb = new DAHPedido();
-
-                var listaPedidosHana = dapHedidoWeb.GetPedidosIngresadoFacturado(paisID, codigoConsultora);
-                var listaPedidoIngresado = new List<BEPedidoWeb>();
-                using (IDataReader reader = daPedidoWeb.GetPedidosIngresado(consultoraID, campaniaID))
+                var listaPedidosHana = new DAHPedido().GetPedidosIngresadoFacturado(paisID, codigoConsultora);
+                
+                using (var reader = new DAPedidoWeb(paisID).GetPedidosIngresado(consultoraID, campaniaID))
+                {
                     while (reader.Read())
                     {
-                        var entidad = new BEPedidoWeb(reader);
-                        listaPedidoIngresado.Add(entidad);
+                        listaPedidoIngresado.Add(new BEPedidoWeb(reader));
                     }
+                }
 
                 var campaniaMinima = Common.Util.ObtenerCampaniaPasada(campaniaID, 4);
 
-                var listaPedidosHanaFinales = listaPedidosHana.Where(p => p.CampaniaID >= campaniaMinima && p.EstadoPedidoDesc.ToUpper() == "FACTURADO").ToList();
+                var listaPedidosHanaFinales = listaPedidosHana.Where(p => p.CampaniaID >= campaniaMinima && p.EstadoPedidoDesc.ToUpper() == "FACTURADO");
 
-                var listaAgrupada = new List<BEPedidoWeb>();
                 listaAgrupada.AddRange(listaPedidosHanaFinales);
                 listaAgrupada.AddRange(listaPedidoIngresado);
-                listaAgrupada = listaAgrupada.OrderByDescending(p => p.CampaniaID).ToList();
-
-                var listaMostrar = new List<BEPedidoWeb>();
-                foreach (var bePedidoWeb in listaAgrupada)
+ 
+                listaAgrupada.OrderByDescending(p => p.CampaniaID).All(bePedidoWeb =>
                 {
                     if (bePedidoWeb.EstadoPedidoDesc == "INGRESADO")
                     {
                         var bePedidoWebFacturado = listaAgrupada.FirstOrDefault(p => p.CampaniaID == bePedidoWeb.CampaniaID && p.EstadoPedidoDesc != "INGRESADO");
-                        if (bePedidoWebFacturado == null)
-                        {
-                            listaMostrar.Add(bePedidoWeb);
-                        }
+                        if (bePedidoWebFacturado == null) listaPedidosFacturados.Add(bePedidoWeb);
                     }
                     else
                     {
-                        listaMostrar.Add(bePedidoWeb);
+                        listaPedidosFacturados.Add(bePedidoWeb);
                     }
-                }
-
-                listaPedidosFacturados = listaMostrar;
+                    return true;
+                });
             }
-
-            
-
 
             return listaPedidosFacturados;
         }
@@ -1914,28 +1904,39 @@ namespace Portal.Consultoras.BizLogic
             return listaResultado;
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora,  int usuarioPrueba, string  consultoraAsociada, int top )
+        #region MisPedidos
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora,  int usuarioPrueba, string  consultoraAsociada, int top, bool mostrarPaqueteDocumentario)
         {
-            List<BEPedidoWeb> listaPedidosFacturados = new List<BEPedidoWeb>();
-            listaPedidosFacturados = GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora, top);
-            
+            var listaPedidosFacturados = GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora, top);
 
-            if (listaPedidosFacturados.Count > 0)
+            listaPedidosFacturados.All(x =>
             {
-                listaPedidosFacturados.Update(x =>
-                {
-                    x.RutaPaqueteDocumentario = ObtenerRutaPaqueteDocumentario(usuarioPrueba == 1 ? consultoraAsociada : codigoConsultora, x.CampaniaID.ToString(), x.NumeroPedido.ToString(), Common.Util.GetPaisISO(paisID));
-                    x.ImporteTotal = x.ImporteTotal - x.DescuentoProl;
-                    x.ImporteCredito = x.ImporteTotal - x.Flete;
-                });
+                x.RutaPaqueteDocumentario = string.Empty;
+                x.ImporteTotal = x.ImporteTotal - x.DescuentoProl;
+                x.ImporteCredito = x.ImporteTotal - x.Flete;
+                return true;
+            });
 
+            if (mostrarPaqueteDocumentario)
+            {
+                var tasks = listaPedidosFacturados.Select(x => Task.Run(() => ObtenerRutaPaqueteDocumentario(usuarioPrueba == 1 ? consultoraAsociada : codigoConsultora, x.CampaniaID.ToString(), x.NumeroPedido.ToString(), Common.Util.GetPaisISO(paisID)))).ToArray();
+                Task.WaitAll(tasks);
+
+                listaPedidosFacturados.All(x =>
+                {
+                    var result = tasks.FirstOrDefault(y => y.Result.NumeroPedido == x.NumeroPedido && y.Result.CampaniaID == x.CampaniaID);
+                    x.RutaPaqueteDocumentario = result == null ? string.Empty : result.Result.RutaPaqueteDocumentario;
+                    return true;
+                });
             }
 
             return listaPedidosFacturados;
         }
-        private string ObtenerRutaPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido, string paisIso) {
-            string errorMessage = string.Empty;
-            string url = string.Empty;
+    
+        private BEPedidoWeb ObtenerRutaPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido, string paisIso)
+        {
+            var errorMessage = string.Empty;
+            var url = string.Empty;
             try
             {
                 var input = new
@@ -1945,50 +1946,51 @@ namespace Portal.Consultoras.BizLogic
                     CodigoConsultora = codigoConsultora,
                     Campana = campania,
                     NumeroPedido = numeroPedido
-                };
-
+                };
                 var urlService = ConfigurationManager.AppSettings["WS_RV_PDF_NEW"];
                 var wrapper = ConsumirServicio<DEWrapperPDF>(input, urlService);
-                var result = (wrapper ?? new DEWrapperPDF()).GET_URLResult;
-
-                if (result != null) {
-                    if (result.errorCode != "00000" && result.errorMessage != "OK") errorMessage = result.errorMessage;
-                    if (string.IsNullOrEmpty(errorMessage) && result.objeto != null) {
-                        if(result.objeto.Count > 0) url = result.objeto[0].url;
+                var result = (wrapper ?? new DEWrapperPDF()).GET_URLResult;
+                if (result != null)
+                {
+                    if (result.errorCode != "00000" && result.errorMessage != "OK") errorMessage = result.errorMessage;
+                    if (string.IsNullOrEmpty(errorMessage) && result.objeto != null)
+                    {
+                        if (result.objeto.Count > 0) url = result.objeto[0].url;
                     }
                 }
-
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, codigoConsultora, paisIso);
                 throw new BizLogicException("No se pudo obtener la ruta de paquete documentario.", ex);
-            }
-
-            return url;
+            }
+            return new BEPedidoWeb()
+            {
+                RutaPaqueteDocumentario = url,
+                CampaniaID = Convert.ToInt32(campania),
+                NumeroPedido = Convert.ToInt32(numeroPedido)
+            };
         }
 
         private T ConsumirServicio<T>(object input, string metodo)
         {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-
-            WebRequest request = WebRequest.Create(metodo);
+            var serializer = new JavaScriptSerializer();
+            var request = WebRequest.Create(metodo);
             request.Method = "POST";
-            request.ContentType = "application/json; charset=utf-8";
-
-            string inputJson = serializer.Serialize(input);
-            using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
+            request.ContentType = "application/json; charset=utf-8";
+            var inputJson = serializer.Serialize(input);
+            using (var writer = new StreamWriter(request.GetRequestStream()))
             {
                 writer.Write(inputJson);
-            }
-
-            string outputJson;
+            }
+            var outputJson = string.Empty;
             using (StreamReader reader = new StreamReader(request.GetResponse().GetResponseStream()))
             {
                 outputJson = reader.ReadToEnd();
-            }
+            }
             return serializer.Deserialize<T>(outputJson);
         }
+        #endregion
 
         public void InsLogOfertaFinal(int PaisID, BEOfertaFinalConsultoraLog entidad)
         {
