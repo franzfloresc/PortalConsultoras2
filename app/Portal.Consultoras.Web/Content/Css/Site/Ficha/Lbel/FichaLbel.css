@@ -2,3 +2,26 @@
     color: #AD1F78;
     margin-top: 5px;
 }
+.msj_nodisponible .btn_send {
+    background: #642F80;
+    color: #fff !important;
+    width: auto !important;
+    height: 48px;
+    text-align: center !important;
+    margin: 0px 0px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+    text-decoration: none;
+    padding: 0 35px !important;
+    border-radius: 5px !important;
+    border: none;
+}
+
+    .msj_nodisponible .btn_send:hover {
+        background: #531972;
+    }

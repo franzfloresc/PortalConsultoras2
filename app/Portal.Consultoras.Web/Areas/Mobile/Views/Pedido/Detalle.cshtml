@@ -1,6 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 @using Portal.Consultoras.Web.SessionManager
 
 @model PedidoDetalleMobileModel
@@ -27,12 +27,12 @@
         <input id="hdAccionBotonProl" type="hidden" value="@ViewBag.AccionBoton" />
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
-                @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+                @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
                     if (mobileConfiguracion.MostrarBotonAtras)
                     {
                         <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
                     }
-                 }
+                }
                 <h2 class="nombre_campania_pedido">
                     MI PEDIDO
                     <span>@Model.DescripcionCampaniaActual</span>
@@ -82,7 +82,7 @@
 
         <div id="divCondicionesCupon" style="display: none; color: #9b9b9b; margin-bottom: 35px;">
             <div style="text-align:center; font-size: 11px;">*No incluye herramientas de venta</div>
-            <div class="clearfix"></div>    
+            <div class="clearfix"></div>
         </div>
 
     </div>
@@ -339,22 +339,22 @@
                     </div>
                 </div>
                 {{else}}
-                
+
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
-                
+
                 {{/if}}
-            </div>            
+            </div>
             <div class="bloque_cantidades_precios_items_ingresados">
                 <div class="contenedor_cantidadProductos">
                     <div data-cantidad-contenedor="">
                         <div class="campo_cantidadProductos">
                             {{#iff detalle.EsKitNueva '==' true}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    value="{{detalle.Cantidad}}"
@@ -365,7 +365,7 @@
                                    autocomplete="off">
                             {{else iff detalle.TipoEstrategiaID '==' 1}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    value="{{detalle.Cantidad}}"
@@ -376,7 +376,7 @@
                                    autocomplete="off">
                             {{else}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    onblur="UpdateLiquidacionEvento(event)"
@@ -479,19 +479,19 @@
             Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
         </span>
     </div>
-    
+
     <div class="mensaje_eliminarPedido">
         <span>
             Para eliminar el pedido completo
             <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
         </span>
     </div>
-  
-    
+
+
 </script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
-    <div  data-popup-body="">
+    <div data-popup-body="">
         <div class="popup_ofertaFinal fondo_gris_popup" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}">
             <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px;" data-popup-close="divOfertaFinal" onclick="of_google_analytics_cerrar_popup()">
                 <div class="draw_close" alt="Cerrar"></div>
@@ -745,7 +745,7 @@
             <div class="content_info_regalo">
                 <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
                 <div class="content_imagen_sorpresa">
-                    <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt=""/>
+                    <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt="" />
                 </div>
                 <div class="descripcion_regalo" id="of-regalo-descripcion-larga">
                     Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
@@ -756,11 +756,11 @@
         </div>
 
     </div>
-    
+
 </script>
 
 <script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
-        <div class="content_popMobile" data-item="{{ID}}" style="padding-bottom:0;">
+    <div class="content_popMobile" data-item="{{ID}}" style="padding-bottom:0;">
         <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
         <hr class="clear">
         <div class="content_imagen_ficha" style="overflow:hidden;">
@@ -805,12 +805,12 @@
             </div>
             @if (mobileConfiguracion.MostrarHipervinculo)
             {
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
-                <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
-            </a>
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
-                <img src="/Content/Images/Mobile/Esika/facebook.png" alt="">
-            </a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
+                    <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
+                </a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
+                    <img src="/Content/Images/Mobile/Esika/facebook.png" alt="">
+                </a>
             }
         </div>
         <hr class="clear">
@@ -909,5 +909,5 @@
             });
 
         </script>
-    }    
+    }
 }
