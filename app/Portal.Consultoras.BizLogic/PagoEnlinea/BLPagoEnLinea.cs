@@ -361,8 +361,8 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             bePagoEnLinea.MerchantId = respuestaVisa.MerchantId ?? string.Empty;
             bePagoEnLinea.IdTokenUsuario = respuestaVisa.UserTokenId ?? string.Empty;
             bePagoEnLinea.AliasNameTarjeta = respuestaVisa.AliasNameTarjeta ?? string.Empty;
-            
-            bePagoEnLinea.FechaTransaccion = string.IsNullOrEmpty(respuestaVisa.Data.FECHAYHORA_TX) ? DateTime.Now  : Convert.ToDateTime(respuestaVisa.Data.FECHAYHORA_TX);
+                       
+            bePagoEnLinea.FechaTransaccion = Util.ParseDate(respuestaVisa.Data.FECHAYHORA_TX, "dd/MM/yyyy HH:mm") ?? DateTime.Now;
             bePagoEnLinea.ResultadoValidacionCVV2 = respuestaVisa.Data.RES_CVV2 ?? string.Empty;
             bePagoEnLinea.CsiMensaje = respuestaVisa.Data.CSIMENSAJE ?? string.Empty;
             bePagoEnLinea.IdUnicoTransaccion = respuestaVisa.Data.ID_UNICO ?? string.Empty;
