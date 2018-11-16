@@ -358,6 +358,12 @@
 
         EliminarEtiquetaCriterioElegido: function (e) {
             e.preventDefault();
+
+            var divPadre = $(this).parents("[data-item='buscadorCriterios']").eq(0);
+            var idFiltro = $(divPadre).find(".CriteriosFiltrosId").val();
+            var _localStorage = _funciones.devuelveNombreLocalStorage(idFiltro);
+            var filtroCriterio = _funciones.quitarFiltroMarcado(idFiltro, _localStorage)
+
             if (_config.isMobile) {
                 _elementos.contenedorEtiquetas = $('.layout__content__etiquetas_criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
             } else {
@@ -365,10 +371,12 @@
             }
             var etiquetaCriterioPorEliminar = $(this).parents('.etiqueta__criterioElegido');
             etiquetaCriterioPorEliminar.fadeOut(70);
+
             if (_config.isMobile) {
                 var capturarAnchoEtiquetaPorEliminarMobile = etiquetaCriterioPorEliminar.outerWidth() + 10;
                 _funciones.ActualizarAnchoContenedorEtiquetasCriteriosElegidosMobile(capturarAnchoEtiquetaPorEliminarMobile);
             }
+
             setTimeout(function () {
                 etiquetaCriterioPorEliminar.remove();
                 if (_elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').length == 0) {
@@ -378,10 +386,12 @@
                     _elementos.contenedorEtiquetas.parent().slideUp(80);
                 }
             }, 100);
-            _funciones.CargarProductos();
+
+            _funciones.accionFiltrosCriterio();
         },
         LimpiarEtiquetasFiltros: function (e) {
             e.preventDefault();
+
             if (_config.isMobile) {
                 _elementos.contenedorEtiquetas = $('.layout__content__etiquetas_criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
                 _elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').fadeOut(70);
@@ -398,6 +408,13 @@
                     _elementos.contenedorEtiquetas.parent().slideUp(80);
                 }
             }, 100);
+
+            _config.categoria = [];
+            _config.marca = [];
+            _config.precio = [];
+
+            set_local_storage([], _config.localStorageCriterio);
+
             _funciones.CargarProductos();
         },
         DropDownOrdenar: function () {
