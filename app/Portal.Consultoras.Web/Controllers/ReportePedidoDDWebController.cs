@@ -555,9 +555,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
-                var callback = GetExcelSecureCallback();
-                stream = callback(stream);
-
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
                 if (!string.IsNullOrEmpty(cookieName) && !string.IsNullOrEmpty(valueName))

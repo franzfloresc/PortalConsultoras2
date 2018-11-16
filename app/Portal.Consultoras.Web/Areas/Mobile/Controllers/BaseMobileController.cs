@@ -1,7 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
