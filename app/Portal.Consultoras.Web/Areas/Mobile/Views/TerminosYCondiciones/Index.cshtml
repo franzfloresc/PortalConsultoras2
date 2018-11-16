@@ -1,11 +1,11 @@
-﻿@using Portal.Consultoras.Web.Helpers
+﻿@using Portal.Consultoras.Web.CustomHelpers
 @{
     ViewBag.Title = "Terminos y Condiciones";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>

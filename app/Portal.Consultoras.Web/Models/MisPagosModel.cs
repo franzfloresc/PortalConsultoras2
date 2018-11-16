@@ -16,5 +16,6 @@
         public string MostrarFE { get; set; }
         public string PestanhaInicial { get; set; }
         public bool TienePagoEnLinea { get; set; }        
+        public bool MostrarPagoEnLinea { get; set; }
     }
 }

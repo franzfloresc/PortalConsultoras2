@@ -1,20 +1,20 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @{
-    var layout =  ViewContext.MobileLayout();
+    var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 <div class="row">
     <div class="col-xs-12">
         <ol class="breadcrumb-next upper">
-            @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+            @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
                 if (mobileConfiguracion.MostrarBotonAtras)
                 {
                     <li><a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> VOLVER </a></li>
                 }
-            }            
+            }
             <li>|</li>
             <li>MI PEDIDO</li>
         </ol>
