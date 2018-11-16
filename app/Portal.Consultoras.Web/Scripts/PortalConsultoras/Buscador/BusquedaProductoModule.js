@@ -15,6 +15,7 @@
         filtroTipoTitulo: '.filtro__tipo__titulo',
         footer: "footer",
         spanTotalProductos: "#TotalProductos",
+        divCantidadProductoMobile: '.cantidadProductoMobile',
         itemDropDown: ".opcion__ordenamiento__dropdown__item",
         linkItemDropDown: ".opcion__ordenamiento__dropdown__link",
         btnAgregar: ".FichaAgregarProductoBuscador",
@@ -128,6 +129,7 @@
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
                     $(_elementos.spanTotalProductos).html(data.total);
+                    $(_elementos.divCantidadProductoMobile).html(data.total + ' Resultados');
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
                     if (data.total > 0) {
