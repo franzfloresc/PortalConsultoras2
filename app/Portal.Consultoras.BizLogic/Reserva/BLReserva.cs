@@ -253,41 +253,41 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }
         }
 
-        public int InsertarDesglose(BEInputReservaProl input)
-        {
-            try
-            {
-                TransferirDatos datos;
-                using (var sv = new ServiceStockSsic())
-                {
-                    sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
-                    datos = sv.ObtenerExplotado(input.CodigoConsultora, input.CampaniaID.ToString(), input.PaisISO, input.CodigoZona);
-                }
-                if (datos == null) return -1;
+        //public int InsertarDesglose(BEInputReservaProl input)
+        //{
+        //    try
+        //    {
+        //        TransferirDatos datos;
+        //        using (var sv = new ServiceStockSsic())
+        //        {
+        //            sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
+        //            datos = sv.ObtenerExplotado(input.CodigoConsultora, input.CampaniaID.ToString(), input.PaisISO, input.CodigoZona);
+        //        }
+        //        if (datos == null) return -1;
 
-                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                {
-                    PaisId = input.PaisID,
-                    CampaniaId = input.CampaniaID,
-                    ConsultoraId = input.ConsultoraID,
-                    Consultora = input.NombreConsultora,
-                    EsBpt = input.EsOpt == 1,
-                    CodigoPrograma = input.CodigoPrograma,
-                    NumeroPedido = input.ConsecutivoNueva
-                };
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
-                if (listPedidoWebDetalle.Count == 0) return 0;
+        //        var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+        //        {
+        //            PaisId = input.PaisID,
+        //            CampaniaId = input.CampaniaID,
+        //            ConsultoraId = input.ConsultoraID,
+        //            Consultora = input.NombreConsultora,
+        //            EsBpt = input.EsOpt == 1,
+        //            CodigoPrograma = input.CodigoPrograma,
+        //            NumeroPedido = input.ConsecutivoNueva
+        //        };
+        //        var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
+        //        if (listPedidoWebDetalle.Count == 0) return 0;
 
-                var listPedidoReserva = GetPedidoReserva(datos.data.Tables[0], listPedidoWebDetalle, input.CodigoUsuario);
-                EjecutarReservaPortal(input, listPedidoReserva, listPedidoWebDetalle);
-                return listPedidoWebDetalle[0].PedidoID;
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, input.CodigoConsultora, input.PaisISO);
-                return -1;
-            }
-        }
+        //        var listPedidoReserva = GetPedidoReserva(datos.data.Tables[0], listPedidoWebDetalle, input.CodigoUsuario);
+        //        EjecutarReservaPortal(input, listPedidoReserva, listPedidoWebDetalle);
+        //        return listPedidoWebDetalle[0].PedidoID;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.SaveLog(ex, input.CodigoConsultora, input.PaisISO);
+        //        return -1;
+        //    }
+        //}
 
         #endregion
 
@@ -451,16 +451,16 @@ namespace Portal.Consultoras.BizLogic.Reserva
             };
         }
 
-        private void EjecutarReservaPortal(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoReserva, List<BEPedidoWebDetalle> listPedidoWebDetalle, decimal montoTotalProl = 0, decimal descuentoProl = 0)
-        {
-            var bLPedidoWebDetalle = new BLPedidoWebDetalle();
-            var estadoPedido = Constantes.EstadoPedido.Procesado;
-            bLPedidoWebDetalle.InsPedidoWebDetallePROL(input.PaisID, input.CampaniaID, input.PedidoID, estadoPedido, listPedidoReserva, 0, input.CodigoUsuario, montoTotalProl, descuentoProl);
+        //private void EjecutarReservaPortal(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoReserva, List<BEPedidoWebDetalle> listPedidoWebDetalle, decimal montoTotalProl = 0, decimal descuentoProl = 0)
+        //{
+        //    var bLPedidoWebDetalle = new BLPedidoWebDetalle();
+        //    var estadoPedido = Constantes.EstadoPedido.Procesado;
+        //    bLPedidoWebDetalle.InsPedidoWebDetallePROL(input.PaisID, input.CampaniaID, input.PedidoID, estadoPedido, listPedidoReserva, 0, input.CodigoUsuario, montoTotalProl, descuentoProl);
 
-            decimal totalPedido = listPedidoWebDetalle.Sum(p => p.ImporteTotal);
-            decimal gananciaEstimada = CalcularGananciaEstimada(input.PaisID, input.CampaniaID, input.PedidoID, totalPedido);
-            new BLFactorGanancia().UpdatePedidoWebEstimadoGanancia(input.PaisID, input.CampaniaID, input.PedidoID, gananciaEstimada);
-        }
+        //    decimal totalPedido = listPedidoWebDetalle.Sum(p => p.ImporteTotal);
+        //    decimal gananciaEstimada = CalcularGananciaEstimada(input.PaisID, input.CampaniaID, input.PedidoID, totalPedido);
+        //    new BLFactorGanancia().UpdatePedidoWebEstimadoGanancia(input.PaisID, input.CampaniaID, input.PedidoID, gananciaEstimada);
+        //}
 
         private decimal CalcularGananciaEstimada(int paisId, int campaniaId, int pedidoId, decimal totalPedido)
         {
@@ -493,35 +493,35 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return productosIndicadorDscto.Sum(p => p.MontoDscto);
         }
 
-        private List<BEPedidoWebDetalle> GetPedidoReserva(DataTable dtr, List<BEPedidoWebDetalle> listPedidoWebDetalle, string codigoUsuario)
-        {
-            var listPedidoReserva = new List<BEPedidoWebDetalle>();
-            foreach (DataRow row in dtr.Rows)
-            {
-                var temp = listPedidoWebDetalle.Where(p => p.CUV == Convert.ToString(row.ItemArray.GetValue(0)));
-                if (!temp.Any())
-                {
-                    listPedidoReserva.Add(new BEPedidoWebDetalle()
-                    {
-                        CampaniaID = listPedidoWebDetalle[0].CampaniaID,
-                        PedidoID = listPedidoWebDetalle[0].PedidoID,
-                        PedidoDetalleID = 0,
-                        MarcaID = listPedidoWebDetalle[0].MarcaID,
-                        ConsultoraID = listPedidoWebDetalle[0].ConsultoraID,
-                        ClienteID = 0,
-                        Cantidad = Convert.ToInt32(row.ItemArray.GetValue(3)),
-                        PrecioUnidad = 0,
-                        ImporteTotal = 0,
-                        CUV = Convert.ToString(row.ItemArray.GetValue(0)),
-                        OfertaWeb = false,
-                        CUVPadre = "0",
-                        CodigoUsuarioCreacion = codigoUsuario,
-                        CodigoUsuarioModificacion = codigoUsuario
-                    });
-                }
-            }
-            return listPedidoReserva;
-        }
+        //private List<BEPedidoWebDetalle> GetPedidoReserva(DataTable dtr, List<BEPedidoWebDetalle> listPedidoWebDetalle, string codigoUsuario)
+        //{
+        //    var listPedidoReserva = new List<BEPedidoWebDetalle>();
+        //    foreach (DataRow row in dtr.Rows)
+        //    {
+        //        var temp = listPedidoWebDetalle.Where(p => p.CUV == Convert.ToString(row.ItemArray.GetValue(0)));
+        //        if (!temp.Any())
+        //        {
+        //            listPedidoReserva.Add(new BEPedidoWebDetalle()
+        //            {
+        //                CampaniaID = listPedidoWebDetalle[0].CampaniaID,
+        //                PedidoID = listPedidoWebDetalle[0].PedidoID,
+        //                PedidoDetalleID = 0,
+        //                MarcaID = listPedidoWebDetalle[0].MarcaID,
+        //                ConsultoraID = listPedidoWebDetalle[0].ConsultoraID,
+        //                ClienteID = 0,
+        //                Cantidad = Convert.ToInt32(row.ItemArray.GetValue(3)),
+        //                PrecioUnidad = 0,
+        //                ImporteTotal = 0,
+        //                CUV = Convert.ToString(row.ItemArray.GetValue(0)),
+        //                OfertaWeb = false,
+        //                CUVPadre = "0",
+        //                CodigoUsuarioCreacion = codigoUsuario,
+        //                CodigoUsuarioModificacion = codigoUsuario
+        //            });
+        //        }
+        //    }
+        //    return listPedidoReserva;
+        //}
 
         private bool DebeEnviarCorreoReservaProl(BEInputReservaProl input, BEResultadoReservaProl resultado)
         {

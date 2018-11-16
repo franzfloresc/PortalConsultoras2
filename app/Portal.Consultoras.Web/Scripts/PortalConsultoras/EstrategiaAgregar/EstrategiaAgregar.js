@@ -473,9 +473,9 @@ var EstrategiaAgregarModule = (function () {
             localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
 
-            if (belcorp.estrategia.applyChanges){
-                belcorp.estrategia.applyChanges("onProductoAgregado", data);
-            }
+            //if (belcorp.estrategia.applyChanges){
+            //    belcorp.estrategia.applyChanges("onProductoAgregado", data);
+            //}
 
             CerrarLoad();
             if (popup) {

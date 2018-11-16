@@ -324,7 +324,7 @@
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
-            BuscadorProvider.RegistroProductoBuscador(divPadre);
+            PedidoRegistroModule.RegistroProductoBuscador(divPadre);
         },
 
         RedireccionarAFichaDeFotoYDescripcion: function (e) {

@@ -26,6 +26,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
         /// <returns>True si elimino, false caso contrario</returns>
         bool Eliminar(int paisId, int id, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
+        bool EliminarTransaction(int paisId, int id, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
+
         DateTime? ObtenerFechaInicioSets(int paisId);
     }
 }

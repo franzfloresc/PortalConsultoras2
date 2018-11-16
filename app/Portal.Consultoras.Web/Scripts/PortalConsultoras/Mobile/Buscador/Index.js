@@ -357,33 +357,33 @@ function RegistroLiquidacion(model, cantidad, producto) {
                 }
                 else {
 
-                    jQuery.ajax({
-                        type: 'POST',
+    jQuery.ajax({
+        type: 'POST',
                         url: baseUrl + 'OfertaLiquidacion/InsertOfertaWebPortal',
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(Item),
-                        async: true,
-                        success: function (data) {
-                            if (!checkTimeout(data)) {
-                                CerrarLoad();
-                                return false;
-                            }
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(Item),
+        async: true,
+        success: function (data) {
+            if (!checkTimeout(data)) {
+                CerrarLoad();
+                return false;
+            }
 
-                            if (data.success != true) {
-                                messageInfoError(data.message);
-                                CerrarLoad();
-                                return false;
-                            }
+            if (data.success != true) {
+                messageInfoError(data.message);
+                CerrarLoad();
+                return false;
+            }
 
-                            producto.html('Agregado');
+            producto.html('Agregado');
 
-                            CerrarLoad();
-                        },
-                        error: function (data, error) {
-                            CerrarLoad();
-                        }
-                    });
+            CerrarLoad();
+        },
+        error: function (data, error) {
+            CerrarLoad();
+        }
+    });
 
                 }
             });
