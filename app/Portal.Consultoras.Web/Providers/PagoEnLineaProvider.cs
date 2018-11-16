@@ -321,7 +321,8 @@ namespace Portal.Consultoras.Web.Providers
                 if (result.Data != null)
                 {
                     jsonObject = JsonConvert.DeserializeObject<dynamic>((string)result.Data);
-                    model.PagoEnLineaResultadoLogId = int.TryParse((string)jsonObject.PagoEnLineaResultadoLogId, out int pagoEnLineaResultadoLogId) ? pagoEnLineaResultadoLogId : model.PagoEnLineaResultadoLogId;
+                    int pagoEnLineaResultadoLogId = 0;
+                    model.PagoEnLineaResultadoLogId = int.TryParse((string)jsonObject.PagoEnLineaResultadoLogId, out pagoEnLineaResultadoLogId) ? pagoEnLineaResultadoLogId : model.PagoEnLineaResultadoLogId;
                 }
 
                 if (bePagoEnLinea.PaymentStatus == Constantes.PagoEnLineaPasarelaVisa.Code.CodigoError_Success &&
@@ -340,7 +341,8 @@ namespace Portal.Consultoras.Web.Providers
                     {
                         model.MensajeInformacionPagoExitoso = mensajeExitoso;
                         if (jsonObject != null) {
-                            userData.MontoDeuda = decimal.TryParse((string)jsonObject.SaldoPendiente, out decimal saldoPendiente) ? saldoPendiente : userData.MontoDeuda;
+                            decimal saldoPendiente = 0;
+                            userData.MontoDeuda = decimal.TryParse((string)jsonObject.SaldoPendiente, out saldoPendiente) ? saldoPendiente : userData.MontoDeuda;
                         }
                         sessionManager.SetUserData(userData);
                     }
