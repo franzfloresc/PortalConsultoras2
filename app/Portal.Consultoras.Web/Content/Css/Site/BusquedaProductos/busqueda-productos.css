@@ -255,6 +255,7 @@
     margin-bottom:10px;
     padding-left:10px;
     padding-right:10px;
+    position:relative;
 }
 
 .etiqueta__criterioElegido_descrip,
@@ -1054,6 +1055,18 @@
     .lista__etiquetas__criteriosElegidos{
         position:absolute;
         min-width:120px;
+    }
+
+    .etiqueta__criterioElegido_descrip{
+        margin-right:16px;
+    }
+
+    .icono__eliminar__criterioElegido{
+        width: 40px;
+        padding: 13.3px 9px 13px 22px;
+        height: 36px;
+        position: absolute;
+        right: 0;
     }
 
     /* FIN - ETIQUETAS DE CRITERIOS ELEGIDOS EN FILTROS (MOBILE) */
