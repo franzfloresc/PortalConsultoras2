@@ -546,8 +546,8 @@ namespace Portal.Consultoras.Web.Controllers
         //        if (mensajeError != "") return ErrorJson(mensajeError, true);
         //    }
 
-            mensajeError = ValidarStockArmaTuPackMensaje(model.CUV, Convert.ToInt32(model.Cantidad));
-            if (mensajeError != "") return ErrorJson(mensajeError, true);
+        //    mensajeError = ValidarStockArmaTuPackMensaje(model.CUV, Convert.ToInt32(model.Cantidad));
+        //    if (mensajeError != "") return ErrorJson(mensajeError, true);
 
         //    if (esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
         //    return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso, !string.IsNullOrEmpty(mensajeAviso)));
