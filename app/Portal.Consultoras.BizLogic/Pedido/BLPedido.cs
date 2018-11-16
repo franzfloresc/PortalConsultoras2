@@ -1275,6 +1275,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var lstResultInsertar = lstResultBuscar.Where(x => x.Producto.PermiteAgregarPedido == true).Select(y =>
             {
                 var pedidoDetalle = lstPedidoDetalle.Where(z => z.ClienteID == y.ClienteID && z.Producto.CUV == y.Producto.CUV).FirstOrDefault();
+                pedidoDetalle.Producto = y.Producto;
                 var result = Insert(pedidoDetalle);
                 result.CUV = pedidoDetalle.Producto.CUV;
                 result.ClienteID = pedidoDetalle.ClienteID;
