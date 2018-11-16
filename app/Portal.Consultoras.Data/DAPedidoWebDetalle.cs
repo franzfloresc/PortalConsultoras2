@@ -377,7 +377,7 @@ namespace Portal.Consultoras.Data
             
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, CodigoUsuario);
-            Context.Database.AddInParameter(command, "@CuvsStringList", DbType.String, CuvsStringList);
+            Context.Database.AddInParameter(command, "@CuvsStringList", DbType.Xml, CuvsStringList);
             return Convert.ToInt32(Context.ExecuteScalar(command)) > 0;
         }
 

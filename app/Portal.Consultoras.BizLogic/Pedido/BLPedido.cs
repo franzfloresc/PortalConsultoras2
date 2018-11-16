@@ -15,6 +15,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
+using Portal.Consultoras.Common.Serializer;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -1944,17 +1946,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     {
                         case Constantes.PedidoAccion.INSERT:
                             {
-                                if (!pedidoDetalle.EsVirtualCoach)
+                                if (estrategia.EstrategiaID > 0)
                                 {
-                                    var formatoPedidoWebSet = string.Empty;
+                                    //var formatoPedidoWebSet = string.Empty;
 
-                                    if (cuvlist.IndexOf(":") < 0)
-                                        formatoPedidoWebSet = string.Format("{0}:1", cuvlist);
-                                    else
-                                        formatoPedidoWebSet = cuvlist;
+                                    //if (cuvlist.IndexOf(":") < 0)
+                                    //    formatoPedidoWebSet = string.Format("{0}:1", cuvlist);
+                                    //else
+                                    //    formatoPedidoWebSet = cuvlist;
 
                                     _pedidoWebDetalleBusinessLogic.InsertPedidoWebSetTransaction(usuario.PaisID, usuario.CampaniaID, pedidoWebDetalles[0].PedidoID, estrategia.Cantidad, estrategia.CUV2
-                                            , usuario.ConsultoraID, string.Empty, formatoPedidoWebSet, estrategia.EstrategiaID, usuario.Nombre, usuario.CodigoPrograma, usuario.ConsecutivoNueva);
+                                            , usuario.ConsultoraID, string.Empty, cuvlist, estrategia.EstrategiaID, usuario.Nombre, usuario.CodigoPrograma, usuario.ConsecutivoNueva);
                                 }
                             }break;
 
@@ -3106,6 +3108,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             var tonos = listCuvTonos.Split('|');
             var ListaCuvsTemporal = new List<string>();
+            var ListaComponentes = new List<BEEstrategiaProducto>();
 
             foreach (var tono in tonos)
             {
@@ -3114,6 +3117,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var MarcaID = (listSp.Length > 1 && !string.IsNullOrEmpty(listSp[1])) ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                 var Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
                 var descTono = listSp.Length > 3 ? listSp[3] : pedidoDetalle.Producto.Descripcion;
+                var digitable = listSp.Length > 4 ? listSp[4] : "0";
+                var grupo = listSp.Length > 5 ? listSp[5] : "0";
+
+                ListaComponentes.Add(new BEEstrategiaProducto
+                {
+                    CUV = CUV2,
+                    Digitable = Convert.ToInt32(digitable),
+                    Grupo = grupo
+                });
+
+                if ((listSp.Length > 4 && digitable == "0"))
+                {
+                    continue;
+                }
 
                 if (!pedidoDetalle.EsKitNuevaAuto)
                 {
@@ -3174,21 +3191,35 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             #endregion
 
-            var strCuvs = string.Empty;
-            if (ListaCuvsTemporal.Any())
+            //var strCuvs = string.Empty;
+            //if (ListaCuvsTemporal.Any())
+            //{
+            //    ListaCuvsTemporal.OrderByDescending(x => x).Distinct().All(x =>
+            //    {
+            //        strCuvs = strCuvs + string.Format("{0}:{1},", x, ListaCuvsTemporal.Count(a => a == x));
+            //        return true;
+            //    });
+            //}
+
+            string Componentes = string.Empty;
+            if (ListaComponentes.Any())
             {
-                ListaCuvsTemporal.OrderByDescending(x => x).Distinct().All(x =>
+                var listComponentes = ListaComponentes.GroupBy(x => new { x.CUV, x.Digitable, x.Grupo }).Select(group => new EstrategiaComponente
                 {
-                    strCuvs = strCuvs + string.Format("{0}:{1},", x, ListaCuvsTemporal.Count(a => a == x));
-                    return true;
-                });
+                    CUV = group.Key.CUV,
+                    Digitable = group.Key.Digitable,
+                    Grupo = group.Key.Grupo,
+                    Cantidad = group.Count()
+                }).ToList();
+
+                Componentes = listComponentes.Serialize();
             }
 
             var listCuvEliminar = new List<string>();
             string mensajeObs = "";
             string TituloMensaje = "";
             var modificoBackOrder = false;
-            var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, strCuvs, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder);
+            var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, Componentes, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder);
 
             var response = PedidoDetalleRespuesta(transactionExitosa ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
             response.ListCuvEliminar = listCuvEliminar;

@@ -57,6 +57,8 @@ var EstrategiaAgregarModule = (function () {
         hdCampaniaCodigo: "#hdCampaniaCodigo",
         EstrategiaHdMarcaID: "#Estrategia_hd_MarcaID",
         EstrategiaHdPrecioCatalogo: "#Estrategia_hd_PrecioCatalogo",
+        Estrategia_hd_Digitable: "#Estrategia_hd_Digitable",
+        Estrategia_hd_Grupo: "#Estrategia_hd_Grupo",
         OfertaTipoNuevo: "#OfertaTipoNuevo"
     };
 
@@ -289,10 +291,13 @@ var EstrategiaAgregarModule = (function () {
                         var cuv = $(item).attr("data-tono-select");
                         if (cuv != "") {
                             cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
-                            if (ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) {
+                            //if (ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) {
                                 cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdMarcaID).val();
                                 cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val();
-                            }
+                                cuvs = cuvs + ";" + "";
+                                cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Digitable).val();
+                                cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Grupo).val();
+                            //}
                         }
                     });
             }
@@ -498,6 +503,7 @@ var EstrategiaAgregarModule = (function () {
 
                             $.each(listaCuvs,
                                 function (i, item) {
+                                    if (!(item.hasAttribute('data-tono-digitable')))
                                     var cuv = $(item).attr("data-tono-select", "");
                                 });
                         }
