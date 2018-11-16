@@ -15,11 +15,11 @@
         </div>
         <div data-menu-header="parte2" class="menu_new_esika">
             @if (permisoList.Count > 0)
-        {
-            var listaMenu2 = new Portal.Consultoras.Web.Models.PermisoModel();
-            listaMenu2.SubMenus = permisoList;
+            {
+                var listaMenu2 = new Portal.Consultoras.Web.Models.PermisoModel();
+                listaMenu2.SubMenus = permisoList;
                 @Html.Partial("~/Views/Shared/VistaParcialMenu/_Menu2.cshtml", listaMenu2)
-        }
+            }
         </div>
         @if (ViewBag.MostrarBuscadorYFiltros)
         {

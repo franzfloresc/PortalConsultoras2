@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string sap="";
             var url = (Request.Url.Query).Split('?');
-            
+
             if (EsDispositivoMovil())
             {
                 if (url.Length > 1 && url[1].Contains("sap"))
@@ -72,7 +72,8 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaVencimiento = fechaVencimiento,
                 MontoPagar = montoPagar,
                 PestanhaInicial = pestanhaInicial ?? "",
-                TienePagoEnLinea = userData.TienePagoEnLinea
+                TienePagoEnLinea = userData.TienePagoEnLinea,
+                MostrarPagoEnLinea = userData.MontoDeuda > 0
             };
 
             List<string> pestanhaMisPagosAll = new List<string> {
