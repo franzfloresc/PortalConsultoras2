@@ -11,5 +11,7 @@ namespace Portal.Consultoras.Entities.Pedido
         public string MensajeRespuesta { get; set; }
         [DataMember]
         public string CUV { get; set; }
+        [DataMember]
+        public int ClienteID { get; set; }
     }
 }
