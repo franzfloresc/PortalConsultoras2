@@ -1,7 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Areas.Mobile.Helpers
-
+@using Portal.Consultoras.Web.CustomHelpers
 @{
     var items = (List<MenuMobileModel>)ViewBag.MenuMobile;
     var itemsMenu = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("menu")).ToList();

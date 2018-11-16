@@ -1,250 +1,250 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 @{
 
-	var layout = ViewContext.MobileLayout();
-	Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-	MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
 @section styles
 {
-	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
-	{
-		<link href="@Url.Content("~/Content/Css/Mobile/esika/cdr.css")" rel="stylesheet" />
-	}
-	else
-	{
-		<link href="@Url.Content("~/Content/Css/Mobile/lbel/cdr.css")" rel="stylesheet" />
-	}
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/esika/cdr.css")" rel="stylesheet" />
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/lbel/cdr.css")" rel="stylesheet" />
+    }
 }
 
 
 @{
-	if (!mobileConfiguracion.EsAppMobile)
-	{
-		<div class="titulo_mobile fijarTituloMobile">
-			<a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-			CAMBIOS Y DEVOLUCIONES
-		</div>
+    if (!mobileConfiguracion.EsAppMobile)
+    {
+        <div class="titulo_mobile fijarTituloMobile">
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+            CAMBIOS Y DEVOLUCIONES
+        </div>
 
-		<div class="pestana_esika"></div>
-		<div class="pestana_lbel"></div>
-	}
+        <div class="pestana_esika"></div>
+        <div class="pestana_lbel"></div>
+    }
 }
 
 
 @if (ViewBag.Origen == "0")
 {
-	<div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro pt-50">
+    <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro pt-50">
 
-		<div class="content_mensaje_solicitud_enviada">
-			<div class="icono_solicitud_enviada">
-				<img src="@Url.Content("~/Content/Images/Esika/icono_check_esika.svg")" alt="Solicitud Enviada">
-			</div>
-			<div class="titulo_solicitud_enviada tipografia_lato_regular">
-				¡SOLICITUD <span class="tipografia_lato_bold">ENVIADA!</span>
-			</div>
-			<div class="mensaje_solicitud_enviada tipografia_lato_regular">
-				Vamos a evaluarla y en un plazo de 30 minutos te enviaremos una respuesta a tu correo electrónico.
-			</div>
-		</div>
+        <div class="content_mensaje_solicitud_enviada">
+            <div class="icono_solicitud_enviada">
+                <img src="@Url.Content("~/Content/Images/Esika/icono_check_esika.svg")" alt="Solicitud Enviada">
+            </div>
+            <div class="titulo_solicitud_enviada tipografia_lato_regular">
+                ¡SOLICITUD <span class="tipografia_lato_bold">ENVIADA!</span>
+            </div>
+            <div class="mensaje_solicitud_enviada tipografia_lato_regular">
+                Vamos a evaluarla y en un plazo de 30 minutos te enviaremos una respuesta a tu correo electrónico.
+            </div>
+        </div>
 
-		<div class="detalle_solicitud_cdr">
-			<div class="titulo_detalle_solicitud_cdr tipografia_lato_bold">
-				Solicitud de Cambio y devolución
-			</div>
-			<div class="info_detalle_cdr tipografia_lato_light">
-				<div class="info_fecha_solicitud">
-					Fecha: <span class="tipografia_lato_regular">10/10/2016</span>
-				</div>
-				<div class="info_num_solicitud">
-					Solicitud: <span class="tipografia_lato_regular">Nº 12345678</span>
-				</div>
-				<div class="info_campania_solicitud">
-					Campaña: <span class="tipografia_lato_regular">2016-15</span>
-				</div>
-			</div>
-			<div class="detalle_solicitud_listado">
-				<div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-					Solicitud de cambio
-				</div>
-				<div class="detalle_tipo_solicitud">
-					<div class="detalle_producto_cdr">
-						<span class="detalle_cod_producto tipografia_lato_regular">
-							00411
-						</span>
-						<span class="detalle_nom_producto tipografia_lato_bold">
-							Berrylicious shampoo rojo 375ml.
-						</span>
-						<span class="detalle_cantidad_producto tipografia_lato_regular">
-							x2 unidades
-						</span>
-						<span class="detalle_precio_producto tipografia_lato_regular">
-							S/.15.00
-						</span>
-					</div>
-					<div class="detalle_cdr_solucion">
-						<span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
-							Cambiar por:
-						</span>
-						<span class="detalle_cod_producto tipografia_lato_regular">
-							98765
-						</span>
-						<span class="detalle_nom_producto tipografia_lato_bold">
-							Máscara Full Size Negro.
-						</span>
-						<span class="detalle_cantidad_producto tipografia_lato_regular">
-							x2 unidades
-						</span>
-						<span class="detalle_precio_producto tipografia_lato_regular">
-							S/.15.00
-						</span>
-					</div>
-				</div>
-				<div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-					Solicitud de reenvío
-				</div>
-				<div class="detalle_tipo_solicitud">
-					<div class="detalle_producto_cdr">
-						<span class="detalle_cod_producto tipografia_lato_regular">
-							00411
-						</span>
-						<span class="detalle_nom_producto tipografia_lato_bold">
-							Berrylicious shampoo rojo 375ml.
-						</span>
-						<span class="detalle_cantidad_producto tipografia_lato_regular">
-							x2 unidades
-						</span>
-					</div>
-					<div class="detalle_cdr_solucion">
-						<span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
-							Reenviar:
-						</span>
-						<span class="detalle_cdr_solucion_titulo tipografia_lato_regular">
-							el mismo producto
-						</span>
-					</div>
-				</div>
-				<div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-					Solicitud de devolución
-				</div>
-				<div class="detalle_tipo_solicitud">
-					<div class="detalle_producto_cdr">
-						<span class="detalle_cod_producto tipografia_lato_regular">
-							00411
-						</span>
-						<span class="detalle_nom_producto tipografia_lato_bold">
-							Berrylicious shampoo rojo 375ml.
-						</span>
-						<span class="detalle_cantidad_producto tipografia_lato_regular">
-							x2 unidades
-						</span>
-					</div>
-					<div class="detalle_cdr_solucion">
-						<span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
-							Devolución:
-						</span>
-						<span class="detalle_cdr_monto_devolucion tipografia_lato_regular">
-							S/.15
-						</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<a href="#" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes">
-			<span class="icono_arrow_left">
-				<img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver tus solicitudes" />
-			</span>
-			<span>VER TUS SOLICITUDES</span>
-		</a>
+        <div class="detalle_solicitud_cdr">
+            <div class="titulo_detalle_solicitud_cdr tipografia_lato_bold">
+                Solicitud de Cambio y devolución
+            </div>
+            <div class="info_detalle_cdr tipografia_lato_light">
+                <div class="info_fecha_solicitud">
+                    Fecha: <span class="tipografia_lato_regular">10/10/2016</span>
+                </div>
+                <div class="info_num_solicitud">
+                    Solicitud: <span class="tipografia_lato_regular">Nº 12345678</span>
+                </div>
+                <div class="info_campania_solicitud">
+                    Campaña: <span class="tipografia_lato_regular">2016-15</span>
+                </div>
+            </div>
+            <div class="detalle_solicitud_listado">
+                <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                    Solicitud de cambio
+                </div>
+                <div class="detalle_tipo_solicitud">
+                    <div class="detalle_producto_cdr">
+                        <span class="detalle_cod_producto tipografia_lato_regular">
+                            00411
+                        </span>
+                        <span class="detalle_nom_producto tipografia_lato_bold">
+                            Berrylicious shampoo rojo 375ml.
+                        </span>
+                        <span class="detalle_cantidad_producto tipografia_lato_regular">
+                            x2 unidades
+                        </span>
+                        <span class="detalle_precio_producto tipografia_lato_regular">
+                            S/.15.00
+                        </span>
+                    </div>
+                    <div class="detalle_cdr_solucion">
+                        <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
+                            Cambiar por:
+                        </span>
+                        <span class="detalle_cod_producto tipografia_lato_regular">
+                            98765
+                        </span>
+                        <span class="detalle_nom_producto tipografia_lato_bold">
+                            Máscara Full Size Negro.
+                        </span>
+                        <span class="detalle_cantidad_producto tipografia_lato_regular">
+                            x2 unidades
+                        </span>
+                        <span class="detalle_precio_producto tipografia_lato_regular">
+                            S/.15.00
+                        </span>
+                    </div>
+                </div>
+                <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                    Solicitud de reenvío
+                </div>
+                <div class="detalle_tipo_solicitud">
+                    <div class="detalle_producto_cdr">
+                        <span class="detalle_cod_producto tipografia_lato_regular">
+                            00411
+                        </span>
+                        <span class="detalle_nom_producto tipografia_lato_bold">
+                            Berrylicious shampoo rojo 375ml.
+                        </span>
+                        <span class="detalle_cantidad_producto tipografia_lato_regular">
+                            x2 unidades
+                        </span>
+                    </div>
+                    <div class="detalle_cdr_solucion">
+                        <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
+                            Reenviar:
+                        </span>
+                        <span class="detalle_cdr_solucion_titulo tipografia_lato_regular">
+                            el mismo producto
+                        </span>
+                    </div>
+                </div>
+                <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                    Solicitud de devolución
+                </div>
+                <div class="detalle_tipo_solicitud">
+                    <div class="detalle_producto_cdr">
+                        <span class="detalle_cod_producto tipografia_lato_regular">
+                            00411
+                        </span>
+                        <span class="detalle_nom_producto tipografia_lato_bold">
+                            Berrylicious shampoo rojo 375ml.
+                        </span>
+                        <span class="detalle_cantidad_producto tipografia_lato_regular">
+                            x2 unidades
+                        </span>
+                    </div>
+                    <div class="detalle_cdr_solucion">
+                        <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
+                            Devolución:
+                        </span>
+                        <span class="detalle_cdr_monto_devolucion tipografia_lato_regular">
+                            S/.15
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes">
+            <span class="icono_arrow_left">
+                <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver tus solicitudes" />
+            </span>
+            <span>VER TUS SOLICITUDES</span>
+        </a>
 
-	</div>
+    </div>
 }
 else if (ViewBag.Origen == "1")
 {
-	<div class="datos_solicitud_cdr_consulta tipografia_lato bloqueCDRDetalle pt-78">
-		<div class="wrapper_resumen_mobile">
-			<div class="datos_solicitud_cdr_titulo tipografia_lato_bold">
-				Solicitud de cambios y devoluciones
-			</div>
-			<div class="dato_fecha_solicitud_cdr">
-				<span class="tipografia_lato_light">Fecha</span>
-				<span class="tipografia_lato_regular">@ViewBag.FormatoFechaCulminado</span>
-			</div>
-			<div class="dato_num_solicitud_cdr">
-				<span class="tipografia_lato_light">Solicitud</span>
-				<span class="tipografia_lato_regular">Nº @ViewBag.CDR_ID</span>
-			</div>
-			<div class="dato_campania_solicitud_cdr">
-				<span class="tipografia_lato_light">Campaña</span>
-				<span class="tipografia_lato_regular">@ViewBag.FormatoCampania</span>
-			</div>
-			<div class="estado_productos_cdr">
-				<span class="tipografia_lato_regular">@ViewBag.EstadoProductos</span>
-			</div>
-		</div>
-	</div>
+    <div class="datos_solicitud_cdr_consulta tipografia_lato bloqueCDRDetalle pt-78">
+        <div class="wrapper_resumen_mobile">
+            <div class="datos_solicitud_cdr_titulo tipografia_lato_bold">
+                Solicitud de cambios y devoluciones
+            </div>
+            <div class="dato_fecha_solicitud_cdr">
+                <span class="tipografia_lato_light">Fecha</span>
+                <span class="tipografia_lato_regular">@ViewBag.FormatoFechaCulminado</span>
+            </div>
+            <div class="dato_num_solicitud_cdr">
+                <span class="tipografia_lato_light">Solicitud</span>
+                <span class="tipografia_lato_regular">Nº @ViewBag.CDR_ID</span>
+            </div>
+            <div class="dato_campania_solicitud_cdr">
+                <span class="tipografia_lato_light">Campaña</span>
+                <span class="tipografia_lato_regular">@ViewBag.FormatoCampania</span>
+            </div>
+            <div class="estado_productos_cdr">
+                <span class="tipografia_lato_regular">@ViewBag.EstadoProductos</span>
+            </div>
+        </div>
+    </div>
 
-	<div class="wrapper_resumen_mobile tipografia_lato bloqueCDRDetalle">
-		<div id="MiDetalleCDR" class="detalle_solicitud_listado">
-			@{ foreach (var item in ViewBag.ListaDetalle)
-				{
-					<div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-						<div>
-							@item.SolucionSolicitada
-						</div>
-						<div class="estado_solic_cdr color_marca  tipografia_lato_bold">
-							@if (item.Estado == 4)
-							{<span>RECHAZADO</span>}
-							@if (item.Estado == 3)
-							{<span>APROBADO</span>}
-							@if (item.Estado == 2)
-							{<span>EN EVALUACION</span>}
-							@if (item.Estado == 1)
-							{<span>PENDIENTE</span>}
-						</div>
-					</div>
-					<div class="detalle_tipo_solicitud">
-						<div class="detalle_producto_cdr">
-							<span class="detalle_cod_producto tipografia_lato_regular">
-								@item.CUV
-							</span>
-							<span class="detalle_nom_producto tipografia_lato_bold">
-								@item.Descripcion
-							</span>
-							<span class="detalle_cantidad_producto tipografia_lato_regular">
-								x @item.Cantidad unidades
-							</span>
-							<span class="detalle_precio_producto tipografia_lato_regular">
-								@ViewBag.Simbolo @item.FormatoPrecio1
-							</span>
-						</div>
-						<div class="detalle_cdr_solucion">
-							<span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
-								@item.Solicitud
-							</span>
-							@if (item.CodigoOperacion.Equals("T"))
-							{
-								<span class="detalle_cod_producto tipografia_lato_regular">
-									@item.CUV2
-								</span>
-								<span class="detalle_nom_producto tipografia_lato_bold">
-									@item.Descripcion2
-								</span>
-								<span class="detalle_cantidad_producto tipografia_lato_regular">
-									x @item.Cantidad2 unidades
-								</span>
-								<span class="detalle_precio_producto tipografia_lato_regular">
-									@ViewBag.Simbolo @item.FormatoPrecio2
-								</span>
-							}
+    <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRDetalle">
+        <div id="MiDetalleCDR" class="detalle_solicitud_listado">
+            @{ foreach (var item in ViewBag.ListaDetalle)
+                {
+                    <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                        <div>
+                            @item.SolucionSolicitada
+                        </div>
+                        <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
+                            @if (item.Estado == 4)
+                            {<span>RECHAZADO</span>}
+                            @if (item.Estado == 3)
+                            {<span>APROBADO</span>}
+                            @if (item.Estado == 2)
+                            {<span>EN EVALUACION</span>}
+                            @if (item.Estado == 1)
+                            {<span>PENDIENTE</span>}
+                        </div>
+                    </div>
+                    <div class="detalle_tipo_solicitud">
+                        <div class="detalle_producto_cdr">
+                            <span class="detalle_cod_producto tipografia_lato_regular">
+                                @item.CUV
+                            </span>
+                            <span class="detalle_nom_producto tipografia_lato_bold">
+                                @item.Descripcion
+                            </span>
+                            <span class="detalle_cantidad_producto tipografia_lato_regular">
+                                x @item.Cantidad unidades
+                            </span>
+                            <span class="detalle_precio_producto tipografia_lato_regular">
+                                @ViewBag.Simbolo @item.FormatoPrecio1
+                            </span>
+                        </div>
+                        <div class="detalle_cdr_solucion">
+                            <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
+                                @item.Solicitud
+                            </span>
+                            @if (item.CodigoOperacion.Equals("T"))
+                            {
+                                <span class="detalle_cod_producto tipografia_lato_regular">
+                                    @item.CUV2
+                                </span>
+                                <span class="detalle_nom_producto tipografia_lato_bold">
+                                    @item.Descripcion2
+                                </span>
+                                <span class="detalle_cantidad_producto tipografia_lato_regular">
+                                    x @item.Cantidad2 unidades
+                                </span>
+                                <span class="detalle_precio_producto tipografia_lato_regular">
+                                    @ViewBag.Simbolo @item.FormatoPrecio2
+                                </span>
+                            }
 
-						</div>
-					</div>
-				}
-			}
-		</div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
 
-	</div>
+    </div>
 }

@@ -41,6 +41,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
                 };
+                modelo.vc_sinProducto2 = SessionManager.GetUrlVc();
+                if (modelo.vc_sinProducto2 == 1)
+                {
+                    SessionManager.SetUrlVc(0);
+                }
                 ViewBag.variableEstrategia = GetVariableEstrategia();
 
                 return View(modelo);

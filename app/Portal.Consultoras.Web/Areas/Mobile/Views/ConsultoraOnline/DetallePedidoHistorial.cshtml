@@ -1,5 +1,5 @@
 ﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 @model Portal.Consultoras.Web.Models.ClienteOnlineModel
 
 @{
@@ -7,7 +7,7 @@
 }
 
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -52,7 +52,7 @@
             <div class="left_reservado" style="width:228px;">
                 <div class="datos_Reservado">
                     @if (Model.MarcaID == 0)
-                    { <span> @detalle.CUV </span> }
+                    {<span> @detalle.CUV </span>}
                     <span>@detalle.Producto</span>
                 </div>
 
@@ -91,7 +91,7 @@
     </div>
     <hr class="clear" style="margin-bottom: 30px;" />
     @if (Model.PuedeCancelar)
-    { <a href="javascript:AbrirConfirmacionCancelado();" class="btn_cancelar_pendientes">QUIERO CANCELAR TODO EL PEDIDO</a> }
+    {<a href="javascript:AbrirConfirmacionCancelado();" class="btn_cancelar_pendientes">QUIERO CANCELAR TODO EL PEDIDO</a>}
 </div>
 
 <div id="dialog_confirmacionCancelado" class="MensajeAlertaMobile">

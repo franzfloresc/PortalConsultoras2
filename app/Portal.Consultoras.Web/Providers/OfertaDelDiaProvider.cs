@@ -125,6 +125,12 @@ namespace Portal.Consultoras.Web.Providers
             return imgSh;
         }
 
+        public string ObtenerUrlImagenLateral(string codigoIso)
+        {
+            var imgSh = string.Format(_configuracionManager.GetConfiguracionManager("UrlImgLateralODD"), codigoIso);
+            return imgSh;
+        }
+
         public string ObtenerDescripcionOfertaDelDia(string descripcionCuv2)
         {
             var descripcionOdd = string.Empty;
@@ -184,7 +190,6 @@ namespace Portal.Consultoras.Web.Providers
 
                     oddSession.TeQuedan = CountdownOdd(usuario);
                     oddSession.ImagenBanner = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + usuario.CodigoISO, oddSession.ImagenBanner);
-
                     return oddSession;
                 }
 
@@ -222,6 +227,10 @@ namespace Portal.Consultoras.Web.Providers
                 oddSession.ColorFondo1 = colorFondoBanner.Codigo ?? string.Empty;
                 oddSession.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
                 oddSession.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(usuario.CodigoISO, oddSession.ListaOferta.Count);
+                if (usuario.CodigoISO != "PR" && (usuario.CampaniaID == 201817 || usuario.CampaniaID == 201818))
+                {
+                    oddSession.ImagenLateral = ObtenerUrlImagenLateral(usuario.CodigoISO);
+                }
 
                 var primeraOferta = oddSession.ListaOferta.FirstOrDefault();
                 oddSession.EstrategiaID = primeraOferta.EstrategiaID;
