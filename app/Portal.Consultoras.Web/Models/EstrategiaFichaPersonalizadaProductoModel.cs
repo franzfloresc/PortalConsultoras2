@@ -23,5 +23,6 @@ namespace Portal.Consultoras.Web.Models
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
 
         public DetalleEstrategiaBreadCrumbsModel BreadCrumbs { get; set; }
+        public bool EsVC { get; set; }
     }
 }

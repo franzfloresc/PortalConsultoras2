@@ -139,6 +139,7 @@ var FichaModule = (function (config) {
     };
 
     var _ocultarTabs = function () {
+        
         var estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
         $(_seccionesFichaProducto.ContenidoProducto).hide();

@@ -197,6 +197,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         {
             var result = new BEPagoEnLinea();
             List<BEPagoEnLineaTipoPasarela> listaConfiguracionPasarelaVisa = null;
+            List<BETablaLogicaDatos> listaConfiguracion = null;
 
             var listaMetodoPagoTask = Task.Run(() => result.ListaMetodoPago = ObtenerPagoEnLineaMedioPagoDetalle(paisId));
             var listaMedioPagoTask = Task.Run(() => result.ListaMedioPago = ObtenerPagoEnLineaMedioPago(paisId));
@@ -204,8 +205,9 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             var montoDeudaTask = Task.Run(() => result.MontoDeuda = ObtenerDeuda(paisId, consultoraId, codigoUsuario));
             var listaBancoTask = Task.Run(() => result.ListaBanco = ObtenerPagoEnLineaBancos(paisId) ?? new List<BEPagoEnLineaBanco>());
             var listaConfiguracionVisaTask = Task.Run(() => listaConfiguracionPasarelaVisa = ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, Constantes.PagoEnLineaMetodoPago.PasarelaVisa));
+            var listaConfiguracionTask = Task.Run(() => listaConfiguracion = _tablaLogicaDatosBusinessLogic.GetListCache(paisId, Constantes.TablaLogica.ValoresPagoEnLinea));
 
-            Task.WaitAll(listaMetodoPagoTask, listaMedioPagoTask, listaTipoPagoTask, montoDeudaTask, listaBancoTask, listaConfiguracionVisaTask);
+            Task.WaitAll(listaMetodoPagoTask, listaMedioPagoTask, listaTipoPagoTask, montoDeudaTask, listaBancoTask, listaConfiguracionTask, listaConfiguracionVisaTask);
 
             var metodoPagoVisa = result.ListaMetodoPago.FirstOrDefault(e =>
                     e.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa
@@ -225,6 +227,20 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 decimal montoMinimoPago;
                 if (decimal.TryParse(montoMinimoPagoString, NumberStyles.Any, provider, out montoMinimoPago)) metodoPagoVisa.MontoMinimoPago = montoMinimoPago;
             }
+            if (listaConfiguracion != null) {
+                var enableExternalApp_String = listaConfiguracion.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App_PBI_ExternalApp).Select(e => e.Valor).FirstOrDefault();
+                if(enableExternalApp_String != "1")  result.ListaBanco.ForEach( e => e.URIExternalApp = null );
+            }
+            if (!result.ListaBanco.Where(e => e.Estado).Any()) {
+                var pagoBancaPorInternet = result.ListaMedioPago.Where(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado ).FirstOrDefault();
+                if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
+            }
+
+            result.ListaMedioPago.Where(e => e.Estado && e.Codigo != Constantes.PagoEnLineaPasarela.PBI)
+                .All(e => {
+                        e.Estado = result.ListaMetodoPago.Any(p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId);
+                        return true;
+                    });
 
             return result;
         }
@@ -280,7 +296,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 UpdateMontoDeudaConsultora(usuario.PaisID, usuario.CodigoConsultora, saldoPendiente);
 
                 //Notificar Pago Via Email
-                var listaConfiguracion = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(usuario.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea);
+                var listaConfiguracion = _tablaLogicaDatosBusinessLogic.GetListCache(usuario.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea);
                 var mensajeExitoso = listaConfiguracion.Where(p => p.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso).Select(p => p.Codigo)
                                                        .SingleOrDefault() ?? string.Empty;
                 if (!string.IsNullOrEmpty(usuario.EMail) && pagoEnLineaVisa.Data != null)

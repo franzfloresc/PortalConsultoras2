@@ -162,6 +162,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
+                //Guardado en log DynamoDB, sólo si se realizó correctamente la suscripción (Consulta)
+                if (revistaDigital.EstadoSuscripcion == 1)
+                    ActualizarDatosLogDynamoDB(null, "REVISTA DIGITAL|SUSCRIPCION", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", userData.CodigoConsultora, "Suscripcion");
+
                 return Json(new
                 {
                     success = revistaDigital.EstadoSuscripcion > 0,
@@ -414,6 +418,7 @@ namespace Portal.Consultoras.Web.Controllers
             usuario.PaisID = userData.PaisID;
             usuario.PrimerNombre = userData.PrimerNombre;
             usuario.CodigoISO = userData.CodigoISO;
+            usuario.CodigoUsuario = userData.CodigoUsuario;
 
             var resultado = string.Empty;
             using (ServiceUsuario.UsuarioServiceClient svr = new ServiceUsuario.UsuarioServiceClient())
@@ -424,6 +429,17 @@ namespace Portal.Consultoras.Web.Controllers
             resultado = Util.Trim(resultado);
             if (resultado.Split('|')[0] != "0")
             {
+                //Guardado en log DynamoDB (Modificacion)
+                var model = new MisDatosModel
+                {
+                    EMail = usuario.EMail,
+                    Celular = usuario.Celular,
+                    Sobrenombre = userData.Sobrenombre,
+                    Telefono = userData.Telefono,
+                    TelefonoTrabajo = userData.TelefonoTrabajo
+                };
+                ActualizarDatosLogDynamoDB(model, "REVISTA DIGITAL|SUSCRIPCION", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+
                 var userDataX = userData;
                 if (usuario.EMail != correoAnterior)
                 {

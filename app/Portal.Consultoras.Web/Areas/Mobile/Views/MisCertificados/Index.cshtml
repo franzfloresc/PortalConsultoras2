@@ -1,14 +1,14 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
-            if (mobileConfiguracion.MostrarBotonAtras)
-            {
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
         } }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS CERTIFICADOS

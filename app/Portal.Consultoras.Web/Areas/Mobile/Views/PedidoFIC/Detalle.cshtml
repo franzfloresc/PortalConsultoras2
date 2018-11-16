@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @model PedidoDetalleMobileModel
 @{
@@ -29,10 +29,10 @@
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
                 @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
-        if (mobileConfiguracion.MostrarBotonAtras)
-        {
-            <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
-}
+                    if (mobileConfiguracion.MostrarBotonAtras)
+                    {
+                        <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
+                    }
                 }
                 <h2 class="nombre_campania_pedido">
                     MI PEDIDO FIC
@@ -143,7 +143,7 @@
     </div>
     <div class="montos_resumen">
         <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
-        <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>     
+        <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
     </div>
 
     <div class="detalle_pedido_ingresado">
@@ -332,7 +332,7 @@
 
         <div class="montos_resumen">
             <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
-            <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>           
+            <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
         </div>
     </div>
 
@@ -623,7 +623,7 @@
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
-        
+
         var urlEjecutarServicioPROL = '@Url.Action("AdministradorPedido", "PedidoFIC", new {area = "Mobile"})';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';

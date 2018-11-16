@@ -1,63 +1,63 @@
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @model List<MisPedidosIngresadosModel>
 
-@{
-    var contadorDetalle = 1;
+    @{
+        var contadorDetalle = 1;
 
-    foreach (var pedido in @Model)
-    {
-        <div class="app-panels panel">
-            <div class="panel-heading" data-toggle="collapse" href="#collapse_@(pedido.CampaniaID)_@(pedido.ClienteID)">
-                <div class="sections-1">
-                    <div class="sections-client">@pedido.NombreCliente</div>
-                    <div class="sections-subtitle">@pedido.CantidadPedido @(pedido.CantidadPedido == 1 ? "unidad ingresada" : "unidades ingresadas")</div>
+        foreach (var pedido in @Model)
+        {
+            <div class="app-panels panel">
+                <div class="panel-heading" data-toggle="collapse" href="#collapse_@(pedido.CampaniaID)_@(pedido.ClienteID)">
+                    <div class="sections-1">
+                        <div class="sections-client">@pedido.NombreCliente</div>
+                        <div class="sections-subtitle">@pedido.CantidadPedido @(pedido.CantidadPedido == 1 ? "unidad ingresada" : "unidades ingresadas")</div>
+                    </div>
+                    <div class="sections-2">
+                        <div class="sections-right">
+                            <div class="sections-price">@pedido.ImportePedido</div>
+                            <div class="sections-arrow"><img src="~/Content/Images/arrow.png" height="9" /></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="sections-2">
-                    <div class="sections-right">
-                        <div class="sections-price">@pedido.ImportePedido</div>
-                        <div class="sections-arrow"><img src="~/Content/Images/arrow.png" height="9" /></div>
+                <div id="collapse_@(pedido.CampaniaID)_@(pedido.ClienteID)" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @{
+                            contadorDetalle = 1;
+                            foreach (var pedidoDetalle in pedido.Detalle)
+                            {
+                                <div class="sections-3">
+                                    <div>
+                                        <span class="codigo-producto">@pedidoDetalle.CUV</span> @pedidoDetalle.DescripcionProducto
+                                    </div>
+                                </div>
+                                <div class="sections-4">
+                                    <div class="producto-cantidad">
+                                        CANT: @pedidoDetalle.Cantidad
+                                    </div>
+                                    <div class="producto-precio">
+                                        @pedidoDetalle.PrecioUnidad
+                                    </div>
+                                    <div>
+                                        @pedidoDetalle.ImporteTotal
+                                    </div>
+                                </div>
+                                if (contadorDetalle < pedido.Detalle.Count)
+                                {
+                                    <hr />
+                                }
+                                contadorDetalle++;
+                            }
+                        }
                     </div>
                 </div>
             </div>
-            <div id="collapse_@(pedido.CampaniaID)_@(pedido.ClienteID)" class="panel-collapse collapse">
-                <div class="panel-body">
-                    @{
-                        contadorDetalle = 1;
-                        foreach (var pedidoDetalle in pedido.Detalle)
-                        {
-                            <div class="sections-3">
-                                <div>
-                                    <span class="codigo-producto">@pedidoDetalle.CUV</span> @pedidoDetalle.DescripcionProducto
-                                </div>
-                            </div>
-                            <div class="sections-4">
-                                <div class="producto-cantidad">
-                                    CANT: @pedidoDetalle.Cantidad
-                                </div>
-                                <div class="producto-precio">
-                                    @pedidoDetalle.PrecioUnidad
-                                </div>
-                                <div>
-                                    @pedidoDetalle.ImporteTotal
-                                </div>
-                            </div>
-                            if (contadorDetalle < pedido.Detalle.Count)
-                            {
-                                <hr />
-                            }
-                            contadorDetalle++;
-                        }
-                    }
-                </div>
-            </div>
-        </div>
+        }
     }
-}
 
-<div class="app-footer">
-    <div class="sections-1">TOTAL</div>
-    <div class="sections-2">@ViewBag.TotalPedido</div>
-</div>
+    <div class="app-footer">
+        <div class="sections-1">TOTAL</div>
+        <div class="sections-2">@ViewBag.TotalPedido</div>
+    </div>

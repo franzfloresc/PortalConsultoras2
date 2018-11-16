@@ -322,7 +322,7 @@ namespace Portal.Consultoras.BizLogic
 
                 var tabla = new BLTablaLogicaDatos();
 
-                var valores = tabla.GetTablaLogicaDatosCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogica.ActualizaDatosEnabled));
+                var valores = tabla.GetListCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogica.ActualizaDatosEnabled));
                 var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
                 usuario.PuedeActualizar = Convert.ToBoolean(listado.Valor.ToInt());
 
@@ -543,7 +543,7 @@ namespace Portal.Consultoras.BizLogic
 
                 var terminosCondicionesTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
                 var politicaPrivacidadTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
-                var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
+                var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetList(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
                 var gprBannerTask = Task.Run(() => GetGPRBanner(usuario));
                 var usuarioConsultoraTask = Task.Run(() => GetUsuarioConsultora(usuario));
                 var consultoraAniversarioTask = Task.Run(() => GetConsultoraAniversario(usuario));
@@ -552,13 +552,19 @@ namespace Portal.Consultoras.BizLogic
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
                 var actualizacionEmailTask = Task.Run(() => GetActualizacionEmail(paisID, usuario.CodigoUsuario));
-                var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.ActualizaDatosEnabled));
+                var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.ActualizaDatosEnabled));
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
-                
-                var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Format("{0}|{1}|{2}|{3}|{4}", Constantes.ConfiguracionPais.RevistaDigital,
-                    Constantes.ConfiguracionPais.RevistaDigitalIntriga, Constantes.ConfiguracionPais.RevistaDigitalReducida, Constantes.ConfiguracionPais.BuscadorYFiltros, 
-                    Constantes.ConfiguracionPais.PagoEnLinea)));
+                var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.ValoresPagoEnLinea));
+
+                var lstConfiguracionPais = new List<string>();
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigitalIntriga);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigitalReducida);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.BuscadorYFiltros);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.PagoEnLinea);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.MasGanadoras);
+                var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Join("|", lstConfiguracionPais)));                
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -575,7 +581,8 @@ namespace Portal.Consultoras.BizLogic
                                 actualizaDatosTask,
                                 actualizaDatosConfigTask,
                                 contratoAceptacionTask,
-                                usuarioPaisTask);
+                                usuarioPaisTask,
+                                pagoEnLineaTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -636,6 +643,11 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 usuario = usuarioPaisTask.Result ?? usuario;
+
+                if(pagoEnLineaTask.Result != null){
+                    var enablePagoEnLineaApp = pagoEnLineaTask.Result.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App).Select(e => e.Valor).FirstOrDefault();
+                    usuario.TienePagoEnLinea = (usuario.TienePagoEnLinea && enablePagoEnLineaApp == "1");
+                }
 
                 return usuario;
             }
@@ -889,7 +901,7 @@ namespace Portal.Consultoras.BizLogic
 
                 lst.Add(resultado);
 
-                var tablaLogica = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(usuario.PaisID, Constantes.TablaLogica.ExtensionBannerGanaMasApp);
+                var tablaLogica = _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, Constantes.TablaLogica.ExtensionBannerGanaMasApp);
                 var oSuscrita = tablaLogica.FirstOrDefault(x => x.Codigo == Constantes.GanaMas.Banner.TablaLogicaSuscrita);
                 var extensionSuscrita = oSuscrita == null ? string.Empty : oSuscrita.Descripcion;
                 var oNoSuscrita = tablaLogica.FirstOrDefault(x => x.Codigo == Constantes.GanaMas.Banner.TablaLogicaNoSuscrita);
@@ -935,7 +947,7 @@ namespace Portal.Consultoras.BizLogic
                 oResponse = _cuponConsultoraBusinessLogic.GetCuponConsultoraByCodigoConsultoraCampaniaId(usuario.PaisID, oRequest);
                 if (oResponse != null)
                 {
-                    var lst = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(usuario.PaisID, Constantes.TablaLogica.MontoLimiteCupon);
+                    var lst = _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, Constantes.TablaLogica.MontoLimiteCupon);
                     var result = lst.FirstOrDefault(x => x.Codigo == usuario.CampaniaID.ToString());
                     if (result != null)
                     {
@@ -1163,9 +1175,9 @@ namespace Portal.Consultoras.BizLogic
             //3: Usuario OK
 
             BLTablaLogicaDatos oblTablaLogicaDatos = new BLTablaLogicaDatos();
-            List<BETablaLogicaDatos> tablaRetirada = oblTablaLogicaDatos.GetTablaLogicaDatos(paisID, 12);
-            List<BETablaLogicaDatos> tablaReingresada = oblTablaLogicaDatos.GetTablaLogicaDatos(paisID, 18);
-            List<BETablaLogicaDatos> tablaEgresada = oblTablaLogicaDatos.GetTablaLogicaDatos(paisID, 19);
+            List<BETablaLogicaDatos> tablaRetirada = oblTablaLogicaDatos.GetList(paisID, 12);
+            List<BETablaLogicaDatos> tablaReingresada = oblTablaLogicaDatos.GetList(paisID, 18);
+            List<BETablaLogicaDatos> tablaEgresada = oblTablaLogicaDatos.GetList(paisID, 19);
 
             if (!string.IsNullOrEmpty(usuario))
             {
@@ -1407,9 +1419,9 @@ namespace Portal.Consultoras.BizLogic
 
             int nroCampanias = new BLZonificacion().GetPaisNumeroCampaniasByPaisID(paisID);
             BLTablaLogicaDatos oblTablaLogicaDatos = new BLTablaLogicaDatos();
-            List<BETablaLogicaDatos> tablaRetirada = oblTablaLogicaDatos.GetTablaLogicaDatos(paisID, 12);
-            List<BETablaLogicaDatos> tablaReingresada = oblTablaLogicaDatos.GetTablaLogicaDatos(paisID, 18);
-            List<BETablaLogicaDatos> tablaEgresada = oblTablaLogicaDatos.GetTablaLogicaDatos(paisID, 19);
+            List<BETablaLogicaDatos> tablaRetirada = oblTablaLogicaDatos.GetList(paisID, 12);
+            List<BETablaLogicaDatos> tablaReingresada = oblTablaLogicaDatos.GetList(paisID, 18);
+            List<BETablaLogicaDatos> tablaEgresada = oblTablaLogicaDatos.GetList(paisID, 19);
 
             if (string.IsNullOrEmpty(usuario)) return 0;
             if (string.IsNullOrEmpty(autorizaPedido)) return 0; //Se asume para usuarios del tipo SAC
@@ -1877,7 +1889,7 @@ namespace Portal.Consultoras.BizLogic
         public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo)
         {
 
-            var actualizaDatosPais = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(usuario.PaisID, Constantes.TablaLogica.ActualizaDatosEnabled).FirstOrDefault();
+            var actualizaDatosPais = _tablaLogicaDatosBusinessLogic.GetListCache(usuario.PaisID, Constantes.TablaLogica.ActualizaDatosEnabled).FirstOrDefault();
             usuario.PuedeActualizar = (actualizaDatosPais != null && actualizaDatosPais.Valor == "1");
             if (!usuario.PuedeActualizar)
                 return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
@@ -2840,7 +2852,7 @@ namespace Portal.Consultoras.BizLogic
         private BEEnviarSms GetCredencialesSms(int paisID)
         {
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
-            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.EnviarSMS.CredencialesProvedoresSMS.TablaLogicaID);
+            var lstTabla = blTablaLogicaDatos.GetListCache(paisID, Constantes.EnviarSMS.CredencialesProvedoresSMS.TablaLogicaID);
             if (lstTabla == null || lstTabla.Count == 0) return null;
             var objCreden = new BEEnviarSms();
             objCreden.UsuarioSms = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.USUARIO).Select(b => b.Valor).FirstOrDefault();
@@ -3284,6 +3296,9 @@ namespace Portal.Consultoras.BizLogic
                                 if (configuracion.Estado)
                                     usuario.TienePagoEnLinea = true;
                                 break;
+                            case Constantes.ConfiguracionPais.MasGanadoras:
+                                usuario.TieneMG = configuracion.Estado;
+                                break;
                         }
                     }
                 }
@@ -3404,7 +3419,7 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                var lst = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.CodigoRevistaFisica);
+                var lst = _tablaLogicaDatosBusinessLogic.GetList(paisId, Constantes.TablaLogica.CodigoRevistaFisica);
                 var tablaLogicaDatos = lst.FirstOrDefault();
                 result = (tablaLogicaDatos == null ? string.Empty : tablaLogicaDatos.Codigo);
             }
@@ -3522,7 +3537,7 @@ namespace Portal.Consultoras.BizLogic
                     datosPerfil.Add(new BEUsuarioPerfil(reader));
             }
 
-            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.MensajesToolTipPerfil);
+            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetList(paisID, Constantes.TablaLogica.MensajesToolTipPerfil);
             oMensaje.oDatosPerfil = datosPerfil;
             oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
